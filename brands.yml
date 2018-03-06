@@ -1,0 +1,15 @@
+version: '3'
+
+brands:
+  thethingsproducts:
+    name: The Things Products
+    url: https://www.thethingsproducts.com
+    logos:
+      - square.svg
+      - 3x2.svg
+
+  elsys:
+    name: Elsys
+    url: https://www.elsys.se
+    logos:
+      - square.svg

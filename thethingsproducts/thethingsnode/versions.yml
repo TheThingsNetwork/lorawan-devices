@@ -1,0 +1,27 @@
+version: '3'
+
+versions:
+  v1.0:
+    firmware_versions:
+      - v1.0
+    payload_format:
+      up:
+        type: javascript
+        param: decoder.js
+      down:
+        type: javascript
+        param: encoder.js
+    photos:
+      - square.jpg
+
+  v2.0:
+    firmware_versions:
+      - v2.0
+    payload_format:
+      up:
+        type: cayennelpp
+      down:
+        type: grpc
+        param: hosted-service:1234
+    photos:
+      - square.jpg
