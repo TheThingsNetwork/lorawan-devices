@@ -3,6 +3,3 @@ version: '3'
 devices:
   thethingsnode:
     name: The Things Node
-    hardware_versions:
-      - v1.0
-      - v2.0
