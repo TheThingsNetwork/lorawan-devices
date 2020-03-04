@@ -122,7 +122,6 @@ firmware-version:
   - firmware-id:                              # leave blank if there is only 1 firmware version
     payload-formatter-up:                     # Exact name of the file as saved in the same folder.
     payload-formatter-down:                   # leave blank if not applicable
-    firmware-file:                                     # Optional. Add link to firmware source code
+    firmware-file:                            # Optional. Add link to firmware source code
     compatible-hw-versions:                   # list all hardware-version ids.
-      hardware-id:
       hardware-id:
