@@ -43,8 +43,8 @@ settings:
     #  - external-join-server                 # Pre-provisioned on external join server.
     #  - claim-authentication-code            # Using a Claim Authentication Code, issued by TTI
     #  - manifest-file                        # Requires the manifest file of a secure element
-    battery-type: replaceable                 # Options: embedded/rechargeable/replaceable
-    ip-rating: IP54
+    battery-type:                             # Options: embedded/rechargeable/replaceable
+    ip-rating:                                # Example: IP54
     dimensions:                               # dimensions in cm
       width:
       length:
@@ -55,7 +55,7 @@ settings:
       image-thumbnail:                        # 300x300px, white or transparent background
       image2:                                 # Add imageX line for each new image
 
-# Device Profiles per frequency band
+# Device profiles - define details per frequency band
 device-profiles:
   - id: EU_863_870                            # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
     certifications:
@@ -117,7 +117,7 @@ device-profiles:
     class-c-settings:                         # Manadory fields if Class C is supported:
       class-c-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
 
-# Software versions, referring compatible hardware versions
+# Firmware versions - define details for each firmware version
 firmware-version:
   - firmware-id:                              # leave blank if there is only 1 firmware version
     payload-formatter-up:                     # Exact name of the file as saved in the same folder.

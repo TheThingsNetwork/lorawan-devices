@@ -19,7 +19,7 @@ generic-info:
       website: http://www.newark.com/the-things-network/ttn-nd-915/accessory-type-sensor-node-development/dp/05AC1809
       region: USA
 
-# Generic settings - define for each hardware versions
+# Generic settings - define details for each hardware versions
 settings:
   - hardware-id:                              # Hardware id. leave blank if there is only 1 hardware version
     mac-version: 1.0.3                        # LoRaWAN version supported by the End Device. Options: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1
@@ -50,7 +50,7 @@ settings:
       image-thumbnail: TheThingsNode-thumbnail.png                    # 300x300px, white or transparent background
       image2:                                 # Add imagex line for each new image
 
-# Device Profiles per frequency band
+# Device profiles - define details per frequency band
 device-profiles:
   - id: EU_863_870                            # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
     certifications:
@@ -112,7 +112,8 @@ device-profiles:
     class-c-settings:                         # Manadory fields if Class C is supported:
       class-c-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
 
-# Software versions, referring compatible hardware versions
+
+# Firmware versions - define details for each firmware version
 firmware-version:
   - firmware-id:                              # leave blank if there is only 1 firmware version
     payload-formatter-up: thethingsnode-payload-up.js  # Exact name of the file as saved in the same folder.
