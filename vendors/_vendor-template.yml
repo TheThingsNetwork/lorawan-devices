@@ -4,9 +4,9 @@ vendor-name: "Name of company"              # Company name, use double quotes " 
 description: "Short description of company" # Short description of the company.
 
 devices:                                    # List all devices with the exact name of the file
-  - id: Name of device
+  - id: device-id
     file: device-file.yml
-  - id: Name of second device
+  - id: device-id2
     file: device-file.yml
 
 images:

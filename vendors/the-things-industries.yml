@@ -4,10 +4,8 @@ vendor-name: "The Things Industries"        # Company name, use double quotes " 
 description: "Building end-to-end secured LoRaWAN networks with 99,9%+ availability"            # Short description of the company.
 
 devices:                                    # List all devices with the exact name of the file
-  - id: The Things Node
+  - id: thethingsnode
     file: thethingsnode.yml
-  - id: The Things Uno
-    file: thethingsuno.yml
 
 images:
   logo: thethingsindustries.png             # Min-width: 600px, max-width: 800px, white or transparent background
