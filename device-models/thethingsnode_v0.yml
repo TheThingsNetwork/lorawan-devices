@@ -1,0 +1,113 @@
+# Generic info
+vendor-id:                                # Issued by LoRa Alliance
+model-id:                                 # Unique ID, set by device maker
+description: The perfect LoRaWAN node to start prototyping your ideas without having to deal with bread boards, wires and sensors.                             # Short description of the device.
+vendor-name: The Things Industries        # Company name
+model-name: The Things Node               # Product name
+hardware-model:                           # leave blank if there is only 1 hardware model
+firmware-version:                         # leave blank if there is only 1 firmware version
+certification:
+  fcc: yes
+  ce: yes
+  lora-alliance: no
+
+## Images - save the files in the same folder. Add the exact names below.
+name-image: TheThingsNode.png             # Min-width: 600px, max-width: 800px, white or transparent background
+name-image-thumbnail: TheThingsNode-thumbnail.png                    # 300x300px, white or transparent background
+name-image2:                              # Add name-imagex line for each new image
+
+payload-formatter-up: thethingsnode-payload-up.js  # Exact name of the file as saved in the same folder.
+payload-formatter-down:                   # leave blank if not applicable
+
+# Device specifications
+sensors-and-peripherals:                  # List all sensors and peripherals
+  - Temperature
+  - Humidity
+  - Acceleration
+  - Light
+  - Button
+  - LED
+additional-radios:
+  ble: no
+  nfc: no
+  wifi: no
+provisioning-method:                      # Respond with yes/no
+  manually: yes                           # Manually enter EUIs and keys
+  bluetooth: no                           # Requires external device with bluetooth radio
+  nfc: no                                 # Requires external device with nfc radio
+  external-join-server: no                # Provisioned on external join server. Possible answers yes, no or optional
+  claim-authentication-code: no           # Using a Claim Authentication Code, issues by TTI
+  manifest-file: no                       # Requires the manifest file of a secure element
+battery-type:
+  embedded: no
+  rechargeable: no
+  replaceable: yes
+ip-rating: IP54
+dimensions:                               # dimensions in cm
+  width: 6
+  length: 12
+  height: 4
+weight: 80                                # weight in grams
+external-links:                           # Add any relevant link
+  datasheet:
+  documentation: https://www.thethingsnetwork.org/docs/devices/node/
+  reseller: https://www.thethingsnetwork.org/the-things-products
+  reseller-2:
+  link-to-website: https://thethingsindustries.com/
+
+# LoRaWAN Specifications
+mac-version: 1.0.3                        # LoRaWAN version supported by the End Device. Options: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1
+phy-version: 1.0.3                        # Regional Parameters version supported by the End Device. Options: 1.0/1.0.1/1.0.2-rev-A/1.0.2-Rev-B/1.0.3/1.0.4/1.1-rev-A/1.1-rev-B
+bands:                                    # Frequency bands. Fill in yes/no
+  eu-863-870: yes
+  in-865-867: no
+  ru-864-870: no
+  us-902-928: yes
+  au-915-928: no
+  as-920-923: no
+  as-923-925: no
+  kr-920-923: no
+  cn-470-510: no
+  lora-24: no
+supports-device-mode:
+  class-a: yes
+  class-a: no
+  class-c: no
+supports-join: yes                        # End-Device supports Join. yes = OTAA, no = only ABP
+wupports32bit-fcnt: yes                   # End-Device uses 32bit FCnt (mandatory for LoRaWAN 1.1)
+
+## Manadory fields if Class B is supported:
+settings-band-1:                          # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
+  class-b-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
+  pingslot-period:                        # In milliseconds
+  pingslot-dr:                            # See Regional Parameters for reference. Example: 3
+  pingslot-freq:                          # In Hz. Example: 869525000
+settings-band-2:                          # Add new settings-band-x for each supported band
+  class-B-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
+  pingslot-period:                        # In milliseconds
+  pingslot-dr:                            # See Regional Parameters for reference. Example: 3
+  pingslot-freq:                          # In Hz. Example: 869525000
+
+## Manadory fields if Class C is supported:
+class-C-timeout:                          # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
+
+## Manadory fields if ABP is supported. See Regional Parameters for reference
+settings-band-1: eu-863-870               # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
+  rx-delay1: 1000                         # In milliseconds. Example: 1000
+  rx-dr-offset1:                          # RX1 data rate offset. Example: 5
+  rx-dr: 3                                # RX2 data rate. Example: 3
+  rx2-freq: 869525000                     # RX2 channel frequency in Hz. Example: 869525000
+  factory-preset-freqs: 868100000, 868300000, 868500000, 867100000, 867300000, 867500000, 867700000, 867900000                  # List of factory-preset uplink frequencies. Example: 868100000, 868300000, 868500000, 867100000, 867300000, 867500000, 867700000, 867900000
+settings-band-2: us-902-928               # Add new settings-band-x for each supported band
+  rx-delay1: 1000                         # In milliseconds. Example: 1000
+  rx-dr-offset1:                          # RX1 data rate offset. Example: 5
+  rx-dr:                                  # RX2 data rate. Example: 3
+  rx2-freq:                               # RX2 channel frequency in Hz. Example: 869525000
+  factory-preset-freqs: 903900000,904100000,904300000,904500000,904700000,904900000,905100000, 905300000                  # List of factory-preset uplink frequencies. Example: 868100000, 868300000, 868500000, 867100000, 867300000, 867500000, 867700000, 867900000
+
+settings-band-1: eu-863-870               # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
+  max-eirp: 0                             # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default: 0
+  max-duty-cycle: 0.01                    # Maximum duty cycle supported by the End-Device. Example: 0.01 indicates 1%
+settings-band-2: us-902-928               # Add new settings-band-x for each supported band
+  max-eirp: 0                             # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default: 0
+  max-duty-cycle:                         # Maximum duty cycle supported by the End-Device. Example: 0.01 indicates 1%

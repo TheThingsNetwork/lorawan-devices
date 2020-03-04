@@ -1,0 +1,19 @@
+# vendor details
+vendor-name: "Name of company"              # Company name, use double quotes " "
+vendor-id:                                  # Issued by LoRa Alliance
+description: "Short description of company" # Short description of the company.
+
+devices:                                    # List all devices with the exact name of the file
+  - id: Name of device
+    file: device-file.yml
+  - id: Name of second device
+    file: device-file.yml
+
+images:
+  logo: your-logo.png                       # Min-width: 600px, max-width: 800px, white or transparent background
+  logo-svg: your-logo.svg                   # svg file
+  logo-thumbnail: your-logo-thumbnail.png   # 300x300px, white or transparent background
+
+external-links:                             # Add any relevant link
+  website:
+  shop:

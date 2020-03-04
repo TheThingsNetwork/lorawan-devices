@@ -1,0 +1,109 @@
+# Generic info
+vendor-id:                                # ID, issued by LoRa Alliance
+model-id:                                 # Unique ID, set by device maker
+description:                              # Short description of the device.
+vendor-name:                              # Company name
+model-name:                               # Product name
+hardware-model:                           # leave blank if there is only 1 hardware model
+firmware-version:                         # leave blank if there is only 1 firmware version
+certification:                            # yes/no
+  fcc: yes/no
+  ce: yes/no
+  lora-alliance: yes/no
+
+## Images - save the files in the same folder. Add the exact names below.
+name-image:                               # Min-width: 600px, max-width: 800px, white or transparent background
+name-image-thumbnail:                     # 300x300px, white or transparent background
+name-image2:                              # Add name-imagex line for each new image
+
+payload-formatter-up:                     # Exact name of the file as saved in the same folder.
+payload-formatter-down:                   # leave blank if not applicable
+
+# Device specifications
+sensors-and-peripherals:                  # Create a list with sensors and peripherals
+  -
+  -
+additional-radios:
+  ble: yes/no
+  nfc: yes/no
+  wifi: yes/no
+provisioning-method:                      # Respond with yes/no
+  manually: yes/no                        # Manually enter EUIs and keys
+  bluetooth: yes/no                       # Requires external device with bluetooth radio
+  nfc: yes/no                             # Requires external device with nfc radio
+  external-join-server: yes/no            # Provisioned on external join server. Possible answers yes, no or optional
+  claim-authentication-code: yes/no       # Using a Claim Authentication Code, issues by TTI
+  manifest-file: yes/no                   # Requires the manifest file of a secure element
+battery-type:
+  embedded: yes/no
+  rechargeable: yes/no
+  replaceable: yes/no
+ip-rating:                                # Example: IP64
+dimensions:                               # dimensions in cm
+  width:
+  length:
+  height:
+weight:                                   # weight in grams
+external-links:                           # Add any relevant link
+  datasheet:
+  documentation:
+  reseller:
+  reseller-2:
+  link-to-website:
+
+# LoRaWAN Specifications
+mac-version: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1                             # LoRaWAN version supported by the End Device. Options: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1
+phy-version:                              # Regional Parameters version supported by the End Device. Options: 1.0/1.0.1/1.0.2-rev-A/1.0.2-Rev-B/1.0.3/1.0.4/1.1-rev-A/1.1-rev-B
+bands:                                    # Frequency bands. Fill in yes/no
+  eu-863-870: yes/no
+  in-865-867: yes/no
+  ru-864-870: yes/no
+  us-902-928: yes/no
+  au-915-928: yes/no
+  as-920-923: yes/no
+  as-923-925: nyes/noo
+  kr-920-923: yes/no
+  cn-470-510: yes/no
+  lora-24: yes/no
+supports-device-mode:
+  class-a: yes/no
+  class-a: yes/no
+  class-c: yes/no
+supports-join: yes/no                     # End-Device supports Join. yes = OTAA, no = only ABP
+wupports32bit-fcnt: yes/no                # End-Device uses 32bit FCnt (mandatory for LoRaWAN 1.1)
+
+## Manadory fields if Class B is supported:
+settings-band-1:                          # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
+  class-b-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
+  pingslot-period:                        # In milliseconds
+  pingslot-dr:                            # See Regional Parameters for reference. Example: 3
+  pingslot-freq:                          # In Hz. Example: 869525000
+settings-band-2:                          # Add new settings-band-x for each supported band
+  class-B-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
+  pingslot-period:                        # In milliseconds
+  pingslot-dr:                            # See Regional Parameters for reference. Example: 3
+  pingslot-freq:                          # In Hz. Example: 869525000
+
+## Manadory fields if Class C is supported:
+class-C-timeout:                          # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
+
+## Manadory fields if ABP is supported. See Regional Parameters for reference
+settings-band-1:                          # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
+  rx-delay1:                              # In milliseconds. Example: 1000
+  rx-dr-offset1:                          # RX1 data rate offset. Example: 5
+  rx-dr:                                  # RX2 data rate. Example: 3
+  rx2-freq:                               # RX2 channel frequency in Hz. Example: 869525000
+  factory-preset-freqs:                   # List of factory-preset uplink frequencies. Example: 868100000, 868300000, 868500000, 867100000, 867300000, 867500000, 867700000, 867900000
+settings-band-2:                          # Add new settings-band-x for each supported band
+  rx-delay1:                              # In milliseconds. Example: 1000
+  rx-dr-offset1:                          # RX1 data rate offset. Example: 5
+  rx-dr:                                  # RX2 data rate. Example: 3
+  rx2-freq:                               # RX2 channel frequency in Hz. Example: 869525000
+  factory-preset-freqs:                   # List of factory-preset uplink frequencies. Example: 868100000, 868300000, 868500000, 867100000, 867300000, 867500000, 867700000, 867900000
+
+settings-band-1:                          # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
+  max-eirp:                               # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default: 0
+  max-duty-cycle:                         # Maximum duty cycle supported by the End-Device. Example: 0.01 indicates 1%
+settings-band-2:                          # Add new settings-band-x for each supported band
+  max-eirp:                               # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default: 0
+  max-duty-cycle:                         # Maximum duty cycle supported by the End-Device. Example: 0.01 indicates 1%
