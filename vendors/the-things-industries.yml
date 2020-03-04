@@ -1,6 +1,6 @@
 # vendor details
+vendor-id: thethingsindustries              # Lowercase, no spaces
 vendor-name: "The Things Industries"        # Company name, use double quotes " "
-vendor-id:                                  # Issued by LoRa Alliance
 description: "Building end-to-end secured LoRaWAN networks with 99,9%+ availability"            # Short description of the company.
 
 devices:                                    # List all devices with the exact name of the file

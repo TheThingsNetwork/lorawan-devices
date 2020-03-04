@@ -1,6 +1,6 @@
 # Device Repository for The Things Stack
 
-The device repository contains the profiles of LoRaWAN devices, allowing users to seamlessly configure the devices to their applications. Users simply select the right device in the Console or CLI to load all the technical configuration settings such as the supported frequency plan, MAC and PHY version, payload formats etc.
+The device repository contains the profiles of LoRaWAN devices, allowing users to seamlessly configure the devices to their applications. Users only select the device in the Console or CLI to load all the technical configuration settings such as the supported frequency plan, MAC and PHY version, payload formats etc.
 
 ## File Format
 
@@ -12,15 +12,15 @@ The Device Repo is a collection of YAML files, structured in the following folde
 - Firmwares (optional)
 
 ## Contributing
-Thank you for your interest in building this thing together. Please use the templates as a reference for completing the YAML files in the right format. Once the devices have been finalized, please submit a PR to add the content to the Device Repository.
+Thank you for your interest in building this thing together. Please use the templates as a reference for completing the YAML files in the right format. Once the templates have been filled out, please submit a PR to add the content to the Device Repository.
 
-## Example
+### Example
 
 **Vendor file**
 
 ```yml
+vendor-id: thethingsindustries              # Define id, lowercase without spaces
 vendor-name: "The Things Industries"        # Company name, use double quotes " "
-vendor-id:                                  # Issued by LoRa Alliance
 description: "Building end-to-end secured LoRaWAN networks with 99,9%+ availability"   # Short description of the company.
 
 devices:                                    # List all devices with the exact name of the file

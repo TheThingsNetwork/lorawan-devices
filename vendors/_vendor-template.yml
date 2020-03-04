@@ -1,6 +1,6 @@
 # vendor details
+vendor-id: mycompany
 vendor-name: "Name of company"              # Company name, use double quotes " "
-vendor-id:                                  # Issued by LoRa Alliance
 description: "Short description of company" # Short description of the company.
 
 devices:                                    # List all devices with the exact name of the file

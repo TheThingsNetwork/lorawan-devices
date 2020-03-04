@@ -1,8 +1,8 @@
 # Generic info
 generic-info:
+  vendor-id: thethingsindustries            # Name of the vendor-id, corresponding to the id in the file in the vendors directory
   vendor-name: "The Things Industries"      # Use double quotes
-    file: the-things-industries.yml
-  model-id:                                 # Unique ID, set by device maker
+  model-id:  thethingsnode                  # Unique ID, set by device maker
   model-name: "The Things Node"             # Product name
   description: "The perfect LoRaWAN node to start prototyping your ideas without having to deal with bread boards, wires and sensors."      # Short description of the device (max 25 words). Use Double quotes.
   external-links:                           # Add any relevant link

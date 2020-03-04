@@ -1,7 +1,7 @@
 # Generic info
 generic-info:
+  vendor-id: mycompany                        # Name of the vendor-id, corresponding to the id in the file in the vendors directory
   vendor-name: "Name of company"              # Use double quotes
-    file: my-company.ym                       # Exact name of the vendor file
   model-id: my-lwa-device                     # Unique ID, set by device maker
   model-name: "My LWA device"                 # Product name, use double quotes
   description: "Description of LoRaWAN device" # Short description of the device (max 25 words). Use Double quotes.
