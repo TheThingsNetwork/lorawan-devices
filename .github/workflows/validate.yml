@@ -1,0 +1,15 @@
+name: Validate Schemas
+on: [push, pull_request]
+
+jobs:
+  json:
+    name: JSON Schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm install -g ajv-cli
+      - name: Device Profile
+        run: ajv validate -s schema -d examples/profile_abp -d examples/profile_otaa
