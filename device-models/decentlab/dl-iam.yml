@@ -1,37 +1,32 @@
 # Generic info
 generic-info:
-  vendor-id: mycompany                        # Name of the vendor-id, corresponding to the id in the file in the vendors directory
-  vendor-name: "Name of company"              # Use double quotes
-  model-id: my-lwa-device                     # Unique ID, set by device maker
-  model-name: "My LWA device"                 # Product name, use double quotes
-  description: "Description of LoRaWAN device" # Short description of the device (max 25 words). Use Double quotes.
+  vendor-id: decentlab                        # Name of the vendor-id, corresponding to the id in the file in the vendors directory
+  vendor-name: "Decentlab GmbH"              # Use double quotes
+  model-id: DL-IAM-001                     # Unique ID, set by device maker
+  model-name: "Indoor Ambiance Monitor for LoRaWAN®"                 # Product name, use double quotes
+  description: "Indoor Ambiance Monitor including CO2, TVOC and Motion Sensor for LoRaWAN®" # Short description of the device (max 25 words). Use Double quotes.
   external-links:                             # Add any relevant link
-    documentation: https://www.documentation.com/
-    website: https://www.mywebsite.com/
+    documentation: https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan/
+    website: https://www.decentlab.com/
   resellers:                                  # List all resellers
-    - name: "My first reseller"               # Use double quotes
-      website: https://www.myreseller.com/
-    - name: "My second reseller"              # Use double quotes
-      website: https://www.myreseller.com/
 
 # Generic settings - define for each hardware versions
 settings:
   - hardware-id:                              # Hardware id. leave blank if there is only 1 hardware version
-    mac-version: 1.0.3                        # LoRaWAN version supported by the End Device. Options: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1
-    phy-version: 1.0.3                        # Regional Parameters version supported by the End Device. Options: 1.0/1.0.1/1.0.2-rev-A/1.0.2-Rev-B/1.0.3/1.0.4/1.1-rev-A/1.1-rev-B
+    mac-version: 1.0.2                        # LoRaWAN version supported by the End Device. Options: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1
+    phy-version: 1.0.2-Rev-B                        # Regional Parameters version supported by the End Device. Options: 1.0/1.0.1/1.0.2-rev-A/1.0.2-Rev-B/1.0.3/1.0.4/1.1-rev-A/1.1-rev-B
     supports-device-mode:                     # Options: class-a/class-b/class-c
       - class-a
-    #  - class-b
-    #  - class-c
     supports-join: yes                        # End-Device supports Join. yes = OTAA, no = only ABP
     supports32bit-fcnt: yes                   # End-Device uses 32bit frame count (mandatory for LoRaWAN 1.1)
     sensors-and-peripherals:                  # List all sensors and peripherals
-    #  - temperature
-    #  - humidity
-    #  - acceleration
-    #  - light
-    #  - button
-    #  - led
+      - CO2
+      - TVOC
+      - temperature
+      - humidity
+      - barometric pressure
+      - ambient light intensity
+      - PIR motion sensor
     additional-radios:
     #  - ble
     #  - nfc
@@ -44,62 +39,59 @@ settings:
     #  - claim-authentication-code            # Using a Claim Authentication Code, issued by TTI
     #  - manifest-file                        # Requires the manifest file of a secure element
     battery-type:                             # Options: embedded/rechargeable/replaceable
+      - replaceable
+      - standard alkaline
     ip-rating:                                # Example: IP54
     dimensions:                               # dimensions in cm using commas. E.g. 12,5
-      width:
-      length:
-      height:
-    weight:                                   # weight in grams
+      width: 12,0
+      length: 8,0
+      height: 2,7
+    weight: 144                               # weight in grams
     images:                                   # Images - save the files in the same folder. Add the exact names below.
-      image:                                  # Min-width: 500px, max-width: 800px, white or transparent background. Save file in the folder 'images'
-      image-thumbnail:                        # 300x300px, white or transparent background
+      image: dl-iam.jpg                       # Min-width: 500px, max-width: 800px, white or transparent background. Save file in the folder 'images'
+      image-thumbnail: dl-iam-thumbnail.jpg   # 300x300px, white or transparent background
       image2:                                 # Add imageX line for each new image
 
 # Device profiles - define details per frequency band
 device-profiles:
   - id: EU_863_870                            # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
     certifications:
+      - authority: ce                         # Options: fcc/ce/lora-alliance
+        link-to-report:                       # Options: add url or leave blank
       - authority:                            # Options: fcc/ce/lora-alliance
-        link-to-report:                       # Options: add url
-      - authority:                            # Options: fcc/ce/lora-alliance
-        link-to-report:                       # Options: add url
+        link-to-report:                       # Options: add url or leave blank
     configurations:
-      max-eirp: 0                             # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default: 0
+      max-eirp: 0                            # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default = 0 (for +16dBm in EU868)
       max-duty-cycle: 0.01                    # Maximum duty cycle supported by the End-Device. Example: 0.01 indicates 1%
       rx-delay1: 1000                         # in milliseconds. Example: 1000. Manadory fields if ABP is supported. See Regional Parameters for reference.
-      rx-dr-offset1:                          # RX1 data rate offset. Example: 5. Manadory fields if ABP is supported.
-      rx-dr:                                  # RX2 data rate. Example: 3. Manadory fields if ABP is supported.
-      rx2-freq: 869525000                     # RX2 channel frequency in Hz. Example: 869525000. Manadory fields if ABP is supported.
-      factory-preset-freqs:                   # List of factory-preset uplink frequencies. Example: 868100000, 868300000, 868500000, 867100000, 867300000, 867500000, 867700000, 867900000
+      rx-dr-offset1: 0                        # RX1 data rate offset. Example for EU: 0 for SF12. Manadory fields if ABP is supported.
+      rx2-dr: 0                               # RX2 data rate. Example for EU: 0 for SF12. Manadory fields if ABP is supported.
+      rx2-freq: 869525000                     # RX2 channel frequency in Hz. Default for EU: 869525000. Manadory fields if ABP is supported.
+      factory-preset-freqs:                   # List of factory-preset uplink frequencies. Default for EU: 868100000, 868300000, 868500000
         - 868100000
         - 868300000
         - 868500000
-        - 867100000
-        - 867300000
-        - 867500000
-        - 867700000
-        - 867900000
     class-b-settings:                         # Manadory fields if Class B is supported
       class-b-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
       pingslot-period:                        # In milliseconds
       pingslot-dr:                            # See Regional Parameters for reference. Example: 3
-      pingslot-freq:                          # In Hz. Example: 869525000
+      pingslot-freq:                          # In Hz. default for EU: 869525000
     class-c-settings:                         # Manadory fields if Class C is supported:
       class-c-timeout:                        # Maximum delay in milliseconds for the End-Device to answer a MAC request or a confirmed DL frame
 
   - id: US_902_928                            # Write name of the band. Select: EU-863-870/IN-865-867/RU-864-870/US-902-928/AU-915-928/AS-920-923/AS-923-925/KR-920-923/CN-470-510/LoRa-2.4
     certifications:
       - authority:                            # Options: fcc/ce/lora-alliance
-        link-to-report:                       # Options: add url
+        link-to-report:                       # Options: add url or leave blank
       - authority:                            # Options: fcc/ce/lora-alliance
-        link-to-report:                       # Options: add url
+        link-to-report:                       # Options: add url or leave blank
     configurations:
-      max-eirp: 0                             # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default: 0
-      max-duty-cycle:                         # Maximum duty cycle supported by the End-Device. Example: 0.01 indicates 1%
+      max-eirp: 20                            # Maximum EIRP (Equivalent Isotropically Radiated Power). See Regional Parameters for reference. Default: 0
+      max-duty-cycle:                         # Maximum duty cycle supported by the End-Device. Example: 0.01 indicates 1%. Leave blank if not applicable
       rx-delay1: 1000                         # In milliseconds. Example: 1000.  Manadory fields if ABP is supported.
-      rx-dr-offset1:                          # RX1 data rate offset. Example: 5.  Manadory fields if ABP is supported.
-      rx-dr:                                  # RX2 data rate. Example: 3.  Manadory fields if ABP is supported.
-      rx2-freq:                               # RX2 channel frequency in Hz. Example: 869525000.  Manadory fields if ABP is supported.
+      rx-dr-offset1: 0                        # RX1 data rate offset. Example for US: 0 for SF10/125kHz. Manadory fields if ABP is supported.
+      rx2-dr: 8                               # RX2 data rate. Default for US: 8 for SF12/500kHz.  Manadory fields if ABP is supported.
+      rx2-freq: 923300000                     # RX2 channel frequency in Hz. Default for US: 923300000.  Manadory fields if ABP is supported.
       factory-preset-freqs:                   # List of factory-preset uplink frequencies. Example: 868100000, 868300000, 868500000, 867100000, 867300000, 867500000, 867700000, 867900000
         - 903900000
         - 904100000
@@ -119,8 +111,8 @@ device-profiles:
 
 # Firmware versions - define details for each firmware version
 firmware-version:
-  - firmware-id:                              # leave blank if there is only 1 firmware version
-    payload-formatter-up:                     # Exact name of the file as saved in the same folder.
+  - firmware-id: 1.5.5                         # leave blank if there is only 1 firmware version
+    payload-formatter-up: https://github.com/decentlab/decentlab-decoders/blob/master/DL-IAM/DL-IAM.js                    # Exact name of the file as saved in the same folder.
     payload-formatter-down:                   # leave blank if not applicable
     firmware-file:                            # Optional. Add link to firmware source code
     compatible-hw-versions:                   # list all hardware-version ids.

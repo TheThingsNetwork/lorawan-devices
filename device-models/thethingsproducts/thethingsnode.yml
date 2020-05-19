@@ -22,8 +22,8 @@ generic-info:
 # Generic settings - define details for each hardware versions
 settings:
   - hardware-id:                              # Hardware id. leave blank if there is only 1 hardware version
-    mac-version: 1.0.3                        # LoRaWAN version supported by the End Device. Options: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1
-    phy-version: 1.0.3                        # Regional Parameters version supported by the End Device. Options: 1.0/1.0.1/1.0.2-rev-A/1.0.2-Rev-B/1.0.3/1.0.4/1.1-rev-A/1.1-rev-B
+    mac-version: 1.0.2                        # LoRaWAN version supported by the End Device. Options: 1.0/1.0.1/1.0.2/1.0.3/1.0.4/1.1
+    phy-version: 1.0.2                        # Regional Parameters version supported by the End Device. Options: 1.0/1.0.1/1.0.2-rev-A/1.0.2-Rev-B/1.0.3/1.0.4/1.1-rev-A/1.1-rev-B
     supports-device-mode:                     # Options: class-a/class-b/class-c
       - class-a
     supports-join: yes                        # End-Device supports Join. yes = OTAA, no = only ABP
@@ -46,7 +46,7 @@ settings:
       height: 4
     weight: 80                                # weight in grams
     images:                                   # Images - save the files in the same folder. Add the exact names below.
-      image: TheThingsNode.png                # Min-width: 600px, max-width: 800px, white or transparent background
+      image: TheThingsNode.png                # Min-width: 500px, max-width: 800px, white or transparent background
       image-thumbnail: TheThingsNode-thumbnail.png                    # 300x300px, white or transparent background
       image2:                                 # Add imagex line for each new image
 
