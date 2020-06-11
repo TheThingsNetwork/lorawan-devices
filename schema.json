@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.thethings.network/devicerepository/1/schema",
+  "title": "LoRaWAN Device Repository",
+  "description": "Open source repository for LoRaWAN end devices and gateways",
+  "definitions": {
+    "endDevice": {
+      "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevice"
+    },
+    "vendors": {
+      "type": "object",
+      "properties": {
+        "vendors": {
+          "type": "array",
+          "items": {
+            "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/vendor"
+          }
+        }
+      }
+    }
+  },
+  "anyOf": [
+    { "$ref": "#/definitions/endDevice" },
+    { "$ref": "#/definitions/vendors" }
+  ]
+}
