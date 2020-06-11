@@ -1,15 +1,18 @@
-name: Validate Schemas
+name: Validate Definitions
 on: [push, pull_request]
 
 jobs:
-  json:
-    name: JSON Schema
+  examples:
+    name: Validate Examples
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: npm install -g ajv-cli
-      - name: Device Profile
-        run: ajv validate -s schema -d examples/profile_abp -d examples/profile_otaa
+      - name: Install Dependencies
+        run: npm install
+      - name: Validate
+        run: npm run validate
+      - name: Check Format
+        run: npx prettier --check "**/*.yaml"

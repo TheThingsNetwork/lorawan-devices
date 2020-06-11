@@ -1,0 +1,11 @@
+id: demo-sensor
+name: Demo Sensor
+firmwareVersions:
+  - version: "1.0"
+    profiles:
+      EU863-870:
+        id: demo-profile
+        lorawanCertified: true
+sensors:
+  - temperature
+  - humidity
