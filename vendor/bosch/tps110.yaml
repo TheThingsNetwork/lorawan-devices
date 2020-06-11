@@ -1,0 +1,84 @@
+id: tps110
+name: Parking Lot Sensor
+partNumber: TPS110
+description: The wireless smart parking sensor for detecting parking space occupancy
+hardwareVersions:
+  - version: '9'
+    numeric: 9
+firmwareVersions:
+  - version: 0.23.3
+    numeric: 233
+    hardwareVersions:
+      - '9'
+    profiles:
+      EU863-870:
+        id: tps110-0233
+        lorawanCertified: true
+      AS923:
+        id: tps110-0233
+  - version: 0.29.2
+    numeric: 292
+    hardwareVersions:
+      - '9'
+    profiles:
+      EU863-870:
+        id: tps110-0292
+      AS923:
+        id: tps110-0292
+sensors:
+  - magnetometer
+  - gps
+dimensions:
+  diameter: 145.4
+  height: 30.5
+weight: 191
+battery:
+  replaceable: false
+  type: Lithium
+operatingConditions:
+  temperature:
+    min: -30
+    max: 65
+  relativeHumidity:
+    min: 0
+    max: 0.97
+ipCode: IP69K
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.bosch-connectivity.com/products/connected-mobility/parking-lot-sensor/
+dataSheetURL: https://www.bosch-connectivity.com/media/product_detail_pls/parking-lot-sensor-datasheet.pdf
+photos:
+  main: main.jpg
+  other:
+    - other1.jpg
+    - other2.jpg
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+    - body: IEC
+      norm: EN
+      standard: 60950-22
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 440
+      version: 2.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010

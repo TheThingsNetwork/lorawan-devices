@@ -1,0 +1,7 @@
+vendors:
+  - id: bosch
+    name: Bosch Connected Devices and Solutions GmbH
+    pen: 42
+    oui: FCD6BD
+    website: https://www.bosch-connectivity.com
+    logo: bosch/logo.svg
