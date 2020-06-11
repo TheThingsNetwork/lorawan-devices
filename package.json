@@ -2,13 +2,12 @@
   "name": "lorawan-devices",
   "version": "1.0.0",
   "description": "LoRaWAN Device Repository",
-  "main": "bin/validate.js",
   "bin": {
-    "lorawan-devices": "validate.js"
+    "validate": "bin/validate.js"
   },
   "scripts": {
-    "validate": "find examples -name '*.yaml' -type f -print0 | xargs -0 -n 1 -I {} ajv validate -s schema -d {} --errors text",
-    "format": "prettier --write schema.json \"vendor/**/*.yaml\""
+    "validate": "node bin/validate.js",
+    "format": "prettier --write schema.json \"vendor/**/*.yaml\" \"bin/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -23,5 +22,10 @@
   "devDependencies": {
     "ajv-cli": "^3.2.1",
     "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "ajv": "^6.12.2",
+    "js-yaml": "^3.14.0",
+    "yargs": "^15.3.1"
   }
 }

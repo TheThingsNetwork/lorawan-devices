@@ -4,9 +4,6 @@
   "title": "LoRaWAN Device Repository",
   "description": "Open source repository for LoRaWAN end devices and gateways",
   "definitions": {
-    "endDevice": {
-      "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevice"
-    },
     "vendors": {
       "type": "object",
       "properties": {
@@ -16,11 +13,36 @@
             "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/vendor"
           }
         }
-      }
+      },
+      "additionalProperties": false
+    },
+    "vendor": {
+      "type": "object",
+      "properties": {
+        "endDevices": {
+          "type": "array",
+          "items": {
+            "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/identifier"
+          }
+        },
+        "endDeviceProfiles": {
+          "type": "array",
+          "items": {
+            "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/identifier"
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "anyOf": [
-    { "$ref": "#/definitions/endDevice" },
-    { "$ref": "#/definitions/vendors" }
+    {
+      "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevice"
+    },
+    {
+      "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDeviceProfile"
+    },
+    { "$ref": "#/definitions/vendors" },
+    { "$ref": "#/definitions/vendor" }
   ]
 }
