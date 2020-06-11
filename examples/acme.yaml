@@ -5,9 +5,3 @@ oui: "112233"
 vendorID: 1234
 website: https://www.acme-corp.com
 logo: acme/logo.svg
-resellers:
-  - name: Acme Reseller
-    website: https://www.acme-reseller.com
-    regions:
-      - EU863-870
-      - US902-928

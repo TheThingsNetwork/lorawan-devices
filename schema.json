@@ -70,31 +70,7 @@
           "type": "string",
           "format": "uri"
         },
-        "logo": { "$ref": "#/definitions/logo" },
-        "resellers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "minLength": 1
-              },
-              "website": {
-                "type": "string",
-                "format": "uri"
-              },
-              "regions": {
-                "type": "array",
-                "items": { "$ref": "#/definitions/region" },
-                "uniqueItems": true
-              }
-            },
-            "required": ["name", "website"],
-            "additionalProperties": false
-          },
-          "uniqueItems": true
-        }
+        "logo": { "$ref": "#/definitions/logo" }
       },
       "required": ["id", "name"],
       "additionalProperties": false
