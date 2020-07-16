@@ -665,7 +665,9 @@
         "type": "object",
         "properties": {
           "body": {
-            "enum": ["IEC", "ETSI"]
+            "type": "string",
+            "minLength": 1,
+            "examples": ["IEC", "ETSI"]
           },
           "norm": {
             "type": "string",
