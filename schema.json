@@ -785,6 +785,7 @@
               "link",
               "sound",
               "co2",
+              "tvoc",
               "proximity",
               "water",
               "ph",
