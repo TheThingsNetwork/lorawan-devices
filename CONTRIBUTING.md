@@ -51,9 +51,8 @@ lorawan-devices
 │   │   ├── device-b.yaml
 │   │   ├── index.yaml
 │   │   ├── logo.svg
-│   │   ├── profile1-decoder.js
-│   │   ├── profile1-encoder.js
 │   │   ├── profile1.yaml
+│   │   ├── profile1-codec.js
 │   │   └── profile2.yaml
 │   ├── vendor-2
 ```
@@ -249,9 +248,132 @@ supportsJoin: true
 maxEIRP: 16
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true
+
+# Payload codecs (optional)
+payloadEncoding:
+  # Uplink decoder decodes binary data uplink into a JSON object
+  uplinkDecoder:
+    fileName: profile1-codec.js
+    # Examples (optional)
+    examples:
+      - description: Temperature
+        input:
+          fPort: 1
+          bytes: [51, 65, 55]
+        output:
+          payload:
+            temperature: 21.5
+  # Downlink encoder encodes JSON object into a binary data downlink
+  downlinkEncoder:
+    fileName: profile1-codec.js
+    # Examples (optional)
+    examples:
+      - description: Open Gate
+        input:
+          payload:
+            open: true
+        output:
+          bytes: [1]
+          fPort: 2
+  # Downlink decoder decodes the encoded downlink message (must be symmetric with downlinkEncoder)
+  downlinkDecoder:
+    fileName: profile1-codec.js
+    # Examples (optional)
+    examples:
+      - description: Open Gate
+        input:
+          fPort: 2
+          bytes: [1]
+        output:
+          payload:
+            open: true
 ```
 
 For more information and for fields for ABP, see [LoRaWAN Schema: Devices Draft 1](https://lorawan-schema.org/draft/devices/1/).
+
+### Payload Codecs
+
+The device repository supports three payload codecs to be defined:
+
+1. Uplink decoder: decodes binary data uplink into a JSON object
+2. Downlink encoder: decodes a JSON object into binary data downlink
+3. Downlink decoder: decodes an encoded binary data downlink back into a JSON object (must be symmetric with the downlink encoder)
+
+The codecs can all be defined in one file, as they are called by their name. The codecs must be written in JavaScript.
+
+An example file looks like this:
+
+```js
+// input = { fPort: 1, bytes: [1, 2, 3] }
+function decodeUplink(input) {
+  return {
+    // Decoded data
+    data: {
+      temperature: 21.5
+    }
+  }
+}
+
+// input = { data: { open: true } }
+function encodeDownlink(input) {
+  return {
+    // LoRaWAN FPort used for the downlink message
+    fPort: 2,
+    // Encoded bytes
+    bytes: [1, 2]
+  }
+}
+
+// input = { fPort: 2, bytes: [1, 2] }
+function decodeDownlink(input) {
+  return {
+    // Decoded downlink (must be symmetric with encodeDownlink)
+    data: {
+      open: true,
+    }
+  }
+}
+```
+
+#### Errors and Warnings
+
+Scripts can return warnings and errors to inform the application layer of potential issues with the data or indicate that the payload is malformatted.
+
+The warnings and errors are string arrays. If there are any errors, the message fails. Any warnings are added to the message.
+
+Example warning:
+
+```js
+// input = { fPort: 1, bytes: [1, 2, 3] }
+function decodeUplink(input) {
+  return {
+    // Decoded data
+    data: {
+      temperature: 21.5
+    },
+    // Warnings
+    warnings: ["no humdity data"]
+  }
+}
+```
+
+Example error:
+
+```js
+function encodeDownlink(input) {
+  if (typeof input.data.gate !== 'boolean') {
+    return {
+      errors: [
+        "missing required field: gate"
+      ]
+    }
+  }
+  return {
+    fPort: 1,
+    bytes: [input.data.gate ? 1 : 0]
+  }
+}
+```
 
 ## Submitting Devices
 
