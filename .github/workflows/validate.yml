@@ -11,8 +11,8 @@ jobs:
         with:
           node-version: 12.x
       - name: Install Dependencies
-        run: npm install
+        run: make deps
       - name: Validate
-        run: npm run validate
+        run: make validate
       - name: Check Format
         run: npx prettier --check schema.json "vendor/**/*.yaml"
