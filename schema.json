@@ -181,28 +181,53 @@
           "supports32bitFCnt": true,
           "payloadEncoding": {
             "uplinkDecoder": {
-              "language": "javascript",
-              "fileName": "decoder.js",
+              "fileName": "uplink-decoder.js",
               "examples": [
                 {
+                  "description": "Temperature",
                   "input": {
+                    "fPort": 1,
                     "bytes": [51, 65, 55]
                   },
                   "output": {
-                    "temperature": 21.5
+                    "payload": {
+                      "temperature": 21.5
+                    }
                   }
                 }
               ]
             },
             "downlinkEncoder": {
-              "language": "javascript",
-              "fileName": "encoder.js",
+              "fileName": "downlink-encoder.js",
               "examples": [
                 {
+                  "description": "Open gate",
                   "input": {
-                    "temperature": 21.5
+                    "payload": {
+                      "open": true
+                    }
                   },
-                  "output": [51, 65, 55]
+                  "output": {
+                    "bytes": [1],
+                    "fPort": 2
+                  }
+                }
+              ]
+            },
+            "downlinkDecoder": {
+              "fileName": "downlink-decoder.js",
+              "examples": [
+                {
+                  "description": "Open gate",
+                  "input": {
+                    "fPort": 2,
+                    "bytes": [1]
+                  },
+                  "output": {
+                    "payload": {
+                      "open": true
+                    }
+                  }
                 }
               ]
             }
