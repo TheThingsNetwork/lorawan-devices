@@ -31,41 +31,56 @@ let validateEndDeviceProfile = validate.compile({
 const vendors = yaml.safeLoad(fs.readFileSync(options.vendor));
 
 if (!validateVendors(vendors)) {
-  console.log(`${options.vendor} is invalid`);
-  throw new Error(validateVendors.errors);
+  console.error(`${options.vendor} is invalid`);
+  console.error(validateVendors.errors);
+  process.exit(1);
 }
 console.log(`vendor: valid`);
 
 vendors.vendors.forEach((v) => {
-  const vendor = yaml.safeLoad(fs.readFileSync(`./vendor/${v.id}/index.yaml`));
-  if (!validateVendor(vendor)) {
-    console.log(`${v.id}: index valid`);
-    throw new Error(validateVendors.errors);
-  }
-  console.log(`${v.id}: valid index`);
-
-  let profiles = {};
-
-  vendor.endDevices.forEach((d) => {
-    const endDevice = yaml.safeLoad(fs.readFileSync(`./vendor/${v.id}/${d}.yaml`));
-    if (!validateEndDevice(endDevice)) {
-      console.log(`${v.id}: ${d}: invalid`);
-      throw new Error(validateVendors.errors);
+  const vendorIndexPath = `./vendor/${v.id}/index.yaml`;
+  fs.stat(vendorIndexPath, (err) => {
+    if (err) {
+      if (err.code !== 'ENOENT') {
+        console.error(`${v.id}: index file: ${err.code}`);
+        process.exit(1);
+      }
+      return;
     }
-    console.log(`${v.id}: ${d}: valid`);
 
-    endDevice.firmwareVersions.forEach((version) => {
-      Object.keys(version.profiles).forEach((region) => {
-        const id = version.profiles[region].id;
-        if (!profiles[id]) {
-          const profile = yaml.safeLoad(fs.readFileSync(`./vendor/${v.id}/${id}.yaml`));
-          if (!validateEndDeviceProfile(profile)) {
-            console.log(`${v.id}: ${d}: profile ${id} invalid`);
-            throw new Error(validateVendors.errors);
+    const vendor = yaml.safeLoad(fs.readFileSync(vendorIndexPath));
+    if (!validateVendor(vendor)) {
+      console.error(`${v.id}: invalid index`);
+      console.error(validateVendors.errors);
+      return;
+    }
+    console.log(`${v.id}: valid index`);
+
+    let profiles = {};
+
+    vendor.endDevices.forEach((d) => {
+      const endDevice = yaml.safeLoad(fs.readFileSync(`./vendor/${v.id}/${d}.yaml`));
+      if (!validateEndDevice(endDevice)) {
+        console.error(`${v.id}: ${d}: invalid`);
+        console.error(validateVendors.errors);
+        process.exit(1);
+      }
+      console.log(`${v.id}: ${d}: valid`);
+
+      endDevice.firmwareVersions.forEach((version) => {
+        Object.keys(version.profiles).forEach((region) => {
+          const id = version.profiles[region].id;
+          if (!profiles[id]) {
+            const profile = yaml.safeLoad(fs.readFileSync(`./vendor/${v.id}/${id}.yaml`));
+            if (!validateEndDeviceProfile(profile)) {
+              console.error(`${v.id}: ${d}: profile ${id} invalid`);
+              console.error(validateVendors.errors);
+              process.exit(1);
+            }
+            profiles[id] = true;
           }
-          profiles[id] = true;
-        }
-        console.log(`${v.id}: ${d}: profile ${id} (${region}) valid`);
+          console.log(`${v.id}: ${d}: profile ${id} (${region}) valid`);
+        });
       });
     });
   });
