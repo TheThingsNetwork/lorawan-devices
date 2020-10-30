@@ -86,7 +86,7 @@ vendors:
     pen: 42
     ouis: [FCD6BD]
     website: https://www.bosch-connectivity.com
-    logo: bosch/logo.svg
+    logo: logo.svg
   - id: bouygues-telecom
     name: Bouygues Telecom
     vendorID: 70
@@ -114,6 +114,7 @@ vendors:
   - id: decentlab
     name: Decentlab GmbH
     vendorID: 109
+    website: https://www.decentlab.com/
   - id: definium
     name: Definium Technologies, Pty Ltd.
     vendorID: 110

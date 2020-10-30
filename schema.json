@@ -24,12 +24,6 @@
           "items": {
             "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/identifier"
           }
-        },
-        "endDeviceProfiles": {
-          "type": "array",
-          "items": {
-            "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/identifier"
-          }
         }
       },
       "additionalProperties": false
