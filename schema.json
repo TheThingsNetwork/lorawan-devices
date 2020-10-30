@@ -55,10 +55,13 @@
           "type": "integer",
           "minimum": 0
         },
-        "oui": {
-          "description": "Organization Unique Identifier (OUI) assigned by IEEE (base-16, see http://standards-oui.ieee.org/oui.txt)",
-          "type": "string",
-          "pattern": "[0-9A-F]{6}"
+        "ouis": {
+          "description": "Organization Unique Identifiers (OUI) assigned by IEEE (base-16, see http://standards-oui.ieee.org/oui.txt)",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "[0-9A-F]{6}"
+          }
         },
         "vendorID": {
           "type": "integer",
