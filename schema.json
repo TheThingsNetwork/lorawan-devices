@@ -181,7 +181,7 @@
           "supports32bitFCnt": true,
           "payloadEncoding": {
             "uplinkDecoder": {
-              "fileName": "uplink-decoder.js",
+              "fileName": "codec.js",
               "examples": [
                 {
                   "description": "Temperature",
@@ -190,7 +190,7 @@
                     "bytes": [51, 65, 55]
                   },
                   "output": {
-                    "payload": {
+                    "data": {
                       "temperature": 21.5
                     }
                   }
@@ -198,12 +198,12 @@
               ]
             },
             "downlinkEncoder": {
-              "fileName": "downlink-encoder.js",
+              "fileName": "codec.js",
               "examples": [
                 {
                   "description": "Open gate",
                   "input": {
-                    "payload": {
+                    "data": {
                       "open": true
                     }
                   },
@@ -215,7 +215,7 @@
               ]
             },
             "downlinkDecoder": {
-              "fileName": "downlink-decoder.js",
+              "fileName": "codec.js",
               "examples": [
                 {
                   "description": "Open gate",
@@ -224,7 +224,7 @@
                     "bytes": [1]
                   },
                   "output": {
-                    "payload": {
+                    "data": {
                       "open": true
                     }
                   }
@@ -313,7 +313,7 @@
             },
             {
               "properties": {
-                "payload": {
+                "data": {
                   "type": "object"
                 }
               }
@@ -327,7 +327,7 @@
                 }
               },
               "then": {
-                "required": ["payload"]
+                "required": ["data"]
               }
             }
           ]
@@ -339,11 +339,11 @@
             },
             {
               "properties": {
-                "payload": {
+                "data": {
                   "type": "object"
                 }
               },
-              "required": ["payload"]
+              "required": ["data"]
             }
           ]
         },
