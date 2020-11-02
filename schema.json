@@ -75,8 +75,7 @@
         },
         "logo": { "$ref": "#/definitions/logo" }
       },
-      "required": ["id", "name"],
-      "additionalProperties": false
+      "required": ["id", "name"]
     },
     "dataRateIndex": {
       "type": "integer",
