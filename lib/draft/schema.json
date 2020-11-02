@@ -124,6 +124,12 @@
     "script": {
       "type": "object",
       "properties": {
+        "fileName": {
+          "allOf": [
+            { "$ref": "#/definitions/localFile" },
+            { "pattern": "\\.js$" }
+          ]
+        },
         "examples": {
           "type": "array",
           "items": {
@@ -139,122 +145,65 @@
           }
         }
       },
-      "oneOf": [
-        {
-          "properties": {
-            "fileName": {
-              "allOf": [
-                { "$ref": "#/definitions/localFile" },
-                { "pattern": "\\.js$" }
-              ]
-            }
-          },
-          "required": ["fileName"]
-        },
-        {
-          "properties": {
-            "javascript": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "required": ["javascript"]
-        }
-      ]
+      "required": ["fileName"]
     },
-    "endDeviceProfile": {
-      "title": "End Device Profile",
-      "description": "End device capabilities, boot parameters and payload encoding",
+    "endDevicePayloadCodec": {
+      "title": "End Device Payload Codec",
+      "description": "End device payload codec for decoding uplink and encoding downlink",
       "type": "object",
       "examples": [
         {
-          "id": "Example OTAA with payload encoding",
-          "vendorProfileID": 1,
-          "supportsClassB": false,
-          "supportsClassC": false,
-          "macVersion": "1.0.2",
-          "regionalParametersVersion": "RP001-1.0.2-RevB",
-          "supportsJoin": true,
-          "maxEIRP": 14,
-          "supports32bitFCnt": true,
-          "payloadEncoding": {
-            "uplinkDecoder": {
-              "fileName": "codec.js",
-              "examples": [
-                {
-                  "description": "Temperature",
-                  "input": {
-                    "fPort": 1,
-                    "bytes": [51, 65, 55]
-                  },
-                  "output": {
-                    "data": {
-                      "temperature": 21.5
-                    }
+          "uplinkDecoder": {
+            "fileName": "codec.js",
+            "examples": [
+              {
+                "description": "Temperature",
+                "input": {
+                  "fPort": 1,
+                  "bytes": [51, 65, 55]
+                },
+                "output": {
+                  "data": {
+                    "temperature": 21.5
                   }
                 }
-              ]
-            },
-            "downlinkEncoder": {
-              "fileName": "codec.js",
-              "examples": [
-                {
-                  "description": "Open gate",
-                  "input": {
-                    "data": {
-                      "open": true
-                    }
-                  },
-                  "output": {
-                    "bytes": [1],
-                    "fPort": 2
+              }
+            ]
+          },
+          "downlinkEncoder": {
+            "fileName": "codec.js",
+            "examples": [
+              {
+                "description": "Open gate",
+                "input": {
+                  "data": {
+                    "open": true
+                  }
+                },
+                "output": {
+                  "bytes": [1],
+                  "fPort": 2
+                }
+              }
+            ]
+          },
+          "downlinkDecoder": {
+            "fileName": "codec.js",
+            "examples": [
+              {
+                "description": "Open gate",
+                "input": {
+                  "fPort": 2,
+                  "bytes": [1]
+                },
+                "output": {
+                  "data": {
+                    "open": true
                   }
                 }
-              ]
-            },
-            "downlinkDecoder": {
-              "fileName": "codec.js",
-              "examples": [
-                {
-                  "description": "Open gate",
-                  "input": {
-                    "fPort": 2,
-                    "bytes": [1]
-                  },
-                  "output": {
-                    "data": {
-                      "open": true
-                    }
-                  }
-                }
-              ]
-            }
+              }
+            ]
           }
-        },
-        {
-          "id": "Example ABP",
-          "vendorProfileID": 2,
-          "supportsClassB": false,
-          "supportsClassC": false,
-          "macVersion": "1.0.4",
-          "regionalParametersVersion": "RP002-1.0.1",
-          "supportsJoin": false,
-          "rx1Delay": 1,
-          "rx1DataRateOffset": 0,
-          "rx2DataRateIndex": 3,
-          "rx2Frequency": 869.525,
-          "factoryPresetFrequencies": [
-            868.1,
-            868.3,
-            868.5,
-            867.1,
-            867.3,
-            867.5,
-            867.7,
-            867.9
-          ],
-          "maxEIRP": 14,
-          "supports32bitFCnt": true
         }
       ],
       "definitions": {
@@ -289,7 +238,7 @@
         "decodeInput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptInput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
               "properties": {
@@ -305,7 +254,7 @@
         "decodeOutput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptOutput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
               "properties": {
@@ -331,7 +280,7 @@
         "encodeInput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptInput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
               "properties": {
@@ -346,7 +295,7 @@
         "encodeOutput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptOutput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
               "properties": {
@@ -371,6 +320,112 @@
           ]
         }
       },
+      "properties": {
+        "uplinkDecoder": {
+          "allOf": [
+            { "$ref": "#/definitions/script" },
+            {
+              "properties": {
+                "examples": {
+                  "items": {
+                    "properties": {
+                      "input": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
+                      },
+                      "output": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "downlinkEncoder": {
+          "allOf": [
+            { "$ref": "#/definitions/script" },
+            {
+              "properties": {
+                "examples": {
+                  "items": {
+                    "properties": {
+                      "input": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeInput"
+                      },
+                      "output": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeOutput"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "downlinkDecoder": {
+          "allOf": [
+            { "$ref": "#/definitions/script" },
+            {
+              "properties": {
+                "examples": {
+                  "items": {
+                    "properties": {
+                      "input": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
+                      },
+                      "output": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "endDeviceProfile": {
+      "title": "End Device Profile",
+      "description": "End device capabilities and boot parameters",
+      "type": "object",
+      "examples": [
+        {
+          "vendorProfileID": 1,
+          "supportsClassB": false,
+          "supportsClassC": false,
+          "macVersion": "1.0.2",
+          "regionalParametersVersion": "RP001-1.0.2-RevB",
+          "supportsJoin": true,
+          "maxEIRP": 14,
+          "supports32bitFCnt": true
+        },
+        {
+          "vendorProfileID": 2,
+          "supportsClassB": false,
+          "supportsClassC": false,
+          "macVersion": "1.0.4",
+          "regionalParametersVersion": "RP002-1.0.1",
+          "supportsJoin": false,
+          "rx1Delay": 1,
+          "rx1DataRateOffset": 0,
+          "rx2DataRateIndex": 3,
+          "rx2Frequency": 869.525,
+          "factoryPresetFrequencies": [
+            868.1,
+            868.3,
+            868.5,
+            867.1,
+            867.3,
+            867.5,
+            867.7,
+            867.9
+          ],
+          "maxEIRP": 14,
+          "supports32bitFCnt": true
+        }
+      ],
       "properties": {
         "vendorProfileID": {
           "type": "integer",
@@ -455,74 +510,6 @@
         "supports32bitFCnt": {
           "type": "boolean",
           "description": "End device supports 32bit FCnt"
-        },
-        "payloadEncoding": {
-          "type": "object",
-          "properties": {
-            "uplinkDecoder": {
-              "allOf": [
-                { "$ref": "#/definitions/script" },
-                {
-                  "properties": {
-                    "examples": {
-                      "items": {
-                        "properties": {
-                          "input": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeInput"
-                          },
-                          "output": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeOutput"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "downlinkEncoder": {
-              "allOf": [
-                { "$ref": "#/definitions/script" },
-                {
-                  "properties": {
-                    "examples": {
-                      "items": {
-                        "properties": {
-                          "input": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/encodeInput"
-                          },
-                          "output": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/encodeOutput"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "downlinkDecoder": {
-              "allOf": [
-                { "$ref": "#/definitions/script" },
-                {
-                  "properties": {
-                    "examples": {
-                      "items": {
-                        "properties": {
-                          "input": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeInput"
-                          },
-                          "output": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeOutput"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          }
         }
       },
       "allOf": [
@@ -765,8 +752,10 @@
                       "id": { "$ref": "#/definitions/identifier" },
                       "lorawanCertified": {
                         "type": "boolean"
-                      }
-                    }
+                      },
+                      "codec": { "$ref": "#/definitions/identifier" }
+                    },
+                    "required": ["id"]
                   }
                 }
               },
@@ -952,9 +941,10 @@
       "required": ["name", "firmwareVersions"]
     }
   },
-  "oneOf": [
+  "anyOf": [
     { "$ref": "#/definitions/vendor" },
     { "$ref": "#/definitions/endDeviceProfile" },
+    { "$ref": "#/definitions/endDevicePayloadCodec" },
     { "$ref": "#/definitions/endDevice" }
   ]
 }
