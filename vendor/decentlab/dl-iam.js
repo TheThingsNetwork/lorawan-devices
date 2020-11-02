@@ -96,7 +96,7 @@ var decentlab_decoder = {
         var value = sensor.values[j];
         if ('convert' in value) {
           result[value.name] = {displayName: value.displayName,
-                                value: value.convert(x),
+                                value: value.convert.bind(this)(x),
                                 unit: value.unit};
         }
       }
@@ -104,3 +104,15 @@ var decentlab_decoder = {
     return result;
   }
 };
+
+function decodeUplink(input) {
+  var res = decentlab_decoder.decode(input.bytes);
+  if (res.error) {
+    return {
+      errors: [res.error],
+    };
+  }
+  return {
+    data: res,
+  };
+}

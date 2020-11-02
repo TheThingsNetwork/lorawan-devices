@@ -1,4 +1,3 @@
-id: dl-iam-001-profile
 vendorProfileID: 2
 supportsClassB: false
 supportsClassC: false
@@ -7,6 +6,3 @@ regionalParametersVersion: RP001-1.0.2-RevB
 supportsJoin: true
 maxEIRP: 16
 supports32bitFCnt: true
-payloadEncoding:
-  uplinkDecoder:
-    fileName: dl-iam-001.decoder.js
