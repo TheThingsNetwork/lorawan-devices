@@ -6,17 +6,19 @@ This repository is a collaborative effort, driven by The Things Network communit
 
 ## Prerequisites
 
-- Node.js version 14.x
-- npm version 6.x
+- Node.js version 14.x or higher
+- npm version 6.x or higher
+- Go version 1.15 or higher
 
-To check your Node.js and npm versions:
+To check your Node.js, npm and Go versions:
 
 ```bash
 $ node -v
 $ npm -v
+$ go version
 ```
 
-[Download and install Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+[Download and install Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [Download Go](https://golang.org/dl/).
 
 Then, install the dependencies:
 
