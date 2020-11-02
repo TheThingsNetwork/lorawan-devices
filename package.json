@@ -1,0 +1,33 @@
+{
+  "name": "lorawan-devices",
+  "version": "1.0.0",
+  "description": "LoRaWAN Device Repository",
+  "bin": {
+    "validate": "bin/validate.js"
+  },
+  "scripts": {
+    "validate": "node bin/validate.js",
+    "format": "prettier --write schema.json \"vendor/**/*.yaml\" \"bin/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheThingsNetwork/lorawan-devices.git"
+  },
+  "author": "The Things Network Foundation",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/TheThingsNetwork/lorawan-devices/issues"
+  },
+  "homepage": "https://github.com/TheThingsNetwork/lorawan-devices#readme",
+  "devDependencies": {
+    "ajv-cli": "^3.3.0",
+    "prettier": "^2.1.2"
+  },
+  "dependencies": {
+    "ajv": "^6.12.6",
+    "image-size": "^0.9.3",
+    "js-yaml": "^3.14.0",
+    "lodash.isequal": "^4.5.0",
+    "yargs": "^16.1.0"
+  }
+}
