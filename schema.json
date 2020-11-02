@@ -774,8 +774,7 @@
                       "lorawanCertified": {
                         "type": "boolean"
                       }
-                    },
-                    "additionalProperties": false
+                    }
                   }
                 }
               },
@@ -786,7 +785,6 @@
                 }
               }
             },
-            "additionalProperties": false,
             "required": ["version", "profiles"]
           },
           "minItems": 1,
@@ -853,8 +851,7 @@
               "type": "number",
               "minimum": 0
             }
-          },
-          "additionalProperties": false
+          }
         },
         "weight": {
           "description": "Weight (gram)",
@@ -871,8 +868,7 @@
               "type": "string",
               "minLength": 1
             }
-          },
-          "additionalProperties": false
+          }
         },
         "operatingConditions": {
           "type": "object",
@@ -893,7 +889,6 @@
                   "maximum": 100
                 }
               },
-              "additionalProperties": false,
               "required": ["min", "max"]
             },
             "relativeHumidity": {
@@ -912,11 +907,9 @@
                   "maximum": 1
                 }
               },
-              "additionalProperties": false,
               "required": ["min", "max"]
             }
-          },
-          "additionalProperties": false
+          }
         },
         "ipCode": {
           "type": "string",
@@ -950,7 +943,6 @@
               "items": { "$ref": "#/definitions/photo" }
             }
           },
-          "additionalProperties": false,
           "required": ["main"]
         },
         "compliances": {
@@ -958,11 +950,9 @@
           "properties": {
             "safety": { "$ref": "#/definitions/compliances" },
             "radioEquipment": { "$ref": "#/definitions/compliances" }
-          },
-          "additionalProperties": false
+          }
         }
       },
-      "additionalProperties": false,
       "required": ["id", "name", "firmwareVersions"]
     }
   },
