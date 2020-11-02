@@ -7,7 +7,7 @@
   },
   "scripts": {
     "validate": "node bin/validate.js",
-    "format": "prettier --write schema.json \"vendor/**/*.yaml\" \"vendor/**/*.js\" \"bin/**/*.js\""
+    "format": "prettier --write schema.json \"vendor/**/*.yaml\" \"bin/**/*.js\""
   },
   "repository": {
     "type": "git",
