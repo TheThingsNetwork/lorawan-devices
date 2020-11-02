@@ -22,6 +22,7 @@ import (
 	"log"
 	"os"
 
+	"go.thethings.network/lorawan-stack/v3/pkg/errors"
 	"go.thethings.network/lorawan-stack/v3/pkg/scripting"
 	"go.thethings.network/lorawan-stack/v3/pkg/scripting/javascript"
 )
@@ -104,13 +105,13 @@ func main() {
 
 	valueAs, err := vm.Run(context.Background(), string(script), *routine, input)
 	if err != nil {
-		log.Fatal("Script failed: %v", err)
+		log.Fatalf("Script failed: %v (%v)", err, errors.Cause(err))
 	}
 	if err := valueAs(&output); err != nil {
-		log.Fatal("Retrieve output: %v", err)
+		log.Fatalf("Retrieve output: %v (%v)", err, errors.Cause(err))
 	}
 
 	if err := json.NewEncoder(os.Stdout).Encode(output); err != nil {
-		log.Fatal("Marshal output: %v", err)
+		log.Fatalf("Marshal output: %v", err)
 	}
 }

@@ -7,7 +7,7 @@
   },
   "scripts": {
     "validate": "node bin/validate.js",
-    "format": "prettier --write schema.json \"vendor/**/*.yaml\" \"bin/**/*.js\""
+    "format": "prettier --write schema.json \"vendor/**/*.yaml\" \"vendor/**/*.js\" \"bin/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,9 @@
   },
   "dependencies": {
     "ajv": "^6.12.6",
+    "image-size": "^0.9.3",
     "js-yaml": "^3.14.0",
+    "lodash.isequal": "^4.5.0",
     "yargs": "^16.1.0"
   }
 }
