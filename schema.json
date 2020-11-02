@@ -10,7 +10,20 @@
         "vendors": {
           "type": "array",
           "items": {
-            "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/vendor"
+            "allOf": [
+              {
+                "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/vendor"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "draft": {
+                    "type": "boolean",
+                    "description": "If draft, the vendor is not listed"
+                  }
+                }
+              }
+            ]
           }
         }
       },
@@ -20,12 +33,6 @@
       "type": "object",
       "properties": {
         "endDevices": {
-          "type": "array",
-          "items": {
-            "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/identifier"
-          }
-        },
-        "endDeviceProfiles": {
           "type": "array",
           "items": {
             "$ref": "https://lorawan-schema.org/draft/devices/1/schema#/definitions/identifier"

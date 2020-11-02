@@ -1,4 +1,3 @@
-id: demo-sensor
 name: Demo Sensor
 firmwareVersions:
   - version: "1.0"
@@ -6,6 +5,7 @@ firmwareVersions:
       EU863-870:
         id: demo-profile
         lorawanCertified: true
+        codec: codec
 sensors:
   - temperature
   - humidity

@@ -15,6 +15,9 @@
 SHELL = bash
 GIT = git
 NPM = npm
+GO = go
+GOBIN = $(PWD)/bin
+export GOBIN
 
 .PHONY: default
 default: validate
@@ -22,6 +25,7 @@ default: validate
 .PHONY: deps
 deps:
 	$(NPM) install
+	pushd ./tools/runscript && $(GO) install . && popd
 
 .PHONY: deps.update
 deps.update:

@@ -12,19 +12,21 @@ firmwareVersions:
       - '9'
     profiles:
       EU863-870:
-        id: tps110-0233
+        id: tps110-eu868
         lorawanCertified: true
       AS923:
-        id: tps110-0233
+        id: tps110-as923
   - version: 0.29.2
     numeric: 292
     hardwareVersions:
       - '9'
     profiles:
       EU863-870:
-        id: tps110-0292
+        id: tps110-eu868
+        codec: tps110-0292-codec
       AS923:
-        id: tps110-0292
+        id: tps110-as923
+        codec: tps110-0292-codec
 sensors:
   - magnetometer
   - gps
@@ -50,10 +52,7 @@ keySecurity: none
 productURL: https://www.bosch-connectivity.com/products/connected-mobility/parking-lot-sensor/
 dataSheetURL: https://www.bosch-connectivity.com/media/product_detail_pls/parking-lot-sensor-datasheet.pdf
 photos:
-  main: main.jpg
-  other:
-    - other1.jpg
-    - other2.jpg
+  main: tps110.jpg
 compliances:
   safety:
     - body: IEC

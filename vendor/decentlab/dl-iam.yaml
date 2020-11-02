@@ -1,0 +1,50 @@
+name: Indoor Ambiance Monitor
+description: Indoor Ambiance Monitor including CO2, TVOC and Motion Sensor for LoRaWAN
+hardwareVersions:
+  - version: '1'
+    numeric: 1
+    partNumber: DL-IAM-001
+firmwareVersions:
+  - version: '1'
+    numeric: 1
+    hardwareVersions:
+      - '1'
+    profiles:
+      EU863-870:
+        id: dl-iam-001-profile
+        lorawanCertified: true
+        codec: dl-iam-codec
+      AS923:
+        id: dl-iam-001-profile
+        lorawanCertified: true
+        codec: dl-iam-codec
+      US902-928:
+        id: dl-iam-001-profile
+        lorawanCertified: true
+        codec: dl-iam-codec
+      AU915-928:
+        id: dl-iam-001-profile
+        lorawanCertified: true
+        codec: dl-iam-codec
+sensors:
+  - co2
+  - tvoc
+  - temperature
+  - humidity
+  - barometer
+  - light
+  - pir
+dimensions:
+  width: 120
+  length: 80
+  height: 25
+battery:
+  replaceable: true
+  type: 2 AA alkaline
+keyProvisioning:
+  - custom
+keySecurity: none
+productURL: https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan/
+dataSheetURL: https://static1.squarespace.com/static/5c80d350ab1a62362b81c9d1/t/5e60b640633a0705fb47e389/1583396423807/Decentlab-DL-IAM-datasheet.pdf
+photos:
+  main: dl-iam.jpg
