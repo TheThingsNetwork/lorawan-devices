@@ -5,6 +5,7 @@ firmwareVersions:
       EU863-870:
         id: demo-profile
         lorawanCertified: true
+        codec: codec
 sensors:
   - temperature
   - humidity

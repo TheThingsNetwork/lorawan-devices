@@ -6,35 +6,3 @@ regionalParametersVersion: RP001-1.0.3-RevA
 supportsJoin: true
 maxEIRP: 14
 supports32bitFCnt: true
-payloadEncoding:
-  uplinkDecoder:
-    javascript: |
-      function decode(input) {
-        switch (input.fPort) {
-          case 1:
-            return {
-              data: {
-                temperature: (input.bytes[0] << 8) | input.bytes[1]
-              }
-            }
-          default:
-            return {
-              errors: ["Invalid FPort"]
-            }
-        }
-      }
-    examples:
-      - description: Demo
-        input:
-          fPort: 1
-          bytes: [0x8, 0x66]
-        output:
-          data:
-            temperature: 21.5
-      - description: Invalid FPort
-        input:
-          fPort: 2
-          bytes: [0x8, 0x66]
-        output:
-          errors:
-            - Invalid FPort
