@@ -135,7 +135,6 @@
                 "type": "string"
               }
             },
-            "additionalProperties": false,
             "required": ["input", "output"]
           }
         }
@@ -373,7 +372,6 @@
         }
       },
       "properties": {
-        "id": { "$ref": "#/definitions/identifier" },
         "vendorProfileID": {
           "type": "integer",
           "description": "VendorProfileID managed by the vendor, as defined in TR005",
@@ -524,11 +522,9 @@
                 }
               ]
             }
-          },
-          "additionalProperties": false
+          }
         }
       },
-      "additionalProperties": false,
       "allOf": [
         {
           "if": {
@@ -675,7 +671,6 @@
         }
       ],
       "required": [
-        "id",
         "supportsClassB",
         "supportsClassC",
         "macVersion",
@@ -707,7 +702,6 @@
             "minLength": 1
           }
         },
-        "additionalProperties": false,
         "required": ["body", "standard"]
       },
       "uniqueItems": true
@@ -717,7 +711,6 @@
       "description": "LoRaWAN end device",
       "type": "object",
       "properties": {
-        "id": { "$ref": "#/definitions/identifier" },
         "name": {
           "type": "string",
           "minLength": 1
@@ -744,7 +737,6 @@
                 "minLength": 1
               }
             },
-            "additionalProperties": false,
             "required": ["version"]
           },
           "uniqueItems": true
@@ -957,7 +949,7 @@
           }
         }
       },
-      "required": ["id", "name", "firmwareVersions"]
+      "required": ["name", "firmwareVersions"]
     }
   },
   "oneOf": [
