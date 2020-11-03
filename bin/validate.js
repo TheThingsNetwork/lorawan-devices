@@ -110,11 +110,14 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
   return Promise.all(promises);
 }
 
+function formatValidationErrors(errors) {
+  return errors.map((e) => `${e.dataPath} ${e.message}`);
+}
+
 const vendors = yaml.safeLoad(fs.readFileSync(options.vendor));
 
 if (!validateVendors(vendors)) {
-  console.error(`${options.vendor} is invalid`);
-  console.error(validateVendors.errors);
+  console.error(`${options.vendor} is invalid: ${formatValidationErrors(validateVendors.errors)}`);
   process.exit(1);
 }
 console.log(`vendor index: valid`);
@@ -141,8 +144,7 @@ vendors.vendors.forEach((v) => {
 
     const vendor = yaml.safeLoad(fs.readFileSync(vendorIndexPath));
     if (!validateVendor(vendor)) {
-      console.error(`${key}: invalid index`);
-      console.error(validateVendor.errors);
+      console.error(`${key}: invalid index: ${formatValidationErrors(validateVendor.errors)}`);
       return;
     }
     console.log(`${v.id}: valid index`);
@@ -155,8 +157,7 @@ vendors.vendors.forEach((v) => {
 
       const endDevice = yaml.safeLoad(fs.readFileSync(`${folder}/${d}.yaml`));
       if (!validateEndDevice(endDevice)) {
-        console.error(`${key}: invalid`);
-        console.error(validateEndDevice.errors);
+        console.error(`${key}: invalid: ${formatValidationErrors(validateEndDevice.errors)}`);
         process.exit(1);
       }
       console.log(`${key}: valid`);
@@ -168,8 +169,11 @@ vendors.vendors.forEach((v) => {
           if (!profiles[regionProfile.id]) {
             const profile = yaml.safeLoad(fs.readFileSync(`${folder}/${regionProfile.id}.yaml`));
             if (!validateEndDeviceProfile(profile)) {
-              console.error(`${key}: profile ${regionProfile.id} invalid`);
-              console.error(validateEndDeviceProfile.errors);
+              console.error(
+                `${key}: profile ${regionProfile.id} invalid: ${formatValidationErrors(
+                  validateEndDeviceProfile.errors
+                )}`
+              );
               process.exit(1);
             }
             profiles[regionProfile.id] = true;
@@ -179,8 +183,11 @@ vendors.vendors.forEach((v) => {
           if (regionProfile.codec && !codecs[regionProfile.codec]) {
             const codec = yaml.safeLoad(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
             if (!validateEndDevicePayloadCodec(codec)) {
-              console.error(`${key}: codec ${regionProfile.codec} invalid`);
-              console.error(validateEndDevicePayloadCodec.errors);
+              console.error(
+                `${key}: codec ${regionProfile.codec} invalid: ${formatValidationErrors(
+                  validateEndDevicePayloadCodec.errors
+                )}`
+              );
               process.exit(1);
             }
             codecs[regionProfile.codec] = true;
