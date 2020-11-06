@@ -113,6 +113,8 @@ endDevices:
   - device-b
 ```
 
+All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters.
+
 ### End Device
 
 For each end device, create an **End device definition** file with the same filename as the identifier in the index: `vendor/<vendor-id>/<device-id>.yaml`:
@@ -129,6 +131,7 @@ firmwareVersions:
     # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: device-a-profile
         lorawanCertified: true
         codec: device-a-codec
@@ -147,7 +150,7 @@ There are many other fields that can be set: hardware versions, firmware version
 Each referenced end device profile needs to be defined in the **End device profile**, with the same filename as the profile ID: `vendor/<vendor-id>/<profile-id>.yaml`:
 
 ```yaml
-# Vendor profile ID issued by the vendor
+# Vendor profile ID, can be freely issued by the vendor
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/sites/default/files/2020-10/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf
 vendorProfileID: 42
