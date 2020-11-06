@@ -145,7 +145,7 @@ vendors.vendors.forEach((v) => {
     const vendor = yaml.safeLoad(fs.readFileSync(vendorIndexPath));
     if (!validateVendor(vendor)) {
       console.error(`${key}: invalid index: ${formatValidationErrors(validateVendor.errors)}`);
-      return;
+      process.exit(1);
     }
     console.log(`${v.id}: valid index`);
 
