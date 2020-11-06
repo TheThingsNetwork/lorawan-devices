@@ -1,0 +1,22 @@
+uplinkDecoder:
+  fileName: decoder_home_sensor.js
+  examples:
+    - description: periodic uplink
+      input:
+        fPort: 1
+        bytes: [03, 67, 00, 0A, 04, 68, 28]
+      output:
+        data:
+          ambient_temperature: 1
+          relative_humidity: 20
+#    - description: interrupt uplink
+#      input:
+#        fPort: 1
+#        bytes: [1, 42]
+#      output:
+#        data:
+#          direction: 'E'
+#          speed: 42
+
+downlinkEncoder:
+  fileName: encoder_home_sensor.js
