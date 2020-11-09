@@ -19,11 +19,11 @@ firmwareVersions:
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
-        id: SENBNNEU868
+        id: senbnneu868
         lorawanCertified: false
         codec: T000489X-codec
       US902-928:
-        id: SENBNNUS915
+        id: senbnnus915
         lorawanCertified: false
         codec: T000489X-codec
 
@@ -35,7 +35,7 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - temperature
-  - relativeHumidity
+  - humidity
   - magnetometer
   - accelerometer
   - light
