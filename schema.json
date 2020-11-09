@@ -22,7 +22,7 @@
     "photo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(jpg|jpeg)$" }
+        { "pattern": "\\.(png|jpg|jpeg)$" }
       ]
     },
     "region": {
