@@ -1,4 +1,4 @@
-function Decoder(bytes, port) { //bytes - Array of bytes.
+function decodeUplink(input) {
 
     function slice(a, f, t) {
         var res = [];
@@ -69,10 +69,10 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         return apply_data_type(arr, data_type);
     }
 
-    decoded_data = {};
-    decoder = [];
+    var decoded_data = {};
+    var decoder = [];
 
-    if (port === 10) {
+    if (input.fPort === 10) {
         decoder = [
             {
                 key: [0x00, 0xFF],
@@ -197,7 +197,7 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
             }
         ]
     }
-    if (port === 100) {
+    if (input.fPort === 100) {
         decoder = [
             {
                 key: [0x00],
@@ -723,9 +723,7 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         ]
     }
 
-    bytes = convertToUint8Array(bytes);
-    decoded_data['raw'] = JSON.stringify(byteToArray(bytes));
-    decoded_data['port'] = port;
+    var bytes = input.bytes;
 
     for (var bytes_left = bytes.length; bytes_left > 0;) {
         var found = false;
@@ -747,11 +745,12 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         if (found) {
             continue;
         }
-        // Unable to decode -- headers are not as expected, send raw payload to the application!
-        decoded_data = {};
-        decoded_data['raw'] = JSON.stringify(byteToArray(bytes));
-        decoded_data['port'] = port;
-        return decoded_data;
+        // Unable to decode -- headers are not as expected
+        return {
+          errors: [
+            "Headers are not as expected"
+          ]
+        }
     }
 
     // Converts value to unsigned
@@ -772,22 +771,6 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         return true;
     }
 
-    function byteToArray(byteArray) {
-        arr = [];
-        for (var i = 0; i < byteArray.length; i++) {
-            arr.push(byteArray[i]);
-        }
-        return arr;
-    }
-
-    function convertToUint8Array(byteArray) {
-        arr = [];
-        for (var i = 0; i < byteArray.length; i++) {
-            arr.push(to_uint(byteArray[i]) & 0xff);
-        }
-        return arr;
-    }
-
     function toHexString(byteArray) {
         var arr = [];
         for (var i = 0; i < byteArray.length; ++i) {
@@ -796,5 +779,7 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         return arr.join('');
     }
 
-    return decoded_data;
+    return {
+      data: decoded_data
+    };
 }
