@@ -1,4 +1,4 @@
-function Encoder(data) {
+function encodeDownlink(input) {
     var ret = [];
     port = 100;
 
@@ -651,8 +651,8 @@ function Encoder(data) {
         }
     );
     function check_encode(prop_name, do_write, do_read) {
-        if (data.hasOwnProperty(prop_name)) {
-            var obj = data[prop_name];
+        if (input.data.hasOwnProperty(prop_name)) {
+            var obj = input.data[prop_name];
             if (obj.hasOwnProperty("access")) {
                 var access_value = obj.access;
                 if (access_value == "write") {

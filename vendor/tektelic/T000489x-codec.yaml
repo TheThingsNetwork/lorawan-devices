@@ -4,7 +4,7 @@ uplinkDecoder:
     - description: periodic uplink
       input:
         fPort: 1
-        bytes: [03, 67, 00, 0A, 04, 68, 28]
+        bytes: [0x03, 0x67, 0x00, 0x0A, 0x04, 0x68, 0x28]
       output:
         data:
           ambient_temperature: 1
