@@ -1,5 +1,8 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: windsensor.js
+  # Examples (optional)
   examples:
     - description: 32 knots from the North
       input:
@@ -25,6 +28,7 @@ uplinkDecoder:
         errors:
           - unknown FPort
 
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
   fileName: windsensor.js
   examples:
@@ -43,6 +47,7 @@ downlinkEncoder:
         errors:
           - invalid LED color
 
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
 downlinkDecoder:
   fileName: windsensor.js
   examples:
