@@ -4,5 +4,5 @@ supportsClassC: false
 macVersion: 1.0.3
 regionalParametersVersion: RP001-1.0.3-RevA
 supportsJoin: true
-maxEIRP: 14
+maxEIRP: 16
 supports32bitFCnt: true
