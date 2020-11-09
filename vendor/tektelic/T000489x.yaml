@@ -4,30 +4,28 @@ description: Multi-purpose LoRaWAN IoT sensor packed into a very small form fact
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: 'D'
-    numeric: 1
+    numeric: 4
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: 'D'
-    numeric: 1
+    numeric: 4
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1'
+      - 'D'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
-        id: senbnneu868
+        id: t000489x-profile
         lorawanCertified: false
-        codec: T000489X-codec
+        codec: t000489x-codec
       US902-928:
-        id: senbnnus915
+        id: t000489x-profile
         lorawanCertified: false
-        codec: T000489X-codec
-
-  -  # You can add more firmware versions and use different profiles per version
+        codec: t000489x-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -72,7 +70,7 @@ manuals: https://support.tektelic.com/portal/en/kb/support/smart-room-sensor
 
 # Photos (optional)
 photos:
-  main: smart-home-sensor.png
+  main: smart-home-sensor.jpeg
 
 # Regulatory compliances (optional)
 compliances:
@@ -81,9 +79,9 @@ compliances:
       norm: CE
       standard: 62368-1
     - body: FCC
-      standard: 15.247
+      standard: '15.247'
     - body: FCC
-      standard: 15.209
+      standard: '15.209'
     - body: ISED
       standard: RSS-247
     - body: ISED
