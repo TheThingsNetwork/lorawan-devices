@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-function Decoder(bytes, port) { //bytes - Array of bytes.
-=======
 function decodeUplink(input) {
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
 
     function slice(a, f, t) {
         var res = [];
@@ -73,17 +69,10 @@ function decodeUplink(input) {
         return apply_data_type(arr, data_type);
     }
 
-<<<<<<< HEAD
-    decoded_data = {};
-    decoder = [];
-
-    if (port === 10) {
-=======
     var decoded_data = {};
     var decoder = [];
 
     if (input.fPort === 10) {
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
         decoder = [
             {
                 key: [0x00, 0xFF],
@@ -208,11 +197,7 @@ function decodeUplink(input) {
             }
         ]
     }
-<<<<<<< HEAD
-    if (port === 100) {
-=======
     if (input.fPort === 100) {
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
         decoder = [
             {
                 key: [0x00],
@@ -738,13 +723,7 @@ function decodeUplink(input) {
         ]
     }
 
-<<<<<<< HEAD
-    bytes = convertToUint8Array(bytes);
-    decoded_data['raw'] = JSON.stringify(byteToArray(bytes));
-    decoded_data['port'] = port;
-=======
     var bytes = input.bytes;
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
 
     for (var bytes_left = bytes.length; bytes_left > 0;) {
         var found = false;
@@ -766,20 +745,12 @@ function decodeUplink(input) {
         if (found) {
             continue;
         }
-<<<<<<< HEAD
-        // Unable to decode -- headers are not as expected, send raw payload to the application!
-        decoded_data = {};
-        decoded_data['raw'] = JSON.stringify(byteToArray(bytes));
-        decoded_data['port'] = port;
-        return decoded_data;
-=======
         // Unable to decode -- headers are not as expected
         return {
           errors: [
             "Headers are not as expected"
           ]
         }
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
     }
 
     // Converts value to unsigned
@@ -800,25 +771,6 @@ function decodeUplink(input) {
         return true;
     }
 
-<<<<<<< HEAD
-    function byteToArray(byteArray) {
-        arr = [];
-        for (var i = 0; i < byteArray.length; i++) {
-            arr.push(byteArray[i]);
-        }
-        return arr;
-    }
-
-    function convertToUint8Array(byteArray) {
-        arr = [];
-        for (var i = 0; i < byteArray.length; i++) {
-            arr.push(to_uint(byteArray[i]) & 0xff);
-        }
-        return arr;
-    }
-
-=======
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
     function toHexString(byteArray) {
         var arr = [];
         for (var i = 0; i < byteArray.length; ++i) {
@@ -827,11 +779,7 @@ function decodeUplink(input) {
         return arr.join('');
     }
 
-<<<<<<< HEAD
-    return decoded_data;
-=======
     return {
       data: decoded_data
     };
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
 }

@@ -70,11 +70,7 @@ manuals: https://support.tektelic.com/portal/en/kb/support/smart-room-sensor
 
 # Photos (optional)
 photos:
-<<<<<<< HEAD
-  main: smart-home-sensor.jpeg
-=======
   main: smart-home-sensor.jpg
->>>>>>> 9a1ff61dadfafe92987f7b563865738420c85aa7
 
 # Regulatory compliances (optional)
 compliances:
