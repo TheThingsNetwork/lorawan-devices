@@ -19,11 +19,11 @@ firmwareVersions:
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
-        id: t000489x-profile
+        id: t000489x-868-profile
         lorawanCertified: false
         codec: t000489x-codec
       US902-928:
-        id: t000489x-profile
+        id: t000489x-915-profile
         lorawanCertified: false
         codec: t000489x-codec
 
