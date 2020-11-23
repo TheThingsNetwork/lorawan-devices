@@ -25,6 +25,11 @@
         { "pattern": "\\.(png|jpg|jpeg)$" }
       ]
     },
+    "video": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^(?:https?:\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\\?v=|\\.be\\/)(?:[\\w\\-\\_]*)(?:&(amp;)?[\\w\\?=]*)?)$|^(?:https?:\\/\\/(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/([^\\/]*)\\/videos\\/|)(?:\\d+)(?:|\\/\\?))$"
+    },
     "region": {
       "enum": [
         "EU863-870",
@@ -929,6 +934,16 @@
             }
           },
           "required": ["main"]
+        },
+        "videos": {
+          "type": "object",
+          "properties": {
+            "main": { "$ref": "#/definitions/video" },
+            "other": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/video" }
+            }
+          }
         },
         "compliances": {
           "type": "object",
