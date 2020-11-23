@@ -37,6 +37,7 @@ sensors:
   - barometer
   - light
   - pir
+  - battery
 
 dimensions:
   width: 120
@@ -67,8 +68,8 @@ productURL: https://www.decentlab.com/products/indoor-ambiance-monitor-including
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-IAM-datasheet.pdf
 photos:
   main: dl-iam.jpg
-  other: 
-    - DSC01450.JPG
+  other:
+    - dl-iam-2.jpg
 
 compliances:
   safety:

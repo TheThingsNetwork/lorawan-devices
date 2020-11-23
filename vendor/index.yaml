@@ -156,7 +156,7 @@ vendors:
     name: Decentlab GmbH
     vendorID: 109
     website: https://www.decentlab.com/
-    logo: Decentlab_Logo.svg
+    logo: decentlab_logo.svg
     ouis:
       - 70B3D57BA
 
