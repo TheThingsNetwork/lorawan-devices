@@ -78,6 +78,10 @@
           "type": "string",
           "format": "uri"
         },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
         "logo": { "$ref": "#/definitions/logo" }
       },
       "required": ["id", "name"]
