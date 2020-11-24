@@ -8,11 +8,11 @@ firmwareVersions:
       - '1.0'
     profiles:
       EU863-870:
-        id: the-things-node-eu868
+        id: the-things-node-868
         lorawanCertified: true
         codec: the-things-node-codec
       US902-928:
-        id: the-things-node-us915
+        id: the-things-node-915
         lorawanCertified: true
         codec: the-things-node-codec
 sensors:
