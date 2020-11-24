@@ -1537,5 +1537,5 @@ vendors:
     name: Exedra General Trading and Contracting
     vendorID: 841
 
-  # - id: the-things-products
-  #   name: The Things Products
+  - id: the-things-products
+    name: The Things Products
