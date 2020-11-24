@@ -100,10 +100,13 @@ productURL: https://example.org/wind-sensor
 dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
 resellerURLs:
   - name: 'Reseller 1'
-    region: Global
+    region: 
+      - European Union
     url: https://example.org/reseller1
   - name: 'Reseller 2'
-    region: Europe
+    region: 
+      - United States
+      - Canada
     url: https://example.org/reseller2
 
 # Photos
