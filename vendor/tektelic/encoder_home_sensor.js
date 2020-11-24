@@ -693,8 +693,8 @@ function encodeDownlink(input) {
     }
 
     return {
-        'bytes': ret,
-        'port': port
+        bytes: ret,
+        fPort: port
     };
 
 }
