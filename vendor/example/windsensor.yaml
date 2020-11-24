@@ -98,12 +98,25 @@ keySecurity: none
 # Product and data sheet URLs (optional)
 productURL: https://example.org/wind-sensor
 dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+resellerURLs:
+  - name: 'Reseller 1'
+    region:
+      - European Union
+    url: https://example.org/reseller1
+  - name: 'Reseller 2'
+    region:
+      - United States
+      - Canada
+    url: https://example.org/reseller2
 
-# Photos (optional)
+# Photos
 photos:
   main: windsensor.jpg
   other:
     - windsensor-package.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://www.youtube.com/watch?v=JHzxcD2oEn8
 
 # Regulatory compliances (optional)
 compliances:
