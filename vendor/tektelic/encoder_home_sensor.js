@@ -1,6 +1,6 @@
-function encodeDownlink(input) {
+function Encoder(data) {
     var ret = [];
-    port = 100;
+    var port = 100;
 
     check_encode("device_eui",
         function (value) {
@@ -651,8 +651,8 @@ function encodeDownlink(input) {
         }
     );
     function check_encode(prop_name, do_write, do_read) {
-        if (input.data.hasOwnProperty(prop_name)) {
-            var obj = input.data[prop_name];
+        if (data.hasOwnProperty(prop_name)) {
+            var obj = data[prop_name];
             if (obj.hasOwnProperty("access")) {
                 var access_value = obj.access;
                 if (access_value == "write") {
@@ -693,8 +693,8 @@ function encodeDownlink(input) {
     }
 
     return {
-        bytes: ret,
-        fPort: port
+        'bytes': ret,
+        'port': port
     };
 
 }
