@@ -10,7 +10,7 @@
     "format": "prettier --write schema.json \"examples/**/*.yaml\""
   },
   "bin": {
-    "validate": "./bin/validate.js"
+    "validate": "bin/validate.js"
   },
   "repository": {
     "type": "git",
@@ -24,11 +24,11 @@
   "homepage": "https://lorawan-schema.org/draft/devices",
   "devDependencies": {
     "ajv-cli": "^3.3.0",
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "ajv": "^6.12.6",
-    "js-yaml": "^3.14.0",
-    "yargs": "^16.1.0"
+    "js-yaml": "^3.14.1",
+    "yargs": "^16.2.0"
   }
 }
