@@ -22,8 +22,13 @@
     "photo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(jpg|jpeg)$" }
+        { "pattern": "\\.(png|jpg|jpeg)$" }
       ]
+    },
+    "video": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^(?:https?:\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\\?v=|\\.be\\/)(?:[\\w\\-\\_]*)(?:&(amp;)?[\\w\\?=]*)?)$|^(?:https?:\\/\\/(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/([^\\/]*)\\/videos\\/|)(?:\\d+)(?:|\\/\\?))$"
     },
     "region": {
       "enum": [
@@ -72,6 +77,10 @@
         "website": {
           "type": "string",
           "format": "uri"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
         },
         "logo": { "$ref": "#/definitions/logo" }
       },
@@ -793,6 +802,7 @@
               "moisture",
               "ph",
               "pir",
+	      "pressure",
               "proximity",
               "rssi",
               "snr",
@@ -919,6 +929,46 @@
           "type": "string",
           "format": "uri"
         },
+        "resellerURLs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "region": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "Argentina",
+                    "Australia",
+                    "Brazil",
+                    "Canada",
+                    "China",
+                    "European Union",
+                    "India",
+                    "Indonesia",
+                    "Japan",
+                    "Mexico",
+                    "Russia",
+                    "Saudi Arabia",
+                    "South Africa",
+                    "South Korea",
+                    "Turkey",
+                    "United States",
+                    "Other"
+                  ]
+                }
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        },
         "photos": {
           "type": "object",
           "properties": {
@@ -929,6 +979,16 @@
             }
           },
           "required": ["main"]
+        },
+        "videos": {
+          "type": "object",
+          "properties": {
+            "main": { "$ref": "#/definitions/video" },
+            "other": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/video" }
+            }
+          }
         },
         "compliances": {
           "type": "object",
