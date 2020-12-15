@@ -802,7 +802,7 @@
               "moisture",
               "ph",
               "pir",
-	      "pressure",
+              "pressure",
               "proximity",
               "rssi",
               "snr",
