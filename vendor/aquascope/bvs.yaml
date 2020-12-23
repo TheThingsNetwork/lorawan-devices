@@ -1,0 +1,97 @@
+name: Ball Valve Servo
+description: Retrofittable Motor Actuator to operate Ball Valves
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.52'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: bvs-profile
+        lorawanCertified: true
+        codec: bvs-codec
+
+sensors:
+  - temperature
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 236
+  length: 179
+  height: 114
+
+# Weight in grams (optional)
+weight: 1147
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -30
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.aqua-scope.com/ball-valve-servo.html
+dataSheetURL: https://www.aqua-scope.com/fileadmin/docs/BVSLWE01_DataSheet.pdf
+resellerURLs:
+  - name: 'Aqua-Scope WTB'
+    region:
+      - European Union
+    url: https://www.aqua-scope.com/buy.html
+
+# Photos
+photos:
+  main: bvs.jpg
+  other:
+    - bvs2.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://www.youtube.com/watch?v=SsR9Trlw3SU
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
