@@ -23,3 +23,9 @@ photos:
 dimensions:
   width: 53.3
   length: 68.6
+video: https://www.youtube.com/watch?v=28Fh5OF8ev0&list=PLM8eOeiKY7JVwrBYRHxsf9p0VM_dVapXl&index=5
+resellerURLs:
+  - name: 'Farnell'
+    region:
+      - European Union
+    url: https://de.farnell.com/the-things-network/ttn-un-868/the-things-uno-eu/dp/2675815
