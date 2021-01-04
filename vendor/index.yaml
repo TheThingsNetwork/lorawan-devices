@@ -1563,3 +1563,8 @@ vendors:
 
   - id: izinto
     name: izinto GmbH
+    
+  - id: develiot
+    name: Develiot
+    website: https://www.develiot.com/
+    logo: logo.png
