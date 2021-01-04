@@ -1551,3 +1551,8 @@ vendors:
 
   - id: the-box-development
     name: The-Box Development
+
+  - id: develiot
+    name: Develiot
+    website: https://www.develiot.com/
+    logo: logo.png
