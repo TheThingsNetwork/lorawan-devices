@@ -1,4 +1,4 @@
-function Decoder(bytes, port) { //bytes - Array of bytes.
+function decodeUplink(input) {
 
     function slice(a, f, t) {
         var res = [];
@@ -30,7 +30,7 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
     }
 
     function apply_data_type(bytes, data_type) {
-        var output = 0;
+        output = 0;
         if (data_type === "unsigned") {
             for (var i = 0; i < bytes.length; ++i) {
                 output = (to_uint(output << 8)) | bytes[i];
@@ -58,21 +58,21 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
     }
 
     function decode_field(chunk, start_bit, end_bit, data_type) {
-        var chunk_size = chunk.length;
+        chunk_size = chunk.length;
         if (end_bit >= chunk_size * 8) {
             return null; // Error: exceeding boundaries of the chunk
         }
         if (end_bit < start_bit) {
             return null; // Error: invalid input
         }
-        var arr = extract_bytes(chunk, start_bit, end_bit);
+        arr = extract_bytes(chunk, start_bit, end_bit);
         return apply_data_type(arr, data_type);
     }
 
     var decoded_data = {};
     var decoder = [];
 
-    if (port === 10) {
+    if (input.fPort === 10) {
         decoder = [
             {
                 key: [0x00, 0xFF],
@@ -197,7 +197,7 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
             }
         ]
     }
-    if (port === 100) {
+    if (input.fPort === 100) {
         decoder = [
             {
                 key: [0x00],
@@ -723,9 +723,7 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         ]
     }
 
-    bytes = convertToUint8Array(bytes);
-    decoded_data['raw'] = JSON.stringify(byteToArray(bytes));
-    decoded_data['port'] = port;
+    var bytes = input.bytes;
 
     for (var bytes_left = bytes.length; bytes_left > 0;) {
         var found = false;
@@ -733,11 +731,11 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
             var item = decoder[i];
             var key = item.key;
             var keylen = key.length;
-            var header = slice(bytes, 0, keylen);
+            header = slice(bytes, 0, keylen);
             // Header in the data matches to what we expect
             if (is_equal(header, key)) {
                 var f = item.fn;
-                var consumed = f(slice(bytes, keylen, bytes.length)) + keylen;
+                consumed = f(slice(bytes, keylen, bytes.length)) + keylen;
                 bytes_left -= consumed;
                 bytes = slice(bytes, consumed, bytes.length);
                 found = true;
@@ -747,11 +745,12 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         if (found) {
             continue;
         }
-        // Unable to decode -- headers are not as expected, send raw payload to the application!
-        decoded_data = {};
-        decoded_data['raw'] = JSON.stringify(byteToArray(bytes));
-        decoded_data['port'] = port;
-        return decoded_data;
+        // Unable to decode -- headers are not as expected
+        return {
+          errors: [
+            "Headers are not as expected"
+          ]
+        }
     }
 
     // Converts value to unsigned
@@ -772,22 +771,6 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         return true;
     }
 
-    function byteToArray(byteArray) {
-        var arr = [];
-        for (var i = 0; i < byteArray.length; i++) {
-            arr.push(byteArray[i]);
-        }
-        return arr;
-    }
-
-    function convertToUint8Array(byteArray) {
-        var arr = [];
-        for (var i = 0; i < byteArray.length; i++) {
-            arr.push(to_uint(byteArray[i]) & 0xff);
-        }
-        return arr;
-    }
-
     function toHexString(byteArray) {
         var arr = [];
         for (var i = 0; i < byteArray.length; ++i) {
@@ -796,7 +779,7 @@ function Decoder(bytes, port) { //bytes - Array of bytes.
         return arr.join('');
     }
 
-    return decoded_data;
+    return {
+      data: decoded_data
+    };
 }
-
-module.exports = Decoder;
