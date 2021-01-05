@@ -20,11 +20,11 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: t00048xx-868-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: t00048xx-codec
       US902-928:
         id: t00048xx-915-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: t00048xx-codec
 
 # Sensors that this device features (optional)
@@ -42,17 +42,17 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 14
+  width: 17
   length: 42
   height: 42
 
 # Weight in grams (optional)
-weight: 20
+weight: 25
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: CR2450B
+  type: CR2477B
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -64,9 +64,9 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://tektelic.com/iot/lorawan-sensors/
-dataSheetURL: https://tektelic.com/wp-content/uploads/Smart-Room-Sensor.pdf
-manuals: https://support.tektelic.com/portal/en/kb/support/smart-room-sensor
+productURL: https://tektelic.com/public/catalog/smart-room-base-sensor
+dataSheetURL: https://tektelic.com/public/uploads/Brochures/Smart%20Room%20Sensor.pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/home-sensor-technical-reference-manual
 
 # Photos (optional)
 photos:
@@ -77,12 +77,12 @@ compliances:
   safety:
     - body: IEC
       norm: CE
-      standard: 62368-1
+      standard: 60950-1
     - body: FCC
       standard: '15.247'
     - body: FCC
       standard: '15.209'
-    - body: ISED
-      standard: RSS-247
-    - body: ISED
-      standard: RSS-Gen
+    - body: ETSI EN
+      standard: 300 220
+    - body: ETSI EN
+      standard: 301-489-1/-3
