@@ -1540,6 +1540,9 @@ vendors:
     name: Exedra General Trading and Contracting
     vendorID: 841
 
+  - id: aquascope
+    name: Aqua-Scope Technologies
+
   - id: the-things-products
     name: The Things Products
 
