@@ -1,0 +1,40 @@
+uplinkDecoder:
+  fileName: vicki.js
+  examples:
+    - description: Periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x01, 0x1D, 0x5A, 0x78, 0xFA, 0x2C, 0x01, 0xF0, 0x80]
+      output:
+        data:
+            reason: 1
+            targetTemperature:
+                displayName: Target Temperature
+                unit: '°C'
+                value: 29
+            sensorTemperature:
+                displayName: Sensor Temperature
+                unit: '°C'
+                value: 18.0078125
+            relativeHumidity:
+                displayName: Sensor Humidity
+                unit: '%'
+                value: 46.875
+            motorPosition:
+                displayName: Motor Position
+                unit: 
+                value: 250
+            motorRange:
+                displayName: Motor Range
+                unit: 
+                value: 300
+            batteryVoltage: 
+                displayName: Battery Voltage
+                unit: 'VDC'
+                value: 3.5
+            openWindow: false
+            childLock: true
+            highMotorConsumption: false
+            lowMotorConsumption: true
+            brokenSensor: false
+            rssi: -87

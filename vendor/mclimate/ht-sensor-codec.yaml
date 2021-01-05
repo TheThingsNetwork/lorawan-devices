@@ -1,0 +1,13 @@
+uplinkDecoder:
+  fileName: ht-sensor.js
+  examples:
+    - description: Short periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x01, 0x02, 0x88, 0x80, 0xAB]
+      output:
+        data:
+          batteryVoltage: 3
+          humidity: 50,
+          reason: "keepalive",
+          temperature: 24.8
