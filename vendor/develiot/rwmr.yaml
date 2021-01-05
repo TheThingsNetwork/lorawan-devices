@@ -1,6 +1,6 @@
 id: rwmr
 name: Remote Water Meter Reader
-description: Remote Water Meter Reader for tracking water meter consumption remotely with LoRaWAN
+description: Senses and transmits water consumption data in real-time remotely via LoRaWAN
 
 hardwareVersions:
   - version: '8.0'
