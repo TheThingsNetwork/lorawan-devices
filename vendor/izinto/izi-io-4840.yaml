@@ -1,9 +1,9 @@
 name: izi-io 4840
-description: Multi-I/O Edge Computing Controller with LoRaWAN. The top-hat rail mounted device features versatile input and output channels as well as interfaces to industry-standard bus systems such as CANbus and Modbus.
+description: Multi-I/O Edge Computing Controller with LoRaWAN. The top-hat rail mounted device features 8 analog / RTD / digital inputs, 4 digital outputs as well as industry-standard bus interfaces such as CAN and Modbus.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: '1.1'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
@@ -13,7 +13,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '1.1'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
@@ -45,18 +45,18 @@ weight: 160
 ### below: TBD
 
 ## Operating conditions (optional)
-#operatingConditions:
-#  # Temperature (Celcius)
-#  temperature:
-#    min: -30
-#    max: 85
-#  # Relative humidity (fraction of 1)
-#  relativeHumidity:
-#    min: 0
-#    max: 0.97
-#
-## IP rating (optional)
-#ipCode: IP64
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -30
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+# IP rating (optional)
+ipCode: IP20
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
