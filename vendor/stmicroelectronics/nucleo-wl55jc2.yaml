@@ -1,0 +1,50 @@
+name: NUCLEO-WL55JC2
+description: NUCLEO-WL55JC2 low-band development board with temperature sensor and controllable LEDs
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      CN470-510:
+        id: nucleo-wl55jc-profile-cn470
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      EU433:
+        id: nucleo-wl55jc-profile-eu433
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+sensors:
+  - temperature
+  - light
+dimensions:
+  width: 70
+  length: 64.5
+  height: 19
+weight: 34
+operatingConditions:
+  temperature:
+    min: -40
+    max: 100
+keyProvisioning:
+  - custom
+  - join server
+productURL: https://www.st.com/en/evaluation-tools/nucleo-wl55jc.html
+dataSheetURL: https://www.st.com/resource/en/data_brief/nucleo-wl55jc.pdf
+resellerURLs:
+  - name: 'ARROW'
+    region:
+      - European Union
+    url: https://www.arrow.com/en/products/nucleo-wl55jc1/stmicroelectronics
+  - name: 'RUTRONIK'
+    region:
+      - European Union
+    url: https://www.rutronik24.com/product/st/nucleo-wl55jc1/14201387.html
+photos:
+  main: nucleo-wl55jc.jpg
+  other:
+    - nucleo-wl55jc-offer.jpg
+video: https://www.youtube.com/watch?v=ZFtIlLbDXlo
