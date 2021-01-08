@@ -1,0 +1,77 @@
+name: LPN TD-1
+description: Designed for LoRaWAN: Indoor/outdoor positioning on request with GPS or WiFi
+
+hardwareVersions:
+  - version: '2.1'
+    numeric: 2
+
+firmwareVersions:
+  - version: '2.0'
+    numeric: 20
+    hardwareVersions:
+      - '2.1'
+    profiles:
+      EU863-870:
+        id: lpn-td1-profile-eu868
+        lorawanCertified: true
+        codec: lpn-td1-codec
+
+sensors:
+  - gps
+  - wifi
+  - internal temperature
+  - internal battery
+
+dimensions:
+  width: 113
+  length: 52
+  height: 25
+
+weight: 85
+
+battery:
+  replaceable: false
+  type: Rechargable Li-Po Battery 1.4Ah  
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+  
+keySecurity: read protected
+
+productURL: https://www.comtac.ch/en/products/tracking/tracker/lpn-td-1-tracker.html 
+
+photos:
+  main: lpn-td1-foto.jpg
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1:2014
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+   rohs:   
+    - body: IEC
+      norm: EN
+      standard: 58581:2012

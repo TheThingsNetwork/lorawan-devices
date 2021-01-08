@@ -1,0 +1,115 @@
+uplinkDecoder:
+  fileName: dl-iam.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x0b, 0xbd, 0x00, 0x7f, 0x0b, 0x92, 0x6a, 0x51, 0x5d, 0x48, 0xbc, 0x4e, 0x02, 0x62, 0x00, 0x69, 0x81, 0xc7, 0x00, 0x00, 0x93, 0xd4, 0x00, 0x0b, 0x01, 0x11]
+      output:
+        data:
+          protocol_version: 2
+          device_id: 3005
+          activity_counter:
+            displayName: Activity counter
+            unit:
+            value: 11
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 36.438544289311054
+          air_temperature:
+            displayName: Air temperature
+            unit: '°C'
+            value: 27.67833981841764
+          ambient_light_infrared:
+            displayName: Ambient light (infrared)
+            unit:
+            value: 105
+          ambient_light_visible_infrared:
+            displayName: Ambient light (visible + infrared)
+            unit:
+            value: 610
+          barometric_pressure:
+            displayName: Barometric pressure
+            unit: Pa
+            value: 96412
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.962
+          co2_concentration:
+            displayName: CO2 concentration
+            unit: ppm
+            value: 455
+          co2_sensor_status:
+            displayName: CO2 sensor status
+            unit:
+            value: 0
+          illuminance:
+            displayName: Illuminance
+            unit: lx
+            value: 678.76512
+          raw_ir_reading:
+            displayName: Raw IR reading
+            unit:
+            value: 37844
+          total_voc:
+            displayName: Total VOC
+            unit: ppb
+            value: 273
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x0b, 0xbd, 0x00, 0x6f, 0x0b, 0x92, 0x6a, 0x51, 0x5d, 0x48, 0xbc, 0x4e, 0x02, 0x62, 0x00, 0x69, 0x00, 0x0b, 0x01, 0x11]
+      output:
+        data:
+          protocol_version: 2
+          device_id: 3005
+          activity_counter:
+            displayName: Activity counter
+            unit:
+            value: 11
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 36.438544289311054
+          air_temperature:
+            displayName: Air temperature
+            unit: '°C'
+            value: 27.67833981841764
+          ambient_light_infrared:
+            displayName: Ambient light (infrared)
+            unit:
+            value: 105
+          ambient_light_visible_infrared:
+            displayName: Ambient light (visible + infrared)
+            unit:
+            value: 610
+          barometric_pressure:
+            displayName: Barometric pressure
+            unit: Pa
+            value: 96412
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.962
+          illuminance:
+            displayName: Illuminance
+            unit: lx
+            value: 678.76512
+          total_voc:
+            displayName: Total VOC
+            unit: ppb
+            value: 273
+    - description: Example 3
+      input:
+        fPort: 1
+        bytes: [0x02, 0x0b, 0xbd, 0x00, 0x01, 0x0b, 0x92]
+      output:
+        data:
+          protocol_version: 2
+          device_id: 3005
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.962
