@@ -147,6 +147,12 @@ vendors:
   - id: comtac
     name: comtac AG
     vendorID: 98
+    website: https://www.comtac.ch/
+    logo: comtac-logo.svg
+    ouis:
+      -70B3D5BF6
+      -70B3D5F3F
+      -BC97401
 
   - id: csem
     name: CSEM
