@@ -1,58 +1,83 @@
 name: LPN TD-1
-description: Designed for LoRaWAN: Indoor/outdoor positioning on request with GPS or WiFi
+description: Designed for LoRaWAN - Indoor/outdoor positioning on request with GPS or WiFi
 
+# Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '2.1'
-    numeric: 2
+  - version: 'REV02'
+    numeric: 21
 
+# Firmware versions (at least one is mandatory)
 firmwareVersions:
-  - version: '2.0'
+  - version: 'V02.00'
     numeric: 20
+    # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '2.1'
+      - 'REV02'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: lpn-td1-profile-eu868
         lorawanCertified: true
         codec: lpn-td1-codec
 
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
 sensors:
   - gps
   - wifi
-  - internal temperature
-  - internal battery
+  - temperature
+  - battery
 
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
 dimensions:
   width: 113
   length: 52
   height: 25
 
+# Weight in grams (optional)
 weight: 85
 
+# Battery information (optional)
 battery:
   replaceable: false
   type: Rechargable Li-Po Battery 1.4Ah  
 
+# Operating conditions (optional)
 operatingConditions:
+  # Temperature (Celcius)
   temperature:
     min: -20
     max: 60
+  # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 0.95
 
+# IP rating (optional)
 ipCode: IP67
 
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
   
+# Key security (optional)
+# Valid values are: none, read protected and secure element.  
 keySecurity: read protected
 
+# Product and data sheet URLs (optional)
 productURL: https://www.comtac.ch/en/products/tracking/tracker/lpn-td-1-tracker.html 
 
+# Photos
 photos:
   main: lpn-td1-foto.jpg
 
+# Regulatory compliances (optional)
 compliances:
   safety:
     - body: IEC
@@ -71,7 +96,7 @@ compliances:
       norm: EN
       standard: 300 220-2
       version: 3.2.1
-   rohs:   
+  rohs:   
     - body: IEC
       norm: EN
       standard: 58581:2012
