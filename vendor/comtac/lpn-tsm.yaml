@@ -3,16 +3,16 @@ description: Transmission of operating status and error messages from transforme
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: #ADD
-    numeric: #ADD
+  - version: 'REV01'
+    numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
-  - version: #ADD
-    numeric: #ADD
+  - version: 'V00.13'
+    numeric: 013
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - #ADD
+      - 'REV01'
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
@@ -20,7 +20,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: lpn-tsm-profile-eu868
         lorawanCertified: true
-        codec: lpn-tsm-codec #LEAVE THIS EMPTY?
+#        codec: lpn-tsm-codec #LEAVE THIS EMPTY?
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,

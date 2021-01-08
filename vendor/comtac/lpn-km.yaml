@@ -3,15 +3,15 @@ description: LPN KM is specially designed for the acquisition and transmission o
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: #ADD
-    numeric: #ADD
+  - version: 'REV00'
+    numeric: 0
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
-  - version: #ADD
-    numeric: #ADD    # Corresponding hardware versions (optional)
+  - version: 'V00.00'
+    numeric: 00    # Corresponding hardware versions (optional)
     hardwareVersions:
-      - #ADD
+      - 'REV00'
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
@@ -19,17 +19,17 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: lpn-km-profile-eu868
         lorawanCertified: true
-        codec: lpn-km-codec #LEAVE THIS EMPTY AS WE DONT HAVE IT YET?
+#        codec: lpn-km-codec #LEAVE THIS EMPTY AS WE DONT HAVE IT YET?
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
-  - gps #ADD NUMBER OF INPUTS
-  - wifi #ADD NUMBER OF OUTPUTS
   - temperature
   - battery
+  - auxiliary #x INPUTS
+  - auxiliary #x OUTPUTS
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

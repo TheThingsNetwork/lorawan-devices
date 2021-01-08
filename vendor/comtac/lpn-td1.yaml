@@ -28,7 +28,6 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - gps
-  - wifi
   - temperature
   - battery
 
