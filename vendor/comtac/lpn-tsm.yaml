@@ -1,65 +1,65 @@
-name: LPN TD-1 Tracker
-description: Designed for LoRaWAN - Indoor/outdoor positioning on request with GPS or WiFi
+name: LPN TSM Transformer station monitor
+description: Transmission of operating status and error messages from transformer stations
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: 'REV02'
-    numeric: 21
+  - version: #ADD
+    numeric: #ADD
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
-  - version: 'V02.00'
-    numeric: 20
+  - version: #ADD
+    numeric: #ADD
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - 'REV02'
+      - #ADD
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: lpn-td1-profile-eu868
+        id: lpn-tsm-profile-eu868
         lorawanCertified: true
-        codec: lpn-td1-codec
+        codec: lpn-tsm-codec #LEAVE THIS EMPTY?
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
-  - gps
-  - wifi
   - temperature
   - battery
+  - auxiliary #VOLTAGE 3-PHASE
+  - auxiliary #CURRENT 3-PHASE + N
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 113
-  length: 52
-  height: 25
+  width: #ADD
+  length: #ADD
+  height: #ADD
 
 # Weight in grams (optional)
-weight: 85
+weight: #ADD
 
 # Battery information (optional)
 battery:
-  replaceable: false
-  type: Rechargable Li-Po Battery 1.4Ah  
+  replaceable: true
+  type: LiMn02 5Ah Backup battery   
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -20
-    max: 60
+    min: #ADD
+    max: #ADD
   # Relative humidity (fraction of 1)
   relativeHumidity:
-    min: 0
-    max: 0.95
+    min: #ADD
+    max: #ADD
 
 # IP rating (optional)
-ipCode: IP67
+ipCode: #ADD
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -71,18 +71,18 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.comtac.ch/en/products/tracking/tracker/lpn-td-1-tracker.html 
+productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-tsm-tranformer-station-monitor.html 
 
 # Photos
 photos:
-  main: lpn-td1-foto.jpg
+  main: lpn-tsm-foto.jpg
 
 # Regulatory compliances (optional)
 compliances:
   safety:
     - body: IEC
       norm: EN
-      standard: 62368-1:2014
+      standard: 61010-1:2010
   radioEquipment:
     - body: ETSI
       norm: EN
