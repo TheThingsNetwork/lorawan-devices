@@ -30,7 +30,7 @@ sensors:
   - temperature
   - humidity
   - co2
-  - tvoc
+  - barometer
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
