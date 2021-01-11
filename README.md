@@ -10,9 +10,9 @@ Curious to how end devices, profiles and payload is defined in the Device Reposi
 
 ## Prerequisites
 
-- Node.js version 14.x or higher
-- npm version 6.x or higher
-- Go version 1.15 or higher
+- Node.js version 14.x
+- npm version 6.x
+- Go version 1.15.x
 
 To check your Node.js, npm and Go versions:
 
