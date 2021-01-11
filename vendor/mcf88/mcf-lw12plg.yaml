@@ -1,4 +1,4 @@
-name: MCF-LW12PLG    
+name: MCF-LW12PLG
 description: Energy Meter plug
 
 # Firmware versions (at least one is mandatory)
@@ -45,10 +45,10 @@ sensors:
 dimensions:
   width: 115
   length: 66
-  height: 30        
+  height: 30
 
 # Weight in grams (optional)
-weight: 300  
+weight: 300
 
 # Battery information (optional)
 battery:

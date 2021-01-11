@@ -44,7 +44,7 @@ dimensions:
   height: 24
 
 # Weight in grams (optional)
-weight: 150     
+weight: 150
 
 # Battery information (optional)
 battery:
@@ -103,7 +103,7 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301 489-3
-      version: 2.2.3    
+      version: 2.2.3
     - body: ETSI
       norm: EN
       standard: 300 220-1
@@ -114,9 +114,9 @@ compliances:
       version: 3.2.1
     - body: FCC
       norm: FCC
-      standard: Part 15: 107 & 109  
-      version: 47:2014  
+      standard: 'Part 15: 107 & 109'
+      version: 47:2014
     - body: FCC
       norm: FCC
-      standard: Part 15: 203, 209 & 247  
-      version: 47:2019  
+      standard: 'Part 15: 203, 209 & 247'
+      version: 47:2019

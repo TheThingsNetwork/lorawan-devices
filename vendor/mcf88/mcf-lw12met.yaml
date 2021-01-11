@@ -1,4 +1,4 @@
-name: MCF-LW12MET    
+name: MCF-LW12MET
 description: Energy Metering with I/O
 
 # Firmware versions (at least one is mandatory)
@@ -46,10 +46,10 @@ sensors:
 dimensions:
   width: 58
   length: 82
-  height: 25    
+  height: 25
 
 # Weight in grams (optional)
-weight: 200  
+weight: 200
 
 # Operating conditions (optional)
 operatingConditions:

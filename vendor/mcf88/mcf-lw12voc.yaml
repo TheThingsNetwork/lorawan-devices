@@ -1,4 +1,4 @@
-name: MCF-LW12VOC   
+name: MCF-LW12VOC
 description: Indoor environmental VOC & LUX
 
 # Firmware versions (at least one is mandatory)
@@ -47,7 +47,7 @@ dimensions:
   height: 80
 
 # Weight in grams (optional)
-weight: 170 
+weight: 170
 
 # Battery information (optional)
 battery:
@@ -86,7 +86,6 @@ dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW12VOC.pdf
 photos:
   main: mcf-lw12voc.jpg
 
-
 # Regulatory compliances (optional)
 compliances:
   safety:
@@ -101,7 +100,7 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301 489-3
-      version: 2.2.3    
+      version: 2.2.3
     - body: ETSI
       norm: EN
       standard: 300 220-1
@@ -112,9 +111,9 @@ compliances:
       version: 3.2.1
     - body: FCC
       norm: FCC
-      standard: Part 15: 107 & 109  
-      version: 47:2014  
+      standard: 'Part 15: 107 & 109'
+      version: 47:2014
     - body: FCC
       norm: FCC
-      standard: Part 15: 203, 209 & 247  
-      version: 47:2019  
+      standard: 'Part 15: 203, 209 & 247'
+      version: 47:2019

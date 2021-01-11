@@ -48,11 +48,10 @@ sensors:
 dimensions:
   width: 200
   length: 210
-  height: 310   
+  height: 310
 
 # Weight in grams (optional)
-weight:  2500   
-
+weight: 2500
 
 # Operating conditions (optional)
 operatingConditions:
@@ -86,7 +85,6 @@ dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LWWS06DAVK_DAV
 photos:
   main: mcf-lw12lwws00.jpg
 
-
 # Regulatory compliances (optional)
 compliances:
   safety:
@@ -101,7 +99,7 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301 489-3
-      version: 2.2.3    
+      version: 2.2.3
     - body: ETSI
       norm: EN
       standard: 300 220-1
@@ -112,9 +110,9 @@ compliances:
       version: 3.2.1
     - body: FCC
       norm: FCC
-      standard: Part 15: 107 & 109  
-      version: 47:2014  
+      standard: 'Part 15: 107 & 109'
+      version: 47:2014
     - body: FCC
       norm: FCC
-      standard: Part 15: 203, 209 & 247  
-      version: 47:2019  
+      standard: 'Part 15: 203, 209 & 247'
+      version: 47:2019
