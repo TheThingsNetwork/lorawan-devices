@@ -114,7 +114,7 @@ downlinkEncoder:
       input:
         data:
           fPort: 3
-          posRequest: 'GPS AND WIFI'
+          posRequest: GPS AND WIFI
       output:
         bytes: [5]
         fPort: 3
