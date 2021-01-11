@@ -786,11 +786,14 @@
             "enum": [
               "accelerometer",
               "altitude",
+              "analog input",
               "auxiliary",
               "barometer",
               "battery",
               "button",
               "co2",
+              "current",
+              "digital input",
               "distance",
               "dust",
               "gps",
@@ -813,7 +816,9 @@
               "tvoc",
               "velocity",
               "vibration",
+              "voltage",
               "water",
+              "wifi ssid",
               "wind direction",
               "wind speed"
             ]
