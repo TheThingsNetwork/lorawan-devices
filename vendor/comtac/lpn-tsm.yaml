@@ -4,12 +4,12 @@ description: Transmission of operating status and error messages from transforme
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: 'REV01'
-    numeric: 1
+    numeric: 0100
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - version: 'V00.13'
-    numeric: 013
+    numeric: 0013
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - 'REV01'
@@ -29,49 +29,50 @@ firmwareVersions:
 sensors:
   - temperature
   - battery
-  - auxiliary #VOLTAGE 3-PHASE
-  - auxiliary #CURRENT 3-PHASE + N
+  - voltage #VOLTAGE 3-PHASE (VL1-N / VL2-N / VL3-N)
+  - current #CURRENT 3-PHASE (IL1 / IL2 / IL3 / IN)
+  - digital input #INPUTS
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: #ADD
-  length: #ADD
-  height: #ADD
+  width: 162
+  length: 252
+  height: 90
 
 # Weight in grams (optional)
-weight: #ADD
+weight: 1233
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: LiMn02 5Ah Backup battery   
+  type: LiMn02 5Ah Backup battery
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: #ADD
-    max: #ADD
+    min: -25
+    max: 60
   # Relative humidity (fraction of 1)
   relativeHumidity:
-    min: #ADD
-    max: #ADD
+    min: 0
+    max: 0.95
 
 # IP rating (optional)
-ipCode: #ADD
+ipCode: IP54
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
-  
+
 # Key security (optional)
-# Valid values are: none, read protected and secure element.  
+# Valid values are: none, read protected and secure element.
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-tsm-tranformer-station-monitor.html 
+productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-tsm-tranformer-station-monitor.html
 
 # Photos
 photos:
@@ -96,7 +97,7 @@ compliances:
       norm: EN
       standard: 300 220-2
       version: 3.2.1
-  rohs:   
+  rohs:
     - body: IEC
       norm: EN
       standard: 58581:2012

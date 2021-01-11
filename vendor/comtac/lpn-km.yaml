@@ -4,12 +4,12 @@ description: LPN KM is specially designed for the acquisition and transmission o
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: 'REV00'
-    numeric: 0
+    numeric: 0000
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - version: 'V00.00'
-    numeric: 00    # Corresponding hardware versions (optional)
+    numeric: 0000 # Corresponding hardware versions (optional)
     hardwareVersions:
       - 'REV00'
     # LoRaWAN Device Profiles per region
@@ -26,20 +26,20 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
+  - digital input #8 digital inputs
   - temperature
   - battery
-  - auxiliary #x INPUTS
-  - auxiliary #x OUTPUTS
+  - button
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: #ADD
-  length: #ADD
-  height: #ADD
+  width: 115
+  length: 130
+  height: 55
 
 # Weight in grams (optional)
-weight: #ADD
+weight: 330
 
 # Battery information (optional)
 battery:
@@ -50,27 +50,27 @@ battery:
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: #ADD
-    max: #ADD
+    min: -25
+    max: 60
   # Relative humidity (fraction of 1)
   relativeHumidity:
-    min: #ADD
-    max: #ADD
+    min: 0
+    max: 0.95
 
 # IP rating (optional)
-ipCode: #ADD
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
-  
+
 # Key security (optional)
-# Valid values are: none, read protected and secure element.  
+# Valid values are: none, read protected and secure element.
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-km-short-circuit-monitor.html 
+productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-km-short-circuit-monitor.html
 
 # Photos
 photos:
@@ -95,7 +95,7 @@ compliances:
       norm: EN
       standard: 300 220-2
       version: 3.2.1
-  rohs:   
+  rohs:
     - body: IEC
       norm: EN
       standard: 58581:2012
