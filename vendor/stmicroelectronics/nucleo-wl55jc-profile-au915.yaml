@@ -1,6 +1,6 @@
 supportsClassB: true
 classBTimeout: 250
-pingSlotPeriod: 512
+pingSlotPeriod: 16
 pingSlotDataRateIndex: 8
 pingSlotFrequency: 0
 supportsClassC: true

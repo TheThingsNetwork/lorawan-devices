@@ -4,7 +4,7 @@ hardwareVersions:
   - version: '1.0'
     numeric: 1
 firmwareVersions:
-  - version: '1.0.0'
+  - version: 'LoRaWAN_End_Node v1.0.0'
     numeric: 1
     hardwareVersions:
       - '1.0'
