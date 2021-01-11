@@ -1,0 +1,5 @@
+endDevices:
+  - OY1110 # look in OY1110.yaml for the end device definition
+  - OY1210 # look in OY1210.yaml for the end device definition
+  - OY1310 # look in OY1310.yaml for the end device definition
+  - OY1700 # look in OY1700.yaml for the end device definition
