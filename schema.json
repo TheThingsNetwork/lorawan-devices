@@ -804,6 +804,8 @@
               "pir",
               "pressure",
               "proximity",
+	      "pulse count",
+	      "pulse frequency",
               "rssi",
               "snr",
               "sound",
