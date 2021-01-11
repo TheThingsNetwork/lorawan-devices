@@ -43,12 +43,7 @@ sensors:
   - uv
   - dust
 
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-dimensions:
-  width: 
-  length: 
-  height: 
+
 
 # Weight in grams (optional)
 weight: 20000 
@@ -88,7 +83,7 @@ dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LWWS00-01.pdf
 
 # Photos
 photos:
-  main: mcf-lw12lwws00.jpg
+  main: mcf-lwws00.jpg
 
 
 # Regulatory compliances (optional)
