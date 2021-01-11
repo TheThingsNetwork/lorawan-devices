@@ -1,0 +1,78 @@
+name: MCF-LW13MIO
+description: Multi I/O module
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '0.02.07'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile-c
+        lorawanCertified: true
+        codec: mcf-io-codec
+      US902-928:
+        id: us915-profile-c
+        lorawanCertified: false
+        codec: mcf-io-codec
+      AU915-928:
+        id: au915-profile-c
+        lorawanCertified: false
+        codec: mcf-io-codec
+      AS923:
+        id: as923-profile-c
+        lorawanCertified: false
+        codec: mcf-io-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - digital input
+  - digital output
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 110
+  length: 160
+  height: 62
+# Weight in grams (optional)
+weight: 350
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -10
+    max: 70
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.mcf88.it/prodotto/mcf-lw13mio/
+dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW13MIO.pdf
+
+# Photos
+photos:
+  main: mcf-lw13mio.jpg
