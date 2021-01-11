@@ -352,7 +352,7 @@ function decodeDownlink(input) {
 function encodeDownlink(input) {
 	if (input.data.fPort == DATA_PORT) {
 		var posReqByte = POS_REQUESTS.indexOf(input.data.posRequest);
-		if ((posReqByte < 1) || (posRequest > 5)) {
+		if ((posReqByte < 1) || (posReqByte > 5)) {
 			return { errors: ['Invalid positioning request value'] };
 		}
 		return {
