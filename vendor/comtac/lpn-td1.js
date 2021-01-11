@@ -350,7 +350,7 @@ function decodeDownlink(input) {
 
 //DOWNLINK ENCODER CALL
 function encodeDownlink(input) {
-	if (input.fPort == DATA_PORT) {
+	if (input.data.fPort == DATA_PORT) {
 		var posReqByte = POS_REQUESTS.indexOf(input.data.posRequest);
 		if ((posReqByte < 1) || (posRequest > 5)) {
 			return { errors: ['Invalid positioning request value'] };
@@ -359,7 +359,7 @@ function encodeDownlink(input) {
 			fPort: DATA_PORT,
 			bytes: [posReqByte],
 		};
-	} else if (input.fPort == CONFIG_PORT) {
+	} else if (input.data.fPort == CONFIG_PORT) {
 		if (typeof input.data.configGet !== 'undefined'){
 			var cfgGetByte = 0;
 			if (input.data.configGet){
@@ -402,7 +402,7 @@ function encodeDownlink(input) {
 		} else {
 			return { errors: ['Invalid input params defined'] };
 		}	
-	} else if (input.fPort == REJOIN_PORT) {
+	} else if (input.data.fPort == REJOIN_PORT) {
 		if (typeof input.data.rejoinSet !== 'undefined'){
 			var rejoinSetByte = 0;
 			if (input.data.rejoinSet){
