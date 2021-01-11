@@ -1,28 +1,14 @@
 # mcf88
 
 endDevices:
-  - mcf-lw06010
-  - mcf-lw06010b
-  - mcf-lw06010d
-  - mcf-lw06232
-  - mcf-lw06420
-  - mcf-lw06420b
-  - mcf-lw06420d
-  - mcf-lw06424
-  - mcf-lw06424b
-  - mcf-lw06424d
-  - mcf-lw06485
-  - mcf-lw06cnt
-  - mcf-lw06cntb
   - mcf-lw06davk
   - mcf-lw06davp
-  - mcf-lw06kio
   - mcf-lw12co2
   - mcf-lw12met
   - mcf-lw12plg
   - mcf-lw12ter
-  - mcf-lw12terp
-  - mcf-lw12terw
+  - mcf-lw12terwp
+  - mcf-lw12terpm
   - mcf-lw12voc
   - mcf-lw13io
   - mcf-lw13mio
@@ -30,4 +16,3 @@ endDevices:
   - mcf-lwws01
   - mcf-lwws02
   - mcf-lwws03
-  - mcf-lwws04

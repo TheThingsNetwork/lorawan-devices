@@ -1,4 +1,4 @@
-name: MCF-LW13MIO
+name: MCF-LW13MIO    
 description: Multi I/O module
 
 # Firmware versions (at least one is mandatory)
@@ -43,7 +43,7 @@ dimensions:
   length: 160
   height: 62
 # Weight in grams (optional)
-weight: 350
+weight: 350  
 
 # Operating conditions (optional)
 operatingConditions:

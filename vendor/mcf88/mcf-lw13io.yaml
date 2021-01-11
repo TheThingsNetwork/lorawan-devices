@@ -1,4 +1,4 @@
-name: MCF-LW13IO
+name: MCF-LW13IO    
 description: Wireless actuator
 
 # Firmware versions (at least one is mandatory)
@@ -41,10 +41,10 @@ sensors:
 dimensions:
   width: 58
   length: 44
-  height: 25
+  height: 25    
 
 # Weight in grams (optional)
-weight: 150
+weight: 150  
 
 # Operating conditions (optional)
 operatingConditions:
@@ -92,7 +92,7 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301 489-3
-      version: 2.2.3
+      version: 2.2.3    
     - body: ETSI
       norm: EN
       standard: 300 220-1
@@ -103,9 +103,9 @@ compliances:
       version: 3.2.1
     - body: FCC
       norm: FCC
-      standard: 'Part 15: 107 & 109'
-      version: 47:2014
+      standard: Part 15: 107 & 109  
+      version: 47:2014  
     - body: FCC
       norm: FCC
-      standard: 'Part 15: 203, 209 & 247'
-      version: 47:2019
+      standard: Part 15: 203, 209 & 247  
+      version: 47:2019  

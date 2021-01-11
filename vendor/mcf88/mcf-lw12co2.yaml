@@ -1,4 +1,4 @@
-name: MCF-LW12CO2
+name: MCF-LW12CO2   
 description: Indoor environmental VOC & LUX & CO2
 
 # Firmware versions (at least one is mandatory)
@@ -14,19 +14,19 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile-a
         lorawanCertified: false
-        codec: mcf-lw12co2-codec
+        codec: mcf-environmental-codec
       US902-928:
         id: us915-profile-a
         lorawanCertified: false
-        codec: mcf-lw12co2-codec
+        codec: mcf-environmental-codec
       AU915-928:
         id: au915-profile-a
         lorawanCertified: false
-        codec: mcf-lw12co2-codec
+        codec: mcf-environmental-codec
       AS923:
         id: as923-profile-a
         lorawanCertified: false
-        codec: mcf-lw12co2-codec
+        codec: mcf-environmental-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -39,6 +39,7 @@ sensors:
   - light
   - bvoc
   - co2
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -87,6 +88,7 @@ dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW12CO2.pdf
 photos:
   main: mcf-lw12co2.jpg
 
+
 # Regulatory compliances (optional)
 compliances:
   safety:
@@ -101,7 +103,7 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301 489-3
-      version: 2.2.3
+      version: 2.2.3    
     - body: ETSI
       norm: EN
       standard: 300 220-1
@@ -112,9 +114,9 @@ compliances:
       version: 3.2.1
     - body: FCC
       norm: FCC
-      standard: 'Part 15: 107 & 109'
-      version: 47:2014
+      standard: Part 15: 107 & 109  
+      version: 47:2014  
     - body: FCC
       norm: FCC
-      standard: 'Part 15: 203, 209 & 247'
-      version: 47:2019
+      standard: Part 15: 203, 209 & 247  
+      version: 47:2019  
