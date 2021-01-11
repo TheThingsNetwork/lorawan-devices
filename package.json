@@ -20,11 +20,11 @@
   },
   "homepage": "https://github.com/TheThingsNetwork/lorawan-devices#readme",
   "devDependencies": {
+    "ajv": "^6.12.6",
     "ajv-cli": "^3.3.0",
     "prettier": "^2.2.1"
   },
   "dependencies": {
-    "ajv": "^6.12.6",
     "image-size": "^0.9.3",
     "js-yaml": "^4.0.0",
     "lodash.isequal": "^4.5.0",

@@ -116,9 +116,9 @@ compliances:
       version: 3.2.1
     - body: FCC
       norm: FCC
-      standard: Part 15: 107 & 109  
+      standard: Part 15 107 & 109  
       version: 47:2014  
     - body: FCC
       norm: FCC
-      standard: Part 15: 203, 209 & 247  
+      standard: Part 15203, 209 & 247  
       version: 47:2019  
