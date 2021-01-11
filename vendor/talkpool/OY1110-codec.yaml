@@ -1,0 +1,26 @@
+uplinkDecoder:
+  fileName: OY1110.js
+  examples:
+    - description: Periodic Single Measurement
+      input:
+        fPort: 2
+        bytes: [3E 44 1D]
+      output:
+        data:
+          
+          Temperature:
+            displayName: Temperature
+            unit: °C
+            value: 19.3
+
+- description: Periodic Grouped Measurement
+      input:
+        fPort: 3
+        bytes: [3E 44 1D]
+      output:
+        data:
+          
+          Temperature:
+            displayName: Temperature
+            unit: °C
+            value: 19.3
