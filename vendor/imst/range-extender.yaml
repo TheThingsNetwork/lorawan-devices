@@ -1,0 +1,87 @@
+name: Wireless M-Bus Range Extender
+description: The Wireless M-Bus Range Extender is a compact and cost-effective device that collects wireless M-Bus messages from utility meters and forwards them to a LoRaWAN® network.
+
+# Hardware versions
+hardwareVersions:
+  - version: 'C100'
+    numeric: 1
+
+# Firmware versions
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions
+    hardwareVersions:
+      - 'C100'
+    # LoRaWAN Device Profiles per region
+    # Supported regions: EU863-870
+    profiles:
+      EU863-870:
+        id: range-extender-profile
+        lorawanCertified: true
+        codec: range-extender-codec
+
+# Sensors that this device features (optional)
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 92
+  length: 145
+  height: 55
+
+# Weight in grams (optional)
+weight: 335
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: SL-2880/S
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -10
+    max: 55
+
+# IP rating (optional)
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://wireless-solutions.de/products/wireless-m-bus-range-extender-with-lorawan
+dataSheetURL: https://wireless-solutions.de/downloadfile/wireless-m-bus-range-extender/
+
+# Photos
+photos:
+  main: range-extender.jpg
+  other:
+    - range-extender_sketch.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://youtu.be/6d6q4RrCpS0
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1

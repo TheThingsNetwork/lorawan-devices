@@ -98,7 +98,7 @@
       "description": "Frequency (MHz)"
     },
     "pingSlotPeriod": {
-      "enum": [32, 64, 128, 256, 512, 1024, 2048, 4096],
+      "enum": [1, 2, 4, 8, 16, 32, 64, 128],
       "description": "Ping slot period (seconds)"
     },
     "rxDelay": {
@@ -786,11 +786,14 @@
             "enum": [
               "accelerometer",
               "altitude",
+              "analog input",
               "auxiliary",
               "barometer",
               "battery",
               "button",
               "co2",
+              "current",
+              "digital input",
               "distance",
               "dust",
               "gps",
@@ -802,16 +805,23 @@
               "moisture",
               "ph",
               "pir",
-	      "pressure",
+              "pressure",
               "proximity",
+              "pulse count",
+              "pulse frequency",
+              "rainfall",
               "rssi",
               "snr",
+              "solar radiation",
               "sound",
               "temperature",
               "tvoc",
+              "uv",
               "velocity",
               "vibration",
+              "voltage",
               "water",
+              "wifi ssid",
               "wind direction",
               "wind speed"
             ]

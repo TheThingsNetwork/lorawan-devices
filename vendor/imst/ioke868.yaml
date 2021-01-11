@@ -1,0 +1,92 @@
+name: iOKE868
+description: The iOKE868 LoRaWAN® optical reading head unit leverages the long range and low power consumption of LoRa® to provide real-time data monitoring of energy consumption and secure connectivity to the LoRaWAN® IoT network.
+
+# Hardware versions
+hardwareVersions:
+  - version: 'C100'
+    numeric: 1
+
+# Firmware versions
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions
+    hardwareVersions:
+      - 'C100'
+    # LoRaWAN Device Profiles per region
+    # Supported regions: EU863-870
+    profiles:
+      EU863-870:
+        id: ioke868-profile
+        lorawanCertified: true
+        codec: ioke868-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+#sensors:
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 34
+  length: 47
+  height: 22
+
+# Weight in grams (optional)
+weight: 33
+
+# Battery information (optional)
+#battery:
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: 5
+    max: 55
+
+# IP rating (optional)
+#ipCode:
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://wireless-solutions.de/products/lora-solutions-by-imst/ioke868-lorawan-optical-unit/
+dataSheetURL: https://wireless-solutions.de/downloadfile/ioke868-documents/
+
+# Photos
+photos:
+  main: io881a.jpg
+  other:
+    - ioke868.jpg
+    - io881a_meter.jpg
+    - io881a_sketch.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://youtu.be/QeGTIGgXy8U
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
