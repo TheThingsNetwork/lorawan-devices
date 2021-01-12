@@ -43,19 +43,6 @@ dimensions:
   width: 25
   length: 67
 
-
-
-# Operating conditions (optional) (check)
-operatingConditions:
-  # Temperature (Celcius)
-  temperature:
-    min: 0
-    max: 70
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.97
-
 # Product and data sheet URLs (optional)
 productURL: https://store.arduino.cc/portenta-vision-shield
 
