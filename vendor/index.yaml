@@ -1071,6 +1071,8 @@ vendors:
   - id: arduino
     name: Arduino SA
     vendorID: 692
+    ouis:
+      - A8610A
 
   - id: small-data-garden
     name: Small Data Garden Oy
