@@ -1,0 +1,31 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: filling-degree-sensor.js
+  # Examples (optional)
+  examples:
+    - description: 3.2V battery, 30cm distance measured
+      input:
+        fPort: 1
+        bytes: [0x0B, 0x00, 0x1E]
+      output:
+        data:
+          battery: 3.2
+          distance: 30
+    - description: 3.4v battery, 120cm measured
+      input:
+        fPort: 1
+        bytes: [0x0D, 0x00, 0x78]
+      output:
+        data:
+          battery: 3.4
+          distance: 120
+    - description: 3.3v battery, error measuring distance
+      input:
+        fPort: 2
+        bytes: [0x0C, 0x00]
+      output:
+        data:
+          battery: 3.3v
+          errorcode: code indicating the error type
+
