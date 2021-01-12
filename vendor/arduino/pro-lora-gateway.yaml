@@ -31,9 +31,9 @@ productURL: https://store.arduino.cc/arduino-pro-gateway-lorar-connectivity
 
 # Photos
 photos:
-    main: lora_gateway_1.png
+    main: lora_gateway_1.jpg
     other:
-    - lora_gateway_2.png
+    - lora_gateway_2.jpg
 
 
 # Regulatory compliances (optional)
