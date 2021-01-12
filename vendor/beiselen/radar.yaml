@@ -12,4 +12,4 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: false
-        codec: device-a-codec
+        codec: radar-codec
