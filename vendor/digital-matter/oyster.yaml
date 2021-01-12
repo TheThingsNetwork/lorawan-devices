@@ -83,3 +83,34 @@ keySecurity: none
 productURL: https://www.digitalmatter.com/devices/oyster-lorawan
 photos:
   main: oyster.png
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 60950-1:2015
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
+    - body: FCC
+      standard: '15.247'
+    - body: ICASA
+      standard: ECA 2005 Type Approval
+    - body: ISED
+      standard: RSS-247 Issue 2 Feb 2017
