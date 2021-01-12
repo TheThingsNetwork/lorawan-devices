@@ -1,0 +1,46 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: ObjectLocator.js
+  # Examples (optional)
+  format:
+    - description: Object Locator
+      input:
+        fPort: 136
+        bytes: [0, 10]
+      output:
+        data:
+          Status[0]:  
+                Bit[0]        1 - button trigger event, 0 - no button trigger event
+                Bit[1]        1 - moving mode, 0 - stationary mode
+                Bit[2]        RFU
+                Bit [3]       1 - no GNSS fix, 0 - GNSS fixed
+                Bit [4]       1 - GNSS error, 0 - GNSS OK
+                Bit[7:5]      RFU
+          Battery Level[1]:               
+                Bits [3:0]    unsigned value ν, range 1 – 14; 
+                              battery voltage in V = (25 + ν) ÷ 10.
+                Bits [7:4]    RFU
+                *Note: If the sensor is charging, the battery value will always be 0x00.
+          Temperature(PCB)[2]:          
+                Bits [6:0]    unsigned value τ, range 0 – 127;
+                              temperature in °C = τ - 32.
+                Bit [7]       RFU
+                              measurement range -32 to 95°C
+          Lat[3~6]:          
+                Bits [27:0]   signed value φ, range -90,000,000 – 90,000,000;
+                              WGS84 latitude in ° = φ ÷ 1,000,000.
+                              *Note: little-endian format.
+                Bits [31:28]  RFU
+          Long[7~10]: 
+
+                Bits [28:0]   signed value λ, range -179,999,999 – 180,000,000;
+                              WGS84 longitude in ° = λ÷ 1,000,000.
+                Bits [31:29]  unsigned value α, range 0-7;
+                              position accuracy estimate in m = 2α+2 (max).
+                              The value 7 represents an accuracy estimate of worse than 256m.
+                Note: If there is no GNSS fix (see sensor status), the Lat. and Lon. fields contain the last values reported by the GNSS receiver. If there has never been a GNSS fix acquired, the values may both be 0.
+                *Note2: little-endian format.
+
+
+

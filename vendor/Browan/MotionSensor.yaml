@@ -1,0 +1,92 @@
+name: Motion Sensor
+description: The Motion Sensor utilizes LoRaWAN connectivity to communicate the presence or not of a person. The intended use is to place the sensor with a good view of a room to determine if there is motion in the room or not.
+The sensor is composed of a Passive Infrared Detector and Fresnel Lens. The main body contains the active electronics to measure movement and transmit any changes to a LoRaWAN network.
+
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '20200717'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923,, IN865-867
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: MotionSensor-profile
+        lorawanCertified: true
+        codec: MotionSensor-codec
+      US902-928:
+        id: MotionSensor-profile
+        lorawanCertified: true
+        codec: MotionSensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - PIR
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 20
+  length: 50
+  height: 50
+
+# Weight in grams (optional)
+weight: 40
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3.6V ½ AA Li-SOCl2, 1200mAh
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: 0
+    max: 50
+    
+# IP rating (optional)
+ipCode: IP50
+
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.browan.com/product/temperature-humidity-sensor/detail
+dataSheetURL: https://www.browan.com/download/5B/stream
+resellerURLs:
+- ConnectThings
+ - URL: https://connectedthings.store/gb/search?controller=search&s=browan
+- IoT Shop
+ - URL: https://iot-shop.de/shop/category/marke-browan-47
+- CalChip
+ - URL: https://www.calchipconnect.com/collections/browan
+- Antratek
+ - URL: https://www.antratek.com/manufacturer/browan-lorawan
+# Photos
+photos:
+  main: MotionSensor.jpg
+  other:
+
+
+# Youtube or Vimeo Video (optional)
+
+# Regulatory compliances (optional)
+compliances:
+  - FCC
+  - CE
