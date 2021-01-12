@@ -7,7 +7,7 @@ uplinkDecoder:
     - description: 3.5V battery, RFU, 868.43ppm CO2, 18.75°C, 44.29% relative humidity
       input:
         fPort: 1
-        bytes: [0x0F, 0x00, 0x00, 0x01, 0x53, 0x3B, 0x07, 0x53, 0x11, 0x4D]
+        bytes: [15, 0, 0, 1, 83, 59, 7, 83, 17, 77]
       output:
         data:
           battery: 3.5
