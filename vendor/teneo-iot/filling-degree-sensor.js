@@ -45,6 +45,8 @@ function decodeUplink(input)
     data.valid = false;
     data.charging = true;
   }
-
-  return data;
+  
+  return {
+    data: data,
+  };
 }

@@ -41,5 +41,7 @@ function decodeUplink(input) {
      data.Humid = (input.bytes[8] << 8 | input.bytes[9])/100;
   }
   
-  return data;
+  return {
+    data: data,
+  };
   }
