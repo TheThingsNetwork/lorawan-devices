@@ -21,11 +21,11 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: 868-profile
+        id: arduino-868-profile
         lorawanCertified: true
         codec: loravisionshield-codec
       US902-928:
-        id: 915-profile
+        id: arduino-915-profile
         lorawanCertified: true
         codec: loravisionshield-codec
 

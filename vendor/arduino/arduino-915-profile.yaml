@@ -1,0 +1,8 @@
+vendorProfileID: 692
+supportsClassB: false
+supportsClassC: true
+macVersion: 1.0.2
+regionalParametersVersion: RP001-1.0.2
+supportsJoin: true
+maxEIRP: 27
+supports32bitFCnt: true
