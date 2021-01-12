@@ -1,4 +1,4 @@
-function Decoder(input)
+function decodeUplink(input)
 {
   var decoded = {};
   decoded.sensorType = 'fillrate';
