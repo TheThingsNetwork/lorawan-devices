@@ -3,3 +3,9 @@ node_modules
 .DS_Store
 bin/runscript
 .envrc
+
+libiconv2.dll
+
+libintl3.dll
+
+make.exe
