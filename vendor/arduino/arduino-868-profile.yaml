@@ -1,6 +1,6 @@
 vendorProfileID: 692
 supportsClassB: false
-supportsClassC: true
+supportsClassC: false
 macVersion: 1.0.2
 regionalParametersVersion: RP001-1.0.2
 supportsJoin: true
