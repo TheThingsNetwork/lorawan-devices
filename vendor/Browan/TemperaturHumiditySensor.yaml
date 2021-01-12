@@ -1,7 +1,5 @@
 name: Temperature & Humidity Sensor
-description: The Tabs temperature and humidity sensor is designed for in-home and in-building usage for
-consumer or facility management applications. The design is optimized for high volume
-manufacturing, optimal battery lifetime, and pleasing aesthetics for in-building placement
+description: The Tabs temperature and humidity sensor is designed for in-home and in-building usage for consumer or facility management applications. The design is optimized for high volume manufacturing, optimal battery lifetime, and pleasing aesthetics for in-building placement
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

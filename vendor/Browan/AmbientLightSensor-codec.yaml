@@ -26,8 +26,7 @@ uplinkDecoder:
                               temperature in °C = τ - 32.
                 Bit [7]       RFU
                               measurement range -32 to 95°C
-          Lux [3~5]:          
+          Lux [3~5]:
                 Bits [23:0]   unsigned value 𝛿.
                               Lux = 𝛿 ÷ 100.
                               *Note: little-endian format.
-

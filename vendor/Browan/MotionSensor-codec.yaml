@@ -13,8 +13,8 @@ uplinkDecoder:
           Status[0]:  
                 Bit [0]       1 – occupied, 0 – free 
                 Bits [7:1]    RFU
-          Battery Level[1]:               
-                Bits [3:0]    unsigned value ν, range 1 – 14; 
+          Battery Level[1]:  
+                Bits [3:0]    unsigned value ν, range 1 – 14;
                               battery voltage in V = (25 + ν) ÷ 10.
                 Bits [7:4]    RFU
                 *Note: The initial operation will be in a low voltage state, after 10 minutes, it will turn into a steady-state, which is referenceable.
