@@ -6,7 +6,6 @@ hardwareVersions:
   - version: '1.0'
     numeric: 1
 
-
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
@@ -29,7 +28,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: loravisionshield-codec
 
-
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
@@ -45,7 +43,6 @@ dimensions:
 
 # Product and data sheet URLs (optional)
 productURL: https://store.arduino.cc/portenta-vision-shield
-
 
 # Photos
 photos:
@@ -63,4 +60,3 @@ compliances:
       norm: EN
       standard: 301 489-1
       version: 2.1.1
-

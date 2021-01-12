@@ -27,8 +27,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: mkrwan1310-codec
 
-
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -43,20 +41,17 @@ battery:
   replaceable: true
   type: Li-Ion / Li-Po, 1024 mAh minimum capacity, JST connector
 
-
 # Valid values are: none, read protected and secure element.
 keySecurity: secure element
 
 # Product and data sheet URLs (optional)
 productURL: https://store.arduino.cc/mkr-wan-1310
 
-
 # Photos
 photos:
   main: mkrwan1310_1.jpg
   other:
     - mkrwan1310_2.jpg
-
 
 # Regulatory compliances (optional)
 compliances:
@@ -78,5 +73,3 @@ compliances:
       norm: EN
       standard: 300 220-2
       version: 3.1.1
-
-      

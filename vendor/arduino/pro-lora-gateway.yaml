@@ -6,7 +6,6 @@ hardwareVersions:
   - version: '1.0'
     numeric: 1
 
-
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
@@ -23,18 +22,15 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: arduino-868-profile
         lorawanCertified: true
-   
 
 # Product and data sheet URLs (optional)
 productURL: https://store.arduino.cc/arduino-pro-gateway-lorar-connectivity
 
-
 # Photos
 photos:
-    main: lora_gateway_1.jpg
-    other:
+  main: lora_gateway_1.jpg
+  other:
     - lora_gateway_2.jpg
-
 
 # Regulatory compliances (optional)
 compliances:
@@ -43,4 +39,3 @@ compliances:
       norm: EN
       standard: 301 489-1
       version: 2.1.1
-
