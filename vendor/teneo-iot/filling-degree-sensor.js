@@ -11,7 +11,7 @@ function decodeUplink(input)
   
   decoded.settingsAllowed = true;
   decoded.charging = false;
-  decoded.battery = 2 + (bytes[0] / 10);
+  decoded.battery = 2 + (input.bytes[0] / 10);
   
   if (input.port === 1)
   {
