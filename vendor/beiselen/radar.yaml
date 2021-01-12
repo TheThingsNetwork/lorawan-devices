@@ -1,5 +1,5 @@
-name: Radar
-description: Radar
+name: DigiSilo Radar Sensor
+description: DigiSilo Radar Sensor
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
