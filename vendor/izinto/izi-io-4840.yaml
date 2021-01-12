@@ -42,8 +42,6 @@ dimensions:
 # Weight in grams (optional)
 weight: 160
 
-### below: TBD
-
 ## Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
