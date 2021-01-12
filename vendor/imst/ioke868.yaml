@@ -73,7 +73,8 @@ photos:
     - io881a_sketch.jpg
 
 # Youtube or Vimeo Video (optional)
-video: https://youtu.be/QeGTIGgXy8U
+videos:
+  main: https://youtu.be/QeGTIGgXy8U
 
 # Regulatory compliances (optional)
 compliances:
