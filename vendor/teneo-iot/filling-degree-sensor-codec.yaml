@@ -9,23 +9,28 @@ uplinkDecoder:
         fPort: 1
         bytes: [0x0C, 0x00, 0x1E]
       output:
-        data:
-          battery: 3.2
-          distance: 30
+        battery: 3.2
+        charging: false
+        sensorType: fillrate
+        settingsAllowed: true
+        distance: 30
     - description: 3.4v battery, 120cm measured
       input:
         fPort: 1
         bytes: [0x0E, 0x00, 0x78]
       output:
-        data:
-          battery: 3.4
-          distance: 120
+        battery: 3.4
+        charging: false
+        sensorType: fillrate
+        settingsAllowed: true
+        distance: 120
     - description: 3.3v battery, error measuring distance
       input:
         fPort: 2
         bytes: [0x0D, 0x00]
       output:
-        data:
-          battery: 3.3
-          errorcode:
+        battery: 3.3
+        charging: false
+        sensorType: fillrate
+        settingsAllowed: true
 
