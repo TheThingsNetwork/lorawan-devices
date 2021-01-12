@@ -1,4 +1,4 @@
-function decodeUplink(input) {
+function decodeUplink(bytes, port) {
   var decoded = {};
   var index = 0;
   decoded.Voltage = (bytes[index++] & 0x0F) / 10 + 2;
