@@ -26,6 +26,6 @@ uplinkDecoder:
         bytes: [0x0C, 0x00]
       output:
         data:
-          battery: 3.3v
+          battery: 3.3
           errorcode: code indicating the error type
 
