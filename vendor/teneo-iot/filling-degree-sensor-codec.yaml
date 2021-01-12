@@ -27,5 +27,5 @@ uplinkDecoder:
       output:
         data:
           battery: 3.3
-          errorcode: code indicating the error type
+          errorcode:
 
