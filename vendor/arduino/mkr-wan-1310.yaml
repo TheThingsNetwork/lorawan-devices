@@ -62,12 +62,6 @@ photos:
 
 # Regulatory compliances (optional)
 compliances:
-  health:
-    - norm: EN
-      standard: 62311
-  safety:
-    - norm: EN
-      standard: 62368-1
   emc:
     - body: ETSI
       norm: EN
