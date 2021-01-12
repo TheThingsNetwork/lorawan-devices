@@ -1,5 +1,4 @@
-function Decoder(bytes, port)
-{
+function decodeUplink(input) {
   var decoded = {};
   decoded.sensorType = 'fillrate';
   
