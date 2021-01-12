@@ -1,9 +1,9 @@
-function Decoder(bytes, port)
+function Decoder(input)
 {
   var decoded = {};
   decoded.sensorType = 'fillrate';
   
-  if (bytes.length === 0) 
+  if (input.bytes.length === 0) 
   {
     decoded.valid = false;
     return decoded;
@@ -13,12 +13,12 @@ function Decoder(bytes, port)
   decoded.charging = false;
   decoded.battery = 2 + (bytes[0] / 10);
   
-  if (port === 1)
+  if (input.port === 1)
   {
-    if (bytes.length === 3)
+    if (input.bytes.length === 3)
     {
 	  decoded.valid = true;
-      decoded.distance = (bytes[1] << 8) | bytes[2];
+      decoded.distance = (input.bytes[1] << 8) | input.bytes[2];
     }
     else
     {
@@ -26,9 +26,9 @@ function Decoder(bytes, port)
       decoded.errorcode = -1;
     }
   }
-  else if (port === 2)
+  else if (input.port === 2)
   {
-	var code = bytes[1]
+	var code = input.bytes[1]
 	if(code === 4)
 	{
 	  decoded.valid = true;
@@ -37,10 +37,10 @@ function Decoder(bytes, port)
 	else
 	{
 	  decoded.valid = false;
-      decoded.errorcode = bytes[1];
+      decoded.errorcode = input.bytes[1];
 	}
   }
-  else if (port === 3)
+  else if (input.port === 3)
   {
     decoded.valid = false;
     decoded.charging = true;

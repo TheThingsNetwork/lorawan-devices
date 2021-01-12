@@ -1,25 +1,25 @@
-function decodeUplink(bytes, port) {
+function decodeUplink(input) {
   var decoded = {};
   var index = 0;
-  decoded.Voltage = (bytes[index++] & 0x0F) / 10 + 2;
+  decoded.Voltage = (input.bytes[index++] & 0x0F) / 10 + 2;
   
-  if(port == 223)
+  if(input.port == 223)
   {
-    if((bytes[0] & 0xc0) == 0x80)
+    if((input.bytes[0] & 0xc0) == 0x80)
     {
       decoded.type = "status";
-        decoded.status = bytes[0] & ~0xC0;
+        decoded.status = input.bytes[0] & ~0xC0;
     }
     
     return decoded;
   }
   
   
-  if(port == 1)
+  if(input.port == 1)
   {
-      decoded.CO2 = (bytes[2] << 24 | bytes[3] << 16 | bytes[4] << 8 | bytes[5])/100;
+      decoded.CO2 = (input.bytes[2] << 24 | input.bytes[3] << 16 | input.bytes[4] << 8 | input.bytes[5])/100;
     
-     var Tempx100 = ((bytes[6] << 8) + bytes[7]);
+     var Tempx100 = ((input.bytes[6] << 8) + input.bytes[7]);
      
      if (Tempx100 == 32767)
     {
@@ -38,7 +38,7 @@ function decodeUplink(bytes, port) {
     }
 
     
-     decoded.Humid = (bytes[8] << 8 | bytes[9])/100;
+     decoded.Humid = (input.bytes[8] << 8 | input.bytes[9])/100;
   }
   
   return decoded;
