@@ -398,6 +398,8 @@ vendors:
   - id: mcf88
     name: MCF88 SRL
     vendorID: 259
+    website: https://www.enginko.com
+    logo: mcf88_logo.svg
 
   - id: meas-france
     name: MEAS FRANCE
