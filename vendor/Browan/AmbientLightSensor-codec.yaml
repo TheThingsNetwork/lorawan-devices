@@ -13,20 +13,21 @@ uplinkDecoder:
           Status[0]:  
                 Bit [0]       1 - darker, 0 - lighter or not change
                 Bit [1]       1 - lighter, 0 - darker or not change
-                Bits [2:3]    RFU
+                Bits [2~3]    RFU
                 Bit [4]       1 - status change, 0 - not status change
                 Bit [5]       1 - keep-alive, 0 - not keep-alive
-                Bits [6:7]    RFU
+                Bits [6~7]    RFU
           Battery Level[1]:               
-                Bits [3:0]    unsigned value ν, range 1 – 14; 
+                Bits [3~0]    unsigned value ν, range 1 – 14; 
                               battery voltage in V = (25 + ν) ÷ 10.
-                Bits [7:4]    RFU
+                Bits [7~4]    RFU
           Temperature(PCB)[2]:          
-                Bits [6:0]    unsigned value τ, range 0 – 127;
+                Bits [6~0]    unsigned value τ, range 0 – 127;
                               temperature in °C = τ - 32.
                 Bit [7]       RFU
                               measurement range -32 to 95°C
-          Lux [3~5]:
-                Bits [23:0]   unsigned value 𝛿.
-                              Lux = 𝛿 ÷ 100.
-                              *Note: little-endian format.
+          Lux [3~5]:          
+                Bits [23~0]   unsigned value x.
+                              Lux = x ÷ 100.
+                              #Note: little-endian format.
+

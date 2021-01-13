@@ -1,6 +1,5 @@
 name: Motion Sensor
-description: The Motion Sensor utilizes LoRaWAN connectivity to communicate the presence or not of a person. The intended use is to place the sensor with a good view of a room to determine if there is motion in the room or not.
-The sensor is composed of a Passive Infrared Detector and Fresnel Lens. The main body contains the active electronics to measure movement and transmit any changes to a LoRaWAN network.
+description: The Motion Sensor utilizes LoRaWAN connectivity to communicate the presence or not of a person. The intended use is to place the sensor with a good view of a room to determine if there is motion in the room or not.The sensor is composed of a Passive Infrared Detector and Fresnel Lens. The main body contains the active electronics to measure movement and transmit any changes to a LoRaWAN network.
 
 
 # Hardware versions (optional, use when you have revisions)
@@ -71,13 +70,13 @@ productURL: https://www.browan.com/product/temperature-humidity-sensor/detail
 dataSheetURL: https://www.browan.com/download/5B/stream
 resellerURLs:
 - ConnectThings
- - URL: https://connectedthings.store/gb/search?controller=search&s=browan
+ - https://connectedthings.store/gb/search?controller=search&s=browan
 - IoT Shop
- - URL: https://iot-shop.de/shop/category/marke-browan-47
+ - https://iot-shop.de/shop/category/marke-browan-47
 - CalChip
- - URL: https://www.calchipconnect.com/collections/browan
+ - https://www.calchipconnect.com/collections/browan
 - Antratek
- - URL: https://www.antratek.com/manufacturer/browan-lorawan
+ - https://www.antratek.com/manufacturer/browan-lorawan
 # Photos
 photos:
   main: MotionSensor.jpg

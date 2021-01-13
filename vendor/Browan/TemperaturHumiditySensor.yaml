@@ -74,13 +74,13 @@ productURL: https://www.browan.com/product/temperature-humidity-sensor/detail
 dataSheetURL: https://www.browan.com/download/5B/stream
 resellerURLs:
 - ConnectThings
- - URL: https://connectedthings.store/gb/search?controller=search&s=browan
+ - https://connectedthings.store/gb/search?controller=search&s=browan
 - IoT Shop
- - URL: https://iot-shop.de/shop/category/marke-browan-47
+ - https://iot-shop.de/shop/category/marke-browan-47
 - CalChip
- - URL: https://www.calchipconnect.com/collections/browan
+ - https://www.calchipconnect.com/collections/browan
 - Antratek
- - URL: https://www.antratek.com/manufacturer/browan-lorawan
+ - https://www.antratek.com/manufacturer/browan-lorawan
 # Photos
 photos:
   main: TemperatureHumiditySensor.jpg
