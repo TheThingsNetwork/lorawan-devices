@@ -186,6 +186,10 @@ vendors:
   - id: digital-matter
     name: Digital Matter Pty Ltd
     vendorID: 118
+    website: https://www.digitalmatter.com
+    logo: logo.svg
+    ouis:
+      - 70B3D5
 
   - id: easel
     name: EASEL Inc.
