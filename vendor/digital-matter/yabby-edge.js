@@ -147,7 +147,7 @@ function decodeUplink(input)
     decoded.resetExternal = ((bytes[4] & 4) != 0);
     decoded.resetSoftware = ((bytes[4] & 8) != 0);
     decoded.watchdogReason = bytes[5] + bytes[6] * 256;
-    decoded.initialBatV = (2.0 + 0.007 * bytes[7]).toFixed(2);
+    decoded.initialBatV = Number((2.0 + 0.007 * bytes[7]).toFixed(2));
   }
   else if (port === 2)
   {
