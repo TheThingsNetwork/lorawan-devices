@@ -49,9 +49,11 @@ firmwareVersions:
         codec: windsensor-codec
 
 # Sensors that this device features (optional)
-# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
-# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
-# vibration, water, wind direction and wind speed.
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
 sensors:
   - wind direction
   - wind speed
@@ -116,7 +118,8 @@ photos:
     - windsensor-package.jpg
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=JHzxcD2oEn8
+videos:
+  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
 
 # Regulatory compliances (optional)
 compliances:

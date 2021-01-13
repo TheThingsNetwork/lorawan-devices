@@ -279,6 +279,9 @@ vendors:
   - id: imst
     name: IMST GmbH
     vendorID: 199
+    ouis: [70B3D5]
+    website: http://www.imst.de
+    logo: imst_logo.png
 
   - id: intercomp
     name: INTERCOMP S.p.A.
