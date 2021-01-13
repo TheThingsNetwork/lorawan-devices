@@ -79,36 +79,36 @@ function ParseNav(navBytes)
     out.type = "aided";
   else
     out.type = type.toString();
-  
+
   GetU32LE(p, 4);
-  
+
   out.gpsTime = GetU32LE(p, 16);
   if (GetU32LE(p, 1) == 1)
   {
     out.assistLat = GetS32LE(p, 12) *  90 / 2048;
     out.assistLon = GetS32LE(p, 12) * 180 / 2048;
   }
-  
+
   out.sats = [];
   while (p.bitLength - p.offset >= 8)
   {
       var constellation = GetU32LE(p, 4);       // 1: GPS, 2: Beidou
       var count = GetU32LE(p, 4);
-        
+
       for (var i = 0; i < count; i++)
       {
           var sat = {};
-          
+
           sat.id = DecodeSatId(GetU32LE(p, 7));
           sat.cno = 45 - 4 * GetU32LE(p, 2);
-  
+
           var fHas8BitA = GetU32LE(p, 1);
           var fHasBitChange = GetU32LE(p, 1);
           var fFlagB = GetU32LE(p, 1);
           var fHasDoppler = GetU32LE(p, 1);
           var fHas19BitC = GetU32LE(p, 1);
           var fHasPsuedoRange = GetU32LE(p, 1);
-  
+
           if (fHasPsuedoRange)
               sat.psuedoRangeNs = GetU32LE(p, 19) * 3;
           if (fHas19BitC)
@@ -121,11 +121,11 @@ function ParseNav(navBytes)
               sat.bitChange = GetU32LE(p, 8);
           if (fHas8BitA)
               sat.a8 = GetU32LE(p, 8);
-          
+
           out.sats[out.sats.length] = sat;
       }
   }
-  
+
   return out;
 }
 
@@ -147,7 +147,7 @@ function decodeUplink(input)
     decoded.resetExternal = ((bytes[4] & 4) != 0);
     decoded.resetSoftware = ((bytes[4] & 8) != 0);
     decoded.watchdogReason = bytes[5] + bytes[6] * 256;
-    decoded.initialBatV = 2.0 + 0.007 * bytes[7];
+    decoded.initialBatV = (2.0 + 0.007 * bytes[7]).toFixed(2);
   }
   else if (port === 2)
   {
@@ -172,7 +172,7 @@ function decodeUplink(input)
       var mac = PrintHex(bytes, 1 + i * 7 + 1, 6);
       decoded.wifi[i] = { rssi: rssi, mac: mac };
     }
-    
+
     var navBytes = bytes.slice(1 + (bytes[0] & 0x1f) * 7);
     if (navBytes.length > 0)
     {

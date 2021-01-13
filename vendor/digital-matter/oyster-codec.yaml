@@ -7,7 +7,7 @@ uplinkDecoder:
         bytes: [0x00, 0x30, 0xed, 0xec, 0x00, 0x32, 0x24, 0x45, 0x00, 0x00, 0xde]
       output:
         data:
-          batV: 5.550000000000001
+          batV: 5.55
           fixFailed: false
           headingDeg: 0
           inTrip: false

@@ -13,7 +13,7 @@ function decodeUplink(input)
     if (decoded.latitudeDeg >= 0x80000000) // 2^31
       decoded.latitudeDeg -= 0x100000000;  // 2^32
     decoded.latitudeDeg /= 1e7;
-      
+
     decoded.longitudeDeg = bytes[4] + bytes[5] * 256 +
                            bytes[6] * 65536 + bytes[7] * 16777216;
     if (decoded.longitudeDeg >= 0x80000000) // 2^31
@@ -23,9 +23,9 @@ function decodeUplink(input)
     decoded.inTrip    = ((bytes[8] & 0x1) !== 0) ? true : false;
     decoded.fixFailed = ((bytes[8] & 0x2) !== 0) ? true : false;
     decoded.headingDeg = (bytes[8] >> 2) * 5.625;
-    
+
     decoded.speedKmph = bytes[9];
-    decoded.batV = bytes[10] * 0.025;
+    decoded.batV = Number((bytes[10] * 0.025).toFixed(2));
 
     decoded.manDown = null;
   }
@@ -37,7 +37,7 @@ function decodeUplink(input)
     if (decoded.latitudeDeg >= 0x800000) // 2^23
       decoded.latitudeDeg -= 0x1000000;  // 2^24
     decoded.latitudeDeg *= 256e-7;
-      
+
     decoded.longitudeDeg = bytes[3] + bytes[4] * 256 + bytes[5] * 65536;
     if (decoded.longitudeDeg >= 0x800000) // 2^23
       decoded.longitudeDeg -= 0x1000000;  // 2^24
@@ -83,7 +83,7 @@ function decodeUplink(input)
       errors: ['unknown FPort'],
     };
   }
-  
+
   return {
     data: decoded,
   };
