@@ -1,4 +1,4 @@
-name: Kona All-in-One Smart Room Sensor - Home PIR edition
+name: Kona All-in-One Smart Room Sensor - PIR edition
 description: Multi-purpose LoRaWAN IoT sensor packed into a very small form factor
 
 # Hardware versions (optional, use when you have revisions)
@@ -70,7 +70,7 @@ manuals: https://support.tektelic.com/portal/en/kb/articles/home-sensor-technica
 
 # Photos (optional)
 photos:
-  main: smart-home-sensor.jpg
+  main: smart-room-sensor.jpg
 
 # Regulatory compliances (optional)
 compliances:
