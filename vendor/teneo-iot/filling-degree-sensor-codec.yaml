@@ -36,4 +36,3 @@ uplinkDecoder:
           charging: false
           sensorType: fillrate
           settingsAllowed: true
-

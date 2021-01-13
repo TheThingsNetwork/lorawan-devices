@@ -85,7 +85,7 @@ compliances:
       standard: 62368-1
     - body: IEC
       norm: EN
-      standard: "62479"
+      standard: '62479'
   radioEquipment:
     - body: ETSI
       norm: EN

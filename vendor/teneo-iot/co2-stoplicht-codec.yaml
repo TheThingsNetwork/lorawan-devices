@@ -11,7 +11,7 @@ uplinkDecoder:
       output:
         data:
           battery: 3.5
-          RFU: 
+          RFU:
           co2: 868.43
           temperature: 18.75
           relativeHumidity: 44.29
