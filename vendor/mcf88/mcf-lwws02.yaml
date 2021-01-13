@@ -41,14 +41,13 @@ sensors:
   - rainfall
   - uv
 
-
 # Weight in grams (optional)
-weight: 20000 
+weight: 20000
 
 # Battery information (optional)
 battery:
   replaceable: false
-  type: sealed  
+  type: sealed
 
 # Operating conditions (optional)
 operatingConditions:
@@ -82,7 +81,6 @@ dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LWWS00-01.pdf
 photos:
   main: mcf-lwws00.jpg
 
-
 # Regulatory compliances (optional)
 compliances:
   safety:
@@ -97,7 +95,7 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301 489-3
-      version: 2.2.3    
+      version: 2.2.3
     - body: ETSI
       norm: EN
       standard: 300 220-1
@@ -108,9 +106,9 @@ compliances:
       version: 3.2.1
     - body: FCC
       norm: FCC
-      standard: Part 15 107 & 109  
-      version: 47:2014  
+      standard: Part 15 107 & 109
+      version: 47:2014
     - body: FCC
       norm: FCC
-      standard: Part 15203, 209 & 247  
-      version: 47:2019  
+      standard: Part 15203, 209 & 247
+      version: 47:2019
