@@ -38,7 +38,7 @@ sensors:
   - energy
   - power
   - time
-  - digital output
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

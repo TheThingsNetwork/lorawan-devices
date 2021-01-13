@@ -34,7 +34,7 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - digital input
-  - digital output
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

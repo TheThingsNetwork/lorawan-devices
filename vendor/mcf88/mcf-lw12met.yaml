@@ -39,7 +39,7 @@ sensors:
   - power
   - time
   - digital input
-  - digital output
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
