@@ -47,4 +47,5 @@ photos:
   main: nucleo-wl55jc.jpg
   other:
     - nucleo-wl55jc-offer.jpg
-video: https://www.youtube.com/watch?v=ZFtIlLbDXlo
+videos:
+  main: https://www.youtube.com/watch?v=ZFtIlLbDXlo
