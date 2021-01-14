@@ -2,4 +2,4 @@
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - windsensor # look in windsensor.yaml for the end device definition
+  - am107
