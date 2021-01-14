@@ -1568,3 +1568,8 @@ vendors:
     name: Develiot
     website: https://www.develiot.com/
     logo: logo.png
+
+  - id: iotsens
+    name: IoTsens Gimeno IoT Division
+    website: https://www.iotsens.com/
+    logo: logo_iotsens.svg
