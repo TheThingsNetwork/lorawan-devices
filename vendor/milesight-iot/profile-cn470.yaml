@@ -1,6 +1,6 @@
 vendorProfileID: 600
-macVersion: 1.1
-regionalParametersVersion: RP001-1.1-RevB
+macVersion: 1.0.3
+regionalParametersVersion: RP001-1.0.3-RevA
 supportsJoin: true
 maxEIRP: 19
 supports32bitFCnt: true
