@@ -46,7 +46,7 @@ function decodeUplink(input)
     decoded.headingDeg = (bytes[6] & 0x7) * 45;
     decoded.speedKmph = (bytes[6] >> 3) * 5;
 
-    decoded.batV = bytes[7] * 0.025;
+    decoded.batV = Number((bytes[7] * 0.025).toFixed(2));
 
     decoded.inTrip    = ((bytes[8] & 0x1) !== 0) ? true : false;
     decoded.fixFailed = ((bytes[8] & 0x2) !== 0) ? true : false;
@@ -65,7 +65,7 @@ function decodeUplink(input)
   {
     decoded.type = "stats";
 
-    decoded.initialBatV    =  4.0 + 0.100 * (bytes[0] & 0xF);
+    decoded.initialBatV    =  Number((4.0 + 0.100 * (bytes[0] & 0xF)).toFixed(1));
     decoded.txCount        =  32 * ((bytes[0] >> 4) + (bytes[1]  & 0x7F) *  16);
     decoded.tripCount      =  32 * ((bytes[1] >> 7) + (bytes[2]  & 0xFF) *   2
                                                     + (bytes[3]  & 0x0F) * 512);
