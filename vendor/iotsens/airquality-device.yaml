@@ -6,7 +6,6 @@ hardwareVersions:
   - version: '1.0'
     numeric: 1
 
-
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
@@ -89,22 +88,21 @@ keyProvisioning:
 productURL: https://www.iotsens.com/
 dataSheetURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Air_quality_Monitor_EN.pdf
 # resellerURLs:
-  # - name: 'Reseller 1'
-  #   region:
-  #     - European Union
-  #   url: https://example.org/reseller1
-  # - name: 'Reseller 2'
-  #   region:
-  #     - United States
-  #     - Canada
-  #   url: https://example.org/reseller2
+# - name: 'Reseller 1'
+#   region:
+#     - European Union
+#   url: https://example.org/reseller1
+# - name: 'Reseller 2'
+#   region:
+#     - United States
+#     - Canada
+#   url: https://example.org/reseller2
 
 # Photos
 photos:
   main: airquality-device.png
   # other:
   #   - soundsensor-package.jpg
-
 # Youtube or Vimeo Video (optional)
 # video: https://www.youtube.com/watch?v=JHzxcD2oEn8
 
