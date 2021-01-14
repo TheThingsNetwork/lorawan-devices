@@ -2,10 +2,10 @@ name: AM107
 description: Ambience Monitoring Sensors
 
 firmwareVersions:
-  - version: "1.25"
+  - version: '1.25'
     numeric: 1
     hardwareVersions:
-      - "V1.4"
+      - 'V1.4'
 
     profiles:
       EU863-870:
@@ -78,16 +78,16 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/sensor/am100/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/am100-series-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union
-      - Canada  
+      - Canada
     url: https://www.milesight-iot.com/contact-us/
 
 photos:
   main: am107.png
-  other: 
+  other:
     - am107-1.png
 
 videos:
@@ -119,4 +119,3 @@ compliances:
       norm: EN
       standard: 300 330
       version: 2.1.1
-
