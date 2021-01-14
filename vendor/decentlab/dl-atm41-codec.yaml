@@ -1,0 +1,137 @@
+uplinkDecoder:
+  fileName: dl-atm41.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x03,
+            0x5a,
+            0x00,
+            0x03,
+            0x80,
+            0x0a,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x09,
+            0x81,
+            0x2b,
+            0x80,
+            0x14,
+            0x81,
+            0x08,
+            0x80,
+            0xb4,
+            0xa5,
+            0x7c,
+            0x82,
+            0x0c,
+            0x81,
+            0x09,
+            0x80,
+            0x02,
+            0x7f,
+            0xe8,
+            0x80,
+            0x56,
+            0x80,
+            0x08,
+            0x80,
+            0x04,
+            0x0b,
+            0xf5,
+          ]
+      output:
+        data:
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 26.4
+          atmospheric_pressure:
+            displayName: Atmospheric pressure
+            unit: kPa
+            value: 95.96
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.061
+          compass_heading:
+            displayName: Compass heading
+            unit: "\xB0"
+            value: 86
+          device_id: 858
+          east_wind_speed:
+            displayName: East wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.04
+          lightning_average_distance:
+            displayName: Lightning average distance
+            unit: km
+            value: 0
+          lightning_strike_count:
+            displayName: Lightning strike count
+            value: 0
+          maximum_wind_speed:
+            displayName: Maximum wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.2
+          north_wind_speed:
+            displayName: North wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.08
+          precipitation:
+            displayName: Precipitation
+            unit: mm
+            value: 0
+          protocol_version: 2
+          relative_humidity:
+            displayName: Relative humidity
+            unit: '%'
+            value: 52.4
+          sensor_temperature_internal:
+            displayName: Sensor temperature (internal)
+            unit: "\xB0C"
+            value: 26.5
+          solar_radiation:
+            displayName: Solar radiation
+            unit: "W\u22C5m\u207B\xB2"
+            value: 10
+          vapor_pressure:
+            displayName: Vapor pressure
+            unit: kPa
+            value: 1.8
+          wind_direction:
+            displayName: Wind direction
+            unit: "\xB0"
+            value: 29.9
+          wind_speed:
+            displayName: Wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.09
+          x_orientation_angle:
+            displayName: X orientation angle
+            unit: "\xB0"
+            value: 0.2
+          y_orientation_angle:
+            displayName: Y orientation angle
+            unit: "\xB0"
+            value: -2.4
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x03, 0x5a, 0x00, 0x02, 0x0b, 0xf5]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.061
+          device_id: 858
+          protocol_version: 2

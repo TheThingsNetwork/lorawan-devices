@@ -1,0 +1,18 @@
+uplinkDecoder:
+  fileName: dl-dlr2-003.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x19, 0x9b, 0x00, 0x03, 0x00, 0x01, 0x0c, 0x8d]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.213
+          device_id: 6555
+          input:
+            displayName: Input
+            value: 1
+          protocol_version: 2
