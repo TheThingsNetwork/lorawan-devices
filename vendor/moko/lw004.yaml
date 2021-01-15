@@ -1,0 +1,142 @@
+name: lw004
+description: The LoRaWAN Contact Tracker
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0.4'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.1.1'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: a-eu868
+        codec: lw004-codec
+      IN865-867:
+        id: a-in865
+        codec: lw004-codec
+      RU864-870:
+        id: a-ru864
+        codec: lw004-codec
+      US902-928:
+        id: a-us915
+        codec: lw004-codec
+      AU915-928:
+        id: a-au915
+        codec: lw004-codec
+      AS923:
+        id: a-as923
+        codec: lw004-codec
+      KR920-923:
+        id: a-kr920
+        codec: lw004-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - battery
+  - button
+  - gps
+  - light
+  - vibration
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 73
+  length: 40
+  height: 17
+
+# Weight in grams (optional)
+weight: 48
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: lithium battery
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -10
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.05
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.mokosmart.com/lw004-lorawan-contact-tracing-wearables-button/
+
+# Photos
+photos:
+  main: lw004-1.png
+  other:
+    - lw004-2.png
+    - lw004-3.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368:2014
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489-17
+      version: 3.2.4
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
+    - body: IEC
+      norm: EN
+      standard: 55032:2015
+    - body: IEC
+      norm: EN
+      standard: 55035:2017
+  FCC:
+    - standard: Part15B
+    - standard: Part15C
