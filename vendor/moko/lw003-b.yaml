@@ -14,7 +14,7 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '2.1'
-  # LoRaWAN Device Profiles per region
+    # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
@@ -38,7 +38,6 @@ firmwareVersions:
       KR920-923:
         id: ac-kr920
         codec: lw003-b-codec
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -100,4 +99,3 @@ photos:
   other:
     - lw003-b-2.png
     - lw003-b-3.png
-

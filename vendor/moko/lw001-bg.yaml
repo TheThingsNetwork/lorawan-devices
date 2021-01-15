@@ -40,9 +40,6 @@ firmwareVersions:
         id: a-kr920
         codec: lw001-bg-codec
 
-
-
-
 # Sensors that this device features (optional)
 # Valid values are:
 # accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
@@ -50,14 +47,14 @@ firmwareVersions:
 # proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
 # velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
 sensors:
-- accelerometer
-- temperature
-- humidity
-- gps
-- barometer
-- wifi ssid
-- battery
-- light
+  - accelerometer
+  - temperature
+  - humidity
+  - gps
+  - barometer
+  - wifi ssid
+  - battery
+  - light
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -65,7 +62,6 @@ dimensions:
   width: 122
   length: 72.4
   height: 32.7
-
 
 # Battery information (optional)
 battery:
@@ -103,7 +99,3 @@ photos:
   other:
     - lw001-bg-2.png
     - lw001-bg-3.png
-
-
-
-

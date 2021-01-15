@@ -26,7 +26,7 @@ rx2DataRateIndex: 2
 # RX2 frequency (MHz)
 rx2Frequency: 923.2
 # Factory preset frequencies (MHz)
-factoryPresetFrequencies: [923.2,923.4]
+factoryPresetFrequencies: [923.2, 923.4]
 
 # Maximum EIRP
 maxEIRP: 16
@@ -50,4 +50,3 @@ supportsClassC: true
 # If your device supports class C, uncomment the following fields:
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
 classCTimeout: 60
-

@@ -26,7 +26,7 @@ rx2DataRateIndex: 8
 # RX2 frequency (MHz)
 rx2Frequency: 923.3
 # Factory preset frequencies (MHz)
-factoryPresetFrequencies: [915.2, 915.4, 915.6,915.8,916.0,916.2,916.4,916.6]
+factoryPresetFrequencies: [915.2, 915.4, 915.6, 915.8, 916.0, 916.2, 916.4, 916.6]
 
 # Maximum EIRP
 maxEIRP: 22

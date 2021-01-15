@@ -2,7 +2,6 @@ vendors:
   - id: example
     name: Example
     vendorID: 0
-    draft: true
 
   - id: 1m2m
     name: 1M2M
@@ -115,10 +114,6 @@ vendors:
   - id: bosch
     name: Bosch Connected Devices and Solutions GmbH
     vendorID: 69
-    pen: 42
-    ouis: [FCD6BD]
-    website: https://www.bosch-connectivity.com
-    logo: logo.svg
 
   - id: bouygues-telecom
     name: Bouygues Telecom
@@ -147,9 +142,6 @@ vendors:
   - id: comtac
     name: comtac AG
     vendorID: 98
-    website: https://www.comtac.ch/
-    logo: comtac-logo.svg
-    ouis: [70B3D5BF6, 70B3D5F3F, BC97401]
 
   - id: csem
     name: CSEM
@@ -158,10 +150,6 @@ vendors:
   - id: decentlab
     name: Decentlab GmbH
     vendorID: 109
-    website: https://www.decentlab.com/
-    logo: decentlab_logo.svg
-    ouis:
-      - 70B3D57BA
 
   - id: definium
     name: Definium Technologies, Pty Ltd.
@@ -186,10 +174,6 @@ vendors:
   - id: digital-matter
     name: Digital Matter Pty Ltd
     vendorID: 118
-    website: https://www.digitalmatter.com
-    logo: logo.svg
-    ouis:
-      - 70B3D5
 
   - id: easel
     name: EASEL Inc.
@@ -286,9 +270,6 @@ vendors:
   - id: imst
     name: IMST GmbH
     vendorID: 199
-    ouis: [70B3D5]
-    website: http://www.imst.de
-    logo: imst_logo.png
 
   - id: intercomp
     name: INTERCOMP S.p.A.
@@ -1552,22 +1533,11 @@ vendors:
     name: Exedra General Trading and Contracting
     vendorID: 841
 
-  - id: aquascope
-    name: Aqua-Scope Technologies
-
-  - id: the-things-products
-    name: The Things Products
-
   - id: the-box-development
     name: The-Box Development
 
   - id: izinto
     name: izinto GmbH
-
-  - id: develiot
-    name: Develiot
-    website: https://www.develiot.com/
-    logo: logo.png
 
   - id: iotsens
     name: IoTsens Gimeno IoT Division

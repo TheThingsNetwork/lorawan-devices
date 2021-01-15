@@ -1,6 +1,0 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
-endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - mkr-wan-1310
-  - lora-vision-shield
