@@ -1,0 +1,29 @@
+name: EMB-LR1280-mPCI-4x
+description: EMB-LR1280-mPCIe-4x provides long range connectivity and high interference immunity exploiting spread spectrum modulation over the 2.4 GHz ISM band. It can operate worldwide being fully compliant with 2.4 GHz frequency band regulation.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 50.95
+  length: 30
+  height: 1
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+
+# Photos
+photos:
+  main: EMB-LR1280-mPCI-top.jpg
+  other:
+    - EMB-LR1280-mPCI-bottom.jpg
+

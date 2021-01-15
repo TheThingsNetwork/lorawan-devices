@@ -1,0 +1,23 @@
+name: EMB-LR1302-mPCI
+description: EMB-LR1302-mPCIe provides long range connectivity using ultra-long range spread spectrum communication and high interference immunity on the 868 (or 915 MHz) MHz radio band. This device is characterized by far less power consumption than previous solutions, has a better thermal design and it is capable of handling a higher amount of traffic than preceding devices.
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 50.95
+  length: 30
+  height: 1
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+
+# Photos
+photos:
+  main: EMB-LR1302-mPCI-top.jpg
+  other:
+    - EMB-LR1302-mPCI-bottom.jpg
+

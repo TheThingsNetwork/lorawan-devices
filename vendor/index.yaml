@@ -1573,3 +1573,7 @@ vendors:
     name: IoTsens Gimeno IoT Division
     website: https://www.iotsens.com/
     logo: logo_iotsens.svg
+
+  - id: embit
+    name: Embit srl
+    website: http://www.embit.eu/

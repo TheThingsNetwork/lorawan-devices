@@ -1,0 +1,40 @@
+name: EMB-LR1280S
+description: The new LoRa® 2.4 Ghz Embit solution to connect your sensors and actuators leveraging both the advantages of LoRa® long range modulation and 2.4 Ghz RF properties and regulation. It offers a wide range of serial intefaces, a crypto unit and extremely low consumptions. It represents the perfect solution for many industrial applications with the aim of ensuring worldwide deployment and enhanced transmission rate.  
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1'
+    numeric: 1
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 15.5
+  length: 20
+  height: 2.3
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: secure element
+
+# Photos
+photos:
+  main: EMB-LR1280S-top.jpg
+  other:
+    - EMB-LR1280S-bottom.jpg
+
+videos:
+  main: https://www.youtube.com/watch?v=W9B9bqGjlVs
