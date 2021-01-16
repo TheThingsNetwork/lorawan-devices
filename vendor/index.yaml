@@ -1557,7 +1557,7 @@ vendors:
     # Vendor company name
     name: Beiselen Service GmbH
     # LoRa Alliance issued Vendor ID
-    vendorID: 845
+    # will be provided after joined. 
     # Vendor website (optional)
     website: https://digitale-services.beiselen.de/
     # Vendor logo filename (optional)
