@@ -77,7 +77,8 @@ photos:
   main: wwd.jpg
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=SsR9Trlw3SU
+videos:
+  main: https://www.youtube.com/watch?v=SsR9Trlw3SU
 
 # Regulatory compliances (optional)
 compliances:

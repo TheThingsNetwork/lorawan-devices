@@ -154,12 +154,9 @@ Each referenced end device profile needs to be defined in the **End device profi
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
 vendorProfileID: 42
-# Whether the end device supports class B
-supportsClassB: false
-# Whether the end device supports class C
-supportsClassC: false
+
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
-macVersion: 1.0.2
+macVersion: 1.0.3
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
 #   1.0:   TS001-1.0
 #   1.0.1: TS001-1.0.1
@@ -167,13 +164,44 @@ macVersion: 1.0.2
 #   1.0.3: RP001-1.0.3-RevA
 #   1.0.4: RP002-1.0.0 or RP002-1.0.1
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-regionalParametersVersion: RP001-1.0.2-RevB
+regionalParametersVersion: RP001-1.0.3-RevA
+
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
+# If your device is an ABP device (supportsJoin is false), uncomment the following fields:
+# RX1 delay
+#rx1Delay: 5
+# RX1 data rate offset
+#rx1DataRateOffset: 0
+# RX2 data rate index
+#rx2DataRateIndex: 0
+# RX2 frequency (MHz)
+#rx2Frequency: 868.525
+# Factory preset frequencies (MHz)
+#factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
+
 # Maximum EIRP
 maxEIRP: 16
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true
+
+# Whether the end device supports class B
+supportsClassB: false
+# If your device supports class B, uncomment the following fields:
+# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
+#classBTimeout: 60
+# Ping slot period (seconds)
+#pingSlotPeriod: 128
+# Ping slot data rate index
+#pingSlotDataRateIndex: 0
+# Ping slot frequency (MHz). Set to 0 if the band supports ping slot frequency hopping.
+#pingSlotFrequency: 869.525
+
+# Whether the end device supports class C
+supportsClassC: false
+# If your device supports class C, uncomment the following fields:
+# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
+#classCTimeout: 60
 ```
 
 For more information and for fields for ABP, see [LoRaWAN Schema: Devices Draft 1](https://lorawan-schema.org/draft/devices/1/).
@@ -186,7 +214,7 @@ The Device Repository supports three payload codecs to be defined:
 2. Downlink encoder: decodes a JSON object into binary data downlink
 3. Downlink decoder: decodes an encoded binary data downlink back into a JSON object (must be symmetric with the downlink encoder)
 
-The codecs can all be defined in one file as they are defined by their function names. The codecs must be written in JavaScript (ECMAScript 5.1+). [See link](https://thethingsstack.io/integrations/payload-formatters/javascript/ for instructions on how to write decoders and encoders. 
+The codecs can all be defined in one file as they are defined by their function names. The codecs must be written in JavaScript (ECMAScript 5.1+). [See link](https://thethingsstack.io/integrations/payload-formatters/javascript/ for instructions on how to write decoders and encoders.
 
 The codecs are defined in the **Payload codec definition** file, with the same filename as the codec ID: `vendor/<vendor-id>/<codec>.yaml`:
 

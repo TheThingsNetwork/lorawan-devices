@@ -147,6 +147,9 @@ vendors:
   - id: comtac
     name: comtac AG
     vendorID: 98
+    website: https://www.comtac.ch/
+    logo: comtac-logo.svg
+    ouis: [70B3D5BF6, 70B3D5F3F, BC97401]
 
   - id: csem
     name: CSEM
@@ -183,6 +186,10 @@ vendors:
   - id: digital-matter
     name: Digital Matter Pty Ltd
     vendorID: 118
+    website: https://www.digitalmatter.com
+    logo: logo.svg
+    ouis:
+      - 70B3D5
 
   - id: easel
     name: EASEL Inc.
@@ -398,6 +405,8 @@ vendors:
   - id: mcf88
     name: MCF88 SRL
     vendorID: 259
+    website: https://www.enginko.com
+    logo: mcf88_logo.svg
 
   - id: meas-france
     name: MEAS FRANCE
@@ -1562,3 +1571,16 @@ vendors:
     website: https://digitale-services.beiselen.de/
     # Vendor logo filename (optional)
     logo: beiselen-logo-sticky.png
+
+  - id: izinto
+    name: izinto GmbH
+
+  - id: develiot
+    name: Develiot
+    website: https://www.develiot.com/
+    logo: logo.png
+
+  - id: iotsens
+    name: IoTsens Gimeno IoT Division
+    website: https://www.iotsens.com/
+    logo: logo_iotsens.svg
