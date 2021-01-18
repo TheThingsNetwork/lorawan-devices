@@ -1,0 +1,101 @@
+name: lw001-bg
+description: The LoRaWAN Tracker
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0.1'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0.1'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: a-eu868
+        codec: lw001-bg-codec
+      IN865-867:
+        id: a-in865
+        codec: lw001-bg-codec
+      RU864-870:
+        id: a-ru864
+        codec: lw001-bg-codec
+      US902-928:
+        id: a-us915
+        codec: lw001-bg-codec
+      AU915-928:
+        id: a-au915
+        codec: lw001-bg-codec
+      AS923:
+        id: a-as923
+        codec: lw001-bg-codec
+      KR920-923:
+        id: a-kr920
+        codec: lw001-bg-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - temperature
+  - humidity
+  - gps
+  - barometer
+  - wifi ssid
+  - battery
+  - light
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 122
+  length: 72.4
+  height: 32.7
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: special
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 80
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.05
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Photos
+photos:
+  main: lw001-bg-1.png
+  other:
+    - lw001-bg-2.png
+    - lw001-bg-3.png

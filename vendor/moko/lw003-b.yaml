@@ -1,0 +1,101 @@
+name: lw003-b
+description: BLE-LoRaWAN gateway
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.1'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.1'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: ac-eu868
+        codec: lw003-b-codec
+      IN865-867:
+        id: ac-in865
+        codec: lw003-b-codec
+      RU864-870:
+        id: ac-ru864
+        codec: lw003-b-codec
+      US902-928:
+        id: ac-us915
+        codec: lw003-b-codec
+      AU915-928:
+        id: ac-au915
+        codec: lw003-b-codec
+      AS923:
+        id: ac-as923
+        codec: lw003-b-codec
+      KR920-923:
+        id: ac-kr920
+        codec: lw003-b-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - battery
+  - button
+  - humidity
+  - light
+  - temperature
+  - time
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 122.7
+  length: 109
+  height: 36
+
+# Weight in grams (optional)
+weight: 165
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: lithium battery
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.05
+    max: 0.95
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.mokosmart.com/lorawan-probe-lw003-b/
+
+# Photos
+photos:
+  main: lw003-b-1.png
+  other:
+    - lw003-b-2.png
+    - lw003-b-3.png
