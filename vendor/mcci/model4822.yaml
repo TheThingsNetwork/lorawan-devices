@@ -1,5 +1,5 @@
-name: MCCI Catena® 4450 Node
-description: General purpose LPWAN building block, open source, user-programmable end-device with sensors and support
+name: Model 4822 Indoor Environmental Sensor (SHT31)
+description: Higher-accuracy temperature, humidity, light sensor for indoor spaces (using Sensirion SHT31)
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -11,7 +11,7 @@ description: General purpose LPWAN building block, open source, user-programmabl
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.3.0'
+    version: '0.1.0'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -22,27 +22,27 @@ firmwareVersions:
     profiles:
       EU863-870:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
-        id: catena4450-profile
+        id: model4822-profile
         lorawanCertified: false
         codec: codec-catena-generic
       US902-928:
-        id: catena4450-profile
+        id: model4822-profile
         lorawanCertified: false
         codec: codec-catena-generic
       AU915-928:
-        id: catena4450-profile
+        id: model4822-profile
         lorawanCertified: false
         codec: codec-catena-generic
       AS923:
-        id: catena4450-profile
+        id: model4822-profile
         lorawanCertified: false
         codec: codec-catena-generic
       KR920-923:
-        id: catena4450-profile
+        id: model4822-profile
         lorawanCertified: false
         codec: codec-catena-generic
       IN865-867:
-        id: catena4450-profile
+        id: model4822-profile
         lorawanCertified: false
         codec: codec-catena-generic
 
@@ -56,19 +56,14 @@ sensors:
   - temperature
   - humidity
   - light
-  - digital input
-  - analog input
   - battery
-  - barometer
-  - pulse count
-  - pulse frequency
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 23
-  length: 51
-  height: 35
+  width: 51
+  length: 76
+  height: 32
 
 ##  # Weight in grams (optional)
 ##  weight: 350
@@ -76,18 +71,18 @@ dimensions:
 # Battery information (optional)
 battery:
   replaceable: true
-  type: LiPo 3.7V
+  type: AAA
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
     min: -20
-    max: 85
+    max: 70
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.90
+    max: 0.95
 
 ## # IP rating (optional)
 ## ipCode: IP64
@@ -100,10 +95,10 @@ keyProvisioning:
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
-keySecurity: none
+keySecurity: secure element
 
 # Product and data sheet URLs (optional)
-productURL: https://mcci.io/Catena4450
+productURL: https://mcci.io/m4821
 ## dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
 ## resellerURLs:
 ##   - name: 'Reseller 1'
@@ -118,10 +113,9 @@ productURL: https://mcci.io/Catena4450
 
 # Photos
 photos:
-  main: catena4450.jpg
-##  other:
-##    - windsensor-package.jpg
-
+  main: model482x.jpg
+  ## other:
+  ##   - model4841-2.jpg
 # Youtube or Vimeo Video (optional)
 ## videos:
 ##   main: https://youtu.be/nG8MmaR5dsA

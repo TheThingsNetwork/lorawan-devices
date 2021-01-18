@@ -1,5 +1,5 @@
-name: MCCI Catena® 4450 Node
-description: General purpose LPWAN building block, open source, user-programmable end-device with sensors and support
+name: MCCI Catena® 4802 Modbus/Sensor Node
+description: General purpose LPWAN building block, open source, user-programmable single-board end-device with RS-485 Modbus interface, I2C bridge with Qwicc connector, integrated temperature and humidity sensor, and support
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -11,7 +11,7 @@ description: General purpose LPWAN building block, open source, user-programmabl
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.3.0'
+    version: '0.5.0'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -22,27 +22,27 @@ firmwareVersions:
     profiles:
       EU863-870:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
-        id: catena4450-profile
+        id: catena4802-profile
         lorawanCertified: false
         codec: codec-catena-generic
       US902-928:
-        id: catena4450-profile
+        id: catena4802-profile
         lorawanCertified: false
         codec: codec-catena-generic
       AU915-928:
-        id: catena4450-profile
+        id: catena4802-profile
         lorawanCertified: false
         codec: codec-catena-generic
       AS923:
-        id: catena4450-profile
+        id: catena4802-profile
         lorawanCertified: false
         codec: codec-catena-generic
       KR920-923:
-        id: catena4450-profile
+        id: catena4802-profile
         lorawanCertified: false
         codec: codec-catena-generic
       IN865-867:
-        id: catena4450-profile
+        id: catena4802-profile
         lorawanCertified: false
         codec: codec-catena-generic
 
@@ -53,22 +53,19 @@ firmwareVersions:
 # proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
 # velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
 sensors:
+  - auxiliary
   - temperature
   - humidity
-  - light
   - digital input
   - analog input
   - battery
-  - barometer
-  - pulse count
-  - pulse frequency
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
   width: 23
   length: 51
-  height: 35
+  height: 5
 
 ##  # Weight in grams (optional)
 ##  weight: 350
@@ -76,7 +73,7 @@ dimensions:
 # Battery information (optional)
 battery:
   replaceable: true
-  type: LiPo 3.7V
+  type: primary, 5V to 2.2V
 
 # Operating conditions (optional)
 operatingConditions:
@@ -86,8 +83,8 @@ operatingConditions:
     max: 85
   # Relative humidity (fraction of 1)
   relativeHumidity:
-    min: 0
-    max: 0.90
+    min: 0.00
+    max: 0.95
 
 ## # IP rating (optional)
 ## ipCode: IP64
@@ -103,8 +100,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://mcci.io/Catena4450
-## dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+productURL: https://mcci.io/buy-catena4802
+## dataSheetURL: https://example.org/catena4802/datasheet.pdf
 ## resellerURLs:
 ##   - name: 'Reseller 1'
 ##     region:
@@ -118,10 +115,10 @@ productURL: https://mcci.io/Catena4450
 
 # Photos
 photos:
-  main: catena4450.jpg
-##  other:
-##    - windsensor-package.jpg
-
+  main: catena4802.jpg
+  other:
+    - catena4802-terminals.jpg
+    - catena4802-pinout.png
 # Youtube or Vimeo Video (optional)
 ## videos:
 ##   main: https://youtu.be/nG8MmaR5dsA
