@@ -4,14 +4,14 @@ description: Microclimate Sensor for Harsh Environment
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '2.3'
-    numeric: 2.3
+    numeric: 203
     partNumber: SMC20
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '1.8'
-    numeric: 1.8
+    numeric: 108
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '2.3'
@@ -19,23 +19,22 @@ firmwareVersions:
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
-    EU863-870:
+      EU863-870:
         id: profile-eu868
         lorawanCertified: false
         codec: senstick-pro-codec
-    AS923:
+      AS923:
         id: profile-as923
         lorawanCertified: false
         codec: senstick-pro-codec
-    US902-928:
+      US902-928:
         id: profile-us915
         lorawanCertified: false
         codec: senstick-pro-codec
-    AU915-928:
+      AU915-928:
         id: profile-au915
         lorawanCertified: false
         codec: senstick-pro-codec
-
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -43,10 +42,9 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - temperature
-  - relative humidity
-  - air pressure
-  - motion
-  - battery level
+  - humidity
+  - pressure
+  - battery
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -97,7 +95,7 @@ resellerURLs:
     url: https://www.concept13.co.uk/
   - name: 'Arcsgroup'
     region:
-      - Australia, New Zealand
+      - Australia
     url: https://thearcsgroup.com/
   - name: 'Sensational Systems'
     region:
@@ -105,7 +103,7 @@ resellerURLs:
     url: https://sensational.systems/
   - name: 'mydevices'
     region:
-      - USA
+      - United States
     url: https://mydevices.com/
 
 # Photos
@@ -114,7 +112,7 @@ photos:
   other:
     - senstick-pro-indoor.jpg
     - senstick-pro-outdoor.jpg
-    - senstick-pro-city.jpg        
+    - senstick-pro-city.jpg
     - senstick-pro-package.jpg
 
 # Youtube or Vimeo Video (optional)
@@ -142,4 +140,3 @@ compliances:
     - body: IEC
       norm: EN
       standard: 61000-6-2
-
