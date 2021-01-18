@@ -32,7 +32,6 @@ firmwareVersions:
 sensors:
   - analog input
   - current
-  - 4-20 ma
   - battery
 
 dimensions:
