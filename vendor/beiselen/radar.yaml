@@ -1,0 +1,14 @@
+name: DigiSilo Radar Sensor
+description: DigiSilo Radar Sensor
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    # LoRaWAN Device Profiles per region
+    # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: false
