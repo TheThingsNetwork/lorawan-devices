@@ -1,0 +1,26 @@
+uplinkDecoder:
+  fileName: dl-rhc.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0xe0, 0x00, 0x03, 0xa9, 0xfd, 0x01, 0x34, 0x1c, 0xa2, 0x85, 0xf3, 0x0c, 0x60]
+      output:
+        data:
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 73.3
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 15.23
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 736
+          protocol_version: 2
+          sensor_id:
+            displayName: Sensor ID
+            value: 20228605
