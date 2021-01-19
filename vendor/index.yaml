@@ -1587,3 +1587,7 @@ vendors:
 
   - id: sensedge
     name: Sensedge
+
+  - id: embit
+    name: Embit srl
+    website: http://www.embit.eu/

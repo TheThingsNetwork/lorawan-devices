@@ -1,0 +1,46 @@
+name: EMB-LR1280S
+description: The new LoRa® 2.4 Ghz Embit solution to connect your sensors and actuators leveraging both the advantages of LoRa® long range modulation and 2.4 Ghz RF properties and regulation. It offers a wide range of serial intefaces, a crypto unit and extremely low consumptions. It represents the perfect solution for many industrial applications with the aim of ensuring worldwide deployment and enhanced transmission rate.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1'
+    numeric: 1
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: emb-lr1280s-profile
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 15.5
+  length: 20
+  height: 2.3
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: secure element
+
+# Photos
+photos:
+  main: emb-lr1280s-top.jpg
+  other:
+    - emb-lr1280s-bottom.jpg
+
+videos:
+  main: https://www.youtube.com/watch?v=W9B9bqGjlVs
