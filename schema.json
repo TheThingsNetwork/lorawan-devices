@@ -784,6 +784,7 @@
           "type": "array",
           "items": {
             "enum": [
+              "4-20 ma",
               "accelerometer",
               "altitude",
               "analog input",
