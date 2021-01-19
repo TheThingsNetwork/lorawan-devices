@@ -6,6 +6,12 @@ firmwareVersions:
   - # Firmware version
     version: '1.0.1'
     numeric: 1
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: emb-lr1280s-profile
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -32,9 +38,9 @@ keySecurity: secure element
 
 # Photos
 photos:
-  main: EMB-LR1280S-top.jpg
+  main: emb-lr1280s-top.jpg
   other:
-    - EMB-LR1280S-bottom.jpg
+    - emb-lr1280s-bottom.jpg
 
 videos:
   main: https://www.youtube.com/watch?v=W9B9bqGjlVs
