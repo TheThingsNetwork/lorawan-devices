@@ -946,10 +946,6 @@ vendors:
 
   - id: milesight-iot
     name: Milesight IoT Co., Ltd.
-    vendorID: 600
-
-  - id: ursalink
-    name: Ursalink Technology Co., Ltd.
     vendorID: 601
 
   - id: dataalliance
