@@ -944,8 +944,8 @@ vendors:
     name: Boston Networks Limited
     vendorID: 598
 
-  - id: ursalink
-    name: Ursalink Technology Co., Ltd.
+  - id: milesight-iot
+    name: Milesight IoT Co., Ltd.
     vendorID: 601
 
   - id: dataalliance
