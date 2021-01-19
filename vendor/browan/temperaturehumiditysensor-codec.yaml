@@ -1,0 +1,33 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: temperaturhumiditysensor.js
+  # Examples (optional)
+  format:
+    - description: temperatur & humidity
+      input:
+        fPort: 103
+        bytes: [0, 7]
+      output:
+        data:
+          Status[0]:           
+                Bits [2~0]    RFU
+                Bits [3]      1 – Temperature and humidity sensor, 
+                              0 – IAQ Sensor
+                Bits [7~4]    RFU
+          Battery Level[1]:               
+                Bits [3~0]    unsigned value ν, range 1 – 14; 
+                              battery voltage in V = (25 + ν) ÷ 10.
+                Bits [7~4]    RFU
+          Temperature[2]:          
+                Bits [6~0]    unsigned value τ, range 0 – 127;
+                              temperature in °C = τ - 32.
+                Bit [7]       RFU
+                              measurement range -32 to 95°C
+          Relative Humidity[3]:          
+                Bits [6~0]    unsigned value in %, range 0-100.
+                              The value 127 indicates measurement error.
+                Bit [7]       RFU
+          Ignore[4~7]: Reserved for IAQ Sensor
+
+

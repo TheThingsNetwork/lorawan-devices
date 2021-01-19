@@ -1,0 +1,9 @@
+endDevices:
+  - temperaturehumiditysensor # look in temperaturhumiditysensor.yaml for the end device definition
+  - doorwindowsensor          # look in doorwindowsensor.yaml for the end device definition
+  - motionsensor              # look in motionsensor.yaml for the end device definition
+  - waterleaksensor           # look in waterleaksensor.yaml for the end device definition
+  - soundlevelsensor          # look in soundlevelsensor.yaml for the end device definition
+  - ambientlightsensor        # look in ambientlightsensor.yaml for the end device definition
+  - objectlocator             # look in objectlocator.yaml for the end device definition
+  - industrialtracker         # look in industrialtracker.yaml for the end device definition 

@@ -1,0 +1,84 @@
+name: Ambient Light Sensor
+description: The Ambient Light Sensor utilizes LoRaWAN connectivity to provide measurements of ambient light intensity which matches the human eye's response to light under a variety of lighting conditions.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923,, IN865-867
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: ambientlightsensor-profile
+        lorawanCertified: true
+        codec: ambientlightsensor-codec
+      US902-928:
+        id: ambientlightsensor-profile
+        lorawanCertified: true
+        codec: ambientlightsensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - light
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 20
+  length: 50
+  height: 50
+
+# Weight in grams (optional)
+weight: 40
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3.6V ½ AA Li-SOCl2, 1200mAh
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: 0
+    max: 50
+
+# IP rating (optional)
+ipCode: IP40
+
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.browan.com/product/temperature-humidity-sensor/detail
+dataSheetURL: https://www.browan.com/download/5B/stream
+resellerURLs:
+- ConnectThings: https://connectedthings.store/gb/search?controller=search&s=browan
+- IoT Shop: https://iot-shop.de/shop/category/marke-browan-47
+- CalChip: https://www.calchipconnect.com/collections/browan
+- Antratek: https://www.antratek.com/manufacturer/browan-lorawan
+# Photos
+photos:
+  main: ambientlightsensor.jpg
+
+# Youtube or Vimeo Video (optional)
+
+# Regulatory compliances (optional)
+compliances:
+ FCC: standard
+ CE: standard

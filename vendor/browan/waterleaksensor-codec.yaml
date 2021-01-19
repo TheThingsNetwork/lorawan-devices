@@ -1,0 +1,42 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: waterleaksensor.js
+  # Examples (optional)
+  format:
+    - description: water leak sensor
+      input:
+        fPort: 106
+        bytes: [0, 4]
+      output:
+        data:
+          Status[0]:  
+                
+                Bit [0]       1 – Water leakage detected, 0 – Dry  
+                Bits [3~1]    RFU
+                Bits[4]       1 - Water leakage Interrupt
+                Bits[5]       1 - Temperature status is changed ( 2℃ delta)
+                Bits[6]       1 - RH status is changed  (5% RH delta)
+                Bits[7]       RFU
+          Battery Level[1]:               
+                Bits [3~0]    unsigned value ν, range 1 – 14; 
+                              battery voltage in V = (25 + ν) ÷ 10.
+                Bits [7~4]    RFU
+          Temperature(PCB)[2]:          
+                Bits [6~0]    unsigned value τ, range 0 – 127;
+                              temperature in °C = τ - 32.
+                Bit [7]       RFU
+                              measurement range -32 to 95°C
+          Humidity [3]:      
+                Bits [6~0]    unsigned value in %, range 0-100. 
+                              The value 127 indicates measurement error.
+                Bit [7]       RFU
+          Temperature Environment[4]: 
+                Bits [6~0]    unsigned value τ, range 0 – 127; 
+                              temperature in °C = τ - 32.
+                Bit [7]       RFU
+                              measurement range -32 to 95°C             
+
+
+
+

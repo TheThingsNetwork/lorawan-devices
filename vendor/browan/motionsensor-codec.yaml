@@ -1,0 +1,34 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: motionsensor.js
+  # Examples (optional)
+  format:
+    - description: motion sensor
+      input:
+        fPort: 102
+        bytes: [0, 7]
+      output:
+        data:
+          Status[0]:  
+                Bit [0]       1 – occupied, 0 – free 
+                Bits [7~1]    RFU
+          Battery Level[1]:               
+                Bits [3:0]    unsigned value ν, range 1 – 14; 
+                              battery voltage in V = (25 + ν) ÷ 10.
+                Bits [7~4]    RFU
+                #Note: The initial operation will be in a low voltage state, after 10 minutes, it will turn into a steady-state, which is referenceable.
+          Temperature(PCB)[2]:          
+                Bits [6~0]    unsigned value τ, range 0 – 127;
+                              temperature in °C = τ - 32.
+                Bit [7]       RFU
+                              measurement range -32 to 95°C
+          Time[3~4]:          
+                Bits [15~0]   unsigned value in minutes, range 0 – 65,535.
+                              #Note: little-endian format.
+          Count[5~7]: 
+                Bits [23~0]   unsigned value, range 0 – 16,777,215.
+                              #Note: little-endian format.
+                #Note: This value is not stored persistently on the device, and may reset whenever the device is power-cycled or rebooted.
+
+
