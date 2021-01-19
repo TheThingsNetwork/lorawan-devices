@@ -36,6 +36,16 @@ Then, install the dependencies:
 $ make deps
 ```
 
+## Contributing
+
+If you want to submit your devices to the Device Repository, fork this repository and open a pull request. [Learn how to fork and create pull requests](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+
+Pull requests are validated automatically. If there are any validation or formatting errors, the validation checks will not pass, and the pull request will not be merged until those errors are resolved. Therefore, before creating a pull request, run the following action to validate and format your data locally:
+
+```bash
+$ make validate fmt
+```
+
 ## Validation
 
 The Device Repository contains tooling to validate all data against a schema. This is necessary for all data to be loaded automatically in The Things Stack and other services.
@@ -370,16 +380,6 @@ function encodeDownlink(input) {
     bytes: [input.data.gate ? 1 : 0]
   }
 }
-```
-
-## Contributing
-
-If you want to submit your devices to the Device Repository, fork this repository and open a pull request. [Learn how to fork and create pull requests](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-
-Pull requests are validated automatically. If there are any validation or formatting errors, the validation checks will not pass, and the pull request will not be merged until those errors are resolved. Therefore, before creating a pull request, run the following action to validate and format your data locally:
-
-```bash
-$ make validate fmt
 ```
 
 ## Legal
