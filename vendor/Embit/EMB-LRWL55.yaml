@@ -1,12 +1,12 @@
 name: EMB-LRWL55
-description: EMB-LRWL55 is the first ultra-low-power LoRaWAN® OEM module based on STM's new system-on-chip, STM32WL55xx. Its tiny form factor and its capability of working both with 868MHz EU ISM band and 915MHz US make EMB-LRWL55 the perfect solution for small and battery powered LoRaWAN® end-devices, with the possibility to interface any kind of sensors. 
+description: EMB-LRWL55 is the first ultra-low-power LoRaWAN® OEM module based on STM's new system-on-chip, STM32WL55xx. Its tiny form factor and its capability of working both with 868MHz EU ISM band and 915MHz US make EMB-LRWL55 the perfect solution for small and battery powered LoRaWAN® end-devices, with the possibility to interface any kind of sensors.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '1.0.1'
     numeric: 1
-  # LoRaWAN Device Profiles per region
+    # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
