@@ -7,5 +7,5 @@ endDevices:
   - sensecap-light # look in sensecap-light.yaml for the end device definition
   - sensecap-co2 # look in sensecap-co2.yaml for the end device definition
   - sensecap-pressure # look in sensecap-pressure.yaml for the end device definition
-  - loramodule-e5  # look in loramodulee5.yaml for the end device definition
+  - loramodule-e5 # look in loramodulee5.yaml for the end device definition
 

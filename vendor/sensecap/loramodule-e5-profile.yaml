@@ -22,3 +22,8 @@ supportsJoin: true
 maxEIRP: 16
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true
+pingSlotPeriod: 128
+classBTimeout: 60
+pingSlotDataRateIndex: 0
+pingSlotFrequency: 0
+classCTimeout: 60

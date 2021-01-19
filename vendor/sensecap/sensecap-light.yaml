@@ -1,5 +1,5 @@
 name: SenseCAP Wireless Light Intensity Sensor - LoRaWAN
-description: It measures the intensity of light in lux from 0 - 188000 lux. It is designed with battery-powered and IP66 enclosure for outdoor use, optimized for use cases that need reliable data collection over years. 
+description: It measures the intensity of light in lux from 0 - 188000 lux. It is designed with battery-powered and IP66 enclosure for outdoor use, optimized for use cases that need reliable data collection over years.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -41,8 +41,7 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction, wind speed, soil moisture, soil temperature.
 sensors:
-  - light intensity
-  
+  - light
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -87,10 +86,6 @@ keySecurity: none
 productURL: https://www.seeedstudio.com/LoRaWAN-Light-Intensity-Sensor-EU868-p-4313.html
 dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRaWAN%20Gateway%20and%20Wireless%20Sensor%20Catalog-V1.6%20NEW.pdf
 resellerURLs:
-  - name: 'Seeed'
-    region:
-      - Global
-    url: https://www.seeedstudio.com/LoRaWAN-Light-Intensity-Sensor-EU868-p-4313.html
   - name: 'Distrelec'
     region:
       - European Union
@@ -100,10 +95,14 @@ resellerURLs:
       - United States
       - Canada
     url: https://www.mouser.com/new/seeed-studio/seeed-sensecap-lora-light-intensity-sensor/
+  - name: 'Seeed'
+    region:
+      - Other
+    url: https://www.seeedstudio.com/LoRaWAN-Light-Intensity-Sensor-EU868-p-4313.html
 
 # Photos
 photos:
-  main:  sensecap-light-deployment.jpg
+  main: sensecap-light-deployment.jpg
   other:
     - sensecap-light.jpg
     - sensecap-light-package.jpg

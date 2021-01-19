@@ -1,5 +1,5 @@
 name: SenseCAP Wireless Air Temperature and Humidity Sensor - LoRaWAN
-description: It measures temperature and humidity in the atmosphere. It's designed with a 2-in-1 sensor, a custom battery, and an industry-grade enclosure, optimized for outdoor use cases that need reliable data collection for years. 
+description: It measures temperature and humidity in the atmosphere. It's designed with a 2-in-1 sensor, a custom battery, and an industry-grade enclosure, optimized for outdoor use cases that need reliable data collection for years.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -41,8 +41,8 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction, wind speed, soil moisture, soil temperature.
 sensors:
-  - Air humidity
-  - Air temperatue
+  - humidity
+  - temperature
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -87,10 +87,6 @@ keySecurity: none
 productURL: https://www.seeedstudio.com/LoRaWAN-Soil-Moisture-and-Temperature-Sensor-EU868-p-4316.html
 dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRaWAN%20Gateway%20and%20Wireless%20Sensor%20Catalog-V1.6%20NEW.pdf
 resellerURLs:
-  - name: 'Seeed'
-    region:
-      - Global
-    url: https://www.seeedstudio.com/LoRaWAN-Air-Temperature-and-Humidity-Sensor-EU868-p-4307.html
   - name: 'Distrelec'
     region:
       - European Union
@@ -100,10 +96,14 @@ resellerURLs:
       - United States
       - Canada
     url: https://www.mouser.com/new/seeed-studio/seeed-sensecap-lora-air-temp-sensor/
+  - name: 'Seeed'
+    region:
+      - Other
+    url: https://www.seeedstudio.com/LoRaWAN-Air-Temperature-and-Humidity-Sensor-EU868-p-4307.html
 
 # Photos
 photos:
-  main:  sensecap-air-th-deployment.jpg
+  main: sensecap-air-th-deployment.jpg
   other:
     - sensecap-air-th.jpg
     - sensecap-air-th-package.jpg

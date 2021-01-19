@@ -52,15 +52,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: loramodule-e5-codec
 
-
-# Sensors that this device features (optional)
-# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
-# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
-# vibration, water, wind direction and wind speed.
-sensors:
-  - 
-  - 
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -68,27 +59,12 @@ dimensions:
   length: 12
   height: 2.5
 
-# Weight in grams (optional)
-weight: 
-
-# Battery information (optional)
-battery:
-  replaceable: 
-  type: 
-
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
     min: -45
     max: 85
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 
-    max: 
-
-# IP rating (optional)
-ipCode: 
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -106,9 +82,8 @@ dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRa-E5%20mod
 resellerURLs:
   - name: 'Seeed'
     region:
-      - Global
+      - Other
     url: https://www.seeedstudio.com/LoRa-E5-Wireless-Module-p-4745.html
-
 
 # Photos
 photos:
@@ -117,7 +92,7 @@ photos:
     - loramodule-e5-package.jpg
 
 # Youtube or Vimeo Video (optional)
-video: 
+video:
 
 # Regulatory compliances (optional)
 compliances:

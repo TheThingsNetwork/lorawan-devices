@@ -41,8 +41,8 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction, wind speed, soil moisture, soil temperature.
 sensors:
-  - Soil Moisture
-  - Soil Temperatue
+  - moisture
+  - temperature
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -87,19 +87,19 @@ keySecurity: none
 productURL: https://www.seeedstudio.com/LoRaWAN-Soil-Moisture-and-Temperature-Sensor-EU868-p-4316.html
 dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRaWAN%20Gateway%20and%20Wireless%20Sensor%20Catalog-V1.6%20NEW.pdf
 resellerURLs:
-  - name: 'Seeed'
-    region:
-      - Global
-    url: https://www.seeedstudio.com/LoRaWAN-Soil-Moisture-and-Temperature-Sensor-EU868-p-4316.html
-  - name: 'Distrelec'
-    region:
-      - European Union
-    url: https://www.distrelec.nl/en/sensecap-lorawan-wireless-soil-moisture-and-temperature-sensor-ip66-868mhz-seeed-studio-101990564/p/30167645?q=sensecap&pos=6&origPos=6&origPageSize=50&track=true
   - name: 'Mouser'
     region:
       - United States
       - Canada
     url: https://www.mouser.com/ProductDetail/Seeed-Studio/101990565/?qs=wnTfsH77Xs6z38MfPrPBUw%3D%3D
+  - name: 'Distrelec'
+    region:
+      - European Union
+    url: https://www.distrelec.nl/en/sensecap-lorawan-wireless-soil-moisture-and-temperature-sensor-ip66-868mhz-seeed-studio-101990564/p/30167645?q=sensecap&pos=6&origPos=6&origPageSize=50&track=true
+  - name: 'Seeed'
+    region:
+      - Other
+    url: https://www.seeedstudio.com/LoRaWAN-Soil-Moisture-and-Temperature-Sensor-EU868-p-4316.html
 
 # Photos
 photos:

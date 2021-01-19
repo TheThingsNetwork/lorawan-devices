@@ -7,7 +7,7 @@ uplinkDecoder:
     - description: End device's properties
       input:
         fPort: 1
-        bytes: ["00", "00", "00", "01", "01", "00", "01", "00", "07", "00", "64", "00", "3C", "00", "01", "20", "01", "00", "00", "00", "00", "28", "90"]
+        bytes: [0, 0, 0, 1, 1, 0, 1, 0, 7, 0, 100, 0, 60, 0, 1, 32, 1, 0, 0, 0, 0, 40, 144]
       output:
         data:
           valid: true
@@ -15,8 +15,8 @@ uplinkDecoder:
           payload: 0000000101000100070064003C00012001000000002890
           messages:
             - type: upload_version
-              hardwareVersion: "1.0"
-              softwareVersion: "1.1"
+              hardwareVersion: '1.0'
+              softwareVersion: '1.1'
             - type: upload_battery
               battery: 100
             - type: upload_interval
@@ -26,20 +26,23 @@ uplinkDecoder:
     - description: telemetry
       input:
         fPort: 1
-        bytes: ["01", "01", "10", "98", "53", "00", "00", "01", "02", "10", "A8", "7A", "00", "00", "AF", "51"]
+        bytes: [1, 1, 16, 152, 83, 0, 0, 1, 2, 16, 168, 122, 0, 0, 175, 81]
       output:
         data:
           valid: true
           err: 0
           payload: 01011098530000010210A87A0000AF51
           messages:
-            - type: uploadreport_telemetry_version
+            - type: report_telemetry
               measurementId: 4097
-              measurementValue: "1.1"
+              measurementValue: 21.4
+            - type: report_telemetry
+              measurementId: 4098
+              measurementValue: 31.4
     - description: Report sensor's metadatas
       input:
         fPort: 1
-        bytes: ["01", "01", "00", "01", "01", "00", "01", "01", "02", "00", "6A", "01", "00", "15", "01", "03", "00", "30", "F1", "F7", "2C", "01", "04", "00", "09", "0C", "13", "14", "01", "05", "00", "7F", "4D", "00", "00", "01", "06", "00", "00", "00", "00", "00", "4C", "BE"]
+        bytes: [1, 1, 0, 1, 1, 0, 1, 1, 2, 0, 106, 1, 0, 21, 1, 3, 0, 48, 241, 247, 44, 1, 4, 0, 9, 12, 19, 20, 1, 5, 0, 127, 77, 0, 0, 1, 6, 0, 0, 0, 0, 0, 76, 190]
       output:
         data:
           valid: true
@@ -49,34 +52,3 @@ uplinkDecoder:
             - type: upload_sensor_id
               channel: 1
               sensorId: 2CF7F1301500016A
-
-# Downlink encoder encodes JSON object into a binary data downlink (optional)
-# downlinkEncoder:
-#   fileName: windsensor.js
-#   examples:
-#     - description: Turn green
-#       input:
-#         data:
-#           led: green
-#       output:
-#         bytes: [1]
-#         fPort: 2
-#     - description: Invalid color
-#       input:
-#         data:
-#           led: blue
-#       output:
-#         errors:
-#           - invalid LED color
-
-# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-# downlinkDecoder:
-#   fileName: windsensor.js
-#   examples:
-#     - description: Turn green
-#       input:
-#         fPort: 2
-#         bytes: [1]
-#       output:
-#         data:
-#           led: green

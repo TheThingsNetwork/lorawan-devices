@@ -112,7 +112,9 @@ function decodeUplink(input) {
     }
 
     // return
-    return decoded;
+    return {
+        data: decoded
+    };
 }
 
 function crc16Check (data) {

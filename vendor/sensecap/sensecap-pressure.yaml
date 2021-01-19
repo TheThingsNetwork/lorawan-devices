@@ -1,5 +1,5 @@
 name: SenseCAP Wireless Barometric Pressure Sensor - LoRaWAN
-description: It measures atmospheric pressure, featuring high-precision, stability, and high EMC robustness. It’s designed with an air pressure sensor, a custom battery, and an industry-grade enclosure, optimized for outdoor use cases that need reliable data collection over years. 
+description: It measures atmospheric pressure, featuring high-precision, stability, and high EMC robustness. It’s designed with an air pressure sensor, a custom battery, and an industry-grade enclosure, optimized for outdoor use cases that need reliable data collection over years.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -86,10 +86,6 @@ keySecurity: none
 productURL: https://www.seeedstudio.com/LoRaWAN-Barometric-Pressure-Sensor-EU868-p-4309.html
 dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRaWAN%20Gateway%20and%20Wireless%20Sensor%20Catalog-V1.6%20NEW.pdf
 resellerURLs:
-  - name: 'Seeed'
-    region:
-      - Global
-    url: https://www.seeedstudio.com/LoRaWAN-Barometric-Pressure-Sensor-EU868-p-4309.html
   - name: 'Distrelec'
     region:
       - European Union
@@ -99,13 +95,17 @@ resellerURLs:
       - United States
       - Canada
     url: https://www.mouser.com/new/seeed-studio/seeed-sensecap-lora-barometric-sensor/
+  - name: 'Seeed'
+    region:
+      - Other
+    url: https://www.seeedstudio.com/LoRaWAN-Barometric-Pressure-Sensor-EU868-p-4309.html
 
 # Photos
 photos:
-  main:  sensecap-prressure-deployment.jpg
+  main: sensecap-pressure-deployment.jpg
   other:
-    - sensecap-prressure.jpg
-    - sensecap-prressure-package.jpg
+    - sensecap-pressure.jpg
+    - sensecap-pressure-package.jpg
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=BS1ivuxz2TE&feature=youtu.be
