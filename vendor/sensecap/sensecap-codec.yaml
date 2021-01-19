@@ -1,0 +1,82 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: sensecap-common-decoder.js
+  # Examples (optional)
+  examples:
+    - description: End device's properties
+      input:
+        fPort: 1
+        bytes: ["00", "00", "00", "01", "01", "00", "01", "00", "07", "00", "64", "00", "3C", "00", "01", "20", "01", "00", "00", "00", "00", "28", "90"]
+      output:
+        data:
+          valid: true
+          err: 0
+          payload: 0000000101000100070064003C00012001000000002890
+          messages:
+            - type: upload_version
+              hardwareVersion: "1.0"
+              softwareVersion: "1.1"
+            - type: upload_battery
+              battery: 100
+            - type: upload_interval
+              interval: 3600
+            - type: report_remove_sensor
+              channel: 1
+    - description: telemetry
+      input:
+        fPort: 1
+        bytes: ["01", "01", "10", "98", "53", "00", "00", "01", "02", "10", "A8", "7A", "00", "00", "AF", "51"]
+      output:
+        data:
+          valid: true
+          err: 0
+          payload: 01011098530000010210A87A0000AF51
+          messages:
+            - type: uploadreport_telemetry_version
+              measurementId: 4097
+              measurementValue: "1.1"
+    - description: Report sensor's metadatas
+      input:
+        fPort: 1
+        bytes: ["01", "01", "00", "01", "01", "00", "01", "01", "02", "00", "6A", "01", "00", "15", "01", "03", "00", "30", "F1", "F7", "2C", "01", "04", "00", "09", "0C", "13", "14", "01", "05", "00", "7F", "4D", "00", "00", "01", "06", "00", "00", "00", "00", "00", "4C", "BE"]
+      output:
+        data:
+          valid: true
+          err: 0
+          payload: 010100010100010102006A01001501030030F1F72C010400090C13140105007F4D0000010600000000004CBE
+          messages:
+            - type: upload_sensor_id
+              channel: 1
+              sensorId: 2CF7F1301500016A
+
+# # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: sensecap-common-decoder.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         data:
+#           led: green
+#       output:
+#         bytes: [1]
+#         fPort: 2
+#     - description: Invalid color
+#       input:
+#         data:
+#           led: blue
+#       output:
+#         errors:
+#           - invalid LED color
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green
