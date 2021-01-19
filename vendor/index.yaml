@@ -1584,3 +1584,6 @@ vendors:
     name: IoTsens Gimeno IoT Division
     website: https://www.iotsens.com/
     logo: logo_iotsens.svg
+
+  - id: sensedge
+    name: Sensedge
