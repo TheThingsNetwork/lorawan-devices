@@ -1552,10 +1552,6 @@ vendors:
     name: Exedra General Trading and Contracting
     vendorID: 841
 
-  - id: sensecap
-    name: Seeed Technology Co.,Ltd.
-    vendorID: 888
-
   - id: aquascope
     name: Aqua-Scope Technologies
 
