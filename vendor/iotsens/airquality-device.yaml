@@ -40,12 +40,20 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
+  - co
+  - so2
+  - no2
+  - no
+  - o3
+  - h2s
   - co2
   - tvoc
   - temperature
   - humidity
   - barometer
   - dust
+  - pm2.5
+  - pm10
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -63,15 +71,29 @@ weight: 400
 #   type: AA
 
 # Operating conditions (optional)
+
+
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: 0
-    max: 40
+    min: -40
+    max: 65
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 1
+
+
+
+# operatingConditions:
+#   # Temperature (Celcius)
+#   temperature:
+#     min: 0
+#     max: 40
+#   # Relative humidity (fraction of 1)
+#   relativeHumidity:
+#     min: 0
+#     max: 0.97
 
 # IP rating (optional)
 ipCode: IP53
