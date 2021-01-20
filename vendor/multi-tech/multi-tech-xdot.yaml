@@ -1,0 +1,64 @@
+name: MultiTech xDot® Long Range LoRa Module
+description: MultiTech xDot®is a secure, end-certified, Arm®Mbed™programmable, low-power RF module, that provides long-range, low bit rate M2M data connectivity to sensors, industrial equipment and remote appliances.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: multi-tech-xdot-profile-eu868
+        lorawanCertified: true
+      US902-928:
+        id: multi-tech-xdot-profile-us902
+        lorawanCertified: true
+      AU915-928:
+        id: multi-tech-xdot-profile-au915
+      AS923:
+        id: multi-tech-xdot-profile-as923
+      IN865-867:
+        id: multi-tech-xdot-profile-in865
+      KR920-923:
+        id: multi-tech-xdot-profile-kr920
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 23.6
+  length: 23.6
+  height: 3.51
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.2
+    max: 0.9
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.multitech.com/brands/multiconnect-xdot
+dataSheetURL: https://www.multitech.com/documents/publications/data-sheets/86002182.pdf
+
+# Photos
+photos:
+  main: multi-tech-xdot.png
