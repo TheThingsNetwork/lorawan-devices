@@ -1,0 +1,127 @@
+name: SenseCAP Wireless Light Intensity Sensor - LoRaWAN
+description: It measures the intensity of light in lux from 0 - 188000 lux. It is designed with battery-powered and IP66 enclosure for outdoor use, optimized for use cases that need reliable data collection over years.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '3.4'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap-codec
+      US902-928:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap-codec
+      AU915-928:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap-codec
+      AS923:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction, wind speed, soil moisture, soil temperature.
+sensors:
+  - light
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 56
+  length: 173
+  height: 56
+
+# Weight in grams (optional)
+weight: 288
+
+# Battery information (optional)
+battery:
+  replaceable: True
+  type: Lithium Thionyl Chloride (non-rechargeable)
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP66
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.seeedstudio.com/LoRaWAN-Light-Intensity-Sensor-EU868-p-4313.html
+dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRaWAN%20Gateway%20and%20Wireless%20Sensor%20Catalog-V1.6%20NEW.pdf
+resellerURLs:
+  - name: 'Distrelec'
+    region:
+      - European Union
+    url: https://www.distrelec.nl/en/sensecap-lorawan-wireless-light-intensity-sensor-ip66-868mhz-seeed-studio-114991727/p/30167648?q=sensecap&pos=3&origPos=3&origPageSize=50&track=true
+  - name: 'Mouser'
+    region:
+      - United States
+      - Canada
+    url: https://www.mouser.com/new/seeed-studio/seeed-sensecap-lora-light-intensity-sensor/
+  - name: 'Seeed'
+    region:
+      - Other
+    url: https://www.seeedstudio.com/LoRaWAN-Light-Intensity-Sensor-EU868-p-4313.html
+
+# Photos
+photos:
+  main: sensecap-light-deployment.jpg
+  other:
+    - sensecap-light.jpg
+    - sensecap-light-package.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://www.youtube.com/watch?v=mIS7KVGGY8A&feature=youtu.be
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
