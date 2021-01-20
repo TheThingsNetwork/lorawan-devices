@@ -82,7 +82,7 @@ keyProvisioning:
 # keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.iotsens.com/
+productURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Optical_Distance-Monitor_EN.pdf
 dataSheetURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Optical_Distance-Monitor_EN.pdf
 # resellerURLs:
 # - name: 'Reseller 1'
