@@ -1,5 +1,5 @@
 name: Optical Distance Monitor
-description: Distance monitor to 40m featuring a lidar sensor for LoRaWAN
+description: Devuce with integrated LIDAR sensor working with TOF technology for real data collection on the filling level. It becomes an optimal tool in waste management and liquid level detection in tanks among other applications.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -50,7 +50,7 @@ dimensions:
   height: 80
 
 # Weight in grams (optional)
-# weight: 350
+weight: 400
 
 # Battery information (optional)
 battery:

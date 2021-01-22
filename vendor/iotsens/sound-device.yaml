@@ -1,5 +1,5 @@
 name: Sound Level Meter
-description: Acoustic pressure levels sensor to prevent acoustic pollution for LoRaWan
+description: Device able to monitor noise levels due to its integrated microphone. It can analyze the surrounding ambient sound A-weighted, in the audible frequency spectrum for the human ear, showing the collected data in dBA. Developed based on the guidelines set out in Directive 2002/49 / CE of the European Parliament and of the Council, of June 25, 2002 and Law 37/2003 of November 17 published in the BOE of Spain both for noise pollution
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -50,7 +50,7 @@ dimensions:
   height: 60
 
 # Weight in grams (optional)
-# weight: 350
+weight: 610
 
 # Battery information (optional)
 # battery:
