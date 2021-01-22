@@ -22,27 +22,27 @@ firmwareVersions:
     profiles:
       EU863-870:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
-        id: model4831-profile
+        id: model4832-profile
         lorawanCertified: false
         codec: codec-catena-generic
       US902-928:
-        id: model4831-profile
+        id: model4832-profile
         lorawanCertified: false
         codec: codec-catena-generic
       AU915-928:
-        id: model4831-profile
+        id: model4832-profile
         lorawanCertified: false
         codec: codec-catena-generic
       AS923:
-        id: model4831-profile
+        id: model4832-profile
         lorawanCertified: false
         codec: codec-catena-generic
       KR920-923:
-        id: model4831-profile
+        id: model4832-profile
         lorawanCertified: false
         codec: codec-catena-generic
       IN865-867:
-        id: model4831-profile
+        id: model4832-profile
         lorawanCertified: false
         codec: codec-catena-generic
 
@@ -98,7 +98,7 @@ keyProvisioning:
 keySecurity: secure element
 
 # Product and data sheet URLs (optional)
-productURL: https://mcci.io/m4831
+productURL: https://mcci.io/m4832
 dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/model483x-datasheet.pdf?v=1610937656
 ## resellerURLs:
 ##   - name: 'Reseller 1'
