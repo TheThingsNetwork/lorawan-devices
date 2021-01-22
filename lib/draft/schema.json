@@ -834,6 +834,7 @@
               "rainfall",
               "rssi",
               "snr",
+              "so2",
               "solar radiation",
               "sound",
               "strain",
