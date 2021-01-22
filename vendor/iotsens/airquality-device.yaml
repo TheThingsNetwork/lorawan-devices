@@ -1,8 +1,6 @@
 name: Air Quality Monitor
 description: Device with a set of environmental sensors capable of collecting different variables to evaluate the conditions of the air that surrounds it. This device measures the concentration of CO, SO2, NO2, O3, NO, H2S, CO2, the particles suspended in the air (PM2.5 and PM10) and TVOC. Developed based on the guidelines set forth in the framework Directive 96/62/EC of the council and all its Daughter Directives.
 
-
-
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
@@ -72,7 +70,6 @@ weight: 400
 
 # Operating conditions (optional)
 
-
 operatingConditions:
   # Temperature (Celcius)
   temperature:
@@ -82,8 +79,6 @@ operatingConditions:
   relativeHumidity:
     min: 0
     max: 1
-
-
 
 # operatingConditions:
 #   # Temperature (Celcius)
