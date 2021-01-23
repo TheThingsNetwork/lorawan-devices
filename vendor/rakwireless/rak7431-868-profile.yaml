@@ -1,0 +1,17 @@
+vendorProfileID: 7431
+supportsClassB: true
+# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
+classBTimeout: 60
+# Ping slot period (seconds)
+pingSlotPeriod: 128
+# Ping slot data rate index
+pingSlotDataRateIndex: 0
+# Ping slot frequency (MHz). Set to 0 if the band supports ping slot frequency hopping.
+pingSlotFrequency: 869.525
+supportsClassC: true
+classCTimeout: 60
+macVersion: 1.0.3
+regionalParametersVersion: RP001-1.0.3-RevA
+supportsJoin: true
+maxEIRP: 20
+supports32bitFCnt: true
