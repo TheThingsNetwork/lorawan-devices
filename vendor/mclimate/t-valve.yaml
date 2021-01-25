@@ -13,7 +13,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: t-valve
+        id: t-valve-profile
         lorawanCertified: false
         # codec: t-valve-codec
 

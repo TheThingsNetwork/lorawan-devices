@@ -20,7 +20,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: vicki
+        id: vicki-profile
         lorawanCertified: false
         # codec: vicki-codec
 
