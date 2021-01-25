@@ -19,7 +19,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: ht-sensor
         lorawanCertified: false
-        codec: ht-sensor-codec
+        # codec: ht-sensor-codec
 
   
 # Sensors that this device features (optional)

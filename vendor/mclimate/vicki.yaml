@@ -22,7 +22,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: vicki
         lorawanCertified: false
-        codec: vicki-codec
+        # codec: vicki-codec
 
   
 # Sensors that this device features (optional)

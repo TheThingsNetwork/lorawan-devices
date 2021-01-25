@@ -19,7 +19,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: aqi-sensor
         lorawanCertified: false
-        codec: aqi-sensor-codec
+        # codec: aqi-sensor-codec
 
   
 # Sensors that this device features (optional)
