@@ -3,17 +3,17 @@ description: MClimate Vicki is a a smart thermostatic radiator valve (TRV). It c
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '2.4'
+  - version: "2.4"
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.1'
+    version: "3.1"
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '2.4'
+      - "2.4"
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
@@ -24,7 +24,6 @@ firmwareVersions:
         lorawanCertified: false
         # codec: vicki-codec
 
-  
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
@@ -76,26 +75,26 @@ keySecurity: read protected
 productURL: https://mclimate.bit.ai/docs/view/hynFRwdIvWYQg867
 dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/kSUunNxnzQB8fLuq/MClimate_Vicki_LoRaWAN_-_Datasheet.pdf
 # resellerURLs:
-  # - name: 'Connected Things'
-  #   region:
-  #     - United Kingdom
-  #   url: https://connectedthings.store/
-  # - name: 'Concept13'
-  #   region:
-  #     - United Kingdom
-  #   url: https://www.concept13.co.uk
-  # - name: 'RG2i'
-  #   region:
-  #     - France
-  #   url: https://connectedthings.store/
-  # - name: 'Wideco'
-  #   region:
-  #     - Sweden
-  #   url: https://wideco.se
-  # - name: 'iioote'
-  #   region:
-  #     - Sweden
-  #   url: https://iiooote.com
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
 
 # Photos
 photos:
@@ -119,3 +118,4 @@ compliances:
       norm: EN
       standard: 300-220
       version: 3.1.1
+

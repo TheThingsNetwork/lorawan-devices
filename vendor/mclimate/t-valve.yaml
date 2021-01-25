@@ -1,11 +1,10 @@
 name: MClimate T-Valve - Water valve
 description: MClimate T-Valve is a LoRaWAN water valve used in residential or commercial buildings. 3/4" and 1" versions available.
 
-      
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '6.0'
+    version: "6.0"
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -17,7 +16,6 @@ firmwareVersions:
         lorawanCertified: false
         # codec: t-valve-codec
 
-  
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
@@ -69,31 +67,30 @@ keySecurity: read protected
 productURL: https://mclimate.bit.ai/docs/view/qiyURo9OxshxDj1i
 dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/88AX301jrXL1awzI/mclimate-t-valve-lorawan-datasheet-en.pdf
 # resellerURLs:
-  # - name: 'Connected Things'
-  #   region:
-  #     - United Kingdom
-  #   url: https://connectedthings.store/
-  # - name: 'Concept13'
-  #   region:
-  #     - United Kingdom
-  #   url: https://www.concept13.co.uk
-  # - name: 'RG2i'
-  #   region:
-  #     - France
-  #   url: https://connectedthings.store/
-  # - name: 'Wideco'
-  #   region:
-  #     - Sweden
-  #   url: https://wideco.se
-  # - name: 'iioote'
-  #   region:
-  #     - Sweden
-  #   url: https://iiooote.com
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
 
 # Photos
 photos:
   main: t-valve.jpg
-
 
 # Regulatory compliances (optional)
 compliances:

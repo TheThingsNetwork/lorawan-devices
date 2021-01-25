@@ -3,13 +3,13 @@ description: MClimate HT Sensor is an indoor temperature and humidity sensor wit
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: "1.0"
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: "1.0"
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -21,7 +21,6 @@ firmwareVersions:
         lorawanCertified: false
         # codec: ht-sensor-codec
 
-  
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
@@ -73,26 +72,26 @@ keySecurity: read protected
 productURL: https://mclimate.bit.ai/docs/view/fVqYnMSrbXBt3MZa
 dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/UmkvtxIzRIUT2Td8/mclimate-ht-lorawan-datasheet-en.pdf
 # resellerURLs:
-  # - name: 'Connected Things'
-  #   region:
-  #     - United Kingdom
-  #   url: https://connectedthings.store/
-  # - name: 'Concept13'
-  #   region:
-  #     - United Kingdom
-  #   url: https://www.concept13.co.uk
-  # - name: 'RG2i'
-  #   region:
-  #     - France
-  #   url: https://connectedthings.store/
-  # - name: 'Wideco'
-  #   region:
-  #     - Sweden
-  #   url: https://wideco.se
-  # - name: 'iioote'
-  #   region:
-  #     - Sweden
-  #   url: https://iiooote.com
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
 
 # Photos
 photos:
@@ -116,3 +115,4 @@ compliances:
       norm: EN
       standard: 300-220
       version: 3.1.1
+
