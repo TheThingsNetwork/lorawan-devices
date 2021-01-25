@@ -75,7 +75,7 @@ keySecurity: read protected
 # Product and data sheet URLs (optional)
 productURL: https://mclimate.bit.ai/docs/view/hynFRwdIvWYQg867
 dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/kSUunNxnzQB8fLuq/MClimate_Vicki_LoRaWAN_-_Datasheet.pdf
-resellerURLs:
+# resellerURLs:
   # - name: 'Connected Things'
   #   region:
   #     - United Kingdom
@@ -84,18 +84,18 @@ resellerURLs:
   #   region:
   #     - United Kingdom
   #   url: https://www.concept13.co.uk
-  - name: 'RG2i'
-    region:
-      - France
-    url: https://connectedthings.store/
-  - name: 'Wideco'
-    region:
-      - Sweden
-    url: https://wideco.se
-  - name: 'iioote'
-    region:
-      - Sweden
-    url: https://iiooote.com
+  # - name: 'RG2i'
+  #   region:
+  #     - France
+  #   url: https://connectedthings.store/
+  # - name: 'Wideco'
+  #   region:
+  #     - Sweden
+  #   url: https://wideco.se
+  # - name: 'iioote'
+  #   region:
+  #     - Sweden
+  #   url: https://iiooote.com
 
 # Photos
 photos:
