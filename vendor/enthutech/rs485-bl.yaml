@@ -28,7 +28,6 @@ firmwareVersions:
       CN470-510:
         id: class-a-profile
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -58,14 +57,14 @@ weight: 150
 
 # Operating conditions (optional)
 # operatingConditions:
-  # Temperature (Celcius)
-  # temperature:
-  #   min: -30
-  #   max: 85
-  # Relative humidity (fraction of 1)
-  # relativeHumidity:
-  #   min: 0
-  #   max: 0.97
+# Temperature (Celcius)
+# temperature:
+#   min: -30
+#   max: 85
+# Relative humidity (fraction of 1)
+# relativeHumidity:
+#   min: 0
+#   max: 0.97
 
 # IP rating (optional)
 ipCode: IP67

@@ -38,7 +38,6 @@ firmwareVersions:
       CN470-510:
         id: class-a-profile
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -48,8 +47,8 @@ firmwareVersions:
 # sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
- - temperature
- - humidity
+  - temperature
+  - humidity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -68,14 +67,14 @@ sensors:
 
 # Operating conditions (optional)
 # operatingConditions:
-  # Temperature (Celcius)
-  # temperature:
-  #   min: -30
-  #   max: 85
-  # Relative humidity (fraction of 1)
-  # relativeHumidity:
-  #   min: 0
-  #   max: 0.97
+# Temperature (Celcius)
+# temperature:
+#   min: -30
+#   max: 85
+# Relative humidity (fraction of 1)
+# relativeHumidity:
+#   min: 0
+#   max: 0.97
 
 # IP rating (optional)
 # ipCode: IP64
@@ -105,7 +104,6 @@ photos:
   other:
     - lsn50v2-s31-10.jpg
     - lsn50v2-s31-20.jpg
-
 # Youtube or Vimeo Video (optional)
 #videos:
 #  main: https://www.youtube.com/watch?v=JHzxcD2oEn8

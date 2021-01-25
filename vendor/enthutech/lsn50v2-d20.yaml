@@ -28,7 +28,6 @@ firmwareVersions:
       CN470-510:
         id: class-a-profile
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -40,7 +39,6 @@ firmwareVersions:
 sensors:
   - temperature
 #  - wind speed
-
 
 # Product and data sheet URLs (optional)
 productURL: http://www.dragino.com/products/lora-lorawan-end-node/item/168-lsn50v2-d20.html
