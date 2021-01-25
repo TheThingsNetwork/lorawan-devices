@@ -1598,3 +1598,8 @@ vendors:
   - id: embit
     name: Embit srl
     website: http://www.embit.eu/
+
+  - id: enthutech
+    name: Enthu Technology Solutions India Pvt Ltd
+    website: https://www.enthutech.in/
+    logo: logo_enthutech.png
