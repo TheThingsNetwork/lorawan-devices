@@ -69,7 +69,7 @@ keyProvisioning:
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
-keySecurity: read protection
+keySecurity: read protected
 
 # Product and data sheet URLs (optional)
 productURL: https://mclimate.bit.ai/docs/view/S14D8XaQJGaz6cF4
