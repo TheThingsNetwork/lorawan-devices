@@ -7,7 +7,7 @@ uplinkDecoder:
         bytes: [0x2C, 0xC0]
       output:
         data:
-            reason: 'keepalive',
+            reason: 'keepalive'
             valveState: false
             boxTamper: true
             floodDetectionWireState: true

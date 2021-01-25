@@ -8,6 +8,6 @@ uplinkDecoder:
       output:
         data:
           batteryVoltage: 3
-          humidity: 50,
-          reason: "keepalive",
+          humidity: 50
+          reason: "keepalive"
           temperature: 24.8
