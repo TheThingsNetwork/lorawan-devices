@@ -75,23 +75,23 @@ keySecurity: read protected
 productURL: https://mclimate.bit.ai/docs/view/S14D8XaQJGaz6cF4
 dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/Q4RlX1XZwpcn867d/MClimate_AQI_Sensor___Notifier-datasheet-lorawan-en.pdf
 resellerURLs:
-  - name: 'Connected Things'
-    region:
-      - United Kingdom
-    url: https://connectedthings.store/
-  - name: 'Concept13'
-    region:
-      - United Kingdom
-    url: https://www.concept13.co.uk
-  - name: "RG2i"
+  # - name: 'Connected Things'
+  #   region:
+  #     - United Kingdom
+  #   url: https://connectedthings.store/
+  # - name: 'Concept13'
+  #   region:
+  #     - United Kingdom
+  #   url: https://www.concept13.co.uk
+  - name: 'RG2i'
     region:
       - France
     url: https://connectedthings.store/
-  - name: "Wideco"
+  - name: 'Wideco'
     region:
       - Sweden
     url: https://wideco.se
-  - name: "iioote"
+  - name: 'iioote'
     region:
       - Sweden
     url: https://iiooote.com
