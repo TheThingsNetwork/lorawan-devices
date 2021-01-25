@@ -1,0 +1,56 @@
+name: UG67
+description: Outdoor LoRaWAN® Gateway
+
+firmwareVersions:
+  - version: '60.0.0.34'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.1'
+
+    profiles:
+      EU863-870:
+        id: ug67-profile-eu868
+      US902-928:
+        id: ug67-profile-us915
+      AU915-928:
+        id: ug67-profile-au915
+      AS923:
+        id: ug67-profile-as923
+      CN470-510:
+        id: ug67-profile-cn470
+      KR920-923:
+        id: ug67-profile-kr920
+      IN865-867:
+        id: ug67-profile-in865
+      RU864-870:
+        id: ug67-profile-ru864
+
+dimensions:
+  width: 9.2
+  length: 25
+  height: 17.2
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 70
+
+  relativeHumidity:
+    min: 0
+    max: 1.00
+
+ipCode: IP67
+
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/gateway/ug67/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/ug67-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: ug67.png
