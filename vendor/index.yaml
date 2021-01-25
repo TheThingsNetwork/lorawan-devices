@@ -1565,6 +1565,9 @@ vendors:
   - id: the-things-products
     name: The Things Products
 
+  - id: the-things-industries
+    name: The Things Industries
+
   - id: the-box-development
     name: The-Box Development
 
