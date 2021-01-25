@@ -3,17 +3,17 @@ description: MClimate Vicki is a a smart thermostatic radiator valve (TRV). It c
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: "2.4"
+  - version: '2.4'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "3.1"
+    version: '3.1'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - "2.4"
+      - '2.4'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870

@@ -4,7 +4,7 @@ description: MClimate T-Valve is a LoRaWAN water valve used in residential or co
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "6.0"
+    version: '6.0'
     numeric: 1
 
     # LoRaWAN Device Profiles per region

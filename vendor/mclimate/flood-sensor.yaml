@@ -3,13 +3,13 @@ description: MClimate Flood Sensor is a compact flood sensor suitable for reside
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: "2.4"
+  - version: '2.4'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "6.0"
+    version: '6.0'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -115,4 +115,3 @@ compliances:
       norm: EN
       standard: 300-220
       version: 3.1.1
-
