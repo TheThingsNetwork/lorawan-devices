@@ -28,7 +28,7 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - temperature
-  - flood
+  - water
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
