@@ -1,0 +1,133 @@
+uplinkDecoder:
+  fileName: dl-pm.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x1b,
+            0x50,
+            0x00,
+            0x0f,
+            0x0c,
+            0x25,
+            0x00,
+            0x25,
+            0x00,
+            0x27,
+            0x00,
+            0x27,
+            0x00,
+            0x27,
+            0x01,
+            0xf5,
+            0x01,
+            0x07,
+            0x01,
+            0x2c,
+            0x01,
+            0x2d,
+            0x01,
+            0x2d,
+            0x01,
+            0x2d,
+            0x67,
+            0xbd,
+            0x61,
+            0x8d,
+            0xbd,
+            0x10,
+          ]
+      output:
+        data:
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 41.63221740722656
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 24.35660461425781
+          barometric_pressure:
+            displayName: Barometric pressure
+            unit: Pa
+            value: 96800
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          device_id: 6992
+          pm0_5_number_concentration:
+            displayName: PM0.5 number concentration
+            value: 26.3
+          pm10_mass_concentration:
+            displayName: PM10 mass concentration
+            unit: "\xB5g\u22C5m\u207B\xB3"
+            value: 3.9
+          pm10_number_concentration:
+            displayName: PM10 number concentration
+            value: 30.1
+          pm1_0_mass_concentration:
+            displayName: PM1.0 mass concentration
+            unit: "\xB5g\u22C5m\u207B\xB3"
+            value: 3.7
+          pm1_0_number_concentration:
+            displayName: PM1.0 number concentration
+            value: 30
+          pm2_5_mass_concentration:
+            displayName: PM2.5 mass concentration
+            unit: "\xB5g\u22C5m\u207B\xB3"
+            value: 3.9
+          pm2_5_number_concentration:
+            displayName: PM2.5 number concentration
+            value: 30.1
+          pm4_mass_concentration:
+            displayName: PM4 mass concentration
+            unit: "\xB5g\u22C5m\u207B\xB3"
+            value: 3.9
+          pm4_number_concentration:
+            displayName: PM4 number concentration
+            value: 30.1
+          protocol_version: 2
+          typical_particle_size:
+            displayName: Typical particle size
+            unit: nm
+            value: 501
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x1b, 0x50, 0x00, 0x0d, 0x0c, 0x25, 0x67, 0xbd, 0x61, 0x8d, 0xbd, 0x10]
+      output:
+        data:
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 41.63221740722656
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 24.35660461425781
+          barometric_pressure:
+            displayName: Barometric pressure
+            unit: Pa
+            value: 96800
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          device_id: 6992
+          protocol_version: 2
+    - description: Example 3
+      input:
+        fPort: 1
+        bytes: [0x02, 0x1b, 0x50, 0x00, 0x01, 0x0c, 0x25]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          device_id: 6992
+          protocol_version: 2

@@ -5,12 +5,28 @@ hardwareVersions:
   - version: '1'
     numeric: 1
     partNumber: DL-MBX-001
+  - version: '2'
+    numeric: 2
+    partNumber: DL-MBX-002
+  - version: '3'
+    numeric: 3
+    partNumber: DL-MBX-003
+  - version: '4'
+    numeric: 4
+    partNumber: DL-MBX-004
+  - version: '5'
+    numeric: 5
+    partNumber: DL-MBX-005
 
 firmwareVersions:
   - version: '1.5.7'
     numeric: 157
     hardwareVersions:
       - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
     profiles:
       EU863-870:
         id: profile-eu868
@@ -62,6 +78,9 @@ productURL: https://www.decentlab.com/products/ultrasonic-distance-/-level-senso
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-MBX-datasheet.pdf
 photos:
   main: dl-mbx.jpg
+  other:
+    - dl-mbx-004-005.jpg
+    - dl-mbx-cable.jpg
 
 compliances:
   safety:

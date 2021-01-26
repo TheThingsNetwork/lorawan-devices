@@ -1,0 +1,31 @@
+uplinkDecoder:
+  fileName: dl-ds18.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0x3d, 0x00, 0x03, 0x81, 0x5e, 0x0c, 0x15]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.093
+          device_id: 573
+          protocol_version: 2
+          temperature:
+            displayName: Temperature
+            unit: "\xB0C"
+            value: 21.875
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0x3d, 0x00, 0x02, 0x0c, 0x15]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.093
+          device_id: 573
+          protocol_version: 2

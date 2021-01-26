@@ -1,0 +1,90 @@
+name: DL-DLR2-003
+description: Digital Input Dry Contact Transmitter for LoRaWAN
+
+hardwareVersions:
+  - version: '1'
+    numeric: 1
+    partNumber: DL-DLR2-003
+
+firmwareVersions:
+  - version: 1.5.7
+    numeric: 157
+    hardwareVersions:
+      - '1'
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: dl-dlr2-003-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: false
+        codec: dl-dlr2-003-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: dl-dlr2-003-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: false
+        codec: dl-dlr2-003-codec
+
+sensors:
+  - digital input
+  - battery
+
+dimensions:
+  length: 135
+  width: 81
+  height: 70
+
+weight: 400
+
+battery:
+  replaceable: true
+  type: 2 C alkaline
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 50
+  relativeHumidity:
+    min: 0
+    max: 1.0
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+keySecurity: none
+
+productURL: https://www.decentlab.com/products/analog-or-digital-sensor-device-for-lorawan
+dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-DLR2-datasheet.pdf
+photos:
+  main: dl-dlr2.jpg
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010

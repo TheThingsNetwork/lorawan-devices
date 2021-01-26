@@ -1,0 +1,23 @@
+uplinkDecoder:
+  fileName: dl-zn2.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x11, 0x11, 0x00, 0x03, 0x40, 0x9a, 0x00, 0x86, 0x30, 0x39, 0x00, 0x3e, 0x0c, 0x54]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.156
+          dendrometer_a_position:
+            displayName: Dendrometer A Position
+            unit: "\xB5m"
+            value: 976.9296646118164
+          dendrometer_b_position:
+            displayName: Dendrometer B Position
+            unit: "\xB5m"
+            value: 11259.996891021729
+          device_id: 4369
+          protocol_version: 2

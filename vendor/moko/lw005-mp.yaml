@@ -1,0 +1,94 @@
+name: lw005-mp
+description: LoRawan Smart Socket
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.1'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.3'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.1'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: ac-eu868
+        codec: lw005-mp-codec
+      IN865-867:
+        id: ac-in865
+        codec: lw005-mp-codec
+      RU864-870:
+        id: ac-ru864
+        codec: lw005-mp-codec
+      US902-928:
+        id: ac-us915
+        codec: lw005-mp-codec
+      AU915-928:
+        id: ac-au915
+        codec: lw005-mp-codec
+      AS923:
+        id: ac-as923
+        codec: lw005-mp-codec
+      KR920-923:
+        id: ac-kr920
+        codec: lw005-mp-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - current
+  - power
+  - voltage
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 61
+  length: 104
+  height: 34
+
+# Weight in grams (optional)
+weight: 136
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: 0
+    max: 40
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.1
+    max: 0.9
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Photos
+photos:
+  main: lw005-mp-eu-1.png
+  other:
+    - lw005-mp-eu-2.png
+    - lw005-mp-eu-3.png
+    - lw005-mp-us-1.png
+    - lw005-mp-us-2.png
+    - lw005-mp-us-3.png

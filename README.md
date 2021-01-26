@@ -8,6 +8,12 @@ This repository is a collaborative effort, driven by The Things Network communit
 
 Curious to how end devices, profiles and payload is defined in the Device Repository? [Go to the fully documented example](./vendor/example).
 
+## How-to video
+
+To help you add devices to this repository, you can follow along in this example video where we walk through all of the instructions below.
+
+[![Adding devices to the device repository](https://img.youtube.com/vi/pnwtEgw4f-c/0.jpg)](https://www.youtube.com/watch?v=pnwtEgw4f-c)
+
 ## Prerequisites
 
 - Node.js version 14.x
@@ -56,6 +62,8 @@ There are six file types in the Device Repository:
 4. **End device profile** for one or more devices (`vendor/<vendor-id>/<profile-id>.yaml`)
 5. **Payload codec definition** for one or more devices (`vendor/<vendor-id>/<codec>.yaml`)
 6. **Payload codec implementation** to decode and encode payload (`vendor/<vendor-id>/<codec>.js`)
+
+> All files and folders must have lowercase titles.
 
 An example directory structure with a vendor named `company-x` that produces two devices (`device-a` and `device-b`) with the same codec and profile:
 

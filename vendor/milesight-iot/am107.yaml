@@ -1,0 +1,121 @@
+name: AM107
+description: Ambience Monitoring Sensors
+
+firmwareVersions:
+  - version: '1.25'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: am107-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: am107-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: am107-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: am107-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: am107-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: am107-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: am107-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: am107-codec
+
+sensors:
+  - battery
+  - temperature
+  - humidity
+  - co2
+  - tvoc
+  - pressure
+  - pir
+  - light
+
+dimensions:
+  width: 21.2
+  length: 105
+  height: 70.4
+
+battery:
+  replaceable: true
+  type: AA
+
+operatingConditions:
+  temperature:
+    min: 0
+    max: 45
+
+  relativeHumidity:
+    min: 0
+    max: 1.00
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/sensor/am100/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/am100-series-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: am107.png
+  other:
+    - am107-1.png
+
+videos:
+  main: https://www.youtube.com/watch?v=lu90qeIkjC0&ab_channel=MilesightIoT
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 2.2.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 330
+      version: 2.1.1

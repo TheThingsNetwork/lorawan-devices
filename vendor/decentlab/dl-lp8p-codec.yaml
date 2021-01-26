@@ -1,0 +1,101 @@
+uplinkDecoder:
+  fileName: dl-lp8p.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [0x02, 0x05, 0x78, 0x00, 0x0f, 0x67, 0xbd, 0x61, 0x8d, 0x1c, 0xed, 0xbd, 0x10, 0x81, 0xd9, 0x81, 0xf4, 0x89, 0x5b, 0x0b, 0xd8, 0x0b, 0xb5, 0x00, 0x00, 0x95, 0x98, 0x95, 0x39, 0x0c, 0x25]
+      output:
+        data:
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 41.63221740722656
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 24.35660461425781
+          barometer_temperature:
+            displayName: Barometer temperature
+            unit: "\xB0C"
+            value: 24.05
+          barometric_pressure:
+            displayName: Barometric pressure
+            unit: Pa
+            value: 96800
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          capacitor_voltage_1:
+            displayName: Capacitor voltage 1
+            unit: V
+            value: 3.032
+          capacitor_voltage_2:
+            displayName: Capacitor voltage 2
+            unit: V
+            value: 2.997
+          co2_concentration:
+            displayName: CO2 concentration
+            unit: ppm
+            value: 473
+          co2_concentration_lpf:
+            displayName: CO2 concentration LPF
+            unit: ppm
+            value: 500
+          co2_sensor_status:
+            displayName: CO2 sensor status
+            value: 0
+          co2_sensor_temperature:
+            displayName: CO2 sensor temperature
+            unit: "\xB0C"
+            value: 23.95
+          device_id: 1400
+          protocol_version: 2
+          raw_ir_reading:
+            displayName: Raw IR reading
+            value: 38296
+          raw_ir_reading_lpf:
+            displayName: Raw IR reading LPF
+            value: 38201
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x05, 0x78, 0x00, 0x0b, 0x67, 0xbd, 0x61, 0x8d, 0x1c, 0xed, 0xbd, 0x10, 0x0c, 0x25]
+      output:
+        data:
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 41.63221740722656
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 24.35660461425781
+          barometer_temperature:
+            displayName: Barometer temperature
+            unit: "\xB0C"
+            value: 24.05
+          barometric_pressure:
+            displayName: Barometric pressure
+            unit: Pa
+            value: 96800
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          device_id: 1400
+          protocol_version: 2
+    - description: Example 3
+      input:
+        fPort: 1
+        bytes: [0x02, 0x05, 0x78, 0x00, 0x08, 0x0c, 0x25]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          device_id: 1400
+          protocol_version: 2
