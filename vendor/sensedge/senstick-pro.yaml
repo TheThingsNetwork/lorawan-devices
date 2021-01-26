@@ -1,0 +1,142 @@
+name: Senstick Pro
+description: Microclimate Sensor for Harsh Environment
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.3'
+    numeric: 203
+    partNumber: SMC20
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.8'
+    numeric: 108
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.3'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: false
+        codec: senstick-pro-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: false
+        codec: senstick-pro-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: false
+        codec: senstick-pro-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: false
+        codec: senstick-pro-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+  - humidity
+  - pressure
+  - battery
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 18
+  length: 210
+  height: 18
+
+# Weight in grams (optional)
+weight: 70
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AAA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1.00
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: http://senstick.co
+dataSheetURL: http://senstick.co/downloads/Sensedge-SMC20-Datasheet.pdf
+resellerURLs:
+  - name: 'Concept13'
+    region:
+      - European Union
+    url: https://www.concept13.co.uk/
+  - name: 'Arcsgroup'
+    region:
+      - Australia
+    url: https://thearcsgroup.com/
+  - name: 'Sensational Systems'
+    region:
+      - European Union
+    url: https://sensational.systems/
+  - name: 'mydevices'
+    region:
+      - United States
+    url: https://mydevices.com/
+
+# Photos
+photos:
+  main: senstick-pro.jpg
+  other:
+    - senstick-pro-indoor.jpg
+    - senstick-pro-outdoor.jpg
+    - senstick-pro-city.jpg
+    - senstick-pro-package.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://youtu.be/HMF9fI76BbE
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 303 446-1
+    - body: ETSI
+      norm: EN
+      standard: 303 446-2
+    - body: ETSI
+      norm: EN
+      standard: 301 489-17
+    - body: ETSI
+      norm: EN
+      standard: 61000-6-1
+    - body: IEC
+      norm: EN
+      standard: 61000-6-2

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 name: LW001-BG
 description: LW001-BG is a wireless smart, ultra-low power consumption, indoor&outdoor（IP67） LoRaWAN Tracker. Ideal to optimize logistic process, asset management, warehouse and inventory scenarios, outdoor tracking, theft protection and much more.
+=======
+name: lw001-bg
+description: The LoRaWAN Tracker
+>>>>>>> upstream/master
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

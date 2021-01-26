@@ -8,6 +8,12 @@ This repository is a collaborative effort, driven by The Things Network communit
 
 Curious to how end devices, profiles and payload is defined in the Device Repository? [Go to the fully documented example](./vendor/example).
 
+## How-to video
+
+To help you add devices to this repository, you can follow along in this example video where we walk through all of the instructions below.
+
+[![Adding devices to the device repository](https://img.youtube.com/vi/pnwtEgw4f-c/0.jpg)](https://www.youtube.com/watch?v=pnwtEgw4f-c)
+
 ## Prerequisites
 
 - Node.js version 14.x
@@ -28,6 +34,16 @@ Then, install the dependencies:
 
 ```bash
 $ make deps
+```
+
+## Contributing
+
+If you want to submit your devices to the Device Repository, fork this repository and open a pull request. [Learn how to fork and create pull requests](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+
+Pull requests are validated automatically. If there are any validation or formatting errors, the validation checks will not pass, and the pull request will not be merged until those errors are resolved. Therefore, before creating a pull request, run the following action to validate and format your data locally:
+
+```bash
+$ make validate fmt
 ```
 
 ## Validation
@@ -56,6 +72,8 @@ There are six file types in the Device Repository:
 4. **End device profile** for one or more devices (`vendor/<vendor-id>/<profile-id>.yaml`)
 5. **Payload codec definition** for one or more devices (`vendor/<vendor-id>/<codec>.yaml`)
 6. **Payload codec implementation** to decode and encode payload (`vendor/<vendor-id>/<codec>.js`)
+
+> All files and folders must have lowercase titles.
 
 An example directory structure with a vendor named `company-x` that produces two devices (`device-a` and `device-b`) with the same codec and profile:
 
@@ -362,16 +380,6 @@ function encodeDownlink(input) {
     bytes: [input.data.gate ? 1 : 0]
   }
 }
-```
-
-## Contributing
-
-If you want to submit your devices to the Device Repository, fork this repository and open a pull request. [Learn how to fork and create pull requests](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-
-Pull requests are validated automatically. If there are any validation or formatting errors, the validation checks will not pass, and the pull request will not be merged until those errors are resolved. Therefore, before creating a pull request, run the following action to validate and format your data locally:
-
-```bash
-$ make validate fmt
 ```
 
 ## Legal

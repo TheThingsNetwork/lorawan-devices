@@ -1,0 +1,49 @@
+uplinkDecoder:
+  fileName: dl-kl66-1538372-464859.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x03, 0xd4, 0x00, 0x03, 0x3b, 0xf6, 0x7f, 0xff, 0x3b, 0xf6, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          counter_reading:
+            displayName: Counter reading
+            value: 15350
+          device_id: 980
+          elongation:
+            displayName: Elongation
+            unit: "\xB5m"
+            value: 0.6988257799379214
+          frequency:
+            displayName: Frequency
+            unit: Hz
+            value: 15350.468459120457
+          measurement_interval:
+            displayName: Measurement interval
+            value: 0.999969482421875
+          protocol_version: 2
+          strain:
+            displayName: Strain
+            unit: "\xB5m\u22C5m\u207B\xB9"
+            value: 10.588269392998809
+          weight:
+            displayName: Weight
+            unit: g
+            value: -47.5066896399347
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x03, 0xd4, 0x00, 0x02, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 980
+          protocol_version: 2

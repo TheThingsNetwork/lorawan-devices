@@ -1,0 +1,8 @@
+uplinkDecoder:
+  fileName: the-things-node.js
+
+downlinkEncoder:
+  fileName: the-things-node.js
+
+downlinkDecoder:
+  fileName: the-things-node.js

@@ -1,0 +1,43 @@
+uplinkDecoder:
+  fileName: dl-pr36ctd-8192.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x0a, 0x17, 0x00, 0x03, 0x80, 0x07, 0x97, 0x86, 0x97, 0x81, 0x80, 0x06, 0x0c, 0x2b]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.115
+          device_id: 2583
+          electrical_conductivity:
+            displayName: Electrical conductivity
+            unit: "mS\u22C5cm\u207B\xB9"
+            value: 0.005859375
+          pressure:
+            displayName: Pressure
+            unit: bar
+            value: 0.0008544921875
+          protocol_version: 2
+          temperature_electronics:
+            displayName: Temperature (electronics)
+            unit: "\xB0C"
+            value: 23.5234375
+          temperature_pt1000:
+            displayName: Temperature (PT1000)
+            unit: "\xB0C"
+            value: 23.50390625
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x0a, 0x17, 0x00, 0x02, 0x0c, 0x2b]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.115
+          device_id: 2583
+          protocol_version: 2

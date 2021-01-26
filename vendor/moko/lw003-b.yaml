@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 name: LW003-B
 description: LW003-B is a BLE-LoRaWAN gateway integrating LoRa and Bluetooth wireless communication, LW003-B can scan BLE Beacon data and send data to LoRaWAN-Based gateway,and then upload to server, so as to realize environmental monitoring and indoor positioning
+=======
+name: lw003-b
+description: BLE-LoRaWAN gateway
+>>>>>>> upstream/master
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
