@@ -1,5 +1,5 @@
-name: lw004
-description: The LoRaWAN Contact Tracker
+name: LW004
+description: LW004 is a LoRaWAN-Based network IoT device specifically designed for contact tracing purposes. It is compact, small in size and easy to use. It can be used to track close contact,social safety distance reminder, employee attendance, access control and identity identification.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
