@@ -65,6 +65,10 @@ productURL: https://www.decentlab.com/products/co2-temperature-humidity-and-baro
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-LP8P-datasheet.pdf
 photos:
   main: dl-lp8p.jpg
+  other:
+    - dl-lp8p-2.jpg
+    - dl-lp8p-3.jpg
+    - dl-lp8p-4.jpg
 
 compliances:
   safety:
