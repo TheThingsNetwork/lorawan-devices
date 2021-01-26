@@ -1,0 +1,35 @@
+uplinkDecoder:
+  fileName: dl-trs21.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x01, 0x92, 0x00, 0x03, 0x00, 0x75, 0x80, 0xa1, 0x0c, 0x25]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          device_id: 402
+          protocol_version: 2
+          soil_temperature:
+            displayName: Soil temperature
+            unit: "\xB0C"
+            value: 16.1
+          water_potential:
+            displayName: Water potential
+            unit: kPa
+            value: -11.7
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x01, 0x92, 0x00, 0x02, 0x0c, 0x25]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.109
+          device_id: 402
+          protocol_version: 2

@@ -30,13 +30,14 @@ firmwareVersions:
 sensors:
   - magnetometer
   - gps
+  - temperature
 dimensions:
   diameter: 145.4
   height: 30.5
 weight: 191
 battery:
   replaceable: false
-  type: Lithium
+  type: Lithium battery (Li-SOCI2)
 operatingConditions:
   temperature:
     min: -30
@@ -51,8 +52,15 @@ keyProvisioning:
 keySecurity: none
 productURL: https://www.bosch-connectivity.com/products/connected-mobility/parking-lot-sensor/
 dataSheetURL: https://www.bosch-connectivity.com/media/product_detail_pls/parking-lot-sensor-datasheet.pdf
+
 photos:
   main: tps110.jpg
+
+videos:
+  main: https://youtu.be/HYv50apV-jA
+  other:
+    - https://youtu.be/pucqjjrFiIQ
+
 compliances:
   safety:
     - body: IEC

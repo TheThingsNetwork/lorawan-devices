@@ -1,0 +1,38 @@
+uplinkDecoder:
+  fileName: dl-5tm.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0x3b, 0x00, 0x03, 0x00, 0x37, 0x02, 0x71, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 571
+          dielectric_permittivity:
+            displayName: Dielectric permittivity
+            value: 1.1
+          protocol_version: 2
+          soil_temperature:
+            displayName: Soil temperature
+            unit: "\xB0C"
+            value: 22.5
+          volumetric_water_content:
+            displayName: Volumetric water content
+            unit: "m\xB3\u22C5m\u207B\xB3"
+            value: -0.0215397767
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0x3b, 0x00, 0x02, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 571
+          protocol_version: 2

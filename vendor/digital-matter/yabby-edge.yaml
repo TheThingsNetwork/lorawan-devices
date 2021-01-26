@@ -1,0 +1,67 @@
+name: Yabby Edge
+description: Ultra-rugged, Indoor / Outdoor, long-life battery-powered LoRaWAN® GPS asset tracking device
+hardwareVersions:
+  - version: '86.1'
+    numeric: 1
+  - version: '86.2'
+    numeric: 2
+firmwareVersions:
+  - version: '86.1.1.1'
+    numeric: 0x56010101
+    hardwareVersions:
+      - '86.1'
+    profiles:
+      EU863-870:
+        id: yabby-edge-profile
+        codec: yabby-edge-codec
+      IN865-867:
+        id: yabby-edge-profile
+        codec: yabby-edge-codec
+      RU864-870:
+        id: yabby-edge-profile
+        codec: yabby-edge-codec
+  - version: '86.2.1.1'
+    numeric: 0x56020101
+    hardwareVersions:
+      - '86.2'
+    profiles:
+      US902-928:
+        id: yabby-edge-profile
+        codec: yabby-edge-codec
+      AU915-928:
+        id: yabby-edge-profile
+        codec: yabby-edge-codec
+      AS923:
+        id: yabby-edge-profile
+        codec: yabby-edge-codec
+      KR920-923:
+        id: yabby-edge-profile
+        codec: yabby-edge-codec
+sensors:
+  - accelerometer
+  - battery
+  - gps
+  - temperature
+dimensions:
+  width: 63
+  length: 85
+  height: 24
+weight: 88
+battery:
+  replaceable: true
+  type: AAA
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+  relativeHumidity:
+    min: 0
+    max: 1.0
+ipCode: IP67
+keyProvisioning:
+  - custom
+  - manifest
+keySecurity: none
+productURL: https://www.digitalmatter.com/our-devices/yabby-edge
+photos:
+  main: yabby-edge.png

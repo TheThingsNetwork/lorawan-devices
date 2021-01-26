@@ -147,6 +147,9 @@ vendors:
   - id: comtac
     name: comtac AG
     vendorID: 98
+    website: https://www.comtac.ch/
+    logo: comtac-logo.svg
+    ouis: [70B3D5BF6, 70B3D5F3F, BC97401]
 
   - id: csem
     name: CSEM
@@ -183,6 +186,10 @@ vendors:
   - id: digital-matter
     name: Digital Matter Pty Ltd
     vendorID: 118
+    website: https://www.digitalmatter.com
+    logo: logo.svg
+    ouis:
+      - 70B3D5
 
   - id: easel
     name: EASEL Inc.
@@ -394,6 +401,13 @@ vendors:
   - id: magnitude-space
     name: Magnitude Space B.V.
     vendorID: 256
+
+  - id: mcci
+    name: MCCI Corporation
+    website: https://mcci.com
+    logo: mcci.svg
+    ouis:
+      - 0002CC
 
   - id: mcf88
     name: MCF88 SRL
@@ -937,8 +951,8 @@ vendors:
     name: Boston Networks Limited
     vendorID: 598
 
-  - id: ursalink
-    name: Ursalink Technology Co., Ltd.
+  - id: milesight-iot
+    name: Milesight IoT Co., Ltd.
     vendorID: 601
 
   - id: dataalliance
@@ -1551,5 +1565,44 @@ vendors:
   - id: the-things-products
     name: The Things Products
 
+  - id: the-things-industries
+    name: The Things Industries
+
   - id: the-box-development
     name: The-Box Development
+
+  - # Unique identifier of the vendor (lowercase, alphanumeric with dashes, max 36 characters)
+    id: beiselen
+    # Vendor company name
+    name: Beiselen Service GmbH
+    # LoRa Alliance issued Vendor ID
+    # will be provided after joined.
+    # Vendor website (optional)
+    website: https://digitale-services.beiselen.de/
+    # Vendor logo filename (optional)
+    logo: beiselen-logo-sticky.png
+
+  - id: izinto
+    name: izinto GmbH
+
+  - id: develiot
+    name: Develiot
+    website: https://www.develiot.com/
+    logo: logo.png
+
+  - id: iotsens
+    name: IoTsens Gimeno IoT Division
+    website: https://www.iotsens.com/
+    logo: logo_iotsens.svg
+
+  - id: sensedge
+    name: Sensedge
+
+  - id: embit
+    name: Embit srl
+    website: http://www.embit.eu/
+
+  - id: enthutech
+    name: Enthu Technology Solutions India Pvt Ltd
+    website: https://www.enthutech.in/
+    logo: logo_enthutech.png

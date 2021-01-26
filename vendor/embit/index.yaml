@@ -1,0 +1,8 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - emb-lr1280s
+  - emb-lrwl55
+  - emb-lr1280-mpci-4x
+  - emb-lr1302-mpci

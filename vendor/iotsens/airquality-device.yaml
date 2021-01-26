@@ -1,0 +1,142 @@
+name: Air Quality Monitor
+description: Device with a set of environmental sensors capable of collecting different variables to evaluate the conditions of the air that surrounds it. This device measures the concentration of CO, SO2, NO2, O3, NO, H2S, CO2, the particles suspended in the air (PM2.5 and PM10) and TVOC. Developed based on the guidelines set forth in the framework Directive 96/62/EC of the council and all its Daughter Directives.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: devices-profile
+        lorawanCertified: false
+        # codec: windsensor-codec
+      US902-928:
+        id: devices-profile
+        lorawanCertified: false
+      AU915-928:
+        id: devices-profile
+        lorawanCertified: false
+      AS923:
+        id: devices-profile
+        lorawanCertified: false
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - co
+  - so2
+  - no2
+  - no
+  - o3
+  - h2s
+  - co2
+  - tvoc
+  - temperature
+  - humidity
+  - barometer
+  - dust
+  - pm2.5
+  - pm10
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 120
+  length: 250
+  height: 60
+
+# Weight in grams (optional)
+weight: 400
+
+# Battery information (optional)
+# battery:
+#   replaceable: true
+#   type: AA
+
+# Operating conditions (optional)
+
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 65
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# operatingConditions:
+#   # Temperature (Celcius)
+#   temperature:
+#     min: 0
+#     max: 40
+#   # Relative humidity (fraction of 1)
+#   relativeHumidity:
+#     min: 0
+#     max: 0.97
+
+# IP rating (optional)
+ipCode: IP53
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  # - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+# keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Air_quality_Monitor_EN.pdf
+dataSheetURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Air_quality_Monitor_EN.pdf
+# resellerURLs:
+# - name: 'Reseller 1'
+#   region:
+#     - European Union
+#   url: https://example.org/reseller1
+# - name: 'Reseller 2'
+#   region:
+#     - United States
+#     - Canada
+#   url: https://example.org/reseller2
+
+# Photos
+photos:
+  main: airquality-device.png
+  # other:
+  #   - soundsensor-package.jpg
+# Youtube or Vimeo Video (optional)
+# video: https://www.youtube.com/watch?v=JHzxcD2oEn8
+
+# Regulatory compliances (optional)
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0

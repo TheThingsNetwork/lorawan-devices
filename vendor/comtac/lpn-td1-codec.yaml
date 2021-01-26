@@ -1,0 +1,147 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lpn-td1.js
+  # Examples (optional)
+  examples:
+    - description: Ping data on port 3
+      input:
+        fPort: 3
+        bytes: [0x01, 0x08, 0xC3, 0x1A]
+      output:
+        data:
+          posStatus: 'NONE'
+          pingType: 'LONGRANGE'
+          batVoltage: 3.975
+          temp: 26
+
+    - description: Positioning data on port 3
+      input:
+        fPort: 3
+        bytes:
+          [
+            0x01,
+            0xA8,
+            0xC2,
+            0x0A,
+            0x01,
+            0x02,
+            0xD7,
+            0xAD,
+            0x10,
+            0x00,
+            0x83,
+            0xB6,
+            0x49,
+            0xF5,
+            0x02,
+            0x04,
+            0xFE,
+            0xEC,
+            0xDA,
+            0xAD,
+            0x1D,
+            0x16,
+            0x36,
+            0xFC,
+            0xEC,
+            0xDA,
+            0xAD,
+            0x1D,
+            0x16,
+            0x36,
+            0x0E,
+            0xEC,
+            0xDA,
+            0xAD,
+            0x1D,
+            0x16,
+            0x37,
+            0xFC,
+            0xEC,
+            0xDA,
+            0xA7,
+            0x32,
+            0x21,
+            0x3B,
+          ]
+      output:
+        data:
+          posStatus: 'GPS AND WIFI OK'
+          pingType: 'LONGRANGE'
+          batVoltage: 3.970
+          temp: 10
+          gpsLong: 47.688976
+          gpsLat: 8.631881
+          gpsEPE: '> 150 meters'
+          gpsSAT: 5
+          MAC1: 'fe:ec:da:ad:1d:16'
+          RSSI1: -54
+          MAC2: 'fc:ec:da:ad:1d:16'
+          RSSI2: -54
+          MAC3: '0e:ec:da:ad:1d:16'
+          RSSI3: -55
+          MAC4: 'fc:ec:da:a7:32:21'
+          RSSI4: -59
+
+    - description: Config data on port 100
+      input:
+        fPort: 100
+        bytes: [0x01, 0x02, 0xC2, 0x09, 0x02, 0x00, 0x00, 0x0F, 0x01, 0x00, 0x16, 0x80, 0x05, 0x01]
+      output:
+        data:
+          cfgStatus: '/CFG GET'
+          batVoltage: 3.970
+          temp: 9
+          appMainVers: 2
+          appMinorVers: 0
+          pingInterval: 15
+          longRangeTrigger: 1
+          midRangeTrigger: 0
+          rejoinTrigger: 5760
+          gpsFixes: 5
+          minWIFIDetects: 1
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: lpn-td1.js
+  examples:
+    - description: Positioning request GPS AND WIFI
+      input:
+        data:
+          fPort: 3
+          posRequest: 'GPS AND WIFI'
+      output:
+        bytes: [5]
+        fPort: 3
+
+    - description: Get actual configuration
+      input:
+        data:
+          fPort: 100
+          configGet: true
+      output:
+        bytes: [1]
+        fPort: 100
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: lpn-td1.js
+  examples:
+    - description: Positioning request GPS AND WIFI
+      input:
+        fPort: 3
+        bytes: [5]
+      output:
+        data:
+          fPort: 3
+          posRequest: 'GPS AND WIFI'
+
+    - description: Get actual configuration
+      input:
+        fPort: 100
+        bytes: [1]
+      output:
+        data:
+          fPort: 100
+          configGet: true

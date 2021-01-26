@@ -1,0 +1,46 @@
+uplinkDecoder:
+  fileName: dl-optod.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x18, 0x6c, 0x00, 0x03, 0x00, 0x00, 0x88, 0x62, 0xa6, 0x18, 0x83, 0x65, 0x83, 0x65, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 6252
+          oxygen_concentration:
+            displayName: Oxygen concentration
+            unit: "mg\u22C5L\u207B\xB9"
+            value: 8.69
+          oxygen_concentration_alt:
+            displayName: Oxygen concentration (alt)
+            unit: ppm
+            value: 8.69
+          oxygen_saturation:
+            displayName: Oxygen saturation
+            unit: '%'
+            value: 97.52
+          protocol_version: 2
+          status:
+            displayName: Status
+            value: 0
+          temperature:
+            displayName: Temperature
+            unit: "\xB0C"
+            value: 21.46
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x18, 0x6c, 0x00, 0x02, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 6252
+          protocol_version: 2
