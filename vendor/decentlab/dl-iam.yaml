@@ -1,4 +1,4 @@
-name: Indoor Ambiance Monitor
+name: DL-IAM
 description: Indoor Ambiance Monitor including CO2, TVOC and Motion Sensor for LoRaWAN
 
 hardwareVersions:
