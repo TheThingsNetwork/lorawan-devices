@@ -45,8 +45,10 @@ operatingConditions:
     min: -40
     max: 100
 
+
 # Product and data sheet URLs (optional)
 productURL: http://www.embit.eu/products/wireless-modules/emb-lrwl55/
+
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -63,3 +65,4 @@ videos:
   main: https://www.youtube.com/watch?v=W9B9bqGjlVs
   other:
     - https://www.youtube.com/watch?v=a6UjTWrwco8
+

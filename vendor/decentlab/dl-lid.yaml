@@ -58,7 +58,7 @@ keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://decentlab.squarespace.com/products/laser-distance-level-sensor-for-lorawan
+productURL: https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-LID-datasheet.pdf
 photos:
   main: dl-lid.jpg

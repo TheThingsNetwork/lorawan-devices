@@ -36,8 +36,10 @@ keyProvisioning:
 # Valid values are: none, read protected and secure element.
 keySecurity: secure element
 
+
 # Product and data sheet URLs (optional)
 productURL: http://www.embit.eu/products/wireless-modules/emb-lr1280s/
+
 
 # Photos
 photos:
@@ -47,3 +49,4 @@ photos:
 
 videos:
   main: https://www.youtube.com/watch?v=fivjYeE2BKc
+

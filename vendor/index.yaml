@@ -402,6 +402,13 @@ vendors:
     name: Magnitude Space B.V.
     vendorID: 256
 
+  - id: mcci
+    name: MCCI Corporation
+    website: https://mcci.com
+    logo: mcci.svg
+    ouis:
+      - 0002CC
+
   - id: mcf88
     name: MCF88 SRL
     vendorID: 259
@@ -895,6 +902,10 @@ vendors:
   - id: rakwireless
     name: RAKwireless Technology Co.
     vendorID: 570
+    website: https://www.rakwireless.com
+    logo: rak-official-rgb.svg
+    ouis:
+      - 60C5A8
 
   - id: sigrenea
     name: sigrenEa SAS
@@ -1558,6 +1569,9 @@ vendors:
   - id: the-things-products
     name: The Things Products
 
+  - id: the-things-industries
+    name: The Things Industries
+
   - id: the-box-development
     name: The-Box Development
 
@@ -1591,3 +1605,15 @@ vendors:
   - id: embit
     name: Embit srl
     website: http://www.embit.eu/
+
+
+  - id: enthutech
+    name: Enthu Technology Solutions India Pvt Ltd
+    website: https://www.enthutech.in/
+    logo: logo_enthutech.png
+
+  - id: abeeway
+    name: Abeeway
+    website: https://www.abeeway.com/
+    logo: logo.png
+

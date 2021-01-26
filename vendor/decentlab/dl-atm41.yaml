@@ -71,6 +71,8 @@ productURL: https://www.decentlab.com/products/eleven-parameter-weather-station-
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ATM41-datasheet.pdf
 photos:
   main: dl-atm41.jpg
+  other:
+    - dl-atm41-2.jpg
 
 compliances:
   safety:

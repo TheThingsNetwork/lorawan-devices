@@ -30,8 +30,10 @@ operatingConditions:
     min: -40
     max: 85
 
+
 # Product and data sheet URLs (optional)
 productURL: http://www.embit.eu/products/oem-gateways/emb-lr1302-mpci-e-prova/
+
 
 # Photos
 photos:
@@ -39,5 +41,7 @@ photos:
   other:
     - emb-lr1302-mpcie-bottom.jpg
 
+
 videos:
   main: https://www.youtube.com/watch?v=8Ue1WDp3QoA
+

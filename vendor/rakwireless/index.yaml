@@ -1,0 +1,4 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - wisblock-4631
+  - rak7431

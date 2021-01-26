@@ -1,0 +1,54 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: sensecap-common-decoder.js
+  # Examples (optional)
+  examples:
+    - description: End device's properties
+      input:
+        fPort: 1
+        bytes: [0, 0, 0, 1, 1, 0, 1, 0, 7, 0, 100, 0, 60, 0, 1, 32, 1, 0, 0, 0, 0, 40, 144]
+      output:
+        data:
+          valid: true
+          err: 0
+          payload: 0000000101000100070064003C00012001000000002890
+          messages:
+            - type: upload_version
+              hardwareVersion: '1.0'
+              softwareVersion: '1.1'
+            - type: upload_battery
+              battery: 100
+            - type: upload_interval
+              interval: 3600
+            - type: report_remove_sensor
+              channel: 1
+    - description: telemetry
+      input:
+        fPort: 1
+        bytes: [1, 1, 16, 152, 83, 0, 0, 1, 2, 16, 168, 122, 0, 0, 175, 81]
+      output:
+        data:
+          valid: true
+          err: 0
+          payload: 01011098530000010210A87A0000AF51
+          messages:
+            - type: report_telemetry
+              measurementId: 4097
+              measurementValue: 21.4
+            - type: report_telemetry
+              measurementId: 4098
+              measurementValue: 31.4
+    - description: Report sensor's metadatas
+      input:
+        fPort: 1
+        bytes: [1, 1, 0, 1, 1, 0, 1, 1, 2, 0, 106, 1, 0, 21, 1, 3, 0, 48, 241, 247, 44, 1, 4, 0, 9, 12, 19, 20, 1, 5, 0, 127, 77, 0, 0, 1, 6, 0, 0, 0, 0, 0, 76, 190]
+      output:
+        data:
+          valid: true
+          err: 0
+          payload: 010100010100010102006A01001501030030F1F72C010400090C13140105007F4D0000010600000000004CBE
+          messages:
+            - type: upload_sensor_id
+              channel: 1
+              sensorId: 2CF7F1301500016A
