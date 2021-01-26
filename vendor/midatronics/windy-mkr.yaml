@@ -1,0 +1,25 @@
+name: MKR WINDY
+description: MKR WINDY is an Arduino MKR1000 form factor board based on the Midatronics WINDY Module, an IoT module with onboard uFL connector based on the ST Microelectronics STM32WL, System-On-Chip integrates both a general-purpose microcontroller and a sub-GHz radio on the same chip. Built on an Arm® Cortex®‐M4 core architecture, STM32WL microcontrollers also support multiple modulations – LoRa®, (G)FSK, (G)MSK, BPSK – to ensure flexibility in wireless applications with LoRaWAN®, Sigfox® or any other suitable protocol in a fully open way. The windy module features a sub-GHz radio based-on Semtech SX126x to meet the requirements of a wide range of Low-Power Wide Area Network (LPWAN) wireless applications in industrial and consumer Internet-of-Things (IoT).
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: windy-mkr-profile
+
+# Product and data sheet URLs (optional)
+productURL: https://midatronics.com/shop/development-boards/mkr-windy/
+
+# Photos
+photos:
+  main: windy-mkr.png
