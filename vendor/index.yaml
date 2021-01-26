@@ -902,6 +902,10 @@ vendors:
   - id: rakwireless
     name: RAKwireless Technology Co.
     vendorID: 570
+    website: https://www.rakwireless.com
+    logo: rak-official-rgb.svg
+    ouis:
+      - 60C5A8
 
   - id: sigrenea
     name: sigrenEa SAS
