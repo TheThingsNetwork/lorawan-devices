@@ -1,0 +1,31 @@
+uplinkDecoder:
+  fileName: dl-dlr2-004-10.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x08, 0xb2, 0x00, 0x03, 0x8b, 0xb8, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          current:
+            displayName: Current
+            unit: mA
+            value: 13.73291015625
+          device_id: 2226
+          protocol_version: 2
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x08, 0xb2, 0x00, 0x02, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 2226
+          protocol_version: 2

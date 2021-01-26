@@ -1,0 +1,11 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - sensecap-soil-th # look in sensecap-soil-th.yaml for the end device definition
+  - sensecap-air-th # look in sensecap-air-th.yaml for the end device definition
+  - sensecap-light # look in sensecap-light.yaml for the end device definition
+  - sensecap-co2 # look in sensecap-co2.yaml for the end device definition
+  - sensecap-pressure # look in sensecap-pressure.yaml for the end device definition
+  - loramodule-e5 # look in loramodulee5.yaml for the end device definition
+

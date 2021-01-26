@@ -1,0 +1,4 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - senstick-pro # look in senstick-pro.yaml for the end device definition
+  - senstick-pure # look in senstick-pure.yaml for the end device definition

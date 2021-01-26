@@ -1,5 +1,5 @@
 name: izi-io 4840
-description: Multi-I/O Edge Computing Controller with LoRaWAN. The top-hat rail mounted device features 8 analog / RTD / digital inputs, 4 digital outputs as well as industry-standard bus interfaces such as CAN and Modbus.
+description: Powerful Multi-I/O Edge Computing Controller with LoRaWAN. The top-hat rail mounted device features 8 analog / RTD / digital inputs, 4 digital outputs as well as industry-standard bus interfaces such as CAN and Modbus. Built-in Soft PLC can process data on the device for standalone control purposes and efficient LoRaWAN usage. External power supply with 8..30V.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -82,9 +82,9 @@ dataSheetURL: https://www.izinto.online/wp-content/uploads/2020/01/izi-io-Datenb
 
 # Photos
 photos:
-  main: izi-io-4840-front.jpg
+  main: izi-io-4840-front-tr.png
   other:
-    - izi-io-4840-corner.jpg
+    - izi-io-4840-corner-tr.png
 # Youtube or Vimeo Video (optional)
 ###video: https://www.youtube.com/watch?v=JHzxcD2oEn8
 

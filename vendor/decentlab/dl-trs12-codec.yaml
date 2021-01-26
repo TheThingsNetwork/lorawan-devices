@@ -1,0 +1,42 @@
+uplinkDecoder:
+  fileName: dl-trs12.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x10, 0xd3, 0x00, 0x03, 0x46, 0xbe, 0x81, 0x3d, 0x00, 0x00, 0x0c, 0x80]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.2
+          device_id: 4307
+          dielectric_permittivity:
+            displayName: Dielectric permittivity
+            value: 1.1831248966814998
+          electrical_conductivity:
+            displayName: Electrical conductivity
+            unit: "\xB5S\u22C5cm\u207B\xB9"
+            value: 0
+          protocol_version: 2
+          soil_temperature:
+            displayName: Soil temperature
+            unit: "\xB0C"
+            value: 31.7
+          volumetric_water_content:
+            displayName: Volumetric water content
+            unit: "m\xB3\u22C5m\u207B\xB3"
+            value: 0.006886900000000029
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x10, 0xd3, 0x00, 0x02, 0x0c, 0x80]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.2
+          device_id: 4307
+          protocol_version: 2
