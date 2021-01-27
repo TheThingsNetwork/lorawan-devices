@@ -1619,3 +1619,8 @@ vendors:
   - id: midatronics
     name: Midatronics
     website: https://midatronics.com/
+
+  - id: thingsofficer
+    name: ThingsOfficer Gmbh
+    website: https://www.boatofficer.com/
+    logo: boatofficer_logo.png
