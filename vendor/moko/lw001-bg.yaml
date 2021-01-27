@@ -93,6 +93,9 @@ keyProvisioning:
 # Valid values are: none, read protected and secure element.
 keySecurity: none
 
+# Product and data sheet URLs (optional)
+productURL: https://www.mokosmart.com/
+
 # Photos
 photos:
   main: lw001-bg-1.png
