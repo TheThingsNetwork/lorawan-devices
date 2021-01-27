@@ -1,0 +1,4 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - co2-stoplicht # look in co2-stoplicht.yaml for the end device definition
+  - filling-degree-sensor # look in filling-degree-sensor.yaml for the end device definition
