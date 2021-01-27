@@ -15,6 +15,7 @@ uplinkDecoder:
           sensorType: fillrate
           settingsAllowed: true
           distance: 30
+          valid: true
     - description: 3.4v battery, 120cm measured
       input:
         fPort: 1
@@ -26,6 +27,7 @@ uplinkDecoder:
           sensorType: fillrate
           settingsAllowed: true
           distance: 120
+          valid: true
     - description: 3.3v battery, error measuring distance
       input:
         fPort: 2
@@ -34,5 +36,7 @@ uplinkDecoder:
         data:
           battery: 3.3
           charging: false
+          errorcode: 0
           sensorType: fillrate
           settingsAllowed: true
+          valid: false
