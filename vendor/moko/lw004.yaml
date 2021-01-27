@@ -96,8 +96,9 @@ productURL: https://www.mokosmart.com/lw004-lorawan-contact-tracing-wearables-bu
 
 # Photos
 photos:
-  main: lw004-1.png
+  main: lw004.jpg
   other:
+    - lw004-1.png
     - lw004-2.png
     - lw004-3.png
 
