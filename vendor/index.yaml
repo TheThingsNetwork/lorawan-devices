@@ -1624,3 +1624,6 @@ vendors:
     name: ThingsOfficer Gmbh
     website: https://www.boatofficer.com/
     logo: boatofficer_logo.png
+
+  - id: sensecap
+    name: SenseCAP
