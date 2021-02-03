@@ -1,0 +1,73 @@
+name: Temperature and Humidity Sensor for Low Temperature Environment
+description: R718A is capable to measure temperature and humidity at low temperature environment. R718A can be used in domestic and commercial refrigerators to store and transport food, medicines, flowers and other perishable goods, on the walls or in logistics refrigerators. Suitable as a data logger.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: r718a-eu868
+        codec: r718a-codec
+      AS923:
+        id: r718a-as923
+        codec: r718a-codec
+      US902-928:
+        id: r718a-us915
+        lorawanCertified: true
+        codec: r718a-codec
+      AU915-928:
+        id: r718a-au915
+        codec: r718a-codec
+      KR920-923:
+        id: r718a-kr920
+        codec: r718a-codec
+      IN865-867:
+        id: r718a-in865
+        codec: r718a-codec
+      CN470-510:
+        id: r718a-cn470
+        codec: r718a-codec
+
+sensors:
+  - temperature
+  - humidity
+
+dimensions:
+  width: 65
+  length: 112
+  height: 28
+
+weight: 141
+
+battery:
+  replaceable: true
+  type: ER14505 AA Lithium
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718A
+dataSheetURL: http://www.netvox.com.tw/um/R718A/R718Adatasheet.pdf
+
+photos:
+  main: r718a.jpg
