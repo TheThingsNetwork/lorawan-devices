@@ -1,5 +1,5 @@
 name: Sentrius RS1xx Ext Temp 1W Sensor
-description: External 1-Wire Temperature Sensor \#455-00069/455-00070/455-00064/455-00065/455-00066/455-00067/455-00068/455-00097
+description: 'External 1-Wire Temperature Sensor #455-00069/455-00070/455-00064/455-00065/455-00066/455-00067/455-00068/455-00097'
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -59,6 +59,16 @@ battery:
   type: AA
 
 # Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -25
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
 probeoperatingConditions:
   # Temperature (Celcius)
   temperature:

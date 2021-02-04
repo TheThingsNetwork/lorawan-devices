@@ -1,5 +1,5 @@
 name: Sentrius RS1xx Ext Temp RTD Sensor
-description: External RTD Temperature Sensor \#455-00103/455-00104/455-00105/455-00106/455-00108/455-00109/455-00110/455-00111
+description: 'External RTD Temperature Sensor #455-00103/455-00104/455-00105/455-00106/455-00108/455-00109/455-00110/455-00111'
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -59,6 +59,16 @@ battery:
   type: AA
 
 # Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -25
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
 probeoperatingConditions:
   # Temperature (Celcius)
   temperature:
