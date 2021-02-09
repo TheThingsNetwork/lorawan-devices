@@ -1627,3 +1627,8 @@ vendors:
 
   - id: sensecap
     name: SenseCAP
+
+  - id: nwave
+    name: Nwave Technologies
+    website: https://www.nwave.io/
+    logo: logo.png
