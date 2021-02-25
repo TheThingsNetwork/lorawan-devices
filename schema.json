@@ -738,6 +738,13 @@
           },
           "uniqueItems": true
         },
+        "findHardwareVersion": {
+          "type": "string",
+          "description": "Instructions for finding hardware version",
+          "examples": [
+            "The hardware version of your product is marked as HW. On the product it is printed on a label on the bottom of the device. On the box, it is printed on a sticker on the bottom."
+          ]
+        },
         "firmwareVersions": {
           "type": "array",
           "items": {
@@ -780,6 +787,13 @@
           },
           "minItems": 1,
           "uniqueItems": true
+        },
+        "findFirmwareVersion": {
+          "type": "string",
+          "description": "Instructions for finding firmware version",
+          "examples": [
+            "In the WebFig configuration panel, the firmware version is stated in the top left (e.g RouterOS v6.47.9)"
+          ]
         },
         "sensors": {
           "type": "array",
