@@ -8,7 +8,7 @@ function decodeUplink(input)
   {
     decoded.type = "Device Information Packet";
     decoded.batterylevel = bytes[0]/100 ; //  IF equal to 0.55, means the battery level is 55%.
-    decoded.voltagemv = bytes[1]*256 +bytes[2];
+    decoded.voltagemv = bytes[1]*256 +bytes[3];
     decoded.firmwareversion = bytes[3]; //Convert to binary, if it is 01 00 00 11 ,the firmware is V1.0.3
     decoded.accelerometersensitivity = bytes[4];
     decoded.tamperstatus = bytes[5];
