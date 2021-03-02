@@ -1,0 +1,67 @@
+{{ .Scratch.Set "style" "http://localhost:9100/device-repository/css/style.css" }}
+{{ if not .Site.IsServer }}
+{{ .Scratch.Set "style" (index .Site.Data.manifest "style.css") }}
+
+{{ end }}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="robots" content="index,follow" />
+  <meta name="googlebot" content="index,follow" />
+
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/favicons/favicon-152-precomposed.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/favicons/favicon-144-precomposed.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/favicons/favicon-120-precomposed.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/favicons/favicon-114-precomposed.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/favicon-180-precomposed.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/favicons/favicon-72-precomposed.png" />
+  <link rel="apple-touch-icon" href="/favicons/favicon-57.png" />
+  <link rel="icon" href="/favicons/favicon-32.png" sizes="32x32" />
+  <link rel="icon" sizes="192x192" href="/favicons/favicon-192.png" />
+
+  <title itemprop="name">{{ .Title }} | {{ .Site.Title }}</title>
+  <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta itemprop="name" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta name="application-name" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta property="og:site_name" content="{{ .Site.Params.sitename }}" />
+
+  <meta name="description" content="{{ .Params.description }}" />
+  <meta itemprop="description" content="{{ .Params.description }}" />
+  <meta property="og:description" content="{{ .Params.description }}" />
+  <meta name="twitter:description" content="{{ .Params.description }}" />
+
+  <base href="{{ .Permalink }}">
+  <link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
+  <meta name="url" content="{{ .Permalink }}" />
+  <meta name="twitter:url" content="{{ .Permalink }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+
+  <meta name="twitter:site" content="{{ .Site.Params.twitter }}">
+  <meta name="twitter:creator" content="{{ .Site.Params.twitter }}" />
+
+  {{ with .Params.image }}
+    <meta itemprop="image" content="{{ . | absURL }}" />
+    <meta property="og:image" content="{{ . | absURL }}" />
+    <meta name="twitter:image" content="{{ . | absURL }}" />
+    <meta name="twitter:image:src" content="{{ . | absURL }}" />
+  {{ else }}
+    <meta itemprop="image" content="{{ .Site.Params.ogimage | absURL }}" />
+    <meta property="og:image" content="{{ .Site.Params.ogimage | absURL }}" />
+    <meta name="twitter:image" content="{{ .Site.Params.ogimage | absURL }}" />
+    <meta name="twitter:image:src" content="{{ .Site.Params.ogimage | absURL }}" />
+  {{ end }}
+
+  {{ $style := .Scratch.Get "style" }}
+  <link rel="stylesheet" href="{{ $style }}">
+
+  {{ if eq .Page.RelPermalink "/device-repository/devices/"  }}
+    <meta http-equiv="refresh" content="0; url=/device-repository/"/>
+  {{end}}
+
+</head>

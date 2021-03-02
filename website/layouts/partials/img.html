@@ -1,0 +1,5 @@
+{{ if .ctx.Site.IsServer }}
+  <img class="{{ .class }}" alt="{{ .name }}" src="{{ printf `%s%s` `http://localhost:9100/device-repository` .img }}" />
+{{ else }}
+  <img class="{{ .class }}" alt="{{ .name }}" src="{{ (index .ctx.Site.Data.manifest .img) }}" />
+{{ end }}

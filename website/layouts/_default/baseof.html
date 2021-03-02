@@ -1,0 +1,19 @@
+{{ .Scratch.Set "jsBase" "http://localhost:9100/device-repository/js/base.js" }}
+{{ if not .Site.IsServer }}
+{{ .Scratch.Set "jsBase" (index .Site.Data.manifest "base.js") }}
+{{ end }}
+
+
+<!DOCTYPE html>
+<html>
+{{ partial "head.html" . }}
+<body class="theme-ttn">
+{{ partial "header.html" . }}
+<section class="content section">
+    {{- block "main" . }}{{- end }}
+</section>
+{{ partial "footer.html" . }}
+{{ $jsBase := .Scratch.Get "jsBase" }}
+<script src="{{ $jsBase }}"></script>
+</body>
+</html>

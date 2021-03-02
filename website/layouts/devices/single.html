@@ -1,0 +1,79 @@
+{{ define "main" }}
+{{ .Scratch.Set "jsDevice" "http://localhost:9100/device-repository/js/device_single.js" }}
+{{ if not .Site.IsServer }}
+{{ .Scratch.Set "jsDevice" (index .Site.Data.manifest "device_single.js") }}
+{{ end }}
+
+{{ $siteUrl := .Site.BaseURL }}
+
+<section class="device-single" >
+  <div class="grid">
+    <div class="item-6 item-start-4 item-xs-12 item-start-xs-1">
+      {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
+      {{with $image}}
+      {{ $img := $image.Resize "800x" }}
+      <img src="{{ $img.RelPermalink }}" class="device-single__img" />
+      {{ end }}
+    </div>
+    <div class="item-12">
+      <h1 class="device-single__title">{{ .Params.name }}</h1>
+      <span>By <a href="{{ $siteUrl }}/devices/{{.Params.Vendor.ID}}">{{.Params.Vendor.Name}}</a></span>
+    </div>
+    <div class="item-6 item-start-4">
+      <p class="device-single__description">{{ .Params.description }}</p>
+    </div>
+    <div class="item-12">
+      <div class="device-single__cta">
+        {{ with (index .Params.resellerURLs 0) }}
+            <a href="{{ .url }}" class="btn primary">Buy Device</a>
+        {{ end }}
+        {{with .Params.producturl}}
+          <a href="{{ . }}" class="btn primary">Partner Webpage</a>
+        {{ end }}
+      </div>
+    </div>
+    <div class="item-12">
+      <div class="device-single__specs">
+        <div class="grid">
+          <div class="item-12">
+            <h3>Specification</h3>
+          </div>
+          <div class="item-6 item-xs-12">
+            <ul>
+              {{with .Params.sensors}} <li><b>Sensors:</b> {{ range . }} <a href="{{ $siteUrl }}/tags/{{  lower . | replaceRE ` ` `-` }}">{{ . }}</a> {{ end }}</li>{{ end }}
+              {{with .Params.ipcode}}<li><b>Enclosure:</b> <a href="{{ $siteUrl }}/tags/{{ lower . }}">{{ . }}</a></li>{{ end }}
+              {{with .Params.dimensions}}
+                <li>
+                  <b>Dimensions:</b> {{ .length }} x {{ .width }} x {{ .height }} mm
+                </li>{{ end }}
+              {{with .Params.dimensions.diameter}}<li><b>Diameter:</b> {{ . }}</li>{{ end }}
+              {{with .Params.operatingconditions.temperature}}<li><b>Temperature:</b> {{ .min }}&#176;C to {{ .max }}&#176;C</li>{{ end }}
+            </ul>
+          </div>
+          <div class="item-6 item-xs-12">
+            <ul>
+              {{with .Params.weight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
+              {{with .Params.codecs}}<li><b>Frequency plans: </b>{{ range $key, $value := . }}<a href="{{ $siteUrl }}/tags/{{ lower $key }}">{{ $key }}</a> {{ end }}</li>{{ end }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item-12">
+      <div id="device-events"></div>
+    </div>
+  </div>
+
+
+</section>
+
+<script>
+  var config = {
+    device: JSON.parse("{{ .Params | jsonify }}")
+  }
+</script>
+
+{{ $jsDevice := .Scratch.Get "jsDevice" }}
+<script src="{{ $jsDevice }}"></script>
+
+{{ end }}
