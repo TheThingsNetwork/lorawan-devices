@@ -41,7 +41,7 @@ firmwareVersions:
 sensors:
   - temperature
   - humidity
-  
+
 #  - wind speed
 
 # Product and data sheet URLs (optional)

@@ -52,9 +52,6 @@ firmwareVersions:
 #  - wind direction
 #  - wind speed
 
-
-
-
 # Battery information (optional)
 #battery:
 #  replaceable: true
