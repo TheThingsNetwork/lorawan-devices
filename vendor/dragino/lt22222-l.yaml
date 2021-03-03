@@ -1,5 +1,5 @@
 name: LT22222-L
-description: LoRaWAN I/O controller.
+description: LoRaWAN I/O controller. 
 
 # Hardware versions (optional, use when you have revisions)
 # hardwareVersions:
@@ -23,22 +23,40 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       EU433:
         id: eu433-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       US902-928:
         id: us915-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       KR920-923:
         id: kr920-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       AU915-928:
         id: au915-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       RU864-870:
         id: ru864-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       IN865-867:
         id: in865-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       CN470-510:
         id: cn470-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
       AS923:
         id: as923-c-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
 
 # Sensors that this device features (optional)
 # Valid values are:

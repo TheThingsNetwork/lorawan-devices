@@ -1,6 +1,6 @@
-function Decoder(bytes, port) {
-  // Decode an uplink message from a buffer
-  // (array) of bytes to an object of fields.
+function decodeUplink(input) {
+  var port = input.fPort;
+  var bytes = input.bytes;
   var value=(bytes[0]<<8 | bytes[1])&0x3FFF;
   var bat=value/1000;//Battery,units:V
   
@@ -9,45 +9,49 @@ function Decoder(bytes, port) {
   
   var mod=bytes[2];
   var alarm=bytes[9]&0x01;
-  
+  var data = {};
+  	 switch (input.fPort) {
+		 case 10:
   if(mod==1){
     var open_times=bytes[3]<<16 | bytes[4]<<8 | bytes[5];
     var open_duration=bytes[6]<<16 | bytes[7]<<8 | bytes[8];//units:min
-    return {
-      BAT_V:bat,
-      MOD:mod,
-      DOOR_OPEN_STATUS:door_open_status,
-      DOOR_OPEN_TIMES:open_times,
-      LAST_DOOR_OPEN_DURATION:open_duration,
-      ALARM:alarm
-    };
+      data.BAT_V=bat,
+      data.MOD=mod,
+      data.DOOR_OPEN_STATUS=door_open_status,
+      data.DOOR_OPEN_TIMES=open_times,
+      data.LAST_DOOR_OPEN_DURATION=open_duration,
+     data.ALARM=alarm
+    
   }
   else if(mod==2)
   {
   var leak_times=bytes[3]<<16 | bytes[4]<<8 | bytes[5];
   var leak_duration=bytes[6]<<16 | bytes[7]<<8 | bytes[8];//units:min
-  return {
-      BAT_V:bat,
-      MOD:mod,
-      WATER_LEAK_STATUS:water_leak_status,
-      WATER_LEAK_TIMES:leak_times,
-      LAST_WATER_LEAK_DURATION:leak_duration
-  };
+      data.BAT_V=bat,
+      data.MOD=mod,
+      data.WATER_LEAK_STATUS=water_leak_status,
+      data.WATER_LEAK_TIMES=leak_times,
+      data.LAST_WATER_LEAK_DURATION=leak_duration
   }
   else if(mod==3)
   {
-  return {
-      BAT_V:bat,
-      MOD:mod,
-      DOOR_OPEN_STATUS:door_open_status,
-      WATER_LEAK_STATUS:water_leak_status,
-      ALARM:alarm
-  };
+      data.BAT_V=bat,
+      data.MOD=mod,
+      data.DOOR_OPEN_STATUS=door_open_status,
+      data.WATER_LEAK_STATUS=water_leak_status,
+      data.ALARM=alarm
+
   }
   else{
-  return {
-      BAT_V:bat,
-      MOD:mod,
-  };
+      data.BAT_V=bat,
+      data.MOD=mod
   }
+  return {
+      data: data,
+    }
+	default:
+    return {
+      errors: ["unknown FPort"]
+    }
+}
 }

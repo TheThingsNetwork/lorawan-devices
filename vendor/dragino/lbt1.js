@@ -1,29 +1,32 @@
-function Decoder(bytes, port) {
+function decodeUplink(input) {
 	// Decode an uplink message from a buffer
 	// (array) of bytes to an object of fields.
-	value = bytes[0] << 8 | bytes[1];
-	var batV = value/1000;//Battery,units:V
+var port = input.fPort;
+var bytes = input.bytes;
+var mode = bytes[5];
+var data = {};
+var i;
+var con;
+var str = "";
+var value = bytes[0] << 8 | bytes[1];
+var addr= "";
+var rssi = 0;
+var major = 1;
+var minor = 1;
 
-	var mode = bytes[5];
-
-	//var value=(bytes[3]-0x30)*1000 +(bytes[5]-0x30)*100 + (bytes[5]-0x30)*10 +(bytes[6]-0x30);
-	//var value = bytes.slice(3);
-
-	var i;
-	var con;
-	var str = "";
-	var major = 1;
-	var minor = 1;
-	var rssi = 0;
-	var addr = "";
-
+  switch (input.fPort) {
+    case 2:
 	if(mode ==2 ) {
 		for(i = 38 ; i<50 ; i++) {
 			con = bytes[i].toString();
 			str += String.fromCharCode(con);
 		}
 
-		addr = str;
+		data.addr = str;
+		data.batV = value/1000;
+		data.major = 1;
+        data.minor = 1;
+		data.rssi = 0;
 
 		str = "";
 
@@ -42,7 +45,9 @@ function Decoder(bytes, port) {
 		  	str += String.fromCharCode(con);
 		}
 
-		major = parseInt(str, 16);
+		data.major = parseInt(str, 16);
+		data.batV = value/1000;
+		data.addr= "";
 		
 		str = "";
 
@@ -51,7 +56,7 @@ function Decoder(bytes, port) {
 		  	str += String.fromCharCode(con);
 		}
 
-		minor = parseInt(str, 16); 
+		data.minor = parseInt(str, 16); 
 
 		str = "";
 
@@ -60,7 +65,7 @@ function Decoder(bytes, port) {
 		  	str += String.fromCharCode(con);
 		}
 
-		rssi = parseInt(str);
+		data.rssi = parseInt(str);
 
 		str = "";
 		for(i = 6 ; i < 18 ; i++) {
@@ -76,22 +81,24 @@ function Decoder(bytes, port) {
 		  	con = bytes[i].toString();
 		  	str += String.fromCharCode(con);
 		}
-
+        data.batV = value/1000;
 		value = str;
+		data.addr= "";
+		data.major = 1;
+        data.minor = 1;
+		data.rssi = 0
+		
 	}
-
-	var uuid = value;
-	var alarm = bytes[2] >> 4 & 0x0F;
-	var step_count = (bytes[2] & 0x0F) << 16 | bytes[3] << 8 | bytes[4];
-
-	return {
-		UUID: uuid,
-		ADDR: addr,
-		MAJOR: major,
-		MINOR: minor,
-		RSSI:rssi,
-		STEP: step_count,
-		ALARM: alarm,
-		BatV:batV,
-	};
+	
+	data.uuid = value;
+	data.alarm = bytes[2] >> 4 & 0x0F;
+	data.step_count = (bytes[2] & 0x0F) << 16 | bytes[3] << 8 | bytes[4];
+  return {
+       data:data,
+  };
+default:
+    return {
+      errors: ["unknown FPort"]
+    }
+}
 }

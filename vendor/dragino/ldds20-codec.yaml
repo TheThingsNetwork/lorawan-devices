@@ -1,2 +1,17 @@
 uplinkDecoder:
   fileName: ldds20.js
+  examples:
+    - description: Liquid height
+      input:
+        fPort: 2
+        bytes: [0x0E, 0x1C,0x0B,0x05]
+      output:
+        data: {'distance': 'No Sensor'} 
+        
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0E, 0x1C,0x0B,0x05]
+      output:
+        errors:
+          - unknown FPort

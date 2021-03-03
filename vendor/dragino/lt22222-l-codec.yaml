@@ -1,2 +1,17 @@
 uplinkDecoder:
   fileName: lt22222-l.js
+  examples:
+    - description: IO controller
+      input:
+        fPort: 2
+        bytes: [0x04, 0xAB,0x04,0xAC,0x13,0x10,0x13,0x00,0xAA,0xFF,0x01]
+      output:
+        data: {  'ACI1_mA': 4.88,'ACI2_mA': 4.864,'AVI1_V': 1.195,'AVI2_V': 1.196,'DI1_status': 'H','DI2_status': 'L','DI3_status': 'H','DO1_status': 'H','DO2_status': 'L','DO3_status': 'H','Hardware_mode': 'LT33222','RO1_status': 'ON','RO2_status': 'OFF','Work_mode': '2ACI+2AVI' } 
+        
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x04, 0xAB,0x04,0xAC,0x13,0x10,0x13,0x00,0xAA,0xFF,0x01]
+      output:
+        errors:
+          - unknown FPort

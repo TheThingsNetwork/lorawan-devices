@@ -1,2 +1,17 @@
 uplinkDecoder:
   fileName: lds01.js
+  examples:
+    - description: Distance Detection
+      input:
+        fPort: 10
+        bytes: [0x0B, 0x88,0x01,0x00,0x25,0x00,0x01]
+      output:
+        data: { 'ALARM': 0,'BAT_V': 2.952,'DOOR_OPEN_STATUS': 0,'DOOR_OPEN_TIMES': 9472,'LAST_DOOR_OPEN_DURATION': 65536,'MOD': 1} 
+        
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0B, 0x88,0x01,0x00,0x25,0x00,0x01]
+      output:
+        errors:
+          - unknown FPort
