@@ -1,0 +1,29 @@
+uplinkDecoder:
+  fileName: nps310sm.js
+  examples:
+    - description: Parking Status
+      input:
+        fPort: 1
+        bytes: [1]
+      output:
+        data:
+          type: parking_status
+          occupied: true
+    - description: Heartbeat
+      input:
+        fPort: 2
+        bytes: [0]
+      output:
+        data:
+          type: heartbeat
+          occupied: false
+    - description: Startup
+      input:
+        fPort: 3
+        bytes: [0x01, 0x0D, 0x00, 0x02, 0x00]
+      output:
+        data:
+          firmware_version: '1.13.0'
+          occupied: false
+          reset_cause: power_on
+          type: startup
