@@ -4,10 +4,10 @@ uplinkDecoder:
     - description: Startup version report
       input:
         fPort: 6
-        bytes: [0x01, 0x0B, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+        bytes: [0x01, 0x6E, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
       output:
         data:
-          Device: 'R718A'
+          Device: 'R720A'
           SWver: 10
           HWver: 2
           Datecode: '20200811'
@@ -15,10 +15,10 @@ uplinkDecoder:
     - description: Status report
       input:
         fPort: 6
-        bytes: [0x01, 0x0B, 0x01, 0x24, 0x09, 0xEA, 0x1A, 0x90, 0x00, 0x00, 0x00]
+        bytes: [0x01, 0x6E, 0x01, 0x24, 0x09, 0xEA, 0x1A, 0x90, 0x00, 0x00, 0x00]
       output:
         data:
-          Device: 'R718A'
+          Device: 'R720A'
           Volt: 3.6
           Temp: 25.38
           Humi: 68
@@ -26,21 +26,21 @@ uplinkDecoder:
     - description: Configure report response
       input:
         fPort: 7
-        bytes: [0x81, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x81, 0x6E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
       output:
         data:
           Cmd: 'ConfigReportRsp'
-          Device: 'R718A'
+          Device: 'R720A'
           Status: 'Success'
 
     - description: Read configure report response
       input:
         fPort: 7
-        bytes: [0x82, 0x0B, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+        bytes: [0x82, 0x6E, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
       output:
         data:
           Cmd: 'ReadConfigReportRsp'
-          Device: 'R718A'
+          Device: 'R720A'
           MinTime: 900
           MaxTime: 1800
           BatteryChange: 0.1
@@ -53,11 +53,11 @@ downlinkDecoder:
     - description: Configure report request
       input:
         fPort: 7
-        bytes: [0x01, 0x0B, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+        bytes: [0x01, 0x6E, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
       output:
         data:
           Cmd: 'ConfigReportReq'
-          Device: 'R718A'
+          Device: 'R720A'
           MinTime: 900
           MaxTime: 1800
           BatteryChange: 0.1
@@ -67,11 +67,11 @@ downlinkDecoder:
     - description: Read configure report request
       input:
         fPort: 7
-        bytes: [0x02, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x02, 0x6E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
       output:
         data:
           Cmd: 'ReadConfigReportReq'
-          Device: 'R718A'
+          Device: 'R720A'
 
 downlinkEncoder:
   fileName: payload/r711_r718a_r718ab_r720a.js
@@ -80,7 +80,7 @@ downlinkEncoder:
       input:
         data:
           Cmd: 'ConfigReportReq'
-          Device: 'R718A'
+          Device: 'R720A'
           MinTime: 900
           MaxTime: 1800
           BatteryChange: 0.1
@@ -88,13 +88,13 @@ downlinkEncoder:
           HumiChange: 0.5
       output:
         fPort: 7
-        bytes: [0x01, 0x0B, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+        bytes: [0x01, 0x6E, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
 
     - description: Read configure report request
       input:
         data:
           Cmd: 'ReadConfigReportReq'
-          Device: 'R718A'
+          Device: 'R720A'
       output:
         fPort: 7
-        bytes: [0x02, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x02, 0x6E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
