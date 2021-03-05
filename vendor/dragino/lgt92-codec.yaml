@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: lgt92.js
+  examples:
+    - description: Distance Detection
+      input:
+        fPort: 2
+        bytes: [0x01, 0x5A, 0x78, 0x54, 0x06, 0xCF, 0x33, 0xD8, 0x0D, 0x20, 0x60, 0x00, 0x4B, 0x01, 0x90, 0x00]
+      output:
+        data: { 'ALARM_status': 'FALSE', 'altitude': 0, 'BatV': 3.36, 'FW': 160, 'LON': 'ON', 'latitude': 22.70626, 'longitude': 114.24252, 'MD': 'Disable', 'Pitch': 4, 'Roll': 0.75, 'hdop': 0 }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01, 0x5A, 0x78, 0x54, 0x06, 0xCF, 0x33, 0xD8, 0x0D, 0x20, 0x60, 0x00, 0x4B, 0x01, 0x90]
+      output:
+        errors:
+          - unknown FPort
