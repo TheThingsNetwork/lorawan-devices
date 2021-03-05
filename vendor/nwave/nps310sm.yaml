@@ -1,0 +1,54 @@
+id: nps310sm
+name: Smart Parking Sensor
+partNumber: NPS-3.10-SM
+description: The wireless vehicle detection sensor with high detection accuracy at 99.7%, fast detection time at 3-5 seconds, low profile - 20mm, 10 years battery life @20 parking sessions a day and vehicle counting capabilities.
+hardwareVersions:
+  - version: '3.10'
+    numeric: 310
+firmwareVersions:
+  - version: 1.13.0
+    numeric: 1130
+    hardwareVersions:
+      - '3.10'
+    profiles:
+      EU863-870:
+        id: nps310sm-profile
+        lorawanCertified: false
+        codec: nps310sm-codec
+      US902-928:
+        id: nps310sm-profile
+        lorawanCertified: false
+        codec: nps310sm-codec
+      AU915-928:
+        id: nps310sm-profile
+        lorawanCertified: false
+        codec: nps310sm-codec
+sensors:
+  - magnetometer
+  - temperature
+  - proximity
+dimensions:
+  diameter: 190
+  height: 20
+weight: 460
+battery:
+  replaceable: true
+  type: AA 13,500mAh Li-SOCI2
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+  relativeHumidity:
+    min: 0
+    max: 1
+ipCode: IP68
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.nwave.io/smart-parking-sensor/
+
+photos:
+  main: nps310sm.png
+  other:
+    - nps310sm-side.png
