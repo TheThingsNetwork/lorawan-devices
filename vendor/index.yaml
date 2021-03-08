@@ -1632,3 +1632,8 @@ vendors:
     name: Nwave Technologies
     website: https://www.nwave.io/
     logo: logo.png
+
+  - id: tekzitel
+    name: TEKZITEL PTY LTD
+    website: https://www.tekzitel.com/
+    logo: tekzitel_logo.png
