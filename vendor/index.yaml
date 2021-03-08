@@ -1678,3 +1678,8 @@ vendors:
   - id: innotas
     name: innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
+
+  - id: alpha-omega-technology
+    name: Alpha-Omega Technology GmbH & Co. KG
+    website: https://iot-shop.de
+    vendorID: 590
