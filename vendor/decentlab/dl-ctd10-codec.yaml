@@ -1,0 +1,42 @@
+uplinkDecoder:
+  fileName: dl-ctd10.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x07, 0xd9, 0x00, 0x03, 0x90, 0x88, 0x80, 0x81, 0x00, 0x64, 0x00, 0x00, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 2009
+          electrical_conductivity:
+            displayName: Electrical conductivity
+            unit: "\xB5S\u22C5cm\u207B\xB9"
+            value: 100
+          freezing_flag:
+            displayName: Freezing flag
+            value: 0
+          protocol_version: 2
+          temperature:
+            displayName: Temperature
+            unit: "\xB0C"
+            value: 12.9
+          water_depth:
+            displayName: Water depth
+            unit: mm
+            value: 4232
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x07, 0xd9, 0x00, 0x02, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 2009
+          protocol_version: 2

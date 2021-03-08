@@ -1,0 +1,47 @@
+uplinkDecoder:
+  fileName: dl-dlr2-010.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x19, 0x8f, 0x00, 0x07, 0x00, 0x04, 0x02, 0x58, 0x0b, 0xf0, 0x00, 0x01, 0x00, 0x00, 0x02, 0x58, 0xde, 0xce, 0x00, 0x00, 0x0c, 0x33]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.123
+          ch0_cumulative_pulse_count:
+            displayName: 'CH0: Cumulative pulse count'
+            value: 68592
+          ch0_pulse_count:
+            displayName: 'CH0: Pulse count'
+            value: 4
+          ch0_pulse_interval:
+            displayName: 'CH0: Pulse interval'
+            unit: s
+            value: 600
+          ch1_cumulative_pulse_count:
+            displayName: 'CH1: Cumulative pulse count'
+            value: 57038
+          ch1_pulse_count:
+            displayName: 'CH1: Pulse count'
+            value: 0
+          ch1_pulse_interval:
+            displayName: 'CH1: Pulse interval'
+            unit: s
+            value: 600
+          device_id: 6543
+          protocol_version: 2
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x19, 0x8f, 0x00, 0x04, 0x0c, 0x33]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.123
+          device_id: 6543
+          protocol_version: 2

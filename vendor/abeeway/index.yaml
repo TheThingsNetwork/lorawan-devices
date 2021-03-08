@@ -1,0 +1,9 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - abeeway-geolocation-module
+  - abeeway-industrial-tracker
+  - abeeway-compact-tracker
+  - abeeway-micro-tracker
+  - abeeway-smart-badge

@@ -1,0 +1,52 @@
+name: DigiSilo Radar Sensor
+description: DigiSilo is a compact distance measurement device and presence detector. Its sensor is a low power, high precision, pulsed short-range radar sensor and can measure in a distance range from 50 cm to 7 meters. By operating in the 60 GHz unlicensed ISM radio band, the radar sensor provides robust performance without interference from noise, dust, color nor direct or indirect light. DigiSilo is made for silo monitoring with different mediums like grain, feedstock, flour, or liquids. The device is designed to be mounted outside on top of the non-metallic silo.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    # LoRaWAN Device Profiles per region
+    # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: false
+
+sensors:
+  - distance
+  - motion
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 125
+  length: 280
+  height: 60
+
+# Weight in grams (optional)
+weight: 725
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: lithium-ion
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -30
+    max: 60
+
+# IP rating (optional)
+ipCode: IP67
+
+# Photos
+photos:
+  main: radar.jpg
+  other:
+    - radar1.jpg
+    - radar2.jpg
+    - radar3.jpg
+    - radar4.jpg

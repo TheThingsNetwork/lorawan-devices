@@ -1,0 +1,39 @@
+uplinkDecoder:
+  fileName: dl-tbrg-01.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0xf8, 0x00, 0x03, 0x00, 0x04, 0x02, 0x58, 0x40, 0x9a, 0x00, 0x00, 0x0c, 0x54]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.156
+          cumulative_precipitation:
+            displayName: Cumulative precipitation
+            unit: mm
+            value: 1653.8000000000002
+          device_id: 760
+          precipitation:
+            displayName: Precipitation
+            unit: mm
+            value: 0.4
+          precipitation_interval:
+            displayName: Precipitation interval
+            unit: s
+            value: 600
+          protocol_version: 2
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0xf8, 0x00, 0x02, 0x0c, 0x54]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.156
+          device_id: 760
+          protocol_version: 2

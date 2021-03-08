@@ -1,0 +1,28 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: rwmr.js
+  examples:
+    - description: Enabled temperature reading with pulse counter 1, Pulse Counter 1 is 32 pulses, battery voltage 2.740V, tempareture 24.35 Celcius
+      input:
+        fPort: 12
+        bytes: [0x15, 0x20, 0, 0, 0, 0, 0, 0, 0, 0xD4, 0x9A]
+      output:
+        data:
+          activatedServices:
+            - LORASENSE_REPORT_SERVICE_PULSE_COUNTER1
+            - LORASENSE_REPORT_SERVICE_TEMPERATURE
+          batteryLevel: 2.74
+          firmwareVersion: 1
+          hardwareVersion: 8
+          pulseCounter1: 32
+          pulseCounter2: 0
+          temperature: 24.35
+          type: 'status'
+    - description: Unknown FPort
+      input:
+        fPort: 5
+        bytes: [0x15, 0x20, 0, 0, 0, 0, 0, 0, 0, 0xD4, 0x9A]
+      output:
+        errors:
+          - Unknown port

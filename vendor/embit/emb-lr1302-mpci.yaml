@@ -1,0 +1,37 @@
+name: EMB-LR1302-mPCI
+description: EMB-LR1302-mPCIe provides long range connectivity using ultra-long range spread spectrum communication and high interference immunity on the 868 (or 915 MHz) MHz radio band. This device is characterized by far less power consumption than previous solutions, has a better thermal design and it is capable of handling a higher amount of traffic than preceding devices.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1'
+    numeric: 1
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: emb-lr1302-mpci-profile-eu868
+      US902-928:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: emb-lr1302-mpci-profile-us915
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 50.95
+  length: 30
+  height: 1
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+
+# Photos
+photos:
+  main: emb-lr1302-mpcie-top.jpg
+  other:
+    - emb-lr1302-mpcie-bottom.jpg

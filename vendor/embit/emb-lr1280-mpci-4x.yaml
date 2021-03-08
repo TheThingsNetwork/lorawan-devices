@@ -1,0 +1,34 @@
+name: EMB-LR1280-mPCI-4x
+description: EMB-LR1280-mPCIe-4x provides long range connectivity and high interference immunity exploiting spread spectrum modulation over the 2.4 GHz ISM band. It can operate worldwide being fully compliant with 2.4 GHz frequency band regulation.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1'
+    numeric: 1
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: emb-lrwl55-profile-eu868
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 50.95
+  length: 30
+  height: 1
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+
+# Photos
+photos:
+  main: emb-lr1280-mpcie-top.jpg
+  other:
+    - emb-lr1280-mpcie-bottom.jpg

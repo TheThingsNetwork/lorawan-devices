@@ -1,0 +1,107 @@
+name: Abeeway Geolocation Module
+description: The Abeeway Geolocation Module is a multi-technology fused location LPWAN module designed as the ideal platform to develop a wide range of IoT tracking solutions, minimizing the Total Cost of Ownership (TCO) of IoT geolocation use cases. It allows your engineering to focus on the use case, to optimize time-to-market and cost by using less complex PCBs (all high-density devices being encapsulated), to reduce certification risk and budget, as well as testing time and cost for mass production.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.3'
+    numeric: 2
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: abeeway-geolocation-module-profile
+        lorawanCertified: true
+      US902-928:
+        id: abeeway-geolocation-module-profile
+        lorawanCertified: true
+      AU915-928:
+        id: abeeway-geolocation-module-profile
+        lorawanCertified: true
+      AS923:
+        id: abeeway-geolocation-module-profile
+        lorawanCertified: true
+      KR920-923:
+        id: abeeway-geolocation-module-profile
+        lorawanCertified: true
+      IN865-867:
+        id: abeeway-geolocation-module-profile
+        lorawanCertified: true
+      RU864-870:
+        id: abeeway-geolocation-module-profile
+        lorawanCertified: true
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - gps
+  - temperature
+
+additionalRadios:
+  - wifi
+  - ble
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 17
+  length: 17.5
+
+# Weight in grams (optional)
+weight: 10
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -25
+    max: 85
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
+dataSheetURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
+resellerURLs:
+  - name: 'Actility'
+    region:
+      - Other
+    url: https://www.actility.com/
+
+# Photos
+photos:
+  main: abeeway-geolocation-module.png
+# # Regulatory compliances (optional) EC, FCC, IC, TELEC, ATEX Zone II, ATEX Zone I
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0
