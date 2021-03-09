@@ -1,5 +1,5 @@
-name: Wireless Thermocouple Sensor
-description: This equipment is used to detect temperature of the object and medium which thermocouple is contacted.
+name: Three-Axis Digital Accelerometer&NTC Thermistor
+description: It can detect the movement or vibration of the device, send a signal to the gateway for processing, and externally connect one NTC thermistor to detect the surface temperature of the measured object.
 
 hardwareVersions:
   - version: '2'
@@ -14,27 +14,29 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: profile-eu868
-        codec: r718ct-codec
+        codec: r718e-codec
       AS923:
         id: profile-as923
-        codec: r718ct-codec
+        codec: r718e-codec
       US902-928:
         id: profile-us915
-        codec: r718ct-codec
+        codec: r718e-codec
       AU915-928:
         id: profile-au915
-        codec: r718ct-codec
+        codec: r718e-codec
       KR920-923:
         id: profile-kr920
-        codec: r718ct-codec
+        codec: r718e-codec
       IN865-867:
         id: profile-in865
-        codec: r718ct-codec
+        codec: r718e-codec
       CN470-510:
         id: profile-cn470
-        codec: r718ct-codec
+        codec: r718e-codec
 
 sensors:
+  - accelerometer
+  - velocity
   - temperature
 
 dimensions:
@@ -42,9 +44,11 @@ dimensions:
   length: 112
   height: 32
 
+weight: 141
+
 battery:
   replaceable: true
-  type: 2 x 3.6V ER14505 AA lithium battery
+  type: 2 x 3.6V ER14505 AA lithium batteries
 
 operatingConditions:
   temperature:
@@ -62,8 +66,8 @@ keyProvisioning:
 
 keySecurity: none
 
-productURL: http://www.netvox.com.tw/product.asp?pro=R718CT
-dataSheetURL: http://www.netvox.com.tw/um/R718CT/R718CTdatasheet.pdf
+productURL: http://www.netvox.com.tw/product.asp?pro=R718E
+dataSheetURL: http://www.netvox.com.tw/um/R718E/R718Edatasheet.pdf
 
 photos:
-  main: photos/r718ct.jpg
+  main: photos/r718e.jpg
