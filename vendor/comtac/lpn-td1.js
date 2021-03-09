@@ -96,10 +96,10 @@ function DecodeTD1DataPayload(data) {
 			switch (data[i]) {
 				case TYPE_GPS_DATA:
 					//GPS DATA
-					var gpsLong = (data[i + 1] << 24) | (data[i + 2] << 16) | (data[i + 3] << 8) | (data[i + 4]);
-					gpsLong = bin32dec(gpsLong) / 1000000;
-					var gpsLat = (data[i + 5] << 24) | (data[i + 6] << 16) | (data[i + 7] << 8) | (data[i + 8]);
+					var gpsLat = (data[i + 1] << 24) | (data[i + 2] << 16) | (data[i + 3] << 8) | (data[i + 4]);
 					gpsLat = bin32dec(gpsLat) / 1000000;
+					var gpsLong = (data[i + 5] << 24) | (data[i + 6] << 16) | (data[i + 7] << 8) | (data[i + 8]);
+					gpsLong = bin32dec(gpsLong) / 1000000;
 					var gpsEPE = (data[i + 9] >> 4) & 0x0F;
 					var gpsSAT = (data[i + 9]) & 0x0F;
 					obj.gpsLong = gpsLong;
