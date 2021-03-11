@@ -35,10 +35,13 @@ let validateEndDevicePayloadCodec = validate.compile({
 });
 
 function requireFile(path) {
+  if (path.toLowerCase() !== path) {
+    return Promise.reject(new Error(`${path} is not lowercase`));
+  }
   return new Promise((resolve, reject) => {
     fs.stat(path, (err) => {
       if (err) {
-        reject(`stat ${path}: ${err.code}`);
+        reject(new Error(`stat ${path}: ${err.code}`));
       } else {
         resolve();
       }
@@ -47,37 +50,50 @@ function requireFile(path) {
 }
 
 function requireDimensions(path) {
-  return new Promise((resolve, reject) => {
-    sizeOf(path, (err, dimensions) => {
-      if (err) {
-        reject(`load image ${path}: ${err}`);
-      }
-      if (dimensions.width > 2000 || dimensions.height > 2000) {
-        reject(`image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`);
-      }
-      resolve();
-    });
-  });
+  return requireFile(path).then(
+    () =>
+      new Promise((resolve, reject) => {
+        sizeOf(path, (err, dimensions) => {
+          if (err) {
+            reject(new Error(`load image ${path}: ${err}`));
+          } else if (dimensions.width > 2000 || dimensions.height > 2000) {
+            reject(
+              new Error(
+                `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`
+              )
+            );
+          } else {
+            resolve();
+          }
+        });
+      })
+  );
 }
 
 function validatePayloadCodecs(vendorId, payloadEncoding) {
   var runs = [];
+  var promises = [];
+
   [
     { def: payloadEncoding.uplinkDecoder, routine: 'decodeUplink' },
     { def: payloadEncoding.downlinkEncoder, routine: 'encodeDownlink' },
     { def: payloadEncoding.downlinkDecoder, routine: 'decodeDownlink' },
   ].forEach((d) => {
-    if (d.def && d.def.examples) {
-      d.def.examples.forEach((e) => {
-        runs.push({
-          fileName: `${vendorId}/${d.def.fileName}`,
-          routine: d.routine,
-          ...e,
+    if (d.def) {
+      let fileName = `${vendorId}/${d.def.fileName}`;
+      promises.push(requireFile(fileName));
+      if (d.def.examples) {
+        d.def.examples.forEach((e) => {
+          runs.push({
+            fileName: fileName,
+            routine: d.routine,
+            ...e,
+          });
         });
-      });
+      }
     }
   });
-  var promises = [];
+
   runs.forEach((r) => {
     promises.push(
       new Promise((resolve, reject) => {
