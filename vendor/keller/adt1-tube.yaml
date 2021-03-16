@@ -8,37 +8,35 @@ hardwareVersions:
     numeric: 2
 
 firmwareVersions:
-  version: '21.06'
-  numeric: 2106
-
-  hardwareVersions:
-    - '9I169 B'
-
-  profiles:
-    EU863-870:
-      id: adt1-profile
-      lorawanCertified: true #https://lora-alliance.org/lora_products/adt1-tube/
-      codec: adt1-codec
-    US902-928:
-      id: adt1-profile
-      lorawanCertified: false
-      codec: adt1-codec
-    AU915-928:
-      id: adt1-profile
-      lorawanCertified: false
-      codec: adt1-codec
-    AS923:
-      id: adt1-profile
-      lorawanCertified: false
-      codec: adt1-codec
-    KR920-923:
-      id: adt1-profile
-      lorawanCertified: false
-      codec: adt1-codec
-    IN865-867:
-      id: adt1-profile
-      lorawanCertified: false
-      codec: adt1-codec
+  - version: '21.06'
+    numeric: 2106
+    hardwareVersions:
+      - '9I169 B'
+    profiles:
+      EU863-870:
+        id: adt1-profile
+        lorawanCertified: true #https://lora-alliance.org/lora_products/adt1-tube/
+        codec: adt1-codec
+      US902-928:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: adt1-codec
+      AU915-928:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: adt1-codec
+      AS923:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: adt1-codec
+      KR920-923:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: adt1-codec
+      IN865-867:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: adt1-codec
 
 # This device can be connected with various kind of KELLER pressure sensors including Level Probes and transmitters
 # The ADT1 itself measures humidity, battery capacity (0..100%), battery voltage, temperature and barometric pressure
@@ -89,10 +87,10 @@ productURL: https://keller-druck.com/en/products/data-loggers/remote-transmissio
 dataSheetURL: https://download.keller-druck.com/api/download/q3sWTxfeyHkzDXiezeoXjj/en/2020-10.pdf
 
 photos:
-  main: ADT1-Tube_offen_hd.jpg
+  main: adt1-tube-open.jpg
   other:
-    - ADT1-Tube_01_hd.jpg
-    - ADT1-Tube_02_hd.jpg
+    - adt1-tube-02.jpg
+    - adt1-tube-02.jpg
 
 videos:
   main: https://www.youtube.com/watch?v=hbfnBRteBYM
