@@ -320,6 +320,8 @@ vendors:
 
   - id: keller
     name: KELLER AG fur Druckmesstechnik
+    website: https://keller-druck.com/
+    logo: KELLER_logo.svg
     vendorID: 222
 
   - id: kerlink
