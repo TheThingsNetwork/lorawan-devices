@@ -1,38 +1,38 @@
-name: Wireless Thermocouple Sensor
-description: This equipment is used to detect temperature of the object and medium which thermocouple is contacted.
+name: Wireless Resistance Temperature Detector
+description: R718B connects an external resistance temperature detector (PT1000) to measures the temperature.
 
 hardwareVersions:
-  - version: '2'
-    numeric: 2
+  - version: '3'
+    numeric: 3
 
 firmwareVersions:
   - version: '10'
     numeric: 10
     hardwareVersions:
-      - '2'
+      - '3'
 
     profiles:
       EU863-870:
         id: profile-eu868
-        codec: r718ct-codec
+        codec: r718b-codec
       AS923:
         id: profile-as923
-        codec: r718ct-codec
+        codec: r718b-codec
       US902-928:
         id: profile-us915
-        codec: r718ct-codec
+        codec: r718b-codec
       AU915-928:
         id: profile-au915
-        codec: r718ct-codec
+        codec: r718b-codec
       KR920-923:
         id: profile-kr920
-        codec: r718ct-codec
+        codec: r718b-codec
       IN865-867:
         id: profile-in865
-        codec: r718ct-codec
+        codec: r718b-codec
       CN470-510:
         id: profile-cn470
-        codec: r718ct-codec
+        codec: r718b-codec
 
 sensors:
   - temperature
@@ -41,6 +41,8 @@ dimensions:
   width: 88.19
   length: 112
   height: 32
+
+weight: 141
 
 battery:
   replaceable: true
@@ -62,8 +64,8 @@ keyProvisioning:
 
 keySecurity: none
 
-productURL: http://www.netvox.com.tw/product.asp?pro=R718CT
-dataSheetURL: http://www.netvox.com.tw/um/R718CT/R718CTdatasheet.pdf
+productURL: http://www.netvox.com.tw/product.asp?pro=R718B
+dataSheetURL: http://www.netvox.com.tw/um/R718B/R718Bdatasheet.pdf
 
 photos:
-  main: photos/r718ct.jpg
+  main: photos/r718b.jpg

@@ -1,0 +1,67 @@
+name: Wireless Emergency Push Button
+description: The RB02I product is a wireless control terminal device for smart homes and high reliability. It features low standby power consumption and is fully compliant with the LoRaWAN™ protocol standard. RB02I is an emergency alarm triggering device, with a silicone waterproof cover.
+
+hardwareVersions:
+  - version: '50'
+    numeric: 50
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '50'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: rb02i-codec
+      AS923:
+        id: profile-as923
+        codec: rb02i-codec
+      US902-928:
+        id: profile-us915
+        codec: rb02i-codec
+      AU915-928:
+        id: profile-au915
+        codec: rb02i-codec
+      KR920-923:
+        id: profile-kr920
+        codec: rb02i-codec
+      IN865-867:
+        id: profile-in865
+        codec: rb02i-codec
+      CN470-510:
+        id: profile-cn470
+        codec: rb02i-codec
+
+sensors:
+  - button
+
+dimensions:
+  width: 82
+  length: 82
+  height: 15
+
+battery:
+  replaceable: true
+  type: 2 sections AAA batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RB02I
+dataSheetURL: http://www.netvox.com.tw/um/RB02I/RB02Idatasheet.pdf
+
+photos:
+  main: photos/rb02i.jpg
