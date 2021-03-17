@@ -1,3 +1,6 @@
+/* This is just a decoder for the TTN live viewer. The complete payload format protocol can be found here: https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/*/
+/* This code is from https://github.com/KELLERAGfuerDruckmesstechnik/KellerAgTheThingsNetworkPayloadDecoder */
+
 function decodeUplink(input) {
   var port = input.fPort;
   var bytes = input.bytes;

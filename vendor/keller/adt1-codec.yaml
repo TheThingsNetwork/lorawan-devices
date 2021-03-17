@@ -23,6 +23,8 @@ uplinkDecoder:
           Pd (P1-PBaro): -0.9710004925727844 # pressure difference [bar] - used to calculate water level etc.
           TBaro: 23.75 # temperature in [°C] in the ADT1/ARC1 which is similar to the air temperature
           TOB1: 21.799999237060547 # temperature (over bridge) [°C]: temperature on the first pressure sensor
+        warnings: []
+        errors: []
 
     - description: Example of an information message (0C011300132F0000000C27E3928B40A2B00D2F3A)
       input:
@@ -40,3 +42,5 @@ uplinkDecoder:
           humidity_percentage: 58 # in % rel [0..100]
           serial_number: 12 # device serial number incremented for each device class/type
           sw_version_text: '19.47' # FW version as text
+        warnings: []
+        errors: []
