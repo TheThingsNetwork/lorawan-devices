@@ -1,0 +1,47 @@
+name: HTCC-AB02S(Class C ABP)
+description: HTCC-AB02S is a Dev-Board. Already integrated AIR530 GPS module, friendly designed for developers, easy to verify communication solutions.
+
+firmwareVersions:
+  - 
+    version: '1.0'
+    numeric: 1
+
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-c-abp
+      US902-928:
+        id: profile-us915-class-c-abp
+      AU915-928:
+        id: profile-au915-class-c-abp
+      AS923:
+        id: profile-as923-class-c-abp
+      EU433:
+        id: profile-eu433-class-c-abp
+      CN470-510:
+        id: profile-cn470-class-c-abp
+      IN865-867:
+        id: profile-in865-class-c-abp
+      KR920-923:
+        id: profile-kr920-class-c-abp
+
+dimensions:
+  width: 27.9
+  length: 55.9
+  height: 9.5
+
+battery:
+  replaceable: true
+  type: Lithium
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+productURL: https://heltec.org/project/htcc-ab02s/
+dataSheetURL: https://heltec.org/project/htcc-ab02s/#1552557147424-7f1ec-5c652144-e1d6af18-f963
+
+photos:
+  main: cubecell-gps-6502.png
+
+

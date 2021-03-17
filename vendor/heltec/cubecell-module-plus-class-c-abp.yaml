@@ -1,0 +1,40 @@
+name: HTCC-AM02(Class C ABP)
+description: HTCC-AM02 is a Module. Supports AT transparent transmission commands, can be directly integrated into the application circuit.
+
+firmwareVersions:
+  - 
+    version: '1.0'
+    numeric: 1
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-c-abp
+      US902-928:
+        id: profile-us915-class-c-abp
+      AU915-928:
+        id: profile-au915-class-c-abp
+      AS923:
+        id: profile-as923-class-c-abp
+      EU433:
+        id: profile-eu433-class-c-abp
+      CN470-510:
+        id: profile-cn470-class-c-abp
+      IN865-867:
+        id: profile-in865-class-c-abp
+      KR920-923:
+        id: profile-kr920-class-c-abp
+
+dimensions:
+  width: 20.4
+  length: 20.4
+  height: 3
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+productURL: https://heltec.org/project/htcc-am02/
+dataSheetURL: https://heltec.org/project/htcc-am02/#1552557147424-7f1ec-5c652144-e1d68312-5a88
+
+photos:
+  main: cubecell-module-plus.png

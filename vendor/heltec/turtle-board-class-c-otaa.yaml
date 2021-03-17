@@ -1,0 +1,44 @@
+name: Turtle Board(Class C OTAA)
+description: The turnkey Turtle board solution can be used immediately. Support standard LoRaWAN protocol and RadioShuttle protocol.
+
+firmwareVersions:
+  -
+    version: '1.0'
+    numeric: 1
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-c-otaa
+      US902-928:
+        id: profile-us915-class-c-otaa
+      AU915-928:
+        id: profile-au915-class-c-otaa
+      AS923:
+        id: profile-as923-class-c-otaa
+      EU433:
+        id: profile-eu433-class-c-otaa
+      CN470-510:
+        id: profile-cn470-class-c-otaa
+      IN865-867:
+        id: profile-in865-class-c-otaa
+      KR920-923:
+        id: profile-kr920-class-c-otaa
+
+dimensions:
+  width: 31.5
+  length: 73.5
+  height: 24
+
+battery:
+  replaceable: true
+  type: AAA Lithium
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+productURL: https://heltec.org/project/turtle-board/
+dataSheetURL: https://heltec.org/project/turtle-board/#1552557147424-7f1ec-5c651922-b0bb1778-6c4e
+
+photos:
+  main: turtle-board.png

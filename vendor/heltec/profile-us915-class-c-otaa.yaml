@@ -1,0 +1,11 @@
+macVersion: 1.0.2
+regionalParametersVersion: RP001-1.0.2
+supportsJoin: true
+maxEIRP: 30
+supports32bitFCnt: true
+supportsClassB: false
+supportsClassC: true
+# If your device supports class C, uncomment the following fields:
+# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
+classCTimeout: 60
+
