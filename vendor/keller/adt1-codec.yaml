@@ -1,5 +1,5 @@
 # The KELLER payload is a little bit complicated as the device can have one or many level probes or pressure transmitter
-# Therefore we have
+# Therefore, a connection type defines the possible channels which again are mapped to physical units like pressure, temperature..
 # See protocol: https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/
 # and the decoder on github: https://github.com/KELLERAGfuerDruckmesstechnik/KellerAgTheThingsNetworkPayloadDecoder
 # The alternative is an open-source C# library that does the similar:  https://iotconverter.kolibricloud.ch/
