@@ -2,8 +2,7 @@ name: HTCC-AB02A(Class A OTAA)
 description: HTCC-AB02A is a Dev-Board. Friendly designed for developers, easy to verify communication solutions.
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
 
     profiles:

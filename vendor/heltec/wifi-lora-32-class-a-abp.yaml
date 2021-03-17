@@ -2,8 +2,7 @@ name: WiFi LoRa 32 (V2)(Class A ABP)
 description: WiFi LoRa 32 is a classic IoT dev-board
 
 firmwareVersions:
-  -
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
     profiles:
       EU863-870:

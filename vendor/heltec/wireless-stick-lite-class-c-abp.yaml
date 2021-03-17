@@ -2,8 +2,7 @@ name: Wireless Stick Lite (Panda Board)(Class C ABP)
 description: Compare with Wireless Stick, “Wireless Stick Lite” has much better low power design (30uA in deep sleep)
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
 
     profiles:

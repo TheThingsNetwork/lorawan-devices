@@ -1,9 +1,8 @@
 name: LoRa Node 151(Class C OTAA)
-description:  LoRa Node 151， adopting the STM32L151CCU6 MCU (support DFU mode) and SX127x LoRa chip, use 1/2 AA Lithium chlorine sulfite battery
+description: LoRa Node 151， adopting the STM32L151CCU6 MCU (support DFU mode) and SX127x LoRa chip, use 1/2 AA Lithium chlorine sulfite battery
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
     profiles:
       EU863-870:

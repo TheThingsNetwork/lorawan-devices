@@ -2,8 +2,7 @@ name: Turtle Board(Class A ABP)
 description: The turnkey Turtle board solution can be used immediately. Support standard LoRaWAN protocol and RadioShuttle protocol.
 
 firmwareVersions:
-  -
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
     profiles:
       EU863-870:

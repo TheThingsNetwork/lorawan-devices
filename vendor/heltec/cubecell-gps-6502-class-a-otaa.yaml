@@ -2,8 +2,7 @@ name: HTCC-AB02S(Class A OTAA)
 description: HTCC-AB02S is a Dev-Board. Already integrated AIR530 GPS module, friendly designed for developers, easy to verify communication solutions.
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
 
     profiles:

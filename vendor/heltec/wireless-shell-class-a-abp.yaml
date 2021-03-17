@@ -2,8 +2,7 @@ name: Wireless Shell(Class A ABP)
 description: “Wireless Shell” is an ESP32-PICO + SX1276 module. provide Wi-Fi, BLE and LoRa solution.
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
     profiles:
       EU863-870:

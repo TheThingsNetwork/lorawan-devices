@@ -2,8 +2,7 @@ name: Wireless Stick (Gecko Board)(Class A ABP)
 description: Wireless Stick (Gecko Board) is high performance and small size
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
     profiles:
       EU863-870:

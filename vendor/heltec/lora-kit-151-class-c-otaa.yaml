@@ -1,9 +1,8 @@
 name: LoRa Kit 151(Class C OTAA)
-description:  LoRa Kit 151 is Ultra-Low-Power and standard LoRaWAN protocol,
+description: LoRa Kit 151 is Ultra-Low-Power and standard LoRaWAN protocol,
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
     profiles:
       EU863-870:

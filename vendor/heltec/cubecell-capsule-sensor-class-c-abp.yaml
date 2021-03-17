@@ -2,8 +2,7 @@ name: HTCC-AC01(Class C ABP)
 description: HTCC-AC01 is a LoRa end node sensor. With a complete enclosure and protection measures, it can be deployed directly into real-world applications.
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
 
     profiles:

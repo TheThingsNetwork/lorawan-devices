@@ -2,8 +2,7 @@ name: HTCC-AB02(Class C ABP)
 description: HTCC-AB02 is a Dev-Board. Friendly designed for developers, easy to verify communication solutions.
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
 
     profiles:
@@ -43,4 +42,3 @@ dataSheetURL: https://heltec.org/project/htcc-ab02/#1552557147424-7f1ec-5c652144
 
 photos:
   main: cubecell-dev-board-plus.png
-

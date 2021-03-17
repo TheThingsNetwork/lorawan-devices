@@ -2,8 +2,7 @@ name: HTCC-AM02(Class C ABP)
 description: HTCC-AM02 is a Module. Supports AT transparent transmission commands, can be directly integrated into the application circuit.
 
 firmwareVersions:
-  - 
-    version: '1.0'
+  - version: '1.0'
     numeric: 1
     profiles:
       EU863-870:
