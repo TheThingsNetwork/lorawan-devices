@@ -9,5 +9,5 @@ uplinkDecoder:
         data:
           batteryVoltage: 3
           humidity: 50
-          reason: "keepalive"
+          reason: 'keepalive'
           temperature: 24.8

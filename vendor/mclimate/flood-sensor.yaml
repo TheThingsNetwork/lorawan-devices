@@ -21,7 +21,6 @@ firmwareVersions:
         lorawanCertified: false
         codec: flood-sensor-codec
 
-
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
