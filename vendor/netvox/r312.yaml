@@ -1,0 +1,71 @@
+name: Wireless Door Bell Button
+description: R312 is a wireless doorbell control device which can detect whether the wireless doorbell is triggered and send the doorbell status to the gateway.
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r312-codec
+      AS923:
+        id: profile-as923
+        codec: r312-codec
+      US902-928:
+        id: profile-us915
+        codec: r312-codec
+      AU915-928:
+        id: profile-au915
+        codec: r312-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r312-codec
+      IN865-867:
+        id: profile-in865
+        codec: r312-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r312-codec
+
+sensors:
+  - button
+
+dimensions:
+  width: 35
+  length: 57
+  height: 15.2
+
+weight: 45
+
+battery:
+  replaceable: true
+  type: 2 x 3.0V CR2450 button battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+ipCode: IP30
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R312
+dataSheetURL: http://www.netvox.com.tw/um/R312/R312datasheet.pdf
+
+photos:
+  main: photos/r312.jpg

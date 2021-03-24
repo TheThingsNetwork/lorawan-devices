@@ -2,3 +2,39 @@ endDevices:
   - dl-iam
   - dl-pr26
   - dl-mbx
+  - dl-5tm
+  - dl-atm22
+  - dl-atm41
+  - dl-ctd10
+  - dl-dlr2-002
+  - dl-dlr2-003
+  - dl-dlr2-004
+  - dl-dlr2-005
+  - dl-dlr2-006
+  - dl-dlr2-008
+  - dl-dlr2-010
+  - dl-dlr2-012
+  - dl-ds18
+  - dl-dws
+  - dl-itst
+  - dl-kl66
+  - dl-lid
+  - dl-lp8p
+  - dl-optod
+  - dl-par
+  - dl-pm
+  - dl-pr21
+  - dl-pr36
+  - dl-pr36ctd
+  - dl-pyr
+  - dl-rhc
+  - dl-sht35-001
+  - dl-sht35-002
+  - dl-smtp
+  - dl-tbrg
+  - dl-trs11
+  - dl-trs12
+  - dl-trs21
+  - dl-wrm
+  - dl-zn1
+  - dl-zn2

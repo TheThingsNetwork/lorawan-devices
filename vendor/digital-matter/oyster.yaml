@@ -1,0 +1,116 @@
+name: Oyster
+description: Ultra-rugged, long-life battery-powered LoRaWAN® GPS asset tracking device
+hardwareVersions:
+  - version: '60.1'
+    numeric: 1
+  - version: '60.2'
+    numeric: 2
+firmwareVersions:
+  - version: '60.1.2.9'
+    numeric: 0x3C010209
+    hardwareVersions:
+      - '60.1'
+    profiles:
+      EU863-870:
+        id: oyster-profile
+        codec: oyster-codec
+      IN865-867:
+        id: oyster-profile
+        codec: oyster-codec
+      RU864-870:
+        id: oyster-profile
+        codec: oyster-codec
+  - version: '60.2.2.7'
+    numeric: 0x3C020207
+    hardwareVersions:
+      - '60.2'
+    profiles:
+      US902-928:
+        id: oyster-profile
+        lorawanCertified: true
+        codec: oyster-codec
+      AU915-928:
+        id: oyster-profile
+        codec: oyster-codec
+      AS923:
+        id: oyster-profile
+        codec: oyster-codec
+      KR920-923:
+        id: oyster-profile
+        codec: oyster-codec
+  - version: '60.2.2.9'
+    numeric: 0x3C020209
+    hardwareVersions:
+      - '60.2'
+    profiles:
+      US902-928:
+        id: oyster-profile
+        codec: oyster-codec
+      AU915-928:
+        id: oyster-profile
+        codec: oyster-codec
+      AS923:
+        id: oyster-profile
+        codec: oyster-codec
+      KR920-923:
+        id: oyster-profile
+        codec: oyster-codec
+sensors:
+  - accelerometer
+  - battery
+  - gps
+  - temperature
+dimensions:
+  width: 86
+  length: 108
+  height: 31
+weight: 188
+battery:
+  replaceable: true
+  type: AA
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+  relativeHumidity:
+    min: 0
+    max: 1.0
+ipCode: IP67
+keyProvisioning:
+  - custom
+  - manifest
+keySecurity: none
+productURL: https://www.digitalmatter.com/devices/oyster-lorawan
+photos:
+  main: oyster.png
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 60950-1:2015
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
+    - body: FCC
+      standard: '15.247'
+    - body: ICASA
+      standard: ECA 2005 Type Approval
+    - body: ISED
+      standard: RSS-247 Issue 2 Feb 2017

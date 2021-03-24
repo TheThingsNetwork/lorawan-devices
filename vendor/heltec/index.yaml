@@ -1,0 +1,79 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  # cubecell-gps
+  - cubecell-gps-6502-class-a-otaa # look in windsensor.yaml for the end device definition
+  - cubecell-gps-6502-class-c-otaa
+  - cubecell-gps-6502-class-a-abp
+  - cubecell-gps-6502-class-c-abp
+  # cubecell-dev-board
+  - cubecell-dev-board-class-a-otaa
+  - cubecell-dev-board-class-c-otaa
+  - cubecell-dev-board-class-a-abp
+  - cubecell-dev-board-class-c-abp
+  # cubecell-dev-board plus
+  - cubecell-dev-board-plus-class-a-otaa
+  - cubecell-dev-board-plus-class-c-otaa
+  - cubecell-dev-board-plus-class-a-abp
+  - cubecell-dev-board-plus-class-c-abp
+  # cubecell-1-2-aa-node
+  - cubecell-1-2-aa-node-class-a-otaa
+  - cubecell-1-2-aa-node-class-c-otaa
+  - cubecell-1-2-aa-node-class-a-abp
+  - cubecell-1-2-aa-node-class-c-abp
+  # CubeCell – Capsule Sensor
+  - cubecell-capsule-sensor-class-a-otaa
+  - cubecell-capsule-sensor-class-c-otaa
+  - cubecell-capsule-sensor-class-a-abp
+  - cubecell-capsule-sensor-class-c-abp
+  # CubeCell Capsule Solar Sensor
+  - cubecell-solar-sensor-class-a-otaa
+  - cubecell-solar-sensor-class-c-otaa
+  - cubecell-solar-sensor-class-a-abp
+  - cubecell-solar-sensor-class-c-abp
+  # CubeCell – Module
+  - cubecell-module-class-a-otaa
+  - cubecell-module-class-c-otaa
+  - cubecell-module-class-a-abp
+  - cubecell-module-class-c-abp
+  # CubeCell Module Plus
+  - cubecell-module-plus-class-a-otaa
+  - cubecell-module-plus-class-c-otaa
+  - cubecell-module-plus-class-a-abp
+  - cubecell-module-plus-class-c-abp
+  # WiFi LoRa 32 (V2)
+  - wifi-lora-32-class-a-otaa
+  - wifi-lora-32-class-c-otaa
+  - wifi-lora-32-class-a-abp
+  - wifi-lora-32-class-c-abp
+  # Wireless Stick (Gecko Board)
+  - wireless-stick-class-a-otaa
+  - wireless-stick-class-c-otaa
+  - wireless-stick-class-a-abp
+  - wireless-stick-class-c-abp
+  # Wireless Stick Lite (Panda Board)
+  - wireless-stick-lite-class-a-otaa
+  - wireless-stick-lite-class-c-otaa
+  - wireless-stick-lite-class-a-abp
+  - wireless-stick-lite-class-c-abp
+  # Wireless Shell
+  - wireless-shell-class-a-otaa
+  - wireless-shell-class-c-otaa
+  - wireless-shell-class-a-abp
+  - wireless-shell-class-c-abp
+  # LoRa Kit 151
+  - lora-kit-151-class-a-otaa
+  - lora-kit-151-class-c-otaa
+  - lora-kit-151-class-a-abp
+  - lora-kit-151-class-c-abp
+  # LoRa Node 151
+  - lora-node-151-class-a-otaa
+  - lora-node-151-class-c-otaa
+  - lora-node-151-class-a-abp
+  - lora-node-151-class-c-abp
+  # Turtle Board
+  - turtle-board-class-a-otaa
+  - turtle-board-class-c-otaa
+  - turtle-board-class-a-abp
+  - turtle-board-class-c-abp

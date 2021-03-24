@@ -1,0 +1,109 @@
+name: Abeeway Compact Tracker
+description: Higly versatile multi-mode tracker with a compact and robust form factor, designed to resist harsh surroundings enabling you to perform seamless asset tracking and management in any industrial environment – whether it’s for heavy-duty assets or small equipment, taking advantage of its long battery autonomy.
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.1'
+    numeric: 2
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: abeeway-compact-tracker-pro-eu868
+        lorawanCertified: true
+      US902-928:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: abeeway-compact-tracker-pro-us915
+        lorawanCertified: true
+      AS923:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: abeeway-compact-tracker-pro-as923
+        lorawanCertified: true
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - gps
+  - temperature
+
+additionalRadios:
+  - wifi
+  - ble
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 112
+  length: 66
+  height: 33
+
+# Weight in grams (optional)
+weight: 190
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3x AA/3.6V Li-SOCl2
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 65
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.5
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP68
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.abeeway.com/compact-tracker/
+dataSheetURL: https://www.abeeway.com/wp-content/uploads/2020/10/Abeeway_Compact-data-sheet_08.pdf
+resellerURLs:
+  - name: 'Actility'
+    region:
+      - Other
+    url: https://market.thingpark.com/catalog/product/view/id/11554/s/abeeway-compact-tracker/?___store=default
+
+# Photos
+photos:
+  main: abeeway-compact-tracker.png
+# # Regulatory compliances (optional)
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0

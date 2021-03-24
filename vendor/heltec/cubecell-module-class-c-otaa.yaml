@@ -1,0 +1,40 @@
+name: HTCC-AM01(Class C OTAA)
+description: HTCC-AM01 is a Module. Supports AT transparent transmission commands, can be directly integrated into the application circuit.
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-c-otaa
+      US902-928:
+        id: profile-us915-class-c-otaa
+      AU915-928:
+        id: profile-au915-class-c-otaa
+      AS923:
+        id: profile-as923-class-c-otaa
+      EU433:
+        id: profile-eu433-class-c-otaa
+      CN470-510:
+        id: profile-cn470-class-c-otaa
+      IN865-867:
+        id: profile-in865-class-c-otaa
+      KR920-923:
+        id: profile-kr920-class-c-otaa
+
+dimensions:
+  width: 18
+  length: 18
+  height: 3
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+productURL: https://heltec.org/project/htcc-am01/
+dataSheetURL: https://heltec.org/project/htcc-am01/#1552557147424-7f1ec-5c652144-e1d6f6d7-e5b5
+
+photos:
+  main: cubecell-module.png

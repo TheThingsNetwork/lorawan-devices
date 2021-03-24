@@ -1,0 +1,69 @@
+name: Wireless Emergency Button
+description: The R312A is an emergency button switch device that detects the closing or opening signal of the emergency button switch and sends an alarm signal to the gateway for processing. It uses the SX1276 wireless communication module.
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r312a-codec
+      AS923:
+        id: profile-as923
+        codec: r312a-codec
+      US902-928:
+        id: profile-us915
+        codec: r312a-codec
+      AU915-928:
+        id: profile-au915
+        codec: r312a-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r312a-codec
+      IN865-867:
+        id: profile-in865
+        codec: r312a-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r312a-codec
+
+sensors:
+  - button
+
+dimensions:
+  width: 35
+  length: 57
+  height: 15.2
+
+weight: 45
+
+battery:
+  replaceable: true
+  type: 2 x 3.0V CR2450 button battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R312A
+dataSheetURL: http://www.netvox.com.tw/um/R312A/R312Adatasheet.pdf
+
+photos:
+  main: photos/r312a.jpg

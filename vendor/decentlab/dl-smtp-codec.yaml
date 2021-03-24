@@ -1,0 +1,124 @@
+uplinkDecoder:
+  fileName: dl-smtp.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x0b,
+            0x50,
+            0x00,
+            0x03,
+            0x09,
+            0x01,
+            0x8a,
+            0x8c,
+            0x09,
+            0x43,
+            0x8a,
+            0x98,
+            0x09,
+            0x27,
+            0x8a,
+            0x92,
+            0x0b,
+            0x3c,
+            0x8a,
+            0xa5,
+            0x0c,
+            0x9c,
+            0x8a,
+            0x8c,
+            0x11,
+            0xe0,
+            0x8a,
+            0xa5,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x0b,
+            0x3b,
+          ]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.875
+          device_id: 2896
+          protocol_version: 2
+          soil_moisture_at_depth_0:
+            displayName: Soil moisture at depth 0
+            value: -0.39
+          soil_moisture_at_depth_1:
+            displayName: Soil moisture at depth 1
+            value: -0.258
+          soil_moisture_at_depth_2:
+            displayName: Soil moisture at depth 2
+            value: -0.314
+          soil_moisture_at_depth_3:
+            displayName: Soil moisture at depth 3
+            value: 0.752
+          soil_moisture_at_depth_4:
+            displayName: Soil moisture at depth 4
+            value: 1.456
+          soil_moisture_at_depth_5:
+            displayName: Soil moisture at depth 5
+            value: 4.152
+          soil_moisture_at_depth_6:
+            displayName: Soil moisture at depth 6
+            value: -5
+          soil_moisture_at_depth_7:
+            displayName: Soil moisture at depth 7
+            value: -5
+          soil_temperature_at_depth_0:
+            displayName: Soil temperature at depth 0
+            unit: "\xB0C"
+            value: 27
+          soil_temperature_at_depth_1:
+            displayName: Soil temperature at depth 1
+            unit: "\xB0C"
+            value: 27.12
+          soil_temperature_at_depth_2:
+            displayName: Soil temperature at depth 2
+            unit: "\xB0C"
+            value: 27.06
+          soil_temperature_at_depth_3:
+            displayName: Soil temperature at depth 3
+            unit: "\xB0C"
+            value: 27.25
+          soil_temperature_at_depth_4:
+            displayName: Soil temperature at depth 4
+            unit: "\xB0C"
+            value: 27
+          soil_temperature_at_depth_5:
+            displayName: Soil temperature at depth 5
+            unit: "\xB0C"
+            value: 27.25
+          soil_temperature_at_depth_6:
+            displayName: Soil temperature at depth 6
+            unit: "\xB0C"
+            value: -327.68
+          soil_temperature_at_depth_7:
+            displayName: Soil temperature at depth 7
+            unit: "\xB0C"
+            value: -327.68
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x0b, 0x50, 0x00, 0x02, 0x0b, 0x3b]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.875
+          device_id: 2896
+          protocol_version: 2

@@ -1,0 +1,96 @@
+uplinkDecoder:
+  fileName: payload/r311g_b.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x04, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x28, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311G'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191128'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x04, 0x01, 0x1E, 0x00, 0x78, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311G'
+          Volt: 3
+          Illuminance: 120
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R311G'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x04, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x64, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R311G'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          IlluminanceChange: 100
+
+downlinkDecoder:
+  fileName: payload/r311g_b.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x04, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x64, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311G'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          IlluminanceChange: 100
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311G'
+
+downlinkEncoder:
+  fileName: payload/r311g_b.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311G'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          IlluminanceChange: 100
+      output:
+        fPort: 7
+        bytes: [0x01, 0x04, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x64, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311G'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

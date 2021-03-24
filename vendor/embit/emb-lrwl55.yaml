@@ -1,0 +1,60 @@
+name: EMB-LRWL55
+description: EMB-LRWL55 is the first ultra-low-power LoRaWAN® OEM module based on STM's new system-on-chip, STM32WL55xx. Its tiny form factor and its capability of working both with 868MHz EU ISM band and 915MHz US make EMB-LRWL55 the perfect solution for small and battery powered LoRaWAN® end-devices, with the possibility to interface any kind of sensors.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1'
+    numeric: 1
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: emb-lrwl55-profile-eu868
+      US902-928:
+        id: emb-lrwl55-profile-us915
+      AU915-928:
+        id: emb-lrwl55-profile-au915
+      AS923:
+        id: emb-lrwl55-profile-as923
+      CN779-787:
+        id: emb-lrwl55-profile-cn779
+      EU433:
+        id: emb-lrwl55-profile-eu433
+      CN470-510:
+        id: emb-lrwl55-profile-cn470
+      KR920-923:
+        id: emb-lrwl55-profile-kr920
+      IN865-867:
+        id: emb-lrwl55-profile-in865
+      RU864-870:
+        id: emb-lrwl55-profile-ru864
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 12.8
+  length: 13.5
+  height: 2.5
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 100
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Photos
+photos:
+  main: emb-lrwl55-top.jpg
+  other:
+    - emb-lrwl55-top1.jpg
+
+videos:
+  main: https://www.youtube.com/watch?v=W9B9bqGjlVs

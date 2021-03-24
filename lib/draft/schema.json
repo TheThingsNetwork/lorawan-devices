@@ -41,7 +41,8 @@
         "AS923",
         "KR920-923",
         "IN865-867",
-        "RU864-870"
+        "RU864-870",
+        "ISM2400"
       ],
       "description": "Region"
     },
@@ -98,7 +99,7 @@
       "description": "Frequency (MHz)"
     },
     "pingSlotPeriod": {
-      "enum": [32, 64, 128, 256, 512, 1024, 2048, 4096],
+      "enum": [1, 2, 4, 8, 16, 32, 64, 128],
       "description": "Ping slot period (seconds)"
     },
     "rxDelay": {
@@ -737,6 +738,13 @@
           },
           "uniqueItems": true
         },
+        "findHardwareVersion": {
+          "type": "string",
+          "description": "Instructions for finding hardware version",
+          "examples": [
+            "The hardware version of your product is marked as HW. On the product it is printed on a label on the bottom of the device. On the box, it is printed on a sticker on the bottom."
+          ]
+        },
         "firmwareVersions": {
           "type": "array",
           "items": {
@@ -780,38 +788,84 @@
           "minItems": 1,
           "uniqueItems": true
         },
+        "findFirmwareVersion": {
+          "type": "string",
+          "description": "Instructions for finding firmware version",
+          "examples": [
+            "In the WebFig configuration panel, the firmware version is stated in the top left (e.g RouterOS v6.47.9)"
+          ]
+        },
         "sensors": {
           "type": "array",
           "items": {
             "enum": [
+              "4-20 ma",
               "accelerometer",
               "altitude",
+              "analog input",
               "auxiliary",
               "barometer",
               "battery",
               "button",
+              "bvoc",
+              "co",
               "co2",
+              "conductivity",
+              "current",
+              "digital input",
+              "dissolved oxygen",
               "distance",
               "dust",
+              "energy",
               "gps",
               "gyroscope",
+              "h2s",
               "humidity",
+              "iaq",
+              "level",
               "light",
+              "lightning",
               "link",
               "magnetometer",
               "moisture",
+              "motion",
+              "no",
+              "no2",
+              "o3",
+              "particulate matter",
               "ph",
               "pir",
-	      "pressure",
+              "pm2.5",
+              "pm10",
+              "potentiometer",
+              "power",
+              "precipitation",
+              "pressure",
               "proximity",
+              "pulse count",
+              "pulse frequency",
+              "radar",
+              "rainfall",
               "rssi",
               "snr",
+              "so2",
+              "solar radiation",
               "sound",
+              "strain",
+              "surface temperature",
               "temperature",
+              "tilt",
+              "time",
               "tvoc",
+              "uv",
+              "vapor pressure",
               "velocity",
               "vibration",
+              "voltage",
+              "water potential",
               "water",
+              "weight",
+              "wifi ssid",
               "wind direction",
               "wind speed"
             ]
