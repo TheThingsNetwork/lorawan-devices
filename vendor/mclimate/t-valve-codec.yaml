@@ -1,0 +1,18 @@
+uplinkDecoder:
+  fileName: t-valve.js
+  examples:
+    - description: Short periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x2C, 0xC0]
+      output:
+        data:
+          reason: 'keepalive'
+          valveState: false
+          boxTamper: true
+          floodDetectionWireState: true
+          flood: false
+          magnet: false
+          alarmValidated: true
+          manualOpenIndicator: true
+          manualCloseIndicator: false
