@@ -799,7 +799,7 @@
           "type": "array",
           "items": {
             "enum": [
-              "smart-valve"
+              "smart-valve",
 	      "4-20 ma",
               "accelerometer",
               "altitude",
