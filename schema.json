@@ -800,7 +800,7 @@
           "items": {
             "enum": [
               "smart valve",
-	      "4-20 ma",
+              "4-20 ma",
               "accelerometer",
               "altitude",
               "analog input",
