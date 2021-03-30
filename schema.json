@@ -799,7 +799,6 @@
           "type": "array",
           "items": {
             "enum": [
-              "smart valve",
               "4-20 ma",
               "accelerometer",
               "altitude",
@@ -848,6 +847,7 @@
               "radar",
               "rainfall",
               "rssi",
+              "smart valve",
               "snr",
               "so2",
               "solar radiation",
