@@ -1642,3 +1642,7 @@ vendors:
     name: HelTec AutoMation
     website: https://heltec.org/
     logo: logo.png
+
+  - id: m2m-telecom
+    name: m2m-telecom
+    website: https://m2m-tele.com

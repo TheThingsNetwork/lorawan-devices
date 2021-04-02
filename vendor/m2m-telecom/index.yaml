@@ -1,0 +1,4 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - gw-01-wi-fi # look in gw-01-wi-fi.yaml for the end device definition
+#  - gw-01-poe

@@ -1,0 +1,118 @@
+name: GW-01-WI-FI
+description: Multi channel Open Source Low Cost LoRaWAN gateway with Wi-Fi connectivity
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868
+        lorawanCertified: true
+      #        codec: gw-01-wifi-codec
+      US902-928:
+        id: us915
+        lorawanCertified: true
+#        codec: gw-01-wifi-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
+# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
+# water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - no
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 110
+  length: 70
+  height: 27
+
+# Weight in grams (optional)
+weight: 350
+
+# Battery information (optional)
+#battery:
+#  replaceable: true
+#  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -35
+    max: 70
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+#ipCode: IP64
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+#keyProvisioning:
+#  - custom
+#  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+#keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://m2m-tele.com/product/gw-01-wi-fi/
+dataSheetURL: https://m2m-tele.com/blog/2021/04/02/lorawan-gateway-configuration-using-ui-web-interface/
+#resellerURLs:
+#  - name: 'm2m-telecom'
+#    region:
+#      - Worldwide
+#    url: https://m2m-tele.com/product/gw-01-wi-fi/
+
+# Photos
+photos:
+  main: gw-01-wifi.jpg
+  other:
+    - gw-01-wifi-2.jpg
+    - gw-01-wifi-3.jpg
+    - gw-01-wifi-4.jpg
+    - gw-01-wifi-5.jpg
+# Youtube or Vimeo Video (optional)
+#videos:
+#  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+
+# Regulatory compliances (optional)
+#compliances:
+#  safety:
+#    - body: IEC
+#      norm: EN
+#      standard: 62368-1
+#  radioEquipment:
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-1
+#      version: 2.2.0
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-3
+#      version: 2.1.0
