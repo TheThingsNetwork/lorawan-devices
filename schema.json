@@ -821,6 +821,13 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "features": {
+                "type": "array",
+                "items": {
+                  "enum": ["remote rejoin", "transmission interval"]
+                },
+                "uniqueItems": true
               }
             },
             "required": ["version", "profiles"]
@@ -1028,13 +1035,6 @@
           "type": "array",
           "items": {
             "enum": ["serial", "fuota lorawan", "fuota other"]
-          },
-          "uniqueItems": true
-        },
-        "firmwareFeatures": {
-          "type": "array",
-          "items": {
-            "enum": ["remote rejoin", "transmission interval"]
           },
           "uniqueItems": true
         },
