@@ -16,19 +16,25 @@
     "logo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(png|svg)$" }
+        {
+          "type": "string",
+          "pattern": "\\.(png|svg)$"
+        }
       ]
     },
     "photo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(png|jpg|jpeg)$" }
+        {
+          "type": "string",
+          "pattern": "\\.(png|jpg|jpeg)$"
+        }
       ]
     },
     "video": {
       "type": "string",
       "format": "uri",
-      "pattern": "^(?:https?:\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\\?v=|\\.be\\/)(?:[\\w\\-\\_]*)(?:&(amp;)?[\\w\\?=]*)?)$|^(?:https?:\\/\\/(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/([^\\/]*)\\/videos\\/|)(?:\\d+)(?:|\\/\\?))$"
+      "pattern": "^(?:https?:\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\\?v=|\\.be\\/)(?:[\\w\\-_]*)(?:&(amp;)?[\\w\\?=]*)?)$|^(?:https?:\\/\\/(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/([^\\/]*)\\/videos\\/|)(?:\\d+)(?:|\\/\\?))$"
     },
     "region": {
       "enum": [
@@ -137,7 +143,10 @@
         "fileName": {
           "allOf": [
             { "$ref": "#/definitions/localFile" },
-            { "pattern": "\\.js$" }
+            {
+              "type": "string",
+              "pattern": "\\.js$"
+            }
           ]
         },
         "examples": {
@@ -251,10 +260,17 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
+              "type": "object",
               "properties": {
                 "bytes": { "$ref": "#/definitions/frmPayload" },
                 "fPort": {
-                  "allOf": [{ "$ref": "#/definitions/fPort" }, { "minimum": 1 }]
+                  "allOf": [
+                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  ]
                 }
               },
               "required": ["bytes", "fPort"]
@@ -267,6 +283,7 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
+              "type": "object",
               "properties": {
                 "data": {
                   "type": "object"
@@ -275,13 +292,16 @@
             },
             {
               "if": {
+                "type": "object",
                 "properties": {
                   "errors": {
+                    "type": "array",
                     "maxItems": 0
                   }
                 }
               },
               "then": {
+                "type": "object",
                 "required": ["data"]
               }
             }
@@ -293,6 +313,7 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
+              "type": "object",
               "properties": {
                 "data": {
                   "type": "object"
@@ -308,22 +329,32 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
+              "type": "object",
               "properties": {
                 "bytes": { "$ref": "#/definitions/frmPayload" },
                 "fPort": {
-                  "allOf": [{ "$ref": "#/definitions/fPort" }, { "minimum": 1 }]
+                  "allOf": [
+                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  ]
                 }
               }
             },
             {
               "if": {
+                "type": "object",
                 "properties": {
                   "errors": {
+                    "type": "array",
                     "maxItems": 0
                   }
                 }
               },
               "then": {
+                "type": "object",
                 "required": ["bytes"]
               }
             }
@@ -335,9 +366,12 @@
           "allOf": [
             { "$ref": "#/definitions/script" },
             {
+              "type": "object",
               "properties": {
                 "examples": {
+                  "type": "array",
                   "items": {
+                    "type": "object",
                     "properties": {
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
@@ -356,9 +390,12 @@
           "allOf": [
             { "$ref": "#/definitions/script" },
             {
+              "type": "object",
               "properties": {
                 "examples": {
+                  "type": "array",
                   "items": {
+                    "type": "object",
                     "properties": {
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeInput"
@@ -377,9 +414,12 @@
           "allOf": [
             { "$ref": "#/definitions/script" },
             {
+              "type": "object",
               "properties": {
                 "examples": {
+                  "type": "array",
                   "items": {
+                    "type": "object",
                     "properties": {
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
@@ -778,7 +818,7 @@
               },
               "hardwareVersions": {
                 "type": "array",
-                "item": {
+                "items": {
                   "type": "string"
                 }
               }
