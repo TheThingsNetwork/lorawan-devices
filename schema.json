@@ -872,6 +872,7 @@
               "no",
               "no2",
               "o3",
+              "optical meter",
               "particulate matter",
               "ph",
               "pir",
@@ -1013,8 +1014,29 @@
           "minItems": 1,
           "uniqueItems": true
         },
+        "keyProgramming": {
+          "type": "array",
+          "items": {
+            "enum": ["bluetooth", "nfc", "wifi", "serial", "firmware"]
+          },
+          "uniqueItems": true
+        },
         "keySecurity": {
           "enum": ["none", "read protected", "secure element"]
+        },
+        "firmwareProgramming": {
+          "type": "array",
+          "items": {
+            "enum": ["serial", "fuota lorawan", "fuota other"]
+          },
+          "uniqueItems": true
+        },
+        "firmwareFeatures": {
+          "type": "array",
+          "items": {
+            "enum": ["remote rejoin", "transmission interval"]
+          },
+          "uniqueItems": true
         },
         "productURL": {
           "type": "string",
