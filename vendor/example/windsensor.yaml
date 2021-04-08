@@ -17,6 +17,13 @@ firmwareVersions:
     hardwareVersions:
       - '1.0'
 
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
@@ -95,13 +102,29 @@ keyProvisioning:
   - custom
   - join server
 
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - firmware
+
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: none
 
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+
 # Product and data sheet URLs (optional)
 productURL: https://example.org/wind-sensor
 dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+
+# Commercial information
 resellerURLs:
   - name: 'Reseller 1'
     region:
@@ -112,6 +135,9 @@ resellerURLs:
       - United States
       - Canada
     url: https://example.org/reseller2
+msrp:
+  EUR: 90
+  USD: 120
 
 # Photos
 photos:
