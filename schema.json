@@ -1064,6 +1064,20 @@
             }
           }
         },
+        "msrp": {
+          "title": "MSRP",
+          "description": "Manufacturer suggested retail price",
+          "type": "object",
+          "propertyNames": {
+            "enum": ["AUD", "CAD", "CHF", "EUR", "GPB", "JPY", "USD"]
+          },
+          "patternProperties": {
+            "": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
         "photos": {
           "type": "object",
           "properties": {
