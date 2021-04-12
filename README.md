@@ -140,7 +140,6 @@ For each end device, create an **End device definition** file with the same file
 ```yaml
 name: Device A
 description: My first LoRaWAN device
-
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
