@@ -1,0 +1,59 @@
+name: EDC - communication module for water meters
+description: Inductive communication module with LoRaWAN interface for ZENNER water meters with modulator disc
+
+
+hardwareVersions:
+  - version: '2.2'
+    numeric: 1
+
+firmwareVersions:
+  - # Firmware version
+    version: '2.0'
+    numeric: 1
+    hardwareVersions:
+      - '2.2'
+
+    
+    profiles:
+      EU863-870:
+        id: edc-profile-868
+        lorawanCertified: true
+
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - optical meter
+
+
+
+battery:
+  replaceable: false
+  type: Lithium
+
+operatingConditions:
+  temperature:
+    min: 5
+    max: 55
+
+
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+  - join server
+
+productURL: https://www.mz-connect.com/shop/en/zenner-mtkde-lorawan-multi-jet-dry-runner-cold-water-qn-6/q3-10-260-1-p-160874
+dataSheetURL: https://www.zenner.com/files/content/2019/documents/data_sheets/AMR_technology/EN/DB_ST_EDC-Modul_L868_EN.pdf
+
+
+photos:
+  main: water-meter.jpg
+
+
