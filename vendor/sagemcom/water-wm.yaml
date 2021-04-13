@@ -1,0 +1,60 @@
+name: Siconia water WM series
+description: Second generation ultrasonic meter
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - # Firmware version
+    version: '0.27'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    profiles:
+      EU863-870:
+        id: water-wm-profile
+        lorawanCertified: true
+
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - ultrasonic
+
+battery:
+  replaceable: false
+  type: 3.6v Lithium
+
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: 0
+    max: 65
+
+  relativeHumidity:
+    min: 0
+    max: 0.98
+
+# IP rating (optional)
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+
+
+# Product and data sheet URLs (optional)
+productURL: https://www.sagemcom.com/V02/smart-city/smart-meter/water/siconiar-water-wm-series/
+
+# Photos
+photos:
+  main: wm.png
+
