@@ -1642,3 +1642,8 @@ vendors:
     name: HelTec AutoMation
     website: https://heltec.org/
     logo: logo.png
+
+  - id: axioma
+    name: Axioma Metering
+    website: https://www.axiomametering.com/
+    logo: axioma_logo.png
