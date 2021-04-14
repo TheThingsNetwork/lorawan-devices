@@ -926,6 +926,13 @@
             "enum": ["ble", "nfc", "wifi", "cellular"]
           }
         },
+        "bridgeInterfaces": {
+          "type": "array",
+          "items": {
+            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+          },
+          "uniqueItems": true
+        },
         "dimensions": {
           "type": "object",
           "properties": {
