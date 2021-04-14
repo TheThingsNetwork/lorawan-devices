@@ -169,7 +169,7 @@ Each referenced end device profile needs to be defined in the **End device profi
 ```yaml
 # Vendor profile ID, can be freely issued by the vendor
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
+# https://lora-alliance.org/wp-content/uploads/2020/10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
 vendorProfileID: 42
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
