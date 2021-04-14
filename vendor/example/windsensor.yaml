@@ -67,6 +67,18 @@ sensors:
   - wind direction
   - wind speed
 
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+  - cellular
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+bridgeInterfaces:
+  - m-bus
+  - rs-485
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
