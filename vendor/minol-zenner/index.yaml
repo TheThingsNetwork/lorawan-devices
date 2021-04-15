@@ -2,4 +2,5 @@
 
 endDevices:
   
-  - edc # Multi-jet dry dial water meter for cold water, type MTKDE Qn 6 / Q3 = 10-260-1 "G5 / 4B
+  - edc # edc.yalm
+  - mtkde-r160 #mtkde-r160.yalm

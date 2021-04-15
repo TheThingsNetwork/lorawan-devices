@@ -682,6 +682,8 @@ vendors:
   - id: talkpool
     name: TalkPool AB
     vendorID: 409
+    logo: talkpool.jpg
+    website: https://talkpool.com/internet-of-things/
 
   - id: tektelic
     name: TEKTELIC Communications Inc.
@@ -1647,5 +1649,16 @@ vendors:
     name: Axioma Metering
     website: https://www.axiomametering.com/
     logo: axioma_logo.png
+  
+  - id: nas
+    name: Nordic Automation Systems
+    website: https://www.nasys.no/
+    logo: nas_logo.png
+  
+  - id: innotas
+    name: Innotas Elektronik 
+    website: https://www.innotas-elektronik.de/en-gb/newpage2
 
- 
+  - id: honeywell/Elster
+    name: Elster Metering
+    website: https://www.elster.nl/

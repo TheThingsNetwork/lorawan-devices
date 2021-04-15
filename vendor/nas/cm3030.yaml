@@ -1,0 +1,101 @@
+name: MODULARIS MODULE CM3021
+description: LoRaWAN® Modularis Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode. 
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: nas-module-profile-868
+        lorawanCertified: true
+        # codec: 
+      US902-928:
+        id: nas-module-profile-us915
+        lorawanCertified: true
+        # codec: 
+
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - optical
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  # width: 
+  # length: 
+  height: 39.2
+  diameter: 64
+
+# Weight in grams (optional)
+weight: 60 
+
+# Battery information (optional)
+battery:
+  replaceable: false
+  type: 3.6V Lithium 
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -5
+    max: 65
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP68
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+
+# Product and data sheet URLs (optional)
+productURL: https://www.nasys.no/product/lorawan-modularis-module-cm3021/
+dataSheetURL: https://www.nasys.no/wp-content/uploads/CM3021.pdf
+
+# Photos
+photos:
+  main: cm3021.png
+
+# compliances:
+  #safety:
+    #- body: IEC
+     # norm: EN
+      #standard: 62368-1
+  # radioEquipment:
+    # - body: ETSI
+      # norm: EN
+      # standard: 301 489-1
+      # version: 2.2.0
+    # - body: ETSI
+      # norm: EN
+      # standard: 301 489-3
+      # version: 2.1.0

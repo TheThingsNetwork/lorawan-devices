@@ -1,17 +1,17 @@
-name: EDC - communication module for water meters
-description: Inductive communication module with LoRaWAN interface for ZENNER water meters with modulator disc
+name: MKTDE-R160 
+description: Multi-jet dry dial cold water meter
 
 
 hardwareVersions:
-  - version: '2.2'
+  - version: '1.0'
     numeric: 1
 
 firmwareVersions:
   - # Firmware version
-    version: '2.0'
+    version: '1.0'
     numeric: 1
     hardwareVersions:
-      - '2.2'
+      - '1.0'
 
     
     profiles:
@@ -34,8 +34,8 @@ sensors:
 
 
 battery:
-  replaceable: true
-  type: Lithium
+  replaceable: false
+  type: 3.6V Lithium
 
 operatingConditions:
   temperature:
@@ -49,11 +49,11 @@ keyProvisioning:
   - custom
   - join server
 
-productURL: 
-dataSheetURL: https://www.zenner.com/files/content/2019/documents/data_sheets/AMR_technology/EN/DB_ST_EDC-Modul_L868_EN.pdf
+productURL: https://www.mz-connect.com/shop/en/zenner-mtkde-lorawan-multi-jet-dry-runner-cold-water-qn-6/q3-10-260-1-p-160874
+dataSheetURL: https://www.mz-connect.com/shop/media/pdf/b8/3d/c5/DB_HWZ_MTKD-M_DE.pdf
 
 
 photos:
-  main: edc.jpg
+  main: water-meter.jpg
 
 
