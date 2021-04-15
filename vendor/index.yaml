@@ -1644,3 +1644,8 @@ vendors:
     name: HelTec AutoMation
     website: https://heltec.org/
     logo: logo.png
+
+  - id: moirelabs
+    name: Moire Labs
+    website: http://moirelabs.com/
+    logo: moirelabs_logo.png
