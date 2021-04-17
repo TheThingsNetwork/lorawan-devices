@@ -10,8 +10,6 @@ hardwareVersions:
 firmwareVersions:
   - version: '21.06'
     numeric: 2106
-    hardwareVersions:
-      - '9I169 B'
     profiles:
       EU863-870:
         id: adt1-profile
