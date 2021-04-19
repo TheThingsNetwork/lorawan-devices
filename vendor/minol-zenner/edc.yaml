@@ -29,7 +29,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - optical meter
+  - pulse count
 
 
 
@@ -49,7 +49,7 @@ keyProvisioning:
   - custom
   - join server
 
-productURL: 
+# productURL: 
 dataSheetURL: https://www.zenner.com/files/content/2019/documents/data_sheets/AMR_technology/EN/DB_ST_EDC-Modul_L868_EN.pdf
 
 

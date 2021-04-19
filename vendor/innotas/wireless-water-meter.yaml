@@ -33,7 +33,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - optical
+  - pulse count
 
 
 # Battery information (optional)
@@ -66,7 +66,4 @@ keyProvisioning:
 productURL: https://www.innotas-elektronik.de/en-gb/newpage2
 dataSheetURL: https://irp-cdn.multiscreensite.com/0a3fa4dd/files/uploaded/Produktblatt%20LoRa_Funkwasserzaehleraufsatz_V1.3_ENG.pdf
 
-# Photos
-photos:
-  main: 
 

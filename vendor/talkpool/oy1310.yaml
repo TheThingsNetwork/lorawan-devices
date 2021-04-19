@@ -62,12 +62,11 @@ keyProvisioning:
 
 # Product and data sheet URLs (optional)
 productURL: https://talkpool.com/oy1320-lorawan-water-meter-amr/
-dataSheetURL: 
+# dataSheetURL: 
 
 # Photos
 photos:
   main: oy1310.jpg
-  other:
 
 # Youtube or Vimeo Video (optional)
 videos:

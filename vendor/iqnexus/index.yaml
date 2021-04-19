@@ -1,0 +1,4 @@
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - pulse-totaliser # look in pulse-totaliser.yaml for the end device definition

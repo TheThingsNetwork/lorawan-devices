@@ -1,5 +1,5 @@
-name: Nordic Falcon MJ Module CM3070
-description: LoRaWAN® e’Sens Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
+name: Pulse
+description: Make all your meters (water, gas, electricity...) communicate
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -20,14 +20,16 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: nas-module-profile-868
+        id: pulse-profile-eu868
         lorawanCertified: true
         # codec: 
       US902-928:
-        id: nas-module-profile-us915
+        id: pulse-profile-us915
         lorawanCertified: true
         # codec: 
-
+      AS923:
+        id: pulse-profile-as923
+        # codec: 
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -43,31 +45,32 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 37.5
+  width: 50
+  length: 105
+  height: 27
 
 # Weight in grams (optional)
-# weight: 
+weight: 70
 
 # Battery information (optional)
 battery:
-  replaceable: true
+  replaceable: false
   # type: 
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -5
-    max: 65
+    min: -25
+    max: 70
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 1
 
 # IP rating (optional)
-ipCode: IP68
+ipCode: IP67
+ipCode2: IP68
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -75,26 +78,27 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
-productURL: https://www.nasys.no/product/lorawan-esens-module/
-#dataSheetURL: 
+productURL: https://www.adeunis.com/en/produit/pulse-impulse-interface/
+dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/PULSE_PULSE-ATEX_V4_LoRaWAN_EU863-870_UG_V3.2.0_FR_GB.pdf
+# resellerURLs:
 
 # Photos
 photos:
-  main: cm3070.png
+  main: pulse.jpg
 
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

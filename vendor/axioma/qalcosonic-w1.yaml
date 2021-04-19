@@ -1,32 +1,28 @@
-name: Nordic Falcon MJ Module CM3070
-description: LoRaWAN® e’Sens Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
+name: QALCOSONIC W1 - SMART ULTRASONIC WATER METER
+description: Ultrasonic water meter QALCOSONIC W1 is designed for accurate measurement of cold and hot water consumption in households, apartment buildings and small commercial premises.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: 'v05'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: '1.01'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - 'v05'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: nas-module-profile-868
+        id: eu868-profile
         lorawanCertified: true
-        # codec: 
-      US902-928:
-        id: nas-module-profile-us915
-        lorawanCertified: true
-        # codec: 
+        #codec: 
 
 
 # Sensors that this device features (optional)
@@ -42,24 +38,24 @@ sensors:
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
-dimensions:
-  width: 80
-  length: 80
-  height: 37.5
+#dimensions:
+  #width: 
+  #length: 
+  #height: 
 
 # Weight in grams (optional)
-# weight: 
+#weight: 
 
 # Battery information (optional)
 battery:
-  replaceable: true
-  # type: 
+  replaceable: false
+  type: 16A
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -5
+    min: 1
     max: 65
   # Relative humidity (fraction of 1)
   relativeHumidity:
@@ -77,24 +73,25 @@ keyProvisioning:
 
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nasys.no/product/lorawan-esens-module/
+productURL: https://www.axiomametering.com/en/products/water-metering-devices/ultrasonic/qalcosonic-w1
 #dataSheetURL: 
 
 # Photos
 photos:
-  main: cm3070.png
+  main: w1.png
 
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

@@ -2,4 +2,5 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - oy1310 # look in oy1310.yaml for the end device definition
-  - oy1320 # look in oy1312.yaml for the end device definition
+  - oy1320 # look in oy1320.yaml for the end device definition
+  - oy1410 # look in oy1410.yaml for the end device definition

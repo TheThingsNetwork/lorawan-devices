@@ -1,5 +1,5 @@
-name: Nordic Falcon MJ Module CM3070
-description: LoRaWAN® e’Sens Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
+name: OY1410 LoRaWAN Pulse meter
+description: LoRaWAN unit designed to function in combination with B Meters’ IWM PL 3 or IWM PL-4 pulse meters.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -20,14 +20,8 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: nas-module-profile-868
+        id: oy-profile-868
         lorawanCertified: true
-        # codec: 
-      US902-928:
-        id: nas-module-profile-us915
-        lorawanCertified: true
-        # codec: 
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -40,31 +34,27 @@ firmwareVersions:
 sensors:
   - pulse count
 
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-dimensions:
-  width: 80
-  length: 80
-  height: 37.5
 
 # Weight in grams (optional)
-# weight: 
+weight: 180
+
+# Dimensions
+Dimensions:
+  height: 43
+  with: 65
+  length: 120
 
 # Battery information (optional)
 battery:
   replaceable: true
-  # type: 
+  type: 2x CR123A 1,7 Ah
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -5
-    max: 65
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 1
+    min: -20
+    max: +55
 
 # IP rating (optional)
 ipCode: IP68
@@ -77,24 +67,10 @@ keyProvisioning:
 
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nasys.no/product/lorawan-esens-module/
-#dataSheetURL: 
+productURL: https://talkpool.com/oy1410-lorawan-pulse-meter/
+dataSheetURL: https://iot-shops.com/wp-content/uploads/2020/04/TalkPool-OY1410-LoRaWAN-Pulse-meter.pdf
 
 # Photos
 photos:
-  main: cm3070.png
+  main: oy1410.jpg
 
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0

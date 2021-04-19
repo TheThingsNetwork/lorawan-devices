@@ -1,5 +1,5 @@
-name: Nordic Falcon MJ Module CM3070
-description: LoRaWAN® e’Sens Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
+name: IQNEXUS LoRaWAN® Pulse Totaliser
+description: IQNEXUS LoRaWAN® Dual Pulse Totaliser with Tamper Inputs.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -20,14 +20,17 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: nas-module-profile-868
+        id: eu868-profile
         lorawanCertified: true
         # codec: 
       US902-928:
-        id: nas-module-profile-us915
+        id: us915-profile
         lorawanCertified: true
         # codec: 
-
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        # codec:
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -42,32 +45,32 @@ sensors:
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
-dimensions:
-  width: 80
-  length: 80
-  height: 37.5
+# dimensions:
+  # width: 
+  # length: 
+  # height: 
 
 # Weight in grams (optional)
-# weight: 
+weight: 80
 
 # Battery information (optional)
 battery:
   replaceable: true
-  # type: 
+  type: 3V alkaline
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -5
-    max: 65
+    min: -20
+    max: 75
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 1
 
 # IP rating (optional)
-ipCode: IP68
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -77,24 +80,11 @@ keyProvisioning:
 
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nasys.no/product/lorawan-esens-module/
-#dataSheetURL: 
+productURL: https://iqnexus.com/lpwan-devices/iqnexus/iqnexus-lorawan-pulse-totaliser
+# dataSheetURL: 
+# resellerURLs:
 
 # Photos
 photos:
-  main: cm3070.png
+  main: totaliser.jpg
 
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0

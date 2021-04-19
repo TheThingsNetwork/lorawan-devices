@@ -1,5 +1,5 @@
-name: Nordic Falcon MJ Module CM3070
-description: LoRaWAN® e’Sens Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
+name: ELT-2
+description: ELT-2 is a general LoRaWAN® device for measuring analog or digital signals. It is a 2-channel GPIO wireless transceiver and can also provide power to external sensors
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -20,14 +20,16 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: nas-module-profile-868
+        id: eu868-profile
         lorawanCertified: true
-        # codec: 
+        #codec: 
       US902-928:
-        id: nas-module-profile-us915
+        id: us915-profile
         lorawanCertified: true
-        # codec: 
-
+        #codec: 
+      AS923:
+        id: as923-profile
+        #codec:
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -39,35 +41,38 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - pulse count
+  - humidity
+  - temperature
+  - accelerometer
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 37.5
+  width: 59
+  length: 94
+  height: 35
 
 # Weight in grams (optional)
-# weight: 
+weight: 100
 
 # Battery information (optional)
 battery:
   replaceable: true
-  # type: 
+  type: 3,6V AA lithium 
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -5
-    max: 65
+    min: -40
+    max: 60
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 1
 
 # IP rating (optional)
-ipCode: IP68
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -77,24 +82,10 @@ keyProvisioning:
 
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nasys.no/product/lorawan-esens-module/
-#dataSheetURL: 
+productURL: https://www.elsys.se/en/lora-elt-2/
+dataSheetURL: https://elsys.se/public/datasheets/ELT-2_datasheet.pdf
 
 # Photos
 photos:
-  main: cm3070.png
-
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0
+  main: elt2.jpg
+    

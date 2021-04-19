@@ -159,9 +159,8 @@ vendors:
     name: Decentlab GmbH
     vendorID: 109
     website: https://www.decentlab.com/
-    logo: decentlab_logo.svg
-    ouis:
-      - 70B3D57BA
+    #logo: decentlab_logo.svg
+    ouis: [70B3D57BA]
 
   - id: definium
     name: Definium Technologies, Pty Ltd.
@@ -682,7 +681,7 @@ vendors:
   - id: talkpool
     name: TalkPool AB
     vendorID: 409
-    logo: talkpool.jpg
+    logo: talkpool.png
     website: https://talkpool.com/internet-of-things/
 
   - id: tektelic
@@ -1648,7 +1647,6 @@ vendors:
   - id: axioma
     name: Axioma Metering
     website: https://www.axiomametering.com/
-    logo: axioma_logo.png
   
   - id: nas
     name: Nordic Automation Systems
@@ -1659,6 +1657,14 @@ vendors:
     name: Innotas Elektronik 
     website: https://www.innotas-elektronik.de/en-gb/newpage2
 
-  - id: honeywell/Elster
+  - id: honeywell-elster
     name: Elster Metering
     website: https://www.elster.nl/
+  
+  - id: iqnexus
+    name: iQnexus LTD
+    website: https://iqnexus.com/
+
+  - id: elsys
+    name: Elektroniksystem i Umeå AB
+    website: https://www.elsys.se/en/ 

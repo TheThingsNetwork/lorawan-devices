@@ -6,3 +6,4 @@ endDevices:
   - cm3070 # look in cm3070.yaml for the end device definition
   - cm3030 # look in cm3030.yaml for the end device definition
   - cm3021 # look in cm3021.yaml for the end device definition
+  - um3080 # look in um3080.yalm for device definition

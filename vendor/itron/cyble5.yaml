@@ -32,7 +32,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - optical
+  - pulse count
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -74,16 +74,6 @@ keySecurity: none
 # Product and data sheet URLs (optional)
 productURL: https://www.itron.com/id/solutions/product-catalog/cyble-5
 dataSheetURL: https://www.itron.com/-/media/feature/products/documents/brochure/cyble-5-en.pdf
-resellerURLs:
-  - name: 
-    region:
-      - 
-    url: 
-  - name: 
-    region:
-      - 
-      - 
-    url: 
 
 # Photos
 photos:

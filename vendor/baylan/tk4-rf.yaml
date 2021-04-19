@@ -67,16 +67,6 @@ keySecurity: none
 # Product and data sheet URLs (optional)
 productURL: https://www.baylanwatermeters.com/en/products_en.php?cat=8&p=1210#product-cat-8
 dataSheetURL: http://www.baylanwatermeters.com/admin/upload/big/TK-4-RF.pdf
-resellerURLs:
-  - name: 
-    region:
-      - 
-    url: 
-  - name: 
-    region:
-      - 
-      - 
-    url: 
 
 # Photos
 photos:

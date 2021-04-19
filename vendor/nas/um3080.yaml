@@ -1,5 +1,5 @@
-name: Nordic Falcon MJ Module CM3070
-description: LoRaWAN® e’Sens Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
+name: LoRaWAN™ IP68 PULSE READER UM3080
+description: LoRaWAN™ IP68 pulse reader, enables acquisition of data from the pulse emitting devices and transmits it wirelessly to the LoRaWAN™ network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -43,12 +43,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 37.5
+  width: 27
+  length: 109
+  height: 27
 
 # Weight in grams (optional)
-# weight: 
+weight: 72 
 
 # Battery information (optional)
 battery:
@@ -59,7 +59,7 @@ battery:
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -5
+    min: -20
     max: 65
   # Relative humidity (fraction of 1)
   relativeHumidity:
@@ -77,12 +77,12 @@ keyProvisioning:
 
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nasys.no/product/lorawan-esens-module/
-#dataSheetURL: 
+productURL: https://www.nasys.no/products/lorawan/
+dataSheetURL: https://www.nasys.no/wp-content/uploads/Pulse-Reader_UM3080_1.pdf
 
 # Photos
 photos:
-  main: cm3070.png
+  main: um3080.png
 
 # compliances:
   #safety:

@@ -1,10 +1,12 @@
-name: Nordic Falcon MJ Module CM3070
-description: LoRaWAN® e’Sens Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
+name: Tx Pulse 600-036
+description: This LoRa / LoRaWAN smart metering pulse transmitter is compatible with pulse meters with a dry contact interface or an open collector inlet.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -20,11 +22,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: nas-module-profile-868
-        lorawanCertified: true
-        # codec: 
-      US902-928:
-        id: nas-module-profile-us915
+        id: pulse-profile-868
         lorawanCertified: true
         # codec: 
 
@@ -43,9 +41,9 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 37.5
+  width: 43
+  length: 118
+  height: 79
 
 # Weight in grams (optional)
 # weight: 
@@ -53,21 +51,21 @@ dimensions:
 # Battery information (optional)
 battery:
   replaceable: true
-  # type: 
+  type: 3.6V lithium battery 3.6Ah
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -5
-    max: 65
+    min: -20
+    max: 55
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 1
 
 # IP rating (optional)
-ipCode: IP68
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -77,24 +75,27 @@ keyProvisioning:
 
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nasys.no/product/lorawan-esens-module/
-#dataSheetURL: 
+productURL: https://enless-wireless.com/en/products/pulse-meter-transmitter-lora/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2020/11/TX-PULSE-600-036-EN.pdf
+# resellerURLs:
 
 # Photos
 photos:
-  main: cm3070.png
+  main: txpulse.png
+  # other:
 
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
