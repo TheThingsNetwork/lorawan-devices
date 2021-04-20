@@ -22,14 +22,11 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
-        #codec: 
       US902-928:
         id: us915-profile
         lorawanCertified: true
-        #codec: 
       AS923:
         id: as923-profile
-        #codec:
 
 # Sensors that this device features (optional)
 # Valid values are:

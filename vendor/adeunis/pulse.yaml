@@ -21,15 +21,12 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: pulse-profile-eu868
-        lorawanCertified: true
-        # codec: 
+        lorawanCertified: true 
       US902-928:
         id: pulse-profile-us915
         lorawanCertified: true
-        # codec: 
       AS923:
         id: pulse-profile-as923
-        # codec: 
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -55,7 +52,6 @@ weight: 70
 # Battery information (optional)
 battery:
   replaceable: false
-  # type: 
 
 # Operating conditions (optional)
 operatingConditions:
@@ -81,7 +77,6 @@ keyProvisioning:
 # Product and data sheet URLs (optional)
 productURL: https://www.adeunis.com/en/produit/pulse-impulse-interface/
 dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/PULSE_PULSE-ATEX_V4_LoRaWAN_EU863-870_UG_V3.2.0_FR_GB.pdf
-# resellerURLs:
 
 # Photos
 photos:

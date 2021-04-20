@@ -21,8 +21,6 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: wwm-profile-868
-       # lorawanCertified: unknown
-       # codec: 
 
 # Sensors that this device features (optional)
 # Valid values are:

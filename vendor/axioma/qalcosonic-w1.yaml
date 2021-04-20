@@ -22,8 +22,6 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
-        #codec: 
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -35,16 +33,6 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - pulse count
-
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-#dimensions:
-  #width: 
-  #length: 
-  #height: 
-
-# Weight in grams (optional)
-#weight: 
 
 # Battery information (optional)
 battery:

@@ -22,12 +22,9 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: nas-module-profile-868
         lorawanCertified: true
-        # codec: 
       US902-928:
         id: nas-module-profile-us915
         lorawanCertified: true
-        # codec: 
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -53,7 +50,6 @@ weight: 44
 # Battery information (optional)
 battery:
   replaceable: true
-  # type: 
 
 # Operating conditions (optional)
 operatingConditions:
@@ -78,23 +74,7 @@ keyProvisioning:
 
 # Product and data sheet URLs (optional)
 productURL: https://www.nasys.no/product/lorawan-elster-module/
-#dataSheetURL: 
 
 # Photos
 photos:
   main: cm3040.png
-
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0

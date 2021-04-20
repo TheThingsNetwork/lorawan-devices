@@ -18,7 +18,6 @@ firmwareVersions:
         id: water-wm-profile
         lorawanCertified: true
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -50,11 +49,9 @@ ipCode: IP68
 keyProvisioning:
   - custom
 
-
 # Product and data sheet URLs (optional)
 productURL: https://www.sagemcom.com/V02/smart-city/smart-meter/water/siconiar-water-wm-series/
 
 # Photos
 photos:
   main: wm.png
-

@@ -159,7 +159,7 @@ vendors:
     name: Decentlab GmbH
     vendorID: 109
     website: https://www.decentlab.com/
-    #logo: decentlab_logo.svg
+    logo: decentlab_logo.svg
     ouis: [70B3D57BA]
 
   - id: definium
@@ -1647,6 +1647,7 @@ vendors:
   - id: axioma
     name: Axioma Metering
     website: https://www.axiomametering.com/
+    logo: axioma_logo.png
   
   - id: nas
     name: Nordic Automation Systems
@@ -1657,7 +1658,7 @@ vendors:
     name: Innotas Elektronik 
     website: https://www.innotas-elektronik.de/en-gb/newpage2
 
-  - id: honeywell-elster
+  - id: honeywell-Elster
     name: Elster Metering
     website: https://www.elster.nl/
   

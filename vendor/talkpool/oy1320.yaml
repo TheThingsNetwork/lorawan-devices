@@ -34,7 +34,6 @@ firmwareVersions:
 sensors:
   - pulse count
 
-
 # Weight in grams (optional)
 weight: 85
 
@@ -59,10 +58,8 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://talkpool.com/oy1320-lorawan-water-meter-amr/
-# dataSheetURL: 
 
 # Photos
 photos:

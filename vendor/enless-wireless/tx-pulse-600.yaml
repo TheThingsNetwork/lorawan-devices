@@ -24,8 +24,6 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: pulse-profile-868
         lorawanCertified: true
-        # codec: 
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -44,9 +42,6 @@ dimensions:
   width: 43
   length: 118
   height: 79
-
-# Weight in grams (optional)
-# weight: 
 
 # Battery information (optional)
 battery:
@@ -77,12 +72,10 @@ keyProvisioning:
 # Product and data sheet URLs (optional)
 productURL: https://enless-wireless.com/en/products/pulse-meter-transmitter-lora/
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2020/11/TX-PULSE-600-036-EN.pdf
-# resellerURLs:
 
 # Photos
 photos:
   main: txpulse.png
-  # other:
 
 # Regulatory compliances (optional)
 compliances:

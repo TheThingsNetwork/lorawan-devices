@@ -1,6 +1,5 @@
-name: EDC - communication module for water meters
+name: EDC
 description: Inductive communication module with LoRaWAN interface for ZENNER water meters with modulator disc
-
 
 hardwareVersions:
   - version: '2.2'
@@ -12,13 +11,11 @@ firmwareVersions:
     numeric: 1
     hardwareVersions:
       - '2.2'
-
     
     profiles:
       EU863-870:
         id: edc-profile-868
         lorawanCertified: true
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -31,8 +28,6 @@ firmwareVersions:
 sensors:
   - pulse count
 
-
-
 battery:
   replaceable: true
   type: Lithium
@@ -42,7 +37,6 @@ operatingConditions:
     min: 5
     max: 55
 
-
 ipCode: IP68
 
 keyProvisioning:
@@ -51,7 +45,6 @@ keyProvisioning:
 
 # productURL: 
 dataSheetURL: https://www.zenner.com/files/content/2019/documents/data_sheets/AMR_technology/EN/DB_ST_EDC-Modul_L868_EN.pdf
-
 
 photos:
   main: edc.jpg

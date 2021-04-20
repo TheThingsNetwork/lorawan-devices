@@ -1,7 +1,6 @@
 name: MKTDE-R160 
 description: Multi-jet dry dial cold water meter
 
-
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -12,13 +11,11 @@ firmwareVersions:
     numeric: 1
     hardwareVersions:
       - '1.0'
-
     
     profiles:
       EU863-870:
         id: edc-profile-868
         lorawanCertified: true
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -31,8 +28,6 @@ firmwareVersions:
 sensors:
   - pulse count
 
-
-
 battery:
   replaceable: false
   type: 3.6V Lithium
@@ -42,7 +37,6 @@ operatingConditions:
     min: 5
     max: 55
 
-
 ipCode: IP68
 
 keyProvisioning:
@@ -51,7 +45,6 @@ keyProvisioning:
 
 productURL: https://www.mz-connect.com/shop/en/zenner-mtkde-lorawan-multi-jet-dry-runner-cold-water-qn-6/q3-10-260-1-p-160874
 dataSheetURL: https://www.mz-connect.com/shop/media/pdf/b8/3d/c5/DB_HWZ_MTKD-M_DE.pdf
-
 
 photos:
   main: water-meter.jpg

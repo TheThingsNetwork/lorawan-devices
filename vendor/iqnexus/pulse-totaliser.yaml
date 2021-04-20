@@ -22,15 +22,12 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
-        # codec: 
       US902-928:
         id: us915-profile
         lorawanCertified: true
-        # codec: 
       AS923:
         id: as923-profile
         lorawanCertified: true
-        # codec:
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -42,13 +39,6 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - pulse count
-
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-# dimensions:
-  # width: 
-  # length: 
-  # height: 
 
 # Weight in grams (optional)
 weight: 80
@@ -81,8 +71,6 @@ keyProvisioning:
 
 # Product and data sheet URLs (optional)
 productURL: https://iqnexus.com/lpwan-devices/iqnexus/iqnexus-lorawan-pulse-totaliser
-# dataSheetURL: 
-# resellerURLs:
 
 # Photos
 photos:

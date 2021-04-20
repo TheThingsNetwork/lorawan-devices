@@ -24,12 +24,9 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: nke-profile-868
         lorawanCertified: true
-        # codec: 
       US902-928:
         id: nke-profile-915
         lorawanCertified: true
-        # codec: 
-
 
 # Sensors that this device features (optional)
 # Valid values are:

@@ -1,4 +1,3 @@
-
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - cyble5 # look in cyble5.yaml for the end device definition

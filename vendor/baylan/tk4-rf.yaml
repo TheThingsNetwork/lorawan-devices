@@ -11,9 +11,6 @@ firmwareVersions:
   - # Firmware version
     version: 'V60/26'
     numeric: 1
-    # Corresponding hardware versions (optional)
-    hardwareVersions:
-      - '170126LA0101'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
@@ -59,10 +56,6 @@ ipCode: IP68
 keyProvisioning:
   - custom
   - join server
-
-# Key security (optional)
-# Valid values are: none, read protected and secure element.
-keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://www.baylanwatermeters.com/en/products_en.php?cat=8&p=1210#product-cat-8

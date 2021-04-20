@@ -21,8 +21,6 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: merlin-profile
-        # lorawanCertified: unknown
-        # codec: 
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -35,16 +33,6 @@ firmwareVersions:
 sensors:
   - optical
 
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-# dimensions:
-  # width: 
-  # length: 
-  # height: 
-
-# Weight in grams (optional)
-# weight: 
-
 # Battery information (optional)
 battery:
   replaceable: false
@@ -56,7 +44,6 @@ operatingConditions:
   temperature:
     min: -10
     max: 55
-  # Relative humidity (fraction of 1)
 
 # IP rating (optional)
 ipCode: IP68
@@ -75,19 +62,3 @@ dataSheetURL: https://www.elster.nl/downloads/Merlin_HB-G3_Sales_Brochure_V1.pdf
 # Photos
 photos:
   main: V200_Merlin868.jpg
-
-# Regulatory compliances (optional)
-# compliances:
-  # safety:
-    # - body: IEC
-      # norm: EN
-      # standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0

@@ -1,6 +1,5 @@
 # This example contains just one end device: windsensor. It is referenced here in the index.
 
 endDevices:
-  
   - edc # edc.yalm
   - mtkde-r160 #mtkde-r160.yalm

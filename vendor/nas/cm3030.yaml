@@ -22,12 +22,9 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: nas-module-profile-868
         lorawanCertified: true
-        # codec: 
       US902-928:
         id: nas-module-profile-us915
         lorawanCertified: true
-        # codec: 
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -43,8 +40,6 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  # width: 
-  # length: 
   height: 39.2
   diameter: 64
 
@@ -84,18 +79,3 @@ dataSheetURL: https://www.nasys.no/wp-content/uploads/CM3021.pdf
 # Photos
 photos:
   main: cm3021.png
-
-# compliances:
-  #safety:
-    #- body: IEC
-     # norm: EN
-      #standard: 62368-1
-  # radioEquipment:
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-1
-      # version: 2.2.0
-    # - body: ETSI
-      # norm: EN
-      # standard: 301 489-3
-      # version: 2.1.0

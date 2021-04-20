@@ -34,7 +34,6 @@ firmwareVersions:
 sensors:
   - pulse count
 
-
 # Weight in grams (optional)
 weight: 180
 
@@ -47,7 +46,7 @@ Dimensions:
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 2x CR123A 1,7 Ah
+  type: 2xCR123A 1,7 Ah
 
 # Operating conditions (optional)
 operatingConditions:
@@ -65,7 +64,6 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://talkpool.com/oy1410-lorawan-pulse-meter/
 dataSheetURL: https://iot-shops.com/wp-content/uploads/2020/04/TalkPool-OY1410-LoRaWAN-Pulse-meter.pdf
@@ -73,4 +71,3 @@ dataSheetURL: https://iot-shops.com/wp-content/uploads/2020/04/TalkPool-OY1410-L
 # Photos
 photos:
   main: oy1410.jpg
-
