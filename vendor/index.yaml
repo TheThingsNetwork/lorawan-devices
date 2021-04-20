@@ -1647,7 +1647,6 @@ vendors:
   - id: axioma
     name: Axioma Metering
     website: https://www.axiomametering.com/
-    logo: axioma_logo.png
   
   - id: nas
     name: Nordic Automation Systems
@@ -1658,7 +1657,7 @@ vendors:
     name: Innotas Elektronik 
     website: https://www.innotas-elektronik.de/en-gb/newpage2
 
-  - id: honeywell-Elster
+  - id: honeywell-elster
     name: Elster Metering
     website: https://www.elster.nl/
   
