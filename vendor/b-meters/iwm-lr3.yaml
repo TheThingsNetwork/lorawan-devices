@@ -23,7 +23,6 @@ firmwareVersions:
         id: iwmlr3-profile-868
         lorawanCertified: true
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -48,7 +47,7 @@ weight: 124
 # Battery information (optional)
 battery:
   replaceable: false
-  type: 3V Lithium 
+  type: 3V Lithium
 
 # Operating conditions (optional)
 operatingConditions:
@@ -77,4 +76,3 @@ dataSheetURL: https://www.bmeters.com/wp-content/uploads/2019/03/IWM-LR3_eng_v3.
 # Photos
 photos:
   main: iwmlr3.jpg
-

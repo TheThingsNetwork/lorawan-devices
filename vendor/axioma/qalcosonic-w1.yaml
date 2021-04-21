@@ -59,10 +59,9 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://www.axiomametering.com/en/products/water-metering-devices/ultrasonic/qalcosonic-w1
-#dataSheetURL: 
+#dataSheetURL:
 
 # Photos
 photos:

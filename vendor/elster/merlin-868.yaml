@@ -54,7 +54,6 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://www.elster.nl/nl/1714.html
 dataSheetURL: https://www.elster.nl/downloads/Merlin_HB-G3_Sales_Brochure_V1.pdf

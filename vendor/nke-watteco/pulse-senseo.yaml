@@ -1,4 +1,4 @@
-name: Pulse Sens'O 
+name: Pulse Sens'O
 description: The Pulse Sens’O sensor is used to remotely read metering data from three meters, water, electricity or energy. It turns existing meters into smart meters via a public or private LoRaWAN® network.
 
 # Hardware versions (optional, use when you have revisions)
@@ -77,7 +77,7 @@ keyProvisioning:
 
 # Product and data sheet URLs (optional)
 productURL: https://www.nke-watteco.com/product/waterproof-pulse-senso-sensor-lorawan/
-dataSheetURL: https://www.nke-watteco.com/download/pulse-senso-sensor-data-sheet-lorawan/?wpdmdl=6453&refresh=60798d3701a171618578743 
+dataSheetURL: https://www.nke-watteco.com/download/pulse-senso-sensor-data-sheet-lorawan/?wpdmdl=6453&refresh=60798d3701a171618578743
 # resellerURLs:
 
 # Photos

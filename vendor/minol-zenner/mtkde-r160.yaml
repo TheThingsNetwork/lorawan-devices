@@ -1,4 +1,4 @@
-name: MKTDE-R160 
+name: MKTDE-R160
 description: Multi-jet dry dial cold water meter
 
 hardwareVersions:
@@ -11,7 +11,7 @@ firmwareVersions:
     numeric: 1
     hardwareVersions:
       - '1.0'
-    
+
     profiles:
       EU863-870:
         id: edc-profile-868
@@ -48,5 +48,3 @@ dataSheetURL: https://www.mz-connect.com/shop/media/pdf/b8/3d/c5/DB_HWZ_MTKD-M_D
 
 photos:
   main: water-meter.jpg
-
-

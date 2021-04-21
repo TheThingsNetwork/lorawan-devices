@@ -71,7 +71,6 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://www.nasys.no/product/lorawan-elster-module/
 

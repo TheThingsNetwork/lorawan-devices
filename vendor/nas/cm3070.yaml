@@ -45,12 +45,12 @@ dimensions:
   height: 37.5
 
 # Weight in grams (optional)
-# weight: 
+# weight:
 
 # Battery information (optional)
 battery:
   replaceable: true
-  # type: 
+  # type:
 
 # Operating conditions (optional)
 operatingConditions:
@@ -71,7 +71,6 @@ ipCode: IP68
 keyProvisioning:
   - custom
   - join server
-
 
 # Product and data sheet URLs (optional)
 productURL: https://www.nasys.no/product/lorawan-esens-module/

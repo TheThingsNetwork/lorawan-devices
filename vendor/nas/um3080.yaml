@@ -45,7 +45,7 @@ dimensions:
   height: 27
 
 # Weight in grams (optional)
-weight: 72 
+weight: 72
 
 # Battery information (optional)
 battery:
@@ -70,7 +70,6 @@ ipCode: IP68
 keyProvisioning:
   - custom
   - join server
-
 
 # Product and data sheet URLs (optional)
 productURL: https://www.nasys.no/products/lorawan/

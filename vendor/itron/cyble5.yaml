@@ -41,7 +41,6 @@ dimensions:
   length: 57
   height: 50
 
-
 # Battery information (optional)
 battery:
   replaceable: true

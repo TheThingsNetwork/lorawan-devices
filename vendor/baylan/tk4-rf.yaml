@@ -20,7 +20,6 @@ firmwareVersions:
         id: tk4-rf-profile
         lorawanCertified: true
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -47,7 +46,6 @@ battery:
   replaceable: false
   type: 3.6V Lithium
 
-
 # IP rating (optional)
 ipCode: IP68
 
@@ -66,4 +64,3 @@ photos:
   main: tk4-rf.jpg
   other:
     - baylan.png
-

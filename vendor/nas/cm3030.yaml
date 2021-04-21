@@ -1,5 +1,5 @@
 name: MODULARIS MODULE CM3021
-description: LoRaWAN® Modularis Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode. 
+description: LoRaWAN® Modularis Module enables the acquisition of water consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -44,12 +44,12 @@ dimensions:
   diameter: 64
 
 # Weight in grams (optional)
-weight: 60 
+weight: 60
 
 # Battery information (optional)
 battery:
   replaceable: false
-  type: 3.6V Lithium 
+  type: 3.6V Lithium
 
 # Operating conditions (optional)
 operatingConditions:
@@ -70,7 +70,6 @@ ipCode: IP68
 keyProvisioning:
   - custom
   - join server
-
 
 # Product and data sheet URLs (optional)
 productURL: https://www.nasys.no/product/lorawan-modularis-module-cm3021/

@@ -55,7 +55,7 @@ weight: 100
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3,6V AA lithium 
+  type: 3,6V AA lithium
 
 # Operating conditions (optional)
 operatingConditions:
@@ -77,7 +77,6 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://www.elsys.se/en/lora-elt-2/
 dataSheetURL: https://elsys.se/public/datasheets/ELT-2_datasheet.pdf
@@ -85,4 +84,3 @@ dataSheetURL: https://elsys.se/public/datasheets/ELT-2_datasheet.pdf
 # Photos
 photos:
   main: elt2.jpg
-    

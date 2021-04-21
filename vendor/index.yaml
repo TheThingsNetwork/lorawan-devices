@@ -1647,24 +1647,24 @@ vendors:
   - id: axioma
     name: Axioma Metering
     website: https://www.axiomametering.com/
-  
+
   - id: nas
     name: Nordic Automation Systems
     website: https://www.nasys.no/
     logo: nas_logo.png
-  
+
   - id: innotas
-    name: Innotas Elektronik 
+    name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb/newpage2
 
   - id: honeywell-elster
     name: Elster Metering
     website: https://www.elster.nl/
-  
+
   - id: iqnexus
     name: iQnexus LTD
     website: https://iqnexus.com/
 
   - id: elsys
     name: Elektroniksystem i Umeå AB
-    website: https://www.elsys.se/en/ 
+    website: https://www.elsys.se/en/

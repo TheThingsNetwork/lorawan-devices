@@ -68,11 +68,9 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://iqnexus.com/lpwan-devices/iqnexus/iqnexus-lorawan-pulse-totaliser
 
 # Photos
 photos:
   main: totaliser.jpg
-

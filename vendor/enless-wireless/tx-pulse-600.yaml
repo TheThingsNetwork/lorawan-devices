@@ -68,7 +68,6 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://enless-wireless.com/en/products/pulse-meter-transmitter-lora/
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2020/11/TX-PULSE-600-036-EN.pdf

@@ -1,5 +1,5 @@
 name: Cyble module CM3030
-description: LoRaWAN® Cyble Module enables the acquisition of consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode. 
+description: LoRaWAN® Cyble Module enables the acquisition of consumption data and transmits it wirelessly to the available LoRaWAN® network or as a drive-by target in WM-Bus C1 mode.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -45,7 +45,7 @@ dimensions:
   height: 34.7
 
 # Weight in grams (optional)
-weight: 42 
+weight: 42
 
 # Battery information (optional)
 battery:
@@ -71,10 +71,9 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Product and data sheet URLs (optional)
 productURL: https://www.nasys.no/product/lorawan-itron-module/
-dataSheetURL: https://www.nasys.no/wp-content/uploads/Cyble_Module_CM3030_2.pdf 
+dataSheetURL: https://www.nasys.no/wp-content/uploads/Cyble_Module_CM3030_2.pdf
 
 # Photos
 photos:
