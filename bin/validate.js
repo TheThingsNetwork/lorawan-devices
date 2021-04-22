@@ -7,6 +7,8 @@ const yaml = require('js-yaml');
 const sizeOf = require('image-size');
 const { exec } = require('child_process');
 const isEqual = require('lodash.isequal');
+const readChunk = require('read-chunk');
+const imageType = require('image-type');
 
 let validate = new Ajv().addSchema([require('../lib/draft/schema.json'), require('../schema.json')]);
 
@@ -126,6 +128,22 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
   return Promise.all(promises);
 }
 
+function validateImageExtension(filename) {
+  return new Promise((resolve, reject) => {
+    const buffer = readChunk.sync(filename, 0, 12);
+    const type = imageType(buffer);
+    const ext = filename.split('.').pop();
+    if (ext !== type.ext) {
+      if (ext === 'jpeg' && type.ext === 'jpg') {
+        resolve();
+      }
+      reject(`${filename} extension is incorrect, it should be ${type.ext}`);
+    } else {
+      resolve();
+    }
+  });
+}
+
 function requireImageDecode(fileName) {
   // Test https://golang.org/pkg/image/png/#Decode and https://golang.org/pkg/image/jpeg/#Decode are possible
   return new Promise((resolve, reject) => {
@@ -231,6 +249,12 @@ vendors.vendors.forEach((v) => {
       });
 
       if (endDevice.photos) {
+        validateImageExtension(`${folder}/${endDevice.photos.main}`)
+          .then(() => console.log(`${key}: ${endDevice.photos.main} image has correct extension`))
+          .catch((err) => {
+            console.error(err);
+            process.exit(1);
+          });
         requireImageDecode(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} is valid`))
           .catch((err) => {
@@ -245,6 +269,12 @@ vendors.vendors.forEach((v) => {
           });
         if (endDevice.photos.other) {
           endDevice.photos.other.forEach((p) => {
+            validateImageExtension(`${folder}/${p}`)
+              .then(() => console.log(`${key}: ${p} image has correct extension`))
+              .catch((err) => {
+                console.error(err);
+                process.exit(1);
+              });
             requireImageDecode(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} is valid`))
               .catch((err) => {
