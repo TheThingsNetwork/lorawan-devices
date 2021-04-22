@@ -105,8 +105,8 @@ resellerURLs:
 photos:
   main: sensecap-air-th-deployment.jpg
   other:
-    - sensecap-air-th.jpg
-    - sensecap-air-th-package.jpg
+    - sensecap-air-th.png
+    - sensecap-air-th-package.png
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=_vG1nTW21hE&feature=youtu.be
