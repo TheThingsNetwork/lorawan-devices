@@ -104,8 +104,8 @@ resellerURLs:
 photos:
   main: sensecap-co2-deployment.jpg
   other:
-    - sensecap-co2.jpg
-    - sensecap-co2-package.jpg
+    - sensecap-co2.png
+    - sensecap-co2-package.png
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=xSplMlAbwAk&feature=youtu.be

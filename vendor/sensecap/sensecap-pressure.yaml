@@ -104,8 +104,8 @@ resellerURLs:
 photos:
   main: sensecap-pressure-deployment.jpg
   other:
-    - sensecap-pressure.jpg
-    - sensecap-pressure-package.jpg
+    - sensecap-pressure.png
+    - sensecap-pressure-package.png
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=BS1ivuxz2TE&feature=youtu.be
