@@ -1,0 +1,112 @@
+name: Emergency Light Controller
+description: DALI Emergency Light Controller
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: emergency-light-controller-profile
+        lorawanCertified: false
+        codec: emergency-light-controller-codec
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 100
+  length: 50
+  height: 20
+
+# Weight in grams (optional)
+weight: 200
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -30
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - bluetooth
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: secure element
+
+# Product and data sheet URLs (optional)
+productURL: https://example.org/wind-sensor
+dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'Safecility'
+    region:
+      - European Union
+    url: https://www.safecility.com/emergency-light-controller/
+msrp:
+  EUR: 120
+  USD: 150
+
+# Photos
+photos:
+  main: emergency-light-controller.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://vimeo.com/408352242
+
+# Regulatory compliances (optional)
+compliances:
+  ATS:
+    - body: IEC
+      norm: EN
+      standard: '62304'
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: '62479'
+      version: 2.2.0
