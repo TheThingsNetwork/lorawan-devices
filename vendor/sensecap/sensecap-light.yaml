@@ -104,8 +104,8 @@ resellerURLs:
 photos:
   main: sensecap-light-deployment.jpg
   other:
-    - sensecap-light.jpg
-    - sensecap-light-package.jpg
+    - sensecap-light.png
+    - sensecap-light-package.png
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=mIS7KVGGY8A&feature=youtu.be
