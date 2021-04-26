@@ -62,11 +62,6 @@ operatingConditions:
 # IP rating (optional)
 ipCode: IP65
 
-# Key provisioning (optional)
-# Valid values are: custom (user can configure keys), join server and manifest.
-keyProvisioning:
-  - join server
-
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
