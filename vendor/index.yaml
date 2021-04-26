@@ -1668,3 +1668,12 @@ vendors:
   - id: elsys
     name: Elektroniksystem i Umeå AB
     website: https://www.elsys.se/en/
+
+  - id: advantech
+    name: Advantech Co.Ltd.
+    website: https://www.advantech.eu/
+    logo: logo.png
+
+  - id: greencityzen
+    name: GreenCitizen Connect the environment
+    website: http://www.greencityzen.fr/home/

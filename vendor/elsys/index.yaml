@@ -3,3 +3,9 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - elt2 # look in windsensor.yaml for the end device definition
+  - ers-lite
+  - ers-sound
+  - elt-ultrasonic
+  - ers-eye
+  - ems-desk
+  - ers-co2

@@ -1,0 +1,4 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - wrs485 # look in wrs485.yaml for the end device definition
+  - node-4 # look in node-4.yalm

@@ -1,0 +1,101 @@
+name: Wzzrd LRPv2 Node
+description: The Wzzard LRPv2 LoRaWAN node intelligent sensor platform enables you to quickly and easily create a complete connectivity stack between your sensors and applications via a network or the Internet
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: advantech-profile-868
+        lorawanCertified: true
+      US902-928:
+        id: advantech-profile-915
+        lorawanCertified: true
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - humidity
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 95.25
+  diameter: 115.9
+  height: 65.15
+
+# Weight in grams (optional)
+weight: 320
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 75
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP66
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://www.advantech.eu/products/dc06386d-75f7-438c-879e-979ce8cabfda/bb-wsw2c00015/mod_12ebe976-c3d8-4a25-9c3d-af7804cd45d8
+dataSheetURL: https://advdownload.blob.core.windows.net/productfile/PIS/BB-WSW2C00015/file/Wzzard-LRPv2-Node_DS(121720)20201231113719.pdf
+resellerURLs:
+  - name: 'Online Store'
+    region:
+      - European Union
+    url: https://buy.advantech.eu/
+
+# Photos
+photos:
+  main: wzzard.jpg
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=k7CIOxmFvjE
+
+# Regulatory compliances (optional)
+compliances:
+  freefall:
+    - body: IEC
+      norm: EN
+      standard: 60068-2-32
+  shock:
+    - body: IEC
+      norm: EN
+      standard: 60068-2-27
+  vibration:
+    - body: IEC
+      norm: EN
+      standard: 60068-2-6

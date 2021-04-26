@@ -29,7 +29,7 @@ switch (input.fPort) {
     if(input.bytes[12] >= 0x00 && input.bytes[12] <= 0x05){
       data.alarm = input.bytes[12];
     }
-    else if(input.bytes[12 >= 0x06]){
+    else {
       data.alarm = 'error';
     }
 

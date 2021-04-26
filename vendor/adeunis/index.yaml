@@ -1,3 +1,9 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - pulse # look in pulse.yaml for the end device definition
+  - analog # look in analog.yaml
+  - dry-contact # look in dry-contact.yaml
+  - ftd-network-tester # look in ftd-network-tester-yaml
+  - modbus # look in modbus.yaml
+  - temp # look in temp.yaml
+
