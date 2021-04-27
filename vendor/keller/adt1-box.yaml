@@ -10,35 +10,31 @@ hardwareVersions:
 firmwareVersions:
   - version: '21.06'
     numeric: 2106
-
-    hardwareVersions:
-      - '9I169 B'
-
     profiles:
       EU863-870:
         id: adt1-profile
         lorawanCertified: true #https://lora-alliance.org/lora_products/adt1-box/
-        codec: adt1-codec
+        codec: keller-codec
       US902-928:
         id: adt1-profile
         lorawanCertified: false
-        codec: adt1-codec
+        codec: keller-codec
       AU915-928:
         id: adt1-profile
         lorawanCertified: false
-        codec: adt1-codec
+        codec: keller-codec
       AS923:
         id: adt1-profile
         lorawanCertified: false
-        codec: adt1-codec
+        codec: keller-codec
       KR920-923:
         id: adt1-profile
         lorawanCertified: false
-        codec: adt1-codec
+        codec: keller-codec
       IN865-867:
         id: adt1-profile
         lorawanCertified: false
-        codec: adt1-codec
+        codec: keller-codec
 
 # This device can be connected with various kind of KELLER pressure sensors including Level Probes and transmitters
 # The ADT1 itself measures humidity, battery capacity (0..100%), battery voltage, temperature and barometric pressure

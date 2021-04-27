@@ -1,3 +1,5 @@
 endDevices:
   - adt1-tube
   - adt1-box
+  - arc1-tube
+  - arc1-box
