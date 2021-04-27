@@ -4,34 +4,16 @@ description: ARC1 Tube - Remote transmission unit with data logger compatible wi
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 firmwareVersions:
-  - version: '21.06'
-    numeric: 2106
+  - version: '2041'
+    numeric: 20.41
     profiles:
       EU863-870:
         id: arc1-profile
         lorawanCertified: false
         codec: keller-codec
       US902-928:
-        id: arc1-profile
-        lorawanCertified: false
-        codec: keller-codec
-      AU915-928:
-        id: arc1-profile
-        lorawanCertified: false
-        codec: keller-codec
-      AS923:
-        id: arc1-profile
-        lorawanCertified: false
-        codec: keller-codec
-      KR920-923:
-        id: arc1-profile
-        lorawanCertified: false
-        codec: keller-codec
-      IN865-867:
         id: arc1-profile
         lorawanCertified: false
         codec: keller-codec
@@ -90,7 +72,7 @@ photos:
   main: arc1-tube.jpg
   other:
     - arc1-tube-open.jpg
-    - arc1-tube-front.jpg
+    - arc1-tube-back.jpg
 
 videos:
   main: https://www.youtube.com/watch?v=hbfnBRteBYM
