@@ -1,11 +1,11 @@
-name: CTD10
+name: DL-CTD10
 description: Pressure / Liquid Level, Temperature and Electrical Conductivity for
   LoRaWAN
 
 hardwareVersions:
   - version: '1'
     numeric: 1
-    partNumber: CTD10-001
+    partNumber: DL-CTD10-001
 
 firmwareVersions:
   - version: 1.5.7
@@ -16,19 +16,23 @@ firmwareVersions:
       EU863-870:
         id: profile-eu868
         lorawanCertified: true
+        codec: dl-ctd10-codec
       AS923:
         id: profile-as923
         lorawanCertified: false
+        codec: dl-ctd10-codec
       US902-928:
         id: profile-us915
         lorawanCertified: true
+        codec: dl-ctd10-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: false
+        codec: dl-ctd10-codec
 
 sensors:
   - conductivity
-  - pressure
+  - level
   - temperature
   - battery
 
@@ -45,8 +49,8 @@ battery:
 
 operatingConditions:
   temperature:
-    min: -11
-    max: 49
+    min: -20
+    max: 50
   relativeHumidity:
     min: 0
     max: 1.0
@@ -56,6 +60,9 @@ ipCode: IP67
 keyProvisioning:
   - custom
 keySecurity: none
+
+productURL: https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan
+dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-CTD10-datasheet.pdf
 
 photos:
   main: dl-ctd10.jpg
