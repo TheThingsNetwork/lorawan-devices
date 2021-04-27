@@ -387,3 +387,39 @@ function encodeDownlink(input) {
 The API is distributed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See `LICENSE` for more information.
 
 All product names, logos, and brands are property of their respective owners. All company, product and service names used in the Device Repository are for identification purposes only. Use of these names, logos, and brands does not imply endorsement.
+
+## Run Validation on Windows 10
+
+If you are a Windows user the best way to run the Device Repository validation is installing any Linux OS using the Windows Subsystem for Linux (WLS), in this case we are going to explain it installing Ubuntu 20.04
+
+WSL for Windows 10
+
+  Simplified Installation:
+      Open CMD (command prompt) as administrator insert and run the following command:  <wls --install> 
+      Restart your computer, it will be ready to use WLS
+  For issues search:
+      https://docs.microsoft.com/en-us/windows/wsl/install-win10  
+
+Ubuntu 20.04 or latest versions
+
+  Open Microsoft Store Application, on search bar introduce Ubuntu or the Linux distribution of your choice and install it.
+    Ubuntu 20.04 run some command line utilities as:
+      bash
+      ssh
+      git
+      apt
+      Others
+  Once installed restart your computer
+
+Install required programs
+
+  Open Ubuntu and install requiered programs to run Device Repository validation, use the following command:
+
+    sudo apt install *program
+      nodejs
+      npm
+      golang-go
+  **Ubuntu install an older Go version, it is necessary to upgrade it manually:
+      Follow simple instructions: https://sal.as/post/install-golan-on-wsl/ 
+  
+Once everything is installed, restart your computer and now is ready to run Device Repository validation.
