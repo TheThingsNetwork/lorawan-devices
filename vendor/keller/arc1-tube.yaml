@@ -7,7 +7,7 @@ hardwareVersions:
 
 firmwareVersions:
   - version: '2041'
-    numeric: 20.41
+    numeric: 2041
     profiles:
       EU863-870:
         id: arc1-profile
