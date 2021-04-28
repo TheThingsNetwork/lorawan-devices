@@ -14,7 +14,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: t-valve-profile
         lorawanCertified: false
-        # codec: t-valve-codec
+        codec: t-valve-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,

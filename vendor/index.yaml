@@ -320,6 +320,8 @@ vendors:
 
   - id: keller
     name: KELLER AG fur Druckmesstechnik
+    website: https://keller-druck.com/
+    logo: keller-logo.svg
     vendorID: 222
 
   - id: kerlink
@@ -1637,3 +1639,8 @@ vendors:
     name: TEKZITEL PTY LTD
     website: https://www.tekzitel.com/
     logo: tekzitel_logo.png
+
+  - id: heltec
+    name: HelTec AutoMation
+    website: https://heltec.org/
+    logo: logo.png

@@ -44,7 +44,7 @@ dimensions:
 
 battery:
   replaceable: true
-  type: 2 x 1.5V AA alkaline battery
+  type: 2 x 3.6V ER14505 AA lithium battery
 
 operatingConditions:
   temperature:
@@ -53,6 +53,8 @@ operatingConditions:
   relativeHumidity:
     min: 0
     max: 0.9
+
+ipCode: IP65
 
 keyProvisioning:
   - custom

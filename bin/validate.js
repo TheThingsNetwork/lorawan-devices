@@ -7,6 +7,8 @@ const yaml = require('js-yaml');
 const sizeOf = require('image-size');
 const { exec } = require('child_process');
 const isEqual = require('lodash.isequal');
+const readChunk = require('read-chunk');
+const imageType = require('image-type');
 
 let validate = new Ajv().addSchema([require('../lib/draft/schema.json'), require('../schema.json')]);
 
@@ -35,10 +37,13 @@ let validateEndDevicePayloadCodec = validate.compile({
 });
 
 function requireFile(path) {
+  if (path.toLowerCase() !== path) {
+    return Promise.reject(new Error(`${path} is not lowercase`));
+  }
   return new Promise((resolve, reject) => {
     fs.stat(path, (err) => {
       if (err) {
-        reject(`stat ${path}: ${err.code}`);
+        reject(new Error(`stat ${path}: ${err.code}`));
       } else {
         resolve();
       }
@@ -47,37 +52,50 @@ function requireFile(path) {
 }
 
 function requireDimensions(path) {
-  return new Promise((resolve, reject) => {
-    sizeOf(path, (err, dimensions) => {
-      if (err) {
-        reject(`load image ${path}: ${err}`);
-      }
-      if (dimensions.width > 2000 || dimensions.height > 2000) {
-        reject(`image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`);
-      }
-      resolve();
-    });
-  });
+  return requireFile(path).then(
+    () =>
+      new Promise((resolve, reject) => {
+        sizeOf(path, (err, dimensions) => {
+          if (err) {
+            reject(new Error(`load image ${path}: ${err}`));
+          } else if (dimensions.width > 2000 || dimensions.height > 2000) {
+            reject(
+              new Error(
+                `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`
+              )
+            );
+          } else {
+            resolve();
+          }
+        });
+      })
+  );
 }
 
 function validatePayloadCodecs(vendorId, payloadEncoding) {
   var runs = [];
+  var promises = [];
+
   [
     { def: payloadEncoding.uplinkDecoder, routine: 'decodeUplink' },
     { def: payloadEncoding.downlinkEncoder, routine: 'encodeDownlink' },
     { def: payloadEncoding.downlinkDecoder, routine: 'decodeDownlink' },
   ].forEach((d) => {
-    if (d.def && d.def.examples) {
-      d.def.examples.forEach((e) => {
-        runs.push({
-          fileName: `${vendorId}/${d.def.fileName}`,
-          routine: d.routine,
-          ...e,
+    if (d.def) {
+      let fileName = `${vendorId}/${d.def.fileName}`;
+      promises.push(requireFile(fileName));
+      if (d.def.examples) {
+        d.def.examples.forEach((e) => {
+          runs.push({
+            fileName: fileName,
+            routine: d.routine,
+            ...e,
+          });
         });
-      });
+      }
     }
   });
-  var promises = [];
+
   runs.forEach((r) => {
     promises.push(
       new Promise((resolve, reject) => {
@@ -108,6 +126,34 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     );
   });
   return Promise.all(promises);
+}
+
+function validateImageExtension(filename) {
+  return new Promise((resolve, reject) => {
+    const buffer = readChunk.sync(filename, 0, 12);
+    const type = imageType(buffer);
+    const ext = filename.split('.').pop();
+    if (ext !== type.ext) {
+      if (ext === 'jpeg' && type.ext === 'jpg') {
+        resolve();
+      }
+      reject(`${filename} extension is incorrect, it should be ${type.ext}`);
+    } else {
+      resolve();
+    }
+  });
+}
+
+function requireImageDecode(fileName) {
+  // Test https://golang.org/pkg/image/png/#Decode and https://golang.org/pkg/image/jpeg/#Decode are possible
+  return new Promise((resolve, reject) => {
+    exec(`bin/validate-image ${fileName}`, (err) => {
+      if (err) {
+        reject(err);
+      }
+      resolve();
+    });
+  });
 }
 
 function formatValidationErrors(errors) {
@@ -203,6 +249,18 @@ vendors.vendors.forEach((v) => {
       });
 
       if (endDevice.photos) {
+        validateImageExtension(`${folder}/${endDevice.photos.main}`)
+          .then(() => console.log(`${key}: ${endDevice.photos.main} image has correct extension`))
+          .catch((err) => {
+            console.error(err);
+            process.exit(1);
+          });
+        requireImageDecode(`${folder}/${endDevice.photos.main}`)
+          .then(() => console.log(`${key}: ${endDevice.photos.main} is valid`))
+          .catch((err) => {
+            console.error(err);
+            process.exit(1);
+          });
         requireDimensions(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} has the right dimensions`))
           .catch((err) => {
@@ -211,6 +269,18 @@ vendors.vendors.forEach((v) => {
           });
         if (endDevice.photos.other) {
           endDevice.photos.other.forEach((p) => {
+            validateImageExtension(`${folder}/${p}`)
+              .then(() => console.log(`${key}: ${p} image has correct extension`))
+              .catch((err) => {
+                console.error(err);
+                process.exit(1);
+              });
+            requireImageDecode(`${folder}/${p}`)
+              .then(() => console.log(`${key}: ${p} is valid`))
+              .catch((err) => {
+                console.error(err);
+                process.exit(1);
+              });
             requireDimensions(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} has the right dimensions`))
               .catch((err) => {

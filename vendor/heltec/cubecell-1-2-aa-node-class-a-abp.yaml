@@ -1,0 +1,44 @@
+name: HTCC-AB02A(Class A ABP)
+description: HTCC-AB02A is a Dev-Board. Friendly designed for developers, easy to verify communication solutions.
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-a-abp
+      US902-928:
+        id: profile-us915-class-a-abp
+      AU915-928:
+        id: profile-au915-class-a-abp
+      AS923:
+        id: profile-as923-class-a-abp
+      EU433:
+        id: profile-eu433-class-a-abp
+      CN470-510:
+        id: profile-cn470-class-a-abp
+      IN865-867:
+        id: profile-in865-class-a-abp
+      KR920-923:
+        id: profile-kr920-class-a-abp
+
+dimensions:
+  width: 24
+  length: 56.6
+  height: 21.5
+
+battery:
+  replaceable: true
+  type: Lithium
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+productURL: https://heltec.org/project/htcc-ab02a/
+dataSheetURL: https://heltec.org/project/htcc-ab02a/#1552557147424-7f1ec-5c652144-e1d6dfc1-348c
+
+photos:
+  main: cubecell-1-2-aa-node.png
