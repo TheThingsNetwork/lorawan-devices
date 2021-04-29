@@ -62,26 +62,20 @@ operatingConditions:
 # IP rating (optional)
 ipCode: IP65
 
-# Key programming (optional)
-# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
-# and firmware (when the user should change the firmware to set the keys).
-keyProgramming:
-  - bluetooth
-
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: secure element
 
 # Product and data sheet URLs (optional)
-productURL: https://example.org/wind-sensor
-dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+productURL: https://www.safecility.com/emergency-light-controller/
+dataSheetURL: https://www.safecility.com/emergency-light-controller-spec-sheet/
 
 # Commercial information
 resellerURLs:
   - name: 'Safecility'
     region:
       - European Union
-    url: https://www.safecility.com/emergency-light-controller/
+    url: https://www.safecility.com
 msrp:
   EUR: 120
   USD: 150
