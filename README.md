@@ -387,10 +387,14 @@ If you are a Windows user the best way to run the Device Repository validation i
 WSL for Windows 10
 
   Simplified Installation:
-      Open CMD (command prompt) as administrator insert and run the following command:  <wls --install> 
+      Open CMD (command prompt) as administrator insert and run the following command:
+
+      ```bash
+        wls --install
+      ``` 
       Restart your computer, it will be ready to use WLS
   For issues search:
-      https://docs.microsoft.com/en-us/windows/wsl/install-win10  
+     [Microsoft WLS](https://docs.microsoft.com/en-us/windows/wsl/install-win10)  
 
 Ubuntu 20.04 or latest versions
 
@@ -402,13 +406,15 @@ Install required programs
 
   Open Ubuntu and install requiered programs to run Device Repository validation:
 
+    ```bash
     $ sudo apt install nodejs
     $ sudo apt install npm
     $ sudo apt install golang-go 
+    ```
   **Ubuntu install an older Go version, it is necessary to upgrade it manually:
-      Follow simple instructions: https://sal.as/post/install-golan-on-wsl/ 
+      [Upgrade Go](https://sal.as/post/install-golan-on-wsl/) 
   
-Once everything is installed, restart your computer and now is ready to run Device Repository validation.
+Now your computer is ready to run Device Repository validation.
 
 ## Legal
 
