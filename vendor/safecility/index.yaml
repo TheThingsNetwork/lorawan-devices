@@ -1,0 +1,2 @@
+endDevices:
+  - emergency-light-controller # look in emergency-lighting-controller.yaml for the end device definition

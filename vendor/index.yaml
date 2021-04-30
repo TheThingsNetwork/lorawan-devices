@@ -1644,3 +1644,8 @@ vendors:
     name: HelTec AutoMation
     website: https://heltec.org/
     logo: logo.png
+
+  - id: safecility
+    name: Safecility LTD
+    website: https://safecility.com/
+    logo: logo.png
