@@ -389,9 +389,9 @@ WSL for Windows 10
   Simplified Installation:
       Open CMD (command prompt) as administrator insert and run the following command:
 
-      ```bash
-        wls --install
-      ``` 
+```bash
+wls --install
+``` 
       Restart your computer, it will be ready to use WLS
   For issues search:
      [Microsoft WLS](https://docs.microsoft.com/en-us/windows/wsl/install-win10)  
@@ -404,13 +404,13 @@ Ubuntu 20.04 or latest versions
 
 Install required programs
 
-  Open Ubuntu and install requiered programs to run Device Repository validation:
+Open Ubuntu and install requiered programs to run Device Repository validation:
 
-    ```bash
-    $ sudo apt install nodejs
-    $ sudo apt install npm
-    $ sudo apt install golang-go 
-    ```
+```bash
+$ sudo apt install nodejs
+$ sudo apt install npm
+$ sudo apt install golang-go 
+```
   **Ubuntu install an older Go version, it is necessary to upgrade it manually:
       [Upgrade Go](https://sal.as/post/install-golan-on-wsl/) 
   
