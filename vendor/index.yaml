@@ -1644,3 +1644,8 @@ vendors:
     name: HelTec AutoMation
     website: https://heltec.org/
     logo: logo.png
+
+  - id: acrios
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/
+    logo: acrioslogo.png
