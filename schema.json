@@ -79,15 +79,15 @@
             },
             "twitter": {
               "type": "string",
-              "format": "uri"
+              "pattern": "^(\\w){1,15}$"
             },
             "instagram": {
               "type": "string",
-              "format": "uri"
+              "pattern": "^(\\w(?:(?:\\w|(?:\\.(?!\\.))){0,28}(?:\\w))?)$"
             },
             "github": {
               "type": "string",
-              "format": "uri"
+              "pattern": "^[A-Za-z\\d](?:[A-Za-z\\d]|-(?=[A-Za-z\\d])){0,38}$"
             }
           }
         },
