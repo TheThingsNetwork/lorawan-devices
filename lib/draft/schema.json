@@ -62,6 +62,35 @@
           "type": "string",
           "minLength": 1
         },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "social": {
+          "type": "object",
+          "properties": {
+            "linkedin": {
+              "type": "string",
+              "format": "uri"
+            },
+            "facebook": {
+              "type": "string",
+              "format": "uri"
+            },
+            "twitter": {
+              "type": "string",
+              "pattern": "^(\\w){1,15}$"
+            },
+            "instagram": {
+              "type": "string",
+              "pattern": "^(\\w(?:(?:\\w|(?:\\.(?!\\.))){0,28}(?:\\w))?)$"
+            },
+            "github": {
+              "type": "string",
+              "pattern": "^[A-Za-z\\d](?:[A-Za-z\\d]|-(?=[A-Za-z\\d])){0,38}$"
+            }
+          }
+        },
         "pen": {
           "description": "Private Enterprise Number (PEN) assigned by IANA (see https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers)",
           "type": "integer",
