@@ -165,7 +165,8 @@ vendors:
     description: Decentlab is a Swiss company providing wireless sensor devices and services for distributed, cost-effective monitoring solutions. The sensor devices communicate wirelessly over LoRaWAN® and are designed for ultra low power consumption, capable of operating on batteries for several years. The devices are built for industrial applications and are ready to be deployed in any harsh indoor or outdoor environment. The service framework provides convenient access to measurement data and enables seamless integration into existing monitoring and control systems. Application areas are environmental and air quality monitoring, hydrological measurements, smart agriculture and smart cities.
     social:
       linkedin: https://www.linkedin.com/company/decentlab/
-      twitter: https://twitter.com/decentlab
+      twitter: decentlab
+      github: decentlab
 
   - id: definium
     name: Definium Technologies, Pty Ltd.
