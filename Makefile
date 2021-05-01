@@ -26,6 +26,7 @@ default: validate
 deps:
 	$(NPM) install
 	pushd ./tools/runscript && $(GO) install . && popd
+	pushd ./tools/validate-image && $(GO) install . && popd
 
 .PHONY: deps.update
 deps.update:
