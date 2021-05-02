@@ -161,14 +161,12 @@ firmwareProgramming:
 productURL: https://github.com/letscontrolit/ESPEasy
 dataSheetURL: https://espeasy.readthedocs.io/en/latest/Controller/C018.html#c018-page
 
-
 # Photos
 photos:
   main: espeasy.jpg
   other:
     - espeasy-rn2483-package.jpg
     - espeasy-configuration.png
-
 # Youtube or Vimeo Video (optional)
 #videos:
 #  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
