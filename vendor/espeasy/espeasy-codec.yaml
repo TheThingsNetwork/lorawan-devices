@@ -1,7 +1,7 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: packed_decodeUplink.js
+  fileName: packed-decode-uplink.js
   examples:
     - description: ESPEasy System Info task
       input:
