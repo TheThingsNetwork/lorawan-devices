@@ -3,7 +3,7 @@ description: ESPEasy with Microchip RN2903 LoRaWAN module. Use over 100 supporte
 
 firmwareVersions:
   - version: '1.0.3'
-    numeric: 1
+    numeric: 103
 
     profiles:
       US902-928:
@@ -19,7 +19,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: espeasy-codec
   - version: '1.0.4'
-    numeric: 2
+    numeric: 104
 
     profiles:
       US902-928:
@@ -35,7 +35,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: espeasy-codec
   - version: '1.0.5'
-    numeric: 3
+    numeric: 105
 
     profiles:
       US902-928:
