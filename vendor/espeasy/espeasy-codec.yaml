@@ -9,6 +9,7 @@ uplinkDecoder:
         bytes: [26, 0, 0, 218, 11, 130, 11, 0, 56, 44, 0, 212, 0, 81, 192, 168, 10, 130, 59, 72, 0, 0, 11]
       output:
         data:
+          bytes: [26,0,0,218,11,130,11,0,56,44,0,212,0,81,192,168,10,130,59,72,0,0,11]
           freeheap: 11320
           freestack: 2816
           header:
@@ -34,6 +35,7 @@ uplinkDecoder:
         bytes: [52, 0, 0, 218, 1, 0, 145, 80, 0]
       output:
         data:
+          bytes: [52,0,0,218,1,0,145,80,0]
           header:
             IDX: 0
             plugin_id: 52
