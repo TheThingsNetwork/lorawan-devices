@@ -1,0 +1,45 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: packed_decodeUplink.js
+  examples:
+    - description: ESPEasy System Info task
+      input:
+        fPort: 1
+        bytes: [26, 0, 0, 218, 11, 130, 11, 0, 56, 44, 0, 212, 0, 81, 192, 168, 10, 130, 59, 72, 0, 0, 11]
+      output:
+        data:
+          freeheap: 11320
+          freestack: 2816
+          header:
+            IDX: 0
+            plugin_id: 26
+            samplesetcount: 218
+            valuecount: 11
+          ip: 192.168.10.130
+          ip1: 192
+          ip2: 168
+          ip3: 10
+          ip4: 130
+          load: 31.64
+          name: Sysinfo
+          port: 1
+          rssi: -44
+          uptime: 2946
+          vcc: -1
+          web: 18491
+    - description: SenseAir S8 CO2 ppm
+      input:
+        fPort: 1
+        bytes: [52, 0, 0, 218, 1, 0, 145, 80, 0]
+      output:
+        data:
+          header:
+            IDX: 0
+            plugin_id: 52
+            samplesetcount: 218
+            valuecount: 1
+          name: SenseAir
+          port: 1
+          ppm: 528
+          temp: null

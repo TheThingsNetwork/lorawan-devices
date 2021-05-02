@@ -1649,3 +1649,14 @@ vendors:
     name: ACRIOS Systems s.r.o.
     website: https://acrios.com/
     logo: acrioslogo.png
+
+  - # Unique identifier of the vendor (lowercase, alphanumeric with dashes, max 36 characters)
+    id: espeasy
+    # Vendor company name
+    name: ESPEasy
+    # LoRa Alliance issued Vendor ID
+    # will be provided after joined.
+    # Vendor website (optional)
+    website: https://github.com/letscontrolit/ESPEasy
+    # Vendor logo filename (optional)
+    logo: espeasy-logo.png
