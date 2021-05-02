@@ -163,11 +163,10 @@ dataSheetURL: https://espeasy.readthedocs.io/en/latest/Controller/C018.html#c018
 
 # Photos
 photos:
-  main: espeasy.jpg
+  main: espeasy-rn2483-package.jpg
   other:
-    - espeasy-rn2483-package.jpg
-    - rn2483a-module.jpg
     - espeasy-configuration.png
+    - rn2483a-module.jpg
 # Youtube or Vimeo Video (optional)
 #videos:
 #  main: https://www.youtube.com/watch?v=JHzxcD2oEn8

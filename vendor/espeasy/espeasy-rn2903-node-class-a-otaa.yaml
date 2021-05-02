@@ -175,9 +175,8 @@ dataSheetURL: https://espeasy.readthedocs.io/en/latest/Controller/C018.html#c018
 
 # Photos
 photos:
-  main: espeasy.jpg
+  main: espeasy-rn2483-package.jpg
   other:
-    - espeasy-rn2483-package.jpg
     - espeasy-configuration.png
 # Youtube or Vimeo Video (optional)
 #videos:
