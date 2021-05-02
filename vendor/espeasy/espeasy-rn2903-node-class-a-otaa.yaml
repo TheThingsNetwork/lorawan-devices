@@ -22,6 +22,7 @@ firmwareVersions:
     numeric: 2
 
     profiles:
+      US902-928:
         id: profile-us915-class-a-otaa-101
         lorawanCertified: true
         codec: espeasy-codec
