@@ -29,6 +29,8 @@ uplinkDecoder:
           uptime: 2946
           vcc: -1
           web: 18491
+        errors: []
+        warnings: []
     - description: SenseAir S8 CO2 ppm
       input:
         fPort: 1
@@ -45,3 +47,5 @@ uplinkDecoder:
           port: 1
           ppm: 528
           temp: null
+        errors: []
+        warnings: []
