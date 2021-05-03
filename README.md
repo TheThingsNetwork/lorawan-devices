@@ -16,6 +16,12 @@ To help you add devices to this repository, you can follow along in this example
 
 ## Prerequisites
 
+- Linux
+- macOS
+- Windows Subsystem for Linux
+
+[Install Microsoft WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Upgrade WSL Go version](https://sal.as/post/install-golan-on-wsl/)
+
 - Node.js version 14.x
 - npm version 6.x
 - Go version 1.15.x
@@ -380,42 +386,6 @@ function encodeDownlink(input) {
   }
 }
 ```
-## Run Validation on Windows 10
-
-If you are a Windows user the best way to run the Device Repository validation is installing any Linux OS using the Windows Subsystem for Linux (WLS), in this case we are going to explain it installing Ubuntu 20.04
-
-WSL for Windows 10
-
-  Simplified Installation:
-      Open CMD (command prompt) as administrator insert and run the following command:
-
-```bash
-wls --install
-``` 
-      Restart your computer, it will be ready to use WLS
-  For issues search:
-     [Microsoft WLS](https://docs.microsoft.com/en-us/windows/wsl/install-win10)  
-
-Ubuntu 20.04 or latest versions
-
-  Open Microsoft Store Application, on search bar introduce Ubuntu or the Linux distribution of your choice and install it.
-    Ubuntu 20.04 run some command line utilities as bash, ssh, git, apt, others.
-  Once installed restart your computer
-
-Install required programs
-
-Open Ubuntu and install requiered programs to run Device Repository validation:
-
-```bash
-$ sudo apt install nodejs
-$ sudo apt install npm
-$ sudo apt install golang-go 
-```
-  **Ubuntu install an older Go version, it is necessary to upgrade it manually:
-      [Upgrade Go](https://sal.as/post/install-golan-on-wsl/) 
-  
-Now your computer is ready to run Device Repository validation.
-
 ## Legal
 
 The API is distributed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See `LICENSE` for more information.
