@@ -1577,15 +1577,9 @@ vendors:
   - id: the-box-development
     name: The-Box Development
 
-  - # Unique identifier of the vendor (lowercase, alphanumeric with dashes, max 36 characters)
-    id: beiselen
-    # Vendor company name
+  - id: beiselen
     name: Beiselen Service GmbH
-    # LoRa Alliance issued Vendor ID
-    # will be provided after joined.
-    # Vendor website (optional)
     website: https://digitale-services.beiselen.de/
-    # Vendor logo filename (optional)
     logo: beiselen-logo-sticky.png
 
   - id: izinto
@@ -1650,13 +1644,7 @@ vendors:
     website: https://acrios.com/
     logo: acrioslogo.png
 
-  - # Unique identifier of the vendor (lowercase, alphanumeric with dashes, max 36 characters)
-    id: espeasy
-    # Vendor company name
+  - id: espeasy
     name: ESPEasy
-    # LoRa Alliance issued Vendor ID
-    # will be provided after joined.
-    # Vendor website (optional)
     website: https://github.com/letscontrolit/ESPEasy
-    # Vendor logo filename (optional)
     logo: espeasy-logo.png
