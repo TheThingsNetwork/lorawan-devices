@@ -91,9 +91,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: smart-valve.jpg
+  main: smart-valve.png
   other:
-    - smart-valve-package.jpg
+    - smart-valve-package.png
 
 # Youtube or Vimeo Video (optional)
 videos:
