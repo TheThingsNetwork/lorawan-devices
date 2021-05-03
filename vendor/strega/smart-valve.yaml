@@ -1,0 +1,116 @@
+name: smart-valve
+description: smart valve is used to cut OFF/ON the flow in the pipe line remotely
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: smart-valve-profile-868
+        lorawanCertified: true
+        codec: smart-valve-codec
+      US902-928:
+        id: smart-valve-profile-915
+        lorawanCertified: true
+        codec: smart-valve-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - smart valve
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 34
+  length: 26
+  height: 77
+
+# Weight in grams (optional)
+weight: 350
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -30
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://stregauniverse.com/
+dataSheetURL: https://stregauniverse.com/technical-manuals
+resellerURLs:
+  - name: 'Reseller 1'
+    region:
+      - European Union
+    url: http://www.stregatechnologies.com/
+
+# Photos
+photos:
+  main: smart-valve.png
+  other:
+    - smart-valve-package.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=xusTs6uJ9AM&ab_channel=domdomdechangy
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
