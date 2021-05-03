@@ -7,7 +7,7 @@ uplinkDecoder:
     - description: Temp/Hum data on port 3
       input:
         fPort: 3
-        bytes: [0x01,0x12, 0x09, 0x97, 0x03, 0x0A, 0x8D, 0x23]
+        bytes: [0x01, 0x12, 0x09, 0x97, 0x03, 0x0A, 0x8D, 0x23]
       output:
         data:
           batLevel: 75.5
@@ -21,7 +21,7 @@ uplinkDecoder:
       output:
         data:
           batLevel: 75.5
-          humNOW: [ 29, 30, 30, 30, 30, 30, 30, 30]
+          humNOW: [29, 30, 30, 30, 30, 30, 30, 30]
           tempNOW: [27.23, 27.01, 27.12, 27.2, 27.29, 27.2, 27.16, 27.17]
 
     - description: Config data on port 100
