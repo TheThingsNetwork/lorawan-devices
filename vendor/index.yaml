@@ -661,8 +661,8 @@ vendors:
     name: STMicroelectronics International NV
     vendorID: 398
 
-  - id: strega-sprl
-    name: STREGA SPRL
+  - id: strega
+    name: STREGA
     vendorID: 401
 
   - id: swisscom
