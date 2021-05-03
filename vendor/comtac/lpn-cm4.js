@@ -247,7 +247,7 @@ function decodeDownlink(input) {
 			var tempOffset_raw = bin16dec((input.bytes[3] << 8) | (input.bytes[4]));
 			var tempMax_raw = bin8dec(input.bytes[5]);
 			var tempMin_raw = bin8dec(input.bytes[6]);
-			var humOffset_raw = bin8dec(input.bytes[8]);
+			var humOffset_raw = bin8dec(input.bytes[7]);
 			var humMax_raw = input.bytes[8];
 			var humMin_raw = input.bytes[9];
 			if (measRate_m > 50000){
@@ -311,7 +311,7 @@ function decodeDownlink(input) {
 				return {
 					data: {
 						fPort: input.fPort,
-						infoSet: false,
+						infoGet: false,
 					}
 				};				
 			}
@@ -389,14 +389,14 @@ function encodeDownlink(input) {
 			return { errors: ['Invalid input params defined'] };
 		}	
 	} else if (input.data.fPort == INFO_PORT) {
-		if (typeof input.data.infoSet !== 'undefined'){
-			var infoSetByte = 0;
-			if (input.data.infoSet){
-				infoSetByte = 1;
+		if (typeof input.data.infoGet !== 'undefined'){
+			var infoGetByte = 0;
+			if (input.data.infoGet){
+				infoGetByte = 1;
 			}
 			return {
 				fPort: INFO_PORT,
-				bytes: [infoSetByte],
+				bytes: [infoGetByte],
 			};
 		} else {
 			return { errors: ['Invalid input params defined'] };
