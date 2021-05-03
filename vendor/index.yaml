@@ -661,8 +661,8 @@ vendors:
     name: STMicroelectronics International NV
     vendorID: 398
 
-  - id: strega-sprl
-    name: STREGA SPRL
+  - id: strega
+    name: STREGA
     vendorID: 401
 
   - id: swisscom
@@ -1577,15 +1577,9 @@ vendors:
   - id: the-box-development
     name: The-Box Development
 
-  - # Unique identifier of the vendor (lowercase, alphanumeric with dashes, max 36 characters)
-    id: beiselen
-    # Vendor company name
+  - id: beiselen
     name: Beiselen Service GmbH
-    # LoRa Alliance issued Vendor ID
-    # will be provided after joined.
-    # Vendor website (optional)
     website: https://digitale-services.beiselen.de/
-    # Vendor logo filename (optional)
     logo: beiselen-logo-sticky.png
 
   - id: izinto
@@ -1644,3 +1638,13 @@ vendors:
     name: HelTec AutoMation
     website: https://heltec.org/
     logo: logo.png
+
+  - id: acrios
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/
+    logo: acrioslogo.png
+
+  - id: espeasy
+    name: ESPEasy
+    website: https://github.com/letscontrolit/ESPEasy
+    logo: espeasy-logo.png
