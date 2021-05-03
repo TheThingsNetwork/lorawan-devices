@@ -1,0 +1,52 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: smart-valve.js
+  # Examples (optional)
+  #examples:
+  # - description: Periodic Uplink
+  #  input:
+  #   fPort: 4
+  #  bytes: [333138383223633D77DB]
+  #output:
+  #  data:{ Battery: 74,Cable: "0",Class: "0",DI_0: "0",DI_1: "0",Fraud: "0",Hygrometry: 46.82,Leakage: "0",Port: 4,Power: "0",Process: "true",Status: "00000010",Tamper: "1",Temperature: 23.96,Valve: "0"}
+  #- description: Unknown FPort
+  # input:
+  #  fPort: 42
+  #  bytes: [1, 42]
+  #output:
+  #  errors:
+  #    - unknown FPort
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: smart-valve.js
+#  examples:
+#    - description: open/close the valve
+#      input:
+#        data:
+#          f_port: 1
+#          payload: 01
+#      output:
+#        bytes: [31]
+#        fPort: 1
+#    - description: Invalid color
+#      input:
+#        data:
+#          led: blue
+#      output:
+#        errors:
+#          - invalid LED color
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: smart-valve.js
+#  examples:
+#    - description: open/close
+#      input:
+#        bytes: [31]
+#        fPort: 1
+#      output:
+#        data:
+#          f_port: 1
+#          payload: 01
