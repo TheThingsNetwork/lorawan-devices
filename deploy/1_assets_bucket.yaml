@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Assets S3 bucket for the device repository
+Outputs:
+  AssetsBucket:
+    Export:
+      Name:
+        Fn::Sub: device-repository-prod-AssetsBucket
+    Value:
+      Ref: AssetsBucket
+  AssetsBucketDomainName:
+    Export:
+      Name:
+        Fn::Sub: device-repository-prod-AssetsBucketDomainName
+    Value:
+      Fn::GetAtt:
+        - AssetsBucket
+        - DomainName
+Resources:
+  AssetsBucket:
+    Properties:
+      BucketName: device-repository-assets
+    Type: AWS::S3::Bucket
+
