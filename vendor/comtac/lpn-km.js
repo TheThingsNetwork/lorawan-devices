@@ -171,34 +171,6 @@ function decodeUplink(input) {
             "warnings": warnings
         };
     }
-
-    if (input.fPort == FIXED_DATA_PORT) {
-        return decodeFixedDataPayload(input.bytes);
-    } else if (input.fPort == DI_DATA_PORT) {
-        return decodeDiDataPayload(input.bytes);
-    } else if (input.fPort == CNT_DATA_PORT) {
-        return decodeCntDataPayload(input.bytes);
-    } else if (input.fPort == TIMESYNC_PORT) {
-        return decodeTimesyncPayload(input.bytes);
-    } else if (input.fPort == CONFIG_PORT) {
-        return decodeConfigPayload(input.bytes);
-    } else if (input.fPort == INFO_PORT) {
-        return decodeInfoPayload(input.bytes);
-    } else {
-        warnings.push("not a valid port for LPN KM");
-        return {
-            "data": {
-                "port": 3,
-                "portFunction": "unknown",
-                "payloadLength": input.bytes.length,
-                "decoder": {
-                    "version": PAYLOAD_DECODER_VERSION,
-                    "info": PAYLOAD_DECODER_INFO
-                }
-            },
-            "warnings": warnings
-        };
-    }
 }
 
 function decodeDeviceHeader(data) {
@@ -219,7 +191,7 @@ function decodeDeviceHeader(data) {
     status = data[pointer++];
 
     switch (obj.info.deviceId) {
-        case 0:
+        case 0x10:
             obj.info.deviceDesignation = DEVICE_DESIGNATION_LPN_KM;
             obj.deviceStatus = { //usc: use quotes to avoid confict with var-names!
                 "configurationError": Boolean(status & 0x01),
@@ -264,7 +236,7 @@ function decodeTimestamp(data) {
     obj.unix = unixTimestamp;
 
     dateObject = new Date(milliseconds);
-    humanDateFormat = dateObject.toLocaleString();
+    humanDateFormat = dateObject.toUTCString();
 
     obj.string = humanDateFormat;
 
@@ -280,7 +252,7 @@ function addTimeToTimestamp(timestamp, data) {
     obj.unix = timestamp + (data[1] + (data[0] << 8));
 
     dateObject = new Date(obj.unix * 1000);
-    humanDateFormat = (dateObject).toLocaleString();
+    humanDateFormat = (dateObject).toUTCString();
 
     obj.string = humanDateFormat;
 
