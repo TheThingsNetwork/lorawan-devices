@@ -16,6 +16,12 @@ To help you add devices to this repository, you can follow along in this example
 
 ## Prerequisites
 
+- Linux
+- macOS
+- Windows Subsystem for Linux
+
+[Install Microsoft WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Upgrade WSL Go version](https://sal.as/post/install-golan-on-wsl/)
+
 - Node.js version 14.x
 - npm version 6.x
 - Go version 1.15.x
@@ -380,7 +386,6 @@ function encodeDownlink(input) {
   }
 }
 ```
-
 ## Legal
 
 The API is distributed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See `LICENSE` for more information.

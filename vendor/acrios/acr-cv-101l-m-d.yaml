@@ -1,0 +1,36 @@
+name: M-Bus IoT converter
+description: M-Bus to LoRaWAN or NB-IoT converter
+hardwareVersions:
+  - version: 'v3.7'
+    numeric: 1
+firmwareVersions:
+  - # Firmware version
+    version: 'e8d17c15795f'
+    numeric: 1
+    profiles:
+      EU863-870:
+        lorawanCertified: true
+        id: acr-cv-101l-m-d-profile
+bridgeInterfaces:
+  - m-bus
+dimensions:
+  width: 145
+  length: 90
+  height: 55
+weight: 250
+battery:
+  replaceable: true
+operatingConditions:
+  temperature:
+    min: -30
+    max: 60
+ipCode: IP65
+keyProvisioning:
+  - custom
+keyProgramming:
+  - serial
+keySecurity: read protected
+productURL: https://acrios.com/m-bus-iot-prevodnik/?lang=en#
+dataSheetURL: https://acrios.com/wp-content/uploads/2021/04/101L-M-D.pdf
+photos:
+  main: acr-cv-101l-m-d.jpg
