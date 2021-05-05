@@ -1648,3 +1648,8 @@ vendors:
     name: ESPEasy
     website: https://github.com/letscontrolit/ESPEasy
     logo: espeasy-logo.png
+
+  - id: moirelabs
+    name: Moire Labs
+    website: http://moirelabs.com/
+    logo: moirelabs_logo.png

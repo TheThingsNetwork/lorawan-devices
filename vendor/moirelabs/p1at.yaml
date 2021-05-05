@@ -1,0 +1,37 @@
+name: Temperature Transducer
+description: Hardened industrial battery powered temperature sensor
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+    profiles:
+      EU863-870:
+        id: p1a-profile
+        lorawanCertified: true
+        codec: p1a-codec
+
+additionalRadios:
+  - ble
+
+battery:
+  replaceable: true
+  type: p1ab
+
+ipCode: IP65
+
+firmwareProgramming:
+  - fuota other
+
+productURL: https://iotransducer.com/
+dataSheetURL: https://iotransducer.com/p1at-datasheet.pdf
+
+resellerURLs:
+  - name: 'connectedthings.store'
+    region:
+      - European Union
+      - United States
+    url: https://connectedthings.store
+
+photos:
+  main: p1at-foto-front.png
