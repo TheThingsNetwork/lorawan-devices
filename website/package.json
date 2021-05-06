@@ -1,8 +1,8 @@
 {
-  "name": "lorawan-wall-of-fame",
+  "name": "lorawan-devices-website",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:mjamescompton/lorawan-wall-of-fame.git",
+  "repository": "git@github.com:TheThingsNetwork/lorawan-devices.git",
   "author": "Michael Compton <michael.compton@thethingsindustries.com>",
   "license": "MIT",
   "scripts": {
