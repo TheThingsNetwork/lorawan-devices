@@ -8,14 +8,14 @@ on:
 jobs:
   release:
     name: Release Device Repository
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - name: Check out code
       uses: actions/checkout@v2
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: '~1.15'
+        go-version: '~1.16'
     - name: Set up Node
       uses: actions/setup-node@v2-beta
       with:
@@ -23,7 +23,7 @@ jobs:
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
-        hugo-version: '0.80.0'
+        hugo-version: '0.83.1'
         # extended: true
     - name: Download Go dependencies
       run: |
