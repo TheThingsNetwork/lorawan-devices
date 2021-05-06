@@ -1,4 +1,4 @@
-# Lorawan Device Repository Website
+# LoRawan Device Repository Website
 
 An hugo static site generated from the lorawan-devices repository.
 
