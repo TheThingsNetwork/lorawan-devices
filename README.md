@@ -111,12 +111,21 @@ vendors:
     id: company-x
     # Vendor company name
     name: Company X
+    # Vendor company description (optional)
+    description:
     # LoRa Alliance issued Vendor ID
     vendorID: 10
     # Vendor website (optional)
     website: https://www.company-x.com
     # Vendor logo filename (optional)
     logo: logo.svg
+    # Vendor social media links and handles (optional)
+    social:
+      linkedin: https://www.linkedin.com/company/company-x/ # uri
+      facebook: https://www.facebook.com/company-x # uri
+      twitter: company-x  # handle
+      instagram: company-x # handle
+      github: company-x # handle
     # Organization Unique Identifiers (OUIs, six digit hex, optional): http://standards-oui.ieee.org/oui.txt
     # The OUI is typically the first 3 bytes of the DevEUI
     ouis:
