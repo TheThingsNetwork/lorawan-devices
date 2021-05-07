@@ -1,23 +1,61 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Assets S3 bucket for the device repository
+Description: TTUI assets S3 bucket
 Outputs:
   AssetsBucket:
     Export:
       Name:
-        Fn::Sub: device-repository-prod-AssetsBucket
+        Fn::Sub: ttui-assets-AssetsBucket
     Value:
       Ref: AssetsBucket
   AssetsBucketDomainName:
     Export:
       Name:
-        Fn::Sub: device-repository-prod-AssetsBucketDomainName
+        Fn::Sub: ttui-assets-AssetsBucketDomainName
     Value:
       Fn::GetAtt:
         - AssetsBucket
         - DomainName
+  SyncUserAccessKeyId:
+    Export:
+      Name:
+        Fn::Sub: ttui-assets-SyncUserAccessKeyId
+    Value:
+      Ref: SyncUserAccessKey
+  SyncUserAccessKeySecret:
+    Export:
+      Name:
+        Fn::Sub: ttui-assets-SyncUserAccessKeySecret
+    Value:
+      Fn::GetAtt:
+        - SyncUserAccessKey
+        - SecretAccessKey
 Resources:
   AssetsBucket:
     Properties:
-      BucketName: device-repository-assets
+      BucketName: ttui-assets
     Type: AWS::S3::Bucket
+  SyncUser:
+    Properties:
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - s3:DeleteObject
+                  - s3:Put*
+                  - s3:Get*
+                  - s3:List*
+                  - s3:GetBucketLocation
+                Effect: Allow
+                Resource:
+                  - Fn::Sub: arn:aws:s3:::${AssetsBucket}/*
+                  - Fn::Sub: arn:aws:s3:::${AssetsBucket}
+            Version: '2012-10-17'
+          PolicyName: AccessS3
+    Type: AWS::IAM::User
+  SyncUserAccessKey:
+    Properties:
+      Status: Active
+      UserName:
+        Ref: SyncUser
+    Type: AWS::IAM::AccessKey
 
