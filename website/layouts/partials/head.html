@@ -1,8 +1,4 @@
-{{ .Scratch.Set "style" "http://localhost:9100/device-repository/css/style.css" }}
-{{ if not .Site.IsServer }}
-{{ .Scratch.Set "style" (index .Site.Data.manifest "style.css") }}
 
-{{ end }}
 
 <head>
   <meta charset="utf-8">
@@ -57,8 +53,7 @@
     <meta name="twitter:image:src" content="{{ .Site.Params.ogimage | absURL }}" />
   {{ end }}
 
-  {{ $style := .Scratch.Get "style" }}
-  <link rel="stylesheet" href="{{ $style }}">
+  <link rel="stylesheet" href="{{- (index .Site.Data.manifest `style.css`) | relURL -}}">
 
   {{ if eq .Page.RelPermalink "/device-repository/devices/"  }}
     <meta http-equiv="refresh" content="0; url=/device-repository/"/>

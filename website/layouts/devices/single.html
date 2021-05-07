@@ -1,8 +1,4 @@
 {{ define "main" }}
-{{ .Scratch.Set "jsDevice" "http://localhost:9100/device-repository/js/device_single.js" }}
-{{ if not .Site.IsServer }}
-{{ .Scratch.Set "jsDevice" (index .Site.Data.manifest "device_single.js") }}
-{{ end }}
 
 {{ $siteUrl := .Site.BaseURL }}
 
@@ -73,7 +69,6 @@
   }
 </script>
 
-{{ $jsDevice := .Scratch.Get "jsDevice" }}
-<script src="{{ $jsDevice }}"></script>
+<script src="{{- (index .Site.Data.manifest `device_single.js`) | relURL -}}"></script>
 
 {{ end }}

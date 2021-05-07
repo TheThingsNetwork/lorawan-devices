@@ -19,13 +19,13 @@ Requirements are `nodejs`, `yarn` and `hugo` and `go` , install these yourself.
 
 ### Run development environment
 
-#### Run hugo server
-
-`make run`
-
 #### Run webpack-dev-server for frontend assets
 
 `yarn start`
+
+#### Run hugo server
+
+`make run`
 
 ### How lorawan-devices becomes markdown for hugo
 

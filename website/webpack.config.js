@@ -46,7 +46,9 @@ module.exports = env => {
                 filename: `css/${isProduction ? '[hash].' : ''}[name].css`
             }),
             new WebpackManifestPlugin({
-                fileName: '../data/manifest.json'
+                fileName: '../data/manifest.json',
+                publicPath: `${isProduction ? '/' : 'http://localhost:9100/device-repository/'}`,
+                writeToFileEmit: true
             })
         ],
         devServer: {
