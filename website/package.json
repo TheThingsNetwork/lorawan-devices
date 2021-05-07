@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:TheThingsNetwork/lorawan-devices.git",
-  "author": "Michael Compton <michael.compton@thethingsindustries.com>",
-  "license": "MIT",
+  "author": "The Things Industries <info@thethingsindustries.com>",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "webpack-dev-server --mode=development",
     "build": "webpack --env.production"
