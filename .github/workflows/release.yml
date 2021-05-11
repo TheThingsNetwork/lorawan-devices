@@ -43,7 +43,7 @@ jobs:
         cd website/
         make hugo.build.public
       env:
-        HUGO_BASE_URL: https://thethingsnetwork.github.io/lorawan-devices/
+        HUGO_BASE_URL: https://mjamescompton.github.io/lorawan-devices/
     - name: Deploy Device Repository to Github pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
