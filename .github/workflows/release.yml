@@ -41,9 +41,12 @@ jobs:
     - name: Build Hugo
       run: |
         cd website/
-        hugo --minify
+        make hugo.build.public
+      env:
+        HUGO_BASE_URL: https://thethingsnetwork.github.io/lorawan-devices/
     - name: Deploy Device Repository to Github pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
         FOLDER: website/public

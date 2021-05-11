@@ -14,6 +14,9 @@
 
 SHELL = /bin/bash
 
+HUGO ?= hugo --minify
+HUGO_BASE_URL ?= https://thethingsnetwork.org/device-repository/
+
 .PHONY: clean
 clean:
 	rm -f tools/build/build || true
@@ -27,6 +30,10 @@ go.deps:
 .PHONY: go.build
 go.build: clean
 	pushd ./tools/build && go build . && ./build && popd
+
+.PHONY: hugo.build.public
+hugo.build.public:
+	$(HUGO) --baseURL $(HUGO_BASE_URL)
 
 .PHONY: run
 run:
