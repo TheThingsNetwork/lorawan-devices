@@ -64,6 +64,7 @@ function decodeUplink(input) {
                 params.soil_gwc = 2;
             }
             i = i+3;
+            params.soil_gwc = params.soil_gwc.toFixed(4);
         }
 
         // soil temp - built in probe version
@@ -75,6 +76,9 @@ function decodeUplink(input) {
 
             // convert to degrees C
             params.soil_temp = -32.46 * Math.log(soil_temp_raw) + 236.36
+
+            // Fix the floating point
+            params.soil_temp = params.soil_temp.toFixed(4);
             i = i+3;
         }
         
@@ -103,12 +107,14 @@ function decodeUplink(input) {
             // Sign-extend to 32 bits to support negative values, by shifting 24 bits
             // (16 too far) to the left, followed by a sign-propagating right shift:
             params.ambient_temp = (bytes[i+2]<<24>>16 | bytes[i+3]) / 10;
+            params.ambient_temp = params.ambient_temp.toFixed(4);
             i = i+3;
         }
 
         // humidity
         if(0x0B === bytes[i] && 0x68 === bytes[i+1]) {
             params.ambient_humidity = 0.5 * bytes[i+2];
+            params.ambient_humidity = params.ambient_humidity.toFixed(4)
             i = i+2;
         }
         
