@@ -15,7 +15,7 @@
 SHELL = /bin/bash
 
 HUGO ?= hugo --minify
-HUGO_BASE_URL ?= https://thethingsnetwork.org/device-repository/
+HUGO_BASE_URL ?= https://mjamescompton.github.io/lorawan-devices/
 
 .PHONY: clean
 clean:
