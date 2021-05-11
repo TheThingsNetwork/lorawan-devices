@@ -13,5 +13,5 @@
 // limitations under the License.
 
 // TTI Design Repository Components
-import '@tti/design/ui/components/ttn-header/index.js'
-import '@tti/design/ui/components/ttn-footer/index.js'
+import '../assets/dist/components/ttn-header/index.js'
+// import '../assets/dist/components/ttn-footer/index.js'
