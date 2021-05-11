@@ -111,7 +111,7 @@ module.exports = env => {
                       loader: 'file-loader',
                       options: {
                         name: `assets/[name]${isProduction ? '.[contenthash]' : ''}.[ext]`,
-                        publicPath: `${isProduction ? '/' : 'http://localhost:9100/device-repository/'}`
+                        publicPath: `${isProduction ? '/lorawan-devices/' : 'http://localhost:9100/device-repository/'}`
                       },
                     },
                   ],
