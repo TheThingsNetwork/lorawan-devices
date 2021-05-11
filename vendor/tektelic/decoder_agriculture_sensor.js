@@ -1,245 +1,148 @@
-function decode(data) { //data - Array of bytes. Base64 to Array decoder for ECMAScript 6 is commented.
-//You will need a different solution if you are using ECMAScript 5. An ES5 compatible decoder is on our road map.
-
-    function extract_bytes(chunk, start_bit, end_bit) {
-        var total_bits = end_bit - start_bit + 1;
-        var total_bytes = total_bits % 8 === 0 ? to_uint(total_bits / 8) : to_uint(total_bits / 8) + 1;
-        var offset_in_byte = start_bit % 8;
-        var end_bit_chunk = total_bits % 8;
-
-        var arr = new Array(total_bytes);
+/* 
+ * Decoder function for The Things Network to unpack the payload of TEKTELIC's Agriculture Sensors
+ * More info on the sensors/buy online:
+ * https://connectedthings.store/gb/tektelic-agriculture-soil-moisture-sensor-surface-version.html
+ * https://connectedthings.store/gb/tektelic-agriculture-soil-moisture-sensor-external-probe.html
+ * This function was created by Al Bennett at Sensational Systems - al@sensational.systems
+ */
 
 
-        for (byte = 0; byte < total_bytes; ++byte) {
-            var chunk_idx = to_uint(start_bit / 8) + byte;
-            var lo = chunk[chunk_idx] >> offset_in_byte;
-            var hi = 0;
-            if (byte < total_bytes - 1) {
-                hi = (chunk[chunk_idx + 1] & ((1 << offset_in_byte) - 1)) << (8 - offset_in_byte);
-            } else if (end_bit_chunk !== 0) {
-                // Truncate last bits
-                lo = lo & ((1 << end_bit_chunk) - 1);
-            }
-
-            arr[byte] = hi | lo;
-        }
-
-        return arr;
-    }
-
-    function apply_data_type(bytes, data_type) {
-        output = 0;
-        if (data_type === "unsigned") {
-            for (var i = 0; i < bytes.length; ++i) {
-                output = (to_uint(output << 8)) | bytes[i];
-            }
-
-            return output;
-        }
-
-        if (data_type === "signed") {
-            for (var i = 0; i < bytes.length; ++i) {
-                output = (output << 8) | bytes[i];
-            }
-
-            // Convert to signed, based on value size
-            if (output > Math.pow(2, 8*bytes.length-1))
-                output -= Math.pow(2, 8*bytes.length);
-
-
-            return output;
-        }
-
-        if (data_type === "bool") {
-            return !(bytes[0] === 0);
-        }
-
-        if (data_type === "hexstring") {
-            return toHexString(bytes);
-        }
-
-        // Incorrect data type
-        return null;
-    }
-
-    function decode_field(chunk, start_bit, end_bit, data_type) {
-        chunk_size = chunk.length;
-        if (end_bit >= chunk_size * 8) {
-            return null; // Error: exceeding boundaries of the chunk
-        }
-
-        if (end_bit < start_bit) {
-            return null; // Error: invalid input
-        }
-
-        arr = extract_bytes(chunk, start_bit, end_bit);
-        return apply_data_type(arr, data_type);
-    }
-
-    decoded_data = {};
-    decoder = [];
-
-
-    if (port === 10) {
-        decoder = [
-            {
-                key: [0x00, 0xFF],
-                fn: function(arg) {
-                    // Battery Voltage
-                    decoded_data.battery_voltage = decode_field(arg, 0, 7, "unsigned")*0.01;
-                    return 1;
-                }
-            },
-            {
-                key: [0x01, 0x04],
-                fn: function(arg) {
-                    // Soil Moisture Content
-                    decoded_data.soil_moisture_percentage = decode_field(arg, 0, 15, "unsigned")*0.01;
-                    return 2;
-                }
-            },
-            {
-                key: [0x02, 0x02],
-                fn: function(arg) {
-                    // Soil Temperature
-                    decoded_data.soil_temperature = decode_field(arg, 0, 15, "unsigned")*0.01;
-                    return 2;
-                }
-            },
-          {
-                key: [0x05, 0x04],
-                fn: function(arg) {
-                    // Soil Watermark 1
-                    decoded_data.soil_watermark_1 = decode_field(arg, 0, 15, "unsigned")*0.00001;
-                    return 2;
-                }
-            },
-            {
-                key: [0x06, 0x04],
-                fn: function(arg) {
-                    // Soil Watermark 2
-                    decoded_data.soil_watermark_2 = decode_field(arg, 0, 15, "unsigned")*0.00001;
-                    return 2;
-                }
-            },
-            {
-                key: [0x09, 0x65],
-                fn: function(arg) {
-                    // Ambient Light Levels
-                    decoded_data.ambient_light = decode_field(arg, 0, 15, "unsigned");
-                    return 2;
-                }
-            },
-            {
-                key: [0x09, 0x00],
-                fn: function(arg) {
-                    // Ambient Light Alarm
-                    decoded_data.ambient_light_alarm = decode_field(arg, 0, 7, "bool");
-                    return 1;
-                }
-            },
-            {
-                key: [0x0A, 0x71],
-                fn: function(arg) {
-                    // Impact Magnitude
-                    decoded_data.acceleration_x = decode_field(arg, 0, 15, "signed")*0.001;
-                    decoded_data.acceleration_y = decode_field(arg, 16, 31, "signed")*0.001;
-                    decoded_data.acceleration_z = decode_field(arg, 32, 47, "signed")*0.001;
-                    return 6;
-                }
-            },
-            {
-                key: [0x0A, 0x00],
-                fn: function(arg) {
-                    // Impact Alarm
-                    decoded_data.impact_alarm = decode_field(arg, 0, 7, "bool");
-                    return 1;
-                }
-            },
-            {
-                key: [0x0B, 0x67],
-                fn: function(arg) {
-                    // Ambient Temperature
-                    decoded_data.ambient_temperature = decode_field(arg, 0, 15, "unsigned")*0.1;
-                    return 2;
-                }
-            },
-            {
-                key: [0x0B, 0x68],
-                fn: function(arg) {
-                    // Ambient Relative Humidity
-                    decoded_data.ambient_humidity = parseFloat((decode_field(arg, 0, 7, "unsigned")*0.5).toFixed(4));
-                    return 1;
-                }
-            },
-            {
-                key: [0x0C, 0x67],
-                fn: function(arg) {
-                    // MCU temperature
-                    decoded_data.mcu_temperature = decode_field(arg, 0, 7, "signed")*0.01;
-                    return 1;
-                }
-            }
-        ]
-    }
+function decodeUplink(input) {
+  var port = input.fPort;
+  var bytes = input.bytes;
   
-    decoded_data['raw'] = JSON.stringify(byteToArray(data));
-    decoded_data['port'] = port;
+  var moisture_calibration = 1367000; // This is the "dry" value measured by the sensor before putting in the ground, in Hz
 
-    for (var bytes_left = data.length; bytes_left > 0; ) {
-        var found = false;
-        for (var i = 0; i < decoder.length; i++) {
-            var item = decoder[i];
-            var key = item.key;
-            var keylen = key.length;
-            header = data.slice(0, keylen);
-            // Header in the data matches to what we expect
-            if (is_equal(header, key)) {
-                var f = item.fn;
-                consumed = f(data.slice(keylen, data.length)) + keylen;
-                bytes_left -= consumed;
-                data = data.slice(consumed, data.length);
-                found = true;
-                break;
+  var params = {};
+  
+  if(10 == port) {  // Sensor readings are on port 10
+    for (var i = 0; i < bytes.length; i++) {
+    
+        // battery voltage
+        if(0x00 === bytes[i] && 0xFF === bytes[i+1]) {
+            params.battery_voltage = 0.01 * ((bytes[i+2] << 8) | bytes[i+3]);
+            i = i+3;
+        }
+
+        // soil moisture - built in probe version
+        if(0x01 === bytes[i] && 0x04 === bytes[i+1]) { 
+            var soil_moisture_raw = (bytes[i+2] << 8) | bytes[i+3];
+            params.soil_moisture_raw = soil_moisture_raw;
+            
+            // Calculate Gravimetric Water Content
+            soil_moisture_raw *= 1000; // in Hz
+            var moisture_diff = Math.abs(soil_moisture_raw - moisture_calibration);
+            params.soil_gwc = 0;
+            
+            if(moisture_diff <= 3000) {
+                params.soil_gwc = 0;
+            } else if(moisture_diff <= 6000) {
+                params.soil_gwc = 0.1;
+            } else if(moisture_diff <= 11000) {
+                params.soil_gwc = 0.2;
+            } else if(moisture_diff <= 16000) {
+                params.soil_gwc = 0.3;
+            } else if(moisture_diff <= 21000) {
+                params.soil_gwc = 0.4;
+            } else if(moisture_diff <= 26000) {
+                params.soil_gwc = 0.5;
+            } else if(moisture_diff <= 31000) {
+                params.soil_gwc = 0.6;
+            } else if(moisture_diff <= 36000) {
+                params.soil_gwc = 0.7;
+            } else if(moisture_diff <= 41000) {
+                params.soil_gwc = 0.8;
+            } else if(moisture_diff <= 46000) {
+                params.soil_gwc = 0.9;
+            } else if(moisture_diff <= 51000) {
+                params.soil_gwc = 1;
+            } else if(moisture_diff <= 56000) {
+                params.soil_gwc = 1.1;
+            } else if(moisture_diff <= 61000) {
+                params.soil_gwc = 1.2;
+            } else if(moisture_diff <= 80000) {
+                params.soil_gwc = 2;
             }
+            i = i+3;
         }
-        if (found) {
-            continue;
+
+        // soil temp - built in probe version
+        if(0x02 === bytes[i] && 0x02 === bytes[i+1]) {
+
+            // raw value in mV
+            var soil_temp_raw = (bytes[i+2] << 8) | bytes[i+3];
+            params.soil_temp_raw = soil_temp_raw;
+
+            // convert to degrees C
+            params.soil_temp = -32.46 * Math.log(soil_temp_raw) + 236.36
+            i = i+3;
         }
-        // No header located, abort
-        return decoded_data;
-    }
+        
+        // watermark reading 1 - external probe version
+        if(0x05 === bytes[i] && 0x04 === bytes[i+1]) {
+            params.soil_moisture_raw1 = (bytes[i+2] << 8) | bytes[i+3]; //hz
+            params.soil_water_tension1 = convert_watermark(params.soil_moisture_raw1);
+            i = i+3;
+        }
+        
+        // watermark reading 2 - external probe version
+        if(0x06 === bytes[i] && 0x04 === bytes[i+1]) {
+            params.soil_moisture_raw2 = (bytes[i+2] << 8) | bytes[i+3]; //hz
+            params.soil_water_tension2 = convert_watermark(params.soil_moisture_raw2);
+            i = i+3;
+        }
+        
+        // ambient light, in lux
+        if(0x09 === bytes[i] && 0x65 === bytes[i+1]) {
+            params.ambient_light = (bytes[i+2] << 8) | bytes[i+3];
+            i = i+3;
+        }
+        
+        // ambient temperature, in degrees C
+        if(0x0B === bytes[i] && 0x67 === bytes[i+1]) {
+            // Sign-extend to 32 bits to support negative values, by shifting 24 bits
+            // (16 too far) to the left, followed by a sign-propagating right shift:
+            params.ambient_temp = (bytes[i+2]<<24>>16 | bytes[i+3]) / 10;
+            i = i+3;
+        }
 
-    return decoded_data;
+        // humidity
+        if(0x0B === bytes[i] && 0x68 === bytes[i+1]) {
+            params.ambient_humidity = 0.5 * bytes[i+2];
+            i = i+2;
+        }
+        
+    }
+  }
+
+  return {
+    data: params
+  }
+
 }
 
-// Converts value to unsigned
-function to_uint(x) {
-    return x >>> 0;
-}
-
-// Checks if two arrays are equal
-function is_equal(arr1, arr2) {
-    if (arr1.length != arr2.length) return false;
-    for (var i = 0 ; i != arr1.length; i++) {
-        if (arr1[i] != arr2[i]) return false;
+function convert_watermark(hz) {
+    var water_tension;
+    
+    if(hz < 293) {
+        water_tension = 200;
+    } else if(hz <= 485) {
+        water_tension = 200 - (hz - 293) * 0.5208;
+    } else if(hz <= 600) {
+        water_tension = 100 - (hz - 485) * 0.2174;
+    } else if(hz <= 770) {
+        water_tension = 75 - (hz - 600) * 0.1176;
+    } else if(hz <= 1110) {
+        water_tension = 55 - (hz - 770) * 0.05884;
+    } else if(hz <= 2820) {
+        water_tension = 35 - (hz - 1110) * 0.01170;
+    } else if(hz <= 4330) {
+        water_tension = 15 - (hz - 2820) * 0.003974;
+    } else if(hz <= 6430) {
+        water_tension = 9 - (hz - 4330) * 0.004286;
+    } else if(hz > 6430) {
+        water_tension = 0;
     }
-    return true;
-};
-
-function byteToArray(byteArray) {
-    arr = [];
-    for(var i = 0; i < byteArray.length; i++) {
-        arr.push(byteArray[i]);
-    }
-
-    return arr;
-}
-
-function toHexString(byteArray) {
-    var arr = [];
-    for (var i = 0; i < byteArray.length; ++i) {
-        arr.push(('0' + (byteArray[i] & 0xFF).toString(16)).slice(-2));
-    }
-    return arr.join('');
+    
+    return water_tension;
 }
