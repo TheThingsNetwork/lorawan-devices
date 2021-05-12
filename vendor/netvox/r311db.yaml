@@ -1,0 +1,66 @@
+name: Wireless Vibration Sensor, Spring Type
+description: When the vibration sensor moves or vibrates, the R311DB can detect vibrations or moving signals and transmit the detected data to other devices through the wireless network.
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r311db-codec
+      AS923:
+        id: profile-as923
+        codec: r311db-codec
+      US902-928:
+        id: profile-us915
+        codec: r311db-codec
+      AU915-928:
+        id: profile-au915
+        codec: r311db-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r311db-codec
+      IN865-867:
+        id: profile-in865
+        codec: r311db-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r311db-codec
+
+dimensions:
+  width: 57
+  length: 35
+  height: 15.2
+
+weight: 45
+
+battery:
+  replaceable: true
+  type: 2 x  3.0V CR2450 button battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R311DB
+dataSheetURL: http://www.netvox.com.tw/um/R311DB/R311DBdatasheet.pdf
+
+photos:
+  main: photos/r311db.jpg
