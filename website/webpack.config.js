@@ -18,9 +18,14 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const { CONTEXT = '.' } = process.env
 const context = path.resolve(CONTEXT)
 
+const BASE_URL = process.env.BASE_URL ? process.env.BASE_URL : "http://localhost:9100"
+const BASE_PATH = process.env.BASE_PATH ? process.env.BASE_PATH : "/device-repository"
+
 module.exports = env => {
     const isProduction = Boolean(env && env.production)
     console.log('Production: ', isProduction)
+    console.log(BASE_URL)
+    console.log(BASE_PATH)
 
     return {
         mode: isProduction ? 'production' : 'development',
@@ -33,7 +38,7 @@ module.exports = env => {
         output: {
             path: path.resolve(__dirname, 'static/'),
             filename: `js/${isProduction ? '[hash].' : ''}[name].js`,
-            publicPath: '/device-repository/'
+            publicPath: BASE_PATH
         },
         resolve: {
           alias: {
@@ -47,7 +52,7 @@ module.exports = env => {
             }),
             new WebpackManifestPlugin({
                 fileName: '../data/manifest.json',
-                publicPath: `${isProduction ? '/' : 'http://localhost:9100/device-repository/'}`,
+                publicPath: `${isProduction ? '/' : BASE_URL + BASE_PATH}`,
                 writeToFileEmit: true
             })
         ],
@@ -111,7 +116,7 @@ module.exports = env => {
                       loader: 'file-loader',
                       options: {
                         name: `assets/[name]${isProduction ? '.[contenthash]' : ''}.[ext]`,
-                        publicPath: `${isProduction ? '/' : 'http://localhost:9100/device-repository/'}`
+                        publicPath: `${isProduction ? BASE_PATH : BASE_URL + BASE_PATH}`
                       },
                     },
                   ],
