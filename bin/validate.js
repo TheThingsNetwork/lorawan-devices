@@ -168,6 +168,8 @@ if (!validateVendors(vendors)) {
 }
 console.log(`vendor index: valid`);
 
+const vendorProfiles = {};
+
 vendors.vendors.forEach((v) => {
   const key = v.id;
   const folder = `./vendor/${v.id}`;
@@ -195,7 +197,6 @@ vendors.vendors.forEach((v) => {
     }
     console.log(`${v.id}: valid index`);
 
-    const profiles = {};
     const codecs = {};
 
     vendor.endDevices.forEach((d) => {
@@ -212,19 +213,23 @@ vendors.vendors.forEach((v) => {
         Object.keys(version.profiles).forEach((region) => {
           const regionProfile = version.profiles[region];
           const key = `${v.id}: ${d}: ${region}`;
-          if (!profiles[regionProfile.id]) {
-            const profile = yaml.load(fs.readFileSync(`${folder}/${regionProfile.id}.yaml`));
-            if (!validateEndDeviceProfile(profile)) {
-              console.error(
-                `${key}: profile ${regionProfile.id} invalid: ${formatValidationErrors(
-                  validateEndDeviceProfile.errors
-                )}`
-              );
-              process.exit(1);
+          const vendorID = regionProfile.vendorID ?? v.id;
+          if (!vendorProfiles[vendorID]) {
+            vendorProfiles[vendorID] = {};
+            if (!vendorProfiles[vendorID][regionProfile.id]) {
+              const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
+              if (!validateEndDeviceProfile(profile)) {
+                console.error(
+                  `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
+                    validateEndDeviceProfile.errors
+                  )}`
+                );
+                process.exit(1);
+              }
             }
-            profiles[regionProfile.id] = true;
+            vendorProfiles[vendorID][regionProfile.id] = true;
           }
-          console.log(`${key}: profile ${regionProfile.id} valid`);
+          console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
 
           if (regionProfile.codec && !codecs[regionProfile.codec]) {
             const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
