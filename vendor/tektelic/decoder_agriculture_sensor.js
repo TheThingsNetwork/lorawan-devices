@@ -1,4 +1,4 @@
-/* 
+/*
  * Decoder function for The Things Network to unpack the payload of TEKTELIC's Agriculture Sensors
  * More info on the sensors/buy online:
  * https://connectedthings.store/gb/tektelic-agriculture-soil-moisture-sensor-surface-version.html
@@ -10,14 +10,14 @@
 function decodeUplink(input) {
   var port = input.fPort;
   var bytes = input.bytes;
-  
+
   var moisture_calibration = 1367000; // This is the "dry" value measured by the sensor before putting in the ground, in Hz
 
   var params = {};
-  
+
   if(10 == port) {  // Sensor readings are on port 10
     for (var i = 0; i < bytes.length; i++) {
-    
+
         // battery voltage
         if(0x00 === bytes[i] && 0xFF === bytes[i+1]) {
             params.battery_voltage = 0.01 * ((bytes[i+2] << 8) | bytes[i+3]);
@@ -25,15 +25,15 @@ function decodeUplink(input) {
         }
 
         // soil moisture - built in probe version
-        if(0x01 === bytes[i] && 0x04 === bytes[i+1]) { 
+        if(0x01 === bytes[i] && 0x04 === bytes[i+1]) {
             var soil_moisture_raw = (bytes[i+2] << 8) | bytes[i+3];
             params.soil_moisture_raw = soil_moisture_raw;
-            
+
             // Calculate Gravimetric Water Content
             soil_moisture_raw *= 1000; // in Hz
             var moisture_diff = Math.abs(soil_moisture_raw - moisture_calibration);
             params.soil_gwc = 0;
-            
+
             if(moisture_diff <= 3000) {
                 params.soil_gwc = 0;
             } else if(moisture_diff <= 6000) {
@@ -64,7 +64,7 @@ function decodeUplink(input) {
                 params.soil_gwc = 2;
             }
             i = i+3;
-            params.soil_gwc = params.soil_gwc.toFixed(4);
+            params.soil_gwc = params.soil_gwc;
         }
 
         // soil temp - built in probe version
@@ -78,46 +78,46 @@ function decodeUplink(input) {
             params.soil_temp = -32.46 * Math.log(soil_temp_raw) + 236.36
 
             // Fix the floating point
-            params.soil_temp = params.soil_temp.toFixed(4);
+            params.soil_temp = params.soil_temp;
             i = i+3;
         }
-        
+
         // watermark reading 1 - external probe version
         if(0x05 === bytes[i] && 0x04 === bytes[i+1]) {
             params.soil_moisture_raw1 = (bytes[i+2] << 8) | bytes[i+3]; //hz
             params.soil_water_tension1 = convert_watermark(params.soil_moisture_raw1);
             i = i+3;
         }
-        
+
         // watermark reading 2 - external probe version
         if(0x06 === bytes[i] && 0x04 === bytes[i+1]) {
             params.soil_moisture_raw2 = (bytes[i+2] << 8) | bytes[i+3]; //hz
             params.soil_water_tension2 = convert_watermark(params.soil_moisture_raw2);
             i = i+3;
         }
-        
+
         // ambient light, in lux
         if(0x09 === bytes[i] && 0x65 === bytes[i+1]) {
             params.ambient_light = (bytes[i+2] << 8) | bytes[i+3];
             i = i+3;
         }
-        
+
         // ambient temperature, in degrees C
         if(0x0B === bytes[i] && 0x67 === bytes[i+1]) {
             // Sign-extend to 32 bits to support negative values, by shifting 24 bits
             // (16 too far) to the left, followed by a sign-propagating right shift:
             params.ambient_temp = (bytes[i+2]<<24>>16 | bytes[i+3]) / 10;
-            params.ambient_temp = params.ambient_temp.toFixed(4);
+            params.ambient_temp = params.ambient_temp;
             i = i+3;
         }
 
         // humidity
         if(0x0B === bytes[i] && 0x68 === bytes[i+1]) {
             params.ambient_humidity = 0.5 * bytes[i+2];
-            params.ambient_humidity = params.ambient_humidity.toFixed(4)
+            params.ambient_humidity = params.ambient_humidity
             i = i+2;
         }
-        
+
     }
   }
 
@@ -129,7 +129,7 @@ function decodeUplink(input) {
 
 function convert_watermark(hz) {
     var water_tension;
-    
+
     if(hz < 293) {
         water_tension = 200;
     } else if(hz <= 485) {
@@ -149,6 +149,6 @@ function convert_watermark(hz) {
     } else if(hz > 6430) {
         water_tension = 0;
     }
-    
+
     return water_tension;
 }
