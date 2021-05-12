@@ -15,7 +15,9 @@
 SHELL = /bin/bash
 
 HUGO ?= hugo --minify
-HUGO_BASE_URL ?= https://mjamescompton.github.io/lorawan-devices/
+BASE_PATH ?= device-repository/
+BASE_URL ?= http://thethingsnetwork.org/
+FULL_URL = $(BASE_URL)$(BASE_PATH)
 
 .PHONY: clean
 clean:
@@ -33,8 +35,8 @@ go.build: clean
 
 .PHONY: hugo.build.public
 hugo.build.public:
-	$(HUGO) --baseURL $(HUGO_BASE_URL)
+	$(HUGO) --baseURL $(FULL_URL)
 
 .PHONY: run
 run:
-	hugo server -b localhost/device-repository/
+	hugo server -b localhost/$(BASE_PATH)
