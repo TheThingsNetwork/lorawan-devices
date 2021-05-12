@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+{{ partial "head.html" . }}
+<body class="theme-ttn">
+{{ partial "header.html" . }}
+<section class="content section">
+    {{- block "main" . }}{{- end }}
+</section>
+{{ partial "footer.html" . }}
+<script src="{{- (index .Site.Data.manifest `base.js`) | relURL -}}"></script>
+</body>
+</html>

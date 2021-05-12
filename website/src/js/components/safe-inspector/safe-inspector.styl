@@ -1,0 +1,151 @@
+// Copyright © 2019 The Things Network Foundation, The Things Industries B.V.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+$height-small = 2rem
+
+.container
+  border-input()
+  horizontalize()
+  border-radius: $br.s
+  height: $default-input-height
+  justify-content: space-between
+  position: relative
+  box-sizing: border-box
+  line-height: @height - .1rem
+
+  &-small
+    height: $height-small
+    line-height: @height - .1rem
+    .buttons button
+      padding: 0 .4rem
+    .buttons > span
+      line-height: $height-small
+    .data
+      font-size: $fs.s
+
+.buttons
+  flex: none
+  display: flex
+  min-width: 0
+
+  button
+    reset-button()
+    transition-color()
+    height: 100%
+    color: $c-icon-fill
+    flex: none
+    padding: 0 .65rem
+
+    &:not(.button-swap)
+      border-input('left')
+
+    &:not(:disabled)
+      &:hover
+        color: black
+
+      &:active
+        background-color: $c-backdrop
+
+  & > span // Byte-order.
+    nudge('up', 2px)
+    font-size: $fs.s
+    line-height: $height
+    color: $tc-subtle-gray
+    padding-left: $cs.xs
+
+.button-transform
+  border-input('right', 3px)
+
+  & + button
+    border: 0
+
+.button-icon
+  display: flex
+
+  &-copied
+    color: $c-success
+
+.button-copy
+  position: relative
+
+.data
+  box-sizing: border-box
+  font-family: 'IBM Plex Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace
+  display: inline
+  background-color: white
+  align-items: center
+  height: 100%
+  padding: 0 $cs.xs
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  border-radius: $br.s
+
+  &:hover
+    background-color: white // Needs to be here for Safari to work.
+
+  span
+    margin-right: .3rem
+
+.data-truncated:not(.data-hidden):hover
+  border-input()
+  z-index: $zi.slight
+  min-width: calc(100% + 2px)
+  position: absolute
+  left: -1px
+  top: -1px
+  height: calc(100% + 2px)
+
+.data-hidden
+  text-overflow: clip
+
+.copy-confirm
+  border-input()
+  z-index: $zi.slight
+  border-radius: $br.s
+  position: absolute
+  background-color: white
+  color: $tc-deep-gray
+  top: -3rem
+  left: -50%
+  font-size: $fs.s
+  padding: $cs.xxs
+  display: hidden
+  animation: animation-frames ease 2s
+  animation-iteration-count: 1
+  transform-origin: 50% 50%
+  animation-fill-mode: forwards
+
+@keyframes animation-frames
+  0%
+    opacity: 0
+    transform:  translate(0px, 25px) scale(.5)
+    animation-timing-function: ease-out
+
+  5%
+    opacity: 1
+    transform:  translate(0, -1px) scale(1.05)
+    animation-timing-function: ease-out
+
+  6%
+    opacity: 1
+    transform:  translate(0, 0) scale(1)
+
+  94%
+    opacity: 1
+    transform:  translate(0, 0) scale(1)
+
+  100%
+    opacity: 0
+    transform:  translate(0, -3px) scale(1)

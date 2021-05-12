@@ -16,6 +16,12 @@ To help you add devices to this repository, you can follow along in this example
 
 ## Prerequisites
 
+- Linux
+- macOS
+- Windows Subsystem for Linux
+
+[Install Microsoft WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Upgrade WSL Go version](https://sal.as/post/install-golan-on-wsl/)
+
 - Node.js version 14.x
 - npm version 6.x
 - Go version 1.15.x
@@ -105,12 +111,21 @@ vendors:
     id: company-x
     # Vendor company name
     name: Company X
+    # Vendor company description (optional)
+    description:
     # LoRa Alliance issued Vendor ID
     vendorID: 10
     # Vendor website (optional)
     website: https://www.company-x.com
     # Vendor logo filename (optional)
     logo: logo.svg
+    # Vendor social media links and handles (optional)
+    social:
+      linkedin: https://www.linkedin.com/company/company-x/ # uri
+      facebook: https://www.facebook.com/company-x # uri
+      twitter: company-x  # handle
+      instagram: company-x # handle
+      github: company-x # handle
     # Organization Unique Identifiers (OUIs, six digit hex, optional): http://standards-oui.ieee.org/oui.txt
     # The OUI is typically the first 3 bytes of the DevEUI
     ouis:
@@ -380,7 +395,6 @@ function encodeDownlink(input) {
   }
 }
 ```
-
 ## Legal
 
 The API is distributed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See `LICENSE` for more information.
