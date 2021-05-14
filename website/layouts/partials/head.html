@@ -1,5 +1,3 @@
-
-
 <head>
   <meta charset="utf-8">
   <meta name="description" content="">
@@ -53,8 +51,8 @@
 
   <link rel="stylesheet" href="{{- (index .Site.Data.manifest `style.css`) | relURL -}}">
 
-  {{ if eq .Page.RelPermalink "/device-repository/devices/"  }}
-    <meta http-equiv="refresh" content="0; url=/device-repository/"/>
+  {{ if eq .Permalink (print .Site.BaseURL "devices/") }}
+    <meta http-equiv="refresh" content="0; url={{ .Site.BaseURL }}"/>
   {{end}}
 
 </head>
