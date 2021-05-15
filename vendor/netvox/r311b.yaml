@@ -1,0 +1,69 @@
+name: Wireless Light Sensor
+description: The R311B device has a built-in Wireless Light Sensor that can be used for ambient light intensity detection.
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r311b-codec
+      AS923:
+        id: profile-as923
+        codec: r311b-codec
+      US902-928:
+        id: profile-us915
+        codec: r311b-codec
+      AU915-928:
+        id: profile-au915
+        codec: r311b-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r311b-codec
+      IN865-867:
+        id: profile-in865
+        codec: r311b-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r311b-codec
+
+sensors:
+  - light
+
+dimensions:
+  width: 35
+  length: 57
+  height: 15.2
+
+weight: 45
+
+battery:
+  replaceable: true
+  type: 2 x 3.0V CR2450 button batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R311B
+dataSheetURL: http://www.netvox.com.tw/um/R311B/R311Bdatasheet.pdf
+
+photos:
+  main: photos/r311b.jpg
