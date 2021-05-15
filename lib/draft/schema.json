@@ -16,19 +16,25 @@
     "logo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(png|svg)$" }
+        {
+          "type": "string",
+          "pattern": "\\.(png|svg)$"
+        }
       ]
     },
     "photo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(png|jpg|jpeg)$" }
+        {
+          "type": "string",
+          "pattern": "\\.(png|jpg|jpeg)$"
+        }
       ]
     },
     "video": {
       "type": "string",
       "format": "uri",
-      "pattern": "^(?:https?:\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\\?v=|\\.be\\/)(?:[\\w\\-\\_]*)(?:&(amp;)?[\\w\\?=]*)?)$|^(?:https?:\\/\\/(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/([^\\/]*)\\/videos\\/|)(?:\\d+)(?:|\\/\\?))$"
+      "pattern": "^(?:https?:\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\\?v=|\\.be\\/)(?:[\\w\\-_]*)(?:&(amp;)?[\\w\\?=]*)?)$|^(?:https?:\\/\\/(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/([^\\/]*)\\/videos\\/|)(?:\\d+)(?:|\\/\\?))$"
     },
     "region": {
       "enum": [
@@ -55,6 +61,35 @@
         "name": {
           "type": "string",
           "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "social": {
+          "type": "object",
+          "properties": {
+            "linkedin": {
+              "type": "string",
+              "format": "uri"
+            },
+            "facebook": {
+              "type": "string",
+              "format": "uri"
+            },
+            "twitter": {
+              "type": "string",
+              "pattern": "^(\\w){1,15}$"
+            },
+            "instagram": {
+              "type": "string",
+              "pattern": "^(\\w(?:(?:\\w|(?:\\.(?!\\.))){0,28}(?:\\w))?)$"
+            },
+            "github": {
+              "type": "string",
+              "pattern": "^[A-Za-z\\d](?:[A-Za-z\\d]|-(?=[A-Za-z\\d])){0,38}$"
+            }
+          }
         },
         "pen": {
           "description": "Private Enterprise Number (PEN) assigned by IANA (see https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers)",
@@ -137,7 +172,10 @@
         "fileName": {
           "allOf": [
             { "$ref": "#/definitions/localFile" },
-            { "pattern": "\\.js$" }
+            {
+              "type": "string",
+              "pattern": "\\.js$"
+            }
           ]
         },
         "examples": {
@@ -251,10 +289,17 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
+              "type": "object",
               "properties": {
                 "bytes": { "$ref": "#/definitions/frmPayload" },
                 "fPort": {
-                  "allOf": [{ "$ref": "#/definitions/fPort" }, { "minimum": 1 }]
+                  "allOf": [
+                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  ]
                 }
               },
               "required": ["bytes", "fPort"]
@@ -267,6 +312,7 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
+              "type": "object",
               "properties": {
                 "data": {
                   "type": "object"
@@ -275,13 +321,16 @@
             },
             {
               "if": {
+                "type": "object",
                 "properties": {
                   "errors": {
+                    "type": "array",
                     "maxItems": 0
                   }
                 }
               },
               "then": {
+                "type": "object",
                 "required": ["data"]
               }
             }
@@ -293,6 +342,7 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
+              "type": "object",
               "properties": {
                 "data": {
                   "type": "object"
@@ -308,22 +358,32 @@
               "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
+              "type": "object",
               "properties": {
                 "bytes": { "$ref": "#/definitions/frmPayload" },
                 "fPort": {
-                  "allOf": [{ "$ref": "#/definitions/fPort" }, { "minimum": 1 }]
+                  "allOf": [
+                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  ]
                 }
               }
             },
             {
               "if": {
+                "type": "object",
                 "properties": {
                   "errors": {
+                    "type": "array",
                     "maxItems": 0
                   }
                 }
               },
               "then": {
+                "type": "object",
                 "required": ["bytes"]
               }
             }
@@ -335,9 +395,12 @@
           "allOf": [
             { "$ref": "#/definitions/script" },
             {
+              "type": "object",
               "properties": {
                 "examples": {
+                  "type": "array",
                   "items": {
+                    "type": "object",
                     "properties": {
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
@@ -356,9 +419,12 @@
           "allOf": [
             { "$ref": "#/definitions/script" },
             {
+              "type": "object",
               "properties": {
                 "examples": {
+                  "type": "array",
                   "items": {
+                    "type": "object",
                     "properties": {
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeInput"
@@ -377,9 +443,12 @@
           "allOf": [
             { "$ref": "#/definitions/script" },
             {
+              "type": "object",
               "properties": {
                 "examples": {
+                  "type": "array",
                   "items": {
+                    "type": "object",
                     "properties": {
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
@@ -778,9 +847,16 @@
               },
               "hardwareVersions": {
                 "type": "array",
-                "item": {
+                "items": {
                   "type": "string"
                 }
+              },
+              "features": {
+                "type": "array",
+                "items": {
+                  "enum": ["remote rejoin", "transmission interval"]
+                },
+                "uniqueItems": true
               }
             },
             "required": ["version", "profiles"]
@@ -832,6 +908,7 @@
               "no",
               "no2",
               "o3",
+              "optical meter",
               "particulate matter",
               "ph",
               "pir",
@@ -847,6 +924,7 @@
               "radar",
               "rainfall",
               "rssi",
+              "smart valve",
               "snr",
               "so2",
               "solar radiation",
@@ -876,6 +954,13 @@
           "items": {
             "enum": ["ble", "nfc", "wifi", "cellular"]
           }
+        },
+        "bridgeInterfaces": {
+          "type": "array",
+          "items": {
+            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+          },
+          "uniqueItems": true
         },
         "dimensions": {
           "type": "object",
@@ -972,8 +1057,22 @@
           "minItems": 1,
           "uniqueItems": true
         },
+        "keyProgramming": {
+          "type": "array",
+          "items": {
+            "enum": ["bluetooth", "nfc", "wifi", "serial", "firmware"]
+          },
+          "uniqueItems": true
+        },
         "keySecurity": {
           "enum": ["none", "read protected", "secure element"]
+        },
+        "firmwareProgramming": {
+          "type": "array",
+          "items": {
+            "enum": ["serial", "fuota lorawan", "fuota other"]
+          },
+          "uniqueItems": true
         },
         "productURL": {
           "type": "string",
@@ -1020,6 +1119,20 @@
                 "type": "string",
                 "format": "uri"
               }
+            }
+          }
+        },
+        "msrp": {
+          "title": "MSRP",
+          "description": "Manufacturer suggested retail price",
+          "type": "object",
+          "propertyNames": {
+            "enum": ["AUD", "CAD", "CHF", "EUR", "GPB", "JPY", "USD"]
+          },
+          "patternProperties": {
+            "": {
+              "type": "number",
+              "minimum": 0
             }
           }
         },

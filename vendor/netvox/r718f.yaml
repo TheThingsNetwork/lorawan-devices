@@ -1,0 +1,66 @@
+name: Wireless Reed Switch Open/Close Detection Sensor
+description: R718F utilizes a reed switch to detect whether two objects are separated or not. An example of R718F’s application is to detect the state of a door or window for security purposes.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718f-codec
+      AS923:
+        id: profile-as923
+        codec: r718f-codec
+      US902-928:
+        id: profile-us915
+        codec: r718f-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718f-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718f-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718f-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718f-codec
+
+dimensions:
+  width: 65
+  length: 112
+  height: 32
+
+weight: 141
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718F
+dataSheetURL: http://www.netvox.com.tw/um/R718F/R718Fdatasheet.pdf
+
+photos:
+  main: photos/r718f.jpg

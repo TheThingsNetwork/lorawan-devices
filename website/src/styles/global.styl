@@ -1,0 +1,62 @@
+// Copyright © 2021 The Things Network Foundation, The Things Industries B.V.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+body
+  background: var(--c-background-03)
+  color: var(--c-text-03)
+  margin: 0
+
+html
+  box-sizing: border-box
+
+*, *:after, *:before
+  box-sizing: inherit
+
+h1
+  color: var(--c-text-02)
+
+h2, h3, h4, h5
+  color: var(--c-text-01)
+  font-family: $font-family-header
+
+a
+  color: var(--c-interactive-01)
+
+  &:hover
+    color: var(--c-interactive-02)
+
+.btn
+  border: 0
+  border-radius: .3rem
+  cursor: pointer
+  display: block
+  font-family: 'Inter', 'Times New Roman'
+  font-size: var(--fs-m)
+  font-weight: normal
+  margin: 0 auto
+  opacity: 1
+  padding: .75rem 1rem
+  text-decoration: none
+  text-transform: none
+  transition: background-color .2s
+
+  &.primary
+    background-color: var(--c-interactive-03)
+    color: var(--c-interactive-05)
+
+    &:hover
+      background-color: var(--c-interactive-02)
+
+.content
+  margin: var(--cs-xl3) auto
+  max-width: var(--bp-l)

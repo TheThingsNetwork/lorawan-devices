@@ -87,7 +87,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: loramodule-e5.jpg
+  main: loramodule-e5.png
   other:
     - loramodule-e5-package.jpg
 
