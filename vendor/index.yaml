@@ -1662,3 +1662,9 @@ vendors:
     name: Moire Labs
     website: http://moirelabs.com/
     logo: moirelabs_logo.png
+
+  - id: dingtek
+    name: Dingtek
+    website: http://dingtek.com/
+    logo: dingtek_logo.png
+
