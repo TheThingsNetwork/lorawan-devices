@@ -165,7 +165,7 @@ a:hover {
 .content {
   margin: var(--cs-xl3) auto;
   max-width: var(--bp-l);
-  padding: 0 var(--cs-l);
+  padding: 0 var(--ls-xs) var(--ls-xs);
 }
 .device-single {
   text-align: center;
@@ -286,4 +286,4 @@ a:hover {
 }
 
 
-/*# sourceMappingURL=bcb91798e0ef43f8debb.style.css.map*/
+/*# sourceMappingURL=755613e493b408ef03a1.style.css.map*/
