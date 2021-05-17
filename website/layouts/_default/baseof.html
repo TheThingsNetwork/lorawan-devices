@@ -5,8 +5,8 @@
 {{ partial "header.html" . }}
 <section class="content section">
     {{- block "main" . }}{{- end }}
+    {{ partial "footer.html" . }}
 </section>
-{{ partial "footer.html" . }}
 <script src="{{- (index .Site.Data.manifest `base.js`) | relURL -}}"></script>
 </body>
 </html>
