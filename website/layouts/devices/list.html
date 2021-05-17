@@ -1,6 +1,6 @@
 {{ define "main" }}
   <main>
     {{ partial "banner.html" (dict "title" .Title "description" .Description) }}
-    {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
+    {{ partial "device-list.html" (dict "devices" ( where site.RegularPages "Section" "devices" ) ) }}
   </main>
 {{ end }}
