@@ -17,6 +17,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const { CONTEXT = '.' } = process.env
 const context = path.resolve(CONTEXT)
+const CopyPlugin = require("copy-webpack-plugin");
 
 const BASE_URL = process.env.BASE_URL ? process.env.BASE_URL : "http://localhost:9100"
 const BASE_PATH = process.env.BASE_PATH ? process.env.BASE_PATH : "/device-repository"
@@ -54,7 +55,13 @@ module.exports = env => {
                 fileName: '../data/manifest.json',
                 publicPath: `${isProduction ? '/' : BASE_URL + BASE_PATH}`,
                 writeToFileEmit: true
-            })
+            }),
+            new CopyPlugin([
+              {
+                from: "**/*",
+                context: path.resolve(__dirname, "src", "assets/static"),
+                to: "assets/" }
+            ])
         ],
         devServer: {
             contentBase: path.join(__dirname, 'src'),
