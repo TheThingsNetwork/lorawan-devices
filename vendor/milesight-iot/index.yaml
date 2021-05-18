@@ -8,3 +8,5 @@ endDevices:
   - em500-udl
   - em300-sld
   - em300-zld
+  - em500-smtc
+  - em500-smt
