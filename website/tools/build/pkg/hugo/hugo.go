@@ -108,6 +108,10 @@ func CreateContentSingleDevice(dir config.Dir, drs devicerepository.Store) error
 
 	for _, vendor := range drs.Vendors {
 
+		if len(vendor.EndDevices) < 1 {
+			continue
+		}
+
 		err := createContentDevicesVendor(dir, vendor)
 		if err != nil {
 			return err
