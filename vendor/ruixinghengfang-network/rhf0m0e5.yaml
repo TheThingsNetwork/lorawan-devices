@@ -1,10 +1,11 @@
 name: RHF0M0E5
-description: RHF0M0E5 is a low-cost, ultra-low power, ultra-small LoRaWAN® module designed by Ruixing Hengfang Network (Shenzhen) Co., Ltd. The module adopts ST system on chip STM32WLE5JC, intergrated with high-performance LoRa® SX126X IP and ultra-low power consumption MCU. The module's target applications are wireless sensor networks and other IoT devices, especially where battery power requires low power and long distances.
+description:
+  RHF0M0E5 is a low-cost, ultra-low power, ultra-small LoRaWAN® module designed by Ruixing Hengfang Network (Shenzhen) Co., Ltd. The module adopts ST system on chip STM32WLE5JC, intergrated with high-performance LoRa® SX126X IP and ultra-low power consumption MCU. The module's target applications are wireless sensor networks and other IoT devices, especially where battery power requires low power and long distances.
 
   # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:
-  #- version: ''
-    #numeric: 1
+#- version: ''
+#numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -13,7 +14,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     #hardwareVersions:
-     # - ''
+    # - ''
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -58,7 +59,6 @@ firmwareVersions:
         id: rhf0m0e5-profile-in865
         #lorawanCertified: true
         #codec:
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -116,15 +116,15 @@ operatingConditions:
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 #keyProvisioning:
-  #- custom
-  #- join server
+#- custom
+#- join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 #keyProgramming:
- # - serial
- # - firmware
+# - serial
+# - firmware
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -134,8 +134,8 @@ operatingConditions:
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 #firmwareProgramming:
-  #- serial
-  #- fuota lorawan
+#- serial
+#- fuota lorawan
 
 # Product and data sheet URLs (optional)
 productURL: http://risinghf.com/product/detail/24
@@ -143,18 +143,18 @@ dataSheetURL: http://risinghf.com/product/detail/24
 
 # Commercial information
 #resellerURLs:
-  #- name: 'Reseller 1'
-    #region:
-      #- European Union
-    #url: https://example.org/reseller1
-  #- name: 'Reseller 2'
-    #region:
-      #- United States
-      #- Canada
-    #url: https://example.org/reseller2
+#- name: 'Reseller 1'
+#region:
+#- European Union
+#url: https://example.org/reseller1
+#- name: 'Reseller 2'
+#region:
+#- United States
+#- Canada
+#url: https://example.org/reseller2
 #msrp:
-  #EUR: 90
-  #USD: 120
+#EUR: 90
+#USD: 120
 
 # Photos
 photos:
@@ -162,7 +162,7 @@ photos:
 
 # Youtube or Vimeo Video (optional)
 #videos:
-  #main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+#main: https://www.youtube.com/watch?v=JHzxcD2oEn8
 
 # Regulatory compliances (optional)
 compliances:

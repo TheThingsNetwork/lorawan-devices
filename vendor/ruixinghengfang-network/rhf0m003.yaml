@@ -1,10 +1,11 @@
 name: RHF0M003
-description: RHF0M003 LoRaWAN Module is a low cost, low power and  ultra-small size module, embedded with Semtech’s LoRa  propriety chip SX127x and ST’s ultra-low power MCU  STM32L07x.
+description:
+  RHF0M003 LoRaWAN Module is a low cost, low power and  ultra-small size module, embedded with Semtech’s LoRa  propriety chip SX127x and ST’s ultra-low power MCU  STM32L07x.
 
   # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:
-  #- version: ''
-    #numeric: 1
+#- version: ''
+#numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -13,7 +14,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     #hardwareVersions:
-     # - ''
+    # - ''
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -62,7 +63,6 @@ firmwareVersions:
         id: rhf0m003-profile-in865
         #lorawanCertified: true
         #codec:
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -119,15 +119,15 @@ operatingConditions:
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 #keyProvisioning:
-  #- custom
-  #- join server
+#- custom
+#- join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 #keyProgramming:
- # - serial
- # - firmware
+# - serial
+# - firmware
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -137,8 +137,8 @@ operatingConditions:
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 #firmwareProgramming:
-  #- serial
-  #- fuota lorawan
+#- serial
+#- fuota lorawan
 
 # Product and data sheet URLs (optional)
 productURL: http://risinghf.com/product/detail/3
@@ -146,26 +146,25 @@ dataSheetURL: http://risinghf.com/product/detail/3
 
 # Commercial information
 #resellerURLs:
-  #- name: 'Reseller 1'
-    #region:
-      #- European Union
-    #url: https://example.org/reseller1
-  #- name: 'Reseller 2'
-    #region:
-      #- United States
-      #- Canada
-    #url: https://example.org/reseller2
+#- name: 'Reseller 1'
+#region:
+#- European Union
+#url: https://example.org/reseller1
+#- name: 'Reseller 2'
+#region:
+#- United States
+#- Canada
+#url: https://example.org/reseller2
 #msrp:
-  #EUR: 90
-  #USD: 120
+#EUR: 90
+#USD: 120
 
 # Photos
 photos:
   main: rhf0m003.png
-
 # Youtube or Vimeo Video (optional)
 #videos:
-  #main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+#main: https://www.youtube.com/watch?v=JHzxcD2oEn8
 
 # Regulatory compliances (optional)
 #compliances:

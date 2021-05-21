@@ -1,5 +1,6 @@
 name: RHF1S213
-description: LORAWAN Ultrasonic Intelligent Water Meter
+description:
+  LORAWAN Ultrasonic Intelligent Water Meter
 
   # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -82,9 +83,9 @@ firmwareVersions:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 #dimensions:
-  #width:
-  #length:
-  #height:
+#width:
+#length:
+#height:
 
 # Weight in grams (optional)
 #weight:
@@ -111,15 +112,15 @@ ipCode: IP68
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 #keyProvisioning:
-  #- custom
-  #- join server
+#- custom
+#- join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 #keyProgramming:
- # - serial
- # - firmware
+# - serial
+# - firmware
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -129,8 +130,8 @@ ipCode: IP68
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 #firmwareProgramming:
-  #- serial
-  #- fuota lorawan
+#- serial
+#- fuota lorawan
 
 # Product and data sheet URLs (optional)
 #productURL:
@@ -138,26 +139,25 @@ ipCode: IP68
 
 # Commercial information
 #resellerURLs:
-  #- name: 'Reseller 1'
-    #region:
-      #- European Union
-    #url: https://example.org/reseller1
-  #- name: 'Reseller 2'
-    #region:
-      #- United States
-      #- Canada
-    #url: https://example.org/reseller2
+#- name: 'Reseller 1'
+#region:
+#- European Union
+#url: https://example.org/reseller1
+#- name: 'Reseller 2'
+#region:
+#- United States
+#- Canada
+#url: https://example.org/reseller2
 #msrp:
-  #EUR: 90
-  #USD: 120
+#EUR: 90
+#USD: 120
 
 # Photos
 photos:
   main: rhf1s213.png
-
 # Youtube or Vimeo Video (optional)
 #videos:
-  #main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+#main: https://www.youtube.com/watch?v=JHzxcD2oEn8
 
 # Regulatory compliances (optional)
 #compliances:

@@ -1,10 +1,11 @@
 name: RHF1S052
-description: LORAWAN Intelligent Mechanical Water Meter
+description:
+  LORAWAN Intelligent Mechanical Water Meter
 
   # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:
-  #- version: 'v1.0'
-    #numeric: 1
+#- version: 'v1.0'
+#numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -13,7 +14,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     #hardwareVersions:
-      #- 'v1.0'
+    #- 'v1.0'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -123,15 +124,15 @@ ipCode: IP68
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 #keyProvisioning:
-  #- custom
-  #- join server
+#- custom
+#- join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 #keyProgramming:
- # - serial
- # - firmware
+# - serial
+# - firmware
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -141,8 +142,8 @@ ipCode: IP68
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 #firmwareProgramming:
-  #- serial
-  #- fuota lorawan
+#- serial
+#- fuota lorawan
 
 # Product and data sheet URLs (optional)
 productURL: https://www.elecomes.com/products/rhf1s052-wireless-lorawan-water-meter-with-valve-control?variant=36188643393696
@@ -150,26 +151,25 @@ dataSheetURL: https://www.elecomes.com/products/rhf1s052-wireless-lorawan-water-
 
 # Commercial information
 #resellerURLs:
-  #- name: 'Reseller 1'
-    #region:
-      #- European Union
-    #url: https://example.org/reseller1
-  #- name: 'Reseller 2'
-    #region:
-      #- United States
-      #- Canada
-    #url: https://example.org/reseller2
+#- name: 'Reseller 1'
+#region:
+#- European Union
+#url: https://example.org/reseller1
+#- name: 'Reseller 2'
+#region:
+#- United States
+#- Canada
+#url: https://example.org/reseller2
 #msrp:
-  #EUR: 90
-  #USD: 120
+#EUR: 90
+#USD: 120
 
 # Photos
 photos:
   main: rhf1s052.png
-
 # Youtube or Vimeo Video (optional)
 #videos:
-  #main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+#main: https://www.youtube.com/watch?v=JHzxcD2oEn8
 
 # Regulatory compliances (optional)
 #compliances:
