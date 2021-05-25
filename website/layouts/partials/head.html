@@ -45,10 +45,10 @@
     <meta name="twitter:image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
     <meta name="twitter:image:src" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
   {{ else }}
-    <meta itemprop="image" content="{{ .Site.BaseURL }}{{ .Site.Params.og_image }}" />
-    <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.og_image }}" />
-    <meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Site.Params.og_image }}" />
-    <meta name="twitter:image:src" content="{{ .Site.BaseURL }}{{ .Site.Params.og_image }}" />
+    <meta itemprop="image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+    <meta property="og:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+    <meta name="twitter:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+    <meta name="twitter:image:src" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
   {{ end }}
 
   <link rel="stylesheet" href="{{- (index .Site.Data.manifest `style.css`) | relURL -}}">
