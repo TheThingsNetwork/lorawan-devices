@@ -1906,7 +1906,6 @@ function stringifyBytes(bytes){
     return stringBytes
 }
 
-
-function Decoder(bytes, port) {
-    return decode(sensor, bytes, port, false);
+function decodeUplink(input){
+    return decode(sensor, input.bytes, input.fport, false);
 }
