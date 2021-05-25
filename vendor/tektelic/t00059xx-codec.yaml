@@ -7,10 +7,10 @@ uplinkDecoder:
         bytes: [0x01, 0x04, 0x05, 0x6E, 0x02, 0x02, 0x03, 0x5C, 0x09, 0x65, 0x0D, 0x57, 0x0B, 0x67, 0x00, 0xAD, 0x0B, 0x68, 0xA5]
       output:
         data:
-          ambient_humidity: 82.5
-          ambient_light: 3415
-          ambient_temp: 17.3
-          soil_gwc: 0.5
-          soil_moisture_raw: 1390
-          soil_temp: 17.029974645024424
-          soil_temp_raw: 860
+          ambient_temperature: 17.3
+          input1_frequency: 1390
+          input2_voltage: 860
+          light_intensity: 3415
+          port: "10"
+          raw: "[01, 04, 05, 6E, 02, 02, 03, 5C, 09, 65, 0D, 57, 0B, 67, 00, AD, 0B, 68, A5]"
+          relative_humidity: 82.5
