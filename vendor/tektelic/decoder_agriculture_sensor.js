@@ -1675,8 +1675,7 @@ function decode(parameters, bytes, port, flat){
     decodedData.port = port;
 
     if (!parameters.hasOwnProperty(port)) {
-        decodedData.error = "Wrong port: " + port;
-        return decodedData
+        return {errors: ["Wrong port: " + port]}
     }
 
     while (bytes.length > 0) {
@@ -1703,17 +1702,15 @@ function decode(parameters, bytes, port, flat){
         }
 
         if (!parameters[port].hasOwnProperty(header)) {
-            decodedData.error = "Couldn't find header " + header + " in decoder object." +
-                " Are you decoding the correct sensor?";
-            return decodedData;
+            return {errors: ["Couldn't find header " + header + " in decoder object." +
+            " Are you decoding the correct sensor?"]}
         }
 
         var properties = parameters[port][header];
 
         if (properties.length === 0) {
-            decodedData.error = "Something is wrong with the decoder object. Check " +
-                "port "+ port + ", header " + header + ""
-            return decodedData;
+            return {errors: ["Something is wrong with the decoder object. Check " +
+            "port "+ port + ", header " + header + ""]}
         }
 
         var i, j, p, bytesToConsume, valueArray
@@ -1872,7 +1869,7 @@ function decode(parameters, bytes, port, flat){
     decodedData["temperature2"] = temperature;
   }
 
-    return flat ? flattenObject(decodedData) : decodedData;
+    return {data: flat ? flattenObject(decodedData) : decodedData}
 }
 
 function freqToWatermark(value){
@@ -1907,5 +1904,5 @@ function stringifyBytes(bytes){
 }
 
 function decodeUplink(input){
-    return decode(sensor, input.bytes, input.fport, false);
+    return decode(sensor, input.bytes, input.fPort, false)
 }
