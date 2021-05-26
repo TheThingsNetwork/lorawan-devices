@@ -1,4 +1,4 @@
-baseURL = "https://thethingsnetwork.org/device-repository/"
+baseURL = "https://www.thethingsnetwork.org/device-repository"
 languageCode = "en-us"
 title = "LoRaWAN Device Repository"
 
