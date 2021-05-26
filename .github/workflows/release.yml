@@ -39,14 +39,14 @@ jobs:
         yarn install
         yarn build
       env:
-        BASE_URL: https://preview.thethingsnetwork.org
+        BASE_URL: https://www.thethingsnetwork.org
         BASE_PATH: /device-repository
     - name: Build Hugo
       run: |
         cd website/
         make hugo.build.public
       env:
-        BASE_URL: https://preview.thethingsnetwork.org
+        BASE_URL: https://www.thethingsnetwork.org
         BASE_PATH: /device-repository
     - name: Deploy Device Repository to Github pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
