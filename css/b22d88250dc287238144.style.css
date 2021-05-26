@@ -5,84 +5,84 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 300;
-  src: url(/lorawan-devices/assets/Inter-Light.ab15890d6f6bc7f32adfa1e1e354ee54.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-Light.3ee890bd00a8751acbc304ad01c3a9e0.woff) format('woff');
+  src: url(/device-repository/assets/Inter-Light.ab15890d6f6bc7f32adfa1e1e354ee54.woff2) format('woff2'), url(/device-repository/assets/Inter-Light.3ee890bd00a8751acbc304ad01c3a9e0.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: italic;
   font-weight: 300;
-  src: url(/lorawan-devices/assets/Inter-LightItalic.c0c6857dccbc0f214912cd2961ff1bb5.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-LightItalic.b199a1a00fd1632329258560ee270abc.woff) format('woff');
+  src: url(/device-repository/assets/Inter-LightItalic.c0c6857dccbc0f214912cd2961ff1bb5.woff2) format('woff2'), url(/device-repository/assets/Inter-LightItalic.b199a1a00fd1632329258560ee270abc.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  src: url(/lorawan-devices/assets/Inter-Regular.26a30a5f1103393aac705d28b5e3aeb9.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-Regular.e148c4a1158f8cee82857dd0dcac4374.woff) format('woff');
+  src: url(/device-repository/assets/Inter-Regular.26a30a5f1103393aac705d28b5e3aeb9.woff2) format('woff2'), url(/device-repository/assets/Inter-Regular.e148c4a1158f8cee82857dd0dcac4374.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: italic;
   font-weight: 400;
-  src: url(/lorawan-devices/assets/Inter-Italic.b89e547a163c899c5373685ddb527412.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-Italic.d3b5fcca5f6ef7f595b79b8b79bdbece.woff) format('woff');
+  src: url(/device-repository/assets/Inter-Italic.b89e547a163c899c5373685ddb527412.woff2) format('woff2'), url(/device-repository/assets/Inter-Italic.d3b5fcca5f6ef7f595b79b8b79bdbece.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  src: url(/lorawan-devices/assets/Inter-Medium.d0a58d956cf2f4cf078fe28595725588.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-Medium.eec0ea57721daa33c7a2e060d38e2309.woff) format('woff');
+  src: url(/device-repository/assets/Inter-Medium.d0a58d956cf2f4cf078fe28595725588.woff2) format('woff2'), url(/device-repository/assets/Inter-Medium.eec0ea57721daa33c7a2e060d38e2309.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: italic;
   font-weight: 500;
-  src: url(/lorawan-devices/assets/Inter-MediumItalic.dd1448de60455cc802923d8ccbd70fc4.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-MediumItalic.77fc6c7d62496a309e7e30a11bad436d.woff) format('woff');
+  src: url(/device-repository/assets/Inter-MediumItalic.dd1448de60455cc802923d8ccbd70fc4.woff2) format('woff2'), url(/device-repository/assets/Inter-MediumItalic.77fc6c7d62496a309e7e30a11bad436d.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  src: url(/lorawan-devices/assets/Inter-SemiBold.2244d96c512f88f08b88bb92987c2df7.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-SemiBold.d2e3b0e279b56b207eb66b5fa54b5cea.woff) format('woff');
+  src: url(/device-repository/assets/Inter-SemiBold.2244d96c512f88f08b88bb92987c2df7.woff2) format('woff2'), url(/device-repository/assets/Inter-SemiBold.d2e3b0e279b56b207eb66b5fa54b5cea.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: italic;
   font-weight: 600;
-  src: url(/lorawan-devices/assets/Inter-SemiBoldItalic.3c66f84b976b1899f3e33a587a48eb17.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-SemiBoldItalic.349f63a50b4a84257ec5612471ba3935.woff) format('woff');
+  src: url(/device-repository/assets/Inter-SemiBoldItalic.3c66f84b976b1899f3e33a587a48eb17.woff2) format('woff2'), url(/device-repository/assets/Inter-SemiBoldItalic.349f63a50b4a84257ec5612471ba3935.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  src: url(/lorawan-devices/assets/Inter-Bold.df60e0aa5fcfd8bb7d5494a66276916b.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-Bold.828b5dfc027ace162d5d154f5eed76b0.woff) format('woff');
+  src: url(/device-repository/assets/Inter-Bold.df60e0aa5fcfd8bb7d5494a66276916b.woff2) format('woff2'), url(/device-repository/assets/Inter-Bold.828b5dfc027ace162d5d154f5eed76b0.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: italic;
   font-weight: 700;
-  src: url(/lorawan-devices/assets/Inter-BoldItalic.303520752ccc1e68c9d0eee94205a504.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-BoldItalic.6b5fde51feaa4e40f3f13d4e51525a09.woff) format('woff');
+  src: url(/device-repository/assets/Inter-BoldItalic.303520752ccc1e68c9d0eee94205a504.woff2) format('woff2'), url(/device-repository/assets/Inter-BoldItalic.6b5fde51feaa4e40f3f13d4e51525a09.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 900;
-  src: url(/lorawan-devices/assets/Inter-Black.768169b1912340d378ac244d7579a54c.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-Black.7bb6234314ccc72c942a36382ea68682.woff) format('woff');
+  src: url(/device-repository/assets/Inter-Black.768169b1912340d378ac244d7579a54c.woff2) format('woff2'), url(/device-repository/assets/Inter-Black.7bb6234314ccc72c942a36382ea68682.woff) format('woff');
 }
 @font-face {
   font-display: swap;
   font-family: 'Inter';
   font-style: italic;
   font-weight: 900;
-  src: url(/lorawan-devices/assets/Inter-BlackItalic.71da97fdc035aa0d413825e0eb2f9b06.woff2) format('woff2'), url(/lorawan-devices/assets/Inter-BlackItalic.c769882ba068cfc6fe8078c4eae8fb8a.woff) format('woff');
+  src: url(/device-repository/assets/Inter-BlackItalic.71da97fdc035aa0d413825e0eb2f9b06.woff2) format('woff2'), url(/device-repository/assets/Inter-BlackItalic.c769882ba068cfc6fe8078c4eae8fb8a.woff) format('woff');
 }
 @font-face {
   font-display: swap;
@@ -96,15 +96,15 @@
   font-family: 'IBM Plex Mono';
   font-style: normal;
   font-weight: 400;
-  src: url(/lorawan-devices/assets/ibm-plex-mono-regular.76a907068d4a7fcdc92f5cf6b5534c77.eot);
-  src: local('IBM Plex Mono'), local('IBMPlexMono'), url(/lorawan-devices/assets/ibm-plex-mono-regular.76a907068d4a7fcdc92f5cf6b5534c77.eot?#iefix) format('embedded-opentype'), url(/lorawan-devices/assets/ibm-plex-mono-regular.c708fd4f02694c48059ff599eaab6a33.woff2) format('woff2'), url(/lorawan-devices/assets/ibm-plex-mono-regular.12ead37cece64fd8fab042e14a60e810.woff) format('woff'), url(/lorawan-devices/assets/ibm-plex-mono-regular.6adf3e3f773225c9af5cf6e23b632cfc.ttf) format('truetype'), url(/lorawan-devices/assets/ibm-plex-mono-regular.9bb235b1d6bf1f4a174f87b4dbae57da.svg#IBMPlexMono) format('svg');
+  src: url(/device-repository/assets/ibm-plex-mono-regular.76a907068d4a7fcdc92f5cf6b5534c77.eot);
+  src: local('IBM Plex Mono'), local('IBMPlexMono'), url(/device-repository/assets/ibm-plex-mono-regular.76a907068d4a7fcdc92f5cf6b5534c77.eot?#iefix) format('embedded-opentype'), url(/device-repository/assets/ibm-plex-mono-regular.c708fd4f02694c48059ff599eaab6a33.woff2) format('woff2'), url(/device-repository/assets/ibm-plex-mono-regular.12ead37cece64fd8fab042e14a60e810.woff) format('woff'), url(/device-repository/assets/ibm-plex-mono-regular.6adf3e3f773225c9af5cf6e23b632cfc.ttf) format('truetype'), url(/device-repository/assets/ibm-plex-mono-regular.9bb235b1d6bf1f4a174f87b4dbae57da.svg#IBMPlexMono) format('svg');
 }
 @font-face {
   font-display: block;
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(/lorawan-devices/assets/materialicons.3146fcbfa119727b25783b92e09b8ba5.woff2) format('woff2');
+  src: url(/device-repository/assets/materialicons.3146fcbfa119727b25783b92e09b8ba5.woff2) format('woff2');
 }
 .theme-ttn {
   --bs-01: 0 2px 15px 0 rgba(0,0,0,0.1);
@@ -286,4 +286,4 @@ a:hover {
 }
 
 
-/*# sourceMappingURL=deec08ff10d769dab215.style.css.map*/
+/*# sourceMappingURL=b22d88250dc287238144.style.css.map*/
