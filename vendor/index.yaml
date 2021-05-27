@@ -1667,3 +1667,11 @@ vendors:
     name: Dingtek
     website: http://dingtek.com/
     logo: dingtek_logo.png
+
+  - id: elster
+    name: Elster
+    website: https://www.elster.nl/nl/about_us.html
+
+  - id: innotas
+    name: innotas Elektronik
+    website: https://www.innotas-elektronik.de/en-gb
