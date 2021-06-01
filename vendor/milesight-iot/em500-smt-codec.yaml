@@ -1,0 +1,23 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em500-smt.js
+    - description: Soil Moisture Sensor (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x04, 0x68, 0x65]
+      output:
+        data:
+          battery: 92
+          temperature: 30.8
+          humidity: 50.5
+          co2: 1127
+          pressure: 1008.8
+    - description: Soil Moisture Sensor (example 2) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x04, 0x68, 0x71]
+      output:
+        data:
+          battery: 100
+          humidity: 56.5

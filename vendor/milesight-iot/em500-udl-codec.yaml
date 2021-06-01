@@ -2,3 +2,21 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: em500-udl.js
+  examples:
+    - description: Ultrasonic Distance Level Sensors (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x82, 0x1e, 0x00]
+      output:
+        data:
+          battery: 92
+          distance: 30
+  examples:
+    - description: Ultrasonic Distance Level Sensors (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x82, 0x1e, 0x00]
+      output:
+        data:
+          battery: 100
+          distance: 30
