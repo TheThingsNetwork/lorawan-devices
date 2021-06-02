@@ -18,7 +18,9 @@ firmwareVersions:
         id: t00059xx-915-profile
         lorawanCertified: true
         codec: t00059xx-codec
-
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
@@ -34,6 +36,16 @@ battery:
   replaceable: true
   type: ER26500
 
+dimensions:
+  width: 90
+  length: 47
+  height: 120
+weight: 233
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+ipCode: IP67
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
