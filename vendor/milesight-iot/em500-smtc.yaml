@@ -41,11 +41,11 @@ firmwareVersions:
         lorawanCertified: true
         codec: em500-smtc-codec
 
-sensors:
-  - battery
-  - temperature
-  - moisture
-  - conductivity
+#sensors:
+#  - battery
+#  - temperature
+#  - moisture
+#  - conductivity
 
 dimensions:
   width: 69.5

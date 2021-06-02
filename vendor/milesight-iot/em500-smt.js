@@ -27,27 +27,10 @@ function Decoder(bytes, port) {
             decoded.battery = bytes[i];
             i += 1;
         }
-        // TEMPERATURE
-        else if (channel_id === 0x03 && channel_type === 0x67) {
-            // ℃
-            decoded.temperature = readInt16LE(bytes.slice(i, i + 2)) / 10;
-            i += 2;
-
-            // ℉
-            // decoded.temperature = readInt16LE(bytes.slice(i, i + 2)) / 10 * 1.8 + 32;
-            // i +=2;
-        }
         // HUMIDITY
         else if (channel_id === 0x04 && channel_type === 0x68) {
             decoded.humidity = bytes[i] / 2;
             i += 1;
-        }
-        // EC
-        else if (channel_id === 0x05 && channel_type === 0x7F) {
-            decoded.ec = readUInt16LE(bytes.slice(i, i + 2));
-            i += 2;
-        } else {
-            break;
         }
     }
 
