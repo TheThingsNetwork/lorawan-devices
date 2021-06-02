@@ -28,4 +28,10 @@ replace github.com/onsi/gomega => github.com/onsi/gomega v1.10.0
 // Optional dependencies of throttled/v2 update golang/protobuf past v1.3.5.
 replace github.com/throttled/throttled/v2 => github.com/TheThingsIndustries/throttled/v2 v2.7.1-noredis
 
-require go.thethings.network/lorawan-stack/v3 v3.12.3
+// Do not upgrade genproto beyond v0.0.0-20200513103714-09dca8ec2884
+replace google.golang.org/genproto => google.golang.org/genproto v0.0.0-20200513103714-09dca8ec2884
+
+require (
+	github.com/valyala/fasttemplate v1.1.0 // indirect
+	go.thethings.network/lorawan-stack/v3 v3.13.0
+)

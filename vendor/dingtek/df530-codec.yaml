@@ -1,0 +1,91 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: df530.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload without gps
+      input:
+        fPort: 3
+        bytes: [0x80, 0, 1, 2, 0x11, 0, 0x0F, 0, 0x19, 0, 0, 0x10, 0, 0, 0, 0, 0x81]
+      output:
+        data:
+          level: '15 mm'
+          empty: true
+          battery: false
+          temperature: '25 ℃'
+          frame_counter: 0
+
+    - description: heartbeat upload with gps
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x02, 0x19, 0x00, 0x1E, 0x01, 0xCD, 0x03, 0xE9, 0x42, 0xEF, 0x27, 0x20, 0x42, 0x19, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          level: '30 mm'
+          longitude: '116.507430'
+          latitude: '40.038999'
+          empty: true
+          battery: false
+          temperature: '25 ℃'
+          frame_counter: 0
+    - description: Command confirmation
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x19, 0x01, 0x04, 0x01, 0x00, 0x1E, 0x4B, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          periodic_upload_interval: '1 minutes'
+          empty_alarm_threshold: '30 cm'
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: df530.js
+  examples:
+    - description: change periodic upload interval to 10 minutes
+      input:
+        data:
+          periodic_upload_interval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change empty alarm threshold to 35cm
+      input:
+        data:
+          empty_alarm_threshold: 35
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+        fPort: 3
+    - description: enable gps function
+      input:
+        data:
+          gps_enable: true
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x31, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: df530.js
+  examples:
+    - description: change periodic upload interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          periodic_upload_interval: 10
+    - description: change empty alarm threshold to 35cm
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+      output:
+        data:
+          empty_alarm_threshold: 35
+    - description: enable gps function
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x31, 0x38, 0x31]
+      output:
+        data:
+          gps_enable: true
