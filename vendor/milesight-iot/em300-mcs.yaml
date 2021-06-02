@@ -37,7 +37,7 @@ sensors:
   - battery
   - temperature
   - humidity
-  - door
+# - door
 
 dimensions:
   width: 27
