@@ -15,7 +15,7 @@ $RECYCLE.BIN/
 tools/build/build
 content/devices/**
 node_modules
-static/
+/static
 data/manifest.json
 
 resources/_gen/
