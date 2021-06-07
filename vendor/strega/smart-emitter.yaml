@@ -1,5 +1,5 @@
-name: smart-valve
-description: STREGA time-controlled shut-off valve is a battery operated wireless valve. With its ultra-low-power consumption, the Smart-valve can be triggered for remote OPEN/CLOSE.
+name: smart-emitter
+description: The STREGA LoRaWAN Time-controlled Emitter remotely actuates an irrigation valve. With its ultra-low-power consumption, the Smart-Emitter can trigger Open or Close operations of any irrigation valve equipped with a DC latching solenoid. Watering schedulers can be programmed directly at the zone level, avoiding the necessity to use an irrigation controller.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -14,7 +14,7 @@ firmwareVersions:
     version: '2.x'
     numeric: 1
     # Corresponding hardware versions (optional)
-    #hardwareVersions:
+    # hardwareVersions:
     #  -
 
     # LoRaWAN Device Profiles per region
@@ -22,17 +22,17 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: smart-valve-profile-868
+        id: smart-emitter-profile-868
         lorawanCertified: true
-        codec: smart-valve-codec
+        codec: smart-emitter-codec
       US902-928:
-        id: smart-valve-profile-915
+        id: smart-emitter-profile-915
         lorawanCertified: true
-        codec: smart-valve-codec
+        codec: smart-emitter-codec
       AS923:
-        id: smart-valve-profile-923
+        id: smart-emitter-profile-923
         lorawanCertified: true
-        codec: smart-valve-codec
+        codec: smart-emitter-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -95,7 +95,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: smart-valve.png
+  main: smart-emitter.png
 
 # Youtube or Vimeo Video (optional)
 videos:
