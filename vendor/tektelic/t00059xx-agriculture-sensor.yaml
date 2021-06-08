@@ -4,9 +4,10 @@ description: LoRaWAN® Battery-Powered Sensor for Smart Agriculture
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: 'D'
-    numeric: 4
-
+    version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - 'D'
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
@@ -19,7 +20,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: t00059xx-codec
 hardwareVersions:
-  - version: '1.0'
+  - version: 'D'
     numeric: 1
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
