@@ -864,10 +864,6 @@ function Decoder(bytes, port) {
         if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) {
           tab.push({label:"Temperature" ,value:(UintToInt(bytes[index]*256+bytes[index+1],2))/100, date:lDate}) ;
         };
-        //humidity
-        if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) {
-          tab.push({label: "Humidity", value:(bytes[index]*256+bytes[index+1])/100, date: lDate});
-        };
               
         // lorawan message type
         if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
@@ -941,7 +937,7 @@ function Decoder(bytes, port) {
     else{
 
       var decoded = {};
-      brData = (brUncompress(2,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 1, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000} ], lora.payload, lDate))
+      brData = (brUncompress(2,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000} ], lora.payload, lDate))
 
       var data_length = brData["datas"].length;
       var tab=[];

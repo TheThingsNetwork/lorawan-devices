@@ -423,8 +423,7 @@ function bytes2Float32(bytes) {
     }
     exponent = -126
     significand /= 1 << 22
-  } 
-  else {
+  } else {
     significand = (significand | (1 << 23)) / (1 << 23)
   }
 
@@ -514,20 +513,17 @@ function handleCommonTimestamp(
               argList[sampleIndex].resol,
               bi
             )
-          } 
-          else {
+          } else {
             // (bi <= 0)
             if (first_null_delta_value) {
               // First value is yet recorded starting from the header
               first_null_delta_value = 0
               continue
-            } 
-            else {
+            } else {
               currentMeasure.data.value = precedingValue
             }
           }
-        } 
-        else {
+        } else {
           // bi > BR_HUFF_MAX_INDEX_TABLE
           currentMeasure.data.value = buffer.getNextSample(
             argList[sampleIndex].sampletype
@@ -562,8 +558,7 @@ function initTimestampCommonTable(
           out.series[firstSampleIndex].uncompressSamples[0]
             .data_relative_timestamp
         )
-      } 
-      else {
+      } else {
         if (bi > 0) {
           var precedingTimestamp = timestampCommon[i - 1]
           timestampCommon.push(
@@ -572,13 +567,11 @@ function initTimestampCommonTable(
               Math.pow(2, bi) -
               1
           )
-        } 
-        else {
+        } else {
           timestampCommon.push(precedingTimestamp)
         }
       }
-    } 
-    else {
+    } else {
       timestampCommon.push(buffer.getNextSample(ST_U32))
     }
     lastTimestamp = timestampCommon[i]
@@ -769,33 +762,35 @@ function decimalToHex(d, padding) {
   padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
 
   while (hex.length < padding) {
-    hex = "0" + hex;
+      hex = "0" + hex;
   }
+
   return "0x" + hex;
 }
 
 
 
 function Bytes2Float32(bytes) {
+
   var sign = (bytes & 0x80000000) ? -1 : 1;
   var exponent = ((bytes >> 23) & 0xFF) - 127;
   var significand = (bytes & ~(-1 << 23));
-
   if (exponent == 128)
     return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
 
   if (exponent == -127) {
     if (significand == 0) return sign * 0.0;
       exponent = -126;
-      significand /= (1 << 22);
-    } 
-    else significand = (significand | (1 << 23)) / (1 << 23);
+    significand /= (1 << 22);
+  } 
+  else significand = (significand | (1 << 23)) / (1 << 23);
 
-    return sign * significand * Math.pow(2, exponent);
+  return sign * significand * Math.pow(2, exponent);
 }
 
 
 function Decoder(bytes, port) {
+
   // Decode an uplink message from a buffer
   // (array) of bytes to an object of fields.
   var decoded = {};
@@ -813,84 +808,110 @@ function Decoder(bytes, port) {
   lora.payload  = "";
 
 
+
+
   for( var j = 0; j < bytes_len_; j++ ){
     temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
     if( temp_hex_str.length == 1 ){
       temp_hex_str = "0" + temp_hex_str;
     }
     lora.payload += temp_hex_str;
-  }
+    }
 
-  var date = new Date();
-  var lDate = date.toISOString();
+    var date = new Date();
+    var lDate = date.toISOString();
     
-  if (port === 125){
-    //batch
-    decodedBatch = !(bytes[0] & 0x01);
+    if (port === 125){
+      //batch
+      decodedBatch = !(bytes[0] & 0x01);
     
-    //trame standard
-    if (decodedBatch === false){
-      decoded.zclheader = {};
-      decoded.zclheader.report =  "standard";
-      attributID = -1;
-      cmdID = -1;
-      clusterdID = -1;
-      //endpoint
-      decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
-      //command ID
-      cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
-      //Cluster ID
-      clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
-        
-      // decode report and read atrtribut response
-      if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
-        stdData = {};
-        var tab=[];
-
-        //Attribut ID
-        attributID = bytes[4]*256 + bytes[5]; decoded.zclheader.attributID = decimalToHex(attributID,4);
+      //trame standard
+      if (decodedBatch === false){
+        decoded.zclheader = {};
+        decoded.zclheader.report =  "standard";
+        attributID = -1;
+        cmdID = -1;
+        clusterdID = -1;
+        //endpoint
+        decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
+        //command ID
+        cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
+        //Cluster ID
+        clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
             
-        if (cmdID === 0x8a) {
-          decoded.zclheader.alarm = 1;
-        }
-        else {
-          decoded.zclheader.alarm = 0;
-        }
-        //data index start
-        if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
-        if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
+        
+        // decode report and read atrtribut response
+        if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
+          stdData = {};
+          var tab=[];
 
-        //temperature
-        if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) {
-          tab.push({label:"Temperature" ,value:(UintToInt(bytes[index]*256+bytes[index+1],2))/100, date:lDate}) ;
-        };
-        //humidity
-        if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) {
-          tab.push({label: "Humidity", value:(bytes[index]*256+bytes[index+1])/100, date: lDate});
-        };
-              
-        // lorawan message type
-        if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
-          if (bytes[index] === 1)
-            stdData.message_type = "confirmed";
-          if (bytes[index] === 0)
-            stdData.message_type = "unconfirmed";
-        }
-                
-        // lorawan retry
-        if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
-          stdData.nb_retry= bytes[index] ;
-        }
-                
-        // lorawan reassociation
-        if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
-          stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
-          stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
-        }
+          //Attribut ID
+          attributID = bytes[4]*256 + bytes[5]; decoded.zclheader.attributID = decimalToHex(attributID,4);
 
-        // configuration node power desc
-				if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
-          index2 = index + 3;
+          if (cmdID === 0x8a) {
+            decoded.zclheader.alarm = 1;
+          }
+          else {
+            decoded.zclheader.alarm = 0;
+          }
+                
+          //data index start
+          if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
+          // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
+
+          //binary input counter
+          if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
+                stdData.label = "Index";
+                stdData.value =bytes[index]; 
+                stdData.date = lDate;
+                tab.push(stdData);
+            };
+          
+          // binary input present value
+          if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
+            stdData.label = "State"
+            stdData.value =bytes[index]; 
+            stdData.date = lDate;
+            tab.push(stdData);
+          };
+
+          //analog input
+			    if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) {
+
+            if (decoded.zclheader.endpoint == 0){
+              stdData.label = "4-20mA";  
+            }
+        
+            if (decoded.zclheader.endpoint == 1){
+              stdData.label = "0-10V";  
+            }
+            stdData.value = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
+            stdData.date = lDate;
+            tab.push(stdData);
+          };
+
+          // lorawan message type
+          if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
+            if (bytes[index] === 1)
+              stdData.message_type = "confirmed";
+            if (bytes[index] === 0)
+              stdData.message_type = "unconfirmed";
+          }
+                
+          // lorawan retry
+          if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
+            stdData.nb_retry= bytes[index] ;
+          }
+                
+          // lorawan reassociation
+          if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
+            stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
+            stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
+          }
+
+          // configuration node power desc
+				  if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
+				  index2 = index + 3;
 				  if ((bytes[index+2] &0x01) === 0x01) {
             tab.push({label:"ExternalPowerVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
             index2=index2+2;
@@ -902,60 +923,72 @@ function Decoder(bytes, port) {
 				  if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
 				  if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
 				  if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-          // tab.push(stdData);
 				}
-                
-        decoded.data = tab;
-      }
+
+          decoded.data = tab;
+        }
             
-      //decode configuration response
-      if(cmdID === 0x07){
-        //AttributID
-        attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-        //status
-        decoded.zclheader.status = bytes[4];
-        //batch
-        decoded.zclheader.decodedBatch = bytes[5];
-      }
-      //decode read configuration response
-      if(cmdID === 0x09){
-        //AttributID
-        attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-        //status
-        decoded.zclheader.status = bytes[4];
-        //batch
-        decoded.zclheader.decodedBatch = bytes[5];
-        //AttributType
-        decoded.zclheader.attribut_type = bytes[8];
-        //min
-        decoded.zclheader.min = {}
-        if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unity = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unity = "seconds";}
-        //max
-        decoded.zclheader.max = {}
-        if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.max.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.max.unity = "minutes";} else {decoded.zclheader.max.value = bytes[9]*256+bytes[10];decoded.zclheader.max.unity = "seconds";}
+        // decode configuration response
+        if(cmdID === 0x07){
+          //AttributID
+          attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
+          //status
+          decoded.zclheader.status = bytes[4];
+          //batch
+          decoded.zclheader.decodedBatch = bytes[5];
+        }
 
+        //decode read configuration response
+        if(cmdID === 0x09){
+          //AttributID
+          attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
+          //status
+          decoded.zclheader.status = bytes[4];
+          //batch
+          decoded.zclheader.decodedBatch = bytes[5];
+          //AttributType
+          decoded.zclheader.attribut_type = bytes[8];
+          //min
+          decoded.zclheader.min = {}
+          if ((bytes[9] & 0x80) === 0x80) {
+            decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];
+            decoded.zclheader.min.unity = "minutes";
+          } 
+          else {
+            decoded.zclheader.min.value = bytes[9]*256+bytes[10];
+            decoded.zclheader.min.unity = "seconds";
+          }
+          //max
+          decoded.zclheader.max = {}
+          if ((bytes[9] & 0x80) === 0x80) {
+            decoded.zclheader.max.value = (bytes[9]-0x80)*256+bytes[10];
+            decoded.zclheader.max.unity = "minutes";
+          } 
+          else {
+            decoded.zclheader.max.value = bytes[9]*256+bytes[10];
+            decoded.zclheader.max.unity = "seconds";
+          }
+
+        }   
       }
-        
+      else{
+
+        var decoded = {};
+        brData = (brUncompress(3,[{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4-20mA", divide: 1},{ taglbl: 1, resol: 1, sampletype: 12,lblname: "0-10V", divide: 1}, { taglbl: 2, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 3, resol: 100, sampletype: 6,lblname: "ExternalPowerVoltage", divide: 1000},{ taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}], lora.payload, lDate))
+
+        var data_length = brData["datas"].length;
+        var tab=[];
+        for (var i = 0; i < data_length; i++) {               
+          tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
+        }
+
+        decoded.data = tab;
+
+        decoded.zclheader = {};
+        decoded.zclheader.report = "batch";
+      }
+
     }
-
-    else{
-
-      var decoded = {};
-      brData = (brUncompress(2,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 1, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000} ], lora.payload, lDate))
-
-      var data_length = brData["datas"].length;
-      var tab=[];
-      for (var i = 0; i < data_length; i++) {               
-        tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
-      }
-
-      decoded.data = tab;
-
-      decoded.zclheader = {};
-      decoded.zclheader.report = "batch";
-    }
-
-  }
   return decoded;
 }
 
@@ -964,6 +997,7 @@ function decodeUplink(input) {
  
   return {
     data : Decoder(input.bytes, input.fPort),
+    
     warnings: [],
     errors: []
   };

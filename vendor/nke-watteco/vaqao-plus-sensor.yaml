@@ -1,12 +1,11 @@
-name: TH
-description: Temperature and Humidity sensor
-
+name: Vaqa'O+Plus
+description: The VAQA'O+Plus sensor measures the temperature, relative humidity, atmospheric pressure, the concentration of Volatile Organic Compounds (VOC) and Carbon Dioxide (CO2) in the ambient air
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-053'
-    numeric: 53
-  - version: '50-70-162'
-    numeric: 162
+  - version: '50-70-074'
+    numeric: 74
+  - version: '50-70-173'
+    numeric: 173
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -15,8 +14,8 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-053'
-      - '50-70-162'
+      - '50-70-074'
+      - '50-70-173'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -36,13 +35,13 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: th-sensor-profile
+        id: vaqao-plus-sensor-profile
         lorawanCertified: true
-        codec: th-sensor-codec
+        codec: vaqao-plus-sensor-codec
       US902-928:
-        id: th-sensor-profile
+        id: vaqao-plus-sensor-profile
         lorawanCertified: true
-        codec: th-sensor-codec
+        codec: vaqao-plus-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -55,6 +54,9 @@ firmwareVersions:
 sensors:
   - temperature
   - humidity
+  - bvoc
+  - co2
+  - pressure
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -68,17 +70,17 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
+  width: 120
   length: 80
   height: 25
 
 # Weight in grams (optional)
-weight: 95
+weight: 235
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: A
 
 # Operating conditions (optional)
 operatingConditions:
@@ -86,6 +88,10 @@ operatingConditions:
   temperature:
     min: 0
     max: 55
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
 
 # IP rating (optional)
 ipCode: IP30
@@ -111,8 +117,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/indoor-temperature-humidity-sensor/
-dataSheetURL: https://www.nke-watteco.com/download/temperature-humidity-sensor-data-sheet-lorawan/?wpdmdl=6525&refresh=60be3894e0a1f1623079060
+productURL: https://www.nke-watteco.com/product/vaqao-plus-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/vaqao-sensor-data-sheet-lorawan-2/?wpdmdl=6531&refresh=60be2a09c09b61623075337
 
 # Commercial information
 resellerURLs:
@@ -125,7 +131,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: th-sensor.jpg
+  main: vaqao-plus-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:

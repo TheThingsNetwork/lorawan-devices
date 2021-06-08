@@ -1,12 +1,10 @@
-name: TH
-description: Temperature and Humidity sensor
+name: Press'O
+description: Transforms any 4-20 mA and 0-10V gauge to a sensor connected to a LoRaWAN network
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-053'
-    numeric: 53
-  - version: '50-70-162'
-    numeric: 162
+  - version: '50-70-017'
+    numeric: 17
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -15,8 +13,7 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-053'
-      - '50-70-162'
+      - '50-70-017'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -36,13 +33,13 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: th-sensor-profile
+        id: presso-sensor-profile
         lorawanCertified: true
-        codec: th-sensor-codec
+        codec: presso-sensor-codec
       US902-928:
-        id: th-sensor-profile
+        id: presso-sensor-profile
         lorawanCertified: true
-        codec: th-sensor-codec
+        codec: presso-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -53,8 +50,10 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
-  - humidity
+  - pulse count
+  - analog input
+  - 4-20 ma
+  - digital input
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -68,27 +67,27 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 25
+  width: 92
+  length: 92
+  height: 56
 
 # Weight in grams (optional)
-weight: 95
+weight: 200
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: A
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: 0
-    max: 55
+    min: -20
+    max: 50
 
 # IP rating (optional)
-ipCode: IP30
+ipCode: IP55
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -111,8 +110,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/indoor-temperature-humidity-sensor/
-dataSheetURL: https://www.nke-watteco.com/download/temperature-humidity-sensor-data-sheet-lorawan/?wpdmdl=6525&refresh=60be3894e0a1f1623079060
+productURL: https://www.nke-watteco.com/product/presso-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/presso-sensor-data-sheet-lorawan/?wpdmdl=6451&refresh=60ba366fb6bd31622816367
 
 # Commercial information
 resellerURLs:
@@ -125,7 +124,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: th-sensor.jpg
+  main: presso-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:
