@@ -8,6 +8,8 @@ hardwareVersions:
 firmwareVersions:
   - version: '1.0'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
 
     profiles:
       EU863-870:

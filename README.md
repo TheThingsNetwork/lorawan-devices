@@ -16,11 +16,13 @@ To help you add devices to this repository, you can follow along in this example
 
 ## Prerequisites
 
+One of the operating systems:
+
 - Linux
 - macOS
-- Windows Subsystem for Linux
+- Windows Subsystem for Linux ([Install](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Upgrade WSL Go version](https://sal.as/post/install-golan-on-wsl/))
 
-[Install Microsoft WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Upgrade WSL Go version](https://sal.as/post/install-golan-on-wsl/)
+Development dependencies:
 
 - Node.js version 14.x
 - npm version 6.x
@@ -157,10 +159,18 @@ For each end device, create an **End device definition** file with the same file
 ```yaml
 name: Device A
 description: My first LoRaWAN device
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '1.0'
+    numeric: 1
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.0' # Must refer to hardwareVersions declared above
     # LoRaWAN Device Profiles per region
     # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:

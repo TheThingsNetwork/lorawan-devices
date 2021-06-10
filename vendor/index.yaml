@@ -593,6 +593,9 @@ vendors:
   - id: ruixinghengfang-network
     name: RuiXingHengFang Network(Shenzhen) Co.
     vendorID: 350
+    website: http://www.risinghf.com
+    ouis:
+      - 8CF957
 
   - id: ryoden
     name: Ryoden Corporation

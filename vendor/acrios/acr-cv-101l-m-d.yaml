@@ -7,6 +7,8 @@ firmwareVersions:
   - # Firmware version
     version: 'e8d17c15795f'
     numeric: 1
+    hardwareVersions:
+      - 'v3.7'
     profiles:
       EU863-870:
         lorawanCertified: true

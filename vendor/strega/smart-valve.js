@@ -1,24 +1,20 @@
-//Decoder Rev4 updated on 24th Jan 2021
-function decodeUplink(bytes, f_port) {
-  var ports    = f_port;
-  var v4       = toHexString(bytes);
-  var v4_1     = v4.substr(10,2);
-  var v4_2     = v4.substr(0,2);
-  var v4_3     = v4.substr(0,1);
-  var v4_4     = v4.substr(20,2);
-  var v4_5     = v4.substr(34,2);
-  var v4_6     = v4.substr(10,2);
-  var v4_7     = v4.substr(24,2);
-  var v4_8     = v4.substr(10,2);
-  var v4_9     = v4.substr(20,2);
-  var v4_10    = v4.substr(0,2);
-  var v3       = v4.substr(8,1);
-  var length   = v4.length;
+function decodeUplink(input) {
+  var ports = input.fPort;
+  var bytes = input.bytes;
+  var byte  = arrayBufferToBase64(input.bytes);
+  var v4    = base64ToHex(byte);
+  var v4_1  = v4.substr(10,2);
+  var v4_2  = v4.substr(0,2);
+  var v4_3  = v4.substr(0,1);
+  var v4_4  = v4.substr(10,2);
+  var v4_5  = v4.substr(10,2);
+  var v4_10 = v4.substr(0,2);
+  var length= v4.length;
   var battery; var Tamper; var Valve; var status; var Cable; var conf_p;var conf_s; var unit1; var time1;
   var unit2; var time2; var temperature; var hygrometry; var DI_0; var DI_1; var Leakage; var Fraud;
   var clas; var power; var radio; var ADR; var DR; var SF; var T_H; var temp; var box_temp; var hum;
-  var box_hum; var analog; var counter; var msg; var C; var V; var C_A; var msg1; var st; var st1; var st2;
-  var st_0; var st_1; var st_2; var counter_A; var analog_A;  
+  var box_hum; var analog; var counter; var msg; var C; var V; var C_A; var msg1; var st; var st1; var st2; var st_0; var st_1;
+  var st_2; var counter_A; var analog_A;  var ack_t; var v_t;
   // Battery operated V3 & V4 & Class A with full payload (Tem,Hum,Counter & Analog)
   if (v4_3 == "3"){
   msg          = String.fromCharCode.apply(null, bytes);
@@ -33,53 +29,15 @@ function decodeUplink(bytes, f_port) {
   st           = st_1+st_2;
   st1          = hex2bin(st);
   status       = pad(st1,8);
+  v_t          = status.substr(6,2);
   Valve        = status.substr(7,1);
   Tamper       = status.substr(6,1);
   Cable        = status.substr(5,1);
   DI_0         = status.substr(4,1);
   DI_1         = status.substr(3,1);
   Leakage      = status.substr(2,1);
-  Fraud        = status.substr(1,1);
-  // condition for ACK payload
-  if (v4_1 == "40"){
-  msg1         = hex2a(v4.substr(10,100));
-  conf_p       = parseInt(msg1.substr(1,2), 16);
-  conf_s       = msg1.substr(3,2);
-  unit1        = msg1.substr(3,2);
-  time1        = parseInt(msg1.substr(5,2),16);
-  unit2        = msg1.substr(7,2);
-  time2        = parseInt(msg1.substr(9,2),16);
-  radio        = pad(hex2bin(msg1.substr(3,2)),8);
-  ADR          = parseInt(radio.substr(0,1),2);
-  DR           = parseInt(radio.substr(1,3),2);
-  SF           = parseInt(radio.substr(4,4),2);
-  counter_A    = parseInt(msg1.substr(3,6), 16);
-  analog_A     = parseInt(msg1.substr(3,4), 16);
-}
-  //condition for payload with temp, hum, counter & analog
-  if (v4_1 == "23"){
-  T_H          = v4.substr(12,8);
-  temp         = T_H.substr(0,4);
-  box_temp     = parseInt((temp), 16);
-  temperature  = (((box_temp/65536)*165)-40);
-  hum          = T_H.substr(4,8);
-  box_hum      = parseInt((hum), 16);
-  hygrometry   = ((box_hum/65536)*100);
-  C_A          = v4.substr(20,50);
-  msg2         = hex2a(C_A);
-  C            = msg2.search("C");
-  counter      = parseInt(msg2.substr(C+1,6),16);
-  V            = msg2.search("V");
-  analog       = parseInt(msg2.substr(V+1,4),16);
-  }
-  else{
-  C_A          = v4.substr(10,50);
-  msg1         = hex2a(C_A);
-  C            = msg1.search("C");
-  counter      = parseInt(msg1.substr(C+1,6),16);
-  V            = msg1.search("V");
-  analog       = parseInt(msg1.substr(V+1,4),16);
-  }}
+  Fraud        = status.substr(1,1);}
+  
   // Externally power V4 & Class A with full payload (Tem,Hum,Counter & Analog)
   if (v4_3 == "7" || v4_3 == "F" || v4_3 == "f"){
   msg          = String.fromCharCode.apply(1, bytes);
@@ -92,53 +50,15 @@ function decodeUplink(bytes, f_port) {
   st           = st_1+st_2;
   st1          = hex2bin(st);
   status       = pad(st1,8);
+  v_t          = status.substr(6,2);
   Valve        = status.substr(7,1);
   Tamper       = status.substr(6,1);
   Cable        = status.substr(5,1);
   DI_0         = status.substr(4,1);
   DI_1         = status.substr(3,1);
   Leakage      = status.substr(2,1);
-  Fraud        = status.substr(1,1);
-  // condition for ACK payload
-  if (v4_1 == "40"){
-  msg1         = hex2a(v4.substr(10,100));
-  conf_p       = parseInt(msg1.substr(1,2), 16);
-  conf_s       = msg1.substr(3,2);
-  unit1        = msg1.substr(3,2);
-  time1        = parseInt(msg1.substr(5,2),16);
-  unit2        = msg1.substr(7,2);
-  time2        = parseInt(msg1.substr(9,2),16);
-  radio        = pad(hex2bin(msg1.substr(3,2)),8);
-  ADR          = parseInt(radio.substr(0,1),2);
-  DR           = parseInt(radio.substr(1,3),2);
-  SF           = parseInt(radio.substr(4,4),2);
-  counter_A    = parseInt(msg1.substr(3,6), 16);
-  analog_A     = parseInt(msg1.substr(3,4), 16);
-  }
-  //condition for payload with temp, hum, counter & analog value
-  if (v4_1 == "23"){
-  T_H          = v4.substr(12,8);
-  temp         = T_H.substr(0,4);
-  box_temp     = parseInt((temp), 16);
-  temperature  = (((box_temp/65536)*165)-40);
-  hum          = T_H.substr(4,8);
-  box_hum      = parseInt((hum), 16);
-  hygrometry   = ((box_hum/65536)*100);
-  C_A          = v4.substr(20,50);
-  msg1         = hex2a(C_A);
-  C            = msg1.search("C");
-  counter      = parseInt(msg1.substr(C+1,6),16);
-  V            = msg1.search("V");
-  analog       = parseInt(msg1.substr(V+1,4),16);
-  }
-  else{
-  C_A          = v4.substr(10,50);
-  msg1         = hex2a(C_A);
-  C            = msg1.search("C");
-  counter      = parseInt(msg1.substr(C+1,6),16);
-  V            = msg1.search("V");
-  analog       = parseInt(msg1.substr(V+1,4),16);
-  }}
+  Fraud        = status.substr(1,1);}
+  
   // Battery operated V4 & Class variation with full payload (Tem,Hum,Counter & Analog)
   if (v4_3 == "B" || v4_3 == "b"){
   msg          = String.fromCharCode.apply(1, bytes);
@@ -155,30 +75,16 @@ function decodeUplink(bytes, f_port) {
   st           = st_1+st_2;
   st1          = hex2bin(st);
   status       = pad(st1,8);
+  v_t          = status.substr(6,2);
   Valve        = status.substr(7,1);
   Tamper       = status.substr(6,1);
   Cable        = status.substr(5,1);
   DI_0         = status.substr(4,1);
   DI_1         = status.substr(3,1);
   Leakage      = status.substr(2,1);
-  Fraud        = status.substr(1,1);
-  // condition for ACK payload
-  if (v4_1 == "40"){
-  msg1         = hex2a(v4.substr(10,100));
-  conf_p       = parseInt(msg1.substr(1,2), 16);
-  conf_s       = msg1.substr(3,2);
-  unit1        = msg1.substr(3,2);
-  time1        = parseInt(msg1.substr(5,2),16);
-  unit2        = msg1.substr(7,2);
-  time2        = parseInt(msg1.substr(9,2),16);
-  radio        = pad(hex2bin(msg1.substr(3,2)),8);
-  ADR          = parseInt(radio.substr(0,1),2);
-  DR           = parseInt(radio.substr(1,3),2);
-  SF           = parseInt(radio.substr(4,4),2);
-  counter_A    = parseInt(msg1.substr(3,6), 16);
-  analog_A     = parseInt(msg1.substr(3,4), 16);
-  }
-  //condition for payload with temp, hum, counter & analog value
+  Fraud        = status.substr(1,1);} 
+  
+   //condition for payload with temp, hum, counter & analog value
   if (v4_1 == "23"){
   T_H          = v4.substr(12,8);
   temp         = T_H.substr(0,4);
@@ -190,39 +96,68 @@ function decodeUplink(bytes, f_port) {
   C_A          = v4.substr(20,50);
   msg1         = hex2a(C_A);
   C            = msg1.search("C");
-  counter      = parseInt(msg1.substr(C+1,6),16);
+  if (C !="-1"){
+  counter      = parseInt(msg1.substr(C+1,6),16);}
   V            = msg1.search("V");
-  analog       = parseInt(msg1.substr(V+1,4),16);
-  }
+  if (V !="-1"){
+  analog       = (parseInt(msg1.substr(V+1,4),16))/1000;}}
   else{
   C_A          = v4.substr(10,50);
   msg1         = hex2a(C_A);
   C            = msg1.search("C");
-  counter      = parseInt(msg1.substr(C+1,6),16);
+  if (C !="-1"){
+  counter      = parseInt(msg1.substr(C+1,6),16);}
   V            = msg1.search("V");
-  analog       = parseInt(msg1.substr(V+1,4),16);
-  }}
-  
+  if (V !="-1"){
+  analog       = (parseInt(msg1.substr(V+1,4),16))/1000;}}
+
+  // condition for ACK payload
+  if (v4_1 == "40"){
+  msg1         = hex2a(v4.substr(10,100));
+  conf_p       = parseInt(msg1.substr(1,2), 16);
+  if (conf_p == "9"){ack_t="Class Setting Ack"}
+  if (conf_p == "10"){ack_t="Radio Setting Ack"}
+  if (conf_p == "11"){ack_t="Uplink Frequency Ack"}
+  if (conf_p == "12"){ack_t="Time Synchronization Ack"}
+  if (conf_p == "13"){ack_t="Time Synchronization Request Ack"}
+  if (conf_p == "14"||conf_p == "15"||conf_p == "16"||conf_p == "17"||conf_p == "18"||conf_p == "19"||conf_p == "20"){ack_t="Schedulers Setting Ack"}
+  if (conf_p == "21"){ack_t="Schedulers Inhibition Ack"}
+  if (conf_p == "22"){ack_t="Magnet Control Ack"}
+  if (conf_p == "10"){
+  radio        = pad(hex2bin(msg1.substr(3,2)),8);
+  ADR          = parseInt(radio.substr(0,1),2);
+  DR           = parseInt(radio.substr(1,3),2);
+  SF           = parseInt(radio.substr(4,4),2);}
+  if (conf_p == "11"){
+  unit1        = (msg1.substr(3,2)) == "80"? 1:0;
+  time1        = parseInt(msg1.substr(5,2),16);
+  unit2        = (msg1.substr(7,2)) == "80"? 1:0;
+  time2        = parseInt(msg1.substr(9,2),16);}
+  else{conf_s  = msg1.substr(3,2);}}
+    
   // Counter and Analog Ack frame
   if (v4_10 == "40"){
   msg1         = hex2a(v4.substr(0,100));
   conf_p       = parseInt(msg1.substr(1,2), 16);
-  counter_A    = parseInt(msg1.substr(3,6), 16);
-  analog_A     = parseInt(msg1.substr(3,4), 16);
-  }
+  if (conf_p == 23){
+  ack_t        = "Set Counter Value Ack";
+  counter_A    = parseInt(msg1.substr(3,6), 16);}
+  if (conf_p == 24){
+  ack_t        = "Counter Value Ack";
+  counter_A    = parseInt(msg1.substr(3,6), 16);}
+  if (conf_p == 25){
+  ack_t        = "Analog value Ack";
+  analog_A     = (parseInt(msg1.substr(3,4), 16))/1000;}}
+
+function pad(num, len) { 
+    return ("00000000" + num).substr(-len);}
   
-  function pad(num, len) { 
-    return ("00000000" + num).substr(-len);
-    }
-  function roundToTwo(num) {    
-    return +(Math.round(num + "e+2")  + "e-2");
-  }
-  function dec_to_bho (n, base) {
-     if (n < 0) {
-      n = 0xFFFFFFFF + n + 1;
-     } 
-switch (base)  
-{  
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");}
+  
+function dec_to_bho (n, base) {
+     if (n < 0) {n = 0xFFFFFFFF + n + 1;} 
+switch (base){  
 case 'B':  
 return parseInt(n, 10).toString(2);
 break;  
@@ -233,375 +168,114 @@ case 'O':
 return parseInt(n, 10).toString(8);
 break;  
 default:  
-return("Wrong input.........");  
-}}
+return("Wrong input.........");}}
+
 function ascii_to_hexa(str)
-  {
-	var arr1 = [];
-	for (var n = 0, l = str.length; n < l; n ++) 
-     {
-		var hex = Number(str.charCodeAt(n)).toString(16);
-		arr1.push(hex);
-	 }
-	return arr1.join('');
-   }
-function toHexString(bytes) {
-    return bytes.map(function(byte) {
-        return ("00" + (byte & 0xFF).toString(16)).slice(-2);
-      }).join('');
-}
+  {var arr1 = [];
+   for (var n = 0, l = str.length; n < l; n ++) {
+	var hex = Number(str.charCodeAt(n)).toString(16);
+	arr1.push(hex);}
+	return arr1.join('');}
+
 function hex2bin(hex){
-    return ("00000000" + (parseInt(hex, 16)).toString(2)).substr(-8);
-}
+    return ("00000000" + (parseInt(hex, 16)).toString(2)).substr(-8);}
+
 function hex2a(hexx) {
     var hex = hexx.toString();//force conversion
     var str = '';
     for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
         str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    return str;
-}
+    return str;}
 
-if (v4_1==="40"){
- // Class type ack
-  if(conf_p===9){
+function atob(base64) {
+    var tableStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    var table = tableStr.split("");
+    if (/(=[^=]+|={3,})$/.test(base64)) throw new Error("String contains an invalid character");
+    base64 = base64.replace(/=/g, "");
+    var n = base64.length & 3;
+    if (n === 1) throw new Error("String contains an invalid character");
+    for (var i = 0, j = 0, len = base64.length / 4, bin = []; i < len; ++i) {
+      var a = tableStr.indexOf(base64[j++] || "A"), b = tableStr.indexOf(base64[j++] || "A");
+      var c = tableStr.indexOf(base64[j++] || "A"), d = tableStr.indexOf(base64[j++] || "A");
+      if ((a | b | c | d) < 0) throw new Error("String contains an invalid character");
+      bin[bin.length] = ((a << 2) | (b >> 4)) & 255;
+      bin[bin.length] = ((b << 4) | (c >> 2)) & 255;
+      bin[bin.length] = ((c << 6) | d) & 255;}
+    return String.fromCharCode.apply(null, bin).substr(0, bin.length + n - 4);}
+    
+function btoa(bin) {
+    var tableStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    var table = tableStr.split("");
+    for (var i = 0, j = 0, len = bin.length / 3, base64 = []; i < len; ++i) {
+      var a = bin.charCodeAt(j++), b = bin.charCodeAt(j++), c = bin.charCodeAt(j++);
+      if ((a | b | c) > 255) throw new Error("String contains an invalid character");
+      base64[base64.length] = table[a >> 2] + table[((a << 4) & 63) | (b >> 4)] +
+                              (isNaN(b) ? "=" : table[((b << 2) & 63) | (c >> 6)]) +
+                              (isNaN(b + c) ? "=" : table[c & 63]);}
+    return base64.join("");}
+    
+function arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );}
+    return btoa( binary );}
+
+function base64ToHex(str) {
+  var raw = atob(str);
+  var result = '';
+  for (var i = 0; i < raw.length; i++) {
+    var hex = raw.charCodeAt(i).toString(16);
+    result += (hex.length === 2 ? hex : '0' + hex);
+  }return result.toUpperCase();}
+
+if (v4_1==="40" || v4_10 === "40"){
+ // Class type ack, Radio config ack, Uplink freq ack, Time sync ack, Schedulers ack, Schedulers status ack, Magnet status ack, Counter value retrieval and counter value setting ack,Analog value retrieval
     return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
+      data: {
+      Bat : battery,
+      Actuator   : Valve,
       Tamper  : Tamper,
       Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
+      DI0    : DI_0,
+      DI1    : DI_1,
+      Leak : Leakage,
       Fraud   : Fraud,
       Class   : clas,
       Power   : power,
-      Process : "false",
-      Class_Port   : conf_p || 0,
-      Class_status : conf_s || 0,
-  };}
- // Radio config ack
-  if (conf_p===10){
-  return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
+      vt     : v_t,
       ADR     : ADR,
       DR      : DR,
       SF      : SF,
-      Radio_conf_Port : conf_p || 0,
-      Radio_conf_ack  : conf_s || 0,
-  };}
- //Uplink freq ack
-  if (conf_p===11){
-  return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
-      Unit1   : unit1 == "80"? 1:0,
+      Unit1   : unit1 ,
       Time1   : time1,
-      Unit2   : unit2 == "80"? 1:0,
+      Unit2   : unit2,
       Time2   : time2,
-      Uplink_conf_Port : conf_p || 0,
-  };}
-  // Time sync ack
-  if(conf_p===12 || conf_p===13){
-    return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
-      RTC_Port   : conf_p || 0,
-      RTC_status : conf_s || 0,
-  };}
-// Schedulers ack
-if (conf_p===14 || conf_p===15 || conf_p===16 || conf_p===17 || conf_p===18 || conf_p===19 || conf_p===20){
-  return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
-      Schl_Port   : conf_p || 0,
-      Schl_status : conf_s || 0,
-  };}
-  // Schedulers status ack
-  if (conf_p===21){
-  return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
-      Schl_status_Port : conf_p || 0,
-      Schl_status_ack  : conf_s || 0,
-  };}
-// Magnet status ack
-  if(conf_p===22){
-    return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
-      magnet_Port   : conf_p || 0,
-      magnet_status : conf_s || 0,
-  };}
-  // Counter value retrieval and counter value setting ack
-  if(conf_p===23 || conf_p===24){
-    return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
-      counter_Port   : conf_p || 0,
-      counter_value  : counter_A|| 0,
-  };}
-  // Analog value retrieval
-  if(conf_p===25){
-    return {
-      Port    : ports,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "false",
-      analog_Port   : conf_p || 0,
-      analog_value  : analog_A/1000 || 0,
-  };}}
+      ackPort   : conf_p,
+      ackValue : conf_s || counter_A || analog_A,
+      ackType   : ack_t,}};}
   
-  // Ack for counter and analog
-  if (v4_10 === "40"){
-  // Counter value retrieval and counter value setting ack
-  if(conf_p===23 || conf_p===24){
-    return {
-      Port    : ports,
-      Process : "false",
-      counter_Port   : conf_p || 0,
-      counter_value  : counter_A|| 0,
-  };}
-  // Analog value retrieval
-  if(conf_p===25){
-    return {
-      Port    : ports,
-      Process : "false",
-      analog_Port   : conf_p || 0,
-      analog_value  : analog_A/1000 || 0,
-  };}}
-  
-   // Periodic uplink with temp, hum
-  if(v4_1==="23" && v4_4!="43" && v4_5!="56" && v4_6!="43" && v4_7!="56" && v4_8!="56" && v4_9!="56"){
+   // Periodic uplink
+  if(v4_1==="23" || v4_4==="43" || v4_4==="56" || length==10){
      return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
+      data: {
+      Bat : battery,
+      Actuator   : Valve,
       Tamper  : Tamper,
       Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
+      DI0    : DI_0,
+      DI1    : DI_1,
+      Leak : Leakage,
       Fraud   : Fraud,
       Class   : clas,
       Power   : power,
-      Process : "true",
-      Temperature  : roundToTwo(temperature),
-      Hygrometry   : roundToTwo(hygrometry),
-  };}
-  // Periodic uplink with temp, hum, counter & analog
-  if(v4_1==="23" && v4_4==="43" && v4_5==="56" && v4_6!="43" && v4_7!="56" && v4_8!="56" && v4_9!="56"){
-     return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "true",
-      Counter : counter,
-      Analog_value : analog/1000,
-      Temperature  : roundToTwo(temperature),
-      Hygrometry   : roundToTwo(hygrometry),
-  };}
-  // Periodic uplink with temp, hum & counter
-  if(v4_1==="23" && v4_4==="43" && v4_5!="56" && v4_6!="43" && v4_7!="56" && v4_8!="56" && v4_9!="56"){
-     return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "true",
-      Counter : counter,
-      Temperature  : roundToTwo(temperature),
-      Hygrometry   : roundToTwo(hygrometry),
-  };}
-   // Periodic uplink with temp, hum & analog
-  if(v4_1==="23" && v4_9==="56" && v4_4!="43" && v4_5!="56" && v4_6!="43" && v4_7!="56" && v4_8!="56"){
-     return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "true",
-      Analog_value : analog/1000,
-      Temperature  : roundToTwo(temperature),
-      Hygrometry   : roundToTwo(hygrometry),
-  };}
-  // Periodic uplink with counter & analog
-  if(v4_6==="43" && v4_7==="56" && v4_1!="23" && v4_4!="43" && v4_5!="56" && v4_8!="56" && v4_9!="56"){
-     return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "true",
-      Counter : counter,
-      Analog_value : analog/1000,
-  };}
-  // Periodic uplink with counter
-  if(v4_6==="43" && v4_7!="56" && v4_1!="23" && v4_4!="43" && v4_5!="56" && v4_8!="56" && v4_9!="56"){
-     return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "true",
-      Counter : counter,
-  };}
-  // Periodic uplink with analog
-  if(v4_8==="56" && v4_9==="56" && v4_1!="23" && v4_4!="43" && v4_5!="56" && v4_6!="43" && v4_7!="56"){
-     return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "true",
-      Analog_value : analog/1000,
-     };}
-  // periodic uplink old version
-  else {
-     return {
-      Port    : ports,
-      Status  : status,
-      Battery : battery,
-      Valve   : Valve,
-      Tamper  : Tamper,
-      Cable   : Cable,
-      DI_0    : DI_0,
-      DI_1    : DI_1,
-      Leakage : Leakage,
-      Fraud   : Fraud,
-      Class   : clas,
-      Power   : power,
-      Process : "true",
-  };}}
+      vt     : v_t,
+      counterValue : counter|| "null",
+      Ana : analog || "null",
+      Temp   : roundToTwo(temperature) || "null",
+      Hygro   : roundToTwo(hygrometry) || "null",
+     }};}}
 
 // Encoder for TTI updated on 24th Jan 2021
 function encodeDownlink(input) {
@@ -640,24 +314,19 @@ function encodeDownlink(input) {
   var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
   var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000);
   var d = offsetTime;
-  var port = input.data.f_port;
+  var port = input.data.fPort;
   var Schl_on = 10;
   var Schl_off = 00;
   var Schl_m = 0;
- // open and close command
-  if (port == 1) {
+ // open and close command, Changing the class, Time Synchronization Request, Schedulers status setting, Magnetic control, Counter value retrieval, Analog value retrieval
+  if (port == 1 || port == 9 || port == 13 || port == 21 || port == 22 || port == 24 || port == 25) {
   bytes[0] = input.data.payload;
   bytes[1] = 48;
-  ne[0]    = bytes[1]+bytes[0];
+  ne[0]    = bytes[0]+(+bytes[1]);
   return {
      bytes: ne,
   }}
- // Changing the class
-  if (port == 9){
-   bytes[0] = input.data.payload;
-   return {
-     bytes:bytes,
-  }}
+ 
  // Radio setting
   if (port == 10){
    var ADR   = dec_to_bho(input.data.ADR,'B');
@@ -716,12 +385,7 @@ function encodeDownlink(input) {
    return {
      bytes:bytes,
   }}
- // Time Synchronization Request
-  if (port == 13){
-   bytes[0] = input.data.Sync_RTC;
-  return {
-     bytes:bytes,
-  }}
+ 
  // Schedulers setting
   if (port==14 || port==15 || port==16 || port==17 || port==18 || port==19 || port==20) {
   bytes[0] = 255;
@@ -911,22 +575,7 @@ function encodeDownlink(input) {
  return {
      bytes:bytes,
  }}
- // Schedulers status setting
-  if (port == 21){
-   bytes[0] = input.data.Schl_status;
-   bytes[1] = 48;
-   ne[0]    = bytes[1]+bytes[0];
-  return {
-     bytes:ne,
-  }}
- // Magnetic control
-  if (port == 22){
-   bytes[0] = input.data.payload;
-   bytes[1] = 48;
-   ne[0]    = bytes[1]+bytes[0];
-  return {
-     bytes:ne,
-  }}
+ 
  // Setting your Counter value
   if (port == 23){
    var counter = pad3(dec_to_bho (input.data.payload,'B'),24);
@@ -938,30 +587,11 @@ function encodeDownlink(input) {
    bytes[2]    = parseInt(byte3,2);
   return {
      bytes:bytes,
-  }}
- // Counter value retrieval
-  if (port == 24){
-   bytes[0] = input.data.payload;
-   bytes[1] = 48;
-   ne[0]    = bytes[1]+bytes[0];
-  return {
-     bytes:ne,
-  }}
- // Analog value retrieval
-  if (port == 25){
-   bytes[0] = input.data.payload;
-   bytes[1] = 48;
-   ne[0]    = bytes[1]+bytes[0];
-  return {
-     bytes:ne,
+ 
   }}}
  
  function decodeDownlink(input) {
    return {
      data: {
        bytes: input.bytes
-     },
-     warnings: [],
-     errors: []
-   };
- }
+     },};}
