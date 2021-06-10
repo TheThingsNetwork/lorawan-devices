@@ -1,6 +1,10 @@
 name: EM500-CO2
 description: Carbon Dioxide Sensor
 
+hardwareVersions:
+  - version: 'V1.3'
+    numeric: 1
+
 firmwareVersions:
   - version: '2.28'
     numeric: 1

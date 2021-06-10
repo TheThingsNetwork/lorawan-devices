@@ -3,10 +3,8 @@ description: Temperature and Humidity Sensor
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: '50-70-162'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
