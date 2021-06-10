@@ -9,3 +9,6 @@ endDevices:
   - presso-sensor
   - vaqao-sensor
   - vaqao-plus-sensor
+  - remote-t-sensor
+  - ino-sensor
+  - smart-plug
