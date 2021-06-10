@@ -1,6 +1,10 @@
 name: EM300-TH
 description: Temperature & Humidity Sensor
 
+hardwareVersions:
+  - version: 'V2.2'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.15'
     numeric: 1

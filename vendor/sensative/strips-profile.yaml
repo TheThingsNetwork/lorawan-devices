@@ -1,10 +1,10 @@
 # Vendor profile ID, can be freely issued by the vendor
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
-vendorProfileID: 401
+vendorProfileID: 625
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
-macVersion: 1.0.2
+macVersion: 1.0.3
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
 #   1.0:   TS001-1.0
 #   1.0.1: TS001-1.0.1
@@ -12,7 +12,7 @@ macVersion: 1.0.2
 #   1.0.3: RP001-1.0.3-RevA
 #   1.0.4: RP002-1.0.0 or RP002-1.0.1
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-regionalParametersVersion: RP001-1.0.2-RevB
+regionalParametersVersion: RP001-1.0.3-RevA
 
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
@@ -29,7 +29,7 @@ supportsJoin: true
 #factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
 
 # Maximum EIRP
-maxEIRP: 27
+maxEIRP: 16
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true
 
@@ -46,7 +46,7 @@ supportsClassB: false
 #pingSlotFrequency: 869.525
 
 # Whether the end device supports class C
-supportsClassC: true
+supportsClassC: false
 # If your device supports class C, uncomment the following fields:
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
-classCTimeout: 60
+#classCTimeout: 60
