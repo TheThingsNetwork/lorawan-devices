@@ -1,6 +1,10 @@
 name: AM107
 description: Ambience Monitoring Sensors
 
+hardwareVersions:
+  - version: 'V1.4'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.25'
     numeric: 1
