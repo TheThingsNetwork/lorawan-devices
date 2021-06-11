@@ -528,7 +528,6 @@ function handleCommonTimestamp(
           }
         } 
         else {
-
           // bi > BR_HUFF_MAX_INDEX_TABLE
           currentMeasure.data.value = buffer.getNextSample(
             argList[sampleIndex].sampletype
@@ -563,7 +562,6 @@ function initTimestampCommonTable(
           out.series[firstSampleIndex].uncompressSamples[0]
             .data_relative_timestamp
         )
-
       } 
       else {
         if (bi > 0) {
@@ -870,6 +868,32 @@ function Decoder(bytes, port) {
         if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) {
           tab.push({label: "Humidity", value:(bytes[index]*256+bytes[index+1])/100, date: lDate});
         };
+        //concentration
+        if (  (clusterdID === 0x800C ) & (attributID === 0x0000)) {
+            if (decoded.zclheader.endpoint === 0) {
+                tab.push({label: "VOC", value:(bytes[index]*256+bytes[index+1]), date: lDate});
+            }
+            else {
+                tab.push({label: "CO2", value:(bytes[index]*256+bytes[index+1]), date: lDate});
+            }   
+        };
+        //occupancy
+        if (  (clusterdID === 0x0406 ) & (attributID === 0x0000)) {
+            tab.push({label: "Occupancy", value:(bytes[index]*256+bytes[index+1]), date: lDate});
+        };
+        //illuminance
+        if (  (clusterdID === 0x0400 ) & (attributID === 0x0000)) {
+            tab.push({label: "Illuminance", value:(bytes[index]*256+bytes[index+1]), date: lDate});
+        };
+        //pressure
+        if (  (clusterdID === 0x0403 ) & (attributID === 0x0000)) {
+            tab.push({label: "Pressure", value:(bytes[index]*256+bytes[index+1])/100, date: lDate});
+        };
+
+        //analog input
+		if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) {
+            decoded.data.analog = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
+        } 
               
         // lorawan message type
         if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
@@ -943,7 +967,7 @@ function Decoder(bytes, port) {
     else{
 
       var decoded = {};
-      brData = (brUncompress(2,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 1, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000} ], lora.payload, lDate))
+      brData = (brUncompress(3,[{taglbl: 0,resol: 1, sampletype: 4,lblname: "VOC", divide: 1},{ taglbl: 1, resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 2, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},{ taglbl: 3, resol: 10, sampletype: 6,lblname: "CO2", divide: 1}, { taglbl: 4, resol: 10, sampletype: 6,lblname: "VOC", divide: 1}, { taglbl: 5, resol: 10, sampletype: 6,lblname: "Illuminance", divide: 1}, { taglbl: 6, resol: 10, sampletype: 6,lblname: "Pressure", divide: 10} ], lora.payload, lDate))
 
       var data_length = brData["datas"].length;
       var tab=[];

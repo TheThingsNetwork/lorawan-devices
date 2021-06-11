@@ -528,7 +528,6 @@ function handleCommonTimestamp(
           }
         } 
         else {
-
           // bi > BR_HUFF_MAX_INDEX_TABLE
           currentMeasure.data.value = buffer.getNextSample(
             argList[sampleIndex].sampletype
@@ -563,7 +562,6 @@ function initTimestampCommonTable(
           out.series[firstSampleIndex].uncompressSamples[0]
             .data_relative_timestamp
         )
-
       } 
       else {
         if (bi > 0) {
@@ -870,6 +868,16 @@ function Decoder(bytes, port) {
         if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) {
           tab.push({label: "Humidity", value:(bytes[index]*256+bytes[index+1])/100, date: lDate});
         };
+        //concentration
+        if (  (clusterdID === 0x800C ) & (attributID === 0x0000)) {
+            if (decoded.zclheader.endpoint === 0) {
+                tab.push({label: "VOC", value:(bytes[index]*256+bytes[index+1]), date: lDate});
+            }
+            else {
+                tab.push({label: "CO2", value:(bytes[index]*256+bytes[index+1]), date: lDate});
+            }   
+        };
+
               
         // lorawan message type
         if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
@@ -891,21 +899,23 @@ function Decoder(bytes, port) {
         }
 
         // configuration node power desc
-				if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
-          index2 = index + 3;
-				  if ((bytes[index+2] &0x01) === 0x01) {
-            tab.push({label:"ExternalPowerVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
-            index2=index2+2;
-          }
-          if ((bytes[index+2] &0x04) === 0x04) {
-            tab.push({label:"BatteryVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
-            index2=index2+2;
-          }
-				  if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-				  if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-				  if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-          // tab.push(stdData);
-				}
+
+		if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
+
+            index2 = index + 3;
+			if ((bytes[index+2] &0x01) === 0x01) {
+                tab.push({label:"ExternalPowerVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
+                index2=index2+2;
+            }
+            if ((bytes[index+2] &0x04) === 0x04) {
+                tab.push({label:"BatteryVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
+                index2=index2+2;
+            }
+			if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+			if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+			if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+            // tab.push(stdData);
+		}
                 
         decoded.data = tab;
       }
@@ -943,7 +953,7 @@ function Decoder(bytes, port) {
     else{
 
       var decoded = {};
-      brData = (brUncompress(2,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 1, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000} ], lora.payload, lDate))
+      brData = (brUncompress(3,[{taglbl: 1,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 2, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},{ taglbl: 3, resol: 10, sampletype: 6,lblname: "CO2", divide: 1},{ taglbl: 4, resol: 10, sampletype: 6,lblname: "VOC", divide: 1} ], lora.payload, lDate))
 
       var data_length = brData["datas"].length;
       var tab=[];

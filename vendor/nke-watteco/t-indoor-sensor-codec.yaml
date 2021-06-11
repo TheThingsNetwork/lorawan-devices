@@ -1,13 +1,12 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: th-sensor.js
+  fileName: t-indoor-sensor.js
   # Examples (optional)
-  # examples:
+  examples:
   # - description: Time-stamped batch report on temperature and humidity
   #   input:
   #     fPort: 125
-
   #     bytes: [0x30, 0x01, 0x80, 0xC4, 0xA4, 0x60, 0x02, 0x27, 0xB4, 0x8F, 0x80, 0x09, 0x9F, 0x0E, 0x54, 0x01, 0x40, 0x04, 0xD5, 0xA9, 0x53, 0xA7, 0x8E, 0x04, 0xD5, 0xA9, 0x53, 0xA7, 0xCE, 0x1E]
   #   output:
   #     data:
@@ -15,21 +14,6 @@ uplinkDecoder:
   #         - date: '2021-06-01T09:50:00.073Z'
   #           label: Temperature
   #           value: 25
-  #         - date: '2021-06-01T09:50:00.073Z'
-  #           label: Humidity
-  #           value: 40
-  #         - date: '2021-06-01T09:51:00.073Z'
-  #           label: Humidity
-  #           value: 40
-  #         - date: '2021-06-01T09:52:00.073Z'
-  #           label: Humidity
-  #           value: 40
-  #         - date: '2021-06-01T09:53:00.073Z'
-  #           label: Humidity
-  #           value: 40
-  #         - date: '2021-06-01T09:54:00.073Z'
-  #           label: Humidity
-  #           value: 40
   #         - date : '2021-06-01T09:54:00.073Z'
   #           label: BatteryVoltage
   #           value: 36.68
@@ -50,13 +34,6 @@ uplinkDecoder:
   #     errors : []
   #     warnings : []
 
-  # - description: Unknown FPort
-  #   input:
-  #     fPort: 42
-  #     bytes: [1, 42]
-  # output:
-  #   errors:
-  #     - unknown FPort
   # - description: Time-stamped standard report on temperature
   #   input:
   #     fPort: 125
@@ -76,11 +53,3 @@ uplinkDecoder:
   #           report : standard
   #     errors : []
   #     warnings : []
-  # - description: Time-stamped standard report on humidity
-  #   input:
-  #     fPort: 125
-  #     bytes: [0x11, 0x0A, 0x04, 0x05, 0x00, 0x00, 0x21, 0x10, 0x8A]
-  #   output:
-  #     data:
-  #         label: "humidity"
-  #         value: 42.34

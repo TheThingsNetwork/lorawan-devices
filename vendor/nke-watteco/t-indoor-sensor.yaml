@@ -1,12 +1,12 @@
-name: TH
-description: Temperature and Humidity sensor
+name: Temperature indoor sensor
+description: Measures the ambient temperature
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-053'
-    numeric: 53
-  - version: '50-70-162'
-    numeric: 162
+  - version: '50-70-085'
+    numeric: 85
+  - version: '50-70-167'
+    numeric: 167
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -15,8 +15,8 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-053'
-      - '50-70-162'
+      - '50-70-085'
+      - '50-70-167'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -36,11 +36,11 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: th-sensor-profile
+        id: t-indoor-sensor-profile
         lorawanCertified: true
         codec: th-sensor-codec
       US902-928:
-        id: th-sensor-profile
+        id: t-indoor-sensor-profile
         lorawanCertified: true
         codec: th-sensor-codec
 
@@ -54,7 +54,6 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - temperature
-  - humidity
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -111,9 +110,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-
-productURL: https://www.nke-watteco.com/product/indoor-temperature-humidity-sensor/
-dataSheetURL: https://www.nke-watteco.com/download/temperature-humidity-sensor-data-sheet-lorawan/?wpdmdl=6525&refresh=60be3894e0a1f1623079060
+productURL: https://www.nke-watteco.com/product/indoor-temperature-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.fr/download/fiche-technique-capteur-temperature-humidite-lorawan/?wpdmdl=3433&refresh=60ba06f6c7c681622804214
 
 # Commercial information
 resellerURLs:
@@ -126,7 +124,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: th-sensor.jpg
+  main: t-indoor-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:
