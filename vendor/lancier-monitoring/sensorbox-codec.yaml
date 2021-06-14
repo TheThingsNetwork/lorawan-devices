@@ -3,30 +3,6 @@
 uplinkDecoder:
   fileName: sensor.js
   # Examples (optional)
-  examples:
-    - description: 32 knots from the North
-      input:
-        fPort: 1
-        bytes: [0, 32]
-      output:
-        data:
-          direction: 'N'
-          speed: 32
-    - description: 42 knots from the East
-      input:
-        fPort: 1
-        bytes: [1, 42]
-      output:
-        data:
-          direction: 'E'
-          speed: 42
-    - description: Unknown FPort
-      input:
-        fPort: 42
-        bytes: [1, 42]
-      output:
-        errors:
-          - unknown FPort
 
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:

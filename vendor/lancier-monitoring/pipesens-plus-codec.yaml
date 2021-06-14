@@ -1,6 +1,9 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
-    - description:  Measure Daten LOOP Resistance , ISO Resistance, Batterie, Systemstatus
+uplinkDecoder:
+  fileName: sensor.js
+
+    - description:  Measure Daten LOOP Resistance , ISO Resistance, Batterie, Temperatur, Kontact, Status
       input:
         fPort: 1
         bytes: [0x60, 0xC5, 0xDA, 0x44, 0x27, 0x10, 0x27, 0x10, 0x27, 0x10, 0x27, 0x10, 0x0D, 0x86, 0x00, 0x18, 0x0F, 0x00, 0x00, 0x00, 0x00]
@@ -23,48 +26,50 @@
             "kontakt2 now": "Open"
 
           "ErrorFlag1": 
-            "Batteriefehler": false,
-            "Bit3": false,
-            "Bit4": false,
-            "Bit5": false,
-            "Bit6": false,
-            "Bit7": false,
-            "Erdfehler": false,
+            "Batteriefehler": false
+            "Bit3": false
+            "Bit4": false
+            "Bit5": false
+            "Bit6": false
+            "Bit7": false
+            "Erdfehler": false
             "HistoryWriteError": false
           
           "ErrorFlag2": 
-            "eeprom_write_error": false,
-            "eprom_read_error": false,
-            "history_read_error": false,
-            "mess_thread_error": false,
-            "mess_thread_start_error": false,
-            "modem_invalid_key_error": false,
-            "modem_join_error": false,
+            "eeprom_write_error": false
+            "eprom_read_error": false
+            "history_read_error": false
+            "mess_thread_error": false
+            "mess_thread_start_error": false
+            "modem_invalid_key_error": false
+            "modem_join_error": false
             "modem_send_error": false
         
           "ErrorFlag3":
-            "modem_busy_error": false,
-            "modem_frame_counter_error": false,
-            "modem_get_upctr_error": false,
-            "modem_input_error": false,
-            "modem_invalid_len_error": false,
-            "modem_invalid_param_error": false,
-            "modem_no_channel_free_error": false,
+            "modem_busy_error": false
+            "modem_frame_counter_error": false
+            "modem_get_upctr_error": false
+            "modem_input_error": false
+            "modem_invalid_len_error": false
+            "modem_invalid_param_error": false
+            "modem_no_channel_free_error": false
             "modem_set_upctr_error": false
           
           "Unused": 
-            "a": false,
-            "b": false,
-            "c": false,
-            "d": false,
-            "e": false,
-            "f": false,
-            "g": false,
+            "a": false
+            "b": false
+            "c": false
+            "d": false
+            "e": false
+            "f": false
+            "g": false
             "h": false
-            data:
 
     - description: Device Information
       input:
         fPort: 100
-        bytes: [1, 42]
+        bytes: [0x00, 0xFA, 0x0C, 0x11, 0x47, 0x98, 0xDB, 0x81, 0x00, 0x00, 0x03]
       output:
+        Artikel_Nr: 16387089
+        Firmware_Version: "0.0.3"
+        Serial_Nr: 121200001

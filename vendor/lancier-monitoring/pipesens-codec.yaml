@@ -26,7 +26,7 @@ uplinkDecoder:
             "Erdfehler": false
             "HistoryWriteError": false
           "ErrorFlag2":
-           "eeprom_write_error": false
+            "eeprom_write_error": false
             "eprom_read_error": false
             "history_read_error": false
             "mess_thread_error": false
@@ -48,6 +48,9 @@ uplinkDecoder:
     - description: Device Information
       input:
         fPort: 100
-        bytes: [1, 42]
+        bytes: [0x00, 0xFA, 0x0C, 0x11, 0x47, 0x98, 0xDB, 0x81, 0x00, 0x00, 0x03]
       output:
+        Artikel_Nr: 16387089
+        Firmware_Version: "0.0.3"
+        Serial_Nr: 121200001
 
