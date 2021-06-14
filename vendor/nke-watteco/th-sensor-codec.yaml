@@ -7,28 +7,44 @@ uplinkDecoder:
   # - description: Time-stamped batch report on temperature and humidity
   #   input:
   #     fPort: 125
-  #     bytes: [0x20, 0x15, 0x40, 0x82, 0x8B, 0xD6, 0x03, 0x68, 0x40, 0x9E, 0xE0, 0x12, 0x11, 0x54, 0xA7, 0x4E, 0x9D, 0x3A, 0x00, 0x8C]
+
+  #     bytes: [0x30, 0x01, 0x80, 0xC4, 0xA4, 0x60, 0x02, 0x27, 0xB4, 0x8F, 0x80, 0x09, 0x9F, 0x0E, 0x54, 0x01, 0x40, 0x04, 0xD5, 0xA9, 0x53, 0xA7, 0x8E, 0x04, 0xD5, 0xA9, 0x53, 0xA7, 0xCE, 0x1E]
   #   output:
   #     data:
   #       data :
   #         - date: '2021-06-01T09:50:00.073Z'
-  #           label: temperature
+  #           label: Temperature
   #           value: 25
   #         - date: '2021-06-01T09:50:00.073Z'
-  #           label: humidity
+  #           label: Humidity
   #           value: 40
   #         - date: '2021-06-01T09:51:00.073Z'
-  #           label: humidity
+  #           label: Humidity
   #           value: 40
   #         - date: '2021-06-01T09:52:00.073Z'
-  #           label: humidity
+  #           label: Humidity
   #           value: 40
   #         - date: '2021-06-01T09:53:00.073Z'
-  #           label: humidity
+  #           label: Humidity
   #           value: 40
   #         - date: '2021-06-01T09:54:00.073Z'
-  #           label: humidity
+  #           label: Humidity
   #           value: 40
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 36.68
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 36.68
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 36.68
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 36.68
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 36.68
   #       zclheader:
   #         report : batch
   #     errors : []
@@ -68,33 +84,3 @@ uplinkDecoder:
   #     data:
   #         label: "humidity"
   #         value: 42.34
-# # Downlink encoder encodes JSON object into a binary data downlink (optional)
-# downlinkEncoder:
-#   fileName: windsensor.js
-#   examples:
-#     - description: Turn green
-#       input:
-#         data:
-#           led: green
-#       output:
-#         bytes: [1]
-#         fPort: 2
-#     - description: Invalid color
-#       input:
-#         data:
-#           led: blue
-#       output:
-#         errors:
-#           - invalid LED color
-
-# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-# downlinkDecoder:
-#   fileName: windsensor.js
-#   examples:
-#     - description: Turn green
-#       input:
-#         fPort: 2
-#         bytes: [1]
-#       output:
-#         data:
-#           led: green

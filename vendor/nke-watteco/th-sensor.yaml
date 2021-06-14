@@ -1,20 +1,21 @@
-name: TH - 50-70-162
-description: Temperature and Humidity Sensor
+name: TH
+description: Temperature and Humidity sensor
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
+  - version: '50-70-053'
+    numeric: 53
+  - version: '50-70-162'
+    numeric: 162
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.5.1.4189'
-    numeric: 1
+    version: '3.5.2'
+    numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
+      - '50-70-053'
       - '50-70-162'
 
     # # Firmware features (optional)
@@ -33,7 +34,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: example
+        vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: th-sensor-profile
         lorawanCertified: true
@@ -85,10 +86,6 @@ operatingConditions:
   temperature:
     min: 0
     max: 55
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.95
 
 # IP rating (optional)
 ipCode: IP30
@@ -114,8 +111,9 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.fr/produit/capteur-temperature-humidite-interieur/
-dataSheetURL: https://www.nke-watteco.fr/download/fiche-technique-capteur-temperature-humidite-lorawan/?wpdmdl=3433&refresh=60b4abb60562f1622453174
+
+productURL: https://www.nke-watteco.com/product/indoor-temperature-humidity-sensor/
+dataSheetURL: https://www.nke-watteco.com/download/temperature-humidity-sensor-data-sheet-lorawan/?wpdmdl=6525&refresh=60be3894e0a1f1623079060
 
 # Commercial information
 resellerURLs:

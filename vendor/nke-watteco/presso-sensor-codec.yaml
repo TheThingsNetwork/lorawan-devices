@@ -1,0 +1,155 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: presso-sensor.js
+  # Examples (optional)
+  # examples:
+  # - description: Time-stamped batch report on impulse
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x22, 0x02, 0x00, 0x00, 0xA7, 0x64, 0x00, 0x00, 0x00, 0x80, 0xE0, 0x1E, 0x00, 0x00, 0x00, 0x20, 0x0A, 0xDA, 0xD7, 0xEB, 0xF5, 0x3A, 0x92, 0x24, 0x4C, 0x92, 0x0C]
+  #   output:
+  #     data:
+  #       data :
+  #         - date: '2021-06-04T13:24:23.691Z'
+  #           label: 4-20mA
+  #           value: 0
+  #         - date: '2021-06-04T13:25:23.691Z'
+  #           label: 4-20mA
+  #           value: 0
+  #         - date: '2021-06-04T13:26:23.691Z'
+  #           label: 4-20mA
+  #           value: 0
+  #         - date: '2021-06-04T13:27:23.691Z'
+  #           label: 4-20mA
+  #           value: 0
+  #         - date: '2021-06-04T13:28:23.691Z'
+  #           label: 4-20mA
+  #           value: 0
+  #         - date: '2021-06-04T13:29:23.691Z'
+  #           label: Index
+  #           value: 0
+  #         - date: '2021-06-04T13:30:23.691Z'
+  #           label: Index
+  #           value: 0
+  #         - date: '2021-06-04T13:31:23.691Z'
+  #           label: Index
+  #           value: 0
+  #         - date: '2021-06-04T13:32:23.691Z'
+  #           label: Index
+  #           value: 0
+  #         - date: '2021-06-04T13:33:23.691Z'
+  #           label: Index
+  #           value: 0
+  #       zclheader:
+  #         report : batch
+  #     errors : []
+  #     warnings : []
+
+  # - description: Time-stamped standard report on impulse
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x00, 0x0F, 0x04, 0x02, 0x23, 0x00, 0x00, 0x00, 0x00]
+  #   output:
+  #     data:
+  #       data:
+  #         - date : '2021-06-04T10:27:28.813Z'
+  #           label: Count
+  #           value: 0
+  #       zclheader:
+  #         alarm : 0
+  #         attributID : "0x0402"
+  #         clusterdID : "0x000F"
+  #         cmdID : "0x0A"
+  #         endpoint : 0
+  #         report : standard
+  #     errors : []
+  #     warnings : []
+  # - description: Time-stamped standard report on impulse
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x31, 0x0A, 0x00, 0x0C, 0x00, 0x55, 0x39, 0x00, 0x00, 0x00, 0x00]
+  #   output:
+  #     data:
+  #       data:
+  #         - date : '2021-06-04T12:39:48.333Z'
+  #           label: 0-10V
+  #           value: 0
+  #       zclheader:
+  #         alarm : 0
+  #         attributID : "0x0055"
+  #         clusterdID : "0x000C"
+  #         cmdID : "0x0A"
+  #         endpoint : 1
+  #         report : standard
+  #     errors : []
+  #     warnings : []
+  # - description: Time-stamped standard report on impulse
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x00, 0x0C, 0x00, 0x55, 0x39, 0x00, 0x00, 0x00, 0x00]
+  #   output:
+  #     data:
+  #         data:
+  #           - date : '2021-06-04T12:39:48.333Z'
+  #             label: 4-20mA
+  #             value: 0
+  #         zclheader:
+  #           alarm : 0
+  #           attributID : "0x0055"
+  #           clusterdID : "0x000C"
+  #           cmdID : "0x0A"
+  #           endpoint : 0
+  #           report : standard
+  #     errors : []
+  #     warnings : []
+
+  # - description: Time-stamped standard report on impulse
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x00, 0x0F, 0x00, 0x55, 0x10, 0x01]
+  #   output:
+  #     data:
+  #         data:
+  #           - date : '2021-06-04T10:25:59.139Z'
+  #             label: State
+  #             value: 1
+  #         zclheader:
+  #           alarm : 0
+  #           attributID : "0x0055"
+  #           clusterdID : "0x000F"
+  #           cmdID : "0x0A"
+  #           endpoint : 0
+  #           report : standard
+  #     errors : []
+  #     warnings : []
+# # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         data:
+#           led: green
+#       output:
+#         bytes: [1]
+#         fPort: 2
+#     - description: Invalid color
+#       input:
+#         data:
+#           led: blue
+#       output:
+#         errors:
+#           - invalid LED color
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green

@@ -423,7 +423,8 @@ function bytes2Float32(bytes) {
     }
     exponent = -126
     significand /= 1 << 22
-  } else {
+  } 
+  else {
     significand = (significand | (1 << 23)) / (1 << 23)
   }
 
@@ -513,17 +514,21 @@ function handleCommonTimestamp(
               argList[sampleIndex].resol,
               bi
             )
-          } else {
+          } 
+          else {
             // (bi <= 0)
             if (first_null_delta_value) {
               // First value is yet recorded starting from the header
               first_null_delta_value = 0
               continue
-            } else {
+            } 
+            else {
               currentMeasure.data.value = precedingValue
             }
           }
-        } else {
+        } 
+        else {
+
           // bi > BR_HUFF_MAX_INDEX_TABLE
           currentMeasure.data.value = buffer.getNextSample(
             argList[sampleIndex].sampletype
@@ -558,7 +563,9 @@ function initTimestampCommonTable(
           out.series[firstSampleIndex].uncompressSamples[0]
             .data_relative_timestamp
         )
-      } else {
+
+      } 
+      else {
         if (bi > 0) {
           var precedingTimestamp = timestampCommon[i - 1]
           timestampCommon.push(
@@ -567,11 +574,13 @@ function initTimestampCommonTable(
               Math.pow(2, bi) -
               1
           )
-        } else {
+        } 
+        else {
           timestampCommon.push(precedingTimestamp)
         }
       }
-    } else {
+    } 
+    else {
       timestampCommon.push(buffer.getNextSample(ST_U32))
     }
     lastTimestamp = timestampCommon[i]
@@ -737,534 +746,227 @@ try {
 
 
 function UintToInt(Uint, Size) {
-    if (Size === 2) {
-      if ((Uint & 0x8000) > 0) {
-        Uint = Uint - 0x10000;
-      }
+  if (Size === 2) {
+    if ((Uint & 0x8000) > 0) {
+      Uint = Uint - 0x10000;
     }
-    if (Size === 3) {
-      if ((Uint & 0x800000) > 0) {
-        Uint = Uint - 0x1000000;
-      }
+  }
+  if (Size === 3) {
+    if ((Uint & 0x800000) > 0) {
+      Uint = Uint - 0x1000000;
     }
-    if (Size === 4) {
-      if ((Uint & 0x80000000) > 0) {
-        Uint = Uint - 0x100000000;
-      }
+  }
+  if (Size === 4) {
+    if ((Uint & 0x80000000) > 0) {
+      Uint = Uint - 0x100000000;
     }
-    return Uint;
+  }
+  return Uint;
 }
 
 
 
 function decimalToHex(d, padding) {
-    var hex = Number(d).toString(16).toUpperCase();
-    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+  var hex = Number(d).toString(16).toUpperCase();
+  padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
 
-    while (hex.length < padding) {
-        hex = "0" + hex;
-    }
-
-    return "0x" + hex;
+  while (hex.length < padding) {
+    hex = "0" + hex;
+  }
+  return "0x" + hex;
 }
 
 
 
 function Bytes2Float32(bytes) {
-    var sign = (bytes & 0x80000000) ? -1 : 1;
-    var exponent = ((bytes >> 23) & 0xFF) - 127;
-    var significand = (bytes & ~(-1 << 23));
+  var sign = (bytes & 0x80000000) ? -1 : 1;
+  var exponent = ((bytes >> 23) & 0xFF) - 127;
+  var significand = (bytes & ~(-1 << 23));
 
-    if (exponent == 128)
-        return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
+  if (exponent == 128)
+    return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
 
-    if (exponent == -127) {
-        if (significand == 0) return sign * 0.0;
-        exponent = -126;
-        significand /= (1 << 22);
-    } else significand = (significand | (1 << 23)) / (1 << 23);
+  if (exponent == -127) {
+    if (significand == 0) return sign * 0.0;
+      exponent = -126;
+      significand /= (1 << 22);
+    } 
+    else significand = (significand | (1 << 23)) / (1 << 23);
 
     return sign * significand * Math.pow(2, exponent);
 }
 
 
 function Decoder(bytes, port) {
-    // Decode an uplink message from a buffer
-    // (array) of bytes to an object of fields.
-    var decoded = {};
+  // Decode an uplink message from a buffer
+  // (array) of bytes to an object of fields.
+  var decoded = {};
 
-    var decodedBatch = {};
+  var decodedBatch = {};
 
-    var lora = {};
+  var lora = {};
 
-    // decoded.lora.port  = port;
+  // decoded.lora.port  = port;
     
-    // Get raw payload
-    var bytes_len_ = bytes.length;
-    var temp_hex_str = ""
+  // Get raw payload
+  var bytes_len_ = bytes.length;
+  var temp_hex_str = ""
 
-    lora.payload  = "";
-
-
+  lora.payload  = "";
 
 
-    for( var j = 0; j < bytes_len_; j++ )
-    {
-        temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
-        if( temp_hex_str.length == 1 )
-        {
-            temp_hex_str = "0" + temp_hex_str;
-        }
+  for( var j = 0; j < bytes_len_; j++ ){
+    temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
+    if( temp_hex_str.length == 1 ){
+      temp_hex_str = "0" + temp_hex_str;
+    }
     lora.payload += temp_hex_str;
-    }
+  }
 
-    var date = new Date();
-    var lDate = date.toISOString();
+  var date = new Date();
+  var lDate = date.toISOString();
     
-    if (port === 125)
-    {
+  if (port === 125){
+    //batch
+    decodedBatch = !(bytes[0] & 0x01);
+    
+    //trame standard
+    if (decodedBatch === false){
+      decoded.zclheader = {};
+      decoded.zclheader.report =  "standard";
+      attributID = -1;
+      cmdID = -1;
+      clusterdID = -1;
+      //endpoint
+      decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
+      //command ID
+      cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
+      //Cluster ID
+      clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
+        
+      // decode report and read atrtribut response
+      if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
+        stdData = {};
+        var tab=[];
+
+        //Attribut ID
+        attributID = bytes[4]*256 + bytes[5]; decoded.zclheader.attributID = decimalToHex(attributID,4);
+            
+        if (cmdID === 0x8a) {
+          decoded.zclheader.alarm = 1;
+        }
+        else {
+          decoded.zclheader.alarm = 0;
+        }
+        //data index start
+        if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
+        if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
+
+        //temperature
+        if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) {
+          tab.push({label:"Temperature" ,value:(UintToInt(bytes[index]*256+bytes[index+1],2))/100, date:lDate}) ;
+        };
+        //humidity
+        if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) {
+          tab.push({label: "Humidity", value:(bytes[index]*256+bytes[index+1])/100, date: lDate});
+        };
+              
+        // lorawan message type
+        if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
+          if (bytes[index] === 1)
+            stdData.message_type = "confirmed";
+          if (bytes[index] === 0)
+            stdData.message_type = "unconfirmed";
+        }
+                
+        // lorawan retry
+        if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
+          stdData.nb_retry= bytes[index] ;
+        }
+                
+        // lorawan reassociation
+        if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
+          stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
+          stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
+        }
+
+        // configuration node power desc
+				if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
+          index2 = index + 3;
+				  if ((bytes[index+2] &0x01) === 0x01) {
+            tab.push({label:"ExternalPowerVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
+            index2=index2+2;
+          }
+          if ((bytes[index+2] &0x04) === 0x04) {
+            tab.push({label:"BatteryVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
+            index2=index2+2;
+          }
+				  if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+				  if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+				  if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+          // tab.push(stdData);
+				}
+                
+        decoded.data = tab;
+      }
+            
+      //decode configuration response
+      if(cmdID === 0x07){
+        //AttributID
+        attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
+        //status
+        decoded.zclheader.status = bytes[4];
         //batch
-        decodedBatch = !(bytes[0] & 0x01);
-    
-        //trame standard
-        if (decodedBatch === false){
-            decoded.zclheader = {};
-            decoded.zclheader.report =  "standard";
-            attributID = -1;
-            cmdID = -1;
-            clusterdID = -1;
-            //endpoint
-            decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
-            //command ID
-            cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
-            //Cluster ID
-            clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
+        decoded.zclheader.decodedBatch = bytes[5];
+      }
+      //decode read configuration response
+      if(cmdID === 0x09){
+        //AttributID
+        attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
+        //status
+        decoded.zclheader.status = bytes[4];
+        //batch
+        decoded.zclheader.decodedBatch = bytes[5];
+        //AttributType
+        decoded.zclheader.attribut_type = bytes[8];
+        //min
+        decoded.zclheader.min = {}
+        if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unity = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unity = "seconds";}
+        //max
+        decoded.zclheader.max = {}
+        if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.max.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.max.unity = "minutes";} else {decoded.zclheader.max.value = bytes[9]*256+bytes[10];decoded.zclheader.max.unity = "seconds";}
+
+      }
         
-            // decode report and read atrtribut response
-            if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
-
-                stdData = {};
-                var tab=[];
-                tab.push(stdData);
-
-                //Attribut ID
-                attributID = bytes[4]*256 + bytes[5]; decoded.zclheader.attributID = decimalToHex(attributID,4);
-            
-                if (cmdID === 0x8a) {
-                    decoded.zclheader.alarm = 1;
-                }
-                else {
-                    decoded.zclheader.alarm = 0;
-                }
-                //data index start
-                if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
-                if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
-
-                //temperature
-                if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) {stdData.label = "temperature"; stdData.value = (UintToInt(bytes[index]*256+bytes[index+1],2))/100; stdData.date = lDate; };
-                //humidity
-                if (  (clusterdID === 0x0405 ) & (attributID === 0x0000)) {stdData.label = "humidity"; stdData.value = (bytes[index]*256+bytes[index+1])/100; stdData.date = lDate; };
-                //binary input counter
-                if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {stdData.label = "counter"; stdData.value = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); stdData.date = lDate};
-                // binary input present value
-                if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {stdData.label = "pin state"; stdData.value =!(!bytes[index]); stdData.date = lDate};
-                //multistate output
-                if (  (clusterdID === 0x0013 ) & (attributID === 0x0055)) {stdData.label = "multistate"; stdData.value = bytes[index]; stdData.date = lDate};
-                // on/off present value
-                if (  (clusterdID === 0x0006 ) & (attributID === 0x0000)) {stdData.label = "ON/OFF"; stdData.value = bytes[index]; if(state === 1) stdData.state = "ON"; else stdData.state = "OFF"; stdData.date = lDate}
-                // multibinary input present value
-                if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
-                {
-                stdData.pin_state_1 = ((bytes[index+1]&0x01) === 0x01);
-                stdData.pin_state_2 = ((bytes[index+1]&0x02) === 0x02);
-                stdData.pin_state_3 = ((bytes[index+1]&0x04) === 0x04);
-                stdData.pin_state_4 = ((bytes[index+1]&0x08) === 0x08);
-                stdData.pin_state_5 = ((bytes[index+1]&0x10) === 0x10);
-                stdData.pin_state_6 = ((bytes[index+1]&0x20) === 0x20);
-                stdData.pin_state_7 = ((bytes[index+1]&0x40) === 0x40);
-                stdData.pin_state_8 = ((bytes[index+1]&0x80) === 0x80);
-                stdData.pin_state_9 = ((bytes[index]&0x01) === 0x01);
-                stdData.pin_state_10 = ((bytes[index]&0x02) === 0x02);
-                }
-                //analog input
-                if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) {stdData.label = "analog input"; stdData.value = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); stdData.date = lDate};
-
-                //modbus
-                if (  (clusterdID === 0x8007 ) & (attributID === 0x0001))
-                {
-                    stdData.label = "modbus";
-                    stdData.modbus_payload = "";
-                    stdData.modbus_size = bytes[index];
-                    for( var j = 0; j < stdData.modbus_size -1; j++ )
-                    {
-                        temp_hex_str   = bytes[index+j+1].toString( 16 ).toUpperCase( );
-                        if( temp_hex_str.length == 1 )
-                        {
-                            temp_hex_str = "0" + temp_hex_str;
-                        }
-                        stdData.modbus_payload += temp_hex_str;
-                    }
-                    stdDatas.date = lDate;
-                }
-                //multimodbus
-                if (  (clusterdID === 0x8009 ) & (attributID === 0x0000))
-                {
-                    stdData.label = "multimodbus";
-                    stdData.multimodbus_payloads = "";
-                    stdData.multimodbus_size = bytes[index];
-                    stdData.multimodbus_frame_series_sent = bytes[index+1];
-                    stdData.multimodbus_frame_number_in_serie = (bytes[index+2] & 0xE0) >> 5;
-                    stdData.multimodbus_last_frame_of_serie = (bytes[index+2] & 0x1C ) >> 2;
-                    stdData.multimodbus_EP9 = ((bytes[index+2]&0x01) === 0x01);
-                    stdData.multimodbus_EP8 = ((bytes[index+2]&0x02) === 0x02);
-                    stdData.multimodbus_EP7 = ((bytes[index+3]&0x80) === 0x80);
-                    stdData.multimodbus_EP6 = ((bytes[index+3]&0x40) === 0x40);
-                    stdData.multimodbus_EP5 = ((bytes[index+3]&0x20) === 0x20);
-                    stdData.multimodbus_EP4 = ((bytes[index+3]&0x10) === 0x10);
-                    stdData.multimodbus_EP3 = ((bytes[index+3]&0x08) === 0x08);
-                    stdData.multimodbus_EP2 = ((bytes[index+3]&0x04) === 0x04);
-                    stdData.multimodbus_EP1 = ((bytes[index+3]&0x02) === 0x02);
-                    stdData.multimodbus_EP0 = ((bytes[index+3]&0x01) === 0x01);
-                    index2 = index + 4;
-                    if (stdData.multimodbus_EP0 === true)
-                    {
-                        stdData.multimodbus_EP0_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP0_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP0_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP0_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP0_datasize; j++ )
-                        {
-                            temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
-                            stdData.multimodbus_EP0_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP0_datasize;
-                    }
-
-                    if (stdData.multimodbus_EP1 === true)
-                    {
-                        stdData.multimodbus_EP1_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP1_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP1_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP1_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP1_datasize; j++ )
-                    {
-                    temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                    if( temp_hex_str.length == 1 )
-                    {
-                        temp_hex_str = "0" + temp_hex_str;
-                    }
-                    stdData.multimodbus_EP1_payload += temp_hex_str;
-                    }
-                    index2 = index2 + stdData.multimodbus_EP1_datasize;
-                    }
-                    if (stdData.multimodbus_EP2 === true)
-                    {
-                        stdData.multimodbus_EP2_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP2_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP2_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP2_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP2_datasize; j++ )
-                        {
-                        temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                        if( temp_hex_str.length == 1 )
-                        {
-                            temp_hex_str = "0" + temp_hex_str;
-                        }
-                        stdData.multimodbus_EP2_payload += temp_hex_str;
-                        }
-                    index2 = index2 + stdData.multimodbus_EP2_datasize;
-                    }
-                    if (stdData.multimodbus_EP3 === true)
-                    {
-                        stdData.multimodbus_EP3_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP3_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP3_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP3_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP3_datasize; j++ )
-                        {
-                            temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
-                            stdData.multimodbus_EP3_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP3_datasize;
-                    }
-                    if (stdData.multimodbus_EP4 === true)
-                    {
-                        stdData.multimodbus_EP4_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP4_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP4_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP4_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP4_datasize; j++ )
-                        {
-                        temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                        if( temp_hex_str.length == 1 )
-                        {
-                            temp_hex_str = "0" + temp_hex_str;
-                        }
-                        stdData.multimodbus_EP4_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP4_datasize;
-                    }
-                    if (stdData.multimodbus_EP5 === true)
-                    {
-                        stdData.multimodbus_EP5_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP5_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP5_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP5_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP5_datasize; j++ )
-                        {
-                        temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                        if( temp_hex_str.length == 1 )
-                        {
-                            temp_hex_str = "0" + temp_hex_str;
-                        }
-                        stdData.multimodbus_EP5_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP5_datasize;
-                    }
-                    if (stdData.multimodbus_EP6 === true)
-                    {
-                        stdData.multimodbus_EP6_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP6_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP6_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP6_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP6_datasize; j++ )
-                        { 
-                            temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
-                            stdData.multimodbus_EP6_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP6_datasize;
-                    }
-                    if (stdData.multimodbus_EP7 === true)
-                    {
-                        stdData.multimodbus_EP7_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP7_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP7_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP7_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP7_datasize; j++ )
-                        {
-                            temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
-                            stdData.multimodbus_EP7_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP7_datasize;
-                    }
-                    if (stdData.multimodbus_EP8 === true)
-                    {
-                        stdData.multimodbus_EP8_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP8_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP8_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP8_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP8_datasize; j++ )
-                        {
-                            temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
-                        stdData.multimodbus_EP8_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP8_datasize;
-                    }
-                    if (stdData.multimodbus_EP9 === true)
-                    {
-                        stdData.multimodbus_EP6_slaveID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP6_fnctID = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP6_datasize = bytes[index2];
-                        index2 = index2 + 1;
-                        stdData.multimodbus_EP6_payload = ""
-                        if (bytes[index2] === undefined ) return decoded;
-                        for( var j = 0; j < stdData.multimodbus_EP6_datasize; j++ )
-                        {
-                            temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
-                            if( temp_hex_str.length == 1 )
-                            {
-                                temp_hex_str = "0" + temp_hex_str;
-                            }
-                            stdData.multimodbus_EP6_payload += temp_hex_str;
-                        }
-                        index2 = index2 + stdData.multimodbus_EP6_datasize;
-                    }
-                    stdDatas.date = lDate;
-                }
-
-            
-                //simple metering
-                if (  (clusterdID === 0x0052 ) & (attributID === 0x0000)) {
-                    stdData.active_energy_Wh = UintToInt(bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3],3);
-                    stdData.reactive_energy_Varh = UintToInt(bytes[index+4]*256*256+bytes[index+5]*256+bytes[index+6],3);
-                    stdData.nb_samples = (bytes[index+7]*256+bytes[index+8]);
-                    stdData.active_power_W = UintToInt(bytes[index+9]*256+bytes[index+10],2);
-                    stdData.reactive_power_VAR = UintToInt(bytes[index+11]*256+bytes[index+12],2);
-                }
-                // lorawan message type
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
-                    if (bytes[index] === 1)
-                        stdData.message_type = "confirmed";
-                    if (bytes[index] === 0)
-                        stdData.message_type = "unconfirmed";
-                }
-                
-                // lorawan retry
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
-                    stdData.nb_retry= bytes[index] ;
-                }
-                
-                // lorawan reassociation
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
-                    stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
-                    stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
-                }
-                // configuration node power desc
-                if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
-                    index2 = index + 3;
-                if ((bytes[index+2] &0x01) === 0x01) {stdData.main_or_external_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                if ((bytes[index+2] &0x02) === 0x02) {stdData.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                if ((bytes[index+2] &0x04) === 0x04) {stdData.BatteryVoltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                if ((bytes[index+2] &0x08) === 0x08) {stdData.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                if ((bytes[index+2] &0x10) === 0x10) {stdData.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                }
-                //energy and power metering
-                if (  (clusterdID === 0x800a) & (attributID === 0x0000)) {
-                    index2 = index;
-                    stdData.sum_positive_active_energy_Wh = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                    index2 = index2 + 4;
-                    stdData.sum_negative_active_energy_Wh = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                    index2 = index2 + 4;
-                    stdData.sum_positive_reactive_energy_Wh = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                    index2 = index2 + 4;
-                    stdData.sum_negative_reactive_energy_Wh = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                    index2 = index2 + 4;
-                    stdData.positive_active_power_W = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                    index2 = index2 + 4;
-                    stdData.negative_active_power_W = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                    index2 = index2 + 4;
-                    stdData.positive_reactive_power_W = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                    index2 = index2 + 4;
-                    stdData.negative_reactive_power_W = UintToInt(bytes[index2+1]*256*256*256+bytes[index2+2]*256*256+bytes[index2+3]*256+bytes[index2+4],4);
-                }
-                //energy and power metering
-                if (  (clusterdID === 0x800b) & (attributID === 0x0000)) {
-                    index2 = index;
-                    stdData.Vrms = UintToInt(bytes[index2+1]*256+bytes[index2+2],2)/10;
-                    index2 = index2 + 2;
-                    stdData.Irms = UintToInt(bytes[index2+1]*256+bytes[index2+2],2)/10;
-                    index2 = index2 + 2;
-                    stdData.phase_angle = UintToInt(bytes[index2+1]*256+bytes[index2+2],2);
-                }
-                decoded.data = tab;
-            }
-            
-            //decode configuration response
-            if(cmdID === 0x07){
-                //AttributID
-                attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-                //status
-                decoded.zclheader.status = bytes[4];
-                //batch
-                decoded.zclheader.decodedBatch = bytes[5];
-            }
-            //decode read configuration response
-            if(cmdID === 0x09){
-                //AttributID
-                attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-                //status
-                decoded.zclheader.status = bytes[4];
-                //batch
-                decoded.zclheader.decodedBatch = bytes[5];
-                //AttributType
-                decoded.zclheader.attribut_type = bytes[8];
-                //min
-                decoded.zclheader.min = {}
-            if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.min.unity = "minutes";} else {decoded.zclheader.min.value = bytes[9]*256+bytes[10];decoded.zclheader.min.unity = "seconds";}
-                //max
-            decoded.zclheader.max = {}
-            if ((bytes[9] & 0x80) === 0x80) {decoded.zclheader.max.value = (bytes[9]-0x80)*256+bytes[10];decoded.zclheader.max.unity = "minutes";} else {decoded.zclheader.max.value = bytes[9]*256+bytes[10];decoded.zclheader.max.unity = "seconds";}
-
-            }
-        
-        }
-        else
-        {
-            var decoded = {};
-            brData = (brUncompress(2,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature", divide: 100},{ taglbl: 1, resol: 100, sampletype: 6,lblname: "humidity", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000} ], lora.payload, lDate))
-
-            var data_length = brData["datas"].length;
-            var tab=[];
-            for (var i = 0; i < data_length; i++) {               
-                tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
-            }
-
-            decoded.data = tab;
-
-            decoded.zclheader = {};
-            decoded.zclheader.report = "batch";
-        }
-
     }
-    return decoded;
+
+    else{
+
+      var decoded = {};
+      brData = (brUncompress(2,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "Temperature", divide: 100},{ taglbl: 1, resol: 100, sampletype: 6,lblname: "Humidity", divide: 100},{ taglbl: 2, resol: 1, sampletype: 6,lblname: "BatteryVoltage", divide: 1000} ], lora.payload, lDate))
+
+      var data_length = brData["datas"].length;
+      var tab=[];
+      for (var i = 0; i < data_length; i++) {               
+        tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
+      }
+
+      decoded.data = tab;
+
+      decoded.zclheader = {};
+      decoded.zclheader.report = "batch";
+    }
+
+  }
+  return decoded;
 }
 
 
 function decodeUplink(input) {
  
   return {
-
-      data : Decoder(input.bytes, input.fPort),
-    
-      warnings: [],
-      errors: []
-    };
+    data : Decoder(input.bytes, input.fPort),
+    warnings: [],
+    errors: []
+  };
 }
