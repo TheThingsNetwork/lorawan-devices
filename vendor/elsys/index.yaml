@@ -1,0 +1,9 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - ers
+  - ers-co2
+  - ers-co2-lite
+  - ers-voc
+  - ers-eye
+  - ers-sound
+  - ers-lite
