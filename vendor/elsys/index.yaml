@@ -10,3 +10,7 @@ endDevices:
   - elt-2
   - elt-lite
   - elt-ultrasonic
+  - ems
+  - ems-door
+  - ems-lite
+  - ems-desk
