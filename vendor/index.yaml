@@ -593,6 +593,9 @@ vendors:
   - id: ruixinghengfang-network
     name: RuiXingHengFang Network(Shenzhen) Co.
     vendorID: 350
+    website: http://www.risinghf.com
+    ouis:
+      - 8CF957
 
   - id: ryoden
     name: Ryoden Corporation
@@ -1667,3 +1670,11 @@ vendors:
     name: Dingtek
     website: http://dingtek.com/
     logo: dingtek_logo.png
+
+  - id: elster
+    name: Elster
+    website: https://www.elster.nl/nl/about_us.html
+
+  - id: innotas
+    name: innotas Elektronik
+    website: https://www.innotas-elektronik.de/en-gb

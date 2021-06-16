@@ -1,0 +1,11 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - th-sensor
+  - t-indoor-sensor
+  - t-2-ctn-sensor
+  - pulse-senso-sensor
+  - presso-sensor
+  - vaqao-sensor
+  - vaqao-plus-sensor

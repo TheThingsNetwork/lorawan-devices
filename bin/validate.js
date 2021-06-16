@@ -210,6 +210,23 @@ vendors.vendors.forEach((v) => {
       console.log(`${key}: valid`);
 
       endDevice.firmwareVersions.forEach((version) => {
+        const key = `${v.id}: ${d}: ${version.version}`;
+
+        if (Boolean(version.hardwareVersions) != Boolean(endDevice.hardwareVersions)) {
+          console.error(
+            `${key}: hardware versions are inconsistent: when used in end device, use in firmware versions (and vice-versa)`
+          );
+          process.exit(1);
+        }
+        if (version.hardwareVersions) {
+          version.hardwareVersions.forEach((hardwareVersion) => {
+            if (!endDevice.hardwareVersions.find((v) => v.version === hardwareVersion)) {
+              console.error(`${key}: hardware version ${hardwareVersion} not found in supported hardware versions`);
+              process.exit(1);
+            }
+          });
+        }
+
         Object.keys(version.profiles).forEach((region) => {
           const regionProfile = version.profiles[region];
           const key = `${v.id}: ${d}: ${region}`;
