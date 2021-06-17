@@ -11,6 +11,7 @@ firmwareVersions:
   - # Firmware version
     version: '6.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '2.4'
 
