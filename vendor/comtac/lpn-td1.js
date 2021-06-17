@@ -375,16 +375,16 @@ function encodeDownlink(input) {
 					(typeof input.data.rejoinTrigger !== 'undefined') &&
 					(typeof input.data.gpsFixes !== 'undefined') && 
 					(typeof input.data.minWIFIDetects !== 'undefined')){
-			if ((input.data.pingInterval < 15) || (input.data.pingInterval < 15)) {
+			if ((input.data.pingInterval < 15) || (input.data.pingInterval > 50000)) {
 				return { errors: ['Invalid ping interval value'] };
 			}
-			if (input.data.longRangeTrigger > 255) {
+			if ((input.data.longRangeTrigger < 0) || (input.data.longRangeTrigger > 255)) {
 				return { errors: ['Invalid long range trigger value'] };
 			}
-			if (input.data.midRangeTrigger > 255) {
+			if ((input.data.midRangeTrigger < 0) || (input.data.midRangeTrigger > 255)) {
 				return { errors: ['Invalid mid range trigger value'] };
 			}
-			if (input.data.rejoinTrigger > 50000) {
+			if ((input.data.rejoinTrigger < 0) || (input.data.rejoinTrigger > 50000)) {
 				return { errors: ['Invalid rejoin trigger value'] };
 			}
 			if ((input.data.gpsFixes < 5) || (input.data.gpsFixes > 20)) {

@@ -1,0 +1,46 @@
+# The KELLER payload is a little bit complicated as the device can have one or many level probes or pressure transmitter
+# Therefore, a connection type defines the possible channels which again are mapped to physical units like pressure, temperature..
+# See protocol: https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/
+# and the decoder on github: https://github.com/KELLERAGfuerDruckmesstechnik/KellerAgTheThingsNetworkPayloadDecoder
+# The alternative is an open-source C# library that does the similar:  https://iotconverter.kolibricloud.ch/
+uplinkDecoder:
+  fileName: kellerpayload.js
+  examples:
+    - description: Example set of measurements
+      input:
+        fPort: 1
+        bytes: [0x01, 0x03, 0x00, 0xD3, 0xBF, 0x78, 0x93, 0x7D, 0xB8, 0x00, 0x00, 0x00, 0x41, 0xAE, 0x66, 0x66, 0x3F, 0x78, 0x91, 0x7D, 0x41, 0xBE, 0x00, 0x00]
+      output:
+        data:
+          port: 1 # defines the base message type (1-Measurements, 2-Alarm, 3-Configure, 4-Info, 5-AnswerOfRequest)
+          payload: '010300D3BF78937DB800000041AE66663F78917D41BE0000' # input bytes
+          func: 1 # function code which defines the type of message format (Measurements, SensorInfo, 4 byte stream ...)
+          ct: 3 # Connection Type: Defines the scheme of sensors attached and mapped to the device channels
+          channel: '0000000011010011' # shows which of these channels are active and used
+          channelCount: 5 # the number of channels attached
+          P1: -0.000030517578125 # Channel 'Pressure 1' which the pressure in [bar] from first pressure sensor
+          PBaro: 0.9709699749946594 # barometric pressure [bar]
+          Pd (P1-PBaro): -0.9710004925727844 # pressure difference [bar] - used to calculate water level etc.
+          TBaro: 23.75 # temperature in [°C] in the ADT1/ARC1 which is similar to the air temperature
+          TOB1: 21.799999237060547 # temperature (over bridge) [°C]: temperature on the first pressure sensor
+        warnings: []
+        errors: []
+
+    - description: Example of an information message
+      input:
+        fPort: 4
+        bytes: [0x0C, 0x01, 0x13, 0x00, 0x13, 0x2F, 0x00, 0x00, 0x00, 0x0C, 0x27, 0xE3, 0x92, 0x8B, 0x40, 0xA2, 0xB0, 0x0D, 0x2F, 0x3A]
+      output:
+        data:
+          port: 4 # defines the base message type (1-Measurements, 2-Alarm, 3-Configure, 4-Info, 5-AnswerOfRequest)
+          payload: '0C011300132F0000000C27E3928B40A2B00D2F3A' # input bytes
+          func: 12 # function code which defines the type of message format (Measurements, SensorInfo, 4 byte stream ...)
+          battery_capacity_percentage: 47 # in % [0..99]
+          battery_voltage: 5.083990573883057 # in V
+          class_group_text: '19.00' # device class/type information
+          device_local_datetime: '2021-03-16 16:00:11'
+          humidity_percentage: 58 # in % rel [0..100]
+          serial_number: 12 # device serial number incremented for each device class/type
+          sw_version_text: '19.47' # FW version as text
+        warnings: []
+        errors: []

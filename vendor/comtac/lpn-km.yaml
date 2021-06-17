@@ -8,7 +8,7 @@ hardwareVersions:
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
-  - version: 'V00.00'
+  - version: 'V01.01'
     numeric: 0000 # Corresponding hardware versions (optional)
     hardwareVersions:
       - 'REV00'
@@ -19,7 +19,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: lpn-km-profile-eu868
         lorawanCertified: true
-#        codec: lpn-km-codec #LEAVE THIS EMPTY AS WE DONT HAVE IT YET?
+        codec: lpn-km-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -74,7 +74,7 @@ productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-km-s
 
 # Photos
 photos:
-  main: lpn-km-foto.jpg
+  main: lpn-km-foto.png
 
 # Regulatory compliances (optional)
 compliances:

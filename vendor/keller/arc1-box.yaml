@@ -1,0 +1,101 @@
+name: ARC1 Box
+description: ARC1 Box - Remote transmission unit with data logger compatible with many KELLER level probes and pressure transmitters. Battery operated with a lifetime of up to ten years. High level of data security thanks to internal solid-state memory. Robust stainless metal housing. Degree of protection up to IP68. The ARC1 is also a 'Data Logger' that stores the up to 56000 measurements internally.
+
+firmwareVersions:
+  - version: '20.41'
+    numeric: 2041
+    profiles:
+      EU863-870:
+        id: arc1-profile
+        lorawanCertified: false
+        codec: keller-codec
+      US902-928:
+        id: arc1-profile
+        lorawanCertified: false
+        codec: keller-codec
+
+# This device can be connected with various kind of KELLER pressure sensors including Level Probes and transmitters
+# The ARC1 itself measures humidity, battery capacity (0..100%), battery voltage, temperature and barometric pressure
+# The sensors attached measure pressure, temperature and optionally conductivity
+# https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/
+sensors:
+  - pressure
+  - temperature
+  - conductivity
+  - barometer
+  - battery
+  - humidity
+
+# Dimensions in mm without antenna
+dimensions:
+  width: 100
+  length: 200
+  height: 80
+
+# Weight in grams with battery
+weight: 1500
+
+battery:
+  replaceable: true
+  type: Lithium battery DD / 3.9 V / 35 Ah (Should be replaced after 10 years)
+
+# -30 degree option available
+operatingConditions:
+  temperature:
+    min: -20
+    max: 50
+  relativeHumidity:
+    min: 0
+    max: 1.0
+
+# IP68 is an available option with max. immersion depth 2 m, max. immersion time 24 h.
+# IP68 can only be guaranteed when installed professionally.
+# Transmission does not work under water.
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+#documentationURL: https://docs.kolibricloud.ch/sending-technology/lora-technology/
+#githubURL: https://github.com/KELLERAGfuerDruckmesstechnik
+#manualURL: https://download.keller-druck.com/api/download/6qEUnTrFjvSfezrFnzxGmb/en/2018-08.pdf
+productURL: https://keller-druck.com/en/products/wireless-solutions/remote-transmission-units/arc1-box
+dataSheetURL: https://download.keller-druck.com/api/download/VyyiKwTWpeTxLdpb9sSSK4/en/2021-01.pdf
+
+photos:
+  main: arc1-box-front.jpg
+  other:
+    - arc1-box-5sensors.jpg
+    - arc1-box-dim.jpg
+
+videos:
+  main: https://www.youtube.com/watch?v=hbfnBRteBYM
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 60950-1:2013
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
