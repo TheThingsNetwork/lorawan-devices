@@ -2,12 +2,14 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: sensor.js
-
-    - description:  Measure Daten LOOP Resistance , ISO Resistance, Batterie, Temperatur, Kontact, Status
+  # Examples (optional)
+  examples:
+    - description:  Measure Daten LOOP Resistance , ISO Resistance, Batterie, Temperature, Contact, Status
       input:
         fPort: 1
         bytes: [0x60, 0xC5, 0xDA, 0x44, 0x27, 0x10, 0x27, 0x10, 0x27, 0x10, 0x27, 0x10, 0x0D, 0x86, 0x00, 0x18, 0x0F, 0x00, 0x00, 0x00, 0x00]
       output:
+        data:
           "Messzeit": "2021-06-13T10:13:24.000Z"
           "ISO1 [kOhm]": 10000
           "LOOP1 [Ohm]": 10000
@@ -70,6 +72,7 @@ uplinkDecoder:
         fPort: 100
         bytes: [0x00, 0xFA, 0x0C, 0x11, 0x47, 0x98, 0xDB, 0x81, 0x00, 0x00, 0x03]
       output:
-        Artikel_Nr: 16387089
-        Serial_Nr: 121200001
-        Firmware_Version: "0.0.3"
+        data:
+          Artikel_Nr: 16387089
+          Serial_Nr: 121200001
+          Firmware_Version: "0.0.3"

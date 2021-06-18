@@ -5,32 +5,83 @@ uplinkDecoder:
   # Examples (optional)
 
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
-downlinkEncoder:
+uplinkDecoder:
   fileName: sensor.js
+  # Examples (optional)
   examples:
-    - description: Turn green
+    - description:  Measure Daten LOOP Resistance , ISO Resistance, Batterie, Temperature, Humidity, Contact, Status
       input:
-        data:
-          led: green
+        fPort: 25
+        bytes: [0x04, 0x02,0x27, 0x10, 0x04, 0x08, 0x13, 0x88, 0x04, 0x73, 0x0B, 0xE5, 0x02, 0x2B, 0x01, 0x02, 0x40, 0x01, 0x13, 0x12, 0x0A, 0xEA, 0x13, 0x2B, 0x09, 0x02, 0x02, 0x76, 0x0F, 0x02, 0xFE, 0x02]
       output:
-        bytes: [1]
-        fPort: 2
-    - description: Invalid color
-      input:
         data:
-          led: blue
-      output:
-        errors:
-          - invalid LED color
+          {
+            "Batterie": 3.045,
+            "Feuchte": {
+              "Channel:1 Error": {
+                "Offline": true,
+                "address invalid": false,
+                "bit7": false,
+                "defekt": false,
+                "disabled": false,
+                "max overflow": false,
+                "meas invalid": false,
+                "min underflow": false
+              },
+              "elements": 1
+            },
+            "Iso": [
+              "ISO1 [0-10000 kOhm]=10000"
+            ],
+            "Kontakt": {
+              "bit4": "Close",
+              "bit5": "Close",
+              "bit6": "Close",
+              "bit7": "Close",
+              "kontakt1 before": "Open",
+              "kontakt1 now": "Open",
+              "kontakt2 before": "Open",
+              "kontakt2 now": "Open"
+            },
+            "Loop": [
+              "LOOP1 [0-5000 Ohm]=5000"
+            ],
+            "Spannung": {
+              "Channel:2 [0-10 Volt]": 2.794,
+              "elements": 1
+            },
+            "SystemStatus": {
+              "Batteriefehler": false,
+              "Bit7": false,
+              "Erdfehler": true,
+              "System Fehler": false,
+              "eeprom_read_error": false,
+              "eeprom_write_error": false,
+              "history_read_error": false,
+              "history_write_error": false
+            },
+            "Temp": {
+              "Channel:1 Error": {
+                "Offline": true,
+                "address invalid": false,
+                "bit7": false,
+                "defekt": false,
+                "disabled": false,
+                "max overflow": false,
+                "meas invalid": false,
+                "min underflow": false
+              },
+              "Channel:2 [-20.00 - +140.00 °C]": 23.06,
+              "elements": 2
+            }
+          }
 
-# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-downlinkDecoder:
-  fileName: sensor.js
-  examples:
-    - description: Turn green
+    - description: Device Information
       input:
-        fPort: 2
-        bytes: [1]
+        fPort: 100
+        bytes: [0x00, 0xFA, 0x0C, 0x11, 0x47, 0x98, 0xDB, 0x81, 0x00, 0x00, 0x03]
       output:
-        data:
-          led: green
+        Artikel_Nr: 16387089
+        Serial_Nr: 121200001
+        Firmware_Version: "0.0.3"
+
