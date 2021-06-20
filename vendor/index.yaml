@@ -953,8 +953,9 @@ vendors:
     name: CoxCom, LLC d/b/a Cox2M
     vendorID: 588
 
-  - id: alpha-omega
-    name: Alpha-Omega Technology GmbH & Co.KG
+  - id: alpha-omega-technology
+    name: Alpha-Omega Technology GmbH & Co. KG
+    website: https://iot-shop.de
     vendorID: 590
 
   - id: st-electronic
@@ -1678,8 +1679,3 @@ vendors:
   - id: innotas
     name: innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
-
-  - id: alpha-omega-technology
-    name: Alpha-Omega Technology GmbH & Co. KG
-    website: https://iot-shop.de
-    vendorID: 590
