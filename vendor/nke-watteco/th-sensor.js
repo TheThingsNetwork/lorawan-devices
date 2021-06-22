@@ -528,6 +528,7 @@ function handleCommonTimestamp(
           }
         } 
         else {
+
           // bi > BR_HUFF_MAX_INDEX_TABLE
           currentMeasure.data.value = buffer.getNextSample(
             argList[sampleIndex].sampletype
@@ -562,6 +563,7 @@ function initTimestampCommonTable(
           out.series[firstSampleIndex].uncompressSamples[0]
             .data_relative_timestamp
         )
+
       } 
       else {
         if (bi > 0) {
