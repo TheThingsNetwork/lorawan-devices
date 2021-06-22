@@ -3,5 +3,5 @@
 uplinkDecoder:
   fileName: elsys.js
   # Examples (optional)
-  examples:
-    # - description: ELT Lite provide power to external sensors
+  #examples:
+  # - description: ELT Lite provide power to external sensors
