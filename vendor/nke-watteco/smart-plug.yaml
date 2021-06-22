@@ -1,12 +1,10 @@
-name: Press'O
-description: Transforms any 4-20 mA and 0-10V gauge to a sensor connected to a LoRaWAN network
+name: Smart Plug
+description: Smart Plug is a plug connected to a public or private LoRaWAN™ network, which is used to remotely manage the operation of common household electrical appliances
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '50-70-003'
     numeric: 3
-  - version: '50-70-022'
-    numeric: 22
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -16,7 +14,6 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '50-70-003'
-      - '50-70-022'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -51,6 +48,7 @@ firmwareVersions:
 sensors:
   - current
   - voltage
+  - energy
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.

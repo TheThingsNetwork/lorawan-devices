@@ -1,5 +1,5 @@
-name: Temperature indoor sensor
-description: Measures the ambient temperature
+name: Remote temperature sensor
+description: The remote temperature sensor is dedicated to temperature measurement in buildings, temperature-controlled rooms, cooling towers, and transmits the data over a public or private LoRaWAN™ radio network
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

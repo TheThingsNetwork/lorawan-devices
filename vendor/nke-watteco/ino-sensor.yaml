@@ -1,5 +1,5 @@
-name: Press'O
-description: Transforms any 4-20 mA and 0-10V gauge to a sensor connected to a LoRaWAN network
+name: In'O
+description: The In’O sensor turns any type of I/O sensor / actuator into a Class A or Class C sensor / actuator connected to a public or private LoRaWAN™ network
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -51,6 +51,7 @@ firmwareVersions:
 sensors:
   - current
   - voltage
+  - energy
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
