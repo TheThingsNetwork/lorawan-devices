@@ -3,17 +3,17 @@
 uplinkDecoder:
   fileName: elsys.js
   # Examples (optional)
-  examples:
-    - description: ELT Ultrasonic temperature, humidity, accelerometer, distance and pressure
-      input:
-        fPort: 1
-        bytes: [0x01, 0x00, 0xE2, 0x02, 0x29, 0x03, 0x01, 0x27, 0x05, 0x14, 0x06, 0x01, 0x01, 0x11, 0x0E, 0x23, 0x11]
-      output:
-        data:
-          temperature: 22.6
-          humidity: 41
-          x: 1
-          y: 39
-          z: 5
-          pressure: 100729.105
-          distance: 8977
+  #examples:
+  #  - description: ELT Ultrasonic temperature, humidity, accelerometer, distance and pressure
+  #    input:
+  #      fPort: 1
+  #      bytes: [0x01, 0x00, 0xE2, 0x02, 0x29, 0x03, 0x01, 0x27, 0x05, 0x14, 0x06, 0x01, 0x01, 0x11, 0x0E, 0x23, 0x11]
+  #    output:
+  #      data:
+  #        temperature: 22.6
+  #        humidity: 41
+  #        x: 1
+  #        y: 39
+  #        z: 5
+  #        pressure: 100729.105
+  #        distance: 8977

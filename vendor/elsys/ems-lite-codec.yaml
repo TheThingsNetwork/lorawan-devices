@@ -3,13 +3,13 @@
 uplinkDecoder:
   fileName: elsys.js
   # Examples (optional)
-  examples:
-    - description: EMS Lite temperature, humidity and water leak
-      input:
-        fPort: 1
-        bytes: [0x01, 0x00, 0xE2, 0x02, 0x29, 0x12, 0x11]
-      output:
-        data:
-          temperature: 22.6
-          humidity: 41
-          waterleak: 17
+  #examples:
+  #  - description: EMS Lite temperature, humidity and water leak
+  #    input:
+  #      fPort: 1
+  #      bytes: [0x01, 0x00, 0xE2, 0x02, 0x29, 0x12, 0x11]
+  #    output:
+  #      data:
+  #        temperature: 22.6
+  #        humidity: 41
+  #        waterleak: 17
