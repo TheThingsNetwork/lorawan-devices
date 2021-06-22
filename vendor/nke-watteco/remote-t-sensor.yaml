@@ -1,10 +1,12 @@
-name: Press'O
-description: Transforms any 4-20 mA and 0-10V gauge to a sensor connected to a LoRaWAN network
+name: Temperature indoor sensor
+description: Measures the ambient temperature
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-017'
-    numeric: 17
+  - version: '50-70-043'
+    numeric: 43
+  - version: '50-70-142'
+    numeric: 142
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -13,7 +15,8 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-017'
+      - '50-70-043'
+      - '50-70-142'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -33,9 +36,9 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: presso-sensor-profile
+        id: remote-t-sensor-profile
         lorawanCertified: true
-        codec: presso-sensor-codec
+        codec: remote-t-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -46,10 +49,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pulse count
-  - analog input
-  - 4-20 ma
-  - digital input
+  - temperature
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -63,12 +63,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 92
-  length: 92
-  height: 56
+  width: 84
+  length: 82
+  height: 55
 
 # Weight in grams (optional)
-weight: 200
+weight: 95
 
 # Battery information (optional)
 battery:
@@ -80,7 +80,7 @@ operatingConditions:
   # Temperature (Celcius)
   temperature:
     min: -20
-    max: 50
+    max: 60
 
 # IP rating (optional)
 ipCode: IP55
@@ -106,8 +106,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/presso-sensor-lorawan/
-dataSheetURL: https://www.nke-watteco.com/download/presso-sensor-data-sheet-lorawan/?wpdmdl=6451&refresh=60ba366fb6bd31622816367
+productURL: https://www.nke-watteco.com/product/1-probe-remote-temperature-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/1-probe-remote-temperature-sensor/?wpdmdl=6876&refresh=60bf2b256dfe01623141157
 
 # Commercial information
 resellerURLs:
@@ -120,7 +120,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: presso-sensor.jpg
+  main: remote-t-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:

@@ -3,8 +3,10 @@ description: Transforms any 4-20 mA and 0-10V gauge to a sensor connected to a L
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-017'
-    numeric: 17
+  - version: '50-70-003'
+    numeric: 3
+  - version: '50-70-022'
+    numeric: 22
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -13,7 +15,8 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-017'
+      - '50-70-003'
+      - '50-70-022'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -33,9 +36,9 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: presso-sensor-profile
+        id: smart-plug-profile
         lorawanCertified: true
-        codec: presso-sensor-codec
+        codec: smart-plug-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -46,10 +49,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pulse count
-  - analog input
-  - 4-20 ma
-  - digital input
+  - current
+  - voltage
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -63,17 +64,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 92
-  length: 92
-  height: 56
+  width: 62
+  length: 114
+  height: 40
 
 # Weight in grams (optional)
 weight: 200
-
-# Battery information (optional)
-battery:
-  replaceable: true
-  type: A
 
 # Operating conditions (optional)
 operatingConditions:
@@ -83,7 +79,7 @@ operatingConditions:
     max: 50
 
 # IP rating (optional)
-ipCode: IP55
+# ipCode: IP55
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -106,8 +102,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/presso-sensor-lorawan/
-dataSheetURL: https://www.nke-watteco.com/download/presso-sensor-data-sheet-lorawan/?wpdmdl=6451&refresh=60ba366fb6bd31622816367
+productURL: https://www.nke-watteco.com/product/smart-plug-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/smart-plug-sensor-data-sheet-lorawan/?wpdmdl=6523&refresh=60bf49fd0d2101623149053
 
 # Commercial information
 resellerURLs:
@@ -120,7 +116,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: presso-sensor.jpg
+  main: smart-plug.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:

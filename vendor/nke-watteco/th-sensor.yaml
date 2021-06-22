@@ -39,10 +39,6 @@ firmwareVersions:
         id: th-sensor-profile
         lorawanCertified: true
         codec: th-sensor-codec
-      US902-928:
-        id: th-sensor-profile
-        lorawanCertified: true
-        codec: th-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:

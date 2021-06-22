@@ -228,7 +228,7 @@ function createBuffer(byteArray) {
       }
       // Propagate the sign bit if 1
       if (
-        (sampleType == ST_I4 || sampleType == ST_I24) &&
+        (sampleType == ST_I4 || sampleType == ST_I8 ||sampleType == ST_I16 || sampleType == ST_I24) &&
         u32 & (1 << (nbBits - 1))
       ) {
         for (var i = nbBits; i < 32; i++) {

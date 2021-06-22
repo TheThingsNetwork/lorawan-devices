@@ -3,8 +3,10 @@ description: Transforms any 4-20 mA and 0-10V gauge to a sensor connected to a L
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-017'
-    numeric: 17
+  - version: '50-70-016'
+    numeric: 16
+  - version: '50-70-087'
+    numeric: 87
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -13,7 +15,8 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-017'
+      - '50-70-016'
+      - '50-70-087'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -33,9 +36,9 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: presso-sensor-profile
+        id: ino-sensor-profile
         lorawanCertified: true
-        codec: presso-sensor-codec
+        codec: ino-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -46,10 +49,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pulse count
-  - analog input
-  - 4-20 ma
-  - digital input
+  - current
+  - voltage
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -63,9 +64,9 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 92
-  length: 92
-  height: 56
+  width: 84
+  length: 82
+  height: 55
 
 # Weight in grams (optional)
 weight: 200
@@ -106,8 +107,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/presso-sensor-lorawan/
-dataSheetURL: https://www.nke-watteco.com/download/presso-sensor-data-sheet-lorawan/?wpdmdl=6451&refresh=60ba366fb6bd31622816367
+productURL: https://www.nke-watteco.com/product/ino-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/ino-sensor-data-sheet-lorawan/?wpdmdl=6447&refresh=60bf445469a381623147604
 
 # Commercial information
 resellerURLs:
@@ -120,7 +121,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: presso-sensor.jpg
+  main: ino-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:
