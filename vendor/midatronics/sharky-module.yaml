@@ -1,6 +1,10 @@
 name: Sharky
 description: The Sharky PCB is an IoT certified module with onboard PCB antenna based on the ST Microelectronics STM32WB55CEU6 system on chip, a highly integrated low power radio design with two core in a single SoC. There are an ARM Cortex-M4 32-bit microprocessor to run your application and one ARM Cortex-M0+ 32-bit microprocessor running the radio networking Stack. The Sharky module supports BLE, Thread, Zig Bee and generic IEEE 802.15.4 protocol stacks.
 
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version

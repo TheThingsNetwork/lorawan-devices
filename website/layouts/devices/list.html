@@ -1,0 +1,6 @@
+{{ define "main" }}
+  <main>
+    {{ partial "banner.html" (dict "title" .Title "description" .Description) }}
+    {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
+  </main>
+{{ end }}

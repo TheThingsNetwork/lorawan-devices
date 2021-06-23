@@ -1,0 +1,98 @@
+// Copyright © 2021 The Things Network Foundation, The Things Industries B.V.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// TYPOGRAPHY
+// ==========
+
+// Heading size definitions
+h1()
+  font-family: $font-family-header
+  font-size: $fs.xxl
+  font-weight: 700
+  line-height: $lh.xxl
+
+h2()
+  font-family: $font-family-header
+  font-size: $fs.xl3
+  font-weight: 700
+  line-height: $lh.xl
+
+h3()
+  font-family: $font-family-header
+  font-size: $fs.xxl
+  font-weight: 700
+  line-height: $lh.l
+
+media-query($max)
+  @media screen and (max-width: $max)
+    {block} // @stylint ignore
+
+media-query-min($min)
+  @media screen and (min-width: $min + 1)
+    {block} // @stylint ignore
+
+media-query-between($min, $max)
+  @media screen and (min-width: $min + 1) and (max-width: $max)
+    {block} // @stylint ignore
+
+media-query-height($max)
+  @media screen and (max-height: $max)
+    {block} // @stylint ignore
+
+horizontalize()
+  display: flex
+  justify-content: space-between
+
+one-liner($display = inline-block)
+  display: $display
+  line-height: 1
+  white-space: nowrap
+
+// Removes default browser focus styles and adds custom ones for the
+// .focus-visible class added automatically on focused elements.
+focus-visible()
+  &:global(.focus-visible)
+    {block} // @stylint ignore
+
+  &:focus
+    outline: 0
+
+// ICONS
+// =====
+material-icon()
+  align-items: center
+  direction: ltr
+  display: inline-block
+  font-family: 'Material Icons'
+  font-feature-settings: 'liga'
+  font-size: 1.3rem
+  font-style: normal
+  font-weight: normal
+  letter-spacing: normal
+  line-height: 1
+  text-transform: none
+  vertical-align: middle
+  white-space: nowrap
+  word-wrap: normal
+
+border-input($side = '', $width = 1px)
+  $prefix = '-'
+
+  if ($side == '')
+    $prefix = ''
+
+  border{$prefix + $side}: $width solid $c-input-border
+
+darker($color, $step = 1)
+  darken($color, 5 * $step)

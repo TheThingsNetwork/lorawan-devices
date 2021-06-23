@@ -1,0 +1,73 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: t-2-ctn-sensor.js
+  # Examples (optional)
+  # examples:
+  # - description: Time-stamped batch report on temperature
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x22, 0x01, 0x00, 0x81, 0xEA, 0x8E, 0x04, 0xB5, 0xC8, 0x3E, 0x41, 0x2D, 0x0C, 0x20, 0x00, 0x59, 0x01, 0xC8, 0x0A, 0x40, 0x56, 0x00, 0xB2, 0x02, 0x90, 0x85, 0x24, 0x55, 0x49, 0xAA, 0x52, 0x31, 0x00]
+  #   output:
+  #     data:
+  #       data :
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature1
+  #           value: 24.1
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature1
+  #           value: 24.1
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature1
+  #           value: 24.2
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature1
+  #           value: 24.2
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature1
+  #           value: 24.3
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature1
+  #           value: 24.3
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature2
+  #           value: 24.1
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature2
+  #           value: 24.2
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature2
+  #           value: 24.3
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature2
+  #           value: 24.3
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature2
+  #           value: 24.4
+  #         - date: '2021-06-01T09:50:00.073Z'
+  #           label: temperature2
+  #           value: 24.4
+  #       zclheader:
+  #         report : batch
+  #     errors : []
+  #     warnings : []
+
+  # - description: Time-stamped standard report on temperature
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x04, 0x02, 0x00, 0x00, 0x29, 0x09, 0x7B]
+  #   output:
+  #     data:
+  #         data:
+  #           - date : '2021-06-01T09:50:00.073Z'
+  #             label: temperature1
+  #             value: 24.27
+  #         zclheader:
+  #           alarm : 0
+  #           attributID : "0x0000"
+  #           clusterdID : "0x0402"
+  #           cmdID : "0x0A"
+  #           endpoint : 0
+  #           report : standard
+  #     errors : []
+  #     warnings : []

@@ -1,0 +1,93 @@
+name: ELT Lite an easy but powerful LoRAWAN device for measuring analog or digital signals.
+description: You can use the ELT Lite together with an external sensor of your choice to build your own solution.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID: 132
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: elsys-eu868-profile
+        lorawanCertified: true
+        codec: elt-2-codec
+      US902-928:
+        id: elsys-us902-profile
+        lorawanCertified: true
+        codec: elt-2-codec
+      AS923:
+        id: elsys-as923-profile
+        lorawanCertified: true
+        codec: elt-2-codec
+      AU915-928:
+        id: elsys-au915-profile
+        lorawanCertified: true
+        codec: elt-2-codec
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - nfc
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 94
+  length: 59
+  height: 35
+
+# Weight in grams (optional)
+weight: 100
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# Product and data sheet URLs (optional)
+productURL: https://www.elsys.se/en/lora-elt-lite/
+dataSheetURL: https://elsys.se/public/datasheets/ELT_Lite_datasheet.pdf
+
+# Photos
+photos:
+  main: elt2.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=9G4bjGLY3Sc

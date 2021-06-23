@@ -1,0 +1,7 @@
+{{ define "main" }}
+  <main>
+    {{ $title := printf "Tag: %s" .Title}}
+    {{ partial "banner.html" (dict "title"  $title "description" .Description) }}
+    {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
+  </main>
+{{ end }}

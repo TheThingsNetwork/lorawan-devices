@@ -162,6 +162,11 @@ vendors:
     logo: decentlab_logo.svg
     ouis:
       - 70B3D57BA
+    description: Decentlab is a Swiss company providing wireless sensor devices and services for distributed, cost-effective monitoring solutions. The sensor devices communicate wirelessly over LoRaWAN® and are designed for ultra low power consumption, capable of operating on batteries for several years. The devices are built for industrial applications and are ready to be deployed in any harsh indoor or outdoor environment. The service framework provides convenient access to measurement data and enables seamless integration into existing monitoring and control systems. Application areas are environmental and air quality monitoring, hydrological measurements, smart agriculture and smart cities.
+    social:
+      linkedin: https://www.linkedin.com/company/decentlab/
+      twitter: decentlab
+      github: decentlab
 
   - id: definium
     name: Definium Technologies, Pty Ltd.
@@ -319,8 +324,14 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER AG fur Druckmesstechnik
+    name: KELLER AG für Druckmesstechnik
+    website: https://keller-druck.com/
+    logo: keller-logo.svg
     vendorID: 222
+    description: KELLER AG, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
+    social:
+      linkedin: https://www.linkedin.com/company/keller-ag-f%C3%BCr-druckmesstechnik
+      github: KELLERAGfuerDruckmesstechnik
 
   - id: kerlink
     name: KERLINK
@@ -582,6 +593,9 @@ vendors:
   - id: ruixinghengfang-network
     name: RuiXingHengFang Network(Shenzhen) Co.
     vendorID: 350
+    website: http://www.risinghf.com
+    ouis:
+      - 8CF957
 
   - id: ryoden
     name: Ryoden Corporation
@@ -659,8 +673,8 @@ vendors:
     name: STMicroelectronics International NV
     vendorID: 398
 
-  - id: strega-sprl
-    name: STREGA SPRL
+  - id: strega
+    name: STREGA
     vendorID: 401
 
   - id: swisscom
@@ -1575,15 +1589,9 @@ vendors:
   - id: the-box-development
     name: The-Box Development
 
-  - # Unique identifier of the vendor (lowercase, alphanumeric with dashes, max 36 characters)
-    id: beiselen
-    # Vendor company name
+  - id: beiselen
     name: Beiselen Service GmbH
-    # LoRa Alliance issued Vendor ID
-    # will be provided after joined.
-    # Vendor website (optional)
     website: https://digitale-services.beiselen.de/
-    # Vendor logo filename (optional)
     logo: beiselen-logo-sticky.png
 
   - id: izinto
@@ -1642,3 +1650,31 @@ vendors:
     name: HelTec AutoMation
     website: https://heltec.org/
     logo: logo.png
+
+  - id: acrios
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/
+    logo: acrioslogo.png
+
+  - id: espeasy
+    name: ESPEasy
+    website: https://github.com/letscontrolit/ESPEasy
+    logo: espeasy-logo.png
+
+  - id: moirelabs
+    name: Moire Labs
+    website: http://moirelabs.com/
+    logo: moirelabs_logo.png
+
+  - id: dingtek
+    name: Dingtek
+    website: http://dingtek.com/
+    logo: dingtek_logo.png
+
+  - id: elster
+    name: Elster
+    website: https://www.elster.nl/nl/about_us.html
+
+  - id: innotas
+    name: innotas Elektronik
+    website: https://www.innotas-elektronik.de/en-gb
