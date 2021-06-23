@@ -869,9 +869,7 @@ function Decoder(bytes, port) {
 
           //binary input counter
           if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
-            if (decoded.zclheader.endpoint < 3){
-              stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;  
-            } 
+            stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;
             stdData.value = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); 
             stdData.date = lDate;
             tab.push(stdData);
@@ -879,13 +877,7 @@ function Decoder(bytes, port) {
           
           // binary input present value
           if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
-            if (decoded.zclheader.endpoint < 3){
-              stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;  
-            }
-  
-            if ((decoded.zclheader.endpoint >= 3)&&(decoded.zclheader.endpoint < 6)){
-              stdData.label = "State"+(decoded.zclheader.endpoint-2) ;
-            }
+            stdData.label = "State"+(decoded.zclheader.endpoint+1) ;
             stdData.value =bytes[index]; 
             stdData.date = lDate;
             tab.push(stdData);
