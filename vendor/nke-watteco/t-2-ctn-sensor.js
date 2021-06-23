@@ -931,7 +931,7 @@ function Decoder(bytes, port) {
       else
       {
         var decoded = {};
-        brData = (brUncompress(3,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature1", divide: 100},{ taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature2", divide: 100}], lora.payload, lDate))
+        brData = (brUncompress(3,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature1", divide: 100},{ taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature2", divide: 100}, { taglbl: 5, resol: 100, sampletype: 6, lblname: "BatteryVoltage", divide: 1000}], lora.payload, lDate))
 
         var data_length = brData["datas"].length;
         var tab=[];
