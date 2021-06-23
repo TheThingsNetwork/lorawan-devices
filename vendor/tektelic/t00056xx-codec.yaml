@@ -1,0 +1,5 @@
+uplinkDecoder:
+  fileName: decoder_industrial_sensor.js
+
+downlinkEncoder:
+  fileName: encoder_industrial_sensor.js

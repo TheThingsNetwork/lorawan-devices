@@ -1,0 +1,5 @@
+uplinkDecoder:
+  fileName: decoder_ac_outlet_switch.js
+
+downlinkEncoder:
+  fileName: encoder_ac_outlet_switch.js

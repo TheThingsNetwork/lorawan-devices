@@ -1,0 +1,5 @@
+uplinkDecoder:
+  fileName: decoder_enterprise_asset_tracker.js
+
+downlinkEncoder:
+  fileName: encoder_enterprise_asset_tracker.js

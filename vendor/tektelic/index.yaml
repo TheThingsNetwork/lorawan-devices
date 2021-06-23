@@ -2,3 +2,13 @@ endDevices:
   - t000489x-smart-room-base
   - t00048xx-smart-room-pir
   - t00059xx-agriculture-sensor
+  - t00053xx-industrial-transceiver
+  - t00055xx-industrial-transceiver
+  - t00056xx-industrial-transceiver
+  - t00067xx-tundra-sensor
+  - t00073xx-tundra-sensor
+  - t0006129-industrial-gps-asset-track
+  - t000662x-ac-outlet-switch
+  - t000594x-enterprise-asset-tracker
+  - t00061xx-smart-room-base-gen3
+  - t00061xx-smart-room-pir-gen3

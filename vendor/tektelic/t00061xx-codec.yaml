@@ -1,0 +1,5 @@
+uplinkDecoder:
+  fileName: decoder_smart_room_sensor_gen3.js
+
+downlinkEncoder:
+  fileName: encoder_smart_room_sensor_gen3.js

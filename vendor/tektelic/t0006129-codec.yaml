@@ -1,0 +1,5 @@
+uplinkDecoder:
+  fileName: decoder_industrial_gps_asset_tracker.js
+
+downlinkEncoder:
+  fileName: encoder_industrial_gps_asset_tracker.js
