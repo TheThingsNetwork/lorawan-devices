@@ -1,0 +1,15 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elsys.js
+  # Examples (optional)
+  #examples:
+  #  - description: ERS CO2 Lite temperature, humidity and co2
+  #    input:
+  #      fPort: 1
+  #      bytes: [0x01, 0x00, 0xE2, 0x02, 0x29, 0x06, 0x03, 0x08]
+  #    output:
+  #      data:
+  #        temperature: 22.6
+  #        humidity: 41
+  #        co2: 776

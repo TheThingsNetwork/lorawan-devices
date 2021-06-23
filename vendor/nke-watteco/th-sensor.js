@@ -815,7 +815,6 @@ function Decoder(bytes, port) {
 
   lora.payload  = "";
 
-
   for( var j = 0; j < bytes_len_; j++ ){
     temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
     if( temp_hex_str.length == 1 ){

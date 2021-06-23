@@ -970,6 +970,7 @@ function Decoder(bytes, port) {
         var decoded = {};
         brData = (brUncompress(4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "Index1", divide: 1},{ taglbl: 1, resol: 1, sampletype: 10,lblname: "Index2", divide: 1}, { taglbl: 2, resol: 1, sampletype: 10,lblname: "Index3", divide: 1}, { taglbl: 3, resol: 1, sampletype: 1,lblname: "State1", divide: 1},{ taglbl: 4, resol: 1, sampletype: 1,lblname: "State2", divide: 1}, { taglbl: 5, resol: 1, sampletype: 1,lblname: "State3", divide: 1}, { taglbl: 6, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 7, resol: 1, sampletype: 6,lblname: "MultiState", divide: 100}], lora.payload, lDate))
 
+
         var data_length = brData["datas"].length;
         var tab=[];
         for (var i = 0; i < data_length; i++) {               
