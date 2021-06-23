@@ -1683,3 +1683,8 @@ vendors:
   - id: elsys
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
+
+    - id: onethinx
+    name: Onethinx BV
+    website: https://www.onethinx.com/
+    logo: onethinx-logo.png
