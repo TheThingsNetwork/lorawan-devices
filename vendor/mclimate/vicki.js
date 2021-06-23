@@ -1,5 +1,6 @@
 function decodeUplink(input) {
 	var bytes = input.bytes;
+
 	toBool = function(value) {
 		return value == '1';
 	};
