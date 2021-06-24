@@ -1,2 +1,12 @@
 uplinkDecoder:
   fileName: decoder_tundra_sensor.js
+  examples:
+    - description: MCU Temperature Uplink
+      input:
+        fPort: 10
+        bytes: [0x0B, 0x67, 0x00, 0x8B]
+      output:
+        data:
+          mcu_temperature: 13.9
+          port: '10'
+          raw: '[11, 103, 0, 139]'

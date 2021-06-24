@@ -1,5 +1,24 @@
 uplinkDecoder:
   fileName: decoder_industrial_sensor.js
+  examples:
+    - description: Output 1 and 2 Uplink
+      input:
+        fPort: 10
+        bytes: [0x01, 0x01, 0x00, 0x02, 0x01, 0x01]
+      output:
+        data:
+          output_1: false
+          output_2: true
+          port: '10'
+          raw: '[1, 1, 0, 2, 1, 1]'
 
 downlinkEncoder:
   fileName: encoder_industrial_sensor.js
+  examples:
+    - description: Temperature Threshold Enable Downlink
+      input:
+        data: {"temperature_threshold_enabled": {"value": 1}}
+      output:
+        data:
+          port: '100'
+          bytes: '[188, 1]'

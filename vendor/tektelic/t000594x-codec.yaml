@@ -1,5 +1,25 @@
 uplinkDecoder:
   fileName: decoder_enterprise_asset_tracker.js
+  examples:
+    - description: Acceleration Uplink
+      input:
+        fPort: 10
+        bytes: [0x00, 0x71, 0x2A, 0x00, 0x00, 0x80, 0x05, 0xC4]
+      output:
+        data:
+          acceleration.xaxis: 10.752
+          acceleration.yaxis: 0.128
+          acceleration.zaxis: 1.476
+          port: '10'
+          raw: '[0, 113, 42, 0, 0, 128, 5, 196]'
 
 downlinkEncoder:
   fileName: encoder_enterprise_asset_tracker.js
+  examples:
+    - description: Tick Per Accelerometer Downlink
+      input:
+        data: {"tick_per_accelerometer": {"value": 1}}
+      output:
+        data:
+          port: '100'
+          bytes: '[164, 0, 1]'
