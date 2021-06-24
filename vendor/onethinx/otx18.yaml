@@ -11,6 +11,9 @@ firmwareVersions:
   - # Firmware version
     version: '1.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '18.02'
   
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -81,13 +84,6 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 productURL: https://www.onethinx.com/module.html
 dataSheetURL: https://onethinx.github.io/Onethinx_Documentation/DoxyDocumentation/html/intro.html
-
-# Commercial information
-resellerURLs:
-  - name: 'Onethinx BV'
-    region:
-      - World Wide
-    url: https://www.onethinx.com/ordermodule.html
 
 # Photos
 photos:
