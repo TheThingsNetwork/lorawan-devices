@@ -537,6 +537,8 @@ vendors:
   - id: onethinx
     name: Onethinx B.V.
     vendorID: 307
+    website: https://www.onethinx.com/
+    logo: onethinx-logo.png
 
   - id: orange
     name: ORANGE
@@ -1683,8 +1685,3 @@ vendors:
   - id: elsys
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
-
-    - id: onethinx
-    name: Onethinx BV
-    website: https://www.onethinx.com/
-    logo: onethinx-logo.png
