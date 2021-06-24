@@ -17,8 +17,9 @@ downlinkEncoder:
   examples:
     - description: Tick Period Downlink
       input:
-        data: {"tick_period": {"value": 5}}
-      output:
         data:
-          port: '100'
-          bytes: '[160, 0, 0, 0, 5]'
+          tick_period:
+            value: 5
+      output:
+        port: '100'
+        bytes: [160, 0, 0, 0, 5]

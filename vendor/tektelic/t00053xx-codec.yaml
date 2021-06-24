@@ -17,8 +17,9 @@ downlinkEncoder:
   examples:
     - description: Temperature Threshold Enable Downlink
       input:
-        data: {"temperature_threshold_enabled": {"value": 1}}
-      output:
         data:
-          port: '100'
-          bytes: '[188, 1]'
+          temperature_threshold_enabled:
+            value: 1
+      output:
+        port: '100'
+        bytes: [188, 1]

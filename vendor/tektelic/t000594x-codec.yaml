@@ -18,8 +18,9 @@ downlinkEncoder:
   examples:
     - description: Tick Per Accelerometer Downlink
       input:
-        data: {"tick_per_accelerometer": {"value": 1}}
-      output:
         data:
-          port: '100'
-          bytes: '[164, 0, 1]'
+          tick_per_accelerometer:
+            value: 1
+      output:
+        port: '100'
+        bytes: [164, 0, 1]

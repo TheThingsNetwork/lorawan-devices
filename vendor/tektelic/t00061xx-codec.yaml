@@ -10,15 +10,16 @@ uplinkDecoder:
           break_in: false
           light_detected: 1
           port: '10'
-          raw: '[6, 0, 0, 2, 0, 1]'
+          raw: '[06, 00, 00, 02, 00, 01]'
 
 downlinkEncoder:
   fileName: encoder_smart_room_sensor_gen3.js
   examples:
     - description: Ambient Temperature Threshold Enable Downlink
       input:
-        data: {"ambient_temperature_threshold_enabled": {"value": 1}}
-      output:
         data:
-          port: '100'
-          bytes: '[188, 1]'
+          ambient_temperature_threshold_enabled:
+            value: 1
+      output:
+        port: '100'
+        bytes: [188, 1]
