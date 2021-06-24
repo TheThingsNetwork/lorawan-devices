@@ -1,0 +1,21 @@
+uplinkDecoder:
+  fileName: tbms100.js
+  examples:
+    - description: Occupied
+      input:
+        fPort: 102
+        bytes: [0x01, 0xBB, 0x34, 0x04, 0x00, 0xDC, 0x78, 0x01]
+      output:
+        data:
+          battery: 3.6
+          count: 96476
+          status: 1
+          temperatureBoard: 20
+          time: 4
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort
