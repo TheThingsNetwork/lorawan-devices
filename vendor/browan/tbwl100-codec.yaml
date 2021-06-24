@@ -1,0 +1,23 @@
+uplinkDecoder:
+  fileName: tbwl100.js
+  examples:
+    - description: Water leakage detected
+      input:
+        fPort: 106
+        bytes: [0x11, 0x0B, 0x36, 0x28, 0x36]
+      output:
+        data:
+          battery: 3.6
+          humidity: 40
+          humidityChanged: 0
+          status: 1
+          temperature: 22
+          temperatureBoard: 22
+          temperatureChanged: 0
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort

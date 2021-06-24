@@ -1,0 +1,23 @@
+uplinkDecoder:
+  fileName: tbam100.js
+  examples:
+    - description: Light status changed
+      input:
+        fPort: 104
+        bytes: [0x12, 0xFB, 0x36, 0x0C, 0x62, 0x00]
+      output:
+        data:
+          battery: 3.6
+          darker: 0
+          lighter: 1
+          temperatureBoard: 22
+          statusChange: 1
+          lux: 251
+          keepAlive: 0
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort

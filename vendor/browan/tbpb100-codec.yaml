@@ -1,0 +1,19 @@
+uplinkDecoder:
+  fileName: tbpb100.js
+  examples:
+    - description: Button I pressed
+      input:
+        fPort: 147
+        bytes: [0x01, 0xFE, 0x37, 0x00, 0x00, 0x04, 0x00, 0x00]
+      output:
+        data:
+          status: 1
+          battery: 3.9
+          temperatureBoard: 23
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort
