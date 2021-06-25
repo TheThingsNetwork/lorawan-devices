@@ -29,7 +29,7 @@ vendors:
     vendorID: 13
 
   - id: actility
-    name: ACTILITY SA
+    name: Actility SA
     vendorID: 14
 
   - id: adeunis
@@ -61,7 +61,7 @@ vendors:
     vendorID: 27
 
   - id: alpitel
-    name: ALPITEL SPA
+    name: Alpitel S.p.A.
     vendorID: 28
 
   - id: american-tower
@@ -85,7 +85,7 @@ vendors:
     vendorID: 41
 
   - id: arteria
-    name: ARTERIA
+    name: Arteria
     vendorID: 47
 
   - id: atal
@@ -93,15 +93,15 @@ vendors:
     vendorID: 49
 
   - id: axatel
-    name: AXATEL SRL
+    name: Axatel SRL
     vendorID: 56
 
   - id: baylan
-    name: BAYLAN OLCU ALETLERI SAN. TIC. LTD. STI.
+    name: Baylan Water Meters
     vendorID: 59
 
   - id: bh-technologies
-    name: BH TECHNOLOGIES
+    name: BH Technologies
     vendorID: 65
 
   - id: birdz
@@ -133,7 +133,7 @@ vendors:
     vendorID: 81
 
   - id: cisco
-    name: Cisco Systems, Inc
+    name: Cisco Systems, Inc.
     vendorID: 86
 
   - id: machineq
@@ -145,7 +145,7 @@ vendors:
     vendorID: 94
 
   - id: comtac
-    name: comtac AG
+    name: Comtac AG
     vendorID: 98
     website: https://www.comtac.ch/
     logo: comtac-logo.svg
@@ -169,7 +169,7 @@ vendors:
       github: decentlab
 
   - id: definium
-    name: Definium Technologies, Pty Ltd.
+    name: Definium Technologies, Pty Ltd
     vendorID: 110
 
   - id: dekra
@@ -181,7 +181,7 @@ vendors:
     vendorID: 113
 
   - id: digimondo
-    name: digimondo GmbH
+    name: Digimondo GmbH
     vendorID: 115
 
   - id: digita
@@ -213,11 +213,11 @@ vendors:
     vendorID: 132
 
   - id: eleven-x
-    name: eleven-x
+    name: Eleven-x
     vendorID: 133
 
   - id: entega
-    name: ENTEGA AG
+    name: Entega AG
     vendorID: 141
 
   - id: er-telecom
@@ -233,7 +233,7 @@ vendors:
     vendorID: 145
 
   - id: eurotech
-    name: EUROTECH
+    name: Eurotech
     vendorID: 147
 
   - id: everynet
@@ -241,11 +241,11 @@ vendors:
     vendorID: 148
 
   - id: ewattch
-    name: EWATTCH
+    name: Ewattch
     vendorID: 149
 
   - id: ewbm
-    name: eWBM Co., Ltd.
+    name: eWBM Co., Ltd
     vendorID: 150
 
   - id: ffly4u
@@ -265,7 +265,7 @@ vendors:
     vendorID: 160
 
   - id: focalcrest
-    name: Focalcrest Inc
+    name: Focalcrest Inc.
     vendorID: 161
 
   - id: fujitsu-component
@@ -277,11 +277,11 @@ vendors:
     vendorID: 182
 
   - id: hexing-electrical
-    name: Hexing Electrical Co., Ltd.
+    name: Hexing Electrical Co., Ltd
     vendorID: 186
 
   - id: holley
-    name: Holley Technology Ltd.
+    name: Holley Technology Ltd
     vendorID: 188
 
   - id: iioote
@@ -296,7 +296,7 @@ vendors:
     logo: imst_logo.png
 
   - id: intercomp
-    name: INTERCOMP S.p.A.
+    name: Intercomp S.p.A.
     vendorID: 206
 
   - id: invenit
@@ -308,7 +308,7 @@ vendors:
     vendorID: 209
 
   - id: invoxia
-    name: INVOXIA
+    name: Invoxia
     vendorID: 211
 
   - id: last-mile
@@ -334,7 +334,7 @@ vendors:
       github: KELLERAGfuerDruckmesstechnik
 
   - id: kerlink
-    name: KERLINK
+    name: Kerlink
     vendorID: 223
 
   - id: kiwi
@@ -358,7 +358,7 @@ vendors:
     vendorID: 228
 
   - id: kisti
-    name: Korea Institute of Science and Technology Information (KISTI)
+    name: Korea Institute of Science and Technology Information
     vendorID: 229
 
   - id: kpn
@@ -402,7 +402,7 @@ vendors:
     vendorID: 253
 
   - id: macnica
-    name: Macnica, Inc
+    name: Macnica, Inc.
     vendorID: 254
 
   - id: maddalena
@@ -447,7 +447,7 @@ vendors:
     vendorID: 266
 
   - id: microshare
-    name: Microshare Inc
+    name: Microshare Inc.
     vendorID: 267
 
   - id: mipot
@@ -467,11 +467,11 @@ vendors:
     vendorID: 276
 
   - id: multi-tech
-    name: Multi-Tech Systems, Inc
+    name: Multi-Tech Systems, Inc.
     vendorID: 277
 
   - id: murata
-    name: MURATA ELECTRONICS EUROPE BV
+    name: Murata Electronics Europe BV
     vendorID: 279
 
   - id: mydevices
@@ -499,7 +499,7 @@ vendors:
     vendorID: 287
 
   - id: netvox
-    name: Netvox Technology Co., Ltd.
+    name: Netvox Technology Co., Ltd
     vendorID: 289
 
   - id: ntt
@@ -507,7 +507,7 @@ vendors:
     vendorID: 295
 
   - id: nke-watteco
-    name: NKE WATTECO
+    name: nke WATTECO
     vendorID: 296
 
   - id: northern-mechatronics
@@ -515,7 +515,7 @@ vendors:
     vendorID: 297
 
   - id: nsoft
-    name: Nsoft India ServicesPvt Ltd
+    name: Nsoft India Services Pvt Ltd
     vendorID: 298
 
   - id: occammd
@@ -523,11 +523,11 @@ vendors:
     vendorID: 299
 
   - id: oi-electric
-    name: Oi Electric Company Ltd.
+    name: Oi Electric Company Ltd
     vendorID: 303
 
   - id: oki-electric
-    name: Oki Electric Industry Co., Ltd.
+    name: Oki Electric Industry Co., Ltd
     vendorID: 304
 
   - id: omniimpex
@@ -539,7 +539,7 @@ vendors:
     vendorID: 307
 
   - id: orange
-    name: ORANGE
+    name: Orange
     vendorID: 308
 
   - id: orbiwise
@@ -555,7 +555,7 @@ vendors:
     vendorID: 312
 
   - id: oxon
-    name: OXON AG
+    name: Oxon AG
     vendorID: 313
 
   - id: packetworx
@@ -567,7 +567,7 @@ vendors:
     vendorID: 315
 
   - id: proesys
-    name: ProEsys Srl
+    name: ProEsys SRL
     vendorID: 323
 
   - id: proximus
@@ -579,7 +579,7 @@ vendors:
     vendorID: 329
 
   - id: radio-bridge
-    name: Radio Bridge Inc
+    name: Radio Bridge Inc.
     vendorID: 334
 
   - id: rakon
@@ -587,7 +587,7 @@ vendors:
     vendorID: 335
 
   - id: requea
-    name: REQUEA
+    name: Requea
     vendorID: 341
 
   - id: ruixinghengfang-network
@@ -602,7 +602,7 @@ vendors:
     vendorID: 352
 
   - id: sagemcom-broadband
-    name: SAGEMCOM BROADBAND SAS
+    name: Sagemcom Broadband SAS
     vendorID: 353
 
   - id: schneider-electric
@@ -622,7 +622,7 @@ vendors:
     vendorID: 363
 
   - id: senra
-    name: SenRa Tech Pvt. Ltd.
+    name: SenRa Tech Pvt Ltd
     vendorID: 364
 
   - id: senseway
@@ -634,11 +634,11 @@ vendors:
     vendorID: 372
 
   - id: shinko-shoji
-    name: Shinko Shoji Co., Ltd.
+    name: Shinko Shoji Co., Ltd
     vendorID: 375
 
   - id: siradel
-    name: SIRADEL
+    name: Siradel
     vendorID: 378
 
   - id: sk-telecom
@@ -690,7 +690,7 @@ vendors:
     vendorID: 406
 
   - id: sysdev
-    name: SYSDEV Srl
+    name: SYSDEV SRL
     vendorID: 407
 
   - id: talkpool
@@ -698,7 +698,7 @@ vendors:
     vendorID: 409
 
   - id: tektelic
-    name: TEKTELIC Communications Inc.
+    name: Tektelic Communications Inc.
     vendorID: 415
 
   - id: tta
@@ -726,7 +726,7 @@ vendors:
     vendorID: 437
 
   - id: unidata
-    name: UNIDATA SPA
+    name: Unidata SPA
     vendorID: 439
 
   - id: universitat-oberta-de-catalunya
@@ -758,7 +758,7 @@ vendors:
     vendorID: 455
 
   - id: volansys
-    name: VOLANSYS TECHNOLOGIES PVT. LTD.
+    name: Volansys Technologies Pvt Ltd
     vendorID: 456
 
   - id: wifx-sarl
@@ -770,7 +770,7 @@ vendors:
     vendorID: 466
 
   - id: x-telia
-    name: X-Telia Group inc.
+    name: X-Telia Group Inc.
     vendorID: 468
 
   - id: yokogawa-electric
@@ -790,7 +790,7 @@ vendors:
     vendorID: 482
 
   - id: nippon-signal
-    name: Nippon Signal Co., Ltd.
+    name: Nippon Signal Co., Ltd
     vendorID: 483
 
   - id: renesas
@@ -830,7 +830,7 @@ vendors:
     vendorID: 519
 
   - id: rossma
-    name: Rossma LTD
+    name: Rossma Ltd
     vendorID: 526
 
   - id: komro
@@ -850,7 +850,7 @@ vendors:
     vendorID: 534
 
   - id: asr-microelectronics
-    name: ASR Microelectronics (Shanghai) Co., Ltd.
+    name: ASR Microelectronics (Shanghai) Co., Ltd
     vendorID: 536
 
   - id: andorra-telecom
@@ -862,11 +862,11 @@ vendors:
     vendorID: 538
 
   - id: cybereye
-    name: CyberEye Research Labs & Security Solutions Pvt. Ltd.
+    name: CyberEye Research Labs & Security Solutions Pvt Ltd
     vendorID: 539
 
   - id: resiot
-    name: ResIOT Ublsoftware Srl
+    name: ResIOT Ublsoftware SRL
     vendorID: 540
 
   - id: g2-misuratori
@@ -878,11 +878,11 @@ vendors:
     vendorID: 548
 
   - id: social-area-networks
-    name: Social Area Networks Co., Ltd.
+    name: Social Area Networks Co., Ltd
     vendorID: 553
 
   - id: optage
-    name: OPTAGE Inc
+    name: OPTAGE Inc.
     vendorID: 556
 
   - id: bharat
@@ -902,11 +902,11 @@ vendors:
     vendorID: 563
 
   - id: esenselab
-    name: eSenseLab Ltd.
+    name: eSenseLab Ltd
     vendorID: 564
 
   - id: careband
-    name: CareBand, Inc
+    name: CareBand Inc
     vendorID: 568
 
   - id: target
@@ -946,7 +946,7 @@ vendors:
     vendorID: 585
 
   - id: gwinstek
-    name: Good Will Instrument Co., Ltd. (GWINSTEK)
+    name: Good Will Instrument Co., Ltd (GWINSTEK)
     vendorID: 587
 
   - id: coxcom
@@ -959,11 +959,11 @@ vendors:
     vendorID: 590
 
   - id: st-electronic
-    name: ST Electronics (Info-Comm Systems) Pte. Ltd.
+    name: ST Electronics (Info-Comm Systems) Pte. Ltd
     vendorID: 595
 
   - id: ztacom
-    name: ZTACOM Co., Ltd.
+    name: ZTACOM Co., Ltd
     vendorID: 597
 
   - id: boston-networks
@@ -971,7 +971,7 @@ vendors:
     vendorID: 598
 
   - id: milesight-iot
-    name: Milesight IoT Co., Ltd.
+    name: Milesight IoT Co., Ltd
     vendorID: 601
 
   - id: dataalliance
@@ -1011,7 +1011,7 @@ vendors:
     vendorID: 613
 
   - id: zxclaa
-    name: ZXCLAA Technology Co.Ltd.
+    name: ZXCLAA Technology Co.Ltd
     vendorID: 615
 
   - id: keysight
@@ -1039,11 +1039,11 @@ vendors:
     vendorID: 634
 
   - id: isa
-    name: ISA Co., Ltd.
+    name: ISA Co., Ltd
     vendorID: 639
 
   - id: linz
-    name: LINZ STROM GAS WARME GmbH fur Energiedienstleistungen und Telekommunikation
+    name: Linz Strom Gas Warme GmbH fur Energiedienstleistungen und Telekommunikation
     vendorID: 642
 
   - id: apator-miitors
@@ -1095,7 +1095,7 @@ vendors:
     vendorID: 684
 
   - id: phoenix-contact
-    name: PHOENIX CONTACT Electronics GmbH
+    name: Phoenix Contact Electronics GmbH
     vendorID: 688
 
   - id: tkf
@@ -1147,7 +1147,7 @@ vendors:
     vendorID: 709
 
   - id: mesura-metering
-    name: Mesura Metering Srl
+    name: Mesura Metering SRL
     vendorID: 710
 
   - id: iij
@@ -1159,7 +1159,7 @@ vendors:
     vendorID: 714
 
   - id: alperia-fiber
-    name: Alperia Fiber Srl
+    name: Alperia Fiber SRL
     vendorID: 715
 
   - id: enless-wireless
@@ -1167,7 +1167,7 @@ vendors:
     vendorID: 716
 
   - id: sichuan-changhong
-    name: Sichuan Changhong Network Technologies Co.,Ltd.
+    name: Sichuan Changhong Network Technologies Co.,Ltd
     vendorID: 718
 
   - id: cicor
@@ -1179,7 +1179,7 @@ vendors:
     vendorID: 721
 
   - id: rubicon
-    name: Rubicon Systems Australia PTY LTD
+    name: Rubicon Systems Australia Pty Ltd
     vendorID: 723
 
   - id: siterwell
@@ -1187,7 +1187,7 @@ vendors:
     vendorID: 724
 
   - id: luxshare
-    name: Luxshare-ICT, Inc
+    name: Luxshare-ICT, Inc.
     vendorID: 726
 
   - id: interlink-electronics
@@ -1215,7 +1215,7 @@ vendors:
     vendorID: 736
 
   - id: hangzhou-watermeter
-    name: Hangzhou Watermeter Co., Ltd.
+    name: Hangzhou Watermeter Co., Ltd
     vendorID: 737
 
   - id: financiere-de-l-ombre
@@ -1223,7 +1223,7 @@ vendors:
     vendorID: 738
 
   - id: steinel
-    name: STEINEL Solutions AG
+    name: Steinel Solutions AG
     vendorID: 739
 
   - id: nokeval
@@ -1287,7 +1287,7 @@ vendors:
     vendorID: 756
 
   - id: deepsenxe
-    name: Deepsenxe International Ltd.
+    name: Deepsenxe International Ltd
     vendorID: 757
 
   - id: lacroix
@@ -1323,7 +1323,7 @@ vendors:
     vendorID: 765
 
   - id: luna
-    name: LUNA ELEKTRIK ELEKTRONIK SAN VE TIC A.S.
+    name: Luna Elektrik Elektronik San Ve TIC A.S.
     vendorID: 766
 
   - id: piotcn
@@ -1347,7 +1347,7 @@ vendors:
     vendorID: 771
 
   - id: naltec
-    name: NALTEC, Inc.
+    name: Naltec, Inc.
     vendorID: 773
 
   - id: vutiliti
@@ -1399,7 +1399,7 @@ vendors:
     vendorID: 786
 
   - id: talam
-    name: talam, Auroville Centre for Scientific Research Trust
+    name: Talam, Auroville Centre for Scientific Research Trust
     vendorID: 787
 
   - id: deeptrack
@@ -1596,7 +1596,7 @@ vendors:
     logo: beiselen-logo-sticky.png
 
   - id: izinto
-    name: izinto GmbH
+    name: Izinto GmbH
 
   - id: develiot
     name: Develiot
@@ -1612,7 +1612,7 @@ vendors:
     name: Sensedge
 
   - id: embit
-    name: Embit srl
+    name: Embit SRL
     website: http://www.embit.eu/
 
   - id: enthutech
@@ -1643,7 +1643,7 @@ vendors:
     logo: logo.png
 
   - id: tekzitel
-    name: TEKZITEL PTY LTD
+    name: TEKZITEL Pty Ltd
     website: https://www.tekzitel.com/
     logo: tekzitel_logo.png
 
@@ -1653,12 +1653,12 @@ vendors:
     logo: logo.png
 
   - id: acrios
-    name: ACRIOS Systems s.r.o.
+    name: Acrios Systems S.RO.
     website: https://acrios.com/
     logo: acrioslogo.png
 
   - id: espeasy
-    name: ESPEasy
+    name: ESP Easy
     website: https://github.com/letscontrolit/ESPEasy
     logo: espeasy-logo.png
 
@@ -1677,7 +1677,7 @@ vendors:
     website: https://www.elster.nl/nl/about_us.html
 
   - id: innotas
-    name: innotas Elektronik
+    name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
 
   - id: elsys
