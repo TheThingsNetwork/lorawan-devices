@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: decoder_ac_outlet_switch_gen2.js
+  fileName: decoder_ac_outlet_switch_gen1.js
   examples:
     - description: Voltmeter and Apparent Power Uplink
       input:
@@ -12,15 +12,3 @@ uplinkDecoder:
           rms_voltage: 1.7
         errors: []
         warnings: []
-
-downlinkEncoder:
-  fileName: encoder_ac_outlet_switch_gen2.js
-  examples:
-    - description: Tick Period Downlink
-      input:
-        data:
-          tick_period:
-            value: 5
-      output:
-        bytes: [160, 0, 0, 0, 5]
-        port: 100

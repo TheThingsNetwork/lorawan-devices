@@ -8,5 +8,7 @@ uplinkDecoder:
       output:
         data:
           mcu_temperature: 13.9
-          port: 10
-          raw: '[11,103,0,139]'
+          port: '10'
+          raw: '[0B, 67, 00, 8B]'
+        errors: []
+        warnings: []

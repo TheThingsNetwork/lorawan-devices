@@ -7,10 +7,13 @@ uplinkDecoder:
         bytes: [0x01, 0x01, 0x00, 0x02, 0x01, 0x01]
       output:
         data:
-          output_1: false
-          output_2: true
-          port: 10
-          raw: '[1,1,0,2,1,1]'
+          change_output_states:
+            output1: 0
+            output2: 1
+          port: '10'
+          raw: '[01, 01, 00, 02, 01, 01]'
+        errors: []
+        warnings: []
 
 downlinkEncoder:
   fileName: encoder_industrial_transceiver.js
