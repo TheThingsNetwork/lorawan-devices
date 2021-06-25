@@ -20,7 +20,7 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-        vendorID: 307
+        #vendorID: 307
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: otx18-eu868-profile
         lorawanCertified: true
