@@ -9,8 +9,8 @@ uplinkDecoder:
         data:
           voltmeter: 170
           apparent_power: 280
-          port: '10'
-          raw: '[0, 116, 0, 17, 1, 128, 0, 28]'
+          port: 10
+          raw: '[0,116,0,17,1,128,0,28]'
 
 downlinkEncoder:
   fileName: encoder_ac_outlet_switch.js
@@ -21,5 +21,5 @@ downlinkEncoder:
           tick_period:
             value: 5
       output:
-        port: '100'
         bytes: [160, 0, 0, 0, 5]
+        port: 100

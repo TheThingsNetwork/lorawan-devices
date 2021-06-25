@@ -361,4 +361,8 @@ function Decoder(bytes, port) { //bytes - Array of bytes (signed)
     return decoded_data;
 }
 
-module.exports = Decoder;
+function decodeUplink(input) {
+    decoded_data = {};
+    decoded_data['data'] = Decoder(input.bytes, input.fPort);
+    return decoded_data;
+}

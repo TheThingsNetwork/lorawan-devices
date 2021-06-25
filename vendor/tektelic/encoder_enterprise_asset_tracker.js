@@ -504,3 +504,7 @@ function Encoder(data) {
         'port': port
     };
 }
+
+function encodeDownlink(data) {
+    return Encoder(data.data);
+}

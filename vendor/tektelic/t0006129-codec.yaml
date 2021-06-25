@@ -9,8 +9,8 @@ uplinkDecoder:
         data:
           acceleration_alarm: 1
           mcu_temperature: 34.6
-          port: '10'
-          raw: '[0, 0, 1, 0, 103, 1, 90]'
+          port: 10
+          raw: '[0,0,1,0,103,1,90]'
 
 downlinkEncoder:
   fileName: encoder_industrial_gps_asset_tracker.js
@@ -21,5 +21,5 @@ downlinkEncoder:
           gps_enabled:
             value: 0
       output:
-        port: '100'
         bytes: [176, 0]
+        port: 100

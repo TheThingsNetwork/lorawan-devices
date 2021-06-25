@@ -698,3 +698,7 @@ function Encoder(data) {
     };
 
 }
+
+function encodeDownlink(data) {
+    return Encoder(data.data);
+}
