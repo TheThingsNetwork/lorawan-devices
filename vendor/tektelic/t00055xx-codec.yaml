@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: decoder_industrial_sensor.js
+  fileName: decoder_industrial_transceiver.js
   examples:
     - description: Output 1 and 2 Uplink
       input:
@@ -13,7 +13,7 @@ uplinkDecoder:
           raw: '[1,1,0,2,1,1]'
 
 downlinkEncoder:
-  fileName: encoder_industrial_sensor.js
+  fileName: encoder_industrial_transceiver.js
   examples:
     - description: Temperature Threshold Enable Downlink
       input:
