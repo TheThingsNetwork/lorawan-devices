@@ -1,0 +1,26 @@
+uplinkDecoder:
+  fileName: tbhv110.js
+  examples:
+    - description: IAQ changed
+      input:
+        fPort: 103
+        bytes: [0x61, 0x0B, 0x35, 0x1E, 0xBF, 0x03, 0x01, 0x00, 0x51, 0x00, 0x36]
+      output:
+        data:
+          battery: 3.6
+          eco2: 959
+          humidity: 30
+          iaq: 81
+          iaqChanged: 1
+          status: 1
+          tempHumidChanged: 0
+          temperature: 22
+          temperatureBoard: 21
+          voc: 1
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort

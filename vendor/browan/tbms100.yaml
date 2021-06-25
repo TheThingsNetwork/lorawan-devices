@@ -1,0 +1,55 @@
+name: Motion Sensor
+description: The Tabs PIR & Occupancy sensor detects occupancy or motion in homes or buildings for security purposes. The sensor can also be utilized in facility management systems to optimize facility usage or cleanliness for desks, conference rooms, bathrooms, etc.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1' # unknown
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+
+    profiles:
+      EU863-870:
+        id: tabs-profile
+        lorawanCertified: true
+        codec: tbms100-codec
+      US902-928:
+        id: tabs-profile
+        lorawanCertified: true
+        codec: tbms100-codec
+
+sensors:
+  - motion
+  - pir
+
+dimensions:
+  width: 20
+  length: 50
+  height: 50
+
+weight: 40
+
+battery:
+  replaceable: true
+  type: 3.6V 1⁄2 AA Li-SOCl2 1200mAh
+
+operatingConditions:
+  temperature:
+    min: 0
+    max: 50
+
+ipCode: IP50
+
+productURL: http://www.browan.com/product/motion-sensor-pir/detail
+
+photos:
+  main: tbms100.png
+
+keySecurity: none
+
+keyProvisioning:
+  - manifest
