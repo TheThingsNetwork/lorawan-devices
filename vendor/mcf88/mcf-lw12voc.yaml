@@ -1,5 +1,5 @@
 name: MCF-LW12VOC
-description: Indoor environmental VOC & LUX
+description: The mfc88 MCF-LW12VOC is a LoRaWAN® end device that has a temperature sensor, humidity sensor, pressure sensor, light intensity sensor, and an air quality sensor for monitoring indoor environments. Ideally suited for a wide range of applications such as building automation, condition monitoring, predictive maintenance, security, healthcare, and many more use cases.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

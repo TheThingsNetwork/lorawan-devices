@@ -1,5 +1,5 @@
 name: Ball Valve Servo
-description: Retrofittable Motor Actuator to operate Ball Valves
+description: The Aqua-Scope Ball Valve Servo consists of a patented motor coupling that fits with existing ball valves and converts them into smart water control devices. It can receive commands directly from a flood sensor, aqua-scope controller, or LoRaWAN® gateways.
 
 hardwareVersions:
   - version: '1.0'

@@ -1,5 +1,5 @@
 name: CO2 stoplicht
-description: CO2 meter with indicator LEDs
+description: The Teneo IoT CO2 stoplicht is equipped with a CO2 sensor, temperature sensor, and humidity sensor that alarms by means of the traffic light function when the measured values exceed the set standards. The CO2 traffic light has digital communication via LoRaWAN® or WiFi, which makes it possible to log in all measured values and view them remotely.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
