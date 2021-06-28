@@ -1,5 +1,5 @@
 name: Portenta Vision Shield LoRa®
-description: A rapid solution for embedded ML combining vision, audio and connectivity - Detect Gestures, Identify Objects, See Things. The Vision shield features a 324x324 pixels camera module containing an Ultra Low Power Image Sensor designed for Always-on vision devices and applications.
+description: The Arduino Portenta Vision Shield LoRa® consists of a 320x320 pixels camera sensor and two onboard microphones for directional sound detection. It allows you to run embedded computer vision applications. The Vision Shield LoRa® has been designed to work with the Arduino Portenta H7.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

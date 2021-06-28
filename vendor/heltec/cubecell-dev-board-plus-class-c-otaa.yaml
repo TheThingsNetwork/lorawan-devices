@@ -1,5 +1,5 @@
 name: HTCC-AB02(Class C OTAA)
-description: HTCC-AB02 is a Dev-Board. Friendly designed for developers, easy to verify communication solutions.
+description: The Heltec HTCC-AB02 CubeCell Dev-Board Plus is a LoRaWAN® development board based on ASR605x (ASR6501, ASR6502). The ASR605x chip is integrated with the PSoC® 4000 series MCU (ARM® Cortex® M0+ Core) and SX1262.HTCC-AB02 allows connecting various sensors and supports the Arduino® development environment.
 
 firmwareVersions:
   - version: '1.0'

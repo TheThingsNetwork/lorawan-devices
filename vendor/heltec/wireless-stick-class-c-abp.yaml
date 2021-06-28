@@ -1,5 +1,5 @@
 name: Wireless Stick (Gecko Board)(Class C ABP)
-description: Wireless Stick (Gecko Board) is high performance and small size
+description: The HelTec Wireless Stick (Gecko Board)(Class C ABP) is based on ESP32 (dual-core 32-bit MCU + ULP core) and SX1276/SX1278 allows connecting various external sensors. It provides WiFi, LoRa, and Bluetooth connectivity and features an onboard 0.49-inch 64*32 dot matrix OLED display.
 
 firmwareVersions:
   - version: '1.0'

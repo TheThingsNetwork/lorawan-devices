@@ -1,5 +1,5 @@
 name: WiFi LoRa 32 (V2)(Class C OTAA)
-description: WiFi LoRa 32 is a classic IoT dev-board
+description: The HelTec WiFi LoRa 32 (V2)(Class A OTAA) is a classic IoT development board based on ESP32 and SX127x. It supports Wi-Fi, BLE, and LoRa communication. The board has a Li-Po battery management system and 0.96″ OLED. It is suitable for building applications for smart cities, smart farms, smart homes, and many more.
 
 firmwareVersions:
   - version: '1.0'

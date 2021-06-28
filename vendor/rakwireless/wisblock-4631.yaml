@@ -1,5 +1,5 @@
 name: Wisblock Starter Kit RAK4631
-description: The RAK4631 WisBlock Started Kit delivers a powerful Nordic nRF52840 MCU with Bluetooth 5 paired to the latest LoRa® transceivers from Semtech, the SX126x series.
+description: The RAKwireless RAK4631 is a WisBlock Core module that can be plugged into the WisBlock Base allows adding WisBlock sensor modules such as environmental sensor, GNSS location module, temperature & humidity sensor, 3-axis acceleration sensor, ambient light sensor, barometric pressure sensor, infrared temperature sensor, etc. The RAK4631 is based on the 32 bit ARM® Cortex™ - M4 CPU that supports LoRaWAN® and Bluetooth protocols.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

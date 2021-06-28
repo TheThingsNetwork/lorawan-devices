@@ -1,5 +1,5 @@
 name: EMB-LR1302-mPCI
-description: EMB-LR1302-mPCIe provides long range connectivity using ultra-long range spread spectrum communication and high interference immunity on the 868 (or 915 MHz) MHz radio band. This device is characterized by far less power consumption than previous solutions, has a better thermal design and it is capable of handling a higher amount of traffic than preceding devices.
+description: The embit EMB-LR1302-mPCI is a mini PCI express multichannel LoRa® card. It can operate on the 868 or 915 MHz radio band. It is suitable for applications that require long-range connectivity like logistic and supply chain, industrial monitoring and control, factory automation, home & building automation, and wireless alarm & security systems.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

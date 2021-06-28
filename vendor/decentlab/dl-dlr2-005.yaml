@@ -1,5 +1,5 @@
 name: DL-DLR2-005
-description: Analog 0 ... 3 V Sensor Transmitter for LoRaWAN
+description: The Decentlab DL-DLR2-005 is an Analog or Digital Sensor Device for LoRaWAN® that consists of an Analog 0 … 3 V  Sensor.
 
 hardwareVersions:
   - version: '1'
