@@ -1,0 +1,20 @@
+uplinkDecoder:
+  fileName: tbsl100.js
+  examples:
+    - description: Sound level keep alive
+      input:
+        fPort: 105
+        bytes: [0x00, 0x0B, 0x36, 0x28]
+      output:
+        data:
+          status: 0
+          battery: 3.6
+          decibel: 40
+          temperatureBoard: 22
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort
