@@ -1,5 +1,5 @@
 name: Wireless Push Button Interface
-description: The device is connected to an external push button device (2 lines are connected to the 2 end of the push button) that can detect the signal when the button is pushed. It uses SX1276 wireless communication module, and the communication is fully compatible with LoRaWAN™ protocol (Class A).
+description: The Netvox R718T-Wireless Push Button Interface is a LoRaWAN® end device that sends a notification signal when the connected push button is pushed. Ideal for building panic buttons for emergency assistance.
 
 hardwareVersions:
   - version: '2'

@@ -1,5 +1,5 @@
 name: Temperature and Humidity Sensor
-description: The R720A is a wireless communication device that detects ambient air temperature and humidity. The R720A detects the temperature and humidity of the air and transmits the detected data to other devices via a wireless network using the SX1276 wireless communication module.
+description: The Netvox R720A-Temperature and Humidity Sensor has a built-in temperature sensor and a humidity sensor that measures ambient temperature and humidity. The measured data will be sent to the LoRaWAN® network for further processing and alerting.
 
 hardwareVersions:
   - version: '2'

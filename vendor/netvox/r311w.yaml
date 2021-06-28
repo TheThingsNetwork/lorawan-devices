@@ -1,5 +1,5 @@
 name: Wireless Water leak Sensor
-description: Netvox R311W is a water leak sensor based on LoRaWAN™ protocol (ClassA) carrying leak detection and alarm function. When R311W detects a leak, it will send an alarm message to the gateway. When the sensor detects no leak, it will send a message that reports the status to the gateway. There are two water leak sensors which allow users to monitor two spots.
+description: The Netvox R311W Water Leak Detector comes with two water leak sensors suitable for detecting water and other liquid leaks in residential and commercial buildings. When the sensor detects a leak, an alarm message will be sent to the LoRaWAN® network.
 
 hardwareVersions:
   - version: '11'

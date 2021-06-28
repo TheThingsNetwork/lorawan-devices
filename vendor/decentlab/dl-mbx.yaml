@@ -1,5 +1,5 @@
 name: DL-MBX
-description: Ultrasonic Distance / Level Sensor for LoRaWAN
+description: The Decentlab DL-MBX is equipped with an ultrasonic distance/level sensor for measuring distance. Suitable for monitoring water level, flood, snow level, silo level, etc.
 
 hardwareVersions:
   - version: '1'

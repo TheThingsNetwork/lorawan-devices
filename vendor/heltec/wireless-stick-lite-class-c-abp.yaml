@@ -1,5 +1,5 @@
 name: Wireless Stick Lite (Panda Board)(Class C ABP)
-description: Compare with Wireless Stick, “Wireless Stick Lite” has much better low power design (30uA in deep sleep)
+description: The HelTec Wireless Stick Lite (Panda Board)(Class C ABP) is a development board based on ESP32-PICO (dual-core 32-bit MCU + ULP core + Internal 4MB FLASH) with LoRa node chip SX1276 allows connecting various sensors to build sensor nodes. It supports WiFi, LoRa, and Bluetooth connectivity.
 
 firmwareVersions:
   - version: '1.0'

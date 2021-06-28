@@ -1,5 +1,5 @@
 name: Senstick Pro
-description: Microclimate Sensor for Harsh Environment
+description: The Sensedge Senstick Pro is an industrial-grade LoRaWAN® microclimate sensor for use with indoor or outdoor harsh environments that features temperature, humidity, pressure, and movement sensors. Suitable for applications such as monitoring temperature in medical refrigerators, improving thermal comfort for workers, reducing overheating of machines in manufacturing, monitoring temperature and humidity of raw materials, etc.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

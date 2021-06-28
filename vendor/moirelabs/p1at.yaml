@@ -1,5 +1,5 @@
 name: Temperature Transducer
-description: Hardened industrial battery powered temperature sensor
+description: The Moire Labs Digital temperature transducer P1AT is a telemetry-enabled, battery-powered LoRaWAN® temperature sensor, which is primarily used to measure temperature in distribution pipes of gasses or liquids and sending the measured data over the wireless network into centralized measurement systems such as SCADA.
 
 firmwareVersions:
   - version: '1.0'
