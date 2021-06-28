@@ -1,5 +1,5 @@
 name: izi-io 4840
-description: The izinto izi-io 4840 is a multi-I/O controller with edge computing and LoRaWAN® connection that provides software configurable inputs for connecting digital, analog, temperature sensors. 
+description: The izinto izi-io 4840 is a multi-I/O controller with edge computing and LoRaWAN® connection that provides software configurable inputs for connecting digital, analog, temperature sensors.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
