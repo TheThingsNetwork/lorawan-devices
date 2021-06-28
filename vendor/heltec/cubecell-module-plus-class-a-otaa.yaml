@@ -1,5 +1,5 @@
 name: HTCC-AM02(Class A OTAA)
-description: HTCC-AM02 is a Module. Supports AT transparent transmission commands, can be directly integrated into the application circuit.
+description: The HelTec HTCC-AM02(Class A OTAA) CubeCell Module Plus is a LoRaWAN® module based on ASR605x (ASR6501, ASR6502) and integrated with the PSoC® 4000 series MCU (ARM® Cortex® M0+ Core) and SX1262. This module supports the Arduino® development environment.
 
 firmwareVersions:
   - version: '1.0'

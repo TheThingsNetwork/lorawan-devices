@@ -1,5 +1,5 @@
 name: DL-ITST
-description: Infrared Thermometer / Surface Temperature Sensor for LoRaWAN
+description: The Decentlab DL-ITST is equipped with an infrared pyrometer (thermometer) for measuring surface temperature. Ideal for road surface monitoring, ice warning, and smart agriculture.
 
 hardwareVersions:
   - version: '1'

@@ -1,5 +1,5 @@
 name: DL-DLR2-006
-description: Analog Potentiometer Sensor Transmitter for LoRaWAN
+description: The Decentlab DL-DLR2-006 is an Analog or Digital Sensor Device for LoRaWAN® that consists of an Analog Potentiometer Sensor.
 
 hardwareVersions:
   - version: '1'

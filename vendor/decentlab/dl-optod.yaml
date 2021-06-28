@@ -1,5 +1,5 @@
 name: DL-OPTOD
-description: Optical Dissolved Oxygen and Temperature Sensor for LoRaWAN
+description: The Decentlab DL-OPTOD consists of dissolved oxygen and temperature sensors. It is suitable for use in wastewater treatment, industrial effluent treatment, open water monitoring, fish farming, aquarium, and drinking water monitoring.
 
 hardwareVersions:
   - version: '1'

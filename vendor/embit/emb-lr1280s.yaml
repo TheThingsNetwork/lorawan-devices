@@ -1,5 +1,5 @@
 name: EMB-LR1280S
-description: The new LoRa® 2.4 Ghz Embit solution to connect your sensors and actuators leveraging both the advantages of LoRa® long range modulation and 2.4 Ghz RF properties and regulation. It offers a wide range of serial intefaces, a crypto unit and extremely low consumptions. It represents the perfect solution for many industrial applications with the aim of ensuring worldwide deployment and enhanced transmission rate.
+description: The embit EMB-LR1280S is an ultra-low-power OEM Embit module. It is based on Semtech’s SX1280 long-range 2.4 GHz transceiver coupled with STM32L073 MCU. EMB-LR1280S can communicate with other devices through a wide range of serial interfaces such as UART, I2C, USB, SPI, and several digital and analog I/O.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
