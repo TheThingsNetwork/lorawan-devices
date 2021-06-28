@@ -1,5 +1,6 @@
 name: RHF0M0E5
-description: The RisingHF RHF0M0E5 is a low-cost, ultra-low power, ultra-small LoRaWAN® module that adopts ST system-level package chip STM32WLE5JC, integrated high-performance LoRa® SX126X IP, and ultra-low power consumption MCU. The module is embedded with the LoRaWAN protocol.
+description:
+  The RisingHF RHF0M0E5 is a low-cost, ultra-low power, ultra-small LoRaWAN® module that adopts ST system-level package chip STM32WLE5JC, integrated high-performance LoRa® SX126X IP, and ultra-low power consumption MCU. The module is embedded with the LoRaWAN protocol.
 
   # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:

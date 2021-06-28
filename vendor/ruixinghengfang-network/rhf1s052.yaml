@@ -1,5 +1,6 @@
 name: RHF1S052
-description: The RHF1S052 is a LoRaWAN water meter that consists of a magnetic pulse counter for water flow reading and a ball valve for water cut-off.
+description:
+  The RHF1S052 is a LoRaWAN water meter that consists of a magnetic pulse counter for water flow reading and a ball valve for water cut-off.
 
   # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:

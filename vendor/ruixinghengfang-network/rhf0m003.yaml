@@ -1,5 +1,6 @@
 name: RHF0M003
-description: The RisingHF RHF0M003 module is a low-cost, low-power, ultra-small LoRaWAN® module consisting of the LoRa chip SX127x from Semtech and the low-power microcontroller STM32L07x from ST. The RHF0M003 module is mainly used in wireless sensors, AMRs, wearables, and other low-power IoT devices powered by batteries.
+description:
+  The RisingHF RHF0M003 module is a low-cost, low-power, ultra-small LoRaWAN® module consisting of the LoRa chip SX127x from Semtech and the low-power microcontroller STM32L07x from ST. The RHF0M003 module is mainly used in wireless sensors, AMRs, wearables, and other low-power IoT devices powered by batteries.
 
   # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:
