@@ -1,5 +1,5 @@
 name: MCF-LW12CO2
-description: Indoor environmental VOC & LUX & CO2
+description: The mcf88 MCF-LW12CO2 LoRaWAN® indoor environmental sensor equipped with temperature, humidity, pressure, light intensity, air quality (expressed as IAQ or bVOC value), and CO2 sensors and sends collected data over the LoRaWAN® network. Ideally suited for a wide range of applications such as building automation, condition monitoring, predictive maintenance, security, healthcare, and many more use cases.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

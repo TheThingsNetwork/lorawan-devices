@@ -1,5 +1,5 @@
 name: LSN50-V2
-description: Waterproof Long Range Wireless LoRa Sensor Node.
+description: The Dragino LSN50-V2 is a LoRaWAN® end device that allows connecting various external sensors, for example, a temperature sensor probe. It can be used with many applications such as wireless alarm and security systems, home and building automation, automated meter reading, industrial monitoring, and control, and irrigation systems.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

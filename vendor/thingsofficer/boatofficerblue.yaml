@@ -1,5 +1,5 @@
 name: BoatOfficer Blue
-description: With BoatOfficer Blue you can monitor your boat, while you’re not around. E.g. position, battery voltage and temperature are send via TheThingsNetwork to the BoatOfficer app on your phone. Events like water ingress detection trigger an immediate push notification.
+description: The BoatOfficer Blue is a tracking device that measures the position of a boat using the integrated GPS tracker. In addition to that, it has an integrated temperature sensor and a vibration sensor. It also supports adding sensor cables for monitoring battery voltage, detecting motor activity, and detecting water. The collected data is transferred via LoRaWAN®.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

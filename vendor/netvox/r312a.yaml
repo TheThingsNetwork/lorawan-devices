@@ -1,5 +1,5 @@
 name: Wireless Emergency Button
-description: The R312A is an emergency button switch device that detects the closing or opening signal of the emergency button switch and sends an alarm signal to the gateway for processing. It uses the SX1276 wireless communication module.
+description: The Netvox R312A Wireless Emergency Button is a LoRaWAN® end device that contains a push button for detecting button presses by the user. When a button press is detected an uplink containing the desired values is transferred to the LoRaWAN® network. The device provides low power consumption and longer battery life.
 
 hardwareVersions:
   - version: '11'

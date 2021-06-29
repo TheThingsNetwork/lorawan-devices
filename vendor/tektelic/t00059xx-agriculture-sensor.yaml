@@ -1,5 +1,5 @@
 name: Tektelic Agriculture Sensor
-description: LoRaWAN® Battery-Powered Sensor for Smart Agriculture
+description: The Tektelic Agriculture Sensor features soil moisture sensor, soil temperature sensor, ambient temperature sensor, humidity sensor, and light sensor. It is an ideal solution to streamline and simplify the collection of key soil and environmental metrics for crops, residential and commercial lawns and gardens, and golf courses. The collected data is sent over the LoRaWAN® network for further processing and decision making.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

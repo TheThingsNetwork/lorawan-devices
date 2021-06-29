@@ -1,5 +1,5 @@
 name: Turtle Board(Class A ABP)
-description: The turnkey Turtle board solution can be used immediately. Support standard LoRaWAN protocol and RadioShuttle protocol.
+description: The HelTec Turtle board (Class A ABP) is a LoRaWAN® development board that supports standard LoRaWAN protocol and RadioShuttle protocol. It allows connecting various sensors through its pins.
 
 firmwareVersions:
   - version: '1.0'

@@ -1,5 +1,5 @@
 name: DL-KL66
-description: Strain / Weight Sensor for LoRaWAN
+description: The Decentlab DL-KL66 is equipped with a vibrating wire that works as a strain/ weight sensor for measuring strain and weight. Suitable for monitoring silo fill level, structural health, weighing, component deformation and strain, and cracks.
 
 hardwareVersions:
   - version: '1'
