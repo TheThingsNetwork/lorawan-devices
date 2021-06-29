@@ -37,10 +37,6 @@ firmwareVersions:
         id: pulse-senso-sensor-profile
         lorawanCertified: true
         codec: pulse-senso-sensor-codec
-      US902-928:
-        id: pulse-senso-sensor-profile
-        lorawanCertified: true
-        codec: pulse-senso-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:

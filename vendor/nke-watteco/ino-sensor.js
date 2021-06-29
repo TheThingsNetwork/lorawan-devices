@@ -737,84 +737,84 @@ try {
 
 
 function UintToInt(Uint, Size) {
-    if (Size === 2) {
-      if ((Uint & 0x8000) > 0) {
-        Uint = Uint - 0x10000;
-      }
+  if (Size === 2) {
+    if ((Uint & 0x8000) > 0) {
+      Uint = Uint - 0x10000;
     }
-    if (Size === 3) {
-      if ((Uint & 0x800000) > 0) {
-        Uint = Uint - 0x1000000;
-      }
+  }
+  if (Size === 3) {
+    if ((Uint & 0x800000) > 0) {
+      Uint = Uint - 0x1000000;
     }
-    if (Size === 4) {
-      if ((Uint & 0x80000000) > 0) {
-        Uint = Uint - 0x100000000;
-      }
+  }
+  if (Size === 4) {
+    if ((Uint & 0x80000000) > 0) {
+      Uint = Uint - 0x100000000;
     }
-    return Uint;
+  }
+  return Uint;
 }
 
 
 
 function decimalToHex(d, padding) {
-    var hex = Number(d).toString(16).toUpperCase();
-    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+  var hex = Number(d).toString(16).toUpperCase();
+  padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
 
-    while (hex.length < padding) {
-        hex = "0" + hex;
-    }
+  while (hex.length < padding) {
+      hex = "0" + hex;
+  }
 
-    return "0x" + hex;
+  return "0x" + hex;
 }
 
 
 
 function Bytes2Float32(bytes) {
-    var sign = (bytes & 0x80000000) ? -1 : 1;
-    var exponent = ((bytes >> 23) & 0xFF) - 127;
-    var significand = (bytes & ~(-1 << 23));
 
-    if (exponent == 128)
-        return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
+  var sign = (bytes & 0x80000000) ? -1 : 1;
+  var exponent = ((bytes >> 23) & 0xFF) - 127;
+  var significand = (bytes & ~(-1 << 23));
+  if (exponent == 128)
+    return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
 
-    if (exponent == -127) {
-        if (significand == 0) return sign * 0.0;
-        exponent = -126;
-        significand /= (1 << 22);
-    } else significand = (significand | (1 << 23)) / (1 << 23);
+  if (exponent == -127) {
+    if (significand == 0) return sign * 0.0;
+      exponent = -126;
+    significand /= (1 << 22);
+  } 
+  else significand = (significand | (1 << 23)) / (1 << 23);
 
-    return sign * significand * Math.pow(2, exponent);
+  return sign * significand * Math.pow(2, exponent);
 }
 
 
 function Decoder(bytes, port) {
-    // Decode an uplink message from a buffer
-    // (array) of bytes to an object of fields.
-    var decoded = {};
 
-    var decodedBatch = {};
+  // Decode an uplink message from a buffer
+  // (array) of bytes to an object of fields.
+  var decoded = {};
 
-    var lora = {};
+  var decodedBatch = {};
 
-    // decoded.lora.port  = port;
+  var lora = {};
+
+  // decoded.lora.port  = port;
     
-    // Get raw payload
-    var bytes_len_ = bytes.length;
-    var temp_hex_str = ""
+  // Get raw payload
+  var bytes_len_ = bytes.length;
+  var temp_hex_str = ""
 
-    lora.payload  = "";
-
-
+  lora.payload  = "";
 
 
-    for( var j = 0; j < bytes_len_; j++ )
-    {
-        temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
-        if( temp_hex_str.length == 1 )
-        {
-            temp_hex_str = "0" + temp_hex_str;
-        }
+
+
+  for( var j = 0; j < bytes_len_; j++ ){
+    temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
+    if( temp_hex_str.length == 1 ){
+      temp_hex_str = "0" + temp_hex_str;
+    }
     lora.payload += temp_hex_str;
     }
 
@@ -842,48 +842,73 @@ function Decoder(bytes, port) {
         
         // decode report and read atrtribut response
         if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
-          stdData = {};
-          var tab=[];
 
-          //Attribut ID
-          attributID = bytes[4]*256 + bytes[5]; decoded.zclheader.attributID = decimalToHex(attributID,4);
-          if (cmdID === 0x8a) {
-            decoded.zclheader.alarm = 1;
-          }
-          else {
-            decoded.zclheader.alarm = 0;
-          }
+            stdData = {};
+            var tab=[];
+
+            //Attribut ID
+            attributID = bytes[4]*256 + bytes[5]; decoded.zclheader.attributID = decimalToHex(attributID,4);
+
+            if (cmdID === 0x8a) {
+                decoded.zclheader.alarm = 1;
+            }
+            else {
+                decoded.zclheader.alarm = 0;
+            }
+                
+            //data index start
+            if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
+            // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
+
+            // multibinary input present value
+            if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
+            {
+                tab.push({label:stdData = "State"+(decoded.zclheader.endpoint+1), value:stdData = (((bytes[index+1]&0x01) === 0x01)?1:0), date:stdData = lDate});
+            }
+
+            //binary input counter
+            if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
+                tab.push({label: "Count"+(decoded.zclheader.endpoint+1), value: bytes[index], date: lDate});
+            };
           
-               
-          //data index start
-          if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
-          // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
+            // binary input present value
+            if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
+                tab.push({label: "State"+(decoded.zclheader.endpoint+1), value: bytes[index], date: lDate});
+            };
+
+            // on/off present value
+			      if (  (clusterdID === 0x0006 ) & (attributID === 0x0000)) {
+
+              state = bytes[index]; 
+              if(state === 0) {
+                tab.push({label: "Output"+(decoded.zclheader.endpoint+1), value: "OFF", date: lDate});
+              }
+              if(state === 1) {
+                tab.push({label: "Output"+(decoded.zclheader.endpoint+1), value: "ON", date: lDate});
+              }
+            }
 
 
-          //temperature 1 and temperature 2
-          if (  (clusterdID === 0x0402 ) & (attributID === 0x0000)) {
-            tab.push({label: "temperature"+(decoded.zclheader.endpoint+1),value: (UintToInt(bytes[index]*256+bytes[index+1],2))/100, date: lDate })
-          };
-                
-          // lorawan message type
-          if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
-            if (bytes[index] === 1)
-              stdData.message_type = "confirmed";
-            if (bytes[index] === 0)
-              stdData.message_type = "unconfirmed";
-          }
-                
-          // lorawan retry
-          if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
-            stdData.nb_retry= bytes[index] ;
-          }
-              
-          // lorawan reassociation
-          if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
-            stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
-            stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
-          }
-          decoded.data = tab;
+            // lorawan message type
+            if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
+                if (bytes[index] === 1)
+                    stdData.message_type = "confirmed";
+                if (bytes[index] === 0)
+                    stdData.message_type = "unconfirmed";
+            }
+                    
+            // lorawan retry
+            if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
+                stdData.nb_retry= bytes[index] ;
+            }
+                    
+            // lorawan reassociation
+            if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
+                stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
+                stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
+            }
+
+            decoded.data = tab;
         }
             
         // decode configuration response
@@ -895,6 +920,7 @@ function Decoder(bytes, port) {
           //batch
           decoded.zclheader.decodedBatch = bytes[5];
         }
+
         //decode read configuration response
         if(cmdID === 0x09){
           //AttributID
@@ -915,7 +941,6 @@ function Decoder(bytes, port) {
             decoded.zclheader.min.value = bytes[9]*256+bytes[10];
             decoded.zclheader.min.unity = "seconds";
           }
-
           //max
           decoded.zclheader.max = {}
           if ((bytes[9] & 0x80) === 0x80) {
@@ -925,26 +950,10 @@ function Decoder(bytes, port) {
           else {
             decoded.zclheader.max.value = bytes[9]*256+bytes[10];
             decoded.zclheader.max.unity = "seconds";
-            }
-        }
+          }
+
+        }   
       }
-      else
-      {
-        var decoded = {};
-        brData = (brUncompress(3,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature1", divide: 100},{ taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature2", divide: 100}, { taglbl: 5, resol: 100, sampletype: 6, lblname: "BatteryVoltage", divide: 1000}], lora.payload, lDate))
-
-        var data_length = brData["datas"].length;
-        var tab=[];
-        for (var i = 0; i < data_length; i++) {
-          tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
-        }
-
-        decoded.data = tab;
-
-        decoded.zclheader = {};
-        decoded.zclheader.report = "batch";
-      }
-
     }
   return decoded;
 }
@@ -953,10 +962,57 @@ function Decoder(bytes, port) {
 function decodeUplink(input) {
  
   return {
-
-      data : Decoder(input.bytes, input.fPort),
+    data : Decoder(input.bytes, input.fPort),
     
-      warnings: [],
-      errors: []
-    };
+    warnings: [],
+    errors: []
+  };
+}
+
+function encodeDownlink(input) {
+  if (input.data.value == "OFF"){
+    value = 0x00;
+  }
+  
+  if (input.data.value == "ON"){
+    value = 0x01;
+  }
+  
+  if (input.data.value == "TOGGLE"){
+    value = 0x02;
+  }
+  
+  if (input.data.label == "Output1") {
+    label = 0x11;
+  }
+  
+  if (input.data.label == "Output2") {
+    label = 0x31;
+  }
+  
+  if (input.data.label == "Output3") {
+    label = 0x51;
+  }
+  
+  if (input.data.label == "Output4") {
+    label = 0x71;
+  }
+  bytes = [label, 0x50, 0x00, 0x06, value];
+  
+  return {
+    bytes: bytes,
+    fPort: 125,
+    warnings: [],
+    errors: []
+  };
+}
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  };
 }

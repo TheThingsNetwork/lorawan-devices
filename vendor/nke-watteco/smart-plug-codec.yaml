@@ -1,0 +1,144 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: smart-plug.js
+  # Examples (optional)
+  # examples:
+  # - description: Time-stamped standard report on simple metering
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x00, 0x52, 0x00, 0x00, 0x41, 0x0C, 0x00, 0x00, 0x4B, 0x00, 0x01, 0x64, 0x0B, 0x15, 0x00, 0x00, 0x00, 0x14]
+  #   output:
+  #     data:
+  #       data:
+  #         - date : '2021-06-17T07:16:39.388Z'
+  #           label: ActiveEnergyWh
+  #           value: 0.075
+  #         - date : '2021-06-17T07:16:39.388Z'
+  #           label: ReActiveEnergyVARh
+  #           value: 0.356
+  #         - date : '2021-06-17T07:16:39.388Z'
+  #           label: NumberOfSample
+  #           value: 2.837
+  #         - date : '2021-06-17T07:16:39.388Z'
+  #           label: ActivePowerW
+  #           value: 0
+  #         - date : '2021-06-17T07:16:39.388Z'
+  #           label: ReActivePowerVAR
+  #           value: 0.02
+  #       zclheader:
+  #         alarm : 0
+  #         attributID : "0x0000"
+  #         clusterdID : "0x0052"
+  #         cmdID : "0x0A"
+  #         endpoint : 0
+  #         report : standard
+  #     errors : []
+  #     warnings : []
+  # - description: Time-stamped standard report on Output state
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x00, 0x06, 0x00, 0x00, 0x10, 0x01]
+  #   output:
+  #     data:
+  #       data:
+  #         - date : '2021-06-17T07:15:49.086Z'
+  #           label: Output1
+  #           value: "ON"
+  #       zclheader:
+  #         alarm : 0
+  #         attributID : "0x0000"
+  #         clusterdID : "0x0006"
+  #         cmdID : "0x0A"
+  #         endpoint : 0
+  #         report : standard
+  #     errors : []
+  #     warnings : []
+  # - description: Time-stamped standard report on Power Quality
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x80, 0x52, 0x00, 0x00, 0x41, 0x18, 0x6C, 0x89, 0x6B, 0xA0, 0x6D, 0x69, 0x09, 0x48, 0x09, 0x19, 0x09, 0x9A, 0x0D, 0x01, 0x0C, 0xA1, 0x0F, 0x4B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]
+  #   output:
+  #     data:
+  #         data:
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: Freq
+  #             value: 50.017
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: FreqMin
+  #             value: 49.784
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: FreqMax
+  #             value: 50.241
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: Vrms
+  #             value: 237.6
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: VrmsMin
+  #             value: 232.9
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: VrmsMax
+  #             value: 245.8
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: Vpeak
+  #             value: 332.9
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: VpeakMin
+  #             value: 323.3
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: VpeakMax
+  #             value: 391.5
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: OverVoltageNumber
+  #             value: 0
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: SagNumber
+  #             value: 0
+  #           - date : '2021-06-17T07:15:24.531Z'
+  #             label: BrownoutNumber
+  #             value: 1
+  #         zclheader:
+  #           alarm : 0
+  #           attributID : "0x0000"
+  #           clusterdID : "0x8052"
+  #           cmdID : "0x0A"
+  #           endpoint : 0
+  #           report : standard
+  #     errors : []
+  #     warnings : []
+# # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: smart-plug.js
+#   examples:
+#     - description: Switch On Output1
+#       input:
+#         data:
+#           if(input.data.value == "OFF") {
+#             value = 0x00;
+#           }
+#           if(input.data.value == "ON") {
+#             value = 0x01;
+#           }
+#           if(input.data.value == "TOGGLE") {
+#             value = 0x02;
+#           }
+#           bytes = [0x11, 0x50, 0x00, 0x06, value];
+#       output:
+#         bytes: bytes
+#         fPort: 125
+#         errors : []
+#         warnings : []
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: smart-plug.js
+#   examples:
+#     - description: Switch ON Output1
+#       input:
+#         fPort: 125
+#         bytes: bytes
+#         errors : []
+#         warnings : []
+#       output:
+#         data:
+#           bytes: input.bytes
