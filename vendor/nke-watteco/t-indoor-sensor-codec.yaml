@@ -3,7 +3,7 @@
 uplinkDecoder:
   fileName: t-indoor-sensor.js
   # Examples (optional)
-  examples:
+  # examples:
   # - description: Time-stamped batch report on temperature and humidity
   #   input:
   #     fPort: 125

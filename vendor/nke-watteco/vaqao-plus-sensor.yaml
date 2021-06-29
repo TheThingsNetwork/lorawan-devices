@@ -38,10 +38,6 @@ firmwareVersions:
         id: vaqao-plus-sensor-profile
         lorawanCertified: true
         codec: vaqao-plus-sensor-codec
-      US902-928:
-        id: vaqao-plus-sensor-profile
-        lorawanCertified: true
-        codec: vaqao-plus-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:

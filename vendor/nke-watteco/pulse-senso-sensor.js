@@ -228,7 +228,7 @@ function createBuffer(byteArray) {
       }
       // Propagate the sign bit if 1
       if (
-        (sampleType == ST_I4 || sampleType == ST_I24) &&
+        (sampleType == ST_I4 || sampleType == ST_I8 ||sampleType == ST_I16 || sampleType == ST_I24) &&
         u32 & (1 << (nbBits - 1))
       ) {
         for (var i = nbBits; i < 32; i++) {
@@ -869,9 +869,7 @@ function Decoder(bytes, port) {
 
           //binary input counter
           if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
-            if (decoded.zclheader.endpoint < 3){
-              stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;  
-            } 
+            stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;
             stdData.value = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); 
             stdData.date = lDate;
             tab.push(stdData);
@@ -879,13 +877,7 @@ function Decoder(bytes, port) {
           
           // binary input present value
           if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
-            if (decoded.zclheader.endpoint < 3){
-              stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;  
-            }
-  
-            if ((decoded.zclheader.endpoint >= 3)&&(decoded.zclheader.endpoint < 6)){
-              stdData.label = "State"+(decoded.zclheader.endpoint-2) ;
-            }
+            stdData.label = "State"+(decoded.zclheader.endpoint+1) ;
             stdData.value =bytes[index]; 
             stdData.date = lDate;
             tab.push(stdData);
@@ -976,7 +968,8 @@ function Decoder(bytes, port) {
       else{
 
         var decoded = {};
-        brData = (brUncompress(4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "Index1", divide: 1},{ taglbl: 1, resol: 1, sampletype: 10,lblname: "Index2", divide: 1}, { taglbl: 2, resol: 1, sampletype: 10,lblname: "Index3", divide: 1}, { taglbl: 3, resol: 1, sampletype: 1,lblname: "State1", divide: 1},{ taglbl: 4, resol: 1, sampletype: 1,lblname: "State2", divide: 1}, { taglbl: 5, resol: 1, sampletype: 1,lblname: "State3", divide: 1}, { taglbl: 6, resol: 100, sampletype: 6,lblname: "BatteryLevel", divide: 1000}, { taglbl: 7, resol: 1, sampletype: 6,lblname: "MultiState", divide: 100}], lora.payload, lDate))
+        brData = (brUncompress(4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "Index1", divide: 1},{ taglbl: 1, resol: 1, sampletype: 10,lblname: "Index2", divide: 1}, { taglbl: 2, resol: 1, sampletype: 10,lblname: "Index3", divide: 1}, { taglbl: 3, resol: 1, sampletype: 1,lblname: "State1", divide: 1},{ taglbl: 4, resol: 1, sampletype: 1,lblname: "State2", divide: 1}, { taglbl: 5, resol: 1, sampletype: 1,lblname: "State3", divide: 1}, { taglbl: 6, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 7, resol: 1, sampletype: 6,lblname: "MultiState", divide: 100}], lora.payload, lDate))
+
 
         var data_length = brData["datas"].length;
         var tab=[];
