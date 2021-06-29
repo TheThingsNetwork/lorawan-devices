@@ -1,5 +1,5 @@
 name: MCF-LW13MIO
-description: Multi I/O module
+description: The mcf88 MCF-LW13MIO is a LoRaWAN® multi I/O module that transmits the state of its 16 inputs and controls 8 outputs through the LoRaWAN® network. All these inputs and outputs are galvanically isolated. It can be used for industrial process control, home automation, water treatment, agriculture irrigation, and similar applications.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

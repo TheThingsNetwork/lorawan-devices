@@ -1,5 +1,5 @@
 name: ESPEasy RN2903 (Class A ABP)
-description: ESPEasy with Microchip RN2903 LoRaWAN module. Use over 100 supported sensors, apply rules and send sensor data.
+description: The ESPEasy RN2903 (Class A ABP) is a LoRaWAN® development board on Microchip RN2903 that supports Activation by Personalization (ABP). It supports over 100 sensors.
 
 firmwareVersions:
   - version: '1.0.3'

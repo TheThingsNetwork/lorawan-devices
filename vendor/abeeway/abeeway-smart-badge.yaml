@@ -1,5 +1,5 @@
 name: Abeeway Smart Badge
-description: Portable multi-mode tracker in an ID card format. This device is ideal for tracking, zone notification and monitoring of workforce safety and security. Simple to use, a single button gives you access to the numerous functionalities you may personalize for your needs, e.g. as a Panic/SOS Button. A local zoning feature is able to signal danger zones with a 80db buzzer
+description: The Abeeway Smart Badge is a wearable LoRaWAN® multi-mode tracker with embedded sensors combining various location tracking technologies such as GPS, Low-power GPS, Wi-Fi Sniffer, BLE, and LoRaWAN TDoA. In addition to that, the Abeeway Smart Badge features a temperature sensor, SOS panic button, and a buzzer.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'

@@ -1,5 +1,5 @@
 name: RS485-BL
-description: LoRaWAN RS485/UART Converter -- WaterProof Battery Powered
+description: The Dragino RS485-BL is an RS485 / UART to LoRaWAN® converter that provides interfaces to connect RS485 sensors, 3.3v/5v UART sensors, and interrupt sensors. The measured data is sent to a LoRaWAN network. Ideal for wireless alarm and security systems, home and building automation, automated meter reading, industrial monitoring and control, long-range irrigation systems, etc.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
