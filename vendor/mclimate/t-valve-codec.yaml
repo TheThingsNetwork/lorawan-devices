@@ -8,11 +8,6 @@ uplinkDecoder:
       output:
         data:
           reason: 'keepalive'
-          valveState: false
-          boxTamper: true
-          floodDetectionWireState: true
-          flood: false
-          magnet: false
-          alarmValidated: true
-          manualOpenIndicator: true
-          manualCloseIndicator: false
+          waterTemp: 22
+          valveState: true
+          ambientTemp: 22
