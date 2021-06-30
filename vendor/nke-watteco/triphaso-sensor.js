@@ -838,10 +838,12 @@ function Decoder(bytes, port) {
         cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
         //Cluster ID
         clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
+
             
         
         // decode report and read atrtribut response
         if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
+
           stdData = {};
           var tab=[];
 
@@ -854,72 +856,62 @@ function Decoder(bytes, port) {
           else {
             decoded.zclheader.alarm = 0;
           }
-                
+                    
           //data index start
           if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
           // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
-
-          // multibinary input present value
-          if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
-          {
-            tab.push({label:stdData = "State1", value:stdData = (((bytes[index+1]&0x01) === 0x01)?1:0), date:stdData = lDate});
-            tab.push({label:stdData = "State2", value:stdData = (((bytes[index+1]&0x02) === 0x02)?1:0), date:stdData = lDate});
-            tab.push({label:stdData = "State3", value:stdData = (((bytes[index+1]&0x04) === 0x04)?1:0), date:stdData = lDate});
+        
+          // on/off present value
+          if (  (clusterdID === 0x0006 ) & (attributID === 0x0000)) {
+            state = bytes[index]; 
+            if(state === 0) {
+              tab.push({label: "Output"+(decoded.zclheader.endpoint+1), value: "OFF", date: lDate});
+            }
+            if(state === 1) {
+              tab.push({label: "Output"+(decoded.zclheader.endpoint+1), value: "ON", date: lDate});
+            }
           }
 
-          //binary input counter
-          if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
-            stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;
-            stdData.value = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); 
-            stdData.date = lDate;
-            tab.push(stdData);
-          };
-          
-          // binary input present value
-          if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
-            stdData.label = "State"+(decoded.zclheader.endpoint+1) ;
-            stdData.value =bytes[index]; 
-            stdData.date = lDate;
-            tab.push(stdData);
-          };
+          //energy and power metering
+          if (  (clusterdID === 0x800a) & (attributID === 0x0000)) {
+            tab.push({label: "PositiveActiveEnergyWh", value: UintToInt(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4],4), date: lDate});
+            tab.push({label: "NegativeActiveEnergyWh", value: UintToInt(bytes[index+5]*256*256*256+bytes[index+6]*256*256+bytes[index+7]*256+bytes[index+8],4), date: lDate});
+            tab.push({label:"PositiveReactiveEnergyWh", value: UintToInt(bytes[index+9]*256*256*256+bytes[index+10]*256*256+bytes[index+11]*256+bytes[index+12],4), date: lDate});
+            tab.push({label: "NegativeReactiveEnergyWh", value: UintToInt(bytes[index+13]*256*256*256+bytes[index+14]*256*256+bytes[index+15]*256+bytes[index+16],4), date: lDate});
+            tab.push({label: "PositiveActivePowerW", value: UintToInt(bytes[index+17]*256*256*256+bytes[index+18]*256*256+bytes[index+19]*256+bytes[index+20],4), date: lDate});            
+            tab.push({label: "NegativeActivePower", value: UintToInt(bytes[index+21]*256*256*256+bytes[index+22]*256*256+bytes[index+23]*256+bytes[index+24],4), date: lDate});            
+            tab.push({label: "PositiveReactivePowerW", value: UintToInt(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28],4), date: lDate});
+            tab.push({label: "NegativeReactivePowerW", value: UintToInt(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32],4), date: lDate});
+          }
 
+          //energy and power metering
+				  if (  (clusterdID === 0x800b) & (attributID === 0x0000)) {
+            tab.push({label: "Vrms", value: UintToInt(bytes[index+1]*256+bytes[index+2],2)/10, date: lDate});
+            tab.push({label: "Irms", value: UintToInt(bytes[index+3]*256+bytes[index+4],2)/10, date: lDate});
+            tab.push({label: "Phase", value: UintToInt(bytes[index+5]*256+bytes[index+6],2)/10, date: lDate});
+			  	}
 
-          // lorawan message type
-          if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
-              if (bytes[index] === 1)
+            // lorawan message type
+            if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
+                
+                if (bytes[index] === 1)
                 stdData.message_type = "confirmed";
-              if (bytes[index] === 0)
+                if (bytes[index] === 0)
                 stdData.message_type = "unconfirmed";
-          }
+            }
                 
-          // lorawan retry
-          if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
-            stdData.nb_retry= bytes[index] ;
-          }
-                
-          // lorawan reassociation
-          if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
-            stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
-            stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
-          }
+            // lorawan retry
+            if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
+                stdData.nb_retry= bytes[index] ;
+            }
+                    
+            // lorawan reassociation
+            if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
+                stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
+                stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
+            }
 
-          // configuration node power desc
-				  if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
-				  index2 = index + 3;
-				  if ((bytes[index+2] &0x01) === 0x01) {
-            tab.push({label:"ExternalPowerVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
-            index2=index2+2;
-          }
-          if ((bytes[index+2] &0x04) === 0x04) {
-            tab.push({label:"BatteryVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
-            index2=index2+2;
-          }
-				  if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-				  if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-				  if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-				}
-
-          decoded.data = tab;
+            decoded.data = tab;
         }
             
         // decode configuration response
@@ -965,23 +957,6 @@ function Decoder(bytes, port) {
 
         }   
       }
-      else{
-
-        var decoded = {};
-        brData = (brUncompress(4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "Index1", divide: 1},{ taglbl: 1, resol: 1, sampletype: 10,lblname: "Index2", divide: 1}, { taglbl: 2, resol: 1, sampletype: 10,lblname: "Index3", divide: 1}, { taglbl: 3, resol: 1, sampletype: 1,lblname: "State1", divide: 1},{ taglbl: 4, resol: 1, sampletype: 1,lblname: "State2", divide: 1}, { taglbl: 5, resol: 1, sampletype: 1,lblname: "State3", divide: 1}, { taglbl: 6, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 7, resol: 1, sampletype: 6,lblname: "MultiState", divide: 100}], lora.payload, lDate))
-
-        var data_length = brData["datas"].length;
-        var tab=[];
-        for (var i = 0; i < data_length; i++) {               
-          tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
-        }
-
-        decoded.data = tab;
-
-        decoded.zclheader = {};
-        decoded.zclheader.report = "batch";
-      }
-
     }
   return decoded;
 }
@@ -992,6 +967,39 @@ function decodeUplink(input) {
   return {
     data : Decoder(input.bytes, input.fPort),
     
+    warnings: [],
+    errors: []
+  };
+}
+
+function encodeDownlink(input) {
+  if (input.data.value == "OFF"){
+    value = 0x00;
+  }
+  
+  if (input.data.value == "ON"){
+    value = 0x01;
+  }
+  
+  if (input.data.value == "TOGGLE"){
+    value = 0x02;
+  }
+  
+  bytes = [0x11, 0x50, 0x00, 0x06, value];
+  
+  return {
+    bytes: bytes,
+    fPort: 125,
+    warnings: [],
+    errors: []
+  };
+}
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
     warnings: [],
     errors: []
   };

@@ -859,37 +859,21 @@ function Decoder(bytes, port) {
           if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
           // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
 
-          // multibinary input present value
-          if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
-          {
-            tab.push({label:stdData = "State1", value:stdData = (((bytes[index+1]&0x01) === 0x01)?1:0), date:stdData = lDate});
-            tab.push({label:stdData = "State2", value:stdData = (((bytes[index+1]&0x02) === 0x02)?1:0), date:stdData = lDate});
-            tab.push({label:stdData = "State3", value:stdData = (((bytes[index+1]&0x04) === 0x04)?1:0), date:stdData = lDate});
-          }
+          //analog input
+			if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) {
 
-          //binary input counter
-          if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
-            stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;
-            stdData.value = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); 
+            stdData.label = "Angle";
+            stdData.value = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
             stdData.date = lDate;
             tab.push(stdData);
           };
-          
-          // binary input present value
-          if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
-            stdData.label = "State"+(decoded.zclheader.endpoint+1) ;
-            stdData.value =bytes[index]; 
-            stdData.date = lDate;
-            tab.push(stdData);
-          };
-
 
           // lorawan message type
           if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
-              if (bytes[index] === 1)
-                stdData.message_type = "confirmed";
-              if (bytes[index] === 0)
-                stdData.message_type = "unconfirmed";
+            if (bytes[index] === 1)
+              stdData.message_type = "confirmed";
+            if (bytes[index] === 0)
+              stdData.message_type = "unconfirmed";
           }
                 
           // lorawan retry
@@ -965,23 +949,6 @@ function Decoder(bytes, port) {
 
         }   
       }
-      else{
-
-        var decoded = {};
-        brData = (brUncompress(4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "Index1", divide: 1},{ taglbl: 1, resol: 1, sampletype: 10,lblname: "Index2", divide: 1}, { taglbl: 2, resol: 1, sampletype: 10,lblname: "Index3", divide: 1}, { taglbl: 3, resol: 1, sampletype: 1,lblname: "State1", divide: 1},{ taglbl: 4, resol: 1, sampletype: 1,lblname: "State2", divide: 1}, { taglbl: 5, resol: 1, sampletype: 1,lblname: "State3", divide: 1}, { taglbl: 6, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 7, resol: 1, sampletype: 6,lblname: "MultiState", divide: 100}], lora.payload, lDate))
-
-        var data_length = brData["datas"].length;
-        var tab=[];
-        for (var i = 0; i < data_length; i++) {               
-          tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
-        }
-
-        decoded.data = tab;
-
-        decoded.zclheader = {};
-        decoded.zclheader.report = "batch";
-      }
-
     }
   return decoded;
 }

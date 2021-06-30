@@ -1,13 +1,9 @@
-name: Pulse Sens'O
-description: 'The Pulse Sens’O sensor is used to remotely read metering data from three meters: water, electricity or energy. It turns
-  existing meters into smart meters via a public or private LoRaWAN® network.'
-
+name: Intens'O
+description: The Intens’O sensor measures the intensity of electric current using its clamp-on ammeter and determines the state of the equipment based on a selectable current threshold. The data is then transmitted over a public or private LoRaWAN™ radio network.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-014'
-    numeric: 14
-  - version: '50-70-160'
-    numeric: 160
+  - version: '50-70-091'
+    numeric: 91
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -16,8 +12,7 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-014'
-      - '50-70-160'
+      - '50-70-091'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -37,9 +32,9 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: pulse-senso-sensor-profile
+        id: intenso-sensor-profile
         lorawanCertified: true
-        codec: pulse-senso-sensor-codec
+        codec: intenso-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -50,8 +45,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pulse count
-  - digital input
+  - current
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -65,12 +59,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 92
-  length: 92
-  height: 56
+  width: 84
+  length: 82
+  height: 55
 
 # Weight in grams (optional)
-weight: 150
+# weight: 200
 
 # Battery information (optional)
 battery:
@@ -82,10 +76,10 @@ operatingConditions:
   # Temperature (Celcius)
   temperature:
     min: -20
-    max: 50
+    max: 60
 
 # IP rating (optional)
-ipCode: IP55
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -108,8 +102,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/pulse-senso-sensor-lorawan/
-dataSheetURL: https://www.nke-watteco.com/download/pulse-senso-sensor-data-sheet-lorawan/?wpdmdl=6453&refresh=60ba3196105021622815126
+productURL: https://www.nke-watteco.com/product/intenso-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/intenso-sensor-data-sheet-lorawan/?wpdmdl=6448&refresh=60d498a475fd61624545444
 
 # Commercial information
 resellerURLs:
@@ -122,7 +116,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: pulse-senso-sensor.jpg
+  main: intenso-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:

@@ -49,5 +49,4 @@ supportsClassB: false
 supportsClassC: true
 # If your device supports class C, uncomment the following fields:
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
-#classCTimeout: 60
-
+classCTimeout: 60

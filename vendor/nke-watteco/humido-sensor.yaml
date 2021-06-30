@@ -1,13 +1,10 @@
-name: Pulse Sens'O
-description: 'The Pulse Sens’O sensor is used to remotely read metering data from three meters: water, electricity or energy. It turns
-  existing meters into smart meters via a public or private LoRaWAN® network.'
+name: Humid'O
+description: The water presence detection sensor Humid’O is equipped with a detection probe and its LoRaWAN™ transmitter
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-014'
-    numeric: 14
-  - version: '50-70-160'
-    numeric: 160
+  - version: '50-70-144'
+    numeric: 144
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -16,8 +13,7 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-014'
-      - '50-70-160'
+      - '50-70-144'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -37,9 +33,9 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: pulse-senso-sensor-profile
+        id: humido-sensor-profile
         lorawanCertified: true
-        codec: pulse-senso-sensor-codec
+        codec: humido-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -50,8 +46,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pulse count
-  - digital input
+  - water
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -65,12 +60,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 92
-  length: 92
-  height: 56
+  width: 84
+  length: 82
+  height: 85
 
 # Weight in grams (optional)
-weight: 150
+# weight: 95
 
 # Battery information (optional)
 battery:
@@ -108,8 +103,9 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/pulse-senso-sensor-lorawan/
-dataSheetURL: https://www.nke-watteco.com/download/pulse-senso-sensor-data-sheet-lorawan/?wpdmdl=6453&refresh=60ba3196105021622815126
+
+productURL: https://www.nke-watteco.com/product/humido-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/humido-sensor-data-sheet-lorawan/?wpdmdl=6446&refresh=60d491cfd8ff91624543695
 
 # Commercial information
 resellerURLs:
@@ -122,7 +118,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: pulse-senso-sensor.jpg
+  main: humido-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:

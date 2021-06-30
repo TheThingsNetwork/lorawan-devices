@@ -859,37 +859,49 @@ function Decoder(bytes, port) {
           if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
           // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
 
-          // multibinary input present value
-          if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
-          {
-            tab.push({label:stdData = "State1", value:stdData = (((bytes[index+1]&0x01) === 0x01)?1:0), date:stdData = lDate});
-            tab.push({label:stdData = "State2", value:stdData = (((bytes[index+1]&0x02) === 0x02)?1:0), date:stdData = lDate});
-            tab.push({label:stdData = "State3", value:stdData = (((bytes[index+1]&0x04) === 0x04)?1:0), date:stdData = lDate});
-          }
-
           //binary input counter
           if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
-            stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;
-            stdData.value = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); 
-            stdData.date = lDate;
-            tab.push(stdData);
-          };
+                stdData.label = "Index";
+                stdData.value =bytes[index]; 
+                stdData.date = lDate;
+                tab.push(stdData);
+            };
           
           // binary input present value
           if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
-            stdData.label = "State"+(decoded.zclheader.endpoint+1) ;
+            stdData.label = "State"
             stdData.value =bytes[index]; 
             stdData.date = lDate;
             tab.push(stdData);
           };
 
+          //analog input
+		  if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) {
+
+            if (decoded.zclheader.endpoint == 0){
+            //   stdData.label = "4-20mA"; 
+                stdData.label = "DeltaPressure";
+                DeltaPressure = ((Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3])*0.01875) - 0.075)* 100000;
+                stdData.value = DeltaPressure;
+                
+            }
+        
+            if (decoded.zclheader.endpoint == 1){
+                // stdData.label = "0-10V";  
+                stdData.label = "FluidLevel";
+                stdData.value = DeltaPressure/(9.81*997);
+            }
+            stdData.date = lDate;
+
+            tab.push(stdData);
+          };
 
           // lorawan message type
           if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
-              if (bytes[index] === 1)
-                stdData.message_type = "confirmed";
-              if (bytes[index] === 0)
-                stdData.message_type = "unconfirmed";
+            if (bytes[index] === 1)
+              stdData.message_type = "confirmed";
+            if (bytes[index] === 0)
+              stdData.message_type = "unconfirmed";
           }
                 
           // lorawan retry
@@ -968,7 +980,7 @@ function Decoder(bytes, port) {
       else{
 
         var decoded = {};
-        brData = (brUncompress(4,[{taglbl: 0,resol: 1, sampletype: 10,lblname: "Index1", divide: 1},{ taglbl: 1, resol: 1, sampletype: 10,lblname: "Index2", divide: 1}, { taglbl: 2, resol: 1, sampletype: 10,lblname: "Index3", divide: 1}, { taglbl: 3, resol: 1, sampletype: 1,lblname: "State1", divide: 1},{ taglbl: 4, resol: 1, sampletype: 1,lblname: "State2", divide: 1}, { taglbl: 5, resol: 1, sampletype: 1,lblname: "State3", divide: 1}, { taglbl: 6, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 7, resol: 1, sampletype: 6,lblname: "MultiState", divide: 100}], lora.payload, lDate))
+        brData = (brUncompress(3,[{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "DeltaPressure", divide: 1},{ taglbl: 1, resol: 1, sampletype: 12,lblname: "FluidLevel", divide: 1}, { taglbl: 2, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 3, resol: 100, sampletype: 6,lblname: "ExternalPowerVoltage", divide: 1000},{ taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}], lora.payload, lDate))
 
         var data_length = brData["datas"].length;
         var tab=[];
@@ -995,4 +1007,4 @@ function decodeUplink(input) {
     warnings: [],
     errors: []
   };
-}
+}   
