@@ -1,13 +1,11 @@
-name: Pulse Sens'O
-description: 'The Pulse Sens’O sensor is used to remotely read metering data from three meters: water, electricity or energy. It turns
-  existing meters into smart meters via a public or private LoRaWAN® network.'
-
+name: Toran'O AtEx Zone 1
+description: The Toran’O AtEx Zone 1 sensor is used to report status changes, pulse count values and analog measurements of equipment in the AtEx 1 sensitive zone such as water, gas, electricity or thermal energy meters, mechanical pressure switches, pressure transducers. It makes existing equipment communicate on a public or private LoRaWAN® network.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-014'
-    numeric: 14
-  - version: '50-70-160'
-    numeric: 160
+  - version: '50-70-124'
+    numeric: 124
+  - version: '50-70-150'
+    numeric: 150
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -16,8 +14,8 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-014'
-      - '50-70-160'
+      - '50-70-124'
+      - '50-70-150'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -37,9 +35,9 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: pulse-senso-sensor-profile
+        id: torano-atex-zone-1-sensor-profile
         lorawanCertified: true
-        codec: pulse-senso-sensor-codec
+        codec: torano-atex-zone-1-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -50,8 +48,10 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
+  - analog input
+  - current
   - pulse count
-  - digital input
+  - voltage
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -67,10 +67,10 @@ sensors:
 dimensions:
   width: 92
   length: 92
-  height: 56
+  height: 55.5
 
 # Weight in grams (optional)
-weight: 150
+# weight: 235
 
 # Battery information (optional)
 battery:
@@ -108,8 +108,8 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/pulse-senso-sensor-lorawan/
-dataSheetURL: https://www.nke-watteco.com/download/pulse-senso-sensor-data-sheet-lorawan/?wpdmdl=6453&refresh=60ba3196105021622815126
+productURL: https://www.nke-watteco.com/product/torano-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/torano-sensor-data-sheet-lorawan/?wpdmdl=8549&refresh=60d5a451817091624613969
 
 # Commercial information
 resellerURLs:
@@ -122,7 +122,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: pulse-senso-sensor.jpg
+  main: torano-atex-zone-1-sensor.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:
