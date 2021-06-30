@@ -228,7 +228,7 @@ function createBuffer(byteArray) {
       }
       // Propagate the sign bit if 1
       if (
-        (sampleType == ST_I4 || sampleType == ST_I24) &&
+        (sampleType == ST_I4 || sampleType == ST_I8 ||sampleType == ST_I16 || sampleType == ST_I24) &&
         u32 & (1 << (nbBits - 1))
       ) {
         for (var i = nbBits; i < 32; i++) {
@@ -797,6 +797,7 @@ function Bytes2Float32(bytes) {
 }
 
 
+
 function Decoder(bytes, port) {
   // Decode an uplink message from a buffer
   // (array) of bytes to an object of fields.
@@ -813,7 +814,6 @@ function Decoder(bytes, port) {
   var temp_hex_str = ""
 
   lora.payload  = "";
-
 
   for( var j = 0; j < bytes_len_; j++ ){
     temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
