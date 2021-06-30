@@ -1,5 +1,5 @@
 name: Abeeway Industrial Tracker
-description: Multi-mode tracker with a large battery designed to resist harsh surroundings enabling you to perform seamless asset tracking and management in any industrial environment, whether it’s for heavy-duty assets, inventory or livestock, taking advantage of its extraordinary battery autonomy.
+description: The Abeeway Industrial Tracker has embedded sensors combining GPS, Low-power GPS, Wi-Fi Sniffer, and LoRaWAN® TDoA geolocation technologies, supporting accurate outdoor and indoor geolocation. In addition to that, it has embedded sensors for measuring temperature, motion, and pressure. This tracker is an ideal solution for industry tracking and asset management needs.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '2.0'

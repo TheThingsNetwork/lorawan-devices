@@ -9,6 +9,7 @@ hardwareVersions:
   - version: '50-70-160'
     numeric: 160
 
+
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version

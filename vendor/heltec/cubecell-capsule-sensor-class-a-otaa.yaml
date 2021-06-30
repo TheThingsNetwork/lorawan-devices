@@ -1,5 +1,5 @@
 name: HTCC-AC01(Class A OTAA)
-description: HTCC-AC01 is a LoRa end node sensor. With a complete enclosure and protection measures, it can be deployed directly into real-world applications.
+description: The Heltec HTCC-AC01 (Class A OTAA) / CubeCell – Capsule Sensor is a LoRaWAN® development board based on ASR605x (ASR6501, ASR6502) that comes without sensors and with sensor options such as light intensity, barometric pressure, air quality, temperature and humidity, and 9-axis attitude. The ASR605x chip is integrated with the PSoC® 4000 series MCU (ARM® Cortex® M0+ Core) and SX1262. HTCC-AC01 allows connecting various sensors and supports the Arduino® development environment.
 
 firmwareVersions:
   - version: '1.0'

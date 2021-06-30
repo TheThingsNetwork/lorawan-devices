@@ -1,5 +1,5 @@
 name: Wireless Outdoor CO2/Temperature/Humidity Sensor with Solar Panel
-description: The R72615 is equipped with a temperature and humidity sensor that detects and transmits ambient temperature and humidity data. It is a wireless communication method that uses the SX1276 wireless communication module. The R72615 has a CO2 sensor that detects the concentration of CO2 in the air.
+description: The Netvox R72615 is an outdoor environmental sensor that consists of CO2, temperature, and humidity sensors. It is compatible with LoRaWAN® protocol (Class A). The device is powered using a solar panel.
 
 hardwareVersions:
   - version: '4'

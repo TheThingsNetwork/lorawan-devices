@@ -1,5 +1,5 @@
 name: LBT1
-description: LoRaWAN BLE Indoor Tracker
+description: The Dragino LBT1 is a LoRaWAN® Bluetooth tracker that consists of a motion sensor and an iBeacon scanner. LBT1 scans and finds the nearest i-Beacon info and sends it to an IoT server via LoRaWAN wireless network.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

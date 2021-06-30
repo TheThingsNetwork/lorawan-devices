@@ -1,5 +1,5 @@
 name: DL-TBRG
-description: Tipping Bucket Rain Gauge for LoRaWAN
+description: The Decentlab DL-TBRG consists of a precipitation sensor for measuring rainfall. It is suitable for precipitation and weather monitoring, flood monitoring, and smart agriculture.
 
 hardwareVersions:
   - version: '1'

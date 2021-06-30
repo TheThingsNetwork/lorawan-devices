@@ -1,5 +1,5 @@
 name: MCF-LW13IO
-description: Wireless actuator
+description: The mcf88 MCF-LW13IO is a wireless actuator that consists of an Opto-isolated input and a relay output. The device transmits the status of its input and controls the output through the LoRaWAN® network. Can be used for industrial process control and home automation, water treatment, agriculture irrigation, and similar applications.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

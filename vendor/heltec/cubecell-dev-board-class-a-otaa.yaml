@@ -1,5 +1,5 @@
 name: HTCC-AB01(Class A OTAA)
-description: HTCC-AB01 is a Dev-Board. Friendly designed for developers, easy to verify communication solutions.
+description: The Heltec HTCC-AB01 CubeCell – Dev-Board is a LoRaWAN® development board based on ASR605x (ASR6501, ASR6502). The ASR605x chip is integrated with the PSoC® 4000 series MCU (ARM® Cortex® M0+ Core) and SX1262. HTCC-AB01 allows connecting various sensors and supports the Arduino® development environment.
 
 firmwareVersions:
   - version: '1.0'

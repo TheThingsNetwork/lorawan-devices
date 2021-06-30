@@ -1,5 +1,5 @@
 name: DL-ZN1
-description: Dendrometer for LoRaWAN
+description: The Decentlab DL-ZN1 comes with a linear position dendrometer that can measure the growth of plants and trees. It is suitable for use in irrigation control, smart agriculture, forestry, plantation, and ecophysiology applications.
 
 hardwareVersions:
   - version: '1'

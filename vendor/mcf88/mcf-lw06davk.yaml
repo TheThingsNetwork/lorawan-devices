@@ -1,5 +1,5 @@
 name: MCF-LW06DAVK
-description: Davis Vantage interface
+description: The mcf88 MCF-LW06DAVK is equipped with a wide range of sensors such as temperature, humidity, barometric pressure, rainfall, wind speed and direction, solar radiation, PM1, PM2.5, and PM10. Suitable for smart agriculture, industry, smart city, waste station control, etc.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

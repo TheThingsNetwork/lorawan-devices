@@ -1,0 +1,56 @@
+name: IAQ Sensor
+description: The Tabs Healthy Home sensor utilizes LoRaWAN connectivity to communicate the Temperature, Relative Humidity and Volatile Organic Compound levels of the surrounding environment. The intended use is to place the sensor within a room to determine if the air quality, temperature, and humidity are ideal.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1' # unknown
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+
+    profiles:
+      EU863-870:
+        id: tabs-profile
+        lorawanCertified: true
+        codec: tbhv110-codec
+      US902-928:
+        id: tabs-profile
+        lorawanCertified: true
+        codec: tbhv110-codec
+
+sensors:
+  - temperature
+  - humidity
+  - iaq
+
+dimensions:
+  width: 20
+  length: 50
+  height: 50
+
+weight: 40
+
+battery:
+  replaceable: true
+  type: 3.6V 1⁄2 AA Li-SOCl2 1200mAh
+
+operatingConditions:
+  temperature:
+    min: 0
+    max: 50
+
+ipCode: IP40
+
+productURL: http://www.browan.com/product/healthy-home-sensor-iaq/detail
+
+photos:
+  main: tbhv110.png
+
+keySecurity: none
+
+keyProvisioning:
+  - manifest
