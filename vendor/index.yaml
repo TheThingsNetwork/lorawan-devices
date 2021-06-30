@@ -537,6 +537,8 @@ vendors:
   - id: onethinx
     name: Onethinx B.V.
     vendorID: 307
+    website: https://www.onethinx.com/
+    logo: onethinx-logo.png
 
   - id: orange
     name: Orange
