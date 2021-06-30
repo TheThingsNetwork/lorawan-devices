@@ -13,10 +13,10 @@ uplinkDecoder:
           temperature: 30.8
           humidity: 50.5
     - description: Temperature and Humidity Sensor (example 2) - Milesgiht IoT
-      input: 
+      input:
         fPort: 85
         bytes: [0x03, 0x67, 0x10, 0x01, 0x04, 0x68, 0x71]
-      output: 
+      output:
         data:
           temperature: 27.2
           humidity: 56.5

@@ -8,12 +8,12 @@ uplinkDecoder:
         fPort: 85
         bytes: [0x05, 0x00, 0x00]
       output:
-        data: 
+        data:
           water: normal
     - description: Spot Leakage Detection Sensor (example 2) - Milesgiht IoT
       input:
-          fPort: 85
-          bytes: [0x05, 0x00, 0x01]
+        fPort: 85
+        bytes: [0x05, 0x00, 0x01]
       output:
         data:
           water: leak

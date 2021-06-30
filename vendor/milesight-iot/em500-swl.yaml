@@ -46,8 +46,8 @@ sensors:
   - distance
 
 dimensions:
-  width: 69.5 
-  length: 156.1 
+  width: 69.5
+  length: 156.1
   height: 71
 
 battery:
