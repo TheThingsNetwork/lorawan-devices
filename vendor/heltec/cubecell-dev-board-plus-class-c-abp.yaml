@@ -1,0 +1,44 @@
+name: HTCC-AB02(Class C ABP)
+description: The Heltec HTCC-AB02 CubeCell Dev-Board Plus is a LoRaWAN® development board based on ASR605x (ASR6501, ASR6502). The ASR605x chip is integrated with the PSoC® 4000 series MCU (ARM® Cortex® M0+ Core) and SX1262. HTCC-AB02 allows connecting various sensors and supports the Arduino® development environment.
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-c-abp
+      US902-928:
+        id: profile-us915-class-c-abp
+      AU915-928:
+        id: profile-au915-class-c-abp
+      AS923:
+        id: profile-as923-class-c-abp
+      EU433:
+        id: profile-eu433-class-c-abp
+      CN470-510:
+        id: profile-cn470-class-c-abp
+      IN865-867:
+        id: profile-in865-class-c-abp
+      KR920-923:
+        id: profile-kr920-class-c-abp
+
+dimensions:
+  width: 25
+  length: 51.9
+  height: 8
+
+battery:
+  replaceable: true
+  type: Lithium
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+productURL: https://heltec.org/project/htcc-ab02/
+dataSheetURL: https://heltec.org/project/htcc-ab02/#1552557147424-7f1ec-5c652144-e1d638b1-a2e8
+
+photos:
+  main: cubecell-dev-board-plus.png

@@ -1,5 +1,5 @@
 name: Air Quality Monitor
-description: Gases concentration sensor for LoRaWan
+description: The IoTsens Air Quality Monitor is a device that consists of a set of environmental sensors for  CO, SO2, NO2, O3, NO, H2S, CO2, PM2.5, PM10, temperature, and humidity detection and measurement. The use of this device is recommended for the evaluation of air conditions, being able to monitor the levels of contamination to make the appropriate decisions.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -38,12 +38,20 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
+  - co
+  - so2
+  - no2
+  - no
+  - o3
+  - h2s
   - co2
   - tvoc
   - temperature
   - humidity
   - barometer
   - dust
+  - pm2.5
+  - pm10
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -53,7 +61,7 @@ dimensions:
   height: 60
 
 # Weight in grams (optional)
-# weight: 350
+weight: 400
 
 # Battery information (optional)
 # battery:
@@ -61,15 +69,26 @@ dimensions:
 #   type: AA
 
 # Operating conditions (optional)
+
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: 0
-    max: 40
+    min: -40
+    max: 65
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 1
+
+# operatingConditions:
+#   # Temperature (Celcius)
+#   temperature:
+#     min: 0
+#     max: 40
+#   # Relative humidity (fraction of 1)
+#   relativeHumidity:
+#     min: 0
+#     max: 0.97
 
 # IP rating (optional)
 ipCode: IP53
@@ -85,7 +104,7 @@ keyProvisioning:
 # keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.iotsens.com/
+productURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Air_quality_Monitor_EN.pdf
 dataSheetURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Air_quality_Monitor_EN.pdf
 # resellerURLs:
 # - name: 'Reseller 1'

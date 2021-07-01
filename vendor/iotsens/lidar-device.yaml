@@ -1,5 +1,5 @@
 name: Optical Distance Monitor
-description: Distance monitor to 40m featuring a lidar sensor for LoRaWAN
+description: The IoTsens LoRaWAN® Optical Distance Monitor is equipped with a LIDAR sensor for monitoring filling levels. Thus, it becomes an optimal tool in waste management, and can also be used in the detection of liquid levels in tanks, among other applications.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -50,7 +50,7 @@ dimensions:
   height: 80
 
 # Weight in grams (optional)
-# weight: 350
+weight: 400
 
 # Battery information (optional)
 battery:
@@ -82,7 +82,7 @@ keyProvisioning:
 # keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.iotsens.com/
+productURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Optical_Distance-Monitor_EN.pdf
 dataSheetURL: http://hardware.iotsens.com/datasheets/IoTsens-Datasheet-Optical_Distance-Monitor_EN.pdf
 # resellerURLs:
 # - name: 'Reseller 1'

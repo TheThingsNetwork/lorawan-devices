@@ -1,0 +1,109 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lpn-cm4.js
+  # Examples (optional)
+  examples:
+    - description: Temp/Hum data on port 3
+      input:
+        fPort: 3
+        bytes: [0x01, 0x12, 0x09, 0x97, 0x03, 0x0A, 0x8D, 0x23]
+      output:
+        data:
+          batLevel: 75.5
+          humNOW: [35]
+          tempNOW: [27.01]
+
+    - description: Temp/Hum history data on port 3
+      input:
+        fPort: 3
+        bytes: [0x01, 0x12, 0x02, 0x97, 0x04, 0x0A, 0xA3, 0x1D, 0x0A, 0x8D, 0x1E, 0x0A, 0x98, 0x1E, 0x0A, 0xA0, 0x1E, 0x0A, 0xA9, 0x1E, 0x0A, 0xA0, 0x1E, 0x0A, 0x9C, 0x1E, 0x0A, 0x9D, 0x1E]
+      output:
+        data:
+          batLevel: 75.5
+          humNOW: [29, 30, 30, 30, 30, 30, 30, 30]
+          tempNOW: [27.23, 27.01, 27.12, 27.2, 27.29, 27.2, 27.16, 27.17]
+
+    - description: Config data on port 100
+      input:
+        fPort: 100
+        bytes: [0x01, 0x02, 0x01, 0x95, 0x00, 0x0A, 0x01, 0x00, 0x00, 0x32, 0x00, 0x00, 0x46, 0x14]
+      output:
+        data:
+          batLevel: 74.5
+          historyTrigger: 1
+          humMax: 70
+          humMin: 20
+          humOffset: 0
+          measRate: 10
+          tempMax: 50
+          tempMin: 0
+          tempOffset: 0
+
+    - description: Info data on port 101
+      input:
+        fPort: 101
+        bytes: [0x01, 0x02, 0x01, 0x91, 0x01, 0x03]
+      output:
+        data:
+          appMainVers: 1
+          appMinorVers: 3
+          batLevel: 72.5
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: lpn-cm4.js
+  examples:
+    - description: Pass Config to device
+      input:
+        data:
+          fPort: 100
+          measRate: 10
+          historyTrigger: 4
+          tempOffset: 0
+          tempMax: 50
+          tempMin: 0
+          humOffset: 0
+          humMax: 70
+          humMin: 20
+      output:
+        bytes: [0x00, 0x0A, 0x04, 0x00, 0x00, 0x32, 0x00, 0x00, 0x46, 0x14]
+        fPort: 100
+
+    - description: Info get
+      input:
+        data:
+          fPort: 101
+          infoGet: true
+      output:
+        bytes: [0x01]
+        fPort: 101
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: lpn-cm4.js
+  examples:
+    - description: Pass Config to device
+      input:
+        fPort: 100
+        bytes: [0x00, 0x0A, 0x04, 0x00, 0x00, 0x32, 0x00, 0x00, 0x46, 0x14]
+      output:
+        data:
+          fPort: 100
+          measRate: 10
+          historyTrigger: 4
+          tempOffset: 0
+          tempMax: 50
+          tempMin: 0
+          humOffset: 0
+          humMax: 70
+          humMin: 20
+
+    - description: Info Get
+      input:
+        fPort: 101
+        bytes: [0x01]
+      output:
+        data:
+          fPort: 101
+          infoGet: true

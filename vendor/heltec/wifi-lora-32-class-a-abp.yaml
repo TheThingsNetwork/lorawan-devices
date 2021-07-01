@@ -1,0 +1,43 @@
+name: WiFi LoRa 32 (V2)(Class A ABP)
+description: The HelTec WiFi LoRa 32 (V2)(Class A ABP) is a classic IoT development board based on ESP32 and SX127x. It supports Wi-Fi, BLE, and LoRa communication. The board has a Li-Po battery management system and 0.96″ OLED. It is suitable for building applications for smart cities, smart farms, smart homes, and many more.
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-a-abp
+      US902-928:
+        id: profile-us915-class-a-abp
+      AU915-928:
+        id: profile-au915-class-a-abp
+      AS923:
+        id: profile-as923-class-a-abp
+      EU433:
+        id: profile-eu433-class-a-abp
+      CN470-510:
+        id: profile-cn470-class-a-abp
+      IN865-867:
+        id: profile-in865-class-a-abp
+      KR920-923:
+        id: profile-kr920-class-a-abp
+
+dimensions:
+  width: 25.5
+  length: 51
+  height: 10.6
+
+battery:
+  replaceable: true
+  type: Lithium
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+productURL: https://heltec.org/project/wifi-lora-32/
+dataSheetURL: https://heltec.org/project/wifi-lora-32/#1552557147424-7f1ec-5c65
+
+photos:
+  main: wifi-lora-32.png

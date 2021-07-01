@@ -1,0 +1,110 @@
+name: CO2 stoplicht
+description: The Teneo IoT CO2 stoplicht is equipped with a CO2 sensor, temperature sensor, and humidity sensor that alarms by means of the traffic light function when the measured values exceed the set standards. The CO2 traffic light has digital communication via LoRaWAN® or WiFi, which makes it possible to log in all measured values and view them remotely.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: co2-stoplicht-profile
+        lorawanCertified: true
+        codec: co2-stoplicht-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - co2
+  - humidity
+  - temperature
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  height: 166
+  diameter: 85
+
+# Weight in grams (optional)
+weight: 310
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://co2-stoplicht.online/
+dataSheetURL: https://co2-stoplicht.online/downloads/
+resellerURLs:
+  - name: 'Business consumers'
+    region:
+      - European Union
+    url: https://co2-stoplicht.online/co2-stoplicht-bestellen/zakelijk/
+  - name: 'Private consumers'
+    region:
+      - European Union
+    url: https://co2-stoplicht.online/co2-stoplicht-bestellen/co-stoplicht-voor-consumenten/
+  - name: 'bol.com'
+    region:
+      - European Union
+    url: https://www.bol.com/nl/p/co2-stoplicht-co2-meter-luchtkwaliteitsmeter-co2-monitor-co2-meter-binnen-luchtvochtigheid-meter-luchtkwaliteitsmeters/9300000015683413
+
+# Photos
+photos:
+  main: co2-stoplicht.jpg
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+    - body: IEC
+      norm: EN
+      standard: '62479'
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1

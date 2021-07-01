@@ -1,0 +1,103 @@
+name: ELT-2 LoRaWAN wireless sensor
+description: The ELT-2 have the capability of solving almost any problem. It is enclosed in an IP67 box which makes it ideal for mounting outside or in extreme conditions.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        # vendorID: 132
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: elsys-eu868-profile
+        lorawanCertified: true
+        codec: elt-ultrasonic-codec
+      US902-928:
+        id: elsys-us902-profile
+        lorawanCertified: true
+        codec: elt-ultrasonic-codec
+      AS923:
+        id: elsys-as923-profile
+        lorawanCertified: true
+        codec: elt-ultrasonic-codec
+      AU915-928:
+        id: elsys-au915-profile
+        lorawanCertified: true
+        codec: elt-ultrasonic-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - humidity
+  - accelerometer
+  - pressure
+  # - ultrasonic
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 94
+  length: 59
+  height: 85.7
+
+# Weight in grams (optional)
+weight: 215
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# Product and data sheet URLs (optional)
+productURL: https://www.elsys.se/en/elt-ultrasonic/
+dataSheetURL: https://elsys.se/public/datasheets/ELT_Ultrasonic_datasheet.pdfeets/ELT-2_datasheet.pdf
+
+# Photos
+photos:
+  main: eltultrasonic.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=9G4bjGLY3Sc

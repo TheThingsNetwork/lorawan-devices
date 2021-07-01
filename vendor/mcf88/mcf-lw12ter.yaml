@@ -1,5 +1,5 @@
 name: MCF-LW12TER
-description: Indoor environmental
+description: The mfc88 MCF-LW12TER is a LoRaWAN® end device that has a temperature sensor, humidity sensor, and pressure sensor for monitoring indoor environments. The collected data is transmitted over the LoRaWAN network. Ideally suited for a wide range of applications such as building automation, condition monitoring, predictive maintenance, security, healthcare, and many more use cases.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

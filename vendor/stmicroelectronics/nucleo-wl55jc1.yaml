@@ -1,5 +1,5 @@
 name: NUCLEO-WL55JC1
-description: NUCLEO-WL55JC1 high-band development board with temperature sensor and controllable LEDs
+description: The STMicroelectronics NUCLEO-WL55JC1 is a development board based on the STM32WL55JC microcontroller that comes with a built-in temperature sensor and a light sensor. The NUCLEO-WL55JC1 board supports a wide choice of Integrated Development Environments (IDE) and an expansion connector for Arduino UNO V3. Suitable for rapid prototyping of LoRaWAN® end nodes by adding sensors and actuators.
 hardwareVersions:
   - version: '1.0'
     numeric: 1

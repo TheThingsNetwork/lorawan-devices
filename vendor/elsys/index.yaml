@@ -1,0 +1,16 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - ers
+  - ers-co2
+  - ers-co2-lite
+  - ers-voc
+  - ers-eye
+  - ers-sound
+  - ers-lite
+  - elt-2
+  - elt-lite
+  - elt-ultrasonic
+  - ems
+  - ems-door
+  - ems-lite
+  - ems-desk

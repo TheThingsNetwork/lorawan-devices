@@ -1,0 +1,35 @@
+uplinkDecoder:
+  fileName: dl-pr36-8192.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x03, 0x2b, 0x00, 0x03, 0x80, 0x67, 0x97, 0x81, 0x0c, 0x2b]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.115
+          device_id: 811
+          pressure:
+            displayName: Pressure
+            unit: bar
+            value: 0.0125732421875
+          protocol_version: 2
+          temperature:
+            displayName: Temperature
+            unit: "\xB0C"
+            value: 23.50390625
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x03, 0x2b, 0x00, 0x02, 0x0c, 0x2b]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.115
+          device_id: 811
+          protocol_version: 2

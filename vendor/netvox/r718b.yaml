@@ -1,0 +1,71 @@
+name: Wireless Resistance Temperature Detector
+description: The Netvox R718B - Wireless Resistance Temperature Detector comes with an external resistance temperature detector (PT1000) sensor to measure the temperature. The device can be used with a round-head, needle, or L-type probe. Suitable for measuring temperature in ovens, industrial control equipment, and for the semiconductor industry.
+
+hardwareVersions:
+  - version: '3'
+    numeric: 3
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '3'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718b-codec
+      AS923:
+        id: profile-as923
+        codec: r718b-codec
+      US902-928:
+        id: profile-us915
+        codec: r718b-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718b-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718b-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718b-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718b-codec
+
+sensors:
+  - temperature
+
+dimensions:
+  width: 88.19
+  length: 112
+  height: 32
+
+weight: 141
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718B
+dataSheetURL: http://www.netvox.com.tw/um/R718B/R718Bdatasheet.pdf
+
+photos:
+  main: photos/r718b.jpg

@@ -1,0 +1,72 @@
+// Copyright © 2021 The Things Network Foundation, The Things Industries B.V.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+.button
+  background-color: #fff
+  border: 1px solid $c-button-border
+  border-radius: 5px
+  color: $tc-blue
+  cursor: pointer
+  font-size: $fs.m
+  line-height: $lh.m
+  margin: 5px
+  min-width: 98px
+  outline: 0
+  padding: 14px 20px
+
+  &:hover
+    background-color: $c-button--subtle-blue
+
+.inline
+  font-size: $fs.m
+  margin: 0
+  padding: 0
+
+.naked
+  border: 0
+
+  &:active, &:focus
+    border: 0
+    outline: 0
+
+.invert
+  background: none
+  color: #fff
+
+  &:hover
+    background: none
+
+.danger
+  border-color: $c-error
+  color: $c-error
+
+.small
+  line-height: $lh.s
+  padding: 10px 20px
+
+.secondary
+  background: none
+  color: $tc-subtle-gray
+  text-decoration: underline
+
+  &:hover
+    background: none
+
+.subtle
+  background-color: $c-button-background-subtle-grey
+  border-color: $c-button-background-subtle-grey
+  color: $tc-subtle-gray
+
+.bold
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .15)
+  font-weight: 500

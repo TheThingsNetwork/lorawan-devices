@@ -1,5 +1,5 @@
 name: Yabby Edge
-description: Ultra-rugged, Indoor / Outdoor, long-life battery-powered LoRaWAN® GPS asset tracking device
+description: The Digital Matter Yabby Edge is a LoRaWAN® indoor/outdoor asset tracker that combines GNSS and WiFi scanning. It is the first industrial asset tracking device to feature Semtech’s LoRa Edge™ LR1110 Asset Management platform and advanced cloud-based location calculations, significantly reducing power consumption and extending battery life.
 hardwareVersions:
   - version: '86.1'
     numeric: 1

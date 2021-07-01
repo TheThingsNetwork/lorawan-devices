@@ -1,0 +1,106 @@
+name: KLAX
+description: Infrared reader for modern energy meters
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '2.0'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  # Firmware version
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: klax-profile-eu868
+        lorawanCertified: true
+        codec: klax-codec
+  - version: '2.0'
+    numeric: 2
+    hardwareVersions:
+      - '2.0'
+    profiles:
+      EU863-870:
+        id: klax-profile-eu868
+        lorawanCertified: true
+        codec: klax-codec
+
+sensors:
+  - energy
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 96
+  length: 35
+  height: 40
+
+# Weight in grams (optional)
+weight: 120
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3 Volt Lithium AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: 0
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP21
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://iot-shop.de/shop/product/klax-2-0-4365
+dataSheetURL: https://iot-shop.de/web/image/27504?unique=692da9d98f136dfd44fd2382df06b27537fe2f6c
+resellerURLs:
+  - name: 'iot-shop.de'
+    region:
+      - European Union
+    url: https://iot-shop.de/
+
+# Photos
+photos:
+  main: klax2.jpg
+  other:
+    - klax2-open.jpg
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://youtu.be/XldSc0PTxAs
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1

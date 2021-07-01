@@ -1,0 +1,18 @@
+macVersion: 1.0.1
+regionalParametersVersion: TS001-1.0.1
+supportsJoin: false
+# If your device is an ABP device (supportsJoin is false), uncomment the following fields:
+# RX1 delay
+rx1Delay: 5
+# RX1 data rate offset
+rx1DataRateOffset: 0
+# RX2 data rate index
+rx2DataRateIndex: 0
+# RX2 frequency (MHz)
+rx2Frequency: 923.2
+# Factory preset frequencies (MHz)
+factoryPresetFrequencies: [923.2, 923.4, 992.2, 922.4, 922.6, 922.8, 923.0, 922.0]
+maxEIRP: 16
+supports32bitFCnt: true
+supportsClassB: false
+supportsClassC: false

@@ -1,0 +1,21 @@
+uplinkDecoder:
+  fileName: tbdw100.js
+  examples:
+    - description: Door closed
+      input:
+        fPort: 100
+        bytes: [0x00, 0xCB, 0x35, 0x00, 0x00, 0x8A, 0x3A, 0x00]
+      output:
+        data:
+          battery: 3.6
+          count: 14986
+          status: 0
+          temperatureBoard: 21
+          time: 0
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort

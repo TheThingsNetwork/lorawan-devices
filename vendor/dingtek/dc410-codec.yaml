@@ -1,0 +1,126 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dc410.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload without gps
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x02, 0x11, 0x06, 0xA4, 0x00, 0x16, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x81]
+      output:
+        data:
+          level: '1700 mm'
+          full: false
+          motion: false
+          battery: false
+          angle: '0 °'
+          temperature: '22 ℃'
+          frame_counter: 1
+
+    - description: Command confirmation
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x19, 0x03, 0x02, 0x06, 0x3C, 0x1E, 0x4B, 0x14, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          periodic_upload_interval: '6 hours'
+          periodic_detection_interval: '60 minutes'
+          full_alarm_threshold: '30 cm'
+          motion_alarm_threshold: '20 °'
+          motion_alarm_enable: true
+          ultrasonic_range: '5000 mm'
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: dc410.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          periodic_upload_interval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: change periodic detection interval to 10 minutes
+      input:
+        data:
+          periodic_detection_interval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change full alarm threshold to 35cm
+      input:
+        data:
+          full_alarm_threshold: 35
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+        fPort: 3
+    - description: change motion alarm threshold to 45°
+      input:
+        data:
+          motion_alarm_threshold: 45
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x32, 0x44, 0x38, 0x31]
+        fPort: 3
+    - description: enable tilt detection
+      input:
+        data:
+          motion_alarm_enable: true
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: set ultrasonic range to 5 meters
+      input:
+        data:
+          ultrasonic_range: 5
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x31, 0x33, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: dc410.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          periodic_upload_interval: 4
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          periodic_detection_interval: 10
+    - description: change full alarm threshold to 35cm
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+      output:
+        data:
+          full_alarm_threshold: 35
+    - description: change motion alarm threshold to 45°
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x32, 0x44, 0x38, 0x31]
+      output:
+        data:
+          motion_alarm_threshold: 45
+    - description: enable motion detection
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          motion_alarm_enable: true
+    - description: set ultrasonic range to 5 meters
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x31, 0x33, 0x38, 0x31]
+      output:
+        data:
+          ultrasonic_range: 5

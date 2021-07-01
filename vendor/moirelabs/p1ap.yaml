@@ -1,0 +1,37 @@
+name: Pressure Transducer
+description: The Moire Labs Digital pressure transducer P1AP is a telemetry-enabled, battery-powered pressure sensor, which is primarily used to measure pressure in distribution pipes of gasses or liquids and sending the measured data over the wireless network into centralized measurement systems such as SCADA.
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+    profiles:
+      EU863-870:
+        id: p1a-profile
+        lorawanCertified: true
+        codec: p1a-codec
+
+additionalRadios:
+  - ble
+
+battery:
+  replaceable: true
+  type: p1ab
+
+ipCode: IP65
+
+firmwareProgramming:
+  - fuota other
+
+productURL: https://iotransducer.com/
+dataSheetURL: https://iotransducer.com/p1ap-datasheet.pdf
+
+resellerURLs:
+  - name: 'connectedthings.store'
+    region:
+      - European Union
+      - United States
+    url: https://connectedthings.store
+
+photos:
+  main: p1ap-foto-front.png
