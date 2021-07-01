@@ -1,0 +1,145 @@
+name: Toran'O AtEx Zone 1
+description: The Toran’O AtEx Zone 1 sensor is used to report status changes, pulse count values and analog measurements of equipment in the AtEx 1 sensitive zone such as water, gas, electricity or thermal energy meters, mechanical pressure switches, pressure transducers. It makes existing equipment communicate on a public or private LoRaWAN® network.
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '50-70-124'
+    numeric: 124
+  - version: '50-70-150'
+    numeric: 150
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '3.5.2'
+    numeric: 352
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '50-70-124'
+      - '50-70-150'
+
+    # # Firmware features (optional)
+    # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # # often he device sends a message).
+    # features:
+    #   - remote rejoin
+    #   - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID: nke-watteco
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: torano-atex-zone-1-sensor-profile
+        lorawanCertified: true
+        codec: torano-atex-zone-1-sensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - analog input
+  - current
+  - pulse count
+  - voltage
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+# additionalRadios:
+#   -
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# bridgeInterfaces: none
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 92
+  length: 92
+  height: 55.5
+
+# Weight in grams (optional)
+# weight: 235
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: A
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 50
+
+# IP rating (optional)
+ipCode: IP55
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+# firmwareProgramming: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.nke-watteco.com/product/torano-sensor-lorawan/
+dataSheetURL: https://www.nke-watteco.com/download/torano-sensor-data-sheet-lorawan/?wpdmdl=8549&refresh=60d5a451817091624613969
+
+# Commercial information
+resellerURLs:
+  - name: 'Nke Watteco'
+    region:
+      - European Union
+    url: http://www.nke-watteco.fr
+# msrp:
+#   EUR:
+
+# Photos
+photos:
+  main: torano-atex-zone-1-sensor.jpg
+
+# Youtube or Vimeo Video (optional)
+# videos:
+#   main:
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 61000-4-2
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 2.4.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489
+      version: 1.6.1

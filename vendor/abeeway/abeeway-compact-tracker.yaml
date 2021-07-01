@@ -1,5 +1,5 @@
 name: Abeeway Compact Tracker
-description: Higly versatile multi-mode tracker with a compact and robust form factor, designed to resist harsh surroundings enabling you to perform seamless asset tracking and management in any industrial environment – whether it’s for heavy-duty assets or small equipment, taking advantage of its long battery autonomy.
+description: The Abeeway Compact Tracker is a highly versatile multi-mode tracker for outdoor and indoor geolocation with embedded sensors combining GPS, Low-power GPS, Wi-Fi Sniffer, BLE, and LoRa TDoA geolocation technologies.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'

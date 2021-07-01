@@ -6,6 +6,8 @@ description: 'The Pulse Sens’O sensor is used to remotely read metering data f
 hardwareVersions:
   - version: '50-70-014'
     numeric: 14
+  - version: '50-70-160'
+    numeric: 160
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -15,6 +17,7 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '50-70-014'
+      - '50-70-160'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -34,10 +37,6 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: pulse-senso-sensor-profile
-        lorawanCertified: true
-        codec: pulse-senso-sensor-codec
-      US902-928:
         id: pulse-senso-sensor-profile
         lorawanCertified: true
         codec: pulse-senso-sensor-codec

@@ -1,6 +1,6 @@
 id: rwmr
 name: Remote Water Meter Reader
-description: Senses and transmits water consumption data in real-time remotely via LoRaWAN
+description: The Develiot Remote Water Meter Reader comes with 2 digital inputs, 2 digital outputs, and with an embedded temperature sensor. It is designed to easily connect with standard pulse water meters or other 3rd party equipment and it transmits data wirelessly and autonomously utilizing LoRaWAN® network protocol.
 
 hardwareVersions:
   - version: '8.0'

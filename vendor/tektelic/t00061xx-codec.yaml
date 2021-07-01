@@ -1,0 +1,27 @@
+uplinkDecoder:
+  fileName: decoder_smart_room_sensor_gen3.js
+  examples:
+    - description: Break In and Light Detection Uplink
+      input:
+        fPort: 10
+        bytes: [0x06, 0x00, 0x00, 0x02, 0x00, 0x01]
+      output:
+        data:
+          break_in: 0
+          light_detected: 1
+          port: '10'
+          raw: '[06, 00, 00, 02, 00, 01]'
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_smart_room_sensor_gen3.js
+  examples:
+    - description: Ambient Temperature Threshold Enable Downlink
+      input:
+        data:
+          ambient_temperature_threshold_enabled:
+            value: 1
+      output:
+        bytes: [188, 1]
+        port: 100

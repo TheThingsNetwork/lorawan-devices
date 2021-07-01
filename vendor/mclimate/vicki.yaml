@@ -1,5 +1,5 @@
 name: MClimate Vicki - Smart Radiator Thermostat
-description: MClimate Vicki is a a smart thermostatic radiator valve (TRV). It controls residential and commercial hot water radiators, measures temperature and humidity and the user can adjust the target temperature by the LEDs screen and rotating the exterior of the device.
+description: The MClimate Vicki is a smart radiator thermostat valve that contains a temperature and humidity sensor allowing for temperature control and monitoring temperature and humidity from distance through a LoRaWAN® network. Manual target temperature selection is possible by rotating the outer ring of the device. The target temperature is displayed on the device.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

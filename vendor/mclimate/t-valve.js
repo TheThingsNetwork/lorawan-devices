@@ -15,23 +15,17 @@ function decodeUplink(input) {
 	shortPackage = function(byteArray) {
 		return {
 			data: {
-				reason: messageTypes[parseInt(byteArray[0].slice(0, 2))],
-				valveState: toBool(byteArray[0][3]),
-				boxTamper: toBool(byteArray[0][4]),
-				floodDetectionWireState: toBool(byteArray[0][5]),
-				flood: toBool(byteArray[0][6]),
-				magnet: toBool(byteArray[0][7]),
-				alarmValidated: toBool(byteArray[1][0]),
-				manualOpenIndicator: toBool(byteArray[1][1]),
-				manualCloseIndicator: toBool(byteArray[1][2])
+				reason: 'keepalive',
+				waterTemp: parseInt(byteArray[0], 2)/2,
+				valveState: toBool(byteArray[1][0]),
+				ambientTemp: (parseInt(byteArray[1].slice(1, 8), 2)-20)/2,
 			}
 		};
 	};
 	longPackage = function(byteArray) {
 		return {
 			data: {
-				reason: messageTypes[parseInt(byteArray[0].slice(0, 2))],
-				valveState: toBool(byteArray[0][3]),
+				reason: messageTypes[parseInt(byteArray[0].slice(0, 3),2)],
 				boxTamper: toBool(byteArray[0][4]),
 				floodDetectionWireState: toBool(byteArray[0][5]),
 				flood: toBool(byteArray[0][6]),
@@ -41,9 +35,7 @@ function decodeUplink(input) {
 				manualCloseIndicator: toBool(byteArray[1][2]),
 				closeTime: parseInt(byteArray[2], 2),
 				openTime: parseInt(byteArray[3], 2),
-				temp1: parseInt(byteArray[4], 2),
-				temp2: parseInt(byteArray[5], 2),
-				battery: parseInt(byteArray[6], 2) * 4 + 3000
+				battery: ((parseInt(byteArray[4], 2) * 8) + 1600)/1000,
 			}
 		};
 	};

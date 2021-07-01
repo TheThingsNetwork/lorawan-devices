@@ -1,5 +1,5 @@
 name: LGT92
-description: LoRaWAN GPS Tracker with 9-axis accelerometer-LGT92
+description: The Dragino LGT-92 LoRaWAN® GPS Tracker includes a low-power GPS module for location tracking and a 9-axis accelerometer for motion detection. The captured data is sent to a LoRaWAN network for analysis.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

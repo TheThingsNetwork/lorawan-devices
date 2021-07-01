@@ -1,6 +1,6 @@
 name: RHF0M0E5
 description:
-  RHF0M0E5 is a low-cost, ultra-low power, ultra-small LoRaWAN® module designed by Ruixing Hengfang Network (Shenzhen) Co., Ltd. The module adopts ST system on chip STM32WLE5JC, intergrated with high-performance LoRa® SX126X IP and ultra-low power consumption MCU. The module's target applications are wireless sensor networks and other IoT devices, especially where battery power requires low power and long distances.
+  The RisingHF RHF0M0E5 is a low-cost, ultra-low power, ultra-small LoRaWAN® module that adopts ST system-level package chip STM32WLE5JC, integrated high-performance LoRa® SX126X IP, and ultra-low power consumption MCU. The module is embedded with the LoRaWAN protocol.
 
   # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:

@@ -1,5 +1,5 @@
 name: TEKZIPARK
-description: TEKZIPARK is a battery powered smart parking sensor to provide occupancy status updates of parking spots wirelessly to your cloud environment. TEKZIPARK uses radar technology to detect vehicle presence thereby providing a high degree of certainty of vehicle presence/absence.
+description: The TEKZITEL TEKZIPARK is a smart parking sensor that uses radar technology. It enables occupancy status updates of parking spots wirelessly to the cloud environment through a LoRaWAN® network. This helps to efficiently manage the parking spaces in real-time.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
