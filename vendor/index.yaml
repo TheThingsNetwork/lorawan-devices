@@ -1678,3 +1678,7 @@ vendors:
   - id: innotas
     name: innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
+
+  - id: origoelec
+    name: Origoelec
+    website: https://www.origoelec.com
