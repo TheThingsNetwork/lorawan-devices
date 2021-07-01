@@ -65,7 +65,7 @@ keyProvisioning:
   - custom
   - join server
 keySecurity: none
-productURL: https://www.milesight-iot.com/lorawan/controller/ws101/
+productURL: https://www.milesight-iot.com/lorawan/node/ws101/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws101-datasheet-en.pdf
 resellerURLs:
   - name: 'iot.sales@milesight.com'

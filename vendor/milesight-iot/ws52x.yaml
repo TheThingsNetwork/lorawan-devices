@@ -68,7 +68,7 @@ keyProvisioning:
   - custom
   - join server
 keySecurity: none
-productURL: https://www.milesight-iot.com/lorawan/controller/ws52x/
+productURL: https://www.milesight-iot.com/lorawan/node/ws52x/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws52x-datasheet-en.pdf
 resellerURLs:
   - name: 'iot.sales@milesight.com'

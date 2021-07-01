@@ -65,7 +65,7 @@ keyProvisioning:
   - custom
   - join server
 keySecurity: none
-productURL: https://www.milesight-iot.com/lorawan/controller/vs121/
+productURL: https://www.milesight-iot.com/lorawan/sensor/vs121/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/vs121-datasheet-en.pdf
 resellerURLs:
   - name: 'iot.sales@milesight.com'

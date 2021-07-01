@@ -66,7 +66,7 @@ keyProvisioning:
   - custom
   - join server
 keySecurity: none
-productURL: https://www.milesight-iot.com/lorawan/controller/ws301/
+productURL: https://www.milesight-iot.com/lorawan/sensor/ws301/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws301-datasheet-en.pdf
 resellerURLs:
   - name: 'iot.sales@milesight.com'
