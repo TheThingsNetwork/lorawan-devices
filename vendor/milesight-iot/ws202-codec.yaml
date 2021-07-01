@@ -1,0 +1,18 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: ws202.js
+  examples:
+    - description: PIR Sensors (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x03, 0x00, 0x01]
+      output:
+        data:
+          pir: trigger
+    - description: PIR Sensors (example 2) - Milesgiht IoT
+      input:
+        fPort: 85
+        bytes: [0x04, 0x00, 0x00]
+      output:
+        data:
+          light: dark

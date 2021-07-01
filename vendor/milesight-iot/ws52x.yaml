@@ -1,0 +1,82 @@
+name: WS52x
+description: Portable Socket
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: ws52x-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: ws52x-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: ws52x-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: ws52x-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: ws52x-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: ws52x-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: ws52x-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: ws52x-codec
+
+sensors:
+  - voltage
+  - button
+  - current
+  - energy
+  # factor
+
+dimensions:
+  width: 62
+  length: 35
+  height: 110
+
+operatingConditions:
+  temperature:
+    min: -10
+    max: 60
+
+  relativeHumidity:
+    min: 0.1
+    max: 0.9
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/controller/ws52x/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws52x-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: ws52x.png
