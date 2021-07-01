@@ -1685,3 +1685,8 @@ vendors:
   - id: elsys
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
+
+  - id: xignal
+    name: Xignal
+    website: https://www.xignal.com
+    logo: xignal.png
