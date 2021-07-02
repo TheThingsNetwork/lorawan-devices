@@ -1682,13 +1682,10 @@ vendors:
     name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
 
- - id: elsys
+  - id: elsys
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
-    
+
   - id: origoelec
     name: Origoelec
-    website: https://www.origoelec.com
-
- 
-
+    website: http://www.origoelec.com
