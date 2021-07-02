@@ -1,5 +1,5 @@
-name: Wind Sensor
-description: Wind Sensor with controllable LED
+name: Filling Degree Sensor
+description: The Teneo IoT Filling Degree Sensor is a LoRaWAN® waste bin management solution that combines a fillgrade laser sensor that measures the distance to the waste and a GPS receiver to obtain the location of the waste bin. The distance data (from the sensor to the top of the waste) will be sent to the LoRaWAN® network and an online dashboard can be used to display the location of the waste bins.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

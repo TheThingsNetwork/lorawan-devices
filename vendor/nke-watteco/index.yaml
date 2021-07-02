@@ -9,3 +9,16 @@ endDevices:
   - presso-sensor
   - vaqao-sensor
   - vaqao-plus-sensor
+  - remote-t-sensor
+  - ino-sensor
+  - smart-plug
+  - atmo-sensor
+  - celso-sensor
+  - flasho-sensor
+  - humido-sensor
+  - intenso-sensor
+  - levo-plus-sensor
+  - pulse-senso-atex-zone-1-sensor
+  - skydome-sensor
+  - ventilo-sensor
+  - torano-atex-zone-1-sensor

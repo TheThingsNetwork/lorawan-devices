@@ -10,4 +10,4 @@ uplinkDecoder:
           reason: 'keepalive'
           boxTamper: true
           flood: false
-          battery: 3216
+          battery: 3.216

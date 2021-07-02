@@ -1,5 +1,5 @@
 name: LPN TD-1 Tracker
-description: Designed for LoRaWAN - Indoor/outdoor positioning on request with GPS or WiFi
+description: The Comtac LPN TD-1 is a LoRaWAN® indoor/outdoor positioning tracker that uses GPS and WiFi or a combination of both to determine the location. Ideal for tracking devices, machines, tools, vehicles, persons, and many more.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

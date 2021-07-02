@@ -1,5 +1,5 @@
 name: ARC1 Tube
-description: ARC1 Tube - Remote transmission unit with data logger compatible with many KELLER level probes and pressure transmitters. Battery operated with a lifetime of up to ten years. High level of data security thanks to internal solid-state memory. Robust stainless metal housing. Degree of protection up to IP68. The ARC1 is also a 'Data Logger' that stores the up to 56000 measurements internally.
+description: The Keller ARC1-Tube is a remote transmission unit with a data logger. It records measurements made by external sensors (e.g. a level sensor) and periodically transmits the collected data via LoRaWAN®.
 
 firmwareVersions:
   - version: '20.41'

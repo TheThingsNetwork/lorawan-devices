@@ -1,5 +1,5 @@
 name: M-Bus IoT converter
-description: M-Bus to LoRaWAN or NB-IoT converter
+description: The Acrios M-Bus IoT converter is an M-Bus to LoRaWAN® converter that can be used for reading electricity meters and calorimeters. The M-Bus converter supports connections of up to 5 UL (Unit Loads) and communication is based on the EN 137 57-3 protocol.
 hardwareVersions:
   - version: 'v3.7'
     numeric: 1

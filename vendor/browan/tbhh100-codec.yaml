@@ -1,0 +1,20 @@
+uplinkDecoder:
+  fileName: tbhh100.js
+  examples:
+    - description: Temperature & Humidity
+      input:
+        fPort: 103
+        bytes: [0x08, 0xAB, 0x35, 0x22, 0xFF, 0xFF, 0xFF, 0xFF]
+      output:
+        data:
+          status: 1
+          temperature: 21
+          humidity: 34
+          battery: 3.6
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort

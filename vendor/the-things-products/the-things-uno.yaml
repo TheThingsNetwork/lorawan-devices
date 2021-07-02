@@ -1,5 +1,5 @@
 name: The Things Uno
-description: The Things Uno is based on the Arduino Leonardo (not the Arduino Uno) with an added Microchip LoRaWAN module.
+description: The Things Uno is based on the Arduino Leonardo with an added Microchip LoRaWAN® module. It is fully compatible with the Arduino IDE and existing shields.
 hardwareVersions:
   - version: '1.0'
 firmwareVersions:

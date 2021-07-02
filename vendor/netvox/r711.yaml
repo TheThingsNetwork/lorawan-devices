@@ -1,5 +1,5 @@
 name: Wireless Temperature and Humidity Sensor
-description: R711 is mainly used to detect the temperature and humidity of indoor air. It transmits the collected data to other devices for display through the wireless network communication module. The device conforms to the LoRa protocol standard.
+description: The Netvox R711 Wireless Temperature and Humidity Sensor is a LoRaWAN® end device that has a built-in temperature and humidity sensor. Suitable for monitoring indoor ambient temperature and humidity.
 
 hardwareVersions:
   - version: '72'

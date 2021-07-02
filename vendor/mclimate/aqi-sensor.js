@@ -23,7 +23,7 @@ function decodeUplink(input) {
             pressure: (parseInt('' + p1 + p2, 2) * 40 + 30000) / 100,
             temperature: (parseInt('' + t1 + t2, 2) - 400) / 10,
             accuracy_aqi: parseInt(byteArray[8].substr(-2), 2),
-            voltage: parseInt(byteArray[9], 2) * 8 + 1600,
+            voltage: (parseInt(byteArray[9], 2) * 8 + 1600)/ 1000,
         },
     };
 }

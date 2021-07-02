@@ -1,5 +1,5 @@
-name: LT332222-L
-description: LoRaWAN I/O controller.
+name: LT33222-L
+description: The Dragino LT33222-L is a LoRaWAN® I/O module that contains different I/O Interfaces such as analog current input, analog voltage input, relay output, digital input, and digital output. The LT series I/O modules are designed to simplify the installation of I/O monitoring.
 
 # Hardware versions (optional, use when you have revisions)
 # hardwareVersions:
