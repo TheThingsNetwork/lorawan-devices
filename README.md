@@ -267,7 +267,7 @@ The Device Repository supports three payload codecs to be defined:
 2. Downlink encoder: decodes a JSON object into binary data downlink
 3. Downlink decoder: decodes an encoded binary data downlink back into a JSON object (must be symmetric with the downlink encoder)
 
-Recomendation. For a better user experience, is recommended that decoders indicates the unit used.
+Recomendation. For a better user experience, it is better that decoders indicates the units used.
 
 The codecs can all be defined in one file as they are defined by their function names. The codecs must be written in JavaScript (ECMAScript 5.1+). [See link](https://thethingsstack.io/integrations/payload-formatters/javascript/) for instructions on how to write decoders and encoders.
 
