@@ -2,5 +2,5 @@
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - ED10W 
-  - ED20W 
+  - ed10w 
+  - ed20w 
