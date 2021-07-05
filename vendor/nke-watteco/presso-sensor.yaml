@@ -36,10 +36,6 @@ firmwareVersions:
         id: presso-sensor-profile
         lorawanCertified: true
         codec: presso-sensor-codec
-      US902-928:
-        id: presso-sensor-profile
-        lorawanCertified: true
-        codec: presso-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
