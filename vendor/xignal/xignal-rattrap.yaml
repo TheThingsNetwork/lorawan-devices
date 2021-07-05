@@ -24,7 +24,6 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: xignal-trap-profile
         lorawanCertified: true
@@ -48,14 +47,6 @@ sensors:
   - temperature
   - battery
 
-# Additional radios that this device has (optional)
-# Valid values are: ble, nfc, wifi, cellular.
-#additionalRadios:
-
-# Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-#bridgeInterfaces:
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -69,39 +60,21 @@ weight: 197
 # Battery information (optional)
 battery:
   replaceable: false
-  type: Lithium
+  type: CP502440-Li-MnO2
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -30
-    max: 85
+    min: -10
+    max: 55
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 0.95
 
 # IP rating (optional)
 ipCode: IP67
-
-# Key provisioning (optional)
-# Valid values are: custom (user can configure keys), join server and manifest.
-#keyProvisioning:
-
-# Key programming (optional)
-# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
-# and firmware (when the user should change the firmware to set the keys).
-#keyProgramming:
-
-# Key security (optional)
-# Valid values are: none, read protected and secure element.
-#keySecurity:
-
-# Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
-# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
-#firmwareProgramming:
 
 # Product and data sheet URLs (optional)
 productURL: https://dimosystems.com
@@ -114,9 +87,6 @@ resellerURLs:
       - European Union
       - United States
     url: https://dimosystems.com/dealers/
-msrp:
-  EUR: 9999
-  USD: 9999
 
 # Photos
 photos:
