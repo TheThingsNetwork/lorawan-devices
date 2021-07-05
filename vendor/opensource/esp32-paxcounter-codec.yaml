@@ -64,7 +64,7 @@ uplinkDecoder:
             sensor1: 0
             sensor2: 0
             sensor3: 0
-          version: ""
+          version: ''
         errors: []
         warnings: []
     - description: GPS data
