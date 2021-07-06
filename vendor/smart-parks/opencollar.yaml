@@ -1,0 +1,24 @@
+name: OpenCollar
+description: First generation of OpenCollar devices. A collection of advanced devices designed for wildlife protection.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.3'
+    numeric: 1
+  - # Firmware version 2.6
+    version: '2.6'
+    numeric: 1
+    hardwareVersions:
+      - '2.3'
+    profiles:
+      EU863-870:
+        id: opencollar-profile-eu868
+        lorawanCertified: false
+        codec: opencollar_v2.6-codec
+
+# Product and data sheet URLs (optional)
+productURL: https://www.smartparks.org
+
+# Photos
+photos:
+  main: opencollar_collection.jpg

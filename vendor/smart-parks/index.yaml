@@ -1,0 +1,7 @@
+# This index contains the devices that are under development and production of Smart Parks
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  # opencollar v1 sensors
+  - opencollar # look in opencollar.yaml for the end device definition
+  # - opencollar_edge # look in opencollar_edge.yaml for the end device definition

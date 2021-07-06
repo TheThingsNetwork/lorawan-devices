@@ -1685,3 +1685,7 @@ vendors:
   - id: elsys
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
+
+  - id: smart-parks
+    name: Smart Parks
+    website: https://www.smartparks.org/
