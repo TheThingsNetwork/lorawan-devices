@@ -20,14 +20,14 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: opencollar-profile-eu868
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: opencollar-eu868-profile
         lorawanCertified: false
-        codec: opencollar_v2.6-codec
+        codec: opencollar-v26-codec
 
 # Product and data sheet URLs (optional)
 productURL: https://www.smartparks.org
 
 # Photos
 photos:
-  main: opencollar_collection.jpg
+  main: opencollar.jpg
