@@ -44,9 +44,9 @@ ipCode: IP67
 
 # Photos
 photos:
-  main: radar.jpg
+  main: radar.png
   other:
-    - radar1.jpg
-    - radar2.jpg
-    - radar3.jpg
-    - radar4.jpg
+    - radar1.png
+    - radar2.png
+    - radar3.png
+    - radar4.png

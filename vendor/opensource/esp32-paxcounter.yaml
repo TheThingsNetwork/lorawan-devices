@@ -113,8 +113,8 @@ dataSheetURL: https://github.com/cyberman54/ESP32-Paxcounter
 #    url: https://example.org/reseller2
 
 # Photos
-#photos:
-#  main: Paxcounter-title.jpg
+photos:
+  main: paxcounter.png
 #  other:
 #    - Paxcounter-title.jpg
 # Youtube or Vimeo Video (optional)

@@ -26,6 +26,6 @@ keyProvisioning:
   - custom
 keySecurity: read protected
 photos:
-  main: generic-node-sensor-edition.jpg
+  main: ttn.png
   other:
     - generic-node-sensor-edition-case.jpg

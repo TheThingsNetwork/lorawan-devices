@@ -81,9 +81,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: klax2.jpg
+  main: klax2.png
   other:
-    - klax2-open.jpg
+    - klax2-open.png
 
 # Youtube or Vimeo Video (optional)
 videos:

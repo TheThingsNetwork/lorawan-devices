@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/dendrometer-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ZN-datasheet.pdf
 photos:
-  main: dl-znx.jpg
+  main: dl-znx.png
 
 compliances:
   safety:

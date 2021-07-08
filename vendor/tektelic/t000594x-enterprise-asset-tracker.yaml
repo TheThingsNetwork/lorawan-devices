@@ -47,3 +47,7 @@ ipCode: IP30
 productURL: https://tektelic.com/catalog/enterprise-asset-tracker
 dataSheetURL: https://tektelic.com/uploads/Brochures/Enterprise%20Asset%20Tracker.pdf
 manuals: https://tektelic.com/uploads/Brochures/Enterprise%20Asset%20Tracker.pdf
+
+# Photos
+photos:
+  main: enterprise-tracker.png

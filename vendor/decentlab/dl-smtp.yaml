@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-SMTP-datasheet.pdf
 photos:
-  main: dl-smtp.jpg
+  main: dl-smtp.png
   other:
     - dl-smtp-2.jpg
     - dl-smtp-3.jpg
