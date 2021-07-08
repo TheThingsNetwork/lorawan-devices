@@ -1,3 +1,5 @@
 endDevices:
   - the-things-node
   - the-things-uno
+  - the-things-node-abp
+  - the-things-uno-abp

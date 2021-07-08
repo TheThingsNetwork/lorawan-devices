@@ -1,4 +1,4 @@
-name: The Things Node
+name: The Things Node ABP
 description: The Things Node is based on the SparkFun Pro Micro - 3.3V/8MHz with added Microchip LoRaWAN® module and temperature sensor, NXP’s digital accelerometer, a light sensor, button, and RGB LED. All this is packaged in a matchbox-sized waterproof (IP54) casing with 3 AAA batteries to power it for months of usage.
 hardwareVersions:
   - version: '1.0'
@@ -8,11 +8,7 @@ firmwareVersions:
       - '1.0'
     profiles:
       EU863-870:
-        id: the-things-node-868
-        lorawanCertified: true
-        codec: the-things-node-codec
-      US902-928:
-        id: the-things-node-915
+        id: the-things-node-abp-868
         lorawanCertified: true
         codec: the-things-node-codec
 
