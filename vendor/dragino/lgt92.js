@@ -7,8 +7,17 @@ var data = {};
     switch (input.fPort) {
    case 2:
 
+if(bytes[0] & 80){
+  data.latitude = 0
+} else {
 data.latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
+}
+if(bytes[4] & 80){
+  data.longitude = 0
+} else {
 data.longitude=(bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7])/1000000;//gps longitude,units: °
+}
+
 data.ALARM_status=(bytes[8] & 0x40)?"TRUE":"FALSE";//Alarm status  
 data.BatV=(((bytes[8] & 0x3f) <<8) | bytes[9])/1000;//Battery,units:V  
 if(bytes[10] & 0xC0==0x40)
