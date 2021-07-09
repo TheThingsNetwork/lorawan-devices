@@ -63,7 +63,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PR36CTD-datasheet.pdf
 photos:
-  main: dl-pr36ctd.jpg
+  main: dl-pr36ctd.png
 
 compliances:
   safety:
