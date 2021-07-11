@@ -1,5 +1,5 @@
 name: Kona All-in-One Smart Room Sensor - Base edition
-description: Multi-purpose LoRaWAN IoT sensor packed into a very small form factor
+description: The TEKTELIC Kona Smart Room Sensor (Base Edition – Gen 3) is a multi-purpose LoRaWAN® end device suitable for home and office environment monitoring. It contains a temperature sensor, humidity sensor, light sensor, magnetic switch, accelerometer, pulse reader, capacitive transducer, and an ON/OFF external contact. The smart room sensor can be powered by a single CR2477 battery and allows retrieving battery status for easy maintenance.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

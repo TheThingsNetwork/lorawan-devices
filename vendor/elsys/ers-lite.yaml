@@ -1,5 +1,5 @@
 name: ERS Lite indoor environment monitoring
-description: This is an indoor LoRaWAN® room sensor for measuring the indoor environment.
+description: The ELSYS ERS Lite is an indoor LoRaWAN® room sensor that contains two internal sensors for measuring indoor temperature and humidity. It is suitable for applications such as indoor environment measuring, smart buildings, and workplace management.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

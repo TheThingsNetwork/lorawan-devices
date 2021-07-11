@@ -1,5 +1,5 @@
 name: ERS EYE for advanced indoor and occupancy monitoring
-description: This is an indoor LoRaWAN® room sensor for measuring indoor environment and occupancy.
+description: The ELSYS ERS Eye is a LoRaWAN® device that consists of motion, temperature, humidity, and light sensors for measuring occupancy and the indoor environment.  It is suitable for applications such as indoor environment measuring, smart buildings, workplace management, workplace statistics, facility management, and room occupancy.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
