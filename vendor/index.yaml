@@ -1673,7 +1673,7 @@ vendors:
 
   - id: lancier-monitoring
     name: Lancier Monitoring GmbH
-    website: http://lancier-monitoring.de/
+    website: http://lancier-monitoring.com/
     ouis:
       - 0004A3
     logo: lmg-logo.jpg
