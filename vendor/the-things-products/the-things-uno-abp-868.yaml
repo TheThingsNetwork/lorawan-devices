@@ -3,7 +3,7 @@ supportsClassC: false
 macVersion: 1.0.2
 regionalParametersVersion: RP001-1.0.2-RevB
 supportsJoin: false
-rx1Delay: 5
+rx1Delay: 1
 rx1DataRateOffset: 0
 rx2DataRateIndex: 3
 rx2Frequency: 868.525
