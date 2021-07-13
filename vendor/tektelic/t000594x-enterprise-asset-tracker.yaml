@@ -1,5 +1,5 @@
 name: Tektelic Enterprise Asset Tracker
-description: LoRaWAN® and BLE Device for Indoor Asset Tracking
+description: The Tektelic Enterprise Asset Tracker combines Bluetooth Low Energy (BLE) and LoRaWAN® for locating, tracking and managing assets in difficult RF environments such as hospitals and medical facilities.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

@@ -1,5 +1,5 @@
 name: Pulse
-description: Make all your meters (water, gas, electricity...) communicate
+description: The Adeunis Pulse impulse interface allows connecting up to 2 connectable meters (water, gas, electricity, etc) and provides LoRaWAN® connectivity.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

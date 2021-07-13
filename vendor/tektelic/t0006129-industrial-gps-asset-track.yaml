@@ -1,5 +1,5 @@
 name: Tektelic Industrial GPS Asset Tracker
-description: LoRaWAN® connected GPS Tracker for Industrial Asset Management
+description: The Tektelic Industrial GPS Asset Tracker combines a GPS tracker and an accelerometer for precisely tracking assets in industrial environments.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

@@ -1,5 +1,5 @@
 name: IAQ Sensor
-description: The Tabs Healthy Home sensor utilizes LoRaWAN connectivity to communicate the Temperature, Relative Humidity and Volatile Organic Compound levels of the surrounding environment. The intended use is to place the sensor within a room to determine if the air quality, temperature, and humidity are ideal.
+description: The Browan IAQ Sensor integrates an indoor air quality sensor (IAQ) for measuring relative humidity, barometric pressure, ambient temperature, and gas (VOC) in indoor environments such as rooms and buildings. It utilizes LoRaWAN® connectivity to transmit data.
 
 hardwareVersions:
   - version: '1.0'
