@@ -34,8 +34,7 @@ firmwareVersions:
 sensors:
   - analog input
 
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
+# Dimensions use width, height, length and/or diameter
 dimensions:
   width: 50
   length: 105
