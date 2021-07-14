@@ -1,5 +1,5 @@
 name: ERS CO2 advanced indoor environment
-description: ERS CO2 has the capability of measuring everything regarding the indoor environment.
+description: The ELSYS ERS CO2 is a LoRaWAN® device that has internal sensors for measuring temperature, humidity, light, motion, and CO2 level. It can be used for applications such as indoor environment measuring, smart buildings, workplace management, and room occupancy measuring.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

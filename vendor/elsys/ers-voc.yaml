@@ -1,5 +1,5 @@
 name: ERS VOC indoor air quality
-description: ERS VOC is a smart and professional LoRaWAN® sensor for indoor air quality applications.
+description: The ELSYS ERS VOC is a LoRaWAN® device that has internal sensors for measuring VOC levels, temperature, humidity, light, and motion (PIR). It can be used for presence monitor systems and is ideal for workplace management.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

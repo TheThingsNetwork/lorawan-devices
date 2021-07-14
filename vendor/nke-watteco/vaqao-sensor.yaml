@@ -1,5 +1,5 @@
 name: Vaqa'O
-description: The VAQA'O sensor measures the temperature, relative humidity, concentration of Volatile Organic Compounds (VOC) and Carbon Dioxide (CO2) in the ambiant air
+description: The nke WATTECO Vaqa’O sensor is a LoRaWAN® device that measures the temperature, relative humidity, concentration of volatile organic compounds (VOC), and carbon dioxide (CO2) in the ambient air of a room, in a building, an apartment, or a house. It allows Indoor Air Quality (IAQ) monitoring.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

@@ -73,7 +73,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: bvs.jpg
+  main: bvs.png
   other:
     - bvs2.jpg
 

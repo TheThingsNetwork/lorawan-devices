@@ -1,5 +1,5 @@
 name: ERS CO2 Lite indoor co2 monitoring
-description: ERS CO2 Lite provides full control over the CO2 levels, temperature, and humidity for either homes or workplaces.
+description: The ELSYS ERS CO2 Lite is a LoRaWAN® device that has internal sensors for measuring temperature, humidity, and CO2 level. It can be used for applications such as indoor environment measuring, smart buildings, and workplace management.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -31,7 +31,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: example
+        # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: elsys-eu868-profile
         lorawanCertified: true
