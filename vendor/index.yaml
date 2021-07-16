@@ -1693,3 +1693,7 @@ vendors:
   - id: smart-parks
     name: Smart Parks
     website: https://www.smartparks.org/
+
+  - id: nexelec
+    name: Nexelec
+    website: https://www.nexelec.fr/
