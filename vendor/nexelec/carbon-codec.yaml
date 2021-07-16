@@ -5,8 +5,6 @@ uplinkDecoder:
 
 downlinkEncoder:
   fileName: carbon-codec-v1.js
-  
+
 downlinkDecoder:
   fileName: carbon-codec-v1.js
-  
-    

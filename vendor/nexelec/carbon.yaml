@@ -5,12 +5,11 @@ description: Carbon measures the CO2 level and continuously monitors air quality
 hardwareVersions:
   - version: 'C024C'
     numeric: 1
- 
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.6' 
+    version: '3.6'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -37,7 +36,6 @@ firmwareVersions:
         id: carbon-profile
         lorawanCertified: true
         codec: carbon-codec
-     
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -84,12 +82,11 @@ operatingConditions:
     max: 1
 
 # IP rating (optional)
-ipCode: IP30 
+ipCode: IP30
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: read protected
-
 
 # Product and data sheet URLs (optional)
 productURL: https://www.nexelec.fr/carbon
@@ -101,7 +98,7 @@ resellerURLs:
     region:
       - European Union
     url: https://www.nexelec.fr/
-  
+
 msrp:
   EUR: 179
   USD: 120
@@ -119,7 +116,7 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 62479:2010
-      
+
   radioEquipment:
     - body: ETSI
       norm: EN
