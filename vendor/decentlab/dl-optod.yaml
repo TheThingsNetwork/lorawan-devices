@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/optical-dissolved-oxygen-and-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-OPTOD-datasheet.pdf
 photos:
-  main: dl-optod.jpg
+  main: dl-optod.png
 
 compliances:
   safety:

@@ -1,5 +1,5 @@
 name: EMS Elsys mini sensor
-description: This is an indoor LoRaWAN® room sensor for measuring the indoor environment, the number of openings on a door, or maybe if something has moved or not.
+description: The ELSYS EMS Mini is equipped with temperature, humidity, accelerometer, door switch (reed switch), and water leak sensors. It is suitable for applications such as indoor environment measuring, smart buildings, workplace management, water leakage detection, door activity detection, and movement detection. It utilizes LoRaWAN® connectivity to transmit data.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

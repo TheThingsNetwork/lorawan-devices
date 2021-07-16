@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PR21-datasheet.pdf
 photos:
-  main: dl-pr21.jpg
+  main: dl-pr21.png
 
 compliances:
   safety:

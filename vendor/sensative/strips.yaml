@@ -32,3 +32,7 @@ firmwareVersions:
         id: strips-profile
         lorawanCertified: true
         codec: strips-codec
+
+# Photos
+photos:
+  main: strip.png
