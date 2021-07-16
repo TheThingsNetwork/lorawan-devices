@@ -15,4 +15,4 @@ uplinkDecoder:
           relative_humidity: 30
           sAQI: 240
           temperature: 25
-          voltage: 3312
+          voltage: 3.312

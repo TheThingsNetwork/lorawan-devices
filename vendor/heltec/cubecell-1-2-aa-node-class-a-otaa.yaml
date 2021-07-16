@@ -1,5 +1,5 @@
 name: HTCC-AB02A(Class A OTAA)
-description: HTCC-AB02A is a Dev-Board. Friendly designed for developers, easy to verify communication solutions.
+description: The Heltec HTCC-AB02A (Class A OTTA) CubeCell 1/2AA Node is a LoRaWAN® development board based on ASR605x (ASR6501, ASR6502). The ASR605x chip is integrated with the PSoC® 4000 series MCU (ARM® Cortex® M0+ Core) and SX1262. HTCC-AB02A allows connecting various sensors and supports the Arduino® development environment.
 
 firmwareVersions:
   - version: '1.0'

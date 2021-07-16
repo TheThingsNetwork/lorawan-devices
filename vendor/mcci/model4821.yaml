@@ -1,5 +1,5 @@
 name: Model 4821 Indoor Environmental Sensor (BME280)
-description: temperature, humidity, barometer, light sensor for indoor spaces
+description: The MCCI® Model 4821 Indoor Environment Sensor is based on MCCI Catena 4612 which consists of temperature, humidity, pressure, and light sensors.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:

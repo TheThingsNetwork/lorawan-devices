@@ -1,5 +1,5 @@
 name: LoRa Kit 151(Class A ABP)
-description: LoRa Kit 151 is Ultra-Low-Power and standard LoRaWAN protocol,
+description: The HelTec LoRa Kit 151 (Class A ABP) is a LoRaWAN® development board based on the TM32L151CBU6MCU and SX1278 LoRa chip (433/470 MHz) that supports standard LoRaWAN protocol.
 
 firmwareVersions:
   - version: '1.0'

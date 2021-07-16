@@ -1,5 +1,5 @@
 name: DigiSilo Radar Sensor
-description: DigiSilo is a compact distance measurement device and presence detector. Its sensor is a low power, high precision, pulsed short-range radar sensor and can measure in a distance range from 50 cm to 7 meters. By operating in the 60 GHz unlicensed ISM radio band, the radar sensor provides robust performance without interference from noise, dust, color nor direct or indirect light. DigiSilo is made for silo monitoring with different mediums like grain, feedstock, flour, or liquids. The device is designed to be mounted outside on top of the non-metallic silo.
+description: The Beiselen Service GmbH DigiSilo is a compact distance measurement device and presence detector that consists of low power, high precision, pulsed short-range radar sensor and can measure in a distance range from 50 cm to 7 meters. DigiSilo is made for silo monitoring with different mediums like grain, feedstock, flour, or liquids.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

@@ -1,6 +1,5 @@
 name: DL-PM
-description: Particulate Matter, Temperature, Humidity and Barometric Pressure for
-  LoRaWAN
+description: The Decentlab DL-PM is equipped with PM1, PM2.5, PM4, PM10, temperature, humidity, and barometric pressure sensors for air quality and environmental monitoring.
 
 hardwareVersions:
   - version: '1'

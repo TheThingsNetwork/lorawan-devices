@@ -1,6 +1,5 @@
 name: DL-PR36CTD
-description: High-Precision Pressure / Liquid Level, Temperature and Electrical for
-  LoRaWAN
+description: The Decentlab DL-PR36CTD includes pressure, temperature, and electrical conductivity sensors. It is suitable for measuring water levels and monitoring water quality, salinity, and chloride.
 
 hardwareVersions:
   - version: '1'

@@ -1,5 +1,5 @@
 name: Wireless Activity Detection
-description: It can detect the sudden movement or vibration of the device and send an alarm signal to the gateway for processing.
+description: The Netvox R311FA Wireless Activity Detection sensor comes with an accelerometer that supports the detection of sudden movements and vibrations. When the device detects movement or vibration, it immediately sends a message to the LoRaWAN® network.
 
 hardwareVersions:
   - version: '11'

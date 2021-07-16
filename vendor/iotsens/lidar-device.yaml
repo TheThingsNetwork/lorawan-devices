@@ -1,5 +1,5 @@
 name: Optical Distance Monitor
-description: Device with integrated LIDAR sensor working with TOF technology for real data collection on the filling level. It becomes an optimal tool in waste management and liquid level detection in tanks among other applications.
+description: The IoTsens LoRaWAN® Optical Distance Monitor is equipped with a LIDAR sensor for monitoring filling levels. Thus, it becomes an optimal tool in waste management, and can also be used in the detection of liquid levels in tanks, among other applications.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
