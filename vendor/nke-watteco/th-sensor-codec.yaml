@@ -4,11 +4,11 @@ uplinkDecoder:
   fileName: th-sensor.js
   # Examples (optional)
   # examples:
-  # - description: Time-stamped batch report on temperature and humidity
+  # - description: Time-stamped batch report on temperature humidity and Battery voltage
   #   input:
   #     fPort: 125
 
-  #     bytes: [0x30, 0x01, 0x80, 0xC4, 0xA4, 0x60, 0x02, 0x27, 0xB4, 0x8F, 0x80, 0x09, 0x9F, 0x0E, 0x54, 0x01, 0x40, 0x04, 0xD5, 0xA9, 0x53, 0xA7, 0x8E, 0x04, 0xD5, 0xA9, 0x53, 0xA7, 0xCE, 0x1E]
+  #     bytes: [0x32, 0x05, 0x00, 0x43, 0x78, 0x6D, 0x02, 0x04, 0xB8, 0x77, 0x08, 0x8A, 0xF6, 0x16, 0xA8, 0x51, 0xD0, 0xBE, 0x5E, 0xAF, 0xD7, 0x09, 0x98, 0x24, 0x29, 0x49, 0xF2, 0x04]
   #   output:
   #     data:
   #       data :
@@ -32,31 +32,66 @@ uplinkDecoder:
   #           value: 40
   #         - date : '2021-06-01T09:54:00.073Z'
   #           label: BatteryVoltage
-  #           value: 36.68
+  #           value: 3.668
   #         - date : '2021-06-01T09:54:00.073Z'
   #           label: BatteryVoltage
-  #           value: 36.68
+  #           value: 3.668
   #         - date : '2021-06-01T09:54:00.073Z'
   #           label: BatteryVoltage
-  #           value: 36.68
+  #           value: 3.668
   #         - date : '2021-06-01T09:54:00.073Z'
   #           label: BatteryVoltage
-  #           value: 36.68
+  #           value: 3.668
   #         - date : '2021-06-01T09:54:00.073Z'
   #           label: BatteryVoltage
-  #           value: 36.68
+  #           value: 3.668
   #       zclheader:
   #         report : batch
   #     errors : []
   #     warnings : []
 
-  # - description: Unknown FPort
+  # - description: Time-stamped batch report on humidity and battery voltage
   #   input:
-  #     fPort: 42
-  #     bytes: [1, 42]
-  # output:
-  #   errors:
-  #     - unknown FPort
+  #       fPort: 125
+  #       bytes: [0x22, 0x24, 0x00, 0x03, 0x78, 0xA2, 0x43, 0x50, 0xB4, 0xB7, 0x40, 0x8D, 0x82, 0xF6, 0xF5, 0x7A, 0xBD, 0x6E, 0x92, 0xA4, 0x24, 0xC9, 0x13]
+  #   output:
+  #     data:
+  #       data :
+  #         - date: "2021-07-02T08:04:39.261Z"
+  #           label: Humidity
+  #           value: 58
+  #         - date: "2021-07-02T08:04:39.261Z"
+  #           label: Humidity
+  #           value: 58
+  #         - date: "2021-07-02T08:04:39.261Z"
+  #           label: Humidity
+  #           value: 58
+  #         - date: "2021-07-02T08:04:39.261Z"
+  #           label: Humidity
+  #           value: 58
+  #         - date: "2021-07-02T08:04:39.261Z"
+  #           label: Humidity
+  #           value: 58
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 3.649
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 3.649
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 3.649
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 3.649
+  #         - date : '2021-06-01T09:54:00.073Z'
+  #           label: BatteryVoltage
+  #           value: 3.649
+  #       zclheader:
+  #         report : batch
+  #     errors : []
+  #     warnings : []
+
   # - description: Time-stamped standard report on temperature
   #   input:
   #     fPort: 125
@@ -65,7 +100,7 @@ uplinkDecoder:
   #     data:
   #         data:
   #           - date : '2021-06-01T09:50:00.073Z'
-  #             label: temperature
+  #             label: Temperature
   #             value: 25.01
   #         zclheader:
   #           alarm : 1
@@ -82,5 +117,35 @@ uplinkDecoder:
   #     bytes: [0x11, 0x0A, 0x04, 0x05, 0x00, 0x00, 0x21, 0x10, 0x8A]
   #   output:
   #     data:
-  #         label: "humidity"
-  #         value: 42.34
+  #         data:
+  #           - date: '2021-06-01T09:50:00.073Z'
+  #             label: Humidity
+  #             value: 42.34
+  #         zclheader:
+  #           alarm : 0
+  #           attributID : "0x0000"
+  #           clusterdID : "0x0405"
+  #           cmdID : "0x0A"
+  #           endpoint : 0
+  #           report : standard
+  #     errors : []
+  #     warnings : []
+  # - description: Time-stamped standard report on battery volatge
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0E, 0x41, 0x04]
+  #   output:
+  #     data:
+  #       data:
+  #         - date: 2021-06-01T09:50:00.073Z
+  #           label: BatteryVoltage
+  #           value: 3.649
+  #       zclheader:
+  #         alarm: 0
+  #         attributID: "0x0006"
+  #         clusterID: "0x0050"
+  #         cmdID: "0x0A"
+  #         endpoint: 0
+  #         report: standard
+  #   errors:  []
+  #   warnings: []
