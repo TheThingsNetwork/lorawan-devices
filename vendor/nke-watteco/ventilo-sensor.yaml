@@ -1,7 +1,6 @@
 name: Ventil'O
 description: The nke WATTECO Ventil'O has sensors for measuring pressure and temperature in vacuums established by outdoor ventilation chambers.
 
-
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '50-70-101'

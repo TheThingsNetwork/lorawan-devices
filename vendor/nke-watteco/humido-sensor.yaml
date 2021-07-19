@@ -1,7 +1,6 @@
 name: Humid'O
 description: The nke WATTECO LoRaWAN® Humid’O Sensor has a liquid sensor probe for detecting water in places like boiler rooms, computer rooms, or data centres.
 
-
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '50-70-144'
