@@ -3,6 +3,8 @@ function decodeUplink(input)
   var port = input.fPort;
   var bytes = input.bytes;
   var decoded = {};
+  var location = {};
+  var warnings = [];
 
   if (port === 1)
   {
@@ -14,7 +16,6 @@ function decodeUplink(input)
 
     decoded.manDown = null;
 
-    var location = {};
     location.latitudeDeg = bytes[0] +
                            bytes[1] * 256 +
                            bytes[2] * 65536 +
@@ -38,6 +39,7 @@ function decodeUplink(input)
 
     if (decoded.fixFailed) {
       decoded.cached = location;
+      warnings.push("fix failed");
     } else {
       decoded = Object.assign(decoded, location);
     }
@@ -73,6 +75,7 @@ function decodeUplink(input)
 
     if (decoded.fixFailed) {
       decoded.cached = location;
+      warnings.push("fix failed");
     } else {
       decoded = Object.assign(decoded, location);
     }
@@ -111,5 +114,6 @@ function decodeUplink(input)
 
   return {
     data: decoded,
+    warnings: warnings,
   };
 }
