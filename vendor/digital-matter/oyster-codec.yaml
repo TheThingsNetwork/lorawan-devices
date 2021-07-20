@@ -6,6 +6,7 @@ uplinkDecoder:
         fPort: 1
         bytes: [0x00, 0x30, 0xed, 0xec, 0x00, 0x32, 0x24, 0x45, 0x00, 0x00, 0xde]
       output:
+        warnings: []
         data:
           type: position
           batV: 5.55
