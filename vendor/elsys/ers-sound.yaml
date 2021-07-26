@@ -1,5 +1,5 @@
 name: ERS SOUND indoor environment sensor
-description: ERS Sound is an advanced LoRaWAN® device for indoor environment measuring.
+description: The ELSYS ERS Sound is an advanced indoor environment LoRaWAN® sensor that consists of temperature, humidity, light, motion, and sound sensors. It is suitable for indoor environment measuring, smart buildings, workplace management, room occupancy, sound level control in public spaces, schools, libraries, etc.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

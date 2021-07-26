@@ -102,9 +102,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-light-deployment.jpg
+  main: sensecap-light.png
   other:
-    - sensecap-light.png
+    - sensecap-light-deployment.jpg
     - sensecap-light-package.png
 
 # Youtube or Vimeo Video (optional)

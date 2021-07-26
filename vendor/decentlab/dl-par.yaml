@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PAR-datasheet.pdf
 photos:
-  main: dl-pxr.jpg
+  main: dl-pxr.png
 
 compliances:
   safety:

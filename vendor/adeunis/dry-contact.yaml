@@ -1,5 +1,5 @@
 name: Dry Contact
-description: The adeunis® LoRaWAN DRY CONTACTS is a ready-to-use radio transmitter enabling the user on one hand to transfer statuses and alarms on a LoRa network and on the other to control relays via the same network
+description: The Adeunis Dry Contact has 4 configurable inputs/outputs for connecting sensors (E.g. contact sensor, double level sensor, water leak spot, or water leak cable) and provides LoRaWAN® connectivity. It reports 0-1 states and controls relays.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -76,7 +76,7 @@ dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/DS_DRY-CONTACTS
 
 # Photos
 photos:
-  main: drycontact.jpg
+  main: drycontact.png
 
 # Regulatory compliances (optional)
 compliances:

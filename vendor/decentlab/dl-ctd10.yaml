@@ -63,7 +63,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-CTD10-datasheet.pdf
 photos:
-  main: dl-ctd10.jpg
+  main: dl-ctd10.png
 
 compliances:
   safety:

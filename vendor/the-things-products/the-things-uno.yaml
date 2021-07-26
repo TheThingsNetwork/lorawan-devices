@@ -2,6 +2,8 @@ name: The Things Uno
 description: The Things Uno is based on the Arduino Leonardo with an added Microchip LoRaWAN® module. It is fully compatible with the Arduino IDE and existing shields.
 hardwareVersions:
   - version: '1.0'
+    numeric: 1
+
 firmwareVersions:
   - version: 'quickstart' # This is the Quick Start sketch in The Things Network arduino library
     hardwareVersions:
@@ -15,6 +17,18 @@ firmwareVersions:
         id: the-things-uno-915
         lorawanCertified: true
         codec: the-things-uno-codec-quickstart
+
+  # Activation By Personalization
+  - version: 'abp'
+    numeric: 2
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: the-things-uno-abp-868
+        lorawanCertified: true
+        codec: the-things-uno-codec-quickstart
+
 keyProvisioning:
   - custom
 keySecurity: none

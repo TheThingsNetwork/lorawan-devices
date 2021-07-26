@@ -1,5 +1,5 @@
 name: Vaqa'O+Plus
-description: The VAQA'O+Plus sensor measures the temperature, relative humidity, atmospheric pressure, the concentration of Volatile Organic Compounds (VOC) and Carbon Dioxide (CO2) in the ambient air
+description: The nke WATTECO Vaqa’O+ has sensors for measuring temperature, relative humidity, atmospheric pressure, the concentration of volatile organic compounds (VOC), and carbon dioxide (CO2) in the ambient air of a room in a building, an apartment, or a house. It allows Indoor Air Quality (IAQ) monitoring based on the presence of individuals using luminosity (lighting) and motion (PIR) detection in the room. The data is transmitted via a public or private LoRaWAN® network.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '50-70-074'

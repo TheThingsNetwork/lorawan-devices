@@ -1,5 +1,5 @@
 name: ELT Lite an easy but powerful LoRAWAN device for measuring analog or digital signals.
-description: You can use the ELT Lite together with an external sensor of your choice to build your own solution.
+description: The ELSYS ELT Lite is a general LoRaWAN® device for measuring analog or digital signals. It is a 1-channel GPIO wireless transceiver and can also provide power to external sensors. ELT Lite is suitable for applications such as smart cities, agriculture, and distance measuring.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

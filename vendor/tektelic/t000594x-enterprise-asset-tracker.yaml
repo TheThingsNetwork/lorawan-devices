@@ -1,5 +1,5 @@
 name: Tektelic Enterprise Asset Tracker
-description: LoRaWAN® and BLE Device for Indoor Asset Tracking
+description: The Tektelic Enterprise Asset Tracker combines Bluetooth Low Energy (BLE) and LoRaWAN® for locating, tracking and managing assets in difficult RF environments such as hospitals and medical facilities.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -47,3 +47,7 @@ ipCode: IP30
 productURL: https://tektelic.com/catalog/enterprise-asset-tracker
 dataSheetURL: https://tektelic.com/uploads/Brochures/Enterprise%20Asset%20Tracker.pdf
 manuals: https://tektelic.com/uploads/Brochures/Enterprise%20Asset%20Tracker.pdf
+
+# Photos
+photos:
+  main: enterprise-tracker.png

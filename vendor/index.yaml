@@ -1685,3 +1685,15 @@ vendors:
   - id: elsys
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
+
+  - id: opensource
+    name: Open Source Community Projects
+    website: https://en.wikipedia.org/wiki/Open_source
+
+  - id: smart-parks
+    name: Smart Parks
+    website: https://www.smartparks.org/
+
+  - id: nexelec
+    name: Nexelec
+    website: https://www.nexelec.fr/
