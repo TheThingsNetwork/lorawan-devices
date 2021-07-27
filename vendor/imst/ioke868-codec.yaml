@@ -1,39 +1,40 @@
 #
-# iOke868-codec.yaml
+# ioke868-codec.yaml
 #
 # Modification History:
 # Date         Version     Modified By     Description
 # 2020-12-15   1.0         MR              Initial creation
+# 2020-02-17   1.1         MR              bytes in hex notation
+#                                          fix length field for Object with Unit
+#                                          synchonized --> synchronized (decoder v1.1)
 #
 
-# Uplink decoder decodes binary data uplink into a JSON object (optional)
-# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: 'ioke868.js'
+  fileName: ioke868.js
   examples:
     - description: 'Object with Unit: OBIS_ID=1-0:1.8.1*255'
       input:
         fPort: 5
-        bytes: [64, 17, 252, 1, 0, 1, 8, 1, 255, 30, 252, 0, 0, 0, 0, 0, 8, 111, 111]
+        bytes: [0x40, 0x12, 0xfc, 0x01, 0x00, 0x01, 0x08, 0x01, 0xff, 0x1e, 0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x6f, 0x6f]
       output:
         data:
           OBIS_IDs:
-            - OBIS_ID: '1_0_1_8_1_255'
-              GroupMask: 252
-              unit: 'Wh'
+            - GroupMask: 252
+              OBIS_ID: '1_0_1_8_1_255'
               Scaler: -4
               rawValue: 552815
+              unit: 'Wh'
               value: 55.2815
           general_info: {}
     - description: 'Object without Unit: OBIS_ID=1-0:1.8.1*255'
       input:
         fPort: 5
-        bytes: [65, 16, 252, 1, 0, 1, 8, 1, 255, 252, 0, 0, 0, 0, 0, 8, 111, 111]
+        bytes: [0x41, 0x10, 0xfc, 0x01, 0x00, 0x01, 0x08, 0x01, 0xff, 0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x6f, 0x6f]
       output:
         data:
           OBIS_IDs:
-            - OBIS_ID: '1_0_1_8_1_255'
-              GroupMask: 252
+            - GroupMask: 252
+              OBIS_ID: '1_0_1_8_1_255'
               Scaler: -4
               rawValue: 552815
               value: 55.2815
@@ -41,12 +42,12 @@ uplinkDecoder:
     - description: 'Object with String: OBIS_ID=1-0:1.8.1*255'
       input:
         fPort: 5
-        bytes: [66, 18, 252, 1, 0, 1, 8, 1, 255, 48, 48, 48, 48, 53, 53, 46, 50, 56, 49, 53]
+        bytes: [0x42, 0x12, 0xfc, 0x01, 0x00, 0x01, 0x08, 0x01, 0xff, 0x30, 0x30, 0x30, 0x30, 0x35, 0x35, 0x2e, 0x32, 0x38, 0x31, 0x35]
       output:
         data:
           OBIS_IDs:
-            - OBIS_ID: '1_0_1_8_1_255'
-              GroupMask: 252
+            - GroupMask: 252
+              OBIS_ID: '1_0_1_8_1_255'
               rawValue: '30-30-30-30-35-35-2e-32-38-31-35'
               stringValue: '000055.2815'
               value: 55.2815
@@ -56,81 +57,82 @@ uplinkDecoder:
         fPort: 69
         bytes:
           [
-            0,
-            64,
-            17,
-            252,
-            1,
-            0,
-            1,
-            8,
-            1,
-            255,
-            30,
-            252,
-            0,
-            0,
-            0,
-            0,
-            0,
-            8,
-            111,
-            111,
-            65,
-            16,
-            252,
-            1,
-            0,
-            1,
-            8,
-            1,
-            255,
-            252,
-            0,
-            0,
-            0,
-            0,
-            0,
-            8,
-            111,
-            111,
-            66,
-            18,
-            252,
-            1,
-            0,
-            1,
-            8,
-            1,
-            255,
-            48,
-            48,
-            48,
-            48,
-            53,
-            53,
-            46,
-            50,
-            56,
-            49,
-            53,
+            0x00,
+            0x40,
+            0x12,
+            0xfc,
+            0x01,
+            0x00,
+            0x01,
+            0x08,
+            0x01,
+            0xff,
+            0x1e,
+            0xfc,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x08,
+            0x6f,
+            0x6f,
+            0x41,
+            0x10,
+            0xfc,
+            0x01,
+            0x00,
+            0x01,
+            0x08,
+            0x01,
+            0xff,
+            0xfc,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x08,
+            0x6f,
+            0x6f,
+            0x42,
+            0x12,
+            0xfc,
+            0x01,
+            0x00,
+            0x01,
+            0x08,
+            0x01,
+            0xff,
+            0x30,
+            0x30,
+            0x30,
+            0x30,
+            0x35,
+            0x35,
+            0x2e,
+            0x32,
+            0x38,
+            0x31,
+            0x35,
           ]
       output:
         data:
           OBIS_IDs:
-            - OBIS_ID: '1_0_1_8_1_255'
-              GroupMask: 252
+            - GroupMask: 252
+              OBIS_ID: '1_0_1_8_1_255'
+              Scaler: -4
+              rawValue: 552815
               unit: 'Wh'
+              value: 55.2815
+            - GroupMask: 252
+              OBIS_ID: '1_0_1_8_1_255'
               Scaler: -4
               rawValue: 552815
               value: 55.2815
-            - OBIS_ID: '1_0_1_8_1_255'
-              GroupMask: 252
-              Scaler: -4
-              rawValue: 552815
-              value: 55.2815
-            - OBIS_ID: '1_0_1_8_1_255'
-              GroupMask: 252
+            - GroupMask: 252
+              OBIS_ID: '1_0_1_8_1_255'
               rawValue: '30-30-30-30-35-35-2e-32-38-31-35'
               stringValue: '000055.2815'
               value: 55.2815
@@ -140,22 +142,22 @@ uplinkDecoder:
     - description: 'Time & Status Field'
       input:
         fPort: 5
-        bytes: [0, 2, 0, 1, 1, 4, 95, 215, 87, 33]
+        bytes: [0x00, 0x02, 0x00, 0x01, 0x01, 0x04, 0x5F, 0xD7, 0x57, 0x21]
       output:
         data:
           OBIS_IDs: []
           general_info:
             InfoByte: 0
-            StatusByte: 1
+            InfraredInputStatus: 'no input'
             InputType: 'unknown protocol'
             MeterType: 'unknown'
-            InfraredInputStatus: 'no input'
+            StatusByte: 1
             Time: 'Mon, 14 Dec 2020 12:14:25 GMT'
             Time_Origin: 'device time'
     - description: 'Meter ID Field'
       input:
         fPort: 5
-        bytes: [16, 14, 51, 52, 49, 50, 48, 48, 45, 53, 48, 50, 54, 56, 55, 49]
+        bytes: [0x10, 0x0E, 0x33, 0x34, 0x31, 0x32, 0x30, 0x30, 0x2D, 0x35, 0x30, 0x32, 0x36, 0x38, 0x37, 0x31]
       output:
         data:
           OBIS_IDs: []
@@ -164,19 +166,19 @@ uplinkDecoder:
     - description: 'Status'
       input:
         fPort: 3
-        bytes: [249, 237, 217, 95, 0, 1, 128, 252, 215, 95, 5, 0, 0, 0, 38, 0, 64, 226, 1, 0, 17, 0, 0, 0, 64, 226, 1, 0]
+        bytes: [0xF9, 0xED, 0xD9, 0x5F, 0x00, 0x01, 0x80, 0xFC, 0xD7, 0x5F, 0x05, 0x00, 0x00, 0x00, 0x26, 0x00, 0x40, 0xE2, 0x01, 0x00, 0x11, 0x00, 0x00, 0x00, 0x40, 0xE2, 0x01, 0x00]
       output:
         data:
-          Status_Time: 'Wed, 16 Dec 2020 11:22:33 GMT'
-          Status_Firmware_Version: '1.0'
-          Status_Last_Sync_Time: 'Tue, 15 Dec 2020 00:00:00 GMT'
-          Status_Reset_Counter: 5
-          Status_LoRaWAN_Activation_State: 'activated'
-          Status_Network_Time_State: 'not synchonized'
-          Status_System_Time_State: 'not synchonized'
-          Status_LoRaWAN_Configuration_State: 'available'
           Status_Calendar_Event_List_State: 'contains at least one item'
-          Status_OBIS_ID_Filter_List_State: 'contains at least one item'
           Status_Correct_Received_Meter_Files_Counter: 123456
+          Status_Firmware_Version: '1.0'
           Status_Incorrect_Received_Meter_Files_Counter: 17
+          Status_Last_Sync_Time: 'Tue, 15 Dec 2020 00:00:00 GMT'
+          Status_LoRaWAN_Activation_State: 'activated'
+          Status_LoRaWAN_Configuration_State: 'available'
+          Status_Network_Time_State: 'not synchronized'
+          Status_OBIS_ID_Filter_List_State: 'contains at least one item'
+          Status_Reset_Counter: 5
+          Status_System_Time_State: 'not synchronized'
+          Status_Time: 'Wed, 16 Dec 2020 11:22:33 GMT'
           Status_Uploaded_Meter_Data_Messages_Counter: 123456
