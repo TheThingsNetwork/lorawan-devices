@@ -1,5 +1,5 @@
 name: Wireless M-Bus Range Extender
-description: The Wireless Solutions Wireless M-Bus Range Extender is a compact and cost-effective device that collects wireless M-Bus messages from utility meters and forwards them to a LoRaWAN® network.
+description: The Wireless M-Bus Range Extender is a compact and cost-effective device that collects wireless M-Bus messages from utility meters and forwards them to a LoRaWAN® network.
 
 # Hardware versions
 hardwareVersions:
