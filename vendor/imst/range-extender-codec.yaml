@@ -20,8 +20,7 @@ uplinkDecoder:
       output:
         data:
           values:
-            -
-              CTRLField: '0x43'
+            - CTRLField: '0x43'
               Data: '01-02-ff'
               DeviceID: '33-44-55-66'
               ManID: '11-22'
@@ -33,20 +32,60 @@ uplinkDecoder:
     - description: 'Two segmented WMBus values from 11-22 | 33-44-55-66 | 0x77 | 0x88'
       input:
         fPort: 68
-        bytes: [0x00, 0x80, 0x43, 0x6D, 0x38, 0x0b, 0x43, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x01, 0x02, 0xFF, 0x56, 0x86, 0xF4, 0x12, 0x43, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09]
+        bytes:
+          [
+            0x00,
+            0x80,
+            0x43,
+            0x6D,
+            0x38,
+            0x0b,
+            0x43,
+            0x11,
+            0x22,
+            0x33,
+            0x44,
+            0x55,
+            0x66,
+            0x77,
+            0x88,
+            0x01,
+            0x02,
+            0xFF,
+            0x56,
+            0x86,
+            0xF4,
+            0x12,
+            0x43,
+            0x11,
+            0x22,
+            0x33,
+            0x44,
+            0x55,
+            0x66,
+            0x77,
+            0x88,
+            0x01,
+            0x02,
+            0x03,
+            0x04,
+            0x05,
+            0x06,
+            0x07,
+            0x08,
+            0x09,
+          ]
       output:
         data:
           values:
-            -
-              CTRLField: '0x43'
+            - CTRLField: '0x43'
               Data: '01-02'
               DeviceID: '33-44-55-66'
               ManID: '11-22'
               Time: 'Sat, 01 Jan 2000 00:00:00 GMT'
               Type: '0x88'
               Version: '0x77'
-            -
-              CTRLField: '0x43'
+            - CTRLField: '0x43'
               Data: '01-02-03-04-05-06-07-08-09'
               DeviceID: '33-44-55-66'
               ManID: '11-22'
