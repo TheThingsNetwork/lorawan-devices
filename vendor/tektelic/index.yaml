@@ -1,7 +1,5 @@
 endDevices:
   - t00059xx-agriculture-sensor
-  - t00053xx-industrial-transceiver
-  - t00055xx-industrial-transceiver
   - t00056xx-industrial-transceiver
   - t00073xx-tundra-sensor
   - t0006129-industrial-gps-asset-track
