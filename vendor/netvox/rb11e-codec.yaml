@@ -1,0 +1,163 @@
+uplinkDecoder:
+  fileName: payload/rb11e.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x03, 0x00, 0x64, 0x0A, 0x20, 0x20, 0x06, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RB11E'
+          SWver: 10
+          HWver: 10
+          Datecode: '20200611'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x03, 0x01, 0x24, 0x0A, 0x4B, 0x00, 0x78, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RB11E'
+          Volt: 3.6
+          Temp: 26.35
+          Illuminance: 120
+          Occupy: 1
+          DisassembledAlarm: 0
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'RB11E'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x03, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x64]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'RB11E'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          IlluminanceChange: 100
+
+    - description: Set IR disable time response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetIRDisableTimeRsp'
+          Device: 'RB11E'
+          Status: 'Success'
+
+    - description: Get IR disable time response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x03, 0x00, 0x1E, 0x01, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetIRDisableTimeRsp'
+          Device: 'RB11E'
+          IRDisableTime: 30
+          IRDetectionTime: 300
+
+downlinkDecoder:
+  fileName: payload/rb11e.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x03, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x64]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RB11E'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          IlluminanceChange: 100
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RB11E'
+
+    - description: Set IR disable time request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x03, 0x00, 0x1E, 0x01, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetIRDisableTimeReq'
+          Device: 'RB11E'
+          IRDisableTime: 30
+          IRDetectionTime: 300
+
+    - description: Get IR disable time request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetIRDisableTimeReq'
+          Device: 'RB11E'
+
+downlinkEncoder:
+  fileName: payload/rb11e.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RB11E'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          IlluminanceChange: 100
+      output:
+        fPort: 7
+        bytes: [0x01, 0x03, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x64]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RB11E'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set IR disable time request
+      input:
+        data:
+          Cmd: 'SetIRDisableTimeReq'
+          Device: 'RB11E'
+          IRDisableTime: 30
+          IRDetectionTime: 300
+      output:
+        fPort: 7
+        bytes: [0x03, 0x03, 0x00, 0x1E, 0x01, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get IR disable time request
+      input:
+        data:
+          Cmd: 'GetIRDisableTimeReq'
+          Device: 'RB11E'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

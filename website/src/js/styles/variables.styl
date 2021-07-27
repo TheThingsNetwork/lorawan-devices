@@ -1,0 +1,140 @@
+// Copyright © 2021 The Things Network Foundation, The Things Industries B.V.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// COLORS
+// ======
+
+// ## Lines
+$c-divider = #E4E4E4
+$c-divider-dark = #DFDFDF
+$c-input-border = #DFDFDF
+// ## Backgrounds
+$c-background-subtle-grey = #F8F8F8
+$c-background-grey = #F1F1F1
+// ## Alerts
+$c-success = #24C833
+$c-error = #FF5C5C
+$c-warning = #FFC464
+$c-info = $c-active-blue
+// ## Text
+$tc-black = #000
+$tc-subtle-black = #292929
+$tc-blue = #0047FF
+$c-active-blue = #2380FF
+$tc-deep-gray = #626262
+$tc-dark-gray = #444444
+$tc-subtle-gray = #787878
+$tc-warning = #D18100
+$c-backdrop = #F3F3F3
+// ## Buttons
+$c-button-border = #0047FF
+$c-button-background-subtle-grey = #E8E8E8
+$c-button--subtle-blue = #E5ECFF
+// SCALE
+// =====
+
+// ## Component Scale
+$cs = {
+  xxs: .25rem,
+  xs: .5rem,
+  s: .75rem,
+  m: 1rem,
+  l: 1.5rem,
+  xl: 2rem,
+  xxl: 4rem
+}
+// ## Layout Scale
+$ls = {
+  xxs: 1rem,
+  xs: 1.5rem,
+  s: 2rem,
+  m: 3rem,
+  l: 4rem,
+  xl: 6rem,
+  xxl: 10rem
+}
+// TYPOGRAPHY
+// ==========
+
+// ## Typefaces
+$font-family = 'Inter', serif
+$font-family-header = 'AvantGardePro', serif
+// ## Size and spacing
+$font-size-base = 14px // Will be set on root element, so 1rem = 14px.
+$line-height-base = 1.6786 // ~ 23.5px
+$line-height-margin-factor = .3rem // Used for margin calculations on text elements.
+// ## Font Scale
+$fs = {
+  s: .857rem,
+  m: 1rem,
+  l: 1.157rem,
+  xl: 1.429rem,
+  xxl: 1.857rem,
+  xl3: 2.143rem,
+  xl4: 2.857rem
+}
+// Corresponding default line heights.
+$lh = {
+  s: $line-height-base,
+  m: $line-height-base,
+  l: 1.6,
+  xl: 1.4,
+  xxl: 1.2
+}
+// ## Radius
+$br = {
+  s: 3px,
+  m: 6px,
+  l: 12px
+}
+// BREAKPOINTS
+// ===========
+
+// ## Mind the breakpoints also set in lib/components/init.js for the grid.
+$bp = {
+  xl: 1600px,
+  l: 1280px,
+  m: 1080px,
+  s: 768px,
+  xs: 620px,
+  xxs: 480px,
+  xs3: 376px
+}
+// ANIMATIONS
+// ==========
+
+// ## Animation durations, only meant as guidance, usage is not enforced.
+$ad = {
+  xs: .05s,
+  s: .12s,
+  m: .25s,
+  l: .5s,
+  xl: 1s
+}
+// Z-INDEXES
+// =========
+$zi = {
+  modal: 2020,
+  mobile-menu: 2010,
+  nav: 2000,
+  overlay: 10,
+  dropdown: 9,
+  slight: 1
+}
+// MISCELLANEOUS
+// =============
+$header-height = 7rem
+$header-height-mobile = 4rem
+$breadcrumbs-bar-height = 3rem
+$font-family-mono = 'IBM Plex Mono', monospace

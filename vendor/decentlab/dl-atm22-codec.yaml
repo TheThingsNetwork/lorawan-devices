@@ -1,0 +1,59 @@
+uplinkDecoder:
+  fileName: dl-atm22.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x08, 0xc9, 0x00, 0x03, 0x80, 0x09, 0x81, 0x2b, 0x80, 0x14, 0x81, 0x08, 0x80, 0x02, 0x7f, 0xe8, 0x80, 0x08, 0x80, 0x04, 0x0b, 0xf5]
+      output:
+        data:
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 26.4
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.061
+          device_id: 2249
+          east_wind_speed:
+            displayName: East wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.04
+          maximum_wind_speed:
+            displayName: Maximum wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.2
+          north_wind_speed:
+            displayName: North wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.08
+          protocol_version: 2
+          wind_direction:
+            displayName: Wind direction
+            unit: "\xB0"
+            value: 29.9
+          wind_speed:
+            displayName: Wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.09
+          x_orientation_angle:
+            displayName: X orientation angle
+            unit: "\xB0"
+            value: 0.2
+          y_orientation_angle:
+            displayName: Y orientation angle
+            unit: "\xB0"
+            value: -2.4
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x08, 0xc9, 0x00, 0x02, 0x0b, 0xf5]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.061
+          device_id: 2249
+          protocol_version: 2

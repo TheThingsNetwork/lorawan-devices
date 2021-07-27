@@ -1,0 +1,21 @@
+<ul class="device-list" >
+  <div class="grid">
+  {{- range .devices }}
+    <div class="item-6 item-xs-12">
+      <li class="device-list__item">
+          <h2>{{.Params.Name}}</h2>
+          <p class="device-list__description">{{.Params.Description | truncate 100}}</p>
+          <div class="device-list__image">
+            {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
+            {{with $image}}
+            <img src="{{ ($image.Resize `400x`).RelPermalink }}" />
+            {{ end }}
+          </div>
+          <div class="device-list__cta">
+            <a href="{{.Permalink}}" class="btn primary">See more</a>
+          </div>
+      </li>
+    </div>
+  {{ end }}
+  </div>
+</ul>

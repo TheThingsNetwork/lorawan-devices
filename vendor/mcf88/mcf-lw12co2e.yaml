@@ -1,0 +1,119 @@
+name: MCF-LW12CO2E
+description: The MCF-LW12CO2E is a battery powered sensor for indoor applications that reads temperature, relative humidity, pressure, ambient light, IAQ air quality index and CO2. Ideally suited for a wide range of applications such as home buildings, air quality monitoring and energy saving applications.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '0.02.23'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile-a
+        lorawanCertified: false
+        codec: mcf-environmental-codec
+      US902-928:
+        id: us915-profile-a
+        lorawanCertified: false
+        codec: mcf-environmental-codec
+      AU915-928:
+        id: au915-profile-a
+        lorawanCertified: false
+        codec: mcf-environmental-codec
+      AS923:
+        id: as923-profile-a
+        lorawanCertified: false
+        codec: mcf-environmental-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+  - humidity
+  - barometer
+  - light
+  - bvoc
+  - co2
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 25
+  length: 120
+  height: 80
+
+# Weight in grams (optional)
+weight: 225
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: pack
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -10
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP40
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: http://www.enginko.com/support/doku.php?id=manual_mcf-lw12co2e
+
+# Photos
+photos:
+  main: mcf-lw12co2e.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+    - body: FCC
+      norm: FCC
+      standard: Part 15 107 & 109
+      version: 47:2014
+    - body: FCC
+      norm: FCC
+      standard: Part 15203, 209 & 247
+      version: 47:2019

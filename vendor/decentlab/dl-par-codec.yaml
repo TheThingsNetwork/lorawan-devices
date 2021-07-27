@@ -1,0 +1,31 @@
+uplinkDecoder:
+  fileName: dl-par.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0x91, 0x00, 0x03, 0x80, 0x69, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 657
+          photosynthetically_active_radiation:
+            displayName: Photosynthetically active radiation
+            unit: "\xB5mol\u22C5m\u207B\xB2\u22C5s\u207B\xB9"
+            value: 48.065185546875
+          protocol_version: 2
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x02, 0x91, 0x00, 0x02, 0x0c, 0x60]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.168
+          device_id: 657
+          protocol_version: 2

@@ -1,0 +1,101 @@
+name: LPN KM - Short-circuit monitor
+description: The Comtac LPN KM Short Circuit monitor detects short-circuit and ground fault. The integrated battery-supported power supply and the easy integration into private or public LoRaWAN® networks allow a cost-effective upgrade of stations for faster fault localization and resupply.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'REV00'
+    numeric: 0000
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - version: 'V01.01'
+    numeric: 0000 # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'REV00'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: lpn-km-profile-eu868
+        lorawanCertified: true
+        codec: lpn-km-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - digital input #8 digital inputs
+  - temperature
+  - battery
+  - button
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 115
+  length: 130
+  height: 55
+
+# Weight in grams (optional)
+weight: 330
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: LiMn02 5Ah Backup battery
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -25
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-km-short-circuit-monitor.html
+
+# Photos
+photos:
+  main: lpn-km-foto.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1:2014
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+  rohs:
+    - body: IEC
+      norm: EN
+      standard: 58581:2012

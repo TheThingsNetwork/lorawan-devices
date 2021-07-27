@@ -1,0 +1,14 @@
+uplinkDecoder:
+  fileName: yabby-edge.js
+  examples:
+    - description: Position update
+      input:
+        fPort: 4
+        bytes: [0x01, 0xA4, 0xA0, 0xB3, 0xCC, 0xD3, 0x58, 0xE6]
+      output:
+        data:
+          inTrip: false
+          type: 'position'
+          wifi:
+            - mac: 'a0b3ccd358e6'
+              rssi: -92

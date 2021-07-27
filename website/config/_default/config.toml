@@ -1,0 +1,14 @@
+baseURL = "https://www.thethingsnetwork.org/device-repository"
+languageCode = "en-us"
+title = "LoRaWAN Device Repository"
+
+[taxonomies]
+  tag = "tags"
+
+[params]
+  author = "The Things Network"
+  github = "https://github.com/TheThingsNetwork/lorawan-devices"
+  facebook = "https://www.facebook.com/thethingsnetwork"
+  og_image = "assets/ttn_profile_picture_white_bg.png"
+  sitename = "The Things Network"
+  twitter = "@thethingsntwrk"

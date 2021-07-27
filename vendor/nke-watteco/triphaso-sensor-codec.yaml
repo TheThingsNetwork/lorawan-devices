@@ -1,0 +1,42 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: triphaso-sensor.js
+  # Examples (optional)
+  # examples:
+  # # Downlink encoder encodes JSON object into a binary data downlink (optional)
+  # downlinkEncoder:
+  #   fileName: triphaso-sensor.js
+  #   examples:
+  #     - description: Switch On Output1
+  #       input:
+  #         data:
+  #           if(input.data.value == "OFF") {
+  #             value = 0x00;
+  #           }
+  #           if(input.data.value == "ON") {
+  #             value = 0x01;
+  #           }
+  #           if(input.data.value == "TOGGLE") {
+  #             value = 0x02;
+  #           }
+  #           bytes = [0x11, 0x50, 0x00, 0x06, value];
+  #       output:
+  #         bytes: bytes
+  #         fPort: 125
+  #         errors : []
+  #         warnings : []
+
+  # # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+  # downlinkDecoder:
+  #   fileName: smart-plug.js
+  #   examples:
+  #     - description: Switch ON Output1
+  #       input:
+  #         fPort: 125
+  #         bytes: bytes
+  #         errors : []
+  #         warnings : []
+  #       output:
+  #         data:
+  #           bytes: input.bytes

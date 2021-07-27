@@ -1,7 +1,7 @@
 id: tps110
 name: Parking Lot Sensor
 partNumber: TPS110
-description: The wireless smart parking sensor for detecting parking space occupancy
+description: The BOSCH wireless smart parking sensor is a LoRaWAN® end device that uses a magnetometer and radar which are two independent sensors for parking space occupancy. It enables active parking lot management features, such as search, navigation, and reservation. In addition to that, the BOSCH parking lot sensor has a GPS receiver and a temperature sensor.
 hardwareVersions:
   - version: '9'
     numeric: 9
@@ -30,13 +30,15 @@ firmwareVersions:
 sensors:
   - magnetometer
   - gps
+  - temperature
+  - radar
 dimensions:
   diameter: 145.4
   height: 30.5
 weight: 191
 battery:
   replaceable: false
-  type: Lithium
+  type: Lithium battery (Li-SOCI2)
 operatingConditions:
   temperature:
     min: -30
@@ -51,8 +53,15 @@ keyProvisioning:
 keySecurity: none
 productURL: https://www.bosch-connectivity.com/products/connected-mobility/parking-lot-sensor/
 dataSheetURL: https://www.bosch-connectivity.com/media/product_detail_pls/parking-lot-sensor-datasheet.pdf
+
 photos:
-  main: tps110.jpg
+  main: tps110.png
+
+videos:
+  main: https://youtu.be/HYv50apV-jA
+  other:
+    - https://youtu.be/pucqjjrFiIQ
+
 compliances:
   safety:
     - body: IEC

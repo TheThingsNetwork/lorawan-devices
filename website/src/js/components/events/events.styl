@@ -1,0 +1,275 @@
+// Copyright © 2021 The Things Network Foundation, The Things Industries B.V.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// We need to use absolute values here due to the way that `react-window` works.
+$event-container-height = 40px
+
+.container
+  display: flex
+  flex-direction: column
+  flex-grow: 1
+  justify-content: space-between
+  min-width: 50rem
+  overflow: hidden
+  position: relative
+
+  +media-query-min($bp.s)
+    // Ensure at least 18 events to be visible at once on desktop.
+    min-height: $event-container-height * 18
+
+  +media-query($bp.s)
+    // Ensure at least 10 events to be visible at once on mobile.
+    min-height: $event-container-height * 12
+
+.header
+  border-normal('bottom')
+  background-color: white
+  box-sizing: border-box
+  display: flex
+  height: 3rem
+  z-index: $zi.slight
+
+.header-cells
+  .cell-time
+    justify-content: center
+
+  & > div:not(.cell-preview):not(:last-child)
+    font-weight: 700
+
+.header-cells, .event
+  align-items: center
+  display: flex
+  flex: 1
+  justify-content: flex-start
+  padding: $cs.xxs $cs.xxs $cs.xxs $cs.xs
+
+  & > div:not(.cell-preview):not(.cell-error):not(:last-child)
+    flex-grow: 0
+    flex-shrink: 0
+    padding-right: $cs.s
+    white-space: nowrap
+
+.sticky-container
+  display: flex
+  flex-grow: 1
+  justify-content: flex-end
+  right: $cs.s
+
+  +media-query-min($bp.xs)
+    position: sticky
+
+  .actions
+    background-color: white
+
+    button
+      color: rgb(134, 134, 134)
+      padding: 0
+      text-decoration: none
+
+      &:hover
+        background-color: rgb(243, 243, 243)
+
+.widget-container
+  border-normal()
+  box-sizing: border-box
+  height: 13rem
+  min-width: 15rem
+  overflow: hidden
+
+  .event
+    height: 30px
+
+.widget-header-title
+  font-weight: 700
+
+.body
+  background-color: $c-backdrop-lighter
+  flex-grow: 1
+  overflow: hidden
+  position: relative
+
+  ol
+    list-style: none
+    margin: 0
+    padding-left: 0
+
+.truncated
+  border-normal(top)
+  align-items: center
+  color: $tc-warning
+  display: flex
+  font-size: $fs.s
+  justify-content: center
+  padding: $cs.xxs 0
+
+  span
+    margin-right: $cs.xxs
+
+.event
+  background-color: transparent
+  box-sizing: border-box
+  height: $event-container-height
+
+  &.active
+    background-color: white
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .1)
+
+  &.widget
+    padding: 0 0 0 $cs.xs
+
+    .cell-type
+      display: flex
+      flex-grow: 1
+      overflow: hidden
+      text-overflow: ellipsis
+
+  &:not(.widget)
+    .cell-preview
+      overflow-y: auto
+
+  &.synthetic
+    background-color: lighten($tc-warning, 55)
+
+    .cell-time
+      color: $tc-warning
+
+  &:not(.widget)
+    cursor: pointer
+    transition: background-color ease-in-out $ad.s
+
+    &:hover:not(.active)
+      background-color: $c-backdrop
+
+  .cell-time, .cell-type, .cell-id, .cell-error
+    font-family: $font-family-mono
+    font-size: $fs.s
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  .cell-time
+    color: $tc-subtle-gray
+
+  .cell-type span, .cell-id span
+    overflow: hidden
+    text-overflow: ellipsis
+
+.cell-time
+  display: flex
+  flex-basis: 6rem
+
+.cell-id
+  flex-basis: 12%
+  min-width: 6rem
+
+.event:not(.widget) .cell-type, .header-cells .cell-type
+  display: flex
+  flex-basis: 17%
+  max-width: 20rem
+  min-width: 14rem
+
+.cell-preview
+  flex-basis: auto
+  flex-grow: 1
+  padding-right: 0
+  white-space: nowrap
+
+  &::-webkit-scrollbar
+    height: .3rem
+    width: .3rem
+
+.cell-data, .cell-error
+  flex-grow: 1
+
+.cell-error
+  color: $tc-error
+
+.event-icon
+  margin-right: $cs.xxs
+
+.empty-message
+  &-container
+    align-items: center
+    bottom: 0
+    display: flex
+    justify-content: center
+    left: 0
+    position: absolute
+    right: 0
+    top: 0
+
+  &-content
+    color: $tc-subtle-gray
+
+    pre
+      display: inline
+      font-size: $fs.s
+
+.sidebar
+  &-container
+    border-normal(left)
+    background-color: white
+    display: flex
+    flex-direction: column
+
+    +media-query-min($bp.s)
+      sidebar-transition(right)
+      height: 100%
+      position: absolute
+      right: -43rem
+      width: 43rem
+      z-index: $zi.slight
+
+      &.expanded
+        box-shadow: 0 0 8rem 2rem rgba(0, 0, 0, .2)
+        right: 0
+
+    +media-query($bp.s)
+      sidebar-transition(left)
+      height: 'calc(100vh - %s)' % $header-height-mobile
+      left: 100vw
+      position: fixed
+      top: $header-height-mobile
+      width: 100vw
+      z-index: $zi.nav
+
+      &.expanded
+        left: 0
+
+  &-header
+    align-items: center
+    box-sizing: border-box
+    display: flex
+    flex-grow: 0
+    height: $breadcrumbs-bar-height
+    justify-content: space-between
+    padding: 0 $cs.xs
+
+  &-content
+    flex-grow: 1
+    overflow: auto
+
+  &-close-button
+    reset-button()
+    background-color: white
+    border: none
+    height: 100%
+    padding: $cs.xxs
+    width: 2rem
+
+    &:focus
+      border: none
+
+  &-title
+    font-weight: 700

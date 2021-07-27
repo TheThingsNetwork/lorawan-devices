@@ -1,0 +1,156 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: df702.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload without gps
+      input:
+        fPort: 3
+        bytes: [0x80, 0, 1, 1, 0x11, 7, 0xD0, 0, 0x19, 0, 0, 0, 0, 0, 0, 0, 0x81]
+      output:
+        data:
+          level: '2000 mm'
+          full: false
+          fire: false
+          tilt: false
+          battery: false
+          angle: '0 °'
+          temperature: '25 ℃'
+
+    - description: heartbeat upload with gps
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x01, 0x19, 0x07, 0xD0, 0x01, 0xCD, 0x03, 0xE9, 0x42, 0xEF, 0x27, 0x20, 0x42, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          level: '2000 mm'
+          longitude: '116.507430'
+          latitude: '40.038999'
+          full: false
+          fire: false
+          tilt: false
+          battery: false
+          angle: '0 °'
+          temperature: '25 ℃'
+    - description: Command confirmation
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x19, 0x01, 0x04, 0x18, 0x01, 0x1E, 0x4B, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          periodic_interval: '24 hours'
+          detection_interval: '1 minutes'
+          full_alarm_threshold: '30 cm'
+          fire_alarm_threshold: '75 ℃'
+          tilt_alarm_threshold: '30 °'
+          tilt_enable: false
+          ultrasonic_range: '2000 mm'
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: df702.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          periodic_interval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: change detection interval to 10 minutes
+      input:
+        data:
+          detection_interval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change full alarm threshold to 35cm
+      input:
+        data:
+          full_alarm_threshold: 35
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+        fPort: 3
+    - description: change fire alarm threshold to 70℃
+      input:
+        data:
+          fire_alarm_threshold: 70
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x33, 0x34, 0x36, 0x38, 0x31]
+        fPort: 3
+    - description: change tilt alarm threshold to 45°
+      input:
+        data:
+          tilt_alarm_threshold: 45
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x32, 0x44, 0x38, 0x31]
+        fPort: 3
+    - description: enable tilt detection
+      input:
+        data:
+          tilt_enable: true
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: set ultrasonic range to 5 meters
+      input:
+        data:
+          ultrasonic_range: 5
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x31, 0x33, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: df702.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          periodic_interval: 4
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          detection_interval: 10
+    - description: change full alarm threshold to 35cm
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+      output:
+        data:
+          full_alarm_threshold: 35
+    - description: change fire alarm threshold to 70℃
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x33, 0x34, 0x36, 0x38, 0x31]
+      output:
+        data:
+          fire_alarm_threshold: 70
+    - description: change tilt alarm threshold to 45°
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x32, 0x44, 0x38, 0x31]
+      output:
+        data:
+          tilt_alarm_threshold: 45
+    - description: enable tilt detection
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          tilt_enable: true
+    - description: set ultrasonic range to 5 meters
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x31, 0x33, 0x38, 0x31]
+      output:
+        data:
+          ultrasonic_range: 5

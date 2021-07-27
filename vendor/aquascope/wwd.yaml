@@ -1,5 +1,5 @@
 name: Flood Sensor
-description: Waterproof Flood Sensor with additional sensor pad
+description: The Aqua-Scope Water Sensor has a built-in water sensor and a freeze sensor that detects water leaks and floods in critical areas. In addition to the built-in water sensor, it allows connecting an external second water detection probe. When the water is detected, an alarm is sent to a gateway using LoRaWAN® wireless protocol.
 
 hardwareVersions:
   - version: '1.0'
@@ -74,10 +74,11 @@ resellerURLs:
 
 # Photos
 photos:
-  main: wwd.jpg
+  main: wwd.png
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=SsR9Trlw3SU
+videos:
+  main: https://www.youtube.com/watch?v=SsR9Trlw3SU
 
 # Regulatory compliances (optional)
 compliances:

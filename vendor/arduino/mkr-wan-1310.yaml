@@ -1,0 +1,75 @@
+name: Arduino MKR WAN 1310
+description: The Arduino MKR WAN 1310 is a development board that provides a practical and cost-effective solution to add LoRaWAN® connectivity for projects requiring long-range, low-power wireless communication. Sensors and actuators can be connected to the board through the analog, digital, UART, SPI, and I2C pins. The MKR WAN 1310 comes complete with an ATECC508 secure element, a battery charger, 2MByte SPI Flash, and power consumption as low as 104 uA.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.2.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: arduino-868-profile
+        lorawanCertified: true
+        codec: mkrwan1310-codec
+      US902-928:
+        id: arduino-915-profile
+        lorawanCertified: true
+        codec: mkrwan1310-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 25
+  length: 67
+
+# Weight in grams (optional)
+weight: 32
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: Li-Ion / Li-Po, 1024 mAh minimum capacity, JST connector
+
+# Valid values are: none, read protected and secure element.
+keySecurity: secure element
+
+# Product and data sheet URLs (optional)
+productURL: https://store.arduino.cc/mkr-wan-1310
+
+# Photos
+photos:
+  main: mkrwan1310_1.png
+  other:
+    - mkrwan1310_2.png
+
+# Regulatory compliances (optional)
+compliances:
+  emc:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+  radio:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1

@@ -1,0 +1,70 @@
+uplinkDecoder:
+  fileName: dl-lid.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x11, 0xc9, 0x00, 0x03, 0x11, 0x9b, 0x11, 0x76, 0x11, 0xbc, 0x11, 0x9e, 0x11, 0x8a, 0x11, 0x94, 0x11, 0xa8, 0x11, 0xa8, 0x11, 0x94, 0x00, 0x64, 0x01, 0x99, 0x0a, 0xbd]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.749
+          device_id: 4553
+          distance_10th_percentile:
+            displayName: 'Distance: 10th percentile'
+            unit: mm
+            value: 4490
+          distance_25th_percentile:
+            displayName: 'Distance: 25th percentile'
+            unit: mm
+            value: 4500
+          distance_75th_percentile:
+            displayName: 'Distance: 75th percentile'
+            unit: mm
+            value: 4520
+          distance_90th_percentile:
+            displayName: 'Distance: 90th percentile'
+            unit: mm
+            value: 4520
+          distance_average:
+            displayName: 'Distance: average'
+            unit: mm
+            value: 4507
+          distance_maximum:
+            displayName: 'Distance: maximum'
+            unit: mm
+            value: 4540
+          distance_median:
+            displayName: 'Distance: median'
+            unit: mm
+            value: 4510
+          distance_minimum:
+            displayName: 'Distance: minimum'
+            unit: mm
+            value: 4470
+          distance_most_frequent_value:
+            displayName: 'Distance: most frequent value'
+            unit: mm
+            value: 4500
+          number_of_samples:
+            displayName: Number of samples
+            value: 100
+          protocol_version: 2
+          total_acquisition_time:
+            displayName: Total acquisition time
+            unit: ms
+            value: 399.4140625
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x11, 0xc9, 0x00, 0x02, 0x0a, 0xbd]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.749
+          device_id: 4553
+          protocol_version: 2
