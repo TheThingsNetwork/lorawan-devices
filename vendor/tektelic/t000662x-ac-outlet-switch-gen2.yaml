@@ -31,3 +31,5 @@ operatingConditions:
 # Photos
 photos:
   main: outlook.png
+  other:
+    - switch.png
