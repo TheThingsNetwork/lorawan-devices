@@ -20,7 +20,7 @@ uplinkDecoder:
         data:
           Device: 'R718IB'
           Volt: 3
-          ADCRawValue: 6657
+          ADCRaw: 6657
 
     - description: Configure report response
       input:
@@ -90,4 +90,4 @@ downlinkEncoder:
           Device: 'R718IB'
       output:
         fPort: 7
-        bytes: [0x02, 0x1A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x02, 0x2A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
