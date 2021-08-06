@@ -1,5 +1,5 @@
-name: izi-io 4840
-description: The izinto izi-io 4840 is a multi-I/O controller with edge computing and LoRaWAN® connection that provides software configurable inputs for connecting digital, analog, and temperature sensors as well as Modbus and other serial devices.
+name: izi-io 4840 /grid
+description: The izinto izi-io 4840 /grid is an industry-strength controller with edge computing and LoRaWAN® connection that connects to a Jean Müller PLMulti-II measuring device via Modbus. This is used for monitoring local power grid transformation substations (Ortsnetzstation in Germany, 10 kV → 230 V). Additionally, up to 8 temperature sensors and switches may be connected.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: 'grid_plmulti_v1'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
