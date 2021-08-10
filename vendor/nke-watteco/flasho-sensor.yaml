@@ -1,5 +1,5 @@
 name: Flash'O
-description: The LoRaWAN Flash’O sensor counts and remotely reads the number of light pulses emitted by any type of electronic meter (water, gas, electricity, energy)
+description: The nke WATTECO LoRaWAN® Flash’O has a pulse sensor for counting the number of light pulses emitted by any type of electronic meter - water, gas, electricity, energy.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

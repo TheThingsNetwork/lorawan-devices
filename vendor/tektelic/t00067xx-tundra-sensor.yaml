@@ -1,5 +1,5 @@
 name: Tektelic Tundra Sensor
-description: LoRaWAN® Device for Cold Chain Environment Monitoring
+description: The Tektelic LoRaWAN® Tundra Sensor consists of a temperature sensor for cold chain monitoring. It is suitable for applications such as restaurant and food service cold chain, medical and pharmaceutical storage, and vaccine storage.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

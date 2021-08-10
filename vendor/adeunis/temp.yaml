@@ -1,5 +1,5 @@
 name: Temp
-description: Record temperatures measure, track changes and alert if thresholds are exceeded
+description: The Adeunis Temp is a LoRaWAN® device that supports integrated and remote temperature probes for measuring and monitoring temperature in indoor and outdoor environments.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -75,7 +75,7 @@ dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/DS_TEMP_EN.pdf
 
 # Photos
 photos:
-  main: temp.jpg
+  main: temp.png
 
 # Regulatory compliances (optional)
 compliances:

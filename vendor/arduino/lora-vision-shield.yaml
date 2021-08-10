@@ -46,9 +46,9 @@ productURL: https://store.arduino.cc/portenta-vision-shield
 
 # Photos
 photos:
-  main: camera_shield1.jpg
+  main: camera_shield1.png
   other:
-    - camera_shield2.jpg
+    - camera_shield2.png
 
 # Youtube or Vimeo Video (optional)
 #video: https://www.youtube.com/watch?v=JHzxcD2oEn8

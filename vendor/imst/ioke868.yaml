@@ -1,5 +1,5 @@
 name: iOKE868
-description: The IMST iOKE868 is a smart metering kit that provides real-time data monitoring of energy consumption. The iO881A, which is the optical reading unit, can be attached magnetically to the smart meter to read out the infrared interface, extract the desired values and transfer those to the LoRaWAN® network with a period defined by the user.
+description: The iOKE868 LoRaWAN® optical reading head unit leverages the long range and low power consumption of LoRa® to provide real-time data monitoring of energy consumption and secure connectivity to the LoRaWAN® IoT network.
 
 # Hardware versions
 hardwareVersions:

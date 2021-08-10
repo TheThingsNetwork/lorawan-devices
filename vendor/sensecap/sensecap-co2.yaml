@@ -102,9 +102,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-co2-deployment.jpg
+  main: sensecap-co2.png
   other:
-    - sensecap-co2.png
+    - sensecap-co2-deployment.jpg
     - sensecap-co2-package.png
 
 # Youtube or Vimeo Video (optional)

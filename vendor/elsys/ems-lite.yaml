@@ -1,5 +1,5 @@
 name: EMS Lite Small but powerful
-description: This is an indoor LoRaWAN® sensor for measuring the indoor environment.
+description: The ELSYS EMS Lite is equipped with a temperature and humidity sensor for indoor environmental monitoring. It also includes a leak sensor for detecting water leakage. The EMS Lite is suitable for applications such as indoor environment measuring, smart buildings, workplace management, and water leakage detection. It utilizes LoRaWAN® connectivity to transmit data.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

@@ -1,5 +1,5 @@
 name: Sound Level Sensor
-description: The Sound Level Sensor utilizes LoRaWAN connectivity to provide to easily measure and investigate sound levels in decibels (dBA) in a variety of building environments.
+description: The Browan Sound Level Sensor integrates a MEMS microphone for measuring sound levels in decibels (dBA). It utilizes LoRaWAN® connectivity to transmit data and is suitable for use in a variety of building environments.
 
 hardwareVersions:
   - version: '1.0'

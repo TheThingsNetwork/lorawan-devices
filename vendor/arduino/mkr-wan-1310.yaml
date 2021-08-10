@@ -49,9 +49,9 @@ productURL: https://store.arduino.cc/mkr-wan-1310
 
 # Photos
 photos:
-  main: mkrwan1310_1.jpg
+  main: mkrwan1310_1.png
   other:
-    - mkrwan1310_2.jpg
+    - mkrwan1310_2.png
 
 # Regulatory compliances (optional)
 compliances:

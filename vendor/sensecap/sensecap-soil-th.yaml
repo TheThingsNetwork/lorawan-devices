@@ -103,9 +103,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-soil-th-deployment.jpg
+  main: sensecap-soil-th.png
   other:
-    - sensecap-soil-th.png
+    - sensecap-soil-th-deployment.jpg
     - sensecap-soil-th-package.png
 
 # Youtube or Vimeo Video (optional)

@@ -1,5 +1,5 @@
 name: Water Leak Sensor
-description: The Water Leakage Sensor utilizes LoRaWAN connectivity to sends an uplink notification when a water leak is detected.
+description: The Browan Water Leak Sensor is combined with temperature, humidity, and water leak detection sensors. It utilizes LoRaWAN® connectivity to send an uplink notification when a water leak is detected.
 
 hardwareVersions:
   - version: '1.0'

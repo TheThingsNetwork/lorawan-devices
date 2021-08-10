@@ -1,5 +1,5 @@
 name: Remote Temperature 2 CTN
-description: Temperature sensor with 2 probes
+description: The nke WATTECO Remote Temperature 2 CTN allows connecting 2 temperature sensor probes for measuring temperature in buildings and transmits the data over a public or private LoRaWAN® radio network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
