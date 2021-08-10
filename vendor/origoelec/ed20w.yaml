@@ -110,13 +110,6 @@ ipCode: IP65
 # Valid values are: none, read protected and secure element.
 # keySecurity: none
 
-# Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
-# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
-# firmwareProgramming:
-#   - serial
-#   - fuota lorawan
-
 # Product and data sheet URLs (optional)
 productURL: http://www.origoelec.com/End-Devices/ED20W-LoRaWAN-GPS-Watch.html
 dataSheetURL: http://www.origoelec.com/End-Devices/ED20W-datasheet.pdf
