@@ -1,5 +1,5 @@
 name: izi-io 4840 /grid
-description: The izinto izi-io 4840 /grid is an industry-strength controller with edge computing and LoRaWAN® connection that connects to a Jean Müller PLMulti-II measuring device via Modbus. This is used for monitoring local power grid transformation substations (Ortsnetzstation in Germany, 10 kV → 230 V). Additionally, up to 8 temperature sensors and switches may be connected.
+description: Specially designed for monitoring local power grid transformation substations ("Ortsnetzstationen" in Germany, 10 kV → 230 V), the izinto izi-io 4840 /grid is an industry-strength controller with edge computing and LoRaWAN® connection that connects to a Jean Müller PLMulti-II measuring device via Modbus/RTU. Additionally, up to 8 temperature sensors and switches may be connected.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -88,7 +88,7 @@ keyProgramming:
   - firmware
 
 # Product and data sheet URLs (optional)
-productURL: https://www.izinto.online/izi-io/
+productURL: https://www.izinto.online/izi-io-grid/
 dataSheetURL: https://www.izinto.online/wp-content/uploads/2020/01/izi-io-Datenblatt.pdf
 #resellerURLs:
 #  - name: 'Reseller 1'
