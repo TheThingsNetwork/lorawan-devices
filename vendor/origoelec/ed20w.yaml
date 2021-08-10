@@ -64,12 +64,6 @@ sensors:
 additionalRadios:
   - ble
 
-# Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-# bridgeInterfaces:
-#   - m-bus
-#   - rs-485
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
