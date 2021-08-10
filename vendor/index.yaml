@@ -1598,7 +1598,9 @@ vendors:
     logo: beiselen-logo-sticky.png
 
   - id: izinto
-    name: Izinto GmbH
+    name: izinto GmbH
+    website: https://www.izinto.online
+    logo: izinto_logo.png
 
   - id: develiot
     name: Develiot
@@ -1689,6 +1691,7 @@ vendors:
   - id: opensource
     name: Open Source Community Projects
     website: https://en.wikipedia.org/wiki/Open_source
+
 
   - id: origoelec
     name: Origoelec

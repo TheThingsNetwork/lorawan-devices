@@ -64,7 +64,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/co2-temperature-humidity-and-barometric-pressure-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-LP8P-datasheet.pdf
 photos:
-  main: dl-lp8p.jpg
+  main: dl-lp8p.png
   other:
     - dl-lp8p-2.jpg
     - dl-lp8p-3.jpg

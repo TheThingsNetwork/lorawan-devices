@@ -1,5 +1,5 @@
 name: TH
-description: Temperature and Humidity sensor
+description: The nke WATTECO TH sensor measures indoor ambient temperature and humidity in buildings, apartments, and houses. It transmits data over a public or private LoRaWAN® network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

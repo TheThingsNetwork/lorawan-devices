@@ -118,9 +118,7 @@ productURL: https://mcci.io/buy-catena4430
 
 # Photos
 photos:
-  main: catena4430.jpg
-##  other:
-##    - windsensor-package.jpg
+  main: catena4430.png
 
 # Youtube or Vimeo Video (optional)
 videos:

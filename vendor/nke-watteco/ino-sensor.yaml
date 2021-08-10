@@ -1,5 +1,5 @@
 name: In'O
-description: The In’O sensor turns any type of I/O sensor / actuator into a Class A or Class C sensor / actuator connected to a public or private LoRaWAN™ network
+description: The nke WATTECO In’O includes optocoupled 10 inputs and 4 outputs. It turns any type of I/O sensor/actuator into a Class A or Class C sensor/actuator and connects to a public or private LoRaWAN® network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

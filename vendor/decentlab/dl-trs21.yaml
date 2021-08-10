@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/soil-water-potential-and-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-TRS21-datasheet.pdf
 photos:
-  main: dl-trs21.jpg
+  main: dl-trs21.png
 
 compliances:
   safety:

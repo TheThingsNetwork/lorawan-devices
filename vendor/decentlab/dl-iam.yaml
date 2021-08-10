@@ -67,7 +67,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan/
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-IAM-datasheet.pdf
 photos:
-  main: dl-iam.jpg
+  main: dl-iam.png
   other:
     - dl-iam-2.jpg
     - dl-iam-3.jpg

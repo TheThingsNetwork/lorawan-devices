@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/tipping-bucket-rain-gauge-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-TBRG-datasheet.pdf
 photos:
-  main: dl-tbrg.jpg
+  main: dl-tbrg.png
 
 compliances:
   safety:

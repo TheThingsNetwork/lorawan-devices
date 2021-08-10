@@ -1,5 +1,5 @@
 name: EMS Desk a small sensor for monitoring occupancy
-description: EMS Desk is a sensor slightly larger than an AA-battery and ideal for mounting under desks.
+description: The ELSYS EMS Desk is equipped with a body heat sensor (thermopile) for detecting desk occupancy. It also includes a temperature sensor, humidity sensor (for indoor environment monitoring), and accelerometer (for movement detection). The EMS Desk is suitable for applications such as occupancy detection, indoor environment measuring, smart buildings, workplace management, and movement detection. It utilizes LoRaWAN® connectivity to transmit data.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

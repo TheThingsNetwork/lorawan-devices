@@ -1,5 +1,5 @@
 name: ESP32-Paxcounter
-description: Software providing a basis on the esp32 platform for multiple sensors, including pax (ble/wifi), gps, temperature, humidity, pressure, pm2.5, pm10 and more.
+description: The ESP32-Paxcounter has sensors for battery, GPS, altitude, temperature, humidity, barometer, pm2.5, and pm10. It is an ESP32 MCU-based device for metering passenger flows in real-time. It counts how many mobile devices are around by scanning WiFi and Bluetooth signals in the air and provides an estimation of how many people are around. The captured data is transmitted over a public or private LoRaWAN® radio network.
 
 # Hardware versions (optional, use when you have revisions)
 #hardwareVersions:
@@ -113,8 +113,8 @@ dataSheetURL: https://github.com/cyberman54/ESP32-Paxcounter
 #    url: https://example.org/reseller2
 
 # Photos
-#photos:
-#  main: Paxcounter-title.jpg
+photos:
+  main: paxcounter.png
 #  other:
 #    - Paxcounter-title.jpg
 # Youtube or Vimeo Video (optional)

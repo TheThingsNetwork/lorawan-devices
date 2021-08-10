@@ -1,5 +1,5 @@
 name: Analog
-description: The adeunis® LoRaWAN ANALOG is a ready-to-use radio transmitter enabling any type of 0-10V or 4-20mA sensor to be converted into a wireless communicating sensor
+description: The Adeunis Analog has 2 inputs for connecting 0-10 V or 4-20 mA sensors and provides LoRaWAN® connectivity to industrial analog/analog PWM sensors already installed on the production sites.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -34,8 +34,7 @@ firmwareVersions:
 sensors:
   - analog input
 
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
+# Dimensions use width, height, length and/or diameter
 dimensions:
   width: 50
   length: 105
@@ -75,7 +74,7 @@ dataSheetURL: https://www.adeunis.com/wp-content/uploads/2018/05/DS_ANALOG-ANALO
 
 # Photos
 photos:
-  main: analog.jpg
+  main: analog.png
 
 # Regulatory compliances (optional)
 compliances:

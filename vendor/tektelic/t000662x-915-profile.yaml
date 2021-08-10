@@ -2,6 +2,7 @@ vendorProfileID: 415
 supportsClassB: false
 supportsClassC: false
 macVersion: 1.0.2
-regionalParametersVersion: RP001-1.0.2-RevC
+regionalParametersVersion: RP001-1.0.2-RevB
 supportsJoin: true
 supports32bitFCnt: true
+maxEIRP: 30
