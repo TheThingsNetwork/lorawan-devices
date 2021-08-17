@@ -16,6 +16,7 @@ function Decoder(bytes, port) {
     stdData = {};
     tab = [];
     header = {};
+
     fft = [];
 
 
@@ -31,7 +32,7 @@ function Decoder(bytes, port) {
       }
 
       operatingtime = bytes[2]*reportperiod/127;     
-
+      
       header = {type: "Report", sensor: "KX"};
 
       tab.push({label: "BatteryPercentage", value: bytes[17]*100/127, date: lDate});
@@ -66,6 +67,7 @@ function Decoder(bytes, port) {
 
       header = {type: "Alarm", sensor: "KX"};
 
+
       tab.push({label: "Temperature", value: bytes[2]-30, date: lDate});
       tab.push({label: "VibrationLevel", value: (bytes[4]*128+bytes[5]+bytes[6]/100)/10/121.45, date: lDate});
       tab.push({label: "AnomalyLevel", value: bytes[1]*100/127, date:lDate });
@@ -85,6 +87,7 @@ function Decoder(bytes, port) {
       vibrationlevel = (bytes[2]*128+bytes[3]+bytes[4]/100)/10/121.45;
 
       header = {type: "Learning", sensor: "KX"};
+
 
       tab.push({label : "Temperature", value: bytes[6]-30, date: lDate});
       tab.push({label: "LearningFromScratch", value: bytes[7], date: lDate});
@@ -106,6 +109,7 @@ function Decoder(bytes, port) {
       var state;
 
       header = {type: "State", sensor: "KX"};
+
 
       if (bytes[1] === 100) {
         state = "Sensor start";
