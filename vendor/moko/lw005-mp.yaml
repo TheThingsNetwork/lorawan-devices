@@ -83,10 +83,14 @@ keyProvisioning:
 # Valid values are: none, read protected and secure element.
 keySecurity: none
 
+# Product and data sheet URLs (optional)
+productURL: https://www.mokosmart.com/
+
 # Photos
 photos:
-  main: lw005-mp-eu-1.png
+  main: lw005.jpg
   other:
+    - lw005-mp-eu-1.png
     - lw005-mp-eu-2.png
     - lw005-mp-eu-3.png
     - lw005-mp-us-1.png

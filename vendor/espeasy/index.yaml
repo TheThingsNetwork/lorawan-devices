@@ -1,0 +1,7 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  # cubecell-gps
+  - espeasy-rn2483-node-class-a-abp
+  - espeasy-rn2483-node-class-a-otaa
+  - espeasy-rn2903-node-class-a-abp
+  - espeasy-rn2903-node-class-a-otaa

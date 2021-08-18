@@ -1,0 +1,13 @@
+uplinkDecoder:
+  fileName: flood-sensor.js
+  examples:
+    - description: Short periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x08, 0xC9]
+      output:
+        data:
+          reason: 'keepalive'
+          boxTamper: true
+          flood: false
+          battery: 3.216

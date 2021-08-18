@@ -1,5 +1,5 @@
 name: DL-DS18
-description: Temperature Sensor for LoRaWAN
+description: The Decentlab DL-DS18 is equipped with a temperature sensor for measuring temperature. Suitable for applications such as outdoor remote monitoring, cold chain, storage, building automation, smart agriculture, open water, and tank temperature, etc.
 
 hardwareVersions:
   - version: '1'
@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-DS18-datasheet.pdf
 photos:
-  main: dl-ds18.jpg
+  main: dl-ds18.png
 
 compliances:
   safety:

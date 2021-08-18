@@ -1,0 +1,139 @@
+name: Bob Assistant
+description: BoB Assistant is a low power LoRaWAN compatible vibration sensor for indoor and outdoor predictive maintenance industrial applications, coupled with a temperature sensor for environmental conditions, a push buttonand an RGB Led for User Interface.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 0
+  - version: '1.1'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - version: 0.3.5
+    numeric: 35
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        vendorID: nke-watteco
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: bob-assistant-profile
+        lorawanCertified: true
+        codec: bob-assistant-codec
+
+  - version: '0.4.5'
+    numeric: 45
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.1'
+    profiles:
+      EU863-870:
+        vendorID: nke-watteco
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: bob-assistant-profile
+        lorawanCertified: true
+        codec: bob-assistant-codec
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - temperature
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+# additionalRadios:
+#   -
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# bridgeInterfaces: none
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 76
+  length: 79
+  height: 23
+
+# Weight in grams (optional)
+weight: 75
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 60
+
+# IP rating (optional)
+ipCode: IP68
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+# firmwareProgramming: none
+
+# Product and data sheet URLs (optional)
+
+productURL: https://www.nke-watteco.com/products/bob-assistant-and-movee-solutions/
+# dataSheetURL:
+
+# Commercial information
+resellerURLs:
+  - name: 'Nke Watteco'
+    region:
+      - European Union
+    url: http://www.nke-watteco.fr
+# msrp:
+#   EUR:
+
+# Photos
+photos:
+  main: bob-assistant.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=MTV40U8OKg0
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 61000-6-2
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 019
+      version: 2.4.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489
+      version: 1.6.1

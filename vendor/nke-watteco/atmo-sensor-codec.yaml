@@ -1,0 +1,92 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional).
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: atmo-sensor.js
+  # Examples (optional)
+  # examples:
+  # - description: Time-stamped standard report on Outputs' states
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x00, 0x06, 0x00, 0x00, 0x10, 0x01]
+  #   output:
+  #     data:
+  #       data:
+  #         - date : '2021-06-17T11:05:06.075Z'
+  #           label: Output1
+  #           value: 'ON'
+  #       zclheader:
+  #         alarm : 0
+  #         attributID : "0x0000"
+  #         clusterdID : "0x0006"
+  #         cmdID : "0x0A"
+  #         endpoint : 0
+  #         report : standard
+  #     errors : []
+  #     warnings : []
+  # - description: Time-stamped standard report on States' values
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x80, 0x05, 0x00, 0x00, 0x19, 0x03, 0xFF]
+  #   output:
+  #     data:
+  #       data:
+  #         - date : '2021-06-17T11:05:27.356Z'
+  #           label: State1
+  #           value: 1
+  #       zclheader:
+  #         alarm : 0
+  #         attributID : "0x0000"
+  #         clusterdID : "0x8005"
+  #         cmdID : "0x0A"
+  #         endpoint : 0
+  #         report : standard
+  #     errors : []
+  #     warnings : []
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: ino-sensor.js
+#   examples:
+#     - description: Switch On Output4
+#       input:
+#         data:
+#           if(input.data.value == "OFF") {
+#             value = 0x00;
+#           }
+#           if(input.data.value == "ON") {
+#             value = 0x01;
+#           }
+#           if(input.data.value == "TOGGLE") {
+#             value = 0x02;
+#           }
+#           if(input.data.label == "Output1") {
+#             label = 0x11;
+#           }
+#           if(input.data.label == "Output2") {
+#             label = 0x31;
+#           }
+#           if(input.data.label == "Output3") {
+#             label = 0x51;
+#           }
+#           if(input.data.label == "Output4") {
+#             label = 0x71;
+#           }
+#           bytes = [label, 0x50, 0x00, 0x06, value];
+#       output:
+#         bytes: bytes
+#         fPort: 125
+#         errors : []
+#         warnings : []
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: ino-sensor.js
+#   examples:
+#     - description: Switch ON Output4
+#       input:
+#         fPort: 125
+#         bytes: bytes
+#         errors : []
+#         warnings : []
+#       output:
+#         data:
+#           bytes: input.bytes

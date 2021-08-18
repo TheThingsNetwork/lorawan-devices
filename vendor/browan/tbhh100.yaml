@@ -1,0 +1,55 @@
+name: Temperatur & Humidity Sensor
+description: The Browan Temperature & Humidity Sensor integrates temperature and humidity sensors for measuring indoor environments. It utilizes LoRaWAN® connectivity to transmit data and is suitable for use with consumer or facility management applications.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.1' # unknown
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+
+    profiles:
+      EU863-870:
+        id: tabs-profile
+        lorawanCertified: true
+        codec: tbhh100-codec
+      US902-928:
+        id: tabs-profile
+        lorawanCertified: true
+        codec: tbhh100-codec
+
+sensors:
+  - temperature
+  - humidity
+
+dimensions:
+  width: 20
+  length: 50
+  height: 50
+
+weight: 40
+
+battery:
+  replaceable: true
+  type: 3.6V 1⁄2 AA Li-SOCl2 1200mAh
+
+operatingConditions:
+  temperature:
+    min: 0
+    max: 50
+
+ipCode: IP50
+
+productURL: https://www.browan.com/product/temperature-humidity-sensor/detail
+
+photos:
+  main: tbhh100.png
+
+keySecurity: none
+
+keyProvisioning:
+  - manifest

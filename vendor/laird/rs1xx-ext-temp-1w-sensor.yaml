@@ -1,5 +1,5 @@
 name: Sentrius RS1xx Ext Temp 1W Sensor
-description: External 1-Wire Temperature Sensor \#455-00069/455-00070/455-00064/455-00065/455-00066/455-00067/455-00068/455-00097
+description: The Laird Sentrius™ RS1xx Temp/-RH has an external temperature sensor probe and humidity sensor making it a perfect fit for industrial applications. It uses LoRaWAN® and Bluetooth Low Energy (BLE) for data communication. The robust IP65 sensor enclosure allows it to be used in harsh environments.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -22,19 +22,19 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        codec: rs1xx-ext-temp-1w-sensor-codec
+        #codec: rs1xx-ext-temp-1w-sensor-codec
       US902-928:
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        codec: rs1xx-ext-temp-1w-sensor-codec
+        #codec: rs1xx-ext-temp-1w-sensor-codec
       AU915-928:
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        codec: rs1xx-ext-temp-1w-sensor-codec
+        #codec: rs1xx-ext-temp-1w-sensor-codec
       AS923:
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        codec: rs1xx-ext-temp-1w-sensor-codec
+        #codec: rs1xx-ext-temp-1w-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -59,6 +59,16 @@ battery:
   type: AA
 
 # Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -25
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
 probeoperatingConditions:
   # Temperature (Celcius)
   temperature:

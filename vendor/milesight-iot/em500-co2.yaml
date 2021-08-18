@@ -1,5 +1,9 @@
 name: EM500-CO2
-description: Carbon Dioxide Sensor
+description: The Milesight EM500-CO2 consists of CO2, temperature, humidity, and barometric pressure sensors for measuring gaseous carbon dioxide (CO2) concentration in harsh environments. It is useful in the application where knowing CO2 level is important like greenhouses, wine cellars, building ventilation, fruit and vegetable storage.
+
+hardwareVersions:
+  - version: 'V1.3'
+    numeric: 1
 
 firmwareVersions:
   - version: '2.28'

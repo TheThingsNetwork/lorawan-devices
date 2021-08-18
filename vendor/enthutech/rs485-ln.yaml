@@ -1,5 +1,5 @@
 name: RS485-LN
-description: An RS485/Modbus to LoRaWAN Converter
+description: The Dragino RS485-LN is an RS485 to LoRaWAN® converter. It allows the RS485 devices to use LoRaWAN wireless protocol which simplifies the IoT installation and reduces the installation/maintaining cost.
 
 # Hardware versions (optional, use when you have revisions)
 # hardwareVersions:

@@ -1,0 +1,84 @@
+name: FTD Network Tester
+description: The Adeunis FTD (Field Test Device) is a LoRaWAN® network tester that consists of a GPS receiver and a temperature sensor. It checks network coverages and chooses the most appropriate network for ensuring the good positioning of end devices.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.00'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.00'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: ftd-profile-eu868
+        lorawanCertified: true
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - gps
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 22.80
+  length: 75.20
+  height: 186.20
+
+# Weight in grams (optional)
+weight: 140
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3.7v Lithium
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 40
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://www.adeunis.com/en/produit/ftd-network-tester/
+dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/Datasheet_FTD_en.pdf
+
+# Photos
+photos:
+  main: network.png
+
+# Regulatory compliances (optional)
+compliances:
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300-220-1
+      version: 2.0.12

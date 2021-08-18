@@ -1,5 +1,5 @@
 name: DL-PR26
-description: Pressure / Liquid Level and Temperature Sensor for LoRaWAN
+description: The Decentlab DL-PR26 consists of a pressure/liquid level sensor and a temperature sensor. It is made for measuring and monitoring liquid levels and pressure in tanks, wells, groundwater, boreholes, and also leak detection, and pump monitoring.
 
 hardwareVersions:
   - version: '1'
@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PR26-datasheet.pdf
 photos:
-  main: dl-pr26.jpg
+  main: dl-pr26.png
   other:
     - dl-pr26-2.jpg
     - dl-pr26-3.jpg

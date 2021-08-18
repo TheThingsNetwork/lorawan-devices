@@ -1,5 +1,5 @@
 name: Sentrius RS1xx Multi Sensor
-description: Multi Sensor, Integrated Temperature, Humidity Sensor with External OpenClosed Proximity \#455-00040/455-00041/455-00071/455-00072/455-00073/455-00074/455-00075/455-00100
+description: The Laird Sentrius RS1xx Multi Sensor is a battery-powered, long-range sensor platform leveraging the benefits of LoRaWAN® and Bluetooth Low Energy (BLE) connectivity. Its small, rugged form factor contains superior RF performance and multiple sensor capabilities including Open/Closed detection alongside temperature and humidity sensors, making it a perfect fit for cold chain applications.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

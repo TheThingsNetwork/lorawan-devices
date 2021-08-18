@@ -1,5 +1,5 @@
 name: DL-5TM
-description: Legacy Soil Moisture and Temperature Sensor for LoRaWAN
+description: The Decentlab DL-5TM is equipped with a legacy soil moisture and a temperature sensor. Suitable for applications such as irrigation control, smart agriculture, parks, and golf courses.
 
 hardwareVersions:
   - version: '1'
@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/legacy-soil-moisture-and-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-5TM-datasheet.pdf
 photos:
-  main: dl-5tm.jpg
+  main: dl-5tm.png
 
 compliances:
   safety:

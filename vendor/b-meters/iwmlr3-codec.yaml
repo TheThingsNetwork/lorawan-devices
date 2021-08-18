@@ -1,0 +1,19 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: iwmlr3.js
+  # Examples (optional)
+  examples:
+    - description: Payload example
+      input:
+        fPort: 1
+        bytes: [0x2C, 0x4A, 0x20, 0x01, 0x00, 0x22, 0x01, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x02]
+      output:
+        data:
+          aplication: 44
+          valueCounter: 00012074
+          flowCounter: 00000134
+          indexK: 00
+          medium: 00
+          vif: 13
+          alarm: 02

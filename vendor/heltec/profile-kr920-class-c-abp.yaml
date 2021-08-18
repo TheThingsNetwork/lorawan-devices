@@ -1,0 +1,22 @@
+macVersion: 1.0.2
+regionalParametersVersion: RP001-1.0.2-RevB
+supportsJoin: false
+# If your device is an ABP device (supportsJoin is false), uncomment the following fields:
+# RX1 delay
+rx1Delay: 5
+# RX1 data rate offset
+rx1DataRateOffset: 0
+# RX2 data rate index
+rx2DataRateIndex: 0
+# RX2 frequency (MHz)
+rx2Frequency: 921.9
+# Factory preset frequencies (MHz)
+factoryPresetFrequencies: [922.1, 922.3, 922.5, 922.7, 922.9, 923.1, 923.3]
+
+maxEIRP: 16
+supports32bitFCnt: true
+supportsClassB: false
+supportsClassC: true
+# If your device supports class C, uncomment the following fields:
+# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
+classCTimeout: 60

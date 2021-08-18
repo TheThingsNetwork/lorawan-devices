@@ -2,7 +2,7 @@
  * Laird Protocol TTI Payload Library
  *
  * @author Greg Leach @ Laird Connectivity
- * 
+ *
  * Entry point for Open/Closed type RS1XX sensors.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -376,7 +376,7 @@ function getBitfieldValue(bitfieldData, decode, data){
                 while((itemIndex < bitfieldData.length)&&
                         (data > 0)&&
                             (itemFound == false)){
-                    if ((data & bitfieldData.list[itemIndex].value) == 
+                    if ((data & bitfieldData.list[itemIndex].value) ==
                         bitfieldData.list[itemIndex].value){
                             result.push(bitfieldData.list[itemIndex].key);
                             data -= bitfieldData.list[itemIndex].value;
@@ -488,31 +488,6 @@ function encodeDownlinkYear(data) {
         result = data - 2000;
     }
     return(result);
-}
-
-/******************************************************************************
- * Converts a pair of bytes to the equivalent UInt16 value
- *
- * @param stream: array of bytes.
- * @return: The resultant UInt16 value
- *****************************************************************************/
-function twoBytesToUInt16(stream) {
-
-    var uInt16Data = stream.slice(0,2);
-    var uInt16View = new DataView(new ArrayBuffer(2));
-    var uInt16Result;
-
-    for (var i = 0; i < stream.length; i++) {
-        if (stream[i] > 0xFF) {
-            throw 'Byte value overflow!';
-        }
-    }
-
-    uInt16Data.forEach(function (b,i) {
-        uInt16View.setUint8(i, b);
-    });
-    uInt16Result = uInt16View.getUint16(0);
-    return(uInt16Result);
 }
 
 /******************************************************************************
@@ -883,7 +858,7 @@ function decodeDownlinkConfig(input){
                                     input.bytes[index++]);
     if (nextResult != -1){
         options = nextResult;
-    } 
+    }
     else {
         errors.push("Invalid option type used!");
     }
@@ -912,49 +887,49 @@ function decodeDownlinkConfig(input){
         errors.push("Invalid Temperature Alarm Enable used!");
     }
     // Humidity Alarms
-    if (input.bytes[0] == 
+    if (input.bytes[0] ==
         0x03){
 
         nextResult = getEnumValue(booleanEnum,true,
                                         input.bytes[index++]);
         if (nextResult != -1){
             humidityAlarmsEnabled = nextResult;
-        } 
+        }
         else {
             errors.push("Invalid Humidity Alarm Enable used!");
         }
     }
     // Low Temperature Alarm Limit
-    if (input.bytes[0] == 
+    if (input.bytes[0] ==
         0x03){
         tempAlarmLimitLow = byteToInt8(input.bytes[index++]);
     }
     // High Temperature Alarm Limit
-    if (input.bytes[0] == 
+    if (input.bytes[0] ==
         0x03){
         tempAlarmLimitHigh = byteToInt8(input.bytes[index++]);
     }
     // RTD Low Temperature Alarm Limit
-    if (input.bytes[0] != 
+    if (input.bytes[0] !=
         0x03){
         tempAlarmLimitLow = twoBytesToInt16(input.bytes.slice(
             index, index + 2));
         index += 2;
     }
     // RTD High Temperature Alarm Limit
-    if (input.bytes[0] != 
+    if (input.bytes[0] !=
         0x03){
         tempAlarmLimitHigh = twoBytesToInt16(input.bytes.slice(
             index, index + 2));
         index += 2;
     }
     // Low Humidity Alarm Limit
-    if (input.bytes[0] == 
+    if (input.bytes[0] ==
         0x03){
         humidityAlarmLimitLow = input.bytes[index++];
     }
     // High Humidity Alarm Limit
-    if (input.bytes[0] == 
+    if (input.bytes[0] ==
         0x03){
         humidityAlarmLimitHigh = input.bytes[index++];
     }
@@ -974,7 +949,7 @@ function decodeDownlinkConfig(input){
             };
     }
     else{
-        if (input.bytes[0] == 
+        if (input.bytes[0] ==
             0x03) {
             data = {
                 msgType: msgType,
@@ -1087,7 +1062,7 @@ function decodeDownlinkBackoff(input) {
     var options;
     var backoffPeriod;
     var errors = [];
-    var data = {};    
+    var data = {};
 
     // Message Type
     msgType = "backoff";
@@ -1120,8 +1095,8 @@ function decodeDownlinkBackoff(input) {
             };
         result = {
                 data : data,
-                errorsOccurred : "False"                
-        };    
+                errorsOccurred : "False"
+        };
     }
     return(result);
 }
@@ -1184,7 +1159,7 @@ function decodeDownlinkRequestBacklog(input) {
         };
         result = {
                 data : data,
-                errorsOccurred : "False"                
+                errorsOccurred : "False"
         };
     }
     return(result);
@@ -1210,7 +1185,7 @@ function decodeDownlinkSetOpenClosedConfig(input) {
     var resendInterval;
     var debounceAdjust;
     var errors = [];
-    var data = {};    
+    var data = {};
 
     // Message Type
     msgType = "asSetOpenClosedConfig";
@@ -1224,7 +1199,7 @@ function decodeDownlinkSetOpenClosedConfig(input) {
         errors.push("Invalid option type used!");
     }
     // Operating Mode
-    nextResult = getEnumValue(operatingModeEnum, 
+    nextResult = getEnumValue(operatingModeEnum,
         true, input.bytes[index++]);
     if (nextResult != -1){
         operatingMode = nextResult;
@@ -1232,7 +1207,7 @@ function decodeDownlinkSetOpenClosedConfig(input) {
         errors.push("Invalid Operating Mode used!");
     }
     // Lora Notification Options
-    nextResult = getBitfieldValue(loraIndicationOptionsBitfield, 
+    nextResult = getBitfieldValue(loraIndicationOptionsBitfield,
         true, input.bytes[index++]);
     if (nextResult != -1){
         loraNotificationOptions = nextResult;
@@ -1241,7 +1216,7 @@ function decodeDownlinkSetOpenClosedConfig(input) {
         result = errors.push("Invalid LoRa Notification Option used!");
     }
     // Open Dwell Time
-    openDwellTime = twoBytesToUInt16(input.bytes.slice(index, 
+    openDwellTime = twoBytesToUInt16(input.bytes.slice(index,
         index + 2));
     index += 2;
     // Closed Dwell Time
@@ -1272,7 +1247,7 @@ function decodeDownlinkSetOpenClosedConfig(input) {
         };
         result = {
                 data : data,
-                errorsOccurred : "False"                
+                errorsOccurred : "False"
         };
     }
     return(result);
@@ -1305,7 +1280,7 @@ function decodeDownlinkRequestTargetedBacklog(input) {
     var endSeconds;
     var backlogPullReqPeriod;
     var errors = [];
-    var data = {};      
+    var data = {};
 
     // Message Type
     nextResult = getEnumValue(msgTypeDLEnum,true,input.bytes[index++]);
@@ -1393,7 +1368,7 @@ function decodeDownlinkRequestTargetedBacklog(input) {
         };
         result = {
                 data : data,
-                errorsOccurred : "False"                
+                errorsOccurred : "False"
         };
     }
     return(result);
@@ -1452,7 +1427,7 @@ function encodeDownlinkGenerateRTCDownlink(input) {
     var nextResult;
     var dayMax;
     var errors = [];
-    var data = [];    
+    var data = [];
 
     // Message Type
     data[index++] = 0x02;
@@ -1529,7 +1504,7 @@ function encodeDownlinkConfig(input){
     var index = 0;
     var nextResult;
     var errors = [];
-    var data = [];    
+    var data = [];
 
     // Message Type
     nextResult = getEnumValue(msgTypeDLEnum,false,input.data.msgType);
@@ -1704,7 +1679,7 @@ function encodeDownlinkHeaterControl(input){
     var index = 0;
     var nextResult;
     var errors = [];
-    var data = [];  
+    var data = [];
 
     // Message type
     data[index++] = 0x04;
@@ -1751,7 +1726,7 @@ function encodeDownlinkBackoff(input) {
     var index = 0;
     var nextResult;
     var errors = [];
-    var data = [];      
+    var data = [];
 
     // Message Type
     data[index++] = 0x05;
@@ -1790,7 +1765,7 @@ function encodeDownlinkRequestBacklog(input) {
     var index = 0;
     var nextResult;
     var errors = [];
-    var data = [];    
+    var data = [];
 
     // Message Type
     nextResult = getEnumValue(msgTypeDLEnum,false,input.data.msgType);
@@ -1845,7 +1820,7 @@ function encodeDownlinkSetOpenClosedConfig(input) {
     var index = 0;
     var nextResult;
     var errors = [];
-    var data = []; 
+    var data = [];
 
     // Message Type
     data[index++] = 0x0D;
@@ -1861,12 +1836,12 @@ function encodeDownlinkSetOpenClosedConfig(input) {
     nextResult = getEnumValue(operatingModeEnum, false, input.data.operatingMode);
     if (nextResult != "Not Found") {
         data[index++] = nextResult;
-    } 
+    }
     else{
         errors.push("Invalid Operating Mode used!");
     }
     // Lora Notification Options
-    nextResult = getBitfieldValue(loraIndicationOptionsBitfield, 
+    nextResult = getBitfieldValue(loraIndicationOptionsBitfield,
                                           false, input.data.loraNotificationOptions);
     if (nextResult != "Not Found"){
         data[index++] = nextResult;
@@ -1929,7 +1904,7 @@ function encodeDownlinkRequestTargetedBacklog(input) {
     var nextResult;
     var dayMax;
     var errors = [];
-    var data = [];    
+    var data = [];
 
     // Message Type
     nextResult = getEnumValue(msgTypeDLEnum,false,input.data.msgType);
@@ -2069,7 +2044,7 @@ function encodeDownlinkRequestTargetedBacklog(input) {
 function buildResult(errors,data) {
 
     var result;
-    
+
     if (errors.length != 0){
         result = {
                 errors : errors,
@@ -2128,7 +2103,7 @@ function decodeUplinkLairdMsgTypeTempRH(payload){
         humidity = twoBytesToFloat(payload.slice(index,
                     index + 2));
         index += 2;
-        // Temperature    
+        // Temperature
         temperature = twoBytesToFloat(payload.slice(index,
                     index + 2));
         index += 2;
@@ -2140,18 +2115,18 @@ function decodeUplinkLairdMsgTypeTempRH(payload){
         else{
             errors.push("Invalid Battery Capacity used!");
         }
-        // Alarm Message Count    
+        // Alarm Message Count
         alarmMsgCount = twoBytesToUInt16(payload.slice(index,
                 index + 2));
         index += 2;
-        // Backlog Message Count    
+        // Backlog Message Count
         backlogMsgCount = twoBytesToUInt16(payload.slice(index,
                 index + 2));
         index += 2;
     }
     else{
         errors.push("Invalid uplink message length!");
-    }    
+    }
     if (errors.length != 0) {
         result = {
                     errorsOccurred : "True",
@@ -2201,7 +2176,7 @@ function decodeUplinkLairdMsgTypeAggTempRH(payload){
     var backlogMsgCount;
     var numberOfReadings;
     var result;
-    
+
     if (payload.length > 11) {
         var readingsBytesLength = payload[6] *
             4;
@@ -2221,7 +2196,7 @@ function decodeUplinkLairdMsgTypeAggTempRH(payload){
                 errors.push("Invalid option type used!");
             }
             // Alarm Messsage Count
-            alarmMsgCount = payload[index++];          
+            alarmMsgCount = payload[index++];
             // Backlog Msg Count
             backlogMsgCount = twoBytesToUInt16(payload.slice(index,
                 index + 2));
@@ -2244,7 +2219,7 @@ function decodeUplinkLairdMsgTypeAggTempRH(payload){
             // Size the readings array as per the number of readings in the message
             readings = new Array([payload[6]]);
 
-            for (; readingsBytesLength; 
+            for (; readingsBytesLength;
 		        readingsBytesLength -= 4) {
 
                 humidity = twoBytesToFloat(payload.slice(
@@ -2276,7 +2251,7 @@ function decodeUplinkLairdMsgTypeAggTempRH(payload){
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             alarmMsgCount : alarmMsgCount,
             backlogMsgCount : backlogMsgCount,
@@ -2333,7 +2308,7 @@ function decodeUplinkLairdMsgTypeBacklogMessage(payload,isRtd){
         index += 4;
         // Check for RTD type message
         if (isRtd){
-            // Temperature    
+            // Temperature
             temperature = fourBytesToFloat(payload.slice(index,
                 index + 4));
             index += 4;
@@ -2343,7 +2318,7 @@ function decodeUplinkLairdMsgTypeBacklogMessage(payload,isRtd){
             humidity = twoBytesToFloat(payload.slice(index,
                         index + 2));
             index += 2;
-            // Temperature    
+            // Temperature
             temperature = twoBytesToFloat(payload.slice(index,
                         index + 2));
             index += 2;
@@ -2351,7 +2326,7 @@ function decodeUplinkLairdMsgTypeBacklogMessage(payload,isRtd){
     }
     else{
         errors.push("Invalid uplink message length!");
-    }    
+    }
     if (errors.length != 0) {
         result = {
                     errorsOccurred : "True",
@@ -2407,13 +2382,13 @@ function decodeUplinkLairdMsgTypeBacklogMessages(payload,isRtd){
     var result;
 
     // Expect at least one reading
-    if (payload.length >= 3 + 
+    if (payload.length >= 3 +
             8) {
 
         // Check the length less the non-reading bytes are a multiple of the
         // reading size - if not we're missing some data
         if ((payload.length - 3) %
-            8 == 0){                        
+            8 == 0){
 
             // OK to proceed
             lengthValid = true;
@@ -2459,8 +2434,8 @@ function decodeUplinkLairdMsgTypeBacklogMessages(payload,isRtd){
                     humidity = twoBytesToFloat(payload.slice(
                         index,
                         index +
-                    2));                    
-                    index += 2;  
+                    2));
+                    index += 2;
                     // Temperature
                     temperature = twoBytesToFloat(payload.slice(
                         index,
@@ -2473,7 +2448,7 @@ function decodeUplinkLairdMsgTypeBacklogMessages(payload,isRtd){
                         'humidity' : humidity,
                         'temperature': temperature
                     };
-                }    
+                }
             }
         }
     }
@@ -2488,7 +2463,7 @@ function decodeUplinkLairdMsgTypeBacklogMessages(payload,isRtd){
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             numberOfReadings : numberOfReadings,
             readings : readings,
@@ -2548,7 +2523,7 @@ function decodeUplinkLairdMsgSimpleConfig(payload){
         sensorReadPeriod = twoBytesToUInt16(payload.slice(
                     index,
                     index + 2));
-        index += 2; 
+        index += 2;
         // Sensor Aggregate Count
         sensorAggregate = payload[index++];
         // Temp Alarms Enabled
@@ -2572,7 +2547,7 @@ function decodeUplinkLairdMsgSimpleConfig(payload){
     }
     else{
             errors.push("Invalid uplink message length!");
-    }  
+    }
     if (errors.length != 0) {
         result = {
                     errorsOccurred : "True",
@@ -2650,7 +2625,7 @@ function decodeUplinkLairdMsgAdvancedConfig(payload){
         sensorReadPeriod = twoBytesToUInt16(payload.slice(
                     index,
                     index + 2));
-        index += 2; 
+        index += 2;
         // Sensor Aggregate Count
         sensorAggregate = payload[index++];
         // Temp Alarms Enabled
@@ -2680,16 +2655,16 @@ function decodeUplinkLairdMsgAdvancedConfig(payload){
         // Humidity Alarm High Limit
         humidityAlarmLimitHigh = payload[index++];
         // LED BLE
-        ledBle = twoBytesToUInt16(payload.slice(index, 
+        ledBle = twoBytesToUInt16(payload.slice(index,
             index + 2));
         index += 2;
         // LED LoRa
-        ledLora = twoBytesToUInt16(payload.slice(index, 
+        ledLora = twoBytesToUInt16(payload.slice(index,
             index + 2));
     }
     else{
             errors.push("Invalid uplink message length!");
-    }  
+    }
     if (errors.length != 0) {
         result = {
                     errorsOccurred : "True",
@@ -2709,7 +2684,7 @@ function decodeUplinkLairdMsgAdvancedConfig(payload){
                 tempAlarmLimitHigh : tempAlarmLimitHigh,
                 humidityAlarmLimitLow : humidityAlarmLimitLow,
                 humidityAlarmLimitHigh : humidityAlarmLimitHigh,
-                ledBle : ledBle, 
+                ledBle : ledBle,
                 ledLora : ledLora,
             };
         result = {
@@ -2753,7 +2728,7 @@ function decodeUplinkLairdMsgTypeFirmwareVersion(payload) {
         else{
             errors.push("Invalid option type used!");
         }
-        // Release Date        
+        // Release Date
         releaseDate = payload[index++].toString() +
                       '/' +
                       payload[index++].toString() +
@@ -2767,7 +2742,7 @@ function decodeUplinkLairdMsgTypeFirmwareVersion(payload) {
         partNumber = fourBytesToUInt32(payload.slice(
                         index,
                         index + 4));
-        index += 4;                
+        index += 4;
     }
     else{
         errors.push("Invalid uplink message length!");
@@ -2780,7 +2755,7 @@ function decodeUplinkLairdMsgTypeFirmwareVersion(payload) {
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             releaseDate: releaseDate,
             releaseNumber: releaseNumber,
@@ -2840,7 +2815,7 @@ function decodeUplinkLairdMsgTypeContactSensorConfig(payload){
             errors.push("Invalid Operating Mode used!");
         }
         // LoRa Notification Options
-        nextResult = getBitfieldValue(loraIndicationOptionsBitfield, 
+        nextResult = getBitfieldValue(loraIndicationOptionsBitfield,
             true, payload[index++]);
         if (nextResult != -1){
             loraNotificationOptions = nextResult;
@@ -2872,7 +2847,7 @@ function decodeUplinkLairdMsgTypeContactSensorConfig(payload){
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             operatingMode : operatingMode,
             loraNotificationOptions : loraNotificationOptions,
@@ -2964,7 +2939,7 @@ function decodeUplinkLairdMsgTypeContactSensorState(payload){
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             operatingMode : operatingMode,
             state : state,
@@ -3025,7 +3000,7 @@ function decodeUplinkLairdMsgTypeBatteryVoltage(payload){
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             voltage : voltage,
         };
@@ -3110,7 +3085,7 @@ function decodeUplinkLairdMsgTypeTempExt(payload){
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             temperature : temperature,
             batteryCapacity : batteryCapacity,
@@ -3157,7 +3132,7 @@ function decodeUplinkLairdMsgTypeAggTempExt(payload){
         var readingsBytesLength = payload[6] *
             4;
 
-        if (payload.length == 
+        if (payload.length ==
 		readingsBytesLength + 11) {
 
             // OK to proceed if both length checks are OK
@@ -3196,7 +3171,7 @@ function decodeUplinkLairdMsgTypeAggTempExt(payload){
             // Timestamp
             timestamp = convertTimestampToDate(payload.slice(
                 index,index + 4));
-            index += 4; 
+            index += 4;
             // Now extract the temperature data
             readings = new Array(numberOfReadings);
             for (; index < payload.length ; ) {
@@ -3224,7 +3199,7 @@ function decodeUplinkLairdMsgTypeAggTempExt(payload){
     }
     else{
         data = {
-            msgType : msgType,        
+            msgType : msgType,
             options : options,
             alarmMsgCount : alarmMsgCount,
             backlogMsgCount : backlogMsgCount,
@@ -3291,7 +3266,7 @@ function decodeUplinkLairdMsgRTDConfig(payload){
         sensorReadPeriod = twoBytesToUInt16(payload.slice(
                     index,
                     index + 2));
-        index += 2; 
+        index += 2;
         // Sensor Aggregate Count
         sensorAggregate = payload[index++];
         // Temp Alarms Enabled
@@ -3304,24 +3279,24 @@ function decodeUplinkLairdMsgRTDConfig(payload){
             errors.push("Invalid Temperature Alarm Enable used!");
         }
         // Temp Alarm Low Limit
-        tempAlarmLimitLow = twoBytesToInt16(payload.slice(index, 
+        tempAlarmLimitLow = twoBytesToInt16(payload.slice(index,
             index + 2));
         index += 2;
         // Temp Alarm High Limit
-        tempAlarmLimitHigh = twoBytesToInt16(payload.slice(index, 
+        tempAlarmLimitHigh = twoBytesToInt16(payload.slice(index,
             index + 2));
         index += 2;
         // LED BLE
-        ledBle = twoBytesToUInt16(payload.slice(index, 
+        ledBle = twoBytesToUInt16(payload.slice(index,
             index + 2));
         index += 2;
         // LED LoRa
-        ledLora = twoBytesToUInt16(payload.slice(index, 
+        ledLora = twoBytesToUInt16(payload.slice(index,
             index + 2));
     }
     else{
             errors.push("Invalid uplink message length!");
-    }  
+    }
     if (errors.length != 0) {
         result = {
                     errorsOccurred : "True",
@@ -3338,7 +3313,7 @@ function decodeUplinkLairdMsgRTDConfig(payload){
                 tempAlarmsEnabled: tempAlarmsEnabled,
                 tempAlarmLimitLow : tempAlarmLimitLow,
                 tempAlarmLimitHigh : tempAlarmLimitHigh,
-                ledBle : ledBle, 
+                ledBle : ledBle,
                 ledLora : ledLora,
             };
         result = {
@@ -3390,8 +3365,8 @@ function decodeDownlink(input) {
             output = decodeDownlinkRequestTargetedBacklog(input);
             break;
         default:
-            output.errorsOccurred = "True";    
-            output.errors = ["Invalid message type used!"];    
+            output.errorsOccurred = "True";
+            output.errors = ["Invalid message type used!"];
             break;
     }
     if (output.errorsOccurred == "True"){
@@ -3444,8 +3419,8 @@ function encodeDownlink(input) {
             output = encodeDownlinkRequestTargetedBacklog(input);
             break;
         default:
-            output.errorsOccurred = "True";    
-            output.errors = ["Invalid message type used!"];    
+            output.errorsOccurred = "True";
+            output.errors = ["Invalid message type used!"];
             break;
     }
     if (output.errorsOccurred == "True")
@@ -3454,7 +3429,7 @@ function encodeDownlink(input) {
     }
     else{
         result = {
-                    bytes : output.data, 
+                    bytes : output.data,
                     fPort : 1
                 };
     }
@@ -3505,8 +3480,8 @@ function decodeUplink(input) {
         break;
         default:
             output.errorsOccurred = "True";
-            output.errors = ["Invalid message type used!"];    
-            break; 
+            output.errors = ["Invalid message type used!"];
+            break;
     }
     if (output.errorsOccurred == "True"){
         result = {errors : output.errors};

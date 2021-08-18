@@ -19,38 +19,3 @@ function decodeUplink(input) {
     data: data,
   };
 }
-
-function encodeDownlink(input) {
-  var i = colors.indexOf(input.data.color);
-  if (i === -1) {
-    return {
-      errors: ['unknown color'],
-    };
-  }
-  var warnings = [];
-  if (input.data.color !== 'blue') {
-    warnings.push(
-      input.data.color + " is not The Things Network's favorite color"
-    );
-  }
-  return {
-    bytes: [i],
-    fPort: 4,
-    warnings: warnings,
-  };
-}
-
-function decodeDownlink(input) {
-  switch (input.fPort) {
-    case 4:
-      return {
-        data: {
-          color: colors[input.bytes[0]],
-        },
-      };
-    default:
-      return {
-        errors: ['unknown FPort'],
-      };
-  }
-}

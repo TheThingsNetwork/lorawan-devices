@@ -1,5 +1,5 @@
 name: MClimate Flood Sensor
-description: MClimate Flood Sensor is a compact flood sensor suitable for residential and commercial applications. If a flood is detected, data is immediately transmitted.
+description: The MClimate Flood Sensor contains a flood sensor for detecting floods and water leakage in residential and commercial buildings. In addition to that, the MClimate flood sensor contains a device tampering detection sensor and a temperature sensor. When a flood or fraud is detected an uplink containing the desired values is transferred to the LoRaWAN® network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -11,6 +11,9 @@ firmwareVersions:
   - # Firmware version
     version: '6.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.4'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
@@ -19,7 +22,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: flood-sensor-profile
         lorawanCertified: false
-        # codec: flood-sensor-codec
+        codec: flood-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,

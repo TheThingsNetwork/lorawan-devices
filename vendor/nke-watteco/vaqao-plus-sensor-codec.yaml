@@ -1,0 +1,133 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vaqao-plus-sensor.js
+  # Examples (optional)
+  # examples:
+  # - description: Time-stamped batch report on temperature and illuminance
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x50, 0x50, 0x80, 0x82, 0xB6, 0x79, 0x00, 0x8A, 0xC0, 0x56, 0x10, 0x10, 0xDC, 0x03, 0x78, 0xC4, 0x46, 0x01, 0xED, 0xC8, 0x47, 0x41, 0x2B, 0x4A, 0x50, 0x9D, 0x3A, 0x75, 0xEA, 0x00, 0x80, 0x00, 0x03, 0x08, 0xC0, 0x19]
+  #   output:
+  #     data:
+  #       data :
+  #         - date: '2021-06-07T14:29:18.605Z'
+  #           label: VOC
+  #           value: 1
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Temperature
+  #           value: 26.5
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: CO2
+  #           value: 730
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: VOC
+  #           value: 30
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Illuminance
+  #           value: 20
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Illuminance
+  #           value: 20
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Illuminance
+  #           value: 20
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Illuminance
+  #           value: 20
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Illuminance
+  #           value: 20
+  #       zclheader:
+  #         report : batch
+  #     errors : []
+  #     warnings : []
+
+  # - description: Time-stamped batch report on temperature, relative humidty, CO2, concentration and Pressure
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x60, 0x02, 0x80, 0x02, 0xAE, 0x28, 0x80, 0xD8, 0x6E, 0x44, 0x02, 0x76, 0xE8, 0xDD, 0xA8, 0x4E, 0xFC, 0x20, 0xCF, 0x05, 0x57, 0xD5, 0x6E, 0x1D, 0x0E, 0xD8, 0xC2, 0xDD, 0xFA, 0x00, 0x50, 0x04, 0x01, 0xED, 0x6C, 0x52, 0x2B, 0x68, 0xB7, 0xAC, 0xDE, 0x2D, 0x4B, 0xEE, 0x96, 0xE5, 0x76, 0xCB, 0x9A, 0x77, 0xCB, 0x62, 0x03, 0x84, 0xA0, 0xDD, 0xB0, 0x60, 0xB7, 0x2C, 0xDE, 0x2D, 0x4B, 0xED, 0x96, 0xC5, 0x1A, 0x68, 0x37, 0x2C, 0xEF, 0x96, 0x35, 0xBB, 0x65, 0x89, 0x00, 0x0B]
+  #   output:
+  #     data:
+  #       data :
+  #         - date: '2021-06-07T13:33:54.265Z'
+  #           label: VOC
+  #           value: 0
+  #         - date: '2021-06-07T13:33:54.265Z'
+  #           label: VOC
+  #           value: 1
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Temperature
+  #           value: 29.9
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Temperature
+  #           value: 29.6
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Temperature
+  #           value: 29
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Temperature
+  #           value: 28.1
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Temperature
+  #           value: 27.5
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Humidity
+  #           value: 38
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Humidity
+  #           value: 36
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Humidity
+  #           value: 33
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Humidity
+  #           value: 32
+  #         - date: '2021-06-07T13:43:33.265Z'
+  #           label: CO2
+  #           value: 630
+  #         - date: '2021-06-07T13:43:33.265Z'
+  #           label: CO2
+  #           value: 640
+  #         - date: '2021-06-07T13:43:33.265Z'
+  #           label: CO2
+  #           value: 680
+  #         - date: '2021-06-07T13:43:33.265Z'
+  #           label: CO2
+  #           value: 640
+  #         - date: '2021-06-07T13:43:33.265Z'
+  #           label: CO2
+  #           value: 760
+  #         - date: '2021-06-07T13:43:33.265Z'
+  #           label: CO2
+  #           value: 790
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: VOC
+  #           value: 40
+  #         - date: '2021-06-07T14:29:23.605Z'
+  #           label: Pressure
+  #           value: 1011
+  #       zclheader:
+  #         report : batch
+  #     errors : []
+  #     warnings : []
+
+  # - description: Time-stamped standard report on VOC
+  #   input:
+  #     fPort: 125
+  #     bytes: [0x11, 0x0A, 0x80, 0x0C, 0x00, 0x00, 0x21, 0x00, 0x22]
+  #   output:
+  #     data:
+  #       data:
+  #         - date : '2021-06-07T12:27:45.710Z'
+  #           label: VOC
+  #           value: 34
+  #       zclheader:
+  #         alarm : 0
+  #         attributID : "0x0000"
+  #         clusterdID : "0x800C"
+  #         cmdID : "0x0A"
+  #         endpoint : 0
+  #         report : standard
+  #     errors : []
+  #     warnings : []

@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"go.thethings.network/lorawan-stack/v3/pkg/errors"
 	"go.thethings.network/lorawan-stack/v3/pkg/scripting"
@@ -86,8 +87,11 @@ func main() {
 		log.Fatalf("Read %q: %v", *codecPath, err)
 	}
 
+	opts := scripting.DefaultOptions
+	opts.Timeout = 1 * time.Second
+
 	var (
-		vm            = javascript.New(scripting.DefaultOptions)
+		vm            = javascript.New(opts)
 		input, output interface{}
 	)
 

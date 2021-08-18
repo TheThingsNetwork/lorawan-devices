@@ -1,5 +1,5 @@
 name: LPN TSM Transformer station monitor
-description: Transmission of operating status and error messages from transformer stations
+description: The Comtac LPN TSM Transformer station monitor records most of the relevant metering values and signals for the monitoring of the operating status and the transmission of error and alarm messages. It also includes a temperature sensor for room temperature monitoring.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -76,7 +76,7 @@ productURL: https://www.comtac.ch/en/products/lora/condition-monitoring/lpn-tsm-
 
 # Photos
 photos:
-  main: lpn-tsm-foto.jpg
+  main: lpn-tsm-foto.png
 
 # Regulatory compliances (optional)
 compliances:
