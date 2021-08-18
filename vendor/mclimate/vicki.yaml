@@ -72,8 +72,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://mclimate.bit.ai/docs/view/hynFRwdIvWYQg867
-dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/kSUunNxnzQB8fLuq/MClimate_Vicki_LoRaWAN_-_Datasheet.pdf
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-vicki-lorawan
+dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-McDr-jr9h3qA888r1Yp%2F-McDr5WZxuPx4D2PMcZo%2F-McDyezszBtB8nZF8EOB%2FMClimate-Vicki-LoRaWAN-Datasheet.pdf?alt=media&token=39004b5f-6238-44d9-a2d7-9d987a84c718
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:

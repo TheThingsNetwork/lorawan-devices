@@ -1,54 +1,62 @@
-name: MClimate T-Valve - Water valve
-description: The MClimate T-Valve is a LoRaWAN® water valve equipped with water temperature, ambient temperature, magnetic, flood, and box tampering sensors. It can be used in residential or commercial buildings.
+name: MClimate CO2 Sensor and Notifier
+description: MClimate CO2 Sensor and Notifier is a device that uses NDIR technology to measure the actual CO2 and has built in temperature and humidity sensors. The device also has acoustic and visual notification abilities to indicate occupants whether a room should be ventilated.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '6.0'
+    version: '1.0'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: t-valve-profile
+        id: co2-sensor-profile
         lorawanCertified: false
-        codec: t-valve-codec
+        codec: co2-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
+  - co2
   - temperature
-  - water
+  - humidity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 105
-  length: 117
-  height: 90.8
+  width: 80
+  length: 80
+  height: 19
 
 # Weight in grams (optional)
-weight: 550
+weight: 68
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: LiSOCl2 ER26500 3.6V
+  type: AA
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: 0
+    min: -20
     max: 60
   # Relative humidity (fraction of 1)
   relativeHumidity:
-    min: 0.35
-    max: 0.80
+    min: 0.00
+    max: 0.99
 
 # IP rating (optional)
 ipCode: IP22
@@ -64,8 +72,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-t-valve-lorawan
-dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-McDr-jr9h3qA888r1Yp%2F-McE1iHjrqtJc4ji0XKi%2F-McEWXcvGH83vosGIKCt%2FMClimate-T-Valve-LoRaWAN-Datasheet.pdf?alt=media&token=cf7699e7-1cfb-486e-ad94-73650d82128c
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-co2-sensor-and-notifier-lorawan
+dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-McDr-jr9h3qA888r1Yp%2F-McEc-jPJXMJe5V4d-jY%2F-McEo9NKAb96OUT3rm5M%2FMClimate-CO2_Sensor-LoRaWAN-Datasheet.pdf?alt=media&token=984b199d-ba1f-4e28-a234-f54d73b66293
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:
@@ -90,7 +98,7 @@ dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.
 
 # Photos
 photos:
-  main: t-valve.jpg
+  main: co2-sensor.png
 
 # Regulatory compliances (optional)
 compliances:
