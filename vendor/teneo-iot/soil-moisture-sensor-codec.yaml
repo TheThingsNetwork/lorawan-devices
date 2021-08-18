@@ -1,0 +1,19 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: soil-moisture-sensor.js
+  # Examples (optional)
+  examples:
+    - description: Standard soil moisture message with temperature
+      input:
+        fPort: 1
+        bytes: [12, 40, 255, 156, 04, 63]
+      output:
+        data:
+          battery: 3.2
+          charging: false
+          sensorType: moisture
+          settingsAllowed: true
+          moisture: 40
+          temperature: -1
+          valid: true
