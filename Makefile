@@ -41,3 +41,7 @@ fmt:
 	$(NPM) run format
 
 # vim: ft=make
+
+.PHONY: file
+file:
+	node ./template-generator/bin/create-project	

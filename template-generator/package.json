@@ -1,0 +1,46 @@
+{
+  "name": "devrepo-templates",
+  "version": "2.1.1",
+  "description": "Download Device Repository files so you can fill them with your device information",
+  "main": "index.js",
+  "bin": {
+    "stub-devices": "bin/create-project",
+    "create-project": "bin/create-project"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "node ./bin/create-project",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "device",
+    "repository",
+    "vendor",
+    "profile",
+    "codec"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jaime-Trinidad/device-stubs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "templates"
+  ],
+  "author": "Jaime Trinidad",
+  "license": "ISC",
+  "devDependencies": {
+    "arg": "^5.0.0",
+    "chalk": "^4.1.2",
+    "esm": "^3.2.25",
+    "execa": "^5.1.1",
+    "generate-template-files": "^3.2.0",
+    "inquirer": "^8.1.2",
+    "listr": "^0.14.3",
+    "ncp": "^2.0.0",
+    "pkg-install": "^1.0.0"
+  }
+}

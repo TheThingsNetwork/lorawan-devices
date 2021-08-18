@@ -1,0 +1,4 @@
+# Add your decoder file name
+uplinkDecoder:
+  fileName: __decoder__
+  # If you have Example please check https://github.com/TheThingsNetwork/lorawan-devices on how to add them.
