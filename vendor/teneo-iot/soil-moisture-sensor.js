@@ -5,8 +5,7 @@ function decodeUplink(input) {
 	if (input.bytes.length === 0) {
 		data.valid = false;
 		return {
-			data: data,
-			warnings: warnings
+			data: data
 		}
 	}
 
@@ -43,7 +42,6 @@ function decodeUplink(input) {
 	}
 
 	return {
-		data: data,
-		warnings: warnings
+		data: data
 	}
 }
