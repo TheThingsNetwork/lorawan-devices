@@ -56,8 +56,8 @@ if(options.template === 'index'){
             },
             stringReplacers: [
                 {question: chalk.green.bold('Write your file name (ex. eu868, us915,...)'), slot: '__profile__'},
-                {question: chalk.dim('LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1'), slot: '__macversion__'},
-                {question: chalk.dim('Parameters Version: 1.0: TS001-1.0, 1.0.1: TS001-1.0.1, 1.0.2: RP001-1.0.2 or RP001-1.0.2-RevB, 1.0.3: RP001-1.0.3-RevA, 1.0.4: RP002-1.0.0 or RP002-1.0.1, 1.1: RP001-1.1-RevA or RP001-1.1-RevB'), slot: '__paramversion__'}, 
+                {question: chalk.dim('LoRaWAN MAC version: \n 1.0 \n 1.0.1 \n 1.0.2 \n 1.0.3 \n 1.0.4 \n 1.1'), slot: '__macversion__'},
+                {question: chalk.dim('Parameters Version: \n 1.0: TS001-1.0 \n 1.0.1: TS001-1.0.1 \n 1.0.2: RP001-1.0.2 or RP001-1.0.2-RevB \n 1.0.3: RP001-1.0.3-RevA \n 1.0.4: RP002-1.0.0 or RP002-1.0.1 \n 1.1: RP001-1.1-RevA or RP001-1.1-RevB'), slot: '__paramversion__'}, 
                 {question: chalk.dim('Maximum EIRP'), slot: '__maxeirp__'}],
             output: {
                 path: './vendor/vendor_name/__profile__(lowerCase)-profile.yaml',
