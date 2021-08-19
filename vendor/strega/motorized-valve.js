@@ -239,9 +239,9 @@ if (v4_1==="40" || v4_10 === "40"){
       Tamper  : Tamper,
       Cable   : Cable,
       DI0    : DI_0,
-      DI1    : DI_1,
+      LSO    : DI_1,
       Leak : Leakage,
-      Fraud   : Fraud,
+      LSC   : Fraud,
       Class   : clas,
       Power   : power,
       vt     : v_t,
@@ -265,9 +265,9 @@ if (v4_1==="40" || v4_10 === "40"){
       Tamper  : Tamper,
       Cable   : Cable,
       DI0    : DI_0,
-      DI1    : DI_1,
+      LSO    : DI_1,
       Leak : Leakage,
-      Fraud   : Fraud,
+      LSC   : Fraud,
       Class   : clas,
       Power   : power,
       vt     : v_t,
@@ -588,7 +588,18 @@ function encodeDownlink(input) {
   return {
      bytes:bytes,
  
-  }}}
+  }}
+  
+  // Motorized valve/ anti sediment flushing
+  if (port == 27 || port == 28){
+    ne[0]    = input.data.motor;
+    ne[1]    = 48;
+    bytes[0] = ne[0]+(+ne[1]);
+    bytes[1] = input.data.percentage;
+    return {
+      bytes:bytes,
+  
+   }}}
  
  function decodeDownlink(input) {
    return {

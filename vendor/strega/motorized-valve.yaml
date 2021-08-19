@@ -1,12 +1,10 @@
-name: smart-valve
-description: The STREGA LoRaWAN wireless smart-valve has an embedded temperature and humidity sensor, tamper detection sensor, and wire-cut detection sensor. It also accepts external analog, digital, and leak detection sensor inputs. The valve may also be configured for full water meter reading and data transmission capabilities.
+name: motorized-valve
+description: The STREGA LoRaWAN wireless motorized smart-valve has an embedded temperature and humidity sensor, tamper detection sensor, and wire-cut detection sensor. It also accepts external analog, digital, and leak detection sensor inputs. The valve may also be configured for full water meter reading and data transmission capabilities.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.x'
+  - version: '4.6'
     numeric: 1
-  - version: '4.x'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -15,25 +13,24 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '3.x'
-      - '4.x'
+      - '4.6'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: smart-valve-profile-868
+        id: motorized-valve-profile-868
         lorawanCertified: true
-        codec: smart-valve-codec
+        codec: motorized-valve-codec
       US902-928:
-        id: smart-valve-profile-915
+        id: motorized-valve-profile-915
         lorawanCertified: true
-        codec: smart-valve-codec
+        codec: motorized-valve-codec
       AS923:
-        id: smart-valve-profile-923
+        id: motorized-valve-profile-923
         lorawanCertified: true
-        codec: smart-valve-codec
+        codec: motorized-valve-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -96,7 +93,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: smart-valve.png
+  main: motorized-valve.png
 
 # Youtube or Vimeo Video (optional)
 videos:
