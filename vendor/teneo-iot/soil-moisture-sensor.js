@@ -28,9 +28,9 @@ function decodeUplink(input) {
 		}
 		else if (input.bytes.length === 6) {
 			data.valid = true;
-			data.moisture.push(bytes[1] << 0);
+			data.moisture.push(input.bytes[1] << 0);
 
-			var temp = input.bytes[2]<<24>>16 | bytes[3];
+			var temp = input.bytes[2]<<24>>16 | input.bytes[3];
 			data.temperature = temp / 100;
 		} else {
 			data.valid = false;

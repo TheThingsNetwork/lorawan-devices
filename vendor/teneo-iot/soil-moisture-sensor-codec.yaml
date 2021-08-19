@@ -12,8 +12,8 @@ uplinkDecoder:
         data:
           battery: 3.2
           charging: false
+          moisture: 40
           sensorType: moisture
           settingsAllowed: true
-          moisture: 40
           temperature: -1
           valid: true
