@@ -1,9 +1,9 @@
 name: ADT1 Tube
-description: The Keller ADT1-Tube is a remote transmission unit with a data logger compatible with selected KELLER level sensors and pressure transmitters. It is suitable for use in groundwater level monitoring, flood early warning systems, tank level monitoring, and pressure monitoring applications.
+description: The KELLER ADT1-Tube is a remote transmission unit with a data logger compatible with selected KELLER level probes and pressure transmitters. It is suitable for use in groundwater level monitoring, flood early warning systems, tank level monitoring, and pressure monitoring applications.
 
 firmwareVersions:
-  - version: '21.06'
-    numeric: 2106
+  - version: 'all'
+    numeric: 1
     profiles:
       EU863-870:
         id: adt1-profile
