@@ -1,5 +1,5 @@
 name: LHT65
-description: LoRaWAN Temperature & Humidity sensor
+description: The Dragino LHT65 consists of a temperature & humidity sensor for environmental monitoring. It also allows connecting external sensors such as temperature, soil moisture, and tilt. The captured data is sent to a LoRaWAN® network for analysis.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

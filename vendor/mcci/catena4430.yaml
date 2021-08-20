@@ -1,5 +1,5 @@
 name: Animal Activity Sensor
-description: Passive Infrared Sensor optimized for monitoring laboratory animals. Includes SD card storage, pellet feeder interface, indicator lights.
+description: The MCCI Catena® 4430 Activity Sensor Wing allows mounting Panasonic WL series PIR sensors and connecting additional external sensors. It can be used with MCCI Catena 4610, Catena 4612/4618, and the Adafruit Feather M0 with LoRa® radio system, but suitable for use with any Adafruit Feather CPU board.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -118,9 +118,7 @@ productURL: https://mcci.io/buy-catena4430
 
 # Photos
 photos:
-  main: catena4430.jpg
-##  other:
-##    - windsensor-package.jpg
+  main: catena4430.png
 
 # Youtube or Vimeo Video (optional)
 videos:

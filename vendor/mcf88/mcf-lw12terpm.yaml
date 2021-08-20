@@ -1,5 +1,5 @@
 name: MCF-LW12TERPM
-description: Outdoor sensor PM1/2.5/10
+description: The mcf88 MCF-LW12TERPM is an outdoor PM and environmental sensor that consists of temperature, humidity, pressure, and PM (PM1, PM2.5, PM10) sensors. It sends collected data over the LoRaWAN® network. Ideally suited for a wide range of applications such as weather stations, urban monitoring, air quality, industrial, environmental, or farming projects.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

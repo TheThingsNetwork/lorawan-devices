@@ -1,0 +1,66 @@
+name: Wireless Toilet Occupancy Sensor
+description: The Netvox R718PQA-Wireless Toilet Occupancy Sensor is a LoRaWAN® end device equipped with a reed switch sensor and a built-in PIR sensor (pyroelectric human body infrared sensor). Suitable occupancy detection for a room, for example, detecting if someone is in the toilet.
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718qa-codec
+      AS923:
+        id: profile-as923
+        codec: r718qa-codec
+      US902-928:
+        id: profile-us915
+        codec: r718qa-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718qa-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718qa-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718qa-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718qa-codec
+
+dimensions:
+  width: 88.19
+  length: 112
+  height: 32
+
+weight: 150
+
+battery:
+  replaceable: true
+  type: 2 x ER14505 3.6V Lithium AA battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718PQA
+dataSheetURL: http://www.netvox.com.tw/um/R718PQA/R718PQAdatasheet.pdf
+
+photos:
+  main: photos/r718qa.jpg

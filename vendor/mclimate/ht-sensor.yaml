@@ -1,5 +1,5 @@
 name: MClimate Humidity and Temperature Sensor
-description: MClimate HT Sensor is an indoor temperature and humidity sensor with 10+ years of battery life, configurable settings and beautiful and discreen design.
+description: The MClimate HT LoRaWAN® Sensor is an indoor temperature and humidity sensor with 10+ years of battery life ideal for monitoring environments in residential and commercial buildings.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -11,6 +11,8 @@ firmwareVersions:
   - # Firmware version
     version: '1.0'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870

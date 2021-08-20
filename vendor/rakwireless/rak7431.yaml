@@ -1,5 +1,5 @@
 name: RAK7431 WisNode Bridge Serial
-description: RAK7431 WisNode Bridge Serial is an RS485 to LoRaWAN converter designed for industrial applications. The device relays ModBUS data using the LoRaWAN network as means of wirelessly transmitting to and from the end devices.
+description: The RAKwireless RAK7431 is an RS485 to LoRaWAN® converter designed for industrial applications that relays ModBUS data using the LoRaWAN network.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'

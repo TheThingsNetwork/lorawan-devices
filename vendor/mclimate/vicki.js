@@ -1,5 +1,6 @@
 function decodeUplink(input) {
 	var bytes = input.bytes;
+
 	toBool = function(value) {
 		return value == '1';
 	};
@@ -34,7 +35,7 @@ function decodeUplink(input) {
 			reason: bytes[0],
 			targetTemperature: bytes[1],
 			sensorTemperature: bytes[2] * 165 / 256 - 40,
-			relativeHumidity: bytes[3] / 256,
+            relativeHumidity: (bytes[3] * 100) / 256 ,
 			motorRange: motorRange,
 			motorPosition: motorPosition,
 			batteryVoltage: batteryVoltageCalculated,

@@ -10,7 +10,7 @@ const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
 
-let validate = new Ajv().addSchema([require('../lib/draft/schema.json'), require('../schema.json')]);
+const ajv = new Ajv({ schemas: [require('../lib/draft/schema.json'), require('../schema.json')] });
 
 const options = yargs.usage('Usage: --vendor <file>').option('v', {
   alias: 'vendor',
@@ -20,19 +20,19 @@ const options = yargs.usage('Usage: --vendor <file>').option('v', {
   default: './vendor/index.yaml',
 }).argv;
 
-let validateVendors = validate.compile({
+let validateVendors = ajv.compile({
   $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendors',
 });
-let validateVendor = validate.compile({
+let validateVendor = ajv.compile({
   $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendor',
 });
-let validateEndDevice = validate.compile({
+let validateEndDevice = ajv.compile({
   $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevice',
 });
-let validateEndDeviceProfile = validate.compile({
+let validateEndDeviceProfile = ajv.compile({
   $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDeviceProfile',
 });
-let validateEndDevicePayloadCodec = validate.compile({
+let validateEndDevicePayloadCodec = ajv.compile({
   $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevicePayloadCodec',
 });
 
@@ -210,25 +210,42 @@ vendors.vendors.forEach((v) => {
       console.log(`${key}: valid`);
 
       endDevice.firmwareVersions.forEach((version) => {
+        const key = `${v.id}: ${d}: ${version.version}`;
+
+        if (Boolean(version.hardwareVersions) != Boolean(endDevice.hardwareVersions)) {
+          console.error(
+            `${key}: hardware versions are inconsistent: when used in end device, use in firmware versions (and vice-versa)`
+          );
+          process.exit(1);
+        }
+        if (version.hardwareVersions) {
+          version.hardwareVersions.forEach((hardwareVersion) => {
+            if (!endDevice.hardwareVersions.find((v) => v.version === hardwareVersion)) {
+              console.error(`${key}: hardware version ${hardwareVersion} not found in supported hardware versions`);
+              process.exit(1);
+            }
+          });
+        }
+
         Object.keys(version.profiles).forEach((region) => {
           const regionProfile = version.profiles[region];
           const key = `${v.id}: ${d}: ${region}`;
           const vendorID = regionProfile.vendorID ?? v.id;
           if (!vendorProfiles[vendorID]) {
             vendorProfiles[vendorID] = {};
-            if (!vendorProfiles[vendorID][regionProfile.id]) {
-              const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
-              if (!validateEndDeviceProfile(profile)) {
-                console.error(
-                  `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
-                    validateEndDeviceProfile.errors
-                  )}`
-                );
-                process.exit(1);
-              }
-            }
-            vendorProfiles[vendorID][regionProfile.id] = true;
           }
+          if (!vendorProfiles[vendorID][regionProfile.id]) {
+            const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
+            if (!validateEndDeviceProfile(profile)) {
+              console.error(
+                `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
+                  validateEndDeviceProfile.errors
+                )}`
+              );
+              process.exit(1);
+            }
+          }
+          vendorProfiles[vendorID][regionProfile.id] = true;
           console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
 
           if (regionProfile.codec && !codecs[regionProfile.codec]) {

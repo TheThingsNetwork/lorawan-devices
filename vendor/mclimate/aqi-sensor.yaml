@@ -1,6 +1,6 @@
 name: MClimate Air Quality Sensor & Notifier (AQI)
 
-description: MClimate AQI Sensor and Notifier LoRaWAN is an indoor Air Quality Index Sensor and Notifier with 10+ years of battery life, configurable settings and beautiful and discrete design. It is a 4-in-1 sensor with gas, humidity, pressure and temperature measurement based on proven sensing principles by Bosch. It measures AQI, VOC (ppm), temperature, humidity and pressure. It also has a configurable buzzer and LED to notify tenants if the air quality Index is below a configurable threshold.
+description: The MClimate AQI Sensor and Notifier is a LoRaWAN® indoor Air Quality Index Sensor and Notifier featuring gas, humidity, pressure, and temperature sensors. These sensors measure AQI, VOC (ppm), temperature, humidity, and barometric pressure. It also has a configurable buzzer and RGB LED to notify tenants if the Air Quality Index is below a configurable threshold.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -12,6 +12,9 @@ firmwareVersions:
   - # Firmware version
     version: '1.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870

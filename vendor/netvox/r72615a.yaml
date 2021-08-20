@@ -1,5 +1,5 @@
 name: Wireless CO2/Temperature/Humidity Sensor
-description: R72615A has a temperature and humidity sensor that detects and transmits ambient temperature and humidity data. It applies wireless communication method that uses the SX1276 wireless communication module. The R72615A has a CO2 sensor that detects the concentration of CO2 in the air.
+description: The Netvox R72615A has a CO2, temperature, and humidity sensor that detects and transmits CO2 level, ambient temperature, and humidity data. It uses LoRaWAN to transmit data to an application server.
 
 hardwareVersions:
   - version: '4'

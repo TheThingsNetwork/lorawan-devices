@@ -38,12 +38,16 @@ jobs:
         cd website/
         yarn install
         yarn build
+      env:
+        BASE_URL: https://www.thethingsnetwork.org
+        BASE_PATH: /device-repository
     - name: Build Hugo
       run: |
         cd website/
         make hugo.build.public
       env:
-        HUGO_BASE_URL: https://thethingsnetwork.github.io/lorawan-devices/
+        BASE_URL: https://www.thethingsnetwork.org
+        BASE_PATH: /device-repository
     - name: Deploy Device Repository to Github pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:

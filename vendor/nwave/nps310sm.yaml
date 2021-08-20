@@ -1,7 +1,7 @@
 id: nps310sm
 name: Smart Parking Sensor
 partNumber: NPS-3.10-SM
-description: The wireless vehicle detection sensor with high detection accuracy at 99.7%, fast detection time at 3-5 seconds, low profile - 20mm, 10 years battery life @20 parking sessions a day and vehicle counting capabilities.
+description: The Nwave Smart Parking Sensor is equipped with a magnetometer, temperature, and proximity sensors for parking detection. The smart parking sensors installed in each parking spot generate data on space occupancy in real-time and is transmitted over a LoRaWAN network.
 hardwareVersions:
   - version: '3.10'
     numeric: 310

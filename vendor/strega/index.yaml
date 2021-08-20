@@ -1,5 +1,7 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
+# This file contains three device
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - smart-valve # look in windsensor.yaml for the end device definition
+  - smart-valve
+  - smart-emitter
+  - smart-switch
