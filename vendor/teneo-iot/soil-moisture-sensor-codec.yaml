@@ -17,3 +17,15 @@ uplinkDecoder:
           settingsAllowed: true
           temperature: -1
           valid: true
+    - description: Standard soil moisture message without temperature
+      input:
+        fPort: 1
+        bytes: [12, 40]
+      output:
+        data:
+          battery: 3.2
+          charging: false
+          moisture: 40
+          sensorType: moisture
+          settingsAllowed: true
+          valid: true

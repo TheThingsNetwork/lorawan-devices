@@ -15,15 +15,9 @@ function decodeUplink(input){
 	data.battery = 2 + (input.bytes[0] / 10);
 
 	if (input.fPort === 1){
-		if (input.bytes.length === 3){
+		if (input.bytes.length === 2){
 			data.valid = true;
 			data.moisture = input.bytes[1];
-
-			var temp = input.bytes[2];
-			if (temp > 127){
-				temp = temp - 256;
-			}
-			data.temperature = temp;
 		}
 		else if (input.bytes.length === 6){
 			data.valid = true;
