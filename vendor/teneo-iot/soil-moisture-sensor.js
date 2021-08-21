@@ -14,7 +14,7 @@ function decodeUplink(input){
 	data.charging = false;
 	data.battery = 2 + (input.bytes[0] / 10);
 
-	if (input.port === 1){
+	if (input.fPort === 1){
 		if (input.bytes.length === 3){
 			data.valid = true;
 			data.moisture = input.bytes[1];
@@ -35,7 +35,7 @@ function decodeUplink(input){
 			data.valid = false;
 			data.errorcode = -1;
 		}
-	} else if (input.port === 3){
+	} else if (input.fPort === 3){
 		data.valid = false;
 		data.charging = true;
 	}
