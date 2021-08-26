@@ -27,10 +27,12 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: xignal-trap-profile
         lorawanCertified: true
+        codec: rattrap-codec
 
       US902-928:
         id: xignal-trap-profile
         lorawanCertified: true
+        codec: rattrap-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -41,9 +43,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  #- trap armed
-  #- trap triggered without catch
-  #- trap triggered with catch
+  #- trap
   - temperature
   - battery
 
@@ -80,14 +80,6 @@ ipCode: IP67
 productURL: https://dimosystems.com
 dataSheetURL: https://dimosystems.com/wp-content/uploads/2021/05/Dimo-Systems-Mouse-trap.pdf
 
-# Commercial information
-resellerURLs:
-  - name: 'Find your local Xignal dealer'
-    region:
-      - European Union
-      - United States
-    url: https://dimosystems.com/dealers/
-
 # Photos
 photos:
   main: mousetrap1.png
@@ -97,5 +89,3 @@ photos:
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=VR3gaPylMtQ
-# Regulatory compliances (optional)
-

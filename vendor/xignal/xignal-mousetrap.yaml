@@ -24,14 +24,16 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: example
+        # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: xignal-trap-profile
         lorawanCertified: true
+        codec: mousetrap-codec
 
       US902-928:
         id: xignal-trap-profile
         lorawanCertified: true
+        codec: mousetrap-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -42,19 +44,9 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  #- trap armed
-  #- trap triggered without catch
-  #- trap triggered with catch
   - temperature
   - battery
-
-# Additional radios that this device has (optional)
-# Valid values are: ble, nfc, wifi, cellular.
-#additionalRadios:
-
-# Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-#bridgeInterfaces:
+  # - trap
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -85,38 +77,9 @@ operatingConditions:
 # IP rating (optional)
 ipCode: IP67
 
-# Key provisioning (optional)
-# Valid values are: custom (user can configure keys), join server and manifest.
-#keyProvisioning:
-
-# Key programming (optional)
-# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
-# and firmware (when the user should change the firmware to set the keys).
-#keyProgramming:
-
-# Key security (optional)
-# Valid values are: none, read protected and secure element.
-#keySecurity:
-
-# Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
-# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
-#firmwareProgramming:
-
 # Product and data sheet URLs (optional)
 productURL: https://dimosystems.com
 dataSheetURL: https://dimosystems.com/wp-content/uploads/2021/05/Dimo-Systems-Mouse-trap.pdf
-
-# Commercial information
-resellerURLs:
-  - name: 'Find your local Xignal dealer'
-    region:
-      - European Union
-      - United States
-    url: https://dimosystems.com/dealers/
-msrp:
-  EUR: 9999
-  USD: 9999
 
 # Photos
 photos:
@@ -127,5 +90,3 @@ photos:
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=VR3gaPylMtQ
-# Regulatory compliances (optional)
-
