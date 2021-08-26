@@ -4,9 +4,9 @@ description: The STREGA LoRaWAN Time-controlled Emitter remotely actuates an irr
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '3.x'
-    numeric: 3
+    numeric: 1
   - version: '4.x'
-    numeric: 4
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

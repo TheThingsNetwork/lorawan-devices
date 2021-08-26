@@ -1,10 +1,11 @@
 /*
- * iOke868.js
+ * ioke868.js
  *
  * Modification History:
  * Date         Version     Modified By     Description
  * 2020-12-15   1.0         MR              Initial creation
- */
+ * 2021-02-17   1.1         MR              synchonized --> synchronized
+*/
 
 function decodeUplink(input) {
     var port = input.fPort;
@@ -1084,9 +1085,9 @@ function decodeStatusPayload (statusData)
     //Bit 0: LoRaWAN® Activation State | 1 = LoRaWAN® Stack is not activated | 0 = Stack is activated
     statusResults = analyzeBitsToResultString(statusResults, statusBits, LORAWAN_ACTIVATED_STATE_STATUS_BIT_MASK, STATUS_LORAWAN_STATUS_NAME, "not activated", "activated");
     //Bit 1: Network Time Synchronization State | 1 = No synchronization via LoRaWAN® | 0 = Synchronized via LoRaWAN®
-    statusResults = analyzeBitsToResultString(statusResults, statusBits, NETWORK_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, STATUS_NETWORK_TIME_STATUS_NAME, "not synchonized", "synchonized");
+    statusResults = analyzeBitsToResultString(statusResults, statusBits, NETWORK_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, STATUS_NETWORK_TIME_STATUS_NAME, "not synchronized", "synchronized");
     //Bit 2: System Time Synchronization State | 1 = RTC not synchronized at all | 0 = RTC synchronized ( via local serial interface or LoRaWAN® )
-    statusResults = analyzeBitsToResultString(statusResults, statusBits, SYSTEM_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, STATUS_SYSTEM_TIME_STATUS_NAME, "not synchonized", "synchonized");
+    statusResults = analyzeBitsToResultString(statusResults, statusBits, SYSTEM_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, STATUS_SYSTEM_TIME_STATUS_NAME, "not synchronized", "synchronized");
     //Bit 4: LoRaWAN Configuration State | 1 = Configuration is invalid → Activation not possible | 0 = Configuration is valid
     statusResults = analyzeBitsToResultString(statusResults, statusBits, LORAWAN_CONFIGURATION_STATE_STATUS_BIT_MASK, STATUS_LORAWAN_CONFIGURATION_STATUS_NAME, "not available", "available");
     //Bit 6: Calendar Event List Configuration State | 1 = List is empty → in this case a default "Get Network Time" event is scheduled every hour at 05:00min for RTC synchronization | 0 = List contains at least one item

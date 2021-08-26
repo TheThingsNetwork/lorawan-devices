@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/air-temperature-and-humidity-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-SHT35-datasheet.pdf
 photos:
-  main: dl-sht35-002.jpg
+  main: dl-sht35-002.png
 
 compliances:
   safety:

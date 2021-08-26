@@ -1,5 +1,5 @@
 name: Door/Window Sensor
-description: The Tabs Door & Window sensor fits into any interior design and is easy to install. It is composed of two parts. The main body contains the active electronics to measure magnetic fields and transmit data, if any changes, to a LoRaWAN network. The other part is a permanent magnet of sufficient field strength to be detected by the Hall-Effect sensor on the main body.
+description: The Browan Door/Window sensor integrates a hall-effect sensor for detecting the opening and closing of doors, windows, garage doors, vaults, and entryways. It utilizes LoRaWAN® connectivity to transmit data.
 
 hardwareVersions:
   - version: '1.0'

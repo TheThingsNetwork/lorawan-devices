@@ -1,0 +1,10 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: carbon-codec-v1.js
+
+downlinkEncoder:
+  fileName: carbon-codec-v1.js
+
+downlinkDecoder:
+  fileName: carbon-codec-v1.js

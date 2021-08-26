@@ -53,3 +53,6 @@ keySecurity: none
 
 productURL: http://www.netvox.com.tw/product.asp?pro=R730DB
 dataSheetURL: http://www.netvox.com.tw/um/R730DB/R730DBdatasheet.pdf
+
+photos:
+  main: photos/r730mba.png
