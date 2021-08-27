@@ -1,0 +1,143 @@
+name: LSN50v2-D20-D22-D23
+description: LoRaWAN Temperature Sensor
+
+# Hardware versions (optional, use when you have revisions)
+# hardwareVersions:
+#   - version: '1.0'
+#     numeric: 1
+#   - version: '1.0-rev-A'
+#     numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.7.4'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    # hardwareVersions:
+    #   - '1.2'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
+# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
+# water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+# dimensions:
+#   width: 110
+#   length: 90
+#   height: 25
+
+# Weight in grams (optional)
+# weight: 210
+
+# Battery information (optional)
+#battery:
+#  replaceable: true
+#  type: AA
+
+# Operating conditions (optional)
+# operatingConditions:
+# Temperature (Celcius)
+# temperature:
+#   min: -30
+#   max: 85
+# Relative humidity (fraction of 1)
+# relativeHumidity:
+#   min: 0
+#   max: 0.97
+
+# IP rating (optional)
+# ipCode: IP64
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+# keyProvisioning:
+#   - custom
+#   - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+# keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.dragino.com/products/products-list.html
+dataSheetURL: https://www.dragino.com/products/products-list.html
+sellerURLs:
+  - name: 'Dragino'
+    region:
+      - China
+    url: http://www.dragino.com/
+
+# Photos
+photos:
+  main: lsn50v2-d20-d22-d23.jpg
+#  other:
+    
+# Youtube or Vimeo Video (optional)
+#videos:
+#  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+
+# Regulatory compliances (optional)
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0

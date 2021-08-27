@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: lsnpk01.js
+  examples:
+    - description:  LoRaWAN Soil NPK Sensor
+      input:
+        fPort: 2
+        bytes: [0x0E, 0x55,0x01,0x08,0x62,0x08,0x67,0x60,0xE4,0x3C,0xC6]
+      output:
+        data: {  'Bat': 3.669 ,'Interrupt_flag': 6 ,'K_SOIL': 58428 ,'Message_type': 12 ,'N_SOIL': 25096 ,'P_SOIL': 26464,'TempC_DS18B20': "26.40"} 
+        
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0E, 0x55,0x01,0x08,0x62,0x08,0x67,0x60,0xE4,0x3C,0xC6]
+      output:
+        errors:
+          - unknown FPort

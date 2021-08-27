@@ -1,4 +1,4 @@
-name: LT332222-L
+name: LT33222-L
 description: LoRaWAN I/O controller.
 
 # Hardware versions (optional, use when you have revisions)
@@ -69,6 +69,9 @@ firmwareVersions:
 #sensors:
 #  - wind direction
 #  - wind speed
+
+
+
 
 # Battery information (optional)
 #battery:

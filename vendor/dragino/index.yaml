@@ -10,10 +10,44 @@ endDevices:
   - ldds75
   - lbt1
   - lse01
-  - lwl01
-  - lds01
+  - lwl02
+  - lds02
   - lgt92
   - lt22222-l
   - lt33222-l
   - lht65
+  - llms01
+  - llds12
+  - laq4
   - lsn50-v2
+  - lsnpk01
+  - lsph01
+  - ltc2
+  - ldds04
+  - ldds45
+  - lsn50v2-d20-d22-d23
+  - rs485-ln-abp
+  - rs485-bl-abp
+  - lsn50v2-s31-abp
+  - lsn50v2-d20-abp
+  - ldds20-abp
+  - ldds75-abp
+  - lbt1-abp
+  - lse01-abp
+  - lwl02-abp
+  - lds02-abp
+  - lgt92-abp
+  - lt22222-l-abp
+  - lt33222-l-abp
+  - lht65-abp
+  - lsn50-v2-abp
+  - laq4-abp
+  - llds12-abp
+  - llms01-abp
+  - lsnpk01-abp
+  - lsph01-abp
+  - ltc2-abp
+  - ldds04-abp
+  - ldds45-abp
+  - lsn50v2-d20-d22-d23-abp
+

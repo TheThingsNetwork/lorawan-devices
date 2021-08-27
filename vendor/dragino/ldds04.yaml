@@ -1,0 +1,76 @@
+name: LDDS04
+description: LoRaWAN 4-Channels Distance Sensor
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
+# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
+# water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - distance
+#  - wind speed
+
+# Product and data sheet URLs (optional)
+productURL: https://www.dragino.com/products/products-list.html
+dataSheetURL: https://www.dragino.com/products/products-list.html
+sellerURLs:
+  - name: 'Dragino'
+    region:
+      - China
+    url: http://www.dragino.com/
+
+# Photos
+photos:
+  main: ldds04.jpg
+  
