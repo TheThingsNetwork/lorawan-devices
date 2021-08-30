@@ -1695,3 +1695,9 @@ vendors:
   - id: origoelec
     name: Origoelec
     website: http://www.origoelec.com
+
+  - id: sting
+    name: sting
+    description: ...straight to it...
+    website: https://st-ing.net/
+    logo: sting.png
