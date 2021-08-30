@@ -47,7 +47,7 @@ firmwareVersions:
         id: as923-profile
         lorawanCertified: true
         codec: lse01-codec
-    
+
   - version: '1.1.4'
     numeric: 2
 

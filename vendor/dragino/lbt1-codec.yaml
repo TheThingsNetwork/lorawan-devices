@@ -1,13 +1,27 @@
 uplinkDecoder:
   fileName: lbt1.js
   examples:
-    - description: Bluetooth Tracker 
+    - description: Bluetooth Tracker
       input:
         fPort: 2
         bytes: [0x0F, 0xC7, 0x00, 0x00, 0x00, 0x01, 0x45, 0x45, 0x46, 0x46, 0x30]
       output:
-        data: {  'ADDR': "",'ALARM': 0, 'BatV': 4.039,'Dvice_Information1': 0,'Dvice_Information2': 0,'Dvice_Information3': 0,'MAJOR': 1, 'MINOR': 1,'POWER': 0,'RSSI': 0,'STEP': 0, 'UUID': 'EEFF0'} 
-             
+        data:
+          {
+            'ADDR': '',
+            'ALARM': 0,
+            'BatV': 4.039,
+            'Dvice_Information1': 0,
+            'Dvice_Information2': 0,
+            'Dvice_Information3': 0,
+            'MAJOR': 1,
+            'MINOR': 1,
+            'POWER': 0,
+            'RSSI': 0,
+            'STEP': 0,
+            'UUID': 'EEFF0',
+          }
+
     - description: Unknown FPort
       input:
         fPort: 42

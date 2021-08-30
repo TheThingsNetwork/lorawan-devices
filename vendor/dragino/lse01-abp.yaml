@@ -31,7 +31,7 @@ firmwareVersions:
         id: as923-a-abp-profile
         lorawanCertified: true
         codec: lse01-codec
-    
+
   - version: '1.1.4'
     numeric: 2
 
@@ -59,7 +59,6 @@ firmwareVersions:
         id: as923-a-abp-profile
         lorawanCertified: true
         codec: lse01-114-codec
-
 
 # Sensors that this device features (optional)
 # Valid values are:

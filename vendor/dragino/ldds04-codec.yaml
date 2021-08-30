@@ -4,14 +4,14 @@ uplinkDecoder:
     - description: LoRaWAN 4-Channels Distance Sensor
       input:
         fPort: 2
-        bytes: [0x0D,0x4A,0x03,0x16,0x03,0x18,0x03,0x1A,0x03,0x15,0x01]
+        bytes: [0x0D, 0x4A, 0x03, 0x16, 0x03, 0x18, 0x03, 0x1A, 0x03, 0x15, 0x01]
       output:
-        data: { 'BatV': 3.402,'EXTI_Trigger': 'FALSE','distance1_cm': 79,'distance2_cm': 79.2,'distance3_cm': 79.4,'distance4_cm': 78.9,'mes_type': 1} 
-        
+        data: { 'BatV': 3.402, 'EXTI_Trigger': 'FALSE', 'distance1_cm': 79, 'distance2_cm': 79.2, 'distance3_cm': 79.4, 'distance4_cm': 78.9, 'mes_type': 1 }
+
     - description: Unknown FPort
       input:
         fPort: 42
-        bytes: [0x0D,0x4A,0x03,0x16,0x03,0x18,0x03,0x1A,0x03,0x15,0x01]
+        bytes: [0x0D, 0x4A, 0x03, 0x16, 0x03, 0x18, 0x03, 0x1A, 0x03, 0x15, 0x01]
       output:
         errors:
           - unknown FPort

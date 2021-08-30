@@ -52,7 +52,6 @@ firmwareVersions:
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - temperature
-  
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -64,7 +63,7 @@ sensors:
 # Weight in grams (optional)
 # weight: 210
 
-# Battery information (optional) 
+# Battery information (optional)
 #battery:
 #  replaceable: true
 #  type: AA
