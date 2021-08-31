@@ -19,6 +19,6 @@ regionalParametersVersion: RP001-1.0.3-RevA
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
 # Maximum EIRP
-maxEIRP: 16
+maxEIRP: 20
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true

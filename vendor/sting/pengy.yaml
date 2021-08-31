@@ -1,0 +1,54 @@
+name: Pengy
+description: Air quality
+
+hardwareVersions:
+  - version: '1.0'
+  - version: '1.5'
+  - version: '2.0'
+
+firmwareVersions:
+  - version: '1.0'
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: pengy-profile-eu868-otaa
+        lorawanCertified: false
+        codec: pengy-codec
+  - version: '1.5'
+    hardwareVersions:
+      - '1.5'
+    profiles:
+      EU863-870:
+        id: pengy-profile-eu868-abp
+        lorawanCertified: false
+        codec: pengy-codec
+  - version: '2.0'
+    hardwareVersions:
+      - '2.0'
+    profiles:
+      EU863-870:
+        id: pengy-profile-eu868-abp
+        lorawanCertified: false
+        codec: pengy-codec
+
+sensors:
+  - particulate matter
+  - pm2.5
+  - pm10
+  - temperature
+  - humidity
+  - pressure
+  - sound
+
+dimensions:
+  width: 85
+  length: 85
+  height: 95
+
+weight: 100
+
+productURL: https://github.com/dusanstojkovic/pengy
+
+photos:
+  main: pengy.png
