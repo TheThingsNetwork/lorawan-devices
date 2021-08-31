@@ -100,10 +100,6 @@ dataSheetURL: https://mutelcor.com/wp-content/uploads/2021/06/Datasheets-manhole
 photos:
   main: mtc-mh01.png
 
-# Youtube or Vimeo Video (optional)
-videos:
-  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
-
 # Regulatory compliances (optional)
 compliances:
   safety:
