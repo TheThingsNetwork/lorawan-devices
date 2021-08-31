@@ -1695,3 +1695,8 @@ vendors:
   - id: origoelec
     name: Origoelec
     website: http://www.origoelec.com
+
+  - id: mutelcor
+    name: Mutelcor GmbH
+    website: https://mutelcor.com/iot/
+    logo: mc_logo.svg
