@@ -64,8 +64,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://mclimate.bit.ai/docs/view/qiyURo9OxshxDj1i
-dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/88AX301jrXL1awzI/mclimate-t-valve-lorawan-datasheet-en.pdf
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-t-valve-lorawan
+dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-McDr-jr9h3qA888r1Yp%2F-McE1iHjrqtJc4ji0XKi%2F-McEWXcvGH83vosGIKCt%2FMClimate-T-Valve-LoRaWAN-Datasheet.pdf?alt=media&token=cf7699e7-1cfb-486e-ad94-73650d82128c
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:
