@@ -1700,7 +1700,7 @@ vendors:
     name: Mutelcor GmbH
     website: https://mutelcor.com/iot/
     logo: mc_logo.svg
-    
+
   - id: sting
     name: sting
     description: ...straight to it...
