@@ -74,8 +74,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://mclimate.bit.ai/docs/view/S14D8XaQJGaz6cF4
-dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/Q4RlX1XZwpcn867d/MClimate_AQI_Sensor___Notifier-datasheet-lorawan-en.pdf
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-aqi-sensor-and-notifier-lorawan
+dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-McDr-jr9h3qA888r1Yp%2F-McEc-jPJXMJe5V4d-jY%2F-McEm-he00jJ5Cg6e-6J%2FMClimate-AQI_Sensor-LoRaWAN-Datasheet.pdf?alt=media&token=81505095-b889-4cb9-9cfd-288183f03b4a
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:
