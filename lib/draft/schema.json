@@ -958,7 +958,7 @@
         "bridgeInterfaces": {
           "type": "array",
           "items": {
-            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog", "dali"]
           },
           "uniqueItems": true
         },
