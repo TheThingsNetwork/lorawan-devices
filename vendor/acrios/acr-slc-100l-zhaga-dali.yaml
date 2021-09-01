@@ -1,0 +1,38 @@
+name: ZHAGA smart street light module
+description: Smart street lighting module with ZHAGA socket based on the STM32WL
+hardwareVersions:
+  - version: 'v1.0'
+    numeric: 1
+firmwareVersions:
+  - # Firmware version
+    version: 'v5.3'
+    numeric: 1
+    hardwareVersions:
+      - 'v1.0'
+    profiles:
+      EU863-870:
+        lorawanCertified: true
+        id: acr-slc-100l-zhaga-dali-profile
+bridgeInterfaces:
+  - dali
+dimensions:
+  width: 40
+  length: 40
+  height: 40
+weight: 120
+battery:
+  replaceable: false
+operatingConditions:
+  temperature:
+    min: -30
+    max: 60
+ipCode: IP67
+keyProvisioning:
+  - custom
+keyProgramming:
+  - serial
+keySecurity: read protected
+productURL: https://acrios.com/zhaga-lwes-modul/?lang=en
+dataSheetURL: https://wiki.acrios.com/en/ACR_SLC
+photos:
+  main: acr-slc-100l-zhaga-dali.jpg

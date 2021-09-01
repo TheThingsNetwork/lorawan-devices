@@ -537,6 +537,8 @@ vendors:
   - id: onethinx
     name: Onethinx B.V.
     vendorID: 307
+    website: https://www.onethinx.com/
+    logo: onethinx-logo.png
 
   - id: orange
     name: Orange
@@ -1596,7 +1598,9 @@ vendors:
     logo: beiselen-logo-sticky.png
 
   - id: izinto
-    name: Izinto GmbH
+    name: izinto GmbH
+    website: https://www.izinto.online
+    logo: izinto_logo.png
 
   - id: develiot
     name: Develiot
@@ -1683,3 +1687,22 @@ vendors:
   - id: elsys
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
+
+  - id: opensource
+    name: Open Source Community Projects
+    website: https://en.wikipedia.org/wiki/Open_source
+
+  - id: origoelec
+    name: Origoelec
+    website: http://www.origoelec.com
+
+  - id: mutelcor
+    name: Mutelcor GmbH
+    website: https://mutelcor.com/iot/
+    logo: mc_logo.svg
+
+  - id: sting
+    name: sting
+    description: ...straight to it...
+    website: https://st-ing.net/
+    logo: sting.png

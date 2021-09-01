@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/infrared-thermometer-/-surface-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ITST-datasheet.pdf
 photos:
-  main: dl-itst.jpg
+  main: dl-itst.png
 
 compliances:
   safety:

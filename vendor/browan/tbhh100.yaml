@@ -1,5 +1,5 @@
 name: Temperatur & Humidity Sensor
-description: The Temperature & Humidity Sensor is designed for in-home and in-building usage for consumer or facility management applications. The design is optimized for high volume manufacturing, optimal battery lifetime, and pleasing aesthetics forin-building placement.
+description: The Browan Temperature & Humidity Sensor integrates temperature and humidity sensors for measuring indoor environments. It utilizes LoRaWAN® connectivity to transmit data and is suitable for use with consumer or facility management applications.
 
 hardwareVersions:
   - version: '1.0'

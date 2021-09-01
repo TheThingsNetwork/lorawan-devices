@@ -1,5 +1,5 @@
 name: Temperature indoor sensor
-description: Measures the ambient temperature
+description: The nke WATTECO temperature indoor sensor measures indoor ambient temperature and transmits data over the LoRaWAN® network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -38,11 +38,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: t-indoor-sensor-profile
         lorawanCertified: true
-        codec: th-sensor-codec
-      US902-928:
-        id: t-indoor-sensor-profile
-        lorawanCertified: true
-        codec: th-sensor-codec
+        codec: t-indoor-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:

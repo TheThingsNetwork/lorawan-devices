@@ -15,6 +15,7 @@ firmwareVersions:
         id: the-things-node-915
         lorawanCertified: true
         codec: the-things-node-codec
+
 sensors:
   - accelerometer
   - battery

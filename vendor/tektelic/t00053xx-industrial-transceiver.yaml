@@ -1,5 +1,5 @@
 name: Tektelic Industrial Transceiver
-description: LoRaWAN® Battery-Powered Radio Transmitter
+description: The Tektelic KONA Industrial Transceiver interfaces automation and control instrumentation to LoRaWAN® networks. It has a temperature sensor and a humidity sensor. It supports up to 3 Analog and Digital inputs enabling remote capture of data, 2 Switched Outputs to activate actuators and different control system components, and a configurable RS-232, RS-422, or RS-485 interface with numerous protocols.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

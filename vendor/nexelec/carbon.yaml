@@ -1,0 +1,132 @@
+name: Carbon
+description: Carbon measures the CO2 level and continuously monitors air quality to visually alert occupants when it is time to ventilate to renew indoor air. With its temperature and humidity sensors, Carbon also analyzes the ambient parameters of the building. Carbon integrates the iZiAiR air quality and hygrothermal comfort algorithm to easily study each indoor environment and identify possible improvements. Thanks to its wireless communication module, data can be accessed remotely, simply from a smartphone or a computer screen
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'C024C'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '3.6'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'C024C'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        #vendorID: example
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: carbon-profile
+        lorawanCertified: true
+        codec: carbon-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - co2
+  - temperature
+  - humidity
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - nfc
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 105
+  length: 105
+  height: 30
+
+# Weight in grams (optional)
+weight: 120
+
+# Battery information (optional)
+battery:
+  replaceable: false
+  type: lithium
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -30
+    max: 70
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.nexelec.fr/carbon
+dataSheetURL: https://c8a61e98-9026-4fb4-a149-a842692d947f.filesusr.com/ugd/6cc8bd_0268b170bea94ff6b0f4329bfcc902fe.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'Nexelec'
+    region:
+      - European Union
+    url: https://www.nexelec.fr/
+
+msrp:
+  EUR: 179
+  USD: 120
+
+# Photos
+photos:
+  main: carbon.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+    - body: ETSI
+      norm: EN
+      standard: 62479:2010
+
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1

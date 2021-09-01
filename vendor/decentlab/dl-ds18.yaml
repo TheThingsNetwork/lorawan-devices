@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-DS18-datasheet.pdf
 photos:
-  main: dl-ds18.jpg
+  main: dl-ds18.png
 
 compliances:
   safety:

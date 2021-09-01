@@ -1,15 +1,16 @@
 name: AM107
-description: The Milesight AM107 consists of ambient monitoring sensors such as activity level (PIR), humidity, temperature, light, CO2, TVOC, and barometric pressure for indoor ambiance monitoring. It works perfectly with Milesight IoT Cloud (Web & App) which allows monitoring your data in the office or on the go.
+description: Ambience Monitoring Sensors
 
 hardwareVersions:
-  - version: 'V1.4'
+  - version: '1.4'
     numeric: 1
 
 firmwareVersions:
-  - version: '1.25'
+  - # Firmware version
+    version: 'V1.25'
     numeric: 1
     hardwareVersions:
-      - 'V1.4'
+      - '1.4'
 
     profiles:
       EU863-870:
@@ -91,8 +92,6 @@ resellerURLs:
 
 photos:
   main: am107.png
-  other:
-    - am107-1.png
 
 videos:
   main: https://www.youtube.com/watch?v=lu90qeIkjC0&ab_channel=MilesightIoT

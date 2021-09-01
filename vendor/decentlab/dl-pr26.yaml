@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PR26-datasheet.pdf
 photos:
-  main: dl-pr26.jpg
+  main: dl-pr26.png
   other:
     - dl-pr26-2.jpg
     - dl-pr26-3.jpg

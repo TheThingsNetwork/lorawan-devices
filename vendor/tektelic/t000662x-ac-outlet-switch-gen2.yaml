@@ -27,3 +27,9 @@ operatingConditions:
   temperature:
     min: 0
     max: 40
+
+# Photos
+photos:
+  main: outlook.png
+  other:
+    - switch.png

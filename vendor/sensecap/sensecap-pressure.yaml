@@ -102,9 +102,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-pressure-deployment.jpg
+  main: sensecap-pressure.png
   other:
-    - sensecap-pressure.png
+    - sensecap-pressure-deployment.jpg
     - sensecap-pressure-package.png
 
 # Youtube or Vimeo Video (optional)

@@ -3,15 +3,15 @@
 uplinkDecoder:
   fileName: elsys.js
   # Examples (optional)
-  #examples:
-  #  - description: EMS Door accelerometer and door switch
-  #    input:
-  #      fPort: 1
-  #      bytes: [0x03, 0x01, 0x27, 0x05, 0x0A, 0x11, 0x01, 0x0B, 0x00, 0x0A, 0x00, 0x11]
-  #    output:
-  #      data:
-  #        x: 1
-  #        y: 39
-  #        z: 5
-  #        pulse1: 4353
-  #        pulseAbs: 655377
+  examples:
+    - description: EMS Door accelerometer and door switch
+      input:
+        fPort: 1
+        bytes: [0x03, 0x01, 0x27, 0x05, 0x0A, 0x11, 0x01, 0x0B, 0x00, 0x0A, 0x00, 0x11]
+      output:
+        data:
+          x: 1
+          y: 39
+          z: 5
+          pulse1: 4353
+          pulseAbs: 655377

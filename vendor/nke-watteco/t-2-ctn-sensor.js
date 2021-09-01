@@ -228,7 +228,7 @@ function createBuffer(byteArray) {
       }
       // Propagate the sign bit if 1
       if (
-        (sampleType == ST_I4 || sampleType == ST_I24) &&
+        (sampleType == ST_I4 || sampleType == ST_I8 ||sampleType == ST_I16 || sampleType == ST_I24) &&
         u32 & (1 << (nbBits - 1))
       ) {
         for (var i = nbBits; i < 32; i++) {
@@ -931,7 +931,7 @@ function Decoder(bytes, port) {
       else
       {
         var decoded = {};
-        brData = (brUncompress(3,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature1", divide: 100},{ taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature2", divide: 100}], lora.payload, lDate))
+        brData = (brUncompress(3,[{taglbl: 0,resol: 10, sampletype: 7,lblname: "temperature1", divide: 100},{ taglbl: 1, resol: 10, sampletype: 7,lblname: "temperature2", divide: 100}, { taglbl: 5, resol: 100, sampletype: 6, lblname: "BatteryVoltage", divide: 1000}], lora.payload, lDate))
 
         var data_length = brData["datas"].length;
         var tab=[];

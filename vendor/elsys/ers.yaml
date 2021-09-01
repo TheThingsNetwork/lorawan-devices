@@ -1,6 +1,5 @@
 name: ERS smart building sensor
-description: The smart building sensor for indoor environment monitoring
-
+description: The ELSYS ERS is a LoRaWAN® device that consists of motion, temperature, humidity, and light sensors for measuring occupancy and the indoor environment.  It is suitable for applications such as indoor environment measuring, smart buildings, workplace management, workplace statistics, facility management, and room occupancy.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
@@ -31,7 +30,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: example
+        # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: elsys-eu868-profile
         lorawanCertified: true

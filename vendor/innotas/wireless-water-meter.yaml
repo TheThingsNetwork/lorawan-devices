@@ -61,3 +61,7 @@ keyProvisioning:
 # Product and data sheet URLs (optional)
 productURL: https://www.innotas-elektronik.de/en-gb/newpage2
 dataSheetURL: https://irp-cdn.multiscreensite.com/0a3fa4dd/files/uploaded/Produktblatt%20LoRa_Funkwasserzaehleraufsatz_V1.3_ENG.pdf
+
+# Photos
+photos:
+  main: wmeter.png
