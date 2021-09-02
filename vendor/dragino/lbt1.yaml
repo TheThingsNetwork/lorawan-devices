@@ -48,6 +48,33 @@ firmwareVersions:
         lorawanCertified: true
         codec: lbt1-codec
 
+  #Activation By Personalization
+
+  - version: 'ABP'
+    numeric: 2
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lbt1-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lbt1-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lbt1-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lbt1-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lbt1-codec
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
