@@ -1,5 +1,5 @@
 name: Pengy
-description: Air quality
+description: Device for monitoring of the air quality parameters like air temperature and relative humidity, atmospheric pressure, environmental noise and particulate matter mass concetration.
 
 hardwareVersions:
   - version: '1.0'
@@ -51,4 +51,4 @@ weight: 100
 productURL: https://github.com/dusanstojkovic/pengy
 
 photos:
-  main: pengy.png
+  main: pengy.gif
