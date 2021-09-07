@@ -48,6 +48,45 @@ firmwareVersions:
         lorawanCertified: true
         codec: lht65-codec
 
+  - version: 'lht65 abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec  
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: lht65-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

@@ -11,7 +11,7 @@ description: LoRaWAN I/O controller.
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.5.5'
+    version: '1.5.6'
     numeric: 1
     # Corresponding hardware versions (optional)
     # hardwareVersions:
@@ -57,7 +57,46 @@ firmwareVersions:
         id: as923-c-profile
         lorawanCertified: true
         codec: lt22222-l-codec
-
+  
+  - version: 'lt22222-l abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
+      EU433:
+        id: eu433-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
+      US902-928:
+        id: us915-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
+      AU915-928:
+        id: au915-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
+      AS923:
+        id: as923-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
+      CN470-510:
+        id: cn470-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
+      IN865-867:
+        id: in865-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
+      KR920-923:
+        id: kr920-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec  
+      RU864-870:
+        id: ru864-c-abp-profile
+        lorawanCertified: true
+        codec: lt22222-l-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

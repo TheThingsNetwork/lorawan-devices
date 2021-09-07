@@ -57,7 +57,46 @@ firmwareVersions:
         id: as923-profile
         lorawanCertified: true
         codec: lsn50v2-d20-d22-d23-codec
-
+  
+  - version: 'lsn50v2-d20-d22-d23 abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec  
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -109,8 +148,8 @@ sensors:
 # keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dragino.com/products/products-list.html
-dataSheetURL: https://www.dragino.com/products/products-list.html
+productURL: https://www.dragino.com/products/temperature-humidity-sensor.html
+dataSheetURL: https://www.dragino.com/products/temperature-humidity-sensor.html
 sellerURLs:
   - name: 'Dragino'
     region:

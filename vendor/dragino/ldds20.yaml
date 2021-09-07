@@ -92,6 +92,85 @@ firmwareVersions:
         lorawanCertified: true
         codec: ldds20-114-codec
 
+  - version: 'ldds20 abp 1.1.1'
+    numeric: 3
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec  
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-codec
+
+  - version: 'ldds20 abp 1.1.4'
+    numeric: 4
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec  
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: ldds20-114-codec     
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

@@ -47,7 +47,46 @@ firmwareVersions:
         id: as923-profile
         lorawanCertified: true
         codec: ldds04-codec
-
+  
+  - version: 'ldds04 abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec  
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: ldds04-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -61,8 +100,8 @@ sensors:
 #  - wind speed
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dragino.com/products/products-list.html
-dataSheetURL: https://www.dragino.com/products/products-list.html
+productURL: https://www.dragino.com/products/distance-level-sensor/item/194-ldds04.html
+dataSheetURL: https://www.dragino.com/products/distance-level-sensor/item/194-ldds04.html
 sellerURLs:
   - name: 'Dragino'
     region:
