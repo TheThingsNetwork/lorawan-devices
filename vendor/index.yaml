@@ -1706,3 +1706,11 @@ vendors:
     description: ...straight to it...
     website: https://st-ing.net/
     logo: sting.png
+
+  - id: smart-parks
+    name: Smart Parks
+    website: https://www.smartparks.org/
+
+  - id: nexelec
+    name: Nexelec
+    website: https://www.nexelec.fr/
