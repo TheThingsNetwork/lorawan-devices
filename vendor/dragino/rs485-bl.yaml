@@ -29,7 +29,7 @@ firmwareVersions:
         id: cn470-profile
       AS923:
         id: as923-profile
-  
+
   - version: 'rs485-bl abp'
     numeric: 2
     profiles:
@@ -48,10 +48,10 @@ firmwareVersions:
       IN865-867:
         id: in865-a-abp-profile
       KR920-923:
-        id: kr920-a-abp-profile 
+        id: kr920-a-abp-profile
       RU864-870:
         id: ru864-a-abp-profile
-        
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

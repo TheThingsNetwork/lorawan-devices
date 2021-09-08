@@ -82,7 +82,7 @@ firmwareVersions:
       KR920-923:
         id: kr920-a-abp-profile
         lorawanCertified: true
-        codec: laq4-codec  
+        codec: laq4-codec
       RU864-870:
         id: ru864-a-abp-profile
         lorawanCertified: true

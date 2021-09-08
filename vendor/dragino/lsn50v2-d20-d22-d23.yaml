@@ -57,7 +57,7 @@ firmwareVersions:
         id: as923-profile
         lorawanCertified: true
         codec: lsn50v2-d20-d22-d23-codec
-  
+
   - version: 'lsn50v2-d20-d22-d23 abp'
     numeric: 2
     profiles:
@@ -92,7 +92,7 @@ firmwareVersions:
       KR920-923:
         id: kr920-a-abp-profile
         lorawanCertified: true
-        codec: lsn50v2-d20-d22-d23-codec  
+        codec: lsn50v2-d20-d22-d23-codec
       RU864-870:
         id: ru864-a-abp-profile
         lorawanCertified: true

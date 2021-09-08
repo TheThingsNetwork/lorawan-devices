@@ -58,7 +58,7 @@ firmwareVersions:
       IN865-867:
         id: in865-c-abp-profile
       KR920-923:
-        id: kr920-c-abp-profile 
+        id: kr920-c-abp-profile
       RU864-870:
         id: ru864-c-abp-profile
 # Sensors that this device features (optional)

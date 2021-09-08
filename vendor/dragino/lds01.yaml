@@ -47,7 +47,7 @@ firmwareVersions:
         id: as923-profile
         lorawanCertified: true
         codec: lds01-codec
-  
+
   - version: 'lds01 abp'
     numeric: 2
     profiles:
@@ -82,7 +82,7 @@ firmwareVersions:
       KR920-923:
         id: kr920-a-abp-profile
         lorawanCertified: true
-        codec: lds01-codec  
+        codec: lds01-codec
       RU864-870:
         id: ru864-a-abp-profile
         lorawanCertified: true

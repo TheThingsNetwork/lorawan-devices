@@ -10,7 +10,7 @@ rx1DataRateOffset: 0
 # RX2 data rate index
 rx2DataRateIndex: 0
 # RX2 frequency (MHz)
-rx2Frequency: 868.525
+rx2Frequency: 869.525
 # Factory preset frequencies (MHz)
 factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
 

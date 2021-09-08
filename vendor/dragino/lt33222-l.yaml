@@ -57,7 +57,7 @@ firmwareVersions:
         id: as923-c-profile
         lorawanCertified: true
         codec: lt33222-l-codec
- 
+
   - version: 'lt33222-l abp'
     numeric: 2
     profiles:
@@ -92,7 +92,7 @@ firmwareVersions:
       KR920-923:
         id: kr920-c-abp-profile
         lorawanCertified: true
-        codec: lt33222-l-codec  
+        codec: lt33222-l-codec
       RU864-870:
         id: ru864-c-abp-profile
         lorawanCertified: true
