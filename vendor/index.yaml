@@ -1695,3 +1695,7 @@ vendors:
   - id: origoelec
     name: Origoelec
     website: http://www.origoelec.com
+
+  - id: terabee
+    name: Terabee
+    website: https://www.terabee.com/
