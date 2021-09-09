@@ -12,6 +12,8 @@ endDevices:
   - lse01
   - lwl02
   - lds02
+  - lwl01
+  - lds01
   - lgt92
   - lt22222-l
   - lt33222-l
@@ -28,3 +30,4 @@ endDevices:
   - lsn50v2-d20-d22-d23
   - lds01
   - lwl01
+  - lsn50-v2

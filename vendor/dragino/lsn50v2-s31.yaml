@@ -1,5 +1,5 @@
 name: LSN50v2-S31
-description: LoRaWAN Temperature & Humidity Sensor
+description: The Dragino LSN50v2-S31 consists of a temperature and humidity sensor for measuring the temperature and humidity in the surrounding environment. The measured data is then uploaded to the IoT server via LoRaWAN® wireless protocol. It can be used with home and building automation, industrial monitoring and control, and irrigation systems.
 
 # Hardware versions (optional, use when you have revisions)
 # hardwareVersions:

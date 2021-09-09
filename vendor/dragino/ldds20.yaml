@@ -1,10 +1,10 @@
 name: LDDS20
-description: LoRaWAN Distance Detection Sensor
+description: The Dragino LDDS20 consists of an ultrasonic liquid level sensor for measuring liquid levels. It uses a non-contact method to measure the height of liquid in a container without opening the container. The measured liquid levels are sent to a LoRaWAN® network for further analysis.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.1.1'
+    version: '1.1'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
