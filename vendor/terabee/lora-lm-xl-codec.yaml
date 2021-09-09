@@ -1,0 +1,27 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lora-lm-xl.js
+  # Examples (optional)
+  examples:
+    - description: Distance reading 1500, level 0%, battery voltage 3.6V
+      input:
+        fPort: 1
+        bytes: [5, 220, 0, 14, 16, 0]
+      output:
+        data:
+          distance: 1500
+          levelPercentage: 0
+          batteryVoltage: 3600
+    - description: Distance reading 2000, level 50%, battery voltage 3.0V
+      input:
+        fPort: 1
+        bytes: [7, 208, 50, 11, 184, 0]
+      output:
+        data:
+          distance: 2000
+          levelPercentage: 50
+          batteryVoltage: 3000
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)

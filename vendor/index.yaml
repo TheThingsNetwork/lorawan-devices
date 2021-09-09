@@ -1718,3 +1718,7 @@ vendors:
   - id: nexelec
     name: Nexelec
     website: https://www.nexelec.fr/
+
+  - id: terabee
+    name: Terabee
+    website: https://www.terabee.com/
