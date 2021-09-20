@@ -1,0 +1,69 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: synetica.js
+  # Examples (optional)
+  examples:
+    - description: Sensor data
+      input:
+        fPort: 1
+        bytes: [0x01, 0x01, 0x23, 0x02, 0x56, 0x03, 0x01, 0xA4]
+      output:
+        data:
+          humidity: 86
+          lux: 420
+          temperature_c: 29.1
+          temperature_f: 84.38
+    - description: Sensor data 2
+      input:
+        fPort: 1
+        bytes: [0x0A, 0x00, 0x12, 0x16, 0x01, 0xBD, 0x01, 0x01, 0x2C]
+      output:
+        data:
+          liquid_detected: true
+          pollutants_kohm: 1.8
+    - description: Sensor data 3
+      input:
+        fPort: 1
+        bytes: [0x01, 0x00, 0xf5, 0x02, 0x3f, 0x03, 0x00, 0x4f, 0x04, 0x03, 0xf6, 0x05, 0x00, 0x19, 0x12, 0x3e, 0xff, 0xff, 0xfe, 0x3f, 0x43, 0xfa, 0x00, 0x00, 0x42, 0x0e, 0x10]
+      output:
+        data:
+          batt_mv: 3600
+          batt_volt: 3.6
+          bvoc: 0.5
+          co2e_ppm: 500
+          humidity: 63
+          iaq: 25
+          lux: 79
+          pressure_mbar: 1014
+          temperature_c: 24.5
+          temperature_f: 76.1
+    - description: Modbus
+      input:
+        fPort: 1
+        bytes: [0x10, 0x04, 0x41, 0xBC, 0x7A, 0xE1]
+      output:
+        data:
+          mb_int_val:
+            - - 4
+              - 23.56
+    - description: Gas
+      input:
+        fPort: 1
+        bytes: [0x61, 0x19, 0x41, 0xBC, 0x7A, 0xE1]
+      output:
+        data:
+          gas_ppb:
+            - - 25
+              - 'Carbon Monoxide'
+              - 23.56
+    - description: Corrosion
+      input:
+        fPort: 1
+        bytes: [0x62, 0x01, 0x44, 0x58, 0xD0, 0x27]
+      output:
+        data:
+          crn_thk_nm:
+            - - 1
+              - 'Copper'
+              - 867.25

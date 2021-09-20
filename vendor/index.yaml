@@ -1711,6 +1711,10 @@ vendors:
     website: https://st-ing.net/
     logo: sting.png
 
+  - id: synetica
+    name: Synetica
+    website: https://synetica.net/
+
   - id: smart-parks
     name: Smart Parks
     website: https://www.smartparks.org/

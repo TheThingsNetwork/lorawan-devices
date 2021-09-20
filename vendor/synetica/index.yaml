@@ -1,0 +1,8 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - enl-zn-lvcm
+  - enl-zn-lvc
+  - enl-zn-lvm
+  - enl-zn-lv
+  - enl-zn-l
+  - enl-zn
