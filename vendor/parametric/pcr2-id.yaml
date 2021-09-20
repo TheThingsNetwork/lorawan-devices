@@ -1,0 +1,42 @@
+name: Indoor radar peopleflow sensor
+description: PCR2 Indoor are camera-less peopleflow sensors for indoor use with LoRaWAN® connectivity. The system includes powerful signal processing that enables directional measurement. Counters are transmitted in regular intervals over a public or private LoRaWAN® network.
+
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: parametric-eu868-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+      US902-928:
+        id: parametric-us902-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+      AS923:
+        id: parametric-as923-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+      AU915-928:
+        id: parametric-au915-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 100
+  length: 100
+  height: 25
+
+# Weight in grams (optional)
+weight: 145
+
+# Product and data sheet URLs (optional)
+productURL: https://www.parametric.ch/products/pcr2-in/
+dataSheetURL: https://parametric.ch/docs/pcr2/pcr2-in_datasheet_r3

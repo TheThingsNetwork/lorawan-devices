@@ -1,0 +1,42 @@
+name: Solar-powered radar people counter
+description: PCR2 Outdoor is a camera-less people counting system for outdoor use with LoRaWAN™ connectivity. The system includes powerful signal processing that enables directional counting of humans. Counters are transmitted in regular intervals over a public or private LoRaWAN™ network.
+
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: parametric-eu868-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+      US902-928:
+        id: parametric-us902-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+      AS923:
+        id: parametric-as923-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+      AU915-928:
+        id: parametric-au915-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 100
+  length: 100
+  height: 40
+
+# Weight in grams (optional)
+weight: 195
+
+# Product and data sheet URLs (optional)
+productURL: https://www.parametric.ch/products/pcr2-ods/
+dataSheetURL: https://www.parametric.ch/downloads/PCR2-OD_R2_Datasheet_en-01.pdf

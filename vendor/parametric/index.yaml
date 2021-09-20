@@ -1,0 +1,5 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - pcr2-id
+  - pcr2-od
+  - pcr2-ods

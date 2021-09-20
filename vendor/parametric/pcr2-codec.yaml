@@ -1,0 +1,195 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: pcr2.js
+  # Examples (optional)
+  examples:
+    - description: ELSYS Application Payload
+      input:
+        fPort: 14
+        bytes: [0x0a, 0x00, 0x01, 0x16, 0x00, 0x02, 0x01, 0x00, 0x23]
+      output:
+        data:
+          LTR: 1
+          RTL: 2
+          TEMP: 3
+
+    - description: ELSYS Application Payload 2
+      input:
+        fPort: 14
+        bytes: [0x0a, 0x00, 0x00, 0x16, 0x00, 0x01, 0x01, 0x01, 0x2c]
+      output:
+        data:
+          LTR: 0
+          RTL: 1
+          TEMP: 30
+
+    - description: Extended Application Payload V3
+      input:
+        fPort: 14
+        bytes: [0xbe, 0x01, 0x03, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x64, 0x0c, 0xe4, 0x01, 0x39]
+      output:
+        data:
+          LTR: 1
+          RTL: 2
+          LTR_SUM: 3
+          RTL_SUM: 4
+          SBX_BATT: 100
+          SBX_PV: 3300
+          DIFF: 1
+          TEMP: 31
+
+    - description: Extended Application Payload V4
+      input:
+        fPort: 14
+        bytes: [0xbe, 0x01, 0x04, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x1c, 0x20, 0x0c, 0xe4, 0x01, 0x39]
+      output:
+        data:
+          LTR: 1
+          RTL: 2
+          LTR_SUM: 3
+          RTL_SUM: 4
+          SBX_BATT: 7200
+          SBX_PV: 3300
+          DIFF: 1
+          TEMP: 31
+
+    - description: Config Payload V2
+      input:
+        fPort: 190
+        bytes: [0x00, 0x03, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0a, 0x05, 0xa0, 0x00, 0x00, 0x50]
+      output:
+        data:
+          DeviceType: 0
+          FirmwareVersion: '3.2.0'
+          OperatingMode: 0
+          PayloadType: 0
+          UplinkType: 0
+          UplinkInterval: 10
+          LinkCheckInterval: 1440
+          HoldoffTime: 0
+          RadarSensitivity: 80
+
+    - description: Config Payload V3
+      input:
+        fPort: 190
+        bytes: [0xbe, 0x01, 0x03, 0x00, 0x03, 0x04, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x0a, 0x05, 0xa0, 0x00, 0x00, 0x00, 0x00, 0x50]
+      output:
+        data:
+          DeviceType: 0
+          FirmwareVersion: '3.4.0'
+          OperatingMode: 0
+          PayloadType: 0
+          DeviceClass: 0
+          UplinkType: 1
+          UplinkInterval: 10
+          LinkCheckInterval: 1440
+          CapacityLimit: 0
+          HoldoffTime: 0
+          RadarSensitivity: 80
+
+    - description: Config Payload V4
+      input:
+        fPort: 190
+        bytes:
+          [0xbe, 0x01, 0x04, 0x04, 0x03, 0x06, 0x00, 0x03, 0x02, 0x00, 0x00, 0x00, 0x0a, 0x05, 0xa0, 0x00, 0x64, 0x00, 0x01, 0x00, 0xb4, 0x00, 0x5a, 0x50, 0x00, 0x32, 0x01, 0xf4, 0x01, 0x14, 0x50]
+      output:
+        data:
+          DeviceType: 4
+          FirmwareVersion: '3.6.0'
+          OperatingMode: 3
+          PayloadType: 2
+          DeviceClass: 0
+          UplinkType: 0
+          UplinkInterval: 10
+          LinkCheckInterval: 1440
+          CapacityLimit: 100
+          HoldoffTime: 1
+          InactivityTimeout: 180
+          MountingDirection: 0
+          MountingTilt: 90
+          DetectionAngle: 80
+          MinDist: 50
+          MaxDist: 500
+          MinSpeed: 1
+          MaxSpeed: 20
+          RadarSensitivity: 80
+
+    - description: Config Payload V5
+      input:
+        fPort: 190
+        bytes:
+          [
+            0xbe,
+            0x01,
+            0x05,
+            0x00,
+            0x03,
+            0x0a,
+            0x00,
+            0x00,
+            0x02,
+            0x00,
+            0x01,
+            0x00,
+            0x0a,
+            0x05,
+            0xa0,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x78,
+            0x01,
+            0x28,
+            0x00,
+            0x32,
+            0x00,
+            0xc8,
+            0x01,
+            0x07,
+            0x00,
+            0x3c,
+            0x04,
+            0x01,
+            0x01,
+          ]
+      output:
+        data:
+          DeviceType: 0
+          Firmware: '3.10.0'
+          OperationMode: 0
+          PayloadType: 2
+          DeviceClass: 0
+          UplinkType: 1
+          UplinkInterval: 10
+          LinkCheckInterval: 1440
+          CapacityLimit: 0
+          HoldoffTime: 0
+          InactivityTimeout: 120
+          RadarEnabled: 1
+          BeamAngle: 40
+          MinDist: 50
+          MaxDist: 200
+          MinSpeed: 1
+          MaxSpeed: 7
+          RadarAutotune: 0
+          RadarSensitivity: 60
+          SBXVersion: '4.1.1'
+
+    - description: Config
+      input:
+        fPort: 190
+        bytes: [0x03, 0x03, 0x00, 0x03, 0x02, 0x00, 0x01, 0x00, 0x05, 0x05, 0xa0, 0x00, 0x00, 0x64]
+      output:
+        data:
+          DeviceType: 3
+          FirmwareVersion: '3.0.3'
+          HoldoffTime: 0
+          LinkCheckInterval: 1440
+          OperatingMode: 2
+          PayloadType: 0
+          RadarSensitivity: 100
+          UplinkInterval: 5
+          UplinkType: 1
