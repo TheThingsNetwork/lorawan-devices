@@ -1722,3 +1722,6 @@ vendors:
   - id: terabee
     name: Terabee
     website: https://www.terabee.com/
+
+  - id: uradmonitor
+    name: uRADMonitor
