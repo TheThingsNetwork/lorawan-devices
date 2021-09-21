@@ -867,7 +867,7 @@ function Decoder(bytes, port) {
         };
         //differential pressure
         if (  (clusterdID === 0x8008 ) & (attributID === 0x0000)) {
-          tab.push({label: "Humidity", value:bytes[index]*256+bytes[index+1], date: lDate});
+          tab.push({label: "DifferentialPressure", value:bytes[index]*256+bytes[index+1], date: lDate});
         };
 
         //binary input counter

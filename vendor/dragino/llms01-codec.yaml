@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: llms01.js
+  examples:
+    - description: LoRaWAN Leaf Moisture Sensor
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x23, 0x00, 0x00, 0x02, 0x54, 0x00, 0xF9, 0x00, 0x00, 0x01]
+      output:
+        data: { 'Bat': 3.363, 'Interrupt_flag': 0, 'Leaf_Temperature': '24.90', 'Leaf_Moisture': '59.60', 'Message_type': 1, 'TempC_DS18B20': '0.00' }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0D, 0x23, 0x00, 0x00, 0x02, 0x54, 0x00, 0xF9, 0x00, 0x00, 0x01]
+      output:
+        errors:
+          - unknown FPort

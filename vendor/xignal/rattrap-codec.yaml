@@ -1,0 +1,17 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: mousetrap.js
+  # Examples (optional)
+  examples:
+    - description: Rat trap successful catch
+      input:
+        fPort: 1
+        bytes: [0x22, 0x1D, 0x04, 0xE2, 0x02, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x01]
+      output:
+        data:
+          battVoltage: 2.9
+          id: 511
+          msgId: 34
+          temperature: 12.5
+          trapState: 'trapped'

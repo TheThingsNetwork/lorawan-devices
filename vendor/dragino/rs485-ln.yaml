@@ -40,6 +40,27 @@ firmwareVersions:
       AS923:
         id: as923-c-profile
 
+  - version: 'rs485-ln abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-c-abp-profile
+      EU433:
+        id: eu433-c-abp-profile
+      US902-928:
+        id: us915-c-abp-profile
+      AU915-928:
+        id: au915-c-abp-profile
+      AS923:
+        id: as923-c-abp-profile
+      CN470-510:
+        id: cn470-c-abp-profile
+      IN865-867:
+        id: in865-c-abp-profile
+      KR920-923:
+        id: kr920-c-abp-profile
+      RU864-870:
+        id: ru864-c-abp-profile
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
