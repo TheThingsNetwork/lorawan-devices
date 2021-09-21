@@ -1,0 +1,73 @@
+name: uRADMonitor MODEL INDUSTRIAL
+description: An automated, fixed monitoring station that tracks a total of 11 important air quality parameters including Particulate Matter, Carbon Monoxide, Ozone, Sulphur Dioxide, Nitrogen Dioxide and more for the INDUSTRIAL sector. It comes in a rugged aluminum enclosure with wall mounting support
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: uradmonitor-eu868-profile
+        lorawanCertified: true
+        codec: uradmonitor-model-industrial-codec
+      US902-928:
+        id: uradmonitor-us902-profile
+        lorawanCertified: true
+        codec: uradmonitor-model-industrial-codec
+      AS923:
+        id: uradmonitor-as923-profile
+        lorawanCertified: true
+        codec: uradmonitor-model-industrial-codec
+      AU915-928:
+        id: uradmonitor-au915-profile
+        lorawanCertified: true
+        codec: uradmonitor-model-industrial-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - humidity
+  - sound
+  - co
+  - co2
+  - o3
+  - no2
+  - so2
+  - pm2.5
+  - pm10
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 65
+  length: 110
+  height: 25
+
+# Weight in grams (optional)
+weight: 210
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 65
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# Product and data sheet URLs (optional)
+dataSheetURL: https://www.uradmonitor.com/wordpress/wp-content/uploads/2021/08/industrial_datasheet_107_sht.pdf
