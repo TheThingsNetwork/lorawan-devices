@@ -1,0 +1,8 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - oy1100
+  - oy1110
+  - oy1200
+  - oy1210
+  - oy1320
+  - oy1700

@@ -1,0 +1,37 @@
+name: OY1320 LoRaWAN Water meter AMR
+description: LoRaWAN sensor designed to function in combination with B Meters’ mechanical water meters. Complete package measures water flow in pipes automatically. Simply mount the LoRaWAN unit on top of a B Meters’ GMDM-RFM mechanical water meter and integrate the meter into your IoT system.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: talkpool-eu868-profile
+        lorawanCertified: true
+        codec: oy1320-codec
+      US902-928:
+        id: talkpool-us902-profile
+        lorawanCertified: true
+        codec: oy1320-codec
+      AS923:
+        id: talkpool-as923-profile
+        lorawanCertified: true
+        codec: oy1320-codec
+      AU915-928:
+        id: talkpool-au915-profile
+        lorawanCertified: true
+        codec: oy1320-codec
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 1 x ER14505 3.6V Lithium AA battery
+
+# Product and data sheet URLs (optional)
+productURL: https://talkpool.com/oy1320-lorawan-water-meter-amr/
