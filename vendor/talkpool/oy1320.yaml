@@ -33,9 +33,9 @@ battery:
   replaceable: true
   type: 1 x ER14505 3.6V Lithium AA battery
 
-# Photos
-photos:
-  main: OY1210.png
-
 # Product and data sheet URLs (optional)
 productURL: https://talkpool.com/oy1320-lorawan-water-meter-amr/
+
+# Photos
+photos:
+  main: oy1320.png
