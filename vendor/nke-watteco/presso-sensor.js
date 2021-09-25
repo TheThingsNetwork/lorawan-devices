@@ -862,7 +862,7 @@ function Decoder(bytes, port) {
           //binary input counter
           if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
                 stdData.label = "Index";
-                stdData.value =bytes[index]; 
+                stdData.value =bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]; 
                 stdData.date = lDate;
                 tab.push(stdData);
             };

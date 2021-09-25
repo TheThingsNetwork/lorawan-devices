@@ -1688,6 +1688,10 @@ vendors:
     name: ElektronikSystem i Ume
     website: https://www.elsys.se/en/
 
+  - id: xignal
+    name: Xignal
+    website: https://www.xignal.com
+
   - id: opensource
     name: Open Source Community Projects
     website: https://en.wikipedia.org/wiki/Open_source
@@ -1706,3 +1710,15 @@ vendors:
     description: ...straight to it...
     website: https://st-ing.net/
     logo: sting.png
+
+  - id: smart-parks
+    name: Smart Parks
+    website: https://www.smartparks.org/
+
+  - id: nexelec
+    name: Nexelec
+    website: https://www.nexelec.fr/
+
+  - id: terabee
+    name: Terabee
+    website: https://www.terabee.com/
