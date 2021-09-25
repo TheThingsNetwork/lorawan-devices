@@ -31,7 +31,14 @@ firmwareVersions:
         id: pengy-profile-eu868-abp
         lorawanCertified: false
         codec: pengy-codec
-
+  - version: '2.1'
+    hardwareVersions:
+      - '2.0'
+    profiles:
+      EU863-870:
+        id: pengy-profile-eu868-otaa
+        lorawanCertified: false
+        codec: pengy-codec
 sensors:
   - particulate matter
   - pm2.5
@@ -51,4 +58,4 @@ weight: 100
 productURL: https://github.com/dusanstojkovic/pengy
 
 photos:
-  main: pengy.gif
+  main: pengy.png
