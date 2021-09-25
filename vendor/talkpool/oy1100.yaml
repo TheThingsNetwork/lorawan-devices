@@ -55,5 +55,9 @@ battery:
   replaceable: true
   type: 1 x ER14505 3.6V Lithium AA battery
 
+# Photos
+photos:
+  main: OY1110.png
+
 # Product and data sheet URLs (optional)
 productURL: https://talkpool.com/temperature-and-humidity-sensor/

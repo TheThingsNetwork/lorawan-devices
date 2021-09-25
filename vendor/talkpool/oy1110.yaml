@@ -66,5 +66,9 @@ operatingConditions:
     min: 0
     max: 0.85
 
+# Photos
+photos:
+  main: OY1110.png
+
 # Product and data sheet URLs (optional)
 productURL: https://talkpool.com/temperature-and-humidity-sensor/

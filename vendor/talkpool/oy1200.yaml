@@ -1,5 +1,5 @@
-name: OY1100 LoRaWAN® temperature and humidity sensor
-description: LoRaWAN sensor that measures temperature and humidity, with an incredible maintenance free lifetime of 10 years at a 5-minute measurement interval. Easy to use, configurable over the air and stylish in design to fit into indoor spaces.
+name: OY1200 LoRaWAN® CO2 meter
+description: LoRaWAN sensor that measures CO2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -44,3 +44,7 @@ sensors:
 battery:
   replaceable: true
   type: 1 x ER14505 3.6V Lithium AA battery
+
+# Photos
+photos:
+  main: OY1210.png

@@ -45,3 +45,7 @@ sensors:
 battery:
   replaceable: true
   type: 1 x ER14505 3.6V Lithium AA battery
+
+# Photos
+photos:
+  main: OY1210.png
