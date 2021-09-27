@@ -1,0 +1,15 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: oy1210.js
+  # Examples (optional)
+  examples:
+    - description: Example
+      input:
+        fPort: 2
+        bytes: [0x3e, 0x44, 0x1d, 0x02, 0x1b]
+      output:
+        data:
+          CO2: 539
+          Humidity: 85.1
+          Temperature: 19.3
