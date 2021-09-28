@@ -1,0 +1,61 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: a3.js
+  # Examples (optional)
+  examples:
+    - description: ERS CO2 temperature, humidity, light, motion and co2
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x82,
+            0x00,
+            0x02,
+            0x9a,
+            0x6c,
+            0x4e,
+            0x00,
+            0x00,
+            0x02,
+            0x58,
+            0x08,
+            0xe4,
+            0x8e,
+            0xe4,
+            0x70,
+            0x03,
+            0x2d,
+            0xd3,
+            0x3b,
+            0x02,
+            0x36,
+            0x00,
+            0x07,
+            0x00,
+            0x14,
+            0x00,
+            0x08,
+            0x00,
+            0x0a,
+            0x00,
+            0x0b,
+            0xd5,
+          ]
+      output:
+        data:
+          model: 'A3'
+          hardware_version: 'HW108'
+          firmware_version: 78
+          temperature: 22.76
+          pressure: 102115
+          humidity: 56
+          gas_resistance: 208339
+          sound: 29.5
+          co2: 566
+          ch20: 7
+          o3: 20
+          pm1: 8
+          pm2_5: 10
+          pm10: 11
+          iaq: 14
