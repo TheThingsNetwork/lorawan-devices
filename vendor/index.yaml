@@ -1695,3 +1695,7 @@ vendors:
   - id: origoelec
     name: Origoelec
     website: http://www.origoelec.com
+
+  - id: dezem
+    name: deZem GmbH
+    website: https://www.dezem.de/en/
