@@ -25,5 +25,4 @@ supports32bitFCnt: true
 pingSlotPeriod: 128
 classBTimeout: 60
 pingSlotDataRateIndex: 0
-pingSlotFrequency: 0
 classCTimeout: 60
