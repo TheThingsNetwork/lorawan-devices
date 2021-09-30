@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: llds12.js
+  examples:
+    - description: LoRaWAN LiDAR ToF Distance Sensor
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x5c, 0x00, 0x00, 0x0B, 0x18, 0x01, 0xB1, 0x00, 0x1E, 0x01]
+      output:
+        data: { 'Bat': 3.42, 'TempC_DS18B20': '0.00', 'Lidar_distance': 284, 'Lidar_signal': 433, 'Message_type': 1, 'Interrupt_flag': 0, 'Lidar_temp': 30 }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0D, 0x5c, 0x00, 0x00, 0x0B, 0x18, 0x01, 0xB1, 0x00, 0x1E, 0x01]
+      output:
+        errors:
+          - unknown FPort

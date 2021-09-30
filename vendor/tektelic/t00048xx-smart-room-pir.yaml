@@ -64,8 +64,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://tektelic.com/public/catalog/Smart-Room-PIR-Sensor
-dataSheetURL: https://tektelic.com/public/uploads/Brochures/Smart%20Room%20Sensor.pdf
+productURL: https://tektelic.com/catalog/smart-room-lorawan-sensor-pir
+dataSheetURL: https://tektelic.com/uploads/Brochures/Smart%20Room%20Sensor.pdf
 manuals: https://support.tektelic.com/portal/en/kb/articles/home-sensor-technical-reference-manual
 
 # Photos (optional)
