@@ -55,8 +55,8 @@ function decode_v2_config_payload(bytes) {
   var obj = {};
 
   obj.DeviceType = bytes[0];
-  obj.FirmwareVersion = bytes[1] + "." + bytes[2] + "." + bytes[3];  // version string
-  obj.OperatingMode = bytes[4];
+  obj.Firmware = bytes[1] + "." + bytes[2] + "." + bytes[3];  // version string
+  obj.OperationMode = bytes[4];
   obj.PayloadType = bytes[5];
   obj.UplinkType = bytes[6];
   obj.UplinkInterval = (bytes[7] << 8) | (bytes[8]);
@@ -108,7 +108,7 @@ function decode_v3_config_payload(bytes) {
 
   if (bytes[0] == 0xbe && bytes[1] == 0x01 && bytes[2] == 0x03) {
       obj.DeviceType = bytes[3];
-      obj.FirmwareVersion = bytes[4] + "." + bytes[5] + "." + bytes[6];  // version string
+      obj.Firmware = bytes[4] + "." + bytes[5] + "." + bytes[6];  // version string
       obj.OperatingMode = bytes[7];
       obj.PayloadType = bytes[8];
       obj.DeviceClass = bytes[9];
@@ -169,8 +169,8 @@ function decode_v4_config_payload(bytes) {
 
   if (bytes[0] == 0xbe && bytes[1] == 0x01 && bytes[2] == 0x04) {
       obj.DeviceType = bytes[3];
-      obj.FirmwareVersion = bytes[4] + "." + bytes[5] + "." + bytes[6];  // version string
-      obj.OperatingMode = bytes[7];
+      obj.Firmware = bytes[4] + "." + bytes[5] + "." + bytes[6];  // version string
+      obj.OperationMode = bytes[7];
       obj.PayloadType = bytes[8];
       obj.DeviceClass = bytes[9];
       obj.UplinkType = bytes[10];

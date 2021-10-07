@@ -22,8 +22,11 @@ function app_payload_r0_decoder(bytes) {
         timestampUL += bytes[4] << 16;
         timestampUL += bytes[5] << 8;
         timestampUL += bytes[6]; 
-        var ultime = new Date(timestampUL * 1000);
-        obj.ULTIME = ultime.toISOString();
+        var ULInMs = new Date(timestampUL * 1000).getTime() 
+        var nowInMs = new Date().getTime()
+        var diffUL = nowInMs - ULInMs 
+        var actualULTIME = new Date(ULInMs + diffUL)
+        obj.ULTIME = actualULTIME.toISOString();
 
 
         // Number of scan records
@@ -45,8 +48,8 @@ function app_payload_r0_decoder(bytes) {
             timestampSCAN += bytes[nextRecPos+1] << 16;
             timestampSCAN += bytes[nextRecPos+2] << 8;
             timestampSCAN += bytes[nextRecPos+3];
-            var diff = new Date(ultime - new Date(timestampSCAN * 1000));
-            var actualSCANTIME = new Date(new Date() - diff);
+            var diff = ULInMs - new Date(timestampSCAN * 1000).getTime();
+            var actualSCANTIME = new Date(nowInMs - diff);
             rec.SCANTIME = actualSCANTIME.toISOString();
 
             // nfc serial            
