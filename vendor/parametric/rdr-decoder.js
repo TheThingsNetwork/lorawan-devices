@@ -55,7 +55,7 @@ function app_payload_r0_decoder(bytes) {
             // nfc serial            
             rec.SERIAL = bytes.slice(nextRecPos+4, nextRecPos+12);
             rec.LEN = bytes[nextRecPos+12];
-            rec.DATA = bytes.slice(nextRecPos+12, nextRecPos+12+rec.LEN);
+            rec.DATA = bytes.slice(nextRecPos+12, nextRecPos+13+rec.LEN);
             obj.Records.push(rec);             
 
             nextRecPos = nextRecPos + 12 + rec.LEN + 2;
