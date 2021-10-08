@@ -32,15 +32,19 @@ firmwareVersions:
         # which is verbose.
         # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: parametric-eu868-profile
+        id: pcr2-eu868-profile
         lorawanCertified: true
         codec: pcr2-codec
       AS923:
-        id: parametric-as923-profile
+        id: pcr2-as923-profile
         lorawanCertified: true
         codec: pcr2-codec
       AU915-928:
-        id: parametric-au915-profile
+        id: pcr2-au915-profile
+        lorawanCertified: true
+        codec: pcr2-codec
+      US902-928:
+        id: pcr2-us915-profile
         lorawanCertified: true
         codec: pcr2-codec
 
@@ -88,7 +92,7 @@ productURL: https://parametric.ch/products/pcr2/
 
 # Photos
 photos:
-  main: pcr2-od.jpg
+  main: pcr2.jpg
 
 # Youtube or Vimeo Video (optional)
 # videos:

@@ -32,15 +32,7 @@ firmwareVersions:
         # which is verbose.
         # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: parametric-eu868-profile
-        lorawanCertified: true
-        codec: rdr-codec
-      AS923:
-        id: parametric-as923-profile
-        lorawanCertified: true
-        codec: rdr-codec
-      AU915-928:
-        id: parametric-au915-profile
+        id: rdr-eu868-profile
         lorawanCertified: true
         codec: rdr-codec
 
