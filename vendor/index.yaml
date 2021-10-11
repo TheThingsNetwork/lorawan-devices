@@ -1726,3 +1726,7 @@ vendors:
   - id: uradmonitor
     name: uRADMonitor
     website: https://www.uradmonitor.com/
+
+  - id: ellenex
+    name: Ellenex
+    website: https://www.ellenex.com

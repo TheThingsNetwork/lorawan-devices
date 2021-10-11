@@ -1,0 +1,13 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: pls2-l.js
+  # Examples (optional)
+  examples:
+    - description: payload 12 fc -> level 4.62 bar
+      input:
+        fPort: 1
+        bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b, 0x22]
+      output:
+        data:
+          level: 4.62
