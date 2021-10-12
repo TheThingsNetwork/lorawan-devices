@@ -1,6 +1,12 @@
 function decodeUplink(input) {
   switch (input.fPort) {
     case 1:
+      // return error if length of Bytes is not 8
+      if (input.bytes.length != 8) {
+        return {
+          errors: ['input bytes in wrong format'],
+        };
+      }
       var k = 0.019
       var m = 0.05
       var b = 0

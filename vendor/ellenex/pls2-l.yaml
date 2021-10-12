@@ -88,7 +88,10 @@ ipCode: IP65
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-# keyProgramming:
+keyProgramming:
+  - nfc
+  - wifi
+  - serial
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.

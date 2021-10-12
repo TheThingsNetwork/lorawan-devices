@@ -12,3 +12,17 @@ uplinkDecoder:
         data:
           pressure: 4.63
           batteryVoltage: 3.4
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b, 0x22]
+      output:
+        errors:
+          - unknown FPort
+    - description: wrong format of input bytes
+      input:
+        fPort: 1
+        bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b]
+      output:
+        errors:
+          - input bytes in wrong format
