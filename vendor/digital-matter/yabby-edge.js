@@ -92,7 +92,7 @@ function ParseNav(navBytes)
   out.sats = [];
   while (p.bitLength - p.offset >= 8)
   {
-      var constellation = GetU32LE(p, 4);       // 1: GPS, 2: Beidou
+      var constellation = GetU32LE(p, 4);
       var count = GetU32LE(p, 4);
 
       for (var i = 0; i < count; i++)
@@ -104,7 +104,7 @@ function ParseNav(navBytes)
 
           var fHas8BitA = GetU32LE(p, 1);
           var fHasBitChange = GetU32LE(p, 1);
-          var fFlagB = GetU32LE(p, 1);
+          var fBadDoppler = GetU32LE(p, 1);
           var fHasDoppler = GetU32LE(p, 1);
           var fHas19BitC = GetU32LE(p, 1);
           var fHasPsuedoRange = GetU32LE(p, 1);
@@ -115,8 +115,8 @@ function ParseNav(navBytes)
               sat.c19 = GetU32LE(p, 19);
           if (fHasDoppler)
               sat.dopplerHz = GetS32LE(p, 15);
-          if (fFlagB)
-              sat.flagB = true;
+          if (fBadDoppler)
+              sat.fBadDoppler = true;
           if (fHasBitChange)
               sat.bitChange = GetU32LE(p, 8);
           if (fHas8BitA)
@@ -131,76 +131,158 @@ function ParseNav(navBytes)
 
 function decodeUplink(input)
 {
-  var port = input.fPort;
-  var bytes = input.bytes;
-  var decoded = {};
+  var p = input.fPort;
+  var b = input.bytes;
+  var d = {};
 
-  if (port === 1)
+  if (p === 1)
   {
-    decoded.type = "reset";
-    decoded.fwMaj = bytes[0];
-    decoded.fwMin = bytes[1];
-    decoded.prodId = bytes[2];
-    decoded.hwRev = bytes[3];
-    decoded.resetPowerOn  = ((bytes[4] & 1) != 0);
-    decoded.resetWatchdog = ((bytes[4] & 2) != 0);
-    decoded.resetExternal = ((bytes[4] & 4) != 0);
-    decoded.resetSoftware = ((bytes[4] & 8) != 0);
-    decoded.watchdogReason = bytes[5] + bytes[6] * 256;
-    decoded.initialBatV = Number((2.0 + 0.007 * bytes[7]).toFixed(2));
+    d.type = "hello";
+    d.fwMaj = b[0];
+    d.fwMin = b[1];
+    d.prodId = b[2];
+    d.hwRev = b[3];
+    d.resetPowerOn  = ((b[4] & 1) != 0);
+    d.resetWatchdog = ((b[4] & 2) != 0);
+    d.resetExternal = ((b[4] & 4) != 0);
+    d.resetSoftware = ((b[4] & 8) != 0);
+    d.watchdogReason = b[5] + b[6] * 256;
+    d.initialBatV = Number((2.0 + 0.007 * b[7]).toFixed(2));
+    d.lrHw = b[8];
+    d.lrMaj = b[9];
+    d.lrMin = b[10];
   }
-  else if (port === 2)
+  else if (p === 2)
   {
-    decoded.type = "downlink ack";
-    decoded.sequence = (bytes[0] & 0x7F);
-    decoded.accepted = ((bytes[0] & 0x80) !== 0) ? true : false;
-    decoded.fwMaj = bytes[1];
-    decoded.fwMin = bytes[2];
-    decoded.prodId = bytes[3];
-    decoded.hwRev = bytes[4];
+    d.type = "downlink ack";
+    d.sequence = (b[0] & 0x7F);
+    d.accepted = ((b[0] & 0x80) !== 0) ? true : false;
+    d.fwMaj = b[1];
+    d.fwMin = b[2];
+    d.prodId = b[3];
+    d.hwRev = b[4];
+    d.port = b[5];
+    d.lrHw = b[6];
+    d.lrMaj = b[7];
+    d.lrMin = b[8];
   }
-  else if (port === 4)
+  else if (p === 3)
   {
-    decoded.type = "position";
-    decoded.inTrip = ((bytes[0] & 0x20) != 0);
-    decoded.wifi = [];
-    for (var i = 0; i < (bytes[0] & 0x1f); i++)
+    var p = MakeBitParser(b, 0, b.length);
+    d.type = "stats";
+    
+    d.initialBatV = Number((2.0 + 0.007 * GetU32LE(p, 8)).toFixed(3));
+    d.BatVMax = Number((2.0 + 0.007 * GetU32LE(p, 8)).toFixed(3));
+    d.wakeupsPerTrip = GetU32LE(p, 8);
+    d.tripCount = 32 * GetU32LE(p, 14);
+    d.uptimeWeeks = GetU32LE(p, 10);
+    d.mAhUsed = 2 * GetU32LE(p, 10);
+    d.percentLora = 100/64 * GetU32LE(p, 6);
+    d.percentGnss = 100/64 * GetU32LE(p, 6);
+    d.percentWifi = 100/64 * GetU32LE(p, 6);
+    d.percentSleep = 100/64 * GetU32LE(p, 6);
+    d.percentDisch = 100/64 * GetU32LE(p, 6);
+    d.percentOther = 100 - d.percentLora - d.percentGnss
+        - d.percentWifi - d.percentSleep - d.percentDisch;
+  }
+  else if (p === 5)
+  {
+    d.type = "location";
+    wifiCount = b[0] & 0x1f;
+    d.inTrip = ((b[0] & 0x20) != 0);
+    d.inactive = ((b[0] & 0x40) != 0);
+    d.timeSet = ((b[1] & 0x04) != 0);
+    d.posSeq = b[1] >> 3;
+    
+    d.wifi = [];
+    for (var i = 0; i < wifiCount; i++)
     {
-      var rssi = bytes[1 + i * 7 + 0];
+      var rssi = b[2 + i * 7 + 0];
       if (rssi >= 128)
         rssi -= 256;
-      var mac = PrintHex(bytes, 1 + i * 7 + 1, 6);
-      decoded.wifi[i] = { rssi: rssi, mac: mac };
+      var mac = PrintHex(b, 2 + i * 7 + 1, 6);
+      d.wifi[i] = { rssi: rssi, mac: mac };
     }
 
-    var navBytes = bytes.slice(1 + (bytes[0] & 0x1f) * 7);
+    var navBytes = b.slice(2 + wifiCount * 7);
     if (navBytes.length > 0)
     {
-        decoded.nav = PrintHex(navBytes, 0, navBytes.length);
-        decoded.navFields = ParseNav(navBytes);
+        d.nav = PrintHex(navBytes, 0, navBytes.length);
+        d.navFields = ParseNav(navBytes);
     }
   }
-  else if (port == 80)
+  else if (p == 89)
   {
-      decoded.type = "fragment start";
-      decoded.dstPort = bytes[0];
+      d.type = "connect";
+      d.id = PrintHex(b, 0, 6);
+      d.devReset = ((b[6] & 1) != 0);
+      d.fcntReset = ((b[6] & 2) != 0);
+      d.fwMaj = b[7];
+      d.fwMin = b[8];
+      d.prodId = b[9];
+      d.hwRev = b[10];
   }
-  else if (port == 81)
+  else if (p == 90)
   {
-      decoded.type = "fragment";
+      var p = MakeBitParser(b, 0, b.length);
+      d.type = "mtu advice";
+      d.mtu0 = GetU32LE(p, 6);
+      d.mtu1 = GetU32LE(p, 7);
+      d.mtu2 = GetU32LE(p, 7);
+      d.mod1 = GetU32LE(p, 4);
+      d.mod2 = GetU32LE(p, 4);
+      d.mod3 = GetU32LE(p, 4);
+      d.seq = GetU32LE(p, 16);
   }
-  else if (port == 82)
+  else if (p == 91)
   {
-      decoded.type = "fragment end";
+      d.type = "alm cookie req";
+      d.baseTime = b[0] + 256 * b[1];
+      d.baseCrc = PrintHex(b, 2, 2);
+      d.codeMask = b[4];
+      d.compMask = b[5];
+      d.lrHw = b[6];
+      d.lrMaj = b[7];
+      d.lrMin = b[8];
+  }
+  else if (p == 92)
+  {
+      d.type = "alm chunk req";
+      d.offset = b[0] + 256 * (b[1] & 0x7F);
+      d.count = (b[1] >> 7) + 2 * b[2] + 512 * (b[3] & 0xF);
+      d.cookie = b[3] >> 4;
+  }
+  else if ((p >= 101) && (p <= 116))
+  {
+      d.type = "fragments";
+      d.frameId = p - 101 + 16 * (b[0] & 0xF);
+      d.total = (b[0] >> 4) + 16 * (b[1] & 1) + 1;
+      d.offset = b[1] >> 1;
+      d.data = PrintHex(b, 2, b.length - 2);
+      if (d.offset == 0)
+      {
+          d.port = b[7];
+          d.size = d.total * 9 - (b[2] & 0xF);
+      }
+  }
+  else if (p == 202)
+  {
+      d.type = "time req";
+      if ((b.length == 6) && (b[0] == 0x01))
+      {
+          d.gpsTime = b[1] + 256 * b[2] + 65536 * b[3] + 16777216 * b[4];
+          d.token = b[5] & 0xF;
+          d.ansReq = ((b[5] & 0x10) != 0);
+      }
   }
   else
   {
     return {
-      errors: ['unknown FPort'],
+      warnings: ['unknown FPort'],
     };
   }
 
   return {
-    data: decoded,
+    data: d,
   };
 }
