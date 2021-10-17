@@ -1726,3 +1726,14 @@ vendors:
   - id: uradmonitor
     name: uRADMonitor
     website: https://www.uradmonitor.com/
+
+  - id: jeng-iot
+    name: JENG IoT
+    website: https://www.jeng.io/
+    logo: jeng_iot_logo.png
+    ouis:
+      - 70B3D55AF
+    description: JENG IoT is a Dutch based company providing sensor devices and e2e IoT solutions. The devices communicate over LoRaWAN® and have an ultra-low power consumption enables operating for several years on batteries. In our cloud environment, powered by our partner Yodiwo, our devices and solutions are available off-the-shelf. We offer great dashboard apps and easy integration into your own IT environment. Applications areas are smart cities & tracking devices (containers).
+    social:
+      linkedin: https://www.linkedin.com/company/jeng/
+      twitter: jeng_iot
