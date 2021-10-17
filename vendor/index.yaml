@@ -1727,7 +1727,7 @@ vendors:
     name: uRADMonitor
     website: https://www.uradmonitor.com/
 
-- id: jeng-iot
+  - id: jeng-iot
     name: JENG IoT
     website: https://www.jeng.io/
     logo: jeng_iot_logo.png
