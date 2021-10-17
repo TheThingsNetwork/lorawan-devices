@@ -16,7 +16,6 @@ uplinkDecoder:
           Records:
             DATA: [1]
             LEN: 1
-            SCANTIME: "2021-10-05T14:37:18.097Z"
+            SCANTIME: '2021-10-05T14:37:18.097Z'
             SERIAL: [158, 175, 81, 38, 0, 35, 2, 224]
-          ULTIME: "2020-10-30T10:30:04.000Z"
-          
+          ULTIME: '2020-10-30T10:30:04.000Z'

@@ -62,7 +62,7 @@ sensors:
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 # additionalRadios:
-#   - 
+#   -
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -76,8 +76,8 @@ weight: 195
 
 # Battery information (optional)
 # battery:
-#   replaceable: 
-#   type: 
+#   replaceable:
+#   type:
 
 # Operating conditions (optional)
 operatingConditions:
@@ -85,15 +85,14 @@ operatingConditions:
   temperature:
     min: -20
     max: 70
-  
+
 # Product and data sheet URLs (optional)
 productURL: https://parametric.ch/products/pcr2/
-#dataSheetURL: 
+#dataSheetURL:
 
 # Photos
 photos:
   main: pcr2.jpg
-
 # Youtube or Vimeo Video (optional)
 # videos:
-#   main: 
+#   main:

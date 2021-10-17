@@ -45,7 +45,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 #sensors:
-#  - 
+#  -
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -64,8 +64,8 @@ weight: 195
 
 # Battery information (optional)
 # battery:
-#   replaceable: 
-#   type: 
+#   replaceable:
+#   type:
 
 # Operating conditions (optional)
 operatingConditions:
@@ -73,15 +73,14 @@ operatingConditions:
   temperature:
     min: -30
     max: 60
-  
+
 # Product and data sheet URLs (optional)
 productURL: https://parametric.ch/products/rdr/
-#dataSheetURL: 
+#dataSheetURL:
 
 # Photos
 photos:
   main: rdr.jpg
-
 # Youtube or Vimeo Video (optional)
 # videos:
-#   main: 
+#   main:
