@@ -44,5 +44,5 @@ replace github.com/go-redis/redis/v8 => github.com/go-redis/redis/v8 v8.4.0
 
 require (
 	github.com/valyala/fasttemplate v1.1.0 // indirect
-	go.thethings.network/lorawan-stack/v3 v3.14.0
+	go.thethings.network/lorawan-stack/v3 v3.15.2-0.20211008145906-4d48208e4f72
 )
