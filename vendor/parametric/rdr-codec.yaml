@@ -2,12 +2,12 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 
 uplinkDecoder:
-  fileName: pcr2-decoder.js
+  fileName: rdr-decoder.js
   # Examples (optional)
   examples:
     - description: rdr payload
       input:
-        fPort: 190
+        fPort: 5
         bytes: [0xbe, 0x05, 0x00, 0x5f, 0x9b, 0xeb, 0x2c, 0x01, 0x00, 0x5f, 0x9b, 0xeb, 0x2c, 0x9e, 0xaf, 0x51, 0x26, 0x00, 0x23, 0x02, 0xe0, 0x01, 0x0c]
       output:
         data:
