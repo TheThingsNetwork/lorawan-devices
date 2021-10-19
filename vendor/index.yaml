@@ -1700,6 +1700,10 @@ vendors:
     name: Origoelec
     website: http://www.origoelec.com
 
+  - id: dezem
+    name: deZem GmbH
+    website: https://www.dezem.de/en/
+
   - id: mutelcor
     name: Mutelcor GmbH
     website: https://mutelcor.com/iot/
