@@ -59,7 +59,7 @@ firmwareVersions:
       - '1.0'
     profiles:
       EU863-870:
-        id: loramodule-e5-b-codec
+        id: loramodule-e5-b-profile
         lorawanCertified: true
         codec: loramodule-e5-codec
 
