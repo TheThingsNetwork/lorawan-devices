@@ -52,6 +52,17 @@ firmwareVersions:
         lorawanCertified: true
         codec: loramodule-e5-codec
 
+  # Class B
+  - version: 'classb'
+    numeric: 2
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: loramodule-e5-b-codec
+        lorawanCertified: true
+        codec: loramodule-e5-codec
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
