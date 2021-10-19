@@ -108,7 +108,7 @@ function decodeUplink(input)
   else
   {
     return {
-      errors: ['unknown FPort'],
+      warnings: ['unknown FPort'],
     };
   }
 
