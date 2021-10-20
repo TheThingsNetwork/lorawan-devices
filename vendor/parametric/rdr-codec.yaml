@@ -4,18 +4,3 @@
 uplinkDecoder:
   fileName: rdr-decoder.js
   # Examples (optional)
-  examples:
-    - description: rdr payload
-      input:
-        fPort: 5
-        bytes: [0xbe, 0x05, 0x00, 0x5f, 0x9b, 0xeb, 0x2c, 0x01, 0x00, 0x5f, 0x9b, 0xeb, 0x2c, 0x9e, 0xaf, 0x51, 0x26, 0x00, 0x23, 0x02, 0xe0, 0x01, 0x0c]
-      output:
-        data:
-          BUFF: 0
-          RECCNT: 1
-          Records:
-            DATA: [1]
-            LEN: 1
-            SCANTIME: '2021-10-05T14:37:18.097Z'
-            SERIAL: [158, 175, 81, 38, 0, 35, 2, 224]
-          ULTIME: '2020-10-30T10:30:04.000Z'
