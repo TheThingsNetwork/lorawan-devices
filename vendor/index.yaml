@@ -1741,3 +1741,8 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/jeng/
       twitter: jeng_iot
+
+  - id: sezo
+    name: SEZO
+    website: https://sezo.pl/
+    logo: sezo.png
