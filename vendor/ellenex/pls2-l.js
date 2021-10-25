@@ -7,8 +7,8 @@ function decodeUplink(input) {
           errors: ['input bytes in wrong format'],
         };
       }
-      var tmp = ('00'+(input.bytes[3]).toString(16)).slice(-2) + ('00'+(input.bytes[4]).toString(16)).slice(-2);
-      var pReading = 0;
+      let tmp = ('00'+(input.bytes[3]).toString(16)).slice(-2) + ('00'+(input.bytes[4]).toString(16)).slice(-2);
+      let pReading = 0;
       // process negative pressure
       if (input.bytes[3] === 0xFF) {
         // fill in the first 16 bits with 1's to perform bitwise operation
@@ -19,8 +19,9 @@ function decodeUplink(input) {
       // (K * Pressure * m + b) / Liquid density
       // k = 0.019, m = 0.05, b = 0, liquid density = 1
       // separate calibration sheet will specify K, m and b
-      var level = (0.019 * pReading * 0.05 + 0) / 1;
-      var battery = parseInt(input.bytes[7].toString(16), 16) * 0.1;
+      let k = 0.019, m = 0.05, b = 0, density = 1;
+      let level = (k * pReading * m + b) / density;
+      let battery = parseInt(input.bytes[7].toString(16), 16) * 0.1;
       return {
         // Decoded data
         data: {
