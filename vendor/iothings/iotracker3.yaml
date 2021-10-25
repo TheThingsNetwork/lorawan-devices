@@ -21,7 +21,7 @@ firmwareVersions:
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     features:
-#      - remote rejoin
+      #      - remote rejoin
       - transmission interval
 
     # LoRaWAN Device Profiles per region
@@ -170,7 +170,6 @@ photos:
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=l8cpugOarHk&t=377s
-
 # Regulatory compliances (optional)
 #compliances:
 #  safety:
