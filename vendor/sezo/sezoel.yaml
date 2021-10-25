@@ -39,7 +39,6 @@ firmwareVersions:
         lorawanCertified: false
         codec: sezo-codec
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -58,7 +57,6 @@ sensors:
   - magnetometer
   - iaq
   - pir
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -116,14 +114,11 @@ firmwareProgramming:
 productURL: https://sezo.pl/en/model-sezo-el
 dataSheetURL: https://sezo.pl/wp-content/uploads/2020/04/SEZO-EL-ENG-Product-brochure.pdf
 
-
 # Photos
 photos:
   main: sezoel.jpg
 
-
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=32EotQVyKFo
-
 # Regulatory compliances (optional)
