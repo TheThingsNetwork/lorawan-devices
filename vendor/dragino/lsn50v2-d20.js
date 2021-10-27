@@ -61,7 +61,7 @@ else if(mode=='3')
 {
   data.Work_mode="3DS18B20";
   data.TempC2=parseFloat(((input.bytes[7]<<24>>16 | input.bytes[8])/10).toFixed(2));
-  data.TempC3=parseFloat(((input.bytes[9]<<8 | input.bytes[10])/10) .toFixed(1));
+  data.TempC3=parseFloat(((input.bytes[9]<<24>>16 | input.bytes[10])/10) .toFixed(2));
   
 }
 else if(mode=='4')
