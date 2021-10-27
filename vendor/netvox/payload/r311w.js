@@ -19,16 +19,30 @@ function getCmdToID(cmdtype){
 	  return 130;
 }
 
+function getLeakSensorCount(dev){
+  var deviceName = {
+  "R311W": 2,
+	"R718WA": 1
+  };
+
+  return deviceName[dev];
+}
+
 function getDeviceName(dev){
   var deviceName = {
-	6: "R311W"
+	6: "R311W",
+	50: "R718WA"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
-  if (devName == "R311W")
-	  return 6;
+  var deviceName = {
+  "R311W": 6,
+	"R718WA": 50
+  };
+
+  return deviceName[devName];
 }
 
 function padLeft(str, len) {
@@ -57,10 +71,18 @@ function decodeUplink(input) {
 		}
 		
 		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;		
-		data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
-		
+		data.Volt = input.bytes[3]/10;
+
+    if (getLeakSensorCount(data.Device) > 1)
+    {
+      data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
+      data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
+    }
+    else
+    {
+      data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
+    }
+
 		break;
 		
 	case 7:

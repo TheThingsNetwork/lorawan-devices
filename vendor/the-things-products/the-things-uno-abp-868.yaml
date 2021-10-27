@@ -6,7 +6,7 @@ supportsJoin: false
 rx1Delay: 1
 rx1DataRateOffset: 0
 rx2DataRateIndex: 3
-rx2Frequency: 868.525
+rx2Frequency: 869.525
 factoryPresetFrequencies: [867.1, 867.3, 867.5, 867.7, 867.9, 868.1, 868.3, 868.5]
 maxEIRP: 16
 supports32bitFCnt: true
