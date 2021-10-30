@@ -1,5 +1,5 @@
-name: Wind Sensor
-description: Wind Sensor with controllable LED
+name: LoRaWAN Soil Moisture, Temperature | Air temperature/humidity | boosted 12v output from battery
+description: LoRaWAN IO module with optional Soil and Air Lux sensors and optional boosted 12v reversible polarity output for latching valves.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -31,26 +31,29 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        # vendorID: tinovi
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: pm-io-5-sm-profile
-        lorawanCertified: false
+        vendorID: tinovi
+        id: pm-io-5-sm-profile-eu
         codec: pm-io-5-sm-codec
       US902-928:
-        id: pm-io-5-sm-profile
-        lorawanCertified: false
+        vendorID: tinovi
+        id: pm-io-5-sm-profile-us
         codec: pm-io-5-sm-codec
       AS923:
-        id: pm-io-5-sm-profile
+        vendorID: tinovi
+        id: pm-io-5-sm-profile-as
         codec: pm-io-5-sm-codec
       AU915-928:
-        id: pm-io-5-sm-profile
+        vendorID: tinovi
+        id: pm-io-5-sm-profile-au
         codec: pm-io-5-sm-codec
       KR920-923:
-        id: pm-io-5-sm-profile
+        vendorID: tinovi
+        id: pm-io-5-sm-profile-kr
         codec: pm-io-5-sm-codec
       IN865-867:
-        id: pm-io-5-sm-profile
+        vendorID: tinovi
+        id: pm-io-5-sm-profile-in
         codec: pm-io-5-sm-codec
 
  
@@ -95,7 +98,7 @@ weight: 350
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 18650
+  type: 3.7v Lithium 18650
 
 # Operating conditions (optional)
 operatingConditions:
@@ -141,7 +144,7 @@ dataSheetURL: https://tinovi.com/wp-content/uploads/2021/06/PM-IO-5-SM-LoRaWAN-1
 resellerURLs:
   - name: 'Tinovi e-shop'
     region:
-      - Word
+      - Other
     url: https://tinovi.com/shop/lorawan-soil-moisture-temperature-air-temperature-humidity-12v-output-from-battery/
 
 # Photos
