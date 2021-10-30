@@ -1746,3 +1746,8 @@ vendors:
     name: SEZO
     website: https://sezo.pl/
     logo: sezo.png
+
+  - id: tinovi
+    name: tinovi
+    website: https://tinovi.com/
+    logo: tinovi.png
