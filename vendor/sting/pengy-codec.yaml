@@ -1,2 +1,51 @@
 uplinkDecoder:
   fileName: pengy-decoder.js
+  examples:
+    - description: Payload example (v2.0)
+      input:
+        fPort: 3
+        bytes: [0x01, 0x01, 0x01, 0x50, 0x03, 0xCA, 0x00, 0x59, 0x00, 0x5F, 0x00, 0x5F, 0x21, 0x89]
+      output:
+        data:
+          EAQI: 'Fair'
+          RPM: 10
+          FPM: 10
+          UPM: 9
+          Temperature: 33.6
+          Humidity: 25.7
+          Pressure: 970
+          Noise: 85.85
+          Version: '2.0'
+        warnings: []
+    - description: Payload example (v1.5)
+      input:
+        fPort: 2
+        bytes: [0x01, 0x29, 0x01, 0x23, 0x00, 0x7D, 0x00, 0x6F, 0x03, 0xDD, 0x00, 0x2D, 0x00, 0x05, 0x00, 0x64, 0x24, 0x85]
+      output:
+        data:
+          EAQI: 'Fair'
+          FPM: 11
+          RPM: 13
+          Temperature: 29.1
+          Humidity: 29.7
+          Pressure: 989
+          Noise: 93.49
+          CO: 45
+          NH3: 5
+          NO2: 1
+          Version: '1.5'
+        warnings: []
+    - description: Payload example (v1.0)
+      input:
+        fPort: 1
+        bytes: [0x04, 0x43, 0x01, 0x0F, 0x00, 0x37, 0x00, 0x34]
+      output:
+        data:
+          EAQI: 'Good'
+          FPM: 5
+          RPM: 6
+          Temperature: 27.1
+          Humidity: 100
+          Version: '1.0'
+        warnings:
+          - 'Humidity out of range (109.1)'
