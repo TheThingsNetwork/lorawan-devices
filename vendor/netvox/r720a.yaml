@@ -1,4 +1,4 @@
-name: Temperature and Humidity Sensor
+name: R720A - Temperature and Humidity Sensor
 description: The Netvox R720A-Temperature and Humidity Sensor has a built-in temperature sensor and a humidity sensor that measures ambient temperature and humidity. The measured data will be sent to the LoRaWAN® network for further processing and alerting.
 
 hardwareVersions:
