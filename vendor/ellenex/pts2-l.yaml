@@ -50,6 +50,12 @@ firmwareVersions:
 sensors:
   - pressure
 
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - nfc
+  - wifi
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 # Used length and diameter of C Model
@@ -63,29 +69,101 @@ weight: 550
 # Battery information
 battery:
   replaceable: true
-  type: Built-in Replaceable Lithium Battery, external power (option), 3.6V
+  type: 3.6V Lithium C Type
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -10
+    max: 70
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+# keyProvisioning:
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - nfc
+  - wifi
+  - serial
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+# keySecurity: secure element
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+  - fuota other
 
 # Product and data sheet URLs (optional)
 productURL: https://www.ellenex.com/ellenex-lorawan-products
 dataSheetURL: https://83a2d02d-d78a-4920-905c-42da0f69388a.filesusr.com/ugd/b0de6e_53ac044444c7457c9ea5b77f5f6c4724.pdf
 
+# Commercial information
+
 # Photos
 photos:
   main: pts2-l.jpg
 
-
 # Regulatory compliances (optional)
-# compliances:
-#   safety:
-#     - body: IEC
-#       norm: EN
-#       standard: 62368-1
-#   radioEquipment:
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-1
-#       version: 2.2.0
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-3
-#       version: 2.1.0
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+    - body: IEC
+      norm: AU
+      standard: 62368-1
+    - body: IEC
+      norm: NZ
+      standard: 62368-1
+    - body: IEC
+      norm: USA
+      standard: 62368-1
+    - body: IEC
+      norm: EN
+      standard: 61010-1
+    - body: IEC
+      norm: AU
+      standard: 61010-1
+    - body: IEC
+      norm: NZ
+      standard: 61010-1
+    - body: IEC
+      norm: USA
+      standard: 61010-1
+    - body: IEC
+      norm: EN
+      standard: 61326-1
+    - body: IEC
+      norm: EN
+      standard: '62311'
+    - body: IEC
+      norm: EN
+      standard: '60529'
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-17
+    - body: ETSI
+      norm: EN
+      standard: 300 220
+    - body: ETSI
+      norm: EN
+      standard: 300 328
+    - body: ETSI
+      norm: EN
+      standard: 300 330
