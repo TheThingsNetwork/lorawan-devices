@@ -1,0 +1,24 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: imbuildings.js
+  # Examples (optional)
+  examples:
+    - description: Counters, battery
+      input:
+        fPort: 1
+        bytes: [0x02, 0x06, 0x00, 0x04, 0xa3, 0x0b, 0x00, 0xf0, 0xd4, 0x0e, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x0d, 0x00, 0x0a, 0x6a]
+      output:
+        data:
+          device_type_identifier: 2
+          device_type: 'People Counter'
+          device_type_variant: 6
+          device_id: '0004a30b00f0d40e'
+          device_status: 0
+          battery_voltage: 2.56
+          counter_a: 0
+          counter_b: 0
+          sensor_status: 32
+          total_counter_a: 13
+          total_counter_b: 10
+          payload_counter: 106
