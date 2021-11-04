@@ -1,5 +1,5 @@
 name: PTS2-L
-description: Industrial Pressure Sensor
+description: LoRaWAN Operated Low Power Level Transmitter for Liquid Media
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
