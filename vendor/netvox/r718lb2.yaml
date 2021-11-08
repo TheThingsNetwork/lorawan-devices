@@ -1,4 +1,4 @@
-name: Wireless 2-Gang Hall Type Open/Close Detection Sensor
+name: R718LB2 - Wireless 2-Gang Hall Type Open/Close Detection Sensor
 description: This device is equipped with two way Hall sensors, which can be used for door and window switch state detection. It can realize wireless alarm and other functions through the built-in wireless module. It applys SX1276 wireless communication module.
 
 hardwareVersions:

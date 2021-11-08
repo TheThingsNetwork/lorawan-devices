@@ -1,4 +1,4 @@
-name: Wireless Push Button Interface
+name: R718T - Wireless Push Button Interface
 description: The Netvox R718T-Wireless Push Button Interface is a LoRaWAN® end device that sends a notification signal when the connected push button is pushed. Ideal for building panic buttons for emergency assistance.
 
 hardwareVersions:

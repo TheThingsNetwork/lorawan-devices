@@ -1,4 +1,4 @@
-name: Wireless Activity Event Counter R718MBB
+name: R718MBB - Wireless Activity Event Counter
 description: The device detects the number of movements or vibrations (such as detecting the motor a few times a day), the maximum number of movements or vibrations can reach 232 times (theoretical value), and sends the information of the number of movements or vibrations to the gateway for processing. Apply SX1276 wireless communication module.
 
 hardwareVersions:

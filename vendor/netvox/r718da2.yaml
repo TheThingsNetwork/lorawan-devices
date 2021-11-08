@@ -1,4 +1,4 @@
-name: Wireless 2-Gang Vibration Sensor
+name: R718DA2 - Wireless 2-Gang Vibration Sensor
 description: R718DA2 is equipped with two external rolling ball type vibration sensors. When either of the vibration sensors moves or vibrates, R718DA2 can detect vibration or moving signals and send an alert to data center through LoRaWAN™. It is fully compatible with LoRaWAN™ protocol (Class A).
 
 hardwareVersions:
