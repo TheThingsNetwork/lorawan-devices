@@ -1,4 +1,4 @@
-name: Wireless CO2/Temperature/Humidity Sensor
+name: RA0715 - Wireless CO2/Temperature/Humidity Sensor
 description: The Netvox RA0715-Wireless CO2/Temperature/Humidity Sensor for measuring temperature and humidity. It also has a built-in PM2.5 sensor for measuring CO2 concentration in the air to ensure air quality.
 
 hardwareVersions:
