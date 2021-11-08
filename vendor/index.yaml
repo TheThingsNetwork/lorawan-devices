@@ -1754,3 +1754,6 @@ vendors:
     ouis:
       - 102CEF
 
+  - id: ellenex
+    name: ellenex
+    website: https://www.ellenex.com
