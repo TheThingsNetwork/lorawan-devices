@@ -1757,3 +1757,8 @@ vendors:
   - id: ellenex
     name: ellenex
     website: https://www.ellenex.com
+
+  - id: tinovi
+    name: tinovi
+    website: https://tinovi.com/
+    logo: tinovi.png
