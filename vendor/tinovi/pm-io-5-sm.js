@@ -75,8 +75,6 @@ function decodeUplink(input) {
   }
   return {
     data: decoded,
-    warnings: [],
-    errors: []
   };
 }
 

@@ -15,13 +15,6 @@ firmwareVersions:
     hardwareVersions:
       - '4.4'
 
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
-    #features:
-    #  - remote rejoin
-    #  - transmission interval
-
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -56,7 +49,6 @@ firmwareVersions:
         id: pm-io-5-sm-profile-in
         codec: pm-io-5-sm-codec
 
- 
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -72,25 +64,6 @@ sensors:
   - pressure
   - temperature
   - moisture
- 
-# Additional radios that this device has (optional)
-# Valid values are: ble, nfc, wifi, cellular.
-#additionalRadios:
-#  - ble
-#  - cellular
-
-# Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-#bridgeInterfaces:
-#  - m-bus
-#  - rs-485
-
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-#dimensions:
-#  width: 34
-#  length: 26
-#  height: 77
 
 # Weight in grams (optional)
 weight: 350
@@ -129,13 +102,6 @@ keyProgramming:
 # Valid values are: none, read protected and secure element.
 keySecurity: none
 
-# Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
-# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
-#firmwareProgramming:
-#  - serial
-#  - fuota lorawan
-
 # Product and data sheet URLs (optional)
 productURL: https://tinovi.com/shop/lorawan-soil-moisture-temperature-air-temperature-humidity-12v-output-from-battery/
 dataSheetURL: https://tinovi.com/wp-content/uploads/2021/06/PM-IO-5-SM-LoRaWAN-1-1.pdf
@@ -146,13 +112,8 @@ resellerURLs:
     region:
       - Other
     url: https://tinovi.com/shop/lorawan-soil-moisture-temperature-air-temperature-humidity-12v-output-from-battery/
-
 # Photos
 photos:
-  main: pm-io-5-sm.jpg
+  main: pm-io-5-sm_img.jpg
   other:
     - pm-io-5-sm-package.jpg
-
-# Youtube or Vimeo Video (optional)
-#videos:
-#  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
