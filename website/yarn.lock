@@ -935,9 +935,9 @@
     readdirp "^2.2.1"
     upath "^1.1.1"
 
-"@tti/design@https://ttui.thethingsindustries.com/release/ttui-1.0.0-alpha.7.tar.gz":
+"@tti/design@https://ttui.thethingsindustries.com/release/ttui-1.0.0-alpha.12.tar.gz":
   version "0.0.0"
-  resolved "https://ttui.thethingsindustries.com/release/ttui-1.0.0-alpha.7.tar.gz#a47941badd028bbff489ceb94cc1f053d2f91467"
+  resolved "https://ttui.thethingsindustries.com/release/ttui-1.0.0-alpha.12.tar.gz#dce7a3b507a4bafb72be3a52fa99e266746d610c"
 
 "@types/glob@^7.1.1":
   version "7.1.3"
