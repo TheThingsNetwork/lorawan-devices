@@ -27,6 +27,29 @@ firmwareVersions:
         lorawanCertified: true
         codec: mkrwan1310-codec
 
+  - # Firmware version
+    version: '1.2.3'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: arduino-868-profile
+        lorawanCertified: true
+        codec: mkrwan1310-codec
+      US902-928:
+        id: arduino-915-profile
+        lorawanCertified: true
+        codec: mkrwan1310-codec
+      AU915-928:
+        id: arduino-915-profile
+        lorawanCertified: false
+        codec: mkrwan1310-codec
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -49,9 +72,9 @@ productURL: https://store.arduino.cc/mkr-wan-1310
 
 # Photos
 photos:
-  main: mkrwan1310_1.jpg
+  main: mkrwan1310_1.png
   other:
-    - mkrwan1310_2.jpg
+    - mkrwan1310_2.png
 
 # Regulatory compliances (optional)
 compliances:

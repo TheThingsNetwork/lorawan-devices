@@ -4,6 +4,8 @@
  * Modification History:
  * Date         Version     Modified By     Description
  * 2020-12-16   1.0         MR              Initial creation
+ * 2021-02-17   1.1         MR              synchonized --> synchronized
+ * 2021-02-26   1.2         MR              payload length check and right start of payload of one WMBus packet
  */
 
 function decodeUplink(input) {
@@ -11,7 +13,7 @@ function decodeUplink(input) {
     var bytes = input.bytes;
     var decoded = Decoder(bytes, port);
     var returnObject = {};
-    returnObject.data = decoded
+    returnObject.data = decoded;
     if ((port & PORT_SEGMENTATION_BIT) == PORT_SEGMENTATION_BIT)
     {
         //segmented payload
@@ -49,7 +51,7 @@ var STATUS_PORT = 0x03;
 var STATUS_PORT_SEGMENTED = PORT_SEGMENTATION_BIT | STATUS_PORT;
 var WMBUS_VALUE_PORT = 0x04;
 var WMBUS_VALUE_PORT_SEGMENTED = PORT_SEGMENTATION_BIT | WMBUS_VALUE_PORT;
-var SEGMENTED_WARNING = "WARNING: decoding of segmented payload - values can be incorrect or incomplete"
+var SEGMENTED_WARNING = "WARNING: decoding of segmented payload - values can be incorrect or incomplete";
 
 function startRangeExtenderIMSTDecoder (bytes, port)
 {
@@ -94,8 +96,8 @@ function decodeWMBusPayload(payload)
     //go through the payload bytes, but not beyond the end
     while (further)
     {
-        //at least 6 bytes are needed to identify an wmbus packet
-        if (payload.length > (startPos + 6))
+        //at least 15 bytes are needed to identify timestamp and one wmbus packet
+        if (payload.length > (startPos + 15))
         {
             //object for one wmbus packet
             var WMBusResults = {};
@@ -111,53 +113,67 @@ function decodeWMBusPayload(payload)
             //get length of wmbus data
             var length = payload[startPos];
 
-            //start position of wmbus data
-            startPos = endPos + 1;
-            //end position of wmbus data
-            endPos = startPos + length;
-            //get bytes of one wmbus packet
-            var oneWMBusPacket = payload.slice(startPos, endPos);
-            //Control field of one wmbus packet
-            var ctrlField = oneWMBusPacket[0];
-            //get bytes for man ID of one wmbus packet
-            var manIDBuffer = oneWMBusPacket.slice(1, 3);
-            //get bytes for device ID of one wmbus packet
-            var deviceIDBuffer = oneWMBusPacket.slice(3, 7);
-            //version byte of one wmbus packet
-            var version = oneWMBusPacket[7];
-            //type byte of one wmbus packet
-            var type = oneWMBusPacket[8];
-            //get bytes for wmbus payload of one wmbus packet
-            var dataBuffer = oneWMBusPacket.slice(10);
+            //at least 10 bytes are needed to identify one wmbus packet
+            if (length >= 10)
+            {
+                //start position of wmbus data
+                //skip control field
+                startPos = endPos + 1;
+                //end position of wmbus data
+                endPos = startPos + length;
+                if (payload.length >= endPos)
+                {
+                    //get bytes of one wmbus packet
+                    var oneWMBusPacket = payload.slice(startPos, endPos);
+                    //Control field of one wmbus packet
+                    var ctrlField = oneWMBusPacket[0];
+                    //get bytes for man ID of one wmbus packet
+                    var manIDBuffer = oneWMBusPacket.slice(1, 3);
+                    //get bytes for device ID of one wmbus packet
+                    var deviceIDBuffer = oneWMBusPacket.slice(3, 7);
+                    //version byte of one wmbus packet
+                    var version = oneWMBusPacket[7];
+                    //type byte of one wmbus packet
+                    var type = oneWMBusPacket[8];
+                    //get bytes for wmbus payload of one wmbus packet
+                    var dataBuffer = oneWMBusPacket.slice(9);
 
-            //MSB buffer to value | >>> 0 for UINT32
-            var epochSeconds = (timeBuffer[0] | timeBuffer[1] << 8 | timeBuffer[2] << 16 | timeBuffer[3] << 24) >>> 0;
-            //date object in milliseconds
-            var time = new Date(epochSeconds * 1000);
-            //milliseconds since the Unix Epoch.
-            WMBusResults["Time"] = time.toUTCString();
+                    //MSB buffer to value | >>> 0 for UINT32
+                    var epochSeconds = (timeBuffer[0] | timeBuffer[1] << 8 | timeBuffer[2] << 16 | timeBuffer[3] << 24) >>> 0;
+                    //date object in milliseconds
+                    var time = new Date(epochSeconds * 1000);
+                    //milliseconds since the Unix Epoch.
+                    WMBusResults.Time = time.toUTCString();
 
-            //control field in hex string representation
-            WMBusResults["CTRLField"] = "0x" + ("0" + ctrlField.toString(16)).slice(-2);;
-            //man id in hex string representation
-            var manID = buffer_to_hex_string(manIDBuffer);
-            WMBusResults["ManID"] = manID;
-            //device id in hex string representation
-            var deviceID = buffer_to_hex_string(deviceIDBuffer);
-            WMBusResults["DeviceID"] = deviceID;
-            //version in hex string representation
-            WMBusResults["Version"] = "0x" + ("0" + version.toString(16)).slice(-2);;
-            //type in hex string representation
-            WMBusResults["Type"] = "0x" + ("0" + type.toString(16)).slice(-2);;
-            //wmbus payload in hex string representation
-            var data = buffer_to_hex_string(dataBuffer);
-            WMBusResults["Data"] = data;
+                    //control field in hex string representation
+                    WMBusResults.CTRLField = "0x" + ("0" + ctrlField.toString(16)).slice(-2);
+                    //man id in hex string representation
+                    var manID = buffer_to_hex_string(manIDBuffer);
+                    WMBusResults.ManID = manID;
+                    //device id in hex string representation
+                    var deviceID = buffer_to_hex_string(deviceIDBuffer);
+                    WMBusResults.DeviceID = deviceID;
+                    //version in hex string representation
+                    WMBusResults.Version = "0x" + ("0" + version.toString(16)).slice(-2);
+                    //type in hex string representation
+                    WMBusResults.Type = "0x" + ("0" + type.toString(16)).slice(-2);
+                    //wmbus payload in hex string representation
+                    var data = buffer_to_hex_string(dataBuffer);
+                    WMBusResults.Data = data;
 
-            //start position of next wmbus data
-            startPos = endPos;
+                    //start position of next wmbus data
+                    startPos = endPos;
 
-            //add one wmbus packet to array
-            WMBusObject.values.push(WMBusResults);
+                    //add one wmbus packet to array
+                    WMBusObject.values.push(WMBusResults);
+                }
+                else
+                    //no more data available
+                    further = false;
+            }
+            else
+                //no more data available
+                further = false;
         }
         else
             //no more data available
@@ -279,7 +295,7 @@ function decodeStatusPayload (statusData)
     var txCounter = (txCounterBuffer[0] | txCounterBuffer[1] << 8 | txCounterBuffer[2] << 16 | txCounterBuffer[3] << 24) >>> 0;
 
     //add system time to status result object as string
-    statusResults["Time"] = systemTime.toUTCString();;
+    statusResults["Time"] = systemTime.toUTCString();
     //add firmware version string to status result object, consisting of major and minor version
     statusResults["FirmwareVersion"] = firmwareVersionMajor + "." + firmwareVersionMinor;
     //add last sync time to status result object as string
@@ -291,9 +307,9 @@ function decodeStatusPayload (statusData)
     //Bit 0: LoRaWAN® Activation State
     statusResults = analyzeBitsToResultString(statusResults, statusBits, LORAWAN_ACTIVATED_STATE_STATUS_BIT_MASK, "LoRaWAN", "not activated", "activated");
     //Bit 1: Network Time Synchronization State
-    statusResults = analyzeBitsToResultString(statusResults, statusBits, NETWORK_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, "NetworkTime", "not synchonized", "synchonized");
+    statusResults = analyzeBitsToResultString(statusResults, statusBits, NETWORK_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, "NetworkTime", "not synchronized", "synchronized");
     //Bit 2: System Time Synchronization State
-    statusResults = analyzeBitsToResultString(statusResults, statusBits, SYSTEM_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, "SystemTimeBit", "not synchonized", "synchonized");
+    statusResults = analyzeBitsToResultString(statusResults, statusBits, SYSTEM_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, "SystemTimeBit", "not synchronized", "synchronized");
     //Bit 4: LoRaWAN Configuration State
     statusResults = analyzeBitsToResultString(statusResults, statusBits, SYSTEM_TIME_SYNCHRONIZATION_STATE_STATUS_BIT_MASK, "LoRaWANConfiguration", "not available", "available");
     //Bit 5: Wireless M-Bus Address Filter List Configuration State

@@ -99,7 +99,7 @@ type EndDevice struct {
 		Other []string `yaml:"other"`
 	} `yaml:"videos"`
 	ProductURL   string `yaml:"productURL"`
-	DatasheetURL string `yaml:"datasheetURL"`
+	DataSheetURL string `yaml:"dataSheetURL"`
 	ResellerURLs []struct {
 		Name   string   `yaml:"name"`
 		Region []string `yaml:"region"`

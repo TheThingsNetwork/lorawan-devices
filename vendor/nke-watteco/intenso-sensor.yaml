@@ -1,5 +1,6 @@
 name: Intens'O
-description: The Intens’O sensor measures the intensity of electric current using its clamp-on ammeter and determines the state of the equipment based on a selectable current threshold. The data is then transmitted over a public or private LoRaWAN™ radio network.
+description: The nke WATTECO Intens’O sensor measures the intensity of electric current using its clamp-on ammeter and determines the state of the equipment based on a selectable current threshold. The data is then transmitted over a public or private LoRaWAN® radio network.
+
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '50-70-091'

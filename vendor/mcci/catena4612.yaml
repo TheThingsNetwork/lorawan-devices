@@ -118,9 +118,9 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/971001048c__Cate
 
 # Photos
 photos:
-  main: catena4612.jpg
+  main: catena4612.png
   other:
-    - catena4612-encl.jpg
+    - catena4612-encl.png
     - catena4612_4618-pinout.png
 # Youtube or Vimeo Video (optional)
 ## videos:

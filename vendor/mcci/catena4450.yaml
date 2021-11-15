@@ -118,26 +118,4 @@ productURL: https://mcci.io/Catena4450
 
 # Photos
 photos:
-  main: catena4450.jpg
-##  other:
-##    - windsensor-package.jpg
-
-# Youtube or Vimeo Video (optional)
-## videos:
-##   main: https://youtu.be/nG8MmaR5dsA
-
-# Regulatory compliances (optional)
-## compliances:
-##   safety:
-##     - body: IEC
-##       norm: EN
-##       standard: 62368-1
-##   radioEquipment:
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-1
-##       version: 2.2.0
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-3
-##       version: 2.1.0
+  main: catena4450.png

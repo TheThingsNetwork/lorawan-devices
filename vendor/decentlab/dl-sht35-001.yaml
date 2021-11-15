@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-SHT35-datasheet.pdf
 photos:
-  main: dl-sht35-001.jpg
+  main: dl-sht35-001.png
   other:
     - dl-sht35-001-2.jpg
     - dl-sht35-001-3.jpg

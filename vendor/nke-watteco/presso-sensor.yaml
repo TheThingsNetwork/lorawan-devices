@@ -1,5 +1,5 @@
 name: Press'O
-description: Transforms any 4-20 mA and 0-10V gauge to a sensor connected to a LoRaWAN network
+description: The nke WATTECO Press'O sensor turns any 0-10V, 4-20mA analog gauge into a Class A sensor connected to a public or private LoRaWAN® network that allows the monitoring, measurement, and remote reading of any fluid level (water, oil, gas, etc).
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

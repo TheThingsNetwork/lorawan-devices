@@ -4,7 +4,7 @@ description: The Dragino LGT-92 LoRaWAN® GPS Tracker includes a low-power GPS m
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.6.4'
+    version: '1.6.6'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -48,6 +48,45 @@ firmwareVersions:
         lorawanCertified: true
         codec: lgt92-codec
 
+  - version: 'lgt92 abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: lgt92-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
