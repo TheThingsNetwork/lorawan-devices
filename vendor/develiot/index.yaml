@@ -1,3 +1,6 @@
 endDevices:
   - rwmr
+  - rwmrxl
   - uaqms
+  - wms
+  - noise
