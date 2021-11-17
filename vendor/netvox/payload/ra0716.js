@@ -19,33 +19,25 @@ function getCmdToID(cmdtype){
 	  return 130;
 }
 
-function getLeakSensorCount(dev){
-  var deviceName = {
-  	"R311W": 2,
-	"R718WA": 1,
-	"R718WB": 1
-  };
-
-  return deviceName[dev];
-}
-
 function getDeviceName(dev){
   var deviceName = {
-	6: "R311W",
-	50: "R718WA",
-	18: "R718WB"
+	53:  "RA0716",
+	54:  "R72616",
+	55:  "R72716",
+	106: "R72616A"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
-  var deviceName = {
-	"R311W": 6,
-	"R718WA": 50,
-	"R718WB": 18
-  };
-
-  return deviceName[devName];
+  if (devName == "RA0716")
+	  return 53;
+  else if (devName == "R72616")
+	  return 54;
+  else if (devName == "R72716")
+	  return 55;
+  else if (devName == "R72616A")
+	  return 106;
 }
 
 function padLeft(str, len) {
@@ -75,17 +67,17 @@ function decodeUplink(input) {
 		
 		data.Device = getDeviceName(input.bytes[1]);
 		data.Volt = input.bytes[3]/10;
-
-		if (getLeakSensorCount(data.Device) > 1)
+		if (input.bytes[4] & 0x80)
 		{
-		  data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		  data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
+			var tmpval = (input.bytes[4]<<8 | input.bytes[5]);
+			data.Temp = (0x10000 - tmpval)/100 * -1;
 		}
 		else
-		{
-		  data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		}
+			data.Temp = (input.bytes[4]<<8 | input.bytes[5])/100;
 
+		data.Humi = (input.bytes[6]<<8 | input.bytes[7])/100;
+		data.PM25 = (input.bytes[8]<<8 | input.bytes[9]);
+		
 		break;
 		
 	case 7:
@@ -99,7 +91,6 @@ function decodeUplink(input) {
 		{
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
-			data.BatteryChange = input.bytes[6]/10;
 		}
 		
 		break;	
@@ -128,9 +119,8 @@ function encodeDownlink(input) {
   {
 	  var mint = input.data.MinTime;
 	  var maxt = input.data.MaxTime;
-	  var batteryChg = input.data.BatteryChange * 10;
 	  
-	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, 0x00, 0x00, 0x00, 0x00);
+	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), 0x00, 0x00, 0x00, 0x00, 0x00);
   }
   else if (input.data.Cmd == "ReadConfigReportReq")
   {
@@ -153,7 +143,6 @@ function decodeDownlink(input) {
 		{
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
-			data.BatteryChange = input.bytes[6]/10;
 		}
 
 		break;

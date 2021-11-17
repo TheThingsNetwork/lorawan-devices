@@ -19,32 +19,17 @@ function getCmdToID(cmdtype){
 	  return 130;
 }
 
-function getLeakSensorCount(dev){
-  var deviceName = {
-  	"R311W": 2,
-	"R718WA": 1,
-	"R718WB": 1
-  };
-
-  return deviceName[dev];
-}
-
 function getDeviceName(dev){
   var deviceName = {
-	6: "R311W",
-	50: "R718WA",
-	18: "R718WB"
+	34: "R718KA"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
   var deviceName = {
-	"R311W": 6,
-	"R718WA": 50,
-	"R718WB": 18
+	"R718KA": 34
   };
-
   return deviceName[devName];
 }
 
@@ -75,17 +60,9 @@ function decodeUplink(input) {
 		
 		data.Device = getDeviceName(input.bytes[1]);
 		data.Volt = input.bytes[3]/10;
-
-		if (getLeakSensorCount(data.Device) > 1)
-		{
-		  data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		  data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-		else
-		{
-		  data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-
+		data.Current = input.bytes[4];
+		data.FineCurrent = input.bytes[5]/10;
+		
 		break;
 		
 	case 7:
@@ -100,6 +77,7 @@ function decodeUplink(input) {
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
+			data.CurrentChange = input.bytes[7];
 		}
 		
 		break;	
@@ -129,8 +107,9 @@ function encodeDownlink(input) {
 	  var mint = input.data.MinTime;
 	  var maxt = input.data.MaxTime;
 	  var batteryChg = input.data.BatteryChange * 10;
+	  var currentChg = input.data.CurrentChange;
 	  
-	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, 0x00, 0x00, 0x00, 0x00);
+	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, currentChg, 0x00, 0x00, 0x00);
   }
   else if (input.data.Cmd == "ReadConfigReportReq")
   {
@@ -154,6 +133,7 @@ function decodeDownlink(input) {
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
+			data.CurrentChange = input.bytes[7];
 		}
 
 		break;
