@@ -1,0 +1,6 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - pts2-l # PTS2-L look in pts2-l.yaml for the end device definition
+  - pls2-l # PLS2-L look in pls2-l.yaml for the end device definition
