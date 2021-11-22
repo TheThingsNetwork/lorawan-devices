@@ -1757,3 +1757,11 @@ vendors:
   - id: ellenex
     name: ellenex
     website: https://www.ellenex.com
+
+  - id: iothings
+    name: ioThings
+    website: https://iothings.nl
+    logo: iothings-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/iotracker
+      github: iotracker
