@@ -1,0 +1,152 @@
+uplinkDecoder:
+  fileName: payload/r311la.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xAA, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x28, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311LA'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191128'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xAA, 0x01, 0x24, 0x01, 0x01, 0xCC, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311LA'
+          Volt: 3.6
+          Status: 'ON'
+          RawSenseData: 460
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R311LA'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xAA, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R311LA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Set OnDistance threshold response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetOnDistanceThresholdRsp'
+          Device: 'R311LA'
+          Status: 'Success'
+
+    - description: Get OnDistance threshold response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xAA, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetOnDistanceThresholdRsp'
+          Device: 'R311LA'
+          OnDistanceThreshold: 500
+
+downlinkDecoder:
+  fileName: payload/r311la.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xAA, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311LA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311LA'
+
+    - description: Set OnDistance threshold request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xAA, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetOnDistanceThresholdReq'
+          Device: 'R311LA'
+          OnDistanceThreshold: 500
+
+    - description: Get OnDistance threshold request
+      input:
+        fPort: 7
+        bytes: [0x04, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetOnDistanceThresholdReq'
+          Device: 'R311LA'
+
+downlinkEncoder:
+  fileName: payload/r311la.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311LA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+      output:
+        fPort: 7
+        bytes: [0x01, 0xAA, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311LA'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set OnDistance threshold request
+      input:
+        data:
+          Cmd: 'SetOnDistanceThresholdReq'
+          Device: 'R311LA'
+          OnDistanceThreshold: 500
+      output:
+        fPort: 7
+        bytes: [0x03, 0xAA, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get OnDistance threshold request
+      input:
+        data:
+          Cmd: 'GetOnDistanceThresholdReq'
+          Device: 'R311LA'
+      output:
+        fPort: 7
+        bytes: [0x04, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

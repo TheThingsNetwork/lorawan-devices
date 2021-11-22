@@ -1,0 +1,69 @@
+name: R311LA - Wireless Infrared Proximity Sensor
+description: R311LA is able to detect the existence of the object nearby. It has an infrared proximity sensor that can detect if there is object existing within it detection range and transmits the detected data to Gateway for display via a wireless network; it uses the SX1276 wireless communication module.
+
+hardwareVersions:
+  - version: '1'
+    numeric: 1
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '1'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r311la-codec
+      AS923:
+        id: profile-as923
+        codec: r311la-codec
+      US902-928:
+        id: profile-us915
+        codec: r311la-codec
+      AU915-928:
+        id: profile-au915
+        codec: r311la-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r311la-codec
+      IN865-867:
+        id: profile-in865
+        codec: r311la-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r311la-codec
+
+sensors:
+  - proximity
+
+dimensions:
+  width: 35
+  length: 57
+  height: 15.2
+
+weight: 48.9
+
+battery:
+  replaceable: true
+  type: 2 sections of 3V CR2450 coin cell batteries in parallel
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R311LA
+dataSheetURL: http://www.netvox.com.tw/um/R311LA/R311LAdatasheet.pdf
+
+photos:
+  main: photos/r311la.jpg

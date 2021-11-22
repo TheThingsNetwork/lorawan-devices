@@ -1,11 +1,29 @@
-function getCfgCmd(cfgcmd){
-  var cfgcmdlist = {
+function getCfgCmd(inputcmd){
+  var cmdIDs = {
     1:   "ConfigReportReq",
     129: "ConfigReportRsp",
     2:   "ReadConfigReportReq",
     130: "ReadConfigReportRsp"
   };
-  return cfgcmdlist[cfgcmd];
+  return cmdIDs[inputcmd];
+}
+
+function getDeviceName(dev){
+  var deviceName = {
+	156:  "R718AD",
+    188:  "R711A",
+	157:  "R720D"
+  };
+  return deviceName[dev];
+}
+
+function getDeviceType(devName){
+  if (devName == "R718AD")
+	  return 156;
+  else if (devName == "R711A")
+	  return 188;
+  else if (devName == "R720D")
+	  return 157;
 }
 
 function getCmdToID(cmdtype){
@@ -17,35 +35,6 @@ function getCmdToID(cmdtype){
 	  return 2;
   else if (cmdtype == "ReadConfigReportRsp")
 	  return 130;
-}
-
-function getLeakSensorCount(dev){
-  var deviceName = {
-  	"R311W": 2,
-	"R718WA": 1,
-	"R718WB": 1
-  };
-
-  return deviceName[dev];
-}
-
-function getDeviceName(dev){
-  var deviceName = {
-	6: "R311W",
-	50: "R718WA",
-	18: "R718WB"
-  };
-  return deviceName[dev];
-}
-
-function getDeviceID(devName){
-  var deviceName = {
-	"R311W": 6,
-	"R718WA": 50,
-	"R718WB": 18
-  };
-
-  return deviceName[devName];
 }
 
 function padLeft(str, len) {
@@ -72,37 +61,35 @@ function decodeUplink(input) {
 				data: data,
 			};
 		}
-		
-		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;
 
-		if (getLeakSensorCount(data.Device) > 1)
+		data.Volt = input.bytes[3]/10;
+		data.Device = getDeviceName(input.bytes[1]);
+		if (input.bytes[4] & 0x80)
 		{
-		  data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		  data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
+			var tmpval = (input.bytes[4]<<8 | input.bytes[5]);
+			data.Temp = (0x10000 - tmpval)/100 * -1;
 		}
 		else
-		{
-		  data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		}
+			data.Temp = (input.bytes[4]<<8 | input.bytes[5])/100;
 
 		break;
 		
 	case 7:
-		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
-		if (input.bytes[0] === getCmdToID("ConfigReportRsp"))
+		if (input.bytes[0] === 0x81)
 		{
+			data.Cmd = getCfgCmd(input.bytes[0]);
 			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
 		}
-		else if (input.bytes[0] === getCmdToID("ReadConfigReportRsp"))
+		else if (input.bytes[0] === 0x82)
 		{
+			data.Cmd = getCfgCmd(input.bytes[0]);
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
+			data.TempChange = (input.bytes[7]<<8 | input.bytes[8])/100;
 		}
-		
-		break;	
+		break;
 
 	default:
       return {
@@ -110,7 +97,7 @@ function decodeUplink(input) {
       };
 	  
     }
-          
+
 	 return {
 		data: data,
 	};
@@ -119,24 +106,23 @@ function decodeUplink(input) {
 function encodeDownlink(input) {
   var ret = [];
   var devid;
-  var getCmdID;
-	  
+ 
+  devid = getDeviceType(input.data.Device);
   getCmdID = getCmdToID(input.data.Cmd);
-  devid = getDeviceID(input.data.Device);
-
   if (input.data.Cmd == "ConfigReportReq")
   {
 	  var mint = input.data.MinTime;
 	  var maxt = input.data.MaxTime;
 	  var batteryChg = input.data.BatteryChange * 10;
-	  
-	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, 0x00, 0x00, 0x00, 0x00);
+	  var tempChg = input.data.TempChange * 100;
+
+	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, (tempChg >> 8), (tempChg & 0xFF), 0x00, 0x00);
   }
   else if (input.data.Cmd == "ReadConfigReportReq")
   {
 	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-  }  
-  
+  }
+
   return {
     fPort: 7,
     bytes: ret
@@ -147,15 +133,19 @@ function decodeDownlink(input) {
   var data = {};
   switch (input.fPort) {
     case 7:
-		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
 		if (input.bytes[0] === getCmdToID("ConfigReportReq"))
 		{
+			data.Cmd = getCfgCmd(input.bytes[0]);
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
+			data.TempChange = (input.bytes[7]<<8 | input.bytes[8])/100;
 		}
-
+		else if (input.bytes[0] === getCmdToID("ReadConfigReportReq"))
+		{
+			data.Cmd = getCfgCmd(input.bytes[0]);
+		}
 		break;
 		
     default:
