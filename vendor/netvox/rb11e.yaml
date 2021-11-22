@@ -1,4 +1,4 @@
-name: Wireless Occupancy/Temperature/Light Sensor
+name: RB11E - Wireless Occupancy/Temperature/Light Sensor
 description: The Netvox RB11E is a Wireless Occupancy/Light/Temperature Sensor that combines occupancy, temperature, tamper switch, and light sensors that are suitable for detecting human movement indoors, illuminance, and temperature. It will send data to a LoRaWAN® network for further processing.
 
 hardwareVersions:
@@ -67,4 +67,4 @@ productURL: http://www.netvox.com.tw/product.asp?pro=RB11E
 dataSheetURL: http://www.netvox.com.tw/um/RB11E/RB11Edatasheet.pdf
 
 photos:
-  main: photos/rb11e.jpg
+  main: photos/rb11e.png
