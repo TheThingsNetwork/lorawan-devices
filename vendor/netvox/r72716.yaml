@@ -1,0 +1,65 @@
+name: R72716(RA0716Y) - Wireless Outdoor PM2.5 Temperature Humidity Sensor
+description: RA0716Y carrying temperature and humidity sensors that can detect and send the environment temperature and humidity data with wireless communication, compatible with LoRaWAN™ protocol standards. R72716 carrying PM2.5 dust sensor which can obtain the concentration of suspended particulate matter in the air per unit volume.
+
+hardwareVersions:
+  - version: '4'
+    numeric: 4
+
+firmwareVersions:
+  - version: '13'
+    numeric: 13
+    hardwareVersions:
+      - '4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r72716-codec
+      AS923:
+        id: profile-as923
+        codec: r72716-codec
+      US902-928:
+        id: profile-us915
+        codec: r72716-codec
+      AU915-928:
+        id: profile-au915
+        codec: r72716-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r72716-codec
+      IN865-867:
+        id: profile-in865
+        codec: r72716-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r72716-codec
+
+sensors:
+  - temperature
+  - humidity
+  - pm2.5
+
+dimensions:
+  width: 350
+  length: 220
+  height: 220
+
+operatingConditions:
+  temperature:
+    min: -10
+    max: 50
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RA0716Y
+dataSheetURL: http://www.netvox.com.tw/um/RA0716Y/RA0716Ydatasheet.pdf
+
+photos:
+  main: photos/r72716.jpg
