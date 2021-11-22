@@ -1,0 +1,59 @@
+name: R602A - LoRa-Siren
+description: R602A is a smart wireless alarm that can communicate with other devices through a wireless network. It has a high-decibel speaker and high-brightness LED which can realize sound and light alarms. It adopts SX1276 wireless communication module.
+
+hardwareVersions:
+  - version: '3'
+    numeric: 3
+
+firmwareVersions:
+  - version: '11'
+    numeric: 11
+    hardwareVersions:
+      - '3'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r602a-codec
+      AS923:
+        id: profile-as923
+        codec: r602a-codec
+      US902-928:
+        id: profile-us915
+        codec: r602a-codec
+      AU915-928:
+        id: profile-au915
+        codec: r602a-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r602a-codec
+      IN865-867:
+        id: profile-in865
+        codec: r602a-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r602a-codec
+
+dimensions:
+  diameter: 85
+  height: 52
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R602A
+dataSheetURL: http://www.netvox.com.tw/um/R602A/R602Adatasheet.pdf
+
+photos:
+  main: photos/r602a.jpg

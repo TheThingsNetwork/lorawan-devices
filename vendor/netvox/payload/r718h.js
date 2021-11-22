@@ -3,7 +3,15 @@ function getCfgCmd(cfgcmd){
     1:   "ConfigReportReq",
     129: "ConfigReportRsp",
     2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp"
+    130: "ReadConfigReportRsp",
+    3:	 "SetFiltertimeReq",
+    131: "SetFiltertimeRsp",
+    4:	 "GetFiltertimeReq",
+    132: "GetFiltertimeRsp",
+    5:	 "SetPulseCounterClearModeReq",
+    133: "SetPulseCounterClearModeRsp",
+    6:	 "GetPulseCounterClearModeReq",
+    134: "GetPulseCounterClearModeRsp",
   };
   return cfgcmdlist[cfgcmd];
 }
@@ -17,32 +25,36 @@ function getCmdToID(cmdtype){
 	  return 2;
   else if (cmdtype == "ReadConfigReportRsp")
 	  return 130;
-}
-
-function getLeakSensorCount(dev){
-  var deviceName = {
-  	"R311W": 2,
-	"R718WA": 1,
-	"R718WB": 1
-  };
-
-  return deviceName[dev];
+  else if (cmdtype == "SetFiltertimeReq")
+	  return 3;
+  else if (cmdtype == "SetFiltertimeRsp")
+	  return 131;
+  else if (cmdtype == "GetFiltertimeReq")
+	  return 4;
+  else if (cmdtype == "GetFiltertimeRsp")
+	  return 132;
+  else if (cmdtype == "SetPulseCounterClearModeReq")
+	  return 5;
+  else if (cmdtype == "SetPulseCounterClearModeRsp")
+	  return 133;
+  else if (cmdtype == "GetPulseCounterClearModeReq")
+	  return 6;
+  else if (cmdtype == "GetPulseCounterClearModeRsp")
+	  return 134;
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	6: "R311W",
-	50: "R718WA",
-	18: "R718WB"
+	31: "R718H",
+	63: "R718H2"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
   var deviceName = {
-	"R311W": 6,
-	"R718WA": 50,
-	"R718WB": 18
+  	"R718H": 31,
+  	"R718H2": 63
   };
 
   return deviceName[devName];
@@ -75,17 +87,13 @@ function decodeUplink(input) {
 		
 		data.Device = getDeviceName(input.bytes[1]);
 		data.Volt = input.bytes[3]/10;
-
-		if (getLeakSensorCount(data.Device) > 1)
+		if (data.Device === "R718H")
+			data.PulseCount = (input.bytes[4]<<8 | input.bytes[5]);
+		else if (data.Device === "R718H2")
 		{
-		  data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		  data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
+			data.PulseCount1 = (input.bytes[4]<<8 | input.bytes[5]);
+			data.PulseCount2 = (input.bytes[6]<<8 | input.bytes[7]);
 		}
-		else
-		{
-		  data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-
 		break;
 		
 	case 7:
@@ -100,6 +108,22 @@ function decodeUplink(input) {
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
+		}
+		else if (input.bytes[0] === getCmdToID("SetFiltertimeRsp"))
+		{
+			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
+		}
+		else if (input.bytes[0] === getCmdToID("GetFiltertimeRsp"))
+		{
+			data.FilterTime = input.bytes[2] * 5;
+		}
+		else if (input.bytes[0] === getCmdToID("SetPulseCounterClearModeRsp"))
+		{
+			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
+		}
+		else if (input.bytes[0] === getCmdToID("GetPulseCounterClearModeRsp"))
+		{
+			data.PulseCounterClearMode = (input.bytes[2] === 0x00) ? 'Clear when send' : 'Clear when Roll-Over';
 		}
 		
 		break;	
@@ -135,7 +159,25 @@ function encodeDownlink(input) {
   else if (input.data.Cmd == "ReadConfigReportReq")
   {
 	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-  }  
+  }
+  else if (input.data.Cmd == "SetFiltertimeReq")
+  {
+  	  var filtert = input.data.FilterTime / 5;
+	  ret = ret.concat(getCmdID, devid, filtert, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
+  else if (input.data.Cmd == "GetFiltertimeReq")
+  {
+	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
+  else if (input.data.Cmd == "SetPulseCounterClearModeReq")
+  {
+  	  var mode = input.data.PulseCounterClearMode;
+	  ret = ret.concat(getCmdID, devid, mode, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
+  else if (input.data.Cmd == "GetPulseCounterClearModeReq")
+  {
+	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
   
   return {
     fPort: 7,
@@ -155,7 +197,14 @@ function decodeDownlink(input) {
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
 		}
-
+		else if (input.bytes[0] === getCmdToID("SetFiltertimeReq"))
+		{
+			data.FilterTime = input.bytes[2] * 5;
+		}
+		else if (input.bytes[0] === getCmdToID("SetPulseCounterClearModeReq"))
+		{
+			data.PulseCounterClearMode = input.bytes[2];
+		}
 		break;
 		
     default:
