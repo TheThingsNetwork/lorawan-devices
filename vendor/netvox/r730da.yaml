@@ -1,4 +1,4 @@
-name: Wireless Sensor
+name: R730DA - Wireless Sensor
 
 hardwareVersions:
   - version: '11'
