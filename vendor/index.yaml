@@ -1700,6 +1700,10 @@ vendors:
     name: Origoelec
     website: http://www.origoelec.com
 
+  - id: dezem
+    name: deZem GmbH
+    website: https://www.dezem.de/en/
+
   - id: mutelcor
     name: Mutelcor GmbH
     website: https://mutelcor.com/iot/
@@ -1726,3 +1730,30 @@ vendors:
   - id: uradmonitor
     name: uRADMonitor
     website: https://www.uradmonitor.com/
+
+  - id: jeng-iot
+    name: JENG IoT
+    website: https://www.jeng.io/
+    logo: jeng_iot_logo.png
+    ouis:
+      - 70B3D55AF
+    description: JENG IoT is a Dutch based company providing sensor devices and e2e IoT solutions. The devices communicate over LoRaWAN® and have an ultra-low power consumption enables operating for several years on batteries. In our cloud environment, powered by our partner Yodiwo, our devices and solutions are available off-the-shelf. We offer great dashboard apps and easy integration into your own IT environment. Applications areas are smart cities & tracking devices (containers).
+    social:
+      linkedin: https://www.linkedin.com/company/jeng/
+      twitter: jeng_iot
+
+  - id: sezo
+    name: SEZO
+    website: https://sezo.pl/
+    logo: sezo.png
+
+  - id: emu
+    name: EMU Electronic AG
+    website: https://www.emuag.ch/
+    logo: emu_electronic_logo.png
+    ouis:
+      - 102CEF
+
+  - id: ellenex
+    name: ellenex
+    website: https://www.ellenex.com
