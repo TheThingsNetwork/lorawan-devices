@@ -3,9 +3,19 @@ function getCfgCmd(cfgcmd){
     1:   "ConfigReportReq",
     129: "ConfigReportRsp",
     2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp"
+    130: "ReadConfigReportRsp",
+    3:   "StartWarningWithAckReq",
+    131: "StartWarningWithAckRsp",
+	144: "StartWarning"
   };
   return cfgcmdlist[cfgcmd];
+}
+
+function getDeviceName(dev){
+  var deviceName = {
+	105: "R602A"
+  };
+  return deviceName[dev];
 }
 
 function getCmdToID(cmdtype){
@@ -17,35 +27,17 @@ function getCmdToID(cmdtype){
 	  return 2;
   else if (cmdtype == "ReadConfigReportRsp")
 	  return 130;
-}
-
-function getLeakSensorCount(dev){
-  var deviceName = {
-  	"R311W": 2,
-	"R718WA": 1,
-	"R718WB": 1
-  };
-
-  return deviceName[dev];
-}
-
-function getDeviceName(dev){
-  var deviceName = {
-	6: "R311W",
-	50: "R718WA",
-	18: "R718WB"
-  };
-  return deviceName[dev];
+  else if (cmdtype == "StartWarningWithAckReq")
+	  return 3;
+  else if (cmdtype == "StartWarningWithAckRsp")
+	  return 131;
+  else if (cmdtype == "StartWarning")
+	  return 144;
 }
 
 function getDeviceID(devName){
-  var deviceName = {
-	"R311W": 6,
-	"R718WA": 50,
-	"R718WB": 18
-  };
-
-  return deviceName[devName];
+  if (devName == "R602A")
+	  return 105;
 }
 
 function padLeft(str, len) {
@@ -74,24 +66,15 @@ function decodeUplink(input) {
 		}
 		
 		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;
-
-		if (getLeakSensorCount(data.Device) > 1)
-		{
-		  data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		  data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-		else
-		{
-		  data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-
+		data.HeartBeatTime = (input.bytes[3]<<8 | input.bytes[4]);
+		data.WarningStatus = (input.bytes[5] === 0x00) ? 'No warning' : 'Warning';
+		
 		break;
 		
 	case 7:
 		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
-		if (input.bytes[0] === getCmdToID("ConfigReportRsp"))
+		if ((input.bytes[0] === getCmdToID("ConfigReportRsp")) || (input.bytes[0] === getCmdToID("StartWarningWithAckRsp")))
 		{
 			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
 		}
@@ -99,7 +82,6 @@ function decodeUplink(input) {
 		{
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
-			data.BatteryChange = input.bytes[6]/10;
 		}
 		
 		break;	
@@ -128,14 +110,20 @@ function encodeDownlink(input) {
   {
 	  var mint = input.data.MinTime;
 	  var maxt = input.data.MaxTime;
-	  var batteryChg = input.data.BatteryChange * 10;
 	  
-	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, 0x00, 0x00, 0x00, 0x00);
+	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), 0x00, 0x00, 0x00, 0x00, 0x00);
   }
-  else if (input.data.Cmd == "ReadConfigReportReq")
+  else if ((input.data.Cmd == "ReadConfigReportReq"))
   {
 	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-  }  
+  }
+  else if ((input.data.Cmd == "StartWarningWithAckReq") || (input.data.Cmd == "StartWarning"))
+  {
+      var warning_mode = input.data.WarningMode;
+      var strobe_mode = input.data.StrobeMode;
+      var warning_dur = input.data.WarningDuration;
+	  ret = ret.concat(getCmdID, devid, warning_mode, strobe_mode, (warning_dur >> 8), (warning_dur & 0xFF), 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
   
   return {
     fPort: 7,
@@ -153,9 +141,14 @@ function decodeDownlink(input) {
 		{
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
-			data.BatteryChange = input.bytes[6]/10;
 		}
-
+		else if ((input.bytes[0] === getCmdToID("StartWarningWithAckReq")) || (input.bytes[0] === getCmdToID("StartWarning")))
+		{
+			data.WarningMode = input.bytes[2];
+			data.StrobeMode = input.bytes[3];
+			data.WarningDuration = (input.bytes[4]<<8 | input.bytes[5]);
+		}
+		
 		break;
 		
     default:

@@ -3,7 +3,11 @@ function getCfgCmd(cfgcmd){
     1:   "ConfigReportReq",
     129: "ConfigReportRsp",
     2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp"
+    130: "ReadConfigReportRsp",
+    3:	 "SetSunlightSampleRangeReq",
+    131: "SetSunlightSampleRangeRsp",
+    4:	 "GetSunlightSampleRangeReq",
+    132: "GetSunlightSampleRangeRsp",
   };
   return cfgcmdlist[cfgcmd];
 }
@@ -17,35 +21,26 @@ function getCmdToID(cmdtype){
 	  return 2;
   else if (cmdtype == "ReadConfigReportRsp")
 	  return 130;
-}
-
-function getLeakSensorCount(dev){
-  var deviceName = {
-  	"R311W": 2,
-	"R718WA": 1,
-	"R718WB": 1
-  };
-
-  return deviceName[dev];
+  else if (cmdtype == "SetSunlightSampleRangeReq")
+	  return 3;
+  else if (cmdtype == "SetSunlightSampleRangeRsp")
+	  return 131;
+  else if (cmdtype == "GetSunlightSampleRangeReq")
+	  return 4;
+  else if (cmdtype == "GetSunlightSampleRangeRsp")
+	  return 132;
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	6: "R311W",
-	50: "R718WA",
-	18: "R718WB"
+	30: "R718G"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
-  var deviceName = {
-	"R311W": 6,
-	"R718WA": 50,
-	"R718WB": 18
-  };
-
-  return deviceName[devName];
+  if (devName == "R718G")
+	  return 30;
 }
 
 function padLeft(str, len) {
@@ -74,24 +69,15 @@ function decodeUplink(input) {
 		}
 		
 		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;
-
-		if (getLeakSensorCount(data.Device) > 1)
-		{
-		  data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		  data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-		else
-		{
-		  data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-
+		data.Volt = input.bytes[3]/10;		
+		data.Illuminance = (input.bytes[4]<<24 | input.bytes[5]<<16 | input.bytes[6]<<8 | input.bytes[7]);
+		
 		break;
 		
 	case 7:
 		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
-		if (input.bytes[0] === getCmdToID("ConfigReportRsp"))
+		if ((input.bytes[0] === getCmdToID("ConfigReportRsp")) || (input.bytes[0] === getCmdToID("SetSunlightSampleRangeRsp")))
 		{
 			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
 		}
@@ -100,8 +86,12 @@ function decodeUplink(input) {
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
+			data.IlluminanceChange = (input.bytes[7]<<24 | input.bytes[8]<<16 | input.bytes[9]<<8 | input.bytes[10]);	
 		}
-		
+		else if (input.bytes[0] === getCmdToID("GetSunlightSampleRangeRsp"))
+		{
+			data.RangeSetting = input.bytes[2];
+		}
 		break;	
 
 	default:
@@ -129,14 +119,19 @@ function encodeDownlink(input) {
 	  var mint = input.data.MinTime;
 	  var maxt = input.data.MaxTime;
 	  var batteryChg = input.data.BatteryChange * 10;
+	  var illChg = input.data.IlluminanceChange;
 	  
-	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, 0x00, 0x00, 0x00, 0x00);
+	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, (illChg >> 24), (illChg >> 16), (illChg >> 8), (illChg & 0xFF));
   }
-  else if (input.data.Cmd == "ReadConfigReportReq")
+  else if ((input.data.Cmd == "ReadConfigReportReq") || (input.data.Cmd == "GetSunlightSampleRangeReq")) 
   {
 	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
   }  
-  
+  else if (input.data.Cmd == "SetSunlightSampleRangeReq")
+  {
+	  var setting_val = input.data.RangeSetting;
+	  ret = ret.concat(getCmdID, devid, setting_val, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
   return {
     fPort: 7,
     bytes: ret
@@ -154,8 +149,12 @@ function decodeDownlink(input) {
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
+			data.IlluminanceChange = (input.bytes[7]<<24 | input.bytes[8]<<16 | input.bytes[9]<<8 | input.bytes[10]);
 		}
-
+		else if (input.bytes[0] === getCmdToID("SetSunlightSampleRangeReq"))
+		{
+			data.RangeSetting = input.bytes[2];
+		}
 		break;
 		
     default:

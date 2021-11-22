@@ -3,7 +3,11 @@ function getCfgCmd(cfgcmd){
     1:   "ConfigReportReq",
     129: "ConfigReportRsp",
     2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp"
+    130: "ReadConfigReportRsp",
+    3:	 "SetOnDistanceThresholdReq",
+    131: "SetOnDistanceThresholdRsp",
+    4:	 "GetOnDistanceThresholdReq",
+    132: "GetOnDistanceThresholdRsp",
   };
   return cfgcmdlist[cfgcmd];
 }
@@ -17,35 +21,26 @@ function getCmdToID(cmdtype){
 	  return 2;
   else if (cmdtype == "ReadConfigReportRsp")
 	  return 130;
-}
-
-function getLeakSensorCount(dev){
-  var deviceName = {
-  	"R311W": 2,
-	"R718WA": 1,
-	"R718WB": 1
-  };
-
-  return deviceName[dev];
+  else if (cmdtype == "SetOnDistanceThresholdReq")
+	  return 3;
+  else if (cmdtype == "SetOnDistanceThresholdRsp")
+	  return 131;
+  else if (cmdtype == "GetOnDistanceThresholdReq")
+	  return 4;
+  else if (cmdtype == "GetOnDistanceThresholdRsp")
+	  return 132;
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	6: "R311W",
-	50: "R718WA",
-	18: "R718WB"
+	170: "R311LA"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
-  var deviceName = {
-	"R311W": 6,
-	"R718WA": 50,
-	"R718WB": 18
-  };
-
-  return deviceName[devName];
+  if (devName == "R311LA")
+	  return 170;
 }
 
 function padLeft(str, len) {
@@ -74,24 +69,16 @@ function decodeUplink(input) {
 		}
 		
 		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;
-
-		if (getLeakSensorCount(data.Device) > 1)
-		{
-		  data.WaterLeak_1 = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		  data.WaterLeak_2 = (input.bytes[5] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-		else
-		{
-		  data.WaterLeak = (input.bytes[4] == 0x00) ? 'NoLeak' : 'Leak';
-		}
-
+		data.Volt = input.bytes[3]/10;		
+		data.Status = (input.bytes[4] == 0x00) ? 'OFF' : 'ON';
+		data.RawSenseData = (input.bytes[5]<<8 | input.bytes[6]);
+		
 		break;
 		
 	case 7:
 		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
-		if (input.bytes[0] === getCmdToID("ConfigReportRsp"))
+		if ((input.bytes[0] === getCmdToID("ConfigReportRsp")) || (input.bytes[0] === getCmdToID("SetOnDistanceThresholdRsp")))
 		{
 			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
 		}
@@ -99,9 +86,12 @@ function decodeUplink(input) {
 		{
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
-			data.BatteryChange = input.bytes[6]/10;
+			data.BatteryChange = input.bytes[6]/10;	
 		}
-		
+		else if (input.bytes[0] === getCmdToID("GetOnDistanceThresholdRsp"))
+		{
+			data.OnDistanceThreshold = (input.bytes[2]<<8 | input.bytes[3]);
+		}
 		break;	
 
 	default:
@@ -132,11 +122,15 @@ function encodeDownlink(input) {
 	  
 	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, 0x00, 0x00, 0x00, 0x00);
   }
-  else if (input.data.Cmd == "ReadConfigReportReq")
+  else if ((input.data.Cmd == "ReadConfigReportReq") || (input.data.Cmd == "GetOnDistanceThresholdReq")) 
   {
 	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
   }  
-  
+  else if (input.data.Cmd == "SetOnDistanceThresholdReq")
+  {
+	  var threshold = input.data.OnDistanceThreshold;
+	  ret = ret.concat(getCmdID, devid, (threshold >> 8), (threshold & 0xFF), 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
   return {
     fPort: 7,
     bytes: ret
@@ -155,7 +149,10 @@ function decodeDownlink(input) {
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
 		}
-
+		else if (input.bytes[0] === getCmdToID("SetOnDistanceThresholdReq"))
+		{
+			data.OnDistanceThreshold = (input.bytes[2]<<8 | input.bytes[3]);
+		}
 		break;
 		
     default:
