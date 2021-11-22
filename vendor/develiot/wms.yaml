@@ -41,14 +41,14 @@ firmwareVersions:
         lorawanCertified: true
 
 sensors:
- - radar
- - water
- - gps
- - temperature
- - humidity
- - wind direction
- - wind speed
- - barometer
+  - radar
+  - water
+  - gps
+  - temperature
+  - humidity
+  - wind direction
+  - wind speed
+  - barometer
 
 dimensions:
   width: 430

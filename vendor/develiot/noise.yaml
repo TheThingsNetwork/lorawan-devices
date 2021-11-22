@@ -1,6 +1,6 @@
 id: noise
 name: Urban Noise Monitoring Station
-description: The Noise Level Monitoring Station is a hardware noise monitoring solution that helps cities and communities sense accurate noise level data. The Station operates autonomously without requiring external power source or manual data gathering.  
+description: The Noise Level Monitoring Station is a hardware noise monitoring solution that helps cities and communities sense accurate noise level data. The Station operates autonomously without requiring external power source or manual data gathering.
 
 hardwareVersions:
   - version: '2.0'
