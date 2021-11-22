@@ -4,7 +4,7 @@ hardwareVersions:
   - version: '3'
     numeric: 1
 firmwareVersions:
-    version: '1.10'
+  - version: '1.10'
     numeric: 1
     hardwareVersions:
       - '3'
@@ -20,7 +20,7 @@ firmwareVersions:
         vendorID: iothings
         id: iotracker3-profile
         lorawanCertified: true
-        codec: iotracker3-codecressure, velocity
+        codec: iotracker3-codec
 sensors:
   - temperature
   - light
@@ -65,6 +65,10 @@ resellerURLs:
     region:
       - European Union
     url: https://serinus.de/
+  - name: 'X-Guard'
+    region:
+      - European Union
+    url: https://x-guard.nl/
 msrp:
   EUR: 89
 photos:
