@@ -1,0 +1,65 @@
+name: R809A - Wireless Power Plug with Power Meter
+description: R809A is a Wireless Plug-and-Play Power Outlet with Consumption Monitoring for indoor use. It can remotely control the output switch and detect the output power. It integrates the LoRa/FSK modulation communication wireless module SX1276 which can realize wireless remote control. R809A has a 10A/230VAC output load capability and is primarily used to measure electrical power consumption and wireless switch control.
+
+hardwareVersions:
+  - version: '12'
+    numeric: 12
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '12'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r809a-codec
+      AS923:
+        id: profile-as923
+        codec: r809a-codec
+      US902-928:
+        id: profile-us915
+        codec: r809a-codec
+      AU915-928:
+        id: profile-au915
+        codec: r809a-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r809a-codec
+      IN865-867:
+        id: profile-in865
+        codec: r809a-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r809a-codec
+
+sensors:
+  - current
+  - energy
+  - voltage
+
+dimensions:
+  width: 58
+  length: 95
+  height: 42.5
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R809A
+dataSheetURL: http://www.netvox.com.tw/um/R809A/R809Adatasheet.pdf
+
+photos:
+  main: photos/r809a.jpg

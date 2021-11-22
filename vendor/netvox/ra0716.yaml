@@ -1,0 +1,65 @@
+name: RA0716 - Wireless PM2.5/Temperature/Humidity Sensor
+description: RA0716 is equipped with the external temperature and humidity sensor which can detect and send the data of the ambient temperature and humidity.It adopts the wireless communication method and conforms to the LoRa protocol standard. RA0716 is equipped with the PM2.5 dust sensor which can be used to detect the concentration of suspended particles in the air per unit volume.
+
+hardwareVersions:
+  - version: '4'
+    numeric: 4
+
+firmwareVersions:
+  - version: '13'
+    numeric: 13
+    hardwareVersions:
+      - '4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: ra0716-codec
+      AS923:
+        id: profile-as923
+        codec: ra0716-codec
+      US902-928:
+        id: profile-us915
+        codec: ra0716-codec
+      AU915-928:
+        id: profile-au915
+        codec: ra0716-codec
+      KR920-923:
+        id: profile-kr920
+        codec: ra0716-codec
+      IN865-867:
+        id: profile-in865
+        codec: ra0716-codec
+      CN470-510:
+        id: profile-cn470
+        codec: ra0716-codec
+
+sensors:
+  - temperature
+  - humidity
+  - pm2.5
+
+dimensions:
+  width: 114
+  length: 117
+  height: 41
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RA0716
+dataSheetURL: http://www.netvox.com.tw/um/RA0716/RA0716datasheet.pdf
+
+photos:
+  main: photos/ra0716.jpg

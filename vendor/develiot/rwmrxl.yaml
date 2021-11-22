@@ -1,15 +1,15 @@
-id: rwmr
-name: Remote Water Meter Reader
-description: The Develiot Remote Water Meter Reader comes with 2 digital inputs, 2 digital outputs, and with an embedded temperature sensor. It is designed to easily connect with standard pulse water meters or other 3rd party equipment and it transmits data wirelessly and autonomously utilizing LoRaWAN® network protocol.
+id: rwmrxl
+name: Remote Water Meter Reader XL
+description: The Develiot Remote Water Meter Reader XL comes with 2 digital inputs, 2 analog inputs, 2 digital outputs and with an embedded temperature sensor. It is designed to easily connect with standard pulse water meters or other 3rd party equipment and it transmits data wirelessly and autonomously utilizing LoRaWAN® network protocol.
 
 hardwareVersions:
-  - version: '8.0'
+  - version: '8.2'
     numeric: 8
 
 firmwareVersions:
-  - version: '2.0'
+  - version: '1.0'
     hardwareVersions:
-      - '8.0'
+      - '8.2'
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
@@ -54,15 +54,15 @@ sensors:
   - battery
 
 dimensions:
-  width: 35
-  length: 120
-  height: 35
+  width: 65
+  length: 145
+  height: 55
 
-weight: 163
+weight: 250
 
 battery:
   replaceable: true
-  type: AA
+  type: Lithium
 
 operatingConditions:
   temperature:
@@ -78,12 +78,12 @@ keyProvisioning:
 keySecurity: none
 
 productURL: https://www.develiot.com/remote-water-meter-reader
-dataSheetURL: https://www.develiot.com/assets/files/Datasheet%20Remote%20Water%20Meter%20Reader%20EN%20v8.2%20July%202021.pdf
+dataSheetURL: https://www.develiot.com/assets/files/Datasheet%20Remote%20Water%20Meter%20Reader%20XL%20EN%20v8.2%20July%202021.pdf
 
 photos:
-  main: main.png
+  main: xlside.png
   other:
-    - other.png
+    - xltop.png
 
 # Regulatory compliances (optional)
 compliances:
