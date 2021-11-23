@@ -14,38 +14,29 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '4.4'
+    features:
+      - transmission interval
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
     profiles:
       EU863-870:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
-        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        vendorID: tinovi
         id: pm-io-5-sm-profile-eu
         codec: pm-io-5-sm-codec
       US902-928:
-        vendorID: tinovi
         id: pm-io-5-sm-profile-us
         codec: pm-io-5-sm-codec
       AS923:
-        vendorID: tinovi
         id: pm-io-5-sm-profile-as
         codec: pm-io-5-sm-codec
       AU915-928:
-        vendorID: tinovi
         id: pm-io-5-sm-profile-au
         codec: pm-io-5-sm-codec
       KR920-923:
-        vendorID: tinovi
         id: pm-io-5-sm-profile-kr
         codec: pm-io-5-sm-codec
       IN865-867:
-        vendorID: tinovi
         id: pm-io-5-sm-profile-in
         codec: pm-io-5-sm-codec
 
