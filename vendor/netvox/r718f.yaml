@@ -1,4 +1,4 @@
-name: Wireless Reed Switch Open/Close Detection Sensor
+name: R718F - Wireless Reed Switch Open/Close Detection Sensor
 description: The Netvox R718F - Wireless Reed Switch Open/Close Detection Sensor is a LoRaWAN® end device that has a reed switch to detect whether two objects are separated or not. Ideal for detecting the status of a door or window for security purposes.
 
 hardwareVersions:

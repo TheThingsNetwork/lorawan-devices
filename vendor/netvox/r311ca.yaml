@@ -1,0 +1,69 @@
+name: R311CA - Wireless 2-Input Dry Contact Interface
+description: Netvox wireless dry contact sensors can be used to detect contact between two wired contact points. It can realize wireless alarm and other functions through built-in wireless module, and is compatible with LoRaWAN protocol. It can be easily networked with other related devices. The R311CA is durable and ensures optimum use and is a low power consumption device. Due to their small size, they can be installed anywhere, they are wireless, so they take up very little space.
+
+hardwareVersions:
+  - version: '1'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '1'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r311ca-codec
+      AS923:
+        id: profile-as923
+        codec: r311ca-codec
+      US902-928:
+        id: profile-us915
+        codec: r311ca-codec
+      AU915-928:
+        id: profile-au915
+        codec: r311ca-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r311ca-codec
+      IN865-867:
+        id: profile-in865
+        codec: r311ca-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r311ca-codec
+
+#sensors:
+#  - dry contact
+
+dimensions:
+  width: 57
+  length: 35
+  height: 15
+
+weight: 49
+
+battery:
+  replaceable: true
+  type: 2 x 3.0V CR2450 button battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R311CA
+dataSheetURL: http://www.netvox.com.tw/um/R311CA/R311CAdatasheet.pdf
+
+photos:
+  main: photos/r311ca.png

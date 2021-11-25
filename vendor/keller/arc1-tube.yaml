@@ -1,9 +1,9 @@
 name: ARC1 Tube
-description: The Keller ARC1-Tube is a remote transmission unit with a data logger. It records measurements made by external sensors (e.g. a level sensor) and periodically transmits the collected data via LoRaWAN®.
+description: The KELLER ARC1-Tube is a remote transmission unit with a data logger. It records measurements made by external sensors (e.g. a level probes) and periodically transmits the collected data via LoRaWAN®.
 
 firmwareVersions:
-  - version: '20.41'
-    numeric: 2041
+  - version: 'all'
+    numeric: 1
     profiles:
       EU863-870:
         id: arc1-profile

@@ -64,7 +64,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/wind-speed-wind-direction-and-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ATM22-datasheet.pdf
 photos:
-  main: dl-atm22.jpg
+  main: dl-atm22.png
   other:
     - dl-atm22-2.jpg
     - dl-atm22-3.jpg

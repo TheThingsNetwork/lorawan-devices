@@ -3,13 +3,13 @@ name: Urban Air Quality Monitoring Station
 description: The Develiot Urban Air Quality Monitoring Station equipped with a wide range of sensors such as air quality (NO2, SO2, O3, CO, NH3, H2S, PH3, Cl2, HCl, HF, O2, CH2O, C2H4, C6H6, H2, PM10, PM2.5, PM1.0),  CO2, noise level, temperature, humidity, pressure, wind speed, wind direction, and precipitation. It provides GSM, NBIoT, and LoRaWAN wireless connectivity for sending data.
 
 hardwareVersions:
-  - version: '8.0'
-    numeric: 8
+  - version: '7.1'
+    numeric: 7
 
 firmwareVersions:
   - version: '9.3'
     hardwareVersions:
-      - '8.0'
+      - '7.1'
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
@@ -53,9 +53,9 @@ sensors:
   - sound
 
 dimensions:
-  width: 400
-  length: 300
-  height: 150
+  width: 430
+  length: 325
+  height: 185
 
 weight: 11000
 
@@ -65,8 +65,8 @@ battery:
 
 operatingConditions:
   temperature:
-    min: -20
-    max: 50
+    min: -30
+    max: 70
 
 ipCode: IP65
 
@@ -77,7 +77,7 @@ keyProvisioning:
 keySecurity: none
 
 productURL: https://www.develiot.com/urban-air-quality-system
-dataSheetURL: https://www.develiot.com/assets/files/Datasheet%20Urban%20Air%20Quality%20Monitoring%20Station%20EN%20v7.0%20June%202020(2).pdf
+dataSheetURL: https://www.develiot.com/assets/files/Datasheet%20Urban%20Air%20Quality%20Monitoring%20Station%20EN%20v7.2%20July%202021.pdf
 
 photos:
-  main: station.jpg
+  main: station.png

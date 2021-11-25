@@ -1,0 +1,66 @@
+name: R311FB - Wireless Activity Event Counter
+description: The device detects the number of movements or vibrations (such as detecting the motor a few times a day), the maximum number of movements or vibrations can reach 2^32 times (theoretical value), and sends the information of the number of movements or vibrations to the gateway for processing. Apply SX1276 wireless communication module.
+
+hardwareVersions:
+  - version: '1'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '1'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r311fb-codec
+      AS923:
+        id: profile-as923
+        codec: r311fb-codec
+      US902-928:
+        id: profile-us915
+        codec: r311fb-codec
+      AU915-928:
+        id: profile-au915
+        codec: r311fb-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r311fb-codec
+      IN865-867:
+        id: profile-in865
+        codec: r311fb-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r311fb-codec
+
+dimensions:
+  width: 35
+  length: 57
+  height: 12
+
+weight: 49
+
+battery:
+  replaceable: true
+  type: 2 x 3.0V CR2450 button batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R311FB
+dataSheetURL: http://www.netvox.com.tw/um/R311FB/R311FBdatasheet.pdf
+
+photos:
+  main: photos/r311fb.png

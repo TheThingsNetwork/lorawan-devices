@@ -9,8 +9,8 @@ uplinkDecoder:
         data:
           reason: 1
           targetTemperature: 29
-          sensorTemperature: 18.0078125
-          relativeHumidity: 46.875
+          sensorTemperature: 18.01
+          relativeHumidity: 46.88
           motorRange: 300
           motorPosition: 250
           batteryVoltage: 3.5

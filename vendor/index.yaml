@@ -1563,6 +1563,8 @@ vendors:
 
   - id: izinto
     name: izinto GmbH
+    website: https://www.izinto.online
+    logo: izinto_logo.png
 
   - id: develiot
     name: Develiot
@@ -1573,3 +1575,149 @@ vendors:
     name: IoTsens Gimeno IoT Division
     website: https://www.iotsens.com/
     logo: logo_iotsens.svg
+
+  - id: sensedge
+    name: Sensedge
+
+  - id: embit
+    name: Embit SRL
+    website: http://www.embit.eu/
+
+  - id: enthutech
+    name: Enthu Technology Solutions India Pvt Ltd
+    website: https://www.enthutech.in/
+    logo: logo_enthutech.png
+
+  - id: abeeway
+    name: Abeeway
+    website: https://www.abeeway.com/
+    logo: logo.png
+
+  - id: midatronics
+    name: Midatronics
+    website: https://midatronics.com/
+
+  - id: thingsofficer
+    name: ThingsOfficer Gmbh
+    website: https://www.boatofficer.com/
+    logo: boatofficer_logo.png
+
+  - id: sensecap
+    name: SenseCAP
+
+  - id: nwave
+    name: Nwave Technologies
+    website: https://www.nwave.io/
+    logo: logo.png
+
+  - id: tekzitel
+    name: TEKZITEL Pty Ltd
+    website: https://www.tekzitel.com/
+    logo: tekzitel_logo.png
+
+  - id: heltec
+    name: HelTec AutoMation
+    website: https://heltec.org/
+    logo: logo.png
+
+  - id: acrios
+    name: Acrios Systems S.RO.
+    website: https://acrios.com/
+    logo: acrioslogo.png
+
+  - id: espeasy
+    name: ESP Easy
+    website: https://github.com/letscontrolit/ESPEasy
+    logo: espeasy-logo.png
+
+  - id: moirelabs
+    name: Moire Labs
+    website: http://moirelabs.com/
+    logo: moirelabs_logo.png
+
+  - id: dingtek
+    name: Dingtek
+    website: http://dingtek.com/
+    logo: dingtek_logo.png
+
+  - id: elster
+    name: Elster
+    website: https://www.elster.nl/nl/about_us.html
+
+  - id: innotas
+    name: Innotas Elektronik
+    website: https://www.innotas-elektronik.de/en-gb
+
+  - id: elsys
+    name: ElektronikSystem i Ume
+    website: https://www.elsys.se/en/
+
+  - id: xignal
+    name: Xignal
+    website: https://www.xignal.com
+
+  - id: opensource
+    name: Open Source Community Projects
+    website: https://en.wikipedia.org/wiki/Open_source
+
+  - id: origoelec
+    name: Origoelec
+    website: http://www.origoelec.com
+
+  - id: dezem
+    name: deZem GmbH
+    website: https://www.dezem.de/en/
+
+  - id: mutelcor
+    name: Mutelcor GmbH
+    website: https://mutelcor.com/iot/
+    logo: mc_logo.svg
+
+  - id: sting
+    name: sting
+    description: ...straight to it...
+    website: https://st-ing.net/
+    logo: sting.png
+
+  - id: smart-parks
+    name: Smart Parks
+    website: https://www.smartparks.org/
+
+  - id: nexelec
+    name: Nexelec
+    website: https://www.nexelec.fr/
+
+  - id: terabee
+    name: Terabee
+    website: https://www.terabee.com/
+
+  - id: uradmonitor
+    name: uRADMonitor
+    website: https://www.uradmonitor.com/
+
+  - id: jeng-iot
+    name: JENG IoT
+    website: https://www.jeng.io/
+    logo: jeng_iot_logo.png
+    ouis:
+      - 70B3D55AF
+    description: JENG IoT is a Dutch based company providing sensor devices and e2e IoT solutions. The devices communicate over LoRaWAN® and have an ultra-low power consumption enables operating for several years on batteries. In our cloud environment, powered by our partner Yodiwo, our devices and solutions are available off-the-shelf. We offer great dashboard apps and easy integration into your own IT environment. Applications areas are smart cities & tracking devices (containers).
+    social:
+      linkedin: https://www.linkedin.com/company/jeng/
+      twitter: jeng_iot
+
+  - id: sezo
+    name: SEZO
+    website: https://sezo.pl/
+    logo: sezo.png
+
+  - id: emu
+    name: EMU Electronic AG
+    website: https://www.emuag.ch/
+    logo: emu_electronic_logo.png
+    ouis:
+      - 102CEF
+
+  - id: ellenex
+    name: ellenex
+    website: https://www.ellenex.com

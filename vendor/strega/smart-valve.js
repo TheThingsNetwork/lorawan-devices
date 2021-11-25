@@ -319,7 +319,7 @@ function encodeDownlink(input) {
   var Schl_off = 00;
   var Schl_m = 0;
  // open and close command, Changing the class, Time Synchronization Request, Schedulers status setting, Magnetic control, Counter value retrieval, Analog value retrieval
-  if (port == 1 || port == 9 || port == 13 || port == 21 || port == 22 || port == 24 || port == 25) {
+  if (port == 1 || port == 9 || port == 13 || port == 21 || port == 22 || port == 24 || port == 25 || port == 26) {
   bytes[0] = input.data.payload;
   bytes[1] = 48;
   ne[0]    = bytes[0]+(+bytes[1]);

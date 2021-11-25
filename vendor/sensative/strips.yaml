@@ -32,3 +32,11 @@ firmwareVersions:
         id: strips-profile
         lorawanCertified: true
         codec: strips-codec
+
+# Photos
+photos:
+  main: strip.png
+
+# Product and data sheet URLs (optional)
+productURL: https://sensative.com/sensors/strips-lorawan-sensors/
+dataSheetURL: https://sensative.com/sensors/strips-brochure-2021-lineup/

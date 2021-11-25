@@ -1,5 +1,5 @@
 name: Onethinx LoRaWAN module
-description: Onethinx dual core module with integrated LoRa and LoRaWAN stack, SX126x radio chips, integrated secure element and an integrated omnidirectional antenna.
+description: Onethinx Core LoRaWAN® module integrates Cypress® PSoC® 6 MCU, Semtech® SX126x chipset, dual ARM® Core processor (150MHz / 1MB Flash / 256KB SRAM), compact and highly efficient integrated antenna, and Bluetooth BLE 5.0. It provides faster development of LoRaWAN® products and also reduces development costs.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -87,7 +87,7 @@ dataSheetURL: https://onethinx.github.io/Onethinx_Documentation/DoxyDocumentatio
 
 # Photos
 photos:
-  main: otx18.jpg
+  main: otx18.png
   other:
     - otx18-package.jpg
 

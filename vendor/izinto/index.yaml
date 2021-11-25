@@ -1,3 +1,5 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - izi-io-4840 # look in izi-io-4840.yaml for the end device definition
+  - izi-io-4840-grid # look in izi-io-4840-grid.yaml for the end device definition
+  - izi-io-4840-heat # look in izi-io-4840-heat.yaml for the end device definition
