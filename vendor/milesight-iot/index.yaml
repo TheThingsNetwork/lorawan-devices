@@ -3,6 +3,30 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - am107
+  - am307
+  - am319
+  - em300-mcs
+  - em300-sld
   - em300-th
+  - em300-zld
+  - em310-udl
   - em500-co2
+  - em500-lgt
+  - em500-pp
+  - em500-pt100
+  - em500-smt
+  - em500-smtc
+  - em500-swl
   - em500-udl
+  - uc50x
+  - uc51x
+  - uc1114
+  - uc1122
+  - uc1152
+  - vs121
+  - ws101
+  - ws202
+  - ws301
+  - ws50x
+  - ws52x
+  - ws558
