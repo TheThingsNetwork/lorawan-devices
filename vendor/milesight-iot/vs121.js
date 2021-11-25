@@ -40,7 +40,6 @@ function Decoder(bytes, port) {
             break;
         }
     }
-
     return decoded;
 }
 

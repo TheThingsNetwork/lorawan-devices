@@ -3,7 +3,7 @@
 uplinkDecoder:
   fileName: em500-smt.js
   example:
-    - description: Soil Moisture Sensor (example 2) - Milesight IoT
+    - description: Soil Moisture Sensor (example 1) - Milesight IoT
       input:
         fPort: 85
         bytes: [0x01, 0x75, 0x64, 0x04, 0x68, 0x71]

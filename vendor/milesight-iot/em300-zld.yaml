@@ -1,11 +1,21 @@
 name: EM300-ZLD
 description: Leak Detection Sensor
 
+hardwareVersions:
+  - version: '2.x'
+    numeric: 1
+  - version: '3.x'
+    numeric: 2
+
 firmwareVersions:
-  - version: '1.20'
+  - version: '1.22'
     numeric: 1
     hardwareVersions:
-      - 'V2.3'
+      - '2.x'
+  - version: '1.02'
+    numeric: 2
+    hardwareVersions:
+      - '3.x'
 
     profiles:
       EU863-870:

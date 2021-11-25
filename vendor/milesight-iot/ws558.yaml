@@ -1,0 +1,82 @@
+name: WS558
+description: Smart Light Controller
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - '1.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: ws558-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: ws558-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: ws558-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: ws558-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: ws558-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: ws558-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: ws558-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: ws558-codec
+
+sensors:
+  - current
+  - voltage
+  - power
+  # power factor
+  # power consumption
+
+dimensions:
+  width: 40
+  length: 115
+  height: 90
+
+operatingConditions:
+  temperature:
+    min: -30
+    max: 60
+
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/sensor/ws558/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws558-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: ws558.png

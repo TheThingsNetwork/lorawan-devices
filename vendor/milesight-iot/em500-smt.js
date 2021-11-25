@@ -30,7 +30,14 @@ function Decoder(bytes, port) {
         // HUMIDITY
         else if (channel_id === 0x04 && channel_type === 0x68) {
             decoded.humidity = bytes[i] / 2;
-            i += 1;
+            i += 2;
+        }
+        else if (channel_id === 0x04 && channel_type === 0xCA) {
+            decoded.humidity = bytes[i] / 2;
+            i += 2;
+        }
+        else {
+            break;
         }
     }
 
