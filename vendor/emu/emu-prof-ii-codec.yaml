@@ -1,0 +1,90 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: profii-lp-codec_generic.js
+  # # Examples (optional)
+  examples:
+    - description: 1810 Wh Energy at 1635506100
+      input:
+        fPort: 1
+        bytes: [180, 215, 123, 97, 1, 180, 215, 123, 97, 3, 18, 7, 0, 0, 57]
+      output:
+        data:
+          timestamp:
+            unit: seconds
+            value: 1635506100
+          Active Energy Import T1:
+            unit: Wh
+            value: 1810
+          timeStamp: 1635506100
+          medium:
+            type: 1
+            desc: Electricity
+    - description: all energy-registers at 1635506100
+      input:
+        fPort: 1
+        bytes: [180, 215, 123, 97, 1, 180, 215, 123, 97, 3, 18, 7, 0, 0, 4, 128, 0, 0, 0, 5, 125, 4, 0, 0, 6, 130, 69, 0, 0, 7, 72, 7, 0, 0, 8, 40, 10, 0, 0, 9, 82, 1, 0, 0, 10, 189, 37, 0, 0, 228]
+      output:
+        data:
+          timestamp:
+            unit: seconds
+            value: 1635506100
+          Active Energy Import T1:
+            unit: Wh
+            value: 1810
+          Active Energy Import T2:
+            unit: Wh
+            value: 128
+          Active Energy Export T1:
+            unit: Wh
+            value: 1149
+          Active Energy Export T2:
+            unit: Wh
+            value: 17794
+          Reactive Energy Import T1:
+            unit: varh
+            value: 1864
+          Reactive Energy Import T2:
+            unit: varh
+            value: 2600
+          Reactive Energy Export T1:
+            unit: varh
+            value: 338
+          Reactive Energy Export T2:
+            unit: varh
+            value: 9661
+          timeStamp: 1635506100
+          medium:
+            type: 1
+            desc: Electricity
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: profii-lp-codec_generic.js
+  examples:
+    - description: Activate energy register 1
+      input:
+        data:
+          fPort: 1
+          timeInterval: 1
+          sndAck: true
+          startReJoin: false
+          portIsActive: true
+          values:
+            - 3
+      output:
+        bytes: [1, 0, 10, 3, 157]
+        fPort: 1
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+#downlinkDecoder:
+#  fileName: windsensor.js
+#  examples:
+#    - description: Turn green
+#      input:
+#        fPort: 2
+#        bytes: [1]
+#      output:
+#        data:
+#          led: green
+#
+

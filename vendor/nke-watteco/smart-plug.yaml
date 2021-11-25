@@ -1,5 +1,5 @@
 name: Smart Plug
-description: Smart Plug is a plug connected to a public or private LoRaWAN™ network, which is used to remotely manage the operation of common household electrical appliances
+description: The nke WATTECO Smart Plug sensor supports remotely manage the operation and consumption of common household electrical appliances such as lamps, televisions, and heating equipment.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

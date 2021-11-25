@@ -1,5 +1,5 @@
 name: ELT-2 LoRaWAN wireless sensor
-description: The ELT-2 have the capability of solving almost any problem. It is enclosed in an IP67 box which makes it ideal for mounting outside or in extreme conditions.
+description: The ELSYS ELT Ultrasonic is a LoRaWAN® end device that has sensors for measuring distance, temperature, humidity, and atmospheric pressure. It is the ideal sensor for measuring in advanced places or extreme weather conditions.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

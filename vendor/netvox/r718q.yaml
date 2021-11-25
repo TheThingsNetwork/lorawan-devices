@@ -1,4 +1,4 @@
-name: Wireless Short-Range Occupancy Sensor
+name: R718Q - Wireless Short-Range Occupancy Sensor
 description: The Netvox R718PQ-Wireless Short-Range Occupancy Sensor is a LoRaWAN® end device that has a built-in PIR sensor (pyroelectric human body infrared sensor) for detecting someone, for example detecting someone has entered a room.
 
 hardwareVersions:

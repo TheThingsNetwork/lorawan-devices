@@ -1,5 +1,5 @@
 name: FTD Network Tester
-description: The Field Test Device (FTD) from Adeunis is ais not a point to point device and may not be used in this manner. Class A LoRaWAN compatible device. This  This indicates that it must be used on a private or public operated network
+description: The Adeunis FTD (Field Test Device) is a LoRaWAN® network tester that consists of a GPS receiver and a temperature sensor. It checks network coverages and chooses the most appropriate network for ensuring the good positioning of end devices.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -73,7 +73,7 @@ dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/Datasheet_FTD_e
 
 # Photos
 photos:
-  main: network.jpg
+  main: network.png
 
 # Regulatory compliances (optional)
 compliances:

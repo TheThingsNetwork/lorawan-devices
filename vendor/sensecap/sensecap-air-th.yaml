@@ -103,9 +103,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-air-th-deployment.jpg
+  main: sensecap-air-th.png
   other:
-    - sensecap-air-th.png
+    - sensecap-air-th-deployment.jpg
     - sensecap-air-th-package.png
 
 # Youtube or Vimeo Video (optional)

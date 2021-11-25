@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-TRS11-datasheet.pdf
 photos:
-  main: dl-trs1x.jpg
+  main: dl-trs1x.png
 
 compliances:
   safety:

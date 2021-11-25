@@ -1,4 +1,4 @@
-name: Kona All-in-One Smart Room Sensor - PIR edition
+name: Smart Room Sensor - PIR
 description: The TEKTELIC Kona Smart Room Sensor (PIR Edition) is a multi-purpose LoRaWAN® end device suitable for home and office environment monitoring. It contains a Passive Infrared (PIR) motion sensor, temperature sensor, humidity sensor, light sensor, magnetic switch, accelerometer, pulse reader, capacitive transducer, and external contacts for adding extra sensors. The smart room sensor can be powered by a single CR2477 battery and allows retrieving battery status for easy maintenance.
 
 # Hardware versions (optional, use when you have revisions)
@@ -64,8 +64,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://tektelic.com/public/catalog/Smart-Room-PIR-Sensor
-dataSheetURL: https://tektelic.com/public/uploads/Brochures/Smart%20Room%20Sensor.pdf
+productURL: https://tektelic.com/catalog/smart-room-lorawan-sensor-pir
+dataSheetURL: https://tektelic.com/uploads/Brochures/Smart%20Room%20Sensor.pdf
 manuals: https://support.tektelic.com/portal/en/kb/articles/home-sensor-technical-reference-manual
 
 # Photos (optional)

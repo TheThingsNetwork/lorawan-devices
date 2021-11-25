@@ -163,7 +163,7 @@ dataSheetURL: https://espeasy.readthedocs.io/en/latest/Controller/C018.html#c018
 
 # Photos
 photos:
-  main: espeasy-rn2483-package.jpg
+  main: espeasy-rn2483-package.png
   other:
     - espeasy-configuration.png
     - rn2483a-module.jpg

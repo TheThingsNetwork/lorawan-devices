@@ -10,7 +10,7 @@ const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
 
-let validate = new Ajv().addSchema([require('../lib/draft/schema.json'), require('../schema.json')]);
+const ajv = new Ajv({ schemas: [require('../lib/draft/schema.json'), require('../schema.json')] });
 
 const options = yargs.usage('Usage: --vendor <file>').option('v', {
   alias: 'vendor',
@@ -20,19 +20,19 @@ const options = yargs.usage('Usage: --vendor <file>').option('v', {
   default: './vendor/index.yaml',
 }).argv;
 
-let validateVendors = validate.compile({
+let validateVendors = ajv.compile({
   $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendors',
 });
-let validateVendor = validate.compile({
+let validateVendor = ajv.compile({
   $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendor',
 });
-let validateEndDevice = validate.compile({
+let validateEndDevice = ajv.compile({
   $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevice',
 });
-let validateEndDeviceProfile = validate.compile({
+let validateEndDeviceProfile = ajv.compile({
   $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDeviceProfile',
 });
-let validateEndDevicePayloadCodec = validate.compile({
+let validateEndDevicePayloadCodec = ajv.compile({
   $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevicePayloadCodec',
 });
 
@@ -233,19 +233,19 @@ vendors.vendors.forEach((v) => {
           const vendorID = regionProfile.vendorID ?? v.id;
           if (!vendorProfiles[vendorID]) {
             vendorProfiles[vendorID] = {};
-            if (!vendorProfiles[vendorID][regionProfile.id]) {
-              const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
-              if (!validateEndDeviceProfile(profile)) {
-                console.error(
-                  `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
-                    validateEndDeviceProfile.errors
-                  )}`
-                );
-                process.exit(1);
-              }
-            }
-            vendorProfiles[vendorID][regionProfile.id] = true;
           }
+          if (!vendorProfiles[vendorID][regionProfile.id]) {
+            const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
+            if (!validateEndDeviceProfile(profile)) {
+              console.error(
+                `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
+                  validateEndDeviceProfile.errors
+                )}`
+              );
+              process.exit(1);
+            }
+          }
+          vendorProfiles[vendorID][regionProfile.id] = true;
           console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
 
           if (regionProfile.codec && !codecs[regionProfile.codec]) {
