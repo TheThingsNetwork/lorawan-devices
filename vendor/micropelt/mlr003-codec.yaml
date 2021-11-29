@@ -7,7 +7,7 @@ uplinkDecoder:
     - description: Example 1
       input:
         fPort: 1
-        bytes: [0x00,0x3E,0x42,0x73,0x60,0x20,0x87,0x01,0x02,0x10]
+        bytes: [0x00, 0x3E, 0x42, 0x73, 0x60, 0x20, 0x87, 0x01, 0x02, 0x10]
       output:
         data:
           Current_Valve_Position: 0
@@ -18,7 +18,7 @@ uplinkDecoder:
           Energy_Storage: 0
           Harvesting_Active: 1
           Ambient_Sensor_Failure: 0
-          Flow_Sensor_Failure : 0
+          Flow_Sensor_Failure: 0
           Radio_Communication_Error: 0
           Received_Signal_Strength: 0
           Motor_Error: 0
@@ -27,12 +27,12 @@ uplinkDecoder:
           Average_Current_Generated: 20
           Reference_Completed: 1
           Operating_Mode: 0
-          Storage_Fully_Charged : 0
+          Storage_Fully_Charged: 0
 
     - description: Example 2
       input:
         fPort: 1
-        bytes: [0x64,0x28,0x2C,0x4F,0x4D,0x00,0x85,0x01,0x00,0x10]
+        bytes: [0x64, 0x28, 0x2C, 0x4F, 0x4D, 0x00, 0x85, 0x01, 0x00, 0x10]
       output:
         data:
           Current_Valve_Position: 100
@@ -43,7 +43,7 @@ uplinkDecoder:
           Energy_Storage: 0
           Harvesting_Active: 0
           Ambient_Sensor_Failure: 0
-          Flow_Sensor_Failure : 0
+          Flow_Sensor_Failure: 0
           Radio_Communication_Error: 0
           Received_Signal_Strength: 0
           Motor_Error: 0
@@ -52,5 +52,4 @@ uplinkDecoder:
           Average_Current_Generated: 0
           Reference_Completed: 1
           Operating_Mode: 0
-          Storage_Fully_Charged : 0  
-                  
+          Storage_Fully_Charged: 0
