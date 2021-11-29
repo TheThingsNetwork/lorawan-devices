@@ -1,0 +1,8 @@
+uplinkDecoder:
+  fileName: imbuildings-decoder.js
+
+downlinkEncoder:
+  filename: imbuildings-downlink.js
+
+downlinkDecoder:
+  fileName: imbuildings-downlink.js
