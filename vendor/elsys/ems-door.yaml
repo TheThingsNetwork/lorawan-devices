@@ -1,5 +1,5 @@
 name: EMS DOOR but more than just doors
-description: This is an indoor LoRaWAN opening activity sensor that will tell you when an object has been opened or moved.
+description: The ELSYS EMS Door is equipped with a door switch (reed switch) for detecting the opening and closing of doors, windows, garage doors, vaults, and entryways. It also includes an accelerometer for movement detection. The EMS Door is suitable for applications such as door activity detection, movement detection, smart buildings, and workplace management. It utilizes LoRaWAN® connectivity to transmit data.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

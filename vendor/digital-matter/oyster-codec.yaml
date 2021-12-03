@@ -1,18 +1,37 @@
 uplinkDecoder:
   fileName: oyster.js
   examples:
-    - description: Position update
+    - description: Position update fix valid
       input:
         fPort: 1
         bytes: [0x00, 0x30, 0xed, 0xec, 0x00, 0x32, 0x24, 0x45, 0x00, 0x00, 0xde]
       output:
+        warnings: []
         data:
+          type: position
           batV: 5.55
           fixFailed: false
-          headingDeg: 0
           inTrip: false
+          manDown: null
           latitudeDeg: -32
           longitudeDeg: 116
-          manDown: null
           speedKmph: 0
-          type: 'position'
+          headingDeg: 0
+    - description: Position update fix failed
+      input:
+        fPort: 1
+        bytes: [0x85, 0xa8, 0xc5, 0xeb, 0xd8, 0x76, 0x3f, 0x0b, 0x03, 0x01, 0xbe]
+      output:
+        warnings:
+          - fix failed
+        data:
+          type: position
+          batV: 4.75
+          fixFailed: true
+          inTrip: true
+          manDown: null
+          cached:
+            latitudeDeg: -33.9367803
+            longitudeDeg: 18.8708568
+            speedKmph: 1
+            headingDeg: 0

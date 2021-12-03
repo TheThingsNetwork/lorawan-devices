@@ -1,5 +1,5 @@
 name: SenseCAP Wireless Barometric Pressure Sensor - LoRaWAN
-description: It measures atmospheric pressure, featuring high-precision, stability, and high EMC robustness. It’s designed with an air pressure sensor, a custom battery, and an industry-grade enclosure, optimized for outdoor use cases that need reliable data collection over years.
+description: The Seeed Studio SenseCAP Wireless Barometric Pressure Sensor measures atmospheric pressure, featuring high-precision, stability, and high EMC robustness. It’s designed with an air pressure sensor, a custom battery, and an industry-grade enclosure, optimized for outdoor use cases that need reliable data collected over years. The collected data is sent over the LoRaWAN® network for further processing and decision making.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -102,9 +102,9 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-pressure-deployment.jpg
+  main: sensecap-pressure.png
   other:
-    - sensecap-pressure.png
+    - sensecap-pressure-deployment.jpg
     - sensecap-pressure-package.png
 
 # Youtube or Vimeo Video (optional)

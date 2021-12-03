@@ -1,5 +1,5 @@
 name: LoRa wireless water meter
-description: Single-jet and multi-jet dry dial water meters as well as annular piston and measuring capsule water meters can be used. A retrofitting is possible at any time.
+description: The Innotas Modularis water meter attachment consists of a pulse sensor that counts pulses for calculating the water flow volume. It can be attached to water meters with Modularis metering shaft (E. Wehrle GmbH, Wasser-Geräte GmbH, Meibes Systemtechnik GmbH, Maddalena GmbH, QUNDIS and others), ingle-jet and multi-jet dry dial water meters, annular piston, and measuring capsule water meters.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -61,3 +61,7 @@ keyProvisioning:
 # Product and data sheet URLs (optional)
 productURL: https://www.innotas-elektronik.de/en-gb/newpage2
 dataSheetURL: https://irp-cdn.multiscreensite.com/0a3fa4dd/files/uploaded/Produktblatt%20LoRa_Funkwasserzaehleraufsatz_V1.3_ENG.pdf
+
+# Photos
+photos:
+  main: wmeter.png

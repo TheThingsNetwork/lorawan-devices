@@ -1,5 +1,5 @@
-name: Wireless Light Sensor
-description: The R311B device has a built-in Wireless Light Sensor that can be used for ambient light intensity detection.
+name: R311B - Wireless Light Sensor
+description: The Netvox R311B Wireless Light Sensor is a LoRaWAN® end device that contains a light sensor for detecting ambient illumination. The R311B reports the illuminance periodically along with some other information to the LoRaWAN® network. The device provides low power consumption and longer battery life.
 
 hardwareVersions:
   - version: '11'

@@ -1,5 +1,5 @@
-name: Wind Sensor
-description: Wind Sensor with controllable LED
+name: TK-4 RF Multi jet Dry type Water Meter
+description: The Baylan TK-4 RF Multi jet Dry type Water Meter consists of a pulse sensor (counter) for reading water usage and it transmits the meter reading via LoRaWAN® radio network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -63,6 +63,6 @@ dataSheetURL: http://www.baylanwatermeters.com/admin/upload/big/TK-4-RF.pdf
 
 # Photos
 photos:
-  main: tk4-rf.jpg
+  main: tk4-rf.png
   other:
     - baylan.png

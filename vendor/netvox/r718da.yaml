@@ -1,5 +1,5 @@
-name: Wireless Vibration Sensor
-description: When the vibration sensor moves or vibrates, R718DA can detect vibration or moving signals and send an alert to data center through LoRaWAN.
+name: R718DA - Wireless Vibration Sensor
+description: The Netvox R718DA - Wireless Vibration Sensor comes with an external rolling ball type sensor. Ideal for detecting movements and vibrations of the attached object.
 
 hardwareVersions:
   - version: '11'

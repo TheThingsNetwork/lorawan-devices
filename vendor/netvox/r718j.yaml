@@ -1,5 +1,5 @@
-name: Wireless Dry Contact Interface
-description: Netvox wireless dry contact sensors can be used to detect contact between two wired contact points.
+name: R718J - Wireless Dry Contact Interface
+description: The Netvox R718J-Wireless Dry Contact Interface can be used to detect many different inputs such as smoke sensors, security systems, air conditioning status, UPS status, etc.
 
 hardwareVersions:
   - version: '11'

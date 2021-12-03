@@ -1,5 +1,5 @@
 name: LWL01
-description: LoRaWAN Water Leak Sensor
+description: The Dragino LWL01 consists of a water leak sensor that detects the water leak status and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -48,6 +48,45 @@ firmwareVersions:
         lorawanCertified: true
         codec: lwl01-codec
 
+  - version: 'lwl01 abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: lwl01-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

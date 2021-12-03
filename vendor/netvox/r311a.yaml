@@ -1,5 +1,5 @@
-name: Wireless Window Sensor
-description: When the window is opened, R311A sends an alarm message to the control center. R311A utilizes the latest ultra-low power consumption technology and requires no wiring. It requires just button batteries to support its operation.
+name: R311A - Wireless Window Sensor
+description: The Netvox R311A Wireless Door/Window Sensor is a LoRaWAN® end device that contains a magnetic sensor (reed switch) for detecting the opening and closing of doors and windows. When the opening or closing status is detected an uplink containing the desired values is transferred to the LoRaWAN® network. The device provides low power consumption and longer battery life.
 
 hardwareVersions:
   - version: '11'

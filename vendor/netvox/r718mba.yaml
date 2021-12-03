@@ -1,5 +1,5 @@
-name: Wireless Activity Detection
-description: R718MBA is to detect sudden movement or vibration alert.
+name: R718MBA - Wireless Activity Detection
+description: The Netvox R718MBA Wireless Activity Detection Sensor detects sudden movements or vibrations and alerts through the LoRaWAN® network.
 
 hardwareVersions:
   - version: '11'

@@ -1,5 +1,5 @@
-name: Wireless Thermocouple Sensor
-description: This equipment is used to detect temperature of the object and medium which thermocouple is contacted.
+name: R718CT - Wireless Thermocouple Sensor
+description: The Netvox R718CT consists of a thermocouple sensor for detecting the temperature of objects and mediums in which the thermocouple is contacted. It uses the SX1276 wireless communication module for LoRaWAN® communication.
 
 hardwareVersions:
   - version: '2'

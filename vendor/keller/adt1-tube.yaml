@@ -1,9 +1,9 @@
 name: ADT1 Tube
-description: ADT1 Tube - Remote transmission unit with data logger compatible with many KELLER level probes and pressure transmitters
+description: The KELLER ADT1-Tube is a remote transmission unit with a data logger compatible with selected KELLER level probes and pressure transmitters. It is suitable for use in groundwater level monitoring, flood early warning systems, tank level monitoring, and pressure monitoring applications.
 
 firmwareVersions:
-  - version: '21.06'
-    numeric: 2106
+  - version: 'all'
+    numeric: 1
     profiles:
       EU863-870:
         id: adt1-profile
@@ -82,7 +82,6 @@ dataSheetURL: https://download.keller-druck.com/api/download/q3sWTxfeyHkzDXiezeo
 photos:
   main: adt1-tube-open.jpg
   other:
-    - adt1-tube-02.jpg
     - adt1-tube-02.jpg
 
 videos:

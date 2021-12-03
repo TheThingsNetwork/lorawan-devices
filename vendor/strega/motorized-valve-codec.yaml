@@ -1,0 +1,51 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: motorized-valve.js
+  # Examples (optional)
+  examples:
+    - description: Periodic Uplink
+      input:
+        fPort: 4
+        bytes: [0x33, 0x31, 0x38, 0x38, 0x32, 0x23, 0x63, 0x3D, 0x77, 0xDB]
+      output:
+        data:
+          Actuator: '0'
+          Ana: 'null'
+          Bat: 74
+          Cable: '0'
+          Class: '0'
+          DI0: '0'
+          LSO: '0'
+          LSC: '0'
+          Hygro: 46.82
+          Leak: '0'
+          Power: '0'
+          Tamper: '1'
+          Temp: 23.96
+          counterValue: 'null'
+          vt: '10'
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: motorized-valve.js
+  examples:
+    - description: open/close the valve
+      input:
+        data:
+          fPort: 1
+          payload: 1
+      output:
+        bytes: [49]
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: motorized-valve.js
+  examples:
+    - description: open/close
+      input:
+        bytes: [49]
+        fPort: 1
+      output:
+        data:
+          bytes: [49]

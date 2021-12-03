@@ -1,5 +1,5 @@
-name: Wireless Temperature and Humidity Sensor
-description: R718AB is a wireless communication device that detects ambient air temperature and humidity. R718AB can detect the temperature and humidity of the air and transmit the detected data to data center through the wireless network.
+name: R718AB - Wireless Temperature and Humidity Sensor
+description: The Netvox R718AB - Temperature and Humidity Sensor is ideal for measuring ambient temperature and humidity in residential and commercial buildings.
 
 hardwareVersions:
   - version: '2'

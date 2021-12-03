@@ -1,5 +1,5 @@
 name: TH
-description: Temperature and Humidity sensor
+description: The nke WATTECO TH sensor measures indoor ambient temperature and humidity in buildings, apartments, and houses. It transmits data over a public or private LoRaWAN® network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -36,10 +36,6 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: th-sensor-profile
-        lorawanCertified: true
-        codec: th-sensor-codec
-      US902-928:
         id: th-sensor-profile
         lorawanCertified: true
         codec: th-sensor-codec

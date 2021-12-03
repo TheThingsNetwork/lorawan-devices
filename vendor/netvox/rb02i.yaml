@@ -1,5 +1,5 @@
-name: Wireless Emergency Push Button
-description: The RB02I product is a wireless control terminal device for smart homes and high reliability. It features low standby power consumption and is fully compliant with the LoRaWAN™ protocol standard. RB02I is an emergency alarm triggering device, with a silicone waterproof cover.
+name: RB02I - Wireless Emergency Push Button
+description: The Netvox RB02I is a wireless control terminal device that consists of a large push-button for emergency alarm triggering. It features low standby power consumption and is fully compliant with the LoRaWAN® protocol.
 
 hardwareVersions:
   - version: '50'

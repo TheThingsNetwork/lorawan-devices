@@ -1,5 +1,5 @@
-name: Wireless Toilet Occupancy Sensor
-description: The R718PQA is a wireless communication device that detects toilet occupancy.
+name: R718QA - Wireless Toilet Occupancy Sensor
+description: The Netvox R718PQA-Wireless Toilet Occupancy Sensor is a LoRaWAN® end device equipped with a reed switch sensor and a built-in PIR sensor (pyroelectric human body infrared sensor). Suitable occupancy detection for a room, for example, detecting if someone is in the toilet.
 
 hardwareVersions:
   - version: '11'

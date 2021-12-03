@@ -1,5 +1,5 @@
-name: Wireless Vibration Sensor, Spring Type
-description: When the vibration sensor moves or vibrates, the R311DB can detect vibrations or moving signals and transmit the detected data to other devices through the wireless network.
+name: R311DB - Wireless Vibration Sensor, Spring Type
+description: The Netvox R311DB Wireless Vibration Sensor, Spring Type is a LoRaWAN® end device that contains a vibration sensor for detecting movements and vibrations. When a movement or vibration is detected an uplink containing the desired values is transferred to the LoRaWAN® network. The device provides low power consumption and longer battery life.
 
 hardwareVersions:
   - version: '11'

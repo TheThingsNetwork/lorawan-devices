@@ -1,5 +1,5 @@
-name: Three-Axis Digital Accelerometer&NTC Thermistor
-description: It can detect the movement or vibration of the device, send a signal to the gateway for processing, and externally connect one NTC thermistor to detect the surface temperature of the measured object.
+name: R718E - Three-Axis Digital Accelerometer&NTC Thermistor
+description: The Netvox R718E Three-Axis Digital Accelerometer & NTC Thermistor is a LoRaWAN® end device that contains a 3-axis accelerometer and an external NTC thermistor that can detect the movement or vibration and the surface temperature of the measured object.
 
 hardwareVersions:
   - version: '2'

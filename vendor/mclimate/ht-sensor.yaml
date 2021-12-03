@@ -1,5 +1,5 @@
 name: MClimate Humidity and Temperature Sensor
-description: MClimate HT Sensor is an indoor temperature and humidity sensor with 10+ years of battery life, configurable settings and beautiful and discreen design.
+description: The MClimate HT LoRaWAN® Sensor is an indoor temperature and humidity sensor with 10+ years of battery life ideal for monitoring environments in residential and commercial buildings.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -71,8 +71,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://mclimate.bit.ai/docs/view/fVqYnMSrbXBt3MZa
-dataSheetURL: https://d19bjv63x2j8ah.cloudfront.net/v2/22667/contents/UmkvtxIzRIUT2Td8/mclimate-ht-lorawan-datasheet-en.pdf
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-ht-sensor-lorawan
+dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-McDr-jr9h3qA888r1Yp%2F-McEc-jPJXMJe5V4d-jY%2F-McEjO8wi1kZzPv9JgeM%2FMClimate-HT-LoRaWAN-Datasheet.pdf?alt=media&token=eb21b9b6-3fd8-4a57-a5d4-bd3d0016108a
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:

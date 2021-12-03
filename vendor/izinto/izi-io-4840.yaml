@@ -1,5 +1,5 @@
 name: izi-io 4840
-description: Powerful Multi-I/O Edge Computing Controller with LoRaWAN. The top-hat rail mounted device features 8 analog / RTD / digital inputs, 4 digital outputs as well as industry-standard bus interfaces such as CAN and Modbus. Built-in Soft PLC can process data on the device for standalone control purposes and efficient LoRaWAN usage. External power supply with 8..30V.
+description: The izinto izi-io 4840 is a multi-I/O controller with edge computing and LoRaWAN® connection that provides software configurable inputs for connecting digital, analog, and temperature sensors as well as Modbus and other serial devices.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -25,12 +25,26 @@ firmwareVersions:
         ##codec: izi-io-4840-codec
 
 # Sensors that this device features (optional)
-# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
-# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
-# vibration, water, wind direction and wind speed.
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed
 sensors:
+  - 4-20 ma
+  - analog input
+  - auxiliary
+  - current
+  - digital input
   - link
+  - potentiometer
+  - pulse count
+  - pulse frequency
   - temperature
+  - time
+  - voltage
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -64,7 +78,14 @@ keyProvisioning:
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
-keySecurity: none
+keySecurity: read protected
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - firmware
 
 # Product and data sheet URLs (optional)
 productURL: https://www.izinto.online/izi-io/

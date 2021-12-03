@@ -1,5 +1,5 @@
 name: LoRa-E5 STM32WLE5JC Module, embedded SX126X and MCU for LoRaWAN Network
-description: LoRa-E5 LoRaWAN module is designed with ST system-level package chip STM32WLE5JC, ARM Cortex M4 ultra-low-power MCU and LoRa SX126X. It supports (G)FSK mode and LoRa. 62.5kHz, 125kHz, 250kHz, and 500kHz bandwidth can be used in LoRa® mode, making it suitable for the design of various IoT nodes, supporting EU868 and US915.
+description: The Seeed Studio LoRa-E5 LoRaWAN® module is designed with ST system-level package chip STM32WLE5JC, ARM Cortex M4 ultra-low-power MCU, and LoRa SX126X. It supports (G)FSK mode and LoRa.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -49,6 +49,17 @@ firmwareVersions:
         codec: loramodule-e5-codec
       IN865-867:
         id: loramodule-e5-profile
+        lorawanCertified: true
+        codec: loramodule-e5-codec
+
+  # Class B
+  - version: 'classb'
+    numeric: 2
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: loramodule-e5-b-profile
         lorawanCertified: true
         codec: loramodule-e5-codec
 

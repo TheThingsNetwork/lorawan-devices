@@ -1,5 +1,5 @@
-name: Wireless Vibration Sensor, Rolling Ball Type
-description: When the vibration sensor moves or vibrates, the R311DA can detect vibrations or moving signals and transmit the detected data to other devices through the wireless network.
+name: R311DA - Wireless Vibration Sensor, Rolling Ball Type
+description: The Netvox R311DA Wireless Vibration Sensor comes with a dual ball type single direction tilt sensitive trigger switch capable of detecting movements and vibrations. When the device detects movement or vibration, it immediately sends a message to the LoRaWAN® network.
 
 hardwareVersions:
   - version: '11'

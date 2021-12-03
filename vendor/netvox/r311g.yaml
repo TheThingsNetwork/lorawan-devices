@@ -1,5 +1,5 @@
-name: Wireless Light Sensor
-description: R311G built-in photosensitive sensor, can be used for external ambient light intensity detection.R311G is the environmental illuminance automatic detector and the reporter which can send out the environmental illumination report and is a low-power, long range, wireless sensor that can accurately detect environmental illuminance indoor.
+name: R311G - Wireless Light Sensor
+description: The Netvox R311G Wireless Light Sensor is a LoRaWAN® end device that consists of a built-in photosensitive sensor that can be used for detecting the surrounding illuminance. With two CR2450 coin-cell batteries, R311G provides low power consumption and longer battery life.
 
 hardwareVersions:
   - version: '11'

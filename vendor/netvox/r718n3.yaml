@@ -1,5 +1,5 @@
-name: Wireless 3-Phase Current Meter With 3 x 50A Solid Core CT
-description: R718N3 is powered by battery and obtains the load AC current value through the current transformer. The device adopts the solid core current transformer, which can be conveniently connected to the measuring device.
+name: R718N3 - Wireless 3-Phase Current Meter With 3 x 50A Solid Core CT
+description: The Netvox R718N3 3-Phase Current Meter is a LoRaWAN® end device with three external solid-core current transformers that can be used to obtain the current of a three-phase wiring system. R718N3 series have different measuring range for different variety of CT; 3 x 50A(Solid Core CT), 3 x 75A (Clamp-On CT), 3 x 150A (Clamp-On CT), 3 x 250A (Clamp-On CT), 3 x 630A (Clamp-On CT).
 
 hardwareVersions:
   - version: '2'

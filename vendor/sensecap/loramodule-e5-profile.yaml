@@ -3,9 +3,9 @@
 # https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
 vendorProfileID: 744
 # Whether the end device supports class B
-supportsClassB: true
+supportsClassB: false
 # Whether the end device supports class C
-supportsClassC: true
+supportsClassC: false
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: 1.0.2
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
@@ -22,8 +22,8 @@ supportsJoin: true
 maxEIRP: 16
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true
-pingSlotPeriod: 128
-classBTimeout: 60
-pingSlotDataRateIndex: 0
-pingSlotFrequency: 0
-classCTimeout: 60
+#pingSlotPeriod: 128
+#classBTimeout: 60
+#pingSlotDataRateIndex: 0
+#pingSlotFrequency: 0
+#classCTimeout: 60

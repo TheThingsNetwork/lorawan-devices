@@ -12,7 +12,7 @@ macVersion: 1.0.2
 #   1.0.3: RP001-1.0.3-RevA
 #   1.0.4: RP002-1.0.0 or RP002-1.0.1
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-regionalParametersVersion: RP001-1.0.2-RevB
+regionalParametersVersion: RP001-1.0.2
 
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
@@ -24,7 +24,7 @@ supportsJoin: true
 # RX2 data rate index
 #rx2DataRateIndex: 0
 # RX2 frequency (MHz)
-#rx2Frequency: 868.525
+#rx2Frequency: 869.525
 # Factory preset frequencies (MHz)
 #factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
 
@@ -46,7 +46,7 @@ supportsClassB: false
 #pingSlotFrequency: 869.525
 
 # Whether the end device supports class C
-supportsClassC: true
+supportsClassC: false
 # If your device supports class C, uncomment the following fields:
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
 classCTimeout: 60

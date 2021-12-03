@@ -1,0 +1,9 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - mtc-pb01 #Panic Button
+  - mtc-co2-01 #CO2 Sensor
+  - mtc-mh01 #Manhole Sensor
+  - mtc-cf01 #3 Button Customer Feedback
+  - mtc-scb01 #3 Button Service Call

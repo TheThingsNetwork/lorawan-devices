@@ -4,3 +4,4 @@ endDevices:
   - flood-sensor
   - ht-sensor
   - aqi-sensor
+  - co2-sensor

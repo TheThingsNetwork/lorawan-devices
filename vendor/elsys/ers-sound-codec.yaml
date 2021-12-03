@@ -3,16 +3,16 @@
 uplinkDecoder:
   fileName: elsys.js
   # Examples (optional)
-  #examples:
-  #  - description: ERS Sound Lite temperature, humidity, light, motion and sound
-  #    input:
-  #      fPort: 1
-  #      bytes: [0x01, 0x00, 0xE2, 0x02, 0x29, 0x04, 0x00, 0x27, 0x05, 0x06, 0x15, 0x01, 0x01]
-  #    output:
-  #      data:
-  #        temperature: 22.6
-  #        humidity: 41
-  #        light: 39
-  #        motion: 6
-  #        soundPeak: 1
-  #        soundAvg: 1
+  examples:
+    - description: ERS Sound Lite temperature, humidity, light, motion and sound
+      input:
+        fPort: 1
+        bytes: [0x01, 0x00, 0xE2, 0x02, 0x29, 0x04, 0x00, 0x27, 0x05, 0x06, 0x15, 0x01, 0x01]
+      output:
+        data:
+          temperature: 22.6
+          humidity: 41
+          light: 39
+          motion: 6
+          soundPeak: 1
+          soundAvg: 1

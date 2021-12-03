@@ -1,5 +1,5 @@
 name: LW001-BG
-description: LW001-BG is a wireless smart, ultra-low power consumption, indoor&outdoor（IP67） LoRaWAN Tracker. Ideal to optimize logistic process, asset management, warehouse and inventory scenarios, outdoor tracking, theft protection and much more.
+description: The Moko Smart LW001-BG is a LoRaWAN® indoor and outdoor tracker that consists of GPS, accelerometer, temperature, humidity, and pressure sensors. Ideal to optimize the logistic process, asset management, warehouse and inventory scenarios, outdoor tracking, theft protection, and much more.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
