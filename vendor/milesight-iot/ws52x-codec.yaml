@@ -9,7 +9,7 @@ uplinkDecoder:
       output:
         data:
           voltage: 228.5
-  examples:
+
     - description: Portable Socket (example 2) - Milesight IoT
       input:
         fPort: 85
@@ -17,7 +17,7 @@ uplinkDecoder:
       output:
         data:
           energy: 1110
-  examples:
+
     - description: Portable Socket (example 3) - Milesight IoT
       input:
         fPort: 85
@@ -25,4 +25,3 @@ uplinkDecoder:
       output:
         data:
           button: open
-

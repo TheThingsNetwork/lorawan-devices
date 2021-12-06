@@ -16,5 +16,5 @@ uplinkDecoder:
       output:
         data:
           # modbus_channels:
-            # index: 19
-            # value: 4
+          # index: 19
+          # value: 4

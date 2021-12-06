@@ -10,16 +10,16 @@ uplinkDecoder:
         data:
           voltage: 222.6
     - description: Smart Light Controller (example 2) - Milesight IoT
-      input: 
+      input:
         fPort: 85
         bytes: [0x06, 0x83, 0x01, 0x00, 0x00, 0x00]
-      output: 
+      output:
         data:
           # power_consumption: 1
     - description: Smart Light Controller (example 3) - Milesight IoT
-      input: 
+      input:
         fPort: 85
         bytes: [0x04, 0x80, 0x01, 0x00, 0x00, 0x00]
-      output: 
+      output:
         data:
           power: 1

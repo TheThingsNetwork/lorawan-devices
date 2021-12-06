@@ -1,5 +1,5 @@
 name: AM319
-description: The Milesight AM307 consists of ambient monitoring sensors such as activity level (PIR), humidity, temperature, light, CO2, TVOC, barometric pressure, PM2.5&PM10, HCHO or O3 for indoor ambiance monitoring. 
+description: The Milesight AM307 consists of ambient monitoring sensors such as activity level (PIR), humidity, temperature, light, CO2, TVOC, barometric pressure, PM2.5&PM10, HCHO or O3 for indoor ambiance monitoring.
 
 hardwareVersions:
   - version: '1.x'

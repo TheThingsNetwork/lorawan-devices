@@ -38,7 +38,7 @@ sensors:
   - pulse count
   # digital output
   - analog input
-  
+
 bridgeInterfaces:
   - rs-485
   # rs-232
