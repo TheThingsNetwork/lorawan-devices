@@ -2,7 +2,7 @@ name: IMBuildings Office Occupancy Counter
 description: Infrared based Office Occupancy Counter
 
 hardwareVersions:
-  - version : '1'
+  - version: '1'
     numeric: 1
 
 firmwareVersions:

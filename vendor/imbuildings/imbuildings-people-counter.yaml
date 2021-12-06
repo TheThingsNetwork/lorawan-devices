@@ -2,7 +2,7 @@ name: IMBuildings People counter
 description: Infrared based battery powered People Counter
 
 hardwareVersions:
-  - version : '1'
+  - version: '1'
     numeric: 1
 
 firmwareVersions:
@@ -46,6 +46,6 @@ battery:
 productURL: https://www.imbuildings.com/lorawan-people-counter/
 
 photos:
-  main: imbuildings-people-counter-white.png
-  other:
-      - imbuildings-people-counter-black.png
+  main: imbuildings-people-counter-black.png
+#  other:
+#      - imbuildings-people-counter-white.png

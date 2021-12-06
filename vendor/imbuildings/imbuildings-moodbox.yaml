@@ -2,7 +2,7 @@ name: IMBuildings Moodbox
 description: Get user feedback
 
 hardwareVersions:
-  - version : '1'
+  - version: '1'
     numeric: 1
 
 firmwareVersions:
@@ -29,7 +29,7 @@ firmwareVersions:
         codec: imbuildings-codec
       AU915-928:
         id: imbuildings-profile-au915
-        codec: imbuildings-codec        
+        codec: imbuildings-codec
 
 sensors:
   - button
