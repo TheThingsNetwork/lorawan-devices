@@ -1,5 +1,5 @@
-name: IMBuildings People counter
-description: Infrared based battery powered People Counter
+name: IMBuildings Office Occupancy Counter
+description: Infrared based Office Occupancy Counter
 
 hardwareVersions:
   - version : '1'
@@ -34,18 +34,7 @@ firmwareVersions:
 additionalRadios:
   - nfc
 
-dimensions:
-  width: 70
-  length: 25
-  height: 115
-
-battery:
-  replaceable: true
-  type: AA
-
-productURL: https://www.imbuildings.com/lorawan-people-counter/
+productURL: https://www.imbuildings.com/office-occupancy-counter-lorawan/
 
 photos:
-  main: imbuildings-people-counter-white.png
-  other:
-      - imbuildings-people-counter-black.png
+  main: imbuildings-office-occupancy-counter.png

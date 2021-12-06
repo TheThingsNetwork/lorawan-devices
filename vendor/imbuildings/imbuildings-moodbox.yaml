@@ -1,12 +1,12 @@
-name: IMBuildings People counter
-description: Infrared based battery powered People Counter
+name: IMBuildings Moodbox
+description: Get user feedback
 
 hardwareVersions:
   - version : '1'
     numeric: 1
 
 firmwareVersions:
-  - version: '1.37.14'
+  - version: '1.38'
     numeric: 1
 
     hardwareVersions:
@@ -29,23 +29,17 @@ firmwareVersions:
         codec: imbuildings-codec
       AU915-928:
         id: imbuildings-profile-au915
-        codec: imbuildings-codec
+        codec: imbuildings-codec        
+
+sensors:
+  - button
 
 additionalRadios:
   - nfc
-
-dimensions:
-  width: 70
-  length: 25
-  height: 115
 
 battery:
   replaceable: true
   type: AA
 
-productURL: https://www.imbuildings.com/lorawan-people-counter/
-
 photos:
-  main: imbuildings-people-counter-white.png
-  other:
-      - imbuildings-people-counter-black.png
+  main: imbuildings-moodbox.jpg

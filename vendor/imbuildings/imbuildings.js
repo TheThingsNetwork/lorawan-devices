@@ -1,76 +1,428 @@
-/*
-    IMBUILDINGS Payload decoder for The Things Network
-    ===========================================================
-    Version  : 1.1
-    Author   : Ronald Conen - IMBUILDINGS B.V.
-*/
-
-var portBasedDecoding = true;
-var standardPort = 1;
-
-var portDecodingScheme = {};
-
-//Define port decoding rules
-portDecodingScheme[26] = {
-    metaDataEnable: false,
-    payload_type: 2,
-    payload_variant: 6
+const payloadTypes = {
+    COMFORT_SENSOR:                 0x01,
+    PEOPLE_COUNTER:                 0x02,
+    BUTTONS:                        0x03,
+    PULSE_COUNTER:                  0x04,
+    TRACKER:                        0x05,
+    DOWNLINK:                       0xF1
 }
 
-portDecodingScheme[27] = {
-    metaDataEnable: false,
-    payload_type: 2,
-    payload_variant: 7
+const errorCode = {
+    UNKNOWN_PAYLOAD:                1,
+    EXPECTED_DOWNLINK_RESPONSE:     2,
+    UNKNOWN_PAYLOAD_TYPE:           3,
+    UNKNOWN_PAYLOAD_VARIANT:        4
 }
 
-function Decoder(bytes, port){
-    var decoded = {};
-    var portDecoding = undefined;
+const settingIdentifier = {
+    DEVICE_ID:                      0x02,
+    INTERVAL:                       0x1E,
+    EVENT_SETTING:                  0x1F,
+    PAYLOAD_DEFINITION:             0x20,
+    HEARTBEAT_INTERVAL:             0x21,
+    HEARTBEAT_PAYLOAD_DEFINITION:   0x22,
+    DEVICE_ADDRESS:                 0x2B,
+    CONFIRMED_MESSAGES:             0x2F,
+    FPORT:                          0x33,
+    FPORT_HEARTBEAT:                0x36,
+    OOC_DISTANCE:                   0x50,
+    LED_INDICATION:                 0x51,
+    BUTTON_DELAY_TIME:              0x52,
+    DEVICE_COMMANDS:                0xC8,
+    ERRORS:                         0xF0
+}
 
-    if(bytes.length > 2 || portBasedDecoding === true){
-        var payload_type = bytes[0];
+const command = {
+    GET_PAYLOAD:                    0x01,
+    REJOIN:                         0x02,
+    COUNTER_PRESET:                 0x03,
+    SAVE:                           0x04,
+    BUTTON_PRESET:                  0x05
+}
 
-        //Setup port decoding unless the standardport is used
-        if(port != standardPort && portBasedDecoding === true && portDecodingScheme[port] != undefined){
-            //Load port decoding rule according to port number
-            portDecoding = portDecodingScheme[port];
-            if(portDecoding.metaDataEnable === false){
+function decodeUplink(input){
+    let parsedData = {};
 
-                //Payload type not in payload when metaData is disabled
-                payload_type = portDecoding.payload_type;   //get payload type according to port decoding scheme
+    if(!containsIMBHeader(input.bytes)){
+        //When payload doesn't contain IMBuildings header
+        //Assumes that payload is transmitted on specific recommended fport
+        //e.g. payload type 2 variant 6 on FPort 26, type 2 variant 7 on FPort 27 and so on...
+        switch(input.fPort){
+            case 10:
+                //Assumes data is response from downlink
+                if(input.bytes[0] != payloadTypes.DOWNLINK || input.bytes[1] != 0x01) return getError(errorCode.EXPECTED_DOWNLINK_RESPONSE);
+                parsedData.payload_type = payloadTypes.DOWNLINK;
+                parsedData.payload_variant = 0x01;
+                break;
+            case 13:
+                if(input.bytes.length != 7) return getError(errorCode.UNKNOWN_PAYLOAD);
+
+                parsedData.payload_type = payloadTypes.COMFORT_SENSOR;
+                parsedData.payload_variant = 3;
+                break;
+            case 26:
+                if(input.bytes.length != 13) return getError(errorCode.UNKNOWN_PAYLOAD);
+
+                parsedData.payload_type = payloadTypes.PEOPLE_COUNTER;
+                parsedData.payload_variant = 6;
+                break;
+            case 27:
+                if(input.bytes.length != 5) return getError(errorCode.UNKNOWN_PAYLOAD);
+
+                parsedData.payload_type = payloadTypes.PEOPLE_COUNTER;
+                parsedData.payload_variant = 7;
+                break;
+            case 28:
+                if(input.bytes.length != 4) return getError(errorCode.UNKNOWN_PAYLOAD);
+
+                parsedData.payload_type = payloadTypes.PEOPLE_COUNTER;
+                parsedData.payload_variant = 8;
+                break;
+            case 33:
+                if(input.bytes.length != 14) return getError(errorCode.UNKNOWN_PAYLOAD);
+                parsedData.payload_type = payloadTypes.BUTTONS;
+                parsedData.payload_variant = 3;
+                break;
+            case 34:
+                if(input.bytes.length != 23) return getError(errorCode.UNKNOWN_PAYLOAD);
+                parsedData.payload_type = payloadTypes.BUTTONS;
+                parsedData.payload_variant = 4;
+                break;
+            default:
+                return { errors: []};
+        }
+    }else{
+        parsedData.payload_type = input.bytes[0];
+        parsedData.payload_variant = input.bytes[1];
+        parsedData.device_id = toHEXString(input.bytes, 2, 8)
+    }
+
+    switch(parsedData.payload_type){
+        case payloadTypes.COMFORT_SENSOR: parseComfortSensor(input, parsedData); break;
+        case payloadTypes.PEOPLE_COUNTER: parsePeopleCounter(input, parsedData); break;
+        case payloadTypes.DOWNLINK:       parsedData = parseDownlinkResponse(input.bytes); break;
+        case payloadTypes.BUTTONS:        parseButtons(input, parsedData); break;
+        default:
+            return getError(errorCode.UNKNOWN_PAYLOAD_TYPE);
+    }
+
+    return { data: parsedData}; 
+
+}
+
+function containsIMBHeader(payload){
+    if(payload[0] == payloadTypes.COMFORT_SENSOR && payload[1] == 0x03 && payload.length == 20) return true;
+    if(payload[0] == payloadTypes.PEOPLE_COUNTER && payload[1] == 0x06 && payload.length == 23) return true;
+    if(payload[0] == payloadTypes.PEOPLE_COUNTER && payload[1] == 0x07 && payload.length == 15) return true;
+    if(payload[0] == payloadTypes.PEOPLE_COUNTER && payload[1] == 0x08 && payload.length == 14) return true;
+    if(payload[0] == payloadTypes.BUTTONS && payload[1] == 0x03 && payload.length == 14) return true;
+    if(payload[0] == payloadTypes.BUTTONS && payload[1] == 0x04 && payload.length == 23) return true;
+
+    return false;
+}
+
+function parseComfortSensor(input, parsedData){
+    switch(parsedData.payload_variant){
+        case 0x03:
+            parsedData.device_status = input.bytes[input.bytes.length - 10];
+            parsedData.battery_voltage = readUInt16BE(input.bytes, input.bytes.length - 9) / 100;
+            parsedData.temperature = readUInt16BE(input.bytes, input.bytes.length - 7) / 100;
+            parsedData.humidity = readUInt16BE(input.bytes, input.bytes.length - 5) / 100;
+            parsedData.CO2 = readUInt16BE(input.bytes, input.bytes.length - 3);
+            parsedData.presence = (input.bytes[input.bytes.length - 1] == 1) ? true : false;
+            break;
+    }
+
+}
+
+function parsePeopleCounter(input, parsedData){
+    switch(parsedData.payload_variant){
+        case 0x06:
+            parsedData.device_status = input.bytes[input.bytes.length - 13];
+            parsedData.battery_voltage = readUInt16BE(input.bytes, input.bytes.length - 12) / 100;
+            parsedData.counter_a = readUInt16BE(input.bytes, input.bytes.length - 10);
+            parsedData.counter_b = readUInt16BE(input.bytes, input.bytes.length - 8);
+            parsedData.sensor_status = input.bytes[input.bytes.length - 6];
+            parsedData.total_counter_a = readUInt16BE(input.bytes, input.bytes.length - 5);
+            parsedData.total_counter_b = readUInt16BE(input.bytes, input.bytes.length - 3);
+            parsedData.payload_counter = input.bytes[input.bytes.length - 1];
+            break;
+        case 0x07:
+            parsedData.sensor_status = input.bytes[input.bytes.length - 5];
+            parsedData.total_counter_a = readUInt16BE(input.bytes, input.bytes.length - 4);
+            parsedData.total_counter_b = readUInt16BE(input.bytes, input.bytes.length - 2);
+            break;
+        case 0x08:
+            parsedData.device_status = input.bytes[input.bytes.length - 4];
+            parsedData.battery_voltage = readUInt16BE(input.bytes, input.bytes.length - 3) / 100;
+            parsedData.sensor_status = input.bytes[input.bytes.length - 1];
+            break;
+    }
+}
+
+function parseButtons(input, parsedData){
+    switch(parsedData.payload_variant){
+        case 0x03:
+            parsedData.device_status = input.bytes[input.bytes.length - 4];
+            parsedData.battery_voltage = readUInt16BE(input.bytes, input.bytes.length - 3) / 100;
+            parsedData.button_pressed = (input.bytes[input.bytes.length - 1] != 0) ? true : false;
+            parsedData.button = {
+                a: (input.bytes[input.bytes.length - 1] & 0x01 == 0x01) ? true : false,
+                b: (input.bytes[input.bytes.length - 1] & 0x02 == 0x02) ? true : false,
+                c: (input.bytes[input.bytes.length - 1] & 0x04 == 0x04) ? true : false,
+                d: (input.bytes[input.bytes.length - 1] & 0x08 == 0x08) ? true : false,
+                e: (input.bytes[input.bytes.length - 1] & 0x10 == 0x10) ? true : false
             }
+            break;
+        case 0x04:
+            parsedData.device_status = input.bytes[input.bytes.length - 13];
+            parsedData.battery_voltage = readUInt16BE(input.bytes, input.bytes.length - 12) / 100;
+            parsedData.button = {
+                a: readUInt16BE(input.bytes, input.bytes.length - 10),
+                b: readUInt16BE(input.bytes, input.bytes.length - 8),
+                c: readUInt16BE(input.bytes, input.bytes.length - 6),
+                d: readUInt16BE(input.bytes, input.bytes.length - 4),
+                e: readUInt16BE(input.bytes, input.bytes.length - 2)
+            }
+            break;
+    }
+}
+
+function decodeDownlink(input){
+    if(input.fPort != 10){
+        return { errors: ['Please use FPort 10 for downlink results']};
+    }
+
+    if(input.bytes[0] != 0xF1 || input.bytes[1] != 0x01){
+        return { errors: ['Expected downlink payload']};
+    }
+
+    return {
+        data: parseDownlinkResponse(input)
+    }
+
+}
+
+function parseDownlinkResponse(payload){
+    let parsedResponse = {};
+
+    let i = 2;
+    while( i < payload.length){
+        switch(payload[i + 1]){
+            case settingIdentifier.DEVICE_ID:
+                parsedResponse.device_id = toHEXString(payload, i + 2, 8);
+                break;
+            case settingIdentifier.INTERVAL:
+                parsedResponse.interval = payload[i + 2];
+                break;
+            case settingIdentifier.EVENT_SETTING:
+                parsedResponse.event = {
+                    type: payload[i + 2],
+                    count: payload[i + 3],
+                    timeout: payload[i + 4]
+                }
+                break;
+            case settingIdentifier.PAYLOAD_DEFINITION:
+                parsedResponse.payload = {
+                    type: payload[i + 2],
+                    variant: payload[i + 3],
+                    header: (payload[i + 4] == 0x01) ? true : false
+                }
+                break;
+            case settingIdentifier.HEARTBEAT_INTERVAL:
+                if(parsedResponse.heartbeat === undefined){
+                    parsedResponse.heartbeat = {};
+                }
+
+                parsedResponse.heartbeat.interval = payload[i + 2];
+                break;
+            case settingIdentifier.HEARTBEAT_PAYLOAD_DEFINITION:
+                if(parsedResponse.heartbeat === undefined){
+                    parsedResponse.heartbeat = {};
+                }
+
+                parsedResponse.heartbeat.payload = {
+                    type: payload[i + 2],
+                    variant: payload[i + 3],
+                    header: (payload[i + 4] == 0x01) ? true : false
+                }
+                break;
+            case settingIdentifier.DEVICE_ADDRESS:
+                parsedResponse.device_address = toHEXString(payload, i + 2, 4);
+                break;
+            case settingIdentifier.CONFIRMED_MESSAGES:
+                parsedResponse.confirmed_messages = payload[i + 2];
+                break;
+            case settingIdentifier.FPORT:
+                parsedResponse.fport = payload[i + 2];
+                break;
+            case settingIdentifier.FPORT_HEARTBEAT:
+                if(parsedResponse.heartbeat === undefined){
+                    parsedResponse.heartbeat = {};
+                }
+
+                parsedResponse.heartbeat.fport = payload[i + 2];
+                break;
         }
 
-        switch(payload_type){
-            case 1:
-                //Comfort Sensor
-                decoded = parseComfortSensor(bytes, portDecoding);
-                break;
-            case 2:
-                //People Counter
-                decoded = parsePeopleCounter(bytes, portDecoding);
-                break;
-            case 3:
-                //Button
-                decoded = parseButton(bytes, portDecoding);
-                break;
-            case 4:
-                //Pulse Counter
-                decoded = parsePulseCounter(bytes, portDecoding);
-                break;
+        i += payload[i];
+    }
+
+    return parsedResponse;
+}
+
+function encodeDownlink(input){
+    let dl = [payloadTypes.DOWNLINK, 0x01];
+
+    if(input.data.command !== undefined && input.data.command.rejoin !== undefined){
+        if(input.data.command.rejoin === true){
+            dl.push(0x03);
+            dl.push(settingIdentifier.DEVICE_COMMANDS);
+            dl.push(command.rejoin);
         }
     }
 
-    return decoded;
+    //Counter reset currently implemented as reset (all zeros)
+    if(input.data.command !== undefined && input.data.command.counter_preset !== undefined){
+        dl.push(0x07);
+        dl.push(settingIdentifier.DEVICE_COMMANDS);
+        dl.push(command.COUNTER_PRESET);
+
+        if(input.data.command.counter_preset.counter_a !== undefined && input.data.command.counter_preset.counter_b !== undefined){    
+            dl.push(0x00);
+            dl.push(0x00);
+            dl.push(0x00);
+            dl.push(0x00);
+        }else{
+            dl.push(0x00);
+            dl.push(0x00);
+            dl.push(0x00);
+            dl.push(0x00);
+        }
+    }
+
+    //Button preset currently implemented as reset (all zeros)
+    if(input.data.command !== undefined && input.data.command.button_preset !== undefined){
+        dl.push(0x0D);
+        dl.push(settingIdentifier.DEVICE_COMMANDS);
+        dl.push(command.BUTTON_PRESET);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+        dl.push(0x00);
+    }
+
+    if(input.data.interval !== undefined){
+        if(input.data.interval == null){
+            dl.push(0x02);
+            dl.push(settingIdentifier.INTERVAL);
+        }else{
+            dl.push(0x03);
+            dl.push(settingIdentifier.INTERVAL);
+            dl.push(input.data.interval);
+        }
+        
+    }
+
+    if(input.data.event !== undefined && input.data.event.type !== undefined && input.data.event.count !== undefined && input.data.event.timeout !== undefined){
+        dl.push(0x05);
+        dl.push(settingIdentifier.EVENT_SETTING);
+        dl.push(input.data.event.type);
+        dl.push(input.data.event.count);
+        dl.push(input.data.event.timeout);
+    }
+
+    if(input.data.payload !== undefined && input.data.payload.type !== undefined&& input.data.payload.variant !== undefined && input.data.payload.header !== undefined){
+        dl.push(0x05);
+        dl.push(settingIdentifier.PAYLOAD_DEFINITION);
+        dl.push(input.data.payload.type);
+        dl.push(input.data.payload.variant);
+        dl.push((input.data.payload.header === true) ? 0x01 : 0x00);
+    }
+
+    if(input.data.fport !== undefined){
+        dl.push(0x03);
+        dl.push(settingIdentifier.FPORT);
+        dl.push(input.data.fport);
+    }
+
+    if(input.data.heartbeat){
+        if(input.data.heartbeat.interval !== undefined){
+            dl.push(0x03);
+            dl.push(settingIdentifier.HEARTBEAT_INTERVAL);
+            dl.push(input.data.heartbeat.interval);
+        }
+
+        if(input.data.heartbeat.payload !== undefined && input.data.heartbeat.payload.type !== undefined && input.data.heartbeat.payload.variant !== undefined && input.data.heartbeat.payload.header !== undefined){
+            dl.push(0x05);
+            dl.push(settingIdentifier.HEARTBEAT_PAYLOAD_DEFINITION);
+            dl.push(input.data.heartbeat.payload.type);
+            dl.push(input.data.heartbeat.payload.variant);
+            dl.push((input.data.heartbeat.payload.header === true) ? 0x01 : 0x00);
+        }
+
+        if(input.data.heartbeat.fport !== undefined){
+            dl.push(0x03);
+            dl.push(settingIdentifier.FPORT_HEARTBEAT);
+            dl.push(input.data.heartbeat.fport);
+        }
+    }
+
+    if(input.data.ooc_ignore_distance !== undefined && input.data.ooc_detection_distance !== undefined){
+        if(input.data.ooc_detection_distance > 200) input.data.ooc_detection_distance = 200;
+        if(input.data.ooc_ignore_distance > 200) input.data.ooc_ignore_distance = 200;
+        dl.push(0x04);
+        dl.push(settingIdentifier.OOC_DISTANCE);
+        dl.push(input.data.ooc_ignore_distance);
+        dl.push(input.data.ooc_detection_distance);
+    }
+
+    if(input.data.led_function !== undefined){
+        dl.push(0x03);
+        dl.push(settingIdentifier.LED_INDICATION);
+        dl.push(input.data.led_function);
+    }
+
+    if(input.data.confirmed_messages !== undefined){
+        dl.push(0x03);
+        dl.push(settingIdentifier.CONFIRMED_MESSAGES);
+        dl.push(input.data.confirmed_messages);
+    }
+
+    if(input.data.save !== undefined && input.data.save === true){
+        dl.push(0x03);
+        dl.push(settingIdentifier.SAVE);
+        dl.push(command.save);
+    }
+
+    return {
+        fPort: 10,
+        bytes: dl
+    };
 }
 
+//Helper functions
+function getError(code){
+    switch(code){
+        case errorCode.UNKNOWN_PAYLOAD:             return { errors: ['Unable to detect correct payload. Please check your device configuration']};
+        case errorCode.EXPECTED_DOWNLINK_RESPONSE:  return { errors: ['Expected downlink reponse data on FPort 10. Please transmit downlinks on FPort 10']};
+        case errorCode.UNKNOWN_PAYLOAD_TYPE:        return { errors: ['Unknown payload type']};
+        case errorCode.UNKNOWN_PAYLOAD_VARIANT:     return { errors: ['Unknown payload variant']};
+    }
+}
 
 function bcd(dec) {
-    return ((dec / 10) << 4) + (dec % 10);
+	return ((dec / 10) << 4) + (dec % 10);
 }
 
 function unbcd(bcd) {
-    return ((bcd >> 4) * 10) + bcd % 16;
+	return ((bcd >> 4) * 10) + bcd % 16;
 }
 
 function toHEXString(payload, index, length){
@@ -109,244 +461,3 @@ function readInt8(payload, index){
 
     return int8;
 }
-
-function parseComfortSensor(payload, portDecoding){
-    var payload_variant = payload[1];
-
-    var deviceData = {
-        //received_at: new Date().toISOString(),        //Not supported on TTN
-        device_type_identifier: payload[0],
-        device_type: 'Comfort Sensor CO2',
-        device_type_variant: payload[1],
-        device_id: toHEXString(payload, 2, 6),
-        battery_voltage: readUInt16BE(payload, 9) / 100,
-        rssi: readInt8(payload, 11)
-    };
-
-    switch(payload_variant){
-        case 1:     //NB-IoT Payload
-            if(payload.length != 19) return {};
-            deviceData.temperature = readInt16BE(payload, payload.length - 7) / 100;
-            deviceData.humidity = readUInt16BE(payload, payload.length - 5) / 100;
-            deviceData.presence = payload[payload.length - 1];
-            deviceData.co2 = readUInt16BE(payload, payload.length - 3);
-            return deviceData;
-        case 2:     //NB-IoT Payload
-            if(payload.length != 25) return {};
-            // var datetime = Date.UTC(
-            //     unbcd(payload[12] * 100 + unbcd(payload[13])),
-            //     unbcd(payload[14] - 1),
-            //     unbcd(payload[15]),
-            //     unbcd(payload[16]),
-            //     unbcd(payload[17]),
-            //     unbcd(payload[18]),
-            //     0
-            // );
-            // deviceData.datetime = datetime.toISOString();        //Not supported on TTN
-            deviceData.temperature = readInt16BE(payload, payload.length - 7) / 100;
-            deviceData.humidity = readUInt16BE(payload, payload.length - 5) / 100;
-            deviceData.presence = payload[payload.length - 1];
-            deviceData.co2 = readUInt16BE(payload, payload.length - 3);
-            return deviceData;
-        case 3:
-            if(payload.length != 20) return {};
-            deviceData.device_id = toHEXString(payload, 2, 8);
-            deviceData.device_status = payload[10];
-            deviceData.battery_voltage = readUInt16BE(payload, 11) / 100;
-            delete deviceData.rssi;
-            deviceData.temperature = readUInt16BE(payload, payload.length - 7) / 100;
-            deviceData.humidity = readUInt16BE(payload, payload.length - 5) / 100;
-            deviceData.presence = payload[payload.length - 1];
-            deviceData.co2 = readUInt16BE(payload, payload.length - 3);
-            //deviceData.pressure = readUInt16BE(payload , 20);
-            //deviceData.ligth = //To be implemented
-            return deviceData;
-        case 4:     //NB-IoT Payload for North, temperatures
-            if(payload.length != 18) return {};
-            deviceData.min_temperature = readInt16BE(payload, payload.length - 6) / 100;
-            deviceData.max_temperature = readUInt16BE(payload, payload.length - 4) / 100;
-            //deviceData.presence = payload[payload.length - 1];
-            deviceData.current_temperature = readUInt16BE(payload, payload.length - 2) / 100;
-            return deviceData;
-        case 5:     //NB-IoT Payload for North, presence alert
-            if(payload.length != 13) return {};
-            deviceData.presence_event = payload[12];
-            return deviceData;
-    }
-
-    return {};
-}
-
-function parsePeopleCounter(payload, portDecoding){
-    var indexOrigin = 0;
-    var deviceData = {};
-    var parseMetaData = true;
-    var payload_variant = payload[1];
-
-
-    if(portDecoding != undefined){
-        payload_variant = portDecoding.payload_variant;
-        parseMetaData = portDecoding.metaDataEnable;
-    }
-
-
-    var deviceData = {};
-    if(parseMetaData === true){
-        //received_at: new Date().toISOString(),        //Not supported on TTN
-        deviceData.device_type_identifier = payload[0],
-        deviceData.device_type = 'People Counter',
-        deviceData.device_type_variant = payload[1],
-        deviceData.device_id = toHEXString(payload, 2, 6),
-        deviceData.device_status = payload[8],
-        deviceData.battery_voltage = readUInt16BE(payload, 9) / 100,
-        deviceData.rssi = readInt8(payload, 11)
-    }
-
-    switch(payload_variant){
-        case 1:     //NB-IoT People Counter payload
-            if(payload.length != 22) return {};
-            break;
-        case 2:     //NB-IoT People Counter payload
-            if(payload.length != 15) return {};
-            deviceData.counter_a = payload[payload.length - 3];
-            deviceData.counter_b = payload[payload.length - 2];
-            deviceData.sensor_status = payload[payload.length - 1];
-            return deviceData;
-        case 3:     //NB-IoT People Counter payload
-            if(payload.length != 17) return {};
-            deviceData.counter_a = readUInt16BE(payload, payload.length - 5);
-            deviceData.counter_b = readUInt16BE(payload, payload.length - 3);
-            deviceData.sensor_status = payload[payload.length - 1];
-            return deviceData;
-        case 4:     //NB-IoT People Counter payload
-            if(payload.length != 24) return {};
-            // var datetime = new Date.UTC(
-            //     unbcd(payload[12] * 100 + unbcd(payload[13])),
-            //     unbcd(payload[14] - 1),
-            //     unbcd(payload[15]),
-            //     unbcd(payload[16]),
-            //     unbcd(payload[17]),
-            //     unbcd(payload[18]),
-            //     0
-            // );
-            // deviceData.datetime = datetime.toISOString();        //Not supported on TTN
-            deviceData.counter_a = readUInt16BE(payload, payload.length - 5);
-            deviceData.counter_b = readUInt16BE(payload, payload.length - 3);
-            deviceData.sensor_status = payload[payload.length - 1];
-            return deviceData;
-        case 5:     //LoRaWAN People Counter payload
-            if(payload.length != 19) return {};
-            deviceData.device_id = toHEXString(payload, 2, 8);
-            deviceData.device_status = payload[10];
-            deviceData.battery_voltage = readUInt16BE(payload, 11) / 100;
-            delete deviceData.rssi;
-            deviceData.counter_a = readUInt16BE(payload, payload.length - 6);
-            deviceData.counter_b = readUInt16BE(payload, payload.length - 4);
-            deviceData.sensor_status = payload[payload.length - 2];
-            deviceData.payload_counter = payload[payload.length - 1];
-            return deviceData;
-        case 6:     //LoRaWAN People Counter payload
-            if(payload.length != 23 && parseMetaData === true) return {};
-            if(parseMetaData === true){
-                deviceData.device_id = toHEXString(payload, 2, 8);
-                delete deviceData.rssi;
-
-                indexOrigin = 10;
-            }
-
-            deviceData.device_status = payload[payload.length - 13];
-            deviceData.battery_voltage = readUInt16BE(payload, payload.length - 12) / 100;
-            deviceData.counter_a = readUInt16BE(payload, payload.length - 10);
-            deviceData.counter_b = readUInt16BE(payload, payload.length - 8);
-            deviceData.sensor_status = payload[payload.length - 6];
-            deviceData.total_counter_a = readUInt16BE(payload, payload.length - 5);
-            deviceData.total_counter_b = readUInt16BE(payload, payload.length - 3);
-            deviceData.payload_counter = payload[payload.length - 1];
-            return deviceData;
-        case 7:     //LoRaWAN People Counter
-            if(parseMetaData === true){
-                deviceData.device_id = toHEXString(payload, 2, 8);
-                deviceData.device_status = payload[10];
-                deviceData.battery_voltage = readUInt16BE(payload, 11) / 100;
-                delete deviceData.rssi;
-
-                indexOrigin = 10;
-            }
-
-            deviceData.sensor_status = payload[payload.length - 5];
-            deviceData.total_counter_a = readUInt16BE(payload, payload.length - 4);
-            deviceData.total_counter_b = readUInt16BE(payload, payload.length - 2);
-
-            return deviceData;
-    }
-
-    return {};
-}
-
-function parseButton(payload, portDecoding){
-    var payload_variant = payload[1];
-
-    var deviceData = {
-        //received_at: new Date().toISOString(),        //Not supported on TTN
-        device_type_identifier: payload[0],
-        device_type: 'Button',
-        device_type_variant: payload[1],
-        device_id: toHEXString(payload, 2, 6),
-        device_status: payload[8],
-        battery_voltage: readUInt16BE(payload, 9) / 100,
-        rssi: readInt8(payload, 11),
-        button_pressed: 0x01 & payload[12]
-    };
-
-    switch(payload_variant){
-        case 1:     //NB-IoT Payload
-        case 3:     //NB-IoT Payload
-            if(payload.length != 13) return {};
-            return deviceData;
-        case 2:     //NB-IoT Payload
-            if(payload.length != 20) return {};
-            deviceData.button_pressed = 0x01 & payload[19];
-            // var datetime = new Date.UTC(
-            //     unbcd(payload[12] * 100 + unbcd(payload[13])),
-            //     unbcd(payload[14] - 1),
-            //     unbcd(payload[15]),
-            //     unbcd(payload[16]),
-            //     unbcd(payload[17]),
-            //     unbcd(payload[18]),
-            //     0
-            // );
-            // deviceData.datetime.toISOString();       //Not supported on TTN
-            return deviceData;
-    }
-
-    return {};
-}
-
-function parsePulseCounter(payload, portDecoding){
-    var payload_variant = payload[1];
-
-    var deviceData = {
-        //received_at: new Date().toISOString(),        //Not supported on TTN
-        device_type_identifier: payload[0],
-        device_type: 'Counter',
-        device_type_variant: payload[1],
-        device_id: toHEXString(payload, 2, 6),
-        device_status: payload[8],
-        battery_voltage: readUInt16BE(payload, 9) / 100,
-        rssi: readInt8(payload, 11),
-        counter: payload[19]
-    };
-
-    switch(payload_variant){
-        case 1:     //NB-IoT Payload
-            if(payload.length != 20) return {};
-            return deviceData;
-    }
-
-    return {};
-}
-
-function decodeUplink(input) {
-  return { data: Decoder(input.bytes, input.fPort) };
-}
-

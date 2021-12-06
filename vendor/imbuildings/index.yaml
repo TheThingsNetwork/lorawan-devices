@@ -1,3 +1,5 @@
 endDevices:
   - imbuildings-people-counter
   - imbuildings-comfort-sensor
+  - imbuildings-moodbox
+  - imbuildings-office-occupancy-counter
