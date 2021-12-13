@@ -1,0 +1,65 @@
+name: R816B - Wireless US Type Wall Socket with Power Meter
+description: R816B (wireless wall socket with energy consumption monitoring (US)) is a smart electrical switch socket for indoor use. It is suitable for US standard wall cassette installation. The output socket is suitable for US standard 2 or 3 pole plug; rated output load is 15A/120V. R816B integrates LoRa/FSK modulation communication wireless module SX1276, which can realize wireless remote control. It can control the single-channel power output to be turned on and off through internal relay, and can detect the current, voltage, power, and electrical energy of the device connected to it. (The output of the upper socket is uncontrolled, the output of the lower socket is the relay control output, and the output power detection function is provided. There is a relay control button and two LED indicators between the two sockets.)
+
+hardwareVersions:
+  - version: '23'
+    numeric: 23
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '23'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r816b-codec
+      AS923:
+        id: profile-as923
+        codec: r816b-codec
+      US902-928:
+        id: profile-us915
+        codec: r816b-codec
+      AU915-928:
+        id: profile-au915
+        codec: r816b-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r816b-codec
+      IN865-867:
+        id: profile-in865
+        codec: r816b-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r816b-codec
+
+sensors:
+  - current
+  - energy
+  - voltage
+
+dimensions:
+  width: 69
+  length: 113
+  height: 39.5
+
+operatingConditions:
+  temperature:
+    min: -10
+    max: 50
+  relativeHumidity:
+    min: 0
+    max: 0.85
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R816B
+dataSheetURL: http://www.netvox.com.tw/um/R816B/R816Bdatasheet.pdf
+
+photos:
+  main: photos/r816b.jpg

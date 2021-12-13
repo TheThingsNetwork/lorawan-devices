@@ -1,4 +1,4 @@
-name: Wireless Door Bell Button
+name: R312 - Wireless Door Bell Button
 description: The Netvox R312 Wireless Door Bell Button is a LoRaWAN® end device that contains a push button for detecting button presses by the user. When a button press is detected an uplink containing the desired values is transferred to the LoRaWAN® network. The device provides low power consumption and longer battery life.
 
 hardwareVersions:

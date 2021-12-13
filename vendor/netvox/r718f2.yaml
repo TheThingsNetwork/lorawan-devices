@@ -1,4 +1,4 @@
-name: Wireless 2-Gang Reed Switch Open/Close Detection Sensor
+name: R718F2 - Wireless 2-Gang Reed Switch Open/Close Detection Sensor
 description: R718F2 is a 2-gang open/close detection sensor that utilizes 2 reed switches to detect whether two objects are separated or not. An example of R718F2’s application is to detect the state of a door or window for security purposes. It is based on SX1276 wireless communication module, and the communication is fully compatible with LoRaWAN™ protocol (Class A).
 
 hardwareVersions:

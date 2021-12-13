@@ -1,4 +1,4 @@
-name: Wireless 2-Input Dry Contact Interface
+name: R718J2 - Wireless 2-Input Dry Contact Interface
 description: R718J2 can be connected to external dry contact devices, such as various switches, buttons, relays and reed switch outputs. It can detect the closure or disconnection signal of the dry contacts. Based on SX1276 wireless communication module, the wireless communication is compatible with LoRaWAN™ protocol (ClassA).
 
 hardwareVersions:
