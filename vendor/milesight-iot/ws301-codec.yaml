@@ -9,10 +9,10 @@ uplinkDecoder:
       output:
         data:
           door: open
-    - description: Magnetic Contact Switch (example 2) - Milesgiht IoT
-      input:
-        fPort: 85
-        bytes: [0x04, 0x00, 0x01]
-      output:
-        data:
-          # install: no
+#    - description: Magnetic Contact Switch (example 2) - Milesgiht IoT
+#      input:
+#        fPort: 85
+#        bytes: [0x04, 0x00, 0x01]
+#      output:
+#        data:
+# install: no
