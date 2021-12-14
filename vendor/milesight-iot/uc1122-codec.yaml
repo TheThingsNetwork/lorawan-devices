@@ -16,7 +16,7 @@ uplinkDecoder:
       output:
         data:
           ad1:
-            cur: 13
-            min: 10
-            max: 15
-            ave: 11
+            cur: 0.13
+            min: 0.10
+            max: 0.15
+            ave: 0.11
