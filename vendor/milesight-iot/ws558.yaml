@@ -1,6 +1,10 @@
 name: WS558
 description: Smart Light Controller
 
+hardwareVersions:
+  - version: '1.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.x'
     numeric: 1

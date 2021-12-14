@@ -1,6 +1,10 @@
 name: WS52x
 description: Portable Socket
 
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.x'
     numeric: 1

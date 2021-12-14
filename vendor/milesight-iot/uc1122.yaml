@@ -1,6 +1,10 @@
 name: UC1122
 description: LoRa Controller
 
+hardwareVersions:
+  - version: 'V3.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '3.09'
     numeric: 1

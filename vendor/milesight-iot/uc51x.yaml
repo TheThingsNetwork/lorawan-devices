@@ -1,6 +1,10 @@
 name: UC51x
 description: Solenoid Valve Controller
 
+hardwareVersions:
+  - version: 'V1.1'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.12'
     numeric: 1

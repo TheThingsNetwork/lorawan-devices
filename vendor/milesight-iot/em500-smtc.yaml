@@ -1,6 +1,10 @@
 name: EM500-SMTC
 description: Soil Moisture, Temperature and Electrical Conductivity Sensor
 
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '2.30'
     numeric: 1

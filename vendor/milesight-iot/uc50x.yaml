@@ -1,6 +1,10 @@
 name: UC50x
 description: LoRa Controller
 
+hardwareVersions:
+  - version: 'V1.0'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.12'
     numeric: 1

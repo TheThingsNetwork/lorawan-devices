@@ -1,6 +1,10 @@
 name: EM500-SWL
 description: Submersible Water Lever Sensor
 
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '2.30'
     numeric: 1

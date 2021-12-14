@@ -1,6 +1,10 @@
 name: VS121
 description: AI Workplace Sensor
 
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.x'
     numeric: 1

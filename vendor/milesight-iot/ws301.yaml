@@ -1,6 +1,10 @@
 name: WS301
 description: Magnetic Contact Switch
 
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.x'
     numeric: 1

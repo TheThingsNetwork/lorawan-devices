@@ -1,6 +1,10 @@
 name: WS202
 description: PIR Sensor
 
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
 firmwareVersions:
   - version: '1.x'
     numeric: 1
