@@ -15,8 +15,8 @@ uplinkDecoder:
         bytes: [0x11, 0x02, 0x0D, 0x00, 0x0A, 0x00, 0x0F, 0x00, 0x0B, 0x00]
       output:
         data:
-          ad1:
+          adc1:
             cur: 0.13
             min: 0.10
             max: 0.15
-            ave: 0.11
+            avg: 0.11
