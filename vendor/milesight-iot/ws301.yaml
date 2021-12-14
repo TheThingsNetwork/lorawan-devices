@@ -47,7 +47,7 @@ firmwareVersions:
 
 sensors:
   - battery
-  - door
+  # door
   # install
 
 dimensions:
