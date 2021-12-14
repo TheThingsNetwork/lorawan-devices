@@ -45,13 +45,13 @@ firmwareVersions:
         lorawanCertified: true
         codec: ws50x-codec
 
-sensors:
-  # switch_1
-  # switch_2
-  # switch_3
-  # switch_1_change
-  # switch_2_change
-  # switch_3_change
+#sensors:
+# switch_1
+# switch_2
+# switch_3
+# switch_1_change
+# switch_2_change
+# switch_3_change
 
 dimensions:
   width: 86
