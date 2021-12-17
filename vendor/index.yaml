@@ -1765,3 +1765,8 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/iotracker
       github: iotracker
+
+  - id: micropelt
+    name: micropelt
+    website: http://www.micropelt.com/
+
