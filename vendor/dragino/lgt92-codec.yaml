@@ -4,9 +4,46 @@ uplinkDecoder:
     - description: Distance Detection
       input:
         fPort: 2
-        bytes: [0x01, 0x5A, 0x78, 0x54, 0x06, 0xCF, 0x33, 0xD8, 0x0D, 0x20, 0x60, 0x00, 0x4B, 0x01, 0x90, 0x00]
+        bytes: [0x01, 0x5A, 0x78, 0x54, 0x06, 0xCF, 0x33, 0xD8, 0x0D, 0x20, 0x60, 0x00, 0x4B, 0x01, 0x90]
       output:
-        data: { 'ALARM_status': 'FALSE', 'altitude': 0, 'BatV': 3.36, 'FW': 160, 'LON': 'ON', 'latitude': 22.70626, 'longitude': 114.24252, 'MD': 'Disable', 'Pitch': 4, 'Roll': 0.75, 'hdop': 0 }
+        data: { 'ALARM_status': false, 'BatV': 3.36, 'FW': 160, 'LON': true, 'latitude': 22.70626, 'longitude': 114.24252, 'MD': 'Move', 'Pitch': 4, 'Roll': 0.75 }
+
+    - description: 'Example from 1.5 manual'
+      input:
+        fPort: 2
+        bytes: [0x02, 0x86, 0x3D, 0x68, 0xFA, 0xC2, 0x9B, 0xAF, 0x4B, 0x45, 0x60, 0x04, 0xD2, 0xFB, 0x2E]
+      output:
+        data: { 'latitude': 42.351976, 'longitude': -87.909457, 'ALARM_status': true, 'BatV': 2.885, 'MD': 'Move', 'LON': true, 'FW': 160, 'Roll': 12.34, 'Pitch': -12.34 }
+
+    - description: 'Example from 1.6 manual'
+      input:
+        fPort: 2
+        bytes: [0x02, 0x86, 0x3D, 0x68, 0xFA, 0xC2, 0x9B, 0xAF, 0x4B, 0x45, 0x60, 0x04, 0xD2, 0xFB, 0x2E, 0xAB, 0x07, 0x80]
+      output:
+        data: { 'latitude': 42.351976, 'longitude': -87.909457, 'ALARM_status': true, 'BatV': 2.885, 'MD': 'Move', 'LON': true, 'FW': 160, 'hdop': 1.71, 'altitude': 19.2, 'Roll': 12.34, 'Pitch': -12.34 }
+
+    - description: 'Most Significant Byte zero'
+      input:
+        fPort: 2
+        bytes: [ 0x02, 0xfa, 0xcb, 0x30, 0x00, 0x80, 0xec, 0xf9, 0x0c, 0x2e, 0x64 ]
+      output:
+        data: { 'latitude': 49.990448, 'longitude': 8.449273, 'ALARM_status': false, 'BatV': 3.118, 'MD': 'Move', 'LON': true, 'FW': 164 }
+
+    - description: No Location
+      input:
+        fPort: 2
+        bytes: [ 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0c, 0x2e, 0x64 ]
+      output:
+        data: { 'ALARM_status': false, 'BatV': 3.118, 'MD': 'Move', 'LON': true, 'FW': 164 }
+        warnings: [ 'GPS failed to obtain location' ]
+
+    - description: Low Battery
+      input:
+        fPort: 2
+        bytes: [ 0x0f, 0xff, 0xff, 0xff, 0x0f, 0xff, 0xff, 0xff, 0x4b, 0x17, 0x64 ]
+      output:
+        data: { 'ALARM_status': true, 'BatV': 2.839, 'MD': 'Move', 'LON': true, 'FW': 164 }
+        warnings: [ 'GPS turned off because of low battery' ]
 
     - description: Unknown FPort
       input:
