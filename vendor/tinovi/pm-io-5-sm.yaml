@@ -106,5 +106,3 @@ resellerURLs:
 # Photos
 photos:
   main: pm-io-5-sm-package.png
-  other:
-    - pm-io-5-sm_img.jpg
