@@ -105,6 +105,6 @@ resellerURLs:
     url: https://tinovi.com/shop/lorawan-soil-moisture-temperature-air-temperature-humidity-12v-output-from-battery/
 # Photos
 photos:
-  main: pm-io-5-sm_img.jpg
+  main: pm-io-5-sm-package.png
   other:
-    - pm-io-5-sm-package.jpg
+    - pm-io-5-sm_img.jpg
