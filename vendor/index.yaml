@@ -1757,3 +1757,8 @@ vendors:
 
   - id: ttn
     name: The Things Network Foundation
+
+  - id: micropelt
+    name: micropelt
+    website: http://www.micropelt.com/
+

@@ -25,19 +25,7 @@ const settingIdentifier = {
     CONFIRMED_MESSAGES:             0x2F,
     FPORT:                          0x33,
     FPORT_HEARTBEAT:                0x36,
-    OOC_DISTANCE:                   0x50,
-    LED_INDICATION:                 0x51,
-    BUTTON_DELAY_TIME:              0x52,
-    DEVICE_COMMANDS:                0xC8,
     ERRORS:                         0xF0
-}
-
-const command = {
-    GET_PAYLOAD:                    0x01,
-    REJOIN:                         0x02,
-    COUNTER_PRESET:                 0x03,
-    SAVE:                           0x04,
-    BUTTON_PRESET:                  0x05
 }
 
 function decodeUplink(input){
@@ -45,7 +33,7 @@ function decodeUplink(input){
 
     if(!containsIMBHeader(input.bytes)){
         //When payload doesn't contain IMBuildings header
-        //Assumes that payload is transmitted on specific recommended fport
+        //Assumes that payload is transmitted on specific fport
         //e.g. payload type 2 variant 6 on FPort 26, type 2 variant 7 on FPort 27 and so on...
         switch(input.fPort){
             case 10:
@@ -77,16 +65,7 @@ function decodeUplink(input){
 
                 parsedData.payload_type = payloadTypes.PEOPLE_COUNTER;
                 parsedData.payload_variant = 8;
-                break;
-            case 33:
-                if(input.bytes.length != 14) return getError(errorCode.UNKNOWN_PAYLOAD);
-                parsedData.payload_type = payloadTypes.BUTTONS;
-                parsedData.payload_variant = 3;
-                break;
-            case 34:
-                if(input.bytes.length != 23) return getError(errorCode.UNKNOWN_PAYLOAD);
-                parsedData.payload_type = payloadTypes.BUTTONS;
-                parsedData.payload_variant = 4;
+
                 break;
             default:
                 return { errors: []};
@@ -101,7 +80,6 @@ function decodeUplink(input){
         case payloadTypes.COMFORT_SENSOR: parseComfortSensor(input, parsedData); break;
         case payloadTypes.PEOPLE_COUNTER: parsePeopleCounter(input, parsedData); break;
         case payloadTypes.DOWNLINK:       parsedData = parseDownlinkResponse(input.bytes); break;
-        case payloadTypes.BUTTONS:        parseButtons(input, parsedData); break;
         default:
             return getError(errorCode.UNKNOWN_PAYLOAD_TYPE);
     }
@@ -115,8 +93,6 @@ function containsIMBHeader(payload){
     if(payload[0] == payloadTypes.PEOPLE_COUNTER && payload[1] == 0x06 && payload.length == 23) return true;
     if(payload[0] == payloadTypes.PEOPLE_COUNTER && payload[1] == 0x07 && payload.length == 15) return true;
     if(payload[0] == payloadTypes.PEOPLE_COUNTER && payload[1] == 0x08 && payload.length == 14) return true;
-    if(payload[0] == payloadTypes.BUTTONS && payload[1] == 0x03 && payload.length == 14) return true;
-    if(payload[0] == payloadTypes.BUTTONS && payload[1] == 0x04 && payload.length == 23) return true;
 
     return false;
 }
@@ -158,49 +134,6 @@ function parsePeopleCounter(input, parsedData){
             parsedData.sensor_status = input.bytes[input.bytes.length - 1];
             break;
     }
-}
-
-function parseButtons(input, parsedData){
-    switch(parsedData.payload_variant){
-        case 0x03:
-            parsedData.device_status = input.bytes[input.bytes.length - 4];
-            parsedData.battery_voltage = readUInt16BE(input.bytes, input.bytes.length - 3) / 100;
-            parsedData.button_pressed = (input.bytes[input.bytes.length - 1] != 0) ? true : false;
-            parsedData.button = {
-                a: (input.bytes[input.bytes.length - 1] & 0x01 == 0x01) ? true : false,
-                b: (input.bytes[input.bytes.length - 1] & 0x02 == 0x02) ? true : false,
-                c: (input.bytes[input.bytes.length - 1] & 0x04 == 0x04) ? true : false,
-                d: (input.bytes[input.bytes.length - 1] & 0x08 == 0x08) ? true : false,
-                e: (input.bytes[input.bytes.length - 1] & 0x10 == 0x10) ? true : false
-            }
-            break;
-        case 0x04:
-            parsedData.device_status = input.bytes[input.bytes.length - 13];
-            parsedData.battery_voltage = readUInt16BE(input.bytes, input.bytes.length - 12) / 100;
-            parsedData.button = {
-                a: readUInt16BE(input.bytes, input.bytes.length - 10),
-                b: readUInt16BE(input.bytes, input.bytes.length - 8),
-                c: readUInt16BE(input.bytes, input.bytes.length - 6),
-                d: readUInt16BE(input.bytes, input.bytes.length - 4),
-                e: readUInt16BE(input.bytes, input.bytes.length - 2)
-            }
-            break;
-    }
-}
-
-function decodeDownlink(input){
-    if(input.fPort != 10){
-        return { errors: ['Please use FPort 10 for downlink results']};
-    }
-
-    if(input.bytes[0] != 0xF1 || input.bytes[1] != 0x01){
-        return { errors: ['Expected downlink payload']};
-    }
-
-    return {
-        data: parseDownlinkResponse(input)
-    }
-
 }
 
 function parseDownlinkResponse(payload){
@@ -271,141 +204,7 @@ function parseDownlinkResponse(payload){
     return parsedResponse;
 }
 
-function encodeDownlink(input){
-    let dl = [payloadTypes.DOWNLINK, 0x01];
 
-    if(input.data.command !== undefined && input.data.command.rejoin !== undefined){
-        if(input.data.command.rejoin === true){
-            dl.push(0x03);
-            dl.push(settingIdentifier.DEVICE_COMMANDS);
-            dl.push(command.rejoin);
-        }
-    }
-
-    //Counter reset currently implemented as reset (all zeros)
-    if(input.data.command !== undefined && input.data.command.counter_preset !== undefined){
-        dl.push(0x07);
-        dl.push(settingIdentifier.DEVICE_COMMANDS);
-        dl.push(command.COUNTER_PRESET);
-
-        if(input.data.command.counter_preset.counter_a !== undefined && input.data.command.counter_preset.counter_b !== undefined){    
-            dl.push(0x00);
-            dl.push(0x00);
-            dl.push(0x00);
-            dl.push(0x00);
-        }else{
-            dl.push(0x00);
-            dl.push(0x00);
-            dl.push(0x00);
-            dl.push(0x00);
-        }
-    }
-
-    //Button preset currently implemented as reset (all zeros)
-    if(input.data.command !== undefined && input.data.command.button_preset !== undefined){
-        dl.push(0x0D);
-        dl.push(settingIdentifier.DEVICE_COMMANDS);
-        dl.push(command.BUTTON_PRESET);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-        dl.push(0x00);
-    }
-
-    if(input.data.interval !== undefined){
-        if(input.data.interval == null){
-            dl.push(0x02);
-            dl.push(settingIdentifier.INTERVAL);
-        }else{
-            dl.push(0x03);
-            dl.push(settingIdentifier.INTERVAL);
-            dl.push(input.data.interval);
-        }
-        
-    }
-
-    if(input.data.event !== undefined && input.data.event.type !== undefined && input.data.event.count !== undefined && input.data.event.timeout !== undefined){
-        dl.push(0x05);
-        dl.push(settingIdentifier.EVENT_SETTING);
-        dl.push(input.data.event.type);
-        dl.push(input.data.event.count);
-        dl.push(input.data.event.timeout);
-    }
-
-    if(input.data.payload !== undefined && input.data.payload.type !== undefined&& input.data.payload.variant !== undefined && input.data.payload.header !== undefined){
-        dl.push(0x05);
-        dl.push(settingIdentifier.PAYLOAD_DEFINITION);
-        dl.push(input.data.payload.type);
-        dl.push(input.data.payload.variant);
-        dl.push((input.data.payload.header === true) ? 0x01 : 0x00);
-    }
-
-    if(input.data.fport !== undefined){
-        dl.push(0x03);
-        dl.push(settingIdentifier.FPORT);
-        dl.push(input.data.fport);
-    }
-
-    if(input.data.heartbeat){
-        if(input.data.heartbeat.interval !== undefined){
-            dl.push(0x03);
-            dl.push(settingIdentifier.HEARTBEAT_INTERVAL);
-            dl.push(input.data.heartbeat.interval);
-        }
-
-        if(input.data.heartbeat.payload !== undefined && input.data.heartbeat.payload.type !== undefined && input.data.heartbeat.payload.variant !== undefined && input.data.heartbeat.payload.header !== undefined){
-            dl.push(0x05);
-            dl.push(settingIdentifier.HEARTBEAT_PAYLOAD_DEFINITION);
-            dl.push(input.data.heartbeat.payload.type);
-            dl.push(input.data.heartbeat.payload.variant);
-            dl.push((input.data.heartbeat.payload.header === true) ? 0x01 : 0x00);
-        }
-
-        if(input.data.heartbeat.fport !== undefined){
-            dl.push(0x03);
-            dl.push(settingIdentifier.FPORT_HEARTBEAT);
-            dl.push(input.data.heartbeat.fport);
-        }
-    }
-
-    if(input.data.ooc_ignore_distance !== undefined && input.data.ooc_detection_distance !== undefined){
-        if(input.data.ooc_detection_distance > 200) input.data.ooc_detection_distance = 200;
-        if(input.data.ooc_ignore_distance > 200) input.data.ooc_ignore_distance = 200;
-        dl.push(0x04);
-        dl.push(settingIdentifier.OOC_DISTANCE);
-        dl.push(input.data.ooc_ignore_distance);
-        dl.push(input.data.ooc_detection_distance);
-    }
-
-    if(input.data.led_function !== undefined){
-        dl.push(0x03);
-        dl.push(settingIdentifier.LED_INDICATION);
-        dl.push(input.data.led_function);
-    }
-
-    if(input.data.confirmed_messages !== undefined){
-        dl.push(0x03);
-        dl.push(settingIdentifier.CONFIRMED_MESSAGES);
-        dl.push(input.data.confirmed_messages);
-    }
-
-    if(input.data.save !== undefined && input.data.save === true){
-        dl.push(0x03);
-        dl.push(settingIdentifier.SAVE);
-        dl.push(command.save);
-    }
-
-    return {
-        fPort: 10,
-        bytes: dl
-    };
-}
 
 //Helper functions
 function getError(code){
