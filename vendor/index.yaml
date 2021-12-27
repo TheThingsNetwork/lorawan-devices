@@ -1761,3 +1761,8 @@ vendors:
   - id: micropelt
     name: micropelt
     website: http://www.micropelt.com/
+
+  - id: tinovi
+    name: tinovi
+    website: https://tinovi.com/
+    logo: tinovi.png
