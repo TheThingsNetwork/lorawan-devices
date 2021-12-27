@@ -208,9 +208,10 @@ vendors:
     name: Eddy Solutions
     vendorID: 128
 
-  - id: elektroniksystem
+  - id: elsys
     name: ElektronikSystem i Ume
     vendorID: 132
+    website: https://www.elsys.se/en/
 
   - id: eleven-x
     name: Eleven-x
