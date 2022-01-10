@@ -38,6 +38,7 @@ var TYPE_ANALOG2      = 0x18;  //2bytes voltage in mV
 var TYPE_EXT_TEMP2    = 0x19;  //2bytes -3276.5C-->3276.5C
 var TYPE_EXT_DIGITAL2 = 0x1A;  // 1bytes value 1 or 0 
 var TYPE_EXT_ANALOG_UV= 0x1B; // 4 bytes signed int (uV)
+var TYPE_TVOC         = 0x1C;  // 2bytes 0-->65535 ppb
 var TYPE_DEBUG        = 0x3D;  // 4bytes debug 
 function bin16dec(bin) {
     var num=bin&0xFFFF;
@@ -198,6 +199,10 @@ function DecodeElsysPayload(data){
             case TYPE_EXT_ANALOG_UV: //Load cell analog uV
                 obj.analogUv = (data[i + 1] << 24) | (data[i + 2] << 16) | (data[i + 3] << 8) | (data[i + 4]);
                 i += 4;
+            break;
+            case TYPE_TVOC: //Total volatile organic compounds ppb
+                obj.tvoc = (data[i + 1] << 8) | (data[i + 2]);
+                i += 2;
             break;
             default: //somthing is wrong with data
                 i=data.length;
