@@ -7,21 +7,13 @@ function decodeUplink(input) {
           errors: ['input bytes in wrong format'],
         };
       }
-      let tmp = ('00'+(input.bytes[3]).toString(16)).slice(-2) + ('00'+(input.bytes[4]).toString(16)).slice(-2);
-      let pReading = 0;
-      // process negative pressure
-      if (input.bytes[3] === 0xFF) {
-        // fill in the first 16 bits with 1's to perform bitwise operation
-        pReading = - ~(parseInt('FFFF' + tmp.toString(16) , 16) - 1);
-      } else {
-        pReading = parseInt(tmp, 16);
-      }
+      let pressure = integerParser(input.bytes[3], input.bytes[4]);
       // (K * Pressure * m + b) / Liquid density
       // k = 0.019, m = 0.05, b = 0, liquid density = 1
       // separate calibration sheet will specify K, m and b
       let k = 0.019, m = 0.05, b = 0, density = 1;
-      let level = (k * pReading * m + b) / density;
-      let battery = parseInt(input.bytes[7].toString(16), 16) * 0.1;
+      let level = (k * pressure * m + b) / density;
+      let battery = input.bytes[7] * 0.1;
       return {
         // Decoded data
         data: {
@@ -34,4 +26,22 @@ function decodeUplink(input) {
         errors: ['unknown FPort'],
       };
   }
+}
+
+/*
+ * This function is to process a 16-bit integer signed by the leftmost bit
+ * represented by 2 bytes. 
+ */
+function integerParser(byte1, byte2) {
+  // check whether the byte is signed as a negative number
+  // by checking whether the significant bit (leftmost) is 1
+  let negative = byte1 & (1 << 7);
+  // merge the two bytes
+  let result = (byte1 << 8) | byte2;
+  // process negative integer
+  if (negative) {
+    // minus 1 and flip the bits
+    result = ~(0xFFFF0000 | (result - 1)) * (-1);
+  }
+  return result;
 }
