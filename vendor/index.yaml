@@ -1767,3 +1767,12 @@ vendors:
     name: tinovi
     website: https://tinovi.com/
     logo: tinovi.png
+
+  - id: slscorp
+    name: System Level Solutions (India) Pvt. Ltd.
+    website: https://www.slscorp.com/
+    logo: slscorp_logo.png
+    description: We are a Product and Service Company in Hardware & Software established as a Turnkey solution provider. With a strong focus on smart energy, industrial IoT, and utility-grade wireless solutions - covering metering, integration of microgeneration, field operations, consumer devices, and a cloud-based open-standards for the Internet of Things (IoT) platform, SLS has successfully established itself as an international technology provider to multiple sectors.
+    social:
+      linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
+      twitter: S_L_S
