@@ -1,6 +1,6 @@
 {{ define "main" }}
     <main aria-role="main">
-      {{ partial "banner.html" (dict "title" "LoRaWAN® Device Repository" "description" .Description) }}
+      {{ partial "banner.html" (dict "title" "Device Repository" "description" .Description) }}
       {{ partial "device-list.html" (dict "devices" ( where site.RegularPages "Section" "devices" ) ) }}
     </main>
 {{ end }}
