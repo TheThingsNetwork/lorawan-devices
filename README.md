@@ -1,4 +1,4 @@
-# Device Repository
+# Device Repository for LoRaWAN
 
 The Device Repository contains information about LoRaWAN end devices. The Device Repository acts as key data source for device catalogs and onboarding devices on LoRaWAN networks.
 
