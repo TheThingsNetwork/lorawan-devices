@@ -119,9 +119,9 @@ function decodeUplink(input) {
             {
                 key: [0x07, 0x71],
                 fn: function (arg) {
-                    decoded['acceleration.xaxis'] = decode_field(arg, 0, 15, "signed") * 0.001;
-                    decoded['acceleration.yaxis'] = decode_field(arg, 16, 31, "signed") * 0.001;
-                    decoded['acceleration.zaxis'] = decode_field(arg, 32, 47, "signed") * 0.001;
+                    decoded_data['acceleration.xaxis'] = decode_field(arg, 0, 15, "signed") * 0.001;
+                    decoded_data['acceleration.yaxis'] = decode_field(arg, 16, 31, "signed") * 0.001;
+                    decoded_data['acceleration.zaxis'] = decode_field(arg, 32, 47, "signed") * 0.001;
                     return 6;
                 }
             },
@@ -251,26 +251,26 @@ function decodeUplink(input) {
             {
                 key: [0x11],
                 fn: function (arg) {
-                    decoded['loramac_opts.confirm_mode'] = decode_field(arg, 8, 8, "unsigned");
-                    decoded['loramac_opts.sync_word'] = decode_field(arg, 9, 9, "unsigned");
-                    decoded['loramac_opts.duty_cycle'] = decode_field(arg, 10, 10, "unsigned");
-                    decoded['loramac_opts.adr'] = decode_field(arg, 11, 11, "unsigned");
+                    decoded_data['loramac_opts.confirm_mode'] = decode_field(arg, 8, 8, "unsigned");
+                    decoded_data['loramac_opts.sync_word'] = decode_field(arg, 9, 9, "unsigned");
+                    decoded_data['loramac_opts.duty_cycle'] = decode_field(arg, 10, 10, "unsigned");
+                    decoded_data['loramac_opts.adr'] = decode_field(arg, 11, 11, "unsigned");
                     return 2;
                 }
             },
             {
                 key: [0x12],
                 fn: function (arg) {
-                    decoded['loramac_dr_tx.dr_number'] = decode_field(arg, 0, 3, "unsigned");
-                    decoded['loramac_dr_tx.tx_power_number'] = decode_field(arg, 8, 11, "unsigned");
+                    decoded_data['loramac_dr_tx.dr_number'] = decode_field(arg, 0, 3, "unsigned");
+                    decoded_data['loramac_dr_tx.tx_power_number'] = decode_field(arg, 8, 11, "unsigned");
                     return 2;
                 }
             },
             {
                 key: [0x13],
                 fn: function (arg) {
-                    decoded['loramac_rx2.frequency'] = decode_field(arg, 0, 31, "unsigned");
-                    decoded['loramac_rx2.dr_number'] = decode_field(arg, 32, 39, "unsigned");
+                    decoded_data['loramac_rx2.frequency'] = decode_field(arg, 0, 31, "unsigned");
+                    decoded_data['loramac_rx2.dr_number'] = decode_field(arg, 32, 39, "unsigned");
                     return 5;
                 }
             },
@@ -347,8 +347,8 @@ function decodeUplink(input) {
             {
                 key: [0x2A],
                 fn: function (arg) {
-                    decoded['reed_mode.rising_edge_enabled'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['reed_mode.falling_edge_enabled'] = decode_field(arg, 1, 1, "unsigned");
+                    decoded_data['reed_mode.rising_edge_enabled'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['reed_mode.falling_edge_enabled'] = decode_field(arg, 1, 1, "unsigned");
                     return 1;
                 }
             },
@@ -362,17 +362,17 @@ function decodeUplink(input) {
             {
                 key: [0x2C],
                 fn: function (arg) {
-                    decoded['reed_tx.report_state_enabled'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['reed_tx.report_count_enabled'] = decode_field(arg, 1, 1, "unsigned");
+                    decoded_data['reed_tx.report_state_enabled'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['reed_tx.report_count_enabled'] = decode_field(arg, 1, 1, "unsigned");
                     return 1;
                 }
             },
             {
                 key: [0x2D],
                 fn: function (arg) {
-                    decoded['external_connector.rising_edge_enabled'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['external_connector.falling_edge_enabled'] = decode_field(arg, 1, 1, "unsigned");
-                    decoded['external_connector.mode'] = decode_field(arg, 7, 7, "unsigned");
+                    decoded_data['external_connector.rising_edge_enabled'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['external_connector.falling_edge_enabled'] = decode_field(arg, 1, 1, "unsigned");
+                    decoded_data['external_connector.mode'] = decode_field(arg, 7, 7, "unsigned");
                     return 1;
                 }
             },
@@ -386,8 +386,8 @@ function decodeUplink(input) {
             {
                 key: [0x2F],
                 fn: function (arg) {
-                    decoded['external_connector_tx.report_state_enabled'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['external_connector_tx.report_count_enabled'] = decode_field(arg, 1, 1, "unsigned");
+                    decoded_data['external_connector_tx.report_state_enabled'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['external_connector_tx.report_count_enabled'] = decode_field(arg, 1, 1, "unsigned");
                     return 1;
                 }
             },
@@ -408,9 +408,9 @@ function decodeUplink(input) {
             {
                 key: [0x32],
                 fn: function (arg) {
-                    decoded['accelerometer_tx.report_alarm_enabled'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['accelerometer_tx.report_magnitude_enabled'] = decode_field(arg, 4, 4, "unsigned");
-                    decoded['accelerometer_tx.report_vector_enabled'] = decode_field(arg, 5, 5, "unsigned");
+                    decoded_data['accelerometer_tx.report_alarm_enabled'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['accelerometer_tx.report_magnitude_enabled'] = decode_field(arg, 4, 4, "unsigned");
+                    decoded_data['accelerometer_tx.report_vector_enabled'] = decode_field(arg, 5, 5, "unsigned");
                     return 1;
                 }
             },
@@ -424,12 +424,12 @@ function decodeUplink(input) {
             {
                 key: [0x34],
                 fn: function (arg) {
-                    decoded['accelerometer.impact_threshold_enabled'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['accelerometer.acceleration_threshold_enabled'] = decode_field(arg, 1, 1, "unsigned");
-                    decoded['accelerometer.xaxis_enabled'] = decode_field(arg, 4, 4, "unsigned");
-                    decoded['accelerometer.yaxis_enabled'] = decode_field(arg, 5, 5, "unsigned");
-                    decoded['accelerometer.zaxis_enabled'] = decode_field(arg, 6, 6, "unsigned");
-                    decoded['accelerometer.poweron'] = decode_field(arg, 7, 7, "unsigned");
+                    decoded_data['accelerometer.impact_threshold_enabled'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['accelerometer.acceleration_threshold_enabled'] = decode_field(arg, 1, 1, "unsigned");
+                    decoded_data['accelerometer.xaxis_enabled'] = decode_field(arg, 4, 4, "unsigned");
+                    decoded_data['accelerometer.yaxis_enabled'] = decode_field(arg, 5, 5, "unsigned");
+                    decoded_data['accelerometer.zaxis_enabled'] = decode_field(arg, 6, 6, "unsigned");
+                    decoded_data['accelerometer.poweron'] = decode_field(arg, 7, 7, "unsigned");
                     return 1;
                 }
             },
@@ -437,50 +437,50 @@ function decodeUplink(input) {
                 key: [0x35],
                 fn: function (arg) {
                     //}
-                    decoded['sensitivity.accelerometer_sample_rate'] = decode_field(arg, 0, 2, "unsigned");
-                    switch (decoded['sensitivity.accelerometer_sample_rate']) {
+                    decoded_data['sensitivity.accelerometer_sample_rate'] = decode_field(arg, 0, 2, "unsigned");
+                    switch (decoded_data['sensitivity.accelerometer_sample_rate']) {
                         case 1:
-                            decoded['sensitivity.accelerometer_sample_rate'] = 1;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 1;
                             break;
                         case 2:
-                            decoded['sensitivity.accelerometer_sample_rate'] = 10;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 10;
                             break;
                         case 3:
-                            decoded['sensitivity.accelerometer_sample_rate'] = 25;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 25;
                             break;
                         case 4:
-                            decoded['sensitivity.accelerometer_sample_rate'] = 50;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 50;
                             break;
                         case 5:
-                            decoded['sensitivity.accelerometer_sample_rate'] = 100;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 100;
                             break;
                         case 6:
-                            decoded['sensitivity.accelerometer_sample_rate'] = 200;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 200;
                             break;
                         case 7:
-                            decoded['sensitivity.accelerometer_sample_rate'] = 400;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 400;
                             break;
                         default: // invalid value
-                            decoded['sensitivity.accelerometer_sample_rate'] = 0;
+                            decoded_data['sensitivity.accelerometer_sample_rate'] = 0;
                             break;
                     }
 
-                    decoded['sensitivity.accelerometer_measurement_range'] = decode_field(arg, 4, 5, "unsigned");
-                    switch (decoded['sensitivity.accelerometer_measurement_range']) {
+                    decoded_data['sensitivity.accelerometer_measurement_range'] = decode_field(arg, 4, 5, "unsigned");
+                    switch (decoded_data['sensitivity.accelerometer_measurement_range']) {
                         case 0:
-                            decoded['sensitivity.accelerometer_measurement_range'] = 2;
+                            decoded_data['sensitivity.accelerometer_measurement_range'] = 2;
                             break;
                         case 1:
-                            decoded['sensitivity.accelerometer_measurement_range'] = 4;
+                            decoded_data['sensitivity.accelerometer_measurement_range'] = 4;
                             break;
                         case 2:
-                            decoded['sensitivity.accelerometer_measurement_range'] = 8;
+                            decoded_data['sensitivity.accelerometer_measurement_range'] = 8;
                             break;
                         case 3:
-                            decoded['sensitivity.accelerometer_measurement_range'] = 16;
+                            decoded_data['sensitivity.accelerometer_measurement_range'] = 16;
                             break;
                         default:
-                            decoded['sensitivity.accelerometer_measurement_range'] = 0;
+                            decoded_data['sensitivity.accelerometer_measurement_range'] = 0;
                     }
                     return 1;
                 }
@@ -523,8 +523,8 @@ function decodeUplink(input) {
             {
                 key: [0x3B],
                 fn: function (arg) {
-                    decoded['ambient_temperature_threshold.high'] = decode_field(arg, 0, 7, "signed");
-                    decoded['ambient_temperature_threshold.low'] = decode_field(arg, 8, 15, "signed");
+                    decoded_data['ambient_temperature_threshold.high'] = decode_field(arg, 0, 7, "signed");
+                    decoded_data['ambient_temperature_threshold.low'] = decode_field(arg, 8, 15, "signed");
                     return 2;
                 }
             },
@@ -538,8 +538,8 @@ function decodeUplink(input) {
             {
                 key: [0x3D],
                 fn: function (arg) {
-                    decoded['relative_humidity_threshold.low'] = decode_field(arg, 0, 7, "unsigned");
-                    decoded['relative_humidity_threshold.high'] = decode_field(arg, 8, 15, "unsigned");
+                    decoded_data['relative_humidity_threshold.low'] = decode_field(arg, 0, 7, "unsigned");
+                    decoded_data['relative_humidity_threshold.high'] = decode_field(arg, 8, 15, "unsigned");
                     return 2;
                 }
             },
@@ -567,8 +567,8 @@ function decodeUplink(input) {
             {
                 key: [0x42],
                 fn: function (arg) {
-                    decoded['mcu_temperature_threshold.high'] = decode_field(arg, 0, 7, "signed");
-                    decoded['mcu_temperature_threshold.low'] = decode_field(arg, 8, 15, "signed");
+                    decoded_data['mcu_temperature_threshold.high'] = decode_field(arg, 0, 7, "signed");
+                    decoded_data['mcu_temperature_threshold.low'] = decode_field(arg, 8, 15, "signed");
                     return 2;
                 }
             },
@@ -596,8 +596,8 @@ function decodeUplink(input) {
             {
                 key: [0x46],
                 fn: function (arg) {
-                    decoded['analog_input_threshold.high'] = decode_field(arg, 0, 15, "unsigned") * 0.001;
-                    decoded['analog_input_threshold.low'] = decode_field(arg, 16, 31, "unsigned") * 0.001;
+                    decoded_data['analog_input_threshold.high'] = decode_field(arg, 0, 15, "unsigned") * 0.001;
+                    decoded_data['analog_input_threshold.low'] = decode_field(arg, 16, 31, "unsigned") * 0.001;
                     return 4;
                 }
             },
@@ -611,16 +611,16 @@ function decodeUplink(input) {
             {
                 key: [0x48],
                 fn: function (arg) {
-                    decoded['light.threshold'] = decode_field(arg, 0, 5, "unsigned");
-                    decoded['light.threshold_enabled'] = decode_field(arg, 7, 7, "unsigned") * 1;
+                    decoded_data['light.threshold'] = decode_field(arg, 0, 5, "unsigned");
+                    decoded_data['light.threshold_enabled'] = decode_field(arg, 7, 7, "unsigned") * 1;
                     return 1;
                 }
             },
             {
                 key: [0x49],
                 fn: function (arg) {
-                    decoded['light_tx.state_reported'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['light_tx.intensity_reported'] = decode_field(arg, 1, 1, "unsigned");
+                    decoded_data['light_tx.state_reported'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['light_tx.intensity_reported'] = decode_field(arg, 1, 1, "unsigned");
                     return 1;
                 }
             },
@@ -655,10 +655,10 @@ function decodeUplink(input) {
             {
                 key: [0x53],
                 fn: function (arg) {
-                    decoded['pir_mode.motion_count_reported'] = decode_field(arg, 0, 0, "unsigned");
-                    decoded['pir_mode.motion_state_reported'] = decode_field(arg, 1, 1, "unsigned");
-                    decoded['pir_mode.event_transmission_enabled'] = decode_field(arg, 6, 6, "unsigned");
-                    decoded['pir_mode.transducer_enabled'] = decode_field(arg, 7, 7, "unsigned");
+                    decoded_data['pir_mode.motion_count_reported'] = decode_field(arg, 0, 0, "unsigned");
+                    decoded_data['pir_mode.motion_state_reported'] = decode_field(arg, 1, 1, "unsigned");
+                    decoded_data['pir_mode.event_transmission_enabled'] = decode_field(arg, 6, 6, "unsigned");
+                    decoded_data['pir_mode.transducer_enabled'] = decode_field(arg, 7, 7, "unsigned");
                     return 1;
                 }
             },
@@ -710,13 +710,13 @@ function decodeUplink(input) {
             {
                 key: [0x71],
                 fn: function (arg) {
-                    decoded['firmware_version.app_major_version'] = decode_field(arg, 0, 7, "unsigned");
-                    decoded['firmware_version.app_minor_version'] = decode_field(arg, 8, 15, "unsigned");
-                    decoded['firmware_version.app_revision'] = decode_field(arg, 16, 23, "unsigned");
-                    decoded['firmware_version.loramac_major_version'] = decode_field(arg, 24, 31, "unsigned");
-                    decoded['firmware_version.loramac_minor_version'] = decode_field(arg, 32, 39, "unsigned");
-                    decoded['firmware_version.loramac_revision'] = decode_field(arg, 40, 47, "unsigned");
-                    decoded['firmware_version.region'] = decode_field(arg, 48, 55, "unsigned");
+                    decoded_data['firmware_version.app_major_version'] = decode_field(arg, 0, 7, "unsigned");
+                    decoded_data['firmware_version.app_minor_version'] = decode_field(arg, 8, 15, "unsigned");
+                    decoded_data['firmware_version.app_revision'] = decode_field(arg, 16, 23, "unsigned");
+                    decoded_data['firmware_version.loramac_major_version'] = decode_field(arg, 24, 31, "unsigned");
+                    decoded_data['firmware_version.loramac_minor_version'] = decode_field(arg, 32, 39, "unsigned");
+                    decoded_data['firmware_version.loramac_revision'] = decode_field(arg, 40, 47, "unsigned");
+                    decoded_data['firmware_version.region'] = decode_field(arg, 48, 55, "unsigned");
                     return 7;
                 }
             }
