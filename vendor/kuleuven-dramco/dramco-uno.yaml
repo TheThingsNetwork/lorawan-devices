@@ -1,5 +1,5 @@
 name: Dramco Uno
-description: Learn about soldering, electronics and programming using this development board. Based on the Arduino Uno, supercharged with an on-board LoRaWAN modem and various sensors. 
+description: Learn about soldering, electronics and programming using this development board. Based on the Arduino Uno, supercharged with an on-board LoRaWAN modem and various sensors.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
