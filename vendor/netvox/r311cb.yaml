@@ -1,4 +1,4 @@
-name: Wireless Window/Door Sensor and Wireless Glass Sensor
+name: R311CB - Wireless Window/Door Sensor and Wireless Glass Sensor
 description: The R311CB device has a built-in reed switch sensor and can be externally connected to the reed switch. It can be used for door and window switch status detection and externally connected to broken glass sensor to detect the glass status. It uses the SX1276 wireless communication module.
 
 hardwareVersions:

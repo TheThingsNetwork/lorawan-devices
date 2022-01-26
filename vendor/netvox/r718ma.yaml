@@ -1,4 +1,4 @@
-name: Wireless Asset Sensor
+name: R718MA - Wireless Asset Sensor
 description: R718MA has a simple positioning function. The device reports its RSSI, SNR information periodically to the gateway. It can be attached to an object, and it sends an alert when it is removed from the premises. The communication is fully compatible with LoRaWAN™ protocol (Class A).
 
 hardwareVersions:

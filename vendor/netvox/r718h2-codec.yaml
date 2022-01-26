@@ -1,0 +1,210 @@
+uplinkDecoder:
+  fileName: payload/r718h.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x3F, 0x00, 0x64, 0x02, 0x20, 0x20, 0x10, 0x09, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718H2'
+          SWver: 10
+          HWver: 2
+          Datecode: '20201009'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x3F, 0x01, 0x24, 0x00, 0x64, 0x00, 0x96, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718H2'
+          Volt: 3.6
+          PulseCount1: 100
+          PulseCount2: 150
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718H2'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x3F, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718H2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Set filter time response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetFiltertimeRsp'
+          Device: 'R718H2'
+          Status: 'Success'
+
+    - description: Get filter time response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x3F, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetFiltertimeRsp'
+          Device: 'R718H2'
+          FilterTime: 5
+
+    - description: Set pulse counter clear mode response
+      input:
+        fPort: 7
+        bytes: [0x85, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetPulseCounterClearModeRsp'
+          Device: 'R718H2'
+          Status: 'Success'
+
+    - description: Get pulse counter clear mode response
+      input:
+        fPort: 7
+        bytes: [0x86, 0x3F, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetPulseCounterClearModeRsp'
+          Device: 'R718H2'
+          PulseCounterClearMode: 'Clear when Roll-Over'
+
+downlinkDecoder:
+  fileName: payload/r718h.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x3F, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718H2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718H2'
+
+    - description: Set filter time request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x3F, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetFiltertimeReq'
+          Device: 'R718H2'
+          FilterTime: 5
+
+    - description: Get filter time request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetFiltertimeReq'
+          Device: 'R718H2'
+
+    - description: Set Pulse Counter Clear Mode request
+      input:
+        fPort: 7
+        bytes: [0x05, 0x3F, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetPulseCounterClearModeReq'
+          Device: 'R718H2'
+          PulseCounterClearMode: 1
+
+    - description: Get Pulse Counter Clear Mode request
+      input:
+        fPort: 7
+        bytes: [0x06, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetPulseCounterClearModeReq'
+          Device: 'R718H2'
+
+downlinkEncoder:
+  fileName: payload/r718h.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718H2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+      output:
+        fPort: 7
+        bytes: [0x01, 0x3F, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718H2'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set filter time request
+      input:
+        data:
+          Cmd: 'SetFiltertimeReq'
+          Device: 'R718H2'
+          FilterTime: 5
+      output:
+        fPort: 7
+        bytes: [0x03, 0x3F, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get filter time request
+      input:
+        data:
+          Cmd: 'GetFiltertimeReq'
+          Device: 'R718H2'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set Pulse Counter Clear Mode request
+      input:
+        data:
+          Cmd: 'SetPulseCounterClearModeReq'
+          Device: 'R718H2'
+          PulseCounterClearMode: 1
+      output:
+        fPort: 7
+        bytes: [0x05, 0x3F, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get Pulse Counter Clear Mode request
+      input:
+        data:
+          Cmd: 'GetPulseCounterClearModeReq'
+          Device: 'R718H2'
+      output:
+        fPort: 7
+        bytes: [0x06, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

@@ -1,4 +1,4 @@
-name: Wireless 2-Input Dry Contact Interface
+name: R311CA - Wireless 2-Input Dry Contact Interface
 description: Netvox wireless dry contact sensors can be used to detect contact between two wired contact points. It can realize wireless alarm and other functions through built-in wireless module, and is compatible with LoRaWAN protocol. It can be easily networked with other related devices. The R311CA is durable and ensures optimum use and is a low power consumption device. Due to their small size, they can be installed anywhere, they are wireless, so they take up very little space.
 
 hardwareVersions:
