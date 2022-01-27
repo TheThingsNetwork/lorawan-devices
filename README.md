@@ -24,9 +24,9 @@ One of the operating systems:
 
 Development dependencies:
 
-- Node.js version 14.x
-- npm version 6.x
-- Go version 1.15.x
+- Node.js version 16.x
+- npm version 8.x
+- Go version 1.17.x
 
 To check your Node.js, npm and Go versions:
 
