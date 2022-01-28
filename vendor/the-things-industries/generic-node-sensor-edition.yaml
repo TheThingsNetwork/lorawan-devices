@@ -13,7 +13,7 @@ firmwareVersions:
       US902-928:
         id: generic-node-sensor-edition-915
         lorawanCertified: false
-      US915-928:
+      AU915-928:
         id: generic-node-sensor-edition-915
         lorawanCertified: false
 sensors:
