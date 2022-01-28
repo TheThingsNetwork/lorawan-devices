@@ -1,4 +1,4 @@
-name: Wireless Light Sensor
+name: R311G - Wireless Light Sensor
 description: The Netvox R311G Wireless Light Sensor is a LoRaWAN® end device that consists of a built-in photosensitive sensor that can be used for detecting the surrounding illuminance. With two CR2450 coin-cell batteries, R311G provides low power consumption and longer battery life.
 
 hardwareVersions:

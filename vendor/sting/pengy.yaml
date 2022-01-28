@@ -1,5 +1,5 @@
 name: Pengy
-description: Air quality
+description: Device for monitoring of the air quality parameters like air temperature and relative humidity, atmospheric pressure, environmental noise and particulate matter mass concetration.
 
 hardwareVersions:
   - version: '1.0'
@@ -31,7 +31,14 @@ firmwareVersions:
         id: pengy-profile-eu868-abp
         lorawanCertified: false
         codec: pengy-codec
-
+  - version: '2.1'
+    hardwareVersions:
+      - '2.0'
+    profiles:
+      EU863-870:
+        id: pengy-profile-eu868-otaa
+        lorawanCertified: false
+        codec: pengy-codec
 sensors:
   - particulate matter
   - pm2.5

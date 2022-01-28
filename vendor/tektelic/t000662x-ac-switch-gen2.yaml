@@ -1,4 +1,4 @@
-name: Tektelic Smart AC Outlet and Switch
+name: Tektelic Smart AC Switch Generation 2
 description: Wireless Home / Office Automation driven by LoRaWAN
 
 # Hardware versions (optional, use when you have revisions)
@@ -30,6 +30,4 @@ operatingConditions:
 
 # Photos
 photos:
-  main: outlook.png
-  other:
-    - switch.png
+  main: smart-ac-switch.png

@@ -1,0 +1,91 @@
+name: Buzzon Button
+description: Wireless button for outdoor usage in public space
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.01'
+    numeric: 1
+#  - version: '1.0-rev-A'
+#    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - version: '1.02'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.01'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        #vendorID: jeng-iot
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: buzzon-profile-868
+        lorawanCertified: false
+        codec: buzzon-codec
+      # US902-928:
+      #   id: windsensor-profile
+      #   lorawanCertified: true
+      #   codec: windsensor-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 75
+  length: 132
+  height: 49
+
+# Weight in grams (optional)
+weight: 480
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -25
+    max: 60
+
+# IP rating (optional)
+ipCode: IP68
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://jeng.io/index.php/buzzon-lora-drukknop/
+dataSheetURL: https://jeng.io/download/Buzzon-brochure-v1.1-20210616.pdf
+
+# Photos
+photos:
+  main: buzzon.png
