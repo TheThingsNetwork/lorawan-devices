@@ -1,0 +1,68 @@
+uplinkDecoder:
+  fileName: aqs.js
+  examples:
+    - description: Valve On
+      input:
+        fPort: 10
+        bytes: [07, 0xff]
+      output:
+        data:
+          valve: 255
+    - description: Valve Off
+      input:
+        fPort: 10
+        bytes: [07, 00]
+      output:
+        data:
+          valve: 0
+    - description: Hardware version
+      input:
+        fPort: 10
+        bytes: [03, 01, 0x12, 0x34]
+      output:
+        data:
+          hw_version: 01
+          capabilities: 0x1234
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [1, 42]
+      output:
+        errors:
+          - invalid FPort
+
+downlinkEncoder:
+  fileName: aqs.js
+  examples:
+    - description: Turn Valve on
+      input:
+        data:
+          cmd: set valve on
+      output:
+        bytes: [7, 255]
+        fPort: 10
+    - description: Turn Valve off
+      input:
+        data:
+          cmd: set valve off
+      output:
+        bytes: [7, 0]
+        fPort: 10
+
+downlinkDecoder:
+  fileName: aqs.js
+  examples:
+    - description: Turn Valve on
+      input:
+        fPort: 10
+        bytes: [7, 255]
+      output:
+        data:
+          cmd: set valve on
+    - description: Turn Valve off
+      input:
+        fPort: 10
+        bytes: [7, 0]
+      output:
+        data:
+          cmd: set valve off
