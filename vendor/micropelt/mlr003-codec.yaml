@@ -4,7 +4,61 @@ uplinkDecoder:
   fileName: mlr003.js
   # Examples (optional)
   examples:
-    - description: Example 1
+    - description: REV1.1 Example 1
+      input:
+        fPort: 1
+        bytes: [0x3A, 0xCA, 0xD4, 0xF3, 0xA1, 0x21, 0x8B, 0x03, 0xEB, 0x50, 0x3A]
+      output:
+        data:
+          Current_Valve_Position: 58
+          Flow_Sensor_Raw: 101.00
+          Flow_Temperature: 106.00
+          Ambient_Sensor_Raw: 60.75
+          Ambient_Temperature: 40.25
+          Energy_Storage: 0
+          Harvesting_Active: 1
+          Ambient_Sensor_Failure: 0
+          Flow_Sensor_Failure: 0
+          Radio_Communication_Error: 0
+          Received_Signal_Strength: 0
+          Motor_Error: 1
+          Storage_Voltage: 2.78
+          Average_Current_Consumed: 30
+          Average_Current_Generated: 2350
+          Reference_Completed: 1
+          Operating_Mode: 0
+          Storage_Fully_Charged: 1
+          User_Mode: 0
+          User_Value: 58
+
+    - description: REV1.1 Example 2
+      input:
+        fPort: 1
+        bytes: [0x47, 0x19, 0x1B, 0x3C, 0x3C, 0x06, 0x75, 0x7B, 0x15, 0x01, 0x25]
+      output:
+        data:
+          Current_Valve_Position: 71
+          Flow_Sensor_Raw: 12.50
+          Flow_Temperature: 13.50
+          Ambient_Sensor_Raw: 15.00
+          Ambient_Temperature: 15.00
+          Energy_Storage: 0
+          Harvesting_Active: 0
+          Ambient_Sensor_Failure: 0
+          Flow_Sensor_Failure: 0
+          Radio_Communication_Error: 1
+          Received_Signal_Strength: 1
+          Motor_Error: 0
+          Storage_Voltage: 2.34
+          Average_Current_Consumed: 1230
+          Average_Current_Generated: 210
+          Reference_Completed: 0
+          Operating_Mode: 0
+          Storage_Fully_Charged: 0
+          User_Mode: 1
+          User_Value: 18.5
+
+    - description: REV1.0 Example 3
       input:
         fPort: 1
         bytes: [0x00, 0x3E, 0x42, 0x73, 0x60, 0x20, 0x87, 0x01, 0x02, 0x10]
@@ -29,7 +83,7 @@ uplinkDecoder:
           Operating_Mode: 0
           Storage_Fully_Charged: 0
 
-    - description: Example 2
+    - description: REV1.0 Example 4
       input:
         fPort: 1
         bytes: [0x64, 0x28, 0x2C, 0x4F, 0x4D, 0x00, 0x85, 0x01, 0x00, 0x10]
