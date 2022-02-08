@@ -2,8 +2,5 @@
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - bvs # ball valve servo
-  - wwd # water sensor
-  - aqs # aquascope monitor
-  - kfr # gate valve servo
-
+  - iot4-868-th
+  - iot4-868-thmove

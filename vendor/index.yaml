@@ -1780,3 +1780,6 @@ vendors:
   - id: kuleuven-dramco
     name: KU Leuven Dramco
     website: https://dramco.be/
+
+  - id: iot4eu
+    name: IOT4 Ltd
