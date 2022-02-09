@@ -1777,5 +1777,9 @@ vendors:
       linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
       twitter: S_L_S
 
+  - id: kuleuven-dramco
+    name: KU Leuven Dramco
+    website: https://dramco.be/
+
   - id: iot4eu
     name: IOT4 Ltd
