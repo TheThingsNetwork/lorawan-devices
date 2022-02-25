@@ -1,5 +1,2 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - iotracker3 # look in iotracker3.yaml for the end device definition
+  - iotracker3

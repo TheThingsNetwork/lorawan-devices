@@ -1,17 +1,11 @@
 "use strict";
 
 /* eslint no-bitwise: ["error", { "allow": ["&", "<<", ">>", "|"] }] */
-
 /* eslint no-plusplus: "off" */
 
-/**
- * Decode payload
- * @param bytes Buffer
- * @returns Object
- */
-function decodeUplink(bytes) {
-  // Decoded result
-  var decoded = {}; // Pointer/index within the byte stream
+function Decoder(bytes) {
+
+  var decoded = {};
 
   var index = 0;
 
@@ -24,7 +18,7 @@ function decodeUplink(bytes) {
     var x = (byte1 & 0xFF) << 8 | byte2 & 0xFF;
 
     if (sign) {
-      return 0xFFFF0000 | x; // fill in most significant bits with 1's
+      return 0xFFFF0000 | x;
     }
 
     return x;
@@ -39,19 +33,17 @@ function decodeUplink(bytes) {
   }
 
   function substring(source, offset, length) {
-    // let buffer = Buffer.from(bytes, offset, length);
+
     var buffer = Buffer.alloc(length);
     source.copy(buffer, 0, offset, offset + length);
     return buffer.toString('hex');
-  } // parser for slotInfo 0x00
-
-
+  }
   function parseBluetoothBeacons00() {
     var beaconStatus = bytes[index++];
     var beaconType = beaconStatus & 0x03;
     var rssiRaw = beaconStatus >> 2;
     var rssi = 27 - rssiRaw * 2;
-    var beacon;
+    var beacon = void 0;
 
     switch (beaconType) {
       case 0x00:
@@ -97,17 +89,15 @@ function decodeUplink(bytes) {
         return beacon;
 
       default:
-        throw new Error('Invalid beacon type');
+        return null;
     }
-  } // parser for slotInfo 0x01
-
-
+  }
   function parseBluetoothBeacons01() {
     var beaconStatus = bytes[index++];
     var beaconType = beaconStatus & 0x03;
     var rssiRaw = beaconStatus >> 2;
     var rssi = 27 - rssiRaw * 2;
-    var beacon;
+    var beacon = void 0;
 
     switch (beaconType) {
       case 0x00:
@@ -154,18 +144,16 @@ function decodeUplink(bytes) {
         return beacon;
 
       default:
-        throw new Error('Invalid beacon type');
+        return null;
     }
-  } // parser for slotInfo 0x02
-
-
+  }
   function parseBluetoothBeacons02() {
     var beaconStatus = bytes[index++];
     var beaconType = beaconStatus & 0x03;
     var slotMatch = beaconStatus >> 2 & 0x07;
     var rssiRaw = bytes[index++] & 63;
     var rssi = 27 - rssiRaw * 2;
-    var beacon;
+    var beacon = void 0;
 
     switch (beaconType) {
       case 0x00:
@@ -212,10 +200,9 @@ function decodeUplink(bytes) {
         return beacon;
 
       default:
-        throw new Error('Invalid beacon type');
+        return null;
     }
-  } // Read header byte
-
+  }
 
   var headerByte = bytes[index++];
   decoded.uplinkReasonButton = !!(headerByte & 1);
@@ -235,6 +222,8 @@ function decodeUplink(bytes) {
       containsAccelerometerCurrent: !!(sensorContent & 4),
       containsAccelerometerMax: !!(sensorContent & 8),
       containsWifiPositioningData: !!(sensorContent & 16),
+      buttonEventInfo: !!(sensorContent & 32),
+      containsExternalSensors: !!(sensorContent & 64),
       containsBluetoothData: false
     };
     var hasSecondSensorContent = !!(sensorContent & 128);
@@ -242,6 +231,9 @@ function decodeUplink(bytes) {
     if (hasSecondSensorContent) {
       var sensorContent2 = bytes[index++];
       decoded.sensorContent.containsBluetoothData = !!(sensorContent2 & 1);
+      decoded.sensorContent.containsRelativeHumidity = !!(sensorContent2 & 2);
+      decoded.sensorContent.containsAirPressure = !!(sensorContent2 & 4);
+      decoded.sensorContent.containsManDown = !!(sensorContent2 & 8);
     }
 
     if (decoded.sensorContent.containsTemperature) {
@@ -269,11 +261,11 @@ function decodeUplink(bytes) {
 
     if (decoded.sensorContent.containsWifiPositioningData) {
       var wifiInfo = bytes[index++];
-      var numAccessPoints = wifiInfo & 7; // const wifiStatus = (wifiInfo >> 3) & 0x03;
+      var numAccessPoints = wifiInfo & 7;
 
       var wifiStatus = ((wifiInfo & 8) >> 2) + ((wifiInfo & 16) >> 3);
       var containsSignalStrength = wifiInfo & 32;
-      var wifiStatusDescription;
+      var wifiStatusDescription = void 0;
 
       switch (wifiStatus) {
         case 0:
@@ -289,7 +281,7 @@ function decodeUplink(bytes) {
           break;
 
         default:
-          wifiStatusDescription = "unknown (".concat(wifiStatus, ")");
+          wifiStatusDescription = "unknown (" + wifiStatus + ")";
       }
 
       decoded.wifiInfo = {
@@ -303,7 +295,7 @@ function decodeUplink(bytes) {
         var signalStrength = void 0;
 
         if (containsSignalStrength) {
-          signalStrength = toSignedChar(bytes[index++]); // to signed
+          signalStrength = toSignedChar(bytes[index++]);
         } else {
           signalStrength = null;
         }
@@ -315,12 +307,33 @@ function decodeUplink(bytes) {
       }
     }
 
+    if (decoded.sensorContent.containsExternalSensors) {
+      var type = bytes[index++];
+
+      switch (type) {
+        case 0x0A:
+          decoded.externalSensor = {
+            type: 'battery',
+            batteryA: toUnsignedShort(bytes[index++], bytes[index++]),
+            batteryB: toUnsignedShort(bytes[index++], bytes[index++])
+          };
+          break;
+
+        case 0x65:
+          decoded.externalSensor = {
+            type: 'detectSwitch',
+            value: bytes[index++]
+          };
+          break;
+      }
+    }
+
     if (decoded.sensorContent.containsBluetoothData) {
       var bluetoothInfo = bytes[index++];
       var numBeacons = bluetoothInfo & 7;
       var bluetoothStatus = bluetoothInfo >> 3 & 0x03;
       var addSlotInfo = bluetoothInfo >> 5 & 0x03;
-      var bluetoothStatusDescription;
+      var bluetoothStatusDescription = void 0;
 
       switch (bluetoothStatus) {
         case 0:
@@ -336,7 +349,7 @@ function decodeUplink(bytes) {
           break;
 
         default:
-          bluetoothStatusDescription = "unknown (".concat(bluetoothStatus, ")");
+          bluetoothStatusDescription = "unknown (" + bluetoothStatus + ")";
       }
 
       decoded.bluetoothInfo = {
@@ -346,24 +359,41 @@ function decodeUplink(bytes) {
         beacons: []
       };
 
+
       for (var _i = 0; _i < numBeacons; _i++) {
+        var beacon;
         switch (addSlotInfo) {
           case 0x00:
-            decoded.bluetoothInfo.beacons.push(parseBluetoothBeacons00());
+            beacon = parseBluetoothBeacons00();
             break;
 
           case 0x01:
-            decoded.bluetoothInfo.beacons.push(parseBluetoothBeacons01());
+            beacon = parseBluetoothBeacons01();
             break;
 
           case 0x02:
-            decoded.bluetoothInfo.beacons.push(parseBluetoothBeacons02());
+            beacon = parseBluetoothBeacons02();
             break;
 
           default:
-            throw new Error('Invalid addSlotInfo type');
+            return {errors: ['Invalid addSlotInfo type']};
+
         }
+        if (beacon === null) {
+          return {errors: ['Invalid beacon type']};
+        }
+
+        decoded.bluetoothInfo.beacons.push(beacon);
       }
+    }
+
+    if (decoded.sensorContent.containsRelativeHumidity) {
+      decoded.relativeHumidity = toUnsignedShort(bytes[index++], bytes[index++]) / 100;
+    }
+
+    if (decoded.sensorContent.containsAirPressure) {
+
+      decoded.airPressure = (bytes[index++] << 16) + (bytes[index++] << 8) + bytes[index++];
     }
   }
 
@@ -379,6 +409,34 @@ function decodeUplink(bytes) {
     decoded.gps.cog = toUnsignedShort(bytes[index++], bytes[index++]) / 10;
     decoded.gps.hdop = bytes[index++] / 10;
     decoded.gps.numSvs = bytes[index++];
+  }
+
+  if (decoded.sensorContent.containsManDown) {
+    var manDownData = (bytes[index++]);
+    var manDownState = (manDownData & 0x0f)
+    var manDownStateLabel;
+    switch(manDownState) {
+      case 0x00:
+        manDownStateLabel = 'ok';
+        break;
+      case 0x01:
+        manDownStateLabel = 'sleeping';
+        break;
+      case 0x02:
+        manDownStateLabel = 'preAlarm';
+        break;
+      case 0x03:
+        manDownStateLabel = 'alarm';
+        break;
+      default:
+        manDownStateLabel = manDownState+'';
+        break;
+    }
+    decoded.manDown = {
+      state: manDownStateLabel,
+      positionAlarm: !!(manDownData & 0x10),
+      movementAlarm: !!(manDownData & 0x20)
+    }
   }
 
   return decoded;
