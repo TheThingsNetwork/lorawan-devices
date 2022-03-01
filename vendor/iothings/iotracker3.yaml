@@ -34,9 +34,6 @@ sensors:
 additionalRadios:
   - wifi
   - ble
-additionalRadios:
-  - wifi
-  - ble
 dimensions:
   width: 57.4
   length: 33.4
