@@ -312,6 +312,14 @@ vendors:
     name: Invoxia
     vendorID: 211
 
+  - id: iothings
+    name: ioThings
+    website: https://iothings.nl
+    logo: iothings-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/iotracker
+      github: iotracker
+
   - id: last-mile
     name: Last Mile Solutions AS
     vendorID: 212
