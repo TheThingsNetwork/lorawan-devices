@@ -1496,7 +1496,7 @@ if (typeof Object.assign !== 'function') {
                 nextSource = arguments[index];
 
                 if (nextSource !== null && nextSource !== undefined) {
-                    for (var nvxtKey in nextSource) {
+                    for (var nextKey in nextSource) {
                         // Avoid bugs when hasOwnProperty is shadowed
                         if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
                             to[nextKey] = nextSource[nextKey];
