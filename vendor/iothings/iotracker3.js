@@ -395,13 +395,52 @@ function Decoder(bytes) {
 
       decoded.airPressure = (bytes[index++] << 16) + (bytes[index++] << 8) + bytes[index++];
     }
+
+    if (decoded.sensorContent.containsManDown) {
+      var manDownData = (bytes[index++]);
+      var manDownState = (manDownData & 0x0f);
+      var manDownStateLabel;
+      switch(manDownState) {
+        case 0x00:
+          manDownStateLabel = 'ok';
+          break;
+        case 0x01:
+          manDownStateLabel = 'sleeping';
+          break;
+        case 0x02:
+          manDownStateLabel = 'preAlarm';
+          break;
+        case 0x03:
+          manDownStateLabel = 'alarm';
+          break;
+        default:
+          manDownStateLabel = manDownState+'';
+          break;
+      }
+      decoded.manDown = {
+        state: manDownStateLabel,
+        positionAlarm: !!(manDownData & 0x10),
+        movementAlarm: !!(manDownData & 0x20)
+      };
+    }
+
   }
 
   if (decoded.containsGps) {
     decoded.gps = {};
     decoded.gps.navStat = bytes[index++];
-    decoded.gps.latitude = toSignedInteger(bytes[index++], bytes[index++], bytes[index++], bytes[index++]) / 10000000;
-    decoded.gps.longitude = toSignedInteger(bytes[index++], bytes[index++], bytes[index++], bytes[index++]) / 10000000;
+    decoded.gps.latitude = toSignedInteger(
+      bytes[index++],
+      bytes[index++],
+      bytes[index++],
+      bytes[index++]
+    ) / 10000000;
+    decoded.gps.longitude = toSignedInteger(
+      bytes[index++],
+      bytes[index++],
+      bytes[index++],
+      bytes[index++]
+    ) / 10000000;
     decoded.gps.altRef = toUnsignedShort(bytes[index++], bytes[index++]) / 10;
     decoded.gps.hAcc = bytes[index++];
     decoded.gps.vAcc = bytes[index++];
@@ -411,33 +450,10 @@ function Decoder(bytes) {
     decoded.gps.numSvs = bytes[index++];
   }
 
-  if (decoded.sensorContent.containsManDown) {
-    var manDownData = (bytes[index++]);
-    var manDownState = (manDownData & 0x0f)
-    var manDownStateLabel;
-    switch(manDownState) {
-      case 0x00:
-        manDownStateLabel = 'ok';
-        break;
-      case 0x01:
-        manDownStateLabel = 'sleeping';
-        break;
-      case 0x02:
-        manDownStateLabel = 'preAlarm';
-        break;
-      case 0x03:
-        manDownStateLabel = 'alarm';
-        break;
-      default:
-        manDownStateLabel = manDownState+'';
-        break;
-    }
-    decoded.manDown = {
-      state: manDownStateLabel,
-      positionAlarm: !!(manDownData & 0x10),
-      movementAlarm: !!(manDownData & 0x20)
-    }
-  }
-
   return decoded;
-};
+}
+
+// Export function (for implementations and for testing)
+if (typeof module !== 'undefined' && module.exports !== null) {
+  module.exports = Decoder;
+}
