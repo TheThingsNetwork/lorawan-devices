@@ -15,7 +15,9 @@
     },
     "logo": {
       "allOf": [
-        { "$ref": "#/definitions/localFile" },
+        {
+          "$ref": "#/definitions/localFile"
+        },
         {
           "type": "string",
           "pattern": "\\.(png|svg)$"
@@ -24,7 +26,9 @@
     },
     "photo": {
       "allOf": [
-        { "$ref": "#/definitions/localFile" },
+        {
+          "$ref": "#/definitions/localFile"
+        },
         {
           "type": "string",
           "pattern": "\\.(png|jpg|jpeg)$"
@@ -64,7 +68,9 @@
       "description": "Vendor of a device",
       "type": "object",
       "properties": {
-        "id": { "$ref": "#/definitions/identifier" },
+        "id": {
+          "$ref": "#/definitions/identifier"
+        },
         "name": {
           "type": "string",
           "minLength": 1
@@ -125,7 +131,9 @@
           "type": "string",
           "format": "email"
         },
-        "logo": { "$ref": "#/definitions/logo" }
+        "logo": {
+          "$ref": "#/definitions/logo"
+        }
       },
       "required": ["id", "name"]
     },
@@ -178,7 +186,9 @@
       "properties": {
         "fileName": {
           "allOf": [
-            { "$ref": "#/definitions/localFile" },
+            {
+              "$ref": "#/definitions/localFile"
+            },
             {
               "type": "string",
               "pattern": "\\.js$"
@@ -298,10 +308,14 @@
             {
               "type": "object",
               "properties": {
-                "bytes": { "$ref": "#/definitions/frmPayload" },
+                "bytes": {
+                  "$ref": "#/definitions/frmPayload"
+                },
                 "fPort": {
                   "allOf": [
-                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "$ref": "#/definitions/fPort"
+                    },
                     {
                       "type": "integer",
                       "minimum": 1
@@ -323,6 +337,192 @@
               "properties": {
                 "data": {
                   "type": "object"
+                }
+              }
+            },
+            {
+              "if": {
+                "type": "object",
+                "properties": {
+                  "errors": {
+                    "type": "array",
+                    "maxItems": 0
+                  }
+                }
+              },
+              "then": {
+                "type": "object",
+                "required": ["data"]
+              }
+            }
+          ]
+        },
+        "normalizedPayload": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "type": "array",
+                  "description": "An array of temperature measurements in degrees Celsius.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["temperature", "surface temperature"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "humidity": {
+                  "type": "array",
+                  "description": "An array of humidity measurements in percentage.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["humidity", "moisture"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "pressure": {
+                  "type": "array",
+                  "description": "An array of pressure measurements in hectopascals.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["barometer", "pressure", "vapor pressure"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "conductivity": {
+                  "type": "array",
+                  "description": "An array of conductivity measurements in microsiemens per centimetre.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["conductivity"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "pH": {
+                  "type": "array",
+                  "description": "An array of pH measurements in the pH scale.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 14
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["ph"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "time": {
+                  "type": "array",
+                  "description": "An array of time measurements in seconds.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["time"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "direction": {
+                  "type": "array",
+                  "description": "An array of direction measurements in degrees.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 360
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["wind direction"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "velocity": {
+                  "type": "array",
+                  "description": "An array of velocity measurements in metres per second.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["velocity", "wind speed"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
+                },
+                "length": {
+                  "type": "array",
+                  "description": "An array of length measurements in metres.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "sensor": {
+                        "type": "string",
+                        "enum": ["altitude", "distance"]
+                      }
+                    },
+                    "required": ["value", "sensor"]
+                  }
                 }
               }
             },
@@ -367,10 +567,14 @@
             {
               "type": "object",
               "properties": {
-                "bytes": { "$ref": "#/definitions/frmPayload" },
+                "bytes": {
+                  "$ref": "#/definitions/frmPayload"
+                },
                 "fPort": {
                   "allOf": [
-                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "$ref": "#/definitions/fPort"
+                    },
                     {
                       "type": "integer",
                       "minimum": 1
@@ -400,7 +604,9 @@
       "properties": {
         "uplinkDecoder": {
           "allOf": [
-            { "$ref": "#/definitions/script" },
+            {
+              "$ref": "#/definitions/script"
+            },
             {
               "type": "object",
               "properties": {
@@ -422,9 +628,37 @@
             }
           ]
         },
+        "uplinkNormalizer": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/script"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "examples": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "input": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
+                      },
+                      "output": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/normalizedPayload"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
         "downlinkEncoder": {
           "allOf": [
-            { "$ref": "#/definitions/script" },
+            {
+              "$ref": "#/definitions/script"
+            },
             {
               "type": "object",
               "properties": {
@@ -448,7 +682,9 @@
         },
         "downlinkDecoder": {
           "allOf": [
-            { "$ref": "#/definitions/script" },
+            {
+              "$ref": "#/definitions/script"
+            },
             {
               "type": "object",
               "properties": {
@@ -837,16 +1073,22 @@
               },
               "profiles": {
                 "type": "object",
-                "propertyNames": { "$ref": "#/definitions/region" },
+                "propertyNames": {
+                  "$ref": "#/definitions/region"
+                },
                 "patternProperties": {
                   "": {
                     "type": "object",
                     "properties": {
-                      "id": { "$ref": "#/definitions/identifier" },
+                      "id": {
+                        "$ref": "#/definitions/identifier"
+                      },
                       "lorawanCertified": {
                         "type": "boolean"
                       },
-                      "codec": { "$ref": "#/definitions/identifier" }
+                      "codec": {
+                        "$ref": "#/definitions/identifier"
+                      }
                     },
                     "required": ["id"]
                   }
@@ -1154,10 +1396,14 @@
         "photos": {
           "type": "object",
           "properties": {
-            "main": { "$ref": "#/definitions/photo" },
+            "main": {
+              "$ref": "#/definitions/photo"
+            },
             "other": {
               "type": "array",
-              "items": { "$ref": "#/definitions/photo" }
+              "items": {
+                "$ref": "#/definitions/photo"
+              }
             }
           },
           "required": ["main"]
@@ -1165,18 +1411,26 @@
         "videos": {
           "type": "object",
           "properties": {
-            "main": { "$ref": "#/definitions/video" },
+            "main": {
+              "$ref": "#/definitions/video"
+            },
             "other": {
               "type": "array",
-              "items": { "$ref": "#/definitions/video" }
+              "items": {
+                "$ref": "#/definitions/video"
+              }
             }
           }
         },
         "compliances": {
           "type": "object",
           "properties": {
-            "safety": { "$ref": "#/definitions/compliances" },
-            "radioEquipment": { "$ref": "#/definitions/compliances" }
+            "safety": {
+              "$ref": "#/definitions/compliances"
+            },
+            "radioEquipment": {
+              "$ref": "#/definitions/compliances"
+            }
           }
         }
       },
@@ -1184,9 +1438,17 @@
     }
   },
   "anyOf": [
-    { "$ref": "#/definitions/vendor" },
-    { "$ref": "#/definitions/endDeviceProfile" },
-    { "$ref": "#/definitions/endDevicePayloadCodec" },
-    { "$ref": "#/definitions/endDevice" }
+    {
+      "$ref": "#/definitions/vendor"
+    },
+    {
+      "$ref": "#/definitions/endDeviceProfile"
+    },
+    {
+      "$ref": "#/definitions/endDevicePayloadCodec"
+    },
+    {
+      "$ref": "#/definitions/endDevice"
+    }
   ]
 }
