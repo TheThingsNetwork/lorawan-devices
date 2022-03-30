@@ -1,0 +1,27 @@
+uplinkDecoder:
+  fileName: trashbin-sensor.js
+  examples:
+    - description: Temperature
+      input:
+        fPort: 2
+        bytes: [0]
+      output:
+        data:
+          type: temperature
+          occupied: true
+    - description: voltage
+      input:
+        fPort: 2
+        bytes: [2]
+      output:
+        data:
+          type: voltage
+          occupied: true
+    - description: Level
+      input:
+        fPort: 2
+        bytes: [4]
+      output:
+        data:
+          type: level
+          occupied: true
