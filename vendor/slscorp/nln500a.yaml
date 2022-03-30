@@ -1,0 +1,69 @@
+name: NLN500A
+description: The NebuLink Node NLN500a is the First and Smallest STM32WL Based LoRa Module. It is built on the STM32WL SoC which has an Embedded LoRaWAN Transceiver for a wide range of Smart Applications. It offers long-range, low-power, and secure data transmission for M2M and IoT applications. This Module is designed to be extremely low-power and is based on the high-performance STM32WLE5JC Arm® Cortex®-M4 32-bit RISC core operating at a frequency of up to 48 MHz. This core implements a full set of DSP instructions and an independent memory protection unit (MPU) that enhances the application security.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: 'LoRaWAN_End_Node v1.0.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: nln500a-profile-eu868
+      US902-928:
+        id: nln500a-profile-us915
+      IN865-867:
+        id: nln500a-profile-in865
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 32.6
+  length: 16.0
+  height: 3.5
+
+# Weight in grams (optional)
+weight: 18
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: 75
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: http://www.slscorp.com/download/marcom/nebulink_modules/br_pnln500a.pdf
+dataSheetURL: http://www.slscorp.com/download/marcom/nebulink_modules/NLN500a_Module_Datasheet.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'Nebulae'
+    region: [India, European Union, United States]
+    url: https://www.nebulae.io/Home/IoTMarketPlace
+
+# Photos
+photos:
+  main: nln500a-main.png
+
+# Regulatory compliances (optional)
+compliances:
+  radioEquipment:
+    - body: WPC
+      norm: IN
+      standard: ETA
