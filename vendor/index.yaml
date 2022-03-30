@@ -1791,3 +1791,8 @@ vendors:
 
   - id: iot4eu
     name: IOT4 Ltd
+
+  - id: move-x
+    name: Move-X
+    logo: move-x.svg
+    website: https://move-x.it/
