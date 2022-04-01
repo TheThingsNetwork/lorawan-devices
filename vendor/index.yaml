@@ -209,7 +209,7 @@ vendors:
     vendorID: 128
 
   - id: elsys
-    name: ElektronikSystem i Ume
+    name: Elsys
     vendorID: 132
     website: https://www.elsys.se/en/
 
@@ -1691,7 +1691,7 @@ vendors:
     website: https://www.innotas-elektronik.de/en-gb
 
   - id: elsys
-    name: ElektronikSystem i Ume
+    name: Elsys
     website: https://www.elsys.se/en/
 
   - id: xignal
