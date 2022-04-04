@@ -1,0 +1,62 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: busylight.js
+  # Examples (optional)
+  examples:
+    - description: Ontime 10
+      input:
+        fPort: 15
+        bytes: [208, 255, 255, 255, 30, 0, 0, 0, 8, 0, 0, 0, 6, 0, 0, 0, 0, 0, 255, 255, 0, 41, 12, 1]
+      output:
+        data:
+          RSSI: -48
+          SNR: 30
+          adr_state: 1
+          hw_rev: 12
+          lastcolor_blue: 0
+          lastcolor_green: 255
+          lastcolor_offtime: 0
+          lastcolor_ontime: 255
+          lastcolor_red: 0
+          messages_received: 8
+          messages_send: 6
+          sw_rev: 41
+        errors: []
+        warnings: []
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: busylight.js
+  examples:
+    - description: Turn green
+      input:
+        data:
+          red: 0
+          blue: 0
+          green: 255
+          ontime: 255
+          offtime: 0
+      output:
+        bytes: [0, 0, 255, 255, 0]
+        errors: []
+        fPort: 15
+        warnings: []
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: busylight.js
+  examples:
+    - description: Turn green
+      input:
+        fPort: 15
+        bytes: [0, 0, 255, 255, 0]
+      output:
+        data:
+          blue: 0
+          green: 255
+          offtime: 0
+          ontime: 255
+          red: 0
+        errors: []
+        warnings: []

@@ -1,6 +1,6 @@
-# LoRaWAN Device Repository
+# Device Repository for LoRaWAN
 
-The LoRaWAN Device Repository contains information about LoRaWAN end devices. The Device Repository acts as key data source for device catalogs and onboarding devices on LoRaWAN networks.
+The Device Repository contains information about LoRaWAN end devices. The Device Repository acts as key data source for device catalogs and onboarding devices on LoRaWAN networks.
 
 This repository is a collaborative effort, driven by The Things Network community. We welcome device makers to contribute information about their end devices to help users find and onboard their devices.
 
@@ -24,9 +24,9 @@ One of the operating systems:
 
 Development dependencies:
 
-- Node.js version 14.x
-- npm version 6.x
-- Go version 1.15.x
+- Node.js version 16.x
+- npm version 8.x
+- Go version 1.17.x
 
 To check your Node.js, npm and Go versions:
 

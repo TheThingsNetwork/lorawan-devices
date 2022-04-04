@@ -62,7 +62,14 @@ function decodeUplink(input) {
 			};
 		}
 		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;
+		if (input.bytes[3] & 0x80)
+		{
+			var tmp_v = input.bytes[3] & 0x7F;
+			data.Volt = (tmp_v / 10).toString() + '(low battery)';
+		}
+		else
+			data.Volt = input.bytes[3]/10;
+		
 		data.OnOff = input.bytes[4];
 		
 		break;

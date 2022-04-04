@@ -21,12 +21,12 @@
     <div class="item-12">
       <div class="device-single__cta">
         {{ with (index .Params.resellerURLs 0) }}
-            <a href="{{ .url }}" class="ttui-btn btn-primary">Buy Device</a>
+            <a href="{{ .url }}" class="ttui-btn ttui-btn--primary">Buy Device</a>
         {{ end }}
         {{with .Params.producturl}}
-          <a href="{{ . }}" class="ttui-btn btn-primary">Partner Webpage</a>
+          <a href="{{ . }}" class="ttui-btn ttui-btn--primary">Partner Webpage</a>
         {{ end }}
-        <button class="ttui-btn btn-primary" id="partner-toggle">Contact Partner</button>
+        <button class="ttui-btn ttui-btn--primary" id="partner-toggle">Contact Partner</button>
       </div>
     </div>
     <div class="item-12">
@@ -89,7 +89,7 @@
           </div>
           <div class="item-12">
             <input type="hidden" id="url" name="url" value="{{ .Page.Permalink }}" />
-            <button class="ttui-btn btn-primary" type="submit">Send</button>
+            <button class="ttui-btn ttui-btn--primary" type="submit">Send</button>
           </div>
         </div>
       </form>
