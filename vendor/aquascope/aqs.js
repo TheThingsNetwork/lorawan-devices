@@ -1,6 +1,6 @@
 function decodeUplink(input) {
   switch (input.fPort) {
-      case 10:
+      case 1:
         bytes = input.bytes;
         var data = {};
         for (i=0 ; i<bytes.length; i++) {
@@ -139,62 +139,62 @@ function encodeDownlink(input) {
   switch (String(cmd)) {
     case "reset":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x01, 0x01],
       };
     case "factory default":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x01, 0x02],
       };
     case "pipecheck start":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x01, 0x03],
       };
     case "get sensor":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x06, input.data.sensor],
       };
     case "set valve on":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x07, 0xff],
       };
     case "set valve off":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x07, 0x00],
       };
     case "clear alarm":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x0b, 0x00],
       };
     case "get valve":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x17],
       };
     case "get hw":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x03],
       };
     case "get fw":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x1a],
       };
     case "get config":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x14, input.data.parameter],
       };
     case "set config":
       return {
-        fPort: 10,
+        fPort: 1,
         bytes: [0x04, input.data.parameter, (input.data.value>>8) & 0xff, input.data.value & 0xff],
       };
   }
@@ -203,7 +203,7 @@ function encodeDownlink(input) {
 function decodeDownlink(input) {
   bytes = input.bytes;
   data = {};
-  if (input.fPort != 10)
+  if (input.fPort != 1)
     return {
         errors: ['invalid FPort'],
     };
