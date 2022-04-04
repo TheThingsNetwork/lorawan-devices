@@ -5,7 +5,6 @@ description: A visual indicator for status, cues & notification
 hardwareVersions:
   - version: '1.2'
     numeric: 12
- 
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -39,7 +38,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: busylight-codec
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -72,11 +70,11 @@ weight: 28
 
 # Operating conditions (optional)
 #operatingConditions:
-  # Temperature (Celcius)
+# Temperature (Celcius)
 #  temperature:
 #    min: -30
 #    max: 85
-  # Relative humidity (fraction of 1)
+# Relative humidity (fraction of 1)
 #  relativeHumidity:
 #    min: 0
 #    max: 0.97

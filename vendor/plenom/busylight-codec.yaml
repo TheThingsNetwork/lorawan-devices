@@ -7,7 +7,7 @@ uplinkDecoder:
     - description: Ontime 10
       input:
         fPort: 15
-        bytes: [208,255,255,255,30,0,0,0,8,0,0,0,6,0,0,0,0,0,255,255,0,41,12,1]
+        bytes: [208, 255, 255, 255, 30, 0, 0, 0, 8, 0, 0, 0, 6, 0, 0, 0, 0, 0, 255, 255, 0, 41, 12, 1]
       output:
         data:
           RSSI: -48
@@ -24,8 +24,7 @@ uplinkDecoder:
           sw_rev: 41
         errors: []
         warnings: []
- 
- 
+
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
   fileName: busylight.js
@@ -39,7 +38,7 @@ downlinkEncoder:
           ontime: 255
           offtime: 0
       output:
-        bytes: [0,0,255,255,0]
+        bytes: [0, 0, 255, 255, 0]
         errors: []
         fPort: 15
         warnings: []
@@ -51,7 +50,7 @@ downlinkDecoder:
     - description: Turn green
       input:
         fPort: 15
-        bytes: [0,0,255,255,0]
+        bytes: [0, 0, 255, 255, 0]
       output:
         data:
           blue: 0
