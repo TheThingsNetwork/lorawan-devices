@@ -312,6 +312,14 @@ vendors:
     name: Invoxia
     vendorID: 211
 
+  - id: iothings
+    name: ioThings
+    website: https://iothings.nl
+    logo: iothings-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/iotracker
+      github: iotracker
+
   - id: last-mile
     name: Last Mile Solutions AS
     vendorID: 212
@@ -1783,3 +1791,12 @@ vendors:
 
   - id: iot4eu
     name: IOT4 Ltd
+
+  - id: move-x
+    name: Move-X
+    logo: move-x.svg
+    website: https://move-x.it/
+
+  - id: plenom
+    name: Plenom A/S
+    website: https://www.plenom.com
