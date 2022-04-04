@@ -32,7 +32,7 @@ firmwareVersions:
         # which is verbose.
         vendorID: noah
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: trashbin-sensor
+        id: trashbin-sensor-profile
 
 # Sensors that this device features (optional)
 # Valid values are:
