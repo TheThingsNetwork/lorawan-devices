@@ -1,0 +1,5 @@
+# Plenom's device list
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - busylight # look in windsensor.yaml for the end device definition
