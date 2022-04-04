@@ -26,14 +26,14 @@ uplinkDecoder:
         bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b, 0x22]
       output:
         errors:
-          - "Unknown FPort: please use fPort 1"
+          - 'Unknown FPort: please use fPort 1'
     - description: Wrong format of input bytes
       input:
         fPort: 1
         bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b]
       output:
         errors:
-          - "Invalid uplink payload: length is not 8 byte"
+          - 'Invalid uplink payload: length is not 8 byte'
 
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:

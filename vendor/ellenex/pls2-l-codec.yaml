@@ -25,14 +25,14 @@ uplinkDecoder:
         bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b, 0x22]
       output:
         errors:
-          - "Unknown FPort: please use fPort 1"
+          - 'Unknown FPort: please use fPort 1'
     - description: Wrong format of input bytes
       input:
         fPort: 1
         bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b]
       output:
         errors:
-          - "Invalid uplink payload: length is not 8 byte"
+          - 'Invalid uplink payload: length is not 8 byte'
 
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
@@ -42,47 +42,47 @@ downlinkEncoder:
       input:
         command: 1
         data:
-          unit: "minute"
+          unit: 'minute'
           time: 180
       output:
-        bytes: [0x10, 0x01, 0x00, 0xB4] 
+        bytes: [0x10, 0x01, 0x00, 0xB4]
         fPort: 5
     - description: Change sampling rate - sample every 180 seconds (3mins)
       input:
         command: 1
         data:
-          unit: "second"
+          unit: 'second'
           time: 180
       output:
-        bytes: [0x10, 0x00, 0x00, 0xB4] 
+        bytes: [0x10, 0x00, 0x00, 0xB4]
         fPort: 5
     - description: Change sampling rate - wrong time unit
       input:
         command: 1
         data:
-          unit: "seconds"
+          unit: 'seconds'
           time: 59
       output:
         errors:
-          - "Invalid time unit: must be either \"minute\" or \"second\""
+          - 'Invalid time unit: must be either "minute" or "second"'
     - description: Change sampling rate - shorter than minimum interval in minutes
       input:
         command: 1
         data:
-          unit: "minute"
+          unit: 'minute'
           time: 0.6
       output:
         errors:
-          - "Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)"
+          - 'Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)'
     - description: Change sampling rate - shorter than minimum interval in seconds
       input:
         command: 1
         data:
-          unit: "second"
+          unit: 'second'
           time: 59
       output:
         errors:
-          - "Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)"
+          - 'Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)'
     - description: Change sampling rate - non-string input for unit
       input:
         command: 1
@@ -91,16 +91,16 @@ downlinkEncoder:
           time: 59
       output:
         errors:
-          - "Missing required field or invalid input: unit"
+          - 'Missing required field or invalid input: unit'
     - description: Change sampling rate - non-numeric input for time
       input:
         command: 1
         data:
-          unit: "second"
-          time: "second"
+          unit: 'second'
+          time: 'second'
       output:
         errors:
-          - "Missing required field or invalid input: time"
+          - 'Missing required field or invalid input: time'
     - description: Change sampling rate - missing input for unit
       input:
         command: 1
@@ -108,15 +108,15 @@ downlinkEncoder:
           time: 180
       output:
         errors:
-          - "Missing required field or invalid input: unit"
+          - 'Missing required field or invalid input: unit'
     - description: Change sampling rate - missing input for time
       input:
         command: 1
         data:
-          unit: "second"
+          unit: 'second'
       output:
         errors:
-          - "Missing required field or invalid input: time"
+          - 'Missing required field or invalid input: time'
     - description: Enable confirmation
       input:
         command: 2
@@ -137,10 +137,10 @@ downlinkEncoder:
       input:
         command: 2
         data:
-          confirmation: "confirmation"
+          confirmation: 'confirmation'
       output:
         errors:
-          - "Missing required field or invalid input: confirmation"
+          - 'Missing required field or invalid input: confirmation'
     - description: Enable/Disable confirmation with missing confirmation input
       input:
         command: 2
@@ -148,7 +148,7 @@ downlinkEncoder:
           confirm: true
       output:
         errors:
-          - "Missing required field or invalid input: confirmation"
+          - 'Missing required field or invalid input: confirmation'
     - description: Reset device
       input:
         command: 3
@@ -164,23 +164,23 @@ downlinkEncoder:
           reset: false
       output:
         errors:
-          - "Missing required field or invalid input: reset"
+          - 'Missing required field or invalid input: reset'
     - description: Reset device with non-boolean value
       input:
         command: 3
         data:
-          reset: "reset"
+          reset: 'reset'
       output:
         errors:
-          - "Missing required field or invalid input: reset"
+          - 'Missing required field or invalid input: reset'
     - description: Reset device with missing reset input
       input:
         command: 3
         data:
-          confirmation: "reset"
+          confirmation: 'reset'
       output:
         errors:
-          - "Missing required field or invalid input: reset"
+          - 'Missing required field or invalid input: reset'
     - description: Change periodic auto-reset settings - device automatically reset after sending 3000 samples
       input:
         command: 4
@@ -201,10 +201,10 @@ downlinkEncoder:
       input:
         command: 4
         data:
-          count: "0"
+          count: '0'
       output:
         errors:
-          - "Missing required field or invalid input: count"
+          - 'Missing required field or invalid input: count'
     - description: Change periodic auto-reset settings - missing input
       input:
         command: 4
@@ -212,4 +212,4 @@ downlinkEncoder:
           confirmation: true
       output:
         errors:
-          - "Missing required field or invalid input: count"
+          - 'Missing required field or invalid input: count'
