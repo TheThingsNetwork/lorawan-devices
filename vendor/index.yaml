@@ -1690,10 +1690,6 @@ vendors:
     name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
 
-  #  - id: elsys
-  #    name: Elsys
-  #    website: https://www.elsys.se/en/
-
   - id: xignal
     name: Xignal
     website: https://www.xignal.com
