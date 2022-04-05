@@ -22,6 +22,16 @@ uplinkDecoder:
           Volt: 3
           OnOff: 1
 
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x02, 0x01, 0x97, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311A'
+          Volt: '2.3(low battery)'
+          OnOff: 1
+
     - description: Configure report response
       input:
         fPort: 7

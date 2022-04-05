@@ -129,11 +129,12 @@ function decodeUplink(input) {
   DR           = parseInt(radio.substr(1,3),2);
   SF           = parseInt(radio.substr(4,4),2);}
   if (conf_p == "11"){
-  unit1        = (msg1.substr(3,2)) == "80"? 1:0;
-  time1        = parseInt(msg1.substr(5,2),16);
-  unit2        = (msg1.substr(7,2)) == "80"? 1:0;
-  time2        = parseInt(msg1.substr(9,2),16);}
-  else{conf_s  = msg1.substr(3,2);}}
+    var ulfreqLe = msg1.length;
+    unit1        = (msg1.substr(ulfreqLe-8,2)) == "80"? 1:0;
+    time1        = parseInt(msg1.substr(ulfreqLe-6,2),16);
+    unit2        = (msg1.substr(ulfreqLe-4,2)) == "80"? 1:0;
+    time2        = parseInt(msg1.substr(ulfreqLe-2,2),16);}
+    else{conf_s  = msg1.substr(3,2);}}
     
   // Counter and Analog Ack frame
   if (v4_10 == "40"){
@@ -173,9 +174,9 @@ return("Wrong input.........");}}
 function ascii_to_hexa(str)
   {var arr1 = [];
    for (var n = 0, l = str.length; n < l; n ++) {
-	var hex = Number(str.charCodeAt(n)).toString(16);
-	arr1.push(hex);}
-	return arr1.join('');}
+  var hex = Number(str.charCodeAt(n)).toString(16);
+  arr1.push(hex);}
+  return arr1.join('');}
 
 function hex2bin(hex){
     return ("00000000" + (parseInt(hex, 16)).toString(2)).substr(-8);}
@@ -326,7 +327,18 @@ function encodeDownlink(input) {
   return {
      bytes: ne,
   }}
- 
+ // Time Controller open/close
+ if(port == 2) {
+  if (input.data.status == 20){ bytes[0] = 32;}
+  if (input.data.status == 21){ bytes[0] = 33;}
+  if (input.data.status == 40){ bytes[0] = 64;}
+  if (input.data.status == 41){ bytes[0] = 65;}
+  if (input.data.status == 80){ bytes[0] = 128;}
+  if (input.data.status == 81){ bytes[0] = 129;}
+  bytes[1] = input.data.time;
+   return {
+      bytes:bytes,
+   }}
  // Radio setting
   if (port == 10){
    var ADR   = dec_to_bho(input.data.ADR,'B');
