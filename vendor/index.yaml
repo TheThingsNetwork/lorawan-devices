@@ -209,7 +209,7 @@ vendors:
     vendorID: 128
 
   - id: elsys
-    name: ElektronikSystem i Ume
+    name: Elsys
     vendorID: 132
     website: https://www.elsys.se/en/
 
@@ -1690,10 +1690,6 @@ vendors:
     name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
 
-  - id: elsys
-    name: ElektronikSystem i Ume
-    website: https://www.elsys.se/en/
-
   - id: xignal
     name: Xignal
     website: https://www.xignal.com
@@ -1791,3 +1787,12 @@ vendors:
 
   - id: iot4eu
     name: IOT4 Ltd
+
+  - id: move-x
+    name: Move-X
+    logo: move-x.svg
+    website: https://move-x.it/
+
+  - id: plenom
+    name: Plenom A/S
+    website: https://www.plenom.com
