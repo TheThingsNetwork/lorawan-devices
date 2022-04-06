@@ -1,7 +1,7 @@
 # Vendor profile ID, can be freely issued by the vendor
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
-# vendorProfileID: 902
+#vendorProfileID: 0
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: 1.0.3
@@ -26,10 +26,10 @@ supportsJoin: true
 # RX2 frequency (MHz)
 #rx2Frequency: 869.525
 # Factory preset frequencies (MHz)
-#factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
+#factoryPresetFrequencies: [867.1, 867.3, 867.5, 867.7, 867.9]
 
 # Maximum EIRP
-maxEIRP: 30
+maxEIRP: 16
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true
 
@@ -46,7 +46,7 @@ supportsClassB: false
 #pingSlotFrequency: 869.525
 
 # Whether the end device supports class C
-supportsClassC: false
+supportsClassC: true
 # If your device supports class C, uncomment the following fields:
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
-#classCTimeout: 60
+classCTimeout: 3600
