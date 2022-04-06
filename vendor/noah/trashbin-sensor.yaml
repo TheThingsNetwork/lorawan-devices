@@ -32,7 +32,9 @@ firmwareVersions:
         # which is verbose.
         vendorID: noah
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: trashbin-sensor
+        id: trashbin-sensor-eu868
+        lorawanCertified: false
+        codec: trashbin-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -43,8 +45,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - fill level
-  - battery voltage
+  - distance
+  - battery
   - temperature
 
 # Additional radios that this device has (optional)
@@ -108,4 +110,4 @@ productURL: https://noah.tech
 
 # Photos
 photos:
-  main: trashbin-sensor.JPG
+  main: trashbin-sensor.jpg

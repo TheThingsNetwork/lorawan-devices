@@ -1791,3 +1791,11 @@ vendors:
 
   - id: iot4eu
     name: IOT4 Ltd
+
+  - id: noah
+    name: noah
+    website: https://noah.tech
+    logo: noah.png
+    social:
+      linkedin: https://www.linkedin.com/company/noah-gmbh/
+      github: noah-software
