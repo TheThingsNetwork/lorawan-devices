@@ -1788,7 +1788,6 @@ vendors:
   - id: iot4eu
     name: IOT4 Ltd
 
-
   - id: noah
     name: noah
     website: https://noah.tech
@@ -1796,7 +1795,7 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/noah-gmbh/
       github: noah-software
-     
+
   - id: move-x
     name: Move-X
     logo: move-x.svg
