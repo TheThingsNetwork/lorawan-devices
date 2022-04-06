@@ -1,0 +1,4 @@
+# devices
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - cubicmeter # look in cubicmeter.yaml for the end device definition
