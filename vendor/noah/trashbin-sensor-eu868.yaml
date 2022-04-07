@@ -28,11 +28,8 @@ supportsJoin: true
 # Factory preset frequencies (MHz)
 #factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
 
-# Maximum EIRP
+# Maximum EI
 maxEIRP: 16
-# Whether the end device supports 32-bit frame counters
-supports32bitFCnt: true
-
 # Whether the end device supports class B
 supportsClassB: false
 # If your device supports class B, uncomment the following fields:
