@@ -4,34 +4,38 @@ function decodeUplink(input) {
       // return error if length of Bytes is not 8
       if (input.bytes.length != 8) {
         return {
-          errors: ['input bytes in wrong format'],
+          errors: ['Invalid uplink payload: length is not 8 byte'],
         };
       }
-      let tmp = ('00'+(input.bytes[3]).toString(16)).slice(-2) + ('00'+(input.bytes[4]).toString(16)).slice(-2);
-      let pReading = 0;
-      // process negative pressure
-      if (input.bytes[3] === 0xFF) {
-        // fill in the first 16 bits with 1's to perform bitwise operation
-        pReading = - ~(parseInt('FFFF' + tmp.toString(16) , 16) - 1);
-      } else {
-        pReading = parseInt(tmp, 16);
-      }
-      // K * Pressure * m + b
-      // K = 0.01907, m = 0.05, b = 0
-      // separate calibration sheet will specify K, m and b
-      let k = 0.01907, m = 0.05, b = 0;
-      let pressure = k * pReading * m + b;
-      let battery = parseInt(input.bytes[7].toString(16), 16) * 0.1;
+      let pressure = readHex2bytes(input.bytes[3], input.bytes[4]);
+      let batteryVoltage = input.bytes[7] * 0.1;
       return {
         // Decoded data
         data: {
-          pressure: Math.round(pressure * 100, 2) / 100,
-          batteryVoltage: Math.round(battery * 10, 1) / 10,
+          pressure: pressure,
+          batteryVoltage: +batteryVoltage.toFixed(1),
         },
       };
     default:
       return {
-        errors: ['unknown FPort'],
+        errors: ['Unknown FPort: please use fPort 1'],
       };
   }
+}
+
+/*
+ * The readHex2bytes function is to decode a signed 16-bit integer
+ * represented by 2 bytes.  
+ */
+function readHex2bytes(byte1, byte2) {
+  let result = (byte1 << 8) | byte2;  // merge the two bytes
+  // check whether input is signed as a negative number
+  // by checking whether significant bit (leftmost) is 1
+  let negative = byte1 & 0x80;
+  // process negative value
+  if (negative) {
+    //result = ~(0xFFFF0000 | (result - 1)) * (-1);  // minus 1 and flip all bits
+    result = result - 0x10000;
+  }
+  return result;
 }

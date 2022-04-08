@@ -57,6 +57,30 @@ uplinkDecoder:
           medium:
             type: 1
             desc: Electricity
+    - description: meter infos after joining the network
+      input:
+        fPort: 100
+        bytes: [48, 209, 5, 98, 241, 38, 1, 6, 34, 247, 1, 243, 5, 0, 244, 5, 0, 245, 100, 0, 246, 100, 0, 248, 2, 0, 2, 2, 196]
+      output:
+        data:
+          serial-number:
+            value: '22060126'
+          meter-typ:
+            value: 1
+          current-transformer primary:
+            value: 5
+          current-transformer secondary:
+            value: 5
+          voltage-transformer primary:
+            value: 100
+          voltage-transformer secondary:
+            value: 100
+          MID year:
+            value: '2022'
+          timeStamp: 1644548400
+          medium:
+            type: 1
+            desc: Electricity
 
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:

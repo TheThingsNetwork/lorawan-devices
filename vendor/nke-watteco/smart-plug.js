@@ -964,6 +964,23 @@ function Decoder(bytes, port) {
 
         }   
       }
+      else
+      {
+        var decoded = {};
+        brData = (brUncompress(1,[{taglbl: 0,resol: 1, sampletype: 9,lblname: "ActiveEnergyWh"}], lora.payload, lDate))
+
+        var data_length = brData["datas"].length;
+        var tab=[];
+        for (var i = 0; i < data_length; i++) {
+          tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
+        }
+
+        decoded.data = tab;
+
+        decoded.zclheader = {};
+        decoded.zclheader.report = "batch";
+        
+      }
     }
   return decoded;
 }
