@@ -1663,8 +1663,8 @@ vendors:
     logo: logo.png
 
   - id: acrios
-    name: Acrios Systems S.RO.
-    website: https://acrios.com/
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/?lang=en
     logo: acrioslogo.png
 
   - id: espeasy
