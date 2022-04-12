@@ -1,5 +1,7 @@
 
+
 function decodeUplink(input) {
+
   // Decode an uplink message from a buffer
   // (array) of bytes to an object of fields.
   var decoded = {};
