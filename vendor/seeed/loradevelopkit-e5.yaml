@@ -38,7 +38,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: loradevelopkit-e5-codec
 
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -74,7 +73,6 @@ operatingConditions:
     max: 85
   # Relative humidity (fraction of 1)
 
-
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
@@ -108,7 +106,6 @@ photos:
   main: loradevelopkit-e5.png
   other:
     - loradevelopkit-e51.jpeg
-
 # Youtube or Vimeo Video (optional)
 
 # Regulatory compliances (optional)
