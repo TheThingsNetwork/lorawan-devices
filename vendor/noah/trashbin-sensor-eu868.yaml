@@ -1,17 +1,8 @@
-# Vendor profile ID, can be freely issued by the vendor
-# This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
-<<<<<<< HEAD
-vendorProfileID: 1
 
-# LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
-macVersion: 1.0.2
-=======
 vendorProfileID: 0
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: 1.0.3
->>>>>>> 5d823c9af5ff244c045dba2ad52256f7ddbda2d8
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
 #   1.0:   TS001-1.0
 #   1.0.1: TS001-1.0.1
@@ -19,11 +10,8 @@ macVersion: 1.0.3
 #   1.0.3: RP001-1.0.3-RevA
 #   1.0.4: RP002-1.0.0 or RP002-1.0.1
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-<<<<<<< HEAD
-regionalParametersVersion: RP001-1.0.2-RevB
-=======
 regionalParametersVersion: RP001-1.0.3-RevA
->>>>>>> 5d823c9af5ff244c045dba2ad52256f7ddbda2d8
+
 
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
