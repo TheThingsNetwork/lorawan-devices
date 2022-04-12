@@ -51,25 +51,21 @@ function requireFile(path) {
   });
 }
 
-function requireDimensions(path) {
-  return requireFile(path).then(
-    () =>
-      new Promise((resolve, reject) => {
-        sizeOf(path, (err, dimensions) => {
-          if (err) {
-            reject(new Error(`load image ${path}: ${err}`));
-          } else if (dimensions.width > 2000 || dimensions.height > 2000) {
-            reject(
-              new Error(
-                `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`
-              )
-            );
-          } else {
-            resolve();
-          }
-        });
-      })
-  );
+async function requireDimensions(path) {
+  await requireFile(path);
+  return await new Promise((resolve, reject) => {
+    sizeOf(path, (err, dimensions) => {
+      if (err) {
+        reject(new Error(`load image ${path}: ${err}`));
+      } else if (dimensions.width > 2000 || dimensions.height > 2000) {
+        reject(
+          new Error(`image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`)
+        );
+      } else {
+        resolve();
+      }
+    });
+  });
 }
 
 function validatePayloadCodecs(vendorId, payloadEncoding) {
@@ -199,7 +195,7 @@ vendors.vendors.forEach((v) => {
 
     const codecs = {};
 
-    vendor.endDevices.forEach((d) => {
+    vendor.endDevices.forEach(async (d) => {
       const key = `${v.id}: ${d}`;
 
       const endDevice = yaml.load(fs.readFileSync(`${folder}/${d}.yaml`));
@@ -227,7 +223,7 @@ vendors.vendors.forEach((v) => {
           });
         }
 
-        Object.keys(version.profiles).forEach((region) => {
+        Object.keys(version.profiles).forEach(async (region) => {
           const regionProfile = version.profiles[region];
           const key = `${v.id}: ${d}: ${region}`;
           const vendorID = regionProfile.vendorID ?? v.id;
@@ -259,7 +255,7 @@ vendors.vendors.forEach((v) => {
               process.exit(1);
             }
             codecs[regionProfile.codec] = true;
-            validatePayloadCodecs(folder, codec)
+            await validatePayloadCodecs(folder, codec)
               .then(() => console.log(`${key}: payload codec ${regionProfile.codec} valid`))
               .catch((err) => {
                 console.error(`${key}: payload codec ${regionProfile.codec} invalid`);
@@ -271,39 +267,39 @@ vendors.vendors.forEach((v) => {
       });
 
       if (endDevice.photos) {
-        validateImageExtension(`${folder}/${endDevice.photos.main}`)
+        await validateImageExtension(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} image has correct extension`))
           .catch((err) => {
             console.error(err);
             process.exit(1);
           });
-        requireImageDecode(`${folder}/${endDevice.photos.main}`)
+        await requireImageDecode(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} is valid`))
           .catch((err) => {
             console.error(err);
             process.exit(1);
           });
-        requireDimensions(`${folder}/${endDevice.photos.main}`)
+        await requireDimensions(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} has the right dimensions`))
           .catch((err) => {
             console.error(`${key}: ${err}`);
             process.exit(1);
           });
         if (endDevice.photos.other) {
-          endDevice.photos.other.forEach((p) => {
-            validateImageExtension(`${folder}/${p}`)
+          endDevice.photos.other.forEach(async (p) => {
+            await validateImageExtension(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} image has correct extension`))
               .catch((err) => {
                 console.error(err);
                 process.exit(1);
               });
-            requireImageDecode(`${folder}/${p}`)
+            await requireImageDecode(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} is valid`))
               .catch((err) => {
                 console.error(err);
                 process.exit(1);
               });
-            requireDimensions(`${folder}/${p}`)
+            await requireDimensions(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} has the right dimensions`))
               .catch((err) => {
                 console.error(`${key}: ${err}`);
