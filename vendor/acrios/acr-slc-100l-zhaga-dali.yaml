@@ -19,7 +19,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         lorawanCertified: true
-        id: acr-slc-100l-zhaga-dali-profile
+        id: acr-slc-profile
 
 # Sensors that this device features (optional)
 # Valid values are:
