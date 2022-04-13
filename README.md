@@ -75,7 +75,7 @@ $ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 ```
 **Note:** Update the current session ``` source ~/.bashrc ```
 
-***Step 3c:** Check current versions of Node.js, npm and Go.
+**Step 3c:** Check current versions of Node.js, npm and Go.
 
 ## Contributing
 
