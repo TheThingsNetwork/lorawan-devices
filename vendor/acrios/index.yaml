@@ -1,3 +1,5 @@
 endDevices:
-  - acr-cv-101l-m-d
-  - acr-slc-100l-zhaga-dali
+  #- acr-cv-101l-m-d
+  - acr-slc
+  - acr-cv-101l-m-eac
+  - acr-cv-101l-r-eac
