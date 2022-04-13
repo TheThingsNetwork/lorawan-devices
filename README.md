@@ -20,7 +20,7 @@ One of the operating systems:
 
 - Linux
 - macOS
-- Windows Subsystem for Linux ([Install](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Upgrade WSL Go version](https://sal.as/post/install-golan-on-wsl/))
+- Windows Subsystem for Linux (Guide below)
 
 Development dependencies:
 
@@ -43,6 +43,39 @@ Then, install the dependencies:
 ```bash
 $ make deps
 ```
+### Installation guide for Windows Users:
+
+**Step 1:** Install Windows Subsystem for Linux ([Install](https://docs.microsoft.com/en-us/windows/wsl/install))
+**Step 2:** To use the Device Repository, development dependencies should be installed:
+
+- Node.js version 16.x
+- npm version 8.x
+- Go version 1.17.x
+
+**Step 2a:** To install node and npm, execute the following commands:
+
+```bash
+$ sudo apt-get --purge remove node
+$ sudo apt-get --purge remove nodejs
+$ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+$ sudo apt-get install gcc g++ make
+```
+**Step 2b:**  To install Go for Linux, execute the following commands:
+
+```bash
+$ wget https://dl.google.com/go/go1.17.9.linux-amd64.tar.gz
+$ sudo tar -xvf go1.17.9.linux-amd64.tar.gz
+$ sudo mv go /usr/local
+$ sudo nano ~/.bashrc
+Scroll down and add this to .bashrc profile
+$ export GOROOT=/usr/local/go
+$ export GOPATH=$HOME/go
+$ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+```
+**Note:** Update the current session ``` source ~/.bashrc ```
+
+***Step 3c:** Check current versions of Node.js, npm and Go.
 
 ## Contributing
 
