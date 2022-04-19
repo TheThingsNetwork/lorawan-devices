@@ -1788,6 +1788,14 @@ vendors:
   - id: iot4eu
     name: IOT4 Ltd
 
+  - id: noah
+    name: noah
+    website: https://noah.tech
+    logo: noah.png
+    social:
+      linkedin: https://www.linkedin.com/company/noah-gmbh/
+      github: noah-software
+
   - id: move-x
     name: Move-X
     logo: move-x.svg
@@ -1796,3 +1804,10 @@ vendors:
   - id: plenom
     name: Plenom A/S
     website: https://www.plenom.com
+
+  - id: quandify
+    name: Quandify AB
+    website: https://quandify.com
+    logo: quandify.png
+    social:
+      linkedin: https://www.linkedin.com/company/quandify/
