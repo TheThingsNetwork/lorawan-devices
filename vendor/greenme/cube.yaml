@@ -99,9 +99,9 @@ msrp:
 
 # Photos
 photos:
-  main: greenme-cube.jpg
+  main: greenme-cube.png
   other:
-    - greenme-cube-package.jpg
+    - greenme-cube-package.png
 
 # Regulatory compliances (optional)
 compliances:
