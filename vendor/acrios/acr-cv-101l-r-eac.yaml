@@ -99,7 +99,7 @@ resellerURLs:
   - name: 'ACRIOS Systems'
     region:
       - European Union
-    url: https://www.acrios.com
+    url: https://acrios.com/?lang=en
 
 msrp:
   EUR: 141

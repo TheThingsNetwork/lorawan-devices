@@ -9,7 +9,7 @@ firmwareVersions:
     numeric: 1
     hardwareVersions:
       - 'v1.0'
-      # Firmware features (optional)
+    # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     features:
@@ -65,7 +65,7 @@ resellerURLs:
   - name: 'ACRIOS Systems'
     region:
       - European Union
-    url: https://www.acrios.com
+    url: https://acrios.com/?lang=en
 
 msrp:
   EUR: 69
@@ -79,9 +79,6 @@ compliances:
     - body: IEC
       norm: EN
       standard: 62368-1
-    # - body:
-    #  norm: EN
-    #  standard: 137 57-3
   radioEquipment:
     - body: ETSI
       norm: EN
