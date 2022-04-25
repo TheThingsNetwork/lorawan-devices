@@ -47,7 +47,7 @@ firmwareVersions:
         id: as923-profile
         lorawanCertified: true
         codec: lbt1-codec
-        
+
   - version: 'lbt1 abp'
     numeric: 2
     profiles:

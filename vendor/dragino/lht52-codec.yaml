@@ -6,7 +6,7 @@ uplinkDecoder:
         fPort: 5
         bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
       output:
-        data: { 'Bat_mV': 1, 'Firmware_Version': "8801", 'Freq_Band': 0, 'Sensor_Model': 11, 'Sub_Band': 37 }
+        data: { 'Bat_mV': 1, 'Firmware_Version': '8801', 'Freq_Band': 0, 'Sensor_Model': 11, 'Sub_Band': 37 }
 
     - description: Unknown FPort
       input:
