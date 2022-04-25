@@ -5,7 +5,7 @@ description: Indoor environment sensor
 hardwareVersions:
   - version: '2.0'
     numeric: 2
-  
+
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
@@ -53,7 +53,6 @@ sensors:
   - tilt
   - tvoc
 
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -63,7 +62,6 @@ dimensions:
 
 # Weight in grams (optional)
 weight: 160
-
 
 # Operating conditions (optional)
 operatingConditions:
