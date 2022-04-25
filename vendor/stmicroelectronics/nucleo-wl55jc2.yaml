@@ -10,16 +10,44 @@ firmwareVersions:
       - '1.0'
     profiles:
       CN470-510:
-        id: nucleo-wl55jc-profile-cn470
+        id: nucleo-wl55jc-profile-19
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
       EU433:
-        id: nucleo-wl55jc-profile-eu433
+        id: nucleo-wl55jc-profile-12
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+  - version: 'LoRaWAN_End_Node v1.1.0'
+    numeric: 2
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      CN470-510:
+        id: nucleo-wl55jc-profile-19
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      EU433:
+        id: nucleo-wl55jc-profile-12
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+  - version: 'LoRaWAN_End_Node v1.2.0'
+    numeric: 3
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      CN470-510:
+        id: nucleo-wl55jc-profile-19-lw104
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      EU433:
+        id: nucleo-wl55jc-profile-12-lw104
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
 sensors:
-  - temperature
   - light
+  - pressure
+  - temperature
+  - humidity
 dimensions:
   width: 70
   length: 64.5

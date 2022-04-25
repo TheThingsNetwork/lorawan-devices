@@ -208,9 +208,10 @@ vendors:
     name: Eddy Solutions
     vendorID: 128
 
-  - id: elektroniksystem
-    name: ElektronikSystem i Ume
+  - id: elsys
+    name: Elsys
     vendorID: 132
+    website: https://www.elsys.se/en/
 
   - id: eleven-x
     name: Eleven-x
@@ -310,6 +311,14 @@ vendors:
   - id: invoxia
     name: Invoxia
     vendorID: 211
+
+  - id: iothings
+    name: ioThings
+    website: https://iothings.nl
+    logo: iothings-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/iotracker
+      github: iotracker
 
   - id: last-mile
     name: Last Mile Solutions AS
@@ -715,8 +724,8 @@ vendors:
     name: Telog Instruments, Inc.
     vendorID: 422
 
-  - id: ttn
-    name: The Things Network Foundation
+  - id: the-things-industries
+    name: The Things Industries
     vendorID: 428
 
   - id: turbo
@@ -1586,9 +1595,6 @@ vendors:
   - id: the-things-products
     name: The Things Products
 
-  - id: the-things-industries
-    name: The Things Industries
-
   - id: the-box-development
     name: The-Box Development
 
@@ -1684,10 +1690,6 @@ vendors:
     name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
 
-  - id: elsys
-    name: ElektronikSystem i Ume
-    website: https://www.elsys.se/en/
-
   - id: xignal
     name: Xignal
     website: https://www.xignal.com
@@ -1757,3 +1759,55 @@ vendors:
   - id: ellenex
     name: ellenex
     website: https://www.ellenex.com
+
+  - id: ttn
+    name: The Things Network Foundation
+
+  - id: micropelt
+    name: micropelt
+    website: http://www.micropelt.com/
+
+  - id: tinovi
+    name: tinovi
+    website: https://tinovi.com/
+    logo: tinovi.png
+
+  - id: slscorp
+    name: System Level Solutions (India) Pvt. Ltd.
+    website: https://www.slscorp.com/
+    logo: slscorp_logo.png
+    description: We are a Product and Service Company in Hardware & Software established as a Turnkey solution provider. With a strong focus on smart energy, industrial IoT, and utility-grade wireless solutions - covering metering, integration of microgeneration, field operations, consumer devices, and a cloud-based open-standards for the Internet of Things (IoT) platform, SLS has successfully established itself as an international technology provider to multiple sectors.
+    social:
+      linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
+      twitter: S_L_S
+
+  - id: kuleuven-dramco
+    name: KU Leuven Dramco
+    website: https://dramco.be/
+
+  - id: iot4eu
+    name: IOT4 Ltd
+
+  - id: noah
+    name: noah
+    website: https://noah.tech
+    logo: noah.png
+    social:
+      linkedin: https://www.linkedin.com/company/noah-gmbh/
+      github: noah-software
+
+  - id: move-x
+    name: Move-X
+    logo: move-x.svg
+    website: https://move-x.it/
+
+  - id: plenom
+    name: Plenom A/S
+    website: https://www.plenom.com
+
+  - id: quandify
+    name: Quandify AB
+    website: https://quandify.com
+    logo: quandify.png
+    social:
+      linkedin: https://www.linkedin.com/company/quandify/

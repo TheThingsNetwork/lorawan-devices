@@ -2,6 +2,7 @@ name: LGT92
 description: The Dragino LGT-92 LoRaWAN® GPS Tracker includes a low-power GPS module for location tracking and a 9-axis accelerometer for motion detection. The captured data is sent to a LoRaWAN network for analysis.
 
 # Firmware versions (at least one is mandatory)
+
 firmwareVersions:
   - # Firmware version
     version: '1.6.6'
@@ -48,7 +49,8 @@ firmwareVersions:
         lorawanCertified: true
         codec: lgt92-codec
 
-- # Firmware version 1.6.5 Set OTAA RX2DR=0 by default, EU868 Frequency
+
+    # Firmware version 1.6.5 Set OTAA RX2DR=0 by default, EU868 Frequency
     version: '1.6.5'
     numeric: 3
     # LoRaWAN Device Profiles per region
@@ -112,7 +114,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: lgt92-codec
 
-
   - version: 'lgt92 abp'
     numeric: 2
     profiles:
@@ -152,6 +153,7 @@ firmwareVersions:
         id: ru864-a-abp-profile
         lorawanCertified: true
         codec: lgt92-codec
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
