@@ -2,25 +2,43 @@ endDevices:
   - r311a
   - r311b
   - r311g
+  - r311la
   - r311w
   - r312
   - r312a
+  - r602a
   - r711
+  - r711a
   - r718a
   - r718ab
+  - r718ad
   - r718b
+  - r718b2
   - r718ck
+  - r718ck2
   - r718ct
+  - r718ct2
   - r718e
   - r718f
+  - r718g
+  - r718h
+  - r718h2
+  - r718ka
   - r718n1
   - r718n3
   - r718t
   - r720a
+  - r720f
   - r72615
   - r72615a
+  - r72616
+  - r72616a
+  - r72716
+  - r809a
+  - r816b
   - ra0715
   - ra0715y
+  - ra0716
   - rb02i
   - rb11e
   - r718da
@@ -52,3 +70,4 @@ endDevices:
   - r311fc
   - r718mbc
   - r718wa
+  - r718wb

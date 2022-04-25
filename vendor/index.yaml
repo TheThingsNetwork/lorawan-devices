@@ -1746,3 +1746,14 @@ vendors:
     name: SEZO
     website: https://sezo.pl/
     logo: sezo.png
+
+  - id: emu
+    name: EMU Electronic AG
+    website: https://www.emuag.ch/
+    logo: emu_electronic_logo.png
+    ouis:
+      - 102CEF
+
+  - id: ellenex
+    name: ellenex
+    website: https://www.ellenex.com

@@ -1,4 +1,4 @@
-name: Wireless 2-Gang Window/Door Sensor
+name: R311CC - Wireless 2-Gang Window/Door Sensor
 description: R311CC is equipped with two external reed switches, which can be used for door and window switch state detection. The built-in wireless module can realize wireless alarm and other functions, and is compatible with the LoRaWAN protocol.
 
 hardwareVersions:
