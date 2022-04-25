@@ -1,10 +1,10 @@
-name: LBT1
-description: The Dragino LBT1 is a LoRaWAN® Bluetooth tracker that consists of a motion sensor and an iBeacon scanner. LBT1 scans and finds the nearest i-Beacon info and sends it to an IoT server via LoRaWAN wireless network.
+name: WSC1-L
+description: WSC1-L is the main process unit in Dragino Weather Station solution.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.2'
+    version: '1.0'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -14,79 +14,79 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       EU433:
         id: eu433-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       US902-928:
         id: us915-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       KR920-923:
         id: kr920-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       AU915-928:
         id: au915-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       RU864-870:
         id: ru864-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       IN865-867:
         id: in865-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       CN470-510:
         id: cn470-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       AS923:
         id: as923-profile
         lorawanCertified: true
-        codec: lbt1-codec
-        
-  - version: 'lbt1 abp'
+        codec: wsc1-l-codec
+
+  - version: 'wsc1-l abp'
     numeric: 2
     profiles:
       EU863-870:
         id: eu868-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       EU433:
         id: eu433-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       US902-928:
         id: us915-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       AU915-928:
         id: au915-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       AS923:
         id: as923-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       CN470-510:
         id: cn470-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       IN865-867:
         id: in865-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       KR920-923:
         id: kr920-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
       RU864-870:
         id: ru864-a-abp-profile
         lorawanCertified: true
-        codec: lbt1-codec
+        codec: wsc1-l-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -96,12 +96,11 @@ firmwareVersions:
 # sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - motion
-#  - wind speed
+  - water
 
 # Product and data sheet URLs (optional)
-productURL: http://www.dragino.com/products/lora-lorawan-end-node/item/165-lbt1.html
-dataSheetURL: http://www.dragino.com/downloads/index.php?dir=LoRa_End_Node/LBT1/
+productURL: https://www.dragino.com/products/agriculture-weather-station/item/206-wsc1-l.html
+dataSheetURL: https://www.dragino.com/products/agriculture-weather-station/item/206-wsc1-l.html
 sellerURLs:
   - name: 'Dragino'
     region:
@@ -110,6 +109,6 @@ sellerURLs:
 
 # Photos
 photos:
-  main: lbt1.jpg
-  other:
-    - lbt1-10.jpg
+  main: wsc1-l.jpg
+  # other:
+  # 

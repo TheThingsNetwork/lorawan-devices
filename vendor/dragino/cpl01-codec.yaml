@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: cpl01.js
+  examples:
+    - description: CPL01 Outdoor LoRaWAN Open/Close Dry Contact Sensor
+      input:
+        fPort: 2
+        bytes: [0x31, 0x61, 0x8E, 0x57, 0x40, 0x61, 0x8E, 0x81, 0x70, 0x05, 0x00]
+      output:
+        data: { 'ALARM': 'FALSE', 'CALCULATE_FLAG': 12, 'DISCONNECT_DURATION': 4219278, 'PIN_STATUS': 'DISCONNECT', 'TIME': '1902-09-19 00:21:20', 'TOTAL_PULSE': 6393431 }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x31, 0x61, 0x8E, 0x57, 0x40, 0x61, 0x8E, 0x81, 0x70, 0x05, 0x00]
+      output:
+        errors:
+          - unknown FPort
