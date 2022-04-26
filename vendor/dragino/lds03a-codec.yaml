@@ -6,7 +6,7 @@ uplinkDecoder:
         fPort: 2
         bytes: [0x31, 0x61, 0x8E, 0x57, 0x40, 0x61, 0x8E, 0x81, 0x70, 0x05, 0x00]
       output:
-        data: { 'ALARM': 'FALSE', 'DOOR_OPEN_STATUS': 'OPEN', 'DOOR_OPEN_TIMES': 6393431, 'LAST_DOOR_OPEN_DURATION': 4219278, 'TIME': '1902-09-19 00:21:20' }
+        data: { 'ALARM': 'FALSE', 'DOOR_OPEN_STATUS': 'OPEN', 'DOOR_OPEN_TIMES': 6393431, 'LAST_DOOR_OPEN_DURATION': 4219278, 'TIME': '1902-09-19 00:30:41' }
 
     - description: Unknown FPort
       input:
