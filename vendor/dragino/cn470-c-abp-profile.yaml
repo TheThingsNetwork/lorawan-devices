@@ -1,4 +1,4 @@
-vendorProfileID: 676
+vendorProfileID: 22
 macVersion: 1.0.3
 regionalParametersVersion: RP001-1.0.3-RevA
 
@@ -13,7 +13,7 @@ rx2DataRateIndex: 0
 # RX2 frequency (MHz)
 rx2Frequency: 505.300
 # Factory preset frequencies (MHz)
-factoryPresetFrequencies: [508.3, 508.5, 508.7, 508.9, 509.1, 509.3, 509.5, 509.7]
+factoryPresetFrequencies: []
 
 maxEIRP: 19
 supports32bitFCnt: true
