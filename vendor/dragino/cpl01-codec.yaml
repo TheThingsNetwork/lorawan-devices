@@ -6,7 +6,7 @@ uplinkDecoder:
         fPort: 4
         bytes: [0x31, 0x61, 0x8E, 0x57, 0x40, 0x61, 0x8E, 0x81]
       output:
-        data: { 'DISALARM': 1, 'KEEP_STATUS': 0, 'KEEP_TIME': 24974, 'TDC': 3236238, 'TRIGGER_MODE': 1}
+        data: { 'DISALARM': 1, 'KEEP_STATUS': 0, 'KEEP_TIME': 24974, 'TDC': 3236238, 'TRIGGER_MODE': 1 }
 
     - description: Unknown FPort
       input:

@@ -112,7 +112,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: lgt92-codec
 
-
   - version: 'lgt92 abp'
     numeric: 4
     profiles:
