@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: lmds200.js
+  examples:
+    - description: LMDS200 LoRaWAN Microwave Radar Distance Detection Sensor
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
+      output:
+        data: { 'Bat': 2.952, 'DALARM_count': 0, 'Distance_alarm': 0, 'Interrupt_alarm': 1, 'dis1': 256, 'dis2': 9472 }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
+      output:
+        errors:
+          - unknown FPort
