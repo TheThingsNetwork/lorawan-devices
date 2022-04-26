@@ -1,7 +1,7 @@
 # Vendor profile ID, can be freely issued by the vendor
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
-vendorProfileID: 04
+vendorProfileID: 01
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: 1.0.2
@@ -24,7 +24,7 @@ supportsJoin: true
 # RX2 data rate index
 #rx2DataRateIndex: 0
 # RX2 frequency (MHz)
-#rx2Frequency: 869.525
+#rx2Frequency: 866.550
 # Factory preset frequencies (MHz)
 #factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
 
