@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: wsc1-l.js
+  examples:
+    - description: WSC1-L is the main process unit in Dragino Weather Station solution.
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
+      output:
+        data: { 'PM10': 256 }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
+      output:
+        errors:
+          - unknown FPort
