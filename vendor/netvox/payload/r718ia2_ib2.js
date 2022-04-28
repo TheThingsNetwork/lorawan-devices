@@ -1,32 +1,37 @@
-function getCmdId(inputcmd){
-  var cmdIDs = {
+function getCfgCmd(cfgcmd){
+  var cfgcmdlist = {
     1:   "ConfigReportReq",
     129: "ConfigReportRsp",
     2:   "ReadConfigReportReq",
     130: "ReadConfigReportRsp"
   };
-  return cmdIDs[inputcmd];
+  return cfgcmdlist[cfgcmd];
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	 1: "R711(R712)",
-    11: "R718A",
-	19: "R718AB",
-	110: "R720A"
+	65: "R718IA2",
+	66: "R718IB2"
   };
   return deviceName[dev];
 }
 
-function getDeviceType(devName){
-  if (devName == "R711(R712)")
+function getCmdToID(cmdtype){
+  if (cmdtype == "ConfigReportReq")
 	  return 1;
-  else if (devName == "R718A")
-	  return 11;
-  else if (devName == "R718AB")
-	  return 19;
-  else if (devName == "R720A")
-	  return 110;
+  else if (cmdtype == "ConfigReportRsp")
+	  return 129;
+  else if (cmdtype == "ReadConfigReportReq")
+	  return 2;
+  else if (cmdtype == "ReadConfigReportRsp")
+	  return 130;
+}
+
+function getDeviceID(devName){
+  if (devName == "R718IA2")
+	  return 65;
+  else if (devName == "R718IB2")
+	  return 66;
 }
 
 function padLeft(str, len) {
@@ -53,7 +58,8 @@ function decodeUplink(input) {
 				data: data,
 			};
 		}
-
+		
+		data.Device = getDeviceName(input.bytes[1]);
 		if (input.bytes[3] & 0x80)
 		{
 			var tmp_v = input.bytes[3] & 0x7F;
@@ -61,37 +67,28 @@ function decodeUplink(input) {
 		}
 		else
 			data.Volt = input.bytes[3]/10;
-
-		data.Device = getDeviceName(input.bytes[1]);
-		if (input.bytes[4] & 0x80)
-		{
-			var tmpval = (input.bytes[4]<<8 | input.bytes[5]);
-			data.Temp = (0x10000 - tmpval)/100 * -1;
-		}
-		else
-			data.Temp = (input.bytes[4]<<8 | input.bytes[5])/100;
-		
-		data.Humi = (input.bytes[6]<<8 | input.bytes[7])/100;
+			
+		data.ADCRawValue1 = (input.bytes[4]<<8 | input.bytes[5]);
+		data.ADCRawValue2 = (input.bytes[6]<<8 | input.bytes[7]);
 
 		break;
 		
 	case 7:
+		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
-		if (input.bytes[0] === 0x81)
+		if (input.bytes[0] === getCmdToID("ConfigReportRsp"))
 		{
-			data.Cmd = getCmdId(input.bytes[0]);
 			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
 		}
-		else if (input.bytes[0] === 0x82)
+		else if (input.bytes[0] === getCmdToID("ReadConfigReportRsp"))
 		{
-			data.Cmd = getCmdId(input.bytes[0]);
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
-			data.TempChange = (input.bytes[7]<<8 | input.bytes[8])/100;
-			data.HumiChange = (input.bytes[9]<<8 | input.bytes[10])/100;
+			data.ADCRawValueChange = (input.bytes[7]<<8 | input.bytes[8]);
 		}
-		break;
+		
+		break;	
 
 	default:
       return {
@@ -100,7 +97,6 @@ function decodeUplink(input) {
 	  
     }
           
-	  
 	 return {
 		data: data,
 	};
@@ -109,23 +105,25 @@ function decodeUplink(input) {
 function encodeDownlink(input) {
   var ret = [];
   var devid;
- 
-  devid = getDeviceType(input.data.Device);
+  var getCmdID;
+	  
+  getCmdID = getCmdToID(input.data.Cmd);
+  devid = getDeviceID(input.data.Device);
 
-  if (input.data.Cmd == getCmdId(0x01))
+  if (input.data.Cmd == "ConfigReportReq")
   {
 	  var mint = input.data.MinTime;
 	  var maxt = input.data.MaxTime;
-	  var batteryChg = input.data.BatteryChange * 10;
-	  var tempChg = input.data.TempChange * 100;
-	  var humiChg = input.data.HumiChange * 100;
-
-	  ret = ret.concat(0x01, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, (tempChg >> 8), (tempChg & 0xFF), (humiChg >> 8), (humiChg & 0xFF));
+	  var batteryChg = input.data.BatteryChange * 10;	  
+	  var adcChg = input.data.ADCRawValueChange;
+		  		  
+	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, (adcChg >> 8), (adcChg & 0xFF), 0x00, 0x00);
+	  
   }
-  else if (input.data.Cmd == getCmdId(0x02))
+  else if (input.data.Cmd == "ReadConfigReportReq")
   {
-	  ret = ret.concat(0x02, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-  }  
+	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
   
   return {
     fPort: 7,
@@ -137,19 +135,14 @@ function decodeDownlink(input) {
   var data = {};
   switch (input.fPort) {
     case 7:
+		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
-		if (input.bytes[0] === 0x01)
+		if (input.bytes[0] === getCmdToID("ConfigReportReq"))
 		{
-			data.Cmd = getCmdId(input.bytes[0]);
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
-			data.TempChange = (input.bytes[7]<<8 | input.bytes[8])/100;
-			data.HumiChange = (input.bytes[9]<<8 | input.bytes[10])/100;
-		}
-		else if (input.bytes[0] === 0x02)
-		{
-			data.Cmd = getCmdId(input.bytes[0]);
+			data.ADCRawValueChange = (input.bytes[7]<<8 | input.bytes[8]);
 		}
 		break;
 		
