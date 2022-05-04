@@ -212,6 +212,7 @@ function decode_v5_config_payload(bytes) {
   return obj;
 }
 
+
 function decode_v6_config_payload(bytes, port) {
   var obj = {};
 
@@ -307,6 +308,7 @@ function decodeUplink(input) {
     } else if (bytes.length == 35) {
       // v6
       obj = decode_v6_config_payload(bytes, port);
+
     } else {
       obj.error = 'ERROR: No decoder for config payload. Check Payload length!';
     }

@@ -218,6 +218,10 @@ function Decode(fPort, data, variables) {
     
     //Default readout-interval is allways 15 minutes
     obj.readoutInterval = (15 * 60); //15 Min * 60 Sec
+    //you can overwrite the readout-interval when defining variables for this meter
+    if(variables !== null && variables.readoutInterval !== null){
+         obj.readoutInterval = variables.readoutInterval;
+    }
     
     return obj;
 }
@@ -599,10 +603,10 @@ function parsePayload(data){
             dataType.value = Number(getInt64([data[i++], data[i++], data[i++], data[i++], data[i++], data[i++], data[i++], data[i++]]));
             break;
             case 'MeterSerial':
-            dataType.value = Number(getUint8([data[i++]])).toString(16);
-            dataType.value = Number(getUint8([data[i++]])).toString(16) + dataType.value;
-            dataType.value = Number(getUint8([data[i++]])).toString(16) + dataType.value;
-            dataType.value = Number(getUint8([data[i++]])).toString(16) + dataType.value;
+            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0");
+            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0") + dataType.value;
+            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0") + dataType.value;
+            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0") + dataType.value;
             
             break;
             case 'BCD':

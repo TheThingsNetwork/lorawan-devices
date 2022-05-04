@@ -21,14 +21,16 @@ function getCmdToID(cmdtype){
 
 function getDeviceName(dev){
   var deviceName = {
-	34: "R718KA"
+	34: "R718KA",
+	68: "R718KA2"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
   var deviceName = {
-	"R718KA": 34
+	"R718KA": 34,
+	"R718KA2": 68
   };
   return deviceName[devName];
 }
@@ -59,9 +61,26 @@ function decodeUplink(input) {
 		}
 		
 		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;
-		data.Current = input.bytes[4];
-		data.FineCurrent = input.bytes[5]/10;
+		if (input.bytes[3] & 0x80)
+		{
+			var tmp_v = input.bytes[3] & 0x7F;
+			data.Volt = (tmp_v / 10).toString() + '(low battery)';
+		}
+		else
+			data.Volt = input.bytes[3]/10;
+		
+		if (input.bytes[1] === 0x22)
+		{
+			data.Current = input.bytes[4];
+			data.FineCurrent = input.bytes[5]/10;
+		}
+		else if (input.bytes[1] === 0x44)
+		{
+			data.Current_1 = input.bytes[4];
+			data.Current_2 = input.bytes[5];
+			data.FineCurrent_1 = input.bytes[6]/10;
+			data.FineCurrent_2 = input.bytes[7]/10;
+		}
 		
 		break;
 		
