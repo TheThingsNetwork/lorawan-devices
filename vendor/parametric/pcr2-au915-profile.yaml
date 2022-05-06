@@ -46,7 +46,8 @@ supportsClassB: false
 #pingSlotFrequency: 869.525
 
 # Whether the end device supports class C
-supportsClassC: true
+
+supportsClassC: false
 # If your device supports class C, uncomment the following fields:
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
-classCTimeout: 60
+# classCTimeout: 60
