@@ -1,0 +1,71 @@
+name: R718EB - Wireless Tilt Angle Sensor
+description: R718EB has a built-in tilt angle detection sensor. When the device is tilted (compared with the reference angle), the tilt angle will be reported, and the detected data will be transmitted to other devices through the wireless network for display.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718eb-codec
+      AS923:
+        id: profile-as923
+        codec: r718eb-codec
+      US902-928:
+        id: profile-us915
+        codec: r718eb-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718eb-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718eb-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718eb-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718eb-codec
+
+sensors:
+  - tilt
+
+dimensions:
+  width: 65
+  length: 112
+  height: 28.7
+
+weight: 140
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718EB
+dataSheetURL: http://www.netvox.com.tw/um/R718EB/R718EBdatasheet.pdf
+
+photos:
+  main: photos/r718eb.jpg

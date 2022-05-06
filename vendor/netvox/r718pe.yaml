@@ -1,0 +1,64 @@
+name: R718PE - Wireless Top Mounted Ultrasonic Liquid Level Sensor
+description: R718PE is a wireless communication device that uses ultrasound to detect the distance between the device and the detected object. The medium the device detects is the air, so the detected object can be any liquid or solid that has a flat and horizontal surface, water level for example. The main body and the sensor of R718PE communicates via the UART serial port, and the detected data can be transmitted via LoRa communication.
+
+hardwareVersions:
+  - version: '4'
+    numeric: 4
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718pe-codec
+      AS923:
+        id: profile-as923
+        codec: r718x-codec
+      US902-928:
+        id: profile-us915
+        codec: r718pe-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718pe-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718pe-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718pe-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718pe-codec
+
+dimensions:
+  width: 88.19
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 lithium batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718PE
+dataSheetURL: http://www.netvox.com.tw/um/R718PE/R718PEdatasheet.pdf
+
+photos:
+  main: photos/r718pe.jpg
