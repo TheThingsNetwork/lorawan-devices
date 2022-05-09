@@ -1663,8 +1663,8 @@ vendors:
     logo: logo.png
 
   - id: acrios
-    name: Acrios Systems S.RO.
-    website: https://acrios.com/
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/?lang=en
     logo: acrioslogo.png
 
   - id: espeasy
@@ -1789,7 +1789,7 @@ vendors:
     name: IOT4 Ltd
 
   - id: noah
-    name: noah
+    name: noah GmbH
     website: https://noah.tech
     logo: noah.png
     social:
@@ -1811,3 +1811,10 @@ vendors:
     logo: quandify.png
     social:
       linkedin: https://www.linkedin.com/company/quandify/
+
+  - id: greenme
+    name: GreenMe SAS
+    website: https://www.greenme.fr
+    logo: greenme.png
+    social:
+      linkedin: https://www.linkedin.com/company/greenme/

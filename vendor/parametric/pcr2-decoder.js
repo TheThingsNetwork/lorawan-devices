@@ -212,6 +212,49 @@ function decode_v5_config_payload(bytes) {
   return obj;
 }
 
+
+function decode_v6_config_payload(bytes, port) {
+  var obj = {};
+
+  if (port != 190) {
+      console.log("ERROR: Wrong port! PCR2 devices are using port 190 for application payloads.");
+      return obj;
+  }
+
+  if (bytes.length != 35) {
+      console.log("ERROR: Wrong payload length");
+      return obj;
+  }
+
+  if (bytes[0] == 0xbe && bytes[1] == 0x01 && bytes[2] == 0x06) {
+      obj.DeviceType = bytes[3];
+      obj.Firmware = bytes[4] + "." + bytes[5] + "." + bytes[6];  // Firmware Version
+      obj.OperationMode = bytes[7];
+      obj.PayloadType = bytes[8];
+      obj.DeviceClass = bytes[9];
+      obj.UplinkType = bytes[10];
+      obj.UplinkInterval = (bytes[11] << 8) | (bytes[12]);
+      obj.LinkCheckInterval = (bytes[13] << 8) | (bytes[14]);
+      obj.CapacityLimit = (bytes[15] << 8) | (bytes[16]);
+      obj.HoldoffTime = (bytes[17] << 8) | (bytes[18]);
+      obj.InactivityTimeout = (bytes[19] << 8) | (bytes[20]);
+      obj.RadarEnabled = bytes[21];     
+      obj.BeamAngle = bytes[22];
+      obj.MinDist = (bytes[23] << 8) | (bytes[24]);
+      obj.MaxDist = (bytes[25] << 8) | (bytes[26]);
+      obj.MinSpeed = bytes[27];
+      obj.MaxSpeed = bytes[28];
+      obj.RadarAutotune = bytes[29];
+      obj.RadarSensitivity = bytes[30];
+      obj.SBXVersion = bytes[31] + "." + bytes[32] + "." + bytes[33];  // SBX Solar Charger Firmware Version
+      obj.RadarChannel = bytes[34];
+  }
+  else {
+      console.log("ERROR: PCR2 configuration payload V6 should start with be0106..  ");
+  }
+  return obj;
+}
+
 /**
  * Two's complement
  * @param {int} bin
@@ -262,6 +305,10 @@ function decodeUplink(input) {
     } else if (bytes.length == 34) {
       // v5
       obj = decode_v5_config_payload(bytes, port);
+    } else if (bytes.length == 35) {
+      // v6
+      obj = decode_v6_config_payload(bytes, port);
+
     } else {
       obj.error = 'ERROR: No decoder for config payload. Check Payload length!';
     }
