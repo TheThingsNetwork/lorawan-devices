@@ -1,5 +1,5 @@
 name: SenseCAP S2104 - LoRaWAN Soil Moisture and Temperature Sensor
-description: SenseCAP S2104 - LoRaWAN Soil Temperature and Moisture sensors satisfy industrial long-distance data acquisition with a wide range of 0 ~ 100% (m³/m³) and -40 ~ 80℃ respectively. With Bluetooth 5.0 for easy configuration and firmware upgrade and a built-in replaceable battery for minimal maintenance, it also supports three different LoRaWAN network architectures enabling you to easily join it in existing gateways and network servers to build flexible and high-performance sensor network. 
+description: SenseCAP S2104 - LoRaWAN Soil Temperature and Moisture sensors satisfy industrial long-distance data acquisition with a wide range of 0 ~ 100% (m³/m³) and -40 ~ 80℃ respectively. With Bluetooth 5.0 for easy configuration and firmware upgrade and a built-in replaceable battery for minimal maintenance, it also supports three different LoRaWAN network architectures enabling you to easily join it in existing gateways and network servers to build flexible and high-performance sensor network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -14,7 +14,6 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
-
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,

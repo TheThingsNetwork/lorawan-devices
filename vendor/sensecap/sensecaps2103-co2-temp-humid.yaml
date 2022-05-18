@@ -15,7 +15,6 @@ firmwareVersions:
     hardwareVersions:
       - '1.0'
 
-
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -48,7 +47,7 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - co2
-  - temperature 
+  - temperature
   - humidity
 
 # Dimensions in mm (optional)
