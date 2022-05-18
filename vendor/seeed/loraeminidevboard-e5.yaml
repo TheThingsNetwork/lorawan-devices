@@ -98,7 +98,11 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
+<<<<<<< HEAD
 productURL: https://www.seeedstudio.com/LoRa-E5-mini-STM32WLE5JC-p-4869.html
+=======
+productURL: https://www.seeedstudio.com/LoRa-E5-Dev-Kit-p-4868.html
+>>>>>>> 18d22581988b66f1e0bf06fa64363430791748bd
 dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRa-E5%20module%20datasheet_V1.0.pdf
 
 # Commercial information

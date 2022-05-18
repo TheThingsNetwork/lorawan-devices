@@ -1,0 +1,66 @@
+name: R718X - Wireless Ultrasonic Distance Sensor
+description: R718X is a wireless device that detect distance by ultrasonic ranging sensor. R718X also equips an NTC temperature sensor and will send alarm message while detecting abnormal temperature.
+
+hardwareVersions:
+  - version: '3'
+    numeric: 3
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '3'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718x-codec
+      AS923:
+        id: profile-as923
+        codec: r718x-codec
+      US902-928:
+        id: profile-us915
+        codec: r718x-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718x-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718x-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718x-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718x-codec
+
+weight: 143
+
+dimensions:
+  width: 65
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 lithium batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718X
+dataSheetURL: http://www.netvox.com.tw/um/R718X/R718Xdatasheet.pdf
+
+photos:
+  main: photos/r718x.jpg

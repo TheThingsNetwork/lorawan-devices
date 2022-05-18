@@ -1,0 +1,69 @@
+name: R718KA2 - Wireless 2-Input-mA Current Meter Interface, 4~20mA
+description: The Wireless 4-20mA DC Current Meter is designed to offer a large selection of easy-to-use current 4-20mA data loggers for load monitoring. The wireless communication is compatible with LoRaWAN™ protocol (ClassA).
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718ka2-codec
+      AS923:
+        id: profile-as923
+        codec: r718ka2-codec
+      US902-928:
+        id: profile-us915
+        codec: r718ka2-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718ka2-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718ka2-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718ka2-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718ka2-codec
+
+sensors:
+  - current
+
+dimensions:
+  width: 65
+  length: 112
+  height: 32
+
+weight: 141
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718KA2
+dataSheetURL: http://www.netvox.com.tw/um/R718KA2/R718KA2datasheet.pdf
+
+photos:
+  main: photos/r718ka2.jpg
