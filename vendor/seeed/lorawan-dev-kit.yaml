@@ -1,5 +1,5 @@
-name: LoRa-E5 Development Kit - based on LoRa-E5 STM32WLE5JC, LoRaWAN protocol and worldwide frequency supported
-description: LoRa-E5 Development Kit consists of a LoRa-E5 Dev Board, an antenna(EU868/US915), a USB type C cable, and a 2*AA 3V Battery Holder. LoRa-E5 Dev Board embedded with LoRa-E5 STM32WLE5JC Module that supports LoRaWAN protocol on global frequency band. It is user-friendly since it leads out full GPIOs of LoRa-E5 supporting various data protocols and interfaces including RS-485, Grove, male/female headers, etc. It would be a perfect choice for fast testing and rapid prototyping of your LoRa IoT projects.
+name: Seeed Studio LoRaWAN Dev Kit
+description: The kit includes a Wio Terminal master controller with WIFI/BLE and display, as well as carefully selected Grove - LoRa-E5, Grove - VOC and eCO2 Gas Sensor SGP30, Grove - Soil Moisture Sensor, Grove - Temp&Humi Sensor (SHT40), and Grove - Vision AI Module. Humi Sensor (SHT40), and Grove - Vision AI Module. This kit is a perfect combination of LoRa and Edge AI, which allows software engineers to quickly deploy their first LoRaWAN projects through plug-and-play connectivity.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -56,22 +56,16 @@ firmwareVersions:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 23
-  length: 61
-  height: 3
+  width: 12.5
+  length: 18
+  height: 4.5
 
 # Weight in grams (optional)
-weight: 70
+weight: 273
 
 # Battery information (optional)
 
-# Operating conditions (optional)
-operatingConditions:
-  # Temperature (Celcius)
-  temperature:
-    min: -40
-    max: 85
-  # Relative humidity (fraction of 1)
+# Relative humidity (fraction of 1)
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -93,20 +87,11 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.seeedstudio.com/LoRa-E5-Dev-Kit-p-4868.html
-dataSheetURL: https://files.seeedstudio.com/wiki/Loramini/LoRa-E5%20mini%20v1.0.pdf
+productURL: https://www.seeedstudio.com/Seeed-Studio-LoRaWAN-Dev-Kit-p-5370.html
+dataSheetURL: https://wiki.seeedstudio.com/Getting-Started-with-Seeed-Studio-LoRaWAN-Dev-Kit/
 
 # Commercial information
 
-msrp:
-  USD: 21.90
-
 # Photos
 photos:
-  main: loradevelopkit-e5.png
-  other:
-    - loradevelopkit-e51.jpeg
-# Youtube or Vimeo Video (optional)
-
-# Regulatory compliances (optional)
-
+  main: lorawan-dev-kit.png
