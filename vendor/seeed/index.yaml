@@ -4,7 +4,4 @@ endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - loradevelopkit-e5 # look in windsensor.yaml for the end device definition
   - loraeminidevboard-e5
-<<<<<<< HEAD
   - lorawan-dev-kit
-=======
->>>>>>> 18d22581988b66f1e0bf06fa64363430791748bd
