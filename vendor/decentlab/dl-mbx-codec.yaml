@@ -7,7 +7,10 @@ uplinkDecoder:
         bytes: [0x02, 0x01, 0x2f, 0x00, 0x03, 0x04, 0xd2, 0x00, 0x01, 0x0b, 0xb1]
       output:
         data:
-          protocol_version: 2
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.993
           device_id: 303
           distance:
             displayName: Distance
@@ -15,21 +18,17 @@ uplinkDecoder:
             value: 1234
           number_of_valid_samples:
             displayName: Number of valid samples
-            unit:
             value: 1
-          battery_voltage:
-            displayName: Battery voltage
-            unit: V
-            value: 2.993
+          protocol_version: 2
     - description: Example 2
       input:
         fPort: 1
         bytes: [0x02, 0x01, 0x2f, 0x00, 0x02, 0x0b, 0xb1]
       output:
         data:
-          protocol_version: 2
-          device_id: 303
           battery_voltage:
             displayName: Battery voltage
             unit: V
             value: 2.993
+          device_id: 303
+          protocol_version: 2

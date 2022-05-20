@@ -7,29 +7,29 @@ uplinkDecoder:
         bytes: [0x02, 0x01, 0x67, 0x00, 0x03, 0x3e, 0x80, 0x60, 0x17, 0x0c, 0x7f]
       output:
         data:
-          protocol_version: 2
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.199
           device_id: 359
           pressure:
             displayName: Pressure
             unit: bar
             value: -0.01171875
+          protocol_version: 2
           temperature:
             displayName: Temperature
-            unit: '°C'
+            unit: "\xB0C"
             value: 25.671875
-          battery_voltage:
-            displayName: Battery voltage
-            unit: V
-            value: 3.199
     - description: Example 2
       input:
         fPort: 1
         bytes: [0x02, 0x01, 0x67, 0x00, 0x02, 0x0c, 0x7f]
       output:
         data:
-          protocol_version: 2
-          device_id: 359
           battery_voltage:
             displayName: Battery voltage
             unit: V
             value: 3.199
+          device_id: 359
+          protocol_version: 2
