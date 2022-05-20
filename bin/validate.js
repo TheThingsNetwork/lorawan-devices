@@ -25,7 +25,7 @@ fs.readFile(options.data, (err, data) => {
   if (err) {
     throw err
   }
-  const obj = yaml.safeLoad(data)
+  const obj = yaml.load(data)
   const ajv = Ajv();
   const validate = ajv.addSchema(schema).compile({ $ref: `https://lorawan-schema.org/draft/devices/1/schema#/definitions/${options.definition}` })
   if (!validate(obj)) {

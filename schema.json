@@ -16,14 +16,25 @@
     "logo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(png|svg)$" }
+        {
+          "type": "string",
+          "pattern": "\\.(png|svg)$"
+        }
       ]
     },
     "photo": {
       "allOf": [
         { "$ref": "#/definitions/localFile" },
-        { "pattern": "\\.(jpg|jpeg)$" }
+        {
+          "type": "string",
+          "pattern": "\\.(png|jpg|jpeg)$"
+        }
       ]
+    },
+    "video": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^(?:https?:\\/\\/(?:www\\.)?youtu(?:be\\.com\\/watch\\?v=|\\.be\\/)(?:[\\w\\-_]*)(?:&(amp;)?[\\w\\?=]*)?)$|^(?:https?:\\/\\/(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/([^\\/]*)\\/videos\\/|)(?:\\d+)(?:|\\/\\?))$"
     },
     "region": {
       "enum": [
@@ -33,10 +44,18 @@
         "EU433",
         "AU915-928",
         "CN470-510",
+        "CN470-510-20-A",
+        "CN470-510-20-B",
+        "CN470-510-26-A",
+        "CN470-510-26-B",
         "AS923",
+        "AS923-2",
+        "AS923-3",
+        "AS923-4",
         "KR920-923",
         "IN865-867",
-        "RU864-870"
+        "RU864-870",
+        "ISM2400"
       ],
       "description": "Region"
     },
@@ -50,15 +69,47 @@
           "type": "string",
           "minLength": 1
         },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "social": {
+          "type": "object",
+          "properties": {
+            "linkedin": {
+              "type": "string",
+              "format": "uri"
+            },
+            "facebook": {
+              "type": "string",
+              "format": "uri"
+            },
+            "twitter": {
+              "type": "string",
+              "pattern": "^(\\w){1,15}$"
+            },
+            "instagram": {
+              "type": "string",
+              "pattern": "^(\\w(?:(?:\\w|(?:\\.(?!\\.))){0,28}(?:\\w))?)$"
+            },
+            "github": {
+              "type": "string",
+              "pattern": "^[A-Za-z\\d](?:[A-Za-z\\d]|-(?=[A-Za-z\\d])){0,38}$"
+            }
+          }
+        },
         "pen": {
           "description": "Private Enterprise Number (PEN) assigned by IANA (see https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers)",
           "type": "integer",
           "minimum": 0
         },
-        "oui": {
-          "description": "Organization Unique Identifier (OUI) assigned by IEEE (base-16, see http://standards-oui.ieee.org/oui.txt)",
-          "type": "string",
-          "pattern": "[0-9A-F]{6}"
+        "ouis": {
+          "description": "Organization Unique Identifiers (OUI) assigned by IEEE (base-16, see http://standards-oui.ieee.org/oui.txt)",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "[0-9A-F]{6}"
+          }
         },
         "vendorID": {
           "type": "integer",
@@ -70,10 +121,13 @@
           "type": "string",
           "format": "uri"
         },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
         "logo": { "$ref": "#/definitions/logo" }
       },
-      "required": ["id", "name"],
-      "additionalProperties": false
+      "required": ["id", "name"]
     },
     "dataRateIndex": {
       "type": "integer",
@@ -87,7 +141,7 @@
       "description": "Frequency (MHz)"
     },
     "pingSlotPeriod": {
-      "enum": [32, 64, 128, 256, 512, 1024, 2048, 4096],
+      "enum": [1, 2, 4, 8, 16, 32, 64, 128],
       "description": "Ping slot period (seconds)"
     },
     "rxDelay": {
@@ -122,6 +176,15 @@
     "script": {
       "type": "object",
       "properties": {
+        "fileName": {
+          "allOf": [
+            { "$ref": "#/definitions/localFile" },
+            {
+              "type": "string",
+              "pattern": "\\.js$"
+            }
+          ]
+        },
         "examples": {
           "type": "array",
           "items": {
@@ -133,102 +196,69 @@
                 "type": "string"
               }
             },
-            "additionalProperties": false,
             "required": ["input", "output"]
           }
         }
       },
-      "oneOf": [
-        {
-          "properties": {
-            "fileName": {
-              "allOf": [
-                { "$ref": "#/definitions/localFile" },
-                { "pattern": "\\.js$" }
-              ]
-            }
-          },
-          "required": ["fileName"]
-        },
-        {
-          "properties": {
-            "javascript": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "required": ["javascript"]
-        }
-      ]
+      "required": ["fileName"]
     },
-    "endDeviceProfile": {
-      "title": "End Device Profile",
-      "description": "End device capabilities, boot parameters and payload encoding",
+    "endDevicePayloadCodec": {
+      "title": "End Device Payload Codec",
+      "description": "End device payload codec for decoding uplink and encoding downlink",
       "type": "object",
       "examples": [
         {
-          "id": "Example OTAA with payload encoding",
-          "vendorProfileID": 1,
-          "supportsClassB": false,
-          "supportsClassC": false,
-          "macVersion": "1.0.2",
-          "regionalParametersVersion": "RP001-1.0.2-RevB",
-          "supportsJoin": true,
-          "maxEIRP": 14,
-          "supports32bitFCnt": true,
-          "payloadEncoding": {
-            "uplinkDecoder": {
-              "language": "javascript",
-              "fileName": "decoder.js",
-              "examples": [
-                {
-                  "input": {
-                    "bytes": [51, 65, 55]
-                  },
-                  "output": {
+          "uplinkDecoder": {
+            "fileName": "codec.js",
+            "examples": [
+              {
+                "description": "Temperature",
+                "input": {
+                  "fPort": 1,
+                  "bytes": [51, 65, 55]
+                },
+                "output": {
+                  "data": {
                     "temperature": 21.5
                   }
                 }
-              ]
-            },
-            "downlinkEncoder": {
-              "language": "javascript",
-              "fileName": "encoder.js",
-              "examples": [
-                {
-                  "input": {
-                    "temperature": 21.5
-                  },
-                  "output": [51, 65, 55]
+              }
+            ]
+          },
+          "downlinkEncoder": {
+            "fileName": "codec.js",
+            "examples": [
+              {
+                "description": "Open gate",
+                "input": {
+                  "data": {
+                    "open": true
+                  }
+                },
+                "output": {
+                  "bytes": [1],
+                  "fPort": 2
                 }
-              ]
-            }
+              }
+            ]
+          },
+          "downlinkDecoder": {
+            "fileName": "codec.js",
+            "examples": [
+              {
+                "description": "Open gate",
+                "input": {
+                  "fPort": 2,
+                  "bytes": [1]
+                },
+                "output": {
+                  "data": {
+                    "open": true
+                  }
+                }
+              }
+            ]
           }
-        },
-        {
-          "id": "Example ABP",
-          "vendorProfileID": 2,
-          "supportsClassB": false,
-          "supportsClassC": false,
-          "macVersion": "1.0.4",
-          "regionalParametersVersion": "RP002-1.0.1",
-          "supportsJoin": false,
-          "rx1Delay": 1,
-          "rx1DataRateOffset": 0,
-          "rx2DataRateIndex": 3,
-          "rx2Frequency": 869.525,
-          "factoryPresetFrequencies": [
-            868.1,
-            868.3,
-            868.5,
-            867.1,
-            867.3,
-            867.5,
-            867.7,
-            867.9
-          ],
-          "maxEIRP": 14,
-          "supports32bitFCnt": true
         }
       ],
       "definitions": {
@@ -246,15 +276,13 @@
             "warnings": {
               "type": "array",
               "items": {
-                "type": "string",
-                "minLength": 1
+                "type": "string"
               }
             },
             "errors": {
               "type": "array",
               "items": {
-                "type": "string",
-                "minLength": 1
+                "type": "string"
               }
             },
             "state": {
@@ -265,13 +293,20 @@
         "decodeInput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptInput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
+              "type": "object",
               "properties": {
                 "bytes": { "$ref": "#/definitions/frmPayload" },
                 "fPort": {
-                  "allOf": [{ "$ref": "#/definitions/fPort" }, { "minimum": 1 }]
+                  "allOf": [
+                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  ]
                 }
               },
               "required": ["bytes", "fPort"]
@@ -281,25 +316,29 @@
         "decodeOutput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptOutput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
+              "type": "object",
               "properties": {
-                "payload": {
+                "data": {
                   "type": "object"
                 }
               }
             },
             {
               "if": {
+                "type": "object",
                 "properties": {
                   "errors": {
+                    "type": "array",
                     "maxItems": 0
                   }
                 }
               },
               "then": {
-                "required": ["payload"]
+                "type": "object",
+                "required": ["data"]
               }
             }
           ]
@@ -307,40 +346,51 @@
         "encodeInput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptInput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptInput"
             },
             {
+              "type": "object",
               "properties": {
-                "payload": {
+                "data": {
                   "type": "object"
                 }
               },
-              "required": ["payload"]
+              "required": ["data"]
             }
           ]
         },
         "encodeOutput": {
           "allOf": [
             {
-              "$ref": "#/definitions/endDeviceProfile/definitions/scriptOutput"
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
             },
             {
+              "type": "object",
               "properties": {
                 "bytes": { "$ref": "#/definitions/frmPayload" },
                 "fPort": {
-                  "allOf": [{ "$ref": "#/definitions/fPort" }, { "minimum": 1 }]
+                  "allOf": [
+                    { "$ref": "#/definitions/fPort" },
+                    {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  ]
                 }
               }
             },
             {
               "if": {
+                "type": "object",
                 "properties": {
                   "errors": {
+                    "type": "array",
                     "maxItems": 0
                   }
                 }
               },
               "then": {
+                "type": "object",
                 "required": ["bytes"]
               }
             }
@@ -348,7 +398,114 @@
         }
       },
       "properties": {
-        "id": { "$ref": "#/definitions/identifier" },
+        "uplinkDecoder": {
+          "allOf": [
+            { "$ref": "#/definitions/script" },
+            {
+              "type": "object",
+              "properties": {
+                "examples": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "input": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
+                      },
+                      "output": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "downlinkEncoder": {
+          "allOf": [
+            { "$ref": "#/definitions/script" },
+            {
+              "type": "object",
+              "properties": {
+                "examples": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "input": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeInput"
+                      },
+                      "output": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeOutput"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "downlinkDecoder": {
+          "allOf": [
+            { "$ref": "#/definitions/script" },
+            {
+              "type": "object",
+              "properties": {
+                "examples": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "input": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
+                      },
+                      "output": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "endDeviceProfile": {
+      "title": "End Device Profile",
+      "description": "End device capabilities and boot parameters",
+      "type": "object",
+      "examples": [
+        {
+          "vendorProfileID": 1,
+          "supportsClassB": false,
+          "supportsClassC": false,
+          "macVersion": "1.0.2",
+          "regionalParametersVersion": "RP001-1.0.2-RevB",
+          "supportsJoin": true,
+          "maxEIRP": 14,
+          "supports32bitFCnt": true
+        },
+        {
+          "vendorProfileID": 2,
+          "supportsClassB": false,
+          "supportsClassC": false,
+          "macVersion": "1.0.4",
+          "regionalParametersVersion": "RP002-1.0.1",
+          "supportsJoin": false,
+          "rx1Delay": 1,
+          "rx1DataRateOffset": 0,
+          "rx2DataRateIndex": 3,
+          "rx2Frequency": 869.525,
+          "factoryPresetFrequencies": [
+            868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9
+          ],
+          "maxEIRP": 14,
+          "supports32bitFCnt": true
+        }
+      ],
+      "properties": {
         "vendorProfileID": {
           "type": "integer",
           "description": "VendorProfileID managed by the vendor, as defined in TR005",
@@ -432,78 +589,8 @@
         "supports32bitFCnt": {
           "type": "boolean",
           "description": "End device supports 32bit FCnt"
-        },
-        "payloadEncoding": {
-          "type": "object",
-          "properties": {
-            "uplinkDecoder": {
-              "allOf": [
-                { "$ref": "#/definitions/script" },
-                {
-                  "properties": {
-                    "examples": {
-                      "items": {
-                        "properties": {
-                          "input": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeInput"
-                          },
-                          "output": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeOutput"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "downlinkEncoder": {
-              "allOf": [
-                { "$ref": "#/definitions/script" },
-                {
-                  "properties": {
-                    "examples": {
-                      "items": {
-                        "properties": {
-                          "input": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/encodeInput"
-                          },
-                          "output": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/encodeOutput"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "downlinkDecoder": {
-              "allOf": [
-                { "$ref": "#/definitions/script" },
-                {
-                  "properties": {
-                    "examples": {
-                      "items": {
-                        "properties": {
-                          "input": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeInput"
-                          },
-                          "output": {
-                            "$ref": "#/definitions/endDeviceProfile/definitions/decodeOutput"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
         }
       },
-      "additionalProperties": false,
       "allOf": [
         {
           "if": {
@@ -650,7 +737,6 @@
         }
       ],
       "required": [
-        "id",
         "supportsClassB",
         "supportsClassC",
         "macVersion",
@@ -665,7 +751,9 @@
         "type": "object",
         "properties": {
           "body": {
-            "enum": ["IEC", "ETSI"]
+            "type": "string",
+            "minLength": 1,
+            "examples": ["IEC", "ETSI"]
           },
           "norm": {
             "type": "string",
@@ -680,7 +768,6 @@
             "minLength": 1
           }
         },
-        "additionalProperties": false,
         "required": ["body", "standard"]
       },
       "uniqueItems": true
@@ -690,12 +777,7 @@
       "description": "LoRaWAN end device",
       "type": "object",
       "properties": {
-        "id": { "$ref": "#/definitions/identifier" },
         "name": {
-          "type": "string",
-          "minLength": 1
-        },
-        "partNumber": {
           "type": "string",
           "minLength": 1
         },
@@ -715,12 +797,22 @@
                 "type": "integer",
                 "minimum": 0,
                 "maximum": 4294967295
+              },
+              "partNumber": {
+                "type": "string",
+                "minLength": 1
               }
             },
-            "additionalProperties": false,
             "required": ["version"]
           },
           "uniqueItems": true
+        },
+        "findHardwareVersion": {
+          "type": "string",
+          "description": "Instructions for finding hardware version",
+          "examples": [
+            "The hardware version of your product is marked as HW. On the product it is printed on a label on the bottom of the device. On the box, it is printed on a sticker on the bottom."
+          ]
         },
         "firmwareVersions": {
           "type": "array",
@@ -746,53 +838,114 @@
                       "id": { "$ref": "#/definitions/identifier" },
                       "lorawanCertified": {
                         "type": "boolean"
-                      }
+                      },
+                      "codec": { "$ref": "#/definitions/identifier" }
                     },
-                    "additionalProperties": false
+                    "required": ["id"]
                   }
                 }
               },
               "hardwareVersions": {
                 "type": "array",
-                "item": {
+                "items": {
                   "type": "string"
                 }
+              },
+              "features": {
+                "type": "array",
+                "items": {
+                  "enum": ["remote rejoin", "transmission interval"]
+                },
+                "uniqueItems": true
               }
             },
-            "additionalProperties": false,
             "required": ["version", "profiles"]
           },
           "minItems": 1,
           "uniqueItems": true
         },
+        "findFirmwareVersion": {
+          "type": "string",
+          "description": "Instructions for finding firmware version",
+          "examples": [
+            "In the WebFig configuration panel, the firmware version is stated in the top left (e.g RouterOS v6.47.9)"
+          ]
+        },
         "sensors": {
           "type": "array",
           "items": {
             "enum": [
-              "temperature",
-              "humidity",
-              "pir",
-              "light",
+              "4-20 ma",
               "accelerometer",
-              "gyroscope",
-              "magnetometer",
-              "gps",
-              "button",
+              "altitude",
+              "analog input",
               "auxiliary",
-              "battery",
-              "rssi",
-              "snr",
-              "link",
-              "sound",
-              "co2",
-              "proximity",
-              "water",
-              "ph",
               "barometer",
-              "moisture",
+              "battery",
+              "button",
+              "bvoc",
+              "co",
+              "co2",
+              "conductivity",
+              "current",
+              "digital input",
+              "dissolved oxygen",
               "distance",
               "dust",
-              "vibration"
+              "energy",
+              "gps",
+              "gyroscope",
+              "h2s",
+              "humidity",
+              "iaq",
+              "level",
+              "light",
+              "lightning",
+              "link",
+              "magnetometer",
+              "moisture",
+              "motion",
+              "no",
+              "no2",
+              "o3",
+              "optical meter",
+              "particulate matter",
+              "ph",
+              "pir",
+              "pm2.5",
+              "pm10",
+              "potentiometer",
+              "power",
+              "precipitation",
+              "pressure",
+              "proximity",
+              "pulse count",
+              "pulse frequency",
+              "radar",
+              "rainfall",
+              "rssi",
+              "smart valve",
+              "snr",
+              "so2",
+              "solar radiation",
+              "sound",
+              "strain",
+              "surface temperature",
+              "temperature",
+              "tilt",
+              "time",
+              "tvoc",
+              "uv",
+              "vapor pressure",
+              "velocity",
+              "vibration",
+              "voltage",
+              "water potential",
+              "water",
+              "weight",
+              "wifi ssid",
+              "wind direction",
+              "wind speed"
             ]
           }
         },
@@ -801,6 +954,13 @@
           "items": {
             "enum": ["ble", "nfc", "wifi", "cellular"]
           }
+        },
+        "bridgeInterfaces": {
+          "type": "array",
+          "items": {
+            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+          },
+          "uniqueItems": true
         },
         "dimensions": {
           "type": "object",
@@ -825,8 +985,7 @@
               "type": "number",
               "minimum": 0
             }
-          },
-          "additionalProperties": false
+          }
         },
         "weight": {
           "description": "Weight (gram)",
@@ -843,8 +1002,7 @@
               "type": "string",
               "minLength": 1
             }
-          },
-          "additionalProperties": false
+          }
         },
         "operatingConditions": {
           "type": "object",
@@ -865,7 +1023,6 @@
                   "maximum": 100
                 }
               },
-              "additionalProperties": false,
               "required": ["min", "max"]
             },
             "relativeHumidity": {
@@ -884,11 +1041,9 @@
                   "maximum": 1
                 }
               },
-              "additionalProperties": false,
               "required": ["min", "max"]
             }
-          },
-          "additionalProperties": false
+          }
         },
         "ipCode": {
           "type": "string",
@@ -902,8 +1057,22 @@
           "minItems": 1,
           "uniqueItems": true
         },
+        "keyProgramming": {
+          "type": "array",
+          "items": {
+            "enum": ["bluetooth", "nfc", "wifi", "serial", "firmware"]
+          },
+          "uniqueItems": true
+        },
         "keySecurity": {
           "enum": ["none", "read protected", "secure element"]
+        },
+        "firmwareProgramming": {
+          "type": "array",
+          "items": {
+            "enum": ["serial", "fuota lorawan", "fuota other"]
+          },
+          "uniqueItems": true
         },
         "productURL": {
           "type": "string",
@@ -912,6 +1081,60 @@
         "dataSheetURL": {
           "type": "string",
           "format": "uri"
+        },
+        "resellerURLs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "region": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "Argentina",
+                    "Australia",
+                    "Brazil",
+                    "Canada",
+                    "China",
+                    "European Union",
+                    "India",
+                    "Indonesia",
+                    "Japan",
+                    "Mexico",
+                    "Russia",
+                    "Saudi Arabia",
+                    "South Africa",
+                    "South Korea",
+                    "Turkey",
+                    "United States",
+                    "Other"
+                  ]
+                }
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        },
+        "msrp": {
+          "title": "MSRP",
+          "description": "Manufacturer suggested retail price",
+          "type": "object",
+          "propertyNames": {
+            "enum": ["AUD", "CAD", "CHF", "EUR", "GPB", "JPY", "USD"]
+          },
+          "patternProperties": {
+            "": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
         },
         "photos": {
           "type": "object",
@@ -922,25 +1145,33 @@
               "items": { "$ref": "#/definitions/photo" }
             }
           },
-          "additionalProperties": false,
           "required": ["main"]
+        },
+        "videos": {
+          "type": "object",
+          "properties": {
+            "main": { "$ref": "#/definitions/video" },
+            "other": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/video" }
+            }
+          }
         },
         "compliances": {
           "type": "object",
           "properties": {
             "safety": { "$ref": "#/definitions/compliances" },
             "radioEquipment": { "$ref": "#/definitions/compliances" }
-          },
-          "additionalProperties": false
+          }
         }
       },
-      "additionalProperties": false,
-      "required": ["id", "name", "firmwareVersions"]
+      "required": ["name", "firmwareVersions"]
     }
   },
-  "oneOf": [
+  "anyOf": [
     { "$ref": "#/definitions/vendor" },
     { "$ref": "#/definitions/endDeviceProfile" },
+    { "$ref": "#/definitions/endDevicePayloadCodec" },
     { "$ref": "#/definitions/endDevice" }
   ]
 }

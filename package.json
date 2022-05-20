@@ -6,11 +6,11 @@
     "example": "examples"
   },
   "scripts": {
-    "validate": "find examples -name '*.yaml' -type f -print0 | xargs -0 -n 1 -I {} ajv validate -s schema -d {} --errors text",
+    "validate": "find examples -name '*.yaml' -type f -print0 | xargs -0 -n 1 -I {} ajv validate -s schema -d {} --errors text --validate-formats false",
     "format": "prettier --write schema.json \"examples/**/*.yaml\""
   },
   "bin": {
-    "validate": "./bin/validate.js"
+    "validate": "bin/validate.js"
   },
   "repository": {
     "type": "git",
@@ -23,12 +23,12 @@
   },
   "homepage": "https://lorawan-schema.org/draft/devices",
   "devDependencies": {
-    "ajv-cli": "^3.2.1",
-    "prettier": "^2.0.5"
+    "ajv-cli": "^5.0.0",
+    "prettier": "^2.6.2"
   },
   "dependencies": {
-    "ajv": "^6.12.2",
-    "js-yaml": "^3.14.0",
-    "yargs": "^15.3.1"
+    "ajv": "^8.11.0",
+    "js-yaml": "^4.1.0",
+    "yargs": "^16.2.0"
   }
 }
