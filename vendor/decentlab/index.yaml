@@ -19,6 +19,7 @@ endDevices:
   - dl-lid
   - dl-lp8p
   - dl-mbx
+  - dl-ntu
   - dl-optod
   - dl-par
   - dl-pm

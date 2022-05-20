@@ -1,0 +1,46 @@
+uplinkDecoder:
+  fileName: dl-ntu.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x23, 0x32, 0x00, 0x03, 0x00, 0x00, 0x88, 0x85, 0x01, 0x3e, 0x01, 0x3e, 0x02, 0x33, 0x0b, 0x10]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.832
+          device_id: 9010
+          protocol_version: 2
+          status:
+            displayName: Status
+            value: 0
+          temperature:
+            displayName: Temperature
+            unit: "\xB0C"
+            value: 21.81
+          turbidity_in_fnu:
+            displayName: Turbidity in FNU
+            unit: FNU
+            value: 31.8
+          turbidity_in_mg_l:
+            displayName: Turbidity in mg/L
+            unit: "mg\u22C5L\u207B\xB9"
+            value: 56.3
+          turbidity_in_ntu:
+            displayName: Turbidity in NTU
+            unit: NTU
+            value: 31.8
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x23, 0x32, 0x00, 0x02, 0x0b, 0x10]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.832
+          device_id: 9010
+          protocol_version: 2
