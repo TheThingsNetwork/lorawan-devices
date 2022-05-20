@@ -5,12 +5,16 @@ hardwareVersions:
   - version: '1'
     numeric: 1
     partNumber: DL-WRM-001
+  - version: '2'
+    numeric: 2
+    partNumber: DL-WRM-002
 
 firmwareVersions:
   - version: 1.5.7
     numeric: 157
     hardwareVersions:
       - '1'
+      - '2'
     profiles:
       EU863-870:
         id: profile-eu868
@@ -63,6 +67,8 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/winter-road-maintenance-sensor-for-lorawan
 photos:
   main: dl-wrm.png
+  other:
+    - dl-wrm-002.png
 
 compliances:
   safety:
