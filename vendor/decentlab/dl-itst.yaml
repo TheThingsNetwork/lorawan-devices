@@ -69,6 +69,10 @@ photos:
   main: dl-itst.png
   other:
     - dl-itst-002.png
+    - dl-itst-002-1.jpg
+    - dl-itst-002-2.jpg
+    - dl-itst-002-3.jpg
+    - dl-itst-002-4.jpg
 
 compliances:
   safety:
