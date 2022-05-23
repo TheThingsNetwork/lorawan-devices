@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.2.0'
+    version: '1.2.3'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
