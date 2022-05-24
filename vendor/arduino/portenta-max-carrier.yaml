@@ -72,9 +72,9 @@ productURL: https://store.arduino.cc/products/portenta-max-carrier
 
 # Photos
 photos:
-  main: mkrwan1310_1.png
+  main: maxcarrier_1.png
   other:
-    - mkrwan1310_2.png
+    - maxcarrier_2.png
 
 # Regulatory compliances (optional)
 compliances:
