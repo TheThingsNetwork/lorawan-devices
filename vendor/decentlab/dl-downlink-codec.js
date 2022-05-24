@@ -518,7 +518,7 @@ var decentlab_codec = {
 
     var param = 0;
     if (this.DOWNLINK_COMMANDS[cmd].noparam !== true) {
-      var param = parseInt(parameter).toString(16);
+      param = parseInt(parameter).toString(16);
       if (param === 'NaN') {
         return {
           errors: ['invalid parameter'],
