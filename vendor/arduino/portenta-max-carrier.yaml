@@ -62,10 +62,10 @@ weight: 85
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Li-Ion / Li-Po, 1024 mAh minimum capacity, JST connector
+  type: 18650 Li-Ion / Li-Po
 
 # Valid values are: none, read protected and secure element.
-keySecurity: secure element
+keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://store.arduino.cc/products/portenta-max-carrier
