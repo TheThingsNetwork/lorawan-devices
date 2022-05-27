@@ -63,6 +63,8 @@ productURL: https://www.decentlab.com/products/pressure-/-liquid-level-and-tempe
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PR21-datasheet.pdf
 photos:
   main: dl-pr21.png
+  other:
+    - dl-pr21-2.jpg
 
 compliances:
   safety:

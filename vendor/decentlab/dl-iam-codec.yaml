@@ -7,11 +7,8 @@ uplinkDecoder:
         bytes: [0x02, 0x0b, 0xbd, 0x00, 0x7f, 0x0b, 0x92, 0x6a, 0x51, 0x5d, 0x48, 0xbc, 0x4e, 0x02, 0x62, 0x00, 0x69, 0x81, 0xc7, 0x00, 0x00, 0x93, 0xd4, 0x00, 0x0b, 0x01, 0x11]
       output:
         data:
-          protocol_version: 2
-          device_id: 3005
           activity_counter:
             displayName: Activity counter
-            unit:
             value: 11
           air_humidity:
             displayName: Air humidity
@@ -19,15 +16,13 @@ uplinkDecoder:
             value: 36.438544289311054
           air_temperature:
             displayName: Air temperature
-            unit: '°C'
+            unit: "\xB0C"
             value: 27.67833981841764
           ambient_light_infrared:
             displayName: Ambient light (infrared)
-            unit:
             value: 105
           ambient_light_visible_infrared:
             displayName: Ambient light (visible + infrared)
-            unit:
             value: 610
           barometric_pressure:
             displayName: Barometric pressure
@@ -43,15 +38,15 @@ uplinkDecoder:
             value: 455
           co2_sensor_status:
             displayName: CO2 sensor status
-            unit:
             value: 0
+          device_id: 3005
           illuminance:
             displayName: Illuminance
             unit: lx
             value: 678.76512
+          protocol_version: 2
           raw_ir_reading:
             displayName: Raw IR reading
-            unit:
             value: 37844
           total_voc:
             displayName: Total VOC
@@ -63,11 +58,8 @@ uplinkDecoder:
         bytes: [0x02, 0x0b, 0xbd, 0x00, 0x6f, 0x0b, 0x92, 0x6a, 0x51, 0x5d, 0x48, 0xbc, 0x4e, 0x02, 0x62, 0x00, 0x69, 0x00, 0x0b, 0x01, 0x11]
       output:
         data:
-          protocol_version: 2
-          device_id: 3005
           activity_counter:
             displayName: Activity counter
-            unit:
             value: 11
           air_humidity:
             displayName: Air humidity
@@ -75,15 +67,13 @@ uplinkDecoder:
             value: 36.438544289311054
           air_temperature:
             displayName: Air temperature
-            unit: '°C'
+            unit: "\xB0C"
             value: 27.67833981841764
           ambient_light_infrared:
             displayName: Ambient light (infrared)
-            unit:
             value: 105
           ambient_light_visible_infrared:
             displayName: Ambient light (visible + infrared)
-            unit:
             value: 610
           barometric_pressure:
             displayName: Barometric pressure
@@ -93,10 +83,12 @@ uplinkDecoder:
             displayName: Battery voltage
             unit: V
             value: 2.962
+          device_id: 3005
           illuminance:
             displayName: Illuminance
             unit: lx
             value: 678.76512
+          protocol_version: 2
           total_voc:
             displayName: Total VOC
             unit: ppb
@@ -107,9 +99,47 @@ uplinkDecoder:
         bytes: [0x02, 0x0b, 0xbd, 0x00, 0x01, 0x0b, 0x92]
       output:
         data:
-          protocol_version: 2
-          device_id: 3005
           battery_voltage:
             displayName: Battery voltage
             unit: V
             value: 2.962
+          device_id: 3005
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset
