@@ -1759,7 +1759,13 @@ vendors:
 
   - id: ellenex
     name: ellenex
+    description: Ellenex provides Industrial IOT Solutions that are ruggedused, battery operated and scalable.
+    logo: logo.png
     website: https://www.ellenex.com
+    social:
+      linkedin: https://au.linkedin.com/company/ellenex
+    ouis:
+      - 70B3D5
 
   - id: ttn
     name: The Things Network Foundation
