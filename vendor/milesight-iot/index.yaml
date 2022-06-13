@@ -4,5 +4,6 @@ endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - am107
   - em300-th
+  - em300-mcs
   - em500-co2
   - em500-udl

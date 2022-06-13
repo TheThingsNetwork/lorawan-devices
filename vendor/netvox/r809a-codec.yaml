@@ -1,0 +1,200 @@
+uplinkDecoder:
+  fileName: payload/r809a.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x0E, 0x00, 0x64, 0x0C, 0x20, 0x19, 0x09, 0x10, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R809A'
+          SWver: 10
+          HWver: 12
+          Datecode: '20190910'
+
+    - description: Status report - 1
+      input:
+        fPort: 6
+        bytes: [0x01, 0x0E, 0x01, 0x01, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R809A'
+          OnOff: 'ON'
+          Energy: 512
+          OverCurrentAlarm: 'Alarm'
+          DashCurrentAlarm: 'No alarm'
+          PowerOffAlarm: 'No alarm'
+
+    - description: Status report - 2
+      input:
+        fPort: 6
+        bytes: [0x01, 0x0E, 0x02, 0x00, 0xDC, 0x03, 0xE8, 0x00, 0xDC, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R809A'
+          Vol: 220
+          Current: 1000
+          Power: 220
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R809A'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x0E, 0x03, 0x84, 0x07, 0x08, 0x00, 0x64, 0x00, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R809A'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 100
+          PowerChange: 1
+
+downlinkDecoder:
+  fileName: payload/r809a.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x0E, 0x03, 0x84, 0x07, 0x08, 0x00, 0x64, 0x00, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R809A'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 100
+          PowerChange: 1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R809A'
+
+    - description: Off
+      input:
+        fPort: 7
+        bytes: [0x90, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Off'
+          Device: 'R809A'
+
+    - description: On
+      input:
+        fPort: 7
+        bytes: [0x91, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'On'
+          Device: 'R809A'
+
+    - description: Toggle
+      input:
+        fPort: 7
+        bytes: [0x92, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Toggle'
+          Device: 'R809A'
+
+    - description: Clear energy
+      input:
+        fPort: 7
+        bytes: [0x93, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ClearEnergy'
+          Device: 'R809A'
+
+    - description: Read current status
+      input:
+        fPort: 7
+        bytes: [0x94, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadCurrentStatus'
+          Device: 'R809A'
+
+downlinkEncoder:
+  fileName: payload/r809a.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R809A'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 100
+          PowerChange: 1
+      output:
+        fPort: 7
+        bytes: [0x01, 0x0E, 0x03, 0x84, 0x07, 0x08, 0x00, 0x64, 0x00, 0x01, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R809A'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Off
+      input:
+        data:
+          Cmd: 'Off'
+          Device: 'R809A'
+      output:
+        fPort: 7
+        bytes: [0x90, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: On
+      input:
+        data:
+          Cmd: 'On'
+          Device: 'R809A'
+      output:
+        fPort: 7
+        bytes: [0x91, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Toggle
+      input:
+        data:
+          Cmd: 'Toggle'
+          Device: 'R809A'
+      output:
+        fPort: 7
+        bytes: [0x92, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Clear energy
+      input:
+        data:
+          Cmd: 'ClearEnergy'
+          Device: 'R809A'
+      output:
+        fPort: 7
+        bytes: [0x93, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read current status
+      input:
+        data:
+          Cmd: 'ReadCurrentStatus'
+          Device: 'R809A'
+      output:
+        fPort: 7
+        bytes: [0x94, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

@@ -1,0 +1,154 @@
+uplinkDecoder:
+  fileName: payload/r718g.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x1E, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x28, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718G'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191128'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x1E, 0x01, 0x1E, 0x00, 0x00, 0x13, 0x88, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718G'
+          Volt: 3
+          Illuminance: 5000
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718G'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x1E, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x01, 0xF4]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718G'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          IlluminanceChange: 500
+
+    - description: Set sunlight sample range response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSunlightSampleRangeRsp'
+          Device: 'R718G'
+          Status: 'Success'
+
+    - description: Get sunlight sample range response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x1E, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSunlightSampleRangeRsp'
+          Device: 'R718G'
+          RangeSetting: 1
+
+downlinkDecoder:
+  fileName: payload/r718g.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x1E, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x01, 0xF4]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718G'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          IlluminanceChange: 500
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718G'
+
+    - description: Set sunlight sample range request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x1E, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSunlightSampleRangeReq'
+          Device: 'R718G'
+          RangeSetting: 1
+
+    - description: Get sunlight sample range request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSunlightSampleRangeReq'
+          Device: 'R718G'
+
+downlinkEncoder:
+  fileName: payload/r718g.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718G'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          IlluminanceChange: 500
+      output:
+        fPort: 7
+        bytes: [0x01, 0x1E, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x01, 0xF4]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718G'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set sunlight sample range request
+      input:
+        data:
+          Cmd: 'SetSunlightSampleRangeReq'
+          Device: 'R718G'
+          RangeSetting: 1
+      output:
+        fPort: 7
+        bytes: [0x03, 0x1E, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get sunlight sample range request
+      input:
+        data:
+          Cmd: 'GetSunlightSampleRangeReq'
+          Device: 'R718G'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

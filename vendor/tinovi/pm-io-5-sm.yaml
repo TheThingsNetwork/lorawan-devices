@@ -1,0 +1,108 @@
+name: LoRaWAN Soil Moisture, Temperature | Air temperature/humidity | boosted 12v output from battery
+description: LoRaWAN IO module with optional Soil and Air Lux sensors and optional boosted 12v reversible polarity output for latching valves.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '4.4'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '4.4'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '4.4'
+    features:
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: pm-io-5-sm-profile-eu
+        codec: pm-io-5-sm-codec
+      US902-928:
+        id: pm-io-5-sm-profile-us
+        codec: pm-io-5-sm-codec
+      AS923:
+        id: pm-io-5-sm-profile-as
+        codec: pm-io-5-sm-codec
+      AU915-928:
+        id: pm-io-5-sm-profile-au
+        codec: pm-io-5-sm-codec
+      KR920-923:
+        id: pm-io-5-sm-profile-kr
+        codec: pm-io-5-sm-codec
+      IN865-867:
+        id: pm-io-5-sm-profile-in
+        codec: pm-io-5-sm-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - battery
+  - pulse count
+  - humidity
+  - pressure
+  - temperature
+  - moisture
+
+# Weight in grams (optional)
+weight: 350
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3.7v Lithium 18650
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -30
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://tinovi.com/shop/lorawan-soil-moisture-temperature-air-temperature-humidity-12v-output-from-battery/
+dataSheetURL: https://tinovi.com/wp-content/uploads/2021/06/PM-IO-5-SM-LoRaWAN-1-1.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'Tinovi e-shop'
+    region:
+      - Other
+    url: https://tinovi.com/shop/lorawan-soil-moisture-temperature-air-temperature-humidity-12v-output-from-battery/
+# Photos
+photos:
+  main: pm-io-5-sm-package.png

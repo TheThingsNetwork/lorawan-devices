@@ -1,4 +1,4 @@
-name: Wireless 1-Phase Current Meter with 1 x 30A Solid Core CT
+name: R718N1 - Wireless 1-Phase Current Meter with 1 x 30A Solid Core CT
 description: The Netvox R718N1 1-Phase Current Meter is a LoRaWAN® end device with an external solid-core current transformer that can be used to obtain the single-phase current of a live wire. R718N1 series have different measuring range for different variety of CT; 30A (Solid Core CT and Clamp-On CT types), 75A (Clamp-On CT), 150A (Clamp-On CT), 250A (Clamp-On CT), 630A (Clamp-On CT).
 
 hardwareVersions:

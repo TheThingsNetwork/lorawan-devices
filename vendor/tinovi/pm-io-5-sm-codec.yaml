@@ -1,0 +1,31 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: pm-io-5-sm.js
+  examples:
+    - description: battery percent 63
+      input:
+        fPort: 1
+        bytes: [1, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      output:
+        data:
+          bat: 63
+          e25: 0
+          ec: 0
+          leak: 0
+          temp: 0
+          valv: 0
+          vwc: 0
+    - description: battery percent 77
+      input:
+        fPort: 1
+        bytes: [1, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      output:
+        data:
+          bat: 77
+          e25: 0
+          ec: 0
+          leak: 0
+          temp: 0
+          valv: 0
+          vwc: 0

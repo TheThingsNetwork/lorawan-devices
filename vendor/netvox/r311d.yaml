@@ -1,4 +1,4 @@
-name: Wireless Asset Sensor R311D
+name: R311D - Wireless Asset Sensor
 description: he device is a simple positioning function (which can detect the position status of the device), periodically reports RSSI and SNR information to the gateway for processing and can locate the position status of the device according to the reported RSSI and SNR information, and adopts SX1276 wireless communication module.
 
 hardwareVersions:

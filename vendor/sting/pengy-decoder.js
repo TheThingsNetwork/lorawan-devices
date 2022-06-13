@@ -1,10 +1,11 @@
 function getEAQI(pm1, pm25, pm10) {
     var eaqi = "NaN";
-    if (pm25 >= 50 && pm25 < 800 || pm10 >= 100 && pm10 < 1200) { eaqi = "Very poor" } else
+    if (pm25 >= 75 || pm10 >= 150) { eaqi = "Extremely poor" } else  
+    if (pm25 >= 50 && pm25 < 75 || pm10 >= 100 && pm10 < 150) { eaqi = "Very poor" } else
     if (pm25 >= 25 && pm25 < 50 || pm10 >= 50 && pm10 < 100) { eaqi = "Poor" } else
-    if (pm25 >= 20 && pm25 < 25 || pm10 >= 35 && pm10 < 50) { eaqi = "Moderate" } else
-    if (pm25 >= 10 && pm25 < 20 || pm10 >= 20 && pm10 < 35) { eaqi = "Fair" } else
-    if (pm25 > 0 && pm25 < 10 || pm10 > 0 && pm10 < 20) { eaqi = "Good" } else { eaqi = "Unknown" };
+    if (pm25 >= 20 && pm25 < 25 || pm10 >= 40 && pm10 < 50) { eaqi = "Moderate" } else
+    if (pm25 >= 10 && pm25 < 20 || pm10 >= 20 && pm10 < 40) { eaqi = "Fair" } else
+    if (pm25 >= 0 && pm25 < 10 || pm10 >= 0 && pm10 < 20) { eaqi = "Good" } else { eaqi = "Unknown" };
     return eaqi;
 }
 

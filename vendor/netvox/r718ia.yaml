@@ -1,4 +1,4 @@
-name: Wireless 0-5V ADC Sampling Interface
+name: R718IA - Wireless 0-5V ADC Sampling Interface
 description: The device is designed for a variety of resistive bridge-sensing applications like pressure, temperature, and level-sensing applications. It can also support other applications, weight scale and force-sensing applications that use strain gauge load cells, and other general resistive bridge signal-conditioning applications.
 
 hardwareVersions:

@@ -4,11 +4,28 @@ uplinkDecoder:
     - description: concatenated data format
       input:
         fPort: 2
-        bytes: [1, 0, 0, 25, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0]
+        bytes: [0x01, 0x27, 0x10, 0x19, 0x01, 0xf4, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
       output:
         data:
-          temperature: 25
-          light: 1
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.000
+          humidity:
+            displayName: Relative humidity
+            unit: '%'
+            value: 50.0
+          light:
+            displayName: Red led status
+            value: 'ON'
+          pressure:
+            displayName: Barometric pressure
+            unit: Pa
+            value: 1000.0
+          temperature:
+            displayName: Internal temperature
+            unit: "\xB0C"
+            value: 25
     - description: Unknown FPort
       input:
         fPort: 42
