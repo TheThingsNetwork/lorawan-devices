@@ -1,4 +1,4 @@
-name: Modbus classe A
+name: Modbus classe C
 description: The ModBus/LoRaWAN® Bridge collects data from any ModBus RTU existing equipment and connects these devices to a public or private LoRaWAN® network. The Bridge has the capability to change the behaviour of the ModBus device by writing into its registers.
 
 # Hardware versions (optional, use when you have revisions)
