@@ -423,7 +423,8 @@ function bytes2Float32(bytes) {
     }
     exponent = -126
     significand /= 1 << 22
-  } else {
+  } 
+  else {
     significand = (significand | (1 << 23)) / (1 << 23)
   }
 
@@ -513,17 +514,20 @@ function handleCommonTimestamp(
               argList[sampleIndex].resol,
               bi
             )
-          } else {
+          } 
+          else {
             // (bi <= 0)
             if (first_null_delta_value) {
               // First value is yet recorded starting from the header
               first_null_delta_value = 0
               continue
-            } else {
+            } 
+            else {
               currentMeasure.data.value = precedingValue
             }
           }
-        } else {
+        } 
+        else {
           // bi > BR_HUFF_MAX_INDEX_TABLE
           currentMeasure.data.value = buffer.getNextSample(
             argList[sampleIndex].sampletype
@@ -558,7 +562,8 @@ function initTimestampCommonTable(
           out.series[firstSampleIndex].uncompressSamples[0]
             .data_relative_timestamp
         )
-      } else {
+      } 
+      else {
         if (bi > 0) {
           var precedingTimestamp = timestampCommon[i - 1]
           timestampCommon.push(
@@ -567,11 +572,13 @@ function initTimestampCommonTable(
               Math.pow(2, bi) -
               1
           )
-        } else {
+        } 
+        else {
           timestampCommon.push(precedingTimestamp)
         }
       }
-    } else {
+    } 
+    else {
       timestampCommon.push(buffer.getNextSample(ST_U32))
     }
     lastTimestamp = timestampCommon[i]
@@ -762,36 +769,71 @@ function decimalToHex(d, padding) {
   padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
 
   while (hex.length < padding) {
-      hex = "0" + hex;
+    hex = "0" + hex;
   }
-
   return "0x" + hex;
 }
 
 
 
 function Bytes2Float32(bytes) {
-
   var sign = (bytes & 0x80000000) ? -1 : 1;
   var exponent = ((bytes >> 23) & 0xFF) - 127;
   var significand = (bytes & ~(-1 << 23));
+
   if (exponent == 128)
     return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
 
   if (exponent == -127) {
     if (significand == 0) return sign * 0.0;
       exponent = -126;
-    significand /= (1 << 22);
-  } 
-  else significand = (significand | (1 << 23)) / (1 << 23);
+      significand /= (1 << 22);
+    } 
+    else significand = (significand | (1 << 23)) / (1 << 23);
 
-  return sign * significand * Math.pow(2, exponent);
+    return sign * significand * Math.pow(2, exponent);
+}
+
+function parseModbusPayload(bytes, size, index){
+  let result = {}
+
+  result.payload = ''
+  result.modbus_address = ''
+  result.modbus_commandID = ''
+  result.modbus_size = size
+  result.modbus_payload = ''
+
+  for(let i = 0; i < size ; i++){
+    
+    temp_hex_str = bytes[index+i+1].toString(16).toUpperCase();
+    if( temp_hex_str.length == 1 ){
+      temp_hex_str = "0" + temp_hex_str;
+    }
+    result.payload += temp_hex_str
+
+    switch (i) {
+      case 0:
+        result.modbus_address = bytes[index+i+1]
+        break;
+      case 1:
+        result.modbus_commandID = bytes[index+i+1]
+        break;
+      case 2:
+        result.modbus_size = bytes[index+i+1]
+        break;
+      default:
+        result.modbus_payload += temp_hex_str
+        break;
+    }
+  }
+
+  return result
 }
 
 
-function Decoder(bytes, port) {
 
-  // Decode an uplink message from a buffer
+function Decoder(bytes, port) {
+    // Decode an uplink message from a buffer
   // (array) of bytes to an object of fields.
   var decoded = {};
 
@@ -806,9 +848,6 @@ function Decoder(bytes, port) {
   var temp_hex_str = ""
 
   lora.payload  = "";
-
-
-
 
   for( var j = 0; j < bytes_len_; j++ ){
     temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
@@ -838,12 +877,10 @@ function Decoder(bytes, port) {
         cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
         //Cluster ID
         clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
-
             
         
         // decode report and read atrtribut response
         if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
-
           stdData = {};
           var tab=[];
 
@@ -856,62 +893,134 @@ function Decoder(bytes, port) {
           else {
             decoded.zclheader.alarm = 0;
           }
-                    
+                
           //data index start
           if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
           // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
-        
-          // on/off present value
-          if (  (clusterdID === 0x0006 ) & (attributID === 0x0000)) {
-            state = bytes[index]; 
-            if(state === 0) {
-              tab.push({label: "Output"+(decoded.zclheader.endpoint+1), value: "OFF", date: lDate});
-            }
-            if(state === 1) {
-              tab.push({label: "Output"+(decoded.zclheader.endpoint+1), value: "ON", date: lDate});
-            }
+
+
+          // Serial Master Slave
+				  if (   (clusterdID === 0x8007 ) & (attributID === 0x0001)) {
+
+            const size = bytes[index]
+            stdData.size = size
+            stdData.label = "Answer Frame";
+            stdData.value = parseModbusPayload(bytes, size, index)
+            stdData.date = lDate;
+
+
+            tab.push(stdData);
+
           }
 
-          //energy and power metering
-          if (  (clusterdID === 0x800a) & (attributID === 0x0000)) {
-            tab.push({label: "PositiveActiveEnergyWhOrkWh", value: UintToInt(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4],4), date: lDate});
-            tab.push({label: "NegativeActiveEnergyWhOrkWh", value: UintToInt(bytes[index+5]*256*256*256+bytes[index+6]*256*256+bytes[index+7]*256+bytes[index+8],4), date: lDate});
-            tab.push({label:"PositiveReactiveEnergyVarhOrkVarh", value: UintToInt(bytes[index+9]*256*256*256+bytes[index+10]*256*256+bytes[index+11]*256+bytes[index+12],4), date: lDate});
-            tab.push({label: "NegativeReactiveEnergyVarhOrkVarh", value: UintToInt(bytes[index+13]*256*256*256+bytes[index+14]*256*256+bytes[index+15]*256+bytes[index+16],4), date: lDate});
-            tab.push({label: "PositiveActivePowerW", value: UintToInt(bytes[index+17]*256*256*256+bytes[index+18]*256*256+bytes[index+19]*256+bytes[index+20],4), date: lDate});            
-            tab.push({label: "NegativeActivePowerW", value: UintToInt(bytes[index+21]*256*256*256+bytes[index+22]*256*256+bytes[index+23]*256+bytes[index+24],4), date: lDate});            
-            tab.push({label: "PositiveReactivePowerVar", value: UintToInt(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28],4), date: lDate});
-            tab.push({label: "NegativeReactivePowerVar", value: UintToInt(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32],4), date: lDate});
+          // Multi Master Slave
+				  //multimodbus 
+          if (  (clusterdID === 0x8009 ) & (attributID === 0x0000)) 
+          {
+            stdData.payloads = bytes.slice(index+1);
+            stdData.size = bytes[index]; 
+
+            const initMultiModbusValue = () => {
+              stdData.value = {}
+              stdData.value.multimodbus_frame_series_sent = bytes[index+1];
+              stdData.value.multimodbus_frame_number_in_serie = (bytes[index+2] & 0xE0) >> 5; 
+              stdData.value.multimodbus_last_frame_of_serie = (bytes[index+2] & 0x1C ) >> 2; 
+              stdData.value.multimodbus_EP9 = ((bytes[index+2]&0x01) === 0x01);
+              stdData.value.multimodbus_EP8 = ((bytes[index+2]&0x02) === 0x02);
+              stdData.value.multimodbus_EP7 = ((bytes[index+3]&0x80) === 0x80);
+              stdData.value.multimodbus_EP6 = ((bytes[index+3]&0x40) === 0x40);
+              stdData.value.multimodbus_EP5 = ((bytes[index+3]&0x20) === 0x20);
+              stdData.value.multimodbus_EP4 = ((bytes[index+3]&0x10) === 0x10);
+              stdData.value.multimodbus_EP3 = ((bytes[index+3]&0x08) === 0x08);
+              stdData.value.multimodbus_EP2 = ((bytes[index+3]&0x04) === 0x04);
+              stdData.value.multimodbus_EP1 = ((bytes[index+3]&0x02) === 0x02);
+              stdData.value.multimodbus_EP0 = ((bytes[index+3]&0x01) === 0x01); 
+              index2 = index + 4;
+            }
+
+            const parseModbusMultiMasterSlave = (i, ) => {
+              stdData.value["multimodbus_EP" + i + "_slaveID"] = bytes[index2];
+              index2++;                  
+              stdData.value["multimodbus_EP" + i + "_fnctID"] = bytes[index2];
+              index2++;                  
+              stdData.value["multimodbus_EP" + i + "_datasize"] = bytes[index2];
+              index2++;                  
+            
+              stdData.value["multimodbus_EP" + i + "_payload"] = ""
+              if (bytes[index2] != undefined ){
+            
+                for( var j = 0; j < stdData.value["multimodbus_EP" + i + "_datasize"]; j++ )
+                {
+                  temp_hex_str   = bytes[index2+j].toString( 16 ).toUpperCase( );
+                  if( temp_hex_str.length == 1 )
+                  {
+                    temp_hex_str = "0" + temp_hex_str;
+                  }
+                  stdData.value["multimodbus_EP" + i + "_payload"] += temp_hex_str;
+                }
+                index2 = index2 + stdData.value["multimodbus_EP" + i + "_datasize"];
+              }
+            }
+            
+            initMultiModbusValue()
+          
+            try{
+              // Check if modbus endpoint exist, and parse it
+              for(let index = 0; index < 10 ; index++){
+                if(stdData.value["multimodbus_EP"+index]) parseModbusMultiMasterSlave(index);
+              }
+
+              // If we parsed everything, but there is still value to parse. It means there is no header
+              if(index2 != bytes.length) throw 'No header'
+            }catch{
+              // 
+              initMultiModbusValue()
+              stdData.value.multimodbus_payload = ""
+              bytes.slice(index+1).forEach((value, i) => bytes[i] = value.toString( 16 ).toUpperCase().length === 1 ? "0" + value.toString( 16 ).toUpperCase() : value.toString( 16 ).toUpperCase())
+              stdData.value.multimodbus_payload = bytes.join('')
+            }
+            tab.push(stdData);
           }
 
-          //energy and power metering
-				  if (  (clusterdID === 0x800b) & (attributID === 0x0000)) {
-            tab.push({label: "Vrms", value: UintToInt(bytes[index+1]*256+bytes[index+2],2)/10, date: lDate});
-            tab.push({label: "Irms", value: UintToInt(bytes[index+3]*256+bytes[index+4],2)/10, date: lDate});
-            tab.push({label: "Angle", value: UintToInt(bytes[index+5]*256+bytes[index+6],2), date: lDate});
-			  	}
 
-            // lorawan message type
-            if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
+          // lorawan message type
+          if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
+            if (bytes[index] === 1)
+              stdData.message_type = "confirmed";
+            if (bytes[index] === 0)
+              stdData.message_type = "unconfirmed";
+          }
                 
-                if (bytes[index] === 1)
-                stdData.message_type = "confirmed";
-                if (bytes[index] === 0)
-                stdData.message_type = "unconfirmed";
-            }
+          // lorawan retry
+          if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
+            stdData.nb_retry= bytes[index] ;
+          }
                 
-            // lorawan retry
-            if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
-                stdData.nb_retry= bytes[index] ;
-            }
-                    
-            // lorawan reassociation
-            if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
-                stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
-                stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
-            }
+          // lorawan reassociation
+          if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
+            stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
+            stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
+          }
 
-            decoded.data = tab;
+          // configuration node power desc
+				  if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
+				  index2 = index + 3;
+				  if ((bytes[index+2] &0x01) === 0x01) {
+            tab.push({label:"ExternalPowerVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
+            index2=index2+2;
+          }
+          if ((bytes[index+2] &0x04) === 0x04) {
+            tab.push({label:"BatteryVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
+            index2=index2+2;
+          }
+				  if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+				  if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+				  if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
+				}
+
+
+
+          decoded.data = tab;
         }
             
         // decode configuration response
@@ -957,50 +1066,36 @@ function Decoder(bytes, port) {
 
         }   
       }
+      else{
+
+        var decoded = {};
+        brData = (brUncompress(3,[{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4-20mA", divide: 1},{ taglbl: 1, resol: 1, sampletype: 12,lblname: "0-10V", divide: 1}, { taglbl: 2, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 3, resol: 100, sampletype: 6,lblname: "ExternalPowerVoltage", divide: 1000},{ taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}], lora.payload, lDate))
+
+        var data_length = brData["datas"].length;
+        var tab=[];
+        for (var i = 0; i < data_length; i++) {               
+          tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
+        }
+
+        decoded.data = tab;
+
+        decoded.zclheader = {};
+        decoded.zclheader.report = "batch";
+      }
+
     }
+
+
+  
   return decoded;
 }
 
 
 function decodeUplink(input) {
- 
-  return {
-    data : Decoder(input.bytes, input.fPort),
-    
-    warnings: [],
-    errors: []
-  };
-}
-
-function encodeDownlink(input) {
-  if (input.data.value == "OFF"){
-    value = 0x00;
-  }
-  
-  if (input.data.value == "ON"){
-    value = 0x01;
-  }
-  
-  if (input.data.value == "TOGGLE"){
-    value = 0x02;
-  }
-  
-  bytes = [0x11, 0x50, 0x00, 0x06, value];
-  
-  return {
-    bytes: bytes,
-    fPort: 125,
-    warnings: [],
-    errors: []
-  };
-}
-
-function decodeDownlink(input) {
-  return {
-    data: {
-      bytes: input.bytes
-    },
-    warnings: [],
-    errors: []
-  };
+  const decodedInput = {
+                    data : Decoder(input.bytes, input.fPort),
+                    warnings: [],
+                    errors: []
+                  };
+  return decodedInput.data.data
 }
