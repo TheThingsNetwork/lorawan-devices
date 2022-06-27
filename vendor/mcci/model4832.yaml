@@ -1,5 +1,5 @@
 name: Model 4832 High-Accuracy Outdoor Environmental Sensor (SHT35)
-description: Temperature, humidity, light sensor for outdoors (using Sensirion SHT35)
+description: The MCCI® Model 4832 High-Accuracy Outdoor Environment Sensor (SHT35) is based on MCCI Catena 4618 M201 which consists of temperature, humidity, and light sensors.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -113,7 +113,7 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/model483x-datash
 
 # Photos
 photos:
-  main: model483x-closed.jpg
+  main: model483x-closed.png
   other:
     - model483x-open.jpg
 # Youtube or Vimeo Video (optional)

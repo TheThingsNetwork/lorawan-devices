@@ -1,0 +1,66 @@
+name: R718DB - Wireless Vibration Sensor
+description: The Netvox R718DB - Wireless Vibration Sensor is a LoRaWAN® end device equipped with an external spring-type vibration sensor for detecting movements and vibrations.
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718db-codec
+      AS923:
+        id: profile-as923
+        codec: r718db-codec
+      US902-928:
+        id: profile-us915
+        codec: r718db-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718db-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718db-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718db-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718db-codec
+
+dimensions:
+  width: 65
+  length: 112
+  height: 32
+
+weight: 150
+
+battery:
+  replaceable: true
+  type: 2 x ER14505 3.6V Lithium AA battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718DB
+dataSheetURL: http://www.netvox.com.tw/um/R718DB/R718DBdatasheet.pdf
+
+photos:
+  main: photos/r718db.jpg

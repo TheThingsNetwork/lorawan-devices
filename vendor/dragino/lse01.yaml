@@ -1,0 +1,200 @@
+name: LSE01
+description: The Dragino LSE01 consists of soil moisture, soil temperature, and soil conductivity sensors. It is suitable for smart agriculture applications. The measured data is sent to the LoRaWAN® network.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.3'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: lse01-codec
+
+  - version: '1.1.4'
+    numeric: 2
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+
+  - version: 'lse01 abp 1.1.1'
+    numeric: 3
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-codec
+
+  - version: 'lse01 abp 1.1.4'
+    numeric: 4
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-114-codec
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
+# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
+# water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - moisture
+  - conductivity
+#  - wind speed
+
+# Product and data sheet URLs (optional)
+productURL: http://www.dragino.com/products/lora-lorawan-end-node/item/159-lse01.html
+dataSheetURL: http://www.dragino.com/products/lora-lorawan-end-node/item/159-lse01.html
+sellerURLs:
+  - name: 'Dragino'
+    region:
+      - China
+    url: http://www.dragino.com/
+
+# Photos
+photos:
+  main: lse01.jpg
+  # other:
+  #   - lseo1-10.jpg

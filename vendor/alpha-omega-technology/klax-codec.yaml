@@ -1,0 +1,151 @@
+uplinkDecoder:
+  fileName: klax.js
+  examples:
+    - description: App
+      input:
+        fPort: 3
+        bytes:
+          [
+            0x0,
+            0x4a,
+            0xdd,
+            0x11,
+            0x3,
+            0x9,
+            0x1,
+            0x45,
+            0x4d,
+            0x48,
+            0x0,
+            0x0,
+            0x6e,
+            0xfd,
+            0xf,
+            0x1,
+            0x39,
+            0x1,
+            0x0,
+            0xbd,
+            0xd9,
+            0x90,
+            0x0,
+            0xbd,
+            0xd9,
+            0x90,
+            0x0,
+            0xbd,
+            0xd9,
+            0x90,
+            0x0,
+            0xbd,
+            0xd5,
+            0xa8,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x1,
+            0x75,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+            0x0,
+          ]
+      output:
+        data:
+          header:
+            batteryPerc: 100
+            configured: true
+            connTest: false
+            deviceType: SML Klax
+            meterType: SML
+            version: 0
+          msgInfo:
+            msgCnt: 1
+            msgIdx: 221
+            msgNum: 1
+          payloads:
+            - id: '0901454d4800006efd0f'
+              type: serverID
+            - registers:
+                - dataValid: true
+                  data_valid: true
+                  filterId: 0
+                  unit: Wh
+                  values:
+                    - 12442000
+                    - 12442000
+                    - 12442000
+                    - 12441000
+                - dataValid: false
+                  data_valid: false
+                  filterId: 1
+                  unit: NDEF
+                  values:
+                    - 0
+                    - 0
+                    - 0
+                    - 0
+              type: historic
+            - registers:
+                - dataValid: false
+                  data_valid: false
+                  filterId: 2
+                  unit: NDEF
+                  values:
+                    - 0
+                    - 0
+                    - 0
+                    - 0
+                - dataValid: false
+                  data_valid: false
+                  filterId: 3
+                  unit: NDEF
+                  values:
+                    - 0
+                    - 0
+                    - 0
+                    - 0
+              type: historic
+          type: app

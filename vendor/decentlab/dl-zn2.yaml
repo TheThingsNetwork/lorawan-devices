@@ -1,5 +1,5 @@
 name: DL-ZN2
-description: Dual Dendrometer for LoRaWAN
+description: The Decentlab DL-ZN2 comes with a linear position dendrometer that can measure the growth of plants and trees. It is suitable for use in irrigation control, smart agriculture, forestry, plantation, and ecophysiology.
 
 hardwareVersions:
   - version: '1'
@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/dendrometer-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ZN-datasheet.pdf
 photos:
-  main: dl-znx.jpg
+  main: dl-znx.png
 
 compliances:
   safety:

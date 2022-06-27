@@ -1,5 +1,5 @@
-name: lw003-b
-description: BLE-LoRaWAN gateway
+name: LW003-B
+description: The Moko Smart LW003-B integrates LoRaWAN® and Bluetooth wireless communication. It can scan BLE Beacon data and send data to the LoRaWAN gateway, and then upload it to the server to realize environmental monitoring and indoor positioning.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

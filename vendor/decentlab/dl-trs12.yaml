@@ -1,6 +1,5 @@
 name: DL-TRS12
-description: Soil Moisture, Temperature and Electrical Conductivity Sensor for for
-  LoRaWAN
+description: The Decentlab DL-TRS12 includes a volumetric water content (VWC), temperature, and dielectric permittivity sensor. It is suitable for irrigation control, smart agriculture, greenhouse and soilless plantations, parks, and golf courses.
 
 hardwareVersions:
   - version: '1'
@@ -64,7 +63,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/soil-moisture-temperature-and-electrical-conductivity-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-TRS12-datasheet.pdf
 photos:
-  main: dl-trs1x.jpg
+  main: dl-trs1x.png
 
 compliances:
   safety:

@@ -1,0 +1,111 @@
+name: Onethinx LoRaWAN module
+description: Onethinx Core LoRaWAN® module integrates Cypress® PSoC® 6 MCU, Semtech® SX126x chipset, dual ARM® Core processor (150MHz / 1MB Flash / 256KB SRAM), compact and highly efficient integrated antenna, and Bluetooth BLE 5.0. It provides faster development of LoRaWAN® products and also reduces development costs.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '18.02'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '18.02'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        #vendorID: 307
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: otx18-eu868-profile
+        lorawanCertified: true
+        #codec: otx18-eu868-codec
+      US902-928:
+        id: otx18-us915-profile
+        lorawanCertified: false
+        #codec: otx18-eu868-codec
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 20
+  length: 25
+  height: 3
+
+# Weight in grams (optional)
+weight: 2
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+  - manifest
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - firmware
+  - bluetooth
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: secure element
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://www.onethinx.com/module.html
+dataSheetURL: https://onethinx.github.io/Onethinx_Documentation/DoxyDocumentation/html/intro.html
+
+# Photos
+photos:
+  main: otx18.png
+  other:
+    - otx18-package.jpg
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=32ExfejIwPQ&ab_channel=Onethinx
+# Regulatory compliances (optional)
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0

@@ -1,0 +1,126 @@
+name: izi-io 4840 /heat
+description: Specially designed for monitoring building heating systems, the izinto izi-io 4840 /heat is an industry-strength controller with edge computing and LoRaWAN® connection. Up to 8 temperature sensors or other inputs such as sensors and switches may be connected.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.1'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: 'heat_v1'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.1'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: izi-io-4840-profile-eu868
+        #lorawanCertified: true
+        ##codec: izi-io-4840-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed
+sensors:
+  - 4-20 ma
+  - analog input
+  - auxiliary
+  - current
+  - digital input
+  - link
+  - potentiometer
+  - pulse count
+  - pulse frequency
+  - temperature
+  - time
+  - voltage
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 22.5
+  length: 119
+  height: 101
+
+# Weight in grams (optional)
+weight: 160
+
+## Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -30
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+# IP rating (optional)
+ipCode: IP20
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - firmware
+
+# Product and data sheet URLs (optional)
+productURL: https://www.izinto.online/izi-io-heat/
+dataSheetURL: https://www.izinto.online/wp-content/uploads/2020/01/izi-io-Datenblatt.pdf
+#resellerURLs:
+#  - name: 'Reseller 1'
+#    region:
+#      - European Union
+#    url: https://example.org/reseller1
+#  - name: 'Reseller 2'
+#    region:
+#      - United States
+#      - Canada
+#    url: https://example.org/reseller2
+
+# Photos
+photos:
+  main: izi-io-4840-front-tr.png
+  other:
+    - izi-io-4840-corner-tr.png
+# Youtube or Vimeo Video (optional)
+###video: https://www.youtube.com/watch?v=JHzxcD2oEn8
+
+# Regulatory compliances (optional)
+#compliances:
+#  safety:
+#    - body: IEC
+#      norm: EN
+#      standard: 62368-1
+#  radioEquipment:
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-1
+#      version: 2.2.0
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-3
+#      version: 2.1.0

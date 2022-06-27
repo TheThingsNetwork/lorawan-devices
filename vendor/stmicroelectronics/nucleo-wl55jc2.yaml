@@ -1,5 +1,5 @@
 name: NUCLEO-WL55JC2
-description: NUCLEO-WL55JC2 low-band development board with temperature sensor and controllable LEDs
+description: The STMicroelectronics NUCLEO-WL55JC2 is a development board based on the STM32WL55JC microcontroller that comes with a built-in temperature sensor and a light sensor. The NUCLEO-WL55JC2 board supports a wide choice of Integrated Development Environments (IDE) and an expansion connector for Arduino UNO V3. Suitable for rapid prototyping of LoRaWAN® end nodes by adding sensors and actuators.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -10,16 +10,44 @@ firmwareVersions:
       - '1.0'
     profiles:
       CN470-510:
-        id: nucleo-wl55jc-profile-cn470
+        id: nucleo-wl55jc-profile-19
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
       EU433:
-        id: nucleo-wl55jc-profile-eu433
+        id: nucleo-wl55jc-profile-12
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+  - version: 'LoRaWAN_End_Node v1.1.0'
+    numeric: 2
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      CN470-510:
+        id: nucleo-wl55jc-profile-19
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      EU433:
+        id: nucleo-wl55jc-profile-12
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+  - version: 'LoRaWAN_End_Node v1.2.0'
+    numeric: 3
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      CN470-510:
+        id: nucleo-wl55jc-profile-19-lw104
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      EU433:
+        id: nucleo-wl55jc-profile-12-lw104
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
 sensors:
-  - temperature
   - light
+  - pressure
+  - temperature
+  - humidity
 dimensions:
   width: 70
   length: 64.5

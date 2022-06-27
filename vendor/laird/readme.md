@@ -56,8 +56,8 @@ The following downlink message types can be encoded and decoded.
 This is used to trigger an action within the sensor. The message content is as follows.
 
     {
-        msgType : "genericDataRetrieval",
-        options : one of Downlink Options
+        msgType: "genericDataRetrieval",
+        options: one of Downlink Options
     }
 
 [Downlink Options](#downlink-options)

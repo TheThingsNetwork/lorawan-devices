@@ -1,0 +1,67 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="robots" content="index,follow" />
+  <meta name="googlebot" content="index,follow" />
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PP5G5BT');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="shortcut icon" href="{{ .Site.BaseURL }}/assets/favicon.ico" />
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ .Site.BaseURL }}/assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ .Site.BaseURL }}/assets/favicon-152.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ .Site.BaseURL }}/assets/favicon-144.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ .Site.BaseURL }}/assets/favicon-120.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ .Site.BaseURL }}/assets/favicon-180.png" />
+  <link rel="apple-touch-icon" href="{{ .Site.BaseURL }}/assets/favicon-57.png" />
+  <link rel="icon" href="{{ .Site.BaseURL }}/assets/favicon-32.png" sizes="32x32" />
+  <link rel="icon" sizes="196x196" href="{{ .Site.BaseURL }}/assets/favicon-196.png" />
+
+  <title itemprop="name">{{ .Title }} | {{ .Site.Title }}</title>
+  <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta itemprop="name" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta name="application-name" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta property="og:site_name" content="{{ .Site.Params.sitename }}" />
+
+  <meta name="description" content="{{ .Params.description }}" />
+  <meta itemprop="description" content="{{ .Params.description }}" />
+  <meta property="og:description" content="{{ .Params.description }}" />
+  <meta name="twitter:description" content="{{ .Params.description }}" />
+
+  <base href="{{ .Permalink }}">
+  <link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
+  <meta name="url" content="{{ .Permalink }}" />
+  <meta name="twitter:url" content="{{ .Permalink }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+
+  <meta name="twitter:site" content="{{ .Site.Params.twitter }}">
+  <meta name="twitter:creator" content="{{ .Site.Params.twitter }}" />
+
+  {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
+
+  {{ with $image }}
+    <meta itemprop="image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
+    <meta property="og:image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
+    <meta name="twitter:image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
+    <meta name="twitter:image:src" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
+  {{ else }}
+    <meta itemprop="image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+    <meta property="og:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+    <meta name="twitter:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+    <meta name="twitter:image:src" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+  {{ end }}
+
+  <link rel="stylesheet" href="{{- (index .Site.Data.manifest `style.css`) | relURL -}}">
+
+  {{ if eq .Permalink (print .Site.BaseURL "devices/") }}
+    <meta http-equiv="refresh" content="0; url={{ .Site.BaseURL }}"/>
+  {{end}}
+</head>

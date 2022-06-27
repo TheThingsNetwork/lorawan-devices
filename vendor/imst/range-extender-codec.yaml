@@ -4,114 +4,61 @@
 # Modification History:
 # Date         Version     Modified By     Description
 # 2020-12-16   1.0         MR              Initial creation
+# 2021-02-17   1.1         MR              updated bytes input for two segmented WMBus
+#                                          synchonized --> synchronized (decoder v1.1)
+#                                          changed status payload
+# 2021-02-26   1.2         MR              right data of one WMBus packet (decoder v1.2)
+# 2021-07-29   1.3         MR              decoder v1.3
+#                                          status added with system voltage and firmware type for firmware 1.1ff
+# 2021-10-26   1.4        MR              decoder v1.4
+#                                          WmBus data interpretation removed - only status available
 #
 
-# Uplink decoder decodes binary data uplink into a JSON object (optional)
-# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: range-extender.js
   examples:
-    - description: "One segmented WMBus value from '11-22' | '33-44-55-66' | '0x77' | '0x88'"
-      input:
-        fPort: 68
-        bytes: [0x00, 0x14, 0xaf, 0xcc, 0x5e, 0x0c, 0x43, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x79, 0x02, 0xff]
-      output:
-        data:
-          values:
-            - Time: 'Tue, 26 May 2020 05:54:28 GMT'
-              CTRLField: '0x43'
-              ManID: '11-22'
-              DeviceID: '33-44-55-66'
-              Version: '0x77'
-              Type: '0x88'
-              Data: '02-ff'
-        warnings:
-          - 'WARNING: decoding of segmented payload - values can be incorrect or incomplete'
-    - description: "Two segmented WMBus values from '11-22' | '33-44-55-66' | '0x77' | '0x88'"
-      input:
-        fPort: 68
-        bytes:
-          [
-            0x00,
-            0x80,
-            0x43,
-            0x6D,
-            0x38,
-            0x0c,
-            0x43,
-            0x11,
-            0x22,
-            0x33,
-            0x44,
-            0x55,
-            0x66,
-            0x77,
-            0x88,
-            0x7A,
-            0x01,
-            0x02,
-            0xFF,
-            0x56,
-            0x86,
-            0xF4,
-            0x13,
-            0x43,
-            0x11,
-            0x22,
-            0x33,
-            0x44,
-            0x55,
-            0x66,
-            0x77,
-            0x88,
-            0x7A,
-            0x01,
-            0x02,
-            0x03,
-            0x04,
-            0x05,
-            0x06,
-            0x07,
-            0x08,
-            0x09,
-          ]
-      output:
-        data:
-          values:
-            - 'Time': 'Sat, 01 Jan 2000 00:00:00 GMT'
-              'CTRLField': '0x43'
-              'ManID': '11-22'
-              'DeviceID': '33-44-55-66'
-              'Version': '0x77'
-              'Type': '0x88'
-              'Data': '01-02'
-            - 'Time': 'Thu, 31 Dec 2099 23:59:59 GMT'
-              'CTRLField': '0x43'
-              'ManID': '11-22'
-              'DeviceID': '33-44-55-66'
-              'Version': '0x77'
-              'Type': '0x88'
-              'Data': '01-02-03-04-05-06-07-08-09'
-        warnings:
-          - 'WARNING: decoding of segmented payload - values can be incorrect or incomplete'
-    - description: 'Status'
+    - description: 'Status Firmware Version 1.0'
       input:
         fPort: 3
-        bytes: [0xF9, 0xED, 0xD9, 0x5F, 0x00, 0x01, 0x80, 0xFC, 0xD7, 0x5F, 0x05, 0x00, 0x00, 0x00, 0x26, 0x00, 0x40, 0xE2, 0x01, 0x00, 0x39, 0x30, 0x00, 0x00, 0x39, 0x30, 0x00, 0x00]
+        bytes: [0xF9, 0xED, 0xD9, 0x5F, 0x00, 0x01, 0x80, 0xFC, 0xD7, 0x5F, 0x05, 0x00, 0x00, 0x00, 0x26, 0x00, 0x40, 0xE2, 0x01, 0x00, 0x40, 0xE2, 0x01, 0x00, 0x40, 0xE2, 0x01, 0x00]
       output:
         data:
-          Time: 'Wed, 16 Dec 2020 11:22:33 GMT'
-          FirmwareVersion: '1.0'
-          LastSyncTime: 'Tue, 15 Dec 2020 00:00:00 GMT'
-          ResetCounter: 5
-          LoRaWAN: 'activated'
-          NetworkTime: 'not synchonized'
-          SystemTimeBit: 'not synchonized'
-          LoRaWANConfiguration: 'not available'
-          WMBusFilterList: 'is empty'
           CalendarEventList: 'contains at least one item'
-          FlashMemoryFullState: 'no error'
+          FirmwareVersion: '1.0'
           FlashMemoryCRCErrorState: 'no error'
+          FlashMemoryFullState: 'no error'
+          LastSyncTime: 'Tue, 15 Dec 2020 00:00:00 GMT'
+          LoRaWAN: 'activated'
+          LoRaWANConfiguration: 'not available'
+          NetworkTime: 'not synchronized'
+          ResetCounter: 5
+          SystemTimeBit: 'not synchronized'
+          Time: 'Wed, 16 Dec 2020 11:22:33 GMT'
+          WMBusFilterList: 'is empty'
           WMBusPackagesReceived: 123456
-          WMBusPackagesSaved: 12345
-          WMBusPackagesSent: 12345
+          WMBusPackagesSaved: 123456
+          WMBusPackagesSent: 123456
+    - description: 'Status Firmware Version 1.1'
+      input:
+        fPort: 3
+        bytes:
+          [0x80, 0xC2, 0x2E, 0x61, 0x01, 0x01, 0x7F, 0x4F, 0x56, 0x61, 0x0A, 0x00, 0x00, 0x00, 0x26, 0x00, 0x15, 0x16, 0x05, 0x00, 0x0E, 0x64, 0x03, 0x00, 0x07, 0xB2, 0x01, 0x00, 0x4E, 0x0F, 0x00]
+      output:
+        data:
+          CalendarEventList: 'contains at least one item'
+          FirmwareType: 'Release'
+          FirmwareVersion: '1.1'
+          FlashMemoryCRCErrorState: 'no error'
+          FlashMemoryFullState: 'no error'
+          LastSyncTime: 'Thu, 30 Sep 2021 23:59:59 GMT'
+          LoRaWAN: 'activated'
+          LoRaWANConfiguration: 'not available'
+          NetworkTime: 'not synchronized'
+          ResetCounter: 10
+          SystemTimeBit: 'not synchronized'
+          SystemVoltage: 3918
+          Time: 'Wed, 01 Sep 2021 00:00:00 GMT'
+          WMBusFilterList: 'is empty'
+          WMBusPackagesReceived: 333333
+          WMBusPackagesSaved: 222222
+          WMBusPackagesSent: 111111

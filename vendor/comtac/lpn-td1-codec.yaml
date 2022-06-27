@@ -71,8 +71,8 @@ uplinkDecoder:
           pingType: 'LONGRANGE'
           batVoltage: 3.970
           temp: 10
-          gpsLong: 47.688976
-          gpsLat: 8.631881
+          gpsLat: 47.688976
+          gpsLong: 8.631881
           gpsEPE: '> 150 meters'
           gpsSAT: 5
           MAC1: 'fe:ec:da:ad:1d:16'

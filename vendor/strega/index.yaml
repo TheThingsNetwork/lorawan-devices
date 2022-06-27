@@ -1,0 +1,8 @@
+# This file contains three device
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - smart-valve
+  - smart-emitter
+  - smart-switch
+  - motorized-valve

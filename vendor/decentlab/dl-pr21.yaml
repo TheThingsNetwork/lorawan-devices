@@ -1,6 +1,5 @@
 name: DL-PR21
-description: Pressure / Liquid Level and Temperature Sensor with G1/4" Pipe Thread
-  for LoRaWAN
+description: The Decentlab DL-PR21 is equipped with pressure, liquid level, and temperature sensors. It is suitable for use with water distribution systems for measuring and monitoring liquid levels, temperature, and leaks.
 
 hardwareVersions:
   - version: '1'
@@ -63,7 +62,9 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/pressure-/-liquid-level-and-temperature-sensor-with-g1/4-pipe-thread-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PR21-datasheet.pdf
 photos:
-  main: dl-pr21.jpg
+  main: dl-pr21.png
+  other:
+    - dl-pr21-2.jpg
 
 compliances:
   safety:

@@ -1,0 +1,145 @@
+uplinkDecoder:
+  fileName: payload/rb02i_r718t_r312a_r312.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x4D, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x07, 0x18, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R312A'
+          SWver: 10
+          HWver: 11
+          Datecode: '20190718'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x4D, 0x01, 0x1E, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R312A'
+          Volt: 3
+          Alarm: 1
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x4D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R312A'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x4D, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R312A'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Set button press time response
+      input:
+        fPort: 13
+        bytes: [0x81, 0x00]
+      output:
+        data:
+          Cmd: 'SetButtonPressTimeRsp'
+          Status: 'Success'
+
+    - description: Get button press time response
+      input:
+        fPort: 13
+        bytes: [0x82, 0x05]
+      output:
+        data:
+          Cmd: 'GetButtonPressTimeRsp'
+          PressTime: 5
+
+downlinkDecoder:
+  fileName: payload/rb02i_r718t_r312a_r312.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x4D, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R312A'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x4D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R312A'
+
+    - description: Set button press time request
+      input:
+        fPort: 13
+        bytes: [0x01, 0x03]
+      output:
+        data:
+          Cmd: 'SetButtonPressTimeReq'
+          PressTime: 3
+
+    - description: Get button press time request
+      input:
+        fPort: 13
+        bytes: [0x02, 0x00]
+      output:
+        data:
+          Cmd: 'GetButtonPressTimeReq'
+
+downlinkEncoder:
+  fileName: payload/rb02i_r718t_r312a_r312.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R312A'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+      output:
+        fPort: 7
+        bytes: [0x01, 0x4D, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R312A'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x4D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set button press time request
+      input:
+        data:
+          Cmd: 'SetButtonPressTimeReq'
+          PressTime: 3
+      output:
+        fPort: 13
+        bytes: [0x01, 0x03]
+
+    - description: Get button press time request
+      input:
+        data:
+          Cmd: 'GetButtonPressTimeReq'
+      output:
+        fPort: 13
+        bytes: [0x02, 0x00]

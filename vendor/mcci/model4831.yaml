@@ -1,5 +1,5 @@
 name: Model 4831 Outdoor Environmental Sensor (SHT31)
-description: Temperature, humidity, light sensor for outdoors (using Sensirion SHT31)
+description: The MCCI® Model 4831 Outdoor Environment Sensor (SHT31) is based on MCCI Catena 4618 which consists of temperature, humidity, and light sensors.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -113,7 +113,7 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/model483x-datash
 
 # Photos
 photos:
-  main: model483x-closed.jpg
+  main: model483x-closed.png
   other:
     - model483x-open.jpg
 # Youtube or Vimeo Video (optional)

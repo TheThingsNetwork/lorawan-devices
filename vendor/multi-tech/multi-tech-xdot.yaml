@@ -1,11 +1,11 @@
 name: MultiTech xDot® Long Range LoRa Module
-description: MultiTech xDot®is a secure, end-certified, Arm®Mbed™programmable, low-power RF module, that provides long-range, low bit rate M2M data connectivity to sensors, industrial equipment and remote appliances.
+description: The MultiTech xDot® is a secure, CE/FCC/RCM/GITEKI certified, Arm® Mbed™ programmable, low-power RF module, that provides long-range, low bit rate M2M data connectivity to sensors, industrial equipment, and remote appliances. The xDot is LoRaWAN® 1.0.2 compliant, providing bi-directional data communication up to 10 miles/15 km line-of-sight and 1-3 miles / 2 km into buildings, using sub-GHz ISM bands in North America, Europe, Australia (AU915), Asia Pacific (AS923), India (IN865) and Korea (KR920).
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
-    numeric: 1
+    version: '3.5.5'
+    numeric: 3
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870

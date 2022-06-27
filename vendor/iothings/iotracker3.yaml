@@ -1,0 +1,77 @@
+name: ioTracker 3
+description: multi-sensor LoRaWAN tracker
+hardwareVersions:
+  - version: '3'
+    numeric: 1
+firmwareVersions:
+  - version: '1.10'
+    numeric: 1
+    hardwareVersions:
+      - '3'
+    features:
+      - transmission interval
+    profiles:
+      EU863-870:
+        vendorID: iothings
+        id: iotracker3-profile
+        lorawanCertified: true
+        codec: iotracker3-codec
+      US902-928:
+        vendorID: iothings
+        id: iotracker3-profile
+        lorawanCertified: true
+        codec: iotracker3-codec
+sensors:
+  - temperature
+  - light
+  - accelerometer
+  - gps
+  - wifi ssid
+  - gps
+  - barometer
+  - humidity
+  - button
+additionalRadios:
+  - wifi
+  - ble
+dimensions:
+  width: 57.4
+  length: 33.4
+  height: 18.7
+weight: 39
+battery:
+  replaceable: true
+  type: ER14250
+operatingConditions:
+  temperature:
+    min: -20
+    max: 65
+ipCode: IP68
+keyProvisioning:
+  - custom
+keyProgramming:
+  - bluetooth
+keySecurity: read protected
+firmwareProgramming:
+  - fuota other
+productURL: https://www.iotracker.nl/iotracker
+dataSheetURL: https://www.iotracker.nl/uploads/files/1/a/1ae2a37091d7cf93cabb1e81f4c4949dc1ad29fc.pdf
+resellerURLs:
+  - name: 'instaSOLUTION'
+    region:
+      - European Union
+    url: https://instasolution.ch/threat-alerting/
+  - name: 'Serinus'
+    region:
+      - European Union
+    url: https://serinus.de/
+  - name: 'X-Guard'
+    region:
+      - European Union
+    url: https://x-guard.nl/
+msrp:
+  EUR: 89
+photos:
+  main: iotracker3.png
+videos:
+  main: https://www.youtube.com/watch?v=l8cpugOarHk&t=377s

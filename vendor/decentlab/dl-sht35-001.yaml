@@ -1,5 +1,5 @@
 name: DL-SHT35-001
-description: Air Temperature and Humidity Sensor with Radiation Shield for LoRaWAN
+description: The Decentlab DL-SHT35-001 is equipped with a temperature and a humidity sensor that can be used for monitoring and measuring air temperature and humidity. Suitable for applications such as smart agriculture, urban heat islands, greenhouses, frost alarming, and building automation.
 
 hardwareVersions:
   - version: '1'
@@ -62,7 +62,19 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/air-temperature-and-humidity-sensor-with-radiation-shield-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-SHT35-datasheet.pdf
 photos:
-  main: dl-sht35-001.jpg
+  main: dl-sht35-001.png
+  other:
+    - dl-sht35-001-2.jpg
+    - dl-sht35-001-3.jpg
+    - dl-sht35-001-4.jpg
+    - dl-sht35-001-5.jpg
+    - dl-sht35-001-6.jpg
+    - dl-sht35-001-7.jpg
+    - dl-sht35-001-8.jpg
+    - dl-sht35-001-9.jpg
+    - dl-sht35-001-10.jpg
+    - dl-sht35-001-11.jpg
+    - dl-sht35-001-12.jpg
 
 compliances:
   safety:

@@ -1,5 +1,5 @@
 name: Generic Node (Sensor Edition)
-description: Generic Node (Sensor Edition) is a ready to use LoRaWAN node with many on-board sensors and dozens of use-cases.
+description: The Things Industries Generic Node Sensor Edition is a LoRaWAN® development board that consists of a temperature and humidity sensor and an accelerometer. These onboard sensors can be used to measure temperature, humidity, motion, free fall, and orientation. In addition to that, it provides expansion slots for connecting various sensors. It is suitable for a wide range of use cases that cover industrial, farming, facility management, and leisure.
 hardwareVersions:
   - version: '1.1'
 firmwareVersions:
@@ -10,11 +10,9 @@ firmwareVersions:
       EU863-870:
         id: generic-node-sensor-edition-868
         lorawanCertified: false
-        codec: generic-node-sensor-edition-codec
       US902-928:
         id: generic-node-sensor-edition-915
         lorawanCertified: false
-        codec: generic-node-sensor-edition-codec
 sensors:
   - accelerometer
   - battery
@@ -28,6 +26,4 @@ keyProvisioning:
   - custom
 keySecurity: read protected
 photos:
-  main: generic-node-sensor-edition.jpg
-  other:
-    - generic-node-sensor-edition-case.jpg
+  main: gnse.png

@@ -1,0 +1,96 @@
+uplinkDecoder:
+  fileName: payload/r718ad.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xBC, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R711A'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xBC, 0x01, 0x1E, 0x09, 0xEA, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R711A'
+          Volt: 3
+          Temp: 25.38
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xBC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R711A'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xBC, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R711A'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+
+downlinkDecoder:
+  fileName: payload/r718ad.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xBC, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R711A'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xBC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R711A'
+
+downlinkEncoder:
+  fileName: payload/r718ad.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R711A'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+      output:
+        fPort: 7
+        bytes: [0x01, 0xBC, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R711A'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xBC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

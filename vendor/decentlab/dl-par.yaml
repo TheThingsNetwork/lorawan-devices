@@ -1,5 +1,5 @@
 name: DL-PAR
-description: Photosynthetically Active Radiation Sensor for LoRaWAN
+description: The Decentlab DL-PAR consists of a Photosynthetically Active Radiation (PAR) sensor for measuring the amount of light available for photosynthesis. It is suitable for use in outdoor environments, greenhouses, and growth chambers.
 
 hardwareVersions:
   - version: '1'
@@ -61,7 +61,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/photosynthetically-active-radiation-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PAR-datasheet.pdf
 photos:
-  main: dl-pxr.jpg
+  main: dl-pxr.png
 
 compliances:
   safety:

@@ -1,5 +1,5 @@
 name: SenseCAP Wireless Light Intensity Sensor - LoRaWAN
-description: It measures the intensity of light in lux from 0 - 188000 lux. It is designed with battery-powered and IP66 enclosure for outdoor use, optimized for use cases that need reliable data collection over years.
+description: The Seeed Studio SenseCAP Wireless Light Intensity Sensor is a LoRaWAN® end device that measures the intensity of light in lux from 0 - 188000 lux. It is designed with battery-powered and IP66 enclosure for outdoor use, optimized for use cases that need reliable data collection over years.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -102,10 +102,10 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-light-deployment.jpg
+  main: sensecap-light.png
   other:
-    - sensecap-light.jpg
-    - sensecap-light-package.jpg
+    - sensecap-light-deployment.jpg
+    - sensecap-light-package.png
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=mIS7KVGGY8A&feature=youtu.be

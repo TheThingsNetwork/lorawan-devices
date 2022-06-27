@@ -29,7 +29,7 @@ vendors:
     vendorID: 13
 
   - id: actility
-    name: ACTILITY SA
+    name: Actility SA
     vendorID: 14
 
   - id: adeunis
@@ -61,7 +61,7 @@ vendors:
     vendorID: 27
 
   - id: alpitel
-    name: ALPITEL SPA
+    name: Alpitel S.p.A.
     vendorID: 28
 
   - id: american-tower
@@ -85,7 +85,7 @@ vendors:
     vendorID: 41
 
   - id: arteria
-    name: ARTERIA
+    name: Arteria
     vendorID: 47
 
   - id: atal
@@ -93,15 +93,15 @@ vendors:
     vendorID: 49
 
   - id: axatel
-    name: AXATEL SRL
+    name: Axatel SRL
     vendorID: 56
 
   - id: baylan
-    name: BAYLAN OLCU ALETLERI SAN. TIC. LTD. STI.
+    name: Baylan Water Meters
     vendorID: 59
 
   - id: bh-technologies
-    name: BH TECHNOLOGIES
+    name: BH Technologies
     vendorID: 65
 
   - id: birdz
@@ -133,7 +133,7 @@ vendors:
     vendorID: 81
 
   - id: cisco
-    name: Cisco Systems, Inc
+    name: Cisco Systems, Inc.
     vendorID: 86
 
   - id: machineq
@@ -145,7 +145,7 @@ vendors:
     vendorID: 94
 
   - id: comtac
-    name: comtac AG
+    name: Comtac AG
     vendorID: 98
     website: https://www.comtac.ch/
     logo: comtac-logo.svg
@@ -158,13 +158,19 @@ vendors:
   - id: decentlab
     name: Decentlab GmbH
     vendorID: 109
-    website: https://www.decentlab.com/
+    website: https://www.decentlab.com
     logo: decentlab_logo.svg
     ouis:
       - 70B3D57BA
+    description: Decentlab is a Swiss company providing wireless sensor devices and services for distributed, cost-effective monitoring solutions. The sensor devices communicate wirelessly over LoRaWAN® and are designed for ultra low power consumption, capable of operating on batteries for several years. The devices are built for industrial applications and are ready to be deployed in any harsh indoor or outdoor environment. The service framework provides convenient access to measurement data and enables seamless integration into existing monitoring and control systems. Application areas are environmental and air quality monitoring, hydrological measurements, smart agriculture and smart cities.
+    social:
+      linkedin: https://www.linkedin.com/company/decentlab
+      facebook: https://www.facebook.com/decentlab.gmbh
+      twitter: decentlab
+      github: decentlab
 
   - id: definium
-    name: Definium Technologies, Pty Ltd.
+    name: Definium Technologies, Pty Ltd
     vendorID: 110
 
   - id: dekra
@@ -176,7 +182,7 @@ vendors:
     vendorID: 113
 
   - id: digimondo
-    name: digimondo GmbH
+    name: Digimondo GmbH
     vendorID: 115
 
   - id: digita
@@ -203,16 +209,17 @@ vendors:
     name: Eddy Solutions
     vendorID: 128
 
-  - id: elektroniksystem
-    name: ElektronikSystem i Ume
+  - id: elsys
+    name: Elsys
     vendorID: 132
+    website: https://www.elsys.se/en/
 
   - id: eleven-x
-    name: eleven-x
+    name: Eleven-x
     vendorID: 133
 
   - id: entega
-    name: ENTEGA AG
+    name: Entega AG
     vendorID: 141
 
   - id: er-telecom
@@ -228,7 +235,7 @@ vendors:
     vendorID: 145
 
   - id: eurotech
-    name: EUROTECH
+    name: Eurotech
     vendorID: 147
 
   - id: everynet
@@ -236,11 +243,11 @@ vendors:
     vendorID: 148
 
   - id: ewattch
-    name: EWATTCH
+    name: Ewattch
     vendorID: 149
 
   - id: ewbm
-    name: eWBM Co., Ltd.
+    name: eWBM Co., Ltd
     vendorID: 150
 
   - id: ffly4u
@@ -260,7 +267,7 @@ vendors:
     vendorID: 160
 
   - id: focalcrest
-    name: Focalcrest Inc
+    name: Focalcrest Inc.
     vendorID: 161
 
   - id: fujitsu-component
@@ -272,11 +279,11 @@ vendors:
     vendorID: 182
 
   - id: hexing-electrical
-    name: Hexing Electrical Co., Ltd.
+    name: Hexing Electrical Co., Ltd
     vendorID: 186
 
   - id: holley
-    name: Holley Technology Ltd.
+    name: Holley Technology Ltd
     vendorID: 188
 
   - id: iioote
@@ -291,7 +298,7 @@ vendors:
     logo: imst_logo.png
 
   - id: intercomp
-    name: INTERCOMP S.p.A.
+    name: Intercomp S.p.A.
     vendorID: 206
 
   - id: invenit
@@ -303,8 +310,16 @@ vendors:
     vendorID: 209
 
   - id: invoxia
-    name: INVOXIA
+    name: Invoxia
     vendorID: 211
+
+  - id: iothings
+    name: ioThings
+    website: https://iothings.nl
+    logo: iothings-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/iotracker
+      github: iotracker
 
   - id: last-mile
     name: Last Mile Solutions AS
@@ -319,11 +334,17 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER AG fur Druckmesstechnik
+    name: KELLER AG für Druckmesstechnik
+    website: https://keller-druck.com/
+    logo: keller-logo.svg
     vendorID: 222
+    description: KELLER AG, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
+    social:
+      linkedin: https://www.linkedin.com/company/keller-ag-f%C3%BCr-druckmesstechnik
+      github: KELLERAGfuerDruckmesstechnik
 
   - id: kerlink
-    name: KERLINK
+    name: Kerlink
     vendorID: 223
 
   - id: kiwi
@@ -347,7 +368,7 @@ vendors:
     vendorID: 228
 
   - id: kisti
-    name: Korea Institute of Science and Technology Information (KISTI)
+    name: Korea Institute of Science and Technology Information
     vendorID: 229
 
   - id: kpn
@@ -391,7 +412,7 @@ vendors:
     vendorID: 253
 
   - id: macnica
-    name: Macnica, Inc
+    name: Macnica, Inc.
     vendorID: 254
 
   - id: maddalena
@@ -436,7 +457,7 @@ vendors:
     vendorID: 266
 
   - id: microshare
-    name: Microshare Inc
+    name: Microshare Inc.
     vendorID: 267
 
   - id: mipot
@@ -456,11 +477,11 @@ vendors:
     vendorID: 276
 
   - id: multi-tech
-    name: Multi-Tech Systems, Inc
+    name: Multi-Tech Systems, Inc.
     vendorID: 277
 
   - id: murata
-    name: MURATA ELECTRONICS EUROPE BV
+    name: Murata Electronics Europe BV
     vendorID: 279
 
   - id: mydevices
@@ -488,7 +509,7 @@ vendors:
     vendorID: 287
 
   - id: netvox
-    name: Netvox Technology Co., Ltd.
+    name: Netvox Technology Co., Ltd
     vendorID: 289
 
   - id: ntt
@@ -496,7 +517,7 @@ vendors:
     vendorID: 295
 
   - id: nke-watteco
-    name: NKE WATTECO
+    name: nke WATTECO
     vendorID: 296
 
   - id: northern-mechatronics
@@ -504,7 +525,7 @@ vendors:
     vendorID: 297
 
   - id: nsoft
-    name: Nsoft India ServicesPvt Ltd
+    name: Nsoft India Services Pvt Ltd
     vendorID: 298
 
   - id: occammd
@@ -512,11 +533,11 @@ vendors:
     vendorID: 299
 
   - id: oi-electric
-    name: Oi Electric Company Ltd.
+    name: Oi Electric Company Ltd
     vendorID: 303
 
   - id: oki-electric
-    name: Oki Electric Industry Co., Ltd.
+    name: Oki Electric Industry Co., Ltd
     vendorID: 304
 
   - id: omniimpex
@@ -526,9 +547,11 @@ vendors:
   - id: onethinx
     name: Onethinx B.V.
     vendorID: 307
+    website: https://www.onethinx.com/
+    logo: onethinx-logo.png
 
   - id: orange
-    name: ORANGE
+    name: Orange
     vendorID: 308
 
   - id: orbiwise
@@ -544,7 +567,7 @@ vendors:
     vendorID: 312
 
   - id: oxon
-    name: OXON AG
+    name: Oxon AG
     vendorID: 313
 
   - id: packetworx
@@ -556,7 +579,7 @@ vendors:
     vendorID: 315
 
   - id: proesys
-    name: ProEsys Srl
+    name: ProEsys SRL
     vendorID: 323
 
   - id: proximus
@@ -568,7 +591,7 @@ vendors:
     vendorID: 329
 
   - id: radio-bridge
-    name: Radio Bridge Inc
+    name: Radio Bridge Inc.
     vendorID: 334
 
   - id: rakon
@@ -576,19 +599,22 @@ vendors:
     vendorID: 335
 
   - id: requea
-    name: REQUEA
+    name: Requea
     vendorID: 341
 
   - id: ruixinghengfang-network
     name: RuiXingHengFang Network(Shenzhen) Co.
     vendorID: 350
+    website: http://www.risinghf.com
+    ouis:
+      - 8CF957
 
   - id: ryoden
     name: Ryoden Corporation
     vendorID: 352
 
   - id: sagemcom-broadband
-    name: SAGEMCOM BROADBAND SAS
+    name: Sagemcom Broadband SAS
     vendorID: 353
 
   - id: schneider-electric
@@ -608,7 +634,7 @@ vendors:
     vendorID: 363
 
   - id: senra
-    name: SenRa Tech Pvt. Ltd.
+    name: SenRa Tech Pvt Ltd
     vendorID: 364
 
   - id: senseway
@@ -620,11 +646,11 @@ vendors:
     vendorID: 372
 
   - id: shinko-shoji
-    name: Shinko Shoji Co., Ltd.
+    name: Shinko Shoji Co., Ltd
     vendorID: 375
 
   - id: siradel
-    name: SIRADEL
+    name: Siradel
     vendorID: 378
 
   - id: sk-telecom
@@ -659,8 +685,8 @@ vendors:
     name: STMicroelectronics International NV
     vendorID: 398
 
-  - id: strega-sprl
-    name: STREGA SPRL
+  - id: strega
+    name: STREGA
     vendorID: 401
 
   - id: swisscom
@@ -676,7 +702,7 @@ vendors:
     vendorID: 406
 
   - id: sysdev
-    name: SYSDEV Srl
+    name: SYSDEV SRL
     vendorID: 407
 
   - id: talkpool
@@ -684,7 +710,7 @@ vendors:
     vendorID: 409
 
   - id: tektelic
-    name: TEKTELIC Communications Inc.
+    name: Tektelic Communications Inc.
     vendorID: 415
 
   - id: tta
@@ -699,8 +725,8 @@ vendors:
     name: Telog Instruments, Inc.
     vendorID: 422
 
-  - id: ttn
-    name: The Things Network Foundation
+  - id: the-things-industries
+    name: The Things Industries
     vendorID: 428
 
   - id: turbo
@@ -712,7 +738,7 @@ vendors:
     vendorID: 437
 
   - id: unidata
-    name: UNIDATA SPA
+    name: Unidata SPA
     vendorID: 439
 
   - id: universitat-oberta-de-catalunya
@@ -744,7 +770,7 @@ vendors:
     vendorID: 455
 
   - id: volansys
-    name: VOLANSYS TECHNOLOGIES PVT. LTD.
+    name: Volansys Technologies Pvt Ltd
     vendorID: 456
 
   - id: wifx-sarl
@@ -756,7 +782,7 @@ vendors:
     vendorID: 466
 
   - id: x-telia
-    name: X-Telia Group inc.
+    name: X-Telia Group Inc.
     vendorID: 468
 
   - id: yokogawa-electric
@@ -776,7 +802,7 @@ vendors:
     vendorID: 482
 
   - id: nippon-signal
-    name: Nippon Signal Co., Ltd.
+    name: Nippon Signal Co., Ltd
     vendorID: 483
 
   - id: renesas
@@ -816,7 +842,7 @@ vendors:
     vendorID: 519
 
   - id: rossma
-    name: Rossma LTD
+    name: Rossma Ltd
     vendorID: 526
 
   - id: komro
@@ -836,7 +862,7 @@ vendors:
     vendorID: 534
 
   - id: asr-microelectronics
-    name: ASR Microelectronics (Shanghai) Co., Ltd.
+    name: ASR Microelectronics (Shanghai) Co., Ltd
     vendorID: 536
 
   - id: andorra-telecom
@@ -848,11 +874,11 @@ vendors:
     vendorID: 538
 
   - id: cybereye
-    name: CyberEye Research Labs & Security Solutions Pvt. Ltd.
+    name: CyberEye Research Labs & Security Solutions Pvt Ltd
     vendorID: 539
 
   - id: resiot
-    name: ResIOT Ublsoftware Srl
+    name: ResIOT Ublsoftware SRL
     vendorID: 540
 
   - id: g2-misuratori
@@ -864,11 +890,11 @@ vendors:
     vendorID: 548
 
   - id: social-area-networks
-    name: Social Area Networks Co., Ltd.
+    name: Social Area Networks Co., Ltd
     vendorID: 553
 
   - id: optage
-    name: OPTAGE Inc
+    name: OPTAGE Inc.
     vendorID: 556
 
   - id: bharat
@@ -888,11 +914,11 @@ vendors:
     vendorID: 563
 
   - id: esenselab
-    name: eSenseLab Ltd.
+    name: eSenseLab Ltd
     vendorID: 564
 
   - id: careband
-    name: CareBand, Inc
+    name: CareBand Inc
     vendorID: 568
 
   - id: target
@@ -902,6 +928,10 @@ vendors:
   - id: rakwireless
     name: RAKwireless Technology Co.
     vendorID: 570
+    website: https://www.rakwireless.com
+    logo: rak-official-rgb.svg
+    ouis:
+      - 60C5A8
 
   - id: sigrenea
     name: sigrenEa SAS
@@ -928,23 +958,24 @@ vendors:
     vendorID: 585
 
   - id: gwinstek
-    name: Good Will Instrument Co., Ltd. (GWINSTEK)
+    name: Good Will Instrument Co., Ltd (GWINSTEK)
     vendorID: 587
 
   - id: coxcom
     name: CoxCom, LLC d/b/a Cox2M
     vendorID: 588
 
-  - id: alpha-omega
-    name: Alpha-Omega Technology GmbH & Co.KG
+  - id: alpha-omega-technology
+    name: Alpha-Omega Technology GmbH & Co. KG
+    website: https://iot-shop.de
     vendorID: 590
 
   - id: st-electronic
-    name: ST Electronics (Info-Comm Systems) Pte. Ltd.
+    name: ST Electronics (Info-Comm Systems) Pte. Ltd
     vendorID: 595
 
   - id: ztacom
-    name: ZTACOM Co., Ltd.
+    name: ZTACOM Co., Ltd
     vendorID: 597
 
   - id: boston-networks
@@ -952,7 +983,7 @@ vendors:
     vendorID: 598
 
   - id: milesight-iot
-    name: Milesight IoT Co., Ltd.
+    name: Milesight IoT Co., Ltd
     vendorID: 601
 
   - id: dataalliance
@@ -992,7 +1023,7 @@ vendors:
     vendorID: 613
 
   - id: zxclaa
-    name: ZXCLAA Technology Co.Ltd.
+    name: ZXCLAA Technology Co.Ltd
     vendorID: 615
 
   - id: keysight
@@ -1020,11 +1051,11 @@ vendors:
     vendorID: 634
 
   - id: isa
-    name: ISA Co., Ltd.
+    name: ISA Co., Ltd
     vendorID: 639
 
   - id: linz
-    name: LINZ STROM GAS WARME GmbH fur Energiedienstleistungen und Telekommunikation
+    name: Linz Strom Gas Warme GmbH fur Energiedienstleistungen und Telekommunikation
     vendorID: 642
 
   - id: apator-miitors
@@ -1076,7 +1107,7 @@ vendors:
     vendorID: 684
 
   - id: phoenix-contact
-    name: PHOENIX CONTACT Electronics GmbH
+    name: Phoenix Contact Electronics GmbH
     vendorID: 688
 
   - id: tkf
@@ -1128,7 +1159,7 @@ vendors:
     vendorID: 709
 
   - id: mesura-metering
-    name: Mesura Metering Srl
+    name: Mesura Metering SRL
     vendorID: 710
 
   - id: iij
@@ -1140,7 +1171,7 @@ vendors:
     vendorID: 714
 
   - id: alperia-fiber
-    name: Alperia Fiber Srl
+    name: Alperia Fiber SRL
     vendorID: 715
 
   - id: enless-wireless
@@ -1148,7 +1179,7 @@ vendors:
     vendorID: 716
 
   - id: sichuan-changhong
-    name: Sichuan Changhong Network Technologies Co.,Ltd.
+    name: Sichuan Changhong Network Technologies Co.,Ltd
     vendorID: 718
 
   - id: cicor
@@ -1160,7 +1191,7 @@ vendors:
     vendorID: 721
 
   - id: rubicon
-    name: Rubicon Systems Australia PTY LTD
+    name: Rubicon Systems Australia Pty Ltd
     vendorID: 723
 
   - id: siterwell
@@ -1168,7 +1199,7 @@ vendors:
     vendorID: 724
 
   - id: luxshare
-    name: Luxshare-ICT, Inc
+    name: Luxshare-ICT, Inc.
     vendorID: 726
 
   - id: interlink-electronics
@@ -1196,7 +1227,7 @@ vendors:
     vendorID: 736
 
   - id: hangzhou-watermeter
-    name: Hangzhou Watermeter Co., Ltd.
+    name: Hangzhou Watermeter Co., Ltd
     vendorID: 737
 
   - id: financiere-de-l-ombre
@@ -1204,7 +1235,7 @@ vendors:
     vendorID: 738
 
   - id: steinel
-    name: STEINEL Solutions AG
+    name: Steinel Solutions AG
     vendorID: 739
 
   - id: nokeval
@@ -1268,7 +1299,7 @@ vendors:
     vendorID: 756
 
   - id: deepsenxe
-    name: Deepsenxe International Ltd.
+    name: Deepsenxe International Ltd
     vendorID: 757
 
   - id: lacroix
@@ -1304,7 +1335,7 @@ vendors:
     vendorID: 765
 
   - id: luna
-    name: LUNA ELEKTRIK ELEKTRONIK SAN VE TIC A.S.
+    name: Luna Elektrik Elektronik San Ve TIC A.S.
     vendorID: 766
 
   - id: piotcn
@@ -1328,7 +1359,7 @@ vendors:
     vendorID: 771
 
   - id: naltec
-    name: NALTEC, Inc.
+    name: Naltec, Inc.
     vendorID: 773
 
   - id: vutiliti
@@ -1380,7 +1411,7 @@ vendors:
     vendorID: 786
 
   - id: talam
-    name: talam, Auroville Centre for Scientific Research Trust
+    name: Talam, Auroville Centre for Scientific Research Trust
     vendorID: 787
 
   - id: deeptrack
@@ -1565,25 +1596,18 @@ vendors:
   - id: the-things-products
     name: The Things Products
 
-  - id: the-things-industries
-    name: The Things Industries
-
   - id: the-box-development
     name: The-Box Development
 
-  - # Unique identifier of the vendor (lowercase, alphanumeric with dashes, max 36 characters)
-    id: beiselen
-    # Vendor company name
+  - id: beiselen
     name: Beiselen Service GmbH
-    # LoRa Alliance issued Vendor ID
-    # will be provided after joined.
-    # Vendor website (optional)
     website: https://digitale-services.beiselen.de/
-    # Vendor logo filename (optional)
     logo: beiselen-logo-sticky.png
 
   - id: izinto
     name: izinto GmbH
+    website: https://www.izinto.online
+    logo: izinto_logo.png
 
   - id: develiot
     name: Develiot
@@ -1599,10 +1623,205 @@ vendors:
     name: Sensedge
 
   - id: embit
-    name: Embit srl
+    name: Embit SRL
     website: http://www.embit.eu/
 
   - id: enthutech
     name: Enthu Technology Solutions India Pvt Ltd
     website: https://www.enthutech.in/
     logo: logo_enthutech.png
+
+  - id: abeeway
+    name: Abeeway
+    website: https://www.abeeway.com/
+    logo: logo.png
+
+  - id: midatronics
+    name: Midatronics
+    website: https://midatronics.com/
+
+  - id: thingsofficer
+    name: ThingsOfficer Gmbh
+    website: https://www.boatofficer.com/
+    logo: boatofficer_logo.png
+
+  - id: sensecap
+    name: SenseCAP
+
+  - id: nwave
+    name: Nwave Technologies
+    website: https://www.nwave.io/
+    logo: logo.png
+
+  - id: tekzitel
+    name: TEKZITEL Pty Ltd
+    website: https://www.tekzitel.com/
+    logo: tekzitel_logo.png
+
+  - id: heltec
+    name: HelTec AutoMation
+    website: https://heltec.org/
+    logo: logo.png
+
+  - id: acrios
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/?lang=en
+    logo: acrioslogo.png
+
+  - id: espeasy
+    name: ESP Easy
+    website: https://github.com/letscontrolit/ESPEasy
+    logo: espeasy-logo.png
+
+  - id: moirelabs
+    name: Moire Labs
+    website: http://moirelabs.com/
+    logo: moirelabs_logo.png
+
+  - id: dingtek
+    name: Dingtek
+    website: http://dingtek.com/
+    logo: dingtek_logo.png
+
+  - id: elster
+    name: Elster
+    website: https://www.elster.nl/nl/about_us.html
+
+  - id: innotas
+    name: Innotas Elektronik
+    website: https://www.innotas-elektronik.de/en-gb
+
+  - id: xignal
+    name: Xignal
+    website: https://www.xignal.com
+
+  - id: opensource
+    name: Open Source Community Projects
+    website: https://en.wikipedia.org/wiki/Open_source
+
+  - id: origoelec
+    name: Origoelec
+    website: http://www.origoelec.com
+
+  - id: dezem
+    name: deZem GmbH
+    website: https://www.dezem.de/en/
+
+  - id: mutelcor
+    name: Mutelcor GmbH
+    website: https://mutelcor.com/iot/
+    logo: mc_logo.svg
+
+  - id: sting
+    name: sting
+    description: ...straight to it...
+    website: https://st-ing.net/
+    logo: sting.png
+
+  - id: smart-parks
+    name: Smart Parks
+    website: https://www.smartparks.org/
+
+  - id: nexelec
+    name: Nexelec
+    website: https://www.nexelec.fr/
+
+  - id: terabee
+    name: Terabee
+    website: https://www.terabee.com/
+
+  - id: uradmonitor
+    name: uRADMonitor
+    website: https://www.uradmonitor.com/
+
+  - id: jeng-iot
+    name: JENG IoT
+    website: https://www.jeng.io/
+    logo: jeng_iot_logo.png
+    ouis:
+      - 70B3D55AF
+    description: JENG IoT is a Dutch based company providing sensor devices and e2e IoT solutions. The devices communicate over LoRaWAN® and have an ultra-low power consumption enables operating for several years on batteries. In our cloud environment, powered by our partner Yodiwo, our devices and solutions are available off-the-shelf. We offer great dashboard apps and easy integration into your own IT environment. Applications areas are smart cities & tracking devices (containers).
+    social:
+      linkedin: https://www.linkedin.com/company/jeng/
+      twitter: jeng_iot
+
+  - id: sezo
+    name: SEZO
+    website: https://sezo.pl/
+    logo: sezo.png
+
+  - id: emu
+    name: EMU Electronic AG
+    website: https://www.emuag.ch/
+    logo: emu_electronic_logo.png
+    ouis:
+      - 102CEF
+
+  - id: ellenex
+    name: ellenex
+    description: Ellenex provides Industrial IOT Solutions that are ruggedused, battery operated and scalable.
+    logo: logo.png
+    website: https://www.ellenex.com
+    social:
+      linkedin: https://au.linkedin.com/company/ellenex
+    ouis:
+      - 70B3D5
+
+  - id: ttn
+    name: The Things Network Foundation
+
+  - id: micropelt
+    name: micropelt
+    website: http://www.micropelt.com/
+
+  - id: tinovi
+    name: tinovi
+    website: https://tinovi.com/
+    logo: tinovi.png
+
+  - id: slscorp
+    name: System Level Solutions (India) Pvt. Ltd.
+    website: https://www.slscorp.com/
+    logo: slscorp_logo.png
+    description: We are a Product and Service Company in Hardware & Software established as a Turnkey solution provider. With a strong focus on smart energy, industrial IoT, and utility-grade wireless solutions - covering metering, integration of microgeneration, field operations, consumer devices, and a cloud-based open-standards for the Internet of Things (IoT) platform, SLS has successfully established itself as an international technology provider to multiple sectors.
+    social:
+      linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
+      twitter: S_L_S
+
+  - id: kuleuven-dramco
+    name: KU Leuven Dramco
+    website: https://dramco.be/
+
+  - id: iot4eu
+    name: IOT4 Ltd
+
+  - id: noah
+    name: noah GmbH
+    website: https://noah.tech
+    logo: noah.png
+    social:
+      linkedin: https://www.linkedin.com/company/noah-gmbh/
+      github: noah-software
+
+  - id: move-x
+    name: Move-X
+    logo: move-x.svg
+    website: https://move-x.it/
+
+  - id: plenom
+    name: Plenom A/S
+    website: https://www.plenom.com
+
+  - id: quandify
+    name: Quandify AB
+    website: https://quandify.com
+    logo: quandify.png
+    social:
+      linkedin: https://www.linkedin.com/company/quandify/
+
+  - id: greenme
+    name: GreenMe SAS
+    website: https://www.greenme.fr
+    logo: greenme.png
+    social:
+      linkedin: https://www.linkedin.com/company/greenme/

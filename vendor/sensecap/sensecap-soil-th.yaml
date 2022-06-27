@@ -1,5 +1,5 @@
 name: SenseCAP Wireless Soil Moisture and Temperature Sensor - LoRaWAN
-description: It measures soil volumetric water content (VWC) and temperature. It's designed with a 2-in-1 sensor that integrates soil temperature and soil moisture, a custom battery and an IP66 enclosure, optimized for outdoor use cases that need reliable data collection over years.
+description: The Seeed Studio SenseCAP ‘Wireless Soil Moisture and Temperature Sensor’ measures soil volumetric water content (VWC) and temperature. Suitable for outdoor and harsh environments.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -103,10 +103,10 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-soil-th-deployment.jpg
+  main: sensecap-soil-th.png
   other:
-    - sensecap-soil-th.jpg
-    - sensecap-soil-th-package.jpg
+    - sensecap-soil-th-deployment.jpg
+    - sensecap-soil-th-package.png
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=CsOOfHr92pU&feature=youtu.be

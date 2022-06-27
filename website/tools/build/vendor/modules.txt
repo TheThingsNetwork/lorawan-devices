@@ -1,0 +1,32 @@
+# github.com/aprimadi/imagecomp v0.0.0-20180213055428-8f3098b13c82
+## explicit
+# github.com/dsnet/compress v0.0.1
+## explicit
+# github.com/ghodss/yaml v1.0.0
+## explicit
+github.com/ghodss/yaml
+# github.com/golang/snappy v0.0.3
+## explicit
+# github.com/mholt/archiver v3.1.1+incompatible
+## explicit
+# github.com/nickalie/go-binwrapper v0.0.0-20190114141239-525121d43c84
+## explicit
+# github.com/nickalie/go-mozjpegbin v0.0.0-20170427050522-d8a58e243a3d
+## explicit
+# github.com/nwaples/rardecode v1.1.0
+## explicit
+# github.com/pierrec/lz4 v2.6.0+incompatible
+## explicit
+# github.com/ryanuber/go-glob v1.0.0
+## explicit
+# github.com/ulikunitz/xz v0.5.10
+## explicit
+# github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8
+## explicit
+# github.com/yusukebe/go-pngquant v0.0.0-20200223090257-49b91f11b627
+## explicit
+# gopkg.in/yaml.v2 v2.4.0
+## explicit
+gopkg.in/yaml.v2
+# rsc.io/quote v1.5.2
+## explicit

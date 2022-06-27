@@ -6,7 +6,7 @@
     "example": "examples"
   },
   "scripts": {
-    "validate": "find examples -name '*.yaml' -type f -print0 | xargs -0 -n 1 -I {} ajv validate -s schema -d {} --errors text",
+    "validate": "find examples -name '*.yaml' -type f -print0 | xargs -0 -n 1 -I {} ajv validate -s schema -d {} --errors text --validate-formats false",
     "format": "prettier --write schema.json \"examples/**/*.yaml\""
   },
   "bin": {
@@ -23,12 +23,12 @@
   },
   "homepage": "https://lorawan-schema.org/draft/devices",
   "devDependencies": {
-    "ajv-cli": "^3.3.0",
-    "prettier": "^2.2.1"
+    "ajv-cli": "^5.0.0",
+    "prettier": "^2.6.2"
   },
   "dependencies": {
-    "ajv": "^6.12.6",
-    "js-yaml": "^4.0.0",
+    "ajv": "^8.11.0",
+    "js-yaml": "^4.1.0",
     "yargs": "^16.2.0"
   }
 }

@@ -1,0 +1,80 @@
+name: Wisblock Starter Kit RAK4631
+description: The RAKwireless RAK4631 is a WisBlock Core module that can be plugged into the WisBlock Base allows adding WisBlock sensor modules such as environmental sensor, GNSS location module, temperature & humidity sensor, 3-axis acceleration sensor, ambient light sensor, barometric pressure sensor, infrared temperature sensor, etc. The RAK4631 is based on the 32 bit ARM® Cortex™ - M4 CPU that supports LoRaWAN® and Bluetooth protocols.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.2.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: rak4631-868-profile
+        lorawanCertified: false
+
+      US902-928:
+        id: rak4631-915-profile
+        lorawanCertified: false
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 30
+  length: 60
+
+# Weight in grams (optional)
+weight: 35
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: Li-Ion / Li-Po, 1024 mAh minimum capacity, JST connector
+
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.rakwireless.com/Product-Categories/WisBlock/RAK4631/Overview/
+
+# Photos
+photos:
+  main: wisblock-starter-kit.png
+
+# Regulatory compliances (optional)
+compliances:
+  emc:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489-17
+      version: 3.2.4
+  radio:
+    - body: ETSI
+      norm: EN
+      standard: 300 328
+      version: 2.2.2
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1

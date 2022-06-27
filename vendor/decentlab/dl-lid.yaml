@@ -1,5 +1,5 @@
 name: DL-LID
-description: Laser Distance / Level Sensor for LoRaWAN
+description: The Decentlab DL-LID is equipped with a distance/level sensor for measuring distance. Suitable for generic ranging and proximity monitoring, snow level monitoring, water level monitoring, and flood monitoring.
 
 hardwareVersions:
   - version: '1'
@@ -58,10 +58,10 @@ keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://decentlab.squarespace.com/products/laser-distance-level-sensor-for-lorawan
+productURL: https://www.decentlab.com/products/laser-distance-level-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-LID-datasheet.pdf
 photos:
-  main: dl-lid.jpg
+  main: dl-lid.png
 
 compliances:
   safety:

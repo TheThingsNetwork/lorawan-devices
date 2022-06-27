@@ -1,0 +1,68 @@
+name: R72615A - Wireless CO2/Temperature/Humidity Sensor
+description: The Netvox R72615A has a CO2, temperature, and humidity sensor that detects and transmits CO2 level, ambient temperature, and humidity data. It uses LoRaWAN to transmit data to an application server.
+
+hardwareVersions:
+  - version: '4'
+    numeric: 4
+
+firmwareVersions:
+  - version: '13'
+    numeric: 13
+    hardwareVersions:
+      - '4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r72615a-codec
+      AS923:
+        id: profile-as923
+        codec: r72615a-codec
+      US902-928:
+        id: profile-us915
+        codec: r72615a-codec
+      AU915-928:
+        id: profile-au915
+        codec: r72615a-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r72615a-codec
+      IN865-867:
+        id: profile-in865
+        codec: r72615a-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r72615a-codec
+
+sensors:
+  - co2
+  - temperature
+  - humidity
+
+dimensions:
+  width: 89.05
+  length: 117
+  height: 82
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+battery:
+  type: 8 ER14505 lithium batteries
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R72615A
+dataSheetURL: http://www.netvox.com.tw/um/R72615A/R72615Adatasheet.pdf
+
+photos:
+  main: photos/r72615a.jpg

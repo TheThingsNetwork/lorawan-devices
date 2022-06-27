@@ -1,0 +1,39 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - rs485-ln # look in windsensor.yaml for the end device definition
+  - rs485-bl
+  - lsn50v2-s31
+  - lsn50v2-d20
+  - ldds20
+  - ldds75
+  - lbt1
+  - lse01
+  - lwl02
+  - lds02
+  - lwl01
+  - lds01
+  - lgt92
+  - lt22222-l
+  - lt33222-l
+  - lht65
+  - llms01
+  - llds12
+  - laq4
+  - lsn50-v2
+  - lsnpk01
+  - lsph01
+  - ltc2
+  - ldds04
+  - ldds45
+  - lsn50v2-d20-d22-d23
+  - lds01
+  - lwl01
+  - lsn50-v2
+  - lds03a
+  - cpl01
+  - lmds200
+  - wsc1-l
+  - sw3l
+  - lht52

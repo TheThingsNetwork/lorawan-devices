@@ -1,0 +1,44 @@
+name: LoRaWAN People Counter
+description: Easy installation for accurate counting without the need for setting up count lines or calibration and so on...
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: imbuildings-eu868-profile
+        lorawanCertified: true
+        codec: imbuildings-codec
+      US902-928:
+        id: imbuildings-us902-profile
+        lorawanCertified: true
+        codec: imbuildings-codec
+      AS923:
+        id: imbuildings-as923-profile
+        lorawanCertified: true
+        codec: imbuildings-codec
+      AU915-928:
+        id: imbuildings-au915-profile
+        lorawanCertified: true
+        codec: imbuildings-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 69
+  length: 116
+  height: 22
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 2 x AA
+
+# Product and data sheet URLs (optional)
+productURL: https://www.imbuildings.com/lorawan-people-counter/

@@ -1,0 +1,120 @@
+name: MClimate Flood Sensor
+description: The MClimate Flood Sensor contains a flood sensor for detecting floods and water leakage in residential and commercial buildings. In addition to that, the MClimate flood sensor contains a device tampering detection sensor and a temperature sensor. When a flood or fraud is detected an uplink containing the desired values is transferred to the LoRaWAN® network.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.4'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '6.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.4'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: flood-sensor-profile
+        lorawanCertified: false
+        codec: flood-sensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+  - water
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 70
+  length: 70
+  height: 19
+
+# Weight in grams (optional)
+weight: 33
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: CR123A
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: 0
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.35
+    max: 0.80
+
+# IP rating (optional)
+ipCode: IP22
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-flood-sensor-lorawan
+dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-McDr-jr9h3qA888r1Yp%2F-McEc-jPJXMJe5V4d-jY%2F-McEh34LoiIwbXk8MKOd%2FMClimate-Flood-Sensor-LoRaWAN-Datasheet.pdf?alt=media&token=4e2a3faa-eed7-46ea-a51d-8bfcaf5ffd8a
+# resellerURLs:
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
+
+# Photos
+photos:
+  main: flood-sensor.jpg
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 60950-1
+    - body: ETSI
+      norm: EN
+      standard: 301-489
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300-220
+      version: 3.1.1

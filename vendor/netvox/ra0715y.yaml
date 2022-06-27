@@ -1,0 +1,67 @@
+name: RA0715Y - Wireless Outdoor CO2/Temperature/Humidity Sensor
+description: The Netvox RA0715Y is an outdoor environmental sensor that consists of CO2, temperature, and humidity sensors. It is compatible with LoRaWAN® protocol (Class A).
+
+hardwareVersions:
+  - version: '4'
+    numeric: 4
+
+firmwareVersions:
+  - version: '13'
+    numeric: 13
+    hardwareVersions:
+      - '4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: ra0715y-codec
+      AS923:
+        id: profile-as923
+        codec: ra0715y-codec
+      US902-928:
+        id: profile-us915
+        codec: ra0715y-codec
+      AU915-928:
+        id: profile-au915
+        codec: ra0715y-codec
+      KR920-923:
+        id: profile-kr920
+        codec: ra0715y-codec
+      IN865-867:
+        id: profile-in865
+        codec: ra0715y-codec
+      CN470-510:
+        id: profile-cn470
+        codec: ra0715y-codec
+
+sensors:
+  - co2
+  - temperature
+  - humidity
+
+dimensions:
+  diameter: 220
+  height: 180
+
+battery:
+  type: DC 12V adapters
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RA0715Y
+dataSheetURL: http://www.netvox.com.tw/um/RA0715Y/RA0715Ydatasheet.pdf
+
+photos:
+  main: photos/ra0715y.jpg

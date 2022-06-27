@@ -1,0 +1,114 @@
+name: ADT1 Tube
+description: The KELLER ADT1-Tube is a remote transmission unit with a data logger compatible with selected KELLER level probes and pressure transmitters. It is suitable for use in groundwater level monitoring, flood early warning systems, tank level monitoring, and pressure monitoring applications.
+
+firmwareVersions:
+  - version: 'all'
+    numeric: 1
+    profiles:
+      EU863-870:
+        id: adt1-profile
+        lorawanCertified: true #https://lora-alliance.org/lora_products/adt1-tube/
+        codec: keller-codec
+      US902-928:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: keller-codec
+      AU915-928:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: keller-codec
+      AS923:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: keller-codec
+      KR920-923:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: keller-codec
+      IN865-867:
+        id: adt1-profile
+        lorawanCertified: false
+        codec: keller-codec
+
+# This device can be connected with various kind of KELLER pressure sensors including Level Probes and transmitters
+# The ADT1 itself measures humidity, battery capacity (0..100%), battery voltage, temperature and barometric pressure
+# The sensors attached measure pressure, temperature and optionally conductivity
+# https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/
+sensors:
+  - pressure
+  - temperature
+  - conductivity
+  - barometer
+  - battery
+  - humidity
+
+# Dimensions in mm without antenna
+dimensions:
+  diameter: 43
+  length: 165
+
+# Weight in grams with batteries
+weight: 600
+
+battery:
+  replaceable: true
+  type: 3x 1,5 V AA (Recommended & included Energizer Ultimate Lithium 3000 mAh)
+
+# -30 degree option available
+operatingConditions:
+  temperature:
+    min: -20
+    max: 50
+  relativeHumidity:
+    min: 0
+    max: 1.0
+
+# IP68 is an available option with max. immersion depth 2 m, max. immersion time 24 h.
+# IP68 can only be guaranteed when installed professionally.
+# Transmission does not work under water.
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+#documentationURL: https://docs.kolibricloud.ch/sending-technology/lora-technology/
+#githubURL: https://github.com/KELLERAGfuerDruckmesstechnik
+productURL: https://keller-druck.com/en/products/data-loggers/remote-transmission-units-with-data-logger/adt1-tube
+dataSheetURL: https://download.keller-druck.com/api/download/q3sWTxfeyHkzDXiezeoXjj/en/2020-10.pdf
+
+photos:
+  main: adt1-tube-open.jpg
+  other:
+    - adt1-tube-02.jpg
+
+videos:
+  main: https://www.youtube.com/watch?v=hbfnBRteBYM
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 60950-1:2013
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010

@@ -1,5 +1,5 @@
 name: SenseCAP Wireless CO2 Sensor - LoRaWAN
-description: It measures levels of CO2 emission in the atmosphere, designed with an NDIR CO2 sensor and a custom battery. It's dustproof, optimal for use cases that need reliable data collection, even in dusted indoor environments such as chicken farms.
+description: The Seeed Studio SenseCAP Wireless CO2 Sensor connects an external NDIR CO2 sensor that measures levels of CO2 emission in the atmosphere. It's dustproof, optimal for use cases that need reliable data collection, even in dusted indoor environments such as chicken farms. The collected data is transferred via LoRaWAN®.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -102,10 +102,10 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sensecap-co2-deployment.jpg
+  main: sensecap-co2.png
   other:
-    - sensecap-co2.jpg
-    - sensecap-co2-package.jpg
+    - sensecap-co2-deployment.jpg
+    - sensecap-co2-package.png
 
 # Youtube or Vimeo Video (optional)
 video: https://www.youtube.com/watch?v=xSplMlAbwAk&feature=youtu.be

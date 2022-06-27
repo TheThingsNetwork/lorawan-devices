@@ -1,5 +1,5 @@
 name: DL-SMTP
-description: Soil Moisture and Temperature Profile for LoRaWAN
+description: The Decentlab DL-SMTP consists of soil moisture and temperature sensors. It is suitable for irrigation control, smart agriculture, greenhouse and soilless plantations, parks, and golf courses.
 
 hardwareVersions:
   - version: '1'
@@ -62,7 +62,11 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/soil-moisture-and-temperature-profile-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-SMTP-datasheet.pdf
 photos:
-  main: dl-smtp.jpg
+  main: dl-smtp.png
+  other:
+    - dl-smtp-2.jpg
+    - dl-smtp-3.jpg
+    - dl-smtp-4.jpg
 
 compliances:
   safety:

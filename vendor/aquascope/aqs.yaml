@@ -1,0 +1,100 @@
+name: Aqua-Scope Monitor
+description: Central Sensor for monitoring water flow and leakages
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '220110'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: aqs-profile
+        lorawanCertified: false
+        codec: aqs-codec
+      US902-928:
+        id: aqs-profile
+        lorawanCertified: false
+        codec: aqs-codec
+
+sensors:
+  - temperature
+  - pressure
+  - water
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 70
+  length: 70
+  height: 15
+
+# Weight in grams (optional)
+weight: 50
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -10
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP20
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.aqua-scope.com/water-usage-sensor.html
+dataSheetURL: https://www.aqua-scope.com/docs/?sku=AQSWIE01&type=m
+resellerURLs:
+  - name: 'Aqua-Scope WTB'
+    region:
+      - European Union
+    url: https://www.aqua-scope.com/buy.html
+
+# Photos
+photos:
+  main: aqs.png
+  other:
+    - aqs2.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://www.youtube.com/watch?v=Kzljl3uJafg
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

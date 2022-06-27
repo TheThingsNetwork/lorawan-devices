@@ -1,0 +1,25 @@
+uplinkDecoder:
+  fileName: p1a-codec.js
+  examples:
+    - description: 20.59 MPa average pressure
+      input:
+        fPort: 1
+        bytes: [0x03, 0xE5, 0xB8, 0xB4, 0x41, 0x00, 0x00, 0xC7, 0x41, 0xE5, 0xB8, 0xA4, 0x41, 0x00, 0x00, 0xC8, 0x41]
+      output:
+        data:
+          unit: 'MPa'
+          min_value: 22.5903
+          max_value: 24.875
+          average_value: 20.5903
+          last_value: 25
+    - description: 20.59 kPa average pressure
+      input:
+        fPort: 1
+        bytes: [0x02, 0xE5, 0xB8, 0xB4, 0x41, 0x00, 0x00, 0xC7, 0x41, 0xE5, 0xB8, 0xA4, 0x41, 0x00, 0x00, 0xC8, 0x41]
+      output:
+        data:
+          unit: 'kPa'
+          min_value: 22.5903
+          max_value: 24.875
+          average_value: 20.5903
+          last_value: 25

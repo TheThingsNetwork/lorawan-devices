@@ -1,0 +1,69 @@
+name: R718H - Wireless Pulse Counter Interface
+description: The device is connected with a pulse detection interface, which can calculate the number of pulses and send the detected number of pulses to the gateway display. It uses the SX1276 wireless communication module.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718h-codec
+      AS923:
+        id: profile-as923
+        codec: r718h-codec
+      US902-928:
+        id: profile-us915
+        codec: r718h-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718h-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718h-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718h-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718h-codec
+
+sensors:
+  - pulse count
+
+dimensions:
+  width: 65
+  length: 112
+  height: 32
+
+weight: 150
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718H
+dataSheetURL: http://www.netvox.com.tw/um/R718H/R718Hdatasheet.pdf
+
+photos:
+  main: photos/r718h.jpg
