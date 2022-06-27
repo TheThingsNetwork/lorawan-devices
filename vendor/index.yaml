@@ -430,11 +430,11 @@ vendors:
     ouis:
       - 0002CC
 
-  - id: mcf88
-    name: MCF88 SRL
+  - id: enginko
+    name: enginko SRL
     vendorID: 259
     website: https://www.enginko.com
-    logo: mcf88_logo.svg
+    logo: enginko_logo.svg
 
   - id: meas-france
     name: MEAS FRANCE
