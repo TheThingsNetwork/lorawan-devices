@@ -47,7 +47,7 @@ operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -10
-    max: 70
+    max: 60
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
