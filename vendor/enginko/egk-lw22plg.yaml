@@ -15,7 +15,6 @@ firmwareVersions:
         id: eu868-profile-c
         lorawanCertified: false
         codec: mcf-power-codec
-   
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
