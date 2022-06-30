@@ -13,3 +13,16 @@ uplinkDecoder:
           raw: '[03, 67, FF, CC, 0D, 04, 00, 02]'
         errors: []
         warnings: []
+
+downlinkEncoder:
+  fileName: encoder_smart_room_sensor_co2.js
+  examples:
+    - description: Filtered & Pres. Comp CO2 value Enable Downlink
+      input:
+        data:
+          co2:
+            co2_pressure_compensated_reported:
+              write: 1
+      output:
+        bytes: [180, 2]
+        port: '100'

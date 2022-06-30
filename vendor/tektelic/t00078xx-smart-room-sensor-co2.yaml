@@ -84,6 +84,7 @@ compliances:
   safety:
     - body: IEC
       standard: 60529-1
+  regulatory:
     - body: FCC
       standard: '15.247'
     - body: FCC
