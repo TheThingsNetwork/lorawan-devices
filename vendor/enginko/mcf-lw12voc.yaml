@@ -38,6 +38,8 @@ sensors:
   - barometer
   - light
   - bvoc
+  - iaq
+  - battery
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

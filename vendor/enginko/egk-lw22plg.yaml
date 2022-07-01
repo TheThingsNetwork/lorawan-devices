@@ -26,6 +26,7 @@ sensors:
   - energy
   - power
   - time
+  - button
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

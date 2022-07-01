@@ -39,9 +39,14 @@ sensors:
   - wind speed
   - wind direction
   - rainfall
+  - precipation
   - solar radiation
   - uv
   - dust
+  - particulate matter
+  - pm1
+  - pm2.5
+  - pm10
 
 # Weight in grams (optional)
 weight: 20000

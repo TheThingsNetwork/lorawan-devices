@@ -36,6 +36,7 @@ sensors:
   - temperature
   - humidity
   - barometer
+  - battery
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

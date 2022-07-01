@@ -39,8 +39,13 @@ sensors:
   - wind speed
   - wind direction
   - rainfall
+  - precipitation
   - uv
   - dust
+  - particulate matter
+  - pm1
+  - pm2.5
+  - pm10
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

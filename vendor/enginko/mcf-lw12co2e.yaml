@@ -38,6 +38,7 @@ sensors:
   - barometer
   - light
   - bvoc
+  - iaq
   - co2
 
 # Dimensions in mm (optional)

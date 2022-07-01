@@ -37,6 +37,11 @@ sensors:
   - humidity
   - barometer
   - dust
+  - particulate matter
+  - PM1
+  - PM2.5
+  - PM10
+  - battery
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
