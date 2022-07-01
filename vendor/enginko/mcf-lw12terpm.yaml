@@ -1,5 +1,5 @@
 name: MCF-LW12TERPM
-description: The mcf88 MCF-LW12TERPM is an outdoor PM and environmental sensor that consists of temperature, humidity, pressure, and PM (PM1, PM2.5, PM10) sensors. It sends collected data over the LoRaWAN® network. Ideally suited for a wide range of applications such as weather stations, urban monitoring, air quality, industrial, environmental, or farming projects.
+description: The enginko MCF-LW12TERPM is an outdoor PM and environmental sensor that consists of temperature, humidity, pressure, and PM (PM1, PM2.5, PM10) sensors. It sends collected data over the LoRaWAN® network. Ideally suited for a wide range of applications such as weather stations, urban monitoring, air quality, industrial, environmental, or farming projects.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -78,8 +78,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lw12terpm/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW12TERPM.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw12terpm/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12TERPM.pdf
 
 # Photos
 photos:

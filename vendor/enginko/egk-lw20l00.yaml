@@ -1,5 +1,5 @@
-name: EGK-LW22PLG
-description: The enginko EGK-LW22PLG is a LoRaWAN® Energy Meter plug with On/Off capability that supports metering and switching of a 230Vac – 16 Amp Load (active, reactive, and apparent energy; Class 0.2).
+name: EGK-LW20L00
+description: The enginko EGK-LW20L00 is a LoRaWAN® is a battery powered sensor intended for level measurement up to 7 meters.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -14,46 +14,43 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile-c
         lorawanCertified: false
-        codec: mcf-power-codec
+        codec: egk-level-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
-  - voltage
-  - current
-  - energy
-  - power
-  - time
+  - distance
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 110
-  length: 62
-  height: 35
+  width: 65
+  length: 59
+  height: 54
 
 # Weight in grams (optional)
-weight: 140
+weight: 95
 
 # Battery information (optional)
 battery:
-  replaceable: false
+  replaceable: true
+  type: pack
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -10
-    max: 60
+    min: -30
+    max: 70
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 1
 
 # IP rating (optional)
-ipCode: IP20
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -66,9 +63,9 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.enginko.it/prodotto/mcf-lw12plg/
-dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12PLG.pdf
+productURL: https://enginko.com/en/solutions/multi-application-level-sensor/
+dataSheetURL: 
 
 # Photos
 photos:
-  main: egk-lw22plg.jpg
+  main: egk-lw20l00.jpg
