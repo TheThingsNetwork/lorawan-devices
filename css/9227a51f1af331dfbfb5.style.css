@@ -189,6 +189,7 @@ a {
   display: flex;
   justify-content: center;
   margin-bottom: var(--ls-l);
+  gap: 5px;
 }
 .device-single__cta a {
   text-decoration: none;
@@ -401,4 +402,4 @@ a {
 }
 
 
-/*# sourceMappingURL=e1a912d8670357d61096.style.css.map*/
+/*# sourceMappingURL=9227a51f1af331dfbfb5.style.css.map*/
