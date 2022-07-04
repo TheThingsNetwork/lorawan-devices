@@ -1,0 +1,184 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: uplinkdecoder-singlesense.js
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: encoder.js
+  examples:
+    - description: Change sampling rate - sample every 180 minutes (3hrs)
+      input:
+        command: 1
+        data:
+          unit: 'minute'
+          time: 180
+      output:
+        bytes: [0x10, 0x01, 0x00, 0xB4]
+        fPort: 5
+    - description: Change sampling rate - sample every 180 seconds (3mins)
+      input:
+        command: 1
+        data:
+          unit: 'second'
+          time: 180
+      output:
+        bytes: [0x10, 0x00, 0x00, 0xB4]
+        fPort: 5
+    - description: Change sampling rate - wrong time unit
+      input:
+        command: 1
+        data:
+          unit: 'seconds'
+          time: 59
+      output:
+        errors:
+          - 'Invalid time unit: must be either "minute" or "second"'
+    - description: Change sampling rate - shorter than minimum interval in minutes
+      input:
+        command: 1
+        data:
+          unit: 'minute'
+          time: 0.6
+      output:
+        errors:
+          - 'Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)'
+    - description: Change sampling rate - shorter than minimum interval in seconds
+      input:
+        command: 1
+        data:
+          unit: 'second'
+          time: 59
+      output:
+        errors:
+          - 'Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)'
+    - description: Change sampling rate - non-string input for unit
+      input:
+        command: 1
+        data:
+          unit: 60
+          time: 59
+      output:
+        errors:
+          - 'Missing required field or invalid input: unit'
+    - description: Change sampling rate - non-numeric input for time
+      input:
+        command: 1
+        data:
+          unit: 'second'
+          time: 'second'
+      output:
+        errors:
+          - 'Missing required field or invalid input: time'
+    - description: Change sampling rate - missing input for unit
+      input:
+        command: 1
+        data:
+          time: 180
+      output:
+        errors:
+          - 'Missing required field or invalid input: unit'
+    - description: Change sampling rate - missing input for time
+      input:
+        command: 1
+        data:
+          unit: 'second'
+      output:
+        errors:
+          - 'Missing required field or invalid input: time'
+    - description: Enable confirmation
+      input:
+        command: 2
+        data:
+          confirmation: true
+      output:
+        bytes: [0x07, 0x01]
+        fPort: 5
+    - description: Disable confirmation
+      input:
+        command: 2
+        data:
+          confirmation: false
+      output:
+        bytes: [0x07, 0x00]
+        fPort: 5
+    - description: Enable/Disable confirmation with non-boolean value
+      input:
+        command: 2
+        data:
+          confirmation: 'confirmation'
+      output:
+        errors:
+          - 'Missing required field or invalid input: confirmation'
+    - description: Enable/Disable confirmation with missing confirmation input
+      input:
+        command: 2
+        data:
+          confirm: true
+      output:
+        errors:
+          - 'Missing required field or invalid input: confirmation'
+    - description: Reset device
+      input:
+        command: 3
+        data:
+          reset: true
+      output:
+        bytes: [0xFF, 0x00]
+        fPort: 5
+    - description: Reset device with false
+      input:
+        command: 3
+        data:
+          reset: false
+      output:
+        errors:
+          - 'Missing required field or invalid input: reset'
+    - description: Reset device with non-boolean value
+      input:
+        command: 3
+        data:
+          reset: 'reset'
+      output:
+        errors:
+          - 'Missing required field or invalid input: reset'
+    - description: Reset device with missing reset input
+      input:
+        command: 3
+        data:
+          confirmation: 'reset'
+      output:
+        errors:
+          - 'Missing required field or invalid input: reset'
+    - description: Change periodic auto-reset settings - device automatically reset after sending 3000 samples
+      input:
+        command: 4
+        data:
+          count: 3000
+      output:
+        bytes: [0x16, 0x0B, 0xB8]
+        fPort: 5
+    - description: Change periodic auto-reset settings - disable autoreset
+      input:
+        command: 4
+        data:
+          count: 0
+      output:
+        bytes: [0x16, 0x00, 0x00]
+        fPort: 5
+    - description: Change periodic auto-reset settings - non-numeric input
+      input:
+        command: 4
+        data:
+          count: '0'
+      output:
+        errors:
+          - 'Missing required field or invalid input: count'
+    - description: Change periodic auto-reset settings - missing input
+      input:
+        command: 4
+        data:
+          confirmation: true
+      output:
+        errors:
+          - 'Missing required field or invalid input: count'

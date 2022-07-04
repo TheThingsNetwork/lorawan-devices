@@ -62,4 +62,3 @@ function sflt162f(rawSflt16)
 
 	return f_unscaled;
 	}
-
