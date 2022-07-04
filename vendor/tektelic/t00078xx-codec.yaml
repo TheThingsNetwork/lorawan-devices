@@ -1,0 +1,28 @@
+uplinkDecoder:
+  fileName: decoder_smart_room_sensor_co2.js
+  examples:
+    - description: Ambient Temperature and Motion Event Count
+      input:
+        fPort: 10
+        bytes: [0x03, 0x67, 0xFF, 0xCC, 0x0D, 0x04, 0x00, 0x02]
+      output:
+        data:
+          ambient_temperature: -5.2
+          motion_event_count: 2
+          port: '10'
+          raw: '[03, 67, FF, CC, 0D, 04, 00, 02]'
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_smart_room_sensor_co2.js
+  examples:
+    - description: Filtered & Pres. Comp CO2 value Enable Downlink
+      input:
+        data:
+          co2:
+            co2_pressure_compensated_reported:
+              write: 1
+      output:
+        bytes: [180, 2]
+        port: '100'
