@@ -1,0 +1,98 @@
+name: Arduino Portenta Max Carrier
+description: Transform your Portenta board to a edge computer solution with the Portenta Max Carrier.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.2.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: arduino-868-profile
+        lorawanCertified: true
+        codec: portentamaxcarrier-codec
+      US902-928:
+        id: arduino-915-profile
+        lorawanCertified: true
+        codec: portentamaxcarrier-codec
+
+  - # Firmware version
+    version: '1.2.3'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: arduino-868-profile
+        lorawanCertified: true
+        codec: portentamaxcarrier-codec
+      US902-928:
+        id: arduino-915-profile
+        lorawanCertified: true
+        codec: portentamaxcarrier-codec
+      AU915-928:
+        id: arduino-915-profile
+        lorawanCertified: false
+        codec: portentamaxcarrier-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 101.6
+  length: 101.6
+
+# Weight in grams (optional)
+weight: 85
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 18650 Li-Ion / Li-Po
+
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://store.arduino.cc/products/portenta-max-carrier
+
+# Photos
+photos:
+  main: maxcarrier_1.png
+  other:
+    - maxcarrier_2.png
+
+# Regulatory compliances (optional)
+compliances:
+  emc:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+  radio:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
