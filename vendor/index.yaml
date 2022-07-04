@@ -158,13 +158,14 @@ vendors:
   - id: decentlab
     name: Decentlab GmbH
     vendorID: 109
-    website: https://www.decentlab.com/
+    website: https://www.decentlab.com
     logo: decentlab_logo.svg
     ouis:
       - 70B3D57BA
     description: Decentlab is a Swiss company providing wireless sensor devices and services for distributed, cost-effective monitoring solutions. The sensor devices communicate wirelessly over LoRaWAN® and are designed for ultra low power consumption, capable of operating on batteries for several years. The devices are built for industrial applications and are ready to be deployed in any harsh indoor or outdoor environment. The service framework provides convenient access to measurement data and enables seamless integration into existing monitoring and control systems. Application areas are environmental and air quality monitoring, hydrological measurements, smart agriculture and smart cities.
     social:
-      linkedin: https://www.linkedin.com/company/decentlab/
+      linkedin: https://www.linkedin.com/company/decentlab
+      facebook: https://www.facebook.com/decentlab.gmbh
       twitter: decentlab
       github: decentlab
 
@@ -1663,8 +1664,8 @@ vendors:
     logo: logo.png
 
   - id: acrios
-    name: Acrios Systems S.RO.
-    website: https://acrios.com/
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/?lang=en
     logo: acrioslogo.png
 
   - id: espeasy
@@ -1758,7 +1759,13 @@ vendors:
 
   - id: ellenex
     name: ellenex
+    description: Ellenex provides Industrial IOT Solutions that are ruggedused, battery operated and scalable.
+    logo: logo.png
     website: https://www.ellenex.com
+    social:
+      linkedin: https://au.linkedin.com/company/ellenex
+    ouis:
+      - 70B3D5
 
   - id: ttn
     name: The Things Network Foundation
@@ -1789,7 +1796,7 @@ vendors:
     name: IOT4 Ltd
 
   - id: noah
-    name: noah
+    name: noah GmbH
     website: https://noah.tech
     logo: noah.png
     social:
@@ -1811,3 +1818,10 @@ vendors:
     logo: quandify.png
     social:
       linkedin: https://www.linkedin.com/company/quandify/
+
+  - id: greenme
+    name: GreenMe SAS
+    website: https://www.greenme.fr
+    logo: greenme.png
+    social:
+      linkedin: https://www.linkedin.com/company/greenme/

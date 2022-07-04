@@ -1,3 +1,4 @@
+
 /* https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan */
 
 var decentlab_decoder = {
@@ -96,8 +97,9 @@ var decentlab_decoder = {
         var value = sensor.values[j];
         if ('convert' in value) {
           result[value.name] = {displayName: value.displayName,
-                                value: value.convert.bind(this)(x),
-                                unit: value.unit};
+                                value: value.convert.bind(this)(x)};
+          if ('unit' in value)
+            result[value.name]['unit'] = value.unit;
         }
       }
     }
