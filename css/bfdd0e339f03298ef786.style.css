@@ -193,6 +193,7 @@ a {
 }
 .device-single__cta a {
   text-decoration: none;
+  margin: 0 var(--cs-s);
 }
 .device-single__specs {
   background: var(--c-background-04);
@@ -402,4 +403,4 @@ a {
 }
 
 
-/*# sourceMappingURL=9227a51f1af331dfbfb5.style.css.map*/
+/*# sourceMappingURL=bfdd0e339f03298ef786.style.css.map*/
