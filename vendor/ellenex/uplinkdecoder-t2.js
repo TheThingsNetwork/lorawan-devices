@@ -7,14 +7,24 @@ function decodeUplink(input) {
             errors: ['Invalid uplink payload: length is not 8 byte'],
           };
         }
-        let primarySense = readHex2bytes(input.bytes[3], input.bytes[4]);
-        let secondarySense = readHex2bytes(input.bytes[5], input.bytes[6]);
+        if(input.bytes[0] == 0x80)
+        {
+            //Used for FMS2
+            let primarySense = readHex2bytes(input.bytes[1], input.bytes[2]); //Pressure for FMS2
+            
+            //Does not account for negative numbers
+            let pulseCounter = input.bytes[3] << 24 | input.bytes[4] << 16 | input.bytes[5] << 8 | input.bytes[6];
+        }else if(input.bytes[0] ==  0x82)
+        {
+            //TODO
+        }
+        //let secondarySense = readHex2bytes(input.bytes[5], input.bytes[6]);
         let batteryVoltage = input.bytes[7] * 0.1;
         return {
           // Decoded data
           data: {
             primarySense: primarySense,
-            secondarySense: secondarySense,
+            pulseCounter: pulseCounter,
             batteryVoltage: +batteryVoltage.toFixed(1),
           },
         };

@@ -7,14 +7,13 @@ function decodeUplink(input) {
             errors: ['Invalid uplink payload: length is not 8 byte'],
           };
         }
-        let primarySense = readHex2bytes(input.bytes[3], input.bytes[4]);
-        let secondarySense = readHex2bytes(input.bytes[5], input.bytes[6]);
+        let primarySense = readHex2bytes(input.bytes[5], input.bytes[6]);
+        //let secondarySense = readHex2bytes(input.bytes[5], input.bytes[6]);
         let batteryVoltage = input.bytes[7] * 0.1;
         return {
           // Decoded data
           data: {
             primarySense: primarySense,
-            secondarySense: secondarySense,
             batteryVoltage: +batteryVoltage.toFixed(1),
           },
         };
