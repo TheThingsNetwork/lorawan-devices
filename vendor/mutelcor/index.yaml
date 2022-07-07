@@ -8,3 +8,4 @@ endDevices:
   - mtc-cf01 #3 Button Customer Feedback
   - mtc-scb01 #3 Button Service Call
   - mtc-au01 #LoRa Alarm Unit
+  - mtc-aq01 #Air Quality Sensor
