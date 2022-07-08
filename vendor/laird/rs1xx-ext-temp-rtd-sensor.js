@@ -482,7 +482,7 @@ function encodeDownlinkYear(data) {
 
     var result = -1;
 
-    if ((data >= 2000)&&
+    if ((data >= 2015)&&
         (data <= 2255)){
         result = data - 2000;
     }
@@ -659,9 +659,9 @@ function convertTimestampToDate(stream){
     timeInSeconds = fourBytesToUInt32(stream);
     // Convert to milliseconds as per the JS date format
     timeInSeconds *= 1000;
-    // Then add the number of milliseconds since 1970 through 2000. The RS1XX timestamp
-    // starts from 01/01/2000 but the Unix timestamp from 1970.
-    timeInSeconds += new Date('2000-01-01').getTime();
+    // Then add the number of milliseconds since 1970 through 2015. The RS1XX timestamp
+    // starts from 01/01/2015 but the Unix timestamp from 1970.
+    timeInSeconds += new Date('2015-01-01').getTime();
 
     // Now convert to year, hours, day, etc.
     date = new Date(timeInSeconds);

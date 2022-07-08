@@ -1,4 +1,5 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - comfort-sensor
-  #- people-counter
+  - imbuildings-people-counter
+  - imbuildings-comfort-sensor
+  - imbuildings-moodbox
+  - imbuildings-office-occupancy-counter

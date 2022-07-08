@@ -1,0 +1,70 @@
+name: VOLC2180
+description: Lora-based Outdoor Street light controller, Suitable for Smart Street Light applications such as monitoring, controlling, alarms notification, Smart City, Smart Lighting, and suitable for Pole mount.
+
+hardwareVersions:
+  - version: '0001'
+    numeric: 1
+
+firmwareVersions:
+  - version: 'LoRaWAN_End_Node v0501'
+    numeric: 0501
+    hardwareVersions:
+      - '0001'
+    profiles:
+      IN865-867:
+        id: in865-103-a-class-c
+
+sensors:
+  - temperature
+
+dimensions:
+  width: 80
+  length: 270
+  height: 58
+
+weight: 400
+
+operatingConditions:
+  temperature:
+    min: -25
+    max: 70
+
+ipCode: IP65
+
+features:
+  processor: ARM Cortex-M4 STM32WL 32bit, RISC 48Mhz
+  realTimeClock: Battery-backed RTC
+  memory: 256Kb Flash, 32KB EEPROM
+  modeOfOperation:
+    - Manual Mode
+    - Schedule Mode
+  supplyVoltage: Universal AC input 85 VAC-305 VAC, 50/60 Hz
+  switchingCapacity: 10A 305 VAC
+  protection:
+    - Lamp short circuit protection
+    - Lamp open circuit protection
+    - Input short circuit protection
+    - Inrush current limiting protection
+  surgeProtection: 4 kV
+  notification:
+    - Lamp over voltage
+    - Lamp under voltage
+    - Light fault
+    - Meter chip fault
+
+keySecurity: none
+
+productURL: https://www.vialights.com/
+dataSheetURL: https://www.slscorp.com/download/marcom/vialights/VOLC2180.pdf
+
+resellerURLs:
+  - name: 'Nebulae'
+    region: [India, European Union, United States]
+    url: https://www.vialights.com/
+
+photos:
+  main: volc2180-main.png
+  other:
+    - volc2180-other.png
+    - volc2180-other_1.png
+    - volc2180-other_2.png

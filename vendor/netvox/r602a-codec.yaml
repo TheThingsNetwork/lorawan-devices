@@ -1,0 +1,148 @@
+uplinkDecoder:
+  fileName: payload/r602a.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x69, 0x00, 0x6E, 0x03, 0x20, 0x21, 0x01, 0x28, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R602A'
+          SWver: 11
+          HWver: 3
+          Datecode: '20210128'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x69, 0x01, 0x03, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R602A'
+          HeartBeatTime: 900
+          WarningStatus: 'No warning'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x69, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R602A'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x69, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R602A'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Start warning with ack response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x69, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'StartWarningWithAckRsp'
+          Device: 'R602A'
+          Status: 'Success'
+
+downlinkDecoder:
+  fileName: payload/r602a.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x69, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R602A'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x69, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R602A'
+
+    - description: Start warning with ack request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x69, 0x01, 0x01, 0x00, 0xB4, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'StartWarningWithAckReq'
+          Device: 'R602A'
+          WarningMode: 1
+          StrobeMode: 1
+          WarningDuration: 180
+
+    - description: Start warning
+      input:
+        fPort: 7
+        bytes: [0x90, 0x69, 0x01, 0x01, 0x00, 0xB4, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'StartWarning'
+          Device: 'R602A'
+          WarningMode: 1
+          StrobeMode: 1
+          WarningDuration: 180
+
+downlinkEncoder:
+  fileName: payload/r602a.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R602A'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0x69, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R602A'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x69, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Start warning with ack request
+      input:
+        data:
+          Cmd: 'StartWarningWithAckReq'
+          Device: 'R602A'
+          WarningMode: 1
+          StrobeMode: 1
+          WarningDuration: 180
+      output:
+        fPort: 7
+        bytes: [0x03, 0x69, 0x01, 0x01, 0x00, 0xB4, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Start warning
+      input:
+        data:
+          Cmd: 'StartWarning'
+          Device: 'R602A'
+          WarningMode: 1
+          StrobeMode: 1
+          WarningDuration: 180
+      output:
+        fPort: 7
+        bytes: [0x90, 0x69, 0x01, 0x01, 0x00, 0xB4, 0x00, 0x00, 0x00, 0x00, 0x00]

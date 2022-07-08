@@ -1,0 +1,57 @@
+name: IMBuildings Comfort Sensor
+description: Sensor for monitoring Indoor Air Quality
+
+hardwareVersions:
+  - version: '1'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.35.4'
+    numeric: 1
+
+    hardwareVersions:
+      - '1'
+
+    features:
+      - remote rejoin
+      - transmission interval
+
+    profiles:
+      EU863-870:
+        id: imbuildings-profile-eu868
+        lorawanCertified: true
+        codec: imbuildings-codec
+      US902-928:
+        id: imbuildings-profile-us902
+        codec: imbuildings-codec
+      AS923:
+        id: imbuildings-profile-as923
+        codec: imbuildings-codec
+      AU915-928:
+        id: imbuildings-profile-au915
+        codec: imbuildings-codec
+
+#sensors:
+#  - device status
+#  - battery voltage
+#  - co2
+#  - temperature
+#  - relative humidity
+#  - presence
+
+additionalRadios:
+  - nfc
+
+dimensions:
+  width: 88
+  length: 88
+  height: 25
+
+battery:
+  replaceable: true
+  type: AA
+
+productURL: https://www.imbuildings.com/lorawan-comfort-sensor/
+
+photos:
+  main: imbuildings-comfort-sensor.png

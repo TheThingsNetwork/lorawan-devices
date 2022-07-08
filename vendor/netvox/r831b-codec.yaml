@@ -1,0 +1,237 @@
+uplinkDecoder:
+  fileName: payload/r831.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xB3, 0x00, 0x64, 0x01, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R831B'
+          SWver: 10
+          HWver: 1
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xB3, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R831B'
+          MotorStatus: 'ON'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R831B'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xB3, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R831B'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Set switch type response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSwitchTypeRsp'
+          Device: 'R831B'
+          Status: 'Success'
+
+    - description: Get switch type response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSwitchTypeRsp'
+          Device: 'R831B'
+          SwitchType: 'Toggle'
+
+downlinkDecoder:
+  fileName: payload/r831.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xB3, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R831B'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R831B'
+
+    - description: Set switch type request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xB3, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSwitchTypeReq'
+          Device: 'R831B'
+          SwitchType: 'Momentary'
+
+    - description: Get switch type request
+      input:
+        fPort: 7
+        bytes: [0x04, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSwitchTypeReq'
+          Device: 'R831B'
+
+    - description: Off
+      input:
+        fPort: 7
+        bytes: [0x90, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Off'
+          Device: 'R831B'
+
+    - description: On
+      input:
+        fPort: 7
+        bytes: [0x91, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'On'
+          Device: 'R831B'
+
+    - description: Toggle
+      input:
+        fPort: 7
+        bytes: [0x92, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Toggle'
+          Device: 'R831B'
+
+    - description: Read current status
+      input:
+        fPort: 7
+        bytes: [0x94, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadCurrentStatus'
+          Device: 'R831B'
+
+    - description: Stop
+      input:
+        fPort: 7
+        bytes: [0x95, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Stop'
+          Device: 'R831B'
+
+downlinkEncoder:
+  fileName: payload/r831.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R831B'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0xB3, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R831B'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set switch type request
+      input:
+        data:
+          Cmd: 'SetSwitchTypeReq'
+          Device: 'R831B'
+          SwitchType: 'Toggle'
+      output:
+        fPort: 7
+        bytes: [0x03, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get switch type request
+      input:
+        data:
+          Cmd: 'GetSwitchTypeReq'
+          Device: 'R831B'
+      output:
+        fPort: 7
+        bytes: [0x04, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Off
+      input:
+        data:
+          Cmd: 'Off'
+          Device: 'R831B'
+      output:
+        fPort: 7
+        bytes: [0x90, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: On
+      input:
+        data:
+          Cmd: 'On'
+          Device: 'R831B'
+      output:
+        fPort: 7
+        bytes: [0x91, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Toggle
+      input:
+        data:
+          Cmd: 'Toggle'
+          Device: 'R831B'
+      output:
+        fPort: 7
+        bytes: [0x92, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read current status
+      input:
+        data:
+          Cmd: 'ReadCurrentStatus'
+          Device: 'R831B'
+      output:
+        fPort: 7
+        bytes: [0x94, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Stop
+      input:
+        data:
+          Cmd: 'Stop'
+          Device: 'R831B'
+      output:
+        fPort: 7
+        bytes: [0x95, 0xB3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
