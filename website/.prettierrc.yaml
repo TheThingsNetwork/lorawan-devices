@@ -1,5 +1,5 @@
 printWidth: 100
 semi: false
-trailingComma: "all"
+trailingComma: 'all'
 singleQuote: true
 bracketSpacing: true

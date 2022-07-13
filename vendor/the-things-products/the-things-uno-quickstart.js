@@ -1,7 +1,7 @@
 // This corresponds to the Quick Start sketch in The Things Network arduino library
 // See https://github.com/TheThingsNetwork/arduino-device-lib/blob/master/examples/QuickStart/QuickStart.ino
 
-var LED_STATES = ['off', 'on']
+var LED_STATES = ['off', 'on'];
 
 function decodeUplink(input) {
   var data = {};
@@ -27,7 +27,7 @@ function encodeDownlink(input) {
 function decodeDownlink(input) {
   return {
     data: {
-      ledState: LED_STATES[input.bytes[0]]
-    }
-  }
+      ledState: LED_STATES[input.bytes[0]],
+    },
+  };
 }

@@ -9,26 +9,24 @@ function uint24(value1, value2, value3) {
 function uint24float(value1, value2, value3, multiplier) {
   var value = uint24(value1, value2, value3);
 
-  if (value & 0x800000)
-    return (value & 0x7FFFFF) / -multiplier;
+  if (value & 0x800000) return (value & 0x7fffff) / -multiplier;
 
-  return value/multiplier;
+  return value / multiplier;
 }
 
 function uint16float(value1, value2, multiplier) {
   var value = uint16(value1, value2);
 
-  if (value & 0x8000)
-    return (value & 0x7FFF) / -multiplier;
+  if (value & 0x8000) return (value & 0x7fff) / -multiplier;
 
-  return value/multiplier;
+  return value / multiplier;
 }
 
 function decodeOrganicSensor(type, value1, value2, value3) {
   var lookup = {
-    0x2A: 'o3',
-    0x2B: 'so2',
-    0x2C: 'no2',
+    0x2a: 'o3',
+    0x2b: 'so2',
+    0x2c: 'no2',
     0x04: 'co',
     0x03: 'h2s',
     0x02: 'nh3',
@@ -36,8 +34,7 @@ function decodeOrganicSensor(type, value1, value2, value3) {
   };
 
   var t = lookup[type];
-  if (!t)
-    return null;
+  if (!t) return null;
 
   return [t, uint24float(value1, value2, value3, 1000)];
 }
@@ -68,65 +65,58 @@ function decodeOrganicSensor(type, value1, value2, value3) {
 // PM10 1B - "00" (decimal 0 µg/m3, difference from PM2.5, final value PM2.5=7 + 2= 7 µg/m3 ))
 // CRC 1B - “45" ****
 function DecodePayload(bytes) {
-    if (bytes.length != 50)
-        return null;
+  if (bytes.length != 50) return null;
 
-    var obj = {
-        model: "Industrial",
-        hardware_version: "HW" + bytes[4],
-        firmware_version: bytes[5],
-        // timestamp: bytes[6, 7, 8, 9]
-        // latitude: bytes[10, 11, 12]
-        // longitude: bytes[13, 14, 15]
-        // altitude: bytes[16, 17]
-        // speed: bytes[18, 19]
-        temperature: uint16float(bytes[20], bytes[21], 100),
-        pressure: (uint16(bytes[22], bytes[23]) + 65535),
-        humidity: (bytes[24]/2),
-        gas_resistance: uint24(bytes[25], bytes[26], bytes[27]),
-        sound: bytes[28]/2,
-    };
+  var obj = {
+    model: 'Industrial',
+    hardware_version: 'HW' + bytes[4],
+    firmware_version: bytes[5],
+    // timestamp: bytes[6, 7, 8, 9]
+    // latitude: bytes[10, 11, 12]
+    // longitude: bytes[13, 14, 15]
+    // altitude: bytes[16, 17]
+    // speed: bytes[18, 19]
+    temperature: uint16float(bytes[20], bytes[21], 100),
+    pressure: uint16(bytes[22], bytes[23]) + 65535,
+    humidity: bytes[24] / 2,
+    gas_resistance: uint24(bytes[25], bytes[26], bytes[27]),
+    sound: bytes[28] / 2,
+  };
 
-    var r;
-    r = decodeOrganicSensor(bytes[29], bytes[30], bytes[31], bytes[32]);
-    if (r)
-      obj[r[0]] = r[1];
-    r = decodeOrganicSensor(bytes[33], bytes[34], bytes[35], bytes[36]);
-    if (r)
-      obj[r[0]] = r[1];
-    r = decodeOrganicSensor(bytes[37], bytes[38], bytes[39], bytes[40]);
-    if (r)
-      obj[r[0]] = r[1];
-    r = decodeOrganicSensor(bytes[41], bytes[42], bytes[43], bytes[44]);
-    if (r)
-      obj[r[0]] = r[1];
+  var r;
+  r = decodeOrganicSensor(bytes[29], bytes[30], bytes[31], bytes[32]);
+  if (r) obj[r[0]] = r[1];
+  r = decodeOrganicSensor(bytes[33], bytes[34], bytes[35], bytes[36]);
+  if (r) obj[r[0]] = r[1];
+  r = decodeOrganicSensor(bytes[37], bytes[38], bytes[39], bytes[40]);
+  if (r) obj[r[0]] = r[1];
+  r = decodeOrganicSensor(bytes[41], bytes[42], bytes[43], bytes[44]);
+  if (r) obj[r[0]] = r[1];
 
-    var pm1 = bytes[45];
-    var pm2_5 = uint16(bytes[46], bytes[47]);
-    var pm10 = bytes[48];
-    pm1 = pm2_5 - pm1;
-    pm10 = pm2_5 + pm10;
+  var pm1 = bytes[45];
+  var pm2_5 = uint16(bytes[46], bytes[47]);
+  var pm10 = bytes[48];
+  pm1 = pm2_5 - pm1;
+  pm10 = pm2_5 + pm10;
 
-    obj.pm1 = pm1;
-    obj.pm2_5 = pm2_5;
-    obj.pm10 = pm10;
+  obj.pm1 = pm1;
+  obj.pm2_5 = pm2_5;
+  obj.pm10 = pm10;
 
-    obj.iaq = parseInt(Math.log(obj.gas_resistance) + 0.04 * obj.humidity, 10);
-    return obj;
+  obj.iaq = parseInt(Math.log(obj.gas_resistance) + 0.04 * obj.humidity, 10);
+  return obj;
 }
 
 function decodeUplink(input) {
-    return {
-        "data": DecodePayload(input.bytes)
-    }
+  return {
+    data: DecodePayload(input.bytes),
+  };
 }
 
 function hexToBytes(hex) {
-    for (var bytes = [], c = 0; c < hex.length; c += 2)
-        bytes.push(parseInt(hex.substr(c, 2), 16));
-    return bytes;
+  for (var bytes = [], c = 0; c < hex.length; c += 2) bytes.push(parseInt(hex.substr(c, 2), 16));
+  return bytes;
 }
 
 //const payload = "1400008E064E00001C20000000000000000000000732879782031276A32A00028D2C00000D2B00000A040000000200070045";
 //console.log(DecodePayload(hexToBytes(payload)));
-

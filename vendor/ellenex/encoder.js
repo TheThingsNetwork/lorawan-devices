@@ -43,34 +43,35 @@ function encodeDownlink(input) {
 function changeSamplingRate(data) {
   if (typeof data.unit !== 'string') {
     return {
-      errors: ["Missing required field or invalid input: unit"],
+      errors: ['Missing required field or invalid input: unit'],
     };
   }
   if (typeof data.time !== 'number') {
     return {
-      errors: ["Missing required field or invalid input: time"],
+      errors: ['Missing required field or invalid input: time'],
     };
   }
 
   let bytes = [0x10];
-  let unit = data.unit, time = data.time;
+  let unit = data.unit,
+    time = data.time;
   // Add time unit
-  if (unit == "second") {
+  if (unit == 'second') {
     bytes.push(0x00);
-  } else if (unit == "minute") {
+  } else if (unit == 'minute') {
     bytes.push(0x01);
   } else {
     return {
-      errors: ["Invalid time unit: must be either \"minute\" or \"second\""],
+      errors: ['Invalid time unit: must be either "minute" or "second"'],
     };
   }
 
   // Add length of time with a minimum sleep period is 60 seconds
-  if ((unit == "second" && time < 60) || (unit == "minute" && time < 1)) {
+  if ((unit == 'second' && time < 60) || (unit == 'minute' && time < 1)) {
     return {
-      errors: ["Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)"],
+      errors: ['Invalid sampling interval: minimum is 60 seconds (i.e. 1 minute)'],
     };
-  } 
+  }
   return bytes.concat(decimalToHexBytes(time));
 }
 
@@ -83,7 +84,7 @@ function changeSamplingRate(data) {
 function confirmation(data) {
   if (typeof data.confirmation !== 'boolean') {
     return {
-      errors: ["Missing required field or invalid input: confirmation"],
+      errors: ['Missing required field or invalid input: confirmation'],
     };
   }
 
@@ -103,12 +104,12 @@ function confirmation(data) {
 function resetDevice(data) {
   if (typeof data.reset !== 'boolean' || !data.reset) {
     return {
-      errors: ["Missing required field or invalid input: reset"],
+      errors: ['Missing required field or invalid input: reset'],
     };
   }
 
   if (data.reset) {
-    return [0xFF, 0x00];
+    return [0xff, 0x00];
   }
 }
 
@@ -121,10 +122,10 @@ function resetDevice(data) {
 function autoResetDevice(data) {
   if (typeof data.count !== 'number') {
     return {
-      errors: ["Missing required field or invalid input: count"],
+      errors: ['Missing required field or invalid input: count'],
     };
   }
-  // 
+  //
   return [0x16].concat(decimalToHexBytes(data.count));
 }
 
@@ -133,5 +134,5 @@ function autoResetDevice(data) {
  * to 2 bytes hex array
  */
 function decimalToHexBytes(n) {
-  return [n >> 8, n & 0xFF];
+  return [n >> 8, n & 0xff];
 }

@@ -1,10 +1,9 @@
-"use strict";
+'use strict';
 
 /* eslint no-bitwise: ["error", { "allow": ["&", "<<", ">>", "|"] }] */
 /* eslint no-plusplus: "off" */
 
 function Decoder(bytes) {
-
   var decoded = {};
 
   var index = 0;
@@ -14,11 +13,11 @@ function Decoder(bytes) {
   }
 
   function toSignedShort(byte1, byte2) {
-    var sign = byte1 & 1 << 7;
-    var x = (byte1 & 0xFF) << 8 | byte2 & 0xFF;
+    var sign = byte1 & (1 << 7);
+    var x = ((byte1 & 0xff) << 8) | (byte2 & 0xff);
 
     if (sign) {
-      return 0xFFFF0000 | x;
+      return 0xffff0000 | x;
     }
 
     return x;
@@ -29,11 +28,10 @@ function Decoder(bytes) {
   }
 
   function toSignedInteger(byte1, byte2, byte3, byte4) {
-    return (byte1 & 0x80 ? -1 : 1) * ((byte1 & 0x7F) << 24) + (byte2 << 16) + (byte3 << 8) + byte4;
+    return (byte1 & 0x80 ? -1 : 1) * ((byte1 & 0x7f) << 24) + (byte2 << 16) + (byte3 << 8) + byte4;
   }
 
   function substring(source, offset, length) {
-
     var buffer = Buffer.alloc(length);
     source.copy(buffer, 0, offset, offset + length);
     return buffer.toString('hex');
@@ -52,7 +50,7 @@ function Decoder(bytes) {
           rssi: rssi,
           uuid: substring(bytes, index, 2),
           major: substring(bytes, index + 2, 2),
-          minor: substring(bytes, index + 4, 2)
+          minor: substring(bytes, index + 4, 2),
         };
         index += 6;
         return beacon;
@@ -61,7 +59,7 @@ function Decoder(bytes) {
         beacon = {
           type: 'eddystone',
           rssi: rssi,
-          instance: substring(bytes, index, 6)
+          instance: substring(bytes, index, 6),
         };
         index += 6;
         return beacon;
@@ -72,7 +70,7 @@ function Decoder(bytes) {
           rssi: rssi,
           id1: substring(bytes, index, 2),
           id2: substring(bytes, index + 2, 2),
-          id3: substring(bytes, index + 4, 2)
+          id3: substring(bytes, index + 4, 2),
         };
         index += 6;
         return beacon;
@@ -83,7 +81,7 @@ function Decoder(bytes) {
           rssi: rssi,
           id1: substring(bytes, index, 2),
           id2: substring(bytes, index + 2, 2),
-          id3: substring(bytes, index + 4, 2)
+          id3: substring(bytes, index + 4, 2),
         };
         index += 6;
         return beacon;
@@ -106,7 +104,7 @@ function Decoder(bytes) {
           rssi: rssi,
           uuid: substring(bytes, index, 16),
           major: substring(bytes, index + 16, 2),
-          minor: substring(bytes, index + 18, 2)
+          minor: substring(bytes, index + 18, 2),
         };
         index += 20;
         return beacon;
@@ -116,7 +114,7 @@ function Decoder(bytes) {
           type: 'eddystone',
           rssi: rssi,
           namespace: substring(bytes, index, 10),
-          instance: substring(bytes, index + 10, 6)
+          instance: substring(bytes, index + 10, 6),
         };
         index += 16;
         return beacon;
@@ -127,7 +125,7 @@ function Decoder(bytes) {
           rssi: rssi,
           id1: substring(bytes, index, 16),
           id2: substring(bytes, index + 16, 2),
-          id3: substring(bytes, index + 18, 2)
+          id3: substring(bytes, index + 18, 2),
         };
         index += 20;
         return beacon;
@@ -138,7 +136,7 @@ function Decoder(bytes) {
           rssi: rssi,
           id1: substring(bytes, index, 16),
           id2: substring(bytes, index + 16, 2),
-          id3: substring(bytes, index + 18, 2)
+          id3: substring(bytes, index + 18, 2),
         };
         index += 20;
         return beacon;
@@ -150,7 +148,7 @@ function Decoder(bytes) {
   function parseBluetoothBeacons02() {
     var beaconStatus = bytes[index++];
     var beaconType = beaconStatus & 0x03;
-    var slotMatch = beaconStatus >> 2 & 0x07;
+    var slotMatch = (beaconStatus >> 2) & 0x07;
     var rssiRaw = bytes[index++] & 63;
     var rssi = 27 - rssiRaw * 2;
     var beacon = void 0;
@@ -162,7 +160,7 @@ function Decoder(bytes) {
           rssi: rssi,
           slot: slotMatch,
           major: substring(bytes, index, 2),
-          minor: substring(bytes, index + 2, 2)
+          minor: substring(bytes, index + 2, 2),
         };
         index += 4;
         return beacon;
@@ -172,7 +170,7 @@ function Decoder(bytes) {
           type: 'eddystone',
           rssi: rssi,
           slot: slotMatch,
-          instance: substring(bytes, index, 6)
+          instance: substring(bytes, index, 6),
         };
         index += 6;
         return beacon;
@@ -183,7 +181,7 @@ function Decoder(bytes) {
           rssi: rssi,
           slot: slotMatch,
           id2: substring(bytes, index, 2),
-          id3: substring(bytes, index + 2, 2)
+          id3: substring(bytes, index + 2, 2),
         };
         index += 4;
         return beacon;
@@ -194,7 +192,7 @@ function Decoder(bytes) {
           rssi: rssi,
           slot: slotMatch,
           id2: substring(bytes, index, 2),
-          id3: substring(bytes, index + 2, 2)
+          id3: substring(bytes, index + 2, 2),
         };
         index += 6;
         return beacon;
@@ -224,7 +222,7 @@ function Decoder(bytes) {
       containsWifiPositioningData: !!(sensorContent & 16),
       buttonEventInfo: !!(sensorContent & 32),
       containsExternalSensors: !!(sensorContent & 64),
-      containsBluetoothData: false
+      containsBluetoothData: false,
     };
     var hasSecondSensorContent = !!(sensorContent & 128);
 
@@ -242,15 +240,15 @@ function Decoder(bytes) {
 
     if (decoded.sensorContent.containsLight) {
       var value = (bytes[index++] << 8) + bytes[index++];
-      var exponent = value >> 12 & 0xFF;
-      decoded.lightIntensity = ((value & 0x0FFF) << exponent) / 100;
+      var exponent = (value >> 12) & 0xff;
+      decoded.lightIntensity = ((value & 0x0fff) << exponent) / 100;
     }
 
     if (decoded.sensorContent.containsAccelerometerCurrent) {
       decoded.accelerometer = {
         x: toSignedShort(bytes[index++], bytes[index++]) / 1000,
         y: toSignedShort(bytes[index++], bytes[index++]) / 1000,
-        z: toSignedShort(bytes[index++], bytes[index++]) / 1000
+        z: toSignedShort(bytes[index++], bytes[index++]) / 1000,
       };
     }
 
@@ -281,13 +279,13 @@ function Decoder(bytes) {
           break;
 
         default:
-          wifiStatusDescription = "unknown (" + wifiStatus + ")";
+          wifiStatusDescription = 'unknown (' + wifiStatus + ')';
       }
 
       decoded.wifiInfo = {
         status: wifiStatusDescription,
         statusCode: wifiStatus,
-        accessPoints: []
+        accessPoints: [],
       };
 
       for (var i = 0; i < numAccessPoints; i++) {
@@ -302,7 +300,7 @@ function Decoder(bytes) {
 
         decoded.wifiInfo.accessPoints.push({
           macAddress: macAddress.join(':'),
-          signalStrength: signalStrength
+          signalStrength: signalStrength,
         });
       }
     }
@@ -311,18 +309,18 @@ function Decoder(bytes) {
       var type = bytes[index++];
 
       switch (type) {
-        case 0x0A:
+        case 0x0a:
           decoded.externalSensor = {
             type: 'battery',
             batteryA: toUnsignedShort(bytes[index++], bytes[index++]),
-            batteryB: toUnsignedShort(bytes[index++], bytes[index++])
+            batteryB: toUnsignedShort(bytes[index++], bytes[index++]),
           };
           break;
 
         case 0x65:
           decoded.externalSensor = {
             type: 'detectSwitch',
-            value: bytes[index++]
+            value: bytes[index++],
           };
           break;
       }
@@ -331,8 +329,8 @@ function Decoder(bytes) {
     if (decoded.sensorContent.containsBluetoothData) {
       var bluetoothInfo = bytes[index++];
       var numBeacons = bluetoothInfo & 7;
-      var bluetoothStatus = bluetoothInfo >> 3 & 0x03;
-      var addSlotInfo = bluetoothInfo >> 5 & 0x03;
+      var bluetoothStatus = (bluetoothInfo >> 3) & 0x03;
+      var addSlotInfo = (bluetoothInfo >> 5) & 0x03;
       var bluetoothStatusDescription = void 0;
 
       switch (bluetoothStatus) {
@@ -349,16 +347,15 @@ function Decoder(bytes) {
           break;
 
         default:
-          bluetoothStatusDescription = "unknown (" + bluetoothStatus + ")";
+          bluetoothStatusDescription = 'unknown (' + bluetoothStatus + ')';
       }
 
       decoded.bluetoothInfo = {
         status: bluetoothStatusDescription,
         statusCode: bluetoothStatus,
         addSlotInfo: addSlotInfo,
-        beacons: []
+        beacons: [],
       };
-
 
       for (var _i = 0; _i < numBeacons; _i++) {
         var beacon;
@@ -376,11 +373,10 @@ function Decoder(bytes) {
             break;
 
           default:
-            return {errors: ['Invalid addSlotInfo type']};
-
+            return { errors: ['Invalid addSlotInfo type'] };
         }
         if (beacon === null) {
-          return {errors: ['Invalid beacon type']};
+          return { errors: ['Invalid beacon type'] };
         }
 
         decoded.bluetoothInfo.beacons.push(beacon);
@@ -392,15 +388,14 @@ function Decoder(bytes) {
     }
 
     if (decoded.sensorContent.containsAirPressure) {
-
       decoded.airPressure = (bytes[index++] << 16) + (bytes[index++] << 8) + bytes[index++];
     }
 
     if (decoded.sensorContent.containsManDown) {
-      var manDownData = (bytes[index++]);
-      var manDownState = (manDownData & 0x0f);
+      var manDownData = bytes[index++];
+      var manDownState = manDownData & 0x0f;
       var manDownStateLabel;
-      switch(manDownState) {
+      switch (manDownState) {
         case 0x00:
           manDownStateLabel = 'ok';
           break;
@@ -414,33 +409,22 @@ function Decoder(bytes) {
           manDownStateLabel = 'alarm';
           break;
         default:
-          manDownStateLabel = manDownState+'';
+          manDownStateLabel = manDownState + '';
           break;
       }
       decoded.manDown = {
         state: manDownStateLabel,
         positionAlarm: !!(manDownData & 0x10),
-        movementAlarm: !!(manDownData & 0x20)
+        movementAlarm: !!(manDownData & 0x20),
       };
     }
-
   }
 
   if (decoded.containsGps) {
     decoded.gps = {};
     decoded.gps.navStat = bytes[index++];
-    decoded.gps.latitude = toSignedInteger(
-      bytes[index++],
-      bytes[index++],
-      bytes[index++],
-      bytes[index++]
-    ) / 10000000;
-    decoded.gps.longitude = toSignedInteger(
-      bytes[index++],
-      bytes[index++],
-      bytes[index++],
-      bytes[index++]
-    ) / 10000000;
+    decoded.gps.latitude = toSignedInteger(bytes[index++], bytes[index++], bytes[index++], bytes[index++]) / 10000000;
+    decoded.gps.longitude = toSignedInteger(bytes[index++], bytes[index++], bytes[index++], bytes[index++]) / 10000000;
     decoded.gps.altRef = toUnsignedShort(bytes[index++], bytes[index++]) / 10;
     decoded.gps.hAcc = bytes[index++];
     decoded.gps.vAcc = bytes[index++];

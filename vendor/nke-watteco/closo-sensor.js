@@ -4,37 +4,37 @@
 
 // {{{ Constants
 
-var ST_UNDEF = 0
-var ST_BL = 1
-var ST_U4 = 2
-var ST_I4 = 3
-var ST_U8 = 4
-var ST_I8 = 5
-var ST_U16 = 6
-var ST_I16 = 7
-var ST_U24 = 8
-var ST_I24 = 9
-var ST_U32 = 10
-var ST_I32 = 11
-var ST_FL = 12
+var ST_UNDEF = 0;
+var ST_BL = 1;
+var ST_U4 = 2;
+var ST_I4 = 3;
+var ST_U8 = 4;
+var ST_I8 = 5;
+var ST_U16 = 6;
+var ST_I16 = 7;
+var ST_U24 = 8;
+var ST_I24 = 9;
+var ST_U32 = 10;
+var ST_I32 = 11;
+var ST_FL = 12;
 
-var ST = {}
-ST[ST_UNDEF] = 0
-ST[ST_BL] = 1
-ST[ST_U4] = 4
-ST[ST_I4] = 4
-ST[ST_U8] = 8
-ST[ST_I8] = 8
-ST[ST_U16] = 16
-ST[ST_I16] = 16
-ST[ST_U24] = 24
-ST[ST_I24] = 24
-ST[ST_U32] = 32
-ST[ST_I32] = 32
-ST[ST_FL] = 32
+var ST = {};
+ST[ST_UNDEF] = 0;
+ST[ST_BL] = 1;
+ST[ST_U4] = 4;
+ST[ST_I4] = 4;
+ST[ST_U8] = 8;
+ST[ST_I8] = 8;
+ST[ST_U16] = 16;
+ST[ST_I16] = 16;
+ST[ST_U24] = 24;
+ST[ST_I24] = 24;
+ST[ST_U32] = 32;
+ST[ST_I32] = 32;
+ST[ST_FL] = 32;
 
-var BR_HUFF_MAX_INDEX_TABLE = 14
-var NUMBER_OF_SERIES = 16
+var BR_HUFF_MAX_INDEX_TABLE = 14;
+var NUMBER_OF_SERIES = 16;
 
 var HUFF = [
   [
@@ -53,7 +53,7 @@ var HUFF = [
     { sz: 11, lbl: 0x404 },
     { sz: 11, lbl: 0x405 },
     { sz: 11, lbl: 0x406 },
-    { sz: 11, lbl: 0x407 }
+    { sz: 11, lbl: 0x407 },
   ],
   [
     { sz: 7, lbl: 0x06f },
@@ -71,7 +71,7 @@ var HUFF = [
     { sz: 10, lbl: 0x374 },
     { sz: 10, lbl: 0x370 },
     { sz: 11, lbl: 0x6e3 },
-    { sz: 11, lbl: 0x6e2 }
+    { sz: 11, lbl: 0x6e2 },
   ],
   [
     { sz: 4, lbl: 0x009 },
@@ -89,58 +89,47 @@ var HUFF = [
     { sz: 11, lbl: 0x404 },
     { sz: 11, lbl: 0x405 },
     { sz: 11, lbl: 0x406 },
-    { sz: 11, lbl: 0x407 }
-  ]
-]
+    { sz: 11, lbl: 0x407 },
+  ],
+];
 
 // }}}
 
 // {{{ Polyfills
 Math.trunc =
   Math.trunc ||
-  function(x) {
+  function (x) {
     if (isNaN(x)) {
-      return NaN
+      return NaN;
     }
     if (x > 0) {
-      return Math.floor(x)
+      return Math.floor(x);
     }
-    return Math.ceil(x)
-  }
+    return Math.ceil(x);
+  };
 // }}}
 
 /**
  * brUncompress main function
  */
 function brUncompress(tagsz, argList, hexString, batch_absolute_timestamp) {
-  var out = initResult()
-  var buffer = createBuffer(parseHexString(hexString))
-  var flag = generateFlag(buffer.getNextSample(ST_U8))
+  var out = initResult();
+  var buffer = createBuffer(parseHexString(hexString));
+  var flag = generateFlag(buffer.getNextSample(ST_U8));
 
-  out.batch_counter = buffer.getNextSample(ST_U8, 3)
-  buffer.getNextSample(ST_U8, 1)
+  out.batch_counter = buffer.getNextSample(ST_U8, 3);
+  buffer.getNextSample(ST_U8, 1);
 
-  var temp = prePopulateOutput(out, buffer, argList, flag, tagsz)
-  var last_timestamp = temp.last_timestamp
-  var index_of_the_first_sample = temp.index_of_the_first_sample
+  var temp = prePopulateOutput(out, buffer, argList, flag, tagsz);
+  var last_timestamp = temp.last_timestamp;
+  var index_of_the_first_sample = temp.index_of_the_first_sample;
 
   if (flag.hasSample) {
-    last_timestamp = uncompressSamplesData(
-      out,
-      buffer,
-      index_of_the_first_sample,
-      argList,
-      last_timestamp,
-      flag,
-      tagsz
-    )
+    last_timestamp = uncompressSamplesData(out, buffer, index_of_the_first_sample, argList, last_timestamp, flag, tagsz);
   }
 
-  out.batch_relative_timestamp = extractTimestampFromBuffer(
-    buffer,
-    last_timestamp
-  )
-  return adaptToExpectedFormat(out, argList, batch_absolute_timestamp)
+  out.batch_relative_timestamp = extractTimestampFromBuffer(buffer, last_timestamp);
+  return adaptToExpectedFormat(out, argList, batch_absolute_timestamp);
 }
 
 /////////////// Sub functions ///////////////
@@ -150,21 +139,21 @@ function brUncompress(tagsz, argList, hexString, batch_absolute_timestamp) {
  */
 function initResult() {
   var series = [],
-    i = 0
+    i = 0;
   while (i < NUMBER_OF_SERIES) {
     series.push({
       codingType: 0,
       codingTable: 0,
       resolution: null,
-      uncompressSamples: []
-    })
-    i += 1
+      uncompressSamples: [],
+    });
+    i += 1;
   }
   return {
     batch_counter: 0,
     batch_relative_timestamp: 0,
-    series: series
-  }
+    series: series,
+  };
 }
 
 /**
@@ -176,88 +165,82 @@ function createBuffer(byteArray) {
    * Retrieve the pattern for HUFF table lookup
    */
   function bitsBuf2HuffPattern(byteArray, index, nb_bits) {
-    var sourceBitStart = index
-    var sz = nb_bits - 1
+    var sourceBitStart = index;
+    var sz = nb_bits - 1;
     if (byteArray.length * 8 < sourceBitStart + nb_bits) {
-      throw "Verify that dest buf is large enough"
+      throw 'Verify that dest buf is large enough';
     }
-    var bittoread = 0
-    var pattern = 0
+    var bittoread = 0;
+    var pattern = 0;
     while (nb_bits > 0) {
       if (byteArray[sourceBitStart >> 3] & (1 << (sourceBitStart & 0x07))) {
-        pattern |= 1 << (sz - bittoread)
+        pattern |= 1 << (sz - bittoread);
       }
-      nb_bits--
-      bittoread++
-      sourceBitStart++
+      nb_bits--;
+      bittoread++;
+      sourceBitStart++;
     }
-    return pattern
+    return pattern;
   }
 
   return {
     index: 0,
     byteArray: byteArray,
-    getNextSample: function(sampleType, nbBitsInput) {
-      var nbBits = nbBitsInput || ST[sampleType]
-      var sourceBitStart = this.index
-      this.index += nbBits
+    getNextSample: function (sampleType, nbBitsInput) {
+      var nbBits = nbBitsInput || ST[sampleType];
+      var sourceBitStart = this.index;
+      this.index += nbBits;
       if (sampleType === ST_FL && nbBits !== 32) {
-        throw "Mauvais sampletype"
+        throw 'Mauvais sampletype';
       }
 
-      var u32 = 0
-      var nbytes = Math.trunc((nbBits - 1) / 8) + 1
-      var nbitsfrombyte = nbBits % 8
+      var u32 = 0;
+      var nbytes = Math.trunc((nbBits - 1) / 8) + 1;
+      var nbitsfrombyte = nbBits % 8;
       if (nbitsfrombyte === 0 && nbytes > 0) {
-        nbitsfrombyte = 8
+        nbitsfrombyte = 8;
       }
 
       while (nbytes > 0) {
-        var bittoread = 0
+        var bittoread = 0;
         while (nbitsfrombyte > 0) {
-          var idx = sourceBitStart >> 3
+          var idx = sourceBitStart >> 3;
           if (this.byteArray[idx] & (1 << (sourceBitStart & 0x07))) {
-            u32 |= 1 << ((nbytes - 1) * 8 + bittoread)
+            u32 |= 1 << ((nbytes - 1) * 8 + bittoread);
           }
-          nbitsfrombyte--
-          bittoread++
-          sourceBitStart += 1
+          nbitsfrombyte--;
+          bittoread++;
+          sourceBitStart += 1;
         }
-        nbytes--
-        nbitsfrombyte = 8
+        nbytes--;
+        nbitsfrombyte = 8;
       }
       // Propagate the sign bit if 1
-      if (
-        (sampleType == ST_I4 || sampleType == ST_I8 ||sampleType == ST_I16 || sampleType == ST_I24) &&
-        u32 & (1 << (nbBits - 1))
-      ) {
+      if ((sampleType == ST_I4 || sampleType == ST_I8 || sampleType == ST_I16 || sampleType == ST_I24) && u32 & (1 << (nbBits - 1))) {
         for (var i = nbBits; i < 32; i++) {
-          u32 |= 1 << i
-          nbBits++
+          u32 |= 1 << i;
+          nbBits++;
         }
       }
-      return u32
+      return u32;
     },
 
     /**
      * Extract sz and bi from Huff table
      */
-    getNextBifromHi: function(huff_coding) {
+    getNextBifromHi: function (huff_coding) {
       for (var i = 2; i < 12; i++) {
-        var lhuff = bitsBuf2HuffPattern(this.byteArray, this.index, i)
+        var lhuff = bitsBuf2HuffPattern(this.byteArray, this.index, i);
         for (var j = 0; j < HUFF[huff_coding].length; j++) {
-          if (
-            HUFF[huff_coding][j].sz == i &&
-            lhuff == HUFF[huff_coding][j].lbl
-          ) {
-            this.index += i
-            return j
+          if (HUFF[huff_coding][j].sz == i && lhuff == HUFF[huff_coding][j].lbl) {
+            this.index += i;
+            return j;
           }
         }
       }
-      throw "Bi not found in HUFF table"
-    }
-  }
+      throw 'Bi not found in HUFF table';
+    },
+  };
 }
 
 /**
@@ -265,36 +248,36 @@ function createBuffer(byteArray) {
  */
 function parseHexString(str) {
   str = str
-    .split("")
-    .filter(function(x) {
-      return !isNaN(parseInt(x, 16))
+    .split('')
+    .filter(function (x) {
+      return !isNaN(parseInt(x, 16));
     })
-    .join("")
-  var result = []
+    .join('');
+  var result = [];
   while (str.length >= 2) {
-    result.push(parseInt(str.substring(0, 2), 16))
-    str = str.substring(2, str.length)
+    result.push(parseInt(str.substring(0, 2), 16));
+    str = str.substring(2, str.length);
   }
-  return result
+  return result;
 }
 
 /**
  * Generate a flag object from an integer value.
  */
 function generateFlag(flagAsInt) {
-  var binbase = flagAsInt.toString(2)
+  var binbase = flagAsInt.toString(2);
 
   // leftpad
   while (binbase.length < 8) {
-    binbase = "0" + binbase
+    binbase = '0' + binbase;
   }
 
   return {
     isCommonTimestamp: parseInt(binbase[binbase.length - 2], 2),
     hasSample: !parseInt(binbase[binbase.length - 3], 2),
     batch_req: parseInt(binbase[binbase.length - 4], 2),
-    nb_of_type_measure: parseInt(binbase.substring(0, 4), 2)
-  }
+    nb_of_type_measure: parseInt(binbase.substring(0, 4), 2),
+  };
 }
 
 /**
@@ -302,35 +285,30 @@ function generateFlag(flagAsInt) {
  * for each series.
  */
 function prePopulateOutput(out, buffer, argList, flag, tagsz) {
-  var currentTimestamp = 0
-  var index_of_the_first_sample = 0
+  var currentTimestamp = 0;
+  var index_of_the_first_sample = 0;
   for (var i = 0; i < flag.nb_of_type_measure; i++) {
     var tag = {
       size: tagsz,
-      lbl: buffer.getNextSample(ST_U8, tagsz)
-    }
-    var sampleIndex = findIndexFromArgList(argList, tag)
+      lbl: buffer.getNextSample(ST_U8, tagsz),
+    };
+    var sampleIndex = findIndexFromArgList(argList, tag);
 
     if (i == 0) {
-      index_of_the_first_sample = sampleIndex
+      index_of_the_first_sample = sampleIndex;
     }
 
-    currentTimestamp = extractTimestampFromBuffer(buffer, currentTimestamp)
-    out.series[sampleIndex] = computeSeries(
-      buffer,
-      argList[sampleIndex].sampletype,
-      tag.lbl,
-      currentTimestamp
-    )
+    currentTimestamp = extractTimestampFromBuffer(buffer, currentTimestamp);
+    out.series[sampleIndex] = computeSeries(buffer, argList[sampleIndex].sampletype, tag.lbl, currentTimestamp);
     if (flag.hasSample) {
-      out.series[sampleIndex].codingType = buffer.getNextSample(ST_U8, 2)
-      out.series[sampleIndex].codingTable = buffer.getNextSample(ST_U8, 2)
+      out.series[sampleIndex].codingType = buffer.getNextSample(ST_U8, 2);
+      out.series[sampleIndex].codingTable = buffer.getNextSample(ST_U8, 2);
     }
   }
   return {
     last_timestamp: currentTimestamp,
-    index_of_the_first_sample: index_of_the_first_sample
-  }
+    index_of_the_first_sample: index_of_the_first_sample,
+  };
 }
 
 /**
@@ -343,14 +321,14 @@ function computeSeries(buffer, sampletype, label, currentTimestamp) {
         data_relative_timestamp: currentTimestamp,
         data: {
           value: getMeasure(buffer, sampletype),
-          label: label
-        }
-      }
+          label: label,
+        },
+      },
     ],
     codingType: 0,
     codingTable: 0,
-    resolution: null
-  }
+    resolution: null,
+  };
 }
 
 /**
@@ -359,10 +337,10 @@ function computeSeries(buffer, sampletype, label, currentTimestamp) {
 function findIndexFromArgList(argList, tag) {
   for (var i = 0; i < argList.length; i++) {
     if (argList[i].taglbl === tag.lbl) {
-      return i
+      return i;
     }
   }
-  throw "Cannot find index in argList"
+  throw 'Cannot find index in argList';
 }
 
 /**
@@ -370,10 +348,10 @@ function findIndexFromArgList(argList, tag) {
  */
 function extractTimestampFromBuffer(buffer, baseTimestamp) {
   if (baseTimestamp) {
-    var bi = buffer.getNextBifromHi(1)
-    return computeTimestampFromBi(buffer, baseTimestamp, bi)
+    var bi = buffer.getNextBifromHi(1);
+    return computeTimestampFromBi(buffer, baseTimestamp, bi);
   }
-  return buffer.getNextSample(ST_U32)
+  return buffer.getNextSample(ST_U32);
 }
 
 /**
@@ -381,19 +359,19 @@ function extractTimestampFromBuffer(buffer, baseTimestamp) {
  */
 function computeTimestampFromBi(buffer, baseTimestamp, bi) {
   if (bi > BR_HUFF_MAX_INDEX_TABLE) {
-    return buffer.getNextSample(ST_U32)
+    return buffer.getNextSample(ST_U32);
   }
   if (bi > 0) {
-    return computeTimestampFromPositiveBi(buffer, baseTimestamp, bi)
+    return computeTimestampFromPositiveBi(buffer, baseTimestamp, bi);
   }
-  return baseTimestamp
+  return baseTimestamp;
 }
 
 /**
  * Compute a new timestamp from a previous one, regarding posotive bi value
  */
 function computeTimestampFromPositiveBi(buffer, baseTimestamp, bi) {
-  return buffer.getNextSample(ST_U32, bi) + baseTimestamp + Math.pow(2, bi) - 1
+  return buffer.getNextSample(ST_U32, bi) + baseTimestamp + Math.pow(2, bi) - 1;
 }
 
 /**
@@ -401,8 +379,8 @@ function computeTimestampFromPositiveBi(buffer, baseTimestamp, bi) {
  */
 
 function getMeasure(buffer, sampletype) {
-  var v = buffer.getNextSample(sampletype)
-  return sampletype === ST_FL ? bytes2Float32(v) : v
+  var v = buffer.getNextSample(sampletype);
+  return sampletype === ST_FL ? bytes2Float32(v) : v;
 }
 
 /**
@@ -411,192 +389,134 @@ function getMeasure(buffer, sampletype) {
 function bytes2Float32(bytes) {
   var sign = bytes & 0x80000000 ? -1 : 1,
     exponent = ((bytes >> 23) & 0xff) - 127,
-    significand = bytes & ~(-1 << 23)
+    significand = bytes & ~(-1 << 23);
 
   if (exponent == 128) {
-    return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY)
+    return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY);
   }
 
   if (exponent == -127) {
     if (significand == 0) {
-      return sign * 0.0
+      return sign * 0.0;
     }
-    exponent = -126
-    significand /= 1 << 22
+    exponent = -126;
+    significand /= 1 << 22;
   } else {
-    significand = (significand | (1 << 23)) / (1 << 23)
+    significand = (significand | (1 << 23)) / (1 << 23);
   }
 
-  return sign * significand * Math.pow(2, exponent)
+  return sign * significand * Math.pow(2, exponent);
 }
 
 /**
  * Uncompress samples data presenting common timestamp or separate timestamp
  */
-function uncompressSamplesData(
-  out,
-  buffer,
-  index_of_the_first_sample,
-  argList,
-  last_timestamp,
-  flag,
-  tagsz
-) {
+function uncompressSamplesData(out, buffer, index_of_the_first_sample, argList, last_timestamp, flag, tagsz) {
   if (flag.isCommonTimestamp) {
-    return handleCommonTimestamp(
-      out,
-      buffer,
-      index_of_the_first_sample,
-      argList,
-      flag,
-      tagsz
-    )
+    return handleCommonTimestamp(out, buffer, index_of_the_first_sample, argList, flag, tagsz);
   }
-  return handleSeparateTimestamp(
-    out,
-    buffer,
-    argList,
-    last_timestamp,
-    flag,
-    tagsz
-  )
+  return handleSeparateTimestamp(out, buffer, argList, last_timestamp, flag, tagsz);
 }
 
 /**
  * Uncompress data in case of common timestamp
  */
-function handleCommonTimestamp(
-  out,
-  buffer,
-  index_of_the_first_sample,
-  argList,
-  flag,
-  tagsz
-) {
+function handleCommonTimestamp(out, buffer, index_of_the_first_sample, argList, flag, tagsz) {
   //number of sample
-  var nb_sample_to_parse = buffer.getNextSample(ST_U8, 8)
-  var tag = {}
+  var nb_sample_to_parse = buffer.getNextSample(ST_U8, 8);
+  var tag = {};
 
-  var temp = initTimestampCommonTable(
-    out,
-    buffer,
-    nb_sample_to_parse,
-    index_of_the_first_sample
-  )
-  var timestampCommon = temp.timestampCommon
-  var lastTimestamp = temp.lastTimestamp
+  var temp = initTimestampCommonTable(out, buffer, nb_sample_to_parse, index_of_the_first_sample);
+  var timestampCommon = temp.timestampCommon;
+  var lastTimestamp = temp.lastTimestamp;
 
   for (var j = 0; j < flag.nb_of_type_measure; j++) {
-    var first_null_delta_value = 1
-    tag.lbl = buffer.getNextSample(ST_U8, tagsz)
-    var sampleIndex = findIndexFromArgList(argList, tag)
+    var first_null_delta_value = 1;
+    tag.lbl = buffer.getNextSample(ST_U8, tagsz);
+    var sampleIndex = findIndexFromArgList(argList, tag);
     for (var i = 0; i < nb_sample_to_parse; i++) {
       //Available bit
-      var available = buffer.getNextSample(ST_U8, 1)
+      var available = buffer.getNextSample(ST_U8, 1);
       if (available) {
         //Delta value
-        var bi = buffer.getNextBifromHi(out.series[sampleIndex].codingTable)
+        var bi = buffer.getNextBifromHi(out.series[sampleIndex].codingTable);
         var currentMeasure = {
           data_relative_timestamp: 0,
-          data: {}
-        }
+          data: {},
+        };
         if (bi <= BR_HUFF_MAX_INDEX_TABLE) {
-          var precedingValue =
-            out.series[sampleIndex].uncompressSamples[
-              out.series[sampleIndex].uncompressSamples.length - 1
-            ].data.value
+          var precedingValue = out.series[sampleIndex].uncompressSamples[out.series[sampleIndex].uncompressSamples.length - 1].data.value;
           if (bi > 0) {
-            currentMeasure.data.value = completeCurrentMeasure(
-              buffer,
-              precedingValue,
-              out.series[sampleIndex].codingType,
-              argList[sampleIndex].resol,
-              bi
-            )
+            currentMeasure.data.value = completeCurrentMeasure(buffer, precedingValue, out.series[sampleIndex].codingType, argList[sampleIndex].resol, bi);
           } else {
             // (bi <= 0)
             if (first_null_delta_value) {
               // First value is yet recorded starting from the header
-              first_null_delta_value = 0
-              continue
+              first_null_delta_value = 0;
+              continue;
             } else {
-              currentMeasure.data.value = precedingValue
+              currentMeasure.data.value = precedingValue;
             }
           }
         } else {
           // bi > BR_HUFF_MAX_INDEX_TABLE
-          currentMeasure.data.value = buffer.getNextSample(
-            argList[sampleIndex].sampletype
-          )
+          currentMeasure.data.value = buffer.getNextSample(argList[sampleIndex].sampletype);
         }
-        currentMeasure.data_relative_timestamp = timestampCommon[i]
-        out.series[sampleIndex].uncompressSamples.push(currentMeasure)
+        currentMeasure.data_relative_timestamp = timestampCommon[i];
+        out.series[sampleIndex].uncompressSamples.push(currentMeasure);
       }
     }
   }
-  return lastTimestamp
+  return lastTimestamp;
 }
 
 /**
  * Initialize common timestamp table. Returns the table and last calculated timestamp
  */
-function initTimestampCommonTable(
-  out,
-  buffer,
-  nbSampleToParse,
-  firstSampleIndex
-) {
-  var timestampCommon = []
-  var lastTimestamp = 0
-  var timestampCoding = buffer.getNextSample(ST_U8, 2)
+function initTimestampCommonTable(out, buffer, nbSampleToParse, firstSampleIndex) {
+  var timestampCommon = [];
+  var lastTimestamp = 0;
+  var timestampCoding = buffer.getNextSample(ST_U8, 2);
   for (var i = 0; i < nbSampleToParse; i++) {
     //delta timestamp
-    var bi = buffer.getNextBifromHi(timestampCoding)
+    var bi = buffer.getNextBifromHi(timestampCoding);
     if (bi <= BR_HUFF_MAX_INDEX_TABLE) {
       if (i == 0) {
-        timestampCommon.push(
-          out.series[firstSampleIndex].uncompressSamples[0]
-            .data_relative_timestamp
-        )
+        timestampCommon.push(out.series[firstSampleIndex].uncompressSamples[0].data_relative_timestamp);
       } else {
         if (bi > 0) {
-          var precedingTimestamp = timestampCommon[i - 1]
-          timestampCommon.push(
-            buffer.getNextSample(ST_U32, bi) +
-              precedingTimestamp +
-              Math.pow(2, bi) -
-              1
-          )
+          var precedingTimestamp = timestampCommon[i - 1];
+          timestampCommon.push(buffer.getNextSample(ST_U32, bi) + precedingTimestamp + Math.pow(2, bi) - 1);
         } else {
-          timestampCommon.push(precedingTimestamp)
+          timestampCommon.push(precedingTimestamp);
         }
       }
     } else {
-      timestampCommon.push(buffer.getNextSample(ST_U32))
+      timestampCommon.push(buffer.getNextSample(ST_U32));
     }
-    lastTimestamp = timestampCommon[i]
+    lastTimestamp = timestampCommon[i];
   }
   return {
     timestampCommon: timestampCommon,
-    lastTimestamp: lastTimestamp
-  }
+    lastTimestamp: lastTimestamp,
+  };
 }
 
 /**
  * Complete current measure from the preceding one
  */
 function completeCurrentMeasure(buffer, precedingValue, codingType, resol, bi) {
-  var currentValue = buffer.getNextSample(ST_U16, bi)
+  var currentValue = buffer.getNextSample(ST_U16, bi);
   if (codingType === 0) {
     // ADLC
-    return computeAdlcValue(currentValue, resol, precedingValue, bi)
+    return computeAdlcValue(currentValue, resol, precedingValue, bi);
   }
   if (codingType === 1) {
     // Positive
-    return (currentValue + Math.pow(2, bi) - 1) * resol + precedingValue
+    return (currentValue + Math.pow(2, bi) - 1) * resol + precedingValue;
   }
   // Negative
-  return precedingValue - (currentValue + (Math.pow(2, bi) - 1)) * resol
+  return precedingValue - (currentValue + (Math.pow(2, bi) - 1)) * resol;
 }
 
 /**
@@ -604,76 +524,51 @@ function completeCurrentMeasure(buffer, precedingValue, codingType, resol, bi) {
  */
 function computeAdlcValue(currentValue, resol, precedingValue, bi) {
   if (currentValue >= Math.pow(2, bi - 1)) {
-    return currentValue * resol + precedingValue
+    return currentValue * resol + precedingValue;
   }
-  return (currentValue + 1 - Math.pow(2, bi)) * resol + precedingValue
+  return (currentValue + 1 - Math.pow(2, bi)) * resol + precedingValue;
 }
 
 /**
  * Uncompress data in case of separate timestamp
  */
-function handleSeparateTimestamp(
-  out,
-  buffer,
-  argList,
-  last_timestamp,
-  flag,
-  tagsz
-) {
-  var tag = {}
+function handleSeparateTimestamp(out, buffer, argList, last_timestamp, flag, tagsz) {
+  var tag = {};
   for (var i = 0; i < flag.nb_of_type_measure; i++) {
-    tag.lbl = buffer.getNextSample(ST_U8, tagsz)
-    var sampleIndex = findIndexFromArgList(argList, tag)
-    var compressSampleNb = buffer.getNextSample(ST_U8, 8)
+    tag.lbl = buffer.getNextSample(ST_U8, tagsz);
+    var sampleIndex = findIndexFromArgList(argList, tag);
+    var compressSampleNb = buffer.getNextSample(ST_U8, 8);
     if (compressSampleNb) {
-      var timestampCoding = buffer.getNextSample(ST_U8, 2)
+      var timestampCoding = buffer.getNextSample(ST_U8, 2);
       for (var j = 0; j < compressSampleNb; j++) {
-        var precedingRelativeTimestamp =
-          out.series[sampleIndex].uncompressSamples[
-            out.series[sampleIndex].uncompressSamples.length - 1
-          ].data_relative_timestamp
+        var precedingRelativeTimestamp = out.series[sampleIndex].uncompressSamples[out.series[sampleIndex].uncompressSamples.length - 1].data_relative_timestamp;
         var currentMeasure = {
           data_relative_timestamp: 0,
-          data: {}
-        }
-        var bi = buffer.getNextBifromHi(timestampCoding)
-        currentMeasure.data_relative_timestamp = computeTimestampFromBi(
-          buffer,
-          precedingRelativeTimestamp,
-          bi
-        )
+          data: {},
+        };
+        var bi = buffer.getNextBifromHi(timestampCoding);
+        currentMeasure.data_relative_timestamp = computeTimestampFromBi(buffer, precedingRelativeTimestamp, bi);
         if (currentMeasure.data_relative_timestamp > last_timestamp) {
-          last_timestamp = currentMeasure.data_relative_timestamp
+          last_timestamp = currentMeasure.data_relative_timestamp;
         }
-        bi = buffer.getNextBifromHi(out.series[sampleIndex].codingTable)
+        bi = buffer.getNextBifromHi(out.series[sampleIndex].codingTable);
         if (bi <= BR_HUFF_MAX_INDEX_TABLE) {
-          var precedingValue =
-            out.series[sampleIndex].uncompressSamples[
-              out.series[sampleIndex].uncompressSamples.length - 1
-            ].data.value
+          var precedingValue = out.series[sampleIndex].uncompressSamples[out.series[sampleIndex].uncompressSamples.length - 1].data.value;
           if (bi > 0) {
-            currentMeasure.data.value = completeCurrentMeasure(
-              buffer,
-              precedingValue,
-              out.series[sampleIndex].codingType,
-              argList[sampleIndex].resol,
-              bi
-            )
+            currentMeasure.data.value = completeCurrentMeasure(buffer, precedingValue, out.series[sampleIndex].codingType, argList[sampleIndex].resol, bi);
           } else {
             // bi <= 0
-            currentMeasure.data.value = precedingValue
+            currentMeasure.data.value = precedingValue;
           }
         } else {
           // bi > BR_HUFF_MAX_INDEX_TABLE
-          currentMeasure.data.value = buffer.getNextSample(
-            argList[sampleIndex].sampletype
-          )
+          currentMeasure.data.value = buffer.getNextSample(argList[sampleIndex].sampletype);
         }
-        out.series[sampleIndex].uncompressSamples.push(currentMeasure)
+        out.series[sampleIndex].uncompressSamples.push(currentMeasure);
       }
     }
   }
-  return last_timestamp
+  return last_timestamp;
 }
 
 /**
@@ -683,42 +578,30 @@ function adaptToExpectedFormat(out, argList, batchAbsoluteTimestamp) {
   var returnedGlobalObject = {
     //batch_counter: out.batch_counter,
     //batch_relative_timestamp: out.batch_relative_timestamp
-  }
+  };
   if (batchAbsoluteTimestamp) {
-    returnedGlobalObject.b_ts = batchAbsoluteTimestamp
+    returnedGlobalObject.b_ts = batchAbsoluteTimestamp;
   }
-  returnedGlobalObject.datas = out.series.reduce(function(
-    acc,
-    current,
-    index
-  ) {
+  returnedGlobalObject.datas = out.series.reduce(function (acc, current, index) {
     return acc.concat(
-      current.uncompressSamples.map(function(item) {
+      current.uncompressSamples.map(function (item) {
         var returned = {
           //data_relative_timestamp: item.data_relative_timestamp,
           data: {
-            value: argList[index].divide
-              ? item.data.value / argList[index].divide
-              : item.data.value,
-
-          }
-        }
+            value: argList[index].divide ? item.data.value / argList[index].divide : item.data.value,
+          },
+        };
         if (argList[index].lblname) {
-          returned.data.label = argList[index].lblname
+          returned.data.label = argList[index].lblname;
         }
         if (batchAbsoluteTimestamp) {
-          returned.date = computeDataAbsoluteTimestamp(
-            batchAbsoluteTimestamp,
-            out.batch_relative_timestamp,
-            item.data_relative_timestamp
-          )
+          returned.date = computeDataAbsoluteTimestamp(batchAbsoluteTimestamp, out.batch_relative_timestamp, item.data_relative_timestamp);
         }
-        return returned
+        return returned;
       })
-    )
-  },
-  [])
-  return returnedGlobalObject
+    );
+  }, []);
+  return returnedGlobalObject;
 }
 
 /**
@@ -726,15 +609,14 @@ function adaptToExpectedFormat(out, argList, batchAbsoluteTimestamp) {
  * relative timestamp (brt) and data relative timestamp (drt)
  */
 function computeDataAbsoluteTimestamp(bat, brt, drt) {
-  return new Date(new Date(bat) - (brt - drt) * 1000).toISOString()
+  return new Date(new Date(bat) - (brt - drt) * 1000).toISOString();
 }
 
 try {
-  module.exports = brUncompress
+  module.exports = brUncompress;
 } catch (e) {
   // when called from nashorn,  module.exports is unavailable…
 }
-
 
 function UintToInt(Uint, Size) {
   if (Size === 2) {
@@ -755,42 +637,33 @@ function UintToInt(Uint, Size) {
   return Uint;
 }
 
-
-
 function decimalToHex(d, padding) {
   var hex = Number(d).toString(16).toUpperCase();
-  padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+  padding = typeof padding === 'undefined' || padding === null ? (padding = 2) : padding;
 
   while (hex.length < padding) {
-      hex = "0" + hex;
+    hex = '0' + hex;
   }
 
-  return "0x" + hex;
+  return '0x' + hex;
 }
 
-
-
 function Bytes2Float32(bytes) {
-
-  var sign = (bytes & 0x80000000) ? -1 : 1;
-  var exponent = ((bytes >> 23) & 0xFF) - 127;
-  var significand = (bytes & ~(-1 << 23));
-  if (exponent == 128)
-    return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);
+  var sign = bytes & 0x80000000 ? -1 : 1;
+  var exponent = ((bytes >> 23) & 0xff) - 127;
+  var significand = bytes & ~(-1 << 23);
+  if (exponent == 128) return sign * (significand ? Number.NaN : Number.POSITIVE_INFINITY);
 
   if (exponent == -127) {
     if (significand == 0) return sign * 0.0;
-      exponent = -126;
-    significand /= (1 << 22);
-  } 
-  else significand = (significand | (1 << 23)) / (1 << 23);
+    exponent = -126;
+    significand /= 1 << 22;
+  } else significand = (significand | (1 << 23)) / (1 << 23);
 
   return sign * significand * Math.pow(2, exponent);
 }
 
-
 function Decoder(bytes, port) {
-
   // Decode an uplink message from a buffer
   // (array) of bytes to an object of fields.
   var decoded = {};
@@ -800,202 +673,204 @@ function Decoder(bytes, port) {
   var lora = {};
 
   // decoded.lora.port  = port;
-    
+
   // Get raw payload
   var bytes_len_ = bytes.length;
-  var temp_hex_str = ""
+  var temp_hex_str = '';
 
-  lora.payload  = "";
+  lora.payload = '';
 
-
-
-
-  for( var j = 0; j < bytes_len_; j++ ){
-    temp_hex_str   = bytes[j].toString( 16 ).toUpperCase( );
-    if( temp_hex_str.length == 1 ){
-      temp_hex_str = "0" + temp_hex_str;
+  for (var j = 0; j < bytes_len_; j++) {
+    temp_hex_str = bytes[j].toString(16).toUpperCase();
+    if (temp_hex_str.length == 1) {
+      temp_hex_str = '0' + temp_hex_str;
     }
     lora.payload += temp_hex_str;
-    }
+  }
 
-    var date = new Date();
-    var lDate = date.toISOString();
-    
-    if (port === 125){
+  var date = new Date();
+  var lDate = date.toISOString();
+
+  if (port === 125) {
+    //batch
+    decodedBatch = !(bytes[0] & 0x01);
+
+    //trame standard
+    if (decodedBatch === false) {
+      decoded.zclheader = {};
+      decoded.zclheader.report = 'standard';
+      attributID = -1;
+      cmdID = -1;
+      clusterdID = -1;
+      //endpoint
+      decoded.zclheader.endpoint = ((bytes[0] & 0xe0) >> 5) | ((bytes[0] & 0x06) << 2);
+      //command ID
+      cmdID = bytes[1];
+      decoded.zclheader.cmdID = decimalToHex(cmdID, 2);
+      //Cluster ID
+      clusterdID = bytes[2] * 256 + bytes[3];
+      decoded.zclheader.clusterdID = decimalToHex(clusterdID, 4);
+
+      // decode report and read atrtribut response
+      if ((cmdID === 0x0a) | (cmdID === 0x8a) | (cmdID === 0x01)) {
+        stdData = {};
+        var tab = [];
+
+        //Attribut ID
+        attributID = bytes[4] * 256 + bytes[5];
+        decoded.zclheader.attributID = decimalToHex(attributID, 4);
+
+        if (cmdID === 0x8a) {
+          decoded.zclheader.alarm = 1;
+        } else {
+          decoded.zclheader.alarm = 0;
+        }
+
+        //data index start
+        if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
+        // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
+
+        //binary input counter
+        if ((clusterdID === 0x000f) & (attributID === 0x0402)) {
+          stdData.label = 'Index';
+          stdData.value = bytes[index] * 256 * 256 * 256 + bytes[index + 1] * 256 * 256 + bytes[index + 2] * 256 + bytes[index + 3];
+          stdData.date = lDate;
+          tab.push(stdData);
+        }
+
+        // binary input present value
+        if ((clusterdID === 0x000f) & (attributID === 0x0055)) {
+          // if (decoded.zclheader.endpoint < 3){
+          //   stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;
+          // }
+
+          // if ((decoded.zclheader.endpoint >= 3)&&(decoded.zclheader.endpoint < 6)){
+          //   stdData.label = "State"+(decoded.zclheader.endpoint-2) ;
+          // }
+          stdData.label = 'State';
+          stdData.value = bytes[index];
+          stdData.date = lDate;
+          tab.push(stdData);
+        }
+
+        // lorawan message type
+        if ((clusterdID === 0x8004) & (attributID === 0x0000)) {
+          if (bytes[index] === 1) stdData.message_type = 'confirmed';
+          if (bytes[index] === 0) stdData.message_type = 'unconfirmed';
+        }
+
+        // lorawan retry
+        if ((clusterdID === 0x8004) & (attributID === 0x0001)) {
+          stdData.nb_retry = bytes[index];
+        }
+
+        // lorawan reassociation
+        if ((clusterdID === 0x8004) & (attributID === 0x0002)) {
+          stdData.period_in_minutes = bytes[index + 1] * 256 + bytes[index + 2];
+          stdData.nb_err_frames = bytes[index + 3] * 256 + bytes[index + 4];
+        }
+
+        // configuration node power desc
+
+        if ((clusterdID === 0x0050) & (attributID === 0x0006)) {
+          index2 = index + 3;
+          if ((bytes[index + 2] & 0x01) === 0x01) {
+            tab.push({ label: 'ExternalPowerVoltage', value: (bytes[index2] * 256 + bytes[index2 + 1]) / 1000, date: lDate });
+            index2 = index2 + 2;
+          }
+          if ((bytes[index + 2] & 0x04) === 0x04) {
+            tab.push({ label: 'BatteryVoltage', value: (bytes[index2] * 256 + bytes[index2 + 1]) / 1000, date: lDate });
+            index2 = index2 + 2;
+          }
+          if ((bytes[index + 2] & 0x02) === 0x02) {
+            decoded.data.rechargeable_battery_voltage = (bytes[index2] * 256 + bytes[index2 + 1]) / 1000;
+            index2 = index2 + 2;
+          }
+          if ((bytes[index + 2] & 0x08) === 0x08) {
+            decoded.data.solar_harvesting_voltage = (bytes[index2] * 256 + bytes[index2 + 1]) / 1000;
+            index2 = index2 + 2;
+          }
+          if ((bytes[index + 2] & 0x10) === 0x10) {
+            decoded.data.tic_harvesting_voltage = (bytes[index2] * 256 + bytes[index2 + 1]) / 1000;
+            index2 = index2 + 2;
+          }
+        }
+        decoded.data = tab;
+      }
+
+      // decode configuration response
+      if (cmdID === 0x07) {
+        //AttributID
+        attributID = bytes[6] * 256 + bytes[7];
+        decoded.zclheader.attributID = decimalToHex(attributID, 4);
+        //status
+        decoded.zclheader.status = bytes[4];
         //batch
-        decodedBatch = !(bytes[0] & 0x01);
-    
-        //trame standard
-        if (decodedBatch === false){
+        decoded.zclheader.decodedBatch = bytes[5];
+      }
 
-            decoded.zclheader = {};
-            decoded.zclheader.report =  "standard";
-            attributID = -1;
-            cmdID = -1;
-            clusterdID = -1;
-            //endpoint
-            decoded.zclheader.endpoint = ((bytes[0]&0xE0)>>5) | ((bytes[0]&0x06)<<2);
-            //command ID
-            cmdID =  bytes[1]; decoded.zclheader.cmdID = decimalToHex(cmdID,2);
-            //Cluster ID
-            clusterdID = bytes[2]*256 + bytes[3]; decoded.zclheader.clusterdID = decimalToHex(clusterdID,4);
-            
-        
-            // decode report and read atrtribut response
-            if((cmdID === 0x0a)|(cmdID === 0x8a)|(cmdID === 0x01)){
-
-                stdData = {};
-                var tab=[];
-
-                //Attribut ID
-                attributID = bytes[4]*256 + bytes[5]; decoded.zclheader.attributID = decimalToHex(attributID,4);
-
-                if (cmdID === 0x8a) {
-                    decoded.zclheader.alarm = 1;
-                }
-                else {
-                    decoded.zclheader.alarm = 0;
-                }
-                    
-                //data index start
-                if ((cmdID === 0x0a) | (cmdID === 0x8a)) index = 7;
-                // if (cmdID === 0x01) {index = 8; decoded.zclheader.status = bytes[6];}
-
-
-                //binary input counter
-                if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
-                    stdData.label = "Index";
-                    stdData.value = (bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]); 
-                    stdData.date = lDate;
-                    tab.push(stdData);
-                };
-            
-                // binary input present value
-                if (  (clusterdID === 0x000f ) & (attributID === 0x0055)) {
-                    // if (decoded.zclheader.endpoint < 3){
-                    //   stdData.label = "Index"+(decoded.zclheader.endpoint+1) ;  
-                    // }
-        
-                    // if ((decoded.zclheader.endpoint >= 3)&&(decoded.zclheader.endpoint < 6)){
-                    //   stdData.label = "State"+(decoded.zclheader.endpoint-2) ;
-                    // }
-                    stdData.label = "State";
-                    stdData.value =bytes[index]; 
-                    stdData.date = lDate;
-                    tab.push(stdData);
-                };
-
-
-                // lorawan message type
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {
-                    if (bytes[index] === 1)
-                        stdData.message_type = "confirmed";
-                    if (bytes[index] === 0)
-                        stdData.message_type = "unconfirmed";
-                }
-                    
-                // lorawan retry
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0001)) {
-                    stdData.nb_retry= bytes[index] ;
-                }
-                    
-                // lorawan reassociation
-                if (  (clusterdID === 0x8004 ) & (attributID === 0x0002)) {
-                    stdData.period_in_minutes = bytes[index+1] *256+bytes[index+2];
-                    stdData.nb_err_frames = bytes[index+3] *256+bytes[index+4];
-                }
-
-                // configuration node power desc
-
-                if (   (clusterdID === 0x0050 ) & (attributID === 0x0006)) {
-                    index2 = index + 3;
-                    if ((bytes[index+2] &0x01) === 0x01) {
-                        tab.push({label:"ExternalPowerVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
-                        index2=index2+2;
-                    }
-                    if ((bytes[index+2] &0x04) === 0x04) {
-                        tab.push({label:"BatteryVoltage" ,value:(bytes[index2]*256+bytes[index2+1])/1000, date:lDate}) ;
-                        index2=index2+2;
-                    }
-                    if ((bytes[index+2] &0x02) === 0x02) {decoded.data.rechargeable_battery_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                    if ((bytes[index+2] &0x08) === 0x08) {decoded.data.solar_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                    if ((bytes[index+2] &0x10) === 0x10) {decoded.data.tic_harvesting_voltage = (bytes[index2]*256+bytes[index2+1])/1000;index2=index2+2;}
-                }
-                decoded.data = tab;
-            }
-            
-            // decode configuration response
-            if(cmdID === 0x07){
-                //AttributID
-                attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-                //status
-                decoded.zclheader.status = bytes[4];
-                //batch
-                decoded.zclheader.decodedBatch = bytes[5];
-            }
-
-            //decode read configuration response
-            if(cmdID === 0x09){
-                //AttributID
-                attributID = bytes[6]*256 + bytes[7];decoded.zclheader.attributID = decimalToHex(attributID,4);
-                //status
-                decoded.zclheader.status = bytes[4];
-                //batch
-                decoded.zclheader.decodedBatch = bytes[5];
-                //AttributType
-                decoded.zclheader.attribut_type = bytes[8];
-                //min
-                decoded.zclheader.min = {}
-                if ((bytes[9] & 0x80) === 0x80) {
-                    decoded.zclheader.min.value = (bytes[9]-0x80)*256+bytes[10];
-                    decoded.zclheader.min.unity = "minutes";
-                } 
-                else {
-                    decoded.zclheader.min.value = bytes[9]*256+bytes[10];
-                    decoded.zclheader.min.unity = "seconds";
-                }
-                //max
-                decoded.zclheader.max = {}
-                if ((bytes[9] & 0x80) === 0x80) {
-                    decoded.zclheader.max.value = (bytes[9]-0x80)*256+bytes[10];
-                    decoded.zclheader.max.unity = "minutes";
-                } 
-                else {
-                    decoded.zclheader.max.value = bytes[9]*256+bytes[10];
-                    decoded.zclheader.max.unity = "seconds";
-                }
-
-            }   
+      //decode read configuration response
+      if (cmdID === 0x09) {
+        //AttributID
+        attributID = bytes[6] * 256 + bytes[7];
+        decoded.zclheader.attributID = decimalToHex(attributID, 4);
+        //status
+        decoded.zclheader.status = bytes[4];
+        //batch
+        decoded.zclheader.decodedBatch = bytes[5];
+        //AttributType
+        decoded.zclheader.attribut_type = bytes[8];
+        //min
+        decoded.zclheader.min = {};
+        if ((bytes[9] & 0x80) === 0x80) {
+          decoded.zclheader.min.value = (bytes[9] - 0x80) * 256 + bytes[10];
+          decoded.zclheader.min.unity = 'minutes';
+        } else {
+          decoded.zclheader.min.value = bytes[9] * 256 + bytes[10];
+          decoded.zclheader.min.unity = 'seconds';
         }
-
-        else{
-
-            var decoded = {};
-            brData = (brUncompress(2,[{taglbl: 0,resol: 1, sampletype: 1,lblname: "State", divide: 1},{ taglbl: 1, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}], lora.payload, lDate))
-
-            var data_length = brData["datas"].length;
-            var tab=[];
-            for (var i = 0; i < data_length; i++) {               
-                tab.push({label:brData["datas"][i]["data"]["label"] ,value:brData["datas"][i]["data"]["value"], date:brData["datas"][i]["date"]}) ;
-            }
-
-            decoded.data = tab;
-
-            decoded.zclheader = {};
-            decoded.zclheader.report = "batch";
+        //max
+        decoded.zclheader.max = {};
+        if ((bytes[9] & 0x80) === 0x80) {
+          decoded.zclheader.max.value = (bytes[9] - 0x80) * 256 + bytes[10];
+          decoded.zclheader.max.unity = 'minutes';
+        } else {
+          decoded.zclheader.max.value = bytes[9] * 256 + bytes[10];
+          decoded.zclheader.max.unity = 'seconds';
         }
+      }
+    } else {
+      var decoded = {};
+      brData = brUncompress(
+        2,
+        [
+          { taglbl: 0, resol: 1, sampletype: 1, lblname: 'State', divide: 1 },
+          { taglbl: 1, resol: 100, sampletype: 6, lblname: 'BatteryVoltage', divide: 1000 },
+        ],
+        lora.payload,
+        lDate
+      );
 
+      var data_length = brData['datas'].length;
+      var tab = [];
+      for (var i = 0; i < data_length; i++) {
+        tab.push({ label: brData['datas'][i]['data']['label'], value: brData['datas'][i]['data']['value'], date: brData['datas'][i]['date'] });
+      }
+
+      decoded.data = tab;
+
+      decoded.zclheader = {};
+      decoded.zclheader.report = 'batch';
     }
+  }
   return decoded;
 }
 
-
 function decodeUplink(input) {
- 
   return {
-    data : Decoder(input.bytes, input.fPort),
-    
+    data: Decoder(input.bytes, input.fPort),
+
     warnings: [],
-    errors: []
+    errors: [],
   };
 }

@@ -14,12 +14,12 @@ function decodeUplink(input) {
           eco2: (bytes[5] << 8) | bytes[4],
           voc: (bytes[7] << 8) | bytes[6],
           iaq: (bytes[9] << 8) | bytes[8],
-          temperature: (bytes[10] & 0x7f) -32
-        }
-    };
-  default:
-    return {
-      errors: ['unknown FPort'],
-    };
+          temperature: (bytes[10] & 0x7f) - 32,
+        },
+      };
+    default:
+      return {
+        errors: ['unknown FPort'],
+      };
   }
 }

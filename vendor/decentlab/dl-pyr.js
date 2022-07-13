@@ -1,19 +1,34 @@
-
 /* https://www.decentlab.com/products/total-solar-radiation-sensor-for-lorawan */
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   SENSORS: [
-    {length: 1,
-     values: [{name: 'total_solar_radiation',
-               displayName: 'Total solar radiation',
-               convert: function (x) { return 3 * (x[0] / 32768 - 1) * 1000 * 5; },
-               unit: 'W⋅m⁻²'}]},
-    {length: 1,
-     values: [{name: 'battery_voltage',
-               displayName: 'Battery voltage',
-               convert: function (x) { return x[0] / 1000; },
-               unit: 'V'}]}
+    {
+      length: 1,
+      values: [
+        {
+          name: 'total_solar_radiation',
+          displayName: 'Total solar radiation',
+          convert: function (x) {
+            return 3 * (x[0] / 32768 - 1) * 1000 * 5;
+          },
+          unit: 'W⋅m⁻²',
+        },
+      ],
+    },
+    {
+      length: 1,
+      values: [
+        {
+          name: 'battery_voltage',
+          displayName: 'Battery voltage',
+          convert: function (x) {
+            return x[0] / 1000;
+          },
+          unit: 'V',
+        },
+      ],
+    },
   ],
 
   read_int: function (bytes, pos) {
@@ -32,17 +47,16 @@ var decentlab_decoder = {
 
     var version = bytes[0];
     if (version != this.PROTOCOL_VERSION) {
-      return {error: "protocol version " + version + " doesn't match v2"};
+      return { error: 'protocol version ' + version + " doesn't match v2" };
     }
 
     var deviceId = this.read_int(bytes, 1);
     var flags = this.read_int(bytes, 3);
-    var result = {'protocol_version': version, 'device_id': deviceId};
+    var result = { protocol_version: version, device_id: deviceId };
     // decode payload
     var pos = 5;
     for (i = 0; i < this.SENSORS.length; i++, flags >>= 1) {
-      if ((flags & 1) !== 1)
-        continue;
+      if ((flags & 1) !== 1) continue;
 
       var sensor = this.SENSORS[i];
       var x = [];
@@ -56,15 +70,13 @@ var decentlab_decoder = {
       for (j = 0; j < sensor.values.length; j++) {
         var value = sensor.values[j];
         if ('convert' in value) {
-          result[value.name] = {displayName: value.displayName,
-                                value: value.convert.bind(this)(x)};
-          if ('unit' in value)
-            result[value.name]['unit'] = value.unit;
+          result[value.name] = { displayName: value.displayName, value: value.convert.bind(this)(x) };
+          if ('unit' in value) result[value.name]['unit'] = value.unit;
         }
       }
     }
     return result;
-  }
+  },
 };
 
 function decodeUplink(input) {
