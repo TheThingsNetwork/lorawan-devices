@@ -23,19 +23,33 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
       US902-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
       AU915-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
+      KR920-923:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
+      IN865-867:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
       AS923:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
+      RU864-870:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
+
+
 
 # Sensors that this device features (optional)
 # Valid values are:
