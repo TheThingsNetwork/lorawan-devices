@@ -1626,7 +1626,7 @@ vendors:
     logo: senzemo-logo.svg
     social:
       linkedin: https://www.linkedin.com/company/sensedge/
-      twitter: https://twitter.com/sensedgeco
+      twitter: sensedgeco
 
   - id: embit
     name: Embit SRL
