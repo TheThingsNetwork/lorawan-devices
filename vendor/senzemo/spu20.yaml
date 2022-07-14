@@ -59,7 +59,7 @@ weight: 60
 
 # Battery information (optional)
 battery:
-  replaceable: no
+  replaceable: false
   type: Solar PV
 
 # Operating conditions (optional)
