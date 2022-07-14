@@ -1619,8 +1619,14 @@ vendors:
     website: https://www.iotsens.com/
     logo: logo_iotsens.svg
 
-  - id: sensedge
-    name: Sensedge
+  - id: senzemo
+    name: Senzemo
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://senzemo.com/
+    logo: senzemo-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: https://twitter.com/sensedgeco
 
   - id: embit
     name: Embit SRL
