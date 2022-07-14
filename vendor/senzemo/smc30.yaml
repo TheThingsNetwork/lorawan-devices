@@ -43,7 +43,7 @@ firmwareVersions:
 sensors:
   - temperature
   - humidity
-  - airpressure
+  - pressure
   - battery
 
 # Dimensions in mm (optional)

@@ -45,7 +45,7 @@ sensors:
   - tvoc
   - temperature
   - humidity
-  - airpressure
+  - pressure
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
