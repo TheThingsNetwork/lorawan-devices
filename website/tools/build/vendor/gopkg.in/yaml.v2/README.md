@@ -1,7 +1,6 @@
 # YAML support for the Go language
 
-Introduction
-------------
+## Introduction
 
 The yaml package enables Go programs to comfortably encode and decode YAML
 values. It was developed within [Canonical](https://www.canonical.com) as
@@ -9,44 +8,36 @@ part of the [juju](https://juju.ubuntu.com) project, and is based on a
 pure Go port of the well-known [libyaml](http://pyyaml.org/wiki/LibYAML)
 C library to parse and generate YAML data quickly and reliably.
 
-Compatibility
--------------
+## Compatibility
 
 The yaml package supports most of YAML 1.1 and 1.2, including support for
 anchors, tags, map merging, etc. Multi-document unmarshalling is not yet
 implemented, and base-60 floats from YAML 1.1 are purposefully not
 supported since they're a poor design and are gone in YAML 1.2.
 
-Installation and usage
-----------------------
+## Installation and usage
 
-The import path for the package is *gopkg.in/yaml.v2*.
+The import path for the package is _gopkg.in/yaml.v2_.
 
 To install it, run:
 
     go get gopkg.in/yaml.v2
 
-API documentation
------------------
+## API documentation
 
 If opened in a browser, the import path itself leads to the API documentation:
 
-  * [https://gopkg.in/yaml.v2](https://gopkg.in/yaml.v2)
+- [https://gopkg.in/yaml.v2](https://gopkg.in/yaml.v2)
 
-API stability
--------------
+## API stability
 
 The package API for yaml v2 will remain stable as described in [gopkg.in](https://gopkg.in).
 
-
-License
--------
+## License
 
 The yaml package is licensed under the Apache License 2.0. Please see the LICENSE file for details.
 
-
-Example
--------
+## Example
 
 ```Go
 package main
@@ -77,27 +68,27 @@ type T struct {
 
 func main() {
         t := T{}
-    
+
         err := yaml.Unmarshal([]byte(data), &t)
         if err != nil {
                 log.Fatalf("error: %v", err)
         }
         fmt.Printf("--- t:\n%v\n\n", t)
-    
+
         d, err := yaml.Marshal(&t)
         if err != nil {
                 log.Fatalf("error: %v", err)
         }
         fmt.Printf("--- t dump:\n%s\n\n", string(d))
-    
+
         m := make(map[interface{}]interface{})
-    
+
         err = yaml.Unmarshal([]byte(data), &m)
         if err != nil {
                 log.Fatalf("error: %v", err)
         }
         fmt.Printf("--- m:\n%v\n\n", m)
-    
+
         d, err = yaml.Marshal(&m)
         if err != nil {
                 log.Fatalf("error: %v", err)
@@ -130,4 +121,3 @@ b:
   - 3
   - 4
 ```
-

@@ -127,7 +127,7 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/company-x/ # uri
       facebook: https://www.facebook.com/company-x # uri
-      twitter: company-x  # handle
+      twitter: company-x # handle
       instagram: company-x # handle
       github: company-x # handle
     # Organization Unique Identifiers (OUIs, six digit hex, optional): http://standards-oui.ieee.org/oui.txt
@@ -319,24 +319,24 @@ The actual **Payload codec implementation** is in the referenced filename: `vend
 An example codec for a wind direction and speed sensor with controllable LED looks like this:
 
 ```js
-var directions = ["N", "E", "S", "W"];
-var colors = ["red", "green"];
+var directions = ['N', 'E', 'S', 'W'];
+var colors = ['red', 'green'];
 
 // input = { fPort: 1, bytes: [1, 62] }
 function decodeUplink(input) {
   switch (input.fPort) {
-  case 1:
-    return {
-      // Decoded data
-      data: {
-        direction: directions[input.bytes[0]],
-        speed: input.bytes[1]
-      }
-    }
-  default:
-    return {
-      errors: ["unknown FPort"]
-    }
+    case 1:
+      return {
+        // Decoded data
+        data: {
+          direction: directions[input.bytes[0]],
+          speed: input.bytes[1],
+        },
+      };
+    default:
+      return {
+        errors: ['unknown FPort'],
+      };
   }
 }
 
@@ -345,31 +345,31 @@ function encodeDownlink(input) {
   var i = colors.indexOf(input.data.led);
   if (i === -1) {
     return {
-      errors: ["invalid LED color"]
-    }
+      errors: ['invalid LED color'],
+    };
   }
   return {
     // LoRaWAN FPort used for the downlink message
     fPort: 2,
     // Encoded bytes
-    bytes: [i]
-  }
+    bytes: [i],
+  };
 }
 
 // input = { fPort: 2, bytes: [1] }
 function decodeDownlink(input) {
   switch (input.fPort) {
-  case 2:
-    return {
-      // Decoded downlink (must be symmetric with encodeDownlink)
-      data: {
-        led: colors[input.bytes[0]]
-      }
-    }
-  default:
-    return {
-      errors: ["invalid FPort"]
-    }
+    case 2:
+      return {
+        // Decoded downlink (must be symmetric with encodeDownlink)
+        data: {
+          led: colors[input.bytes[0]],
+        },
+      };
+    default:
+      return {
+        errors: ['invalid FPort'],
+      };
   }
 }
 ```
@@ -386,18 +386,18 @@ Example warning:
 // input = { fPort: 1, bytes: [1, 2, 3] }
 function decodeUplink(input) {
   var warnings = [];
-  var battery = input.bytes[0] << 8 | input.bytes[1];
+  var battery = (input.bytes[0] << 8) | input.bytes[1];
   if (battery < 2000) {
-    warnings.push("unreliable battery level");
+    warnings.push('unreliable battery level');
   }
   return {
     // Decoded data
     data: {
-      battery: battery
+      battery: battery,
     },
     // Warnings
-    warnings: warnings
-  }
+    warnings: warnings,
+  };
 }
 ```
 
@@ -407,17 +407,16 @@ Example error:
 function encodeDownlink(input) {
   if (typeof input.data.gate !== 'boolean') {
     return {
-      errors: [
-        "missing required field: gate"
-      ]
-    }
+      errors: ['missing required field: gate'],
+    };
   }
   return {
     fPort: 1,
-    bytes: [input.data.gate ? 1 : 0]
-  }
+    bytes: [input.data.gate ? 1 : 0],
+  };
 }
 ```
+
 ## Legal
 
 The API is distributed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See `LICENSE` for more information.

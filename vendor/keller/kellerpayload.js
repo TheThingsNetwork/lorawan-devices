@@ -8,47 +8,54 @@ function decodeUplink(input) {
   var decoded = {
     func: functionCode,
     port: port,
-    payload: bytes.map(function (byte) { return pad(byte.toString(16).toUpperCase(), 2); }).join('')
+    payload: bytes
+      .map(function (byte) {
+        return pad(byte.toString(16).toUpperCase(), 2);
+      })
+      .join(''),
   };
 
   if (functionCode === 12) {
     fillUpDecodedDeviceInformation(bytes, decoded); // Device sends information package, has to be decoded differently
-  }
-  else if (functionCode === 1) {
+  } else if (functionCode === 1) {
     fillUpDecodedMeasurements(bytes, decoded); // Device sends measurement package
   } else {
     return {
       data: decoded,
-      warnings: ["This function code is not supported in this decoder."],
-      errors: []
-    }
+      warnings: ['This function code is not supported in this decoder.'],
+      errors: [],
+    };
   }
 
   return {
     data: decoded,
     warnings: [],
-    errors: []
+    errors: [],
   };
 }
 
 function encodeDownlink(input) {
   return {
     data: {
-      bytes: input.bytes
+      bytes: input.bytes,
     },
-    warnings: ["Encoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.kolibricloud.ch/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)"],
-    errors: []
-  }
+    warnings: [
+      'Encoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.kolibricloud.ch/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)',
+    ],
+    errors: [],
+  };
 }
 
 function decodeDownlink(input) {
   return {
     data: {
-      bytes: input.bytes
+      bytes: input.bytes,
     },
-    warnings: ["Decoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.kolibricloud.ch/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)"],
-    errors: []
-  }
+    warnings: [
+      'Decoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.kolibricloud.ch/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)',
+    ],
+    errors: [],
+  };
 }
 
 // Decode the device information package and append it to the result object
@@ -68,7 +75,7 @@ function fillUpDecodedMeasurements(bytes, result) {
   result.ct = bytes[1];
   result.channel = bytesToBinaryString(bytes.slice(2, 4), 2);
   result.channelCount = result.channel.match(/1/g).length;
-  var channelsReverted = result.channel.split("").reverse().join("");
+  var channelsReverted = result.channel.split('').reverse().join('');
   var firstIndex = channelsReverted.indexOf('1');
 
   // Loop through all additional package content. Every group of 4 Bytes
@@ -87,10 +94,10 @@ function fillUpDecodedMeasurements(bytes, result) {
 function bytesToFloat(bytes) {
   // JavaScript bitwise operators yield a 32 bits integer, not a float.
   // Assume MSB (most significant byte first).
-  var bits = bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | bytes[3];
-  var sign = (bits >>> 31 === 0) ? 1.0 : -1.0;
-  var e = bits >>> 23 & 0xff;
-  var m = (e === 0) ? (bits & 0x7fffff) << 1 : (bits & 0x7fffff) | 0x800000;
+  var bits = (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+  var sign = bits >>> 31 === 0 ? 1.0 : -1.0;
+  var e = (bits >>> 23) & 0xff;
+  var m = e === 0 ? (bits & 0x7fffff) << 1 : (bits & 0x7fffff) | 0x800000;
   var f = sign * m * Math.pow(2, e - 150);
   return f;
 }

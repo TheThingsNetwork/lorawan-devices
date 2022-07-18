@@ -1,16 +1,15 @@
-
-var bytesToInt = function (/*byte[]*/byteArray, dev) {
+var bytesToInt = function (/*byte[]*/ byteArray, dev) {
   var value = 0;
   for (var i = 0; i < byteArray.length; i++) {
-    value = (value * 256) + byteArray[i];
+    value = value * 256 + byteArray[i];
   }
   return value / dev;
 };
 var bytesToSignedInt = function (bytes, dev) {
   var sign = bytes[0] & (1 << 7);
-  var x = ((bytes[0] & 0xFF) << 8) | (bytes[1] & 0xFF);
+  var x = ((bytes[0] & 0xff) << 8) | (bytes[1] & 0xff);
   if (sign) {
-    x = 0xFFFF0000 | x;
+    x = 0xffff0000 | x;
   }
   return x / dev;
 };
@@ -18,10 +17,11 @@ function decodeUplink(input) {
   var bytes = input.bytes;
   var decoded = {};
   var pos = 1;
-  decoded.valv = ((bytes[0] >> 7) & 1);
-  decoded.leak = ((bytes[0] >> 6) & 1);
+  decoded.valv = (bytes[0] >> 7) & 1;
+  decoded.leak = (bytes[0] >> 6) & 1;
   decoded.bat = bytes[pos++];
-  if (((bytes[0] >> 0) & 1) === 1) { //SOIL
+  if (((bytes[0] >> 0) & 1) === 1) {
+    //SOIL
     decoded.e25 = bytesToInt(bytes.slice(pos, pos + 2), 100);
     pos = pos + 2;
     decoded.ec = bytesToInt(bytes.slice(pos, pos + 2), 10);
@@ -31,7 +31,8 @@ function decodeUplink(input) {
     decoded.vwc = bytesToInt(bytes.slice(pos, pos + 2), 1);
     pos = pos + 2;
   }
-  if (((bytes[0] >> 1) & 1) === 1) { //BME
+  if (((bytes[0] >> 1) & 1) === 1) {
+    //BME
     decoded.airTemp = bytesToSignedInt(bytes.slice(pos, pos + 2), 100);
     pos = pos + 2;
     decoded.airHum = bytesToInt(bytes.slice(pos, pos + 2), 100);
@@ -42,15 +43,18 @@ function decodeUplink(input) {
     }
     pos = pos + 2;
   }
-  if (((bytes[0] >> 2) & 1) === 1) { //OPT
+  if (((bytes[0] >> 2) & 1) === 1) {
+    //OPT
     decoded.lux = bytesToInt(bytes.slice(pos, pos + 4), 100);
     pos = pos + 4;
   }
-  if (((bytes[0] >> 4) & 1) === 1) { //PULSE
+  if (((bytes[0] >> 4) & 1) === 1) {
+    //PULSE
     decoded.pulse = bytesToInt(bytes.slice(pos, pos + 4), 1);
     pos = pos + 4;
   }
-  if (((bytes[0] >> 3) & 1) === 1) { //SOIL
+  if (((bytes[0] >> 3) & 1) === 1) {
+    //SOIL
     decoded.e25_1 = bytesToInt(bytes.slice(pos, pos + 2), 100);
     pos = pos + 2;
     decoded.ec_1 = bytesToInt(bytes.slice(pos, pos + 2), 10);
@@ -60,13 +64,15 @@ function decodeUplink(input) {
     decoded.vwc_1 = bytesToInt(bytes.slice(pos, pos + 2), 1);
     pos = pos + 2;
   }
-  if (((bytes[0] >> 5) & 1) === 1) { //PRESSURE
+  if (((bytes[0] >> 5) & 1) === 1) {
+    //PRESSURE
     decoded.press = bytesToInt(bytes.slice(pos, pos + 2), 100);
     pos = pos + 2;
   }
-  if (bytes.length > (pos + 1)) {
+  if (bytes.length > pos + 1) {
     var set1 = bytes[pos++];
-    if (((set1 >> 1) & 1) === 1) { //LEAF
+    if (((set1 >> 1) & 1) === 1) {
+      //LEAF
       decoded.leafHum = bytesToInt(bytes.slice(pos, pos + 2), 100);
       pos = pos + 2;
       decoded.leafTemp = bytesToSignedInt(bytes.slice(pos, pos + 2), 100);
@@ -77,4 +83,3 @@ function decodeUplink(input) {
     data: decoded,
   };
 }
-

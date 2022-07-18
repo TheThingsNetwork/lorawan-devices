@@ -19,12 +19,7 @@ import { generateUplinkEvents } from '../../components/events/utils/generate-eve
 import Events from '../../components/events'
 
 function DeviceUplink(props) {
-  const {
-    truncated,
-    brand_id,
-    model_id,
-    device,
-  } = props
+  const { truncated, brand_id, model_id, device } = props
   const [events, setEvents] = React.useState([])
   const [paused, setPaused] = React.useState(false)
   const [displayEvents, setDisplayEvents] = React.useState(false)

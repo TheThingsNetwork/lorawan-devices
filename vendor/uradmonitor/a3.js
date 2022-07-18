@@ -9,10 +9,9 @@ function uint24(value1, value2, value3) {
 function uint16float(value1, value2, multiplier) {
   var value = uint16(value1, value2);
 
-  if (value & 0x8000)
-    return (value & 0x7FFF) / -multiplier;
+  if (value & 0x8000) return (value & 0x7fff) / -multiplier;
 
-  return value/multiplier;
+  return value / multiplier;
 }
 
 // ID 4B - "82000284"
@@ -32,35 +31,33 @@ function uint16float(value1, value2, multiplier) {
 // PM10 2B - "009C" (decimal 156 µg/m3 ))
 // CRC 1B - “E2" ****
 function DecodePayload(bytes) {
-    if (bytes.length != 32)
-        return null;
+  if (bytes.length != 32) return null;
 
-    var obj = {
-        model: "A3",
-        hardware_version: "HW" + bytes[4],
-        firmware_version: bytes[5],
-        // timestamp: bytes[6, 7, 8, 9]
-        temperature: uint16float(bytes[10], bytes[11], 100),
-        pressure: (uint16(bytes[12], bytes[13]) + 65535),
-        humidity: (bytes[14]/2),
-        gas_resistance: uint24(bytes[15], bytes[16], bytes[17]),
-        sound: bytes[18]/2,
-        co2: uint16(bytes[19], bytes[20]),
-        ch20: uint16(bytes[21], bytes[22]),
-        o3: uint16(bytes[23], bytes[24]),
-        pm1: uint16(bytes[25], bytes[26]),
-        pm2_5: uint16(bytes[27], bytes[28]),
-        pm10: uint16(bytes[29], bytes[30]),
-        // crc: bytes[31]
-    };
+  var obj = {
+    model: 'A3',
+    hardware_version: 'HW' + bytes[4],
+    firmware_version: bytes[5],
+    // timestamp: bytes[6, 7, 8, 9]
+    temperature: uint16float(bytes[10], bytes[11], 100),
+    pressure: uint16(bytes[12], bytes[13]) + 65535,
+    humidity: bytes[14] / 2,
+    gas_resistance: uint24(bytes[15], bytes[16], bytes[17]),
+    sound: bytes[18] / 2,
+    co2: uint16(bytes[19], bytes[20]),
+    ch20: uint16(bytes[21], bytes[22]),
+    o3: uint16(bytes[23], bytes[24]),
+    pm1: uint16(bytes[25], bytes[26]),
+    pm2_5: uint16(bytes[27], bytes[28]),
+    pm10: uint16(bytes[29], bytes[30]),
+    // crc: bytes[31]
+  };
 
-    obj.iaq = parseInt(Math.log(obj.gas_resistance) + 0.04 * obj.humidity, 10);
-    return obj;
+  obj.iaq = parseInt(Math.log(obj.gas_resistance) + 0.04 * obj.humidity, 10);
+  return obj;
 }
 
 function decodeUplink(input) {
-    return {
-        "data": DecodePayload(input.bytes)
-    }
+  return {
+    data: DecodePayload(input.bytes),
+  };
 }
-

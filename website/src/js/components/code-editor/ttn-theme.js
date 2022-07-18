@@ -12,15 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-ace.define('ace/theme/ttn', ['require', 'exports', 'module', 'ace/lib/dom'], function (
-  acequire,
-  exports,
-  module,
-) {
-  exports.isDark = false
-  exports.cssClass = 'ace-ttn'
-  exports.cssText =
-    '\
+ace.define(
+  'ace/theme/ttn',
+  ['require', 'exports', 'module', 'ace/lib/dom'],
+  function (acequire, exports, module) {
+    exports.isDark = false
+    exports.cssClass = 'ace-ttn'
+    exports.cssText =
+      '\
 .ace_scroller.ace_scroll-left {\
  box-shadow: none;\
 }\
@@ -138,6 +137,7 @@ margin-top: -1px;\
 background: none;\
 }'
 
-  const dom = acequire('../lib/dom')
-  dom.importCssString(exports.cssText, exports.cssClass)
-})
+    const dom = acequire('../lib/dom')
+    dom.importCssString(exports.cssText, exports.cssClass)
+  },
+)

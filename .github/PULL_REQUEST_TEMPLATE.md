@@ -4,6 +4,7 @@ otherwise we will not be able to process this pull request.
 -->
 
 #### Summary
+
 <!--
 A short summary, referencing related issues:
 Closes #0000, References #0000, etc.
@@ -12,12 +13,14 @@ Closes #0000, References #0000, etc.
 ...
 
 #### Changes
+
 <!-- What are the changes made in this pull request? -->
 
 - ...
 - ...
 
 #### Notes for Reviewers
+
 <!--
 NOTE: This section is optional.
 
@@ -30,6 +33,7 @@ implementation proposal in the referenced issues.
 ...
 
 #### Release Notes
+
 <!--
 NOTE: This section is optional.
 

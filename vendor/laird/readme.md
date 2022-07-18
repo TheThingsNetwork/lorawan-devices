@@ -1,5 +1,7 @@
 [![Laird Connectivity](images/Laird_Logo.jpg)](https://www.lairdconnect.com/)
+
 # RS1XX - TTI Codec Pack
+
 [![TTI](images/TTI_Logo.jpg)](https://www.thethingsindustries.com/)
 [![RS1XX](images/RS1xx.jpg)](https://www.lairdconnect.com/wireless-modules/lorawan-solutions/sentrius-rs1xx-lora-enabled-sensors/)
 
@@ -9,21 +11,21 @@ The content is managed by TTI and resides at the [TTI Device Repository Github P
 
 All available models are supported, refer to the appropriate product brief as follows.
 
-| Variant                                   | Product Brief                                           |
-|-------------------------------------------|---------------------------------------------------------|
-| External RTD Temp Probe                   |[External RTD Temp Probe Product Brief]                  |
-| External Temp Sensor                      |[External Temp Sensor Product Brief]                     |
-| Integrated Temp & Humidity Sensor         |[Integrated Temp & Humidity Sensor Product Brief]        |
-| Open/Closed Sensor and Integrated Temp/RH |[Open/Closed Sensor and Integrated Temp/RH Product Brief]|
+| Variant                                   | Product Brief                                             |
+| ----------------------------------------- | --------------------------------------------------------- |
+| External RTD Temp Probe                   | [External RTD Temp Probe Product Brief]                   |
+| External Temp Sensor                      | [External Temp Sensor Product Brief]                      |
+| Integrated Temp & Humidity Sensor         | [Integrated Temp & Humidity Sensor Product Brief]         |
+| Open/Closed Sensor and Integrated Temp/RH | [Open/Closed Sensor and Integrated Temp/RH Product Brief] |
 
 The codecs are intended to be used in conjunction with the [RS1XX Configuration Guide] and appropriate User guide, as follows.
 
-| Variant                                   | User Guide                                          |
-|-------------------------------------------|-----------------------------------------------------|
-| External RTD Temp Probe                   |[RS1XX External Temperature Sensors User Guide]      |
-| External Temp Sensor                      |[RS1XX External Temperature Sensors User Guide]      |
-| Integrated Temp & Humidity Sensor         |[RS1XX Open/Closed and Integrated Temp/RH User Guide]|
-| Open/Closed Sensor and Integrated Temp/RH |[RS1XX Open/Closed and Integrated Temp/RH User Guide]|
+| Variant                                   | User Guide                                            |
+| ----------------------------------------- | ----------------------------------------------------- |
+| External RTD Temp Probe                   | [RS1XX External Temperature Sensors User Guide]       |
+| External Temp Sensor                      | [RS1XX External Temperature Sensors User Guide]       |
+| Integrated Temp & Humidity Sensor         | [RS1XX Open/Closed and Integrated Temp/RH User Guide] |
+| Open/Closed Sensor and Integrated Temp/RH | [RS1XX Open/Closed and Integrated Temp/RH User Guide] |
 
 The [RS1XX Protocol Specification] should be referred to for details of limits applied to data values.
 
@@ -35,8 +37,8 @@ Refer to the [TTI Device Repository] for further details of usage.
 
 The following downlink message types can be encoded and decoded.
 
-|              Command                         | External RTD Temp Probe | External Temp Sensor | Integrated Temp & Humidity Sensor | Open/Closed Sensor and Integrated Temp/RH |
-|----------------------------------------------|-------------------------|----------------------|-----------------------------------|-------------------------------------------|
+| Command                                      | External RTD Temp Probe | External Temp Sensor | Integrated Temp & Humidity Sensor | Open/Closed Sensor and Integrated Temp/RH |
+| -------------------------------------------- | ----------------------- | -------------------- | --------------------------------- | ----------------------------------------- |
 | Generic Data Retrieval Notification          | Yes                     | Yes                  | Yes                               | Yes                                       |
 | Set UTC Notification                         | Yes                     | Yes                  | Yes                               | Yes                                       |
 | Sensor Config Notification                   | No                      | Yes                  | Yes                               | Yes                                       |
@@ -69,7 +71,7 @@ This sets the UTC value in the sensor.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -99,7 +101,7 @@ This configures the sensor.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | No         |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -136,7 +138,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | No         |
 | External Temp Sensor                      | No         |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -158,7 +160,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -179,7 +181,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -201,7 +203,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -221,7 +223,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -243,7 +245,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -263,7 +265,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | No         |
 | External Temp Sensor                      | No         |
 | Integrated Temp & Humidity Sensor         | No         |
@@ -277,7 +279,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
         operatingMode: one of Operating Mode,
         loraNotificationOptions: one or more of LoRa Notification Options,
         openDwellTime: the number of seconds the external sensor must be open before annunciating the Open state,
-        closedDwellTime: the number of seconds the external sensor must be closed before annunciating the Closed state, 
+        closedDwellTime: the number of seconds the external sensor must be closed before annunciating the Closed state,
         resendInterval: the number of seconds between each external sensor uplink message,
         debounceAdjust: the number of milliseconds between successive reads of the external sensor to determine its state
     }
@@ -293,7 +295,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | No         |
 | Integrated Temp & Humidity Sensor         | No         |
@@ -325,7 +327,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -360,7 +362,7 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -394,9 +396,8 @@ Refer to [RTD Sensor Config Notification](#rtd-sensor-config-notification) for t
 
 The following uplink messages can be decoded.
 
-
-|              Command                          | External RTD Temp Probe | External Temp Sensor | Integrated Temp & Humidity Sensor | Open/Closed Sensor and Integrated Temp/RH |
-|-----------------------------------------------|-------------------------|----------------------|-----------------------------------|-------------------------------------------|
+| Command                                       | External RTD Temp Probe | External Temp Sensor | Integrated Temp & Humidity Sensor | Open/Closed Sensor and Integrated Temp/RH |
+| --------------------------------------------- | ----------------------- | -------------------- | --------------------------------- | ----------------------------------------- |
 | Send Temp RH Data Notification                | No                      | Yes                  | Yes                               | Yes                                       |
 | Send Temp and RH Aggregated Data Notification | Yes                     | Yes                  | Yes                               | Yes                                       |
 | Send Backlog Message Notification             | Yes                     | Yes                  | Yes                               | Yes                                       |
@@ -415,7 +416,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | No         |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -442,7 +443,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -470,6 +471,7 @@ The following uplink messages can be decoded.
             humidity: the sensor humidity value
         ],
     }
+
 ### Structure (External RTD Temp Probe)
 
     {
@@ -503,7 +505,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -525,6 +527,7 @@ The following uplink messages can be decoded.
         temperature: the sensor temperature value,
         humidity: the sensor humidity value
     }
+
 ### Structure (External RTD Temp Probe)
 
     {
@@ -550,7 +553,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -575,7 +578,7 @@ The following uplink messages can be decoded.
             humidity: the reading sensor humidity value
         ]
     }
-    
+
 ### Structure (External RTD Temp Probe)
 
     {
@@ -604,7 +607,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -633,7 +636,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | No         |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -668,7 +671,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -691,7 +694,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | No         |
 | External Temp Sensor                      | No         |
 | Integrated Temp & Humidity Sensor         | No         |
@@ -705,7 +708,7 @@ The following uplink messages can be decoded.
         operatingMode: one of Operating Mode,
         loraNotificationOptions: one or more of LoRa Notification Options,
         openDwellTime: the number of seconds the external sensor must be open before annunciating the Open state,
-        closedDwellTime: the number of seconds the external sensor must be closed before annunciating the Closed state, 
+        closedDwellTime: the number of seconds the external sensor must be closed before annunciating the Closed state,
         resendInterval: the number of seconds between each external sensor uplink message,
         debounceAdjust: the number of milliseconds between successive reads of the external sensor to determine its state
     }
@@ -721,7 +724,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | No         |
 | External Temp Sensor                      | No         |
 | Integrated Temp & Humidity Sensor         | No         |
@@ -751,7 +754,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | Yes        |
 | Integrated Temp & Humidity Sensor         | Yes        |
@@ -772,7 +775,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | No         |
 | Integrated Temp & Humidity Sensor         | No         |
@@ -798,7 +801,7 @@ The following uplink messages can be decoded.
 ### Applicability
 
 | Variant                                   | Applicable |
-|-------------------------------------------|------------|
+| ----------------------------------------- | ---------- |
 | External RTD Temp Probe                   | Yes        |
 | External Temp Sensor                      | No         |
 | Integrated Temp & Humidity Sensor         | No         |
@@ -832,7 +835,7 @@ Is only one of the following.
 ## Battery Capacity
 
 |         |
-|---------|
+| ------- |
 | 0-5%    |
 | 5-20%   |
 | 20-40%  |
@@ -843,21 +846,21 @@ Is only one of the following.
 ## Battery Type
 
 |          |
-|----------|
+| -------- |
 | Alkaline |
 | Lithium  |
 
 ## Boolean
 
 |       |
-|-------|
+| ----- |
 | False |
 | True  |
 
 ## Downlink Options
 
 |                         |
-|-------------------------|
+| ----------------------- |
 | None                    |
 | Send Simple Config      |
 | Send Advanced Config    |
@@ -871,7 +874,7 @@ Is only one of the following.
 ## Months
 
 |           |
-|-----------|
+| --------- |
 | January   |
 | February  |
 | March     |
@@ -888,14 +891,14 @@ Is only one of the following.
 ## Open/Closed Sensor State
 
 |        |
-|--------|
+| ------ |
 | Closed |
 | Open   |
 
 ## Operating Mode
 
 |             |
-|-------------|
+| ----------- |
 | Door Sensor |
 | Pushbutton  |
 
@@ -906,7 +909,7 @@ One or more, other than 'None' may be used.
 ## LoRa Notification Options
 
 |        |
-|--------|
+| ------ |
 | None   |
 | Open   |
 | Closed |
@@ -916,7 +919,7 @@ One or more, other than 'None' may be used.
 ## Uplink Message Options
 
 |                                |
-|--------------------------------|
+| ------------------------------ |
 | None                           |
 | Sensor request for server time |
 | Sensor configuration error     |
@@ -924,14 +927,14 @@ One or more, other than 'None' may be used.
 | Sensor reset flag              |
 | Sensor fault flag              |
 
-[External RTD Temp Probe Product Brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-external-rtd-temp-probe/ "External RTD Temp Probe Product Brief"
-[External Temp Sensor Product Brief]: https://www.lairdconnect.com/node/11142/ "External Temp Sensor Product Brief"
-[Integrated Temp & Humidity Sensor Product Brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-integrated-temp-humidity-sensor/ "Integrated Temp & Humidity Sensor Product Brief"
-[Open/Closed Sensor and Integrated Temp/RH Product Brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-openclosed-sensor-and-integrated-temprh/ "Open/Closed Sensor and Integrated Temp/RH Product Brief"
-[RS1XX Configuration Guide]: https://www.lairdconnect.com/documentation/sentrius-rs1xx-configuration-guide-v112/ "RS1XX Configuration Guide"
-[RS1XX Open/Closed and Integrated Temp/RH User Guide]: https://www.lairdconnect.com/documentation/sentrius-rs1xx-ext-openclosed-and-int-temphumidity-sensor-user-guide-v11/ "RS1XX Open/Closed and Integrated Temp/RH User Guide"
-[RS1XX External Temperature Sensors User Guide]: https://www.lairdconnect.com/node/11151/ "RS1XX External Temperature Sensors User Guide"
-[RS1XX Protocol Specification]: https://www.lairdconnect.com/documentation/application-note-rs1xx-lora-protocol/ "RS1XX Protocol Specification"
-[Payload Formatters]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/ "Payload Formatters"
-[TTI Device Repository Github Page]: https://github.com/TheThingsNetwork/lorawan-devices/ "TTI Device Repository Github Page"
-[TTI Device Repository]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/device-repo/ "TTI Device Repository"
+[external rtd temp probe product brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-external-rtd-temp-probe/ 'External RTD Temp Probe Product Brief'
+[external temp sensor product brief]: https://www.lairdconnect.com/node/11142/ 'External Temp Sensor Product Brief'
+[integrated temp & humidity sensor product brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-integrated-temp-humidity-sensor/ 'Integrated Temp & Humidity Sensor Product Brief'
+[open/closed sensor and integrated temp/rh product brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-openclosed-sensor-and-integrated-temprh/ 'Open/Closed Sensor and Integrated Temp/RH Product Brief'
+[rs1xx configuration guide]: https://www.lairdconnect.com/documentation/sentrius-rs1xx-configuration-guide-v112/ 'RS1XX Configuration Guide'
+[rs1xx open/closed and integrated temp/rh user guide]: https://www.lairdconnect.com/documentation/sentrius-rs1xx-ext-openclosed-and-int-temphumidity-sensor-user-guide-v11/ 'RS1XX Open/Closed and Integrated Temp/RH User Guide'
+[rs1xx external temperature sensors user guide]: https://www.lairdconnect.com/node/11151/ 'RS1XX External Temperature Sensors User Guide'
+[rs1xx protocol specification]: https://www.lairdconnect.com/documentation/application-note-rs1xx-lora-protocol/ 'RS1XX Protocol Specification'
+[payload formatters]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/ 'Payload Formatters'
+[tti device repository github page]: https://github.com/TheThingsNetwork/lorawan-devices/ 'TTI Device Repository Github Page'
+[tti device repository]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/device-repo/ 'TTI Device Repository'

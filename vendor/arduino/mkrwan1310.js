@@ -1,7 +1,7 @@
 // This is used with the LoRa LED/ON off basic sketch
 // Please refer to https://create.arduino.cc/editor/FT-CONTENT/043f42fb-2b04-4cfb-a277-b1a3dd5366c2/preview
 
-var LED_STATES = ['off', 'on']
+var LED_STATES = ['off', 'on'];
 
 function decodeUplink(input) {
   var data = {};
@@ -27,7 +27,7 @@ function encodeDownlink(input) {
 function decodeDownlink(input) {
   return {
     data: {
-      ledState: LED_STATES[input.bytes[0]]
-    }
-  }
+      ledState: LED_STATES[input.bytes[0]],
+    },
+  };
 }

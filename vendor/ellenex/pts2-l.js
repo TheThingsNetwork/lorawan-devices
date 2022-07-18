@@ -25,10 +25,10 @@ function decodeUplink(input) {
 
 /*
  * The readHex2bytes function is to decode a signed 16-bit integer
- * represented by 2 bytes.  
+ * represented by 2 bytes.
  */
 function readHex2bytes(byte1, byte2) {
-  let result = (byte1 << 8) | byte2;  // merge the two bytes
+  let result = (byte1 << 8) | byte2; // merge the two bytes
   // check whether input is signed as a negative number
   // by checking whether significant bit (leftmost) is 1
   let negative = byte1 & 0x80;

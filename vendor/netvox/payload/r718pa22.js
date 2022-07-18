@@ -1,213 +1,183 @@
-function getCfgCmd(cfgcmd){
-	var cfgcmdlist = {
-	  1:   "ConfigReportReq",
-	  129: "ConfigReportRsp",
-	  2:   "ReadConfigReportReq",
-	  130: "ReadConfigReportRsp",
-	  3:   "SetMeasureTypeReq",
-	  131: "SetMeasureTypeRsp",
-	  4:   "GetMeasureTypeReq",
-	  132: "GetMeasureTypeRsp"
-	};
-	return cfgcmdlist[cfgcmd];
-}
-  
-function getCmdToID(cmdtype){
-	if (cmdtype == "ConfigReportReq")
-		return 1;
-	else if (cmdtype == "ConfigReportRsp")
-		return 129;
-	else if (cmdtype == "ReadConfigReportReq")
-		return 2;
-	else if (cmdtype == "ReadConfigReportRsp")
-		return 130;
-	else if (cmdtype == "SetMeasureTypeReq")
-		return 3;
-	else if (cmdtype == "SetMeasureTypeRsp")
-		return 131;
-	else if (cmdtype == "GetMeasureTypeReq")
-		return 4;
-	else if (cmdtype == "GetMeasureTypeRsp")
-		return 132;
+function getCfgCmd(cfgcmd) {
+  var cfgcmdlist = {
+    1: 'ConfigReportReq',
+    129: 'ConfigReportRsp',
+    2: 'ReadConfigReportReq',
+    130: 'ReadConfigReportRsp',
+    3: 'SetMeasureTypeReq',
+    131: 'SetMeasureTypeRsp',
+    4: 'GetMeasureTypeReq',
+    132: 'GetMeasureTypeRsp',
+  };
+  return cfgcmdlist[cfgcmd];
 }
 
-function getMeasureType(type){
-	var typelist = {
-	  1:   "Water",
-	  2:   "Gasoline",
-	  3:   "Diesel oil"
-	};
-	return typelist[type];
+function getCmdToID(cmdtype) {
+  if (cmdtype == 'ConfigReportReq') return 1;
+  else if (cmdtype == 'ConfigReportRsp') return 129;
+  else if (cmdtype == 'ReadConfigReportReq') return 2;
+  else if (cmdtype == 'ReadConfigReportRsp') return 130;
+  else if (cmdtype == 'SetMeasureTypeReq') return 3;
+  else if (cmdtype == 'SetMeasureTypeRsp') return 131;
+  else if (cmdtype == 'GetMeasureTypeReq') return 4;
+  else if (cmdtype == 'GetMeasureTypeRsp') return 132;
 }
 
-function getTypeID(id){
-	var type = {
-	  "Water": 		1,
-	  "Gasoline": 	2,
-	  "Diesel oil": 3
-	};
-	return type[id];
+function getMeasureType(type) {
+  var typelist = {
+    1: 'Water',
+    2: 'Gasoline',
+    3: 'Diesel oil',
+  };
+  return typelist[type];
 }
 
-function getDeviceName(dev){
-	var deviceName = {
-	  155: "R718PA22"
-	};
-	return deviceName[dev];
+function getTypeID(id) {
+  var type = {
+    Water: 1,
+    Gasoline: 2,
+    'Diesel oil': 3,
+  };
+  return type[id];
 }
-  
-function getDeviceID(devName){
-	var deviceName = {
-	  "R718PA22": 155
-	};
-	return deviceName[devName];
+
+function getDeviceName(dev) {
+  var deviceName = {
+    155: 'R718PA22',
+  };
+  return deviceName[dev];
 }
-  
+
+function getDeviceID(devName) {
+  var deviceName = {
+    R718PA22: 155,
+  };
+  return deviceName[devName];
+}
+
 function padLeft(str, len) {
-	  str = '' + str;
-	  if (str.length >= len) {
-		  return str;
-	  } else {
-		  return padLeft("0" + str, len);
-	  }
+  str = '' + str;
+  if (str.length >= len) {
+    return str;
+  } else {
+    return padLeft('0' + str, len);
+  }
 }
-  
+
 function decodeUplink(input) {
-	var data = {};
-	switch (input.fPort) {
-	  	case 6:
-			if (input.bytes[2] === 0x00)
-			{
-				data.Device = getDeviceName(input.bytes[1]);
-				data.SWver =  input.bytes[3]/10;
-				data.HWver =  input.bytes[4];
-			 	data.Datecode = padLeft(input.bytes[5].toString(16), 2) + padLeft(input.bytes[6].toString(16), 2) + padLeft(input.bytes[7].toString(16), 2) + padLeft(input.bytes[8].toString(16), 2);
-			  
-				return {
-					data: data,
-				};
-		  	}
-		  
-		  	data.Device = getDeviceName(input.bytes[1]);
-			if (input.bytes[3] & 0x80)
-			{
-				var tmp_v = input.bytes[3] & 0x7F;
-				data.Volt = (tmp_v / 10).toString() + '(low battery)';
-			}
-			else
-				data.Volt = input.bytes[3]/10;
+  var data = {};
+  switch (input.fPort) {
+    case 6:
+      if (input.bytes[2] === 0x00) {
+        data.Device = getDeviceName(input.bytes[1]);
+        data.SWver = input.bytes[3] / 10;
+        data.HWver = input.bytes[4];
+        data.Datecode = padLeft(input.bytes[5].toString(16), 2) + padLeft(input.bytes[6].toString(16), 2) + padLeft(input.bytes[7].toString(16), 2) + padLeft(input.bytes[8].toString(16), 2);
 
-			data.Depth = (input.bytes[4]<<8 | input.bytes[5]);
-			if (input.bytes[6] & 0x80)
-			{
-				var tmpval = (input.bytes[6]<<8 | input.bytes[7]);
-				data.Temp = (0x10000 - tmpval) * -1;
-			}
-			else
-				data.Temp = (input.bytes[6]<<8 | input.bytes[7]);
+        return {
+          data: data,
+        };
+      }
 
-			data.InstallStatus = (input.bytes[8] === 0x00) ? 'Success' : 'Failure';	
+      data.Device = getDeviceName(input.bytes[1]);
+      if (input.bytes[3] & 0x80) {
+        var tmp_v = input.bytes[3] & 0x7f;
+        data.Volt = (tmp_v / 10).toString() + '(low battery)';
+      } else data.Volt = input.bytes[3] / 10;
 
-		 	break;
-		  
-		case 7:
-			data.Cmd = getCfgCmd(input.bytes[0]);
-			data.Device = getDeviceName(input.bytes[1]);
-			if ((input.bytes[0] === getCmdToID("ConfigReportRsp")) || (input.bytes[0] === getCmdToID("SetMeasureTypeRsp")))
-			{
-				data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
-			}
-			else if (input.bytes[0] === getCmdToID("ReadConfigReportRsp"))
-			{
-				data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
-				data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
-				data.BatteryChange = input.bytes[6]/10;
-				data.DepthChange = (input.bytes[7]<<8 | input.bytes[8]);
-				data.TempChange = input.bytes[9];
-			}
-			else if (input.bytes[0] === getCmdToID("GetMeasureTypeRsp"))
-			{
-				data.MeasureType = getMeasureType(input.bytes[2]);
-			}
+      data.Depth = (input.bytes[4] << 8) | input.bytes[5];
+      if (input.bytes[6] & 0x80) {
+        var tmpval = (input.bytes[6] << 8) | input.bytes[7];
+        data.Temp = (0x10000 - tmpval) * -1;
+      } else data.Temp = (input.bytes[6] << 8) | input.bytes[7];
 
-			break;	
-	
-		default:
-			return {
-				errors: ['unknown FPort'],
-			};
-			
-		}
-			
-		return {
-			data: data,
-		};
+      data.InstallStatus = input.bytes[8] === 0x00 ? 'Success' : 'Failure';
+
+      break;
+
+    case 7:
+      data.Cmd = getCfgCmd(input.bytes[0]);
+      data.Device = getDeviceName(input.bytes[1]);
+      if (input.bytes[0] === getCmdToID('ConfigReportRsp') || input.bytes[0] === getCmdToID('SetMeasureTypeRsp')) {
+        data.Status = input.bytes[2] === 0x00 ? 'Success' : 'Failure';
+      } else if (input.bytes[0] === getCmdToID('ReadConfigReportRsp')) {
+        data.MinTime = (input.bytes[2] << 8) | input.bytes[3];
+        data.MaxTime = (input.bytes[4] << 8) | input.bytes[5];
+        data.BatteryChange = input.bytes[6] / 10;
+        data.DepthChange = (input.bytes[7] << 8) | input.bytes[8];
+        data.TempChange = input.bytes[9];
+      } else if (input.bytes[0] === getCmdToID('GetMeasureTypeRsp')) {
+        data.MeasureType = getMeasureType(input.bytes[2]);
+      }
+
+      break;
+
+    default:
+      return {
+        errors: ['unknown FPort'],
+      };
+  }
+
+  return {
+    data: data,
+  };
 }
-	
+
 function encodeDownlink(input) {
-	var ret = [];
-	var devid;
-	var getCmdID;
-		
-	getCmdID = getCmdToID(input.data.Cmd);
-	devid = getDeviceID(input.data.Device);
-  
-	if (input.data.Cmd == "ConfigReportReq")
-	{
-		var mint = input.data.MinTime;
-		var maxt = input.data.MaxTime;
-		var batteryChg = input.data.BatteryChange * 10;
-		var depthChg = input.data.DepthChange;
-		var tempChg = input.data.TempChange;
-		
-		ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, (depthChg >> 8), (depthChg & 0xFF), tempChg, 0x00);
-	}
-	else if ((input.data.Cmd == "ReadConfigReportReq") || (input.data.Cmd == "GetMeasureTypeReq"))
-	{
-		ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-	}  
-	else if (input.data.Cmd == "SetMeasureTypeReq")
-	{
-		var type = getTypeID(input.data.MeasureType);
-		
-		ret = ret.concat(getCmdID, devid, type, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-	}
+  var ret = [];
+  var devid;
+  var getCmdID;
 
-	return {
-	  	fPort: 7,
-		bytes: ret
-	};
-}  
-	
-function decodeDownlink(input) {
-	var data = {};
-	switch (input.fPort) {
-		case 7:
-			data.Cmd = getCfgCmd(input.bytes[0]);
-			data.Device = getDeviceName(input.bytes[1]);
-			if (input.bytes[0] === getCmdToID("ConfigReportReq"))
-			{
-				data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
-				data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
-				data.BatteryChange = input.bytes[6]/10;
-				data.DepthChange = (input.bytes[7]<<8 | input.bytes[8]);
-				data.TempChange = input.bytes[9];
-			}
-			else if (input.bytes[0] === getCmdToID("SetMeasureTypeReq"))
-			{
-				data.MeasureType = getMeasureType(input.bytes[2]);
-			}
+  getCmdID = getCmdToID(input.data.Cmd);
+  devid = getDeviceID(input.data.Device);
 
-			break;
-			
-		default:
-			return {
-				rrors: ['invalid FPort'],
-			};
-	}
-	
-	return {
-		data: data,
-	};
+  if (input.data.Cmd == 'ConfigReportReq') {
+    var mint = input.data.MinTime;
+    var maxt = input.data.MaxTime;
+    var batteryChg = input.data.BatteryChange * 10;
+    var depthChg = input.data.DepthChange;
+    var tempChg = input.data.TempChange;
+
+    ret = ret.concat(getCmdID, devid, mint >> 8, mint & 0xff, maxt >> 8, maxt & 0xff, batteryChg, depthChg >> 8, depthChg & 0xff, tempChg, 0x00);
+  } else if (input.data.Cmd == 'ReadConfigReportReq' || input.data.Cmd == 'GetMeasureTypeReq') {
+    ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  } else if (input.data.Cmd == 'SetMeasureTypeReq') {
+    var type = getTypeID(input.data.MeasureType);
+
+    ret = ret.concat(getCmdID, devid, type, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+  }
+
+  return {
+    fPort: 7,
+    bytes: ret,
+  };
 }
-  
+
+function decodeDownlink(input) {
+  var data = {};
+  switch (input.fPort) {
+    case 7:
+      data.Cmd = getCfgCmd(input.bytes[0]);
+      data.Device = getDeviceName(input.bytes[1]);
+      if (input.bytes[0] === getCmdToID('ConfigReportReq')) {
+        data.MinTime = (input.bytes[2] << 8) | input.bytes[3];
+        data.MaxTime = (input.bytes[4] << 8) | input.bytes[5];
+        data.BatteryChange = input.bytes[6] / 10;
+        data.DepthChange = (input.bytes[7] << 8) | input.bytes[8];
+        data.TempChange = input.bytes[9];
+      } else if (input.bytes[0] === getCmdToID('SetMeasureTypeReq')) {
+        data.MeasureType = getMeasureType(input.bytes[2]);
+      }
+
+      break;
+
+    default:
+      return {
+        rrors: ['invalid FPort'],
+      };
+  }
+
+  return {
+    data: data,
+  };
+}

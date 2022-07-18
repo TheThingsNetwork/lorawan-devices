@@ -1,21 +1,21 @@
 function decodeUplink(input) {
-  var t = input.bytes[2]*0xff+input.bytes[3]
+  var t = input.bytes[2] * 0xff + input.bytes[3];
   switch (input.fPort) {
     case 10:
       return {
         // Decoded data
         data: {
-          leak: (input.bytes[0] & 0x01) ? "Y":"N",
-          valve: (input.bytes[0] & 0x20) ? "On":"Off",
-          temperature: t
+          leak: input.bytes[0] & 0x01 ? 'Y' : 'N',
+          valve: input.bytes[0] & 0x20 ? 'On' : 'Off',
+          temperature: t,
         },
       };
     case 16:
       return {
         // Decoded data
         data: {
-          valve: (input.bytes[0] & 0x20) ? "On":"Off",
-          temperature: t
+          valve: input.bytes[0] & 0x20 ? 'On' : 'Off',
+          temperature: t,
         },
       };
     default:
@@ -26,12 +26,13 @@ function decodeUplink(input) {
 }
 
 function encodeDownlink(input) {
-  if (input.data.valve == "On") r = 255; else r = 0;
+  if (input.data.valve == 'On') r = 255;
+  else r = 0;
   return {
     // LoRaWAN FPort used for the downlink message
     fPort: 10,
     // Encoded bytes
-    bytes: [2,r],
+    bytes: [2, r],
   };
 }
 
@@ -41,7 +42,7 @@ function decodeDownlink(input) {
       if (input.bytes[0] == 2)
         return {
           data: {
-            valve: input.bytes[1]?"On":"Off",
+            valve: input.bytes[1] ? 'On' : 'Off',
           },
         };
     default:
