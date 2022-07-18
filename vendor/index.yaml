@@ -1825,3 +1825,8 @@ vendors:
     logo: greenme.png
     social:
       linkedin: https://www.linkedin.com/company/greenme/
+
+  - id: thermokon
+    name: Thermokon Sensortechnik GmbH
+    vendorID: 923
+      
