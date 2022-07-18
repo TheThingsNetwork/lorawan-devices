@@ -6,7 +6,6 @@ hardwareVersions:
   - version: '1.0'
     numeric: 1
 
-
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
@@ -30,5 +29,3 @@ firmwareVersions:
         id: thermokon-1-profile
         lorawanCertified: false
         codec: thermokon-codec
-       
- 

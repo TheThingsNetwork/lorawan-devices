@@ -1,10 +1,10 @@
 name: MCS LRW
-description: Indoor Multicompact Sensor 
+description: Indoor Multicompact Sensor
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
-    numeric: 1  
+    numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -14,7 +14,7 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
- 
+
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -29,4 +29,3 @@ firmwareVersions:
         id: thermokon-1-profile
         lorawanCertified: false
         codec: thermokon-codec
-       

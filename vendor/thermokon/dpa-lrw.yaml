@@ -5,7 +5,6 @@ description: Differential Pressure and Volume Flow Sensor
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -15,8 +14,6 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
-
-    
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -32,4 +29,3 @@ firmwareVersions:
         id: thermokon-2-profile
         lorawanCertified: false
         codec: thermokon-codec
-       
