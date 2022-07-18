@@ -23,19 +23,31 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
       US902-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
       AU915-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
+      KR920-923:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
+      IN865-867:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
       AS923:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
+      RU864-870:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -90,7 +102,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://www.seeedstudio.com/SenseCAP-S2104-LoRaWAN-Soil-Temperature-and-Moisture-Sensor-p-5357.html
-dataSheetURL: https://drive.google.com/file/d/1HfZMCDgKOhgWbJDyBI8cY4T2JVEOh9fF/view
+dataSheetURL: https://files.seeedstudio.com/products/114992867/SenseCAP%20S210X%20LoRaWAN%20Sensor%20Catalogue.pdf
 
 # Commercial information
 resellerURLs:
