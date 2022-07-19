@@ -1,20 +1,20 @@
-name: Senstick Pure
-description: The Sensedge Senstick Pure is an indoor LoRaWAN® air quality and microclimate sensor that features IAQ, temperature, humidity, and pressure sensors. Suitable for monitoring air quality in personal and public spaces. The device sends data to the LoRaWAN® network and notifies users to open the windows if the air quality is poor.
+name: SPU20 - Senspuck Pure PV
+description: The Senzemo Senpuck Pure is an indoor LoRaWAN® air quality sensor that measures CO2, TVOC, temperature, realtive humidity, and pressure. Suitable for monitoring air quality in enterprise and public spaces. The device sends data to the LoRaWAN® network and notifies users to open the windows if the air quality is poor.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.1'
-    numeric: 301
-    partNumber: SIAQ30
+  - version: '2.0'
+    numeric: 20
+    partNumber: SPU20
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '1.0'
-    numeric: 100
+    numeric: 10
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '3.1'
+      - '2.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
@@ -22,44 +22,45 @@ firmwareVersions:
       EU863-870:
         id: profile-eu868
         lorawanCertified: false
-        codec: senstick-pure-codec
+        codec: spu20-codec
       AS923:
         id: profile-as923
         lorawanCertified: false
-        codec: senstick-pure-codec
+        codec: spu20-codec
       US902-928:
         id: profile-us915
         lorawanCertified: false
-        codec: senstick-pure-codec
+        codec: spu20-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: false
-        codec: senstick-pure-codec
+        codec: spu20-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
+  - co2
+  - tvoc
   - temperature
   - humidity
   - pressure
-  - tvoc
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 18
-  length: 120
-  height: 18
+  width: 86
+  length: 86
+  height: 28
 
 # Weight in grams (optional)
-weight: 50
+weight: 60
 
 # Battery information (optional)
 battery:
-  replaceable: true
-  type: ER14505
+  replaceable: false
+  type: Solar PV
 
 # Operating conditions (optional)
 operatingConditions:
@@ -70,7 +71,7 @@ operatingConditions:
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 0.95
 
 # IP rating (optional)
 ipCode: IP64
@@ -86,32 +87,31 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: http://senstick.co
-dataSheetURL: http://senstick.co/downloads/Sensedge-SIAQ30-Datasheet.pdf
+productURL: https://senspuck.com/
+dataSheetURL: https://senstick.co/downloads/Senspuck-Pure-SPU20-Datasheet.pdf
 resellerURLs:
-  - name: 'Concept13'
-    region:
-      - European Union
-    url: https://www.concept13.co.uk/
-  - name: 'Arcsgroup'
-    region:
-      - Australia
-    url: https://thearcsgroup.com/
   - name: 'Sensational Systems'
     region:
       - European Union
     url: https://sensational.systems/
+  - name: 'Arcsgroup'
+    region:
+      - Australia
+    url: https://thearcsgroup.com/
   - name: 'mydevices'
     region:
       - United States
     url: https://mydevices.com/
+  - name: 'Concept13'
+    region:
+      - European Union
+    url: https://www.concept13.co.uk/
 
 # Photos
 photos:
-  main: senstick-pure.jpg
+  main: spu20.jpg
   other:
-    - senstick-pure-wall.jpg
-    - senstick-pure-desk.jpg
+    - spu20-wall.jpg
 
 # Regulatory compliances (optional)
 compliances:
