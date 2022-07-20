@@ -1787,6 +1787,7 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
       twitter: S_L_S
+      github: github-sls
 
   - id: kuleuven-dramco
     name: KU Leuven Dramco
