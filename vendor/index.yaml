@@ -1830,7 +1830,6 @@ vendors:
     name: Thermokon Sensortechnik GmbH
     vendorID: 923
     
-    
   - id: senzemo
     name: Senzemo
     description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
