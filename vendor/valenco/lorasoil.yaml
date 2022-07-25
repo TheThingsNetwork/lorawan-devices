@@ -1,0 +1,166 @@
+name: Valenco LoRa Soil
+description: Soil Moisture Sensor
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '5.0'
+    numeric: 5
+  - version: '5.0-rev-A'
+    numeric: 5
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.5'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '5.0'
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID: valenco
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: lorasoil-profile
+        lorawanCertified: true
+        codec: lorasoil-codec
+      US902-928:
+        id: lorasoil-profile
+        lorawanCertified: true
+        codec: lorasoil-codec
+      AU915-928:
+        id: lorasoil-profile
+        lorawanCertified: true
+        codec: lorasoil-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - moisture
+  - humidity
+  - temperature
+  - accelerometer
+  - gps
+  - analog input
+  - auxiliary
+  - battery
+  - button
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - nfc
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+bridgeInterfaces:
+  - analog
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 48
+  length: 48
+  height: 275
+
+# Weight in grams (optional)
+weight: 170
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -30
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - manifest
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - nfc
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://www.cital.ch/anwendungen/cital-soil-sensor/
+dataSheetURL: https://valenco.atlassian.net/wiki/external/330530817/NTMzZWQwOWRlNjEwNDAyMmJlMDkwYzE3MGFmY2YwMDM?atlOrigin=eyJpIjoiNDU0YTQ3ZTBlMTEwNDNlM2JlNmNjNGE0ZjkxZDU5YzEiLCJwIjoiYyJ9
+
+# Commercial information
+resellerURLs:
+  - name: 'Valenco GmbH'
+    region:
+      - European Union
+      - United States
+      - Canada
+      - Australia
+      - Worldwide
+    url: https://valenco.ch
+
+# Photos
+photos:
+  main: lorasoil.jpg
+  other:
+    - lorasoil_installation_1.jpg
+    - lorasoil_installation_2.jpg
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
