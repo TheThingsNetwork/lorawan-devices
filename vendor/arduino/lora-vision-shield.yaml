@@ -27,7 +27,6 @@ firmwareVersions:
         id: arduino-915-profile
         lorawanCertified: true
         codec: loravisionshield-codec
-
   - # Firmware version
     version: '1.2.1'
     numeric: 1
