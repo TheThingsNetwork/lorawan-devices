@@ -13,8 +13,8 @@ function decodeUplink(input) {
         return {
           // Decoded data
           data: {
-            primarySense: primarySense,
-            secondarySense: secondarySense,
+            sensorReading: primarySense,
+            temperatureReading: secondarySense,
             batteryVoltage: +batteryVoltage.toFixed(1),
           },
         };
