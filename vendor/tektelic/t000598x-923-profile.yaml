@@ -1,7 +1,7 @@
 vendorProfileID: 01
 supportsClassB: false
 supportsClassC: false
-macVersion: 1.1
+macVersion: '1.1'
 regionalParametersVersion: RP001-1.1-RevB
 supportsJoin: true
 maxEIRP: 16
