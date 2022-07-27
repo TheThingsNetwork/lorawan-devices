@@ -13,6 +13,7 @@ firmwareVersions:
     profiles:
       IN865-867:
         id: in865-103-a-class-c
+        codec: volc2180-codec
 
 sensors:
   - temperature
