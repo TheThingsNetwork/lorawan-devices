@@ -1621,6 +1621,12 @@ vendors:
 
   - id: sensedge
     name: Sensedge
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://sensedge.co/
+    logo: sensedge_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco
 
   - id: embit
     name: Embit SRL
@@ -1830,3 +1836,12 @@ vendors:
   - id: thermokon
     name: Thermokon Sensortechnik GmbH
     vendorID: 923
+
+  - id: senzemo
+    name: Senzemo
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://senzemo.com/
+    logo: senzemo-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco
