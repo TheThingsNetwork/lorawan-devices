@@ -1845,3 +1845,8 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/sensedge/
       twitter: sensedgeco
+
+  - id: cotx
+    name: Beijing COTX Networks Technologies Co. Ltd.
+    website: https://www.cotxnetworks.com/
+    vendorID: 942
