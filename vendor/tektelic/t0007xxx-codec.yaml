@@ -1,0 +1,30 @@
+uplinkDecoder:
+  fileName: decoder_sparrow_enterprise_asset_tracker.js
+  examples:
+    - description: Acceleration Uplink
+      input:
+        fPort: 10
+        bytes: [0x00, 0x71, 0x2A, 0x00, 0x00, 0x80, 0x05, 0xC4]
+      output:
+        data:
+          acceleration:
+            x: 10.752
+            y: 0.128
+            z: 1.476
+          port: '10'
+          raw: '[00, 71, 2A, 00, 00, 80, 05, C4]'
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_sparrow_enterprise_asset_tracker.js
+  examples:
+    - description: Tick Per Accelerometer Downlink
+      input:
+        data:
+          ticks:
+            per_accelerometer:
+              read: true
+      output:
+        bytes: [36]
+        port: '100'
