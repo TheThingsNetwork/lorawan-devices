@@ -1,6 +1,6 @@
 function decodeUplink(input) {
   switch (input.fPort) {
-    case 1:
+    case 15:
       // throw an error if length of Bytes is not 8
       if (input.bytes.length != 8) {
         return {
@@ -18,7 +18,7 @@ function decodeUplink(input) {
       break;
     default:
       return {
-        errors: ['Unknown FPort: please use fPort 1'],
+        errors: ['Unknown FPort: please use fPort 15'],
       };
   }
 }
