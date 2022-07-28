@@ -27,7 +27,7 @@ firmwareVersions:
         id: arduino-915-profile
         lorawanCertified: true
         codec: loravisionshield-codec
-        
+
   - # Firmware version
     version: '1.2.1'
     numeric: 2
@@ -47,7 +47,6 @@ firmwareVersions:
         id: arduino-915-profile
         lorawanCertified: true
         codec: loravisionshield-codec
-  
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
