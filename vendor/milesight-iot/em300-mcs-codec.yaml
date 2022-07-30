@@ -2,3 +2,21 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: em300-mcs.js
+  examples:
+    - description: Magnetic Contact Switch (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x06, 0x00, 0x01]
+      output:
+        data:
+#         door: open
+    - description: Magnetic Contact Switch (example 2) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x67, 0x34, 0x01, 0x04, 0x68, 0x65, 0x06, 0x00, 0x01]
+      output:
+        data:
+          battery: 92
+          temperature: 30.8
+          humidity: 50.5
+#         door: close

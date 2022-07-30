@@ -1,56 +1,89 @@
-name: EM300-TH
-description: The Milesight LoRaWAN® EM300-MCS magnetic contact switch can be mounted to any door or window to detect an opening or closing event. It adds physical security monitoring to your location by alarming for intrusion or unauthorized entry to your monitored conditions.
+name: Milesight EM300-MCS Magnetic Contact Switch
+description: Milesight EM300-MCS is a compact environment monitoring sensor for detecting the status of doors or windows with high sensitivity,  ten years battery life, IP67 UV-resistant and waterproof. It's equipped with NFC for easy configuration. Embedded with temperature and humidity sensors, EM300-MCS also has great use for applications such as home and office automation, factory monitoring, etc.
 
 hardwareVersions:
-  - version: 'V3.0'
+  - version: '2.x'
     numeric: 1
+  - version: '3.x'
+    numeric: 2
 
 firmwareVersions:
-  - version: '1.2'
+  - version: '1.x'
     numeric: 1
     hardwareVersions:
-      - 'V3.0'
+      - '2.x'
 
     profiles:
       EU863-870:
         id: profile-eu868
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       US902-928:
         id: profile-us915
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       AU915-928:
         id: profile-au915
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       AS923:
         id: profile-as923
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       CN470-510:
         id: profile-cn470
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       KR920-923:
         id: profile-kr920
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       IN865-867:
         id: profile-in865
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       RU864-870:
         id: profile-ru864
-        codec: em300-th-codec
+        codec: em300-mcs-codec
+
+  - version: '1.x'
+    numeric: 2
+    hardwareVersions:
+      - '3.x'
+      
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: em300-mcs-codec
+      US902-928:
+        id: profile-us915
+        codec: em300-mcs-codec
+      AU915-928:
+        id: profile-au915
+        codec: em300-mcs-codec
+      AS923:
+        id: profile-as923
+        codec: em300-mcs-codec
+      CN470-510:
+        id: profile-cn470
+        codec: em300-mcs-codec
+      KR920-923:
+        id: profile-kr920
+        codec: em300-mcs-codec
+      IN865-867:
+        id: profile-in865
+        codec: em300-mcs-codec
+      RU864-870:
+        id: profile-ru864
+        codec: em300-mcs-codec
 
 sensors:
   - battery
   - temperature
   - humidity
-  - digital input
+  # door
 
 dimensions:
-  width: 27
-  length: 88
-  height: 87
+  width: 85.3
+  length: 27
+  height: 105.6
 
 battery:
   replaceable: true
-  type: ER18505 Li-SoCl2 battery
+  type: ER18505
 
 operatingConditions:
   temperature:
@@ -67,8 +100,8 @@ keyProvisioning:
   - custom
   - join server
 keySecurity: none
-productURL: https://www.milesight-iot.com/lorawan/sensor/em300-th/
-dataSheetURL: https://resource.milesight-iot.com/milesight/document/em300-th-datasheet-en.pdf
+productURL: https://www.milesight-iot.com/lorawan/sensor/em300-mcs/?utm_source=ttn-device-repository&utm_medium=web&utm_campaign=milesight
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/em300-mcs-datasheet-en.pdf
 resellerURLs:
   - name: 'iot.sales@milesight.com'
     region:
