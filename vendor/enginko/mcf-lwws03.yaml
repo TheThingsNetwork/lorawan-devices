@@ -43,7 +43,6 @@ sensors:
   - uv
   - dust
   - particulate matter
-  - pm1
   - pm2.5
   - pm10
 
