@@ -26,9 +26,9 @@ endDevices:
   - uc300
   - uc50x
   - uc51x
-  # uc1114
-  # uc1122
-  # uc1152
+  - uc1114
+  - uc1122
+  - uc1152
   - vs121
   - ws101
   - ws136_ws156
