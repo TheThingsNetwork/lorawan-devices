@@ -39,7 +39,7 @@ sensors:
   - wind speed
   - wind direction
   - rainfall
-  - precipation
+  - precipitation
   - solar radiation
   - uv
   - dust
