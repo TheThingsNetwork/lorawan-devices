@@ -121,7 +121,6 @@ function decodeUplink(payload) {
             }
 
             return r;
-            break;
         case 0x01:
             startData = 6;
             date = {
@@ -184,7 +183,6 @@ function decodeUplink(payload) {
             }
 
             return r;
-            break;
         case 0x02:
             startData = 6;
             date = {
@@ -255,7 +253,6 @@ function decodeUplink(payload) {
             }
 
             return r;
-            break;
         case 0x03:
             startData = 6;
             date = {
@@ -334,13 +331,9 @@ function decodeUplink(payload) {
             }
 
             return r;
-            break;
         default:
             return null;
-            break;
     }
-
-    return null;
 }
 
 
