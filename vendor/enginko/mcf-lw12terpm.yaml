@@ -4,7 +4,7 @@ description: The enginko MCF-LW12TERPM is an outdoor PM and environmental sensor
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.23'
+    version: "0.02.23"
     numeric: 1
 
     # LoRaWAN Device Profiles per region

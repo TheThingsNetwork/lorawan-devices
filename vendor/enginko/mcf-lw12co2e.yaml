@@ -4,7 +4,7 @@ description: The MCF-LW12CO2E is a battery powered sensor for indoor application
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.23'
+    version: "0.02.23"
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -83,7 +83,6 @@ keySecurity: read protected
 # Product and data sheet URLs (optional)
 productURL: http://www.enginko.com/support/doku.php?id=manual_mcf-lw12co2e
 dataSheetURL: https://enginko.com/wp-content/uploads/2020/09/ENGINKO_datasheet-layout_MCF-LW12CO2E_ENG.pdf
-
 
 # Photos
 photos:

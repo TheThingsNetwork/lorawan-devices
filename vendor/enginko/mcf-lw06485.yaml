@@ -1,9 +1,9 @@
 name: MCF-LW06485
-description: This device can be interfaced to any Modbus RTU RDS485 device to read and write any register of the connected device through the LoRaWAN® platform. 
+description: This device can be interfaced to any Modbus RTU RDS485 device to read and write any register of the connected device through the LoRaWAN® platform.
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.18'
+    version: "0.02.18"
     numeric: 1
 
     # LoRaWAN Device Profiles per region

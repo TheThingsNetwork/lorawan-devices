@@ -163,7 +163,7 @@ function parseDigitalData(payload) {
             value: Number(
               ((detection1[4] & 0x000000ff) +
                 ((detection1[5] << 8) & 0x0000ff00)) /
-                10.0
+              10.0
             ).toFixed(2),
             unit: "Hz"
           };

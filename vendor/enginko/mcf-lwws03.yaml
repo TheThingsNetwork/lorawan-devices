@@ -4,7 +4,7 @@ description: The enginko MCF-LWWS03 integrates a LoRaWAN® communication system 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.18'
+    version: "0.02.18"
     numeric: 1
 
     # LoRaWAN Device Profiles per region

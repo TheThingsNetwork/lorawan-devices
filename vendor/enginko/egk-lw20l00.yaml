@@ -4,7 +4,7 @@ description: The enginko EGK-LW20L00 is a LoRaWAN® is a battery powered sensor 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.61'
+    version: "0.02.61"
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -23,7 +23,6 @@ firmwareVersions:
 sensors:
   - distance
   - battery
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

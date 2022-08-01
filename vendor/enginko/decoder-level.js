@@ -54,10 +54,10 @@ function decodeUplink(payload) {
 
       break;
 
-      case "14":
-        content = parseLevel(payload.trim(), false); //false is for new sensor
-  
-        break;
+    case "14":
+      content = parseLevel(payload.trim(), false); //false is for new sensor
+
+      break;
 
     default:
       content = null;
