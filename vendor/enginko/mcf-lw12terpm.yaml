@@ -38,7 +38,7 @@ sensors:
   - barometer
   - dust
   - particulate matter
-    - PM2.5
+  - PM2.5
   - PM10
   - battery
 
