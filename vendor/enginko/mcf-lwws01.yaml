@@ -1,5 +1,5 @@
 name: MCF-LWWS01
-description: The mcf88 MCF-LWWS01 integrates a LoRaWAN® communication system in a Davis Instruments Vantage Pro2 Weather Station. The station is equipped with a wide range of sensors such as temperature, humidity, pressure, rainfall, dew point, wind speed, wind direction, solar radiation, PM1, PM2.5, and PM10. Suitable for smart agriculture, industry, smart city, and waste station control applications.
+description: The enginko MCF-LWWS01 integrates a LoRaWAN® communication system in a Davis Instruments Vantage Pro2 Weather Station. The station is equipped with a wide range of sensors such as temperature, humidity, pressure, rainfall, dew point, wind speed, wind direction, solar radiation, PM1, PM2.5, and PM10. Suitable for smart agriculture, industry, smart city, and waste station control applications.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -39,9 +39,13 @@ sensors:
   - wind speed
   - wind direction
   - rainfall
+  - precipation
   - solar radiation
   - uv
   - dust
+  - particulate matter
+  - pm2.5
+  - pm10
 
 # Weight in grams (optional)
 weight: 20000
@@ -76,8 +80,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lwws00/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LWWS00-01.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lwws00/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LWWS00-01.pdf
 
 # Photos
 photos:

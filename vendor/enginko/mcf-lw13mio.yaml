@@ -1,5 +1,5 @@
 name: MCF-LW13MIO
-description: The mcf88 MCF-LW13MIO is a LoRaWAN® multi I/O module that transmits the state of its 16 inputs and controls 8 outputs through the LoRaWAN® network. All these inputs and outputs are galvanically isolated. It can be used for industrial process control, home automation, water treatment, agriculture irrigation, and similar applications.
+description: The enginko MCF-LW13MIO is a LoRaWAN® multi I/O module that transmits the state of its 16 inputs and controls 8 outputs through the LoRaWAN® network. All these inputs and outputs are galvanically isolated. It can be used for industrial process control, home automation, water treatment, agriculture irrigation, and similar applications.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -69,8 +69,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lw13mio/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW13MIO.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw13mio/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW13MIO.pdf
 
 # Photos
 photos:

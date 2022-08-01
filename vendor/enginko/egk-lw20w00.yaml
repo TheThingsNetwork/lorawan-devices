@@ -1,10 +1,10 @@
-name: MCF-LW12MET
-description: The enginko MCF-LW12MET is a LoRaWAN® Mono-Phase Energy Meter with I/O that can be used for monitoring and checking the power of electronic devices, and can remotely switch devices on/off and read the state of digital input.
+name: EGK-LW20W00
+description: The enginko EGK-LW20W00 is a LoRaWAN® is a battery powered sensor intended for waste level measurement up to 1.5 meters.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.07'
+    version: '0.02.61'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -12,49 +12,41 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: eu868-profile-c
+        id: eu868-profile-a
         lorawanCertified: false
-        codec: mcf-power-codec
-      US902-928:
-        id: us915-profile-c
-        lorawanCertified: false
-        codec: mcf-power-codec
-      AU915-928:
-        id: au915-profile-c
-        lorawanCertified: false
-        codec: mcf-power-codec
-      AS923:
-        id: as923-profile-c
-        lorawanCertified: false
-        codec: mcf-power-codec
+        codec: egk-level-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
-  - voltage
-  - current
-  - energy
-  - power
-  - time
-  - digital input
+  - distance
+  - level
+  - temperature
+  - battery
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 58
-  length: 82
-  height: 25
+  width: 65
+  length: 59
+  height: 39
 
 # Weight in grams (optional)
-weight: 200
+weight: 90
+
+# Battery information (optional)
+battery: 
+  replaceable: true
+  type: pack
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -10
+    min: -30
     max: 70
   # Relative humidity (fraction of 1)
   relativeHumidity:
@@ -62,7 +54,7 @@ operatingConditions:
     max: 1
 
 # IP rating (optional)
-ipCode: IP20
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -75,9 +67,9 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.enginko.it/prodotto/mcf-lw12met/
-dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12MET.pdf
+productURL: https://enginko.com/en/solutions/waste-level-sensor-for-bins-and-containers/
+dataSheetURL: https://enginko.com/wp-content/uploads/2020/09/ENGINKO_datasheet-layout_EGK-LW20W00_ENG.pdf
 
 # Photos
 photos:
-  main: mcf-lw12met.jpg
+  main: egk-lw20w00.jpg
