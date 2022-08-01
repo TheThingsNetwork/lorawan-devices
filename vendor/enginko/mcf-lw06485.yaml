@@ -3,7 +3,7 @@ description: This device can be interfaced to any Modbus RTU RDS485 device to re
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "0.02.18"
+    version: '0.02.18'
     numeric: 1
 
     # LoRaWAN Device Profiles per region

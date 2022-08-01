@@ -4,7 +4,7 @@ description: The enginko MCF-LW13IO is a wireless actuator that consists of an O
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "0.02.07"
+    version: '0.02.07'
     numeric: 1
 
     # LoRaWAN Device Profiles per region

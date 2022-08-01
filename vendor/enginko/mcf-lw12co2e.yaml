@@ -4,7 +4,7 @@ description: The MCF-LW12CO2E is a battery powered sensor for indoor application
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "0.02.23"
+    version: '0.02.23'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
