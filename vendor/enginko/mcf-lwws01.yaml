@@ -44,7 +44,7 @@ sensors:
   - uv
   - dust
   - particulate matter
-    - pm2.5
+  - pm2.5
   - pm10
 
 # Weight in grams (optional)

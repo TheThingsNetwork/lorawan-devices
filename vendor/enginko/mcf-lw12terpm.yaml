@@ -38,8 +38,8 @@ sensors:
   - barometer
   - dust
   - particulate matter
-  - PM2.5
-  - PM10
+  - pm2.5
+  - pm10
   - battery
 
 # Dimensions in mm (optional)
