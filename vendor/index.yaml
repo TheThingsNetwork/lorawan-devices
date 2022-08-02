@@ -430,11 +430,11 @@ vendors:
     ouis:
       - 0002CC
 
-  - id: mcf88
-    name: MCF88 SRL
+  - id: enginko
+    name: enginko SRL
     vendorID: 259
     website: https://www.enginko.com
-    logo: mcf88_logo.svg
+    logo: enginko_logo.svg
 
   - id: meas-france
     name: MEAS FRANCE
@@ -1621,6 +1621,12 @@ vendors:
 
   - id: sensedge
     name: Sensedge
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://sensedge.co/
+    logo: sensedge_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco
 
   - id: embit
     name: Embit SRL
@@ -1758,14 +1764,14 @@ vendors:
       - 102CEF
 
   - id: ellenex
-    name: ellenex
+    name: Ellenex
     description: Ellenex provides Industrial IOT Solutions that are ruggedused, battery operated and scalable.
     logo: logo.png
     website: https://www.ellenex.com
     social:
       linkedin: https://au.linkedin.com/company/ellenex
     ouis:
-      - 70B3D5
+      - 70B3D5CD0
 
   - id: ttn
     name: The Things Network Foundation
@@ -1787,6 +1793,7 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
       twitter: S_L_S
+      github: github-sls
 
   - id: kuleuven-dramco
     name: KU Leuven Dramco
@@ -1825,3 +1832,16 @@ vendors:
     logo: greenme.png
     social:
       linkedin: https://www.linkedin.com/company/greenme/
+
+  - id: thermokon
+    name: Thermokon Sensortechnik GmbH
+    vendorID: 923
+
+  - id: senzemo
+    name: Senzemo
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://senzemo.com/
+    logo: senzemo-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco

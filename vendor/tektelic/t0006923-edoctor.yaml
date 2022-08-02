@@ -1,0 +1,91 @@
+name: TEKTELIC eDoctor Device
+description: The TEKTELIC eDoctor Device is the ideal solution to monitor patients and vulnerable individuals for potential respiratory illness. This specialized device is designed to continuously monitor and detect the most common symptoms of respiratory illness including increased body temperature and breathing rate, persistent cough and accelerated heart rate. An adjustable, washable strap ensures the device can be worn comfortably and discreetly in any situation. The eDoctor utilizes the long range and low power capabilities of LoRaWAN® to provide reliable “Always On” connectivity and unprecedented battery life of over 3 months.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'A'
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '0.1.16'
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'A'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: t0006923-868-profile
+        lorawanCertified: false
+        codec: t0006923-codec
+      US902-928:
+        id: t0006923-915-profile
+        lorawanCertified: false
+        codec: t0006923-codec
+      AU915-928:
+        id: t0006923-915-profile
+        lorawanCertified: false
+        codec: t0006923-codec
+      AS923:
+        id: t0006923-923-profile
+        lorawanCertified: false
+        codec: t0006923-codec
+      IN865-867:
+        id: t0006923-865-profile
+        lorawanCertified: false
+        codec: t0006923-codec
+      KR920-923:
+        id: t0006923-920-profile
+        lorawanCertified: false
+        codec: t0006923-codec
+      RU864-870:
+        id: t0006923-864-profile
+        lorawanCertified: false
+        codec: t0006923-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 11.7
+  length: 66
+  height: 36.2
+
+# Battery information (optional)
+battery:
+  type: CR2450
+
+operatingConditions:
+  temperature:
+    min: 0
+    max: 50
+
+ipCode: IP30
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: CE
+      standard: 60950-1
+  regulatory:
+    - body: ETSI EN
+      standard: 300 220
+    - body: ETSI EN
+      standard: 301 489-1
+    - body: ETSI EN
+      standard: 301 489-3
+    - body: FCC
+      standard: '15.247'
+    - body: FCC
+      standard: '15.209'
+
+# Product and data sheet URLs (optional)
+productURL: https://tektelic.com/catalog/wearable-lorawan-respiratory-sensor
+dataSheetURL: https://tektelic.com/uploads/Spec-sheet/eDoctor%20device%20(1).pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/edoct
+
+# Photos (optional)
+photos:
+  main: edoctor.png

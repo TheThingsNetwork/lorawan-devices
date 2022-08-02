@@ -67,12 +67,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 158
-  length: 86
-  height: 60
+  width: 180
+  length: 80
+  height: 48
 
 # Weight in grams (optional)
-weight: 382
+weight: 350
 
 # Battery information (optional)
 battery:
@@ -87,7 +87,7 @@ operatingConditions:
     max: 55
 
 # IP rating (optional)
-ipCode: IP50
+ipCode: IP67
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.

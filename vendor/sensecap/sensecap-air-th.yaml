@@ -1,4 +1,4 @@
-name: SenseCAP Wireless Air Temperature and Humidity Sensor - LoRaWAN
+name: SenseCAP Wireless Air Temperature and Humidity Sensor - LoRaWAN®
 description: The Seeed Studio SenseCAP Wireless Air Temperature and Humidity Sensor measures temperature and humidity in the atmosphere. It's designed with a 2-in-1 sensor, a custom battery, and an IP66 enclosure, optimized for outdoor use cases that need reliable data collected over years. The collected data is sent over the LoRaWAN® network for further processing and decision making.
 
 # Hardware versions (optional, use when you have revisions)

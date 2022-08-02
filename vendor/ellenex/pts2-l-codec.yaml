@@ -6,7 +6,7 @@ uplinkDecoder:
   examples:
     - description: payload 01 e8 00 fb 58 00 00 22 -> pressure -1192 bar, batteryVoltage 3.4V
       input:
-        fPort: 1
+        fPort: 15
         bytes: [0x01, 0xE8, 0x00, 0xFB, 0x58, 0x00, 0x00, 0x22]
       output:
         data:
@@ -14,7 +14,7 @@ uplinkDecoder:
           batteryVoltage: 3.4
     - description: positive payload 01 e8 00 00 d6 00 00 22 -> pressure 214 bar, batteryVoltage 3.4V
       input:
-        fPort: 1
+        fPort: 15
         bytes: [0x01, 0xE8, 0x00, 0x00, 0xD6, 0x00, 0x00, 0x22]
       output:
         data:
@@ -26,10 +26,10 @@ uplinkDecoder:
         bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b, 0x22]
       output:
         errors:
-          - 'Unknown FPort: please use fPort 1'
+          - 'Unknown FPort: please use fPort 15'
     - description: Wrong format of input bytes
       input:
-        fPort: 1
+        fPort: 15
         bytes: [0x01, 0x82, 0x00, 0x12, 0xFC, 0x09, 0x6b]
       output:
         errors:

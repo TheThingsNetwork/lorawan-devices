@@ -1,6 +1,6 @@
 function decodeUplink(input) {
     switch (input.fPort) {
-      case 1:
+      case 15:
         // return error if length of Bytes is not 8
         if (input.bytes.length != 8) {
           return {
@@ -13,8 +13,8 @@ function decodeUplink(input) {
         return {
           // Decoded data
           data: {
-            primarySense: primarySense,
-            secondarySense: secondarySense,
+            sensorReading: primarySense,
+            temperatureReading: secondarySense,
             batteryVoltage: +batteryVoltage.toFixed(1),
           },
         };

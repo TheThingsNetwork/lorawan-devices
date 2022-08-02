@@ -1,5 +1,5 @@
-name: Tektelic Tundra Sensor
-description: LoRaWAN® Device for Cold Chain Environment Monitoring
+name: TEKTELIC TUNDRA Sensor
+description: TEKTELIC’s TUNDRA Temperature Sensor is the ideal solution for maintaining optimal and consistent temperatures within cold rooms and refrigerated areas. The device can be implemented within cold storage such as fridges, coolers, cold rooms and even freezers with minimal impact on battery life or radio signal strength. The Cold Room Temperature Sensor is seamlessly integrated with TEKTELIC’s end-to-end IoT solution.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -8,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.1'
+    version: '2.1.12'
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - 'B'
@@ -36,6 +36,10 @@ firmwareVersions:
         id: t00073xx-865-profile
         lorawanCertified: true
         codec: t00073xx-codec
+      KR920-923:
+        id: t00073xx-920-profile
+        lorawanCertified: true
+        codec: t00067xx-codec
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -51,14 +55,36 @@ battery:
 operatingConditions:
   temperature:
     min: -40
-    max: 60
+    max: 85
 
 ipCode: IP67
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: CE
+      standard: 60950-1
+  regulatory:
+    - body: ETSI EN
+      standard: 300 220
+    - body: ETSI EN
+      standard: 301 489-1
+    - body: ETSI EN
+      standard: 301 489-3
+    - body: FCC
+      standard: '15.247'
+    - body: FCC
+      standard: '15.209'
+    - body: RSS
+      standard: '-247'
+    - body: RSS
+      standard: '-GEN'
 
 # Product and data sheet URLs (optional)
 productURL: https://tektelic.com/catalog/cold-room-storage-monitoring-solution
 dataSheetURL: https://tektelic.com/uploads/Brochures/TEKTELIC%20TUNDRA%20Sensor.pdf
-manuals: https://tektelic.com/uploads/Brochures/TEKTELIC%20TUNDRA%20Sensor.pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/tundra-sensor-technical-reference-manual
 
 # Photos (optional)
 photos:
