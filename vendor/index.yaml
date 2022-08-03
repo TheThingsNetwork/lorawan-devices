@@ -430,6 +430,12 @@ vendors:
     ouis:
       - 0002CC
 
+  - id: mcf88
+    name: mcf88 SRL
+    vendorID: 259
+    website: https://www.enginko.com
+    logo: enginko_logo.svg
+
   - id: enginko
     name: enginko SRL
     vendorID: 259
