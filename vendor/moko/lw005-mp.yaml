@@ -15,6 +15,17 @@ firmwareVersions:
     hardwareVersions:
       - '1.1'
 
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+      - remotely control AC output
+      - Locally store energy data
+      - Over-load/Over-voltage/Sag-voltage/Over-current protection
+      - load status notification
+
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
@@ -48,8 +59,11 @@ firmwareVersions:
 # velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
 sensors:
   - current
-  - power
+  - power consumption
   - voltage
+  - frequency
+  - load status
+  - power factor
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -65,26 +79,41 @@ weight: 136
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: 0
+    min: -20
     max: 40
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0.1
-    max: 0.9
+    max: 0.95
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
   - join server
-  - manifest
+
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - bluetooth
+  - firmware
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: none
 
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+  - fuota
+
 # Product and data sheet URLs (optional)
-productURL: https://www.mokosmart.com/
+productURL: https://www.mokosmart.com/zh/lorawan-meter-plug-lw005-mp/
+dataSheetURL: https://www.mokolora.com/contact-us/
 
 # Photos
 photos:

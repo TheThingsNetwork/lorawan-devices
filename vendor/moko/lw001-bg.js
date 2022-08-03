@@ -1,183 +1,239 @@
-function decodeUplink(input)
+var packet_type = ["heart","fix_success","fix_false","sys_close_info","shake_info","idle_info","demolish_alarm","event","battery_consume","config","store_data","limit_gps_data"];
+var dev_mode = ["standby mode","period mode","timing mode","motion mode"];
+var dev_fix_type = ["work_mode_fix","down_request_fix"];
+function substringBytes(bytes, start, len)
 {
-  var port = input.fPort;
-  var bytes = input.bytes;
-  var decoded = {};
-  var fourStr = bytes.join("");
-  if (port === 1)
-  {
-    decoded.type = "Device Information Packet";
-    decoded.macversion = ( bytes[0] - ( bytes[0] % 16 ) ) / 16;  //if equal to 3, the mac version is 1.0.3 ; if equal to 4, the mac version is 1.0.4 ;
-    decoded.firmwareversion = ( bytes[0] % 16 ) * 100 + ( ( ( bytes[1] - ( bytes[1] % 16 ) ) / 16 ) *10 ) + bytes[1] % 16 ; 
-    // if equal to 101 ,the firmware version is 1.0.1 ; if equal to 231, the firmware version is 2.3.1 .
-    decoded.devicestatus = bytes[2] ; 
-    //Convert to binary ,0 is unmormal ,1 is normal, from the right to left ,the 1st bit is GPS hardware status ,the 2nd bit is Temperature sensor hardware status
-    //the 3rd bit is barometer hardware status, the 4th bit is accelerometer hardware status,the 5th bit is buzzer hardware status, the 6h bit is GPS enable switch ; 
-    //If the 7th bit is 0 ,the device is on moving mode,if the 7th is 1 ,the device is on timing reporting mode.
-
-    decoded.batterylevel = bytes[3]/100 ; //  IF equal to 0.55, means the battery level is 55%.
-    decoded.temperature = ( ( bytes[4] * 256 + bytes[5] ) -4500 ) / 100; // the unit is ℃
-    decoded.humidity = ( bytes[6] * 256 + bytes[7] ) / 100;  
-    decoded.barometer =  ( ( bytes[8] * 65536 ) + ( bytes[9] * 256 ) + bytes[10] ) / 10; // the unit is pa
-  }
-  else if (port === 2)
-  {
-    decoded.tyep = "Device Status packet";
-    decoded.timeyear = bytes[0] * 256 + bytes[1];
-    decoded.timemonth = bytes[2];
-    decoded.timeday = bytes[3]; 
-    decoded.timehour = bytes[4];
-    decoded.timeminute = bytes[5];
-    decoded.timesecond = bytes[6]; 
-    decoded.batterylevel = bytes[7]/100; // IF equal to 0.55, means the battery level is 55%.
-    decoded.ldlestatus = bytes[8]; // If equal to 1 , the device is ldle; if equal to 2, the device is not ldle
-    decoded.motionstate = bytes[9]; 
-    // If equal to 1, this payload is the 1st paylaod when the device start noving; If equal to 2 , the device is moving, If equal to 3, the device is static.
-  }
-  else if (port === 3)
-  {
-    decoded.type = "Gps Position Packet";
-    decoded.gpsfixmode = bytes[0];  //if decoded.gps-fix-mode = 2 ,means the fix-mode is 2D,if decoded.gps-fix-mode = 3,means the fix-mode is 3D
-    // var a = "BE991597";
-    //var b = parseInt(a,16);
-    //var s = b&0x80000000/0x80000000;
-    //var e = (b&0x7f800000)/0x800000-127;
-    //var c = (b&0x7fffff)/0x800000;
-    //var re = Math.pow(-1,s)*(1+c)*Math.pow(2,e);
-    // document.write(re.toString(10));
-    fourStr = fourStr.substring(2,10);
-    decoded.longitude = HexToSingle(fourStr);
-    fourStr = fourStr.substring(10,18);
-    decoded.latitude = HexToSingle(fourStr);
-    if ( ( byte[11] % 16 ) == 0 )
-    {
-      decoded.altitude = ( (bytes[9] * 256 + bytes[10])*10+( bytes[11] - ( byte[11] % 16 ) ) / 16) / 10; // the unit is meter
-    }
-    else 
-    {
-      decoded.altitude = 0 - ( (bytes[9] * 256 + bytes[10])*10+( bytes[11] - ( byte[11] % 16 ) ) / 16) / 10; // the unit is meter
-    }
-    decoded.altitude = (bytes[9] * 65536 + bytes[10] * 256 + bytes[11]) / 10; // the unit is meter
-    decoded.pdop = bytes[12] % 16; //PDOP
-    decoded.satellitesnumber = ( bytes[12] - (bytes[12] % 16) )/16; // the current numbers of satellites 
-    decoded.temperature = ( ( bytes[13] * 256 + bytes[14] ) -4500 ) / 100; // the unit is ℃
-  }
-  else if (port === 4)
-  {
-    decoded.tyep = "Beacons Packet";
-    decoded.timeyear1st = bytes[0] * 256 + bytes[1];
-    decoded.timemonth1st = bytes[2];
-    decoded.timeday1st = bytes[3]; 
-    decoded.timehour1st = bytes[4];
-    decoded.timeminute1st = bytes[5];
-    decoded.timesecond1st = bytes[6]; 
-    decoded.beaconmac1st  = fourStr.substring(14,26);
-    decoded.beaconrssi1st = bytes[13] - 256;
-    decoded.timeyear2nd = bytes[14] * 256 + bytes[15];
-    decoded.timemonth2nd = bytes[16];
-    decoded.timeday2nd = bytes[17]; 
-    decoded.timehour2nd = bytes[18];
-    decoded.timeminute2nd = bytes[19];
-    decoded.timesecond2nd = bytes[20]; 
-    decoded.beaconmac2nd  = fourStr.substring(42,54);
-    decoded.beaconrssi2nd = bytes[27] - 256;
-    decoded.timeyear3rd = bytes[28] * 256 + bytes[29];
-    decoded.timemonth3rd = bytes[30];
-    decoded.timeday3rd = bytes[31]; 
-    decoded.timehour3rd = bytes[32];
-    decoded.timeminute3rd = bytes[33];
-    decoded.timesecond3rd = bytes[34]; 
-    decoded.beaconmac3rd  = fourStr.substring(70,82);
-    decoded.beaconrssi3rd = bytes[41] - 256;
-    decoded.timeyear4th = bytes[42] * 256 + bytes[43];
-    decoded.timemonth4th = bytes[44];
-    decoded.timeday4th = bytes[45]; 
-    decoded.timehour4th = bytes[46];
-    decoded.timeminute4th = bytes[47];
-    decoded.timesecond4th = bytes[48]; 
-    decoded.beaconmac4th  = fourStr.substring(98,110);
-    decoded.beaconrssi4th = bytes[55] - 256;
-  }
-  else if (port === 5)
-  {
-    decoded.type = "SOS Packet";
-    decoded.timeyear = bytes[0] * 256 + bytes[1];
-    decoded.timemonth = bytes[2];
-    decoded.timeday = bytes[3]; 
-    decoded.timehour = bytes[4];
-    decoded.timeminute = bytes[5];
-    decoded.timesecond = bytes[6]; 
-    decoded.speedkmph = bytes[7] * 256 + bytes[8] ;
-  }
-  else
-  {
-    return {
-      errors: ['unknown FPort'],
-    };
-  }
-
-  return {
-    data: decoded,
-  };
+	var char = [];
+	for(var i = 0; i < len; i++)
+	{
+		char.push("0x"+ bytes[start+i].toString(16) < 0X10 ? ("0"+bytes[start+i].toString(16)) : bytes[start+i].toString(16) );
+	}
+	return char.join("");
 }
-
-//
-//GPS data conversion
-function HexToSingle(t) {
-  t = t.replace(/\s+/g, "");
-  if (t == "") {
-      return "";
-  }
-  if (t == "00000000") {
-      return "0";
-  }
-  if ((t.length > 8) || (isNaN(parseInt(t, 16)))) {
-      return "Error";
-  }
-  if (t.length < 8) {
-      t = FillString(t, "0", 8, true);
-  }
-  t = parseInt(t, 16).toString(2);
-  t = FillString(t, "0", 32, true);
-  var s = t.substring(0, 1);
-  var e = t.substring(1, 9);
-  var m = t.substring(9);
-  e = parseInt(e, 2) - 127;
-  m = "1" + m;
-  if (e >= 0) {
-      m = m.substr(0, e + 1) + "." + m.substring(e + 1)
-  } else {
-      m = "0." + FillString(m, "0", m.length - e - 1, true)
-  }
-  if (m.indexOf(".") == -1) {
-      m = m + ".0";
-  }
-  var a = m.split(".");
-  var mi = parseInt(a[0], 2);
-  var mf = 0;
-  for (var i = 0; i < a[1].length; i++) {
-      mf += parseFloat(a[1].charAt(i)) * Math.pow(2, -(i + 1));
-  }
-  m = parseInt(mi) + parseFloat(mf);
-  if (s == 1) {
-      m = 0 - m;
-  }
-  return Math.round(m *10000)/10000;
+function BytestoInt(bytes,start) {
+    var value = ((bytes[start] << 24) | (bytes[start+1] << 16) | (bytes[start+2] << 8) | (bytes[start+3]));
+    return value;
 }
+function Decoder(bytes, port)
+{
+	var dev_info = {};
+	dev_info.pack_type = packet_type[port-1];
+	//common frame head
+	if(port<=10)
+	{
+		dev_info.work_mode = dev_mode[bytes[0]&0x03];
+		dev_info.low_power_state = (bytes[0]>>2)&0x01;
+		dev_info.demolish_state = (bytes[0]>>3)&0x01;
+		dev_info.idle_state = (bytes[0]>>4)&0x01;
+		dev_info.motion_state = (bytes[0]>>5)&0x01;
+		if(port==2 || port ==3)
+		{
+			dev_info.fix_type = dev_fix_type[(bytes[0]>>6)&0x01];
+		}
+		
+		if(bytes[1]>0x80)
+		{
+			dev_info.ic_temperature = bytes[1] - 0x100 + "°C";
+		}
+		else
+		{
+			dev_info.ic_temperature = bytes[1] + "°C";
+		}
 
-function FillString(t, c, n, b) {
-  if ((t == "") || (c.length != 1) || (n <= t.length)) {
-      return t;
-  }
-  var l = t.length;
-  for (var i = 0; i < n - l; i++) {
-      if (b == true) {
-          t = c + t;
-      }
-      else {
-          t += c;
-      }
-  }
-  return t;
-}          //GPS data conversion
-//
+		dev_info.lorawan_downlink_count = bytes[2]&0x0f;
+		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10 + "V";
+	}
+	if(port == 1)
+	{
+		var restart_reason = ["power_restart","ble_cmd_restart","lorawan_cmd_restart","switch_off_mode_restart"];
+		dev_info.last_restart_reason = restart_reason[bytes[3]];
+
+		
+		ver_major = (bytes[4]>>6)&0x03;
+		ver_mijor = (bytes[4]>>4)&0x03;
+		ver_patch = bytes[4]&0x0f;
+		dev_info.firmware_ver = "V" + ver_major+"."+ver_mijor+"."+ver_patch;
+
+		dev_info.motion_count = BytestoInt(bytes,5);
+	}
+	else if(port == 2)
+	{
+		var  fix_tech = ["wifi","ble","gps"];
+		var parse_len = 3; // common head is 3 byte
+		var datas = [];
+		tech = bytes[parse_len++];
+		dev_info.fix_tech = fix_tech[tech];
+
+		year = bytes[parse_len]*256 + bytes[parse_len+1];
+		parse_len += 2;
+		mon = bytes[parse_len++];
+		days = bytes[parse_len++];
+		hour = bytes[parse_len++];
+		minute = bytes[parse_len++];
+		sec = bytes[parse_len++];
+		timezone = bytes[parse_len++];
+
+		if(timezone>0x80)
+		{
+			dev_info.utc_time =  year + "-" + mon + "-" + days + " " + hour + ":" + minute + ":" + sec + "  TZ:" +  (timezone-0x100);
+		}
+		else
+		{
+			dev_info.utc_time =  year + "-" + mon + "-" + days + " " + hour + ":" + minute + ":" + sec + "  TZ:" + timezone;
+		}
+		datalen =  bytes[parse_len++];
+
+		if(tech==0 || tech ==1)
+		{
+			for(var i=0 ; i<(datalen/7) ; i++)
+			{
+			  var data = {};
+				data.mac = substringBytes(bytes, parse_len, 6);
+				parse_len += 6;
+				data.rssi = bytes[parse_len++]-256 +"dBm";
+				datas.push(data);
+			}
+			dev_info.mac_data = datas;
+		}
+		else
+		{
+			lat =BytestoInt(bytes,parse_len);
+			parse_len += 4;
+			lon =BytestoInt(bytes,parse_len);
+			parse_len += 4;
+
+			if(lat>0x80000000)
+				lat = lat-0x100000000;
+			if(lon>0x80000000)
+				lon = lon-0x100000000;
+
+			dev_info.lat = lat/10000000;
+			dev_info.lon = lon/10000000;
+			dev_info.pdop = bytes[parse_len] /10;
+		}
+	}
+	else if(port == 3)
+	{
+
+		var fix_false_reason = ["wifi_fix_time_timeout","wifi_fix_tech_timeout","wifi_module_nofind","ble_fix_time_timeout","ble_fix_tech_timeout","ble_adv","gps_no_budget","gps_coarse_acc_timeout","gps_fine_acc_timeout","gps_fix_timeout","gps_assistnow_timeout","gps_cold_start_timeout","down_request_fix_interrupt","motion_start_fix_false_by_motion_end","motion_end_fix_false_by_motion_start"];
+		var parse_len = 3; 
+		var datas = [];
+		reason = bytes[parse_len++];
+		dev_info.fix_false_reason = fix_false_reason[reason];
+		datalen =  bytes[parse_len++];
+		if(reason<=5) //wifi and ble reason
+		{
+		  if(datalen)
+		  {
+  			for(var i=0 ; i<(datalen/7) ; i++)
+  			{
+  			  var data = {};
+  				data.mac = substringBytes(bytes, parse_len, 6);
+  				parse_len += 6;
+  				data.rssi = bytes[parse_len++]-256 +"dBm";
+  				datas.push(data);
+  			}
+  			dev_info.mac_data = datas;
+		  }
+		}
+		else if(reason<=11) //gps reason
+		{	
+			pdop = bytes[parse_len++];
+			if(pdop!=0xff)
+				dev_info.pdop = pdop/10
+			else
+				dev_info.pdop = "unknow";
+			dev_info.gps_satellite_cn = bytes[parse_len] +"-" + bytes[parse_len+1] +"-" + bytes[parse_len+2] +"-" + bytes[parse_len+3] ;
+		}
+	}
+	else if(port == 4)
+	{
+		var sys_close_reason = ["ble_cmd_close","lorawan_cmd_close","reed_switch_close"];
+		dev_info.sys_close_reason = sys_close_reason[bytes[3]];
+	}
+	else if(port == 5)
+	{
+		dev_info.shake_num = bytes[3]*256+ bytes[4];
+	}
+	else if(port == 6)
+	{
+		dev_info.idle_time = bytes[3]*256+ bytes[4];
+	}
+	else if(port == 7)
+	{
+		var parse_len = 3; // common head is 3 byte
+		year = bytes[parse_len]*256 + bytes[parse_len+1];
+		parse_len += 2;
+		mon = bytes[parse_len++];
+		days = bytes[parse_len++];
+		hour = bytes[parse_len++];
+		minute = bytes[parse_len++];
+		sec = bytes[parse_len++];
+		timezone = bytes[parse_len++];
+
+		if(timezone>0x80)
+		{
+			dev_info.alarm_time =  year + "-" + mon + "-" + days + " " + hour + ":" + minute + ":" + sec + "  TZ:" +  (timezone-0x100);
+		}
+		else
+		{
+			dev_info.alarm_time =  year + "-" + mon + "-" + days + " " + hour + ":" + minute + ":" + sec + "  TZ:" + timezone;
+		}
+	}
+	else if(port == 8)
+	{
+		var event = ["motion start","moving fix start","motion end","lorawan downlink trigger uplink"];
+		dev_info.event_info = event[bytes[3]];
+	}
+	else if(port == 9)
+	{
+		var parse_len = 3;
+		dev_info.gps_work_time = BytestoInt(bytes,parse_len);
+		parse_len += 4;
+		dev_info.wifi_work_time = BytestoInt(bytes,parse_len);
+		parse_len += 4;
+		dev_info.ble_scan_work_time = BytestoInt(bytes,parse_len);
+		parse_len += 4;
+		dev_info.ble_adv_work_time = BytestoInt(bytes,parse_len);
+		parse_len += 4;
+		dev_info.lorawan_work_time = BytestoInt(bytes,parse_len);
+		parse_len += 4;
+	}
+	else if(port == 10)
+	{
+		//
+	}
+	else if(port == 11)
+	{
+		//
+	}
+	else if(port == 12)
+	{
+
+		dev_info.work_mode = dev_mode[bytes[0]&0x03];
+		dev_info.low_power_state = bytes[0]&0x04;
+		dev_info.demolish_state = bytes[0]&0x08;
+		dev_info.idle_state = bytes[0]&0x10;
+		dev_info.motion_state = bytes[0]&0x20;
+		dev_info.fix_type = dev_fix_type[(bytes[0]>>6)&0x01];
+
+		dev_info.lorawan_downlink_count = bytes[1]&0x0f;
+		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10 + "V";
+
+		var parse_len = 2;
+		lat =BytestoInt(bytes,parse_len);
+		parse_len += 4;
+		lon =BytestoInt(bytes,parse_len);
+		parse_len += 4;
+
+		if(lat>0x80000000)
+			lat = lat-0x100000000;
+		if(lon>0x80000000)
+			lon = lon-0x100000000;
+
+		dev_info.lat = lat/10000000 ;
+		dev_info.lon = lon/10000000;
+		dev_info.pdop = bytes[parse_len]/10;
+	}
+	return dev_info;
+} 
