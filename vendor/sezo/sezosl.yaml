@@ -1,12 +1,10 @@
-name: SEZO EL
-description: Environment Sensor
-
-# Hardware versions (optional, use when you have revisions)
+name: SEZO SL
+description: Compact low-power sensor device measuring environmental parameters
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '2.0.2'
+    version: '2.0.0'
     numeric: 1
     # Corresponding hardware versions (optional)
 
@@ -41,25 +39,22 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - accelerometer
-  - barometer
-  - light
   - temperature
   - humidity
-  - sound
-  - magnetometer
+  - barometer
+  - light
   - iaq
   - pir
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 89
-  height: 48.5
+  width: 74
+  length: 74
+  height: 25.5
 
 # Weight in grams (optional)
-weight: 225
+weight: 90
 
 # Battery information (optional)
 battery:
@@ -78,7 +73,7 @@ operatingConditions:
     max: 0.97
 
 # IP rating (optional)
-ipCode: IP55
+ipCode: IP40
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -104,11 +99,11 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://sezo.pl/en/model-sezo-el
+productURL: https://sezo.pl/en/model-sezo-sl
 
 # Photos
 photos:
-  main: sezoel.jpg
+  main: sezosl.jpg
 
 # Youtube or Vimeo Video (optional)
 videos:
