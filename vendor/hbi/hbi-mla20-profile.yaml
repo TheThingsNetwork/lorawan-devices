@@ -12,7 +12,7 @@ macVersion: '1.0.3'
 #   1.0.3: RP001-1.0.3-RevA
 #   1.0.4: RP002-1.0.0 or RP002-1.0.1
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-regionalParametersVersion: 'RP001-1.0.3-RevA'
+regionalParametersVersion: 'RP001-1.0.2-RevB'
 
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
@@ -46,7 +46,7 @@ supportsClassB: false
 #pingSlotFrequency: 869.525
 
 # Whether the end device supports class C
-supportsClassC: false
+supportsClassC: true
 # If your device supports class C, uncomment the following fields:
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
-#classCTimeout: 60
+classCTimeout: 300
