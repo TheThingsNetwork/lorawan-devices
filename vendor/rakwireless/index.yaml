@@ -2,4 +2,7 @@ endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - wisblock-4631
   - rak7431
-  - wisblock-kit4-air-quality-monitor
+  - rak7201
+  - wisblock-kit1-indoor-ambient
+  - wisblock-kit4-indoor-environment
+  
