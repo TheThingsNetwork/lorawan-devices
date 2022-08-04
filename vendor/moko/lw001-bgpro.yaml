@@ -14,6 +14,39 @@ firmwareVersions:
     hardwareVersions:
       - '2.0.4'
 
+    #Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: a-eu868
+        codec: lw001-bgpro-codec
+      IN865-867:
+        id: a-in865
+        codec: lw001-bgpro-codec
+      RU864-870:
+        id: a-ru864
+        codec: lw001-bgpro-codec
+      US902-928:
+        id: a-us915
+        codec: lw001-bgpro-codec
+      AU915-928:
+        id: a-au915
+        codec: lw001-bgpro-codec
+      AS923:
+        id: a-as923
+        codec: lw001-bgpro-codec
+      KR920-923:
+        id: a-kr920
+        codec: lw001-bgpro-codec
+
+        
   - version: '1.0.7'
     numeric: 1
     # Corresponding hardware versions (optional)
