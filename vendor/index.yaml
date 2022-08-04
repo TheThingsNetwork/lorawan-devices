@@ -1936,3 +1936,11 @@ vendors:
     website: https://smartrural.coop/
     linkedin: https://www.linkedin.com/company/smartrural-coop/
     twitter: SmartRuralCoop
+
+  - id: cital
+    name: Cital
+    website: https://www.cital.ch/
+    logo: cital-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/getcital/
+      twitter: https://twitter.com/getcital
