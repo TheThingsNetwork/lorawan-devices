@@ -27,7 +27,6 @@ uplinkDecoder:
   #     output:
   #       errors:
   #         - unknown FPort
-
 # # Downlink encoder encodes JSON object into a binary data downlink (optional)
 # downlinkEncoder:
 #   fileName: windsensor.js

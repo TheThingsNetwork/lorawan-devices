@@ -48,8 +48,7 @@ function bin8dec(bin) {
   return num;
 }
 function hexToBytes(hex) {
-  for (var bytes = [], c = 0; c < hex.length; c += 2)
-    bytes.push(parseInt(hex.substr(c, 2), 16));
+  for (var bytes = [], c = 0; c < hex.length; c += 2) bytes.push(parseInt(hex.substr(c, 2), 16));
   return bytes;
 }
 function DecodeStatusPart(data, obj) {
@@ -75,7 +74,7 @@ function DecodeHbiEmergencyLight(data) {
   if (data.length < 5) {
     return obj;
   }
-  obj.v = data[0] + "." + data[1] + "." + data[2];
+  obj.v = data[0] + '.' + data[1] + '.' + data[2];
   // if (obj.v !== "0.1.6") {
   //   return {};
   // }
@@ -83,70 +82,62 @@ function DecodeHbiEmergencyLight(data) {
     // console.log(data[i]);
     switch (data[i]) {
       case PTYPE_STATUS:
-        obj.type = "status";
+        obj.type = 'status';
         size = data[i + 1];
         obj = DecodeStatusPart(data.slice(i + 2, i + 2 + size), obj);
         i += size;
-        break
+        break;
       case PTYPE_TEST_START:
-        obj.type = "test-start";
+        obj.type = 'test-start';
         size = data[i + 1];
         obj = DecodeStatusPart(data.slice(i + 2, i + 2 + size), obj);
         obj.tt = bin8dec(data[i + 12]); // test type
         i += size;
-        break
+        break;
       case PTYPE_TEST_FINISHED:
-        obj.type = "test-finished";
+        obj.type = 'test-finished';
         size = data[i + 1];
         obj = DecodeStatusPart(data.slice(i + 2, i + 2 + size), obj);
         obj.tt = data[i + 12]; // test type
         obj.td = (data[i + 13] << 8) | data[i + 14]; // test duration
         i += size;
-        break
+        break;
       case PTYPE_MAIN_FAILURE:
-        obj.type = "mains-failure";
+        obj.type = 'mains-failure';
         size = data[i + 1];
         obj = DecodeStatusPart(data.slice(i + 2, i + 2 + size), obj);
         i += size;
-        break
+        break;
       case PTYPE_MAIN_RESTORED:
-        obj.type = "mains-restored";
+        obj.type = 'mains-restored';
         size = data[i + 1];
         obj = DecodeStatusPart(data.slice(i + 2, i + 2 + size), obj);
         obj.d = (data[i + 12] << 8) | data[i + 13]; // duration
         i += size;
-        break
+        break;
       case PTYPE_BATTERY_FAILURE:
-        obj.type = "battery-failure";
+        obj.type = 'battery-failure';
         size = bin8dec(data[i + 1]);
         obj = DecodeStatusPart(data.slice(i + 2, i + 2 + size), obj);
-        obj.flag =
-          (data[i + 12] << 24) |
-          (data[i + 13] << 16) |
-          (data[i + 14] << 8) |
-          data[i + 15]; // duration
+        obj.flag = (data[i + 12] << 24) | (data[i + 13] << 16) | (data[i + 14] << 8) | data[i + 15]; // duration
         i += size;
-        break
+        break;
       case PTYPE_HARDWARE_FAILURE:
-        obj.type = "hardware-failure";
+        obj.type = 'hardware-failure';
         size = bin8dec(data[i + 1]);
         obj = DecodeStatusPart(data.slice(i + 2, i + 2 + size), obj);
-        obj.flag =
-          (data[i + 12] << 24) |
-          (data[i + 13] << 16) |
-          (data[i + 14] << 8)|
-          data[i + 15]; // duration
+        obj.flag = (data[i + 12] << 24) | (data[i + 13] << 16) | (data[i + 14] << 8) | data[i + 15]; // duration
         i += size;
-      break
+        break;
       case PTYPE_SHUTDOWN:
-        obj.type = "shutdown";
+        obj.type = 'shutdown';
         size = bin8dec(data[i + 1]);
         i += size;
-        break
+        break;
       default:
         size = bin8dec(data[i + 1]);
         i += size;
-        break
+        break;
     }
     i++;
   }
@@ -173,11 +164,10 @@ function Decoder(bytes, port) {
 //   console.log(JSON.stringify(msg));
 // });
 
-
 function decodeUplink(input) {
-    return {
-        data: Decoder(input.bytes, input.port),
-        warnings: [],
-        errors: []
-    };
+  return {
+    data: Decoder(input.bytes, input.port),
+    warnings: [],
+    errors: [],
+  };
 }
