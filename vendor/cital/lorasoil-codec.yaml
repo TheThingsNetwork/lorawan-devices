@@ -1,25 +1,30 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: windsensor.js
+  fileName: lorasoil.js
   # Examples (optional)
   examples:
-    - description: 32 knots from the North
+    - description: Example Payload 1
       input:
-        fPort: 1
-        bytes: [0, 32]
+        fPort: 152
+        bytes: [0x10, 0xf7, 0x22, 0xa8, 0x64, 0x08, 0xa0, 0x01, 0x9b, 0x06, 0xcb, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x05, 0x10, 0xc6, 0x03, 0xf6, 0x0a, 0x00, 0x00, 0x28, 0x78]
       output:
         data:
           direction: 'N'
-          speed: 32
-    - description: 42 knots from the East
+          latitude: 0
+          longitude: 0
+          temperature: 0
+          moisture: 0
+          resistance: 0
+    - description: Welcome Message
       input:
-        fPort: 1
+        fPort: 100
         bytes: [1, 42]
       output:
         data:
-          direction: 'E'
-          speed: 42
+          fw_major: 0
+          fw_minor: 0
+          fw_build: 0
     - description: Unknown FPort
       input:
         fPort: 42
@@ -27,34 +32,3 @@ uplinkDecoder:
       output:
         errors:
           - unknown FPort
-
-# Downlink encoder encodes JSON object into a binary data downlink (optional)
-downlinkEncoder:
-  fileName: windsensor.js
-  examples:
-    - description: Turn green
-      input:
-        data:
-          led: green
-      output:
-        bytes: [1]
-        fPort: 2
-    - description: Invalid color
-      input:
-        data:
-          led: blue
-      output:
-        errors:
-          - invalid LED color
-
-# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-downlinkDecoder:
-  fileName: windsensor.js
-  examples:
-    - description: Turn green
-      input:
-        fPort: 2
-        bytes: [1]
-      output:
-        data:
-          led: green

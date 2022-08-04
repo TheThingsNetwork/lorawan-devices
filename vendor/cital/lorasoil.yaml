@@ -28,21 +28,15 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
-        vendorID: valenco
-        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: lorasoil-profile
+        id: device-profile-eu
         lorawanCertified: true
         codec: lorasoil-codec
       US902-928:
-        id: lorasoil-profile
+        id: device-profile-us
         lorawanCertified: true
         codec: lorasoil-codec
       AU915-928:
-        id: lorasoil-profile
+        id: device-profile-au
         lorawanCertified: true
         codec: lorasoil-codec
 
@@ -58,12 +52,8 @@ sensors:
   - moisture
   - humidity
   - temperature
-  - accelerometer
   - gps
-  - analog input
-  - auxiliary
   - battery
-  - button
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -99,7 +89,7 @@ operatingConditions:
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 1
 
 # IP rating (optional)
 ipCode: IP67
@@ -130,17 +120,6 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 productURL: https://www.cital.ch/anwendungen/cital-soil-sensor/
 dataSheetURL: https://valenco.atlassian.net/wiki/external/330530817/NTMzZWQwOWRlNjEwNDAyMmJlMDkwYzE3MGFmY2YwMDM?atlOrigin=eyJpIjoiNDU0YTQ3ZTBlMTEwNDNlM2JlNmNjNGE0ZjkxZDU5YzEiLCJwIjoiYyJ9
-
-# Commercial information
-resellerURLs:
-  - name: 'Valenco GmbH'
-    region:
-      - European Union
-      - United States
-      - Canada
-      - Australia
-      - Worldwide
-    url: https://valenco.ch
 
 # Photos
 photos:
