@@ -434,7 +434,7 @@ vendors:
     name: mcf88 SRL
     vendorID: 259
     website: https://www.enginko.com
-    logo: mcf88.svg
+    logo: mcf88_logo.svg
 
   - id: enginko
     name: enginko SRL
