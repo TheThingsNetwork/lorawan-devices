@@ -58,7 +58,6 @@ function decodeUplink(payload) {
       content = null;
       break;
   }
-
   return TTNto(content);
 }
 
