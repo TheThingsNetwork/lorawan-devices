@@ -1,4 +1,4 @@
 uplinkDecoder:
   fileName: decoder-wisblock-kit.js
-  examples:
-    - description: WisBlock Kits Uplink Decoder
+#  examples:
+#    - description: WisBlock Kits Uplink Decoder
