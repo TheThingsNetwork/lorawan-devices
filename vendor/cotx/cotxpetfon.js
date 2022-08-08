@@ -15,21 +15,22 @@ function decodeUplink(input) {
       decoded.latitude = parseInt(data.substr(20,8),16)/1000000;
     }
     decoded.paws = parseInt(data.substr(32,8),16);
-    let timePower =parseInt(data.substr(40,4),16).toString(2);
-    decoded.battery = parseInt(timePower.substring(timePower.length-5),2)
-    decoded.working = parseInt(data.substr(44,4),16);
+    let run_time_bit = parseInt(data.substr(40,8),16).toString(2);
+    decoded.battery = parseInt(run_time_bit.slice(-21,-14),2);
+    decoded.working = parseInt(run_time_bit.slice(-10),2);
+
   }else if(input.bytes[0] == 240){
     decoded.type = input.bytes[0];
     decoded.paws = parseInt(data.substr(12,8),16);
-    let timePower =parseInt(data.substr(20,4),16).toString(2);
-    decoded.battery = parseInt(timePower.substring(timePower.length-5),2)
-    decoded.working = parseInt(data.substr(24,4),16);
+    let run_time_bit = parseInt(data.substr(40,8),16).toString(2);
+    decoded.battery = parseInt(run_time_bit.slice(-21,-14),2);
+    decoded.working = parseInt(run_time_bit.slice(-10),2);
   }else if(input.bytes[0] == 242){
     decoded.type = input.bytes[0];
     decoded.paws = parseInt(data.substr(70,8),16);
-    let timePower =parseInt(data.substr(78,4),16).toString(2);
-    decoded.battery = parseInt(timePower.substring(timePower.length-5),2)
-    decoded.working = parseInt(data.substr(82,4),16);
+    let run_time_bit = parseInt(data.substr(40,8),16).toString(2);
+    decoded.battery = parseInt(run_time_bit.slice(-21,-14),2);
+    decoded.working = parseInt(run_time_bit.slice(-10),2);
   }
 
   return {
