@@ -1,0 +1,100 @@
+name: STEVAL-ASTRA1B
+description: The STMicroelectronics STEVAL-ASTRA1B is an Asset-Tracking development kit that embeds the STM32WB5MMG and the STM32WL55JC microcontrollers supporting short and long range connectivity. It is an ultra-low-power platform including environmental and motion sensors and the GNSS module providing outdoor positioning.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: 'FP-ATR-ASTRA1 v1.1.0; LoRaWAN_AT_Slave v.1.2.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: steval-astra1b-profile-16
+        lorawanCertified: true
+        codec: steval-astra1b-codec
+      US902-928:
+        id: steval-astra1b-profile-32
+        lorawanCertified: true
+        codec: steval-astra1b-codec
+      AU915-928:
+        id: steval-astra1b-profile-30
+        lorawanCertified: false
+        codec: steval-astra1b-codec
+      AS923:
+        id: steval-astra1b-profile-16
+        lorawanCertified: true
+        codec: steval-astra1b-codec
+      CN779-787:
+        id: steval-astra1b-profile-12
+        lorawanCertified: false
+        codec: steval-astra1b-codec
+      KR920-923:
+        id: steval-astra1b-profile-14
+        lorawanCertified: true
+        codec: steval-astra1b-codec
+      IN865-867:
+        id: steval-astra1b-profile-30
+        lorawanCertified: true
+        codec: steval-astra1b-codec
+      RU864-870:
+        id: steval-astra1b-profile-16
+        lorawanCertified: false
+        codec: steval-astra1b-codec
+sensors:
+  - accelerometer
+  - gyroscope
+  - pressure
+  - temperature
+  - gps
+  - battery
+additionalRadios:
+  - ble
+  - nfc
+dimensions:
+  width: 60
+  length: 45
+  height: 20
+weight: 80
+battery:
+  replaceable: true
+  type: 480 mAh LiPo battery
+operatingConditions:
+  temperature:
+    min: 5
+    max: 35
+keyProvisioning:
+  - custom
+keyProgramming:
+  - serial
+  - bluetooth
+  - nfc
+  - firmware
+keySecurity: read protected
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+productURL: https://www.st.com/steval-astra1b
+dataSheetURL: https://www.st.com/resource/en/data_brief/steval-astra1b.pdf
+resellerURLs:
+  - name: 'DIGIKEY'
+    region:
+      - European Union
+      - Canada
+      - United States
+    url: https://www.digikey.com/en/products/detail/stmicroelectronics/STEVAL-ASTRA1B/16379602?s=N4IgTCBcDaIM4BcCmA3AhgGwARsQJzQEYAjEAXQF8g
+  - name: 'MOUSER'
+    region:
+      - European Union
+      - Canada
+      - United States
+    url: https://eu.mouser.com/ProductDetail/STMicroelectronics/STEVAL-ASTRA1B?qs=Znm5pLBrcAKJu2wChF4gqA%3D%3D
+msrp:
+  EUR: 143.11
+  USD: 144.55
+photos:
+  main: steval-astra1b.jpg
+  other:
+    - steval-astra1b_e2e_poc.jpg
+videos:
+  main: https://www.youtube.com/watch?v=4wCCRBJUSG0
