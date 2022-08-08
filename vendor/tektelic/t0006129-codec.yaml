@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: decoder_industrial_gps_asset_tracker.js
+  fileName: decoder_orca_industrial_gps_asset_tracker.js
   examples:
     - description: Acceleration Alarm and MCU Temperature Uplink
       input:
@@ -16,13 +16,14 @@ uplinkDecoder:
         warnings: []
 
 downlinkEncoder:
-  fileName: encoder_industrial_gps_asset_tracker.js
+  fileName: encoder_orca_industrial_gps_asset_tracker.js
   examples:
-    - description: GPS Enabled Status Downlink
+    - description: Accelerometer Mode Downlink
       input:
         data:
-          gps_enabled:
-            value: 0
+          accelerometer_config:
+            accelerometer_mode:
+              read: true
       output:
-        bytes: [176, 0]
-        port: 100
+        bytes: [64]
+        port: '100'

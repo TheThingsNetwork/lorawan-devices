@@ -1850,3 +1850,21 @@ vendors:
     name: Beijing COTX Networks Technologies Co. Ltd.
     website: https://www.cotxnetworks.com/
     vendorID: 942
+
+  - id: hbi
+    name: HBI Bisscheroux
+    description: Standing out in intelligent lighting solutions for public spaces, indoors and out. Taking on a leading role nationally and internationally in the top segment of highly sustainable light fittings for a safe and sustainable world. These are the strategic principles that make HBI stand out from the rest of the market.
+    website: https://www.hbi-lighting.com
+    logo: hbi-logo.png
+    social:
+      facebook: https://www.facebook.com/HBIBisscherouxbv/
+      linkedin: https://www.linkedin.com/company/hbi-bisscheroux/
+      twitter: hbi_bv
+
+  - id: saninudge
+    name: Sani Nudge
+    description: With intelligent sensors and actionable insights, Sani Nudge helps healthcare institutions reduce infections and maximize operational efficiencies
+    website: https://saninudge.com
+    logo: saninudge-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/saninudge/

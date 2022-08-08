@@ -1,0 +1,4 @@
+uplinkDecoder:
+  fileName: decoder-rak7201.js
+#  examples:
+#    - description: WisBlock Kits Uplink Decoder
