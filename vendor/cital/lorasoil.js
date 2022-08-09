@@ -45,8 +45,10 @@ function decodeUplink(input) {
           soil_moisture: decoded.values.waterPotOffBoard,
           ambient_temperature: decoded.values.tempOnBoard,
           ambient_humidity: decoded.values.humidityOnBoard,
+          ambient_pressure: decoded.values.airPressOnBoard,
           latitude: decoded.values.lat,
-          longitude: decoded.values.long
+          longitude: decoded.values.long,
+          battery: decoded.values.batteryCharge
         },
       };
     default:
