@@ -1,6 +1,6 @@
 # Uplink decoder decodes binary data uplink into a JSON object
 uplinkDecoder:
-  fileName: am103_am103l.js
+  fileName: am103am103l.js
   examples:
     - description: Ambience Monitoring Sensors (example 1) - Milesight IoT
       input:

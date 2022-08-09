@@ -15,35 +15,35 @@ firmwareVersions:
       EU863-870:
         id: profile-eu868
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
       US902-928:
         id: profile-us915
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
       AS923:
         id: profile-as923
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
       CN470-510:
         id: profile-cn470
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
       KR920-923:
         id: profile-kr920
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
       IN865-867:
         id: profile-in865
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
       RU864-870:
         id: profile-ru864
         lorawanCertified: true
-        codec: am103_am103l-codec
+        codec: am103am103l-codec
 
 sensors:
   - battery
@@ -86,7 +86,7 @@ resellerURLs:
     url: https://www.alibaba.com/product-detail/AM103-AM103L-Temperature-and-Humidity-Sensor_1600552633106.html?spm=a2700.galleryofferlist.normal_offer.d_title.40bd4794jPiLIT
 
 photos:
-  main: am103_am103l.png
+  main: am103am103l.png
 
 compliances:
   safety:

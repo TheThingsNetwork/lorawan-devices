@@ -15,35 +15,35 @@ firmwareVersions:
       EU863-870:
         id: profile-eu868
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
       US902-928:
         id: profile-us915
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
       AS923:
         id: profile-as923
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
       CN470-510:
         id: profile-cn470
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
       KR920-923:
         id: profile-kr920
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
       IN865-867:
         id: profile-in865
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
       RU864-870:
         id: profile-ru864
         lorawanCertified: true
-        codec: ws136_ws156-codec
+        codec: ws136ws156-codec
 
 sensors:
   - button
@@ -80,4 +80,4 @@ resellerURLs:
     url: https://www.alibaba.com/product-detail/Milesight-IoT-ws136_ws156-LoRaWAN-Smart-Button_1600565527448.html?spm=a2700.shop_plser.41413.14.60d3353fOwN2AL
 
 photos:
-  main: ws136_ws156.png
+  main: ws136ws156.png

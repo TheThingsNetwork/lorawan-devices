@@ -2,7 +2,7 @@
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - am103_am103l
+  - am103am103l
   - am104
   - am107
   - am307
@@ -31,7 +31,7 @@ endDevices:
   - uc1152
   - vs121
   - ws101
-  - ws136_ws156
+  - ws136ws156
   - ws202
   - ws301
   - ws50x
