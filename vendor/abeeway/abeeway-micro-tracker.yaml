@@ -1,5 +1,9 @@
 name: Abeeway Micro Tracker
-description: The Abeeway Micro Tracker is a multi-mode tracker for indoor and outdoor use. It provides accurate indoor and outdoor positioning using embedded geolocation sensors combining GPS, Low-power GPS, Wi-Fi Sniffing, BLE, and LoRaWAN® TDoA geolocation technologies. Ideal for tracking anything including people, pets, vehicles, and assets with antitheft and geofencing technologies.
+description: > 
+  The Abeeway Micro Tracker is a multi-mode tracker with embedded sensors combining GPS, Low-power GPS, Wi-Fi Sniffer, 
+  BLE and LoRaWAN TDoA geolocation technologies, for accurate outdoor and indoor geolocation.
+  It is versatile and multi-purpose. With its small size and long battery life, it is the ideal product for numerous tracking applications: 
+  things of value, people or pets. At the touch of a button, you can have access to a variety of functionalities personalized for your needs.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '3.0'
@@ -80,12 +84,12 @@ keySecurity: read protected
 
 # Product and data sheet URLs (optional)
 productURL: https://www.abeeway.com/micro-tracker/
-dataSheetURL: https://www.abeeway.com/wp-content/uploads/2020/10/20200825_Abeeway_Products_Micro_17.pdf
+dataSheetURL: https://www.abeeway.com/wp-content/uploads/2022/07/Abeeway_Products_Micro_2022-v2.4.pdf
 resellerURLs:
   - name: 'Actility'
     region:
       - European Union
-    url: https://market.thingpark.com/abeeway-microtracker-abw00200-eu868.html?___store=default
+    url: https://market.thingpark.com/abeeway-micro-tracker-v3.html
 
 # Photos
 photos:

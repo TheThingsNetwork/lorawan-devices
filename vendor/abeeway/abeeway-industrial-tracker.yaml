@@ -1,5 +1,9 @@
 name: Abeeway Industrial Tracker
-description: The Abeeway Industrial Tracker has embedded sensors combining GPS, Low-power GPS, Wi-Fi Sniffer, and LoRaWAN® TDoA geolocation technologies, supporting accurate outdoor and indoor geolocation. In addition to that, it has embedded sensors for measuring temperature, motion, and pressure. This tracker is an ideal solution for industry tracking and asset management needs.
+description: >
+  The Abeeway Industrial Tracker is a higly versatile multi-mode tracker with a large battery and embedded sensors combining GPS, Low-power GPS, 
+  Wi-Fi Sniffer, and LoRaWAN TDoA geolocation technologies, supporting accurate outdoor and indoor geolocation. 
+  Best of all, we designed this tracker to resist harsh surroundings enabling you to perform seamless asset tracking and management 
+  in any industrial environment – whether it’s for heavy-duty assets, inventory or livestock, taking advantage of its extraordinary battery autonomy.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '2.0'
@@ -84,12 +88,12 @@ keySecurity: read protected
 
 # Product and data sheet URLs (optional)
 productURL: https://www.abeeway.com/industrial-tracker/
-dataSheetURL: https://www.abeeway.com/wp-content/uploads/2020/11/Abeeway_Products_Industrial_07_DIGITAL.pdf
+dataSheetURL: https://www.abeeway.com/wp-content/uploads/2022/07/Abeeway_Products_Industrial_2022-v1.4.pdf
 resellerURLs:
   - name: 'Actility'
     region:
       - Other
-    url: https://market.thingpark.com/searchanise/result?q=industrial+tracker
+    url: https://market.thingpark.com/abeeway-industrial-tracker-v2.html
 
 # Photos
 photos:

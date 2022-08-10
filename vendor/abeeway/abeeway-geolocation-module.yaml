@@ -1,5 +1,11 @@
 name: Abeeway Geolocation Module
-description: The Abeeway Geolocation module for outdoor geolocation contains a high-performance multi-constellation GNSS receiver (GPS, GLONASS, Beidou, and Galileo) and supports a patented ultra Low-Power GPS (LP GPS) mode. Indoor positioning can be achieved by combining the Bluetooth Low Energy receiver and the ultra-low power Wi-Fi receiver.
+description: >
+  The Abeeway Geolocation Module is a multi-technology fused location module designed as the ideal platform to develop a wide range of 
+  battery-powered tracking solutions, minimizing the Total Cost of Ownership (TCO) of IoT geolocation use cases. It is s co-developed and manufactured 
+  by Murata, and integrates leading-edge technology from Semtech and STMicroelectronics.
+  This LoRaWAN fused location module contains a high-performance multi-constellation GNSS receiver (GPS, GLONASS, Beidou, and Galileo) and supports a 
+  patented ultra- Low – Power GPS (LP GPS) modeI, allowing your engineering to focus on the use case, to optimize time-to-market and cost by using less complex
+  PCBs (all high-density devices being encapsulated), to reduce certification risk and budget, as well as testing time and cost for mass production.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -81,13 +87,13 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
-dataSheetURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
+productURL: https://www.abeeway.com/abeeway-geolocation-module/
+dataSheetURL: https://www.abeeway.com/wp-content/uploads/2022/04/Abeeway_Geolocation-module-data-sheet_2022-v05.pdf
 resellerURLs:
   - name: 'Actility'
     region:
       - Other
-    url: https://www.actility.com/
+    url: https://market.thingpark.com/abeeway-low-power-geolocation-module-evaluation-kit-private-network.html
 
 # Photos
 photos:
