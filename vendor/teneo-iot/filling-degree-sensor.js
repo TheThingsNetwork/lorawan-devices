@@ -24,16 +24,18 @@ function decodeUplink(input) {
     }
 
     //Distance and status combined payload
-    if (input.bytes.length === 4 || input.bytes.length === 8) {
+    else if (input.bytes.length === 4 || input.bytes.length === 8) {
       data.valid = true;
       data.distance = (input.bytes[1] << 8) | input.bytes[2];
-      var statusCode = input.bytes[1];
-      if (statusCode === 4) {
-        data.valid = true;
-        data.distance = -1;
-      } else {
-        data.valid = false;
-        data.errorcode = input.bytes[3];
+      var statusCode = input.bytes[3];
+      if(statusCode != 0){
+        if (statusCode === 4) {
+          data.valid = true;
+          data.distance = -1;
+        } else  {
+          data.valid = false;
+          data.errorcode = statusCode;
+        }
       }
       if (input.bytes.length === 8) {
         data.temperature = ((input.bytes[4] << 8) | input.bytes[5]) / 100;
