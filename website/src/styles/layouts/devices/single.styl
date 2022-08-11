@@ -35,9 +35,11 @@
     display: flex
     justify-content: center
     margin-bottom: var(--ls-l)
+    gap:5px
 
     a
-      margin: 0 .5rem
+      text-decoration: none
+      margin: 0 var(--cs-s)
 
   &__specs
     background: var(--c-background-04)
@@ -59,3 +61,86 @@
     li
       font-size: var(--fs-s)
       padding-bottom: var(--cs-xs)
+
+
+.contact
+  position: fixed
+  display: block
+  width: 100%
+  max-width: var(--bp-xs)
+  top: 7.5%
+  right: 0
+  background: var(--c-background-04)
+  border-radius: var(--br-m)
+  box-shadow: 0 4px 30px rgba(0, 24, 89, .05)
+  border: 1px solid var(--c-line-05)
+  padding: var(--cs-m)
+  margin: var(--cs-x3l)
+  animation-name: contact-scale
+  animation-duration: 200ms
+  transform-style: preserve-3d
+  z-index: var(--zi-max)
+
+  &--hidden
+    display: none
+
+  &__error
+    text-align: left
+    color: var(--red-error-600)
+    font-size: var(--fs-s)
+
+  #partner-cross
+    background-color: var(--grey-100)
+    border-radius: var(--br-s)
+    padding: var(--cs-xxs)
+    cursor: pointer
+    display: flex
+    justify-content: center
+    align-content: center
+    width: var(--cs-xxl)
+    height: var(--cs-xxl)
+    padding: var(--cs-xs)
+
+    &:hover
+      background-color: var(--grey-200)
+
+  h3
+    width: 100%
+    text-align: left
+    font-family: Inter
+    font-style: normal
+    font-weight: var(--fw-bold)
+    font-size: var(--fs-xl)
+    line-height: var(--lh-xl)
+    letter-spacing: -0.02em
+    margin: 0
+
+  button
+    width: 100%
+    margin: 0
+
+  label
+    width: 100%
+    margin-bottom: var(--cs-s)
+    text-align: left
+    display: inline-block
+    color: var(--c-text-03)
+    font-family: 'Inter'
+
+  textarea, input
+    width:100%
+    padding: var(--cs-s)
+    border: .5px solid var(--c-icon-04)
+    border-radius: var(--br-m)
+    font-size: var(--fs-m)
+
+    &::placeholder
+      color: var(--grey-400)
+
+@keyframes contact-scale
+  from
+    opacity: 0
+    transform: translate3d(0, 15px, 0) scale3d(.9, .9, 1)
+  to
+    opacity: 1
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1)

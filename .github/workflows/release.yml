@@ -10,47 +10,47 @@ jobs:
     name: Release Device Repository
     runs-on: ubuntu-20.04
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '~1.16'
-    - name: Set up Node
-      uses: actions/setup-node@v2-beta
-      with:
-        node-version: '~14'
-    - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v2
-      with:
-        hugo-version: '0.83.1'
-        # extended: true
-    - name: Download Go dependencies
-      run: |
-        cd website/
-        make go.deps
-    - name: Build content
-      run: |
-        cd website/
-        make go.build
-    - name: Build assets
-      run: |
-        cd website/
-        yarn install
-        yarn build
-      env:
-        BASE_URL: https://www.thethingsnetwork.org
-        BASE_PATH: /device-repository
-    - name: Build Hugo
-      run: |
-        cd website/
-        make hugo.build.public
-      env:
-        BASE_URL: https://www.thethingsnetwork.org
-        BASE_PATH: /device-repository
-    - name: Deploy Device Repository to Github pages
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: website/public
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '~1.17'
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.83.1'
+          # extended: true
+      - name: Download Go dependencies
+        run: |
+          cd website/
+          make go.deps
+      - name: Build content
+        run: |
+          cd website/
+          make go.build
+      - name: Build assets
+        run: |
+          cd website/
+          yarn install
+          yarn build
+        env:
+          BASE_URL: https://www.thethingsnetwork.org
+          BASE_PATH: /device-repository
+      - name: Build Hugo
+        run: |
+          cd website/
+          make hugo.build.public
+        env:
+          BASE_URL: https://www.thethingsnetwork.org
+          BASE_PATH: /device-repository
+      - name: Deploy Device Repository to Github pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: website/public

@@ -1,6 +1,6 @@
-# LoRaWAN Device Repository
+# Device Repository for LoRaWAN
 
-The LoRaWAN Device Repository contains information about LoRaWAN end devices. The Device Repository acts as key data source for device catalogs and onboarding devices on LoRaWAN networks.
+The Device Repository contains information about LoRaWAN end devices. The Device Repository acts as key data source for device catalogs and onboarding devices on LoRaWAN networks.
 
 This repository is a collaborative effort, driven by The Things Network community. We welcome device makers to contribute information about their end devices to help users find and onboard their devices.
 
@@ -24,9 +24,9 @@ One of the operating systems:
 
 Development dependencies:
 
-- Node.js version 14.x
-- npm version 6.x
-- Go version 1.15.x
+- Node.js version 16.x
+- npm version 8.x
+- Go version 1.17.x
 
 To check your Node.js, npm and Go versions:
 
@@ -209,7 +209,7 @@ Each referenced end device profile needs to be defined in the **End device profi
 vendorProfileID: 0
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
-macVersion: 1.0.3
+macVersion: '1.0.3'
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
 #   1.0:   TS001-1.0
 #   1.0.1: TS001-1.0.1
@@ -217,7 +217,7 @@ macVersion: 1.0.3
 #   1.0.3: RP001-1.0.3-RevA
 #   1.0.4: RP002-1.0.0 or RP002-1.0.1
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-regionalParametersVersion: RP001-1.0.3-RevA
+regionalParametersVersion: 'RP001-1.0.3-RevA'
 
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
@@ -229,7 +229,7 @@ supportsJoin: true
 # RX2 data rate index
 #rx2DataRateIndex: 0
 # RX2 frequency (MHz)
-#rx2Frequency: 868.525
+#rx2Frequency: 869.525
 # Factory preset frequencies (MHz)
 #factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
 

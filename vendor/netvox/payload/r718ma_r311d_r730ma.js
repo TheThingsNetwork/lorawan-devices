@@ -62,8 +62,22 @@ function decodeUplink(input) {
 			};
 		}
 		data.Device = getDeviceName(input.bytes[1]);
-		data.Volt = input.bytes[3]/10;
-		data.Rssi = (input.bytes[4] << 8 | input.bytes[5]);
+		if (input.bytes[3] & 0x80)
+		{
+			var tmp_v = input.bytes[3] & 0x7F;
+			data.Volt = (tmp_v / 10).toString() + '(low battery)';
+		}
+		else
+			data.Volt = input.bytes[3]/10;
+
+		if (input.bytes[4] & 0x80)
+		{
+			var tmprssi = (input.bytes[4]<<8 | input.bytes[5]);
+			data.Rssi = (0x10000 - tmprssi) * -1;
+		}
+		else
+			data.Rssi = (input.bytes[4]<<8 | input.bytes[5]);
+	
 		data.Snr = input.bytes[6];
 		data.HeartInterval = (input.bytes[7] << 8 | input.bytes[8]);
 		

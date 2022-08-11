@@ -868,7 +868,7 @@ function Decoder(bytes, port) {
 
             //binary input counter
             if (  (clusterdID === 0x000f ) & (attributID === 0x0402)) {
-                tab.push({label: "Count"+(decoded.zclheader.endpoint+1), value: bytes[index], date: lDate});
+                tab.push({label: "Count"+(decoded.zclheader.endpoint+1), value: bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3], date: lDate});
             };
           
             // binary input present value

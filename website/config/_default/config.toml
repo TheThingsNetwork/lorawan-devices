@@ -1,6 +1,6 @@
 baseURL = "https://www.thethingsnetwork.org/device-repository"
 languageCode = "en-us"
-title = "LoRaWAN Device Repository"
+title = "Device Repository for LoRaWAN"
 
 [taxonomies]
   tag = "tags"

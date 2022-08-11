@@ -1,4 +1,4 @@
-name: Wireless Activity Timer R718MBC
+name: R718MBC - Wireless Activity Timer
 description: The device detects the duration of the movement or vibration (timekeeping) and sends the duration or timing information of the movement or vibration to the gateway for processing. The duration of the movement or vibration can be up to 1000 hours (theoretical value). SX1276 wireless communication module.
 
 hardwareVersions:

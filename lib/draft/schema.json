@@ -44,7 +44,14 @@
         "EU433",
         "AU915-928",
         "CN470-510",
+        "CN470-510-20-A",
+        "CN470-510-20-B",
+        "CN470-510-26-A",
+        "CN470-510-26-B",
         "AS923",
+        "AS923-2",
+        "AS923-3",
+        "AS923-4",
         "KR920-923",
         "IN865-867",
         "RU864-870",
@@ -492,14 +499,7 @@
           "rx2DataRateIndex": 3,
           "rx2Frequency": 869.525,
           "factoryPresetFrequencies": [
-            868.1,
-            868.3,
-            868.5,
-            867.1,
-            867.3,
-            867.5,
-            867.7,
-            867.9
+            868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9
           ],
           "maxEIRP": 14,
           "supports32bitFCnt": true
@@ -898,6 +898,7 @@
               "h2s",
               "humidity",
               "iaq",
+              "leaf wetness",
               "level",
               "light",
               "lightning",
@@ -934,6 +935,7 @@
               "temperature",
               "tilt",
               "time",
+              "turbidity",
               "tvoc",
               "uv",
               "vapor pressure",
@@ -958,7 +960,15 @@
         "bridgeInterfaces": {
           "type": "array",
           "items": {
-            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+            "enum": [
+              "modbus",
+              "m-bus",
+              "can bus",
+              "rs-485",
+              "sdi-12",
+              "analog",
+              "dali"
+            ]
           },
           "uniqueItems": true
         },

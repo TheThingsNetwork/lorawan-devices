@@ -7,7 +7,7 @@ hardwareVersions:
     partNumber: DL-IAM-001
 
 firmwareVersions:
-  - version: '1.5.7'
+  - version: 1.5.7
     numeric: 157
     hardwareVersions:
       - '1'
@@ -40,8 +40,8 @@ sensors:
   - battery
 
 dimensions:
-  width: 120
   length: 80
+  width: 120
   height: 25
 
 weight: 144

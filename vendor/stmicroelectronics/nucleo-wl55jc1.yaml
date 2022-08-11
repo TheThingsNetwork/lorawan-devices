@@ -10,40 +10,116 @@ firmwareVersions:
       - '1.0'
     profiles:
       EU863-870:
-        id: nucleo-wl55jc-profile-eu868
+        id: nucleo-wl55jc-profile-16
         lorawanCertified: true
         codec: nucleo-wl55jc-codec
       US902-928:
-        id: nucleo-wl55jc-profile-us915
+        id: nucleo-wl55jc-profile-32
         lorawanCertified: true
         codec: nucleo-wl55jc-codec
       AU915-928:
-        id: nucleo-wl55jc-profile-au915
+        id: nucleo-wl55jc-profile-30
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
       AS923:
-        id: nucleo-wl55jc-profile-as923
+        id: nucleo-wl55jc-profile-16
         lorawanCertified: true
         codec: nucleo-wl55jc-codec
       CN779-787:
-        id: nucleo-wl55jc-profile-cn779
+        id: nucleo-wl55jc-profile-12
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
       KR920-923:
-        id: nucleo-wl55jc-profile-kr920
+        id: nucleo-wl55jc-profile-14
         lorawanCertified: true
         codec: nucleo-wl55jc-codec
       IN865-867:
-        id: nucleo-wl55jc-profile-in865
+        id: nucleo-wl55jc-profile-30
         lorawanCertified: true
         codec: nucleo-wl55jc-codec
       RU864-870:
-        id: nucleo-wl55jc-profile-ru864
+        id: nucleo-wl55jc-profile-16
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+  - version: 'LoRaWAN_End_Node v1.1.0'
+    numeric: 2
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: nucleo-wl55jc-profile-16
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      US902-928:
+        id: nucleo-wl55jc-profile-32
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      AU915-928:
+        id: nucleo-wl55jc-profile-30
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      AS923:
+        id: nucleo-wl55jc-profile-16
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      CN779-787:
+        id: nucleo-wl55jc-profile-12
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      KR920-923:
+        id: nucleo-wl55jc-profile-14
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      IN865-867:
+        id: nucleo-wl55jc-profile-30
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      RU864-870:
+        id: nucleo-wl55jc-profile-16
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+  - version: 'LoRaWAN_End_Node v1.2.0'
+    numeric: 3
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: nucleo-wl55jc-profile-16-lw104
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      US902-928:
+        id: nucleo-wl55jc-profile-32-lw104
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      AU915-928:
+        id: nucleo-wl55jc-profile-30-lw104
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      AS923:
+        id: nucleo-wl55jc-profile-16-lw104
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      CN779-787:
+        id: nucleo-wl55jc-profile-12-lw104
+        lorawanCertified: false
+        codec: nucleo-wl55jc-codec
+      KR920-923:
+        id: nucleo-wl55jc-profile-14-lw104
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      IN865-867:
+        id: nucleo-wl55jc-profile-30-lw104
+        lorawanCertified: true
+        codec: nucleo-wl55jc-codec
+      RU864-870:
+        id: nucleo-wl55jc-profile-16-lw104
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
 sensors:
-  - temperature
   - light
+  - pressure
+  - temperature
+  - humidity
 dimensions:
   width: 70
   length: 64.5

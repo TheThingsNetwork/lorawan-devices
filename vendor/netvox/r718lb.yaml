@@ -1,4 +1,4 @@
-name: Wireless Hall Type Open/Close
+name: R718LB - Wireless Hall Type Open/Close
 description: The Netvox R718LB - Hall Type Open/Close is a LoRaWAN® end device that consists of a hall-effect sensor to detect the open and close state of anything, for example detecting the opening and closing of doors and windows.
 
 hardwareVersions:

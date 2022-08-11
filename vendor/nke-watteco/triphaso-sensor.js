@@ -874,21 +874,21 @@ function Decoder(bytes, port) {
 
           //energy and power metering
           if (  (clusterdID === 0x800a) & (attributID === 0x0000)) {
-            tab.push({label: "PositiveActiveEnergyWh", value: UintToInt(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4],4), date: lDate});
-            tab.push({label: "NegativeActiveEnergyWh", value: UintToInt(bytes[index+5]*256*256*256+bytes[index+6]*256*256+bytes[index+7]*256+bytes[index+8],4), date: lDate});
-            tab.push({label:"PositiveReactiveEnergyWh", value: UintToInt(bytes[index+9]*256*256*256+bytes[index+10]*256*256+bytes[index+11]*256+bytes[index+12],4), date: lDate});
-            tab.push({label: "NegativeReactiveEnergyWh", value: UintToInt(bytes[index+13]*256*256*256+bytes[index+14]*256*256+bytes[index+15]*256+bytes[index+16],4), date: lDate});
+            tab.push({label: "PositiveActiveEnergyWhOrkWh", value: UintToInt(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4],4), date: lDate});
+            tab.push({label: "NegativeActiveEnergyWhOrkWh", value: UintToInt(bytes[index+5]*256*256*256+bytes[index+6]*256*256+bytes[index+7]*256+bytes[index+8],4), date: lDate});
+            tab.push({label:"PositiveReactiveEnergyVarhOrkVarh", value: UintToInt(bytes[index+9]*256*256*256+bytes[index+10]*256*256+bytes[index+11]*256+bytes[index+12],4), date: lDate});
+            tab.push({label: "NegativeReactiveEnergyVarhOrkVarh", value: UintToInt(bytes[index+13]*256*256*256+bytes[index+14]*256*256+bytes[index+15]*256+bytes[index+16],4), date: lDate});
             tab.push({label: "PositiveActivePowerW", value: UintToInt(bytes[index+17]*256*256*256+bytes[index+18]*256*256+bytes[index+19]*256+bytes[index+20],4), date: lDate});            
-            tab.push({label: "NegativeActivePower", value: UintToInt(bytes[index+21]*256*256*256+bytes[index+22]*256*256+bytes[index+23]*256+bytes[index+24],4), date: lDate});            
-            tab.push({label: "PositiveReactivePowerW", value: UintToInt(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28],4), date: lDate});
-            tab.push({label: "NegativeReactivePowerW", value: UintToInt(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32],4), date: lDate});
+            tab.push({label: "NegativeActivePowerW", value: UintToInt(bytes[index+21]*256*256*256+bytes[index+22]*256*256+bytes[index+23]*256+bytes[index+24],4), date: lDate});            
+            tab.push({label: "PositiveReactivePowerVar", value: UintToInt(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28],4), date: lDate});
+            tab.push({label: "NegativeReactivePowerVar", value: UintToInt(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32],4), date: lDate});
           }
 
           //energy and power metering
 				  if (  (clusterdID === 0x800b) & (attributID === 0x0000)) {
             tab.push({label: "Vrms", value: UintToInt(bytes[index+1]*256+bytes[index+2],2)/10, date: lDate});
             tab.push({label: "Irms", value: UintToInt(bytes[index+3]*256+bytes[index+4],2)/10, date: lDate});
-            tab.push({label: "Phase", value: UintToInt(bytes[index+5]*256+bytes[index+6],2)/10, date: lDate});
+            tab.push({label: "Angle", value: UintToInt(bytes[index+5]*256+bytes[index+6],2), date: lDate});
 			  	}
 
             // lorawan message type

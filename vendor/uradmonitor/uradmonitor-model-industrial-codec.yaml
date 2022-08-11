@@ -1,0 +1,80 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: industrial.js
+  # Examples (optional)
+  examples:
+    - description: Decode
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x14,
+            0x00,
+            0x00,
+            0x8E,
+            0x06,
+            0x4E,
+            0x00,
+            0x00,
+            0x1C,
+            0x20,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x07,
+            0x32,
+            0x87,
+            0x97,
+            0x82,
+            0x03,
+            0x12,
+            0x76,
+            0xA3,
+            0x2A,
+            0x00,
+            0x02,
+            0x8D,
+            0x2C,
+            0x00,
+            0x00,
+            0x0D,
+            0x2B,
+            0x00,
+            0x00,
+            0x0A,
+            0x04,
+            0x00,
+            0x00,
+            0x00,
+            0x02,
+            0x00,
+            0x07,
+            0x00,
+            0x45,
+          ]
+      output:
+        data:
+          model: 'Industrial'
+          hardware_version: 'HW6'
+          firmware_version: 78
+          temperature: 18.42
+          pressure: 100246
+          humidity: 65
+          gas_resistance: 201334
+          sound: 81.5
+          o3: 0.653
+          no2: 0.013
+          so2: 0.01
+          co: 0
+          pm1: 5
+          pm2_5: 7
+          pm10: 7
+          iaq: 14

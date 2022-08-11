@@ -54,8 +54,8 @@ sensors:
   - battery
 
 dimensions:
-  width: 36
-  length: 121
+  width: 35
+  length: 120
   height: 35
 
 weight: 163
@@ -78,7 +78,7 @@ keyProvisioning:
 keySecurity: none
 
 productURL: https://www.develiot.com/remote-water-meter-reader
-dataSheetURL: https://www.develiot.com/assets/files/Datasheet%20Remote%20Water%20Meter%20Reader%20EN%20v8.0%20June%202020(3).pdf
+dataSheetURL: https://www.develiot.com/assets/files/Datasheet%20Remote%20Water%20Meter%20Reader%20EN%20v8.2%20July%202021.pdf
 
 photos:
   main: main.png

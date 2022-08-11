@@ -82,6 +82,20 @@ function float16Process(h) {
     return (sign?-1:1) * Math.pow(2, exp-15) * (1+(fraction/Math.pow(2, 10)));
 }
 
+function float32Process(h) {
+    var sign = (h & 0x8000) >> 15;
+    var exp = (h & 0x7F80) >> 7;
+    var fraction = (h & 0x007F) << 16;
+
+    if(exp == 0) {
+        return (sign?-1:1) * Math.pow(2,-126) * (fraction/Math.pow(2, 23));
+    } else if (exp == 0xFF) {
+        return fraction?NaN:((sign?-1:1)*Infinity);
+    }
+
+    return (sign?-1:1) * Math.pow(2, exp-127) * (1+(fraction/Math.pow(2, 23)));
+}
+
 function decodeUplink(input) {
   var data = {};
   switch (input.fPort) {
@@ -101,16 +115,23 @@ function decodeUplink(input) {
 		data.Device = getDeviceName(input.bytes[1]);
 		if (input.bytes[2] === 0x01)
 		{
-			data.Volt = input.bytes[3]/10;
-			data.AccelerationX = parseFloat(float16Process(input.bytes[5]<<8 | input.bytes[4]).toFixed(6));
-			data.AccelerationY = parseFloat(float16Process(input.bytes[7]<<8 | input.bytes[6]).toFixed(6));
-			data.AccelerationZ = parseFloat(float16Process(input.bytes[9]<<8 | input.bytes[8]).toFixed(6));
+			if (input.bytes[3] & 0x80)
+			{
+				var tmp_v = input.bytes[3] & 0x7F;
+				data.Volt = (tmp_v / 10).toString() + '(low battery)';
+			}
+			else
+				data.Volt = input.bytes[3]/10;
+
+			data.AccelerationX = parseFloat(float32Process(input.bytes[5]<<8 | input.bytes[4]).toFixed(6));
+			data.AccelerationY = parseFloat(float32Process(input.bytes[7]<<8 | input.bytes[6]).toFixed(6));
+			data.AccelerationZ = parseFloat(float32Process(input.bytes[9]<<8 | input.bytes[8]).toFixed(6));
 		}
 		else
 		{
-			data.VelocityX = parseFloat(float16Process(input.bytes[4]<<8 | input.bytes[3]).toFixed(6));
-			data.VelocityY = parseFloat(float16Process(input.bytes[6]<<8 | input.bytes[5]).toFixed(6));
-			data.VelocityZ = parseFloat(float16Process(input.bytes[8]<<8 | input.bytes[7]).toFixed(6));
+			data.VelocityX = parseFloat(float32Process(input.bytes[4]<<8 | input.bytes[3]).toFixed(6));
+			data.VelocityY = parseFloat(float32Process(input.bytes[6]<<8 | input.bytes[5]).toFixed(6));
+			data.VelocityZ = parseFloat(float32Process(input.bytes[8]<<8 | input.bytes[7]).toFixed(6));
 			if (input.bytes[9] & 0x80)
 			{
 				var tmpval = (input.bytes[9]<<8 | input.bytes[10]);

@@ -1,0 +1,227 @@
+uplinkDecoder:
+  fileName: payload/r831.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xAD, 0x00, 0x64, 0x01, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R831C'
+          SWver: 10
+          HWver: 1
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xAD, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R831C'
+          Relay_1: 'ON'
+          Relay_2: 'ON'
+          Relay_3: 'OFF'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R831C'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xAD, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R831C'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Set switch type response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSwitchTypeRsp'
+          Device: 'R831C'
+          Status: 'Success'
+
+    - description: Get switch type response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSwitchTypeRsp'
+          Device: 'R831C'
+          SwitchType: 'Toggle'
+
+downlinkDecoder:
+  fileName: payload/r831.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xAD, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R831C'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R831C'
+
+    - description: Set switch type request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xAD, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSwitchTypeReq'
+          Device: 'R831C'
+          SwitchType: 'Momentary'
+
+    - description: Get switch type request
+      input:
+        fPort: 7
+        bytes: [0x04, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSwitchTypeReq'
+          Device: 'R831C'
+
+    - description: Off
+      input:
+        fPort: 7
+        bytes: [0x90, 0xAD, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Off'
+          Device: 'R831C'
+          Channel: '00000111'
+
+    - description: On
+      input:
+        fPort: 7
+        bytes: [0x91, 0xAD, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'On'
+          Device: 'R831C'
+          Channel: '00000001'
+
+    - description: Toggle
+      input:
+        fPort: 7
+        bytes: [0x92, 0xAD, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Toggle'
+          Device: 'R831C'
+          Channel: '00000010'
+
+    - description: Read current status
+      input:
+        fPort: 7
+        bytes: [0x94, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadCurrentStatus'
+          Device: 'R831C'
+
+downlinkEncoder:
+  fileName: payload/r831.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R831C'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0xAD, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R831C'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set switch type request
+      input:
+        data:
+          Cmd: 'SetSwitchTypeReq'
+          Device: 'R831C'
+          SwitchType: 'Toggle'
+      output:
+        fPort: 7
+        bytes: [0x03, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get switch type request
+      input:
+        data:
+          Cmd: 'GetSwitchTypeReq'
+          Device: 'R831C'
+      output:
+        fPort: 7
+        bytes: [0x04, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Off
+      input:
+        data:
+          Cmd: 'Off'
+          Device: 'R831C'
+          Channel: 7
+      output:
+        fPort: 7
+        bytes: [0x90, 0xAD, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: On
+      input:
+        data:
+          Cmd: 'On'
+          Device: 'R831C'
+          Channel: 2
+      output:
+        fPort: 7
+        bytes: [0x91, 0xAD, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Toggle
+      input:
+        data:
+          Cmd: 'Toggle'
+          Device: 'R831C'
+          Channel: 5
+      output:
+        fPort: 7
+        bytes: [0x92, 0xAD, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read current status
+      input:
+        data:
+          Cmd: 'ReadCurrentStatus'
+          Device: 'R831C'
+      output:
+        fPort: 7
+        bytes: [0x94, 0xAD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

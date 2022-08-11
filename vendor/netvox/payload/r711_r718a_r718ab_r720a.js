@@ -54,7 +54,14 @@ function decodeUplink(input) {
 			};
 		}
 
-		data.Volt = input.bytes[3]/10;
+		if (input.bytes[3] & 0x80)
+		{
+			var tmp_v = input.bytes[3] & 0x7F;
+			data.Volt = (tmp_v / 10).toString() + '(low battery)';
+		}
+		else
+			data.Volt = input.bytes[3]/10;
+
 		data.Device = getDeviceName(input.bytes[1]);
 		if (input.bytes[4] & 0x80)
 		{
@@ -62,9 +69,9 @@ function decodeUplink(input) {
 			data.Temp = (0x10000 - tmpval)/100 * -1;
 		}
 		else
-			data.Temp = (input.bytes[4]*16*16 + input.bytes[5])/100;
+			data.Temp = (input.bytes[4]<<8 | input.bytes[5])/100;
 		
-		data.Humi = (input.bytes[6]*16*16 + input.bytes[7])/100;
+		data.Humi = (input.bytes[6]<<8 | input.bytes[7])/100;
 
 		break;
 		
@@ -78,11 +85,11 @@ function decodeUplink(input) {
 		else if (input.bytes[0] === 0x82)
 		{
 			data.Cmd = getCmdId(input.bytes[0]);
-			data.MinTime = (input.bytes[2]*16*16 + input.bytes[3]);
-			data.MaxTime = (input.bytes[4]*16*16 + input.bytes[5]);
+			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
+			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
-			data.TempChange = (input.bytes[7]*16*16 + input.bytes[8])/100;
-			data.HumiChange = (input.bytes[9]*16*16 + input.bytes[10])/100;
+			data.TempChange = (input.bytes[7]<<8 | input.bytes[8])/100;
+			data.HumiChange = (input.bytes[9]<<8 | input.bytes[10])/100;
 		}
 		break;
 
@@ -134,11 +141,11 @@ function decodeDownlink(input) {
 		if (input.bytes[0] === 0x01)
 		{
 			data.Cmd = getCmdId(input.bytes[0]);
-			data.MinTime = (input.bytes[2]*16*16 + input.bytes[3]);
-			data.MaxTime = (input.bytes[4]*16*16 + input.bytes[5]);
+			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
+			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
-			data.TempChange = (input.bytes[7]*16*16 + input.bytes[8])/100;
-			data.HumiChange = (input.bytes[9]*16*16 + input.bytes[10])/100;
+			data.TempChange = (input.bytes[7]<<8 | input.bytes[8])/100;
+			data.HumiChange = (input.bytes[9]<<8 | input.bytes[10])/100;
 		}
 		else if (input.bytes[0] === 0x02)
 		{

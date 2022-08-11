@@ -1,4 +1,4 @@
-name: Temperature and Humidity Sensor for Low Temperature Environment
+name: R718A - Temperature and Humidity Sensor for Low Temperature Environment
 description: The Netvox R718A Temperature and Humidity Sensor - for Low Temperature Environment contains a temperature sensor and a humidity sensor that is capable of measuring temperature and humidity at low-temperature environments. Ideal for use in domestic and commercial refrigerators to measure temperature and humidity when storing and transporting food, medicines, flowers, and other goods. The measured data will be sent to a LoRaWAN® network for further processing.
 
 hardwareVersions:

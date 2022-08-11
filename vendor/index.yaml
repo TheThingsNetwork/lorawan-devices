@@ -158,13 +158,14 @@ vendors:
   - id: decentlab
     name: Decentlab GmbH
     vendorID: 109
-    website: https://www.decentlab.com/
+    website: https://www.decentlab.com
     logo: decentlab_logo.svg
     ouis:
       - 70B3D57BA
     description: Decentlab is a Swiss company providing wireless sensor devices and services for distributed, cost-effective monitoring solutions. The sensor devices communicate wirelessly over LoRaWAN® and are designed for ultra low power consumption, capable of operating on batteries for several years. The devices are built for industrial applications and are ready to be deployed in any harsh indoor or outdoor environment. The service framework provides convenient access to measurement data and enables seamless integration into existing monitoring and control systems. Application areas are environmental and air quality monitoring, hydrological measurements, smart agriculture and smart cities.
     social:
-      linkedin: https://www.linkedin.com/company/decentlab/
+      linkedin: https://www.linkedin.com/company/decentlab
+      facebook: https://www.facebook.com/decentlab.gmbh
       twitter: decentlab
       github: decentlab
 
@@ -208,9 +209,10 @@ vendors:
     name: Eddy Solutions
     vendorID: 128
 
-  - id: elektroniksystem
-    name: ElektronikSystem i Ume
+  - id: elsys
+    name: Elsys
     vendorID: 132
+    website: https://www.elsys.se/en/
 
   - id: eleven-x
     name: Eleven-x
@@ -310,6 +312,14 @@ vendors:
   - id: invoxia
     name: Invoxia
     vendorID: 211
+
+  - id: iothings
+    name: ioThings
+    website: https://iothings.nl
+    logo: iothings-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/iotracker
+      github: iotracker
 
   - id: last-mile
     name: Last Mile Solutions AS
@@ -420,11 +430,11 @@ vendors:
     ouis:
       - 0002CC
 
-  - id: mcf88
-    name: MCF88 SRL
+  - id: enginko
+    name: enginko SRL
     vendorID: 259
     website: https://www.enginko.com
-    logo: mcf88_logo.svg
+    logo: enginko_logo.svg
 
   - id: meas-france
     name: MEAS FRANCE
@@ -715,8 +725,8 @@ vendors:
     name: Telog Instruments, Inc.
     vendorID: 422
 
-  - id: ttn
-    name: The Things Network Foundation
+  - id: the-things-industries
+    name: The Things Industries
     vendorID: 428
 
   - id: turbo
@@ -1586,9 +1596,6 @@ vendors:
   - id: the-things-products
     name: The Things Products
 
-  - id: the-things-industries
-    name: The Things Industries
-
   - id: the-box-development
     name: The-Box Development
 
@@ -1614,6 +1621,12 @@ vendors:
 
   - id: sensedge
     name: Sensedge
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://sensedge.co/
+    logo: sensedge_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco
 
   - id: embit
     name: Embit SRL
@@ -1657,8 +1670,8 @@ vendors:
     logo: logo.png
 
   - id: acrios
-    name: Acrios Systems S.RO.
-    website: https://acrios.com/
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/?lang=en
     logo: acrioslogo.png
 
   - id: espeasy
@@ -1684,9 +1697,9 @@ vendors:
     name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
 
-  - id: elsys
-    name: ElektronikSystem i Ume
-    website: https://www.elsys.se/en/
+  - id: xignal
+    name: Xignal
+    website: https://www.xignal.com
 
   - id: opensource
     name: Open Source Community Projects
@@ -1695,3 +1708,158 @@ vendors:
   - id: origoelec
     name: Origoelec
     website: http://www.origoelec.com
+
+  - id: dezem
+    name: deZem GmbH
+    website: https://www.dezem.de/en/
+
+  - id: mutelcor
+    name: Mutelcor GmbH
+    website: https://mutelcor.com/iot/
+    logo: mc_logo.svg
+
+  - id: sting
+    name: sting
+    description: ...straight to it...
+    website: https://st-ing.net/
+    logo: sting.png
+
+  - id: smart-parks
+    name: Smart Parks
+    website: https://www.smartparks.org/
+
+  - id: nexelec
+    name: Nexelec
+    website: https://www.nexelec.fr/
+
+  - id: terabee
+    name: Terabee
+    website: https://www.terabee.com/
+
+  - id: uradmonitor
+    name: uRADMonitor
+    website: https://www.uradmonitor.com/
+
+  - id: jeng-iot
+    name: JENG IoT
+    website: https://www.jeng.io/
+    logo: jeng_iot_logo.png
+    ouis:
+      - 70B3D55AF
+    description: JENG IoT is a Dutch based company providing sensor devices and e2e IoT solutions. The devices communicate over LoRaWAN® and have an ultra-low power consumption enables operating for several years on batteries. In our cloud environment, powered by our partner Yodiwo, our devices and solutions are available off-the-shelf. We offer great dashboard apps and easy integration into your own IT environment. Applications areas are smart cities & tracking devices (containers).
+    social:
+      linkedin: https://www.linkedin.com/company/jeng/
+      twitter: jeng_iot
+
+  - id: sezo
+    name: SEZO
+    website: https://sezo.pl/
+    logo: sezo.png
+
+  - id: emu
+    name: EMU Electronic AG
+    website: https://www.emuag.ch/
+    logo: emu_electronic_logo.png
+    ouis:
+      - 102CEF
+
+  - id: ellenex
+    name: Ellenex
+    description: Ellenex provides Industrial IOT Solutions that are ruggedused, battery operated and scalable.
+    logo: logo.png
+    website: https://www.ellenex.com
+    social:
+      linkedin: https://au.linkedin.com/company/ellenex
+    ouis:
+      - 70B3D5CD0
+
+  - id: ttn
+    name: The Things Network Foundation
+
+  - id: micropelt
+    name: micropelt
+    website: http://www.micropelt.com/
+
+  - id: tinovi
+    name: tinovi
+    website: https://tinovi.com/
+    logo: tinovi.png
+
+  - id: slscorp
+    name: System Level Solutions (India) Pvt. Ltd.
+    website: https://www.slscorp.com/
+    logo: slscorp_logo.png
+    description: We are a Product and Service Company in Hardware & Software established as a Turnkey solution provider. With a strong focus on smart energy, industrial IoT, and utility-grade wireless solutions - covering metering, integration of microgeneration, field operations, consumer devices, and a cloud-based open-standards for the Internet of Things (IoT) platform, SLS has successfully established itself as an international technology provider to multiple sectors.
+    social:
+      linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
+      twitter: S_L_S
+      github: github-sls
+
+  - id: kuleuven-dramco
+    name: KU Leuven Dramco
+    website: https://dramco.be/
+
+  - id: iot4eu
+    name: IOT4 Ltd
+
+  - id: noah
+    name: noah GmbH
+    website: https://noah.tech
+    logo: noah.png
+    social:
+      linkedin: https://www.linkedin.com/company/noah-gmbh/
+      github: noah-software
+
+  - id: move-x
+    name: Move-X
+    logo: move-x.svg
+    website: https://move-x.it/
+
+  - id: plenom
+    name: Plenom A/S
+    website: https://www.plenom.com
+
+  - id: quandify
+    name: Quandify AB
+    website: https://quandify.com
+    logo: quandify.png
+    social:
+      linkedin: https://www.linkedin.com/company/quandify/
+
+  - id: greenme
+    name: GreenMe SAS
+    website: https://www.greenme.fr
+    logo: greenme.png
+    social:
+      linkedin: https://www.linkedin.com/company/greenme/
+
+  - id: thermokon
+    name: Thermokon Sensortechnik GmbH
+    vendorID: 923
+
+  - id: senzemo
+    name: Senzemo
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://senzemo.com/
+    logo: senzemo-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco
+
+  - id: hbi
+    name: HBI Bisscheroux
+    description: Standing out in intelligent lighting solutions for public spaces, indoors and out. Taking on a leading role nationally and internationally in the top segment of highly sustainable light fittings for a safe and sustainable world. These are the strategic principles that make HBI stand out from the rest of the market.
+    website: https://www.hbi-lighting.com
+    logo: hbi-logo.png
+    social:
+      facebook: https://www.facebook.com/HBIBisscherouxbv/
+      linkedin: https://www.linkedin.com/company/hbi-bisscheroux/
+      twitter: hbi_bv
+
+  - id: saninudge
+    name: Sani Nudge
+    description: With intelligent sensors and actionable insights, Sani Nudge helps healthcare institutions reduce infections and maximize operational efficiencies
+    website: https://saninudge.com
+    logo: saninudge-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/saninudge/
