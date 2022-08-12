@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: decoder_smart_room_sensor.js
+  fileName: decoder_smart_room_sensor_pir_base.js
   examples:
     - description: Periodic uplink
       input:
@@ -11,4 +11,4 @@ uplinkDecoder:
           relative_humidity: 20
 
 downlinkEncoder:
-  fileName: encoder_smart_room_sensor.js
+  fileName: encoder_smart_room_sensor_pir_base.js
