@@ -1829,3 +1829,13 @@ vendors:
   - id: thermokon
     name: Thermokon Sensortechnik GmbH
     vendorID: 923
+
+  - id: grinn
+    name: Grinn sp. z o.o.
+    description: Grinn is a technology company dedicated to building IoT solutions from a scratch. Since 2008 we are delivering high class services on embedded software development, electronics design, mechanical engineering and production management. During the last 15 years we've designed plenty of projects for different industries like automotive, healthcare, security, agriculture, business, etc.
+    website: https://grinn-global.com
+    logo: grinn-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/grinn
+      facebook: https://www.facebook.com/GRINNGLOBAL
+      twitter: GrinnInt
