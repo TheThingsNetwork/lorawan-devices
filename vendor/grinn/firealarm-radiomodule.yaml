@@ -54,4 +54,4 @@ dimensions:
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 14505
+  type: ER14505 3.6V Lithium AA battery
