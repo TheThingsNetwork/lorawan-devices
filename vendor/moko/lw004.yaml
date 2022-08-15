@@ -47,7 +47,7 @@ firmwareVersions:
         codec: lw004-codec
 
 
-  - # Firmware version
+- # Firmware version
     version: '3.0.4'
     numeric: 1
     hardwareVersions:
