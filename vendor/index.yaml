@@ -1863,3 +1863,11 @@ vendors:
     logo: saninudge-logo.svg
     social:
       linkedin: https://www.linkedin.com/company/saninudge/
+
+  - id: ambitlocker
+    name: Ambitlocker
+    description: Established in 2017, Ambitlocker is a Danish technology business that develops digital management systems for locking units. We have initially concentrated on implementing our technology in our padlocks, which makes it extremely easy to digitalise analogue and mechanical units without the need to rebuild them.
+    website: https://ambitlocker.com
+    logo: logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/ambitlocker
