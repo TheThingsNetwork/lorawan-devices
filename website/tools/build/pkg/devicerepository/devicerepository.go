@@ -192,7 +192,6 @@ func (drs *Store) SetVendorEndDevices(dir config.Dir) error {
 
 // Device returns end device yaml file as a string, and a striped down endDevice struct
 func (drs *Store) Device(vendorID string, endDevice string, dir config.Dir) (*EndDevice, error) {
-
 	fmt.Printf(dir.DeviceRepo.Vendor)
 
 	yamlFile, err := ioutil.ReadFile(dir.DeviceRepo.Vendor + vendorID + "/" + endDevice + ".yaml")
