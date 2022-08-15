@@ -1,11 +1,5 @@
 function decodeUplink(input) {
-  // var byteArray = new Array(bytes.length);
-  // for(var i=0; i<bytes.length; i++){
-  //   byteArray[i] = bytes[i];
-  // }
-  
   var decoded = {};
-  var errors = [];
   
   //decoded.bytes = byteArray;
   decoded.bytes = input.bytes;

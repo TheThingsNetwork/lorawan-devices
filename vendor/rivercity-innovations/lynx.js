@@ -1,6 +1,5 @@
 function decodeUplink(input) {
   var decoded = {};
-  var errors = [];
     
   if( input.fPort == 2 )
   {
@@ -19,8 +18,7 @@ function decodeUplink(input) {
     decoded.inTrip = ((input.bytes[8] & 0x80) !== 0) ? true : false;
     decoded.fixFailed = ((input.bytes[8] & 0x40) !== 0) ? true : false; 
     decoded.batV = ((input.bytes[8] & 0x3F) + 20) / 10; // 6 bits, range 0V to 6V 
-    
-    // decoded.speedKmph = (input.bytes[9] * 160 / 256); // 8 bits, range 0 to 160 km/h
+
     decoded.direction = (input.bytes[9] * 360/255); // 8 bits, range 0 to (360-360/255) degrees
     
     decoded.temperature = input.bytes[10];
