@@ -41,13 +41,6 @@ uplinkDecoder:
         data:
           gpsTimeoutSec: 90   # (in seconds)
           accelSensitivity: 8
-    - description: Unknown FPort
-      input:
-        fPort: 42
-        bytes: [1, 42]
-      output:
-        errors:
-          - Unknown fPort
 
 # # Downlink encoder encodes JSON object into a binary data downlink (optional)
 # downlinkEncoder:

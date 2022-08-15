@@ -89,12 +89,8 @@ function decodeUplink(input) {
     decoded.ReportsNumChecksRegular = input.bytes[5] + input.bytes[4]*256;
     decoded.ReportsNumChecksAlert = input.bytes[7] + input.bytes[6]*256;
   }
-  else{
-    errors.push("Unknown fPort");
-  }
   
   return {
-    data: decoded,
-    errors: errors
+    data: decoded
   }
 }

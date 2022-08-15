@@ -55,14 +55,6 @@ uplinkDecoder:
           CheckTimeSeconds: 60
           ReportsNumChecksRegular: 30 
           ReportsNumChecksAlert: 20
-    - description: Incorrect fPort
-      input: 
-        fPort: 10
-        bytes: [1, 2]
-      output:
-        data:
-          errors:
-            - Unknown fPort
     
 # # Downlink encoder encodes JSON object into a binary data downlink (optional)
 # downlinkEncoder:

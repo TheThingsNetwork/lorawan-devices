@@ -43,12 +43,7 @@ function decodeUplink(input) {
     decoded.gpsTimeoutSec = bytes[3] + bytes[2] * 256 + bytes[1] * 65536 + bytes[0] * 16777216;
     decoded.accelSensitivity = bytes[4];
   }
-  else{
-    errors.push("Unknown fPort");
-  }
-
   return {
-    data: decoded,
-    errors: errors
+    data: decoded
   }
 }
