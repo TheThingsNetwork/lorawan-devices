@@ -168,7 +168,7 @@ photos:
 videos:
   main: https://www.youtube.com/watch?v=6IKXtFg5FVk
   other:
-   - https://www.youtube.com/watch?v=qhMJ2Uar8-U
+    - https://www.youtube.com/watch?v=qhMJ2Uar8-U
 
 # Regulatory compliances (optional)
 compliances:

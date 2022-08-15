@@ -13,7 +13,7 @@ firmwareVersions:
     numeric: 1
     hardwareVersions:
       - '1.6'
- 
+
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
@@ -45,7 +45,6 @@ firmwareVersions:
       KR920-923:
         id: a-kr920
         codec: lw004-codec
-
 
   - # Firmware version
     version: '3.0.4'
