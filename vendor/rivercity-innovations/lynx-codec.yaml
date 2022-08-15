@@ -47,7 +47,7 @@ uplinkDecoder:
         bytes: [1, 42]
       output:
         errors:
-          - unknown FPort
+          - Unknown fPort
 
 # # Downlink encoder encodes JSON object into a binary data downlink (optional)
 # downlinkEncoder:
