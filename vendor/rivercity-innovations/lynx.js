@@ -2,7 +2,7 @@ function decodeUplink(input) {
   var decoded = {};
   var errors = [];
     
-  if( port == 2 )
+  if( input.fPort == 2 )
   {
     decoded.type = "position";
     
@@ -28,17 +28,17 @@ function decodeUplink(input) {
       decoded.temperature -= 128;
     decoded.temperature = decoded.temperature / 2;
   }
-  else if(port == 3)
+  else if(input.fPort == 3)
   {
     decoded.LoRaWANVersion = bytes[0].toString(16) + "." + bytes[1].toString(16) + "." + bytes[2].toString(16) + "." + bytes[3].toString(16);
     decoded.FirmwareVersion = bytes[4].toString(16) + "." + bytes[5].toString(16) + "." + bytes[6].toString(16) + "." + bytes[7].toString(16);
   }
-  else if (port == 4)
+  else if (input.fPort == 4)
   {
     decoded.ShortSleepTime = bytes[3] + bytes[2] * 256 + bytes[1] * 65536 + bytes[0] * 16777216;
     decoded.LongSleepTime = bytes[7] + bytes[6] * 256 + bytes[5] * 65536 + bytes[4] * 16777216;
   }
-  else if (port == 5)
+  else if (input.fPort == 5)
   {
     decoded.gpsTimeoutSec = bytes[3] + bytes[2] * 256 + bytes[1] * 65536 + bytes[0] * 16777216;
     decoded.accelSensitivity = bytes[4];
