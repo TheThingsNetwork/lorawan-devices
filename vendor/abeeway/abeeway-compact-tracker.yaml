@@ -93,7 +93,7 @@ resellerURLs:
   - name: 'Actility'
     region:
       - Other
-    url: : https://market.thingpark.com/abeeway-compact-tracker.html
+    url: https://market.thingpark.com/abeeway-compact-tracker.html
 
 # Photos
 photos:
