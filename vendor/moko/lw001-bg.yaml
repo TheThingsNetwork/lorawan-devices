@@ -65,12 +65,11 @@ sensors:
   - bluetooth positioning
   - wifi positioning
   - non-chargeable battery
-  - Anti-theft 
-  - Hall 
+  - Anti-theft
+  - Hall
   - Led indicator
-  - shock 
+  - shock
   - Flash
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -85,7 +84,7 @@ weight: 200
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3*ER18505 
+  type: 3*ER18505
 
 # Operating conditions (optional)
 operatingConditions:
@@ -129,14 +128,12 @@ firmwareProgramming:
 productURL: https://www.mokosmart.co/lorawan-tracker-lw001-bg-pro/
 dataSheetURL: https://www.dropbox.com/s/o11fg58vcgn47kc/LW001-BG%20PRO%20Specification%20V1.1-.pdf?dl=0
 
-
 # Photos
 photos:
   main: lw001-bg-1.png
   other:
     - lw001-bg-2.png
     - lw001-bg-3.png
-
 
 # Youtube or Vimeo Video (optional)
 videos:
@@ -148,7 +145,7 @@ compliances:
   safety:
     - body: IEC
       norm: EN
-      standard: 62368-1:2014+A11:2017 
+      standard: 62368-1:2014+A11:2017
   radioEquipment:
     - body: ETSI
       norm: EN
@@ -185,7 +182,3 @@ compliances:
   FCC:
     - standard: Part15B
     - standard: Part15C
-
-
-
-

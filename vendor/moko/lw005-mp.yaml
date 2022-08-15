@@ -87,7 +87,6 @@ keyProvisioning:
   - custom
   - join server
 
-
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
@@ -150,4 +149,4 @@ compliances:
       standard: 300 220-2
       version: 3.2.1
   FCC:
-    - standard: Part15C 
+    - standard: Part15C

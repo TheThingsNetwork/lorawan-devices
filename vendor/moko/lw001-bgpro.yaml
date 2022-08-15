@@ -46,7 +46,6 @@ firmwareVersions:
         id: a-kr920
         codec: lw001-bgpro-codec
 
-        
   - version: '1.0.7'
     numeric: 1
     # Corresponding hardware versions (optional)
@@ -101,7 +100,6 @@ sensors:
   - vibration
   - wifi ssid
 
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -115,7 +113,7 @@ weight: 200
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3*ER18505 
+  type: 3*ER18505
 
 # Operating conditions (optional)
 operatingConditions:
@@ -159,14 +157,12 @@ firmwareProgramming:
 productURL: https://www.mokosmart.co/lorawan-tracker-lw001-bg-pro/
 dataSheetURL: https://www.dropbox.com/s/o11fg58vcgn47kc/LW001-BG%20PRO%20Specification%20V1.1-.pdf?dl=0
 
-
 # Photos
 photos:
   main: lw001-bgpro-1.png
   other:
     - lw001-bgpro-2.png
     - lw001-bgpro-3.png
-
 
 # Youtube or Vimeo Video (optional)
 videos:
@@ -178,7 +174,7 @@ compliances:
   safety:
     - body: IEC
       norm: EN
-      standard: 62368-1:2014+A11:2017 
+      standard: 62368-1:2014+A11:2017
   radioEquipment:
     - body: ETSI
       norm: EN
@@ -214,7 +210,3 @@ compliances:
       version: 3.2.1
   FCC:
     - standard: Part15C
-
-
-
-

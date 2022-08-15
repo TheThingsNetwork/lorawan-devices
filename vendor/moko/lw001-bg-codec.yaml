@@ -23,7 +23,7 @@ uplinkDecoder:
           ic_temperature: '30°C'
           firmware ver: 'V1.0.7'
           work_mode: 'period'
-          
+
     - description: gps fixed payload
       input:
         fPort: 2
