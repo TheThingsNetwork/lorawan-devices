@@ -12,7 +12,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '2.0.4'
+      - '2.4'
 
     #Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -50,7 +50,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '2.0.4'
+      - '2.4'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -167,7 +167,8 @@ photos:
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=6IKXtFg5FVk
-  other: https://www.youtube.com/watch?v=qhMJ2Uar8-U
+  other:
+   - https://www.youtube.com/watch?v=qhMJ2Uar8-U
 
 # Regulatory compliances (optional)
 compliances:

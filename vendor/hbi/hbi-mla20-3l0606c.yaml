@@ -1,14 +1,17 @@
-name: SEZO EL
-description: Environment Sensor
-
+name: HBI emergency lighting series 300 eagle
+description: Emergency lighting, Escape route indication.
 # Hardware versions (optional, use when you have revisions)
-
+hardwareVersions:
+  - version: 'H'
+    numeric: 4
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '2.0.2'
-    numeric: 1
+    version: '32'
+    numeric: 32
     # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'H'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -16,7 +19,6 @@ firmwareVersions:
     features:
       - remote rejoin
       - transmission interval
-
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -26,38 +28,12 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: sezo
+        vendorID: hbi
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: sezo-profile
+        id: hbi-mla20-profile
         lorawanCertified: false
-        codec: sezo-codec
+        codec: hbi-mla20-codec
 
-  - # Firmware version
-    version: '2.0'
-    numeric: 1
-    # Corresponding hardware versions (optional)
-
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
-    features:
-      - remote rejoin
-      - transmission interval
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
-    # RU864-870
-    profiles:
-      EU863-870:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
-        vendorID: sezo
-        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: sezo-profile
-        lorawanCertified: false
-        codec: sezo-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -67,62 +43,53 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - accelerometer
-  - barometer
+  - battery
   - light
   - temperature
-  - humidity
-  - sound
-  - magnetometer
-  - iaq
-  - pir
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+# additionalRadios:
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# bridgeInterfaces:
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 89
-  height: 48.5
-
+  width: 170
+  length: 368
+  height: 80
 # Weight in grams (optional)
-weight: 225
-
+weight: 1068
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium 3.6V
-
+  type: BK220SCHU
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celcius)
   temperature:
-    min: -30
-    max: 60
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.97
+    min: -20
+    max: 40
 
 # IP rating (optional)
-ipCode: IP55
-
+ipCode: IP42
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
-  - join server
-
+  - manifest
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 keyProgramming:
   - serial
-  - firmware
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: none
-
 # Firmware programming (optional)
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
@@ -130,13 +97,55 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://sezo.pl/en/model-sezo-el
+productURL: https://www.hbi-lighting.com/producten/300-eagle/3y0606c/
+dataSheetURL: https://www.hbi-lighting.com/producten/300-eagle/3y0606c/?pages2pdf=1
+# Commercial information
+resellerURLs:
+  - name: 'Rexel'
+    region:
+      - European Union
+    url: https://www.rexel.nl/nln
+  - name: 'Oosterberg'
+    region:
+      - European Union
+    url: https://www.oosterberg.nl
+msrp:
+  EUR: 245
 
 # Photos
 photos:
-  main: sezoel.jpg
+  main: 3l0606c.jpg
 
 # Youtube or Vimeo Video (optional)
 videos:
-  main: https://www.youtube.com/watch?v=32EotQVyKFo
+  main: https://www.youtube.com/watch?v=PuWFymsZswU
 # Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: '62034'
+    - body: IEC
+      norm: EN
+      standard: '60598-1-2'
+    - body: IEC
+      norm: EN
+      standard: '62479'
+    - body: IEC
+      norm: EN
+      standard: '301489-3'
+    - body: IEC
+      norm: EN
+      standard: '61000-3-2'
+    - body: IEC
+      norm: EN
+      standard: '55015'
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
