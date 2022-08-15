@@ -12,9 +12,35 @@ function decodeUplink(input) {
   data.battery = 2 + input.bytes[0] / 10;
 
   if (input.fPort === 1) {
-    if (input.bytes.length === 3) {
+
+    //Distance-only payload
+    if (input.bytes.length === 3 || input.bytes.length === 7) {
       data.valid = true;
       data.distance = (input.bytes[1] << 8) | input.bytes[2];
+      if (input.bytes.length == 7) {
+        data.temperature = ((input.bytes[3] << 8) | input.bytes[4]) / 100;
+        data.relativeHumidity = ((input.bytes[5] << 8) | input.bytes[6]) / 100;
+      }
+    }
+
+    //Distance and status combined payload
+    else if (input.bytes.length === 4 || input.bytes.length === 8) {
+      data.valid = true;
+      data.distance = (input.bytes[1] << 8) | input.bytes[2];
+      var statusCode = input.bytes[3];
+      if(statusCode != 0){
+        if (statusCode === 4) {
+          data.valid = true;
+          data.distance = -1;
+        } else  {
+          data.valid = false;
+          data.errorcode = statusCode;
+        }
+      }
+      if (input.bytes.length === 8) {
+        data.temperature = ((input.bytes[4] << 8) | input.bytes[5]) / 100;
+        data.relativeHumidity = ((input.bytes[6] << 8) | input.bytes[7]) / 100;
+      }
     } else {
       data.valid = false;
       data.errorcode = -1;
