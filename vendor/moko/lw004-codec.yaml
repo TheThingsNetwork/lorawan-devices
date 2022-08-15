@@ -2,3 +2,24 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: lw004.js
+  # Examples (optional)
+#  examples:
+#    - description: bleutooth location fixed payload(periodic mode)
+#      input:
+#        fPort: 8
+#        bytes: [0xE4, 0x30, 0x00, 0x01, 0xC6, 0x6B, 0x1A, 0x19, 0x2D, 0x51, 0xCA, 0xF7, 0x97, 0x71, 0x3E, 0xF8, 0x4C, 0xC9, 0xE6, 0x85, 0xE6, 0x1D, 0xC6, 0x8F, 0xC9]
+#      output:
+#        data:
+#          age: '1s'
+#          batterycharging: '1'
+#          batterylevel: '100%'
+#          dev_status: 'none'
+#          work_mode: 'periodic mode'
+#          pack_type: 'work_ble_fix_success'
+#          1st_beacon_mac_address: 'c66b1a192d51'
+#          1st_beacon_rssi: '-54dBm'
+#          1st_beacon_mac_address: 'f797713ef84c'
+#          1st_beacon_rssi: '-55dBm'
+#          1st_beacon_mac_address: 'e685e61dc68f'
+#          1st_beacon_rssi: '-55dBm'
+
