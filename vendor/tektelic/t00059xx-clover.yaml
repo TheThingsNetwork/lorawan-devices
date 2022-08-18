@@ -15,33 +15,33 @@ firmwareVersions:
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
-        id: t000598x-868-profile
+        id: t00059xx-868-profile
         lorawanCertified: true
-        codec: t000598x-codec
+        codec: t00059xx-codec
       US902-928:
-        id: t000598x-915-profile
+        id: t00059xx-915-profile
         lorawanCertified: true
-        codec: t000598x-codec
+        codec: t00059xx-codec
       AU915-928:
-        id: t000598x-915-profile
+        id: t00059xx-915-profile
         lorawanCertified: true
-        codec: t000598x-codec
+        codec: t00059xx-codec
       AS923:
-        id: t000598x-923-profile
+        id: t00059xx-923-profile
         lorawanCertified: true
-        codec: t000598x-codec
+        codec: t00059xx-codec
       IN865-867:
-        id: t000598x-865-profile
+        id: t00059xx-865-profile
         lorawanCertified: true
-        codec: t000598x-codec
+        codec: t00059xx-codec
       KR920-923:
-        id: t000598x-920-profile
+        id: t00059xx-920-profile
         lorawanCertified: true
-        codec: t000598x-codec
+        codec: t00059xx-codec
       RU864-870:
-        id: t000598x-864-profile
+        id: t00059xx-864-profile
         lorawanCertified: true
-        codec: t000598x-codec
+        codec: t00059xx-codec
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
