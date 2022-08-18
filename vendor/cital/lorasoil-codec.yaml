@@ -16,9 +16,10 @@ uplinkDecoder:
           soil_temperature: 43.43
           soil_moisture: -88.72
           soil_resistance: 10360
-          ambient_pressure: 10
-          ambient_humidity: 1014
+          ambient_pressure: 1014
+          ambient_humidity: 10
           ambient_temperature: 42.94
+          time_stamp: 1659604659000
     - description: Unknown FPort
       input:
         fPort: 42

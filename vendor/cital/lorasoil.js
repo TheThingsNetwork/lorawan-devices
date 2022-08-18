@@ -22,11 +22,21 @@ function decodeBytesMeasurement(bytes) {
     data.long = ((bytes[15] << 24 | bytes[16] << 16 | bytes[17] << 8 | bytes[18]) / 100000);
     data.firmware = parseFloat(bytes[19] + '.' + bytes[20]);
 
-    if (bytes.length >= 22) {
+    if (bytes.length >= 26) {
         data.tempOnBoard = new Int16Array([bytes[21] << 8 | bytes[22]])[0] / 100;
         data.airPressOnBoard = (bytes[23] << 8 | bytes[24])
         data.humidityOnBoard = bytes[25];
+    } else {
+        data.tempOnBoard = 0.0;
+        data.airPressOnBoard = 0.0;
+        data.humidityOnBoard = 0.0;
     }
+    if (bytes.length >= 30) {
+      data.resistance = (bytes[26] << 24 | bytes[27] << 16 | bytes[28] << 8 | bytes[29]);
+    } else {
+      data.resistance = 0.0;
+    }
+
     return {
         "ts": ts, 
         "values": data
@@ -43,6 +53,7 @@ function decodeUplink(input) {
           time_stamp: decoded.ts,
           soil_temperature: decoded.values.tempOffBoard,
           soil_moisture: decoded.values.waterPotOffBoard,
+          soil_resistance: decoded.values.resistance,
           ambient_temperature: decoded.values.tempOnBoard,
           ambient_humidity: decoded.values.humidityOnBoard,
           ambient_pressure: decoded.values.airPressOnBoard,
