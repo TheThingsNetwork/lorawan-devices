@@ -19,7 +19,6 @@ function decodeUplink(input) {
 	
 	return {data: decoded};
   }
-  
 
 function sflt162f(rawSflt16)
 	{

@@ -64,7 +64,7 @@ func copyImage(sourceFile string, destinationFile string, e *devicerepository.En
 			return err
 		}
 
-		err = ioutil.WriteFile(destinationFile, input, 0644)
+		err = ioutil.WriteFile(destinationFile, input, 0o644)
 		if err != nil {
 			return err
 		}
@@ -74,7 +74,6 @@ func copyImage(sourceFile string, destinationFile string, e *devicerepository.En
 }
 
 func createFileFromTemplate(templatePath string, output string, tp *TemplateData) error {
-
 	tmpl, err := template.ParseFiles(templatePath)
 	if err != nil {
 		return err
@@ -103,8 +102,7 @@ func createFileFromTemplate(templatePath string, output string, tp *TemplateData
 
 // CreateContentSingleDevice generates the hugo content files in markdown
 func CreateContentSingleDevice(dir config.Dir, drs devicerepository.Store) error {
-
-	_ = os.Mkdir(dir.Hugo.Devices, 0700)
+	_ = os.Mkdir(dir.Hugo.Devices, 0o700)
 
 	for _, vendor := range drs.Vendors {
 
@@ -119,8 +117,8 @@ func CreateContentSingleDevice(dir config.Dir, drs devicerepository.Store) error
 
 		for _, endDevice := range vendor.EndDevices {
 
-			_ = os.Mkdir(dir.Hugo.Devices+vendor.ID+"/"+endDevice, 0700)
-			_ = os.Mkdir(dir.Hugo.Devices+vendor.ID+"/"+endDevice+"/images", 0700)
+			_ = os.Mkdir(dir.Hugo.Devices+vendor.ID+"/"+endDevice, 0o700)
+			_ = os.Mkdir(dir.Hugo.Devices+vendor.ID+"/"+endDevice+"/images", 0o700)
 
 			endDeviceModel, err := drs.Device(vendor.ID, endDevice, dir)
 			if err != nil {
@@ -168,9 +166,8 @@ func CreateContentSingleDevice(dir config.Dir, drs devicerepository.Store) error
 
 // createContenteDevice generates the hugo content for devices list in markdown
 func createContentDevicesVendor(dir config.Dir, vendor devicerepository.Vendor) error {
-
 	// Create vendor directory
-	_ = os.Mkdir(dir.Hugo.Devices+vendor.ID, 0700)
+	_ = os.Mkdir(dir.Hugo.Devices+vendor.ID, 0o700)
 
 	vendor.Title = vendor.Name
 
@@ -188,12 +185,10 @@ func createContentDevicesVendor(dir config.Dir, vendor devicerepository.Vendor) 
 	}
 
 	return nil
-
 }
 
 // createContenteDevice generates the hugo content for devices list in markdown
 func CreateContentDevices(dir config.Dir) error {
-
 	templatePath := dir.DeviceRepo.Templates + "devices/_index.tmpl"
 	output := dir.Hugo.Devices + "_index.md"
 
@@ -203,5 +198,4 @@ func CreateContentDevices(dir config.Dir) error {
 	}
 
 	return nil
-
 }
