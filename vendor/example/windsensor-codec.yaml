@@ -1,5 +1,5 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
-# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: windsensor.js
   # Examples (optional)
