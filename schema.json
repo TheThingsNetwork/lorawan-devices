@@ -230,6 +230,77 @@
       },
       "required": ["fileName"]
     },
+    "normalPayload": {
+      "definitions": {
+        "temperature": {
+          "type": "number",
+          "description": "Temperature (°C)",
+          "minimum": -273.15
+        },
+        "direction": {
+          "type": "number",
+          "description": "Direction (°)",
+          "minimum": 0,
+          "exclusiveMaximum": 360
+        },
+        "speed": {
+          "type": "number",
+          "description": "Speed (m/s)",
+          "minimum": 0
+        },
+        "measurement": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time of the measurement (RFC3339)"
+            },
+            "air": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "description": "Air temperature (°C)",
+                  "$ref": "#/definitions/normalPayload/definitions/temperature"
+                },
+                "relativeHumidity": {
+                  "type": "number",
+                  "description": "Relative humidity (fraction)",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "pressure": {
+                  "type": "number",
+                  "description": "Atmospheric pressure (hPa)"
+                }
+              },
+              "additionalProperties": false
+            },
+            "wind": {
+              "type": "object",
+              "properties": {
+                "speed": {
+                  "description": "Wind speed (m/s)",
+                  "$ref": "#/definitions/normalPayload/definitions/speed"
+                },
+                "direction": {
+                  "description": "Wind direction (°)",
+                  "$ref": "#/definitions/normalPayload/definitions/direction"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "uplinkPayload": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/normalPayload/definitions/measurement"
+          }
+        }
+      }
+    },
     "endDevicePayloadCodec": {
       "title": "End Device Payload Codec",
       "description": "End device payload codec for decoding uplink and encoding downlink",
@@ -423,6 +494,43 @@
               }
             }
           ]
+        },
+        "normalizeUplinkInput": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object"
+            }
+          },
+          "required": ["data"]
+        },
+        "normalizeUplinkOutput": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "data": { "$ref": "#/definitions/normalPayload/definitions/uplinkPayload" }
+              }
+            },
+            {
+              "if": {
+                "type": "object",
+                "properties": {
+                  "errors": {
+                    "type": "array",
+                    "maxItems": 0
+                  }
+                }
+              },
+              "then": {
+                "type": "object",
+                "required": ["data"]
+              }
+            }
+          ]
         }
       },
       "properties": {
@@ -442,6 +550,9 @@
                       },
                       "output": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
+                      },
+                      "normalizedOutput": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/normalizeUplinkOutput"
                       }
                     }
                   }
@@ -498,7 +609,8 @@
             }
           ]
         }
-      }
+      },
+      "additionalProperties": false
     },
     "endDeviceProfile": {
       "title": "End Device Profile",
