@@ -1,8 +1,6 @@
 function decodeUplink(input) {
   var decoded = {};
   
-  //decoded.bytes = byteArray;
-  decoded.bytes = input.bytes;
   if (input.fPort == 2)
   {
     decoded.temperature = input.bytes[1] + input.bytes[0] * 256;
