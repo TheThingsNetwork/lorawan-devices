@@ -26,7 +26,7 @@ Development dependencies:
 
 - Node.js version 16.x
 - npm version 8.x
-- Go version 1.17.x
+- Go version 1.18.x
 
 To check your Node.js, npm and Go versions:
 
