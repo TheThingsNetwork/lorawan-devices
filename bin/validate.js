@@ -78,15 +78,36 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     { def: payloadEncoding.downlinkDecoder, routine: 'decodeDownlink' },
   ].forEach((d) => {
     if (d.def) {
-      let fileName = `${vendorId}/${d.def.fileName}`;
+      const { routine } = d;
+      const fileName = `${vendorId}/${d.def.fileName}`;
       promises.push(requireFile(fileName));
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
+          const { input, output, description, normalizedOutput } = e;
           runs.push({
-            fileName: fileName,
-            routine: d.routine,
-            ...e,
+            fileName,
+            routine,
+            description,
+            input,
+            output,
           });
+          if (normalizedOutput && d.routine === 'decodeUplink') {
+            runs.push({
+              fileName,
+              routine: 'normalizeUplink',
+              description: `${description} (normalized)`,
+              input: output,
+              output: normalizedOutput,
+              transformOutput: (output) => {
+                // The normalizer can return an object or an array of objects.
+                // If it's an object, convert it to an array with a single item.
+                if (output.data && !Array.isArray(output.data)) {
+                  output.data = [output.data];
+                }
+                return output;
+              },
+            });
+          }
         });
       }
     }
@@ -104,7 +125,10 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
               reject(stderr);
             } else {
               const expected = r.output;
-              const actual = JSON.parse(stdout);
+              let actual = JSON.parse(stdout);
+              if (r.transformOutput) {
+                actual = r.transformOutput(actual);
+              }
               if (isEqual(expected, actual)) {
                 console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
                 resolve();
