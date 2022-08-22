@@ -17,6 +17,7 @@ uplinkDecoder:
           batV: 4.0
           direction: 314.8235294117647
           temperature: 19
+          type: "position"
     - description: Version Info
       input:
         fPort: 3
