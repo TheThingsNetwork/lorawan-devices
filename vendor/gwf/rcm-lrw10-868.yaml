@@ -1,0 +1,7 @@
+vendorProfileID: 01
+supportsClassB: false
+supportsClassC: false
+macVersion: 1.0.1
+supportsJoin: true
+maxEIRP: 16
+supports32bitFCnt: true
