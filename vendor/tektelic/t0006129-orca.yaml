@@ -1,0 +1,95 @@
+name: TEKTELIC ORCA Industrial GPS Asset Tracker
+description: The TEKTELIC ORCA [Industrial GPS Asset Tracker] is an ideal solution for geolocalizing your assets in the field. This device provides GPS enabled near real-time satellite location tracking with LoRaWAN®. The rugged IP67 design allows for operation in diverse deployment environments, with an operable temperature range of -40°C to +85°C and an optional BLE integration. The device contains 2x D Cell batteries for optimal battery life of up to 8-10 years. The unit is equipped with an accelerometer to accommodate event-based start-up, minimizing unnecessary battery usage. The ORCA is seamlessly integrated with TEKTELIC’s End-to-End IoT solution.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'C1'
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '0.3.52'
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'C1'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: t0006129-868-profile
+        lorawanCertified: true
+        codec: t0006129-codec
+      US902-928:
+        id: t0006129-915-profile
+        lorawanCertified: true
+        codec: t0006129-codec
+      AU915-928:
+        id: t0006129-915-profile
+        lorawanCertified: true
+        codec: t0006129-codec
+      AS923:
+        id: t0006129-923-profile
+        lorawanCertified: true
+        codec: t0006129-codec
+      IN865-867:
+        id: t0006129-865-profile
+        lorawanCertified: true
+        codec: t0006129-codec
+      KR920-923:
+        id: t0006129-920-profile
+        lorawanCertified: true
+        codec: t0006129-codec
+      RU864-870:
+        id: t0006129-864-profile
+        lorawanCertified: true
+        codec: t0006129-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 101
+  length: 195
+  height: 50
+
+# Battery information (optional)
+battery:
+  type: 2x D-Cell
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+
+ipCode: IP67
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: CE
+      standard: 60950-1
+  regulatory:
+    - body: ETSI EN
+      standard: 300 220
+    - body: ETSI EN
+      standard: 301 489-1
+    - body: ETSI EN
+      standard: 301 489-3
+    - body: FCC
+      standard: '15.247'
+    - body: FCC
+      standard: '15.209'
+    - body: RSS
+      standard: '-247'
+    - body: RSS
+      standard: '-GEN'
+
+# Product and data sheet URLs (optional)
+productURL: https://tektelic.com/catalog/industrial-gps-asset-tracker
+dataSheetURL: https://tektelic.com/uploads/Spec-sheet/TEKTELIC_ORCA%20Industrial%20GPS%20Asset%20Tracker.pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/industrial-gps-asset-tracker-technical-resource-manual
+
+# Photos (optional)
+photos:
+  main: industrial-gps-asset-tracker.png

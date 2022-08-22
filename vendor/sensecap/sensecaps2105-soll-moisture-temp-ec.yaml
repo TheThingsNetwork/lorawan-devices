@@ -1,5 +1,5 @@
-name: SenseCAP S2105-LoRaWAN Soil Moisture, Temperature and EC Sensor
-description: SenseCAP S2105 Soil Temperature, Moisture, and EC Sensor satisfy industrial long-distance data acquisition with a wide range of 0 ~ 100% (m³/m³), -40 ~ 80℃, and 0 to 23 dS/m respectively. With Bluetooth 5.0 for easy configuration and firmware upgrade and a built-in replaceable battery for minimal maintenance, it also supports three different LoRaWAN network architectures enabling you to easily join it in existing gateways and network servers to build flexible and high-performance sensor network.
+name: SenseCAP S2105-LoRaWAN® Soil Moisture, Temperature and EC Sensor
+description: SenseCAP S2105 Soil Temperature, Moisture, and EC Sensor satisfy industrial long-distance data acquisition with a wide range of 0 ~ 100% (m³/m³), -40 ~ 80℃, and 0 to 23 dS/m respectively. With Bluetooth 5.0 for easy configuration and firmware upgrade and a built-in replaceable battery for minimal maintenance, it also supports three different LoRaWAN® network architectures enabling you to easily join it in existing gateways and network servers to build flexible and high-performance sensor network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -23,19 +23,31 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
       US902-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
       AU915-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
+      KR920-923:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
+      IN865-867:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
       AS923:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap-codec
+        codec: sensecap210x-codec
+      RU864-870:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap210x-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -90,7 +102,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://www.seeedstudio.com/SenseCAP-S2105-LoRaWAN-Soil-Temperature-Moisture-and-EC-Sensor-p-5358.html
-dataSheetURL: https://drive.google.com/file/d/1HfZMCDgKOhgWbJDyBI8cY4T2JVEOh9fF/view
+dataSheetURL: https://files.seeedstudio.com/products/114992867/SenseCAP%20S210X%20LoRaWAN%20Sensor%20Catalogue.pdf
 
 # Commercial information
 resellerURLs:
