@@ -1,5 +1,5 @@
-name: Lynx 
-description: LoRa GPS Tracker 
+name: Lynx
+description: LoRa GPS Tracker
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -47,7 +47,7 @@ firmwareVersions:
 sensors:
   - accelerometer
   - gps
-  - temperature 
+  - temperature
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -127,8 +127,7 @@ photos:
   main: lynx.png
   other:
     - lynx-side.png
-    - lynx-on-dog.png
-
+    - lynx-on-dog.jpg
 # Youtube or Vimeo Video (optional)
 # videos:
 #   main: https://www.youtube.com/watch?v=JHzxcD2oEn8

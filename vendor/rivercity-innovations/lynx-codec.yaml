@@ -17,7 +17,7 @@ uplinkDecoder:
           batV: 4.0
           direction: 314.8235294117647
           temperature: 19
-          type: "position"
+          type: 'position'
     - description: Version Info
       input:
         fPort: 3
@@ -32,17 +32,16 @@ uplinkDecoder:
         bytes: [0x00, 0x00, 0x00, 0x78, 0x00, 0x01, 0x51, 0x80]
       output:
         data:
-          ShortSleepTime: 120   # sleep time when moving (in seconds)
-          LongSleepTime: 86400  # sleep time when idle (in seconds)
+          ShortSleepTime: 120 # sleep time when moving (in seconds)
+          LongSleepTime: 86400 # sleep time when idle (in seconds)
     - description: Peripheral Info
       input:
         fPort: 5
         bytes: [0x00, 0x00, 0x00, 0x5A, 0x08]
       output:
         data:
-          gpsTimeoutSec: 90   # (in seconds)
+          gpsTimeoutSec: 90 # (in seconds)
           accelSensitivity: 8
-
 # # Downlink encoder encodes JSON object into a binary data downlink (optional)
 # downlinkEncoder:
 #   fileName: windsensor.js

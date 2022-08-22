@@ -14,22 +14,15 @@ uplinkDecoder:
           humidity: 76.3
           temperatureAlertActive: true
           humidityAlertActive: false
-          battery: 2.978  # only sent if the number of uplinks has surpassed the required number in the firmware settings
+          battery: 2.978 # only sent if the number of uplinks has surpassed the required number in the firmware settings
     - description: Version Info Uplink
       input:
         fPort: 3
         bytes: [0x01, 0x00, 0x03, 0x00, 0x01, 0x04, 0x00, 0x00]
       output:
         data:
-          LoRaWANVersion: "1.0.3.0"
-          FirmwareVersion: "1.4.0.0"
-    - description: Temperature Sensor ID Uplink
-      input:
-        fPort: 4
-        bytes: [0x01, 0x00, 0x03, 0x00, 0x01, 0x04, 0x00, 0x00]
-      output:
-        data:
-          SHTC3ID: "0887"
+          LoRaWANVersion: '1.0.3.0'
+          FirmwareVersion: '1.4.0.0'
     - description: Device Settings Uplink
       input:
         fPort: 5
@@ -43,19 +36,18 @@ uplinkDecoder:
           DataAverageNumber: 3
           TemperatureAlertsEnabled: true
           HumidityAlertsEnabled: false
-          AdrOn: true 
+          AdrOn: true
           ConfirmedUplinks: true
           IsAlertsConfirmed: true
     - description: Uplink and Check times
-      input: 
+      input:
         fPort: 6
         bytes: [0x00, 0x00, 0x00, 0x3C, 0x00, 0x1E, 0x00, 0x14]
       output:
         data:
           CheckTimeSeconds: 60
-          ReportsNumChecksRegular: 30 
+          ReportsNumChecksRegular: 30
           ReportsNumChecksAlert: 20
-    
 # # Downlink encoder encodes JSON object into a binary data downlink (optional)
 # downlinkEncoder:
 #   fileName: windsensor.js

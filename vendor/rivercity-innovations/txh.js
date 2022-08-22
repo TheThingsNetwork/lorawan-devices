@@ -13,8 +13,8 @@ function decodeUplink(input) {
         decoded.humidity -= 0x10000;
     decoded.humidity = decoded.humidity/10;
     
-    decoded.temperatureAlertActive = ((input.bytes[4] & 0x02 == 0x02) ? true : false);
-    decoded.humidityAlertActive = ((input.bytes[4] & 0x01 == 0x01) ? true : false);
+    decoded.temperatureAlertActive = ( (input.bytes[4] & 0x02) == 0x02 ? true : false);
+    decoded.humidityAlertActive = ( (input.bytes[4] & 0x01) == 0x01 ? true : false);
 
     if (input.bytes.length > 5)
     {
@@ -25,10 +25,6 @@ function decodeUplink(input) {
   {
     decoded.LoRaWANVersion = input.bytes[0].toString(16) + "." + input.bytes[1].toString(16) + "." + input.bytes[2].toString(16) + "." + input.bytes[3].toString(16);
     decoded.FirmwareVersion = input.bytes[4].toString(16) + "." + input.bytes[5].toString(16) + "." + input.bytes[6].toString(16) + "." + input.bytes[7].toString(16);
-  }
-  else if (input.fPort == 4)
-  {
-    decoded.SHTC3ID = input.bytes[0].toString(16) + input.bytes[1].toString(16);
   }
   else if (input.fPort == 5)
   {

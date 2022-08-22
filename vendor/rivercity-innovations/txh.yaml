@@ -1,5 +1,5 @@
-name: TxH 
-description: Temperature & humidity sensor 
+name: TxH
+description: Temperature & humidity sensor
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -45,8 +45,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature 
-  - humidity 
+  - temperature
+  - humidity
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -128,7 +128,7 @@ msrp:
 # Photos
 photos:
   main: txh_front.png
-  other: 
+  other:
     - txh_back.png
 
 # Youtube or Vimeo Video (optional)
