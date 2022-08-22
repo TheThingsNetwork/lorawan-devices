@@ -274,6 +274,10 @@ vendors:
     name: Fujitsu Component Limited
     vendorID: 166
 
+  - id: gwf
+    name: GWF AG
+    vendorID: 179
+
   - id: hangzhou-lowan
     name: Hangzhou Lowan Information Technology Co.
     vendorID: 182
