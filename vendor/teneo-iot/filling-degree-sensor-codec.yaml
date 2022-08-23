@@ -4,10 +4,22 @@ uplinkDecoder:
   fileName: filling-degree-sensor.js
   # Examples (optional)
   examples:
-    - description: 3.2V battery, 30cm distance measured
+    - description: 3.1V battery, 30cm distance measured, no humidity and temperature, data only payload
       input:
         fPort: 1
-        bytes: [12, 0, 30]
+        bytes: [11, 0, 30]
+      output:
+        data:
+          battery: 3.1
+          charging: false
+          sensorType: fillrate
+          settingsAllowed: true
+          distance: 30
+          valid: true
+    - description: 3.2V battery, 30cm distance measured, no humidity and temperature, data + status payload
+      input:
+        fPort: 1
+        bytes: [12, 0, 30, 0]
       output:
         data:
           battery: 3.2
@@ -16,10 +28,10 @@ uplinkDecoder:
           settingsAllowed: true
           distance: 30
           valid: true
-    - description: 3.4v battery, 120cm measured
+    - description: 3.4v battery, 120cm measured, 18.75°C, 44.29% relative humidity, data + status payload
       input:
         fPort: 1
-        bytes: [14, 0, 120]
+        bytes: [14, 0, 120, 0, 7, 83, 17, 77]
       output:
         data:
           battery: 3.4
@@ -27,16 +39,19 @@ uplinkDecoder:
           sensorType: fillrate
           settingsAllowed: true
           distance: 120
+          temperature: 18.75
+          relativeHumidity: 44.29
           valid: true
-    - description: 3.3v battery, error measuring distance
+    - description: 3.3v battery, error measuring distance, data + status payload
       input:
-        fPort: 2
-        bytes: [13, 0]
+        fPort: 1
+        bytes: [13, 0, 0, 1]
       output:
         data:
           battery: 3.3
           charging: false
-          errorcode: 0
+          errorcode: 1
           sensorType: fillrate
           settingsAllowed: true
+          distance: 0
           valid: false
