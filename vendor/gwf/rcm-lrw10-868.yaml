@@ -5,3 +5,4 @@ macVersion: 1.0.1
 supportsJoin: true
 maxEIRP: 16
 supports32bitFCnt: true
+regionalParametersVersion: TS001-1.0
