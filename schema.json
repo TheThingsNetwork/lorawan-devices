@@ -271,7 +271,9 @@
                 },
                 "pressure": {
                   "type": "number",
-                  "description": "Atmospheric pressure (hPa)"
+                  "description": "Atmospheric pressure (hPa)",
+                  "minimum": 900,
+                  "maximum": 1100
                 }
               },
               "additionalProperties": false
