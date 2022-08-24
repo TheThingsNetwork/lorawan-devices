@@ -1890,3 +1890,14 @@ vendors:
     logo: logo.png
     social:
       linkedin: https://www.linkedin.com/company/ambitlocker
+
+  - id: rivercity-innovations
+    name: Rivercity Innovations Ltd.
+    vendorID: 959
+    description: Rivercity Innovations designs and manufactures data monitoring IoT solutions to help businesses solve issues relating to resource management. Our team specializes in using LoRaWAN technology in cold chain temperature monitoring, commercial property monitoring and GPS tracking.
+    website: https://rivercityinnovations.ca/
+    logo: rci-logo-blue-black.png
+    social:
+      linkedin: https://www.linkedin.com/company/rivercity-innovations/
+      facebook: https://www.facebook.com/RivercityInnovations/
+      twitter: RivercityInnov1
