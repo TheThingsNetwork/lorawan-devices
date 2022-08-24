@@ -1,0 +1,95 @@
+name: TEKTELIC FINCH SafeAlert Indoor Sensor
+description: TEKTELIC’s FINCH [SafeAlert Indoor Sensor] is a compact, mobile, wireless BLE panic button that transmits an emergency signal from any location. FINCH is ideal for lone workers, seniors, and children to signal for help in an emergency situation. When triggered, this device instantly sends an SOS message containing location details to designated support staff or security personnel to ensure a rapid response in the event of a panic situation. This device combines the long-range, low-power communication capabilities of LoRaWAN® with the universal availability and reliability of Bluetooth Low Energy (BLE) to provide real-time location information. FINCH is seamlessly integrated with TEKTELIC’s endto-end IoT solution
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'A'
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.17'
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'A'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: t0007392-868-profile
+        lorawanCertified: false
+        codec: t0007392-codec
+      US902-928:
+        id: t0007392-915-profile
+        lorawanCertified: false
+        codec: t0007392-codec
+      AU915-928:
+        id: t0007392-915-profile
+        lorawanCertified: false
+        codec: t0007392-codec
+      AS923:
+        id: t0007392-923-profile
+        lorawanCertified: false
+        codec: t0007392-codec
+      IN865-867:
+        id: t0007392-865-profile
+        lorawanCertified: false
+        codec: t0007392-codec
+      KR920-923:
+        id: t0007392-920-profile
+        lorawanCertified: false
+        codec: t0007392-codec
+      RU864-870:
+        id: t0007392-864-profile
+        lorawanCertified: false
+        codec: t0007392-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 25
+  length: 22
+  height: 70
+
+# Battery information (optional)
+battery:
+  type: AA LTC
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 85
+
+ipCode: IP30
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: CE
+      standard: 60950-1
+  regulatory:
+    - body: ETSI EN
+      standard: 300 220
+    - body: ETSI EN
+      standard: 301 489-1
+    - body: ETSI EN
+      standard: 301 489-3
+    - body: FCC
+      standard: '15.247'
+    - body: FCC
+      standard: '15.209'
+    - body: RSS
+      standard: '-247'
+    - body: RSS
+      standard: '-GEN'
+
+# Product and data sheet URLs (optional)
+productURL: https://tektelic.com/catalog/lorawan-safealert-solution-1
+dataSheetURL: https://tektelic.com/uploads/Spec-sheet/FINCH_Panic_Button.pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/enterprise-asset-tracker-gen-2-technical-resource-manual
+
+# Photos (optional)
+photos:
+  main: tektelic-finch.png

@@ -86,5 +86,4 @@ func main() {
 			log.Fatalf("jpeg.Decode failed: Unknown file format %v", file)
 		}
 	}
-
 }
