@@ -1845,3 +1845,11 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/sensedge/
       twitter: sensedgeco
+
+  - id: saninudge
+    name: Sani Nudge
+    description: With intelligent sensors and actionable insights, Sani Nudge helps healthcare institutions reduce infections and maximize operational efficiencies
+    website: https://saninudge.com
+    logo: saninudge-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/saninudge/
