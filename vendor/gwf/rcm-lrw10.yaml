@@ -19,5 +19,3 @@ keyProvisioning:
 keySecurity: read protected
 photos:
   main: rcm-lrw10.jpg
-  other:
-    - rcm-lrw10-top.jpg
