@@ -19,7 +19,7 @@ uplinkDecoder:
           ambient_pressure: 1014
           ambient_humidity: 10
           ambient_temperature: 42.94
-          time_stamp: 1659604659000
+          time_stamp: 1659611859000
     - description: Unknown FPort
       input:
         fPort: 42
