@@ -36,7 +36,7 @@ firmwareVersions:
         lorawanCertified: false
         codec: lynx-codec
       AU915-928:
-        id: lynx-profile-au915
+        id: lynx-profile-915
         lorawanCertifies: false
         codec: lynx-codec
 
