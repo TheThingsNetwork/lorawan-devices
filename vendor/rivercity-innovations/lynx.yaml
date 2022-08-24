@@ -38,7 +38,7 @@ firmwareVersions:
       AU915-928:
         id: lynx-profile-au915
         lorawanCertifies: false
-        codec: lync-codec
+        codec: lynx-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
