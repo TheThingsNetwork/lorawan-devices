@@ -1,5 +1,5 @@
 name: MCF-LW06DAVK
-description: The mcf88 MCF-LW06DAVK is equipped with a wide range of sensors such as temperature, humidity, barometric pressure, rainfall, wind speed and direction, solar radiation, PM1, PM2.5, and PM10. Suitable for smart agriculture, industry, smart city, waste station control, etc.
+description: The enginko MCF-LW06DAVK is equipped with a wide range of sensors such as temperature, humidity, barometric pressure, rainfall, wind speed and direction, solar radiation, PM1, PM2.5, and PM10. Suitable for smart agriculture, industry, smart city, waste station control, etc.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -39,6 +39,7 @@ sensors:
   - wind speed
   - wind direction
   - rainfall
+  - precipitation
   - solar radiation
   - uv
 
@@ -77,8 +78,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lw06davk/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LWWS06DAVK_DAVKP.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw06davk/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LWWS06DAVK_DAVKP.pdf
 
 # Photos
 photos:

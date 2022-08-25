@@ -1,10 +1,10 @@
-name: MCF-LW12MET
-description: The enginko MCF-LW12MET is a LoRaWAN® Mono-Phase Energy Meter with I/O that can be used for monitoring and checking the power of electronic devices, and can remotely switch devices on/off and read the state of digital input.
+name: EGK-LW22PLG
+description: The enginko EGK-LW22PLG is a LoRaWAN® Energy Meter plug with On/Off capability that supports metering and switching of a 230Vac – 16 Amp Load (active, reactive, and apparent energy; Class 0.2).
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.07'
+    version: '0.02.61'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -13,18 +13,6 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile-c
-        lorawanCertified: false
-        codec: mcf-power-codec
-      US902-928:
-        id: us915-profile-c
-        lorawanCertified: false
-        codec: mcf-power-codec
-      AU915-928:
-        id: au915-profile-c
-        lorawanCertified: false
-        codec: mcf-power-codec
-      AS923:
-        id: as923-profile-c
         lorawanCertified: false
         codec: mcf-power-codec
 
@@ -38,24 +26,28 @@ sensors:
   - energy
   - power
   - time
-  - digital input
+  - button
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 58
-  length: 82
-  height: 25
+  width: 110
+  length: 62
+  height: 35
 
 # Weight in grams (optional)
-weight: 200
+weight: 140
+
+# Battery information (optional)
+battery:
+  replaceable: false
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -10
-    max: 70
+    max: 60
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -75,9 +67,9 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.enginko.it/prodotto/mcf-lw12met/
-dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12MET.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw12plg/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12PLG.pdf
 
 # Photos
 photos:
-  main: mcf-lw12met.jpg
+  main: egk-lw22plg.jpg
