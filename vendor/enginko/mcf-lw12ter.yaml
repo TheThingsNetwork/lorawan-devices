@@ -36,6 +36,7 @@ sensors:
   - temperature
   - humidity
   - barometer
+  - battery
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -77,8 +78,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lw12ter/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW12TER.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw12ter/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12TER.pdf
 
 # Photos
 photos:

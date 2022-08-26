@@ -1,10 +1,9 @@
-name: MCF-LW12CO2
-description: The enginko MCF-LW12CO2 LoRaWAN® indoor environmental sensor equipped with temperature, humidity, pressure, light intensity, air quality (expressed as IAQ or bVOC value), and CO2 sensors and sends collected data over the LoRaWAN® network. Ideally suited for a wide range of applications such as building automation, condition monitoring, predictive maintenance, security, healthcare, and many more use cases.
-
+name: MCF-LW06485
+description: This device can be interfaced to any Modbus RTU RDS485 device to read and write any register of the connected device through the LoRaWAN® platform.
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.02.23'
+    version: '0.02.18'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -13,61 +12,51 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile-a
-        lorawanCertified: false
-        codec: mcf-environmental-codec
+        lorawanCertified: true
+        codec: mcf-lw06485-codec
       US902-928:
         id: us915-profile-a
         lorawanCertified: false
-        codec: mcf-environmental-codec
+        codec: mcf-lw06485-codec
       AU915-928:
         id: au915-profile-a
         lorawanCertified: false
-        codec: mcf-environmental-codec
+        codec: mcf-lw06485-codec
       AS923:
         id: as923-profile-a
         lorawanCertified: false
-        codec: mcf-environmental-codec
+        codec: mcf-lw06485-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
-  - temperature
-  - humidity
-  - barometer
-  - light
-  - bvoc
-  - co2
+  - auxiliary
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 25
-  length: 120
-  height: 80
+  width: 81
+  length: 60
+  height: 50
 
 # Weight in grams (optional)
 weight: 250
-
-# Battery information (optional)
-battery:
-  replaceable: true
-  type: pack
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -10
-    max: 60
+    min: -40
+    max: 65
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 1
 
 # IP rating (optional)
-ipCode: IP40
+ipCode: IP30
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -80,12 +69,12 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.enginko.it/prodotto/mcf-lw12co2/
-dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12CO2.pdf
+productURL: https://enginko.com/en/solutions/modbus-to-lorawan-interface-mcf-lw06485/
+dataSheetURL: https://enginko.com/wp-content/uploads/2020/09/MCF-LW06485.pdf
 
 # Photos
 photos:
-  main: mcf-lw12co2.jpg
+  main: mcf-lw06485.jpg
 
 # Regulatory compliances (optional)
 compliances:
@@ -116,5 +105,5 @@ compliances:
       version: 47:2014
     - body: FCC
       norm: FCC
-      standard: Part 15203, 209 & 247
+      standard: Part 15 203, 209 & 247
       version: 47:2019
