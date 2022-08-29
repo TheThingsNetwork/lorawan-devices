@@ -6,4 +6,3 @@ endDevices:
   - tynode # look in windsensor.yaml for the end device definition
   - squid # look in windsensor.yaml for the end device definition
   - ambiance # look in windsensor.yaml for the end device definition
-  
