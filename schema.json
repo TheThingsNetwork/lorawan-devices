@@ -1060,13 +1060,13 @@
               "type": "object",
               "properties": {
                 "min": {
-                  "description": "Minimum operating temperature (Celcius)",
+                  "description": "Minimum operating temperature (Celsius)",
                   "type": "number",
                   "minimum": -100,
                   "maximum": 100
                 },
                 "max": {
-                  "description": "Maximum operating temperature (Celcius)",
+                  "description": "Maximum operating temperature (Celsius)",
                   "type": "number",
                   "minimum": -100,
                   "maximum": 100
