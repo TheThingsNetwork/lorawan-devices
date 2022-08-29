@@ -20,6 +20,12 @@
       "description": "Speed (m/s)",
       "minimum": 0
     },
+    "percentage": {
+      "type": "number",
+      "description": "Percentage (%)",
+      "minimum": 0,
+      "maximum": 100
+    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -36,10 +42,8 @@
               "$ref": "#/definitions/temperature"
             },
             "relativeHumidity": {
-              "type": "number",
-              "description": "Relative humidity (fraction)",
-              "minimum": 0,
-              "maximum": 1
+              "description": "Relative humidity (%)",
+              "$ref": "#/definitions/percentage"
             },
             "pressure": {
               "type": "number",
