@@ -1,5 +1,11 @@
 var directions = ['N', 'E', 'S', 'W'];
 var colors = ['red', 'green'];
+var degrees = {
+  N: 0,
+  E: 90,
+  S: 180,
+  W: 270,
+};
 
 function decodeUplink(input) {
   switch (input.fPort) {
@@ -16,6 +22,18 @@ function decodeUplink(input) {
         errors: ['unknown FPort'],
       };
   }
+}
+
+function normalizeUplink(input) {
+  return {
+    // Normalized data
+    data: {
+      wind: {
+        direction: degrees[input.data.direction], // letter to degrees
+        speed: input.data.speed * 0.5144, // knots to m/s
+      },
+    },
+  };
 }
 
 function encodeDownlink(input) {
