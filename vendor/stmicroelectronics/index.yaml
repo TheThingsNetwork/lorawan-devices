@@ -1,3 +1,4 @@
 endDevices:
   - nucleo-wl55jc1
   - nucleo-wl55jc2
+  - steval-astra1b

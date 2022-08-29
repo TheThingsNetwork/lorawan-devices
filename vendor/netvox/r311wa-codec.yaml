@@ -1,0 +1,100 @@
+uplinkDecoder:
+  fileName: payload/r311wa.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x5A, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311WA'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x5A, 0x01, 0x1E, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311WA'
+          Volt: 3
+          Status_1: 'OFF'
+          Status_2: 'ON'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R311WA'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x5A, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x1E, 0x00, 0x0A]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R311WA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          SensorDisableTime: 30
+          SensorDetectionTime: 10
+
+downlinkDecoder:
+  fileName: payload/r311wa.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x5A, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x1E, 0x00, 0x0A]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311WA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          SensorDisableTime: 30
+          SensorDetectionTime: 10
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311WA'
+
+downlinkEncoder:
+  fileName: payload/r311wa.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311WA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          SensorDisableTime: 30
+          SensorDetectionTime: 10
+      output:
+        fPort: 7
+        bytes: [0x01, 0x5A, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x1E, 0x00, 0x0A]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311WA'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

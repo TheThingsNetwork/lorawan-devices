@@ -14,3 +14,18 @@ uplinkDecoder:
           port: '10'
           raw: '[01, 04, 05, 6E, 02, 02, 03, 5C, 09, 65, 0D, 57, 0B, 67, 00, AD, 0B, 68, A5]'
           relative_humidity: 82.5
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_agriculture_sensor.js
+  examples:
+    - description: Accelerometer Mode Downlink
+      input:
+        data:
+          light_sensor:
+            values_to_report:
+              read: true
+      output:
+        bytes: [77]
+        port: '100'

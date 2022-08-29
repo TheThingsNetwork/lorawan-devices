@@ -5,12 +5,16 @@ hardwareVersions:
   - version: '1'
     numeric: 1
     partNumber: DL-ITST-001
+  - version: '2'
+    numeric: 2
+    partNumber: DL-ITST-002
 
 firmwareVersions:
   - version: 1.5.7
     numeric: 157
     hardwareVersions:
       - '1'
+      - '2'
     profiles:
       EU863-870:
         id: profile-eu868
@@ -63,6 +67,12 @@ productURL: https://www.decentlab.com/products/infrared-thermometer-/-surface-te
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ITST-datasheet.pdf
 photos:
   main: dl-itst.png
+  other:
+    - dl-itst-002.png
+    - dl-itst-002-1.jpg
+    - dl-itst-002-2.jpg
+    - dl-itst-002-3.jpg
+    - dl-itst-002-4.jpg
 
 compliances:
   safety:

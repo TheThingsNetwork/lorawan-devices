@@ -1,0 +1,63 @@
+name: RA02A - Wireless Smoke Detector
+description: RA02A is a high reliability wireless control alarm device that detects the concentration of smoke in the air and sends a warning tone. It is a wireless communication method and complies with the LoRaWAN™ protocol standard.
+
+hardwareVersions:
+  - version: '21'
+    numeric: 21
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '21'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: ra02a-codec
+      AS923:
+        id: profile-as923
+        codec: ra02a-codec
+      US902-928:
+        id: profile-us915
+        codec: ra02a-codec
+      AU915-928:
+        id: profile-au915
+        codec: ra02a-codec
+      KR920-923:
+        id: profile-kr920
+        codec: ra02a-codec
+      IN865-867:
+        id: profile-in865
+        codec: ra02a-codec
+      CN470-510:
+        id: profile-cn470
+        codec: ra02a-codec
+
+dimensions:
+  diameter: 106
+  height: 40.6
+
+battery:
+  replaceable: true
+  type: 2 x1.5V AAA alkaline batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RA02A
+dataSheetURL: http://www.netvox.com.tw/um/RA02A/RA02Adatasheet.pdf
+
+photos:
+  main: photos/ra02a.jpg

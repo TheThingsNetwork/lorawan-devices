@@ -1,5 +1,5 @@
-name: LoRa-E5 mini (STM32WLE5JC) Dev Board, LoRaWAN protocol and worldwide frequency supported
-description: LoRa-E5 mini is a compacted-sized dev board suitable for the rapid testing and building of small-size LoRa device and application prototyping. LoRa-E5 mini is embedded with and leads out full GPIOs of LoRa-E5 STM32WLE5JC. It has rich interfaces including UART, ADC, SPI, IIC,etc. Supporting LoRaWAN protocol and global frequency, LoRa-E5 mini is able to achieve a transmission range of up to 10 km in open area and ultra-low power consumption.
+name: SenseCAP K1100 - The Sensor Prototype Kit with LoRa® and AI
+description: SenseCAP K1100 - The Sensor Prototype Kit with LoRa® and AI, it enables you to rapidly digitize the world using LoRaWAN® and solve real-world challenges. With this plug-and-play toolkit, anyone can add AI to their edge devices and unlock the potential of AIoT.
 
 # Hardware versions (optional, use when you have revisions)
 
@@ -98,7 +98,7 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.seeedstudio.com/LoRa-E5-Dev-Kit-p-4868.html
+productURL: https://www.seeedstudio.com/LoRa-E5-mini-STM32WLE5JC-p-4869.html
 dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRa-E5%20module%20datasheet_V1.0.pdf
 
 # Commercial information

@@ -1,0 +1,159 @@
+uplinkDecoder:
+  fileName: payload/r718pa22.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9B, 0x00, 0x6E, 0x04, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PA22'
+          SWver: 11
+          HWver: 4
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9B, 0x01, 0x77, 0x09, 0xC1, 0x00, 0x19, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PA22'
+          Volt: 11.9
+          Depth: 2497
+          Temp: 25
+          InstallStatus: 'Success'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x9B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718PA22'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x9B, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718PA22'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          DepthChange: 20
+          TempChange: 1
+
+    - description: Set measure type response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x9B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetMeasureTypeRsp'
+          Device: 'R718PA22'
+          Status: 'Success'
+
+    - description: Get measure type response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x9B, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetMeasureTypeRsp'
+          Device: 'R718PA22'
+          MeasureType: 'Water'
+
+downlinkDecoder:
+  fileName: payload/r718pa22.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x9B, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718PA22'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          DepthChange: 20
+          TempChange: 1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x9B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718PA22'
+
+    - description: Set measure type request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x9B, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetMeasureTypeReq'
+          Device: 'R718PA22'
+          MeasureType: 'Gasoline'
+
+    - description: Get measure type request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x9B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetMeasureTypeReq'
+          Device: 'R718PA22'
+
+downlinkEncoder:
+  fileName: payload/r718pa22.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718PA22'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          DepthChange: 20
+          TempChange: 1
+      output:
+        fPort: 7
+        bytes: [0x01, 0x9B, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718PA22'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x9B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set measure type request
+      input:
+        data:
+          Cmd: 'SetMeasureTypeReq'
+          Device: 'R718PA22'
+          MeasureType: 'Gasoline'
+      output:
+        fPort: 7
+        bytes: [0x03, 0x9B, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get measure type request
+      input:
+        data:
+          Cmd: 'GetMeasureTypeReq'
+          Device: 'R718PA22'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x9B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

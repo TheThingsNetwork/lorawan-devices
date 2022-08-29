@@ -1,0 +1,213 @@
+name: LW001-BGPRO
+description: Ultra-low power consumption, indoor&outdoor(BLE&WIFI&GPS) LoRaWAN Tracker
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.4'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - version: '1.0.1'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.4'
+
+    #Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: a-eu868
+        codec: lw001-bgpro-codec
+      IN865-867:
+        id: a-in865
+        codec: lw001-bgpro-codec
+      RU864-870:
+        id: a-ru864
+        codec: lw001-bgpro-codec
+      US902-928:
+        id: a-us915
+        codec: lw001-bgpro-codec
+      AU915-928:
+        id: a-au915
+        codec: lw001-bgpro-codec
+      AS923:
+        id: a-as923
+        codec: lw001-bgpro-codec
+      KR920-923:
+        id: a-kr920
+        codec: lw001-bgpro-codec
+
+  - version: '1.0.7'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.4'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: a-eu868
+        codec: lw001-bgpro-codec
+      IN865-867:
+        id: a-in865
+        codec: lw001-bgpro-codec
+      RU864-870:
+        id: a-ru864
+        codec: lw001-bgpro-codec
+      US902-928:
+        id: a-us915
+        codec: lw001-bgpro-codec
+      AU915-928:
+        id: a-au915
+        codec: lw001-bgpro-codec
+      AS923:
+        id: a-as923
+        codec: lw001-bgpro-codec
+      KR920-923:
+        id: a-kr920
+        codec: lw001-bgpro-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - auxiliary
+  - battery
+  - gps
+  - light
+  - time
+  - vibration
+  - wifi ssid
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 122
+  length: 72
+  height: 33
+
+# Weight in grams (optional)
+weight: 200
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3*ER18505
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -40
+    max: 80
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.05
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - bluetooth
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+  - fuota other
+
+# Product and data sheet URLs (optional)
+productURL: https://www.mokosmart.co/lorawan-tracker-lw001-bg-pro/
+dataSheetURL: https://www.dropbox.com/s/o11fg58vcgn47kc/LW001-BG%20PRO%20Specification%20V1.1-.pdf?dl=0
+
+# Photos
+photos:
+  main: lw001-bgpro-1.png
+  other:
+    - lw001-bgpro-2.png
+    - lw001-bgpro-3.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=6IKXtFg5FVk
+  other:
+    - https://www.youtube.com/watch?v=qhMJ2Uar8-U
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1:2014+A11:2017
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-17
+      version: 3.2.4
+    - body: ETSI
+      norm: EN
+      standard: 301 489-19
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 300 328
+      version: 2.2.2
+    - body: ETSI
+      norm: EN
+      standard: 303 413
+      version: 1.2.0
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+  FCC:
+    - standard: Part15C

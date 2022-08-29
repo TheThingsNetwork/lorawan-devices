@@ -62,6 +62,9 @@ productURL: https://www.decentlab.com/products/tipping-bucket-rain-gauge-for-lor
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-TBRG-datasheet.pdf
 photos:
   main: dl-tbrg.png
+  other:
+    - dl-tbrg-2.jpg
+    - dl-tbrg-3.jpg
 
 compliances:
   safety:
