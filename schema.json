@@ -230,79 +230,6 @@
       },
       "required": ["fileName"]
     },
-    "normalPayload": {
-      "definitions": {
-        "temperature": {
-          "type": "number",
-          "description": "Temperature (°C)",
-          "minimum": -273.15
-        },
-        "direction": {
-          "type": "number",
-          "description": "Direction (°)",
-          "minimum": 0,
-          "exclusiveMaximum": 360
-        },
-        "speed": {
-          "type": "number",
-          "description": "Speed (m/s)",
-          "minimum": 0
-        },
-        "measurement": {
-          "type": "object",
-          "properties": {
-            "time": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Date and time of the measurement (RFC3339)"
-            },
-            "air": {
-              "type": "object",
-              "properties": {
-                "temperature": {
-                  "description": "Air temperature (°C)",
-                  "$ref": "#/definitions/normalPayload/definitions/temperature"
-                },
-                "relativeHumidity": {
-                  "type": "number",
-                  "description": "Relative humidity (fraction)",
-                  "minimum": 0,
-                  "maximum": 1
-                },
-                "pressure": {
-                  "type": "number",
-                  "description": "Atmospheric pressure (hPa)",
-                  "minimum": 900,
-                  "maximum": 1100
-                }
-              },
-              "additionalProperties": false
-            },
-            "wind": {
-              "type": "object",
-              "properties": {
-                "speed": {
-                  "description": "Wind speed (m/s)",
-                  "$ref": "#/definitions/normalPayload/definitions/speed"
-                },
-                "direction": {
-                  "description": "Wind direction (°)",
-                  "$ref": "#/definitions/normalPayload/definitions/direction"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
-        },
-        "uplinkPayload": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/normalPayload/definitions/measurement"
-          }
-        }
-      }
-    },
     "endDevicePayloadCodec": {
       "title": "End Device Payload Codec",
       "description": "End device payload codec for decoding uplink and encoding downlink",
@@ -514,7 +441,7 @@
             {
               "type": "object",
               "properties": {
-                "data": { "$ref": "#/definitions/normalPayload/definitions/uplinkPayload" }
+                "data": { "$ref": "https://schema.thethings.network/devicerepository/1/payload/schema#/definitions/uplinkPayload" }
               }
             },
             {
@@ -1290,5 +1217,5 @@
       "required": ["name", "firmwareVersions"]
     }
   },
-  "anyOf": [{ "$ref": "#/definitions/endDevice" }, { "$ref": "#/definitions/endDeviceProfile" }, { "$ref": "#/definitions/vendorsIndex" }, { "$ref": "#/definitions/vendorIndex" }]
+  "oneOf": [{ "$ref": "#/definitions/endDevice" }, { "$ref": "#/definitions/endDeviceProfile" }, { "$ref": "#/definitions/vendorsIndex" }, { "$ref": "#/definitions/vendorIndex" }]
 }

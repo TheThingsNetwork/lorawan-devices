@@ -10,7 +10,7 @@ const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
 
-const ajv = new Ajv({ schemas: [require('../schema.json')] });
+const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
 const options = yargs.usage('Usage: --vendor <file>').option('v', {
   alias: 'vendor',
