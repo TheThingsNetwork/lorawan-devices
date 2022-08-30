@@ -32,6 +32,11 @@
       "minimum": 0,
       "maximum": 1000000
     },
+    "illuminance": {
+      "type": "number",
+      "description": "Illuminance (Lux)",
+      "minimum": 0
+    },
     "percentage": {
       "type": "number",
       "description": "Percentage (%)",
@@ -96,6 +101,14 @@
               "description": "Atmospheric pressure (hPa)",
               "minimum": 900,
               "maximum": 1100
+            },
+            "CO2": {
+              "description": "Concentration of CO2 in the air (ppm)",
+              "$ref": "#/definitions/concentration"
+            },
+            "lightIntensity": {
+              "description": "Light intensity (Lux)",
+              "$ref": "#/definitions/illuminance"
             }
           },
           "additionalProperties": false
