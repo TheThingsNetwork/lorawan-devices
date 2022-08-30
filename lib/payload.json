@@ -20,6 +20,18 @@
       "description": "Speed (m/s)",
       "minimum": 0
     },
+    "conductivity": {
+      "type": "number",
+      "description": "Electrical conductivity (dS/m)",
+      "minimum": 0,
+      "maximum": 621
+    },
+    "concentration": {
+      "type": "number",
+      "description": "Concentration (ppm)",
+      "minimum": 0,
+      "maximum": 1000000
+    },
     "percentage": {
       "type": "number",
       "description": "Percentage (%)",
@@ -33,6 +45,40 @@
           "type": "string",
           "format": "date-time",
           "description": "Date and time of the measurement (RFC3339)"
+        },
+        "soil": {
+          "type": "object",
+          "properties": {
+            "moisture": {
+              "description": "Soil moisture (%)",
+              "$ref": "#/definitions/percentage"
+            },
+            "temperature": {
+              "description": "Soil temperature (°C)",
+              "$ref": "#/definitions/temperature"
+            },
+            "EC": {
+              "description": "Soil electrical conductivity (dS/m)",
+              "$ref": "#/definitions/conductivity"
+            },
+            "pH": {
+              "description": "Soil pH level (open-ended scale)",
+              "type": "number"
+            },
+            "N": {
+              "description": "Concentration of Nitrogen in the soil (ppm)",
+              "$ref": "#/definitions/concentration"
+            },
+            "P": {
+              "description": "Concentration of Phosphorus in the soil (ppm)",
+              "$ref": "#/definitions/concentration"
+            },
+            "K": {
+              "description": "Concentration of Potassium in the soil (ppm)",
+              "$ref": "#/definitions/concentration"
+            }
+          },
+          "additionalProperties": false
         },
         "air": {
           "type": "object",
