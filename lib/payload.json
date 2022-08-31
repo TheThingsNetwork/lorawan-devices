@@ -26,6 +26,12 @@
       "minimum": 0,
       "maximum": 621
     },
+    "pH": {
+      "type": "number",
+      "description": "pH level",
+      "minimum": 0,
+      "maximum": 14
+    },
     "concentration": {
       "type": "number",
       "description": "Concentration (ppm)",
@@ -34,7 +40,7 @@
     },
     "illuminance": {
       "type": "number",
-      "description": "Illuminance (Lux)",
+      "description": "Illuminance (lux)",
       "minimum": 0
     },
     "percentage": {
@@ -62,23 +68,23 @@
               "description": "Soil temperature (°C)",
               "$ref": "#/definitions/temperature"
             },
-            "EC": {
+            "ec": {
               "description": "Soil electrical conductivity (dS/m)",
               "$ref": "#/definitions/conductivity"
             },
             "pH": {
               "description": "Soil pH level (open-ended scale)",
-              "type": "number"
+              "$ref": "#/definitions/pH"
             },
-            "N": {
+            "n": {
               "description": "Concentration of Nitrogen in the soil (ppm)",
               "$ref": "#/definitions/concentration"
             },
-            "P": {
+            "p": {
               "description": "Concentration of Phosphorus in the soil (ppm)",
               "$ref": "#/definitions/concentration"
             },
-            "K": {
+            "k": {
               "description": "Concentration of Potassium in the soil (ppm)",
               "$ref": "#/definitions/concentration"
             }
@@ -102,12 +108,12 @@
               "minimum": 900,
               "maximum": 1100
             },
-            "CO2": {
+            "co2": {
               "description": "Concentration of CO2 in the air (ppm)",
               "$ref": "#/definitions/concentration"
             },
             "lightIntensity": {
-              "description": "Light intensity (Lux)",
+              "description": "Light intensity (lux)",
               "$ref": "#/definitions/illuminance"
             }
           },
