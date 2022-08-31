@@ -20,6 +20,11 @@
       "description": "Speed (m/s)",
       "minimum": 0
     },
+    "depth": {
+      "type": "number",
+      "description": "Depth from the surface (cm)",
+      "minimum": 0
+    },
     "conductivity": {
       "type": "number",
       "description": "Electrical conductivity (dS/m)",
@@ -60,6 +65,10 @@
         "soil": {
           "type": "object",
           "properties": {
+            "depth": {
+              "description": "Depth of the soil measurement (cm)",
+              "$ref": "#/definitions/depth"
+            },
             "moisture": {
               "description": "Soil moisture (%)",
               "$ref": "#/definitions/percentage"
