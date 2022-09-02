@@ -64,6 +64,11 @@
             "direction": {
               "description": "Wind direction (°)",
               "$ref": "#/definitions/direction"
+            },
+            "elevation": {
+              "type": "number",
+              "description": "Elevation (cm)",
+              "minimum": 0
             }
           },
           "additionalProperties": false
