@@ -12,12 +12,12 @@ const imageType = require('image-type');
 
 const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
-const options = yargs.usage('Usage: --vendor <file>').option('v', {
+const options = yargs.usage('Usage: --vendor <id>').option('v', {
   alias: 'vendor',
-  describe: 'Path to vendor index file',
+  describe: 'Vendor ID',
   type: 'string',
   demandOption: true,
-  default: './vendor/index.yaml',
+  default: '',
 }).argv;
 
 let validateVendorsIndex = ajv.compile({
@@ -180,7 +180,7 @@ function formatValidationErrors(errors) {
   return errors.map((e) => `${e.dataPath} ${e.message}`);
 }
 
-const vendors = yaml.load(fs.readFileSync(options.vendor));
+const vendors = yaml.load(fs.readFileSync('./vendor/index.yaml'));
 
 if (!validateVendorsIndex(vendors)) {
   console.error(`${options.vendor} index is invalid: ${formatValidationErrors(validateVendorsIndex.errors)}`);
@@ -191,6 +191,10 @@ console.log(`vendor index: valid`);
 const vendorProfiles = {};
 
 vendors.vendors.forEach((v) => {
+  if (options.vendor && v.id !== options.vendor) {
+    return;
+  }
+
   const key = v.id;
   const folder = `./vendor/${v.id}`;
   if (v.logo) {

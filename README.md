@@ -64,6 +64,12 @@ To validate data:
 $ make validate
 ```
 
+To validate only one vendor (much faster):
+
+```bash
+$ VENDOR=example make validate
+```
+
 [Visual Studio Code](https://code.visualstudio.com/) is a great editor for editing the Device Repository. You can validate your data automatically using the [YAML plugin](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml).
 
 The YAML plugin supports you with filling out the document. When hitting Ctrl + Space, all fields are shown. The Debug Console of Visual Studio provides feedback by highlighting the incorrect fields.

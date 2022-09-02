@@ -34,7 +34,7 @@ deps.update:
 
 .PHONY: validate
 validate:
-	$(NPM) run validate
+	$(NPM) run validate -- --vendor="$(VENDOR)"
 
 .PHONY: fmt
 fmt:
