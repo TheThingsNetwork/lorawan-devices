@@ -192,38 +192,46 @@ function formatValidationErrors(errors) {
   return errors.map((e) => `${e.dataPath} ${e.message}`);
 }
 
-const vendors = yaml.load(fs.readFileSync('./vendor/index.yaml'));
+async function validate() {
+  const vendors = yaml.load(fs.readFileSync('./vendor/index.yaml'));
 
-if (!validateVendorsIndex(vendors)) {
-  console.error(`${options.vendor} index is invalid: ${formatValidationErrors(validateVendorsIndex.errors)}`);
-  process.exit(1);
-}
-console.log(`vendor index: valid`);
-
-const vendorProfiles = {};
-
-vendors.vendors.forEach((v) => {
-  if (options.vendor && v.id !== options.vendor) {
-    return;
+  if (!validateVendorsIndex(vendors)) {
+    console.error(`${options.vendor} index is invalid: ${formatValidationErrors(validateVendorsIndex.errors)}`);
+    process.exit(1);
   }
+  console.log(`vendor index: valid`);
 
-  const key = v.id;
-  const folder = `./vendor/${v.id}`;
-  if (v.logo) {
-    requireFile(`${folder}/${v.logo}`).catch((err) => {
-      console.error(`${key}: ${err}`);
-      process.exit(1);
-    });
-  }
+  const vendorProfiles = {};
 
-  const vendorIndexPath = `${folder}/index.yaml`;
-  fs.stat(vendorIndexPath, (err) => {
-    if (err) {
-      if (err.code !== 'ENOENT') {
-        console.error(`${key}: index file: ${err.code}`);
+  for (let v of vendors.vendors) {
+    if (options.vendor && v.id !== options.vendor) {
+      continue;
+    }
+
+    const key = v.id;
+    const folder = `./vendor/${v.id}`;
+    if (v.logo) {
+      requireFile(`${folder}/${v.logo}`).catch((err) => {
+        console.error(`${key}: ${err}`);
         process.exit(1);
-      }
-      return;
+      });
+    }
+
+    const vendorIndexPath = `${folder}/index.yaml`;
+    const vendorExists = await new Promise((resolve, reject) => {
+      fs.stat(vendorIndexPath, (err) => {
+        if (err) {
+          if (err.code !== 'ENOENT') {
+            reject(err);
+          }
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      });
+    });
+    if (!vendorExists) {
+      continue;
     }
 
     const vendor = yaml.load(fs.readFileSync(vendorIndexPath));
@@ -334,28 +342,35 @@ vendors.vendors.forEach((v) => {
             process.exit(1);
           });
         if (endDevice.photos.other) {
-          endDevice.photos.other.forEach(async (p) => {
-            await validateImageExtension(`${folder}/${p}`)
-              .then(() => console.log(`${key}: ${p} image has correct extension`))
-              .catch((err) => {
-                console.error(err);
-                process.exit(1);
-              });
-            await requireImageDecode(`${folder}/${p}`)
-              .then(() => console.log(`${key}: ${p} is valid`))
-              .catch((err) => {
-                console.error(err);
-                process.exit(1);
-              });
-            await requireDimensions(`${folder}/${p}`)
-              .then(() => console.log(`${key}: ${p} has the right dimensions`))
-              .catch((err) => {
-                console.error(`${key}: ${err}`);
-                process.exit(1);
-              });
-          });
+          await Promise.all(
+            endDevice.photos.other.map(async (p) => {
+              await validateImageExtension(`${folder}/${p}`)
+                .then(() => console.log(`${key}: ${p} image has correct extension`))
+                .catch((err) => {
+                  console.error(err);
+                  process.exit(1);
+                });
+              await requireImageDecode(`${folder}/${p}`)
+                .then(() => console.log(`${key}: ${p} is valid`))
+                .catch((err) => {
+                  console.error(err);
+                  process.exit(1);
+                });
+              await requireDimensions(`${folder}/${p}`)
+                .then(() => console.log(`${key}: ${p} has the right dimensions`))
+                .catch((err) => {
+                  console.error(`${key}: ${err}`);
+                  process.exit(1);
+                });
+            })
+          );
         }
       }
-    });
-  });
+    }
+  }
+}
+
+validate().catch((err) => {
+  console.error(`validate failed: ${err}`);
+  process.exit(1);
 });
