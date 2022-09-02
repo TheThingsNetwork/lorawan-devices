@@ -19,6 +19,23 @@ uplinkDecoder:
           - wind:
               speed: 16.4608
               direction: 0
+              elevation: 200
+    - description: 19 knots from the West at 5 meters
+      hardwareVersions: ['1.0-5M']
+      input:
+        fPort: 1
+        bytes: [3, 19]
+      output:
+        data:
+          direction: 'W'
+          speed: 19
+      # Normalized output, uses the normalizeUplink function (optional)
+      normalizedOutput:
+        data:
+          - wind:
+              speed: 9.7736
+              direction: 270
+              elevation: 500
     - description: 42 knots from the East
       input:
         fPort: 1

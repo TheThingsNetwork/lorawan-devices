@@ -25,12 +25,22 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
+  const direction = degrees[input.data.direction]; // letter to degrees
+  const speed = input.data.speed * 0.5144; // knots to m/s
+  // There are two hardware versions; one that has measures at 2 meters and the others 5 meters above the ground.
+  // Elevation in the normalized payload is in centimeters.
+  const elevation = {
+    '1.0-2M': 200,
+    '1.0-5M': 500,
+  }[input.version.hardwareVersion];
+
   return {
     // Normalized data
     data: {
       wind: {
-        direction: degrees[input.data.direction], // letter to degrees
-        speed: input.data.speed * 0.5144, // knots to m/s
+        direction,
+        speed,
+        elevation,
       },
     },
   };

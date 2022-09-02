@@ -1,11 +1,11 @@
 name: Wind Sensor
 description: Wind Sensor with controllable LED
 
-# Hardware versions (optional, use when you have revisions)
+# Hardware versions (optional, use when you have revisions or different hardware features)
 hardwareVersions:
-  - version: '1.0'
+  - version: '1.0-2M' # Measures 2 meters from the ground
     numeric: 1
-  - version: '1.0-rev-A'
+  - version: '1.0-5M' # Measures 5 meters from the ground
     numeric: 2
 
 # Firmware versions (at least one is mandatory)
@@ -15,7 +15,8 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '1.0-2M'
+      - '1.0-5M'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -47,7 +48,7 @@ firmwareVersions:
     version: '2.0'
     numeric: 2
     hardwareVersions:
-      - '1.0-rev-A'
+      - '1.0-5M'
     profiles:
       EU863-870:
         id: windsensor-profile
