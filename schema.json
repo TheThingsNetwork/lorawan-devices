@@ -427,11 +427,38 @@
         "normalizeUplinkInput": {
           "type": "object",
           "properties": {
+            "version": {
+              "type": "object",
+              "properties": {
+                "vendorID": {
+                  "type": "string",
+                  "description": "Vendor identifier"
+                },
+                "endDeviceID": {
+                  "type": "string",
+                  "description": "End device identifier"
+                },
+                "hardwareVersion": {
+                  "type": "string",
+                  "description": "Hardware version",
+                  "minLength": 1
+                },
+                "firmwareVersion": {
+                  "type": "string",
+                  "description": "Firmware version",
+                  "minLength": 1
+                },
+                "region": {
+                  "$ref": "#/definitions/region"
+                }
+              },
+              "required": ["vendorID", "endDeviceID", "firmwareVersion", "region"]
+            },
             "data": {
               "type": "object"
             }
           },
-          "required": ["data"]
+          "required": ["version", "data"]
         },
         "normalizeUplinkOutput": {
           "allOf": [
@@ -474,6 +501,17 @@
                   "items": {
                     "type": "object",
                     "properties": {
+                      "description": {
+                        "type": "string"
+                      },
+                      "hardwareVersions": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "Hardware version",
+                          "minLength": 1
+                        }
+                      },
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
                       },
@@ -483,7 +521,8 @@
                       "normalizedOutput": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/normalizeUplinkOutput"
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   }
                 }
               }
@@ -501,13 +540,17 @@
                   "items": {
                     "type": "object",
                     "properties": {
+                      "description": {
+                        "type": "string"
+                      },
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeInput"
                       },
                       "output": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/encodeOutput"
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   }
                 }
               }
@@ -525,13 +568,17 @@
                   "items": {
                     "type": "object",
                     "properties": {
+                      "description": {
+                        "type": "string"
+                      },
                       "input": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeInput"
                       },
                       "output": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   }
                 }
               }

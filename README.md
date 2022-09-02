@@ -287,6 +287,8 @@ uplinkDecoder:
   # Examples (optional)
   examples:
     - description: 32 knots from the North
+      # Optional hardware versions for this codec example
+      hardwareVersions: ['1.0-2M']
       input:
         fPort: 1
         bytes: [0, 32]

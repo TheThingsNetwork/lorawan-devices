@@ -68,7 +68,7 @@ async function requireDimensions(path) {
   });
 }
 
-function validatePayloadCodecs(vendorId, payloadEncoding) {
+async function validatePayloadCodecs(vendorId, endDeviceId, hardwareVersion, firmwareVersion, region, payloadEncoding) {
   var runs = [];
   var promises = [];
 
@@ -83,7 +83,10 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
       promises.push(requireFile(fileName));
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
-          const { input, output, description, normalizedOutput } = e;
+          const { hardwareVersions, input, output, description, normalizedOutput } = e;
+          if (hardwareVersions && hardwareVersions.indexOf(hardwareVersion) === -1) {
+            return;
+          }
           runs.push({
             fileName,
             routine,
@@ -96,7 +99,16 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
               fileName,
               routine: 'normalizeUplink',
               description: `${description} (normalized)`,
-              input: output,
+              input: {
+                version: {
+                  vendorID: vendorId,
+                  endDeviceID: endDeviceId,
+                  hardwareVersion,
+                  firmwareVersion,
+                  region,
+                },
+                data: output.data,
+              },
               output: normalizedOutput,
               transformOutput: (output) => {
                 // The normalizer can return an object or an array of objects.
@@ -113,39 +125,39 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     }
   });
 
-  runs.forEach((r) => {
-    promises.push(
-      new Promise((resolve, reject) => {
-        exec(
-          `bin/runscript -codec-path "${r.fileName}" -routine ${r.routine} -input '${JSON.stringify(r.input)}'`,
-          (err, stdout, stderr) => {
-            if (err) {
-              reject(err);
-            } else if (stderr) {
-              reject(stderr);
-            } else {
-              const expected = r.output;
-              let actual = JSON.parse(stdout);
-              if (r.transformOutput) {
-                actual = r.transformOutput(actual);
-              }
-              if (isEqual(expected, actual)) {
-                console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
-                resolve();
+  const concurrency = 8;
+  for (var i = 0; i < runs.length; i += concurrency) {
+    const batch = runs.slice(i, i + concurrency);
+    await Promise.all(
+      batch.map((r) => {
+        new Promise((resolve, reject) => {
+          exec(
+            `bin/runscript -codec-path "${r.fileName}" -routine ${r.routine} -input '${JSON.stringify(r.input)}'`,
+            (err, stdout, stderr) => {
+              if (err) {
+                reject(err);
+              } else if (stderr) {
+                reject(stderr);
               } else {
-                reject(
-                  `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
-                    expected
-                  )}`
-                );
+                const key = `${r.fileName}: ${r.routine}: HW ${hardwareVersion}: FW ${firmwareVersion}: ${region}`;
+                const expected = r.output;
+                let actual = JSON.parse(stdout);
+                if (r.transformOutput) {
+                  actual = r.transformOutput(actual);
+                }
+                if (isEqual(expected, actual)) {
+                  console.debug(`${key}: ${r.description} has correct output`);
+                  resolve();
+                } else {
+                  reject(`${key}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(expected)}`);
+                }
               }
             }
-          }
-        );
+          );
+        });
       })
     );
-  });
-  return Promise.all(promises);
+  }
 }
 
 function validateImageExtension(filename) {
@@ -221,9 +233,7 @@ vendors.vendors.forEach((v) => {
     }
     console.log(`${v.id}: valid index`);
 
-    const codecs = {};
-
-    vendor.endDevices.forEach(async (d) => {
+    for (let d of vendor.endDevices) {
       const key = `${v.id}: ${d}`;
 
       const endDevice = yaml.load(fs.readFileSync(`${folder}/${d}.yaml`));
@@ -233,66 +243,76 @@ vendors.vendors.forEach((v) => {
       }
       console.log(`${key}: valid`);
 
-      endDevice.firmwareVersions.forEach((version) => {
-        const key = `${v.id}: ${d}: ${version.version}`;
+      await Promise.all(
+        endDevice.firmwareVersions.map(async (firmwareVersion) => {
+          const key = `${v.id}: ${d}: ${firmwareVersion.version}`;
 
-        if (Boolean(version.hardwareVersions) != Boolean(endDevice.hardwareVersions)) {
-          console.error(
-            `${key}: hardware versions are inconsistent: when used in end device, use in firmware versions (and vice-versa)`
-          );
-          process.exit(1);
-        }
-        if (version.hardwareVersions) {
-          version.hardwareVersions.forEach((hardwareVersion) => {
-            if (!endDevice.hardwareVersions.find((v) => v.version === hardwareVersion)) {
-              console.error(`${key}: hardware version ${hardwareVersion} not found in supported hardware versions`);
-              process.exit(1);
-            }
-          });
-        }
-
-        Object.keys(version.profiles).forEach(async (region) => {
-          const regionProfile = version.profiles[region];
-          const key = `${v.id}: ${d}: ${region}`;
-          const vendorID = regionProfile.vendorID ?? v.id;
-          if (!vendorProfiles[vendorID]) {
-            vendorProfiles[vendorID] = {};
+          if (Boolean(firmwareVersion.hardwareVersions) != Boolean(endDevice.hardwareVersions)) {
+            console.error(
+              `${key}: hardware versions are inconsistent: when used in end device, use in firmware versions (and vice-versa)`
+            );
+            process.exit(1);
           }
-          if (!vendorProfiles[vendorID][regionProfile.id]) {
-            const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
-            if (!validateEndDeviceProfile(profile)) {
-              console.error(
-                `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
-                  validateEndDeviceProfile.errors
-                )}`
-              );
-              process.exit(1);
-            }
-          }
-          vendorProfiles[vendorID][regionProfile.id] = true;
-          console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
-
-          if (regionProfile.codec && !codecs[regionProfile.codec]) {
-            const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
-            if (!validateEndDevicePayloadCodec(codec)) {
-              console.error(
-                `${key}: codec ${regionProfile.codec} invalid: ${formatValidationErrors(
-                  validateEndDevicePayloadCodec.errors
-                )}`
-              );
-              process.exit(1);
-            }
-            codecs[regionProfile.codec] = true;
-            await validatePayloadCodecs(folder, codec)
-              .then(() => console.log(`${key}: payload codec ${regionProfile.codec} valid`))
-              .catch((err) => {
-                console.error(`${key}: payload codec ${regionProfile.codec} invalid`);
-                console.error(err);
+          if (firmwareVersion.hardwareVersions) {
+            firmwareVersion.hardwareVersions.forEach((hardwareVersion) => {
+              if (!endDevice.hardwareVersions.find((v) => v.version === hardwareVersion)) {
+                console.error(`${key}: hardware version ${hardwareVersion} not found in supported hardware versions`);
                 process.exit(1);
-              });
+              }
+            });
           }
-        });
-      });
+
+          await Promise.all(
+            Object.keys(firmwareVersion.profiles).map(async (region) => {
+              const regionProfile = firmwareVersion.profiles[region];
+              const key = `${v.id}: ${d}: ${region}`;
+              const vendorID = regionProfile.vendorID ?? v.id;
+              if (!vendorProfiles[vendorID]) {
+                vendorProfiles[vendorID] = {};
+              }
+              if (!vendorProfiles[vendorID][regionProfile.id]) {
+                const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
+                if (!validateEndDeviceProfile(profile)) {
+                  console.error(
+                    `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
+                      validateEndDeviceProfile.errors
+                    )}`
+                  );
+                  process.exit(1);
+                }
+              }
+              vendorProfiles[vendorID][regionProfile.id] = true;
+              console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
+
+              if (regionProfile.codec) {
+                const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
+                if (!validateEndDevicePayloadCodec(codec)) {
+                  console.error(
+                    `${key}: codec ${regionProfile.codec} invalid: ${formatValidationErrors(
+                      validateEndDevicePayloadCodec.errors
+                    )}`
+                  );
+                  process.exit(1);
+                }
+
+                const hardwareVersions = firmwareVersion.hardwareVersions || [''];
+                await Promise.all(
+                  hardwareVersions.map(async (hardwareVersion) => {
+                    const key = `${v.id}: ${d}: HW ${hardwareVersion}: FW ${firmwareVersion.version}: ${region}`;
+                    await validatePayloadCodecs(folder, d, hardwareVersion, firmwareVersion.version, region, codec)
+                      .then(() => console.log(`${key}: payload codec ${regionProfile.codec} valid`))
+                      .catch((err) => {
+                        console.error(`${key}: payload codec ${regionProfile.codec} invalid`);
+                        console.error(err);
+                        process.exit(1);
+                      });
+                  })
+                );
+              }
+            })
+          );
+        })
+      );
 
       if (endDevice.photos) {
         await validateImageExtension(`${folder}/${endDevice.photos.main}`)

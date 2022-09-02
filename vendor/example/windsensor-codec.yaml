@@ -4,7 +4,8 @@ uplinkDecoder:
   fileName: windsensor.js
   # Examples (optional)
   examples:
-    - description: 32 knots from the North
+    - description: 32 knots from the North at 2 meters
+      hardwareVersions: ['1.0-2M']
       input:
         fPort: 1
         bytes: [0, 32]
