@@ -1,10 +1,10 @@
-# Vendor profile ID, can be freely issued by the vendor
+#
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
+# https://lora-alliance.org/Vendor profile ID, can be freely issued by the vendorsites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
 vendorProfileID: 786
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
-macVersion: 1.0.3
+macVersion: '1.0.3'
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
 #   1.0:   TS001-1.0
 #   1.0.1: TS001-1.0.1
@@ -15,18 +15,18 @@ macVersion: 1.0.3
 regionalParametersVersion: RP001-1.0.3-RevA
 
 # Whether the end device supports join (OTAA) or not (ABP)
-supportsJoin: false
+supportsJoin: true
 # If your device is an ABP device (supportsJoin is false), uncomment the following fields:
 #RX1 delay
-rx1Delay: 1
+#rx1Delay: 1
 # RX1 data rate offset
-rx1DataRateOffset: 0
+#rx1DataRateOffset: 0
 # RX2 data rate index
-rx2DataRateIndex: 8
+#rx2DataRateIndex: 8
 # RX2 frequency (MHz)
-rx2Frequency: 923.3
+#rx2Frequency: 923.3
 # Factory preset frequencies (MHz)
-factoryPresetFrequencies: [915.2, 915.4, 915.6, 915.8, 916.0, 916.2, 916.4, 916.6]
+#factoryPresetFrequencies: [915.2, 915.4, 915.6, 915.8, 916.0, 916.2, 916.4, 916.6]
 
 # Maximum EIRP
 maxEIRP: 22

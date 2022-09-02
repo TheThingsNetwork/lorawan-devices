@@ -26,7 +26,7 @@ Development dependencies:
 
 - Node.js version 16.x
 - npm version 8.x
-- Go version 1.17.x
+- Go version 1.18.x
 
 To check your Node.js, npm and Go versions:
 
@@ -288,6 +288,12 @@ uplinkDecoder:
         data:
           direction: 'N'
           speed: 32
+      # Normalized output, uses the normalizeUplink function (optional)
+      normalizedOutput:
+        data:
+          - wind:
+              speed: 16.4608
+              direction: 0
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
   fileName: codec.js
@@ -316,108 +322,8 @@ downlinkDecoder:
 
 The actual **Payload codec implementation** is in the referenced filename: `vendor/<vendor-id>/<codec-filename>`.
 
-An example codec for a wind direction and speed sensor with controllable LED looks like this:
+See [The Things Stack documentation](https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript) for how to write JavaScript functions for decoding, normalizing and encoding data.
 
-```js
-var directions = ["N", "E", "S", "W"];
-var colors = ["red", "green"];
-
-// input = { fPort: 1, bytes: [1, 62] }
-function decodeUplink(input) {
-  switch (input.fPort) {
-  case 1:
-    return {
-      // Decoded data
-      data: {
-        direction: directions[input.bytes[0]],
-        speed: input.bytes[1]
-      }
-    }
-  default:
-    return {
-      errors: ["unknown FPort"]
-    }
-  }
-}
-
-// input = { data: { led: "green" } }
-function encodeDownlink(input) {
-  var i = colors.indexOf(input.data.led);
-  if (i === -1) {
-    return {
-      errors: ["invalid LED color"]
-    }
-  }
-  return {
-    // LoRaWAN FPort used for the downlink message
-    fPort: 2,
-    // Encoded bytes
-    bytes: [i]
-  }
-}
-
-// input = { fPort: 2, bytes: [1] }
-function decodeDownlink(input) {
-  switch (input.fPort) {
-  case 2:
-    return {
-      // Decoded downlink (must be symmetric with encodeDownlink)
-      data: {
-        led: colors[input.bytes[0]]
-      }
-    }
-  default:
-    return {
-      errors: ["invalid FPort"]
-    }
-  }
-}
-```
-
-#### Errors and Warnings
-
-Scripts can return warnings and errors to inform the application layer of potential issues with the data or indicate that the payload is malformatted.
-
-The warnings and errors are string arrays. If there are any errors, the message fails. Any warnings are added to the message.
-
-Example warning:
-
-```js
-// input = { fPort: 1, bytes: [1, 2, 3] }
-function decodeUplink(input) {
-  var warnings = [];
-  var battery = input.bytes[0] << 8 | input.bytes[1];
-  if (battery < 2000) {
-    warnings.push("unreliable battery level");
-  }
-  return {
-    // Decoded data
-    data: {
-      battery: battery
-    },
-    // Warnings
-    warnings: warnings
-  }
-}
-```
-
-Example error:
-
-```js
-function encodeDownlink(input) {
-  if (typeof input.data.gate !== 'boolean') {
-    return {
-      errors: [
-        "missing required field: gate"
-      ]
-    }
-  }
-  return {
-    fPort: 1,
-    bytes: [input.data.gate ? 1 : 0]
-  }
-}
-```
 ## Legal
 
 The API is distributed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See `LICENSE` for more information.

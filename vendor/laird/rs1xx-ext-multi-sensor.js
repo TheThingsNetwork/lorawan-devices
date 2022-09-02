@@ -668,7 +668,7 @@ function convertTimestampToDate(stream){
     date = new Date(timeInSeconds);
     // Get the month in textual format - an offset of 1 is needed for the
     // month due to the date using 0 based values.
-    month = getEnumValue(monthTypeEnum,true,date.getMonth() + 1);
+    month = getEnumValue(monthTypeEnum,true,date.getUTCMonth() + 1);
     // The rest of the data can be copied across directly
     result = {
         year : date.getUTCFullYear(),

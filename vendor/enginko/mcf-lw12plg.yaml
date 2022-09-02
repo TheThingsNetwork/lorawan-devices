@@ -1,5 +1,5 @@
 name: MCF-LW12PLG
-description: The mcf88 MCF-LW12PLG is a LoRaWAN® Energy Meter plug with On/Off capability that supports metering and switching of a 230Vac – 16 Amp Load (active, reactive, and apparent energy; Class 0.2).
+description: The enginko MCF-LW12PLG is a LoRaWAN® Energy Meter plug with On/Off capability that supports metering and switching of a 230Vac – 16 Amp Load (active, reactive, and apparent energy; Class 0.2).
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -78,8 +78,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lw12plg/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW12PLG.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw12plg/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12PLG.pdf
 
 # Photos
 photos:

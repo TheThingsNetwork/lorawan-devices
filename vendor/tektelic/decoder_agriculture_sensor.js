@@ -1860,8 +1860,54 @@ function decodeUplink(input) {
           decodedData = Object.assign(decodedData, decodedData[""])  // this will take care of it
           delete decodedData[""]
       }
+      if (decodedData["input3_voltage"] && decodedData["input5_frequency"]){
+          var temperature = voltageToTemp(decodedData.input3_voltage);
+          var watermark = freqToWatermark(decodedData.input5_frequency);
+          decodedData["adj_watermark1"] = watermark * (1 - 0.019 * (temperature - 24));
+          decodedData["temperature1"] = temperature;;
+      }
+      if (decodedData["input4_voltage"] && decodedData["input6_frequency"]){
+          var temperature = voltageToTemp(decodedData.input4_voltage)
+          var watermark = freqToWatermark(decodedData.input6_frequency)
+          decodedData["adj_watermark2"] = watermark * (1 - 0.019 * (temperature - 24))
+          decodedData["temperature2"] = temperature;
+      }
   
       return flat ? flattenObject(decodedData) : decodedData;
+  }
+  
+  function freqToWatermark(value){
+      if (value > 6430) {
+          return 0;
+      }
+      else if (4330 <= value && value <= 6430) {
+          return 9 - (value - 4330) * 0.004286;
+      }
+      else if (2820 <= value && value <= 4330) {
+          return 15 - (value - 2820) * 0.003974;
+      }
+      else if (1110 <= value && value <= 2820) {
+          return 35 - (value - 1110) * 0.001170;
+      }
+      else if (770 <= value && value <= 1110) {
+          return 55 - (value - 770) * 0.05884;
+      }
+      else if (600 <= value && value <= 770) {
+          return 75 - (value - 600) * 0.1176;
+      }
+      else if (485 <= value && value <= 600) {
+          return 100 - (value - 485) * 0.2174;
+      }
+      else if (293 <= value && value <= 485) {
+          return 200 - (value - 293) * 0.5208;
+      }
+      else if (value < 293) {
+          return 200;
+      }
+  }
+  
+  function voltageToTemp(value){
+    return -31.96 * Math.log(value) + 213.25;
   }
   
   function stringifyBytes(bytes){
@@ -1885,4 +1931,5 @@ function decodeUplink(input) {
           errors: []
       };
   }
+  
   

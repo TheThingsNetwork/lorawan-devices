@@ -10,7 +10,7 @@ const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
 
-const ajv = new Ajv({ schemas: [require('../lib/draft/schema.json'), require('../schema.json')] });
+const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
 const options = yargs.usage('Usage: --vendor <file>').option('v', {
   alias: 'vendor',
@@ -20,20 +20,20 @@ const options = yargs.usage('Usage: --vendor <file>').option('v', {
   default: './vendor/index.yaml',
 }).argv;
 
-let validateVendors = ajv.compile({
-  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendors',
+let validateVendorsIndex = ajv.compile({
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendorsIndex',
 });
-let validateVendor = ajv.compile({
-  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendor',
+let validateVendorIndex = ajv.compile({
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendorIndex',
 });
 let validateEndDevice = ajv.compile({
-  $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevice',
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/endDevice',
 });
 let validateEndDeviceProfile = ajv.compile({
-  $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDeviceProfile',
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/endDeviceProfile',
 });
 let validateEndDevicePayloadCodec = ajv.compile({
-  $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevicePayloadCodec',
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/endDevicePayloadCodec',
 });
 
 function requireFile(path) {
@@ -78,15 +78,36 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     { def: payloadEncoding.downlinkDecoder, routine: 'decodeDownlink' },
   ].forEach((d) => {
     if (d.def) {
-      let fileName = `${vendorId}/${d.def.fileName}`;
+      const { routine } = d;
+      const fileName = `${vendorId}/${d.def.fileName}`;
       promises.push(requireFile(fileName));
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
+          const { input, output, description, normalizedOutput } = e;
           runs.push({
-            fileName: fileName,
-            routine: d.routine,
-            ...e,
+            fileName,
+            routine,
+            description,
+            input,
+            output,
           });
+          if (normalizedOutput && d.routine === 'decodeUplink') {
+            runs.push({
+              fileName,
+              routine: 'normalizeUplink',
+              description: `${description} (normalized)`,
+              input: output,
+              output: normalizedOutput,
+              transformOutput: (output) => {
+                // The normalizer can return an object or an array of objects.
+                // If it's an object, convert it to an array with a single item.
+                if (output.data && !Array.isArray(output.data)) {
+                  output.data = [output.data];
+                }
+                return output;
+              },
+            });
+          }
         });
       }
     }
@@ -104,7 +125,10 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
               reject(stderr);
             } else {
               const expected = r.output;
-              const actual = JSON.parse(stdout);
+              let actual = JSON.parse(stdout);
+              if (r.transformOutput) {
+                actual = r.transformOutput(actual);
+              }
               if (isEqual(expected, actual)) {
                 console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
                 resolve();
@@ -158,8 +182,8 @@ function formatValidationErrors(errors) {
 
 const vendors = yaml.load(fs.readFileSync(options.vendor));
 
-if (!validateVendors(vendors)) {
-  console.error(`${options.vendor} is invalid: ${formatValidationErrors(validateVendors.errors)}`);
+if (!validateVendorsIndex(vendors)) {
+  console.error(`${options.vendor} index is invalid: ${formatValidationErrors(validateVendorsIndex.errors)}`);
   process.exit(1);
 }
 console.log(`vendor index: valid`);
@@ -187,8 +211,8 @@ vendors.vendors.forEach((v) => {
     }
 
     const vendor = yaml.load(fs.readFileSync(vendorIndexPath));
-    if (!validateVendor(vendor)) {
-      console.error(`${key}: invalid index: ${formatValidationErrors(validateVendor.errors)}`);
+    if (!validateVendorIndex(vendor)) {
+      console.error(`${key}: invalid index: ${formatValidationErrors(validateVendorIndex.errors)}`);
       process.exit(1);
     }
     console.log(`${v.id}: valid index`);
