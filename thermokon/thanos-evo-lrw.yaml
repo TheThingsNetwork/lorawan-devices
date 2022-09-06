@@ -1,24 +1,19 @@
-id: cotxpetfon
-name: COTX Petfon LoRa Tracker
-description: With the LoRaWAN protocol, you can track anything you want, such as pets, children, cars, etc.
+name: Thanos Evo LRW
+description: Full Touch Room Operating Unit for Controlling with optional wired BMS connection
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '2.1'
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.2.3'
+    version: '1.0'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '2.1'
-
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -29,16 +24,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        # vendorID: example
+        vendorID: thermokon
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: cotxpetfon-eu868
+        id: thermokon-1-profile
         lorawanCertified: false
-        codec: cotxpetfon-codec
-      US902-928:
-        id: cotxpetfon-us915
-        lorawanCertified: false
-        codec: cotxpetfon-codec
-
+        codec: thermokon-codec-ext
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -47,41 +37,14 @@ firmwareVersions:
 # power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
-
-# Additional radios that this device has (optional)
-# Valid values are: ble, nfc, wifi, cellular.
-
-# Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-
-# Weight in grams (optional)
-
-# Battery information (optional)
-
-# Relative humidity (fraction of 1)
-
-# Key provisioning (optional)
-# Valid values are: custom (user can configure keys), join server and manifest.
-
-# Key programming (optional)
-# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
-# and firmware (when the user should change the firmware to set the keys).
-
-# Key security (optional)
-# Valid values are: none, read protected and secure element.
-
-# Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
-# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
-
+sensors:
+    - temperature
+    - humidity
+    - co2
+    - tvoc
 # Product and data sheet URLs (optional)
-productURL: https://www.cotxnetworks.com/solution/petfon
-
-# Commercial information
+productURL: https://www.thermokon.de/direct/en-gb?path=%2F1%2F2%2F20&filter_show=1&q=&limit=18&filter_articles=&sbscf%3Asbscf1%2Fattr%2F8470[]=thermokon%3A%2F%2F{r%3D0%2Cb%3D0%2Cl%3Den_UK}%2F1%2F7%2F8%2F338%2F339%2F8470%2F10570
 
 # Photos
 photos:
-  main: cotxpetfon.jpg
+  main: thanos-evo-lrw.jpg
