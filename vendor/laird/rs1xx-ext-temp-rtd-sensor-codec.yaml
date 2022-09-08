@@ -15,7 +15,7 @@ uplinkDecoder:
           alarmMsgCount: 0
           backlogMsgCount: 0
           numberOfReadings: 2
-          timestamp: { year: 2000, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }
+          timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }
           readings: [{ temperature: -20.10 }, { temperature: -393.28 }]
 
     - description: Send Backlog Message Notification
@@ -26,7 +26,7 @@ uplinkDecoder:
         data:
           msgType: 'SendBackLogMessage'
           options: ['Sensor configuration error']
-          timestamp: { year: 2000, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 2 }
+          timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 2 }
           temperature: 19671.13
 
     - description: Send Backlog Messages Notification
@@ -40,8 +40,8 @@ uplinkDecoder:
           numberOfReadings: 2
           readings:
             [
-              { timestamp: { year: 2000, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 0.0 },
-              { timestamp: { year: 2000, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 0.0 },
+              { timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 0.0 },
+              { timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 0.0 },
             ]
 
     - description: Send Sensor Config Simple Notification

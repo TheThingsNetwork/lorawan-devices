@@ -1,0 +1,152 @@
+uplinkDecoder:
+  fileName: payload/ra02a.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x11, 0x00, 0x64, 0x15, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA02C'
+          SWver: 10
+          HWver: 21
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x11, 0x01, 0x1E, 0x00, 0x1, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA02C'
+          Volt: 3
+          COAlarm: 'No Alarm'
+          HighTempAlarm: 'Alarm'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'RA02C'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x11, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'RA02C'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Set alarm threshold response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetAlarmThresholdRsp'
+          Device: 'RA02C'
+          Status: 'Success'
+
+    - description: Get alarm threshold response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x11, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmThresholdRsp'
+          Device: 'RA02C'
+          AlarmThreshold: 100
+
+downlinkDecoder:
+  fileName: payload/ra02a.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x11, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA02C'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA02C'
+
+    - description: Set alarm threshold request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x11, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetAlarmThresholdReq'
+          Device: 'RA02C'
+          AlarmThreshold: 100
+
+    - description: Get alarm threshold request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmThresholdReq'
+          Device: 'RA02C'
+
+downlinkEncoder:
+  fileName: payload/ra02a.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA02C'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+      output:
+        fPort: 7
+        bytes: [0x01, 0x11, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA02C'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set alarm threshold request
+      input:
+        data:
+          Cmd: 'SetAlarmThresholdReq'
+          Device: 'RA02C'
+          AlarmThreshold: 100
+      output:
+        fPort: 7
+        bytes: [0x03, 0x11, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get alarm threshold request
+      input:
+        data:
+          Cmd: 'GetAlarmThresholdReq'
+          Device: 'RA02C'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

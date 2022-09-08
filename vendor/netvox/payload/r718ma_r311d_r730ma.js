@@ -70,7 +70,14 @@ function decodeUplink(input) {
 		else
 			data.Volt = input.bytes[3]/10;
 
-		data.Rssi = (input.bytes[4] << 8 | input.bytes[5]);
+		if (input.bytes[4] & 0x80)
+		{
+			var tmprssi = (input.bytes[4]<<8 | input.bytes[5]);
+			data.Rssi = (0x10000 - tmprssi) * -1;
+		}
+		else
+			data.Rssi = (input.bytes[4]<<8 | input.bytes[5]);
+	
 		data.Snr = input.bytes[6];
 		data.HeartInterval = (input.bytes[7] << 8 | input.bytes[8]);
 		

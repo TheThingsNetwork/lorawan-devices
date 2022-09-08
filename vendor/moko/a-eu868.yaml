@@ -15,18 +15,18 @@ macVersion: 1.0.3
 regionalParametersVersion: RP001-1.0.3-RevA
 
 # Whether the end device supports join (OTAA) or not (ABP)
-supportsJoin: false
+supportsJoin: true
 # If your device is an ABP device (supportsJoin is false), uncomment the following fields:
 #RX1 delay
-rx1Delay: 1
+#rx1Delay: 1
 # RX1 data rate offset
-rx1DataRateOffset: 0
+#rx1DataRateOffset: 0
 # RX2 data rate index
-rx2DataRateIndex: 0
+#rx2DataRateIndex: 0
 # RX2 frequency (MHz)
-rx2Frequency: 869.525
+#rx2Frequency: 869.525
 # Factory preset frequencies (MHz)
-factoryPresetFrequencies: [868.1, 868.3, 868.5]
+#factoryPresetFrequencies: [868.1, 868.3, 868.5]
 
 # Maximum EIRP
 maxEIRP: 16
