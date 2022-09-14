@@ -78,7 +78,7 @@
               "maximum": 621
             },
             "pH": {
-              "description": "Soil pH level (open-ended scale)",
+              "description": "Soil pH level",
               "$ref": "#/definitions/pH"
             },
             "n": {
