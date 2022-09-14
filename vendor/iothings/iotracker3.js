@@ -32,12 +32,31 @@ function Decoder(bytes) {
     return (byte1 & 0x80 ? -1 : 1) * ((byte1 & 0x7F) << 24) + (byte2 << 16) + (byte3 << 8) + byte4;
   }
 
-  function substring(source, offset, length) {
+  function bytesToHexString(bytes){
+    if (!bytes){
+      return null;
+    }
+    bytes = new Uint8Array(bytes);
+    var hexBytes = [];
 
-    var buffer = Buffer.alloc(length);
-    source.copy(buffer, 0, offset, offset + length);
-    return buffer.toString('hex');
+    for (var i = 0; i < bytes.length; ++i) {
+      var byteString = bytes[i].toString(16);
+      if (byteString.length < 2){
+        byteString = "0" + byteString;
+      }
+      hexBytes.push(byteString);
+    }
+    return hexBytes.join("");
   }
+
+  function substring(source, offset, length) {
+    var buffer = new Uint8Array(length);
+    for(var i = 0; i < length; i++) {
+      buffer[i] = source[offset+i];
+    }
+    return bytesToHexString(buffer);
+  }
+
   function parseBluetoothBeacons00() {
     var beaconStatus = bytes[index++];
     var beaconType = beaconStatus & 0x03;

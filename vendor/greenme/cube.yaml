@@ -65,7 +65,7 @@ weight: 160
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: 0
     max: 40
@@ -83,6 +83,10 @@ dataSheetURL: https://www.greenme.fr/datasheets/cubeV2-datasheet.pdf
 
 # Commercial information
 resellerURLs:
+  - name: 'GreenMe Shop'
+    region:
+      - European Union
+    url: https://www.greenme.fr/shop
   - name: 'Connected things store'
     region:
       - European Union

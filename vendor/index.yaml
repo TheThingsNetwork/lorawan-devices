@@ -274,6 +274,10 @@ vendors:
     name: Fujitsu Component Limited
     vendorID: 166
 
+  - id: gwf
+    name: GWF Messsysteme AG
+    vendorID: 179
+
   - id: hangzhou-lowan
     name: Hangzhou Lowan Information Technology Co.
     vendorID: 182
@@ -334,13 +338,13 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER AG für Druckmesstechnik
+    name: KELLER Druckmesstechnik AG
     website: https://keller-druck.com/
     logo: keller-logo.svg
     vendorID: 222
-    description: KELLER AG, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
+    description: KELLER Pressure, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
     social:
-      linkedin: https://www.linkedin.com/company/keller-ag-f%C3%BCr-druckmesstechnik
+      linkedin: https://www.linkedin.com/company/keller-pressure
       github: KELLERAGfuerDruckmesstechnik
 
   - id: kerlink
@@ -429,6 +433,12 @@ vendors:
     logo: mcci.svg
     ouis:
       - 0002CC
+
+  - id: mcf88
+    name: mcf88 SRL
+    vendorID: 259
+    website: https://www.enginko.com
+    logo: mcf88_logo.svg
 
   - id: enginko
     name: enginko SRL
@@ -1846,6 +1856,11 @@ vendors:
       linkedin: https://www.linkedin.com/company/sensedge/
       twitter: sensedgeco
 
+  - id: cotx
+    name: Beijing COTX Networks Technologies Co. Ltd.
+    website: https://www.cotxnetworks.com/
+    vendorID: 942
+
   - id: hbi
     name: HBI Bisscheroux
     description: Standing out in intelligent lighting solutions for public spaces, indoors and out. Taking on a leading role nationally and internationally in the top segment of highly sustainable light fittings for a safe and sustainable world. These are the strategic principles that make HBI stand out from the rest of the market.
@@ -1864,6 +1879,16 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/saninudge/
 
+  - id: grinn
+    name: Grinn sp. z o.o.
+    description: Grinn is a technology company dedicated to building IoT solutions from a scratch. Since 2008 we are delivering high class services on embedded software development, electronics design, mechanical engineering and production management. During the last 15 years we've designed plenty of projects for different industries like automotive, healthcare, security, agriculture, business, etc.
+    website: https://grinn-global.com
+    logo: grinn-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/grinn
+      facebook: https://www.facebook.com/GRINNGLOBAL
+      twitter: GrinnInt
+
   - id: ambitlocker
     name: Ambitlocker
     description: Established in 2017, Ambitlocker is a Danish technology business that develops digital management systems for locking units. We have initially concentrated on implementing our technology in our padlocks, which makes it extremely easy to digitalise analogue and mechanical units without the need to rebuild them.
@@ -1871,3 +1896,14 @@ vendors:
     logo: logo.png
     social:
       linkedin: https://www.linkedin.com/company/ambitlocker
+
+  - id: rivercity-innovations
+    name: Rivercity Innovations Ltd.
+    vendorID: 959
+    description: Rivercity Innovations designs and manufactures data monitoring IoT solutions to help businesses solve issues relating to resource management. Our team specializes in using LoRaWAN technology in cold chain temperature monitoring, commercial property monitoring and GPS tracking.
+    website: https://rivercityinnovations.ca/
+    logo: rci-logo-blue-black.png
+    social:
+      linkedin: https://www.linkedin.com/company/rivercity-innovations/
+      facebook: https://www.facebook.com/RivercityInnovations/
+      twitter: RivercityInnov1
