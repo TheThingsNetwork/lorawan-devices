@@ -1907,3 +1907,9 @@ vendors:
       linkedin: https://www.linkedin.com/company/rivercity-innovations/
       facebook: https://www.facebook.com/RivercityInnovations/
       twitter: RivercityInnov1
+
+  - id: restotracker
+    name: Restotracker
+    description: RestoTracker is a modern asset recovery  and tracking company, enabling companies to Know where your equipment is at all times, Recover stolen equipment, Not be the victim of theft
+    website: https://restotracker.com/
+    logo: logo.png
