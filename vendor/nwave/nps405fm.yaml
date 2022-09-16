@@ -1,6 +1,6 @@
 id: nps405fm
 name: Smart Parking Sensor G4 FM
-partNumber: NPS-4.5
+partNumber: NPS-4.5-FM
 description: The wireless vehicle detection sensor with high detection accuracy 99.7%, fast detection 3-5 seconds, low profile - 20mm, 10 years battery life @20 parking sessions a day, vehicle counting capabilities.
 hardwareVersions:
   - version: '4.5'
