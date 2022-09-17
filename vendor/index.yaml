@@ -1475,7 +1475,12 @@ vendors:
   - id: ht-micron
     name: HT Micron Semicondutores S.A.
     vendorID: 804
-
+    website: http://www.htmicron.com.br/
+    logo: ht-micron_logo.png
+    social:
+      linkedin: https://linkedin.com/company/ht-micron-semicondutores-sa
+      facebook: https://www.facebook.com/htmicron
+      github: htmicron
   - id: university-of-wurzburg
     name: University of Wurzburg, Chair of Communication Networks
     vendorID: 806
