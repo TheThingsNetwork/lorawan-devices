@@ -204,3 +204,290 @@ function parseDateByte(payload) {
   date = new Date(year, month - 1, day, hour, minute, second, 0).toLocaleString();
   return date;
 }
+
+function parseLevel(payload) {
+  var r = [];
+
+  var payloadToByteArray = hexStringToByteArray(payload);
+  var typeNumber = ((0x00 << 8) & 0xff00) | (payloadToByteArray[1] & 0xff);
+  const type = {
+    variable: 'type',
+    value: typeNumber,
+  };
+  r.push(type);
+
+  var date, ADC, distance1, battery, error;
+
+  var startData = 2;
+  switch (typeNumber) {
+    case 0x00:
+      startData = 6;
+      date = {
+        variable: 'date',
+        value: parseDateByte(payloadToByteArray.slice(2, startData)),
+      };
+      r.push(date);
+
+      ADC = {
+        variable: 'ADC',
+        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        unit: 'mV',
+      };
+      r.push(ADC);
+      startData += 2;
+      startData += 2;
+
+      if (startData + 2 <= payloadToByteArray.length) {
+        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        if (distanceNumber <= 60000) {
+          distance1 = {
+            variable: 'distance1',
+            value: distanceNumber,
+            unit: 'mm',
+          };
+          r.push(distance1);
+        } else {
+          error = {
+            variable: 'distance1',
+            value: 'distance error [' + distanceNumber + ']',
+          };
+          r.push(error);
+        }
+      }
+      startData += 2;
+
+      if (startData + 1 === payloadToByteArray.length) {
+        battery = {
+          variable: 'battery',
+          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          unit: '%',
+        };
+        r.push(battery);
+      }
+
+      return r;
+    case 0x01:
+      startData = 6;
+      date = {
+        variable: 'date',
+        value: parseDateByte(payloadToByteArray.slice(2, startData)),
+      };
+      r.push(date);
+
+      ADC = {
+        variable: 'ADC',
+        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        unit: 'mV',
+      };
+      r.push(ADC);
+      startData += 2;
+      startData += 2;
+
+      if (startData + 2 <= payloadToByteArray.length) {
+        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        if (distanceNumber <= 60000) {
+          distance1 = {
+            variable: 'distance1',
+            value: distanceNumber,
+            unit: 'mm',
+          };
+          r.push(distance1);
+        } else {
+          error = {
+            variable: 'distance1',
+            value: 'distance error [' + distanceNumber + ']',
+          };
+          r.push(error);
+        }
+      }
+      startData += 2;
+
+      var fillLevel = {
+        variable: 'fillLevel',
+        value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+        unit: '%',
+      };
+      r.push(fillLevel);
+      startData += 1;
+
+      var temperature = {
+        variable: 'temperature',
+        value: getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1]),
+        unit: '� C',
+      };
+      r.push(temperature);
+      startData += 2;
+
+      if (startData + 1 === payloadToByteArray.length) {
+        battery = {
+          variable: 'battery',
+          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          unit: '%',
+        };
+        r.push(battery);
+      }
+
+      return r;
+    case 0x02:
+      startData = 6;
+      date = {
+        variable: 'date',
+        value: parseDateByte(payloadToByteArray.slice(2, startData)),
+      };
+      r.push(date);
+
+      ADC = {
+        variable: 'ADC',
+        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        unit: 'mV',
+      };
+      r.push(ADC);
+      startData += 2;
+      startData += 2;
+
+      if (startData + 2 <= payloadToByteArray.length) {
+        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        if (distanceNumber <= 60000) {
+          distance1 = {
+            variable: 'distance1',
+            value: distanceNumber,
+            unit: 'mm',
+          };
+          r.push(distance1);
+        } else {
+          error = {
+            variable: 'distance1',
+            value: 'distance error [' + distanceNumber + ']',
+          };
+          r.push(error);
+        }
+      }
+      startData += 2;
+
+      var temperature = {
+        variable: 'temperature',
+        value: getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1]),
+        unit: '� C',
+      };
+      r.push(temperature);
+      startData += 2;
+
+      var humidity = {
+        variable: 'humidity',
+        value: getHumidity(parseInt(payloadToByteArray[startData])),
+        unit: '%',
+      };
+      r.push(humidity);
+      startData += 1;
+
+      var pressure = {
+        variable: 'pressure',
+        value: getPressure(payloadToByteArray[startData], payloadToByteArray[startData + 1], payloadToByteArray[startData + 2]),
+        unit: 'hPa',
+      };
+      r.push(pressure);
+      startData += 3;
+
+      if (startData + 1 === payloadToByteArray.length) {
+        battery = {
+          variable: 'battery',
+          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          unit: '%',
+        };
+        r.push(battery);
+      }
+
+      return r;
+    case 0x03:
+      startData = 6;
+      date = {
+        variable: 'date',
+        value: parseDateByte(payloadToByteArray.slice(2, startData)),
+      };
+      r.push(date);
+
+      ADC = {
+        variable: 'ADC',
+        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        unit: 'mV',
+      };
+      r.push(ADC);
+      startData += 2;
+      startData += 2;
+
+      if (startData + 2 <= payloadToByteArray.length) {
+        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        if (distanceNumber <= 60000) {
+          distance1 = {
+            variable: 'distance1',
+            value: distanceNumber,
+            unit: 'mm',
+          };
+          r.push(distance1);
+        } else {
+          error = {
+            variable: 'distance1',
+            value: 'distance error [' + distanceNumber + ']',
+          };
+          r.push(error);
+        }
+      }
+      startData += 2;
+
+      var fillLevel = {
+        variable: 'fillLevel',
+        value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+        unit: '%',
+      };
+      r.push(fillLevel);
+      startData += 1;
+
+      var temperature = {
+        variable: 'temperature',
+        value: getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1]),
+        unit: '� C',
+      };
+      r.push(temperature);
+      startData += 2;
+
+      var humidity = {
+        variable: 'humidity',
+        value: getHumidity(parseInt(payloadToByteArray[startData])),
+        unit: '%',
+      };
+      r.push(humidity);
+      startData += 1;
+
+      var pressure = {
+        variable: 'pressure',
+        value: getPressure(payloadToByteArray[startData], payloadToByteArray[startData + 1], payloadToByteArray[startData + 2]),
+        unit: 'hPa',
+      };
+      r.push(pressure);
+      startData += 3;
+
+      if (startData + 1 === payloadToByteArray.length) {
+        battery = {
+          variable: 'battery',
+          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          unit: '%',
+        };
+        r.push(battery);
+      }
+
+      return r;
+    default:
+      return null;
+  }
+}
+
+function getTemperature(lo, hi) {
+  var temperature = String((((lo & 0xff) + ((hi << 8) & 0xff00)) << 16) >> 16).padStart(3);
+  temperature = temperature.substring(0, temperature.length - 2) + '.' + temperature.substring(temperature.length - 2);
+  return Number(temperature).toFixed(2);
+}
+
+function getHumidity(lo) {
+  var humidity = (((((0 & 0xff) << 8) | (lo & 0xff)) << 16) >> 16) / 2;
+  return Number(humidity).toFixed(2);
+}
