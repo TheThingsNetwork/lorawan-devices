@@ -1918,3 +1918,11 @@ vendors:
     description: RestoTracker is a modern asset recovery  and tracking company, enabling companies to Know where your equipment is at all times, Recover stolen equipment, Not be the victim of theft
     website: https://restotracker.com/
     logo: logo.png
+
+  - id: twtg
+    name: TWTG
+    vendorID: 962
+    linkedin: https://www.linkedin.com/company/twtg
+    twitter: TWTG_io
+    github: TWTG-R-D-B-V
+
