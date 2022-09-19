@@ -1,4 +1,4 @@
-name: Milesight VS121 AI Workplace Sensor
+name: Milesight VS121 AI Workplace Occupancy Sensor
 description: Milesight VS121, based on Artificial Intelligence (AI) technology, is an AI workplace sensor designed to monitor occupancy & utilization in modern workspace, which can reach up to 95% recognition rate. With the ability to sense from up to more than 78 m2, few sensors are needed to cover the same area, decreasing the deploy costs for users. Milesight VS121 sensors are equipped with Wi-Fi for easy configuration without any configuration tools.
 
 hardwareVersions:
