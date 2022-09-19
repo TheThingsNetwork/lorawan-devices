@@ -151,7 +151,7 @@ function decodeUplink(input) {
   }
   catch (e) {
     return {
-      errors: [e]
+      errors: [e.toString()]
     };
 
   }
