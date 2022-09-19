@@ -1907,3 +1907,10 @@ vendors:
       linkedin: https://www.linkedin.com/company/rivercity-innovations/
       facebook: https://www.facebook.com/RivercityInnovations/
       twitter: RivercityInnov1
+
+  - id: twtg
+    name: TWTG
+    vendorID: 962
+    linkedin: https://www.linkedin.com/company/twtg
+    twitter: TWTG_io
+    github: TWTG-R-D-B-V
