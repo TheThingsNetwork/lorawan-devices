@@ -8,9 +8,9 @@ uplinkDecoder:
         bytes: [0xFF, 0x29, 0x31]
       output:
         data:
-          switch_1: open,
-          switch_2: close,
-          switch_3: close,
-          switch_1_change: yes,
-          switch_2_change: yes,
+          switch_1: open
+          switch_2: close
+          switch_3: close
+          switch_1_change: yes
+          switch_2_change: yes
           switch_3_change: no
