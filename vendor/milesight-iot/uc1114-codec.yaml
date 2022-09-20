@@ -8,7 +8,7 @@ uplinkDecoder:
         bytes: [0x01, 0x00, 0x01]
       output:
         data:
-         digital_input_1: on
+          digital_input_1: on
     - description: Remote I/O Controllers (example 2) - Milesgiht IoT
       input:
         fPort: 85

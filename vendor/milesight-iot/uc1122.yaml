@@ -39,7 +39,7 @@ firmwareVersions:
 
 sensors:
   - digital input
-  - analog input 
+  - analog input
   #   cur
   #   min
   #   max

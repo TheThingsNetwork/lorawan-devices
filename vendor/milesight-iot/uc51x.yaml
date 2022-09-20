@@ -6,7 +6,7 @@ hardwareVersions:
     numeric: 1
   - version: '2.x'
     numeric: 2
-    
+
 firmwareVersions:
   - version: '1.x'
     numeric: 1
@@ -40,7 +40,6 @@ firmwareVersions:
         id: profile-ru864
         codec: uc51x-codec
 
-        
 sensors:
   - battery
   - smart valve

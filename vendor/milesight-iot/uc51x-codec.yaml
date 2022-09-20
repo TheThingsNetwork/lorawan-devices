@@ -8,4 +8,4 @@ uplinkDecoder:
         bytes: [0x03, 0x01, 0x01]
       output:
         data:
-         valve_1: on
+          valve_1: on

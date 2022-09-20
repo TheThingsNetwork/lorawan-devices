@@ -41,7 +41,6 @@ sensors:
   - digital input
   - pulse count
 
-
 dimensions:
   width: 24
   length: 79

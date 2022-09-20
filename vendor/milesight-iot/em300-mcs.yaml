@@ -43,7 +43,7 @@ firmwareVersions:
     numeric: 2
     hardwareVersions:
       - '3.x'
-      
+
     profiles:
       EU863-870:
         id: profile-eu868

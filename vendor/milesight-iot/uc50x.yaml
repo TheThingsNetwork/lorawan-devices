@@ -7,7 +7,6 @@ hardwareVersions:
   - version: '2.x'
     numeric: 2
 
-
 firmwareVersions:
   - version: '1.x'
     numeric: 1
@@ -40,7 +39,6 @@ firmwareVersions:
       RU864-870:
         id: profile-ru864
         codec: uc50x-codec
-
 
 sensors:
   - digital input

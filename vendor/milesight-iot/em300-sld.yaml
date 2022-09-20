@@ -1,5 +1,5 @@
 name: Mileisght EM300-SLD Spot Leak Detection
-description: Milesight EM300-SLD can detect the presence of liquids with a small, high-precision water probe. Besides, EM300-SLD integrates temperature and humidity sensors. It features a long battery life of up to 5 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. Combining with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, users can manage all sensor data remotely and visually and receive alarms via mobile APP. 
+description: Milesight EM300-SLD can detect the presence of liquids with a small, high-precision water probe. Besides, EM300-SLD integrates temperature and humidity sensors. It features a long battery life of up to 5 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. Combining with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, users can manage all sensor data remotely and visually and receive alarms via mobile APP.
 
 hardwareVersions:
   - version: '2.x'

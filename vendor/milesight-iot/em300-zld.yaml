@@ -1,5 +1,5 @@
 name: Milesight EM300-ZLD Zone Leak Detection
-description: Milesight EM300-ZLD can detect a large area presence of water by a long cable with high precision. Besides, EM300-ZLD integrates temperature and humidity sensors. It features a long battery life of up to 5 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. Combining with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, users can manage all sensor data remotely and visually and receive alarms via mobile APP. 
+description: Milesight EM300-ZLD can detect a large area presence of water by a long cable with high precision. Besides, EM300-ZLD integrates temperature and humidity sensors. It features a long battery life of up to 5 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. Combining with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, users can manage all sensor data remotely and visually and receive alarms via mobile APP.
 
 hardwareVersions:
   - version: '2.x'

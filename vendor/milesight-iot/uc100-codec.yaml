@@ -9,5 +9,5 @@ uplinkDecoder:
       output:
         data:
           modbus_channels:
-           index: 8
-           reading: 21
+            index: 8
+            reading: 21

@@ -1,5 +1,5 @@
 name: Milesight EM500-PT100 Industrial Temperature Sensor
-description: Milesight EM500-PT100 resistance temperature sensor is designed for measuring a wide range of temperatures in harsh environments. EM500-PT100 features a long-lasting battery life of up to 10 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. It offers a corrosion resistance cable and multiple probe options. EM500-PT100 is widely used for temperature monitoring applications like industrial machines, ovens, pipes, etc. 
+description: Milesight EM500-PT100 resistance temperature sensor is designed for measuring a wide range of temperatures in harsh environments. EM500-PT100 features a long-lasting battery life of up to 10 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. It offers a corrosion resistance cable and multiple probe options. EM500-PT100 is widely used for temperature monitoring applications like industrial machines, ovens, pipes, etc.
 
 hardwareVersions:
   - version: 'V1.x'

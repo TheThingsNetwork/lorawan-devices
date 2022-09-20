@@ -21,4 +21,3 @@ uplinkDecoder:
           illumination: 28
           infrared: 20
           infrared_and_visible: 121
-    
