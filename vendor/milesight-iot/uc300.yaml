@@ -38,22 +38,22 @@ firmwareVersions:
         codec: uc300-codec
 
 sensors:
-  # digital input 1
-  # digital input 2
-  # digital input 3
-  # digital input 4
-  # pulse count 1
-  # pulse count 2
-  # pulse count 3
-  # pulse count 4
-  # digital output 1
-  # digital output 2
-  # analog input adc 1
-  # analog input adc 2
-  # analog input adv 1
-  # analog input adv 2
-  # pt100 1
-  # pt100 2
+  - digital input 1
+  - digital input 2
+  - digital input 3
+  - digital input 4
+  - pulse count 1
+  - pulse count 2
+  - pulse count 3
+  - pulse count 4
+  - digital output 1
+  - digital output 2
+  - analog input adc 1
+  - analog input adc 2
+  - analog input adv 1
+  - analog input adv 2
+  - pt100 1
+  - pt100 2
   # modbus channels
   #   index
   #   reading
