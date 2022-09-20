@@ -10,4 +10,4 @@ uplinkDecoder:
       output:
         data:
           battery: 100
-          distance: 30
+          distance: 0.03

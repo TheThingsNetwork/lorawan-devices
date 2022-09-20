@@ -1,3 +1,15 @@
+function decodeUplink(input) {
+  var res = Decoder(input.bytes, input.fPort);
+  if (res.error) {
+    return {
+      errors: [res.error],
+    };
+  }
+  return {
+    data: res,
+  };
+}
+
 /**
  * Ursalink EM500-UDL Payload Decoder
  *
@@ -17,6 +29,7 @@
  *   "distance": 30
  * }
  */
+
 function Decoder(bytes, port) {
     var decoded = {};
 

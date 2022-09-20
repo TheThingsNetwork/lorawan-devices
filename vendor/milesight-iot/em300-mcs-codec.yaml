@@ -19,4 +19,4 @@ uplinkDecoder:
           battery: 92
           temperature: 30.8
           humidity: 50.5
-#         door: close
+          door: open
