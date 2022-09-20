@@ -75,6 +75,7 @@ firmwareVersions:
         
 sensors:
   - battery
+  - smart valve
   # valve 1
   # valve 1 count
   # valve 2

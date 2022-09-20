@@ -38,12 +38,9 @@ firmwareVersions:
         codec: uc1114-codec
 
 sensors:
-  # digital input 1
-  # digital input 2
-  # pulse count 1
-  # pulse count 2
-  # digital output 1
-  # digital output 2
+  - digital input
+  - pulse count
+
 
 dimensions:
   width: 24

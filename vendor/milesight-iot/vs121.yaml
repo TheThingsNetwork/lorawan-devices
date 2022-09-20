@@ -37,7 +37,7 @@ firmwareVersions:
         id: profile-ru864
         codec: vs121-codec
 
-sensors:
+#sensors:
 #  people_counter_all
 #  region_count
 

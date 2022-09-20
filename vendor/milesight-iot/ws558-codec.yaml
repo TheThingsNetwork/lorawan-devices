@@ -17,4 +17,3 @@ uplinkDecoder:
       output:
         data:
           energy: 1110
-

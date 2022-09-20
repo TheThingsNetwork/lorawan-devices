@@ -37,7 +37,7 @@ firmwareVersions:
         id: profile-ru864
         codec: uc100-codec
 
-sensors:
+#sensors:
   # modbus channels
 
 bridgeInterfaces:

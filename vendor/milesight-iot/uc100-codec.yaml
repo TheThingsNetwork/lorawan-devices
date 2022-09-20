@@ -8,6 +8,6 @@ uplinkDecoder:
         bytes: [0xff, 0x19, 0x07, 0x02, 0x03, 0x15, 0x00]
       output:
         data:
-#         modbus_channels:
-#           index: 8
-#           reading: 21
+          modbus_channels:
+           index: 8
+           reading: 21

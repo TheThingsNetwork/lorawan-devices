@@ -74,18 +74,11 @@ firmwareVersions:
         codec: uc50x-codec
         
 sensors:
-  # gpio 1
-  # gpio 2
-  # analog input 1
-  # analog input 1 cur
-  # analog input 1 avg
-  # analog input 1 min
-  # analog input 1 max
-  # analog input 2
-  # analog input 2 cur
-  # analog input 2 avg
-  # analog input 2 min
-  # analog input 2 max
+  - digital input
+  - pulse count
+  # digital input
+  - analog input
+  # digital output
   # modbus channels
   #   index
   #   reading

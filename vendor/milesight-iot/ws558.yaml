@@ -47,11 +47,11 @@ firmwareVersions:
 
 sensors:
   - voltage
-  - active_power
-  - power_factor
-  - power_consumption
-  - total_current
-  - switch
+  - power
+  # power_factor
+  # power_consumption
+  - current
+  # switch
 
 dimensions:
   width: 145
