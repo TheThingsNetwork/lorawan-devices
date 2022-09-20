@@ -11,9 +11,17 @@ uplinkDecoder:
           people_counter_all: 3,
           region_count: 3,
           regions:
-            count: 1
-            index: 0,
-            count: 1
-            index: 1,
-            count: 0
-            index: 2
+          {
+            {
+              count: 1
+              index: 0 
+            },
+            {
+              count: 1
+              index: 1 
+            },
+            {
+              count: 0
+              index: 2
+            }
+          }
