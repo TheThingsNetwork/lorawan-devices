@@ -38,7 +38,7 @@ firmwareVersions:
         codec: uc100-codec
 
 sensors:
-  # modbus channels
+  - modbus channels
 
 bridgeInterfaces:
   - modbus
