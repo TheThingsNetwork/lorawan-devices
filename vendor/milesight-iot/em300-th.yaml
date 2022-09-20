@@ -2,7 +2,7 @@ name: EM300-TH
 description: The Milesight LoRaWAN® EM300-TH consists of a temperature and a humidity sensor monitoring indoor and outdoor environments. It is suitable for applications such as greenhouses, cold chains, food prevention, warehouses, residences, offices, and labs.
 
 hardwareVersions:
-  - version: 'V2.2'
+  - version: '2.x'
     numeric: 1
   - version: '3.x'
     numeric: 2
