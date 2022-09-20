@@ -38,22 +38,11 @@ firmwareVersions:
         codec: uc300-codec
 
 sensors:
-  - gpio_in_1
-  - gpio_in_2
-  - gpio_in_3
-  - gpio_in_4
-  - counter_1
-  - counter_2
-  - counter_3
-  - counter_4
-  - gpio_out_1
-  - gpio_out_1
-  - adc_1
-  - adc_2
-  - adv_1
-  - adv_2
-  - pt100_1
-  - pt100_2
+  - digital input
+  - pulse count
+  # digital input
+  - analog input
+  # pt100
   # modbus channels
   #   index
   #   reading
