@@ -10,10 +10,6 @@ uplinkDecoder:
         data:
           people_counter_all: 3,
           region_count: 3,
-          regions:
-           count: 1
-           index: 0
-           count: 1
-           index: 1
-           count: 0
-           index: 2
+          region_0: 0
+          region_1: 1
+          region_2: 0
