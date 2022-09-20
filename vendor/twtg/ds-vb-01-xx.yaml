@@ -1,0 +1,135 @@
+name: TWTN NEON Vibration Sensor
+description: NEON Vibration Sensor
+
+# Hardware versions
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+# Firmware versions
+firmwareVersions:
+  - # Firmware version
+    version: '1.2.8'
+    numeric: 1
+    # Corresponding hardware versions
+    hardwareVersions:
+      - '1.0'
+    # Firmware features
+    features:
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        id: ds-vb-01-01-profile-868
+        lorawanCertified: false
+        codec: ds-vb-01-xx-codec
+
+# You can add more firmware versions and use different profiles per version
+
+# Sensors that this device features
+sensors:
+  - battery
+  - temperature
+  - vibration
+  - accelerometer
+  - velocity
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# bridgeInterfaces:
+# - lvds
+
+# Dimensions in mm
+# Use width, height, length and/or diameter
+dimensions:
+  width: 70
+  length: 100
+  height: 45
+
+# Weight in grams
+weight: 136
+
+# Battery information
+battery:
+  replaceable: true
+  type: 2x A (Saft LS17500)
+
+# Operating conditions
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+# IP rating
+ipCode: IP65
+
+# Key provisioning
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - manifest
+
+# Key programming
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+#keyProgramming:
+
+# Key security
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Firmware programming
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs
+productURL: https://www.twtg.io/products/neon-vibration-sensor/
+dataSheetURL: https://github.com/TWTG-R-D-B-V/neon-product-documentation/blob/main/VB/6016_P20-002_Data-Sheet-NEON-Vibration-Sensor_C.pdf
+
+# Commercial information
+
+# Photos
+photos:
+  main: vb.jpg
+
+# Youtube or Vimeo Video (optional)
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: ATEX
+      norm: EN
+      standard: 60079-0:2012+A11:2013
+    - body: ATEX
+      norm: EN
+      standard: 60079-0:2018
+    - body: ATEX
+      norm: EN
+      standard: 60079-11:2012
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: ETSI
+      norm: EN # Draft
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN # Draft
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 62311:2018
+    - body: ETSI
+      norm: EN
+      standard: 62368-1:2014
