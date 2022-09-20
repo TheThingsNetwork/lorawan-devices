@@ -21,10 +21,12 @@ function decodeUplink(input) {
       data.type = "startup";
       data.firmware_version = input.bytes[0] + "." + input.bytes[1] + "." + input.bytes[2];
       data.reset_cause = [
-        undefined,
+        "rejoining_lorawan_network",
         "watchdog",
         "power_on",
         "user_request",
+        undefined,
+        undefined,
         "brownout",
         "other",
       ][input.bytes[3]];

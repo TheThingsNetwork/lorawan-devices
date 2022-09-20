@@ -28,5 +28,5 @@ uplinkDecoder:
       output:
         data:
           type: startup
-          firmware_version: '2.4.9'
+          firmware_version: '1.13.0'
           reset_cause: power_on
