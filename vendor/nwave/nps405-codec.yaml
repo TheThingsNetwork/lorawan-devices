@@ -35,7 +35,7 @@ uplinkDecoder:
           type: heartbeat
           occupied: false
           battery_voltage: 3.344
-          temperature:  -10
+          temperature: -10
           battery_health: normal
           hw_health_status: 0
 
