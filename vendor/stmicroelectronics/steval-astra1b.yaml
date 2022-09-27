@@ -4,7 +4,7 @@ hardwareVersions:
   - version: '1.0'
     numeric: 1
 firmwareVersions:
-  - version: 'FP-ATR-ASTRA1 v1.1.0; LoRaWAN_AT_Slave v.1.2.0'
+  - version: 'FP-ATR-ASTRA1 v1.1.0'
     numeric: 1
     hardwareVersions:
       - '1.0'
@@ -59,10 +59,6 @@ weight: 80
 battery:
   replaceable: true
   type: 480 mAh LiPo battery
-operatingConditions:
-  temperature:
-    min: 5
-    max: 35
 keyProvisioning:
   - custom
 keyProgramming:
