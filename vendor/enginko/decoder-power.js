@@ -101,6 +101,37 @@ function TTNto(content) {
   }
 }
 
+function parseTimeSync(payload) {
+    const uplinkId = payload.substring(0, 2);
+    if (uplinkId.toUpperCase() === '01') {
+        const syncID = {
+            variable: 'syncID',
+            value: payload.substring(2, 10)
+        };
+        const syncVersion = {
+            variable: 'syncVersion',
+            value: payload.substring(10, 12) + "." + payload.substring(12, 14) + "." + payload.substring(14, 16)
+        };
+        const applicationType = {
+            variable: 'applicationType',
+            value: payload.substring(16, 20)
+        };
+        const rfu = {
+            variable: 'rfu',
+            value: payload.substring(20)
+        };
+
+        return [
+            syncID,
+            syncVersion,
+            applicationType,
+            rfu
+        ];
+    } else {
+        return null;
+    }
+}
+
 function parseDigitalData(payload) {
   var uplinkId = payload.substring(0, 2);
 
