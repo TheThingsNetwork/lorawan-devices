@@ -162,11 +162,11 @@ function parseDigitalData(payload) {
           count++;
           var measure1 = {
             variable: 'measure',
-            value: Number(count).toFixed(),
+            value: parseFloat(Number(count).toFixed()),
           };
           var counter1 = {
             variable: 'counter',
-            value: Number(((payloadToByteArray[i + 1] & 0xff) << 8) + payloadToByteArray[i]).toFixed(),
+            value: parseFloat(Number(((payloadToByteArray[i + 1] & 0xff) << 8) + payloadToByteArray[i]).toFixed()),
           };
           m.push(measure1, counter1);
           break;
@@ -176,7 +176,7 @@ function parseDigitalData(payload) {
           var detection1 = payloadToByteArray.slice(i, i + numberOfBytes);
           var measure2 = {
             variable: 'measure',
-            value: Number(count).toFixed(),
+            value: parseFloat(Number(count).toFixed()),
           };
           var date1 = {
             variable: 'date',
@@ -184,7 +184,7 @@ function parseDigitalData(payload) {
           };
           var frequency = {
             variable: 'frequency',
-            value: Number(((detection1[4] & 0x000000ff) + ((detection1[5] << 8) & 0x0000ff00)) / 10.0).toFixed(2),
+            value: parseFloat(Number(((detection1[4] & 0x000000ff) + ((detection1[5] << 8) & 0x0000ff00)) / 10.0).toFixed(2)),
             unit: 'Hz',
           };
           m.push(measure2, date1, frequency);
@@ -195,7 +195,7 @@ function parseDigitalData(payload) {
           var detection2 = payloadToByteArray.slice(i, i + numberOfBytes);
           var measure3 = {
             variable: 'measure',
-            value: Number(count).toFixed(),
+            value: parseFloat(Number(count).toFixed()),
           };
           var date2 = {
             variable: 'date',
@@ -203,7 +203,7 @@ function parseDigitalData(payload) {
           };
           var counter2 = {
             variable: 'counter',
-            value: Number(detection2[4] & (0x000000ff + ((detection2[5] << 8) & 0x0000ff00))).toFixed(),
+            value: parseFloat(Number(detection2[4] & (0x000000ff + ((detection2[5] << 8) & 0x0000ff00))).toFixed()),
           };
           m.push(measure3, date2, counter2);
           break;
@@ -226,66 +226,66 @@ function parseMetering(payload) {
     };
     var activeEnergy = {
       variable: 'activeEnergy',
-      value: Number(parseSignedInt(payload.substring(10, 18))).toFixed(),
+      value: parseFloat(Number(parseSignedInt(payload.substring(10, 18))).toFixed()),
       unit: 'Wh',
     };
     var reactiveEnergy = {
       variable: 'reactiveEnergy',
-      value: Number(parseSignedInt(payload.substring(18, 26))).toFixed(),
+      value: parseFloat(Number(parseSignedInt(payload.substring(18, 26))).toFixed()),
       unit: 'VARh',
     };
     var apparentEnergy = {
       variable: 'apparentEnergy',
-      value: Number(parseSignedInt(payload.substring(26, 34))).toFixed(),
+      value: parseFloat(Number(parseSignedInt(payload.substring(26, 34))).toFixed()),
       unit: 'VAh',
     };
 
     if (payload.length <= 42) {
       var activation = {
         variable: 'activation',
-        value: Number(parseUnsignedInt(payload.substring(34, 42))).toFixed(),
+        value: parseFloat(Number(parseUnsignedInt(payload.substring(34, 42))).toFixed()),
         unit: 's',
       };
       return [date, activeEnergy, reactiveEnergy, apparentEnergy, activation];
     } else {
       var activePower = {
         variable: 'activePower',
-        value: Number(parseSignedShort(payload.substring(34, 38))).toFixed(),
+        value: parseFloat(Number(parseSignedShort(payload.substring(34, 38))).toFixed()),
         unit: 'W',
       };
       var reactivePower = {
         variable: 'reactivePower',
-        value: Number(parseSignedShort(payload.substring(38, 42))).toFixed(),
+        value: parseFloat(Number(parseSignedShort(payload.substring(38, 42))).toFixed()),
         unit: 'VAR',
       };
       var apparentPower = {
         variable: 'apparentPower',
-        value: Number(parseSignedShort(payload.substring(42, 46))).toFixed(),
+        value: parseFloat(Number(parseSignedShort(payload.substring(42, 46))).toFixed()),
         unit: 'VA',
       };
       var voltage = {
         variable: 'voltage',
-        value: Number(parseUnsignedShort(payload.substring(46, 50))).toFixed(),
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(46, 50))).toFixed()),
         unit: 'dV RMS',
       };
       var current = {
         variable: 'current',
-        value: Number(parseUnsignedShort(payload.substring(50, 54))).toFixed(),
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(50, 54))).toFixed()),
         unit: 'mA RMS',
       };
       var period = {
         variable: 'period',
-        value: Number(parseUnsignedShort(payload.substring(54, 58))).toFixed(),
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(54, 58))).toFixed()),
         unit: 'micro s',
       };
       var frequency = {
         variable: 'frequency',
-        value: Number(1 / (parseUnsignedShort(payload.substring(54, 58)) / 1000000)).toFixed(2),
+        value: parseFloat(Number(1 / (parseUnsignedShort(payload.substring(54, 58)) / 1000000)).toFixed(2)),
         unit: 'Hz',
       };
       var activation = {
         variable: 'activation',
-        value: Number(parseUnsignedInt(payload.substring(58, 66))).toFixed(),
+        value: parseFloat(Number(parseUnsignedInt(payload.substring(58, 66))).toFixed()),
         unit: 's',
       };
       return [date, activeEnergy, reactiveEnergy, apparentEnergy, activePower, reactivePower, apparentPower, voltage, current, period, frequency, activation];
@@ -319,51 +319,51 @@ function parseIO(payload) {
 
     var inputStatus8_1 = {
       variable: 'inputStatus8_1',
-      value: firstByte[0].toString(2),
+      value: parseFloat(firstByte[0].toString(2)),
     };
     var inputStatus9_16 = {
       variable: 'inputStatus9_16',
-      value: secondByte[0].toString(2),
+      value: parseFloat(secondByte[0].toString(2)),
     };
     var inputStatus17_24 = {
       variable: 'inputStatus17_24',
-      value: thirdByte[0].toString(2),
+      value: parseFloat(thirdByte[0].toString(2)),
     };
     var inputStatus25_32 = {
       variable: 'inputStatus25_32',
-      value: fourthByte[0].toString(2),
+      value: parseFloat(fourthByte[0].toString(2)),
     };
     var outputStatus8_1 = {
       variable: 'outputStatus8_1',
-      value: firstByte[1].toString(2),
+      value: parseFloat(firstByte[1].toString(2)),
     };
     var outputStatus9_16 = {
       variable: 'outputStatus9_16',
-      value: secondByte[1].toString(2),
+      value: parseFloat(secondByte[1].toString(2)),
     };
     var outputStatus17_24 = {
       variable: 'outputStatus17_24',
-      value: thirdByte[1].toString(2),
+      value: parseFloat(thirdByte[1].toString(2)),
     };
     var outputStatus25_32 = {
       variable: 'outputStatus25_32',
-      value: fourthByte[1].toString(2),
+      value: parseFloat(fourthByte[1].toString(2)),
     };
     var inputTrigger8_1 = {
       variable: 'inputTrigger8_1',
-      value: firstByte[2].toString(2),
+      value: parseFloat(firstByte[2].toString(2)),
     };
     var inputTrigger9_16 = {
       variable: 'inputTrigger9_16',
-      value: secondByte[2].toString(2),
+      value: parseFloat(secondByte[2].toString(2)),
     };
     var inputTrigger17_24 = {
       variable: 'inputTrigger17_24',
-      value: thirdByte[2].toString(2),
+      value: parseFloat(thirdByte[2].toString(2)),
     };
     var inputTrigger25_32 = {
       variable: 'inputTrigger25_32',
-      value: fourthByte[2].toString(2),
+      value: parseFloat(fourthByte[2].toString(2)),
     };
     return [
       date,
