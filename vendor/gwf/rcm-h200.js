@@ -1,1 +1,117 @@
-function decodeMedium(e){return(e<5&&e>2?e-=3:e<7&&e>4&&(e-=5),0===e)?"water":1===e?"warm water":2===e?"gas":"unkown"}function decodeUnits(e){return e<3?"m^3":e<5?"galons":e<7?"feet^3":"unkown"}function decodeMultiplier(e){return 0===e?"10^-3":1===e?"10^-2":2===e?"10^-1":3===e?"1":4===e?"10":"unkown"}function getActualityDuration(e){return e<0||e>255?"unknown":e<=59?e:e>59&&e<152?Math.floor((e-60)*15/60)+1+"h "+(e-60)*15%60+"m":152<=e&&e<200?e-152+1+" days":200<=e&&e<245?e-200+7+" weeks":245<=e?"more than 1 years":"unknown"}function decodeUplinkShort(e){var t=e.bytes,r={};return r.meterVolume=(7&t[3])<<24|t[2]<<16|t[1]<<8|t[0],r.lifetimeSemester=t[3]>>3,r.lifeTime=31&t[3],r.meterMediumAndUnitsCode=15&t[4],r.medium=decodeMedium(r.meterMediumAndUnitsCode),r.units=decodeUnits(r.meterMediumAndUnitsCode),r.meterMultiplier=decodeMultiplier(t[4]>>4),r.meterSerialNumber=(7&t[8])<<24|t[7]<<16|t[6]<<8|t[5],r.actualityDuration=getActualityDuration(t[10]),r.meterNoResponse=(t[8]>>3&1)==1,r.meterEcoFrameError=(t[8]>>4&1)==1,r.meterRollError=(t[8]>>5&1)==1,r.brokenPipe=(t[8]>>6&1)==1,r.lowBattery=(t[8]>>7&1)==1,r.backflow=(1&t[9])==1,r.continuousFlow=(t[9]>>1&1)==1,r.noUsage=(t[9]>>2&1)==1,r.linkError=(t[9]>>3&1)==1,r.emvPass=(!r.linkError&!r.meterRollError&!r.meterNoResponse&!r.meterEcoFrameError)==1,{data:r}}function decodeUplinkWithKeyDate(e){var t=e.bytes;data=decodeUplinkShort(e);var r=t[12]<<8|t[11];return keydate_day=31&r,keydate_month=(3840&r)>>8,keydate_year=((224&r)>>5)+((61440&r)>>9)-1,data.keydate=""+keydate_day+"."+keydate_month+"."+keydate_year,{data}}function decodeUplinkDiagnostic(e){var t=e.bytes,r={};return r.temp=t[7],r.soc=t[8],r.year=t[0],r.month=t[1],r.day=t[2],r.weekday=t[3],r.hour=t[4],r.minutes=t[5],r.seconds=t[6],{data:r}}function decodeUplink(e){return 9==e.bytes.length?decodeUplinkDiagnostic(e):11==e.bytes.length?decodeUplinkShort(e):decodeUplinkWithKeyDate(e)}
+function decodeMedium(code) {
+  if(code<5 && code >2){
+    code=code-3;
+  }else if(code<7 && code >4){
+    code=code-5;
+  }
+  
+  if(code===0){
+    return "water";
+  }
+  
+  if(code===1){
+    return "warm water";  
+  }
+  
+  if(code===2){
+    return "gas";
+  }
+  
+  return "unkown";
+  
+}
+
+function decodeUnits(code) {
+  if(code < 3 ){
+    return "m^3";
+  }else if(code < 5 ){
+    return "galons";
+  }else if(code < 7 ){
+    return "feet^3";    
+  }else{
+    return "unkown";
+  }
+}
+function decodeMultiplier(code){
+  if(code === 0){
+    return "10^-3";
+  }
+  if(code === 1){
+    return "10^-2";
+  }
+  if(code === 2){
+    return "10^-1";
+  }
+  if(code === 3){
+    return "1";
+  }
+  if(code === 4){
+    return "10";
+  }
+  
+  return "unkown";
+}
+
+function getActualityDuration(input) {
+  
+  var durationString = "";
+  if(input < 0 || input > 255){
+    duration = "unknown";
+  }
+  else if(input <= 59) {
+    duration = input; + " minutes";
+  }
+  else if(input > 59 && input < 152) {
+    var durationMin = (((input-60)*15)%60);
+    var durationHour = Math.floor((((input - 60) * 15))/60)+1;
+    duration = durationHour + "h " + durationMin +"m";
+    duration = duration;
+  }
+  else if(152 <= input && input < 200){
+    var durationDays = input - 152+1;
+    duration = durationDays + " days";
+  }
+  else if(200 <= input && input < 245){
+    var durationWeeks = input - 200 + 7;
+    duration = durationWeeks + " weeks";
+  }
+  else if(245<= input){
+    var durationYear = 1;
+    duration = "more than " + durationYear + " years";
+  }
+  else {
+    duration = "unknown";
+  }
+  
+  return duration;
+}
+
+function decodeUplinkShort(input){
+  var bytes = input.bytes;
+  var decoded = {};
+  var data = {};
+  
+  data.meterVolume = ((bytes[3]&0b111)<<24|bytes[2]<<16|bytes[1]<<8|bytes[0]);
+  data.lifetimeSemester = bytes[3] >> 3;
+  data.lifeTime = bytes[3]&((1<<5) - 1);
+  data.meterMediumAndUnitsCode = bytes[4] & 0xF;
+  
+  data.medium = decodeMedium(data.meterMediumAndUnitsCode);
+  data.units = decodeUnits(data.meterMediumAndUnitsCode);
+  
+  data.meterMultiplier = decodeMultiplier(bytes[4] >> 4);
+  data.meterSerialNumber = ((bytes[8]&0b111)<<24|bytes[7]<<16|bytes[6]<<8|bytes[5]);
+  data.actualityDuration = getActualityDuration(bytes[10]);
+  data.meterNoResponse =  ((bytes[8]>>3)& 0x01) == 1;
+  data.meterEcoFrameError = ((bytes[8]>>4)& 0x01) == 1;
+  data.meterRollError = ((bytes[8]>>5)& 0x01) == 1;
+  data.brokenPipe = ((bytes[8]>>6)& 0x01) == 1;
+  data.lowBattery = ((bytes[8]>>7)& 0x01) == 1;
+  data.backflow = ((bytes[9])& 0x01) == 1;
+  data.continuousFlow = ((bytes[9]>>1)& 0x01) == 1;
+  data.noUsage = ((bytes[9]>>2)& 0x01) == 1;
+  data.linkError= ((bytes[9]>>3)& 0x01) == 1;
+  data.emvPass = (!data.linkError & !data.meterRollError &  !data.meterNoResponse &!  data.meterEcoFrameError) == 1;
+  
+  return {data};
+}
