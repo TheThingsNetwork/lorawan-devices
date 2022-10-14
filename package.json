@@ -25,6 +25,7 @@
     "prettier": "^2.6.2"
   },
   "dependencies": {
+    "axios": "^1.1.2",
     "image-size": "^0.9.7",
     "image-type": "^4.1.0",
     "js-yaml": "^4.1.0",

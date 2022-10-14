@@ -26,6 +26,7 @@ import { generateUplinkEvents } from '../../components/events/utils/generate-eve
 import Events from '../../components/events'
 
 import * as Yup from 'yup'
+import axios from 'axios'
 
 const Schema = Yup.object().shape({
   type: Yup.string().required('Required'),
@@ -104,7 +105,7 @@ function DeviceUplink(props) {
           validateOnMount
           onSubmit={handleSubmit}
         >
-          <DeviceForm start={start} />
+          <DeviceForm start={start} events={events} setStart={setStart} />
         </Form>
       </>
     )
@@ -112,8 +113,13 @@ function DeviceUplink(props) {
 }
 
 function DeviceForm(props) {
-  const { start } = props
+  const { start, events, setStart } = props
   const { values } = useFormikContext()
+
+  const handleChange = React.useCallback(() => {
+    setStart(false)
+    console.log('yoyooyoyoy')
+  }, [])
 
   return (
     <>
@@ -136,11 +142,30 @@ function DeviceForm(props) {
       {start && (
         <>
           {values.type && values.type === 'mqtt' && <h1>mqtt</h1>}
-          {values.type && values.type === 'post' && <h1>Post</h1>}
+          {values.type && values.type === 'post' && <HTTPSender events={events} serverURL={values.url} />}
         </>
       )}
     </>
   )
+}
+
+function HTTPSender(props) {
+  const { events, serverURL } = props;
+  const [currLen, setCurrLen] = React.useState(-1)
+
+  React.useEffect(() => {
+    if (serverURL !== '') {
+      // Doesn't send duplicates.
+      if (events?.length !== undefined && events.length >= 0) {
+        setCurrLen(events.length)
+        axios.post(serverURL, { ...events[(currLen === 0) ? 0 : currLen - 1] })
+          .then(() => { console.log("Sent") })
+          .catch((err) => { console.log(`Something went wrong! => ${err}`) })
+      }
+    }
+  });
+
+  return (<></>);
 }
 
 DeviceUplink.propTypes = {
