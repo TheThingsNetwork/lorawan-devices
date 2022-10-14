@@ -165,7 +165,11 @@ function HTTPSender(props) {
     }
   });
 
-  return (<></>);
+  return (<>
+    <p>
+    Sending information via HTTP...
+    </p>
+  </>);
 }
 
 DeviceUplink.propTypes = {
