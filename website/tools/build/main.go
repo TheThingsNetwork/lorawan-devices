@@ -23,7 +23,6 @@ import (
 )
 
 func main() {
-
 	dir := config.Dir{
 		DeviceRepo: config.DeviceRepo{
 			Templates: "templates/",

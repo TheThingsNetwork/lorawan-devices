@@ -23,7 +23,9 @@ function getDeviceName(dev){
   var deviceName = {
 	5:  "RA07Series",
 	9:  "R726Series",
-	13: "RA07**YSeries"
+	13: "RA07**YSeries",
+	87: "R718PA",
+	88: "R718PB"
   };
   return deviceName[dev];
 }
@@ -35,6 +37,10 @@ function getDeviceID(devName){
 	  return 9;
   else if ((devName == "RA0715Y") || (devName == "RA07**YSeries"))
 	  return 13;
+  else if (devName == "R718PA")
+	  return 87;
+  else if (devName == "R718PB")
+	  return 88;
 }
 
 function checkSensorExist(val){

@@ -1,0 +1,91 @@
+name: TEKTELIC eBeat Device Arm Band
+description: The eBeat by TEKTELIC is the ideal solution to continuously monitor the health and well-being of medical facility patients, senior care residents, or any other individual for potential respiratory illness or other health indicators requiring intervention. This specialized device is designed to continuously monitor an individuals body temperature, one of the most common symptoms of respiratory illness. An adjustable, washable arm-band strap ensures the device can be worn comfortably and discreetly in any situation.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'A'
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.3'
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'A'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: t0007405-868-profile
+        lorawanCertified: false
+        codec: t0007405-codec
+      US902-928:
+        id: t0007405-915-profile
+        lorawanCertified: false
+        codec: t0007405-codec
+      AU915-928:
+        id: t0007405-915-profile
+        lorawanCertified: false
+        codec: t0007405-codec
+      AS923:
+        id: t0007405-923-profile
+        lorawanCertified: false
+        codec: t0007405-codec
+      IN865-867:
+        id: t0007405-865-profile
+        lorawanCertified: false
+        codec: t0007405-codec
+      KR920-923:
+        id: t0007405-920-profile
+        lorawanCertified: false
+        codec: t0007405-codec
+      RU864-870:
+        id: t0007405-864-profile
+        lorawanCertified: false
+        codec: t0007405-codec
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 11.7
+  length: 66
+  height: 36.2
+
+# Battery information (optional)
+battery:
+  type: CR2477
+
+operatingConditions:
+  temperature:
+    min: 0
+    max: 50
+
+ipCode: IP30
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: CE
+      standard: 60950-1
+  regulatory:
+    - body: ETSI EN
+      standard: 300 220
+    - body: ETSI EN
+      standard: 301 489-1
+    - body: ETSI EN
+      standard: 301 489-3
+    - body: FCC
+      standard: '15.247'
+    - body: FCC
+      standard: '15.209'
+
+# Product and data sheet URLs (optional)
+productURL: https://tektelic.com/catalog/wearable-lorawan-temperature-sensor
+dataSheetURL: https://tektelic.com/uploads/Spec-sheet/TEKTELIC_eBeat.pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/arm-band-technical-reference-manual
+
+# Photos (optional)
+photos:
+  main: ebeat.png

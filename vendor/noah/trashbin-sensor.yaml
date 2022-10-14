@@ -72,7 +72,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -30
     max: 85
@@ -110,4 +110,4 @@ productURL: https://noah.tech
 
 # Photos
 photos:
-  main: trashbin-sensor.jpg
+  main: 220420_perspective-01.png

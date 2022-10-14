@@ -10,7 +10,7 @@ const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
 
-const ajv = new Ajv({ schemas: [require('../lib/draft/schema.json'), require('../schema.json')] });
+const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
 const options = yargs.usage('Usage: --vendor <file>').option('v', {
   alias: 'vendor',
@@ -20,20 +20,20 @@ const options = yargs.usage('Usage: --vendor <file>').option('v', {
   default: './vendor/index.yaml',
 }).argv;
 
-let validateVendors = ajv.compile({
-  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendors',
+let validateVendorsIndex = ajv.compile({
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendorsIndex',
 });
-let validateVendor = ajv.compile({
-  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendor',
+let validateVendorIndex = ajv.compile({
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendorIndex',
 });
 let validateEndDevice = ajv.compile({
-  $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevice',
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/endDevice',
 });
 let validateEndDeviceProfile = ajv.compile({
-  $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDeviceProfile',
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/endDeviceProfile',
 });
 let validateEndDevicePayloadCodec = ajv.compile({
-  $ref: 'https://lorawan-schema.org/draft/devices/1/schema#/definitions/endDevicePayloadCodec',
+  $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/endDevicePayloadCodec',
 });
 
 function requireFile(path) {
@@ -51,25 +51,21 @@ function requireFile(path) {
   });
 }
 
-function requireDimensions(path) {
-  return requireFile(path).then(
-    () =>
-      new Promise((resolve, reject) => {
-        sizeOf(path, (err, dimensions) => {
-          if (err) {
-            reject(new Error(`load image ${path}: ${err}`));
-          } else if (dimensions.width > 2000 || dimensions.height > 2000) {
-            reject(
-              new Error(
-                `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`
-              )
-            );
-          } else {
-            resolve();
-          }
-        });
-      })
-  );
+async function requireDimensions(path) {
+  await requireFile(path);
+  return await new Promise((resolve, reject) => {
+    sizeOf(path, (err, dimensions) => {
+      if (err) {
+        reject(new Error(`load image ${path}: ${err}`));
+      } else if (dimensions.width > 2000 || dimensions.height > 2000) {
+        reject(
+          new Error(`image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`)
+        );
+      } else {
+        resolve();
+      }
+    });
+  });
 }
 
 function validatePayloadCodecs(vendorId, payloadEncoding) {
@@ -82,15 +78,36 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     { def: payloadEncoding.downlinkDecoder, routine: 'decodeDownlink' },
   ].forEach((d) => {
     if (d.def) {
-      let fileName = `${vendorId}/${d.def.fileName}`;
+      const { routine } = d;
+      const fileName = `${vendorId}/${d.def.fileName}`;
       promises.push(requireFile(fileName));
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
+          const { input, output, description, normalizedOutput } = e;
           runs.push({
-            fileName: fileName,
-            routine: d.routine,
-            ...e,
+            fileName,
+            routine,
+            description,
+            input,
+            output,
           });
+          if (normalizedOutput && d.routine === 'decodeUplink') {
+            runs.push({
+              fileName,
+              routine: 'normalizeUplink',
+              description: `${description} (normalized)`,
+              input: output,
+              output: normalizedOutput,
+              transformOutput: (output) => {
+                // The normalizer can return an object or an array of objects.
+                // If it's an object, convert it to an array with a single item.
+                if (output.data && !Array.isArray(output.data)) {
+                  output.data = [output.data];
+                }
+                return output;
+              },
+            });
+          }
         });
       }
     }
@@ -108,7 +125,10 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
               reject(stderr);
             } else {
               const expected = r.output;
-              const actual = JSON.parse(stdout);
+              let actual = JSON.parse(stdout);
+              if (r.transformOutput) {
+                actual = r.transformOutput(actual);
+              }
               if (isEqual(expected, actual)) {
                 console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
                 resolve();
@@ -162,8 +182,8 @@ function formatValidationErrors(errors) {
 
 const vendors = yaml.load(fs.readFileSync(options.vendor));
 
-if (!validateVendors(vendors)) {
-  console.error(`${options.vendor} is invalid: ${formatValidationErrors(validateVendors.errors)}`);
+if (!validateVendorsIndex(vendors)) {
+  console.error(`${options.vendor} index is invalid: ${formatValidationErrors(validateVendorsIndex.errors)}`);
   process.exit(1);
 }
 console.log(`vendor index: valid`);
@@ -191,15 +211,15 @@ vendors.vendors.forEach((v) => {
     }
 
     const vendor = yaml.load(fs.readFileSync(vendorIndexPath));
-    if (!validateVendor(vendor)) {
-      console.error(`${key}: invalid index: ${formatValidationErrors(validateVendor.errors)}`);
+    if (!validateVendorIndex(vendor)) {
+      console.error(`${key}: invalid index: ${formatValidationErrors(validateVendorIndex.errors)}`);
       process.exit(1);
     }
     console.log(`${v.id}: valid index`);
 
     const codecs = {};
 
-    vendor.endDevices.forEach((d) => {
+    vendor.endDevices.forEach(async (d) => {
       const key = `${v.id}: ${d}`;
 
       const endDevice = yaml.load(fs.readFileSync(`${folder}/${d}.yaml`));
@@ -227,7 +247,7 @@ vendors.vendors.forEach((v) => {
           });
         }
 
-        Object.keys(version.profiles).forEach((region) => {
+        Object.keys(version.profiles).forEach(async (region) => {
           const regionProfile = version.profiles[region];
           const key = `${v.id}: ${d}: ${region}`;
           const vendorID = regionProfile.vendorID ?? v.id;
@@ -259,7 +279,7 @@ vendors.vendors.forEach((v) => {
               process.exit(1);
             }
             codecs[regionProfile.codec] = true;
-            validatePayloadCodecs(folder, codec)
+            await validatePayloadCodecs(folder, codec)
               .then(() => console.log(`${key}: payload codec ${regionProfile.codec} valid`))
               .catch((err) => {
                 console.error(`${key}: payload codec ${regionProfile.codec} invalid`);
@@ -271,39 +291,39 @@ vendors.vendors.forEach((v) => {
       });
 
       if (endDevice.photos) {
-        validateImageExtension(`${folder}/${endDevice.photos.main}`)
+        await validateImageExtension(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} image has correct extension`))
           .catch((err) => {
             console.error(err);
             process.exit(1);
           });
-        requireImageDecode(`${folder}/${endDevice.photos.main}`)
+        await requireImageDecode(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} is valid`))
           .catch((err) => {
             console.error(err);
             process.exit(1);
           });
-        requireDimensions(`${folder}/${endDevice.photos.main}`)
+        await requireDimensions(`${folder}/${endDevice.photos.main}`)
           .then(() => console.log(`${key}: ${endDevice.photos.main} has the right dimensions`))
           .catch((err) => {
             console.error(`${key}: ${err}`);
             process.exit(1);
           });
         if (endDevice.photos.other) {
-          endDevice.photos.other.forEach((p) => {
-            validateImageExtension(`${folder}/${p}`)
+          endDevice.photos.other.forEach(async (p) => {
+            await validateImageExtension(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} image has correct extension`))
               .catch((err) => {
                 console.error(err);
                 process.exit(1);
               });
-            requireImageDecode(`${folder}/${p}`)
+            await requireImageDecode(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} is valid`))
               .catch((err) => {
                 console.error(err);
                 process.exit(1);
               });
-            requireDimensions(`${folder}/${p}`)
+            await requireDimensions(`${folder}/${p}`)
               .then(() => console.log(`${key}: ${p} has the right dimensions`))
               .catch((err) => {
                 console.error(`${key}: ${err}`);

@@ -1,0 +1,7 @@
+supportsClassB: false
+supportsClassC: false
+macVersion: 1.0.4
+regionalParametersVersion: RP002-1.0.1
+supportsJoin: true
+maxEIRP: 14
+supports32bitFCnt: true

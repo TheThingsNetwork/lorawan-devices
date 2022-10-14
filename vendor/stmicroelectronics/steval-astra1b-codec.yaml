@@ -1,0 +1,98 @@
+uplinkDecoder:
+  fileName: steval-astra1b.js
+  examples:
+    - description: Data example
+      input:
+        fPort: 99
+        bytes:
+          [
+            0x0,
+            0x73,
+            0x27,
+            0x88,
+            0x1,
+            0x67,
+            0x1,
+            0x22,
+            0x2,
+            0x68,
+            0x44,
+            0x3,
+            0x71,
+            0xff,
+            0xe8,
+            0xff,
+            0xda,
+            0xfc,
+            0x3d,
+            0x4,
+            0x88,
+            0x5,
+            0xb6,
+            0x8f,
+            0x2,
+            0x4c,
+            0x44,
+            0x0,
+            0x13,
+            0x9,
+            0x5,
+            0x2,
+            0xf,
+            0xd7,
+            0x6,
+            0x1,
+            0x0,
+            0x7,
+            0x0,
+            0x0,
+          ]
+      output:
+        data:
+          accelerationOnX:
+            displayName: Acceleration on X axis
+            unit: mg
+            value: -24
+          accelerationOnY:
+            displayName: Acceleration on Y axis
+            unit: mg
+            value: -38
+          accelerationOnZ:
+            displayName: Acceleration on Z axis
+            unit: mg
+            value: -963
+          altitude:
+            displayName: Altitude
+            unit: mslm
+            value: 48.73
+          batteryVoltage:
+            displayName: Battery voltage
+            unit: mV
+            value: 4055
+          humidity:
+            displayName: Humidity
+            unit: '%'
+            value: 34
+          latitude:
+            displayName: Latitude
+            unit: "\xB0"
+            value: 37.4415
+          ledStatus:
+            displayName: Led status
+            value: 'OFF'
+          longitude:
+            displayName: Longitude
+            unit: "\xB0"
+            value: 15.0596
+          pressure:
+            displayName: Barometric pressure
+            unit: hPa
+            value: 1012
+          tamperInput:
+            displayName: Tamper input
+            unit: 'null'
+            value: 'null'
+          temperature:
+            displayName: Temperature
+            unit: "\xB0C"
+            value: 29

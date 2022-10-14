@@ -7,11 +7,11 @@ uplinkDecoder:
         bytes: [0x01, 0x00, 0xA4, 0xA0, 0xB3, 0xCC, 0xD3, 0x58, 0xE6]
       output:
         data:
+          _type: 'location'
           inTrip: false
           inactive: false
           posSeq: 0
           timeSet: false
-          type: 'location'
           wifi:
             - mac: 'a0b3ccd358e6'
               rssi: -92
