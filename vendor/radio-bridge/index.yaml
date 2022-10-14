@@ -1,0 +1,23 @@
+endDevices:
+  - rbs101-con
+  - rbs301-abm
+  - rbs301-dws
+  - rbs301-temp-ext
+  - rbs301-temp-int
+  - rbs301-tilt
+  - rbs301-wat
+  - rbs301-wr1m
+  - rbs301-1
+  - rbs305-ath
+  - rbs306-420ma
+  - rbs306-abm
+  - rbs306-ath-ext
+  - rbs306-con
+  - rbs306-mbhr
+  - rbs306-temp-ext
+  - rbs306-temp-tc
+  - rbs306-tilt-hp
+  - rbs306-us10m
+  - rbs306-vm30
+  - rbs306-vshb
+  - rbs306-wr1m
