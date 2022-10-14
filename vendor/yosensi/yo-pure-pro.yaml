@@ -5,13 +5,16 @@ description: YO Pure Pro is a device for measuring indoor environmental conditio
 hardwareVersions:
   - version: '3.1'
     numeric: 1
- 
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '3.3.0'
     numeric: 1
+<<<<<<< HEAD
+=======
+    # Corresponding hardware versions (optional)
+>>>>>>> b13e0bc5a0e9016e8a419fc125a3f6c2f96cae58
     hardwareVersions:
       - '3.1'
 
@@ -24,17 +27,17 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 659
+        # vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: yo-pure-pro-profile
-        lorawanCertified: true  
-      US902-928:  #dodać profil na US
+        lorawanCertified: true
+      US902-928: #dodać profil na US
         id: yo-pure-pro-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-pure-pro-profile-au
         lorawanCertified: true
-      
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -53,14 +56,12 @@ sensors:
   - co2
   - sound
   - humidity
-  - light 
+  - light
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
   - ble
- 
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -77,16 +78,12 @@ battery:
   replaceable: true
   type: 2 x backup battery Li-Ion 18650 (2x 3,6 V DC)
 
-
 # IP rating (optional)
 ipCode: IP40
-
 
 # Product and data sheet URLs (optional)
 productURL: https://yosensi.io/products/yo_pure_pro/
 dataSheetURL: https://yosensi.io/support/datasheets/YO_Pure_Pro_datasheet.pdf
-
-
 
 # Photos
 photos:
@@ -94,5 +91,3 @@ photos:
   other:
     - yo-pure-pro-celling.png
     - yo-pure-pro-wall.png
-
-

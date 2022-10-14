@@ -62,7 +62,7 @@ keySecurity: none
 productURL: https://www.decentlab.com/products/strain-/-weight-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-KL66-datasheet.pdf
 photos:
-  main: dl-kl66.jpg
+  main: dl-kl66.png
 
 compliances:
   safety:

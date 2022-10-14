@@ -1,0 +1,209 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: decoder_vb_doc-e_rev-4.js
+  # Examples (optional)
+  examples:
+    - description: Sensor Event Example
+      input:
+        fPort: 15
+        bytes:
+          [
+            0x23,
+            0x01,
+            0x01,
+            0x00,
+            0xD2,
+            0x04,
+            0x88,
+            0x13,
+            0x02,
+            0x00,
+            0xD3,
+            0x04,
+            0x87,
+            0x13,
+            0x03,
+            0x00,
+            0xD4,
+            0x04,
+            0x86,
+            0x13,
+            0x04,
+            0x00,
+            0xD5,
+            0x04,
+            0x85,
+            0x13,
+            0x05,
+            0x00,
+            0xD6,
+            0x04,
+            0x84,
+            0x13,
+            0x06,
+            0x00,
+            0xD7,
+            0x04,
+            0x83,
+            0x13,
+            0x61,
+            0xF0,
+            0xD2,
+            0x04,
+            0x40,
+            0x1F,
+            0x15,
+          ]
+      output:
+        data:
+          header:
+            message_type: sensor_event
+            protocol_version: 2
+          sensor_event:
+            trigger: button
+            rms_velocity:
+              x:
+                min: 0.01
+                max: 12.34
+                avg: 50
+              y:
+                min: 0.02
+                max: 12.35
+                avg: 49.99
+              z:
+                min: 0.03
+                max: 12.36
+                avg: 49.98
+            acceleration:
+              x:
+                min: 0.04
+                max: 12.37
+                avg: 49.97
+              y:
+                min: 0.05
+                max: 12.38
+                avg: 49.96
+              z:
+                min: 0.06
+                max: 12.39
+                avg: 49.95
+            temperature:
+              min: -39.99
+              max: 12.34
+              avg: 80
+            condition_0: 1
+            condition_1: 0
+            condition_2: 1
+            condition_3: 0
+            condition_4: 1
+            condition_5: 0
+    - description: Unsupported protocol
+      input:
+        fPort: 15
+        bytes: [0x34, 0x56, 0x78]
+      output:
+        errors:
+          - Unsupported protocol version!
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: encoder_vb_doc-e_rev-5.js
+  # Examples (optional)
+  examples:
+    - description: Downlink Encoder Example
+      input:
+        data:
+          header:
+            message_type: sensor_data_configuration
+            protocol_version: 2
+          device_type: vb
+          calculation_trigger:
+            on_event: false
+            on_threshold: false
+            on_button_press: false
+          calculation_interval: 1440
+          fragment_message_interval: 60
+          threshold_window: 10
+          trigger_thresholds:
+            - unit: velocity
+              frequency: 0
+              magnitude: 0
+            - unit: velocity
+              frequency: 0
+              magnitude: 0
+            - unit: velocity
+              frequency: 0
+              magnitude: 0
+            - unit: velocity
+              frequency: 0
+              magnitude: 0
+            - unit: velocity
+              frequency: 0
+              magnitude: 0
+          selection:
+            axis: z
+            resolution: low_res
+            enable_hanning_window: false
+          frequency:
+            span:
+              velocity:
+                start: 3
+                stop: 126
+              acceleration:
+                start: 61
+                stop: 4096
+            resolution:
+              velocity: 1
+              acceleration: 2
+          scale:
+            velocity: 1
+            acceleration: 40
+      output:
+        bytes:
+          [
+            0x27,
+            0x06,
+            0x00,
+            0xA0,
+            0x05,
+            0x3C,
+            0x00,
+            0x05,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x02,
+            0x03,
+            0x00,
+            0x7E,
+            0x00,
+            0x3D,
+            0x00,
+            0x00,
+            0x10,
+            0x01,
+            0x02,
+            0x21,
+            0x34,
+            0xDB,
+            0x87,
+          ]
+        fPort: 15

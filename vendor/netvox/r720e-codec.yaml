@@ -1,0 +1,133 @@
+uplinkDecoder:
+  fileName: payload/r720e.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xA5, 0x00, 0x64, 0x01, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R720E'
+          SWver: 10
+          HWver: 1
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xA5, 0x01, 0x24, 0x00, 0x64, 0x0A, 0x46, 0x17, 0x70, 0x00]
+      output:
+        data:
+          Device: 'R720E'
+          Volt: 3.6
+          TVOC_VOC: 100
+          Temp: 26.3
+          Humi: 60
+          SensorUnit: 'ppb'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R720E'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xA5, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x64, 0x05, 0x32]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R720E'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TVOC_VOCChange: 100
+          TempChange: 0.5
+          HumiChange: 5
+
+    - description: Reset TVOC base line response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ResetTVOCBaseLineRsp'
+          Device: 'R720E'
+          Status: 'Success'
+
+downlinkDecoder:
+  fileName: payload/r720e.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xA5, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x64, 0x05, 0x32]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720E'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TVOC_VOCChange: 100
+          TempChange: 0.5
+          HumiChange: 5
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720E'
+
+    - description: Reset TVOC base line request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ResetTVOCBaseLineReq'
+          Device: 'R720E'
+
+downlinkEncoder:
+  fileName: payload/r720e.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720E'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TVOC_VOCChange: 100
+          TempChange: 0.5
+          HumiChange: 5
+      output:
+        fPort: 7
+        bytes: [0x01, 0xA5, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x64, 0x05, 0x32]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720E'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Reset TVOC base line request
+      input:
+        data:
+          Cmd: 'ResetTVOCBaseLineReq'
+          Device: 'R720E'
+      output:
+        fPort: 7
+        bytes: [0x03, 0xA5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

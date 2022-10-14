@@ -3,7 +3,7 @@
 uplinkDecoder:
   fileName: rwmr.js
   examples:
-    - description: Enabled temperature reading with pulse counter 1, Pulse Counter 1 is 32 pulses, battery voltage 2.740V, tempareture 24.35 Celcius
+    - description: Enabled temperature reading with pulse counter 1, Pulse Counter 1 is 32 pulses, battery voltage 2.740V, tempareture 24.35 Celsius
       input:
         fPort: 12
         bytes: [0x15, 0x20, 0, 0, 0, 0, 0, 0, 0, 0xD4, 0x9A]
