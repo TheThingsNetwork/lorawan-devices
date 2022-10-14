@@ -80,8 +80,9 @@ function DeviceUplink(props) {
     setEvents([])
   }
 
-  const handleSubmit = React.useCallback(() => {
+  const handleSubmit = React.useCallback((values, { setSubmitting }) => {
     console.log('go')
+    setSubmitting(false)
     setStart(true)
   }, [])
 
@@ -117,8 +118,8 @@ function DeviceForm(props) {
   const { values } = useFormikContext()
 
   const handleChange = React.useCallback(() => {
+    console.log('hjsdgfhjdsg')
     setStart(false)
-    console.log('yoyooyoyoy')
   }, [])
 
   return (
@@ -131,6 +132,7 @@ function DeviceForm(props) {
           { value: 'mqtt', label: 'MQTT' },
         ]}
         component={Select}
+        onChange={handleChange}
         required
       />
 
@@ -142,7 +144,9 @@ function DeviceForm(props) {
       {start && (
         <>
           {values.type && values.type === 'mqtt' && <h1>mqtt</h1>}
-          {values.type && values.type === 'post' && <HTTPSender events={events} serverURL={values.url} />}
+          {values.type && values.type === 'post' && (
+            <HTTPSender events={events} serverURL={values.url} />
+          )}
         </>
       )}
     </>
@@ -150,7 +154,7 @@ function DeviceForm(props) {
 }
 
 function HTTPSender(props) {
-  const { events, serverURL } = props;
+  const { events, serverURL } = props
   const [currLen, setCurrLen] = React.useState(-1)
 
   React.useEffect(() => {
@@ -158,14 +162,19 @@ function HTTPSender(props) {
       // Doesn't send duplicates.
       if (events?.length !== undefined && events.length >= 0) {
         setCurrLen(events.length)
-        axios.post(serverURL, { ...events[(currLen === 0) ? 0 : currLen - 1] })
-          .then(() => { console.log("Sent") })
-          .catch((err) => { console.log(`Something went wrong! => ${err}`) })
+        axios
+          .post(serverURL, { ...events[currLen === 0 ? 0 : currLen - 1] })
+          .then(() => {
+            console.log('Sent')
+          })
+          .catch((err) => {
+            console.log(`Something went wrong! => ${err}`)
+          })
       }
     }
-  });
+  })
 
-  return (<></>);
+  return <></>
 }
 
 DeviceUplink.propTypes = {
