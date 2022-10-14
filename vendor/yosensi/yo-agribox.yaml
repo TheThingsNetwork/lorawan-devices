@@ -1,8 +1,8 @@
 name: YO Agribox
-description:  
+description: YO AgriBox is a LoRaWAN device for measuring soil moisture at 3 points. Additionally, the device contains sensors that measure temperature and relative humidity inside the device. YO AgriBox makes it easy to plan and maintain optimum growing conditions for plants.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.3'
+  - version: '1.0'
     numeric: 1
  
 
@@ -11,6 +11,8 @@ firmwareVersions:
   - # Firmware version
     version: '3.1.0'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,

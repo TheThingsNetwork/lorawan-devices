@@ -1,4 +1,4 @@
-name: YO Analog
+name: YO Modbus
 description: 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.2.0'
+    version: '3.1.0'
     numeric: 1
     hardwareVersions:
       - '1.0'
@@ -25,13 +25,13 @@ firmwareVersions:
         # which is verbose.
         vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-analog-profile
+        id: yo-modbus-profile
         lorawanCertified: true  
       US902-928:  #dodać profil na US
-        id: yo-analog-profile-us
+        id: yo-modbus-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-analog-profile-au
+        id: yo-modbus-profile-au
         lorawanCertified: true
       
 # Sensors that this device features (optional)
@@ -43,7 +43,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - analog input
+  - #modbus
 
 
 # Additional radios that this device has (optional)
@@ -56,12 +56,12 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 71.2
+  width: 17.5
   length: 58
   height: 90
 
 # Weight in grams (optional)
-weight: 127
+weight: 90
 
 
 # IP rating (optional)
@@ -69,14 +69,14 @@ ipCode: IP20
 
 
 # Product and data sheet URLs (optional)
-productURL: https://yosensi.io/products/yo_analog/
-dataSheetURL: https://yosensi.io/support/datasheets/YO_Analog_datasheet.pdf
+productURL: https://yosensi.io/products/yo_modbus/
+dataSheetURL: https://yosensi.io/support/datasheets/YO_Modbus_datasheet.pdf
 
 
 
 # Photos
 photos:
-  main: yo-analog.png
+  main: yo-modbuus.png
 
 
 

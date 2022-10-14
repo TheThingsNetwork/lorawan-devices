@@ -3,7 +3,6 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - yo-pure-pro # look in windsensor.yaml for the end device definition
-<<<<<<< HEAD
   - yo-temp
   - yo-power
   - yo-360
@@ -18,17 +17,3 @@ endDevices:
   - yo-h2o
   
   
-=======
-  #- yo-temp
-  #- yo-power
-  #- yo-360
-  #- yo-agribox
-  #- yo-modbus
-  #- yo-distance
-  #- yo-analog
-  #- yo-airflow-pro
-  #- yo-meter-pulse
-  #- yo-pulse
-  #- yo-refrigerant-monitor
-  #- yo-h2o
->>>>>>> b13e0bc5a0e9016e8a419fc125a3f6c2f96cae58
