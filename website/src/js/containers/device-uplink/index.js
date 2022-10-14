@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Select from '../../components/select'
 import Form from '../../components/form'
@@ -24,9 +24,12 @@ import { useFormikContext } from 'formik'
 
 import { generateUplinkEvents } from '../../components/events/utils/generate-events'
 import Events from '../../components/events'
+import { update } from 'lodash'
 
 import * as Yup from 'yup'
 import axios from 'axios'
+
+import * as mqtt from 'mqtt'
 
 const Schema = Yup.object().shape({
   type: Yup.string().required('Required'),
@@ -64,6 +67,7 @@ function DeviceUplink(props) {
       setDisplayEvents(true)
     }
   }, [payloadFormatter])
+
   React.useEffect(() => {
     const interval = setInterval(() => {
       if (!paused && events.length < 10 && displayEvents) {
@@ -73,9 +77,11 @@ function DeviceUplink(props) {
     }, 5000)
     return () => clearInterval(interval)
   }, [displayEvents, events, paused, payloadFormatter])
+
   const onPauseToggle = () => {
     setPaused(!paused)
   }
+
   const onClear = () => {
     setEvents([])
   }
@@ -120,6 +126,8 @@ function DeviceForm(props) {
     setStart(false)
   }, [])
 
+  const lastEvent = events === undefined ? undefined : events[events.length - 1]
+
   return (
     <>
       <Form.Field
@@ -141,9 +149,11 @@ function DeviceForm(props) {
       </SubmitBar>
       {start && (
         <>
-          {values.type && values.type === 'mqtt' && <h1>mqtt</h1>}
+          {values.type && values.type === 'mqtt' && (
+            <MQTTSender lastEvent={lastEvent} serverURL={values.url} />
+          )}
           {values.type && values.type === 'post' && (
-            <HTTPSender events={events} serverURL={values.url} />
+            <HTTPSender lastEvent={lastEvent} serverURL={values.url} />
           )}
         </>
       )}
@@ -152,16 +162,14 @@ function DeviceForm(props) {
 }
 
 function HTTPSender(props) {
-  const { events, serverURL } = props
-  const [currLen, setCurrLen] = React.useState(-1)
+  const { lastEvent, serverURL } = props
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (serverURL !== '') {
       // Doesn't send duplicates.
-      if (events?.length !== undefined && events.length >= 0) {
-        setCurrLen(events.length)
+      if (lastEvent !== undefined) {
         axios
-          .post(serverURL, { ...events[currLen === 0 ? 0 : currLen - 1] })
+          .post(serverURL, { lastEvent })
           .then(() => {
             console.log('Sent')
           })
@@ -172,11 +180,53 @@ function HTTPSender(props) {
     }
   })
 
-  return (<>
-    <p>
-    Sending information via HTTP...
-    </p>
-  </>);
+  return (
+    <>
+      <p>Sending information via HTTP...</p>
+    </>
+  )
+}
+
+function MQTTSender(props) {
+  const [client, setClient] = React.useState(mqtt.MqttClient)
+  const { lastEvent, serverURL } = props
+
+  if (serverURL != client.options.hostname) {
+    setClient(mqtt.connect(serverURL))
+  }
+
+  function getApplication(event) {
+    if (event === undefined) {
+      return ''
+    }
+    return event['identifiers'][0]['device_ids']['application_ids']['application_id']
+  }
+
+  function getDeviceID(event) {
+    if (event === undefined) {
+      return ''
+    }
+    return event['identifiers'][0]['device_ids']['device_id']
+  }
+
+  useEffect(() => {
+    if (lastEvent !== undefined) {
+      let topic =
+        'mock.cloud.thethings.industries/v3/' +
+        getApplication(lastEvent) +
+        '@mock/devices/' +
+        getDeviceID(lastEvent) +
+        '/up'
+
+      client.publish(topic, JSON.stringify(lastEvent['data']))
+    }
+  })
+
+  return (
+    <>
+      <p>Sending information via MQTT...</p>
+    </>
+  )
 }
 
 DeviceUplink.propTypes = {

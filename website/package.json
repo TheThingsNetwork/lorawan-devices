@@ -16,6 +16,7 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.9.1",
     "copy-webpack-plugin": "^5.1.0",
+    "mqtt": "^4.3.7",
     "normalize.css": "^8.0.1",
     "prettier": "^2.7.1",
     "react": "^17.0.1",

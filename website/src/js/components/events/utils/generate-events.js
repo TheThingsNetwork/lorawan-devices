@@ -30,7 +30,7 @@ export const generateUplinkEvents = (payloadFormatter) => {
   const example =
     payloadFormatter.examples[Math.floor(Math.random() * payloadFormatter.examples.length)]
   eventTemplates.forEach((eventData) => {
-    console.log(example)
+    // console.log(example)
     const currentDateISO = new Date().toISOString()
     const forwardEvent = {
       ...eventData,

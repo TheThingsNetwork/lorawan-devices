@@ -30,6 +30,7 @@
     "image-type": "^4.1.0",
     "js-yaml": "^4.1.0",
     "lodash.isequal": "^4.5.0",
+    "mqtt": "^4.3.7",
     "read-chunk": "^3.2.0",
     "yargs": "^16.2.0"
   }
