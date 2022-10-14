@@ -81,7 +81,6 @@ function DeviceUplink(props) {
   }
 
   const handleSubmit = React.useCallback((values, { setSubmitting }) => {
-    console.log('go')
     setSubmitting(false)
     setStart(true)
   }, [])
@@ -118,7 +117,6 @@ function DeviceForm(props) {
   const { values } = useFormikContext()
 
   const handleChange = React.useCallback(() => {
-    console.log('hjsdgfhjdsg')
     setStart(false)
   }, [])
 
