@@ -1,0 +1,32 @@
+.container
+  display: flex
+  flex-wrap: wrap
+  position: relative
+  width: 100%
+
+.icon
+  margin-right: var(--cs-xs)
+  position: absolute
+  right: var(--cs-l)
+  top: 26px
+
+.input
+  border: .5px solid var(--c-line-04)
+  border-radius: var(--br-s)
+  color: var(--c-text-03)
+  flex-grow: 1
+  font-size: var(--fs-s)
+  height: var(--cs-xl3)
+  margin-top: var(--cs-s)
+  padding-left: var(--cs-m)
+  padding-right: var(--cs-m)
+  width: 100%
+
+  &:focus
+    border: .5px solid var(--c-interactive-02)
+
+.error
+  border: .5px solid var(--red-error-500)
+
+  &:focus
+    border: .5px solid var(--red-error-500)

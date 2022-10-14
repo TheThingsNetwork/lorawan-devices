@@ -17,16 +17,20 @@
     "connected-react-router": "^6.9.1",
     "copy-webpack-plugin": "^5.1.0",
     "normalize.css": "^8.0.1",
+    "prettier": "^2.7.1",
     "react": "^17.0.1",
     "react-ace": "^9.3.0",
     "react-dom": "^17.0.1",
     "react-grid-system": "^7.1.1",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
+    "react-select": "^5.5.0",
     "react-virtualized-auto-sizer": "^1.0.4",
     "react-window": "^1.8.6",
     "redux": "^4.0.5",
-    "redux-logic": "^3.0.2"
+    "redux-logic": "^3.0.2",
+    "formik": "^2.1.4",
+    "scroll-into-view-if-needed": "^2.2.26"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.0",
@@ -50,6 +54,7 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
-    "webpack-manifest-plugin": "^3.0.0"
+    "webpack-manifest-plugin": "^3.0.0",
+    "yup": "^0.29.1"
   }
 }
