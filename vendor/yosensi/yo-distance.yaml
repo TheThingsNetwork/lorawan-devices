@@ -1,20 +1,18 @@
-name: YO Pure Pro
-description: YO Pure Pro is a device for measuring indoor environmental conditions. The device measures concentrations of particulate matter (PM2.5, PM4 and PM10), carbon monoxide (CO), carbon dioxide (CO2), total volatile organic compounds (TVOC), atmospheric pressure, illumination, temperature, humidity, noise level.
-
+name: YO Distance
+description: YO Distance is a LoRaWAN device for ultrasonic distance measurement. An example of using this device is monitoring the water level in the tank. Additionally, the device contains sensors that measure temperature, relative humidity and an accelerometer that enables to determine whether the device has been installed correctly.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.1'
+  - version: '2.1'
     numeric: 1
  
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.3.0'
+    version: '3.1.0'
     numeric: 1
     hardwareVersions:
-      - '3.1'
-
+      - '2.1'
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -26,13 +24,13 @@ firmwareVersions:
         # which is verbose.
         vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-pure-pro-profile
+        id: yo-distance-profile
         lorawanCertified: true  
       US902-928:  #dodać profil na US
-        id: yo-pure-pro-profile-us
+        id: yo-distance-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-pure-pro-profile-au
+        id: yo-distance-profile-au
         lorawanCertified: true
       
 # Sensors that this device features (optional)
@@ -44,16 +42,10 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pm2.5
-  #- pm4
-  - pm10
-  - tvoc
-  - barometer
-  - co
-  - co2
-  - sound
+  - temperature
   - humidity
-  - light 
+  - distance
+
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -65,34 +57,32 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 130
-  length: 146
-  height: 45
+  width: 100
+  length: 100
+  height: 40
 
 # Weight in grams (optional)
-weight: 200
+weight: 176
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 2 x backup battery Li-Ion 18650 (2x 3,6 V DC)
+  type: 3 x AA 
 
 
 # IP rating (optional)
-ipCode: IP40
+ipCode: IP67
 
 
 # Product and data sheet URLs (optional)
-productURL: https://yosensi.io/products/yo_pure_pro/
-dataSheetURL: https://yosensi.io/support/datasheets/YO_Pure_Pro_datasheet.pdf
+productURL: https://yosensi.io/products/yo_distance/
+dataSheetURL: https://yosensi.io/support/datasheets/YO_Distance_datasheet.pdf
 
 
 
 # Photos
 photos:
-  main: yo-pure-pro.png
-  other:
-    - yo-pure-pro-celling.png
-    - yo-pure-pro-wall.png
+  main: yo-distance.png
+
 
 

@@ -1,19 +1,18 @@
-name: YO Pure Pro
-description: YO Pure Pro is a device for measuring indoor environmental conditions. The device measures concentrations of particulate matter (PM2.5, PM4 and PM10), carbon monoxide (CO), carbon dioxide (CO2), total volatile organic compounds (TVOC), atmospheric pressure, illumination, temperature, humidity, noise level.
-
+name: YO 360
+description:  YO 360 measures temperature and humidity, and it sends its own position on the x, y, and z axes (via a built-in accelerometer). Its small size, battery power supply, and wide data transmission range allow the device to be used virtually anywhere. Additionally, it comes in two enclosure types one for indoor use (material ABS) and another for outdoor use (epoxy resin). It is equipped with a lithium battery with a very low level of self-discharge, allowing data to be collected for years.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.1'
+  - version: '1.3'
     numeric: 1
  
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.3.0'
+    version: '3.1.0'
     numeric: 1
     hardwareVersions:
-      - '3.1'
+      - '1.3'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -26,13 +25,13 @@ firmwareVersions:
         # which is verbose.
         vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-pure-pro-profile
+        id: yo-360-profile
         lorawanCertified: true  
       US902-928:  #dodać profil na US
-        id: yo-pure-pro-profile-us
+        id: yo-360-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-pure-pro-profile-au
+        id: yo-360-profile-au
         lorawanCertified: true
       
 # Sensors that this device features (optional)
@@ -44,16 +43,12 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pm2.5
-  #- pm4
-  - pm10
-  - tvoc
-  - barometer
-  - co
-  - co2
-  - sound
+  - accelerometer
+  - temperature
   - humidity
-  - light 
+  
+
+
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -65,34 +60,26 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 130
-  length: 146
-  height: 45
+  diameter: 47
+  height: 13
 
 # Weight in grams (optional)
-weight: 200
-
-# Battery information (optional)
-battery:
-  replaceable: true
-  type: 2 x backup battery Li-Ion 18650 (2x 3,6 V DC)
+weight: 18.6
 
 
 # IP rating (optional)
-ipCode: IP40
+ipCode: IP40, IP67
 
 
 # Product and data sheet URLs (optional)
-productURL: https://yosensi.io/products/yo_pure_pro/
-dataSheetURL: https://yosensi.io/support/datasheets/YO_Pure_Pro_datasheet.pdf
+productURL: https://yosensi.io/products/yo_360/
+dataSheetURL: https://yosensi.io/support/datasheets/YO_360_datasheet.pdf
 
 
 
 # Photos
 photos:
-  main: yo-pure-pro.png
-  other:
-    - yo-pure-pro-celling.png
-    - yo-pure-pro-wall.png
+  main: yo-360.png
+
 
 
