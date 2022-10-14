@@ -1,0 +1,50 @@
+.list
+  list-style: none
+  padding: 0
+
+  a
+    text-decoration: none
+
+.item
+  border: .5px solid var(--c-line-03)
+  border-radius: var(--br-m)
+  box-sizing: border-box
+  display: flex
+  justify-content: space-between
+  margin-bottom: var(--cs-xxl)
+  padding: var(--cs-xxl)
+
+  &:hover
+    border: .5px solid var(--c-line-04)
+
+  &.disabled
+    background: white
+    border: 0.5px solid var(--c-line-06)
+
+    .name
+      color: var(--c-text-04)
+
+
+.date
+  background: var(--grey-200)
+  border-radius: var(--br-s)
+  color: var(--c-text-04)
+  padding: var(--cs-xxs)
+  font-size: var(--fs-s)
+  margin: 0 var(--cs-xxs)
+
+.name
+  color: var(--c-text-03)
+  font-size: var(--fs-m)
+  margin: 0 0 4px
+
+.details
+  color: var(--c-text-04)
+  font-size: var(--fs-m)
+
+.arrow
+  color: var(--c-icon-03)
+  display: flex
+  flex-direction: column
+  font-size: var(--fs-m)
+  justify-content: center

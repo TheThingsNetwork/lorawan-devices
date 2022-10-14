@@ -14,21 +14,31 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import Select from '../../components/select'
+import Form from '../../components/form'
+import Input from '@wof-webui/components/input'
+import SubmitBar from '../../components/submit-bar'
+import SubmitButton from '../../components/submit-button'
+
+import { useFormikContext } from 'formik'
 
 import { generateUplinkEvents } from '../../components/events/utils/generate-events'
 import Events from '../../components/events'
 
+import * as Yup from 'yup'
+
+const Schema = Yup.object().shape({
+  type: Yup.string().required('Required'),
+  url: Yup.string().required('Required'),
+})
+
 function DeviceUplink(props) {
-  const {
-    truncated,
-    brand_id,
-    model_id,
-    device,
-  } = props
+  const { truncated, brand_id, model_id, device } = props
   const [events, setEvents] = React.useState([])
   const [paused, setPaused] = React.useState(false)
   const [displayEvents, setDisplayEvents] = React.useState(false)
   const [payloadFormatter, setPayloadFormatter] = React.useState({})
+  const [start, setStart] = React.useState(false)
 
   React.useEffect(() => {
     let firm
@@ -68,18 +78,68 @@ function DeviceUplink(props) {
   const onClear = () => {
     setEvents([])
   }
+
+  const handleSubmit = React.useCallback(() => {
+    console.log('go')
+    setStart(true)
+  }, [])
+
   return (
     displayEvents && (
-      <Events
-        events={events}
-        paused={paused}
-        onClear={onClear}
-        onPauseToggle={onPauseToggle}
-        truncated={truncated}
-        scoped
-        widget
-      />
+      <>
+        <Events
+          events={events}
+          paused={paused}
+          onClear={onClear}
+          onPauseToggle={onPauseToggle}
+          truncated={truncated}
+          scoped
+          widget
+        />
+        <h1>Test an integration</h1>
+        <Form
+          initialValues={{ type: '', url: '' }}
+          validationSchema={Schema}
+          validateOnBlur
+          validateOnMount
+          onSubmit={handleSubmit}
+        >
+          <DeviceForm start={start} />
+        </Form>
+      </>
     )
+  )
+}
+
+function DeviceForm(props) {
+  const { start } = props
+  const { values } = useFormikContext()
+
+  return (
+    <>
+      <Form.Field
+        label={'Connection Type'}
+        name={'type'}
+        options={[
+          { value: 'post', label: 'Post Request' },
+          { value: 'mqtt', label: 'MQTT' },
+        ]}
+        component={Select}
+        required
+      />
+
+      <Form.Field label={'URL'} name={'url'} component={Input} required />
+
+      <SubmitBar center>
+        <Form.Submit component={SubmitButton} text={'Start'} secondary invert />
+      </SubmitBar>
+      {start && (
+        <>
+          {values.type && values.type === 'mqtt' && <h1>mqtt</h1>}
+          {values.type && values.type === 'post' && <h1>Post</h1>}
+        </>
+      )}
+    </>
   )
 }
 

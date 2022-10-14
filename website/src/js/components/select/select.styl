@@ -1,0 +1,52 @@
+.container
+  // Overwriting react-select styling in global scope.
+  width: 100%
+
+  // @stylint off
+  :global(.select__option)
+    padding: var(--cs-xxs) var(--cs-xs)
+
+  :global(.select__option--is-selected)
+    background-color: var(--c-interactive-03)
+
+  :global(.select__option--is-focused:not(.select__option--is-selected))
+    background-color: rgba(0, 71, 255, .1)
+
+  :global(.select__control--is-focused)
+    border-color: var(--c-line-01)
+    box-shadow: none
+    color: black
+
+  :global(.select__control)
+    border-color: var(--c-line-05)
+    border-radius: var(--br-s)
+    color: var(--c-text-03)
+    min-height: var(--cs-xl3)
+    width: 100%
+
+  :global(.select__placeholder)
+    color: var(--c-text-03)
+
+  :global(.select__menu)
+    margin: 0
+    z-index: var(--zi-dropdown)
+
+  :global(.select__dropdown-indicator)
+    color: var(--c-text-03)
+    padding: var(--cs-s)
+
+  :global(.select__value-container)
+    padding: 0 var(--cs-xs)
+
+  :global(.select__indicator-separator)
+    display: none
+
+  &.error
+    :global(.select__control)
+      border-color: var(--red-error-500)
+      color: var(--red-error-500)
+
+  &.warning
+    :global(.select__control)
+      border-color: var(--orange-warning-500)
+      color: var(--orange-warning-500)

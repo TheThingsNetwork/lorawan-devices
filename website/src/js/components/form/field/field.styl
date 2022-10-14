@@ -1,0 +1,79 @@
+.container
+  display: flex
+  flex-wrap: wrap
+  margin-bottom: var(--ls-l)
+  width: 100%
+
+  &.tight
+    margin-bottom: var(--cs-s)
+
+    .description, .instruction
+      margin-bottom: 0
+
+  &.invert
+    color: var(--c-text-06)
+
+    .label
+      color: var(--c-text-06)
+
+    .input
+      border: 0
+      box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .15)
+
+.labelContainer
+  align-items: center
+  display: flex
+  justify-content: space-between
+  width: 100%
+
+.label
+  align-items: center
+  color: var(--c-text-02)
+  display: flex
+  font-size: var(--fs-m)
+  font-weight: 700
+  margin-bottom: var(--cs-s)
+  margin-right: var(--cs-s)
+
+.action
+  min-width: 30%
+
+.description, .instruction
+  color: var(--c-text-03)
+  font-size: var(--fs-s)
+  font-weight: 400
+  margin: 0
+  margin-bottom: var(--cs-s)
+  padding: 0
+  width: 100%
+
+.error
+  align-items: center
+  color: var(--red-error-500)
+  font-size: var(--fs-s)
+  margin: 0 0 0 var(--cs-xxs)
+
+.valid
+  color: var(--green-validation-500)
+  margin: 0 0 0 var(--cs-xxs)
+
+.icon
+  display: inline
+  margin-left: var(--cs-xxs)
+  margin-right: var(--cs-xs)
+  vertical-align: middle
+
+.input
+  border: .5px solid var(--c-line-04)
+  border-radius: var(--br-s)
+  color: var(--c-text-03)
+  flex-grow: 1
+  font-size: var(--fs-s)
+  height: var(--cs-xl3)
+  margin-top: var(--cs-s)
+  padding-left: var(--cs-m)
+  padding-right: var(--cs-m)
+  width: 100%
+
+.naked
+  display: none
