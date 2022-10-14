@@ -28,12 +28,12 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: yo-pure-pro-profile
         lorawanCertified: true
-    US902-928: #dodać profil na US
-      id: yo-pure-pro-profile-us
-      lorawanCertified: true
-    AU915-928:
-      id: yo-pure-pro-profile-au
-      lorawanCertified: true
+      US902-928: #dodać profil na US
+        id: yo-pure-pro-profile-us
+        lorawanCertified: true
+      AU915-928:
+        id: yo-pure-pro-profile-au
+        lorawanCertified: true
 
 # Sensors that this device features (optional)
 # Valid values are:
