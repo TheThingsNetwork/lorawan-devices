@@ -1,7 +1,0 @@
-endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - mcs-lrw #Multi Compact Sensor
-  - dpa-lrw #Differential Pressure Sensor
-  - novos-3-lrw #Room Sensor - Room Operating Unit
-  - ls02-lrw #Lekage Sensor
-  - thanos-evo-lrw #Full Touch Room Operating Unit
