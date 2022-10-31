@@ -1,2 +1,6 @@
 endDevices:
   - nps310sm
+  - nps405sm
+  - nps405fm
+  - ncc405fm
+  - ncc405sm
