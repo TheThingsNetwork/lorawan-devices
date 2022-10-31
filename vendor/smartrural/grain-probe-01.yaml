@@ -32,7 +32,7 @@ firmwareVersions:
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: grain-probe-profile-EU863
+        id: grain-probe-profile-eu863
         lorawanCertified: true
         codec: grain-probe-codec
 
