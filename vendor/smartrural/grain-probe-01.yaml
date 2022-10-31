@@ -50,13 +50,13 @@ sensors:
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
-additionalRadios:
+#additionalRadios:
 #  - ble
 #  - cellular
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-bridgeInterfaces:
+#bridgeInterfaces:
 #  - m-bus
 #  - rs-485
 
