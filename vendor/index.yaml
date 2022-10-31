@@ -1930,3 +1930,9 @@ vendors:
     name: ELV Elektronik AG
     website: https://de.elv.com/
     logo: elv-logo.svg
+
+  - id: smartrural
+    name: SmartRural
+    website: https://smartrural.coop/
+    linkedin: https://www.linkedin.com/company/smartrural-coop/
+    twitter: SmartRuralCoop
