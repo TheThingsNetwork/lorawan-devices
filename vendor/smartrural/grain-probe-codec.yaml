@@ -1,66 +1,17 @@
-# Uplink decoder decodes binary data uplink into a JSON object (optional)
-# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: windsensor.js
-  # Examples (optional)
+  fileName: lse01.js
   examples:
-    - description: 32 knots from the North
+    - description: Moisture & EC Sensor
       input:
-        fPort: 1
-        bytes: [0, 32]
+        fPort: 2
+        bytes: [0xCE, 0x29, 0x00, 0xF1, 0x07, 0xA5, 0x09, 0x9B, 0x6E, 0x28, 0x90]
       output:
-        data:
-          direction: 'N'
-          speed: 32
-      # Normalized output, uses the normalizeUplink function (optional)
-      normalizedOutput:
-        data:
-          - wind:
-              speed: 16.4608
-              direction: 0
-    - description: 42 knots from the East
-      input:
-        fPort: 1
-        bytes: [1, 42]
-      output:
-        data:
-          direction: 'E'
-          speed: 42
+        data: { "Ext": 0,  "Systimestamp": -1687279472,  "battery": 3.625,  "debug": {    "bytes": [206, 41, 0, 241, 7, 165, 9, 155, 110, 40, 144], "errors": [], "warnings": [] }
+
     - description: Unknown FPort
       input:
         fPort: 42
-        bytes: [1, 42]
+        bytes: [0xCE, 0x29, 0x00, 0xF1, 0x07, 0xA5, 0x09, 0x9B, 0x6E, 0x28, 0x90]
       output:
         errors:
           - unknown FPort
-
-# Downlink encoder encodes JSON object into a binary data downlink (optional)
-downlinkEncoder:
-  fileName: windsensor.js
-  examples:
-    - description: Turn green
-      input:
-        data:
-          led: green
-      output:
-        bytes: [1]
-        fPort: 2
-    - description: Invalid color
-      input:
-        data:
-          led: blue
-      output:
-        errors:
-          - invalid LED color
-
-# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-downlinkDecoder:
-  fileName: windsensor.js
-  examples:
-    - description: Turn green
-      input:
-        fPort: 2
-        bytes: [1]
-      output:
-        data:
-          led: green

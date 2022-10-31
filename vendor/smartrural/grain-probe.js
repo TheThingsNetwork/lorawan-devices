@@ -42,8 +42,6 @@ function decodeUplink(input) {
     return {
 		data:{
 			"temperatures": [data.Temp_Channel1,data.Temp_Channel2],
-			"Res_Channel1": data.Res_Channel1,
-			"Res_Channel2": data.Res_Channel2,
 			"Systimestamp": data.Systimestamp,
 			"Ext": data.Ext,
 			"battery": data.BatV,
