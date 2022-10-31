@@ -47,7 +47,6 @@ function decodeUplink(input) {
 			"battery": data.BatV,
 			"debug": {
 						bytes: input.bytes,
-						data_decode: data,
 						warnings: [],
 						errors: []
 					}
@@ -59,5 +58,3 @@ function decodeUplink(input) {
    }
   }
   }
-
-  
