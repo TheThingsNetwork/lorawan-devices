@@ -1,4 +1,4 @@
-name: YO 360
+name: YO H2O
 description: YO H2O is a device that operates on a LoRaWAN network and is used for flood detection.The device also transmits measurements of temperature and humidity and sends information about its own position on x, y, z axes (using an in-built accelerometer).
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -12,7 +12,7 @@ firmwareVersions:
     version: '3.1.0'
     numeric: 1
     hardwareVersions:
-      - '1.3'
+      - '1.1'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
