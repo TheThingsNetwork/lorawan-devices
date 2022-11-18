@@ -3,17 +3,17 @@ description: SenseCAP LoRaWAN® S2120 Weather Station provides you with hyperloc
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: "1.0"
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "1.0"
+    version: '1.0'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - "1.0"
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -60,12 +60,12 @@ firmwareVersions:
 sensors:
   - moisture
   - temperature
-  - Barometric Pressure
-  - Wind Speed
-  - Wind Direction
-  - Light Intensity
-  - UV Index
-  - Rain Hourly
+  - barometer
+  - wind speed
+  - wind direction
+  - light
+  - uv
+  - rainfall
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -94,7 +94,7 @@ operatingConditions:
     max: 1
 
 # IP rating (optional)
-ipCode: suitable for outdoor
+# ipCode: suitable for outdoor
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -112,14 +112,14 @@ dataSheetURL: https://files.seeedstudio.com/products/SenseCAP/101990961_SenseCAP
 
 # Commercial information
 resellerURLs:
-  - name: "Seeed"
+  - name: 'Seeed'
     region:
       - Other
     url: https://www.seeedstudio.com/sensecap-s2120-lorawan-8-in-1-weather-sensor-p-5436.html
 
 # Photos
-photos:
-  main: sensecaps2120.png
+#photos:
+#  main: sensecaps2120.png
 
 video: https://youtu.be/sfcQFfoseI0
 
