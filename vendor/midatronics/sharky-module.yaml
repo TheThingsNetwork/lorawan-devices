@@ -29,7 +29,7 @@ dimensions:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -40
     max: 85

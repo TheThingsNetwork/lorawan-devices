@@ -423,6 +423,43 @@
               }
             }
           ]
+        },
+        "normalizeUplinkInput": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object"
+            }
+          },
+          "required": ["data"]
+        },
+        "normalizeUplinkOutput": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/endDevicePayloadCodec/definitions/scriptOutput"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "data": { "$ref": "https://schema.thethings.network/devicerepository/1/payload/schema#/definitions/uplinkPayload" }
+              }
+            },
+            {
+              "if": {
+                "type": "object",
+                "properties": {
+                  "errors": {
+                    "type": "array",
+                    "maxItems": 0
+                  }
+                }
+              },
+              "then": {
+                "type": "object",
+                "required": ["data"]
+              }
+            }
+          ]
         }
       },
       "properties": {
@@ -442,6 +479,9 @@
                       },
                       "output": {
                         "$ref": "#/definitions/endDevicePayloadCodec/definitions/decodeOutput"
+                      },
+                      "normalizedOutput": {
+                        "$ref": "#/definitions/endDevicePayloadCodec/definitions/normalizeUplinkOutput"
                       }
                     }
                   }
@@ -498,7 +538,8 @@
             }
           ]
         }
-      }
+      },
+      "additionalProperties": false
     },
     "endDeviceProfile": {
       "title": "End Device Profile",
@@ -1019,13 +1060,13 @@
               "type": "object",
               "properties": {
                 "min": {
-                  "description": "Minimum operating temperature (Celcius)",
+                  "description": "Minimum operating temperature (Celsius)",
                   "type": "number",
                   "minimum": -100,
                   "maximum": 100
                 },
                 "max": {
-                  "description": "Maximum operating temperature (Celcius)",
+                  "description": "Maximum operating temperature (Celsius)",
                   "type": "number",
                   "minimum": -100,
                   "maximum": 100
@@ -1176,5 +1217,5 @@
       "required": ["name", "firmwareVersions"]
     }
   },
-  "anyOf": [{ "$ref": "#/definitions/endDevice" }, { "$ref": "#/definitions/endDeviceProfile" }, { "$ref": "#/definitions/vendorsIndex" }, { "$ref": "#/definitions/vendorIndex" }]
+  "oneOf": [{ "$ref": "#/definitions/endDevice" }, { "$ref": "#/definitions/endDeviceProfile" }, { "$ref": "#/definitions/vendorsIndex" }, { "$ref": "#/definitions/vendorIndex" }]
 }
