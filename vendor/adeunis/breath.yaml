@@ -1,47 +1,28 @@
-name: Analog
-description: The Adeunis Analog has 2 inputs for connecting 0-10 V or 4-20 mA sensors and provides LoRaWAN® connectivity to industrial analog/analog PWM sensors already installed on the production sites.
+name: Breath
+description: The Adeunis Breath has several functions (PM1, PM2.5, PM10 and VOCT, alert button, dry contact input) optimising comfort, and ensuring the health of occupants.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.04'
+  - version: '8377AA'
     numeric: 1
-
-  - version: '8180BA'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.03'
+    version: '2.4.X'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.04'
+      - '8377AA'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: adeunis-default-profile
+        id: adeunis-default-profile-c
         lorawanCertified: true
-        codec: analog-codec
-
-  - # Firmware version
-    version: '1.3.X'
-    numeric: 2
-    # Corresponding hardware versions (optional)
-    hardwareVersions:
-      - '8180BA'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: adeunis-default-profile
-        lorawanCertified: true
-        codec: analog-codec
+        codec: breath-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -52,16 +33,16 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - analog input
+  - tvoc
 
 # Dimensions use width, height, length and/or diameter
 dimensions:
-  width: 50
-  length: 105
-  height: 27
+  width: 61
+  length: 111
+  height: 40
 
 # Weight in grams (optional)
-weight: 70
+weight: 107.5
 
 # Battery information (optional)
 battery:
@@ -71,16 +52,15 @@ battery:
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -25
-    max: 75
+    min: 0
+    max: 50
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 0.85
 
 # IP rating (optional)
-ipCode: IP67
-ipCode2: IP68
+ipCode: IP20
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -89,12 +69,12 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://www.adeunis.com/en/produit/analog-wired-sensor-interface/
-dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/Datasheet_ADEUNIS_ANALOG-en.pdf
+productURL: https://www.adeunis.com/en/produit/breath-indoor-air-quality/
+dataSheetURL: https://www.adeunis.com/wp-content/uploads/2021/07/DS_Breath_EN.pdf
 
 # Photos
 photos:
-  main: analog.png
+  main: breath.png
 
 # Regulatory compliances (optional)
 compliances:

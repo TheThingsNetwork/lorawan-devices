@@ -1,0 +1,19 @@
+uplinkDecoder:
+  fileName: deltap_lib.js
+
+  examples:
+    - description: 0x53 Delta P periodic data
+      input:
+        fPort: 1
+        bytes: [0x53, 0x20, 0xFE, 0x0C, 0xFF, 0x06, 0x00, 0x00, 0x00, 0xFA, 0x01, 0xF4]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x53 Delta P periodic data',
+              'status': { 'frameCounter': 1, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false },
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'deltaPressure': { 'unit': 'pa', 'values': [-500, -250, 0, 250, 500] },
+            }
+        warnings: []
+        errors: []
