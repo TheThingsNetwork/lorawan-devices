@@ -4,7 +4,6 @@ description: YO Distance is a LoRaWAN device for ultrasonic distance measurement
 hardwareVersions:
   - version: '2.1'
     numeric: 1
- 
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -22,17 +21,17 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 659
+        #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: yo-distance-profile
-        lorawanCertified: true  
-      US902-928:  #dodać profil na US
+        lorawanCertified: true
+      US902-928: #dodać profil na US
         id: yo-distance-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-distance-profile-au
         lorawanCertified: true
-      
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -46,13 +45,10 @@ sensors:
   - humidity
   - distance
 
-
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
   - ble
- 
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -67,22 +63,15 @@ weight: 176
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3 x AA 
-
+  type: 3 x AA
 
 # IP rating (optional)
 ipCode: IP67
-
 
 # Product and data sheet URLs (optional)
 productURL: https://yosensi.io/products/yo_distance/
 dataSheetURL: https://yosensi.io/support/datasheets/YO_Distance_datasheet.pdf
 
-
-
 # Photos
 photos:
   main: yo-distance.png
-
-
-

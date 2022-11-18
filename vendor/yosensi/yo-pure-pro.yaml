@@ -11,10 +11,6 @@ firmwareVersions:
   - # Firmware version
     version: '3.3.0'
     numeric: 1
-<<<<<<< HEAD
-=======
-    # Corresponding hardware versions (optional)
->>>>>>> b13e0bc5a0e9016e8a419fc125a3f6c2f96cae58
     hardwareVersions:
       - '3.1'
 

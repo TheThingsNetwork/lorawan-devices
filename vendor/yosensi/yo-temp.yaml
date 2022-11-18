@@ -4,7 +4,6 @@ description: YO Temp is a LoRaWAN device for measuring temperature at three exte
 hardwareVersions:
   - version: '2.1'
     numeric: 1
- 
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -23,17 +22,17 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 659
+        #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: yo-temp-profile
-        lorawanCertified: true  
-      US902-928:  #dodać profil na US
+        lorawanCertified: true
+      US902-928: #dodać profil na US
         id: yo-temp-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-temp-profile-au
         lorawanCertified: true
-      
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -46,13 +45,10 @@ sensors:
   - temperature
   - humidity
 
-
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
   - ble
- 
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -67,22 +63,15 @@ weight: 204
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3 x AA 
-
+  type: 3 x AA
 
 # IP rating (optional)
 ipCode: IP67
-
 
 # Product and data sheet URLs (optional)
 productURL: https://yosensi.io/products/yo_temp/
 dataSheetURL: https://yosensi.io/support/datasheets/YO_Temp_datasheet.pdf
 
-
-
 # Photos
 photos:
   main: yo-temp.png
-
-
-
