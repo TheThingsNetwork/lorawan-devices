@@ -585,7 +585,7 @@ vendors:
     vendorID: 314
 
   - id: parametric
-    name: Parametric Engineering GmbH
+    name: Parametric GmbH
     vendorID: 315
 
   - id: proesys

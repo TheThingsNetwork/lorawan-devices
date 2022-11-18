@@ -1,18 +1,28 @@
 name: PCR2 Radar People Counter
 description: Parametric‘s PCR2 people counter uses radar signals to provide a camera-less solution. Utilising LoRaWAN™ technology, these sensors transmit data at regular intervals. With bi-directional counting, the Parametric PCR2 people counter registers people passing by from left or right.
 # Hardware versions (optional, use when you have revisions)
+
 hardwareVersions:
-  - version: '1.0'
+  - version: '03'
+    numeric: 4
+  - version: '04'
+    numeric: 3
+  - version: '04A'
+    numeric: 2
+  - version: '05'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: '4.0.x'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '05'
+      - '04A'
+      - '04'
+      - '03'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -84,7 +94,7 @@ operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -20
-    max: 70
+    max: 50
 
 # Product and data sheet URLs (optional)
 productURL: https://parametric.ch/products/pcr2/
