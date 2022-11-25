@@ -1,0 +1,140 @@
+name: SenseCAP S2120 8-in-1 LoRaWAN® Weather Sensor
+description: SenseCAP LoRaWAN® S2120 Weather Station provides you with hyperlocal weather at your fingertips. It supports multi-scenario applications like backyard, garden, agriculture, meteorology, urban environmental monitoring, and so on. It enables low maintenance cost for its ultra-low power consumption, reliable performance, and built-in Bluetooth for OTA configuration and remote device management.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: "1.0"
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: "1.0"
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - "1.0"
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap2120-8-in-1-codec
+      US902-928:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap2120-8-in-1-codec
+      AU915-928:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap2120-8-in-1-codec
+      KR920-923:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap2120-8-in-1-codec
+      IN865-867:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap2120-8-in-1-codec
+      AS923:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap2120-8-in-1-codec
+      RU864-870:
+        id: sensecap-profile
+        lorawanCertified: true
+        codec: sensecap2120-8-in-1-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - moisture
+  - temperature
+  - Barometric Pressure
+  - Wind Speed
+  - Wind Direction
+  - Light Intensity
+  - UV Index
+  - Rain Hourly
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 160
+  length: 450
+  height: 345
+
+# Weight in grams (optional)
+weight: 1500
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA size, 1.5V batteries (alkaline or non-rechargeable Lithium battery)
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -40
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: suitable for outdoor
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.seeedstudio.com/sensecap-s2120-lorawan-8-in-1-weather-sensor-p-5436.html
+dataSheetURL: https://files.seeedstudio.com/products/SenseCAP/101990961_SenseCAP%20S2120/SenseCAP%20S2120%20LoRaWAN%208-in-1%20Weather%20Station%20User%20Guide.pdf
+
+# Commercial information
+resellerURLs:
+  - name: "Seeed"
+    region:
+      - Other
+    url: https://www.seeedstudio.com/sensecap-s2120-lorawan-8-in-1-weather-sensor-p-5436.html
+
+# Photos
+photos:
+  main: sensecaps2120.png
+
+video: https://youtu.be/sfcQFfoseI0
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
