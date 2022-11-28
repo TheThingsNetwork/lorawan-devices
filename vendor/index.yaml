@@ -1925,3 +1925,8 @@ vendors:
     linkedin: https://www.linkedin.com/company/twtg
     twitter: TWTG_io
     github: TWTG-R-D-B-V
+
+  - id: elv
+    name: ELV Elektronik AG
+    website: https://de.elv.com/
+    logo: elv-logo.svg

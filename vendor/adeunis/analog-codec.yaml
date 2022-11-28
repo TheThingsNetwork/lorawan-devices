@@ -1,0 +1,18 @@
+uplinkDecoder:
+  fileName: analog_lib.js
+
+  examples:
+    - description: 0x42 Analog data
+      input:
+        fPort: 1
+        bytes: [0x42, 0x50, 0x01, 0x10, 0x00, 0x00, 0x02, 0x10, 0x00, 0x00]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x42 Analog data',
+              'status': { 'frameCounter': 2, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'alarmChannelA': false, 'alarmChannelB': true },
+              'channels': [{ 'name': 'channel A', 'unit': 'V', 'value': 1.049 }, { 'name': 'channel B', 'unit': 'mA', 'value': 10.486 }],
+            }
+        warnings: []
+        errors: []
