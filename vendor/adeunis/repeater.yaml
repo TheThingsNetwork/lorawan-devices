@@ -1,22 +1,19 @@
-name: Analog
-description: The Adeunis Analog has 2 inputs for connecting 0-10 V or 4-20 mA sensors and provides LoRaWAN® connectivity to industrial analog/analog PWM sensors already installed on the production sites.
+name: Repeater Sigfox
+description: The Adeunis Sigfox Repeater Exxtend the range of the SIGFOX RC1 network
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.04'
+  - version: '8168AA'
     numeric: 1
-
-  - version: '8180BA'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.03'
+    version: '2.X.X'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.04'
+      - '8168AA'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
@@ -25,23 +22,7 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: adeunis-default-profile
         lorawanCertified: true
-        codec: analog-codec
-
-  - # Firmware version
-    version: '1.3.X'
-    numeric: 2
-    # Corresponding hardware versions (optional)
-    hardwareVersions:
-      - '8180BA'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: adeunis-default-profile
-        lorawanCertified: true
-        codec: analog-codec
+        codec: repeater-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -52,27 +33,28 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - analog input
+  - pulse count
 
-# Dimensions use width, height, length and/or diameter
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
 dimensions:
   width: 50
-  length: 105
+  length: 185
   height: 27
 
 # Weight in grams (optional)
-weight: 70
+weight: 135
 
 # Battery information (optional)
 battery:
-  replaceable: true
+  replaceable: false
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -25
-    max: 75
+    max: 70
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -80,7 +62,6 @@ operatingConditions:
 
 # IP rating (optional)
 ipCode: IP67
-ipCode2: IP68
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -89,12 +70,12 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://www.adeunis.com/en/produit/analog-wired-sensor-interface/
-dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/Datasheet_ADEUNIS_ANALOG-en.pdf
+productURL: https://www.adeunis.com/en/produit/repeater-sigfox-network-infrastructure/
+dataSheetURL: https://www.adeunis.com/wp-content/uploads/2019/09/Datasheet_ADEUNIS_REPEATER-en.pdf
 
 # Photos
 photos:
-  main: analog.png
+  main: repeater.png
 
 # Regulatory compliances (optional)
 compliances:

@@ -1,0 +1,82 @@
+uplinkDecoder:
+  fileName: tic_pme_pmi_lib.js
+
+  examples:
+    - description: 0x49 TIC data
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x49,
+            0x60,
+            0x15,
+            0x04,
+            0x14,
+            0x0D,
+            0x2B,
+            0x05,
+            0x00,
+            0x00,
+            0x02,
+            0xC3,
+            0x00,
+            0x00,
+            0x00,
+            0x98,
+            0x00,
+            0x00,
+            0x00,
+            0x02,
+            0x00,
+            0x00,
+            0x02,
+            0xEB,
+            0x48,
+            0x50,
+            0x45,
+            0x00,
+            0x06,
+            0x92,
+            0xCC,
+            0x00,
+            0x02,
+            0x5C,
+            0xAA,
+            0x00,
+            0x00,
+            0x05,
+            0x37,
+            0x00,
+            0x06,
+            0x8D,
+            0xB8,
+            0x00,
+            0x02,
+            0x5B,
+            0x82,
+            0x00,
+            0x00,
+            0x05,
+            0x28,
+          ]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x49 TIC data',
+              'status': { 'frameCounter': 3, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false, 'readError': false },
+              'DATE': '2020-04-21T13:43:05',
+              'EA_s': { 'unit': 'Wh', 'value': 707 },
+              'ER+_s': { 'unit': 'varh', 'value': 152 },
+              'ER-_s': { 'unit': 'varh', 'value': 2 },
+              'EAPP_s': { 'unit': 'VAh', 'value': 747 },
+              'PTCOUR1': 'HPE',
+              'EAP_s': { 'unit': 'kWh', 'value': 430796 },
+              'ER+P_s': { 'unit': 'kvarh', 'value': 154794 },
+              'ER-P_s': { 'unit': 'kvarh', 'value': 1335 },
+              'EaP-1_s': { 'unit': 'kWh', 'value': 429496 },
+              'ER+P-1_s': { 'unit': 'kvarh', 'value': 154498 },
+              'ER-P-1_s': { 'unit': 'kvarh', 'value': 1320 },
+            }
+        warnings: []
+        errors: []
