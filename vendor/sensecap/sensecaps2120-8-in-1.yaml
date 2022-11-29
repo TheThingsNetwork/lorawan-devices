@@ -94,7 +94,7 @@ operatingConditions:
     max: 1
 
 # IP rating (optional)
-# ipCode: suitable for outdoor
+ipCode: IP66
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -118,8 +118,8 @@ resellerURLs:
     url: https://www.seeedstudio.com/sensecap-s2120-lorawan-8-in-1-weather-sensor-p-5436.html
 
 # Photos
-#photos:
-#  main: sensecaps2120.png
+photos:
+  main: sensecaps2120.png
 
 video: https://youtu.be/sfcQFfoseI0
 
