@@ -1,0 +1,9 @@
+.vscode
+node_modules
+.DS_Store
+bin/runscript
+bin/runscript.exe
+bin/validate-image
+bin/validate-image.exe
+.envrc
+.idea
