@@ -1,8 +1,12 @@
-# Device Repository for LoRaWAN
+# Device Repository for LoRaWAN®
 
 The Device Repository contains information about LoRaWAN end devices. The Device Repository acts as key data source for device catalogs and onboarding devices on LoRaWAN networks.
 
-This repository is a collaborative effort, driven by The Things Network community. We welcome device makers to contribute information about their end devices to help users find and onboard their devices.
+We welcome device makers to contribute information to help users find and onboard end devices in products and services developed and offered by The Things Industries, including [The Things Stack](https://www.thethingsindustries.com/docs/).
+
+## Database Protection Right
+
+The contents of this Device Repository is obtained, verified and structured by The Things Industries B.V. and The Things Network Foundation. As such, the Device Repository is a database protected by copyright and sui generis right as defined by the Database Directive ([Directive 96/9/EC of the European Parliament and of the Council](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A31996L0009)). You may not extract and/or reuse the Device Repository as a whole or a substantial part of its content. You are, however, permitted to reuse or extract information about an individual end device.
 
 ## Example
 
@@ -53,6 +57,8 @@ Pull requests are validated automatically. If there are any validation or format
 ```bash
 $ make validate fmt
 ```
+
+Contributors are required to sign the [Contributor License Agreement](https://gist.github.com/johanstokking/58081d646d6dd4f93b3d85cd5c62377c).
 
 ## Validation
 
@@ -326,6 +332,6 @@ See [The Things Stack documentation](https://www.thethingsindustries.com/docs/in
 
 ## Legal
 
-The API is distributed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See `LICENSE` for more information.
+Copyright © 2020-2022 The Things Industries B.V.
 
 All product names, logos, and brands are property of their respective owners. All company, product and service names used in the Device Repository are for identification purposes only. Use of these names, logos, and brands does not imply endorsement.

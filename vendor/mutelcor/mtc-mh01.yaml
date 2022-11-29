@@ -66,12 +66,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 121
-  length: 81
-  height: 60
+  width: 104
+  length: 104
+  height: 70
 
 # Weight in grams (optional)
-weight: 1000
+weight: 659
 
 # Battery information (optional)
 battery:
@@ -82,11 +82,11 @@ battery:
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 85
+    min: -18
+    max: 55
 
 # IP rating (optional)
-ipCode: IP66
+ipCode: IP67
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -94,7 +94,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://mutelcor.com/iot/iot-solutions/lora-manhole-sensor/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2021/06/Datasheets-manhole-sensor-neu.pdf
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2022/11/MUTELCOR_Datasheet_LoRa_Manhole_Sensor.pdf
 
 # Photos
 photos:
