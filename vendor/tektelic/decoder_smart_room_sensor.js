@@ -17,6 +17,21 @@ function decodeUplink(input) {
           "addition": ""
         }
       ],
+      "0x00 0xBA": [
+        {
+          "data_size": "2",
+          "bit_start": "15",
+          "bit_end": "0",
+          "type": "unsigned",
+          "parameter_name": "battery_voltage",
+          "group_name": "",
+          "category_name": "",
+          "round": "3",
+          "coefficient": "0.001",
+          "multiple": "0",
+          "addition": ""
+        }
+      ],
       "0x01 0x00": [
         {
           "data_size": "1",
