@@ -1,0 +1,5 @@
+# This file references all Devices from the ELV-LW module system
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - elv-bm-trx1 # look in elv-bm-trx1.yaml for the end device definition

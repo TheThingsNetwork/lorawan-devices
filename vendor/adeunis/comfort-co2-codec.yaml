@@ -1,0 +1,21 @@
+uplinkDecoder:
+  fileName: comfort_co2_lib.js
+
+  examples:
+    - description: 0x6a Comfort CO2 data
+      input:
+        fPort: 1
+        bytes: [0x6A, 0x80, 0x01, 0xB3, 0x3E, 0x01, 0xA4, 0x01, 0xB4, 0x3F, 0x01, 0xA5]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x6a Comfort CO2 data',
+              'status': { 'frameCounter': 4, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false, 'timestamp': false },
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'temperature': { 'unit': '°C', 'values': [43.5, 43.6] },
+              'humidity': { 'unit': '%', 'values': [62, 63] },
+              'co2': { 'unit': 'ppm', 'values': [420, 421] },
+            }
+        warnings: []
+        errors: []
