@@ -151,7 +151,7 @@
     `}}const g=h;var b=r(6781);class x extends i.oi{static get styles(){return(0,i.$m)(b.Z.toString())}static get properties(){return{platform:{type:String,attribute:"platform"},url:{type:String,attribute:"url"},alignLeft:{type:Boolean,attribute:"align-left"},alignRight:{type:Boolean,attribute:"align-right"}}}getPlatformIconClass(){let t;switch(this.platform){case"youtube":t="ttui-footer__socialIcon--youtube";break;case"twitter":t="ttui-footer__socialIcon--twitter";break;case"facebook":t="ttui-footer__socialIcon--facebook";break;case"github":t="ttui-footer__socialIcon--github";break;case"linkedin":t="ttui-footer__socialIcon--linkedin";break;case"instagram":t="ttui-footer__socialIcon--instagram"}return t}constructor(){super(),this.type="",this.url="",this.alignLeft=!1,this.alignRight=!1}render(){return i.dy`<a
       class=${(0,o.$)({"ttui-footer__socialIcon":!0,[this.getPlatformIconClass()]:!0,"ttui-footer__socialIcon--left":this.alignLeft,"ttui-footer__socialIcon--right":this.alignRight})}
       href=${this.url}
-    ></a>`}}const v=x;var f=r(9208);class w extends i.oi{static get styles(){return(0,i.$m)(f.Z.toString())}static get properties(){return{privacyPolicyURL:{type:String,attribute:"privacy-policy-url"},termsAndConditionsURL:{type:String,attribute:"terms-url"},sponsorText:{type:String,attribute:"sponsor-text"},disableTop:{type:Boolean,attribute:"disable-top"}}}constructor(){super(),this.privacyPolicyURL="https://account.thethingsnetwork.org/legal/privacy-policy",this.termsAndConditionsURL="https://account.thethingsnetwork.org/legal/terms-and-conditions",this.sponsorText="",this.disableTop=!1}render(){return i.dy`
+    ></a>`}}const v=x;var f=r(9208);class w extends i.oi{static get styles(){return(0,i.$m)(f.Z.toString())}static get properties(){return{privacyPolicyURL:{type:String,attribute:"privacy-policy-url"},termsAndConditionsURL:{type:String,attribute:"terms-url"},sponsorText:{type:String,attribute:"sponsor-text"},disableTop:{type:Boolean,attribute:"disable-top"}}}constructor(){super(),this.privacyPolicyURL="https://id.thethingsnetwork.org/legal/privacy-policy",this.termsAndConditionsURL="https://id.thethingsnetwork.org/legal/terms-of-service",this.sponsorText="",this.disableTop=!1}render(){return i.dy`
       <footer
         class=${(0,o.$)({"ttui-footer":!0})}
       >
@@ -163,7 +163,11 @@
                       <div
                         class="ttui-logo ttui-logo__horizontal ttui-logo--left ttui-footer__platformLogo"
                       ></div>
-                      <img class="ttui-footer__loraLogo" src="${n}" alt="LoRa Alliance Member" />
+                      <img
+                        class="ttui-footer__loraLogo"
+                        src="${n}"
+                        alt="LoRa Alliance Member"
+                      />
                     </section>
                     <section class="ttui-footer__loraDisclaimer">
                       <span>LoRaWAN® is a mark used under license from the LoRa Alliance® </span>
@@ -195,7 +199,11 @@
 
           <section class="ttui-footer__sponsor">
             <span class="ttui-footer__sponsorText">${this.sponsorText}</span>
-            <img class="ttui-footer__sponsorLogo" src="${a}" alt="The Things Industries Logo" />
+            <img
+              class="ttui-footer__sponsorLogo"
+              src="${a}"
+              alt="The Things Industries Logo"
+            />
             <a href="https://www.thethingsindustries.com"> The Things Industries </a>
           </section>
         </section>
@@ -253,7 +261,7 @@
                 <ttui-nav slot="menu-user">
                   <nav-dropdown
                     name="${this.user?""+this.user.username:""}"
-                    image="${this.user?`https://account.thethingsnetwork.org/api/v2/users/${this.user.username}/picture.jpg`:""}"
+                    image="${this.user?`https://id.thethingsnetwork.org/pictures/${this.user.username}/thumbnail`:""}"
                     align="right"
                     desktop-show-icon
                     desktop-disable-hover
@@ -331,8 +339,8 @@
   </div>
   <!--End mc_embed_signup-->`;var n=r(9765);class a extends i.oi{static get styles(){return(0,i.$m)(n.Z.toString())}static get properties(){return{rootUrl:{type:String,attribute:"root-url"}}}constructor(){super(),this.rootUrl="https://www.thethingsnetwork.org"}render(){return i.dy`
       <ttui-footer
-        privacy-policy-url="https://account.thethingsnetwork.org/legal/privacy-policy"
-        terms-url="https://account.thethingsnetwork.org/legal/terms-and-conditions"
+        privacy-policy-url="https://id.thethingsnetwork.org/legal/privacy-policy"
+        terms-url="https://id.thethingsnetwork.org/legal/terms-of-service"
         sponsor-text="Sponsored By"
       >
         <ttui-footer-nav slot="menu" title="Features">
@@ -361,12 +369,10 @@
 
         <ttui-footer-nav slot="menu" title="Legal" mobile-only>
           <ttui-footer-nav-item>
-            <a href="https://account.thethingsnetwork.org/legal/privacy-policy">Privacy policy</a>
+            <a href="https://id.thethingsnetwork.org/legal/privacy-policy">Privacy policy</a>
           </ttui-footer-nav-item>
           <ttui-footer-nav-item>
-            <a href="https://account.thethingsnetwork.org/legal/terms-and-conditions"
-              >Terms of use</a
-            >
+            <a href="https://id.thethingsnetwork.org/legal/terms-of-service">Terms of use</a>
           </ttui-footer-nav-item>
         </ttui-footer-nav>
 
@@ -402,4 +408,4 @@
         </div>
       </ttui-footer>
     `}}window.customElements.define("ttn-footer",a)},9765:(t,e,r)=>{r.d(e,{Z:()=>n});var i=r(3645),o=r.n(i)()((function(t){return t[1]}));o.push([t.id,".column{display:-webkit-box;display:-moz-box;display:-webkit-flex;display:-ms-flexbox;display:box;display:flex;-webkit-box-orient:vertical;-moz-box-orient:vertical;-o-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}#mc_embed_signup_scroll{display:-webkit-box;display:-moz-box;display:-webkit-flex;display:-ms-flexbox;display:box;display:flex;-webkit-box-orient:vertical;-moz-box-orient:vertical;-o-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}#mc_embed_signup_scroll label{font-weight:var(--fw-bolder);color:var(--c-text-03);width:100%;margin-bottom:var(--cs-m);font-size:var(--fs-s)}#mc_embed_signup_scroll .email{border:solid .5px var(--c-line-03);border-radius:var(--br-s);min-width:var(--ls-l);padding:var(--cs-s) var(--cs-m);color:var(--c-text-03);-webkit-box-flex:1;-moz-box-flex:1;-o-box-flex:1;-ms-box-flex:1;box-flex:1;-webkit-flex-grow:1;flex-grow:1;margin-bottom:var(--cs-s)}#mc_embed_signup_scroll .clear{min-width:var(--ls-m);-webkit-box-flex:1;-moz-box-flex:1;-o-box-flex:1;-ms-box-flex:1;box-flex:1;-webkit-flex-grow:1;flex-grow:1}::placeholder{color:var(--c-text-05)}#mc-embedded-subscribe{width:100%;height:100%;border-radius:var(--br-s);padding:var(--cs-s);-webkit-appearance:none;outline:0;border:0;background-color:var(--c-interactive-03);color:var(--c-background-04);cursor:pointer}#mc-embedded-subscribe:hover{background-color:var(--c-interactive-02);-webkit-transition:color 0.2s;-moz-transition:color 0.2s;-o-transition:color 0.2s;-ms-transition:color 0.2s;transition:color 0.2s}",""]);const n=o}},r={};function i(t){var o=r[t];if(void 0!==o)return o.exports;var n=r[t]={id:t,exports:{}};return e[t](n,n.exports,i),n.exports}i.m=e,t=[],i.O=(e,r,o,n)=>{if(!r){var a=1/0;for(c=0;c<t.length;c++){for(var[r,o,n]=t[c],s=!0,d=0;d<r.length;d++)(!1&n||a>=n)&&Object.keys(i.O).every(t=>i.O[t](r[d]))?r.splice(d--,1):(s=!1,n<a&&(a=n));if(s){t.splice(c--,1);var l=o();void 0!==l&&(e=l)}}return e}n=n||0;for(var c=t.length;c>0&&t[c-1][2]>n;c--)t[c]=t[c-1];t[c]=[r,o,n]},i.n=t=>{var e=t&&t.__esModule?()=>t.default:()=>t;return i.d(e,{a:e}),e},i.d=(t,e)=>{for(var r in e)i.o(e,r)&&!i.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},i.o=(t,e)=>Object.prototype.hasOwnProperty.call(t,e),i.j=18,(()=>{var t={18:0};i.O.j=e=>0===t[e];var e=(e,r)=>{var o,n,[a,s,d]=r,l=0;if(a.some(e=>0!==t[e])){for(o in s)i.o(s,o)&&(i.m[o]=s[o]);if(d)var c=d(i)}for(e&&e(r);l<a.length;l++)n=a[l],i.o(t,n)&&t[n]&&t[n][0](),t[n]=0;return i.O(c)},r=self.webpackChunk_tti_design=self.webpackChunk_tti_design||[];r.forEach(e.bind(null,0)),r.push=e.bind(null,r.push.bind(r))})();var o=i.O(void 0,[253],()=>i(6217));o=i.O(o)})()}});
-//# sourceMappingURL=a450ddaeacfae110ea12.base.js.map
+//# sourceMappingURL=8ed8c5889268dd19cff7.base.js.map
