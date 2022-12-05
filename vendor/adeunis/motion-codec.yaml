@@ -1,0 +1,21 @@
+uplinkDecoder:
+  fileName: motion_lib.js
+
+  examples:
+    - description: 0x5c Motion data
+      input:
+        fPort: 1
+        bytes: [0x5C, 0x80, 0x01, 0x1E, 0x32, 0x00, 0x20]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x5c Motion data',
+              'status': { 'frameCounter': 4, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false },
+              'presenceDetectedWhenSending': true,
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'presence': { 'unit': '%', 'values': [30, 0] },
+              'luminosity': { 'unit': '%', 'values': [50, 32] },
+            }
+        warnings: []
+        errors: []

@@ -1,0 +1,18 @@
+uplinkDecoder:
+  fileName: grain-probe.js
+  examples:
+    - description: Grain Tempearture Sensor
+      input:
+        fPort: 2
+        bytes: [0x0E, 0x55, 0x01, 0x08, 0x62, 0x08, 0x67, 0x60, 0xE4, 0x3C, 0xC6]
+      output:
+        data:
+          { 'Ext': 1, 'Systimestamp': 1625570502, 'battery': 3.669, 'debug': { 'bytes': [14, 85, 1, 8, 98, 8, 103, 96, 228, 60, 198], 'errors': [], 'warnings': [] }, 'temperatures': [21.46, 21.51] }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x0E, 0x55, 0x01, 0x08, 0x62, 0x08, 0x67, 0x60, 0xE4, 0x3C, 0xC6]
+      output:
+        errors:
+          - unknown FPort

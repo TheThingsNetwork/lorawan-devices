@@ -1925,3 +1925,22 @@ vendors:
     linkedin: https://www.linkedin.com/company/twtg
     twitter: TWTG_io
     github: TWTG-R-D-B-V
+
+  - id: elv
+    name: ELV Elektronik AG
+    website: https://de.elv.com/
+    logo: elv-logo.svg
+
+  - id: smartrural
+    name: SmartRural
+    website: https://smartrural.coop/
+    linkedin: https://www.linkedin.com/company/smartrural-coop/
+    twitter: SmartRuralCoop
+
+  - id: cital
+    name: Cital
+    website: https://www.cital.ch/
+    logo: cital-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/getcital/
+      twitter: getcital
