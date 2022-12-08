@@ -16,7 +16,7 @@ function decodeBytesMeasurement(bytes) {
     var minute = Math.floor((bytes[9] << 8 | bytes[10]) / 100);
     var second = (bytes[9] << 8 | bytes[10]) - minute * 100;
     
-    var ts = Math.floor(new Date(year, month, day, hour, minute, second).getTime());
+    var ts = Math.floor(new Date(Date.UTC(year, month, day, hour, minute, second)).getTime());
     
     data.lat = ((bytes[11] << 24 | bytes[12] << 16 | bytes[13] << 8 | bytes[14]) / 100000);
     data.long = ((bytes[15] << 24 | bytes[16] << 16 | bytes[17] << 8 | bytes[18]) / 100000);
