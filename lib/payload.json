@@ -48,6 +48,12 @@
       "minimum": 0,
       "maximum": 100
     },
+    "ec": {
+      "type": "number",
+      "description": "Electrical conductivity (dS/m)",
+      "minimum": 0,
+      "maximum": 621
+    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -73,9 +79,7 @@
             },
             "ec": {
               "description": "Soil electrical conductivity (dS/m)",
-              "type": "number",
-              "minimum": 0,
-              "maximum": 621
+              "$ref": "#/definitions/ec"
             },
             "pH": {
               "description": "Soil pH level",
@@ -127,13 +131,43 @@
         "wind": {
           "type": "object",
           "properties": {
-            "speed": {
-              "description": "Wind speed (m/s)",
+            "avgSpeed": {
+              "description": "Average wind speed (m/s)",
+              "$ref": "#/definitions/speed"
+            },
+            "gustSpeed": {
+              "description": "Gust wind speed (m/s)",
               "$ref": "#/definitions/speed"
             },
             "direction": {
               "description": "Wind direction (°)",
               "$ref": "#/definitions/direction"
+            }
+          },
+          "additionalProperties": false
+        },
+        "water": {
+          "type": "object",
+          "properties": {
+            "depth": {
+              "description": "Depth of water measurement (cm)",
+              "$ref": "#/definitions/depth"
+            },
+            "temperature": {
+              "description": "Water temperature (°C)",
+              "$ref": "#/definitions/temperature"
+            },
+            "ec": {
+              "description": "Water electrical conductivity (dS/m)",
+              "$ref": "#/definitions/ec"
+            },
+            "pH": {
+              "description": "Water pH level",
+              "$ref": "#/definitions/pH"
+            },
+            "salinity": {
+              "description": "Salt (mg) per litre (ppm)",
+              "$ref": "#/definitions/concentration"
             }
           },
           "additionalProperties": false
