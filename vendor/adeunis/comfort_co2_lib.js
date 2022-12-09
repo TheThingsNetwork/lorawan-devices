@@ -361,7 +361,7 @@ var codec;
                 case 0x6a:
                     dataParser = new codec.ComfortCo20x6aParser();
                     break;
-                case 0x16b:
+                case 0x6b:
                     dataParser = new codec.ComfortCo20x6bParser();
                     break;
                 default:
