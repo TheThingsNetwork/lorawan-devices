@@ -91,7 +91,7 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://de.elv.com/lorawan
+productURL: https://de.elv.com/
 #dataSheetURL: https://files2.elv.com/public/25/2521/252165/Internet/252165_loris_bm_trx1.pdf
 
 # Commercial information
@@ -99,7 +99,7 @@ resellerURLs:
   - name: 'ELVshop'
     region:
       - European Union
-    url: https://de.elv.com/
+    url: https://de.elv.com/lorawan
 msrp:
   EUR: 19.95
 
