@@ -67,7 +67,7 @@ sensors:
 
 # Operating conditions (optional)
 # operatingConditions:
-# Temperature (Celcius)
+# Temperature (Celsius)
 # temperature:
 #   min: -30
 #   max: 85

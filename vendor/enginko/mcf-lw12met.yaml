@@ -1,5 +1,5 @@
 name: MCF-LW12MET
-description: The mcf88 MCF-LW12MET is a LoRaWAN® Mono-Phase Energy Meter with I/O that can be used for monitoring and checking the power of electronic devices, and can remotely switch devices on/off and read the state of digital input.
+description: The enginko MCF-LW12MET is a LoRaWAN® Mono-Phase Energy Meter with I/O that can be used for monitoring and checking the power of electronic devices, and can remotely switch devices on/off and read the state of digital input.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -75,8 +75,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lw12met/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW12MET.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw12met/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12MET.pdf
 
 # Photos
 photos:

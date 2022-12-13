@@ -38,6 +38,7 @@ sensors:
   - barometer
   - light
   - bvoc
+  - iaq
   - co2
 
 # Dimensions in mm (optional)
@@ -81,10 +82,11 @@ keySecurity: read protected
 
 # Product and data sheet URLs (optional)
 productURL: http://www.enginko.com/support/doku.php?id=manual_mcf-lw12co2e
+dataSheetURL: https://enginko.com/wp-content/uploads/2020/09/ENGINKO_datasheet-layout_MCF-LW12CO2E_ENG.pdf
 
 # Photos
 photos:
-  main: mcf-lw12co2e.png
+  main: mcf-lw12co2e.jpg
 
 # Regulatory compliances (optional)
 compliances:
