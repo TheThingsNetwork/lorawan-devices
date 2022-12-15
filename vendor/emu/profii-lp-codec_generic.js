@@ -1,9 +1,26 @@
-/** 
+/**
+* MIT License
 * Copyright (c) 2021 EMU Electronic AG (https://www.emuag.ch/). All rights reserved.
-* This file is subject to proprietary software.
-* 
-* 
-*/ 
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
+
 /**
  * decodeUplink is called by TheThingsNetwork
  * we use our parsePayload() for decoding
@@ -210,6 +227,13 @@ function Decode(fPort, data, variables) {
     var timeStamp = getUint32(data);
     obj = parsePayload(data);
     obj.timeStamp = timeStamp;
+
+ 
+    //add a human readable timestamp to the payload
+    var meterDate = new Date(timeStamp * 1000);
+    var  options = { timeZone:'Europe/Berlin', weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour:'numeric', minute:'numeric', second:'numeric'};
+    obj.timeStampReadable = meterDate.toLocaleString('de-CH',options);
+
     
     obj.medium = {
         "type": 1,
@@ -603,11 +627,10 @@ function parsePayload(data){
             dataType.value = Number(getInt64([data[i++], data[i++], data[i++], data[i++], data[i++], data[i++], data[i++], data[i++]]));
             break;
             case 'MeterSerial':
-            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0");
-            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0") + dataType.value;
-            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0") + dataType.value;
-            dataType.value = Number(getUint8([data[i++]])).toString(16).padStart(2,"0") + dataType.value;
-            
+                dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2);
+                dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2) + dataType.value;
+                dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2) + dataType.value;
+                dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2) + dataType.value;
             break;
             case 'BCD':
             dataType.value = getBCD([data[i++], data[i++], data[i++], data[i++]]);
