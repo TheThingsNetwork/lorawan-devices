@@ -132,6 +132,80 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
+    var Generic0x20Parser = (function () {
+        function Generic0x20Parser() {
+            this.deviceType = 'any';
+            this.frameCode = 0x20;
+        }
+        Generic0x20Parser.prototype.parseFrame = function (payload, configuration, network, deviceType) {
+            var appContent = { type: '0x20 Configuration' };
+            switch (payload.length) {
+                case 4:
+                    appContent['loraAdr'] = Boolean(payload[2] & 0x01);
+                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
+                        && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    }
+                    break;
+                case 3:
+                case 5:
+                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    if (payload.length === 5) {
+                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                    }
+                    break;
+                default:
+                    appContent.partialDecoding = codec.PartialDecodingReason.MISSING_NETWORK;
+                    break;
+            }
+            return appContent;
+        };
+        return Generic0x20Parser;
+    }());
+    codec.Generic0x20Parser = Generic0x20Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Generic0x33Parser = (function () {
+        function Generic0x33Parser() {
+            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' +
+                'temp3|temp4|comfort|comfort2|comfortCo2|motion|deltap|breath';
+            this.frameCode = 0x33;
+        }
+        Generic0x33Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x33 Set register status' };
+            appContent['requestStatus'] = this.getRequestStatusText(payload[2]);
+            appContent['registerId'] = payload.readUInt16BE(3);
+            return appContent;
+        };
+        Generic0x33Parser.prototype.getRequestStatusText = function (value) {
+            switch (value) {
+                case 1:
+                    return 'success';
+                case 2:
+                    return 'successNoUpdate';
+                case 3:
+                    return 'errorCoherency';
+                case 4:
+                    return 'errorInvalidRegister';
+                case 5:
+                    return 'errorInvalidValue';
+                case 6:
+                    return 'errorTruncatedValue';
+                case 7:
+                    return 'errorAccesNotAllowed';
+                default:
+                    return 'errorOtherReason';
+            }
+        };
+        return Generic0x33Parser;
+    }());
+    codec.Generic0x33Parser = Generic0x33Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
     var PulseV40x10Parser = (function () {
         function PulseV40x10Parser() {
             this.deviceType = 'pulse4';
@@ -557,6 +631,12 @@ var codec;
                     break;
                 case 0x5b:
                     dataParser = new codec.PulseV40x5bParser();
+                    break;
+                case 0x20:
+                    dataParser = new codec.Generic0x20Parser();
+                    break;
+                case 0x33:
+                    dataParser = new codec.Generic0x33Parser();
                     break;
                 default:
                     return activeParsers;
