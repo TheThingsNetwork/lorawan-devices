@@ -1,5 +1,5 @@
-name: SenseCAP S2101- LoRaWAN® Air Temperature and Humidity Sensor
-description: SenseCAP 2101 air temperature & humidity sensor satisfies industrial IoT long-distance data acquisition with measuring ranges from -40°C to 85°C and 0 to 100 %RH respectively. With Bluetooth 5.0 for easy wireless configuration and firmware upgrade and a built-in replaceable battery for minimal maintenance, it also supports three different LoRaWAN® network architectures to make it easily become Helium-compatible IoT device.
+name: SenseCAP S2120 8-in-1 LoRaWAN® Weather Sensor
+description: SenseCAP LoRaWAN® S2120 Weather Station provides you with hyperlocal weather at your fingertips. It supports multi-scenario applications like backyard, garden, agriculture, meteorology, urban environmental monitoring, and so on. It enables low maintenance cost for its ultra-low power consumption, reliable performance, and built-in Bluetooth for OTA configuration and remote device management.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -11,7 +11,7 @@ firmwareVersions:
   - # Firmware version
     version: '1.0'
     numeric: 1
-    # Corresponding hardware versions (optional)sensecap-profile.yaml
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
 
@@ -23,31 +23,31 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2120-8-in-1-codec
       US902-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2120-8-in-1-codec
       AU915-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2120-8-in-1-codec
       KR920-923:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2120-8-in-1-codec
       IN865-867:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2120-8-in-1-codec
       AS923:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2120-8-in-1-codec
       RU864-870:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2120-8-in-1-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -58,30 +58,36 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - humidity
+  - moisture
   - temperature
+  - barometer
+  - wind speed
+  - wind direction
+  - light
+  - uv
+  - rainfall
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 9.5
-  length: 25
-  height: 9
+  width: 160
+  length: 450
+  height: 345
 
 # Weight in grams (optional)
-weight: 280
+weight: 1500
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: standard Li-SOCl2 battery(ER34615)
+  type: AA size, 1.5V batteries (alkaline or non-rechargeable Lithium battery)
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -40
-    max: 85
+    max: 60
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -101,19 +107,19 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.seeedstudio.com/SenseCAP-S2101-LoRaWAN-Air-Temperature-and-Humidity-Sensor-p-5354.html
-dataSheetURL: https://files.seeedstudio.com/products/114992867/SenseCAP%20S210X%20LoRaWAN%20Sensor%20Catalogue.pdf
+productURL: https://www.seeedstudio.com/sensecap-s2120-lorawan-8-in-1-weather-sensor-p-5436.html
+dataSheetURL: https://files.seeedstudio.com/products/SenseCAP/101990961_SenseCAP%20S2120/SenseCAP%20S2120%20LoRaWAN%208-in-1%20Weather%20Station%20User%20Guide.pdf
 
 # Commercial information
 resellerURLs:
   - name: 'Seeed'
     region:
       - Other
-    url: https://www.seeedstudio.com/SenseCAP-S2101-LoRaWAN-Air-Temperature-and-Humidity-Sensor-p-5354.html
+    url: https://www.seeedstudio.com/sensecap-s2120-lorawan-8-in-1-weather-sensor-p-5436.html
 
 # Photos
 photos:
-  main: sensecaps2101.png
+  main: sensecaps2120.png
 
 video: https://youtu.be/sfcQFfoseI0
 
