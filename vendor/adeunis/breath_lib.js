@@ -132,6 +132,232 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
+    var Generic0x20Parser = (function () {
+        function Generic0x20Parser() {
+            this.deviceType = 'any';
+            this.frameCode = 0x20;
+        }
+        Generic0x20Parser.prototype.parseFrame = function (payload, configuration, network, deviceType) {
+            var appContent = { type: '0x20 Configuration' };
+            switch (payload.length) {
+                case 4:
+                    appContent['loraAdr'] = Boolean(payload[2] & 0x01);
+                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
+                        && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    }
+                    break;
+                case 3:
+                case 5:
+                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    if (payload.length === 5) {
+                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                    }
+                    break;
+                default:
+                    appContent.partialDecoding = codec.PartialDecodingReason.MISSING_NETWORK;
+                    break;
+            }
+            return appContent;
+        };
+        return Generic0x20Parser;
+    }());
+    codec.Generic0x20Parser = Generic0x20Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Generic0x1fParser = (function () {
+        function Generic0x1fParser() {
+            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath';
+            this.frameCode = 0x1f;
+        }
+        Generic0x1fParser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x1f digital input configuration' };
+            var input1 = {};
+            var input2 = {};
+            input1['type'] = this.getTypeText(payload[2] & 0x0f);
+            input1['debouncingPeriod'] = {
+                'unit': 'ms', 'value': this.getDebouncingPeriodText((payload[2] & 0xf0) >> 4)
+            };
+            input1['threshold'] = payload.readUInt16BE(3);
+            input2['type'] = this.getTypeText(payload[5] & 0x0f);
+            input2['debouncingPeriod'] = {
+                'unit': 'ms', 'value': this.getDebouncingPeriodText((payload[5] & 0xf0) >> 4)
+            };
+            input2['threshold'] = payload.readUInt16BE(6);
+            appContent['digitalInput1'] = input1;
+            appContent['digitalInput2'] = input2;
+            return appContent;
+        };
+        Generic0x1fParser.prototype.getDebouncingPeriodText = function (value) {
+            switch (value) {
+                case 0:
+                    return 0;
+                case 1:
+                    return 10;
+                case 2:
+                    return 20;
+                case 3:
+                    return 500;
+                case 4:
+                    return 100;
+                case 5:
+                    return 200;
+                case 6:
+                    return 500;
+                case 7:
+                    return 1000;
+                case 8:
+                    return 2000;
+                case 9:
+                    return 5000;
+                case 10:
+                    return 10000;
+                case 11:
+                    return 20000;
+                case 12:
+                    return 40000;
+                case 13:
+                    return 60000;
+                case 14:
+                    return 300000;
+                case 15:
+                    return 600000;
+                default:
+                    return 0;
+            }
+        };
+        Generic0x1fParser.prototype.getTypeText = function (value) {
+            switch (value) {
+                case 0x0:
+                    return 'deactivated';
+                case 0x1:
+                    return 'highEdge';
+                case 0x2:
+                    return 'lowEdge';
+                case 0x3:
+                    return 'bothEdges';
+                default:
+                    return '';
+            }
+        };
+        return Generic0x1fParser;
+    }());
+    codec.Generic0x1fParser = Generic0x1fParser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Generic0x33Parser = (function () {
+        function Generic0x33Parser() {
+            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' +
+                'temp3|temp4|comfort|comfort2|comfortCo2|motion|deltap|breath';
+            this.frameCode = 0x33;
+        }
+        Generic0x33Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x33 Set register status' };
+            appContent['requestStatus'] = this.getRequestStatusText(payload[2]);
+            appContent['registerId'] = payload.readUInt16BE(3);
+            return appContent;
+        };
+        Generic0x33Parser.prototype.getRequestStatusText = function (value) {
+            switch (value) {
+                case 1:
+                    return 'success';
+                case 2:
+                    return 'successNoUpdate';
+                case 3:
+                    return 'errorCoherency';
+                case 4:
+                    return 'errorInvalidRegister';
+                case 5:
+                    return 'errorInvalidValue';
+                case 6:
+                    return 'errorTruncatedValue';
+                case 7:
+                    return 'errorAccesNotAllowed';
+                default:
+                    return 'errorOtherReason';
+            }
+        };
+        return Generic0x33Parser;
+    }());
+    codec.Generic0x33Parser = Generic0x33Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Generic0x37Parser = (function () {
+        function Generic0x37Parser() {
+            this.deviceType = 'temp4|comfort2|comfortCo2|breath';
+            this.frameCode = 0x37;
+        }
+        Generic0x37Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x37 Software version' };
+            appContent['appVersion'] = payload.readUInt8(2) + '.' + payload.readUInt8(3) + '.' + payload.readUInt8(4);
+            appContent['rtuVersion'] = payload.readUInt8(5) + '.' + payload.readUInt8(6) + '.' + payload.readUInt8(7);
+            return appContent;
+        };
+        return Generic0x37Parser;
+    }());
+    codec.Generic0x37Parser = Generic0x37Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Generic0x51Parser = (function () {
+        function Generic0x51Parser() {
+            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath';
+            this.frameCode = 0x51;
+        }
+        Generic0x51Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x51 digital input 1 alarm' };
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(9) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            appContent['state'] = {
+                'previousFrame': Boolean(payload.readUInt8(2) >> 1 & 1),
+                'current': Boolean(payload.readUInt8(2) >> 0 & 1)
+            };
+            appContent['counter'] = {
+                'global': payload.readUInt32BE(3),
+                'instantaneous': payload.readUInt16BE(7)
+            };
+            return appContent;
+        };
+        return Generic0x51Parser;
+    }());
+    codec.Generic0x51Parser = Generic0x51Parser;
+})(codec || (codec = {}));
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var codec;
+(function (codec) {
+    var Generic0x52Parser = (function () {
+        function Generic0x52Parser() {
+            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath';
+            this.frameCode = 0x52;
+            this.parser = new codec.Generic0x51Parser();
+        }
+        Generic0x52Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = __assign(__assign({}, this.parser.parseFrame(payload, configuration, network)), { type: '0x52 digital input 2 alarm' });
+            return appContent;
+        };
+        return Generic0x52Parser;
+    }());
+    codec.Generic0x52Parser = Generic0x52Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
     var Breath0x10Parser = (function () {
         function Breath0x10Parser() {
             this.deviceType = 'breath';
@@ -356,8 +582,26 @@ var codec;
                 case 0x10:
                     dataParser = new codec.Breath0x10Parser();
                     break;
+                case 0x1f:
+                    dataParser = new codec.Generic0x1fParser();
+                    break;
+                case 0x20:
+                    dataParser = new codec.Generic0x20Parser();
+                    break;
                 case 0x30:
                     dataParser = new codec.Breath0x30Parser();
+                    break;
+                case 0x33:
+                    dataParser = new codec.Generic0x33Parser();
+                    break;
+                case 0x37:
+                    dataParser = new codec.Generic0x37Parser();
+                    break;
+                case 0x51:
+                    dataParser = new codec.Generic0x51Parser();
+                    break;
+                case 0x52:
+                    dataParser = new codec.Generic0x52Parser();
                     break;
                 case 0x6d:
                     dataParser = new codec.Breath0x6dParser();

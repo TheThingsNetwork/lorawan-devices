@@ -132,6 +132,57 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
+    var Generic0x20Parser = (function () {
+        function Generic0x20Parser() {
+            this.deviceType = 'any';
+            this.frameCode = 0x20;
+        }
+        Generic0x20Parser.prototype.parseFrame = function (payload, configuration, network, deviceType) {
+            var appContent = { type: '0x20 Configuration' };
+            switch (payload.length) {
+                case 4:
+                    appContent['loraAdr'] = Boolean(payload[2] & 0x01);
+                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
+                        && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    }
+                    break;
+                case 3:
+                case 5:
+                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    if (payload.length === 5) {
+                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                    }
+                    break;
+                default:
+                    appContent.partialDecoding = codec.PartialDecodingReason.MISSING_NETWORK;
+                    break;
+            }
+            return appContent;
+        };
+        return Generic0x20Parser;
+    }());
+    codec.Generic0x20Parser = Generic0x20Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Generic0x30Parser = (function () {
+        function Generic0x30Parser() {
+            this.deviceType = 'any';
+            this.frameCode = 0x30;
+        }
+        Generic0x30Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x30 Keep alive' };
+            return appContent;
+        };
+        return Generic0x30Parser;
+    }());
+    codec.Generic0x30Parser = Generic0x30Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
     var Tic0x10Parser = (function () {
         function Tic0x10Parser() {
             this.deviceType = 'ticPmePmi|ticCbeLinkyMono|ticCbeLinkyTri';
@@ -398,6 +449,12 @@ var codec;
                     break;
                 case 0x4a:
                     dataParser = new codec.Tic0x4aParser();
+                    break;
+                case 0x20:
+                    dataParser = new codec.Generic0x20Parser();
+                    break;
+                case 0x30:
+                    dataParser = new codec.Generic0x20Parser();
                     break;
                 default:
                     return activeParsers;
