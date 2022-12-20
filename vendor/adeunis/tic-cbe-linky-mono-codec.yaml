@@ -1,0 +1,79 @@
+uplinkDecoder:
+  fileName: tic_cbe_linky_mono_lib.js
+
+  examples:
+    - description: 0x49 TIC data
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x49,
+            0x40,
+            0x30,
+            0x32,
+            0x31,
+            0x37,
+            0x32,
+            0x38,
+            0x30,
+            0x33,
+            0x31,
+            0x38,
+            0x31,
+            0x39,
+            0x48,
+            0x43,
+            0x2E,
+            0x2E,
+            0x80,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x2D,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x48,
+            0x50,
+            0x2E,
+            0x2E,
+          ]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x49 TIC data',
+              'status': { 'frameCounter': 2, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false, 'readError': false },
+              'ADCO': '021728031819',
+              'OPTARIF': 'HC..',
+              'BASEstatus': 'notFound',
+              'ISOUSC': { 'unit': 'A', 'value': 45 },
+              'IINST': { 'unit': 'A', 'value': 0 },
+              'IMAX': { 'unit': 'A', 'value': 0 },
+              'PAPP': { 'unit': 'VA', 'value': 0 },
+              'HCHC': { 'unit': 'Wh', 'value': 0 },
+              'HCHP': { 'unit': 'Wh', 'value': 0 },
+              'PTEC': 'HP..',
+            }
+        warnings: []
+        errors: []

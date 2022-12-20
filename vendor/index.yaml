@@ -158,13 +158,14 @@ vendors:
   - id: decentlab
     name: Decentlab GmbH
     vendorID: 109
-    website: https://www.decentlab.com/
+    website: https://www.decentlab.com
     logo: decentlab_logo.svg
     ouis:
       - 70B3D57BA
     description: Decentlab is a Swiss company providing wireless sensor devices and services for distributed, cost-effective monitoring solutions. The sensor devices communicate wirelessly over LoRaWAN® and are designed for ultra low power consumption, capable of operating on batteries for several years. The devices are built for industrial applications and are ready to be deployed in any harsh indoor or outdoor environment. The service framework provides convenient access to measurement data and enables seamless integration into existing monitoring and control systems. Application areas are environmental and air quality monitoring, hydrological measurements, smart agriculture and smart cities.
     social:
-      linkedin: https://www.linkedin.com/company/decentlab/
+      linkedin: https://www.linkedin.com/company/decentlab
+      facebook: https://www.facebook.com/decentlab.gmbh
       twitter: decentlab
       github: decentlab
 
@@ -209,7 +210,7 @@ vendors:
     vendorID: 128
 
   - id: elsys
-    name: ElektronikSystem i Ume
+    name: Elsys
     vendorID: 132
     website: https://www.elsys.se/en/
 
@@ -273,6 +274,10 @@ vendors:
     name: Fujitsu Component Limited
     vendorID: 166
 
+  - id: gwf
+    name: GWF Messsysteme AG
+    vendorID: 179
+
   - id: hangzhou-lowan
     name: Hangzhou Lowan Information Technology Co.
     vendorID: 182
@@ -333,13 +338,13 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER AG für Druckmesstechnik
+    name: KELLER Druckmesstechnik AG
     website: https://keller-druck.com/
     logo: keller-logo.svg
     vendorID: 222
-    description: KELLER AG, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
+    description: KELLER Pressure, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
     social:
-      linkedin: https://www.linkedin.com/company/keller-ag-f%C3%BCr-druckmesstechnik
+      linkedin: https://www.linkedin.com/company/keller-pressure
       github: KELLERAGfuerDruckmesstechnik
 
   - id: kerlink
@@ -430,10 +435,16 @@ vendors:
       - 0002CC
 
   - id: mcf88
-    name: MCF88 SRL
+    name: mcf88 SRL
     vendorID: 259
     website: https://www.enginko.com
     logo: mcf88_logo.svg
+
+  - id: enginko
+    name: enginko SRL
+    vendorID: 259
+    website: https://www.enginko.com
+    logo: enginko_logo.svg
 
   - id: meas-france
     name: MEAS FRANCE
@@ -1464,7 +1475,12 @@ vendors:
   - id: ht-micron
     name: HT Micron Semicondutores S.A.
     vendorID: 804
-
+    website: http://www.htmicron.com.br/
+    logo: ht-micron_logo.png
+    social:
+      linkedin: https://linkedin.com/company/ht-micron-semicondutores-sa
+      facebook: https://www.facebook.com/htmicron
+      github: htmicron
   - id: university-of-wurzburg
     name: University of Wurzburg, Chair of Communication Networks
     vendorID: 806
@@ -1620,6 +1636,12 @@ vendors:
 
   - id: sensedge
     name: Sensedge
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://sensedge.co/
+    logo: sensedge_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco
 
   - id: embit
     name: Embit SRL
@@ -1663,8 +1685,8 @@ vendors:
     logo: logo.png
 
   - id: acrios
-    name: Acrios Systems S.RO.
-    website: https://acrios.com/
+    name: ACRIOS Systems s.r.o.
+    website: https://acrios.com/?lang=en
     logo: acrioslogo.png
 
   - id: espeasy
@@ -1689,10 +1711,6 @@ vendors:
   - id: innotas
     name: Innotas Elektronik
     website: https://www.innotas-elektronik.de/en-gb
-
-  - id: elsys
-    name: ElektronikSystem i Ume
-    website: https://www.elsys.se/en/
 
   - id: xignal
     name: Xignal
@@ -1761,8 +1779,14 @@ vendors:
       - 102CEF
 
   - id: ellenex
-    name: ellenex
+    name: Ellenex
+    description: Ellenex provides Industrial IOT Solutions that are ruggedused, battery operated and scalable.
+    logo: logo.png
     website: https://www.ellenex.com
+    social:
+      linkedin: https://au.linkedin.com/company/ellenex
+    ouis:
+      - 70B3D5CD0
 
   - id: ttn
     name: The Things Network Foundation
@@ -1784,6 +1808,7 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/system-level-solutions-india-pvt.-ltd
       twitter: S_L_S
+      github: github-sls
 
   - id: kuleuven-dramco
     name: KU Leuven Dramco
@@ -1791,6 +1816,14 @@ vendors:
 
   - id: iot4eu
     name: IOT4 Ltd
+
+  - id: noah
+    name: noah GmbH
+    website: https://noah.tech
+    logo: noah.png
+    social:
+      linkedin: https://www.linkedin.com/company/noah-gmbh/
+      github: noah-software
 
   - id: move-x
     name: Move-X
@@ -1800,3 +1833,114 @@ vendors:
   - id: plenom
     name: Plenom A/S
     website: https://www.plenom.com
+
+  - id: quandify
+    name: Quandify AB
+    website: https://quandify.com
+    logo: quandify.png
+    social:
+      linkedin: https://www.linkedin.com/company/quandify/
+
+  - id: greenme
+    name: GreenMe SAS
+    website: https://www.greenme.fr
+    logo: greenme.png
+    social:
+      linkedin: https://www.linkedin.com/company/greenme/
+
+  - id: thermokon
+    name: Thermokon Sensortechnik GmbH
+    vendorID: 923
+
+  - id: senzemo
+    name: Senzemo
+    description: Measurements performed beautifully. Senzemo has +15 years of experience in IoT and experimental methods. We take great care in designing, testing and crafting our devices.
+    website: https://senzemo.com/
+    logo: senzemo-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/sensedge/
+      twitter: sensedgeco
+
+  - id: cotx
+    name: Beijing COTX Networks Technologies Co. Ltd.
+    website: https://www.cotxnetworks.com/
+    vendorID: 942
+
+  - id: hbi
+    name: HBI Bisscheroux
+    description: Standing out in intelligent lighting solutions for public spaces, indoors and out. Taking on a leading role nationally and internationally in the top segment of highly sustainable light fittings for a safe and sustainable world. These are the strategic principles that make HBI stand out from the rest of the market.
+    website: https://www.hbi-lighting.com
+    logo: hbi-logo.png
+    social:
+      facebook: https://www.facebook.com/HBIBisscherouxbv/
+      linkedin: https://www.linkedin.com/company/hbi-bisscheroux/
+      twitter: hbi_bv
+
+  - id: saninudge
+    name: Sani Nudge
+    description: With intelligent sensors and actionable insights, Sani Nudge helps healthcare institutions reduce infections and maximize operational efficiencies
+    website: https://saninudge.com
+    logo: saninudge-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/saninudge/
+
+  - id: grinn
+    name: Grinn sp. z o.o.
+    description: Grinn is a technology company dedicated to building IoT solutions from a scratch. Since 2008 we are delivering high class services on embedded software development, electronics design, mechanical engineering and production management. During the last 15 years we've designed plenty of projects for different industries like automotive, healthcare, security, agriculture, business, etc.
+    website: https://grinn-global.com
+    logo: grinn-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/grinn
+      facebook: https://www.facebook.com/GRINNGLOBAL
+      twitter: GrinnInt
+
+  - id: ambitlocker
+    name: Ambitlocker
+    description: Established in 2017, Ambitlocker is a Danish technology business that develops digital management systems for locking units. We have initially concentrated on implementing our technology in our padlocks, which makes it extremely easy to digitalise analogue and mechanical units without the need to rebuild them.
+    website: https://ambitlocker.com
+    logo: logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/ambitlocker
+
+  - id: rivercity-innovations
+    name: Rivercity Innovations Ltd.
+    vendorID: 959
+    description: Rivercity Innovations designs and manufactures data monitoring IoT solutions to help businesses solve issues relating to resource management. Our team specializes in using LoRaWAN technology in cold chain temperature monitoring, commercial property monitoring and GPS tracking.
+    website: https://rivercityinnovations.ca/
+    logo: rci-logo-blue-black.png
+    social:
+      linkedin: https://www.linkedin.com/company/rivercity-innovations/
+      facebook: https://www.facebook.com/RivercityInnovations/
+      twitter: RivercityInnov1
+
+  - id: restotracker
+    name: Restotracker
+    description: RestoTracker is a modern asset recovery  and tracking company, enabling companies to Know where your equipment is at all times, Recover stolen equipment, Not be the victim of theft
+    website: https://restotracker.com/
+    logo: logo.png
+
+  - id: twtg
+    name: TWTG
+    vendorID: 962
+    linkedin: https://www.linkedin.com/company/twtg
+    twitter: TWTG_io
+    github: TWTG-R-D-B-V
+
+  - id: elv
+    name: ELV Elektronik AG
+    website: https://de.elv.com/
+    logo: elv-logo.svg
+
+  - id: smartrural
+    name: SmartRural
+    website: https://smartrural.coop/
+    linkedin: https://www.linkedin.com/company/smartrural-coop/
+    twitter: SmartRuralCoop
+
+  - id: cital
+    name: Cital
+    website: https://www.cital.ch/
+    logo: cital-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/getcital/
+      twitter: getcital

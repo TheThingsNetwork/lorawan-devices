@@ -32,12 +32,31 @@ function Decoder(bytes) {
     return (byte1 & 0x80 ? -1 : 1) * ((byte1 & 0x7F) << 24) + (byte2 << 16) + (byte3 << 8) + byte4;
   }
 
-  function substring(source, offset, length) {
+  function bytesToHexString(bytes){
+    if (!bytes){
+      return null;
+    }
+    bytes = new Uint8Array(bytes);
+    var hexBytes = [];
 
-    var buffer = Buffer.alloc(length);
-    source.copy(buffer, 0, offset, offset + length);
-    return buffer.toString('hex');
+    for (var i = 0; i < bytes.length; ++i) {
+      var byteString = bytes[i].toString(16);
+      if (byteString.length < 2){
+        byteString = "0" + byteString;
+      }
+      hexBytes.push(byteString);
+    }
+    return hexBytes.join("");
   }
+
+  function substring(source, offset, length) {
+    var buffer = new Uint8Array(length);
+    for(var i = 0; i < length; i++) {
+      buffer[i] = source[offset+i];
+    }
+    return bytesToHexString(buffer);
+  }
+
   function parseBluetoothBeacons00() {
     var beaconStatus = bytes[index++];
     var beaconType = beaconStatus & 0x03;
@@ -395,13 +414,52 @@ function Decoder(bytes) {
 
       decoded.airPressure = (bytes[index++] << 16) + (bytes[index++] << 8) + bytes[index++];
     }
+
+    if (decoded.sensorContent.containsManDown) {
+      var manDownData = (bytes[index++]);
+      var manDownState = (manDownData & 0x0f);
+      var manDownStateLabel;
+      switch(manDownState) {
+        case 0x00:
+          manDownStateLabel = 'ok';
+          break;
+        case 0x01:
+          manDownStateLabel = 'sleeping';
+          break;
+        case 0x02:
+          manDownStateLabel = 'preAlarm';
+          break;
+        case 0x03:
+          manDownStateLabel = 'alarm';
+          break;
+        default:
+          manDownStateLabel = manDownState+'';
+          break;
+      }
+      decoded.manDown = {
+        state: manDownStateLabel,
+        positionAlarm: !!(manDownData & 0x10),
+        movementAlarm: !!(manDownData & 0x20)
+      };
+    }
+
   }
 
   if (decoded.containsGps) {
     decoded.gps = {};
     decoded.gps.navStat = bytes[index++];
-    decoded.gps.latitude = toSignedInteger(bytes[index++], bytes[index++], bytes[index++], bytes[index++]) / 10000000;
-    decoded.gps.longitude = toSignedInteger(bytes[index++], bytes[index++], bytes[index++], bytes[index++]) / 10000000;
+    decoded.gps.latitude = toSignedInteger(
+      bytes[index++],
+      bytes[index++],
+      bytes[index++],
+      bytes[index++]
+    ) / 10000000;
+    decoded.gps.longitude = toSignedInteger(
+      bytes[index++],
+      bytes[index++],
+      bytes[index++],
+      bytes[index++]
+    ) / 10000000;
     decoded.gps.altRef = toUnsignedShort(bytes[index++], bytes[index++]) / 10;
     decoded.gps.hAcc = bytes[index++];
     decoded.gps.vAcc = bytes[index++];
@@ -411,33 +469,10 @@ function Decoder(bytes) {
     decoded.gps.numSvs = bytes[index++];
   }
 
-  if (decoded.sensorContent.containsManDown) {
-    var manDownData = (bytes[index++]);
-    var manDownState = (manDownData & 0x0f)
-    var manDownStateLabel;
-    switch(manDownState) {
-      case 0x00:
-        manDownStateLabel = 'ok';
-        break;
-      case 0x01:
-        manDownStateLabel = 'sleeping';
-        break;
-      case 0x02:
-        manDownStateLabel = 'preAlarm';
-        break;
-      case 0x03:
-        manDownStateLabel = 'alarm';
-        break;
-      default:
-        manDownStateLabel = manDownState+'';
-        break;
-    }
-    decoded.manDown = {
-      state: manDownStateLabel,
-      positionAlarm: !!(manDownData & 0x10),
-      movementAlarm: !!(manDownData & 0x20)
-    }
-  }
-
   return decoded;
-};
+}
+
+// Export function (for implementations and for testing)
+if (typeof module !== 'undefined' && module.exports !== null) {
+  module.exports = Decoder;
+}

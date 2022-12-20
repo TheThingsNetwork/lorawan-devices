@@ -1,0 +1,163 @@
+uplinkDecoder:
+  fileName: payload/r718ea_eb.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9A, 0x00, 0x64, 0x02, 0x20, 0x20, 0x12, 0x08, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718EA'
+          SWver: 10
+          HWver: 2
+          Datecode: '20201208'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9A, 0x01, 0x24, 0x00, 0xCE, 0xA6, 0xFF, 0x97, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718EA'
+          Volt: 3.6
+          AngleX: 0
+          AngleY: -50
+          AngleZ: -90
+          Temp: -10.5
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718EA'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x9A, 0x03, 0x84, 0x07, 0x08, 0x01, 0x05, 0x0A, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718EA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          AngleChange: 5
+          TempChange: 1
+
+    - description: Set active threshold response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetActiveThresholdRsp'
+          Device: 'R718EA'
+          Status: 'Success'
+
+    - description: Get active threshold response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x9A, 0x00, 0x64, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetActiveThresholdRsp'
+          Device: 'R718EA'
+          Threshold: 100
+          InActiveTime: 30
+
+downlinkDecoder:
+  fileName: payload/r718ea_eb.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x9A, 0x03, 0x84, 0x07, 0x08, 0x01, 0x05, 0x0A, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718EA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          AngleChange: 5
+          TempChange: 1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718EA'
+
+    - description: Set active threshold request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x9A, 0x00, 0x64, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetActiveThresholdReq'
+          Device: 'R718EA'
+          Threshold: 100
+          InActiveTime: 30
+
+    - description: Get active threshold request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetActiveThresholdReq'
+          Device: 'R718EA'
+
+downlinkEncoder:
+  fileName: payload/r718ea_eb.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718EA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          AngleChange: 5
+          TempChange: 1
+      output:
+        fPort: 7
+        bytes: [0x01, 0x9A, 0x03, 0x84, 0x07, 0x08, 0x01, 0x05, 0x0A, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718EA'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set active threshold request
+      input:
+        data:
+          Cmd: 'SetActiveThresholdReq'
+          Device: 'R718EA'
+          Threshold: 100
+          InActiveTime: 30
+      output:
+        fPort: 7
+        bytes: [0x03, 0x9A, 0x00, 0x64, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get active threshold request
+      input:
+        data:
+          Cmd: 'GetActiveThresholdReq'
+          Device: 'R718EA'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x9A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

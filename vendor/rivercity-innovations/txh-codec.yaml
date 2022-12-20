@@ -1,0 +1,80 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: txh.js
+  # Examples (optional)
+  examples:
+    - description: Regular Uplink with optional bytes (5 & 6) for battery
+      input:
+        fPort: 2
+        bytes: [0xFF, 0xE8, 0x02, 0xFB, 0x02, 0x0B, 0xA2]
+      output:
+        data:
+          temperature: -2.4
+          humidity: 76.3
+          temperatureAlertActive: true
+          humidityAlertActive: false
+          battery: 2.978 # only sent if the number of uplinks has surpassed the required number in the firmware settings
+    - description: Version Info Uplink
+      input:
+        fPort: 3
+        bytes: [0x01, 0x00, 0x03, 0x00, 0x01, 0x04, 0x00, 0x00]
+      output:
+        data:
+          LoRaWANVersion: '1.0.3.0'
+          FirmwareVersion: '1.4.0.0'
+    - description: Device Settings Uplink
+      input:
+        fPort: 5
+        bytes: [0x01, 0x2C, 0x00, 0x00, 0x03, 0x84, 0x00, 0x64, 0x03, 0x17]
+      output:
+        data:
+          TemperatureLimitHigh: 30.0
+          TemperatureLimitLow: 0.0
+          HumidityLimitHigh: 90.0
+          HumidityLimitLow: 10.0
+          DataAverageNumber: 3
+          TemperatureAlertsEnabled: true
+          HumidityAlertsEnabled: false
+          AdrOn: true
+          ConfirmedUplinks: true
+          IsAlertsConfirmed: true
+    - description: Uplink and Check times
+      input:
+        fPort: 6
+        bytes: [0x00, 0x00, 0x00, 0x3C, 0x00, 0x1E, 0x00, 0x14]
+      output:
+        data:
+          CheckTimeSeconds: 60
+          ReportsNumChecksRegular: 30
+          ReportsNumChecksAlert: 20
+# # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         data:
+#           led: green
+#       output:
+#         bytes: [1]
+#         fPort: 2
+#     - description: Invalid color
+#       input:
+#         data:
+#           led: blue
+#       output:
+#         errors:
+#           - invalid LED color
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green

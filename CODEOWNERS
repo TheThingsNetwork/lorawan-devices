@@ -1,2 +1,8 @@
-/ @johanstokking
+/.github @johanstokking
+/CODEOWNERS @johanstokking
+/LICENSE @johanstokking
+/bin @johanstokking
+/schema.json @johanstokking
+/tools @johanstokking
+/vendor @Jaime-Trinidad
 /website @mjamescompton

@@ -627,10 +627,12 @@ function parsePayload(data){
             dataType.value = Number(getInt64([data[i++], data[i++], data[i++], data[i++], data[i++], data[i++], data[i++], data[i++]]));
             break;
             case 'MeterSerial':
+
                 dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2);
                 dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2) + dataType.value;
                 dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2) + dataType.value;
                 dataType.value = ('0' + Number(getUint8([data[i++]])).toString(16)).slice(-2) + dataType.value;
+
             break;
             case 'BCD':
             dataType.value = getBCD([data[i++], data[i++], data[i++], data[i++]]);

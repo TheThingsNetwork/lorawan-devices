@@ -41,7 +41,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: 1
     max: 65

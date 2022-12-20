@@ -1,25 +1,24 @@
-// TTN Decoder for TTN OTAA Feather US915 DHT22 Sketch
-// Link: https://github.com/mcci-catena/arduino-lmic/blob/master/examples/ttn-otaa-feather-us915-dht22/ttn-otaa-feather-us915-dht22.ino
-function Decoder(bytes) {
-  // Decode an uplink message from a buffer
-  // (array) of bytes to an object of fields.
-  var decoded = {};
-  
-  // temperature 
 
-  rawtemp = bytes[0] + bytes[1] * 256;
-  
-  decoded.temp = sflt162f(rawtemp) * 100;
-  
-  // humidity 
-  decoded.voltage = bytes[2] + bytes[3] * 256;
-  // = sflt162f(rawvolate) * 100;
-  
-  rawdis = bytes[4] + bytes[5] * 256;
-  decoded.distance = sflt162f(rawdis) * 100;
-  
-  return decoded;
-}
+
+function decodeUplink(input) {
+	// Decode an uplink message from a buffer
+	// (array) of bytes to an object of fields.
+	var decoded = {};
+	var bytes = input.bytes;
+	// temperature  
+	rawtemp = bytes[0] + bytes[1] * 256;
+	
+	decoded.temp = sflt162f(rawtemp) * 100;
+	
+	// humidity 
+	decoded.voltage = bytes[2] + bytes[3] * 256;
+	// = sflt162f(rawvolate) * 100;
+	
+	rawdis = bytes[4] + bytes[5] * 256;
+	decoded.level = sflt162f(rawdis) * 100;
+	
+	return {data: decoded};
+  }
 
 function sflt162f(rawSflt16)
 	{

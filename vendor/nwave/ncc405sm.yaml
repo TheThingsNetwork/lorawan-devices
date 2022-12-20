@@ -1,0 +1,54 @@
+id: ncc405sm
+name: Smart Car Counter G4 SM
+partNumber: NCC-4.5-SM
+description: The wireless passing vehicle counting sensor 99.5% counting accuracy , low profile - 20mm.
+hardwareVersions:
+  - version: '4.5'
+    numeric: 405
+firmwareVersions:
+  - version: 0.4.1
+    numeric: 41
+    hardwareVersions:
+      - '4.5'
+    profiles:
+      EU863-870:
+        id: ncc405-profile
+        codec: ncc405-codec
+        lorawanCertified: false
+      US902-928:
+        id: ncc405-profile
+        codec: ncc405-codec
+        lorawanCertified: false
+      AU915-928:
+        id: ncc405-profile
+        codec: ncc405-codec
+        lorawanCertified: false
+sensors:
+  - magnetometer
+  - temperature
+  - proximity
+dimensions:
+  diameter: 205
+  height: 20
+weight: 412
+battery:
+  replaceable: true
+  type: AA 10,800mAh Li-SOCI2
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+  relativeHumidity:
+    min: 0
+    max: 1
+ipCode: IP68
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.nwave.io/smart-parking-sensor/
+
+photos:
+  main: nps405sm.png
+  other:
+    - nps405sm-side.png

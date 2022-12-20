@@ -30,6 +30,8 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - distance
+  - temperature
+  - humidity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -48,7 +50,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -20
     max: 55

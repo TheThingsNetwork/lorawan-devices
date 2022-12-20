@@ -1,27 +1,12 @@
 uplinkDecoder:
   fileName: trashbin-sensor.js
   examples:
-    - description: Temperature
+    - description: 4% remaining in trashbin, 0°C and 1,3Volt
       input:
-        fPort: 2
-        bytes: [0]
+        fPort: 1
+        bytes: [0xAE, 0x00, 0x04, 0x33, 0x1A, 0x5E]
       output:
         data:
-          type: temperature
-          occupied: true
-    - description: voltage
-      input:
-        fPort: 2
-        bytes: [2]
-      output:
-        data:
-          type: voltage
-          occupied: true
-    - description: Level
-      input:
-        fPort: 2
-        bytes: [4]
-      output:
-        data:
-          type: level
-          occupied: true
+          level: 4.766845703125
+          temp: 0.0002592802047729492
+          voltage: 13060
