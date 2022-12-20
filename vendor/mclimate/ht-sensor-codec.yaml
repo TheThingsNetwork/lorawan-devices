@@ -4,10 +4,11 @@ uplinkDecoder:
     - description: Short periodic uplink
       input:
         fPort: 2
-        bytes: [0x01, 0x02, 0x88, 0x80, 0xAB]
+        bytes: [0x01, 0x02, 0x74, 0x73, 0xF1, 0x04, 0x00]
       output:
         data:
-          batteryVoltage: 3
-          humidity: 50
-          reason: 'keepalive'
-          temperature: 24.8
+          sensorTemperature: 22.8
+          relativeHumidity: 44.92
+          batteryVoltage: 3.5
+          thermistorProperlyConnected: false
+          extThermistorTemperature: 0
