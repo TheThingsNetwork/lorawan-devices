@@ -7,7 +7,7 @@ uplinkDecoder:
         bytes: [0x01, 0x02, 0x71, 0x02, 0x73, 0x84, 0xED]
       output:
         data:
-          battery: 3.5
-          co2: 625
-          humidity: 51.56
-          temperature: 22.7
+          batteryVoltage: 3.5
+          CO2: 625
+          relativeHumidity: 51.56
+          sensorTemperature: 22.7
