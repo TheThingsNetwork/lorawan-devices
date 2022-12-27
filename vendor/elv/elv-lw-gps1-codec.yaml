@@ -1,0 +1,42 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-lw-gps1.js
+  # Examples (optional)
+  examples:
+    - description: cyclic gps position
+      input:
+        fPort: 10
+        bytes: [0x03, 0x01, 0x13, 0x88, 0x01, 0x20, 0x8A, 0x2F, 0x03, 0x6E, 0x0E, 0x9C, 0x00, 0xD8, 0xB1, 0x02, 0x00, 0x01, 0x0B]
+      output:
+        data:
+          Supply_Voltage: 5000
+          TX_Reason: 'Timer_Event'
+          altitude: 17.66
+          hdop: 1.44
+          latitude: 53.4472
+          longitude: 10.22731
+    - description: heartbeat gps position
+      input:
+        fPort: 10
+        bytes: [0x03, 0x04, 0x2E, 0xE0, 0x01, 0x20, 0x8A, 0x2F, 0x03, 0xE6, 0x0E, 0x9C, 0x00, 0x40, 0xFF, 0xFC, 0xFF, 0x01, 0x18]
+      output:
+        data:
+          Supply_Voltage: 12000
+          TX_Reason: 'Heartbeat'
+          altitude: -19.68
+          hdop: 1.96
+          latitude: 53.4472
+          longitude: 10.22743
+    - description: user button gps position
+      input:
+        fPort: 10
+        bytes: [0x03, 0x02, 0x13, 0x88, 0x01, 0x98, 0x6F, 0x2C, 0x03, 0xCC, 0xCF, 0x72, 0x00, 0xD4, 0x94, 0x00, 0x00, 0x01, 0x00]
+      output:
+        data:
+          Supply_Voltage: 5000
+          TX_Reason: 'User_Button'
+          altitude: 3.81
+          hdop: 1.00
+          latitude: 53.2438
+          longitude: 7.52430
