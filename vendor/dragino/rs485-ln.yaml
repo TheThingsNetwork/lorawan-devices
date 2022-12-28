@@ -90,7 +90,7 @@ weight: 210
 
 # Operating conditions (optional)
 # operatingConditions:
-# Temperature (Celsius)
+# Temperature (Celcius)
 # temperature:
 #   min: -30
 #   max: 85

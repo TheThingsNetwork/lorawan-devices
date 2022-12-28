@@ -48,8 +48,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: lht52-codec
 
-  - version: 'lht52 abp'
-    numeric: 2
+  - # Firmware version
+    version: 'lht52 abp'
+    numeric: 3
     profiles:
       EU863-870:
         id: eu868-a-abp-profile
