@@ -878,12 +878,9 @@ function Decoder(bytes, port) {
           //analog input
 			    if (  (clusterdID === 0x000c ) & (attributID === 0x0055)) {
 
-            if (decoded.zclheader.endpoint == 0){
-              stdData.label = "4-20mA";  
-            }
         
             if (decoded.zclheader.endpoint == 1){
-              stdData.label = "0-10V";  
+              stdData.label = "Current[A]";  
             }
             stdData.value = Bytes2Float32(bytes[index]*256*256*256+bytes[index+1]*256*256+bytes[index+2]*256+bytes[index+3]);
             stdData.date = lDate;
@@ -974,7 +971,7 @@ function Decoder(bytes, port) {
       else{
 
         var decoded = {};
-        brData = (brUncompress(3,[{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4-20mA", divide: 1},{ taglbl: 1, resol: 1, sampletype: 12,lblname: "0-10V", divide: 1}, { taglbl: 2, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 3, resol: 100, sampletype: 6,lblname: "ExternalPowerVoltage", divide: 1000},{ taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}], lora.payload, lDate))
+        brData = (brUncompress(3,[{taglbl: 0,resol: 0.004, sampletype: 12,lblname: "4-20mA", divide: 1},{ taglbl: 1, resol: 1, sampletype: 12,lblname: "Current[A]", divide: 1}, { taglbl: 2, resol: 100, sampletype: 6,lblname: "BatteryVoltage", divide: 1000}, { taglbl: 3, resol: 100, sampletype: 6,lblname: "ExternalPowerVoltage", divide: 1000},{ taglbl: 4, resol: 1, sampletype: 10,lblname: "Index", divide: 1}], lora.payload, lDate))
 
         var data_length = brData["datas"].length;
         var tab=[];

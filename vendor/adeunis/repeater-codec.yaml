@@ -1,0 +1,20 @@
+uplinkDecoder:
+  fileName: repeater_lib.js
+
+  examples:
+    - description: 0x03 Repeater DL confirmation
+      input:
+        fPort: 1
+        bytes: [0x03, 0xA3, 0x01, 0x01]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x03 Repeater DL confirmation',
+              'frameCounter': 10,
+              'lowBattery': true,
+              'downlinkCode': '0x01 Suppress all IDs from White List',
+              'downlinkErrorCode': '0x01 White List already empty',
+            }
+        warnings: []
+        errors: []

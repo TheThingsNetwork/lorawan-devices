@@ -1,0 +1,27 @@
+uplinkDecoder:
+  fileName: decoder_edoctor.js
+  examples:
+    - description: Battery Status Uplink
+      input:
+        fPort: 10
+        bytes: [0xEA]
+      output:
+        data:
+          battery: 92.17
+          port: '10'
+          raw: '[EA]'
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_edoctor.js
+  examples:
+    - description: Respiratory Sample Rate Configuration Downlink
+      input:
+        data:
+          respiratory_rate_configuration:
+            sample_rate:
+              read: true
+      output:
+        bytes: [58]
+        port: '100'

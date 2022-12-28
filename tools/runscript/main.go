@@ -30,7 +30,7 @@ import (
 
 var (
 	codecPath = flag.String("codec-path", "", "path to codec scripts")
-	routine   = flag.String("routine", "", "routine (decodeUplink, encodeDownlink, decodeDownlink)")
+	routine   = flag.String("routine", "", "routine (decodeUplink, normalizeUplink, encodeDownlink, decodeDownlink)")
 	inputData = flag.String("input", "", "input (JSON)")
 )
 
@@ -43,6 +43,16 @@ type decodeUplinkOutput struct {
 	Data     map[string]interface{} `json:"data"`
 	Warnings []string               `json:"warnings"`
 	Errors   []string               `json:"errors"`
+}
+
+type normalizeUplinkInput struct {
+	Data map[string]interface{} `json:"data"`
+}
+
+type normalizeUplinkOutput struct {
+	Data     interface{} `json:"data"`
+	Warnings []string    `json:"warnings"`
+	Errors   []string    `json:"errors"`
 }
 
 type encodeDownlinkInput struct {
@@ -76,7 +86,7 @@ func main() {
 		os.Exit(1)
 	}
 	switch *routine {
-	case "decodeUplink", "encodeDownlink", "decodeDownlink":
+	case "decodeUplink", "normalizeUplink", "encodeDownlink", "decodeDownlink":
 	default:
 		flag.Usage()
 		os.Exit(1)
@@ -98,6 +108,8 @@ func main() {
 	switch *routine {
 	case "decodeUplink":
 		input, output = decodeUplinkInput{}, decodeUplinkOutput{}
+	case "normalizeUplink":
+		input, output = normalizeUplinkInput{}, normalizeUplinkOutput{}
 	case "encodeDownlink":
 		input, output = encodeDownlinkInput{}, encodeDownlinkOutput{}
 	case "decodeDownlink":

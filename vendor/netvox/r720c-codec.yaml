@@ -1,0 +1,100 @@
+uplinkDecoder:
+  fileName: payload/r720c.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x70, 0x00, 0x64, 0x15, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R720C'
+          SWver: 10
+          HWver: 21
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x70, 0x01, 0x24, 0x00, 0x01, 0x8B, 0xCD, 0x09, 0xC5, 0x00]
+      output:
+        data:
+          Device: 'R720C'
+          Volt: 3.6
+          AirPressure: 1013.25
+          Temp: 25.01
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R720C'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x70, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x03, 0xE8]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R720C'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          AirPressureChange: 100
+
+downlinkDecoder:
+  fileName: payload/r720c.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x70, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x03, 0xE8]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720C'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          AirPressureChange: 100
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720C'
+
+downlinkEncoder:
+  fileName: payload/r720c.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720C'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          AirPressureChange: 100
+      output:
+        fPort: 7
+        bytes: [0x01, 0x70, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x03, 0xE8]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720C'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
