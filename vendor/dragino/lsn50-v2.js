@@ -1,5 +1,6 @@
-function Decoder(bytes, port) {
-//LSN50 Decode   
+function decodeUplink(input) {
+  var port = input.fPort;
+var bytes = input.bytes;
 if(port==0x02)
 {
   var decode = {};
