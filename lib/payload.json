@@ -131,7 +131,7 @@
         "wind": {
           "type": "object",
           "properties": {
-            "avgSpeed": {
+            "averageSpeed": {
               "description": "Average wind speed (m/s)",
               "$ref": "#/definitions/speed"
             },
@@ -156,10 +156,6 @@
             "temperature": {
               "description": "Water temperature (°C)",
               "$ref": "#/definitions/temperature"
-            },
-            "ec": {
-              "description": "Water electrical conductivity (dS/m)",
-              "$ref": "#/definitions/ec"
             },
             "pH": {
               "description": "Water pH level",
