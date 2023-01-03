@@ -4,14 +4,21 @@ uplinkDecoder:
     - description: Distance Detection
       input:
         fPort: 2
-        bytes: [0x01, 0x5A, 0x78, 0x54, 0x06, 0xCF, 0x33, 0xD8, 0x0D, 0x20, 0x60, 0x00, 0x4B, 0x01, 0x90, 0x00]
-      output:
-        data: { 'ALARM_status': 'FALSE', 'altitude': 0, 'BatV': 3.36, 'FW': 160, 'LON': 'ON', 'latitude': 22.70626, 'longitude': 114.24252, 'MD': 'Disable', 'Pitch': 4, 'Roll': 0.75, 'hdop': 0 }
-
-    - description: Unknown FPort
-      input:
-        fPort: 42
         bytes: [0x01, 0x5A, 0x78, 0x54, 0x06, 0xCF, 0x33, 0xD8, 0x0D, 0x20, 0x60, 0x00, 0x4B, 0x01, 0x90]
       output:
-        errors:
-          - unknown FPort
+        data: { 'ALARM_status': false, 'BatV': 3.36, 'FW': 160, 'LON': true, 'latitude': 22.70626, 'longitude': 114.24252, 'MD': 'Move', 'Pitch': 4, 'Roll': 0.75 }
+
+    - description: 'Most Significant Byte zero'
+      input:
+        fPort: 2
+        bytes: [0x02, 0xfa, 0xcb, 0x30, 0x00, 0x80, 0xec, 0xf9, 0x0c, 0x2e, 0x64]
+      output:
+        data: { 'latitude': 49.990448, 'longitude': 8.449273, 'ALARM_status': false, 'BatV': 3.118, 'MD': 'Move', 'LON': true, 'FW': 164 }
+
+    - description: No Location
+      input:
+        fPort: 2
+        bytes: [0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0c, 0x2e, 0x64]
+      output:
+        data: { 'ALARM_status': false, 'BatV': 3.118, 'MD': 'Move', 'LON': true, 'FW': 164 }
+        warnings: ['GPS failed to obtain location']

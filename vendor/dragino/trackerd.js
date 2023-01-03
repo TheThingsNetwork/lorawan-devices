@@ -1,5 +1,7 @@
 //The function is :
-function Decoder(bytes, port) {
+function decodeUplink(input) {
+  var port = input.fPort;
+var bytes = input.bytes;
 // Decode an uplink message from a buffer
 // (array) of bytes to an object of fields.
 	var i;
@@ -38,8 +40,9 @@ function Decoder(bytes, port) {
   var intwk;
 	if(port == 2 || port == 3)
 	{
+	var decode = {};
     bat =(((bytes[8] & 0x3f) <<8) | bytes[9]);//Battery,units:V
-    
+
 		latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
 		longitude=(bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7])/1000000;//gps longitude,units: °
 
@@ -49,7 +52,7 @@ function Decoder(bytes, port) {
 					if ((latitude !== 0) && (longitude !==0)) {
 							field: "location",
 						  location= "" + latitude + "," + longitude + ""
-					
+
 					}        
 			   }
 			}		
@@ -64,38 +67,41 @@ function Decoder(bytes, port) {
 			}
 			led_updown=(bytes[10] & 0x20)?"ON":"OFF";//LED status for position,uplink and downlink
 	    intwk = (bytes[10] & 0x10)?"MOVE":"STILL";
-			
+
 			if(port == 2)
 			{
+			decode.Location=location
+			decode.Latitude=latitude
+			decode.Longitud=longitude
+			decode.Hum=hum
+			decode.Tem=tem
+			decode.ALARM_status=alarm
+			decode.MD=mod
+			decode.LON=led_updown
+			decode.Transport=intwk
 			return {
-			  Location: location,
-			  Latitude: latitude,
-			  Longitud: longitude,
-			  Hum:hum,
-			  Tem:tem,
-			  BatV:batV,
-			  ALARM_status:alarm,
-			  MD:mod,
-			  LON:led_updown,
-			  Transport:intwk,
-			  };		
+			data:decode,
+			  }		
 			}
 			else if(port == 3)
 			{
+			var decode = {};
+			decode.Location=location
+			decode.Latitude=latitude
+			decode.Longitud=longitude
+			decode.BatV=batV
+			decode.ALARM_status=alarm
+			decode.MD=mod
+			decode.LON=led_updown
+			decode.Transport=intwk
   			return {
-  			  Location: location,
-  			  Latitude: latitude,
-  			  Longitud: longitude,
-  			  BatV:batV,
-  			  ALARM_status:alarm,
-  			  MD:mod,
-  			  LON:led_updown,
-  			  Transport:intwk,
-  			  };		
+  			  data:decode,
+  			  }		
 			}	
 	}
 if(port == 0x04)
 {
+        var decode = {};
 		latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
 		longitude=(bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7])/1000000;//gps longitude,units: °
 
@@ -104,7 +110,7 @@ if(port == 0x04)
 					if ((latitude !== 0) && (longitude !==0)) {
 							field: "location",
 						  location= "" + latitude + "," + longitude + ""
-					
+
 					}        
 			   }
 			}	
@@ -117,29 +123,35 @@ if(port == 0x04)
 
 			date = year+':'+Month+":"+day;
 			time = hour+":"+min+":"+sen;
-			return {
-			  Latitude: latitude,
-			  Longitud: longitude,
-			  Date:date,
-			  Time:time,
-			  };			
 			
+			decode.Location=location
+			decode.Latitude=latitude
+			decode.Date=date
+			decode.Time=time
+			return {
+			  data:decode,
+			  }		
+
 }
 if(port == 0x07)
 {
+            var decode = {};
 			alarm=(bytes[0] & 0x40)?"TRUE":"FALSE";//Alarm status
 			batV=(((bytes[0] & 0x3f) <<8) | bytes[1])/1000;//Battery,units:V
 			mod = bytes[2] & 0xC0;
 			led_updown=(bytes[2] & 0x20)?"ON":"OFF";//LED status for position,uplink and downlink
+			
+			decode.BatV=batV
+			decode.ALARM_status=alarm
+			decode.MD=mod
+			decode.LON=led_updown
 			return {
-			  BatV:batV,
-			  ALARM_status:alarm,
-			  MD:mod,
-			  LON:led_updown,
-			  };				
+			  data:decode,
+			  }			
 }
 if(port==0x08)
 {
+    var decode = {};
     con = "";
     for(i = 0 ; i < 6 ; i++) {
       	con = bytes[i].toString();
@@ -151,27 +163,30 @@ if(port==0x08)
     batV=(((bytes[7] & 0x3f) <<8) | bytes[8])/1000;//Battery,units:V
     mod = (bytes[9] & 0xC0)>>6;
     led_updown=(bytes[9] & 0x20)?"ON":"OFF";//LED status for position,uplink and downlink
-    		return {
-    		  WIFISSID:wifissid,
-    		  RSSI:rssi,
-    		  BatV:batV,
-    		  ALARM_status:alarm,	
-    		  MD:mod,
-    		  LON:led_updown,			  
-    		  };	  
+    		
+			decode.WIFISSID=wifissid
+			decode.RSSI=rssi
+			decode.BatV=batV
+			decode.ALARM_status=alarm
+			decode.MD=mod
+			decode.LON=led_updown
+			return {
+    	         data:decode,			  
+    		  }  
 }
 if(port==0x05)
   {
+    var decode = {};
     if(bytes[0]==0x13)
       sensor_mode="TrackerD";
     else
       sensor_mode="NULL"; 
-       
+
     if(bytes[4]==0xff)
       sub_band="NULL";
     else
       sub_band=bytes[4];
-    
+
     if(bytes[3]==0x01)
       freq_band="EU868";
     else if(bytes[3]==0x02)
@@ -200,7 +215,7 @@ if(port==0x05)
       freq_band="KR920";
     else if(bytes[3]==0x0E)
       freq_band="MA869";
-      
+
     firm_ver= (bytes[1]&0x0f)+'.'+(bytes[2]>>4&0x0f)+'.'+(bytes[2]&0x0f);
     batV= (bytes[5]<<8 | bytes[6])/1000;
     semsor_mod = (bytes[7]>>6)&0x3f;
@@ -209,7 +224,7 @@ if(port==0x05)
     panackmd = bytes[8]&0x04;
     lon = ((bytes[8]>>1)&0x01)?"ON":"OFF";;
     intwk = bytes[8]&0x01;
-    
+
     if(semsor_mod == 1)
        sensor= "GPS";
     else if(semsor_mod == 2)
@@ -218,30 +233,31 @@ if(port==0x05)
        sensor= "Spots";         
      else if(semsor_mod == 3)
        sensor= "BLE+GPS Hybrid";     
-    
 
+     decode.BatV=batV
+	 decode.SENSOR_MODEL=sensor_mode
+	 decode.FIRMWARE_VERSION=firm_ver
+	 decode.FREQUENCY_BAND=freq_band
+	 decode.SUB_BAND=sub_band
+	 decode.SMODE=sensor
+	 decode.GPS_M0D=gps_mod
+	 decode.BLE_MD=ble_mod
+	 decode.PNACKMD=pnackmd
+	 decode.LON=lon
+	 decode.Intwk=intwk
    	return {
-   	BatV:batV,
-    SENSOR_MODEL:sensor_mode,
-    FIRMWARE_VERSION:firm_ver,
-    FREQUENCY_BAND:freq_band,
-    SUB_BAND:sub_band, 
-    SMODE:sensor,
-    GPS_M0D:gps_mod,
-    BLE_MD:ble_mod,
-    PNACKMD:pnackmd,
-    LON:lon,
-    Intwk:intwk,
+     data:decode,
     }
   }	
 	if(port == 6)
-	{
+	{ 
+	    var decode = {};
 		major =  bytes[16] << 8 | bytes[17];
-		
+
 		minor =  bytes[18] << 8 | bytes[19]
-		
+
 		power = bytes[15];
-		
+
 		rssi =  bytes[23]<<24>>24;
 
 		con = "";
@@ -259,16 +275,17 @@ if(port==0x05)
 			hum=(bytes[27]<<8 | bytes[28])/10;//hum,units: °
 			tem=(bytes[29]<<8 | bytes[30])/10; //tem,units: °
 		}
+		decode.BatV=batV
+		decode.ALARM_status=alarm
+		decode.MD=mod
+		decode.LON=led_updown
+		decode.UUID=uuid
+		decode.MAJOR=major
+		decode.MINOR=minor
+		decode.RSSI=rssi
+		decode.POWER=power
 		return {
-		  BatV:batV,
-		  ALARM_status:alarm,
-		  MD:mod,
-		  LON:led_updown,
-		  UUID: uuid,
-		  MAJOR: major,
-		  MINOR: minor,
-		  RSSI:rssi,
-		  POWER:power,
-		  };			
+		 data:decode,
+		  }			
 	}
 }

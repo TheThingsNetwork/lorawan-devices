@@ -1,65 +1,47 @@
+var movement = [ "Disable", "Move", "Collide", "User" ]
+
 function decodeUplink(input) {
-  var port = input.fPort;
-var bytes = input.bytes;
-var latitude=0;
-var data = {};
-    switch (input.fPort) {
-   case 2:
-if(bytes[0] !== 0)
-{
-  data.latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
-}
-else
-{
-  data.latitude=0;//gps latitude,units: °
-}
-var longitude = 0;
-if(bytes[4] !== 0)
-{
-  data.longitude=(bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7])/1000000;//gps longitude,units: °
-}
-else
-{
- data.longitude=0;//gps longitude,units: °
-}  
-data.ALARM_status=(bytes[8] & 0x40)?"TRUE":"FALSE";//Alarm status  
-data.BatV=(((bytes[8] & 0x3f) <<8) | bytes[9])/1000;//Battery,units:V  
-if(bytes[10] & 0xC0==0x40)
-{
-  var MD="Move";
-}
-else if(bytes[10] & 0xC0 ==0x80)
-{
-  data.MD="Collide";
-}
-else if(bytes[10] & 0xC0 ==0xC0)
-{
-  data.MD="User";
-}
-else
-{
-  data.MD="Disable";
-}                                            //mode of motion 
-data.LON=(bytes[10] & 0x20)?"ON":"OFF";//LED status for position,uplink and downlink 
-data.FW= 160+(bytes[10] & 0x1f);  // Firmware version; 5 bits   
-data.Roll=(bytes[11]<<8 | bytes[12])/100;//roll,units: ° 
-data.Pitch=(bytes[13]<<8 | bytes[14])/100; //pitch,units: ° 
-var hdop = 0;
-if(bytes[15] > 0)
-{
-   data.hdop =bytes[15]/100; //hdop,units: °
-}
-else
-{
-   data.hdop =bytes[15];
-}
-data.altitude =(bytes[16]<<8 | bytes[17]) / 100; //Altitude,units: °
-return {
-data:data,
-};
-  default:
-  return {
-    errors: ["unknown FPort"]
-  }
-}
+    if (input.fPort != 2) {
+        return {
+            errors: ['unknown FPort']
+        };
+    }
+    var bytes = input.bytes;
+    var warnings = [];
+    var data = {
+        latitude : ( (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3] ) / 1000000,
+        longitude: ( (bytes[4] << 24) | (bytes[5] << 16) | (bytes[6] << 8) | bytes[7] ) / 1000000,
+        ALARM_status: !!(bytes[8] & (1 << 6)),
+        BatV: ( ((bytes[8] & 0x3f) << 8) | bytes[9] ) / 1000,
+        MD: movement[bytes[10] >> 6],
+        LON: !!(bytes[10] & (1 << 5)),
+        FW: 160 + (bytes[10] & 0x1f),  // NB: 1.5 firmware uses an offset of 150 ...
+    };
+
+    // i.e. latitude/longitude are set to 0x0fffffff which decodes to 268.xxx
+    if (data.BatV <= 2.84 && data.latitude > 268 && data.longitude > 268) {
+        delete data.latitude;
+        delete data.longitude;
+        warnings.push("GPS turned off because of low battery");
+    } else if (data.latitude == 0 && data.longitude == 0) {
+        delete data.latitude;
+        delete data.longitude;
+        warnings.push("GPS failed to obtain location");
+    }
+
+    switch (bytes.length) {
+        case 18: // GW verison 1.6
+            data.hdop = bytes[15] / 100;
+            data.altitude = ( (bytes[16] << 24 >> 16) | bytes[17]) / 100;
+            // fall-through
+        case 15: // FW version 1.5
+            data.Roll = ( (bytes[11] << 24 >> 16) | bytes[12]) / 100;
+            data.Pitch = ( (bytes[13] << 24 >> 16) | bytes[14]) / 100;
+            break;
+    }
+
+    if (warnings.length > 0)
+        return { data: data, warnings: warnings };
+    else
+        return { data: data };
 }
