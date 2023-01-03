@@ -134,59 +134,59 @@ if(port==0x02)
   }
   
   if(bytes.length!=1)
-    return decode;
+    return {
+       data:decode,
+  }
   }
   
   else if(port==5)
   {
+    var decode = {};
   	var freq_band;
   	var sub_band;
   	
     if(bytes[0]==0x01)
-        freq_band="EU868";
+        decode.freq_band="EU868";
   	else if(bytes[0]==0x02)
-        freq_band="US915";
+        decode.freq_band="US915";
   	else if(bytes[0]==0x03)
-        freq_band="IN865";
+        decode.freq_band="IN865";
   	else if(bytes[0]==0x04)
-        freq_band="AU915";
+        decode.freq_band="AU915";
   	else if(bytes[0]==0x05)
-        freq_band="KZ865";
+        decode.freq_band="KZ865";
   	else if(bytes[0]==0x06)
-        freq_band="RU864";
+        decode.freq_band="RU864";
   	else if(bytes[0]==0x07)
-        freq_band="AS923";
+        decode.freq_band="AS923";
   	else if(bytes[0]==0x08)
-        freq_band="AS923_1";
+        decode.freq_band="AS923_1";
   	else if(bytes[0]==0x09)
-        freq_band="AS923_2";
+        decode.freq_band="AS923_2";
   	else if(bytes[0]==0x0A)
-        freq_band="AS923_3";
+        decode.freq_band="AS923_3";
   	else if(bytes[0]==0x0F)
-        freq_band="AS923_4";
+        decode.freq_band="AS923_4";
   	else if(bytes[0]==0x0B)
-        freq_band="CN470";
+        decode.freq_band="CN470";
   	else if(bytes[0]==0x0C)
-        freq_band="EU433";
+        decode.freq_band="EU433";
   	else if(bytes[0]==0x0D)
-        freq_band="KR920";
+        decode.freq_band="KR920";
   	else if(bytes[0]==0x0E)
-        freq_band="MA869";
+        decode.freq_band="MA869";
   	
     if(bytes[1]==0xff)
-      sub_band="NULL";
+      decode.sub_band="NULL";
 	  else
-      sub_band=bytes[1];
+      decode.sub_band=bytes[1];
 
-	  var firm_ver= (bytes[2]&0x0f)+'.'+(bytes[3]>>4&0x0f)+'.'+(bytes[3]&0x0f);
+	  decode.firm_ver= (bytes[2]&0x0f)+'.'+(bytes[3]>>4&0x0f)+'.'+(bytes[3]&0x0f);
 	  
-	  var tdc_time= bytes[4]<<16 | bytes[5]<<8 | bytes[6];
+	  decode.tdc_time= bytes[4]<<16 | bytes[5]<<8 | bytes[6];
 	  
   	return {
-      FIRMWARE_VERSION:firm_ver,
-      FREQUENCY_BAND:freq_band,
-      SUB_BAND:sub_band,
-      TDC_sec:tdc_time,
+      data:decode,
   	}
   }
 }
