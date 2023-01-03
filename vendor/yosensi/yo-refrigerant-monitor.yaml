@@ -1,5 +1,7 @@
-name: YO Refrigerant Monitor
+name: YO Refrigerant Monitor installation pressure monitoring | LoRa EU868, US915, AU915, AND AS923
 description: YO Refrigerant Monitor provides data on installation pressure. This information makes it possible to verify the correct functioning of the installation, as well as to prevent potential damage and the loss of materials and products that the installation maintains.
+YO Refrigerant Monitor replaces the local pressure reading from an analogue sensor with a remote reading transmitted over LoRaWAN.
+No pressure sensor is attached to the device. Recommended pressure sensor with measuring range 0-50 bar and connection type 7/16-20 UNF female (fits with 1/4 SAE Flare) or 1/2-20 UNF female (fits with 1/2 SAE Flare). The device communicates wirelessly over LoRaWAN. All our devices are made in the European Union.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'

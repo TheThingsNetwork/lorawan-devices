@@ -1,5 +1,8 @@
-name: YO Airflow
+name: YO Airflow Pro differential pressure monitoring | LoRa EU868, US915, AU915, AND AS923
 description: YO Airflow Pro provides differential pressure data for ventilation systems, making it possible to identify when air filters need replacing. Thus, users can make decisions based on objective parameters rather than on visual inspection or scheduled replacement times.
+By analysing differential pressure data, it is also possible to control pressure in air conditioning systems, control and monitor airflow and control circulation fans.
+The device is used in the HVAC industry, gas boilers, pellet stoves, fuel cells, filter monitoring and heat recovery. The device communicates wirelessly over LoRaWAN. The device provides low power consumption and longer battery life. It is high-quality product made in EU.
+
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '2.0'

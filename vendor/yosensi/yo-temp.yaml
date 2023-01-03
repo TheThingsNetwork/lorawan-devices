@@ -1,5 +1,7 @@
-name: YO Temp
-description: YO Temp is a LoRaWAN device for measuring temperature at three external points. Additionally, the device contains sensors that measure temperature and relative humidity.
+name: YO Temp temperature monitoring by up to 3 external probes | LoRa EU868, US915, AU915, AND AS923
+description: YO Temp measures the temperature at up to three external locations. Additionally, the device contains internal sensors measuring temperature and humidity. YO Temp features a IP67 protected enclosure and battery power supply.
+No temperature probes are attached to the device. Our range includes temperature sensors designed for outdoor use with various cable lengths (1 m, 2 m, 3 m, 5 m, 10 m, 15 m and 20 m). The sensors are equipped with silicone coverings and stainless steel enclosures, resistant to solvents including oil and alcohol. The sensors operate at temperatures ranging from -55°C to 125°C.
+YO Temp operates over LoRaWAN. The device provides low power consumption and longer battery life. It is high-quality product made in EU.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '2.1'

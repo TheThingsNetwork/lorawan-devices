@@ -1,5 +1,9 @@
-name: YO Power
-description: YO Power measures AC current flowing through devices connected to the mains. It can be fitted with up to six current clamps. It is possible to connect current-rated clamps with current output from almost every manufacturer. One YO Power device can measure multiple currents simultaneously (e.g. in one three-phase device, two three-phase devices, six single-phase devices, three single-phase devices, etc.).
+name: YO Power current & power monitoring by up to 6 current clamps (single and three-phase) | LoRa EU868, US915, AU915, AND AS923
+description: YO Power measures AC current flowing through devices connected to the mains. It can be fitted with up to six current clamps. It is possible to connect current-rated clamps with current output from almost every manufacturer. One YO Power device can measure multiple currents simultaneously (e.g. in one three-phase device, two three-phase devices, six single-phase devices, three single-phase devices, etc.). The device offers automatically switchable measurement ranges 2 A, 10 A, 50 A, 100 A., which results in even greater precision when measuring current. Each channel can measure current over different measuring ranges simultaneously. No current clamps are attached to the device.
+YO Power helps users quickly diagnose irregularities resulting from, for example, excessive electricity consumption, preventing errors and production downtime.
+The device communicates wirelessly over LoRaWAN. It is high-quality product made in EU.
+
+
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '3.0'

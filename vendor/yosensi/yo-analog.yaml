@@ -1,5 +1,7 @@
-name: YO Analog
-description: YO Analog makes it possible to monitor devices and processes in automation. The device has six configurable measurement inputs, each of which can operate in one of two analogue modes such as voltage input (0–10 V) or current input (4–20 mA).
+name: YO Analog - analog signal monitoring, voltage input (0–10 V) or current input (4–20 MA) | LoRa EU868, US915, AU915, AND AS923
+description: YO Analog makes it possible to monitor devices and processes in automation. The device has six configurable measurement inputs, each of which can operate in one of two analogue modes voltage input (0–10 V) or current input (4–20 mA).
+The device enclosure has been designed to mount on electrical switchboards or in automation cabinets on standard 35 mm DIN rails. YO Analog operates on a LoRaWAN network. Depending on the chosen version, YO Analog can operate in different regions (e.g. EU868, US915, AU915, AS923), adapted to different ISM frequency bands. All our devices are made in the European Union.
+
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
@@ -44,6 +46,9 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - analog input
+  - 4-20 ma
+  - voltage
+  - digital input
 
 
 # Additional radios that this device has (optional)

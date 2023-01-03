@@ -1,5 +1,6 @@
-name: YO 360
-description:  YO 360 measures temperature and humidity, and it sends its own position on the x, y, and z axes (via a built-in accelerometer). Its small size, battery power supply, and wide data transmission range allow the device to be used virtually anywhere. Additionally, it comes in two enclosure types one for indoor use (material ABS) and another for outdoor use (epoxy resin). It is equipped with a lithium battery with a very low level of self-discharge, allowing data to be collected for years.
+name: YO 360 - temperature, humidity monitoring & accelelometr | LoRa EU868, US915, AU915, AS923
+
+description: YO 360 measures temperature and humidity, and it sends its own position on the x, y, and z axes (via a built-in accelerometer). Its small size, battery power supply, and wide data transmission range allow the device to be used virtually anywhere. Additionally, it comes in two enclosure types one for indoor use (material ABS) and another for outdoor use (epoxy resin). It is equipped with a lithium battery with a very low level of self-discharge. The device provides low power consumption and longer battery life. YO 360 is a operating over LoRaWAN and is high-quality product made in EU. 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.3'

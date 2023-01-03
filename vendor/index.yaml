@@ -1087,6 +1087,11 @@ vendors:
   - id: yosensi
     name: Yosensi Sp. z o.o.
     vendorID: 659
+    website: https://yosensi.io/
+    social:
+      instagram: yosensi.io
+      linkedin: https://www.linkedin.com/company/yosensi/
+    email: contact@yosensi.io 
 
   - id: netze
     name: Netze BW GmbH

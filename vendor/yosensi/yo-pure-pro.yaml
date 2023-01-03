@@ -1,9 +1,12 @@
-name: YO Pure Pro
+name: YO Pure Pro air quality monitoring and more | LoRa EU868, US915, AU915, AND AS923
 description: YO Pure Pro is a device for measuring indoor environmental conditions. The device measures concentrations of particulate matter (PM2.5, PM4 and PM10), carbon monoxide (CO), carbon dioxide (CO2), total volatile organic compounds (TVOC), atmospheric pressure, illumination, temperature, humidity, noise level.
+The device may be used wherever there is a need to diagnose quality and environmental conditions in a room that will consequently lead to their improvement.
+YO Pure Pro can be powered via a USB-C connector, external power supply, or in the absence of those, from Li-Ion 18650 batteries.
+The device communicates wirelessly over LoRaWAN. All our devices are made in the European Union.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.1'
+  - version: '3.3'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
@@ -11,12 +14,8 @@ firmwareVersions:
   - # Firmware version
     version: '3.3.0'
     numeric: 1
-<<<<<<< HEAD
-=======
-    # Corresponding hardware versions (optional)
->>>>>>> b13e0bc5a0e9016e8a419fc125a3f6c2f96cae58
     hardwareVersions:
-      - '3.1'
+      - '3.3'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,

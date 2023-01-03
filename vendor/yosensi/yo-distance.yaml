@@ -1,5 +1,8 @@
-name: YO Distance
+name: YO Distance remote ultrasonic measurement | LoRa EU868, US915, AU915, AND AS923
 description: YO Distance is a LoRaWAN device for ultrasonic distance measurement. An example of using this device is monitoring the water level in the tank. Additionally, the device contains sensors that measure temperature, relative humidity and an accelerometer that enables to determine whether the device has been installed correctly.
+YO Distance is equipped with an enclosure made of ASA with IP67 protection class. The enclosure is designed to be easily mounted on the ceiling, e.g. water tanks.
+The device provides low power consumption and longer battery life. It is high-quality product made in EU.
+
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '2.1'
