@@ -38,8 +38,8 @@ var bytes = input.bytes;
   var pnackmd;
   var lon;
   var intwk;
-	if(port == 2 || port == 3)
-	{
+  switch (input.fPort) {
+	case 2:
 	var decode = {};
     bat =(((bytes[8] & 0x3f) <<8) | bytes[9]);//Battery,units:V
 
@@ -68,8 +68,8 @@ var bytes = input.bytes;
 			led_updown=(bytes[10] & 0x20)?"ON":"OFF";//LED status for position,uplink and downlink
 	    intwk = (bytes[10] & 0x10)?"MOVE":"STILL";
 
-			if(port == 2)
 			{
+			var decode = {};
 			decode.Location=location
 			decode.Latitude=latitude
 			decode.Longitud=longitude
@@ -83,7 +83,37 @@ var bytes = input.bytes;
 			data:decode,
 			  }		
 			}
-			else if(port == 3)
+			
+			break;
+			case 3:
+			{
+	var decode = {};
+    bat =(((bytes[8] & 0x3f) <<8) | bytes[9]);//Battery,units:V
+
+		latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
+		longitude=(bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7])/1000000;//gps longitude,units: °
+
+
+		if ((latitude < 190) && (latitude > -190)) {
+				if ((longitude < 190) && (longitude > -190)) {
+					if ((latitude !== 0) && (longitude !==0)) {
+							field: "location",
+						  location= "" + latitude + "," + longitude + ""
+
+					}        
+			   }
+			}		
+			alarm=(bytes[8] & 0x40)?"TRUE":"FALSE";//Alarm status
+			batV=(((bytes[8] & 0x3f) <<8) | bytes[9])/1000;//Battery,units:V
+			mod = bytes[10] & 0xC0;
+
+			if(mod !== 1) 
+			{
+			 hum=(bytes[11]<<8 | bytes[12])/10;//hum,units: °
+			 tem=(bytes[13]<<8 | bytes[14])/10; //tem,units: °   
+			}
+			led_updown=(bytes[10] & 0x20)?"ON":"OFF";//LED status for position,uplink and downlink
+	    intwk = (bytes[10] & 0x10)?"MOVE":"STILL";
 			{
 			var decode = {};
 			decode.Location=location
@@ -97,9 +127,10 @@ var bytes = input.bytes;
   			return {
   			  data:decode,
   			  }		
-			}	
+				}
 	}
-if(port == 0x04)
+	break;
+case 4:
 {
         var decode = {};
 		latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
@@ -133,7 +164,8 @@ if(port == 0x04)
 			  }		
 
 }
-if(port == 0x07)
+break;
+case 7:
 {
             var decode = {};
 			alarm=(bytes[0] & 0x40)?"TRUE":"FALSE";//Alarm status
@@ -149,7 +181,8 @@ if(port == 0x07)
 			  data:decode,
 			  }			
 }
-if(port==0x08)
+break;
+case 8:
 {
     var decode = {};
     con = "";
@@ -174,7 +207,8 @@ if(port==0x08)
     	         data:decode,			  
     		  }  
 }
-if(port==0x05)
+break;
+case 5:
   {
     var decode = {};
     if(bytes[0]==0x13)
@@ -249,7 +283,8 @@ if(port==0x05)
      data:decode,
     }
   }	
-	if(port == 6)
+	break;
+case 6:
 	{ 
 	    var decode = {};
 		major =  bytes[16] << 8 | bytes[17];
@@ -288,4 +323,5 @@ if(port==0x05)
 		 data:decode,
 		  }			
 	}
+  }
 }
