@@ -1,4 +1,4 @@
-name: FM432ir
+name: FM432ir-1mn
 description: FM432ir is an IoT sensor for monitoring the electricity consumption (electric power) of all types of buildings. It has been specially designed for meters with infrared communication ports (mMEGerman meters with SML protocol), but can also be used with old Ferraris meters. It is easy to install on the existing main electricity meter. It connects to LoRaWAN communication networks so that the power curve can be collected at regular intervals. This professional solution is extremely adequate for the remote monitoring of small and medium buildings.
 
 # Firmware versions (at least one is mandatory)

@@ -1,4 +1,4 @@
-name: FM432e
+name: FM432e-10-15mn
 description: FM432e is an IoT sensor for monitoring the electricity consumption (electric power) of all types of buildings. It is easy to install on the existing main electricity meter. It connects to LoRaWAN communication networks so that the power curve can be collected at regular intervals. This professional solution is extremely adequate for the remote monitoring of small and medium buildings
 
 # Firmware versions (at least one is mandatory)

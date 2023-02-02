@@ -1,4 +1,4 @@
-name: FM432p
+name: FM432p-1mn
 description: FM432p is a multifluid LoRawan reader transmitting « pulse » data consumption from a Gas, Water or Heat meter to a server. It provides the ideal starting point for analyzing the level of consumption and offers a complete interoperability with IoT LoRa networks in order to rapidly report any change. This device is perfectly designed for deployment of energy efficiency services for Small and Medium Buildings.
 
 # Firmware versions (at least one is mandatory)
