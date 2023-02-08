@@ -8,7 +8,6 @@ The device communicates wirelessly over LoRaWAN. It is high-quality product made
 hardwareVersions:
   - version: '3.0'
     numeric: 1
- 
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -16,7 +15,7 @@ firmwareVersions:
     version: '3.2.0'
     numeric: 1
     hardwareVersions:
-    - '3.0'
+      - '3.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -27,17 +26,17 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 659
+        #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: yo-power-profile
-        lorawanCertified: true  
-      US902-928:  #dodać profil na US
+        lorawanCertified: true
+      US902-928: #dodać profil na US
         id: yo-power-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-power-profile-au
         lorawanCertified: true
-      
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -49,16 +48,11 @@ firmwareVersions:
 sensors:
   - current
   - power
-  
-
-
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
   - ble
- 
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -70,20 +64,13 @@ dimensions:
 # Weight in grams (optional)
 weight: 146
 
-
 # IP rating (optional)
 ipCode: IP20
-
 
 # Product and data sheet URLs (optional)
 productURL: https://yosensi.io/products/yo_power/
 dataSheetURL: https://yosensi.io/support/datasheets/YO_Power_datasheet.pdf
 
-
-
 # Photos
 photos:
   main: yo-power.png
-
-
-

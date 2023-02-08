@@ -5,7 +5,6 @@ description: YO 360 measures temperature and humidity, and it sends its own posi
 hardwareVersions:
   - version: '1.3'
     numeric: 1
- 
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -24,17 +23,17 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 659
+        #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: yo-360-profile
-        lorawanCertified: true  
-      US902-928:  #dodać profil na US
+        lorawanCertified: true
+      US902-928: #dodać profil na US
         id: yo-360-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-360-profile-au
         lorawanCertified: true
-      
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -47,16 +46,11 @@ sensors:
   - accelerometer
   - temperature
   - humidity
-  
-
-
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
   - ble
- 
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -67,20 +61,13 @@ dimensions:
 # Weight in grams (optional)
 weight: 18.6
 
-
 # IP rating (optional)
-ipCode: IP40, IP67
-
+ipCode: IP67
 
 # Product and data sheet URLs (optional)
 productURL: https://yosensi.io/products/yo_360/
 dataSheetURL: https://yosensi.io/support/datasheets/YO_360_datasheet.pdf
 
-
-
 # Photos
 photos:
   main: yo-360.png
-
-
-

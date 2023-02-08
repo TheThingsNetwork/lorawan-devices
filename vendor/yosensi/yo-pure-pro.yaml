@@ -1,9 +1,5 @@
-name: YO Pure Pro air quality monitoring and more | LoRa EU868, US915, AU915, AND AS923
-description: YO Pure Pro is a device for measuring indoor environmental conditions. The device measures concentrations of particulate matter (PM2.5, PM4 and PM10), carbon monoxide (CO), carbon dioxide (CO2), total volatile organic compounds (TVOC), atmospheric pressure, illumination, temperature, humidity, noise level.
-The device may be used wherever there is a need to diagnose quality and environmental conditions in a room that will consequently lead to their improvement.
-YO Pure Pro can be powered via a USB-C connector, external power supply, or in the absence of those, from Li-Ion 18650 batteries.
-The device communicates wirelessly over LoRaWAN. All our devices are made in the European Union.
-
+name: YO Pure Pro 
+description: YO Pure Pro is a device for measuring indoor environmental conditions. The device measures concentrations of particulate matter (PM2.5, PM4 and PM10), carbon monoxide (CO), carbon dioxide (CO2), total volatile organic compounds (TVOC), atmospheric pressure, illumination, temperature, humidity, noise level. YO Pure Pro can be powered via a USB-C connector, external power supply, or in the absence of those, from Li-Ion 18650 batteries.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '3.3'

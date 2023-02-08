@@ -999,9 +999,9 @@
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/chokidar-2/-/chokidar-2-2.1.8-no-fsevents.3.tgz#323d72dd25103d0c4fbdce89dadf574a787b1f9b"
   integrity sha512-s88O1aVtXftvp5bCPB7WnmXc5IwOZZ7YPuwNPt+GtOOXpPvad1LfbmjYv+qII7zP6RU2QGnqve27dnLycEnyEQ==
 
-"@tti/design@https://ttui.thethingsindustries.com/release/ttui-1.0.0-alpha.31.tar.gz":
+"@tti/design@https://ttui.thethingsindustries.com/release/ttui-1.0.0.tar.gz":
   version "0.0.0"
-  resolved "https://ttui.thethingsindustries.com/release/ttui-1.0.0-alpha.31.tar.gz#f43440940ebc6c64a13c34ed9243fb438ad1f1b3"
+  resolved "https://ttui.thethingsindustries.com/release/ttui-1.0.0.tar.gz#b6f5a208b5854b1b63deaed7b1ac9f70217558ab"
 
 "@types/glob@^7.1.1":
   version "7.2.0"
