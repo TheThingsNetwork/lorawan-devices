@@ -148,8 +148,8 @@ msrp:
   EUR: 69
   # USD: 120
 # Photos
-photos:
-  main: fm432t.jpg
+# photos:
+#   main: fm432t.jpg
 # other:
 #   - windsensor-package.jpg
 
