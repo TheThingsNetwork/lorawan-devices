@@ -1,0 +1,83 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - acw-thx
+
+ # - ACW-THAQ
+
+
+  #- ACW-TM0P
+
+
+  #- ACW-TM1P
+
+
+ # - ACW-TM2P
+
+
+  #- ACW-TM1P-CRYO
+
+
+
+  #- ACW-TCR
+
+
+ # - ACW-MR4
+
+
+  #- ACW-MR2-EX
+
+
+ # - ACW-DINDA
+
+
+  #- ACW-DINRSM
+
+
+  #- ACW-DIND21
+
+
+ # - ACW-DINRS+
+
+
+ # - ACW-DIND44 
+
+
+ # - ACW-DIND80
+
+
+ # - ACW-DIND88
+
+
+ # - ACW-DIND160
+
+
+ # - ACW-PIR360-I
+
+
+ # - ACW-PIR90-I
+
+
+ # - ACW-PIR90-O
+
+
+  #- ACW-PIR180-O
+
+
+ # - ACW-ILB30
+
+
+  #- ACW-ILB100
+
+
+  #- ACW-LVL
+
+
+  #- ACW-WL-I
+
+
+ # - ACW-WL-O
+
+
+ # - ACW-TST

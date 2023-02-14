@@ -427,12 +427,7 @@ vendors:
     name: Magnitude Space B.V.
     vendorID: 256
 
-  - id: mcci
-    name: MCCI Corporation
-    website: https://mcci.com
-    logo: mcci.svg
-    ouis:
-      - 0002CC
+
 
   - id: mcf88
     name: mcf88 SRL
@@ -1944,3 +1939,10 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/getcital/
       twitter: getcital
+
+  - id: atim
+    name: atim
+    website: https://www.atim.com/
+    logo: atim-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/atim-radiocommunications/
