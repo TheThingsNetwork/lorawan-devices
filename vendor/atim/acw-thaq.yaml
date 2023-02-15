@@ -33,12 +33,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: acw-thaq-profile
         lorawanCertified: true
         codec: codec
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -123,5 +122,4 @@ resellerURLs:
 # Photos
 photos:
   main: acw-thaq.png
-
 # Youtube or Vimeo Video (optional)

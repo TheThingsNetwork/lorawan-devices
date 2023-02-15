@@ -33,7 +33,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: acw-pir90-o-profile
         lorawanCertified: true
@@ -61,17 +61,14 @@ battery:
   replaceable: true
   type: AA
 
-
 ipCode: IP54
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 
-
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.

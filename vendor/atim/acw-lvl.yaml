@@ -33,12 +33,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: acw-lvl-profile
         lorawanCertified: true
         codec: codec
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -58,7 +57,6 @@ additionalRadios:
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -82,18 +80,15 @@ operatingConditions:
     min: -25
     max: 70
 
-
 # IP rating (optional)
 ipCode: IP54
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 
-
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.

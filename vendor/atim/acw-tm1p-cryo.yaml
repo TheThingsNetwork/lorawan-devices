@@ -33,7 +33,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: acw-tm1p-cryo-profile
         lorawanCertified: true
@@ -51,7 +51,6 @@ sensors:
   - surface temperature
   - surface temperature
 
-
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
@@ -59,7 +58,6 @@ additionalRadios:
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

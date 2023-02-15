@@ -33,7 +33,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: acw-dind88-profile
         lorawanCertified: true
@@ -53,10 +53,8 @@ sensors:
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 
-
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -64,7 +62,6 @@ dimensions:
   width: 53
   length: 67
   height: 95
-
 
 # Operating conditions (optional)
 operatingConditions:
@@ -79,11 +76,9 @@ ipCode: IP65
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 
-
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -105,7 +100,6 @@ resellerURLs:
     region:
       - European Union
     url: https://www.atim.com/produits/report-changement-etat-comptage-4-entrees-4-sorties-tout-ou-rien-8-entrees-8-sorties-tout-ou-rien/
-
 
 # Photos
 photos:

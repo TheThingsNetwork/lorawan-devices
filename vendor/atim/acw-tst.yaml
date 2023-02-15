@@ -33,12 +33,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: acw-tst-profile
         lorawanCertified: true
         codec: codec2
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -48,15 +47,12 @@ firmwareVersions:
 # power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
-sensors:
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 
-
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -73,18 +69,15 @@ battery:
   replaceable: false
   type: rechargeable
 
-
 # IP rating (optional)
 ipCode: IP30
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 
-
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -93,7 +86,6 @@ keySecurity: none
 # Firmware programming (optional)
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
-
 
 # Product and data sheet URLs (optional)
 productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-TST/FRANCAIS/ATIM_ACW-TST_DS_FR.pdf
@@ -105,9 +97,7 @@ resellerURLs:
     region:
       - European Union
     url: https://www.atim.com/produits/testeurs-de-reseaux/
- 
+
 # Photos
 photos:
-  main: acw-tst.jpg
-
-
+  main: acw-tst.png

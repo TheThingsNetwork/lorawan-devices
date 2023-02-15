@@ -35,10 +35,9 @@ firmwareVersions:
         # which is verbose.
         vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id:  acw-thx-profile
+        id: acw-thx-profile
         lorawanCertified: true
         codec: codec
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -94,7 +93,6 @@ ipCode: IP30
 # Valid values are: custom (user can configure keys), join server and manifest.
 #keyProvisioning:
 
-
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
@@ -125,8 +123,5 @@ resellerURLs:
 # Photos
 photos:
   main: acw-thx.png
-
 # Youtube or Vimeo Video (optional)
-
-
 

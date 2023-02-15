@@ -2,13 +2,11 @@
 # For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: decode.js
- 
 
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
   fileName: decode.js
-  
+
 # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
 downlinkDecoder:
   fileName: decode.js
-  

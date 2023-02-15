@@ -1,5 +1,5 @@
 name: acw-tm0p
-description: Deported temperature sensor 2 inputs for PT100 or PT1000 probes 
+description: Deported temperature sensor 2 inputs for PT100 or PT1000 probes
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -33,7 +33,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: acw-tm0p-profile
         lorawanCertified: true
@@ -57,7 +57,6 @@ additionalRadios:
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

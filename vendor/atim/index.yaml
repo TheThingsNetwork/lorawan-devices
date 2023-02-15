@@ -12,7 +12,7 @@ endDevices:
 
   - acw-tm2p
 
-  - acw-tm1p-cryo 
+  - acw-tm1p-cryo
 
   - acw-tcr
 
@@ -45,7 +45,7 @@ endDevices:
   - acw-pir180-o
 
   - acw-ilb30
- 
+
   - acw-ilb100
 
   - acw-lvl
