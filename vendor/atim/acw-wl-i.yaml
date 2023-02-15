@@ -1,5 +1,5 @@
-name: Wind Sensor
-description: Wind Sensor with controllable LED
+name: acw-wl-i
+description: Liquid detection by cable (Indoor Version)
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -33,33 +33,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: example
+        vendorID: 
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: windsensor-profile
+        id: acw-wl-i-profile
         lorawanCertified: true
-        codec: windsensor-codec
-      US902-928:
-        id: windsensor-profile
-        lorawanCertified: true
-        codec: windsensor-codec
-
-  - # You can add more firmware versions and use different profiles per version
-    version: '2.0'
-    numeric: 2
-    hardwareVersions:
-      - '1.0-rev-A'
-    profiles:
-      EU863-870:
-        id: windsensor-profile
-        lorawanCertified: true
-        codec: windsensor-codec
-      US902-928:
-        id: windsensor-profile
-        lorawanCertified: true
-        codec: windsensor-codec
-      AS923:
-        id: windsensor-profile
-        codec: windsensor-codec
+        codec: codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -70,30 +48,25 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - wind direction
-  - wind speed
+  - water
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
   - ble
-  - cellular
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-bridgeInterfaces:
-  - m-bus
-  - rs-485
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 34
-  length: 26
-  height: 77
+  width: 80
+  length: 80
+  height: 35
 
-# Weight in grams (optional)
-weight: 350
+
 
 # Battery information (optional)
 battery:
@@ -104,28 +77,21 @@ battery:
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -30
-    max: 85
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.97
+    min: -20
+    max: 55
+
 
 # IP rating (optional)
-ipCode: IP64
+ipCode: IP30
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
-keyProvisioning:
-  - custom
-  - join server
+
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-keyProgramming:
-  - serial
-  - firmware
+
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -136,49 +102,21 @@ keySecurity: none
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
-  - fuota lorawan
+  - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://example.org/wind-sensor
-dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-WL(L)/FRANCAIS/ATIM_ACW-WLL_DS_FR.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-WL(L)/FRANCAIS/ATIM_ACW-WLL_UG_FR.pdf
 
 # Commercial information
 resellerURLs:
-  - name: 'Reseller 1'
+  - name: 'ATIM'
     region:
       - European Union
-    url: https://example.org/reseller1
-  - name: 'Reseller 2'
-    region:
-      - United States
-      - Canada
-    url: https://example.org/reseller2
-msrp:
-  EUR: 90
-  USD: 120
+    url: https://www.atim.com/produits/capteur-de-detection-fuites-de-liquides/
+
 
 # Photos
 photos:
-  main: windsensor.jpg
-  other:
-    - windsensor-package.jpg
+  main: acw-wl.png
 
-# Youtube or Vimeo Video (optional)
-videos:
-  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
-
-# Regulatory compliances (optional)
-compliances:
-  safety:
-    - body: IEC
-      norm: EN
-      standard: 62368-1
-  radioEquipment:
-    - body: ETSI
-      norm: EN
-      standard: 301 489-1
-      version: 2.2.0
-    - body: ETSI
-      norm: EN
-      standard: 301 489-3
-      version: 2.1.0

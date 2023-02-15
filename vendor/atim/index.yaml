@@ -30,38 +30,28 @@ endDevices:
 
   - acw-dind88
 
-  - acw-din80
+  - acw-dind80
 
   - acw-dind160
 
-  - acw-dinrs+
- # - ACW-DINRS+
+  - acw-dinrs
 
- # - ACW-PIR360-I
+  - acw-pir360
 
+  - acw-pir90-i
 
- # - ACW-PIR90-I
+  - acw-pir90-o
 
+  - acw-pir180-o
 
- # - ACW-PIR90-O
+  - acw-ilb30
+ 
+  - acw-ilb100
 
+  - acw-lvl
 
-  #- ACW-PIR180-O
+  - acw-wl-i
 
+  - acw-wl-o
 
- # - ACW-ILB30
-
-
-  #- ACW-ILB100
-
-
-  #- ACW-LVL
-
-
-  #- ACW-WL-I
-
-
- # - ACW-WL-O
-
-
- # - ACW-TST
+  - acw-tst

@@ -35,7 +35,7 @@ firmwareVersions:
         # which is verbose.
         vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: acw-dinrs+-profile
+        id: acw-dinrs-profile
         lorawanCertified: true
         codec: codec2
 
@@ -110,4 +110,4 @@ resellerURLs:
 
 # Photos
 photos:
-  main: acw-dinrs+.png
+  main: acw-dinrs.png
