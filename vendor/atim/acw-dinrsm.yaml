@@ -1,5 +1,5 @@
-name: acw-dinda
-description: 1 x analogue input 4-20 mA/0-10 V input gateway
+name: acw-dinrsm
+description: Gateway Modbus Master gateway 833 registers reading / writing
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -35,9 +35,11 @@ firmwareVersions:
         # which is verbose.
         vendorID: 
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: acw-dinda-profile
+        id: acw-dinrsm-profile
         lorawanCertified: true
         codec: codec2
+
+
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -47,27 +49,21 @@ firmwareVersions:
 # power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
-sensors:
-  - analog input
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
-additionalRadios:
-  - ble
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+bridgeInterfaces:
+  - modbus
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 17.7
-  length: 95
-  height: 57
-
-# Weight in grams (optional)
-
-# Battery information (optional)
+  width: 90
+  length: 57
+  height: 67
 
 
 # Operating conditions (optional)
@@ -101,17 +97,16 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINDA/FRANCAIS/ATIM_ACW-DINDA_DS_FR.pdfs
-dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINDA/FRANCAIS/ATIM_ACW-DINDA_UG_FR.pdf
+productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINRSM/FRANCAIS/ATIM_ACW-DINRSM_DS_FR.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINRSM/FRANCAIS/ATIM_ACW-DINRSM_UG_FR.pdf
 
 # Commercial information
 resellerURLs:
   - name: 'ATIM'
     region:
       - European Union
-    url: https://www.atim.com/produits/capteur-une-entree-analogique-4-20-ma-ou-0-10v/
+    url: https://www.atim.com/produits/gateway-modbus-maitre-liaison-serie-rs485/
 
 # Photos
 photos:
-  main: acw-dinda.png
-
+  main: acw-dinrsm.png

@@ -22,29 +22,20 @@ endDevices:
 
   - acw-dinda
 
- # - ACW-DINDA
+  - acw-dinrsm
 
+  - acw-dind21
 
-  #- ACW-DINRSM
+  - acw-dind44
 
+  - acw-dind88
 
-  #- ACW-DIND21
+  - acw-din80
 
+  - acw-dind160
 
+  - acw-dinrs+
  # - ACW-DINRS+
-
-
- # - ACW-DIND44 
-
-
- # - ACW-DIND80
-
-
- # - ACW-DIND88
-
-
- # - ACW-DIND160
-
 
  # - ACW-PIR360-I
 

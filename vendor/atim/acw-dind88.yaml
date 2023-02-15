@@ -1,5 +1,5 @@
-name: acw-dinda
-description: 1 x analogue input 4-20 mA/0-10 V input gateway
+name: acw-dind88
+description: 8 inputs, State of dry contacts or pulse metering 8 outputs, State of dry contacts
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -35,7 +35,7 @@ firmwareVersions:
         # which is verbose.
         vendorID: 
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: acw-dinda-profile
+        id: acw-dind88-profile
         lorawanCertified: true
         codec: codec2
 
@@ -48,26 +48,22 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - analog input
+  - pulse count
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
-additionalRadios:
-  - ble
+
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
 
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 17.7
-  length: 95
-  height: 57
-
-# Weight in grams (optional)
-
-# Battery information (optional)
+  width: 53
+  length: 67
+  height: 95
 
 
 # Operating conditions (optional)
@@ -76,7 +72,6 @@ operatingConditions:
   temperature:
     min: -20
     max: 55
-
 
 # IP rating (optional)
 ipCode: IP65
@@ -101,17 +96,17 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINDA/FRANCAIS/ATIM_ACW-DINDA_DS_FR.pdfs
-dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINDA/FRANCAIS/ATIM_ACW-DINDA_UG_FR.pdf
+productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DIND%20(80,44,160,88)/FRANCAIS/ATIM_ACW-DINDxxx_DS_FR.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DIND%20(80,44,160,88)/FRANCAIS/ATIM_ACW-DINDxxx_UG_FR.pdf
 
 # Commercial information
 resellerURLs:
   - name: 'ATIM'
     region:
       - European Union
-    url: https://www.atim.com/produits/capteur-une-entree-analogique-4-20-ma-ou-0-10v/
+    url: https://www.atim.com/produits/report-changement-etat-comptage-4-entrees-4-sorties-tout-ou-rien-8-entrees-8-sorties-tout-ou-rien/
+
 
 # Photos
 photos:
-  main: acw-dinda.png
-
+  main: acw-dind88.png
