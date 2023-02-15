@@ -1,378 +1,993 @@
-/*===============================================================================================================================
-	Fichier				: decodeur.js
-	Objectif(s)			: Décoder la trame du client
-	Auteur				: Pelcener Thiabaut
-	Date de création	: Janvier 2023
-	Date de modification: Janvier 2023
-===============================================================================================================================*/
-        /*
-      ___                                   ___     
-     /  /\          ___       ___          /__/\    		
-    /  /::\        /  /\     /  /\        |  |::\   
-   /  /:/\:\      /  /:/    /  /:/        |  |:|:\  
-  /  /:/~/::\    /  /:/    /__/::\      __|__|:|\:\ 
- /__/:/ /:/\:\  /  /::\    \__\/\:\__  /__/::::| \:\
- \  \:\/:/__\/ /__/:/\:\      \  \:\/\ \  \:\~~\__\/
-  \  \::/      \__\/  \:\      \__\::/  \  \:\      
-   \  \:\           \  \:\     /__/:/    \  \:\     
-    \  \:\           \__\/     \__\/      \  \:\    
-     \__\/                                 \__\/    
-  
-*/
+/* *************************************** */
+/*              FRAME HEADER               */
+/* *************************************** */
+const ACW_FRAME_HEADER_MEAS_MASK = 0x20;
+const ACW_FRAME_HEADER_TYPE_MASK = 0x0F;
+const ACW_FRAME_HEADER_TIMESTAMP_MASK  = 0x40;
 
-// ==============================================================================================================================
-// Déclaration des constantes relatives aux différents types de trames
-// ==============================================================================================================================	
-
-	const TYPE_KEEP_ALIVE   	 = 0x81; //Trame de vie 
-	const TYPE_NETWORK_TEST 	 = 0x82; //Trame de test réseau 
-	const TYPE_TEST_FRAME   	 = 0x85; //Trame de test 
-	const TYPE_THOLD_ALERT  	 = 0x8D; //Trame d'alert 
-	const TYPE_ERREUR        	 = 0x8E; //Trame d'erreur 
-	const TYPE_SPECIFIC     	 = 0x8F; //Trame specific
-	const TYPE_MESURE     	 	 = 0xA0; //Trame de mesure
-
-// ==============================================================================================================================
-// Déclaration des constantes relatives aux différentes mesures
-// ==============================================================================================================================	
-	
-	const TYPE_TEMP 		 	 = 0x08; //température -196°C --> 200°C
-	const TYPE_TEMP2		 	 = 0x18; //température -196°C --> 200°C voie 1 pour les TMxP et TCR
-	const TYPE_RH 				 = 0x09; //Humidité 0 - 100%
-	const TYPE_COV 			 	 = 0x0C; //Indice COV 0 - 500
-	const TYPE_CO2 			 	 = 0x0D; //Co2 2 bytes 0-65535 ppm
-	const TYPE_ENTREE			 = 0X01; //Entrée à l'etat 1
-	const TYPE_ENTREE2			 = 0X00; //Entrée à l'etat 0
-	
-// ==============================================================================================================================
-// Déclaration des constantes relatives aux différents messages d'erreurs
-// ==============================================================================================================================
-
-	const ERR_SENSOR_NO_DATA  			  = 0x81; //Impossible de lire une température/humidité sur le capteur.
-	const ERR_BUF_SMALLER 			 	  = 0x82; //Le tableau de données est plein, impossible d’y écrire des données supplémentaires
-	const ERR_DEPTH_HISTORIC_OUT_OF_RANGE = 0x83; //La profondeur d’historique est trop grande ou trop petite pour la trame
-	const ERR_NB_SAMPLE_OUT_OF_RANGE 	  = 0x84; //Le nombre d’échantillon est trop grand ou trop petit pour la trame
-	const ERR_NWAY_OUT_OF_RANGE 		  = 0x85; //Le nombre de voie dans l’entête de la trame est trop grand ou trop petit
-	const ERR_TYPEWAY_OUT_OF_RANGE 		  = 0x86; //Le type de mesure dans l’entête de la trame est trop grand ou trop petit
-	const ERR_SAMPLING_PERIOD 			  = 0x87; //Mauvaise structure de période d’échantillonnage
-	const ERR_SUBTASK_END 				  = 0x88; //Fin d’une sous tache après être sortie d’une boucle infinie
-	const ERR_NULL_POINTER 				  = 0x89; //Pointeur avec valeur “NULL”
-	const ERR_BATTERY_LEVEL_DEAD 		  = 0x8A; //Niveau de batterie critique
-	const ERR_EEPROM 					  = 0x8B; //EEPROM est corrompue
-	const ERR_ROM 						  = 0x8C; //ROM est corrompue
-	const ERR_RAM 						  = 0x8D; //RAM est corrompue
-	const ERR_ARM_INIT_FAIL 			  = 0x8E; //L’initialisation du module radio a échoué
-	const ERR_ARM_BUSY 					  = 0x8F; //Le module est déjà occupé (possiblement non initialisé)
-	const ERR_ARM_BRIDGE_ENABLE 		  = 0x90; //Le module est en mode bridge, impossible d’envoyer desdonnées par radio
-	const ERR_RADIO_QUEUE_FULL 			  = 0x91; //Le buffer de la radio est plein
-	const ERR_CFG_BOX_INIT_FAIL 		  = 0x92; //Erreur lors de l’initialisation de la black box
-	const ERR_KEEP_ALIVE_PERIOD 		  = 0x93; //Mauvaise structure de période de trame de vie
-	const ERR_ENTER_DEEP_SLEEP 			  = 0x94; //Le produit est passé en mode veille profonde
-	const ERR_BATTERY_LEVEL_LOW 		  = 0x95; //Niveau de batterie faible
-	const ERR_ARM_TRANSMISSION 			  = 0x96; //Une transmission a été initialisé mais une erreur est survenue
-	const ERR_ARM_PAYLOAD_BIGGER 	      = 0x97; //La taille du message est trop grande par rapport à la capacité du réseau
-	const ERR_RADIO_PAIRING_TIMEOUT 	  = 0x98; //Impossible de s’appairer à un réseau avant le temps imparti
-	const ERR_SENSORS_TIMEOUT 			  = 0x99; //Un timeout a été atteint sur le capteur
-	const ERR_SENSOR_STOP 				  = 0x9A; //Le capteur n’a pas retourné de valeur lors d’une lecture	
-	const ERR_SENSORS_INIT_FAIL 		  = 0x9B; //Le capteur de température humidité n’est pas détecté au démarrage
-	const ERR_BOX_OPENED 				  = 0X9C; //Ouverture du boitier
-	const ERR_BOX_CLOSED				  = 0X9D; //Fermeture du boitier
-	const ERR_SENSORS_MOVE 				  = 0x9E; //Détection d’un déplacement/vol sur le produit
-	const ERR_SENSOR_CRC_KO 			  = 0x9F; //Données du capteur de température humidité corrompues
-	
-
-// ==============================================================================================================================
-// fonctions de convertion, afin de convertir l'hexadécimal en valeur concrète pour l'utilisateur
-// ==============================================================================================================================    
-
-	function bin16dec(bin) {
-    	var num = bin & 0xFFFF;
-    	if (0x8000 & num)
-       		num = -(0x010000 - num);
-    	return num;
-	}
-
-	function bin8dec(bin) {
-   		var num = bin & 0xFF;
-    	if (0x80 & num)
-        	num = -(0x0100 - num);
-    	return num;
-	}
-
-	function hexToBytes(hex) {
-    	for (var bytes = [], c = 0; c < hex.length; c += 2)
-        	bytes.push(parseInt(hex.substr(c, 2), 16));
-    	return bytes;
-	}
+/****           Frame type              ****/
+const ACW_FRAME_HEADER_TYPE_KEEP_ALIVE   = 0x01;
+const ACW_FRAME_HEADER_TYPE_NETWORK_TEST = 0x02;
+const ACW_FRAME_HEADER_TYPE_TEST_FRAME   = 0x05;
+const ACW_FRAME_HEADER_TYPE_THOLD_ALERT  = 0x0D;
+const ACW_FRAME_HEADER_TYPE_ERROR        = 0x0E;
+const ACW_FRAME_HEADER_TYPE_SPECIFIC     = 0x0F;
 
 
-// ==============================================================================================================================
-// Algorithme de decodage, afin de déterminer de quel type de trame il s'agit
-// ==============================================================================================================================	
-	
-	function getFrameType(frame) {
-    	const frameTypeCode1 = parseInt(frame.substr(0, 2), 16);
-    	const frameTypeCode2 = parseInt(frame.substr(10, 2), 16);
-    	let frameType;
+/* *************************************** */
+/*              MEASURE FRAME              */
+/* *************************************** */
+const ACW_FRAME_HEADER_MEAS_HISTORIC_POS = 3;
+const ACW_FRAME_HEADER_MEAS_HISTORIC_MASK = 0x18;
+const ACW_FRAME_HEADER_MEAS_SAMPLES_MASK = 0x07;
 
-    	if (frameTypeCode1 === TYPE_KEEP_ALIVE || frameTypeCode2 === TYPE_KEEP_ALIVE) {
-        	frameType = "Trame de vie";
-    	} else if (frameTypeCode1 === TYPE_NETWORK_TEST || frameTypeCode2 === TYPE_NETWORK_TEST) {
-        	frameType = "Trame de test réseau";
-    	} else if (frameTypeCode1 === TYPE_TEST_FRAME || frameTypeCode2 === TYPE_TEST_FRAME) {
-        	frameType = "Trame de test";
-    	} else if (frameTypeCode1 === TYPE_THOLD_ALERT || frameTypeCode2 === TYPE_THOLD_ALERT) {
-        	frameType = "Trame d'alert";
-    	} else if (frameTypeCode1 === TYPE_ERREUR || frameTypeCode2 === TYPE_ERREUR) {
-        	frameType = "Trame d'erreur";
-    	} else if (frameTypeCode1 === TYPE_SPECIFIC || frameTypeCode2 === TYPE_SPECIFIC) {
-        	frameType = "Trame spécifique";
-    	} else if (frameTypeCode1 === TYPE_MESURE || frameTypeCode2 === TYPE_MESURE) {
-        	frameType = "Trame de mesure";
-    	} else {
-        	frameType = "Type de trame inconnu";
-    	}
-    return frameType;
-	}
+const ACW_FRAME_MEAS_MEAS_TYPE_MASK = 0x0F;
+const ACW_FRAME_MEAS_CHANNEL_NUM_POS = 4;
+const ACW_FRAME_MEAS_CHANNEL_NUM_MASK = 0x30;
 
 
-// ==============================================================================================================================
-// Algorithme de decodage, afin de déterminer de quel message d'erreur il s'agit
-// ==============================================================================================================================
+/* *************************************** */
+/*              ALERT HEADER               */
+/* *************************************** */
+const ACW_FRAME_ALERT_MEAS_TYPE_POS   = 0;
+const ACW_FRAME_ALERT_MEAS_TYPE_MASK  = 0x0F;
+const ACW_FRAME_ALERT_CHANNEL_NUM_POS = 4;
+const ACW_FRAME_ALERT_ALERT_TYPE_POS  = 6;
 
-	function getFrameErreur(frame) {
-   		const frameErreurCode =	parseInt(frame.substr(frame.length -2, 2), 16);
- 		var frameErreur = {};
- 		
- 		switch (frameErreurCode) {
-			case ERR_SENSOR_NO_DATA:
-				frameErreur = "Impossible de lire une température/humidité sur le capteur";
-				break;
-			case ERR_BUF_SMALLER:
-				frameErreur = "Le tableau de données est plein, impossible d’y écrire des données supplémentaires";
-				break;
-			case ERR_DEPTH_HISTORIC_OUT_OF_RANGE:
-				frameErreur = " La profondeur d’historique est trop grande ou trop petite pour la trame";
-				break;
-			case ERR_NB_SAMPLE_OUT_OF_RANGE:
-				frameErreur = "Le nombre d’échantillon est trop grand ou trop petit pour la trame";
-				break;
-			case ERR_NWAY_OUT_OF_RANGE:
-				frameErreur = "Le nombre de voie dans l’entête de la trame est trop grand ou trop petit";
-				break;
-			case ERR_TYPEWAY_OUT_OF_RANGE:
-				frameErreur = "Le type de mesure dans l’entête de la trame est trop grand ou trop petit";
-				break;
-			case ERR_SAMPLING_PERIOD:
-				frameErreur = "Mauvaise structure de période d’échantillonnage";
-				break;
-			case ERR_SUBTASK_END:
-				frameErreur = "Fin d’une sous tache après être sortie d’une boucle infinie";
-				break;
-			case ERR_NULL_POINTER:
-				frameErreur = "Pointeur avec valeur “NULL”";
-				break;
-			case ERR_BATTERY_LEVEL_DEAD:
-				frameErreur = "Niveau de batterie critique";
-				break;
-			case ERR_EEPROM:
-				frameErreur = "EEPROM est corrompue";
-				break;
-			case ERR_ROM:
-				frameErreur = "ROM est corrompue";
-				break;
-			case ERR_RAM:
-				frameErreur = "RAM est corrompue";
-				break;
-			case ERR_ARM_INIT_FAIL:
-				frameErreur = "L'initialisation du module radio a échoué";
-				break;
-			case ERR_ARM_BUSY:
-				frameErreur = "Le module est déjà occupé (possiblement non initialisé)";
-				break;
-			case ERR_ARM_BRIDGE_ENABLE:
-				frameErreur = "Le module est en mode bridge, impossible d'envoyer des données par radio";
-				break;
-			case ERR_RADIO_QUEUE_FULL:
-				frameErreur = "Le buffer de la radio est plein";
-				break;
-			case ERR_CFG_BOX_INIT_FAIL:
-				frameErreur = "Erreur lors de l'initialisation de la black box";
-				break;
-			case ERR_KEEP_ALIVE_PERIOD:
-				frameErreur = "Mauvaise structure de période de trame de vie";
-				break;
-			case ERR_ENTER_DEEP_SLEEP:
-				frameErreur = "Le produit est passé en mode veille profonde";
-				break;
-			case ERR_BATTERY_LEVEL_LOW:
-				frameErreur = "Niveau de batterie faible";
-				break;
-			case ERR_ARM_TRANSMISSION:
-				frameErreur = "Une transmission a été initialisée mais une erreur est survenue";
-				break;
-			case ERR_ARM_PAYLOAD_BIGGER:
-				frameErreur = "La taille du message est trop grande par rapport à la capacité du réseau";
-				break;
-			case ERR_RADIO_PAIRING_TIMEOUT:
-				frameErreur = "Impossible de s'appairer à un réseau avant le temps imparti";
-				break;
-			case ERR_SENSORS_TIMEOUT:
-				frameErreur = "Un timeout a été atteint sur le capteur";
-				break;
-			case ERR_SENSOR_STOP:
-				frameErreur = "Le capteur n'a pas retourné de valeur lors d'une lecture";
-				break;
-			case ERR_SENSORS_INIT_FAIL:
-				frameErreur = "Le capteur de température humidité n’est pas détecté au démarrage";
-				break;
-			case ERR_BOX_OPENED:
-				frameErreur = "Ouverture du boitier";
-				break;
-			case ERR_BOX_CLOSED:
-				frameErreur = "Fermeture du boititer";
-				break;
-			case ERR_SENSORS_MOVE:
-				frameErreur = "Détection d’un déplacement/vol sur le produit";
-				break;			
-			case ERR_SENSOR_CRC_KO:
-				frameErreur = "Données du capteur de température humidité corrompues";
-				break;
-			default:
-				frameErreur = "Erreur inconnue";
-		}	
-		return frameErreur;	
-	}		
-			
-			
-// ==============================================================================================================================
-// Algorithme de decodage, afin de convertir la trame en valeur concrète pour l'utilisateur
-// ==============================================================================================================================
-	    
-	function decodeFrame(frame) {
-   		var bytes = hexToBytes(frame);
-    	var data = {};
-    	
-    		for (i =0; i < bytes.length; i++) {
-        		switch (bytes[i]) {
-            		case TYPE_TEMP:
-                		data.temp = (bin16dec(bytes[i + 1] << 8 | bytes[i + 2]) / 100);
-                		i += 2;
-                		break;
-                	case TYPE_TEMP2:
-                		data.temp2 = (bin16dec(bytes[i + 1] << 8 | bytes[i + 2]) / 100);
-                		i += 2;
-                		break;
-            		case TYPE_RH:
-                		data.rh = (bin16dec(bytes[i + 1] << 8 | bytes[i + 2]) / 100);
-                		i += 2;
-                		break;
-           			case TYPE_COV:
-                		data.cov = bin16dec(bytes[i + 1] << 8 | bytes[i + 2]);
-                		i += 2;
-                		break;
-            		case TYPE_CO2:
-                		data.co2 = bin16dec(bytes[i + 1] << 8 | bytes[i + 2]);
-                		i += 2;
-                		break;
-                	case TYPE_ENTREE:
-                		data.entree = "Entrée à l'etat 1";
-                		break;
-                	case TYPE_ENTREE2:
-                		data.entree = "Entrée à l'etat 0";
-                		break;
-        		}
-    		}
-    	return data;	
+
+/* *************************************** */
+/*              ERROR HEADER               */
+/* *************************************** */
+const ACW_FRAME_ERR_ID_MSG_POS      = 4;
+const ACW_FRAME_ERR_MSG_LENGTH_MASK = 0x0F;
+
+
+/* *************************************** */
+/*              Measure Type               */
+/* *************************************** */
+const UP_FRAME_WAY_TYPE_UINT8_INPUT       = 0x01;
+const UP_FRAME_WAY_TYPE_UINT16_INPUT      = 0x02;
+const UP_FRAME_WAY_TYPE_UINT16_COUNTER    = 0x03;
+const UP_FRAME_WAY_TYPE_UINT32_COUNTER    = 0x04;
+const UP_FRAME_WAY_TYPE_UINTx_BRIGHTNESS  = 0x05;
+const UP_FRAME_WAY_TYPE_INTx_PRESSURE     = 0x06;
+const UP_FRAME_WAY_TYPE_INT16_DISTANCE    = 0x07;
+const UP_FRAME_WAY_TYPE_INT16_TEMPERATURE = 0x08;
+const UP_FRAME_WAY_TYPE_UINT16_HUMIDITY   = 0x09;
+const UP_FRAME_WAY_TYPE_INT16_VOLTAGE     = 0x0a;
+const UP_FRAME_WAY_TYPE_INT16_CURRENT     = 0x0b;
+const UP_FRAME_WAY_TYPE_UINT16_VOC_INDEX  = 0x0c;
+const UP_FRAME_WAY_TYPE_UINT16_CO2        = 0x0d;
+
+
+const ACW_FRAME_HEADER_SIZE_ASCII    = 2; /* size of the header in ASCII character */
+const ACW_FRAME_TIMESTAMP_SIZE_ASCII = 8; /* size of the timestamp in ASCII character */
+const ACW_FRAME_TX_PERIOD_SIZE_ASCII = 4; /* size of the tx period of periodic frame (when historic or nb samples > 1) in ASCII character */
+
+
+/* *************************************** */
+/*               Error code                */
+/* *************************************** */
+
+/* real error codes which cause the product to enter fault mode */
+const ACW_ERR_UNKNOWN                       = 0x81;
+const ACW_ERR_BUF_SMALLER                   = 0x82;
+const ACW_ERR_DEPTH_HISTORIC_OUT_OF_RANGE   = 0x83;
+const ACW_ERR_NB_SAMPLE_OUT_OF_RANGE        = 0x84;
+const ACW_ERR_NWAY_OUT_OF_RANGE             = 0x85;
+const ACW_ERR_TYPEWAY_OUT_OF_RANGE          = 0x86;
+const ACW_ERR_SAMPLING_PERIOD               = 0x87;
+const ACW_ERR_SUBTASK_END                   = 0x88;
+const ACW_ERR_NULL_POINTER                  = 0x89;
+const ACW_ERR_BATTERY_LEVEL_DEAD            = 0x8A;
+const ACW_ERR_EEPROM                        = 0x8B;
+const ACW_ERR_ROM                           = 0x8C;
+const ACW_ERR_RAM                           = 0x8D;
+const ACW_ERR_ARM_INIT_FAIL                 = 0x8E;
+const ACW_ERR_ARM_BUSY                      = 0x8F;
+const ACW_ERR_ARM_BRIDGE_ENABLE             = 0x90;
+const ACW_ERR_ARM_RADIO_QUEUE_FULL          = 0x91;
+const ACW_ERR_CFG_BOX_INIT_FAIL             = 0x92;
+
+/*
+ * From here error code are considered as alert
+ * the product do not enter fault mode
+ * if one of the following code occurs
+ */
+const ACW_ERR_KEEP_ALIVE_PERIOD             = 0x93;
+const ACW_ERR_ENTER_DEEP_SLEEP              = 0x94;
+const ACW_ERR_BATTERY_LEVEL_LOW             = 0x95;
+const ACW_ERR_ARM_TRANSMISSION              = 0x96;
+const ACW_ERR_ARM_PAYLOAD_BIGGER            = 0x97;
+const ACW_ERR_RADIO_PAIRING_TIMEOUT         = 0x98;
+const ACW_ERR_SENSORS_TIMEOUT               = 0x99;
+const ACW_ERR_SENSORS_STOP                  = 0x9A;
+const ACW_ERR_SENSORS_FAIL                  = 0x9B;
+const ACW_ERR_BOX_OPENED                    = 0x9C;
+const ACW_ERR_BOX_CLOSED                    = 0x9D;
+const ACW_ERR_SENSORS_MOVE                  = 0x9E;
+
+/* *************************************** */
+/*           MR4 specific code             */
+/* *************************************** */
+const ACW_MR4_WIRECUT                       = 0x1C;
+
+/* *************************************** */
+
+
+function decodeStream (stream){
+
+	// Init result
+    let result = {historics: [],events: [],realTimes: []};
+
+    // Parse stream
+    let jsonStream = JSON.parse(stream);
+
+    /*** TO IMPLEMENT ***/
+    // Get timestamp from stream JSON
+    var time = jsonStream.time ; // To fill according to the json returned by your gateway
+    // Get clear device paylaod from stream JSON
+    var payload = jsonStream.frm_payload ; // To fill according to the json returned by your gateway
+    /********************/
+
+    // Get message ID
+    var header = parseInt(payload.substring(0, 2),16);
+
+    /* is it a measurement or generic frame ? */
+    if((header & ACW_FRAME_HEADER_MEAS_MASK) == ACW_FRAME_HEADER_MEAS_MASK){
+        /** In case of measurement frame **/
+        result.realTimes = result.realTimes.concat(DecodeMesureFrame(payload, time).realTimes);
+        result.historics = result.historics.concat(DecodeMesureFrame(payload, time).historics);
+        result.events = result.events.concat(DecodeMesureFrame(payload, time).events);
+    }else{
+        /** In case of generic frame **/
+        result.realTimes = result.realTimes.concat(DecodeCommonFrame(payload, time).realTimes);
+        result.historics = result.historics.concat(DecodeCommonFrame(payload, time).historics);
+        result.events = result.events.concat(DecodeCommonFrame(payload, time).events);
     }
-    	
 
-// ==============================================================================================================================
-// Algorithme de gestion du time stamp
-// ==============================================================================================================================	
+    if (((header & ACW_FRAME_HEADER_TYPE_MASK) == ACW_FRAME_HEADER_TYPE_KEEP_ALIVE) &&
+        ((header & ACW_FRAME_HEADER_MEAS_MASK) != ACW_FRAME_HEADER_MEAS_MASK))
+    {
+        var data_offset = ACW_FRAME_HEADER_SIZE_ASCII;
+        if((header & ACW_FRAME_HEADER_TIMESTAMP_MASK) == ACW_FRAME_HEADER_TIMESTAMP_MASK)
+        {
+            data_offset += ACW_FRAME_TIMESTAMP_SIZE_ASCII;
+        }
+        result.realTimes.push({tagRef: "p_batteryVoltage_empty",timestamp: time,tagValue: String(parseInt(payload.substr(data_offset,4),16)/1000)});
+        result.realTimes.push({tagRef: "p_batteryVoltage_inCharge",timestamp: time,tagValue: String(parseInt(payload.substr(data_offset+4,4),16)/1000)});
+    }
 
-	function getTimestamp(frame) {
-		var frameTimestamp = parseInt(frame.substr(2, 8), 16);
-		return frameTimestamp;
+	// return result
+	return result;
+}
+
+function DecodeCommonFrame(payload, time)
+{
+	// Init result
+	let result = {
+		historics: [],
+		events: [],
+		realTimes: []
+	};
+
+	// get timestamp bit value
+	let timestamp = parseInt(payload.substring(0, 2),16);
+	timestamp &= ACW_FRAME_HEADER_TIMESTAMP_MASK;
+
+	/* By default, data starts after header */
+	let startingIndex = ACW_FRAME_HEADER_SIZE_ASCII;
+
+	if(timestamp)
+	    /* if timestamp included, data starts after header + timstamp */
+	    startingIndex += ACW_FRAME_TIMESTAMP_SIZE_ASCII;
+
+	// get frame type
+	let frameType = parseInt(payload.substring(0, 2),16);
+	frameType &= ACW_FRAME_HEADER_TYPE_MASK;
+
+	// keep alive frame
+	if(frameType == ACW_FRAME_HEADER_TYPE_KEEP_ALIVE)
+	{
+		result.realTimes.push({
+			tagRef: "p_keepAlive",
+			timestamp: time,
+			tagValue: String(1)
+		});
 	}
 
-	function convertTimestamp(frameTimestamp) {
-	
-  		var date 	  = new Date(frameTimestamp * 1000);
-  		var year 	  = date.getFullYear();
- 		var month   = date.getMonth() + 1;
-  		var day 	  = date.getDate();
-  		var hours   = date.getHours();
-  		var minutes = "0" + date.getMinutes();
-  		var seconds = "0" + date.getSeconds();
-  
-  		return date = year + "/" + month + "/" + day + " " + hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-  
-	}
-	
-		
-// ==============================================================================================================================
-// Récupération et affichage avec jQuery des données dans le bloc résultat
-// ==============================================================================================================================
-	
-	//Controle de saisie: suppression des éspaces 
-	function removeSpaces() {
-		
-    	var input = document.getElementById("trame");
-    	input.value = input.value.replace(/\s/g, "");
-  	}
-  	
-  	//Evenement sur la touche entrer du clavier
-	$(document).ready(function() {
-  		$("#trame").on("keyup", function(event) {
-    		if (event.keyCode === 13) {
-      			$("#lien").click();
-    		}
-  		});
-	});
-	
-	//Fonction de récupération et de traitement des données.
-	$(document).ready(function(){
-    	$("#lien").click(function(){
-        	var frame 	  	= $("#trame").val();
-        	var frameType 	= getFrameType(frame);
-			var dframe		= frame.charAt(0);
-        	
-        	if (dframe === "e" || dframe === "E") {
-				var frameTimestamp	= getTimestamp(frame);
-        		var timestamp		= convertTimestamp(frameTimestamp);
-        		var frameType 		= getFrameType(frame);
-        		var data 			= decodeFrame(frame);
-        		
-        		if (frameType === "Trame d'erreur") {
-					var frameErreur = getFrameErreur(frame);
-					$("#resultat").html("<li>" + "<span class='bold-text'> Timestamp : </span>" + timestamp + "<br><br>" + "<li>" + "<span class='bold-text'> Type de Trame : </span>" + frameType + "<br><br>" + "<li>" + "<span class='bold-text'> Message d'erreur : </span>" + frameErreur);
-        	
-        		}else{
-        			$("#resultat").html("<li>" + "<span class='bold-text'> Timestamp : </span>" + timestamp + "<br><br>" + "<li>" + "<span class='bold-text'> Type de Trame : </span>" + frameType + "<br><br>" + "<li>" + "<span class='bold-text'> Température : </span>" + data.temp + "°C<br><br>" + "<li>" + "<span class='bold-text'> Humidité : </span>" + data.rh + " %<br><br>" + "<li>" + "<span class='bold-text'> Indice COV : </span>" + data.cov + "<br><br>" + "<li>" + "<span class='bold-text'> Co2 : </span>" + data.co2 + " ppm<br><br>" + "<li>" +  "<span class='bold-text'> Etat de l'entrée (uniquement pour les TMxP) : </span>" + data.entree + "<br><br>" + "<li>" + "<span class='bold-text'> Température voie 1 (uniquement pour les TMxP): </span>" + data.temp2 + "°C");
-        		} 					
+    // test frame
+	if (frameType == ACW_FRAME_HEADER_TYPE_TEST_FRAME)
+	{
+		while(startingIndex<payload.length)
+		{
+			// get header informations of each voie
+			let header_voie = parseInt(payload.substring(startingIndex, startingIndex+2),16);
+
+			/* get channel number */
+			let number_voie = header_voie >> ACW_FRAME_MEAS_CHANNEL_NUM_POS;
+
+            /* get measure type */
+			let mesureType_voie = header_voie & ACW_FRAME_MEAS_MEAS_TYPE_MASK;
+
+            /* get measure size */
+			let mesureSize_voie = getMesureSize(mesureType_voie);
+
+			// increase starting index
+			startingIndex += 2;
+
+			// check if the size is different than 0
+			if(mesureSize_voie != 0)
+			{
+				// get mesure
+				let mesure = parseInt(payload.substring(startingIndex, startingIndex+mesureSize_voie),16);
+
+				// get calculated table of log
+				let calculatedMesureTab = getCalculatedMesure(mesure, mesureType_voie, number_voie, timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+
+				// add table log into realtimes
+				result.realTimes = result.realTimes.concat(calculatedMesureTab);
+
+				// increase index
+				startingIndex += mesureSize_voie;
+
 			}else{
-        	
-        		if (frameType === "Trame d'erreur") {
-					var frameErreur = getFrameErreur(frame);
-					$("#resultat").html("<li>" + "<span class='bold-text'> Type de Trame : </span>" + frameType + "<br><br>" + "<li>" + "<span class='bold-text'> Message d'erreur : </span>" + frameErreur);
-        	
-        		}else{
-        	
-     				if (frameType === "Trame de vie") {
-						var octet = {};
-						var tensionV = (parseInt(frame.substr(3, 3), 16)) / 1000;
-        				var tensionC = (parseInt(frame.substr(7, 3), 16)) / 1000;
-        				octet.tensionV = tensionV;
-        				octet.tensionC = tensionC;
-            			$("#resultat").html("<li>" + "<span class='bold-text'> Type de Trame : </span>" + frameType + "<br><br>" + "<li>" + "<span class='bold-text'>  Niveau de batterie à vide : </span>" + octet.tensionV + " V<br><br>" + "<li>" + "<span class='bold-text'> Niveau de batterie en charge : </span>" + octet.tensionC + " V");
-			
-					}else{
-						var data = decodeFrame(frame);
-        				$("#resultat").html("<li>" + "<span class='bold-text'> Type de Trame : </span>" + frameType + "<br><br>" + "<li>" + "<span class='bold-text'> Température : </span>" + data.temp + "°C<br><br>" + "<li>" + "<span class='bold-text'> Humidité : </span>" + data.rh + " %<br><br>" + "<li>" + "<span class='bold-text'> Indice COV : </span>" + data.cov + "<br><br>" + "<li>" + "<span class='bold-text'> Co2 : </span>" + data.co2 + " ppm<br><br>" + "<li>" +  "<span class='bold-text'> Etat de l'entrée (uniquement pour les TMxP) : </span>" + data.entree + "<br><br>" + "<li>" + "<span class='bold-text'> Température voie 1 (uniquement pour les TMxP): </span>" + data.temp2 + "°C");
- 					}
- 				}
- 			}      
-        });
-    });
+				return result;
+			}
+		}
+	}
 
+	// threshold alarm
+	if (frameType == ACW_FRAME_HEADER_TYPE_THOLD_ALERT)
+	{
+		while(startingIndex<payload.length)
+		{
+			// get header informations of each voie
+			let header_voie = parseInt(payload.substring(startingIndex, startingIndex+2),16);
+			/* get alert type */
+			let alertType_voie = header_voie >> ACW_FRAME_ALERT_ALERT_TYPE_POS;
+			/* get channel number */
+			let number_voie = header_voie >> ACW_FRAME_ALERT_CHANNEL_NUM_POS;
+			/* get measure type */
+			let mesureType_voie = header_voie & ACW_FRAME_ALERT_MEAS_TYPE_MASK;
+			/* get measure size */
+			let mesureSize_voie = getMesureSize(mesureType_voie);
+
+			// increase starting index
+			startingIndex += 2;
+
+			// check if the size is different than 0
+			if(mesureSize_voie != 0)
+			{
+				// get mesure
+				let mesure = parseInt(payload.substring(startingIndex, startingIndex+mesureSize_voie),16);
+
+				// get calculated table of log
+				let calculatedMesureTab = getCalculatedMesure(mesure, mesureType_voie, number_voie, timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+
+				// add table log into realtimes
+				result.realTimes = result.realTimes.concat(calculatedMesureTab);
+
+				// get calculated table of events
+				let eventTab = getThresholdEvents(mesureType_voie, alertType_voie, number_voie, timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+
+				// add table event into events
+				result.events = result.events.concat(eventTab);
+
+				// increase index
+				startingIndex += mesureSize_voie;
+
+			}else{
+				return result;
+			}
+		}
+	}
+
+	// general alarm
+	if(frameType == ACW_FRAME_HEADER_TYPE_ERROR)
+	{
+		// get header informations of each voie
+		let header_error = parseInt(payload.substring(startingIndex, startingIndex+2),16);
+		let length_error = header_error & ACW_FRAME_ERR_MSG_LENGTH_MASK;
+
+		// increase starting index
+		startingIndex += 2;
+
+		for (let e=0; e<length_error; e++)
+		{
+			// get error and add log into events table
+			result.events.push(getError(parseInt(payload.substring(startingIndex, startingIndex+2),16),timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time));
+			
+		    // ack error and add log into events table
+			result.events.push(ackError(parseInt(payload.substring(startingIndex, startingIndex+2),16),timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time));
+
+			// increase starting index
+			startingIndex += 2;
+		}
+	}
+
+	if(frameType == ACW_FRAME_HEADER_TYPE_SPECIFIC)
+	{
+	    /* Specific to the MR4 */
+		if(parseInt(payload.substring(startingIndex, startingIndex+2),16)==28)
+        {
+            // add wirecut into realtimes table
+            result.realTimes.push({tagRef: "p_wirecut",timestamp: time,tagValue: String(parseInt(payload.substring(startingIndex+2, startingIndex+4),16)==1 ? 0 : 1)});
+        }
+
+	}
+	return result;
+}
+
+function DecodeMesureFrame(payload, time)
+{
+	// Init result
+	let result = {
+		historics: [],
+		events: [],
+		realTimes: []
+	};
+
+	// get timestamp bit value
+	let timestamp = parseInt(payload.substring(0, 2),16);
+	timestamp &= ACW_FRAME_HEADER_TIMESTAMP_MASK;
+
+	let historic = parseInt(payload.substring(0, 2),16);
+	historic = (historic & ACW_FRAME_HEADER_MEAS_HISTORIC_MASK) >> ACW_FRAME_HEADER_MEAS_HISTORIC_POS;
+	historic++;
+
+	let nb_samples = parseInt(payload.substring(0, 2),16);
+	nb_samples &= ACW_FRAME_HEADER_MEAS_SAMPLES_MASK;
+	nb_samples++;
+
+	/* By default, data starts after header */
+	let startingIndex = ACW_FRAME_HEADER_SIZE_ASCII;
+
+	if(timestamp)
+	    /* if timestamp included, data starts after header + timstamp */
+	    startingIndex += ACW_FRAME_TIMESTAMP_SIZE_ASCII;
+
+	let period = 0;
+
+	if(historic > 1 || nb_samples > 1)
+	{
+	    period = parseInt(payload.substring(startingIndex, startingIndex + ACW_FRAME_TX_PERIOD_SIZE_ASCII),16);
+
+	    startingIndex += ACW_FRAME_TX_PERIOD_SIZE_ASCII;
+	}
+
+	while(startingIndex<payload.length)
+	{
+		// get header informations of each voie
+		let header_voie = parseInt(payload.substring(startingIndex, startingIndex+2),16);
+		/* get channel number */
+		let number_voie = (header_voie & ACW_FRAME_MEAS_CHANNEL_NUM_MASK) >> ACW_FRAME_ALERT_CHANNEL_NUM_POS;
+		/* get measure type */
+		let mesureType_voie = header_voie & ACW_FRAME_MEAS_MEAS_TYPE_MASK;
+		/* get measure size */
+		let mesureSize_voie = getMesureSize(mesureType_voie);
+
+		// increase starting index
+		startingIndex += 2;
+
+		// check if the size is different than 0
+		if(mesureSize_voie != 0)
+		{
+			// iterate on each mesure
+			for(let i=0; i<historic*nb_samples;i++)
+			{
+				// get mesure
+				let mesure = parseInt(payload.substring(startingIndex, startingIndex+mesureSize_voie),16);
+
+				if(i==0){
+					// get calculated table of log
+					let calculatedMesureTab = getCalculatedMesure(mesure,mesureType_voie,number_voie,timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+
+					// add table log into realtimes
+					result.realTimes = result.realTimes.concat(calculatedMesureTab);
+				}else{
+					// get calculated table of log
+					let calculatedMesureTab = getCalculatedMesure(mesure,mesureType_voie,number_voie,timestamp ? new Date((parseInt(payload.substring(2, 10),16)-(period/nb_samples*60*i))*1000) : new Date((time-(period/nb_samples*60*i))*1000));
+
+					// add table log into historics
+					result.historics = result.historics.concat(calculatedMesureTab);
+				}
+
+				// increase index
+				startingIndex += mesureSize_voie;
+			}
+		}else{
+			return result;
+		}
+	}
+
+	return result;
+}
+
+function getMesureSize(mesureType)
+{
+	switch (mesureType)
+	{
+		case UP_FRAME_WAY_TYPE_UINT8_INPUT:
+			return 2;
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_INPUT:
+		    return 4;
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_COUNTER:
+		    return 4;
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT32_COUNTER:
+			return 8;
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINTx_BRIGHTNESS:
+		    return 0;
+		break;
+
+		case UP_FRAME_WAY_TYPE_INTx_PRESSURE:
+		    return 0;
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_DISTANCE:
+		    return 4;
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_TEMPERATURE:
+		    return 4;
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_HUMIDITY:
+		    return 4;
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_VOLTAGE:
+		    return 4;
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_CURRENT:
+			return 4;
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_VOC_INDEX:
+		    return 4;
+		break;
+
+        case UP_FRAME_WAY_TYPE_UINT16_CO2:
+            return 4;
+        break;
+
+		default:
+			return 0;
+	}
+}
+
+function getCalculatedMesure(mesure,mesureType,number_voie,date)
+{
+	switch (mesureType)
+	{
+		case UP_FRAME_WAY_TYPE_UINT8_INPUT:
+		case UP_FRAME_WAY_TYPE_UINT16_INPUT:
+			var tab = [];
+			var mesureString = ('0000000' + mesure.toString(2)).slice(-8);
+			for (let i=1; i<mesureString.length+1;i++)
+			{
+				tab.push({
+					tagRef: "p_DI"+ i + '_' +number_voie,
+					timestamp: date,
+					tagValue: String(mesureString[mesureString.length-i])
+				});
+			}
+			return tab;
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_COUNTER:
+		case UP_FRAME_WAY_TYPE_UINT32_COUNTER:
+			return [{
+				tagRef: "p_count" + '_' +number_voie,
+				timestamp: date,
+				tagValue: String(mesure)
+			}]
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_DISTANCE:
+			if((mesure>>15)==1){
+				return [{
+						tagRef: "p_mm" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(((mesure^65535)+1)*-1)
+				}];
+			}else{
+				return [{
+						tagRef: "p_mm" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(mesure)
+				}];
+			}
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_TEMPERATURE:
+			if((mesure>>15)==1){
+				return [{
+						tagRef: "p_temperature" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(((mesure^65535)+1)/100*-1)
+				}];
+			}else{
+				return [{
+						tagRef: "p_temperature" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(mesure/100)
+				}];
+			}
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_HUMIDITY:
+			if((mesure>>15)==1){
+				return [{
+						tagRef: "p_humidity" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(((mesure^65535)+1)/100*-1)
+				}];
+			}else{
+				return [{
+						tagRef: "p_humidity" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(mesure/100)
+				}];
+			}
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_VOLTAGE:
+			if((mesure>>15)==1){
+				return [{
+						tagRef: "p_mV" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(((mesure^65535)+1)*-1)
+				}];
+			}else{
+				return [{
+						tagRef: "p_mV" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(mesure)
+				}];
+			}
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_CURRENT:
+			if((mesure>>15)==1){
+				return [{
+						tagRef: "p_uA" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(((mesure^65535)+1)*-1)
+				}];
+			}else{
+				return [{
+						tagRef: "p_uA" + '_' +number_voie,
+						timestamp: date,
+						tagValue: String(mesure)
+				}];
+			}
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_VOC_INDEX:
+		    return[{
+		        tagRef: "p_VOC_index" + '_' + number_voie,
+		        timestamp: date,
+		        tagValue: String(mesure)
+		    }];
+		break;
+
+        case UP_FRAME_WAY_TYPE_UINT16_CO2:
+            return[{
+                tagRef: "p_CO2" + '_' + number_voie,
+                timestamp: date,
+                tagValue: String(mesure)
+            }];
+        break;
+
+		default:
+			return [];
+	}
+}
+
+function getThresholdEvents(mesureType,alertType,number_voie,date)
+{
+
+	switch (mesureType)
+	{
+		case UP_FRAME_WAY_TYPE_UINT16_COUNTER:
+		case UP_FRAME_WAY_TYPE_UINT32_COUNTER:
+			return [{
+				tagRef: "p_count" + '_' +number_voie + '_high_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+				context:[]
+			},{
+				tagRef: "p_count" + '_' +number_voie + '_low_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+				context:[]
+			}]
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_DISTANCE:
+			return [{
+				tagRef: "p_mm" + '_' +number_voie + '_high_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+				context:[]
+			},{
+				tagRef: "p_mm" + '_' +number_voie + '_low_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+				context:[]
+			}];
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_TEMPERATURE:
+			return [{
+				tagRef: "p_temperature" + '_' +number_voie + '_high_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+				context:[]
+			},{
+				tagRef: "p_temperature" + '_' +number_voie + '_low_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+				context:[]
+			}];
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_HUMIDITY:
+			return [{
+				tagRef: "p_humidity" + '_' +number_voie + '_high_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+				context:[]
+			},{
+				tagRef: "p_humidity" + '_' +number_voie + '_low_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+				context:[]
+			}];
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_VOLTAGE:
+			return [{
+				tagRef: "p_mV" + '_' +number_voie + '_high_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+				context:[]
+			},{
+				tagRef: "p_mV" + '_' +number_voie + '_low_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+				context:[]
+			}];
+		break;
+
+		case UP_FRAME_WAY_TYPE_INT16_CURRENT:
+			return [{
+				tagRef: "p_uA" + '_' +number_voie + '_high_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+				context:[]
+			},{
+				tagRef: "p_uA" + '_' +number_voie + '_low_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+				context:[]
+			}];
+		break;
+
+		case UP_FRAME_WAY_TYPE_UINT16_VOC_INDEX:
+			return [{
+				tagRef: "p_VOC_index" + '_' +number_voie + '_high_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+				context:[]
+			},{
+				tagRef: "p_VOC_index" + '_' +number_voie + '_low_alm',
+				timestamp: date,
+				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+				context:[]
+			}];
+		break;
+
+        case UP_FRAME_WAY_TYPE_UINT16_CO2:
+            return [{
+                tagRef: "p_CO2" + '_' +number_voie + '_high_alm',
+                timestamp: date,
+                tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
+                context:[]
+            },{
+                tagRef: "p_CO2" + '_' +number_voie + '_low_alm',
+                timestamp: date,
+                tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
+                context:[]
+            }];
+        break;
+
+		default:
+			return [];
+	}
+}
+
+function getError(error_code, date)
+{
+	let ref;
+	let value;
+	
+	switch (error_code)
+	{
+		case ACW_ERR_BUF_SMALLER :
+			ref = 'p_ERR_BUF_SMALLER';
+		break;
+		
+		case ACW_ERR_DEPTH_HISTORIC_OUT_OF_RANGE :
+			ref = 'p_ERR_DEPTH_HISTORIC_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_NB_SAMPLE_OUT_OF_RANGE :
+			ref = 'p_ERR_NB_SAMPLE_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_NWAY_OUT_OF_RANGE :
+			ref = 'p_ERR_NWAY_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_TYPEWAY_OUT_OF_RANGE :
+			ref = 'p_ERR_TYPEWAY_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_SAMPLING_PERIOD :
+			ref = 'p_ERR_SAMPLING_PERIOD';
+		break;
+		
+	    case ACW_ERR_SUBTASK_END :
+			ref = 'p_ERR_SUBTASK_END';
+		break;
+		
+		case ACW_ERR_NULL_POINTER :
+			ref = 'p_ERR_NULL_POINTER';
+		break;
+
+		case ACW_ERR_BATTERY_LEVEL_DEAD :
+			ref = 'p_ERR_BATTERY_LEVEL_DEAD';
+		break;
+
+		case ACW_ERR_EEPROM :
+			ref = 'p_ERR_EEPROM';
+		break;
+
+		case ACW_ERR_ROM:
+			ref = 'p_ERR_ROM';
+		break;
+		
+		case ACW_ERR_RAM :
+			ref = 'p_ERR_RAM';
+		break;
+		
+		case ACW_ERR_ARM_INIT_FAIL :
+			ref = 'p_ERR_ARM_INIT_FAIL';
+		break;
+		
+		case ACW_ERR_ARM_BUSY :
+			ref = 'p_ERR_ARM_BUSY';
+		break;
+		
+		case ACW_ERR_ARM_BRIDGE_ENABLE :
+			ref = 'p_ERR_ARM_BRIDGE_ENABLE';
+		break;
+		
+	    case ACW_ERR_ARM_RADIO_QUEUE_FULL :
+			ref = 'p_ERR_RADIO_QUEUE_FULL';
+		break;
+		
+		case ACW_ERR_CFG_BOX_INIT_FAIL :
+			ref = 'p_ERR_CFG_BOX_INIT_FAIL';
+		break;
+		
+/* ******************************************* */
+/*                    ALERT                    */
+/* ******************************************* */
+		
+		case ACW_ERR_KEEP_ALIVE_PERIOD :
+			ref = 'p_ERR_KEEP_ALIVE_PERIOD';
+		break;
+
+		case ACW_ERR_BATTERY_LEVEL_LOW :
+			ref = 'p_ERR_BATTERY_LEVEL_LOW';
+		break;
+
+        case ACW_ERR_ENTER_DEEP_SLEEP :
+            ref = 'p_ERR_ENTER_DEEP_SLEEP';
+        break;
+		
+		case ACW_ERR_ARM_TRANSMISSION :
+			ref = 'p_ERR_ARM_TRANSMISSION';
+		break;
+		
+		case ACW_ERR_ARM_PAYLOAD_BIGGER :
+			ref = 'p_ERR_ARM_PAYLOAD_BIGGER';
+		break;
+		
+		case ACW_ERR_RADIO_PAIRING_TIMEOUT :
+			ref = 'p_ERR_RADIO_PAIRING_TIMEOUT';
+		break;
+		
+		case ACW_ERR_SENSORS_TIMEOUT :
+			ref = 'p_ERR_SENSORS_TIMEOUT';
+		break;
+		
+		case ACW_ERR_SENSORS_STOP :
+			ref = 'p_ERR_SENSOR_STOP';
+		break;
+		
+		case ACW_ERR_SENSORS_FAIL :
+			ref = 'p_ERR_SENSORS_FAIL';
+		break;
+		
+		case ACW_ERR_BOX_OPENED :
+			ref = 'p_ERR_BOX_OPENED';
+		break;
+		
+		case ACW_ERR_BOX_CLOSED :
+		    ref = 'p_ERR_BOX_CLOSED';
+		break;
+		
+		case ACW_ERR_SENSORS_MOVE :
+		    ref = 'p_ERR_SENSORS_MOVE';
+		break;
+		
+		default : 
+			return undefined;
+	}
+	return {
+		tagRef: ref,
+		timestamp: date,
+		tagValue: String(1),
+		context:[]
+	}
+}
+function ackError(error_code, date)
+{
+	let ref;
+	let value;
+	
+	switch (error_code)
+	{
+		case ACW_ERR_BUF_SMALLER :
+			ref = 'p_ERR_BUF_SMALLER';
+		break;
+		
+		case ACW_ERR_DEPTH_HISTORIC_OUT_OF_RANGE :
+			ref = 'p_ERR_DEPTH_HISTORIC_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_NB_SAMPLE_OUT_OF_RANGE :
+			ref = 'p_ERR_NB_SAMPLE_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_NWAY_OUT_OF_RANGE :
+			ref = 'p_ERR_NWAY_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_TYPEWAY_OUT_OF_RANGE :
+			ref = 'p_ERR_TYPEWAY_OUT_OF_RANGE';
+		break;
+		
+		case ACW_ERR_SAMPLING_PERIOD :
+			ref = 'p_ERR_SAMPLING_PERIOD';
+		break;
+		
+	    case ACW_ERR_SUBTASK_END :
+			ref = 'p_ERR_SUBTASK_END';
+		break;
+		
+		case ACW_ERR_NULL_POINTER :
+			ref = 'p_ERR_NULL_POINTER';
+		break;
+
+		case ACW_ERR_BATTERY_LEVEL_DEAD :
+			ref = 'p_ERR_BATTERY_LEVEL_DEAD';
+		break;
+
+		case ACW_ERR_EEPROM :
+			ref = 'p_ERR_EEPROM';
+		break;
+
+		case ACW_ERR_ROM:
+			ref = 'p_ERR_ROM';
+		break;
+		
+		case ACW_ERR_RAM :
+			ref = 'p_ERR_RAM';
+		break;
+		
+		case ACW_ERR_ARM_INIT_FAIL :
+			ref = 'p_ERR_ARM_INIT_FAIL';
+		break;
+		
+		case ACW_ERR_ARM_BUSY :
+			ref = 'p_ERR_ARM_BUSY';
+		break;
+		
+		case ACW_ERR_ARM_BRIDGE_ENABLE :
+			ref = 'p_ERR_ARM_BRIDGE_ENABLE';
+		break;
+		
+	    case ACW_ERR_ARM_RADIO_QUEUE_FULL :
+			ref = 'p_ERR_RADIO_QUEUE_FULL';
+		break;
+		
+		case ACW_ERR_CFG_BOX_INIT_FAIL :
+			ref = 'p_ERR_CFG_BOX_INIT_FAIL';
+		break;
+		
+/* ******************************************* */
+/*                    ALERT                    */
+/* ******************************************* */
+		
+		case ACW_ERR_KEEP_ALIVE_PERIOD :
+			ref = 'p_ERR_KEEP_ALIVE_PERIOD';
+		break;
+
+		case ACW_ERR_BATTERY_LEVEL_LOW :
+			ref = 'p_ERR_BATTERY_LEVEL_LOW';
+		break;
+
+        case ACW_ERR_ENTER_DEEP_SLEEP :
+            ref = 'p_ERR_ENTER_DEEP_SLEEP';
+        break;
+		
+		case ACW_ERR_ARM_TRANSMISSION :
+			ref = 'p_ERR_ARM_TRANSMISSION';
+		break;
+		
+		case ACW_ERR_ARM_PAYLOAD_BIGGER :
+			ref = 'p_ERR_ARM_PAYLOAD_BIGGER';
+		break;
+		
+		case ACW_ERR_RADIO_PAIRING_TIMEOUT :
+			ref = 'p_ERR_RADIO_PAIRING_TIMEOUT';
+		break;
+		
+		case ACW_ERR_SENSORS_TIMEOUT :
+			ref = 'p_ERR_SENSORS_TIMEOUT';
+		break;
+		
+		case ACW_ERR_SENSORS_STOP :
+			ref = 'p_ERR_SENSOR_STOP';
+		break;
+		
+		case ACW_ERR_SENSORS_FAIL :
+			ref = 'p_ERR_SENSORS_FAIL';
+		break;
+		
+		case ACW_ERR_BOX_OPENED :
+			ref = 'p_ERR_BOX_OPENED';
+		break;
+		
+		case ACW_ERR_BOX_CLOSED :
+		    ref = 'p_ERR_BOX_CLOSED';
+		break;
+		
+		case ACW_ERR_SENSORS_MOVE :
+		    ref = 'p_ERR_SENSORS_MOVE';
+		break;
+		
+		default : 
+			return undefined;
+	}
+	return {
+		tagRef: ref,
+		timestamp: date+1,
+		tagValue: String(0),
+		context:[]
+	}
+}

@@ -1,5 +1,5 @@
-name: acw-thx
-description: Temperature + Humidity sensor
+name: acw-mr2-ex
+description: Smart Metering for gas environment (ATEX zone 2) 2 inputs, Pulse metering or Dry contacts
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -33,12 +33,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID:
+        vendorID: 
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id:  acw-thx-profile
+        id: acw-mr2-ex-profile
         lorawanCertified: true
-        codec: codec
-
+        codec: codec2
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -49,24 +48,22 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
-  - humidity
+  - pulse count
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
-additionalRadios:
-  - ble
+
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-#bridgeInterfaces:
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 35
+  width: 177
+  length: 55
+  height: 55
 
 # Weight in grams (optional)
 weight: 100
@@ -74,31 +71,25 @@ weight: 100
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: A
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 80
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 1
+    min: -20
+    max: 55
 
 # IP rating (optional)
-ipCode: IP30
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
-#keyProvisioning:
-
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-#keyProgramming:
+
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -109,24 +100,18 @@ keySecurity: none
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
-  - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX/FRANCAIS/ATIM_ACW-THX_DS_FR.pdf
-dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX/FRANCAIS/ATIM_ACW-THX_UG_FR.pdf
+productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-MR2-EX/FRANCAIS/ATIM_ACW-MRx_DS_FR.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-MR2-EX/FRANCAIS/ATIM_ACW-MR2-EX_UG_FR.pdf
 
 # Commercial information
 resellerURLs:
   - name: 'ATIM'
     region:
       - European Union
-    url: https://www.atim.com/produits/capteur-temperature-humidite-interieure/
+    url: https://www.atim.com/produits/atex-2-entrees-comptage-tout-ou-rien-acw-mr2-ex/
 
 # Photos
 photos:
-  main: acw-thx.png
-
-# Youtube or Vimeo Video (optional)
-
-
-
+  main: acw-mr2-ex.png

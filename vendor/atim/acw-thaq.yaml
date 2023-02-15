@@ -1,5 +1,5 @@
-name: acw-thx
-description: Temperature + Humidity sensor
+name: acw-thaq
+description: High precision "Air Quality"  NDIR sensor Temperature + Humidity + CO2 + VOC
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -33,9 +33,9 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID:
+        vendorID: 
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id:  acw-thx-profile
+        id: acw-thaq-profile
         lorawanCertified: true
         codec: codec
 
@@ -51,12 +51,13 @@ firmwareVersions:
 sensors:
   - temperature
   - humidity
+  - co2
+  - particulate matter
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
   - ble
-
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
 #bridgeInterfaces:
@@ -80,8 +81,8 @@ battery:
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 80
+    min: -20
+    max: 55
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -92,13 +93,10 @@ ipCode: IP30
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
-#keyProvisioning:
-
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-#keyProgramming:
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -112,21 +110,18 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX/FRANCAIS/ATIM_ACW-THX_DS_FR.pdf
-dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX/FRANCAIS/ATIM_ACW-THX_UG_FR.pdf
+productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THAQ/FRANCAIS/ATIM_ACW-THAQ_DS_FR.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THAQ/FRANCAIS/ATIM_ACW-THAQ_UG_FR.pdf
 
 # Commercial information
 resellerURLs:
   - name: 'ATIM'
     region:
       - European Union
-    url: https://www.atim.com/produits/capteur-temperature-humidite-interieure/
+    url: https://www.atim.com/produits/capteur-qualite-d-air-co2-voc-temperature-humidite/
 
 # Photos
 photos:
-  main: acw-thx.png
+  main: acw-thaq.png
 
 # Youtube or Vimeo Video (optional)
-
-
-

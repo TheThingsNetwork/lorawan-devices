@@ -427,8 +427,6 @@ vendors:
     name: Magnitude Space B.V.
     vendorID: 256
 
-
-
   - id: mcf88
     name: mcf88 SRL
     vendorID: 259

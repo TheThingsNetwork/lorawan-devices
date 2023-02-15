@@ -4,30 +4,23 @@ endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - acw-thx
 
- # - ACW-THAQ
+  - acw-thaq
 
+  - acw-tm0p
 
-  #- ACW-TM0P
+  - acw-tm1p
 
+  - acw-tm2p
 
-  #- ACW-TM1P
+  - acw-tm1p-cryo 
 
+  - acw-tcr
 
- # - ACW-TM2P
+  - acw-mr4
 
+  - acw-mr2-ex
 
-  #- ACW-TM1P-CRYO
-
-
-
-  #- ACW-TCR
-
-
- # - ACW-MR4
-
-
-  #- ACW-MR2-EX
-
+  - acw-dinda
 
  # - ACW-DINDA
 

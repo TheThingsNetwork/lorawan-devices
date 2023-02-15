@@ -1,5 +1,5 @@
-name: acw-thx
-description: Temperature + Humidity sensor
+name: acw-tm0p
+description: Deported temperature sensor 2 inputs for PT100 or PT1000 probes 
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -33,12 +33,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID:
+        vendorID: 
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id:  acw-thx-profile
+        id: acw-tm0p-profile
         lorawanCertified: true
         codec: codec
-
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -49,9 +48,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
-  - humidity
-
+  - surface temperature
+  - surface temperature
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
@@ -59,17 +57,17 @@ additionalRadios:
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-#bridgeInterfaces:
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 35
+  width: 154
+  length: 54
+  height: 54
 
 # Weight in grams (optional)
-weight: 100
+weight: 305
 
 # Battery information (optional)
 battery:
@@ -80,25 +78,21 @@ battery:
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 80
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 1
+    min: -25
+    max: 70
 
 # IP rating (optional)
-ipCode: IP30
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
-#keyProvisioning:
-
+keyProvisioning:
+  - custom
+  - join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
-#keyProgramming:
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -112,21 +106,16 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX/FRANCAIS/ATIM_ACW-THX_DS_FR.pdf
-dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX/FRANCAIS/ATIM_ACW-THX_UG_FR.pdf
+productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-TMxP/FRANCAIS/ATIM_ACW-TMxP_DS_FR.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-TMxP/FRANCAIS/ATIM_ACW-TMxP_UG_FR.pdf
 
 # Commercial information
 resellerURLs:
   - name: 'ATIM'
     region:
       - European Union
-    url: https://www.atim.com/produits/capteur-temperature-humidite-interieure/
+    url: https://www.atim.com/produits/capteur-de-temperature-1-2-sondes-pt1000/
 
 # Photos
 photos:
-  main: acw-thx.png
-
-# Youtube or Vimeo Video (optional)
-
-
-
+  main: acw-tm0p.png
