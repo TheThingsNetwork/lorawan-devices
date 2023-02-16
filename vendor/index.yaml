@@ -427,6 +427,13 @@ vendors:
     name: Magnitude Space B.V.
     vendorID: 256
 
+  - id: mcci
+    name: MCCI Corporation
+    website: https://mcci.com
+    logo: mcci.svg
+    ouis:
+      - 0002CC
+
   - id: mcf88
     name: mcf88 SRL
     vendorID: 259
