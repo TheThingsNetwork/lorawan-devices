@@ -1,0 +1,5 @@
+# This file contains all Valenco LoRaWAN devices (currently just lorasoil). It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - lorasoil # look in lorasoil.yaml for the end device definition

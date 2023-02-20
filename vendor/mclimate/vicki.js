@@ -207,6 +207,21 @@ function decodeUplink(input) {
 
                     }
                 break;
+                case '29':
+                    {
+                        command_len = 2;
+                        var data = { proportionalAlgoParams: { coefficient: parseInt(commands[i + 1], 16), period: parseInt(commands[i + 2], 16) } };
+                        resultToPass = merge_obj(resultToPass, data);
+
+                    }
+                break;
+                case '2b':
+                    {
+                        command_len = 1;
+                        var data = { algoType: commands[i + 1] };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
                 default:
                     break;
             }
