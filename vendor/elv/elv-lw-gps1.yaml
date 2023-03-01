@@ -1,0 +1,110 @@
+name: ELV LoRaWAN® GPS Tracker 1
+description: The ELV LoRaWAN® GPS Tracker 1 is the second GNSS-based product in the LoRaWAN® family. Unlike the ELV track from our modular system, the ELV-LW-GPS1 is an optimized design without module character. The GPS tracker uses a GNSS module for position determination, the corresponding data is sent via the LoRaWAN® network. An integrated accelerometer is used to use motion or standstill as a trigger for positioning. Furthermore, a contact interface is installed, which can also trigger a determination of the current position via an external trigger. The device can be supplied in a wide voltage range of 5 to 40 V. Thanks to its compactness, the wide input voltage range and the various modes for position determination, the tracker can be used in many applications.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        # vendorID: elv
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: trx1-profile
+        lorawanCertified: true
+        codec: elv-lw-gps1-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - gps
+  - accelerometer
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 76
+  length: 22
+  height: 12
+
+# Weight in grams (optional)
+weight: 17
+
+# Battery information (optional)
+#battery:
+#  replaceable: true
+#  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 5
+    max: 35
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+#ipCode: IP64
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://de.elv.com/
+#dataSheetURL:
+
+# Commercial information
+resellerURLs:
+  - name: 'ELVshop'
+    region:
+      - European Union
+    url: https://de.elv.com/elv-bausatz-lorawan-gps-tracker-elv-lw-gps1-157519?fs=818794088
+#msrp:
+#EUR: 19.95
+#USD: 120
+
+# Photos
+photos:
+  main: elv-lw-gps1.png
+  other:
+    - elv-lw-gps1-3dcase.png
+    - elv-lw-gps1-bopla-case.png
+# Youtube or Vimeo Video (optional)
+#videos:
+#  main: https://www.youtube.com/watch?v=JHzxcD2oEn8

@@ -1,7 +1,4 @@
 endDevices:
-  - dl-iam
-  - dl-pr26
-  - dl-mbx
   - dl-5tm
   - dl-atm22
   - dl-atm41
@@ -16,14 +13,19 @@ endDevices:
   - dl-dlr2-012
   - dl-ds18
   - dl-dws
+  - dl-iam
   - dl-itst
   - dl-kl66
   - dl-lid
   - dl-lp8p
+  - dl-lws
+  - dl-mbx
+  - dl-ntu
   - dl-optod
   - dl-par
   - dl-pm
   - dl-pr21
+  - dl-pr26
   - dl-pr36
   - dl-pr36ctd
   - dl-pyr

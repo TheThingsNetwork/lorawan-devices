@@ -12,3 +12,16 @@ uplinkDecoder:
           raw: '[0B, 67, 00, 8B]'
         errors: []
         warnings: []
+
+downlinkEncoder:
+  fileName: encoder_tundra_sensor.js
+  examples:
+    - description: MCU Temperature Downlink
+      input:
+        data:
+          mcu_temperature:
+            sample_period_idle:
+              read: true
+      output:
+        bytes: [64]
+        port: '100'

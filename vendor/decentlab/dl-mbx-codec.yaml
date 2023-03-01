@@ -7,7 +7,10 @@ uplinkDecoder:
         bytes: [0x02, 0x01, 0x2f, 0x00, 0x03, 0x04, 0xd2, 0x00, 0x01, 0x0b, 0xb1]
       output:
         data:
-          protocol_version: 2
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.993
           device_id: 303
           distance:
             displayName: Distance
@@ -15,21 +18,55 @@ uplinkDecoder:
             value: 1234
           number_of_valid_samples:
             displayName: Number of valid samples
-            unit:
             value: 1
-          battery_voltage:
-            displayName: Battery voltage
-            unit: V
-            value: 2.993
+          protocol_version: 2
     - description: Example 2
       input:
         fPort: 1
         bytes: [0x02, 0x01, 0x2f, 0x00, 0x02, 0x0b, 0xb1]
       output:
         data:
-          protocol_version: 2
-          device_id: 303
           battery_voltage:
             displayName: Battery voltage
             unit: V
             value: 2.993
+          device_id: 303
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

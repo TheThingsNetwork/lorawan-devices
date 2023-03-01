@@ -60,7 +60,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -25
     max: 50
@@ -70,7 +70,7 @@ operatingConditions:
     max: 1
 
 probeoperatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -40
     max: 180

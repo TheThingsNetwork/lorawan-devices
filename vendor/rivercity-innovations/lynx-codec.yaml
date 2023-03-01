@@ -1,0 +1,74 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lynx.js
+  # Examples (optional)
+  examples:
+    - description: Regular Uplink
+      input:
+        fPort: 2
+        bytes: [0x03, 0x1B, 0xA1, 0x77, 0xF9, 0xA4, 0xFE, 0xF1, 0x94, 0xDF, 0x26]
+      output:
+        data:
+          latitudeDeg: 52.142455
+          longitudeDeg: -106.627343
+          inTrip: true
+          fixFailed: false
+          batV: 4.0
+          direction: 314.8235294117647
+          temperature: 19
+          type: 'position'
+    - description: Version Info
+      input:
+        fPort: 3
+        bytes: [0x01, 0x00, 0x03, 0x00, 0x01, 0x02, 0x02, 0x00]
+      output:
+        data:
+          LoRaWANVersion: 1.0.3.0
+          FirmwareVersion: 1.2.2.0
+    - description: Sleep Time Info
+      input:
+        fPort: 4
+        bytes: [0x00, 0x00, 0x00, 0x78, 0x00, 0x01, 0x51, 0x80]
+      output:
+        data:
+          ShortSleepTime: 120 # sleep time when moving (in seconds)
+          LongSleepTime: 86400 # sleep time when idle (in seconds)
+    - description: Peripheral Info
+      input:
+        fPort: 5
+        bytes: [0x00, 0x00, 0x00, 0x5A, 0x08]
+      output:
+        data:
+          gpsTimeoutSec: 90 # (in seconds)
+          accelSensitivity: 8
+# # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         data:
+#           led: green
+#       output:
+#         bytes: [1]
+#         fPort: 2
+#     - description: Invalid color
+#       input:
+#         data:
+#           led: blue
+#       output:
+#         errors:
+#           - invalid LED color
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green

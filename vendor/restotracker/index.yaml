@@ -1,0 +1,4 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  - scd18

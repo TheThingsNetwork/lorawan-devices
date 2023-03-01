@@ -8,4 +8,10 @@ endDevices:
   - sensecap-co2 # look in sensecap-co2.yaml for the end device definition
   - sensecap-pressure # look in sensecap-pressure.yaml for the end device definition
   - loramodule-e5 # look in loramodulee5.yaml for the end device definition
-
+  - sensecaps2101-temp-humid
+  - sensecaps2102-light
+  - sensecaps2103-co2-temp-humid
+  - sensecaps2104-soil-moisture-temp
+  - sensecaps2105-soll-moisture-temp-ec
+  - sensecaps2100-data-logger
+  - sensecaps2120-8-in-1
