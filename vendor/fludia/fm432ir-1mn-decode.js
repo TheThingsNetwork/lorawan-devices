@@ -1,3 +1,34 @@
+function Decoder(bytes, port) {
+    var decoded = {}
+    var step = parseInt(payload.substring(4,6), 16)
+    var list_increment = []    
+    var list_power = []    
+    var header = parseInt(bytes.substring(2,4), 16)
+    if(header == 46) obis = "E_SUM"
+    if(header == 47) obis = "E_POS"
+    if(header == 48) obis = "E_NEG"
+    list_increment = decode_increment(bytes)
+    n = 60/step
+    for(i=0;i<list_increment.length;i++){
+        if(list_increment[i] != null){
+            list_power.push(list_increment[i]*n)
+        } 
+        else{
+            list_power.push(null)
+        }
+    }
+    decoded.index = decode_index(bytes)
+    decoded.step = step
+    decoded.obis = obis  
+    decoded.list_power = list_power
+    if(bytes.length == 84){
+        return decoded
+    }
+    else{
+        msg = "The payload has the wrong size !"
+        return msg
+    }    
+}
 //return index from T1 payload
 function decode_index(payload) {
   var index = null;

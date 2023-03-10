@@ -1,3 +1,14 @@
+function Decoder(bytes, port) {
+    var decoded = {}
+    decoded.temp_list = decode_temp_list(bytes)
+    if(decoded.temp_list.length==20){
+        return decoded
+    }
+    else{
+        msg = "The payload has the wrong size !"
+        return msg
+    }    
+}
 //return hexadecimal temperature list from T1 payload
 function payload_to_hex(payload) {
   var temp_list_hex = []

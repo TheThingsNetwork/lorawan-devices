@@ -1,3 +1,16 @@
+function Decoder(bytes, port) {
+  var decoded = {}
+  decoded.index = decode_index(bytes)
+  decoded.step = decode_step(bytes)
+  decoded.list_increment = decode_list_increment(bytes)
+  if(decoded.index && decoded.list_increment.length==8 && decoded.step>0){
+      return decoded
+  }
+  else{
+      msg = "The payload has the wrong size !"
+      return msg
+  }    
+} 
 //return index from T1 payload
 function decode_index(payload) {
   var index = null;
