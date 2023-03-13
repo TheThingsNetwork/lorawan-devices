@@ -1,3 +1,22 @@
+function decodeUplink(input) {
+  var decoded = {}
+  var header = parseInt(input.bytes.substring(0,2), 16)
+  decoded.index = decode_index(input.bytes)
+  if(header == 92){
+      decoded.step = 1
+  }
+  else{
+      decoded.step = 0
+  }
+  decoded.list_increment = decode_list_increment(input.bytes)
+  if(decoded.index && decoded.list_increment.length==20 && decoded.step>0){
+      return decoded
+  }
+  else{
+      msg = "The payload has the wrong size !"
+      return msg
+  }    
+}
 //return index from T1 payload
 function decode_index(payload) {
   var index = null;
