@@ -1,8 +1,8 @@
 //Main function Decoder
-function Decoder(bytes, port) {
+function decodeUplink(input){
   var decoded = {}
-  decoded.index = decode_index(bytes)
-  decoded.power_list = decode_power_list(bytes)
+  decoded.index = decode_index(input.bytes)
+  decoded.power_list = decode_power_list(input.bytes)
   if(decoded.index && decoded.power_list.length==20){
       return decoded
   }

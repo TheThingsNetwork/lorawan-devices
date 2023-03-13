@@ -1,7 +1,7 @@
-function Decoder(bytes, port) {
+function decodeUplink(input) {
     var decoded = {}
-    decoded.step = parseInt(payload.substring(2,4),16)    
-    decoded.temp_list = decode_temp_list(bytes)
+    decoded.step = parseInt(input.bytes.substring(2,4),16)    
+    decoded.temp_list = decode_temp_list(input.bytes)
     if(decoded.temp_list.length==8 && decoded.step>0){
         return decoded
     }

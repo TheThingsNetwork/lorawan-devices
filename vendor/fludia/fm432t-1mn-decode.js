@@ -1,6 +1,6 @@
-function Decoder(bytes, port) {
+function decodeUplink(input) {
     var decoded = {}
-    decoded.temp_list = decode_temp_list(bytes)
+    decoded.temp_list = decode_temp_list(input.bytes)
     if(decoded.temp_list.length==20){
         return decoded
     }

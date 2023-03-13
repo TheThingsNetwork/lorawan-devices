@@ -1,13 +1,13 @@
-function Decoder(bytes, port) {
+function decodeUplink(input) {
     var decoded = {}
-    var step = parseInt(payload.substring(4,6), 16)
+    var step = parseInt(input.bytes.substring(4,6), 16)
     var list_increment = []    
     var list_power = []    
-    var header = parseInt(bytes.substring(2,4), 16)
+    var header = parseInt(input.bytes.substring(2,4), 16)
     if(header == 46) obis = "E_SUM"
     if(header == 47) obis = "E_POS"
     if(header == 48) obis = "E_NEG"
-    list_increment = decode_increment(bytes)
+    list_increment = decode_increment(input.bytes)
     n = 60/step
     for(i=0;i<list_increment.length;i++){
         if(list_increment[i] != null){
@@ -17,11 +17,11 @@ function Decoder(bytes, port) {
             list_power.push(null)
         }
     }
-    decoded.index = decode_index(bytes)
+    decoded.index = decode_index(input.bytes)
     decoded.step = step
     decoded.obis = obis  
     decoded.list_power = list_power
-    if(bytes.length == 84){
+    if(input.bytes.length == 84){
         return decoded
     }
     else{

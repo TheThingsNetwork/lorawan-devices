@@ -1,8 +1,8 @@
-function Decoder(bytes, port) {
+function decodeUplink(input) {
   var decoded = {}
-  decoded.index = decode_index(bytes)
-  decoded.step = decode_step(bytes)
-  decoded.list_increment = decode_list_increment(bytes)
+  decoded.index = decode_index(input.bytes)
+  decoded.step = decode_step(input.bytes)
+  decoded.list_increment = decode_list_increment(input.bytes)
   if(decoded.index && decoded.list_increment.length==8 && decoded.step>0){
       return decoded
   }
