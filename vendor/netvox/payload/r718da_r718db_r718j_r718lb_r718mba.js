@@ -22,6 +22,8 @@ function getDeviceName(dev){
 	139: "R730DB",
 	141: "R730LB",
 	151: "R718QA",
+	158: "R311K",
+	159: "R718VA",
 	168: "R311DA",
 	169: "R311DB",
 	183: "R720F"
@@ -65,6 +67,10 @@ function getDeviceType(devName){
 	  return 141;
   else if (devName == "R718QA")
       return 151;
+  else if (devName == "R311K")
+      return 158;
+  else if (devName == "R718VA")
+      return 159;
   else if (devName == "R311DA")
       return 168;
   else if (devName == "R311DB")

@@ -1,0 +1,72 @@
+name: R718WBA - Wireless Temperature and Humidity Sensor & Water Leakage
+description: The R718WBA is a wireless communication device that detects ambient air temperature and humidity and non-locating leak detection. The R718WBA detects the temperature and humidity of the air. At the same time, it detects the presence or absence of water leakage through the 2-core non-locating leak detection sensor line, and transmits the detected data to the gateway through the wireless network. The SX1276 wireless communication module is used.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718wba-codec
+      AS923:
+        id: profile-as923
+        codec: r718wba-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: r718wba-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718wba-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718wba-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718wba-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718wba-codec
+
+sensors:
+  - temperature
+  - humidity
+  - water
+
+dimensions:
+  width: 92
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: ER14505 AA Lithium
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718WBA
+dataSheetURL: http://www.netvox.com.tw/um/R718WBA/R718WBAdatasheet.pdf
+
+photos:
+  main: photos/r718wba.jpg
