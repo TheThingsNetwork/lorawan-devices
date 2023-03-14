@@ -1,3 +1,16 @@
+function decodeUplink(input) {
+  var decoded = {}
+  decoded.index = decode_index(input.bytes)
+  decoded.step = decode_step(input.bytes)
+  decoded.list_increment = decode_list_increment(input.bytes)
+  if(decoded.index && decoded.list_increment.length==8 && decoded.step>0){
+      return decoded
+  }
+  else{
+      msg = "The payload has the wrong size !"
+      return msg
+  }    
+} 
 //return index from T1 payload
 function decode_index(payload) {
   var index = null;
