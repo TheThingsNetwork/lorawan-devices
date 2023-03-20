@@ -1,0 +1,151 @@
+uplinkDecoder:
+  fileName: payload/ra07w.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x0C, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA07W'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x0C, 0x01, 0x76, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA07W'
+          Volt: 11.8
+          WaterLeakLocation: 2570
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'RA07W'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x0C, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'RA07W'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Set sensor parameters response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSensorParaRsp'
+          Device: 'RA07W'
+          Status: 'Success'
+
+    - description: Get sensor parameters response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x0C, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSensorParaRsp'
+          Device: 'RA07W'
+          LineLength: 2570
+          Sensitivity: 'Mid'
+
+downlinkDecoder:
+  fileName: payload/ra07w.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x0C, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA07W'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA07W'
+
+    - description: Set sensor parameters request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x0C, 0x01, 0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSensorParaReq'
+          Device: 'RA07W'
+          LineLength: 2570
+          Sensitivity: 2
+
+    - description: Get sensor parameters request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSensorParaReq'
+          Device: 'RA07W'
+
+downlinkEncoder:
+  fileName: payload/ra07w.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA07W'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0x0C, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA07W'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set sensor parameters request
+      input:
+        data:
+          Cmd: 'SetSensorParaReq'
+          Device: 'RA07W'
+          LineLength: 2570
+          Sensitivity: 2
+      output:
+        fPort: 7
+        bytes: [0x03, 0x0C, 0x01, 0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get sensor parameters request
+      input:
+        data:
+          Cmd: 'GetSensorParaReq'
+          Device: 'RA07W'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

@@ -1,0 +1,60 @@
+name: RA10 - Wireless LoRa Valve keeper
+description: The valve disconnector RA10 is a wireless smart device for home security and automatic irrigation. It uses SX1276 wireless communication. Join RA10 to the gateway and realizes the operation of automatically opening and closing the valve through the instructions of other devices in the network. It can also use the manual switch function.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: ra10-codec
+      AS923:
+        id: profile-as923
+        codec: ra10-codec
+      US902-928:
+        id: profile-us915
+        codec: ra10-codec
+      AU915-928:
+        id: profile-au915
+        codec: ra10-codec
+      KR920-923:
+        id: profile-kr920
+        codec: ra10-codec
+      IN865-867:
+        id: profile-in865
+        codec: ra10-codec
+      CN470-510:
+        id: profile-cn470
+        codec: ra10-codec
+
+dimensions:
+  width: 70.99
+  length: 152.99
+  height: 128.3
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RA10
+dataSheetURL: http://www.netvox.com.tw/um/RA10/RA10datasheet.pdf
+
+photos:
+  main: photos/ra10.jpg
