@@ -2,4 +2,4 @@
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - sepem-350 # look in sepem-350.yaml for the end device definition
+  - sepem-35x # look in windsensor.yaml for the end device definition
