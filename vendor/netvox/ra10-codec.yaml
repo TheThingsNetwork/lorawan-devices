@@ -1,0 +1,143 @@
+uplinkDecoder:
+  fileName: payload/ra10.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x71, 0x00, 0x64, 0x02, 0x20, 0x20, 0x07, 0x06, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA10'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200706'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x71, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA10'
+          OnOff: 'ON'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'RA10'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x71, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'RA10'
+          MinTime: 900
+          MaxTime: 1800
+
+downlinkDecoder:
+  fileName: payload/ra10.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x71, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA10'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA10'
+
+    - description: OFF
+      input:
+        fPort: 7
+        bytes: [0x90, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'OFF'
+          Device: 'RA10'
+
+    - description: ON
+      input:
+        fPort: 7
+        bytes: [0x91, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ON'
+          Device: 'RA10'
+
+    - description: Toggle
+      input:
+        fPort: 7
+        bytes: [0x92, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'Toggle'
+          Device: 'RA10'
+
+downlinkEncoder:
+  fileName: payload/ra10.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA10'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0x71, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA10'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: OFF
+      input:
+        data:
+          Cmd: 'OFF'
+          Device: 'RA10'
+      output:
+        fPort: 7
+        bytes: [0x90, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: ON
+      input:
+        data:
+          Cmd: 'ON'
+          Device: 'RA10'
+      output:
+        fPort: 7
+        bytes: [0x91, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Toggle
+      input:
+        data:
+          Cmd: 'Toggle'
+          Device: 'RA10'
+      output:
+        fPort: 7
+        bytes: [0x92, 0x71, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

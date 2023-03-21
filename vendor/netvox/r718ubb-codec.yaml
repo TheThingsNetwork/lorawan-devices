@@ -1,0 +1,206 @@
+uplinkDecoder:
+  fileName: payload/r718ub.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xBB, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718UB Seriers'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200811'
+
+    - description: Status report - 1
+      input:
+        fPort: 6
+        bytes: [0x01, 0xBB, 0x01, 0x24, 0x09, 0xEA, 0x1A, 0x90, 0x01, 0x90, 0x00]
+      output:
+        data:
+          Device: 'R718UB Seriers'
+          Volt: 3.6
+          Temp: 25.38
+          Humi: 68
+          CO2: 400
+          ShockEvent: 0
+
+    - description: Status report - 2
+      input:
+        fPort: 6
+        bytes: [0x01, 0xBB, 0x02, 0x24, 0x00, 0x01, 0x8B, 0xCD, 0x00, 0x0F, 0xA0]
+      output:
+        data:
+          Device: 'R718UB Seriers'
+          Volt: 3.6
+          AirPressure: 1013.25
+          Illuminance: 4000
+
+    - description: Status report - 3
+      input:
+        fPort: 6
+        bytes: [0x01, 0xBB, 0x03, 0x24, 0x01, 0x11, 0x01, 0x23, 0x01, 0xF4, 0x00]
+      output:
+        data:
+          Device: 'R718UB Seriers'
+          Volt: 3.6
+          PM2_5: 273
+          PM10: 291
+          TVOC: 500
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xBB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718UB Seriers'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xBB, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718UB Seriers'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Calibrate CO2 response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xBB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'CalibrateCO2Rsp'
+          Device: 'R718UB Seriers'
+          Status: 'Success'
+
+    - description: Set shock sensor sensitivity response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xBB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R718UB Seriers'
+          Status: 'Success'
+
+    - description: Get shock sensor sensitivity response
+      input:
+        fPort: 7
+        bytes: [0x85, 0xBB, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R718UB Seriers'
+          ShockSensorSensitivity: 100
+
+downlinkDecoder:
+  fileName: payload/r718ub.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xBB, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718UB Seriers'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xBB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718UB Seriers'
+
+    - description: Calibrate CO2 request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xBB, 0x01, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'CalibrateCO2Req'
+          Device: 'R718UB Seriers'
+          CalibrateType: 1
+          CalibratePoint: 100
+
+    - description: Set shock sensor sensitivity request
+      input:
+        fPort: 7
+        bytes: [0x04, 0xBB, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R718UB Seriers'
+          ShockSensorSensitivity: 100
+
+    - description: Get shock sensor sensitivity request
+      input:
+        fPort: 7
+        bytes: [0x05, 0xBB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R718UB Seriers'
+
+downlinkEncoder:
+  fileName: payload/r718ub.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718UB Seriers'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0xBB, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718UB Seriers'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xBB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Calibrate CO2 request
+      input:
+        data:
+          Cmd: 'CalibrateCO2Req'
+          Device: 'R718UB Seriers'
+          CalibrateType: 1
+          CalibratePoint: 100
+      output:
+        fPort: 7
+        bytes: [0x03, 0xBB, 0x01, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set shock sensor sensitivity request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R718UB Seriers'
+          ShockSensorSensitivity: 100
+      output:
+        fPort: 7
+        bytes: [0x04, 0xBB, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get shock sensor sensitivity request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R718UB Seriers'
+      output:
+        fPort: 7
+        bytes: [0x05, 0xBB, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
