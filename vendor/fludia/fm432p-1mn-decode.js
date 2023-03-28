@@ -1,14 +1,14 @@
 function decodeUplink(input) {
   var decoded = {}
-  var header = parseInt(input.bytes.substring(0,2), 16)
-  decoded.index = decode_index(input.bytes)
+  var header = parseInt(toHexString(input.bytes).substring(0,2), 16)
+  decoded.index = decode_index(toHexString(input.bytes))
   if(header == 92){
       decoded.step = 1
   }
   else{
       decoded.step = 0
   }
-  decoded.list_increment = decode_list_increment(input.bytes)
+  decoded.list_increment = decode_list_increment(toHexString(input.bytes))
   if(decoded.index && decoded.list_increment.length==20 && decoded.step>0){
       return decoded
   }
@@ -50,4 +50,11 @@ function decode_list_increment(payload) {
       }
   }    
   return list_increment
+}
+
+//Convert uplink payload.bytes to hexString payload
+function toHexString(byteArray) {
+    return Array.from(byteArray, function(byte) {
+      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('')
 }
