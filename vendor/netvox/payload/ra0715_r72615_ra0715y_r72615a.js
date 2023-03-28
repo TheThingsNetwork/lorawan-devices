@@ -1,46 +1,55 @@
 function getCfgCmd(cfgcmd){
   var cfgcmdlist = {
-    1:   "ConfigReportReq",
-    129: "ConfigReportRsp",
-    2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp"
+    0x01: "ConfigReportReq",
+    0x81: "ConfigReportRsp",
+    0x02: "ReadConfigReportReq",
+    0x82: "ReadConfigReportRsp"
   };
   return cfgcmdlist[cfgcmd];
 }
 
 function getCmdToID(cmdtype){
   if (cmdtype == "ConfigReportReq")
-	  return 1;
+	  return 0x01;
   else if (cmdtype == "ConfigReportRsp")
-	  return 129;
+	  return 0x81;
   else if (cmdtype == "ReadConfigReportReq")
-	  return 2;
+	  return 0x02;
   else if (cmdtype == "ReadConfigReportRsp")
-	  return 130;
+	  return 0x82;
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	5:  "RA07Series",
-	9:  "R726Series",
-	13: "RA07**YSeries",
-	87: "R718PA",
-	88: "R718PB"
+	0x05: "RA07 Series",
+	0x09: "R726 Series",
+	0x0D: "RA07**Y Series",
+	0x52: "RA07A",
+	0x53: "R726A",
+	0x54: "R727A",
+	0x57: "R718PA",
+	0x58: "R718PB"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
-  if ((devName == "RA0715") || (devName == "RA07Series"))
-	  return 5;
-  else if ((devName == "R726Series") || (devName == "R72615") || (devName == "R72615A"))
-	  return 9;
-  else if ((devName == "RA0715Y") || (devName == "RA07**YSeries"))
-	  return 13;
+  if ((devName == "RA0715") || (devName == "RA07 Series"))
+	  return 0x05;
+  else if ((devName == "R726 Series") || (devName == "R72615") || (devName == "R72615A"))
+	  return 0x09;
+  else if ((devName == "RA0715Y") || (devName == "RA07**Y Series"))
+	  return 0x0D;
+  else if (devName == "RA07A")
+	  return 0x52;
+  else if (devName == "R726A")
+	  return 0x53;
+  else if (devName == "R727A")
+	  return 0x54;
   else if (devName == "R718PA")
-	  return 87;
+	  return 0x57;
   else if (devName == "R718PB")
-	  return 88;
+	  return 0x58;
 }
 
 function checkSensorExist(val){

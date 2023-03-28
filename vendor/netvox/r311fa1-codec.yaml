@@ -1,0 +1,228 @@
+uplinkDecoder:
+  fileName: payload/r718e.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xC7, 0x00, 0x64, 0x02, 0x20, 0x20, 0x12, 0x08, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R311FA1'
+          SWver: 10
+          HWver: 2
+          Datecode: '20201208'
+
+    - description: Status report - 1
+      input:
+        fPort: 6
+        bytes: [0x01, 0xC7, 0x01, 0x24, 0xB3, 0x40, 0xB2, 0xC0, 0x6A, 0x3E, 0x00]
+      output:
+        data:
+          Device: 'R311FA1'
+          Volt: 3.6
+          AccelerationX: 5.59375
+          AccelerationY: -5.5625
+          AccelerationZ: 0.228516
+
+    - description: Status report - 2
+      input:
+        fPort: 6
+        bytes: [0x01, 0xC7, 0x02, 0x33, 0x3D, 0x00, 0x3C, 0xB3, 0x40, 0xFF, 0x97]
+      output:
+        data:
+          Device: 'R311FA1'
+          VelocityX: 0.043701
+          VelocityY: 0.007813
+          VelocityZ: 5.59375
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R311FA1'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xC7, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x03, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R311FA1'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          AccelerationChange: 3
+
+    - description: Set active threshold response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetActiveThresholdRsp'
+          Device: 'R311FA1'
+          Status: 'Success'
+
+    - description: Get active threshold response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xC7, 0x00, 0x03, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetActiveThresholdRsp'
+          Device: 'R311FA1'
+          ActiveThreshold: 3
+          InActiveThreshold: 2
+
+    - description: Set restore report response
+      input:
+        fPort: 7
+        bytes: [0x87, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetRestoreReportRsp'
+          Device: 'R311FA1'
+          Status: 'Success'
+
+    - description: Get restore report response
+      input:
+        fPort: 7
+        bytes: [0x88, 0xC7, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetRestoreReportRsp'
+          Device: 'R311FA1'
+          RestoreReportSet: 1
+
+downlinkDecoder:
+  fileName: payload/r718e.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xC7, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311FA1'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          AccelerationChange: 1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311FA1'
+
+    - description: Set active threshold request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xC7, 0x00, 0x03, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetActiveThresholdReq'
+          Device: 'R311FA1'
+          ActiveThreshold: 3
+          InActiveThreshold: 2
+
+    - description: Get active threshold request
+      input:
+        fPort: 7
+        bytes: [0x04, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetActiveThresholdReq'
+          Device: 'R311FA1'
+
+    - description: Set restore report request
+      input:
+        fPort: 7
+        bytes: [0x07, 0xC7, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetRestoreReportReq'
+          Device: 'R311FA1'
+          RestoreReportSet: 1
+
+    - description: Get restore report request
+      input:
+        fPort: 7
+        bytes: [0x08, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetRestoreReportReq'
+          Device: 'R311FA1'
+
+downlinkEncoder:
+  fileName: payload/r718e.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R311FA1'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          AccelerationChange: 1
+      output:
+        fPort: 7
+        bytes: [0x01, 0xC7, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x01, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R311FA1'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set active threshold request
+      input:
+        data:
+          Cmd: 'SetActiveThresholdReq'
+          Device: 'R311FA1'
+          ActiveThreshold: 3
+          InActiveThreshold: 2
+      output:
+        fPort: 7
+        bytes: [0x03, 0xC7, 0x00, 0x03, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get active threshold request
+      input:
+        data:
+          Cmd: 'GetActiveThresholdReq'
+          Device: 'R311FA1'
+      output:
+        fPort: 7
+        bytes: [0x04, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set restore report request
+      input:
+        data:
+          Cmd: 'SetRestoreReportReq'
+          Device: 'R311FA1'
+          RestoreReportSet: 1
+      output:
+        fPort: 7
+        bytes: [0x07, 0xC7, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get restore report request
+      input:
+        data:
+          Cmd: 'GetRestoreReportReq'
+          Device: 'R311FA1'
+      output:
+        fPort: 7
+        bytes: [0x08, 0xC7, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

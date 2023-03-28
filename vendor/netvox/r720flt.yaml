@@ -1,0 +1,67 @@
+name: R720FLT - Wireless Toilet Water Tank Leakage Sensor
+description: R720FLT is connected with two electrode rods to detect the water make-up of the toilet water tank, detect the daily water makeup times and whether the water tank is faulty, and transmit the detected data to other devices through the wireless network for display.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r720flt-codec
+      AS923:
+        id: profile-as923
+        codec: r720flt-codec
+      US902-928:
+        id: profile-us915
+        codec: r720flt-codec
+      AU915-928:
+        id: profile-au915
+        codec: r720flt-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r720flt-codec
+      IN865-867:
+        id: profile-in865
+        codec: r720flt-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r720flt-codec
+
+sensors:
+  - water
+
+dimensions:
+  width: 65
+  length: 88
+  height: 19
+
+battery:
+  replaceable: true
+  type: 2 x 3.6 ER14505 AA Lithium
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R720FLT
+dataSheetURL: http://www.netvox.com.tw/um/R720FLT/R720FLTdatasheet.pdf
+
+photos:
+  main: photos/r720flt.jpg

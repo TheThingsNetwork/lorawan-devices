@@ -1,0 +1,163 @@
+uplinkDecoder:
+  fileName: payload/r720g.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xB5, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R720G'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200811'
+
+    - description: Status report - 1
+      input:
+        fPort: 6
+        bytes: [0x01, 0xB5, 0x01, 0x24, 0xFF, 0xFF, 0xFF, 0xFF, 0x25, 0x81, 0x5A]
+      output:
+        data:
+          Device: 'R720G'
+          Volt: 3.6
+          Latitude: '0xFFFFFFFF'
+          AngleX: 37
+          AngleY: -127
+          AngleZ: 90
+
+    - description: Status report - 2
+      input:
+        fPort: 6
+        bytes: [0x01, 0xB5, 0x02, 0x24, 0xFE, 0x36, 0x3C, 0x80, 0x25, 0x00, 0xFA]
+      output:
+        data:
+          Device: 'R720G'
+          Volt: 3.6
+          Longitude: -30.000000
+          HDop: 37
+          AltitudeGPS: 250
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xB5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R720G'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xB5, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R720G'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Set active threshold response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xB5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetActiveThresholdRsp'
+          Device: 'R720G'
+          Status: 'Success'
+
+    - description: Get active threshold response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xB5, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetActiveThresholdRsp'
+          Device: 'R720G'
+          ActiveThreshold: 10
+
+downlinkDecoder:
+  fileName: payload/r720g.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xB5, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720G'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xB5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720G'
+
+    - description: Set active threshold request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xB5, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetActiveThresholdReq'
+          Device: 'R720G'
+          ActiveThreshold: 10
+
+    - description: Get active threshold request
+      input:
+        fPort: 7
+        bytes: [0x04, 0xB5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetActiveThresholdReq'
+          Device: 'R720G'
+
+downlinkEncoder:
+  fileName: payload/r720g.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720G'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0xB5, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720G'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xB5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set active threshold request
+      input:
+        data:
+          Cmd: 'SetActiveThresholdReq'
+          Device: 'R720G'
+          ActiveThreshold: 10
+      output:
+        fPort: 7
+        bytes: [0x03, 0xB5, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get active threshold request
+      input:
+        data:
+          Cmd: 'GetActiveThresholdReq'
+          Device: 'R720G'
+      output:
+        fPort: 7
+        bytes: [0x04, 0xB5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
