@@ -14,31 +14,31 @@ firmwareVersions:
     hardwareVersions:
       - '1.0'
     profiles:
-     EU863-870:
+      EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: sepem-35x-profile-eu868
         lorawanCertified: true
         codec: sepem-35x-codec
     US902-928:
-        id: sepem-35x-profile-us915
-        lorawanCertified: true
-        codec: sepem-35x-codec
+      id: sepem-35x-profile-us915
+      lorawanCertified: true
+      codec: sepem-35x-codec
     AS923:
-        id: sepem-35x-profile-as923
-        lorawanCertified: true
-        codec: sepem-35x-codec
+      id: sepem-35x-profile-as923
+      lorawanCertified: true
+      codec: sepem-35x-codec
     AU915-928:
-        id: sepem-35x-profile-au915
-        lorawanCertified: false
-        codec: sepem-35x-codec
+      id: sepem-35x-profile-au915
+      lorawanCertified: false
+      codec: sepem-35x-codec
     KR920-923:
-        id: sepem-35x-profile-kr920
-        lorawanCertified: false
-        codec: sepem-35x-codec
+      id: sepem-35x-profile-kr920
+      lorawanCertified: false
+      codec: sepem-35x-codec
     IN865-867:
-        id: sepem-35x-profile-in865
-        lorawanCertified: false
-        codec: sepem-35x-codec
+      id: sepem-35x-profile-in865
+      lorawanCertified: false
+      codec: sepem-35x-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -71,7 +71,7 @@ operatingConditions:
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 1.00 
+    max: 1.00
 
 # IP rating (optional)
 ipCode: IP68
