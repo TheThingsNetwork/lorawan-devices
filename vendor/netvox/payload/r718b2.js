@@ -1,64 +1,88 @@
 function getCfgCmd(cfgcmd){
   var cfgcmdlist = {
-    1:   "ConfigReportReq",
-    129: "ConfigReportRsp",
-    2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp"
+    0x01: "ConfigReportReq",
+    0x81: "ConfigReportRsp",
+    0x02: "ReadConfigReportReq",
+    0x82: "ReadConfigReportRsp"
   };
   return cfgcmdlist[cfgcmd];
 }
 
 function getCaliCmd(calicmd){
   var calicmdlist = {
-    1:   "SetGlobalCalibrateReq",
-    129: "SetGlobalCalibrateRsp",
-    2:   "GetGlobalCalibrateReq",
-    130: "GetGlobalCalibrateRsp",
-	3:   "ClearGlobalCalibrateReq",
-	131: "ClearGlobalCalibrateRsp"
+    0x01: "SetGlobalCalibrateReq",
+    0x81: "SetGlobalCalibrateRsp",
+    0x02: "GetGlobalCalibrateReq",
+    0x82: "GetGlobalCalibrateRsp",
+	0x03: "ClearGlobalCalibrateReq",
+	0x83: "ClearGlobalCalibrateRsp"
   };
   return calicmdlist[calicmd];
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	20: "R718B2",
-    22: "R718CK2",
-	23: "R718CT2",
+	0x14: "R718B2",
+	0x15: "R718CJ2",
+    0x16: "R718CK2",
+	0x17: "R718CT2",
+	0x18: "R718CN2",
+	0x19: "R718CE2",
+	0x78: "R730CJ2",
+	0x79: "R730CK2",
+	0x7A: "R730CT2",
+	0x7B: "R730CN2",
+	0x7C: "R730CE2"
   };
   return deviceName[dev];
 }
 
 function getCmdToID(cmdtype){
   if (cmdtype == "ConfigReportReq")
-	  return 1;
+	  return 0x01;
   else if (cmdtype == "ConfigReportRsp")
-	  return 129;
+	  return 0x81;
   else if (cmdtype == "ReadConfigReportReq")
-	  return 2;
+	  return 0x02;
   else if (cmdtype == "ReadConfigReportRsp")
-	  return 130;
+	  return 0x82;
   else if (cmdtype == "SetGlobalCalibrateReq")
-	  return 1;
+	  return 0x01;
   else if (cmdtype == "SetGlobalCalibrateRsp")
-	  return 129;
+	  return 0x81;
   else if (cmdtype == "GetGlobalCalibrateReq")
-	  return 2;
+	  return 0x02;
   else if (cmdtype == "GetGlobalCalibrateRsp")
-	  return 130;
+	  return 0x82;
   else if (cmdtype == "ClearGlobalCalibrateReq")
-	  return 3;
+	  return 0x03;
   else if (cmdtype == "ClearGlobalCalibrateRsp")
-	  return 131;
+	  return 0x83;
 }
 
 function getDeviceType(devName){
   if (devName == "R718B2")
-	  return 20;
+	  return 0x14;
+  else if (devName == "R718CJ2")
+	  return 0x15;
   else if (devName == "R718CK2")
-	  return 22;
+	  return 0x16;
   else if (devName == "R718CT2")
-	  return 23;
+	  return 0x17;
+  else if (devName == "R718CN2")
+	  return 0x18;
+  else if (devName == "R718CE2")
+	  return 0x19;
+  else if (devName == "R730CJ2")
+	  return 0x78;
+  else if (devName == "R730CK2")
+	  return 0x79;
+  else if (devName == "R730CT2")
+	  return 0x7A;
+  else if (devName == "R730CN2")
+	  return 0x7B;
+  else if (devName == "R730CE2")
+	  return 0x7C;
 }
 
 function getSensorType(sensorid){

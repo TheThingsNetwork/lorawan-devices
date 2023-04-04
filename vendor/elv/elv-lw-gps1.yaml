@@ -1,11 +1,18 @@
 name: ELV LoRaWAN® GPS Tracker 1
 description: The ELV LoRaWAN® GPS Tracker 1 is the second GNSS-based product in the LoRaWAN® family. Unlike the ELV track from our modular system, the ELV-LW-GPS1 is an optimized design without module character. The GPS tracker uses a GNSS module for position determination, the corresponding data is sent via the LoRaWAN® network. An integrated accelerometer is used to use motion or standstill as a trigger for positioning. Furthermore, a contact interface is installed, which can also trigger a determination of the current position via an external trigger. The device can be supplied in a wide voltage range of 5 to 40 V. Thanks to its compactness, the wide input voltage range and the various modes for position determination, the tracker can be used in many applications.
 
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '1.0.0'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,

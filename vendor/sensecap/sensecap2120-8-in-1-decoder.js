@@ -20,7 +20,7 @@
     let dataId = item.dataId
     let dataValue = item.dataValue
     let messages = dataIdAndDataValueJudge(dataId, dataValue)
-    decoderArray.push(messages)
+    decoderArray.push(...messages)
   }
   result.messages = decoderArray
   return { data: result }
