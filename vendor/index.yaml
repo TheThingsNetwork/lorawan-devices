@@ -568,7 +568,6 @@ vendors:
     name: OrbiWise
     vendorID: 309
     logo: orbiwise.png
-    
 
   - id: oresundskraft
     name: Oresundskraft AB
