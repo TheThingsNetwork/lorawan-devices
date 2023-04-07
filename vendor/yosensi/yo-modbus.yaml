@@ -1,12 +1,5 @@
-name: YO Modbus - the bridge between the Modbus network and LoRaWAN | LoRa EU868, US915, AU915, AND AS923
-description: YO Modbus is the bridge between the Modbus network and LoRaWAN. It allows to read data via Modbus RTU from Slave devices and send it via LoRaWAN.
-With one YO Modbus device, it is possible to create up to 150 Modbus queries and send via LoRaWAN collected in up to 30 different LoRa frames. There is no limit to the number of devices to which your Modbus can send queries. The limit is only based on the number of queries.
-The device is designed for mounting on standard 35 mm DIN rails in electrical switchboards. It occupies only one pole width like a standard single-phase overcurrent circuit breaker.
-The RS485 input on which the Modbus RTU protocol works is galvanically isolated from the rest of the device modules for maximum protection.
-Additionally, the device can be connected to protective earth (PE) cable so that the charges coming from the RS485 cable shielding will be slowly dissipated to the earth cable. It will lead to equipotential bonding in the Modbus network on the device side.
-It can be powered by direct or alternating current over a wide voltage range of 6-30 VDC or 5-21 VAC respectively.
-The device communicates wirelessly over LoRaWAN. It is high-quality product made in EU.
-
+name: YO Modbus 
+description: YO Modbus is the bridge between the Modbus network and LoRaWAN. It allows to read data via Modbus RTU from Slave devices and send it via LoRaWAN.With one YO Modbus device, it is possible to create up to 150 Modbus queries and send via LoRaWAN collected in up to 30 different LoRa frames. There is no limit to the number of devices to which your Modbus can send queries. The limit is only based on the number of queries. The device is designed for mounting on standard 35 mm DIN rails in electrical switchboards.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'

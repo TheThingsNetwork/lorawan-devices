@@ -1,9 +1,5 @@
-name: YO AgriBox - remote measurement of soil moisture at 3 points | LoRa EU868, US915, AU915, AND AS923
-description: YO AgriBox is a LoRaWAN device for measuring soil moisture at 3 points. Additionally, the device contains sensors that measure temperature and relative humidity inside the device. YO AgriBox makes it easy to plan and maintain optimum growing conditions for plants.
-YO AgriBox is equipped with an enclosure made of ABS with IP67 protection class. The enclosure of the device has IP67 buffers for which measurement probes can be installed.
-No soil moisture probes are attached to the device. Our offer includes soil moisture sensors with 2 m wire lengths. These probes have a Polyurethane (PUR) wire and a waterproof sensor enclosure. It is possible to connect up to 3 soil moisture probes. The measuring probes can be completely buried and placed at different depths of soil.
-YO AgriBox operates over LoRaWAN. The device provides low power consumption and longer battery life. It is high-quality product made in EU.
-
+name: YO AgriBox
+description: YO AgriBox is a LoRaWAN device for measuring soil moisture at 3 points. Additionally, the device contains sensors that measure temperature and relative humidity inside the device. YO AgriBox makes it easy to plan and maintain optimum growing conditions for plants.YO AgriBox is equipped with an enclosure made of ABS with IP67 protection class. The enclosure of the device has IP67 buffers for which measurement probes can be installed. The device provides low power consumption and longer battery life. It is high-quality product made in EU.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '2.0'
@@ -74,7 +70,7 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_AgriBox_datasheet.pdf
 
 # Photos
 photos:
-  main: YO_AgriBox_01C.png
+  main: yo-agribox.png
 
 
 
