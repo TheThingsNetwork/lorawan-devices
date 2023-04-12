@@ -1,0 +1,68 @@
+name: R730CK2 - Wireless 2-Gang Thermocouple Interface - K type
+description: This equipment is used to detect temperature of the object and medium which thermocouple is contacted. It can be connected to two thermocouples for testing.
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r730ck2-codec
+      AS923:
+        id: profile-as923
+        codec: r730ck2-codec
+      US902-928:
+        id: profile-us915
+        codec: r730ck2-codec
+      AU915-928:
+        id: profile-au915
+        codec: r730ck2-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r730ck2-codec
+      IN865-867:
+        id: profile-in865
+        codec: r730ck2-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r730ck2-codec
+
+sensors:
+  - temperature
+
+dimensions:
+  width: 155
+  length: 267.11
+  height: 208.2
+
+battery:
+  replaceable: true
+  type: 2-cell rechargeable NiMH batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R730CK2
+dataSheetURL: http://www.netvox.com.tw/um/R730CK2/R730CK2datasheet.pdf
+
+photos:
+  main: photos/r730ck2.jpg
