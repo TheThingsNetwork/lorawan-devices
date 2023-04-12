@@ -1,11 +1,18 @@
 name: ELV experimental platform for LoRaWAN
 description: The modular system of ELV Elektronik AG makes it possible to carry out LoRaWAN experiments. The basis is the ELV LoRaWAN Base, on which various application modules and power modules equipped with sensors can be attached. The integrated antenna and compact form factor allow experiments to be carried out flexibly. The required firmware is provided by ELV, but the programming adapter can also be used to execute your own code.
 
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '1.0.0'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -109,5 +116,3 @@ photos:
 # Youtube or Vimeo Video (optional)
 #videos:
 #  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
-
-#added development@elv.com mail address
