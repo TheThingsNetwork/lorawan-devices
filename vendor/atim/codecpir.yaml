@@ -7,6 +7,4 @@ uplinkDecoder:
 downlinkEncoder:
   fileName: decoderpir.js
 
-# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-downlinkDecoder:
-  fileName: decoderpir.js
+

@@ -7,6 +7,3 @@ uplinkDecoder:
 downlinkEncoder:
   fileName: decode2.js
 
-# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-downlinkDecoder:
-  fileName: decode2.js
