@@ -115,25 +115,25 @@ const ACW_MR4_WIRECUT                       = 0x1C;
 /* *************************************** */
 
 
-function decodeStream (stream){
+function decodeUplink(input) {
+  let result = {historics: [],events: [],realTimes: []};
 
-	// Init result
-    let result = {historics: [],events: [],realTimes: []};
-
-    // Parse stream
-    let jsonStream = JSON.parse(stream);
-
-    /*** TO IMPLEMENT ***/
-    // Get timestamp from stream JSON
-    var time = jsonStream.time ; // To fill according to the json returned by your gateway
-    // Get clear device paylaod from stream JSON
-    var payload = jsonStream.frm_payload ; // To fill according to the json returned by your gateway
-    /********************/
-
-    // Get message ID
-    var header = parseInt(payload.substring(0, 2),16);
-
-    /* is it a measurement or generic frame ? */
+  var date = Date.now();
+  date = new Date(date);
+  var time = convertTimestamp(date);
+  
+  var payload_tab = input.bytes;
+  var payload = "";
+  for (let i = 0; i < payload_tab.length; i++) {
+    if(payload_tab[i] > 15){
+        payload = payload + payload_tab[i].toString(16);
+    }else{
+        payload = payload + '0' + payload_tab[i].toString(16);
+    }
+  } 
+  var header = parseInt(payload.substring(0, 2),16);
+  
+      /* is it a measurement or generic frame ? */
     if((header & ACW_FRAME_HEADER_MEAS_MASK) == ACW_FRAME_HEADER_MEAS_MASK){
         /** In case of measurement frame **/
         result.realTimes = result.realTimes.concat(DecodeMesureFrame(payload, time).realTimes);
@@ -157,9 +157,35 @@ function decodeStream (stream){
         result.realTimes.push({tagRef: "p_batteryVoltage_empty",timestamp: time,tagValue: String(parseInt(payload.substr(data_offset,4),16)/1000)});
         result.realTimes.push({tagRef: "p_batteryVoltage_inCharge",timestamp: time,tagValue: String(parseInt(payload.substr(data_offset+4,4),16)/1000)});
     }
+  var warnings = [];
+  if(result.realTimes.length === 0){
+    warnings = ["La trame n'est pas décoder"];
+  }
+  return {
+    data: result,
+    warnings: warnings,
+    errors: []
+  };
+}
 
-	// return result
-	return result;
+function convertTimestamp(frameTimestamp) {
+
+	var date 	  = new Date(frameTimestamp);
+	var year 	  = date.getFullYear();
+ 	var month   = date.getMonth() + 1;
+	if(month<10){
+		month = "0" + month;
+	}
+	var day 	  = date.getDate();
+	if(day<10){
+		day = "0" + day;
+	}
+	var hours   = date.getHours()+2;
+	var minutes = "0" + date.getMinutes();
+	var seconds = "0" + date.getSeconds();
+
+	date = day + "/" + month + "/" + year + " " + hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+  return date;
 }
 
 function DecodeCommonFrame(payload, time)
@@ -223,7 +249,7 @@ function DecodeCommonFrame(payload, time)
 				let mesure = parseInt(payload.substring(startingIndex, startingIndex+mesureSize_voie),16);
 
 				// get calculated table of log
-				let calculatedMesureTab = getCalculatedMesure(mesure, mesureType_voie, number_voie, timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+				let calculatedMesureTab = getCalculatedMesure(mesure, mesureType_voie, number_voie, timestamp ? convertTimestamp(new Date(parseInt(payload.substring(2, 10),16)*1000)) : time);
 
 				// add table log into realtimes
 				result.realTimes = result.realTimes.concat(calculatedMesureTab);
@@ -263,13 +289,13 @@ function DecodeCommonFrame(payload, time)
 				let mesure = parseInt(payload.substring(startingIndex, startingIndex+mesureSize_voie),16);
 
 				// get calculated table of log
-				let calculatedMesureTab = getCalculatedMesure(mesure, mesureType_voie, number_voie, timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+				let calculatedMesureTab = getCalculatedMesure(mesure, mesureType_voie, number_voie, timestamp ? convertTimestamp(new Date(parseInt(payload.substring(2, 10),16)*1000)) : time);
 
 				// add table log into realtimes
 				result.realTimes = result.realTimes.concat(calculatedMesureTab);
 
 				// get calculated table of events
-				let eventTab = getThresholdEvents(mesureType_voie, alertType_voie, number_voie, timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+				let eventTab = getThresholdEvents(mesureType_voie, alertType_voie, number_voie, timestamp ? convertTimestamp(new Date(parseInt(payload.substring(2, 10),16)*1000)) : time);
 
 				// add table event into events
 				result.events = result.events.concat(eventTab);
@@ -296,10 +322,10 @@ function DecodeCommonFrame(payload, time)
 		for (let e=0; e<length_error; e++)
 		{
 			// get error and add log into events table
-			result.events.push(getError(parseInt(payload.substring(startingIndex, startingIndex+2),16),timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time));
+			result.events.push(getError(parseInt(payload.substring(startingIndex, startingIndex+2),16),timestamp ? convertTimestamp(new Date(parseInt(payload.substring(2, 10),16)*1000)) : time));
 			
 		    // ack error and add log into events table
-			result.events.push(ackError(parseInt(payload.substring(startingIndex, startingIndex+2),16),timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time));
+			result.events.push(ackError(parseInt(payload.substring(startingIndex, startingIndex+2),16),timestamp ? convertTimestamp(new Date(parseInt(payload.substring(2, 10),16)*1000)) : time));
 
 			// increase starting index
 			startingIndex += 2;
@@ -381,13 +407,13 @@ function DecodeMesureFrame(payload, time)
 
 				if(i==0){
 					// get calculated table of log
-					let calculatedMesureTab = getCalculatedMesure(mesure,mesureType_voie,number_voie,timestamp ? new Date(parseInt(payload.substring(2, 10),16)*1000) : time);
+					let calculatedMesureTab = getCalculatedMesure(mesure,mesureType_voie,number_voie,timestamp ? convertTimestamp(new Date(parseInt(payload.substring(2, 10),16)*1000)) : time);
 
 					// add table log into realtimes
 					result.realTimes = result.realTimes.concat(calculatedMesureTab);
 				}else{
 					// get calculated table of log
-					let calculatedMesureTab = getCalculatedMesure(mesure,mesureType_voie,number_voie,timestamp ? new Date((parseInt(payload.substring(2, 10),16)-(period/nb_samples*60*i))*1000) : new Date((time-(period/nb_samples*60*i))*1000));
+					let calculatedMesureTab = getCalculatedMesure(mesure,mesureType_voie,number_voie,timestamp ? convertTimestamp(new Date((parseInt(payload.substring(2, 10),16)-(period/nb_samples*60*i))*1000)) : convertTimestamp(new Date((time-(period/nb_samples*60*i))*1000)));
 
 					// add table log into historics
 					result.historics = result.historics.concat(calculatedMesureTab);
@@ -603,12 +629,12 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
 		case UP_FRAME_WAY_TYPE_UINT32_COUNTER:
 			return [{
 				tagRef: "p_count" + '_' +number_voie + '_high_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
 				context:[]
 			},{
 				tagRef: "p_count" + '_' +number_voie + '_low_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
 				context:[]
 			}]
@@ -617,12 +643,12 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
 		case UP_FRAME_WAY_TYPE_INT16_DISTANCE:
 			return [{
 				tagRef: "p_mm" + '_' +number_voie + '_high_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
 				context:[]
 			},{
 				tagRef: "p_mm" + '_' +number_voie + '_low_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
 				context:[]
 			}];
@@ -631,12 +657,12 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
 		case UP_FRAME_WAY_TYPE_INT16_TEMPERATURE:
 			return [{
 				tagRef: "p_temperature" + '_' +number_voie + '_high_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
 				context:[]
 			},{
 				tagRef: "p_temperature" + '_' +number_voie + '_low_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
 				context:[]
 			}];
@@ -645,12 +671,12 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
 		case UP_FRAME_WAY_TYPE_UINT16_HUMIDITY:
 			return [{
 				tagRef: "p_humidity" + '_' +number_voie + '_high_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
 				context:[]
 			},{
 				tagRef: "p_humidity" + '_' +number_voie + '_low_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
 				context:[]
 			}];
@@ -659,7 +685,7 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
 		case UP_FRAME_WAY_TYPE_INT16_VOLTAGE:
 			return [{
 				tagRef: "p_mV" + '_' +number_voie + '_high_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
 				context:[]
 			},{
@@ -673,12 +699,12 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
 		case UP_FRAME_WAY_TYPE_INT16_CURRENT:
 			return [{
 				tagRef: "p_uA" + '_' +number_voie + '_high_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
 				context:[]
 			},{
 				tagRef: "p_uA" + '_' +number_voie + '_low_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
 				context:[]
 			}];
@@ -687,12 +713,12 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
 		case UP_FRAME_WAY_TYPE_UINT16_VOC_INDEX:
 			return [{
 				tagRef: "p_VOC_index" + '_' +number_voie + '_high_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
 				context:[]
 			},{
 				tagRef: "p_VOC_index" + '_' +number_voie + '_low_alm',
-				timestamp: date,
+				timestamp: (date),
 				tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
 				context:[]
 			}];
@@ -701,12 +727,12 @@ function getThresholdEvents(mesureType,alertType,number_voie,date)
         case UP_FRAME_WAY_TYPE_UINT16_CO2:
             return [{
                 tagRef: "p_CO2" + '_' +number_voie + '_high_alm',
-                timestamp: date,
+                timestamp: (date),
                 tagValue: String(alertType==0 ? 0 : alertType==1 ? 1 : 0),
                 context:[]
             },{
                 tagRef: "p_CO2" + '_' +number_voie + '_low_alm',
-                timestamp: date,
+                timestamp: (date),
                 tagValue: String(alertType==0 ? 0 : alertType==2 ? 1 : 0),
                 context:[]
             }];
@@ -849,7 +875,7 @@ function getError(error_code, date)
 	}
 	return {
 		tagRef: ref,
-		timestamp: date,
+		timestamp: (date),
 		tagValue: String(1),
 		context:[]
 	}
@@ -991,3 +1017,20 @@ function ackError(error_code, date)
 		context:[]
 	}
 }
+
+function encodeDownlink(input) {
+	const payloadHex = input.data.payload;
+	const payloadBytes = payloadHex.match(/.{1,2}/g).map(byteHex => parseInt(byteHex, 16));  
+	var errors = [];  
+	
+	if(input.data === 'Null'){
+	  errors = ["error data"]
+	}
+	return {
+	  bytes: payloadBytes,
+	  fPort: 2,
+	  warnings: [],
+	  errors: errors
+	};
+  }
+  
