@@ -1961,3 +1961,11 @@ vendors:
     name: dnt Innovation GmbH
     website: https://www.dnt.de/
     logo: dnt-logo.svg
+
+  - id: lualtek
+    name: Lualtek
+    website: https://lualtek.io
+    logo: lualtek.svg
+    social:
+      linkedin: https://www.linkedin.com/company/lualtek/
+      twitter: lualtek
