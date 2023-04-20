@@ -1,0 +1,29 @@
+uplinkDecoder:
+  fileName: temp_lib.js
+
+  examples:
+    - description: 0x57 Temp 4 periodic data
+      input:
+        fPort: 1
+        bytes: [0x57, 0x96, 0x01, 0xB3, 0xFF, 0x9C, 0x01, 0xF4, 0xFF, 0xFF, 0x14, 0xAB, 0xA3, 0xE9]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x57 Temp 4 periodic data',
+              'status':
+                {
+                  'frameCounter': 4,
+                  'hardwareError': false,
+                  'lowBattery': true,
+                  'configurationDone': false,
+                  'configurationInconsistency': false,
+                  'configuration2ChannelsActivated': true,
+                  'timestamp': true,
+                },
+              'timestamp': '2023-12-28T19:22:17.000',
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'temperatures': [{ 'name': 'temperature 1', 'unit': '°C', 'values': [43.5, 50] }, { 'name': 'temperature 2', 'unit': '°C', 'values': [-10, -0.1] }],
+            }
+        warnings: []
+        errors: []

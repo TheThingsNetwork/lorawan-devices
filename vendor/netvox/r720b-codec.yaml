@@ -1,0 +1,101 @@
+uplinkDecoder:
+  fileName: payload/r711_r718a_r718ab_r720a.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x6F, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R720B'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x6F, 0x01, 0x24, 0x09, 0xEA, 0x1A, 0x90, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R720B'
+          Volt: 3.6
+          Temp: 25.38
+          Humi: 68
+          Alarm: 'OFF'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x6F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R720B'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x6F, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R720B'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          HumiChange: 0.5
+
+downlinkDecoder:
+  fileName: payload/r711_r718a_r718ab_r720a.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x6F, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720B'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          HumiChange: 0.5
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x6F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720B'
+
+downlinkEncoder:
+  fileName: payload/r711_r718a_r718ab_r720a.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R720B'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          HumiChange: 0.5
+      output:
+        fPort: 7
+        bytes: [0x01, 0x6F, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x00, 0x32]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R720B'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x6F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

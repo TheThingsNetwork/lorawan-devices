@@ -1,0 +1,25 @@
+name: GWF RCM-H200 Module for GWFCoder
+description: The GWFcoder radio module RCM -H200 from GWF MessSysteme eliminates the need to change meters for the migration of water and gas meters with GWFcoder to an LPWAN network. With simple and quick on-site installation via Plug & Play, no programming is required and is ready for immediate use with a waterproof housing (protection class IP68).
+hardwareVersions:
+  - version: '11'
+firmwareVersions:
+  - version: '1.3'
+    hardwareVersions:
+      - '11'
+    profiles:
+      EU863-870:
+        id: rcm-h200-868
+        lorawanCertified: false
+        codec: rcm-h200-codec
+      US902-928:
+        id: rcm-h200-915
+        lorawanCertified: false
+        codec: rcm-h200-codec
+battery:
+  replaceable: false
+  type: 1x A
+keyProvisioning:
+  - custom
+keySecurity: read protected
+photos:
+  main: rcm-h200.jpg

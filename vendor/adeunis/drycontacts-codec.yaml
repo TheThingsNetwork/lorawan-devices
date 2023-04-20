@@ -1,0 +1,22 @@
+uplinkDecoder:
+  fileName: drycontacts_lib.js
+
+  examples:
+    - description: 0x40 Dry Contacts 2 data
+      input:
+        fPort: 1
+        bytes: [0x40, 0xC0, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0xA5]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x40 Dry Contacts 2 data',
+              'status': { 'frameCounter': 6, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'timestamp': false },
+              'decodingInfo': 'true: ON/CLOSED, false: OFF/OPEN',
+              'channelA': { 'value': 1, 'currentState': true, 'previousFrameState': false },
+              'channelB': { 'value': 2, 'currentState': true, 'previousFrameState': false },
+              'channelC': { 'value': 3, 'currentState': false, 'previousFrameState': true },
+              'channelD': { 'value': 4, 'currentState': false, 'previousFrameState': true },
+            }
+        warnings: []
+        errors: []

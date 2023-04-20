@@ -1,0 +1,70 @@
+name: R718WAA - Wireless Water Leakage/Temperature/Humidity Sensor
+description: This device is used for water leakage detection and environmental temperature and humidity detection. When the water leakage sensor detects water leakage, it will send an alarm message to the gateway.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718waa-codec
+      AS923:
+        id: profile-as923
+        codec: r718waa-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: r718waa-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718waa-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718waa-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718waa-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718waa-codec
+
+sensors:
+  - temperature
+  - humidity
+  - water
+
+dimensions:
+  width: 93
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: ER14505 AA Lithium
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718WAA
+dataSheetURL: http://www.netvox.com.tw/um/R718WAA/R718WAAdatasheet.pdf
+
+photos:
+  main: photos/r718waa.jpg
