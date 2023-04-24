@@ -1,6 +1,11 @@
 function decodeUplink(input) {
     var bytes = input.bytes;
 
+     //Check if temperature Board byte is present
+     if((byte[2] & 0x7f) === 0) {
+      return {} //Return empty object 
+    }
+
     switch (input.fPort) {
       case 105:
         return {

@@ -1,6 +1,11 @@
 function decodeUplink(input) {
   var bytes = input.bytes;
 
+  //Check if the temperature byte is present
+  if ((bytes[2] & 0x7f) === 0) {
+    return {}; //Return an empty object if payload is absent
+  }
+
   switch (input.fPort) {
     case 103:
       return {
