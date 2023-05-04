@@ -1955,3 +1955,8 @@ vendors:
     logo: atim-logo.png
     social:
       linkedin: https://www.linkedin.com/company/atim-radiocommunications/
+
+  - id: dnt
+    name: dnt Innovation GmbH
+    website: https://www.dnt.de/
+    logo: dnt-logo.svg
