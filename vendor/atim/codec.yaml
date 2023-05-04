@@ -6,7 +6,3 @@ uplinkDecoder:
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
   fileName: decode.js
-
-# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
-downlinkDecoder:
-  fileName: decode.js
