@@ -338,13 +338,13 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER AG für Druckmesstechnik
+    name: KELLER Druckmesstechnik AG
     website: https://keller-druck.com/
     logo: keller-logo.svg
     vendorID: 222
-    description: KELLER AG, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
+    description: KELLER Pressure, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
     social:
-      linkedin: https://www.linkedin.com/company/keller-ag-f%C3%BCr-druckmesstechnik
+      linkedin: https://www.linkedin.com/company/keller-pressure
       github: KELLERAGfuerDruckmesstechnik
 
   - id: kerlink
@@ -433,6 +433,12 @@ vendors:
     logo: mcci.svg
     ouis:
       - 0002CC
+
+  - id: mcf88
+    name: mcf88 SRL
+    vendorID: 259
+    website: https://www.enginko.com
+    logo: mcf88_logo.svg
 
   - id: enginko
     name: enginko SRL
@@ -1469,7 +1475,12 @@ vendors:
   - id: ht-micron
     name: HT Micron Semicondutores S.A.
     vendorID: 804
-
+    website: http://www.htmicron.com.br/
+    logo: ht-micron_logo.png
+    social:
+      linkedin: https://linkedin.com/company/ht-micron-semicondutores-sa
+      facebook: https://www.facebook.com/htmicron
+      github: htmicron
   - id: university-of-wurzburg
     name: University of Wurzburg, Chair of Communication Networks
     vendorID: 806
@@ -1901,3 +1912,51 @@ vendors:
       linkedin: https://www.linkedin.com/company/rivercity-innovations/
       facebook: https://www.facebook.com/RivercityInnovations/
       twitter: RivercityInnov1
+
+  - id: restotracker
+    name: Restotracker
+    description: RestoTracker is a modern asset recovery  and tracking company, enabling companies to Know where your equipment is at all times, Recover stolen equipment, Not be the victim of theft
+    website: https://restotracker.com/
+    logo: logo.png
+
+  - id: twtg
+    name: TWTG
+    vendorID: 962
+    linkedin: https://www.linkedin.com/company/twtg
+    twitter: TWTG_io
+    github: TWTG-R-D-B-V
+
+  - id: elv
+    name: ELV Elektronik AG
+    website: https://de.elv.com/
+    logo: elv-logo.svg
+
+  - id: smartrural
+    name: SmartRural
+    website: https://smartrural.coop/
+    linkedin: https://www.linkedin.com/company/smartrural-coop/
+    twitter: SmartRuralCoop
+
+  - id: cital
+    name: Cital
+    website: https://www.cital.ch/
+    logo: cital-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/getcital/
+      twitter: getcital
+
+  - id: fludia
+    name: Fludia
+    website: https://www.fludia.com/
+
+  - id: atim
+    name: atim
+    website: https://www.atim.com/
+    logo: atim-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/atim-radiocommunications/
+
+  - id: dnt
+    name: dnt Innovation GmbH
+    website: https://www.dnt.de/
+    logo: dnt-logo.svg

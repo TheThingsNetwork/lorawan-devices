@@ -1,4 +1,6 @@
 endDevices:
+  - r211
+  - r309
   - r311a
   - r311b
   - r311ca
@@ -8,14 +10,26 @@ endDevices:
   - r311da
   - r311db
   - r311fa
+  - r311fa1
   - r311fb
   - r311fc
   - r311g
+  - r311k
   - r311la
   - r311w
   - r311wa
   - r312
   - r312a
+  - r31501
+  - r31502
+  - r31503
+  - r31504
+  - r31505
+  - r31506
+  - r31507
+  - r31508
+  - r31509
+  - r31510
   - r602a
   - r711
   - r711a
@@ -26,6 +40,8 @@ endDevices:
   - r718b2
   - r718ck
   - r718ck2
+  - r718cn
+  - r718cn2
   - r718ct
   - r718ct2
   - r718da
@@ -43,6 +59,7 @@ endDevices:
   - r718ia
   - r718ia2
   - r718ib2
+  - r718ijk
   - r718j
   - r718j2
   - r718ka
@@ -54,24 +71,42 @@ endDevices:
   - r718mbb
   - r718mbc
   - r718n1
+  - r718nl1
   - r718n3
+  - r718n360
+  - r718nl3
   - r718t
   - r718pa22
   - r718pe
   - r718q
   - r718qa
+  - r718t2
+  - r718ubb
+  - r718ubd
   - r718wa
+  - r718wa2
+  - r718waa
   - r718wb
+  - r718wb2
+  - r718wba
+  - r718va
   - r718x
+  - r718y
+  - r719a
   - r720a
+  - r720b
   - r720c
   - r720e
   - r720f
+  - r720g
+  - r720flt
   - r72615
   - r72615a
   - r72616
   - r72616a
   - r72716
+  - r730ck2
+  - r730ct2
   - r730da
   - r730db
   - r730mba
@@ -83,8 +118,12 @@ endDevices:
   - r831d
   - ra02a
   - ra02c
+  - ra07w
   - ra0715
   - ra0715y
   - ra0716
+  - ra10
+  - rb02b
+  - rb02c
   - rb02i
   - rb11e

@@ -107,44 +107,44 @@ downlinkEncoder:
 # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
 downlinkDecoder:
   fileName: tekzipark.js
-examples:
-  - description: Turn green
-    input:
-      fPort: 3
-      bytes: [0x47, 0x16, 0x18, 0xEB, 0x00, 0x00, 0x68, 0xAA]
-    output:
-      data:
-        suppress_baseline_offset: 0
-        radar_start_range: 4
-        fluctuations_count: 7
+  examples:
+    - description: Turn green
+      input:
+        fPort: 3
+        bytes: [0x47, 0x16, 0x18, 0xEB, 0x00, 0x00, 0x68, 0xAA]
+      output:
+        data:
+          suppress_baseline_offset: 0
+          radar_start_range: 4
+          fluctuations_count: 7
 
-        downlink_frequency: 0
-        axis_deflection: 0
-        debug_mode: 1
-        deflection_threshold_mag: 6
+          downlink_frequency: 0
+          axis_deflection: 0
+          debug_mode: 1
+          deflection_threshold_mag: 6
 
-        zero_neg_drop: 0
-        oversampling: 0
-        hw_acc_samples_no: 3
-        fluctuation_threshold_XY: 0
+          zero_neg_drop: 0
+          oversampling: 0
+          hw_acc_samples_no: 3
+          fluctuation_threshold_XY: 0
 
-        sleep_time: 7
-        reset_control: 0
-        mag_reboot: 1
-        fluctuation_delay_time: 3
+          sleep_time: 7
+          reset_control: 0
+          mag_reboot: 1
+          fluctuation_delay_time: 3
 
-        axis_fluctuations: 0
-        fluctuation_threshold_Z: 0
-        self_heal: 0
-        keepalive_period: 0
+          axis_fluctuations: 0
+          fluctuation_threshold_Z: 0
+          self_heal: 0
+          keepalive_period: 0
 
-        radar_scan_count: 0
-        obstruction_check: 0
-        reflection_threshold_radar: 0
+          radar_scan_count: 0
+          obstruction_check: 0
+          reflection_threshold_radar: 0
 
-        OI: 0
-        send_rssi: 1
-        beacons_scan_no: 5
-        ble_scan_window: 0
+          OI: 0
+          send_rssi: 1
+          beacons_scan_no: 5
+          ble_scan_window: 0
 
-        ble_scan_rssi: 170
+          ble_scan_rssi: 170

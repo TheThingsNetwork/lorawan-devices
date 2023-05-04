@@ -11,7 +11,7 @@ firmwareVersions:
   - # Firmware version
     version: '1.0'
     numeric: 1
-    # Corresponding hardware versions (optional)
+    # Corresponding hardware versions (optional)sensecap-profile.yaml
     hardwareVersions:
       - '1.0'
 
@@ -78,7 +78,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -40
     max: 85

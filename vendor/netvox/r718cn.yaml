@@ -1,0 +1,67 @@
+name: R718CN - Wireless Thermocouple Sensor - Type N
+description: This equipment is used to detect temperature of the object and medium which thermocouple is contacted. It uses SX1276 wireless communication module. Type N thermocouple (R718CN), and it will display the collected data in the gateway.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718cn-codec
+      AS923:
+        id: profile-as923
+        codec: r718cn-codec
+      US902-928:
+        id: profile-us915
+        codec: r718cn-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718cn-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718cn-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718cn-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718cn-codec
+
+sensors:
+  - temperature
+
+dimensions:
+  width: 88.19
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718CN
+dataSheetURL: http://www.netvox.com.tw/um/R718CN/R718CNdatasheet.pdf
+
+photos:
+  main: photos/r718cn.jpg

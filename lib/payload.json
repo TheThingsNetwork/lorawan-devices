@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schema.thethings.network/devicerepository/1/payload/schema",
+  "title": "LoRaWAN Device Repository Payload",
+  "description": "Payload definitions for the LoRaWAN Device Repository",
+  "definitions": {
+    "temperature": {
+      "type": "number",
+      "description": "Temperature (°C)",
+      "minimum": -273.15
+    },
+    "direction": {
+      "type": "number",
+      "description": "Direction (°)",
+      "minimum": 0,
+      "exclusiveMaximum": 360
+    },
+    "speed": {
+      "type": "number",
+      "description": "Speed (m/s)",
+      "minimum": 0
+    },
+    "depth": {
+      "type": "number",
+      "description": "Depth from the surface (cm)",
+      "minimum": 0
+    },
+    "pH": {
+      "type": "number",
+      "description": "pH level",
+      "minimum": 0,
+      "maximum": 14
+    },
+    "concentration": {
+      "type": "number",
+      "description": "Concentration (ppm)",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "illuminance": {
+      "type": "number",
+      "description": "Illuminance (lux)",
+      "minimum": 0
+    },
+    "percentage": {
+      "type": "number",
+      "description": "Percentage (%)",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time of the measurement (RFC3339)"
+        },
+        "soil": {
+          "type": "object",
+          "properties": {
+            "depth": {
+              "description": "Depth of the soil measurement (cm)",
+              "$ref": "#/definitions/depth"
+            },
+            "moisture": {
+              "description": "Soil moisture (%)",
+              "$ref": "#/definitions/percentage"
+            },
+            "temperature": {
+              "description": "Soil temperature (°C)",
+              "$ref": "#/definitions/temperature"
+            },
+            "ec": {
+              "description": "Soil electrical conductivity (dS/m)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 621
+            },
+            "pH": {
+              "description": "Soil pH level",
+              "$ref": "#/definitions/pH"
+            },
+            "n": {
+              "description": "Concentration of Nitrogen in the soil (ppm)",
+              "$ref": "#/definitions/concentration"
+            },
+            "p": {
+              "description": "Concentration of Phosphorus in the soil (ppm)",
+              "$ref": "#/definitions/concentration"
+            },
+            "k": {
+              "description": "Concentration of Potassium in the soil (ppm)",
+              "$ref": "#/definitions/concentration"
+            }
+          },
+          "additionalProperties": false
+        },
+        "air": {
+          "type": "object",
+          "properties": {
+            "temperature": {
+              "description": "Air temperature (°C)",
+              "$ref": "#/definitions/temperature"
+            },
+            "relativeHumidity": {
+              "description": "Relative humidity (%)",
+              "$ref": "#/definitions/percentage"
+            },
+            "pressure": {
+              "type": "number",
+              "description": "Atmospheric pressure (hPa)",
+              "minimum": 900,
+              "maximum": 1100
+            },
+            "co2": {
+              "description": "Concentration of CO2 in the air (ppm)",
+              "$ref": "#/definitions/concentration"
+            },
+            "lightIntensity": {
+              "description": "Light intensity (lux)",
+              "$ref": "#/definitions/illuminance"
+            }
+          },
+          "additionalProperties": false
+        },
+        "wind": {
+          "type": "object",
+          "properties": {
+            "speed": {
+              "description": "Wind speed (m/s)",
+              "$ref": "#/definitions/speed"
+            },
+            "direction": {
+              "description": "Wind direction (°)",
+              "$ref": "#/definitions/direction"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "uplinkPayload": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/measurement"
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/definitions/uplinkPayload"
+    }
+  ]
+}

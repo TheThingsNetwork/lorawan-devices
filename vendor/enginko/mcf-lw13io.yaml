@@ -1,5 +1,5 @@
 name: MCF-LW13IO
-description: The mcf88 MCF-LW13IO is a wireless actuator that consists of an Opto-isolated input and a relay output. The device transmits the status of its input and controls the output through the LoRaWAN® network. Can be used for industrial process control and home automation, water treatment, agriculture irrigation, and similar applications.
+description: The enginko MCF-LW13IO is a wireless actuator that consists of an Opto-isolated input and a relay output. The device transmits the status of its input and controls the output through the LoRaWAN® network. Can be used for industrial process control and home automation, water treatment, agriculture irrigation, and similar applications.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -70,8 +70,8 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mcf88.it/prodotto/mcf-lw13io/
-dataSheetURL: https://www.mcf88.it/wp-content/uploads/2020/07/MCF-LW13IO.pdf
+productURL: https://www.enginko.it/prodotto/mcf-lw13io/
+dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW13IO.pdf
 
 # Photos
 photos:

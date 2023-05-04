@@ -23,31 +23,31 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2100-codec
       US902-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2100-codec
       AU915-928:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2100-codec
       KR920-923:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2100-codec
       IN865-867:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2100-codec
       AS923:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2100-codec
       RU864-870:
         id: sensecap-profile
         lorawanCertified: true
-        codec: sensecap210x-codec
+        codec: sensecap2100-codec
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -66,7 +66,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -40
     max: 85

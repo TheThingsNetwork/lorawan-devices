@@ -1,0 +1,2 @@
+uplinkDecoder:
+  fileName: radio_bridge_packet_decoder.js
