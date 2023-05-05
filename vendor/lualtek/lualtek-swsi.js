@@ -77,8 +77,6 @@ function decodeDownlink(input) {
     data: {
       bytes: input.bytes,
       fPort: input.fPort
-    },
-    warnings: [],
-    errors: []
+    }
   };
 }
