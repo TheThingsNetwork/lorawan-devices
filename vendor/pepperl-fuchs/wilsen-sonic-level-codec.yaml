@@ -30,20 +30,7 @@ uplinkDecoder:
           temp: 22.7
         errors: []
         warnings: []
-    - description: Payload 1 contains proximity in mm, amplitude, battery status and temperature
-      input:
-        fPort: 1
-        bytes: [4, 11, 2, 6, 185, 3, 11, 7, 255, 6, 2, 1, 65, 185, 153, 154, 3, 81, 1, 36]
-      output:
-        data:
-          amplitude: 255
-          battery_vol: 3.6
-          payload: '040B0206B9030B07FF06020141B9999A03510124'
-          proxx_mm: 1721
-          temp: 23.2
-        errors: []
-        warnings: []
-    - description: Payload 2 contains proximity in CM, fill level, battery status, geo location and temperature
+    - description: Payload 2 contains proximity in cm, fill level, battery status, geo location and temperature
       input:
         fPort: 1
         bytes: [4, 11, 1, 0, 33, 3, 11, 6, 100, 6, 2, 1, 65, 200, 148, 125, 3, 81, 1, 38, 6, 80, 1, 2, 244, 0, 111, 6, 80, 2, 0, 129, 51, 109]
@@ -71,21 +58,6 @@ uplinkDecoder:
           payload: '040B0206B6030B063C06020141B5999A0351012406500102F4006F0650020081336D'
           proxx_mm: 1718
           temp: 22.7
-        errors: []
-        warnings: []
-    - description: Payload 2 contains proximity in mm, amplitude, battery status, geo location and temperature
-      input:
-        fPort: 1
-        bytes: [4, 11, 2, 6, 185, 3, 11, 7, 255, 6, 2, 1, 65, 185, 153, 154, 3, 81, 1, 36, 6, 80, 1, 2, 244, 0, 111, 6, 80, 2, 0, 129, 51, 109]
-      output:
-        data:
-          amplitude: 255
-          battery_vol: 3.6
-          latitude: 49.545327
-          longitude: 8.467309
-          payload: '040B0206B9030B07FF06020141B9999A0351012406500102F4006F0650020081336D'
-          proxx_mm: 1721
-          temp: 23.2
         errors: []
         warnings: []
     - description: Payload 3 contains serial number, battery status and counter of LoRa transmission, GPS position determination and ultra sonic measurments

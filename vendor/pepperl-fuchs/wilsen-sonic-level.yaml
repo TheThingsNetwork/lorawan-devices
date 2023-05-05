@@ -28,7 +28,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: wilsen-profile
         lorawanCertified: false
-        codec: wilsen-codec
+        codec: wilsen-sonic-level-codec
 
   - # Firmware version
     version: '2.3.10'
@@ -50,7 +50,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: wilsen-profile
         lorawanCertified: false
-        codec: wilsen-codec
+        codec: wilsen-sonic-level-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
