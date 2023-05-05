@@ -23,17 +23,17 @@ uplinkDecoder:
     - description: Device settings, data upload interval = 15 min
       input:
         fPort: 12
-        bytes: [1, 0, 0, 15, 0, 1]
+        bytes: [1, 0, 15, 0, 1]
       output:
         data:
           dataUploadInterval: 15
-    - description: High temperature threshold 40C, Low temperature threshold 10C, High humidity threshold 95%, Low humidity threshold 35%,
+    - description: High temperature threshold 40C, Low temperature threshold 10C, High humidity threshold 95%, Low humidity threshold 35%
       input:
         fPort: 13
         bytes: [1, 0, 40, 0, 10, 95, 35]
       output:
         data:
-          highTemperatureThreshold: 40
-          lowTemperatureThreshold: 10
-          highHumidityThreshold: 95
-          lowHumidityThreshold: 35
+          highTemperatureThreshold : 40
+          lowTemperatureThreshold : 10
+          highHumidityThreshold : 95
+          lowHumidityThreshold : 35
