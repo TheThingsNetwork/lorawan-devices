@@ -1,9 +1,9 @@
 function decodeUplink(input) {
   var bytes = input.bytes;
 
-   //Check if temperature Board byte is present
-   if((byte[2] & 0x7f) === 0) {
-    return {} //Return empty object 
+  // Check if temperature Board byte is present
+  if ((bytes[2] & 0x7f) === 0) {
+    return {}; // Return empty object
   }
 
   switch (input.fPort) {
@@ -19,12 +19,15 @@ function decodeUplink(input) {
           eco2: (bytes[5] << 8) | bytes[4],
           voc: (bytes[7] << 8) | bytes[6],
           iaq: (bytes[9] << 8) | bytes[8],
-          temperature: (bytes[10] & 0x7f) -32
-        }
-    };
-  default:
-    return {
-      errors: ['unknown FPort'],
-    };
+          temperature: (bytes[10] & 0x7f) - 32,
+        },
+      };
+    default:
+      return {
+        errors: ["unknown FPort"],
+      };
   }
 }
+
+
+

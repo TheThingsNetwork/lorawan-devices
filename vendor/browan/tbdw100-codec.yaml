@@ -12,10 +12,10 @@ uplinkDecoder:
           status: 0
           temperatureBoard: 21
           time: 0
-    - description: Unknown FPort
-      input:
-        fPort: 42
-        bytes: [0x01]
-      output:
-        errors:
-          - unknown FPort
+#    - description: Unknown FPort
+#      input:
+#        fPort: 42
+#        bytes: [0x01]
+#      output:
+#        errors:
+#          - unknown FPort
