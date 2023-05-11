@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: lse121.js
+  examples:
+    - description: Temperature
+      input:
+        fPort: 2
+        bytes: [0xCB, 0xF6, 0x0B, 0x0D, 0x03, 0x76, 0x01, 0x0A, 0xDD, 0x7F, 0xFF]
+      output:
+        data: { 'BatV': 3.062, 'TempC_DS18B20': 24.1, 'conduct_SOIL': '28200', 'temp_SOIL': 24.59, 'water_SOIL': 19.57 }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0xCB, 0xF6, 0x0B, 0x0D, 0x03, 0x76, 0x01, 0x0A, 0xDD, 0x7F, 0xFF]
+      output:
+        errors:
+          - unknown FPort

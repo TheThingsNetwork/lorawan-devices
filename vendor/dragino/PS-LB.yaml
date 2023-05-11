@@ -1,4 +1,4 @@
-name: LSE01
+name: PS-LB
 description: LoRaWAN Pressure Sensor
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
