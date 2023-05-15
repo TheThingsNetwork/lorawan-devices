@@ -1,0 +1,94 @@
+uplinkDecoder:
+  fileName: payload/rb02b.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xA6, 0x00, 0x64, 0x02, 0x20, 0x20, 0x07, 0x06, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RB02B'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200706'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xA6, 0x01, 0x24, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RB02B'
+          Volt: 3.6
+          Key_1: 1
+          Key_2: 0
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xA6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'RB02B'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xA6, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'RB02B'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+downlinkDecoder:
+  fileName: payload/rb02b.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xA6, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RB02B'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xA6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RB02B'
+
+downlinkEncoder:
+  fileName: payload/rb02b.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RB02B'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+      output:
+        fPort: 7
+        bytes: [0x01, 0xA6, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RB02B'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xA6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

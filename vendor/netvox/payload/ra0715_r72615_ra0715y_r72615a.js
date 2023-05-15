@@ -1,46 +1,55 @@
 function getCfgCmd(cfgcmd){
   var cfgcmdlist = {
-    1:   "ConfigReportReq",
-    129: "ConfigReportRsp",
-    2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp"
+    0x01: "ConfigReportReq",
+    0x81: "ConfigReportRsp",
+    0x02: "ReadConfigReportReq",
+    0x82: "ReadConfigReportRsp"
   };
   return cfgcmdlist[cfgcmd];
 }
 
 function getCmdToID(cmdtype){
   if (cmdtype == "ConfigReportReq")
-	  return 1;
+	  return 0x01;
   else if (cmdtype == "ConfigReportRsp")
-	  return 129;
+	  return 0x81;
   else if (cmdtype == "ReadConfigReportReq")
-	  return 2;
+	  return 0x02;
   else if (cmdtype == "ReadConfigReportRsp")
-	  return 130;
+	  return 0x82;
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	5:  "RA07Series",
-	9:  "R726Series",
-	13: "RA07**YSeries",
-	87: "R718PA",
-	88: "R718PB"
+	0x05: "RA07 Series",
+	0x09: "R726 Series",
+	0x0D: "RA07**Y Series",
+	0x52: "RA07A",
+	0x53: "R726A",
+	0x54: "R727A",
+	0x57: "R718PA",
+	0x58: "R718PB"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
-  if ((devName == "RA0715") || (devName == "RA07Series"))
-	  return 5;
-  else if ((devName == "R726Series") || (devName == "R72615") || (devName == "R72615A"))
-	  return 9;
-  else if ((devName == "RA0715Y") || (devName == "RA07**YSeries"))
-	  return 13;
+  if ((devName == "RA0715") || (devName == "RA07 Series"))
+	  return 0x05;
+  else if ((devName == "R726 Series") || (devName == "R72615") || (devName == "R72615A"))
+	  return 0x09;
+  else if ((devName == "RA0715Y") || (devName == "RA07**Y Series"))
+	  return 0x0D;
+  else if (devName == "RA07A")
+	  return 0x52;
+  else if (devName == "R726A")
+	  return 0x53;
+  else if (devName == "R727A")
+	  return 0x54;
   else if (devName == "R718PA")
-	  return 87;
+	  return 0x57;
   else if (devName == "R718PB")
-	  return 88;
+	  return 0x58;
 }
 
 function checkSensorExist(val){
@@ -88,56 +97,56 @@ function decodeUplink(input) {
 			data.Volt = input.bytes[3]/10;
 
 		switch (input.bytes[2]){
-			case 1:
-			case 2:
+			case 0x01:
+			case 0x02:
 				data.PM1_0 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				data.PM2_5 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
 				data.PM10 = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
 			break;
 			
-			case 3:
+			case 0x03:
 				data.um0_3 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				data.um0_5 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
 				data.um1_0 = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
 			break;
 			
-			case 4:
+			case 0x04:
 				data.um2_5 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				data.um5_0 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
 				data.um10 = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
 			break;
 			
-			case 5:
+			case 0x05:
 				data.O3 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.CO = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/10;
 				data.NO = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 6:
+			case 0x06:
 				data.NO2 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.SO2 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/10;
 				data.H2S = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 7:
+			case 0x07:
 				data.CO2 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.NH3 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/10;
 				data.Noise = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 8:
+			case 0x08:
 				data.PH = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/100;
 				data.TempPH = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
 				data.ORP = (retSensorVal3 == -1) ? 'NoSensor' : ((input.bytes[8] & 0x80) ? (0x10000 - retSensorVal3) * -1 : (retSensorVal3));
 			break;
 			
-			case 9:
+			case 0x09:
 				data.NTU = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.TempNTU = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
 				data.EC5SoildHumi = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/100;
 			break;
 			
-			case 10:
+			case 0x0A:
 				data.SoildHumi5TE = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/100;
 				data.SoildTemp5TE = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
 				data.WaterLevel = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
@@ -145,26 +154,38 @@ function decodeUplink(input) {
 				data.EC5TE = (retSensorVal == -1) ? 'NoSensor' : retSensorVal/10;
 			break;
 			
-			case 11:
+			case 0x0B:
 				data.TempLDO = (retSensorVal1 == -1) ? 'NoSensor' : ((input.bytes[4] & 0x80) ? (0x10000 - retSensorVal1)/100 * -1 : (retSensorVal1/100));
 				data.LDO_DO = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/100;
 				data.LDO_Sat = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 12:
+			case 0x0C:
 				data.Temperature = (retSensorVal1 == -1) ? 'NoSensor' : ((input.bytes[4] & 0x80) ? (0x10000 - retSensorVal1)/100 * -1 : (retSensorVal1/100));
 				data.Humidity = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/100;
 				data.WindSpeed = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/100;
 			break;
 			
-			case 13:
+			case 0x0D:
 				data.WindDirection = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				var retSensorVal = checkSensorExist((input.bytes[6]<<24) | (input.bytes[7]<<16) | (input.bytes[8]<<8) | input.bytes[9]);
 				data.Atomsphere = (retSensorVal == -1) ? 'NoSensor' : retSensorVal/100;
 			break;
 			
-			case 14:
+			case 0x0E:
 				data.VOC = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
+			break;
+			
+			case 0x0F:
+				data.Nitrogen = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
+				data.Phosphorus = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
+				data.Potassium = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
+			break;
+			
+			case 0x10:
+				data.Soil_VWC = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/100;
+				data.Soil_Temp = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
+				data.Soil_EC = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/1000;
 			break;
 		}
 		break;

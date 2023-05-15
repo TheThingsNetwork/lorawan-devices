@@ -1,0 +1,66 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: fm432p-1mn-decode.js
+  # Examples (optional)
+#   examples:
+#     - description: 32 knots from the North
+#       input:
+#         fPort: 1
+#         bytes: [0, 32]
+#       output:
+#         data:
+#           direction: 'N'
+#           speed: 32
+#       # Normalized output, uses the normalizeUplink function (optional)
+#       normalizedOutput:
+#         data:
+#           - wind:
+#               speed: 16.4608
+#               direction: 0
+#     - description: 42 knots from the East
+#       input:
+#         fPort: 1
+#         bytes: [1, 42]
+#       output:
+#         data:
+#           direction: 'E'
+#           speed: 42
+#     - description: Unknown FPort
+#       input:
+#         fPort: 42
+#         bytes: [1, 42]
+#       output:
+#         errors:
+#           - unknown FPort
+
+# # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         data:
+#           led: green
+#       output:
+#         bytes: [1]
+#         fPort: 2
+#     - description: Invalid color
+#       input:
+#         data:
+#           led: blue
+#       output:
+#         errors:
+#           - invalid LED color
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green
