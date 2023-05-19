@@ -1,0 +1,69 @@
+name: R718CN2 - Wireless 2-Gang Thermocouple Sensor - Type N
+description: This equipment is used to detect temperature of the object and medium which thermocouple is contacted.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718cn2-codec
+      AS923:
+        id: profile-as923
+        codec: r718cn2-codec
+      US902-928:
+        id: profile-us915
+        codec: r718cn2-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718cn2-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718cn2-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718cn2-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718cn2-codec
+
+sensors:
+  - temperature
+
+dimensions:
+  width: 89
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718CN2
+dataSheetURL: http://www.netvox.com.tw/um/R718CN2/R718CN2datasheet.pdf
+
+photos:
+  main: photos/r718cn2.jpg

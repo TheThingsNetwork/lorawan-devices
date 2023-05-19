@@ -1,6 +1,5 @@
 name: LSE01
-description: The Dragino S31-LB consists of a temperature and humidity and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
-
+description: The Dragino LSE01 consists of soil moisture, soil temperature, and soil conductivity sensors. It is suitable for smart agriculture applications. The measured data is sent to the LoRaWAN® network.
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
@@ -90,43 +89,46 @@ firmwareVersions:
 
   - version: '1.1.6'
     numeric: 3
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       EU433:
         id: eu433-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       US902-928:
         id: us915-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       KR920-923:
         id: kr920-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       AU915-928:
         id: au915-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       RU864-870:
         id: ru864-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       IN865-867:
         id: in865-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       CN470-510:
         id: cn470-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
       AS923:
         id: as923-profile
         lorawanCertified: true
-        codec: LSE01-114-codec
+        codec: lse01-114-codec
 
   - version: '1.2.1'
     numeric: 4
@@ -169,7 +171,7 @@ firmwareVersions:
         codec: LSE01-121-codec
 
   - version: 'LSE01 1.1.1 abp'
-    numeric: 6
+    numeric: 5
     profiles:
       EU863-870:
         id: eu868-a-abp-profile
@@ -207,6 +209,7 @@ firmwareVersions:
         id: ru864-a-abp-profile
         lorawanCertified: true
         codec: LSE01-codec
+
 
   - version: 'LSE01 1.1.4 abp'
     numeric: 6
@@ -299,8 +302,8 @@ sensors:
   - water
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dragino.com/products/temperature-humidity-sensor/item/256-lht65s.html
-dataSheetURL: https://www.dropbox.com/sh/g99v0fxcltn9r1y/AAC38MvKyWPlmhaaJifcC2l9a/LHT65N%20Temperature%20%26%20Humidity%20Sensor?dl=0&subfolder_nav_tracking=1
+productURL: http://www.dragino.com/products/lora-lorawan-end-node/item/159-lse01.html
+dataSheetURL: http://www.dragino.com/products/lora-lorawan-end-node/item/159-lse01.html
 sellerURLs:
   - name: 'Dragino'
     region:
@@ -309,4 +312,4 @@ sellerURLs:
 
 # Photos
 photos:
-  main: LSE01.jpg
+  main: lse01.jpg

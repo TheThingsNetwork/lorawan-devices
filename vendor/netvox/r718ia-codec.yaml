@@ -35,7 +35,7 @@ uplinkDecoder:
     - description: Read configure report response
       input:
         fPort: 7
-        bytes: [0x82, 0x20, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x82, 0x20, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x0A, 0x00, 0x00]
       output:
         data:
           Cmd: 'ReadConfigReportRsp'
@@ -43,6 +43,7 @@ uplinkDecoder:
           MinTime: 900
           MaxTime: 1800
           BatteryChange: 0.1
+          ADCRawChange: 10
 
 downlinkDecoder:
   fileName: payload/r718ia_r718ib_r730ia_r730ib.js
@@ -50,7 +51,7 @@ downlinkDecoder:
     - description: Configure report request
       input:
         fPort: 7
-        bytes: [0x01, 0x20, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x01, 0x20, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x0A, 0x00, 0x00]
       output:
         data:
           Cmd: 'ConfigReportReq'
@@ -58,6 +59,7 @@ downlinkDecoder:
           MinTime: 900
           MaxTime: 1800
           BatteryChange: 0.1
+          ADCRawChange: 10
 
     - description: Read configure report request
       input:
@@ -79,9 +81,10 @@ downlinkEncoder:
           MinTime: 900
           MaxTime: 1800
           BatteryChange: 0.1
+          ADCRawChange: 10
       output:
         fPort: 7
-        bytes: [0x01, 0x20, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x01, 0x20, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x0A, 0x00, 0x00]
 
     - description: Read configure report request
       input:
