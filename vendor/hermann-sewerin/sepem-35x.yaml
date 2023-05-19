@@ -1,0 +1,114 @@
+name: SePem 35x
+description: Stationary noise logger
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # You can add more firmware versions and use different profiles per version
+    version: '1.007'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: sepem-35x-profile-eu868
+        lorawanCertified: true
+        codec: sepem-35x-codec
+    US902-928:
+      id: sepem-35x-profile-us915
+      lorawanCertified: true
+      codec: sepem-35x-codec
+    AS923:
+      id: sepem-35x-profile-as923
+      lorawanCertified: true
+      codec: sepem-35x-codec
+    AU915-928:
+      id: sepem-35x-profile-au915
+      lorawanCertified: false
+      codec: sepem-35x-codec
+    KR920-923:
+      id: sepem-35x-profile-kr920
+      lorawanCertified: false
+      codec: sepem-35x-codec
+    IN865-867:
+      id: sepem-35x-profile-in865
+      lorawanCertified: false
+      codec: sepem-35x-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
+# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
+# water potential, water, weight, wifi ssid, wind direction, wind speed.
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  diameter: 54
+  height: 126
+
+# Weight in grams (optional)
+weight: 749
+
+# Battery information (optional)
+battery:
+  replaceable: false
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: +55
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1.00
+
+# IP rating (optional)
+ipCode: IP68
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.sewerin.com/en/products/water/noise-logger?L=5
+
+# Photos
+photos:
+  main: sepem_35x.jpg
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
