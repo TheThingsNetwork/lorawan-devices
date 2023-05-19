@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: lht65n_PIR.js
+  fileName: lht65n_pir.js
   examples:
     - description: Temperature
       input:

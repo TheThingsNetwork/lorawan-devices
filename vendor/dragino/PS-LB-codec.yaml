@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: PS-LB.js
+  fileName: ps-lb.js
   examples:
     - description: LoRaWAN Pressure Sensor
       input:

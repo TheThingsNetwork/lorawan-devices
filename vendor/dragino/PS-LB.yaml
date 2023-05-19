@@ -1,4 +1,4 @@
-name: PS-LB
+name: ps-lb
 description: LoRaWAN Pressure Sensor
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -13,79 +13,79 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       EU433:
         id: eu433-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       US902-928:
         id: us915-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       KR920-923:
         id: kr920-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       AU915-928:
         id: au915-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       RU864-870:
         id: ru864-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       IN865-867:
         id: in865-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       CN470-510:
         id: cn470-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       AS923:
         id: as923-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
 
-  - version: 'PS-LB abp'
+  - version: 'ps-lb abp'
     numeric: 2
     profiles:
       EU863-870:
         id: eu868-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       EU433:
         id: eu433-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       US902-928:
         id: us915-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       AU915-928:
         id: au915-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       AS923:
         id: as923-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       CN470-510:
         id: cn470-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       IN865-867:
         id: in865-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       KR920-923:
         id: kr920-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
       RU864-870:
         id: ru864-a-abp-profile
         lorawanCertified: true
-        codec: PS-LB-codec
+        codec: ps-lb-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -99,7 +99,7 @@ sensors:
 
 # Product and data sheet URLs (optional)
 productURL: https://www.dragino.com/products/lora-lorawan-end-node/item/258-ps-lb-na.html
-dataSheetURL: https://www.dropbox.com/sh/g99v0fxcltn9r1y/AADX1ytK-gR5N4mR1A1POgTsa/PS-LB-NA?dl=0&subfolder_nav_tracking=1
+dataSheetURL: https://www.dropbox.com/sh/g99v0fxcltn9r1y/AADX1ytK-gR5N4mR1A1POgTsa/ps-lb-NA?dl=0&subfolder_nav_tracking=1
 sellerURLs:
   - name: 'Dragino'
     region:
@@ -108,4 +108,4 @@ sellerURLs:
 
 # Photos
 photos:
-  main: PS-LB.jpg
+  main: ps-lb.jpg

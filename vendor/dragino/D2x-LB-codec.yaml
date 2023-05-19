@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: D2x-LB.js
+  fileName: d2x-lb.js
   examples:
     - description: Temperature
       input:

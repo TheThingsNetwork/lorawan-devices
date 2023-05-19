@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: S31-LB.js
+  fileName: s31-lb.js
   examples:
     - description: Temperature
       input:
