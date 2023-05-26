@@ -97,56 +97,56 @@ function decodeUplink(input) {
 			data.Volt = input.bytes[3]/10;
 
 		switch (input.bytes[2]){
-			case 1:
-			case 2:
+			case 0x01:
+			case 0x02:
 				data.PM1_0 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				data.PM2_5 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
 				data.PM10 = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
 			break;
 			
-			case 3:
+			case 0x03:
 				data.um0_3 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				data.um0_5 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
 				data.um1_0 = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
 			break;
 			
-			case 4:
+			case 0x04:
 				data.um2_5 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				data.um5_0 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
 				data.um10 = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
 			break;
 			
-			case 5:
+			case 0x05:
 				data.O3 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.CO = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/10;
 				data.NO = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 6:
+			case 0x06:
 				data.NO2 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.SO2 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/10;
 				data.H2S = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 7:
+			case 0x07:
 				data.CO2 = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.NH3 = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/10;
 				data.Noise = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 8:
+			case 0x08:
 				data.PH = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/100;
 				data.TempPH = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
 				data.ORP = (retSensorVal3 == -1) ? 'NoSensor' : ((input.bytes[8] & 0x80) ? (0x10000 - retSensorVal3) * -1 : (retSensorVal3));
 			break;
 			
-			case 9:
+			case 0x09:
 				data.NTU = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
 				data.TempNTU = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
 				data.EC5SoildHumi = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/100;
 			break;
 			
-			case 10:
+			case 0x0A:
 				data.SoildHumi5TE = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/100;
 				data.SoildTemp5TE = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
 				data.WaterLevel = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
@@ -154,26 +154,38 @@ function decodeUplink(input) {
 				data.EC5TE = (retSensorVal == -1) ? 'NoSensor' : retSensorVal/10;
 			break;
 			
-			case 11:
+			case 0x0B:
 				data.TempLDO = (retSensorVal1 == -1) ? 'NoSensor' : ((input.bytes[4] & 0x80) ? (0x10000 - retSensorVal1)/100 * -1 : (retSensorVal1/100));
 				data.LDO_DO = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/100;
 				data.LDO_Sat = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/10;
 			break;
 			
-			case 12:
+			case 0x0C:
 				data.Temperature = (retSensorVal1 == -1) ? 'NoSensor' : ((input.bytes[4] & 0x80) ? (0x10000 - retSensorVal1)/100 * -1 : (retSensorVal1/100));
 				data.Humidity = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2/100;
 				data.WindSpeed = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/100;
 			break;
 			
-			case 13:
+			case 0x0D:
 				data.WindDirection = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
 				var retSensorVal = checkSensorExist((input.bytes[6]<<24) | (input.bytes[7]<<16) | (input.bytes[8]<<8) | input.bytes[9]);
 				data.Atomsphere = (retSensorVal == -1) ? 'NoSensor' : retSensorVal/100;
 			break;
 			
-			case 14:
+			case 0x0E:
 				data.VOC = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/10;
+			break;
+			
+			case 0x0F:
+				data.Nitrogen = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1;
+				data.Phosphorus = (retSensorVal2 == -1) ? 'NoSensor' : retSensorVal2;
+				data.Potassium = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3;
+			break;
+			
+			case 0x10:
+				data.Soil_VWC = (retSensorVal1 == -1) ? 'NoSensor' : retSensorVal1/100;
+				data.Soil_Temp = (retSensorVal2 == -1) ? 'NoSensor' : ((input.bytes[6] & 0x80) ? (0x10000 - retSensorVal2)/100 * -1 : (retSensorVal2/100));
+				data.Soil_EC = (retSensorVal3 == -1) ? 'NoSensor' : retSensorVal3/1000;
 			break;
 		}
 		break;
