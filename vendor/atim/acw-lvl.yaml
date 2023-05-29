@@ -1,12 +1,10 @@
 name: acw-lvl
-description: Ultrasonic distance measurement Distance max , 5m
+description: Sensor intended for remote monitoring of the levels of many types of containers, such as dumpsters, agricultural silos or even liquid tanks. Makes it possible to significantly reduce the costs of garbage collection, for example.The ACW-LVL facilitates the wireless reporting of a distance thanks to its powerful ultrasonic sensor. The measurements are regularly transmitted on LoRaWAN networks and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

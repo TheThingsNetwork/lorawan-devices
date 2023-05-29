@@ -1,12 +1,10 @@
 name: acw-dinda
-description: 1 x analogue input 4-20 mA/0-10 V input gateway
+description: The DINDA facilitates the wireless supervision of an analog signal from a 4-20 mA or 0-10V sensor.  It takes care of controlling the power supply of the sensor in order to optimize the energy consumption, it is thus particularly adapted for the isolated sites without energy.  In this case, a small solar panel or a simple battery can power the sensor and the radio transmitter.The readings are regularly transmitted on LoRaWAN networks and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
