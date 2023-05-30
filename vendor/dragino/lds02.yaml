@@ -48,8 +48,49 @@ firmwareVersions:
         lorawanCertified: true
         codec: lds02-codec
 
-  - version: 'lds02 abp'
+  - version: '1.6'
     numeric: 2
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: lds02-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: lds02-codec
+
+  - version: 'lds02 abp'
+    numeric: 3
     profiles:
       EU863-870:
         id: eu868-a-abp-profile

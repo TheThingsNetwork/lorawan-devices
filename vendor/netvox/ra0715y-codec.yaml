@@ -7,7 +7,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x00, 0x82, 0x04, 0x20, 0x20, 0x11, 0x05, 0x00, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           SWver: 13
           HWver: 4
           Datecode: '20201105'
@@ -18,7 +18,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x01, 0x78, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           PM1_0: 100
           PM2_5: 200
@@ -30,7 +30,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x02, 0x78, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           PM1_0: 100
           PM2_5: 200
@@ -42,7 +42,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x03, 0x78, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           um0_3: 100
           um0_5: 200
@@ -54,7 +54,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x04, 0x78, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           um2_5: 100
           um5_0: 200
@@ -66,7 +66,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x05, 0x78, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           O3: 10
           CO: 20
@@ -78,7 +78,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x06, 0x78, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           NO2: 10
           SO2: 20
@@ -90,7 +90,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x07, 0x78, 0x13, 0x88, 0xFF, 0xFF, 0xFF, 0xFF, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           CO2: 500
           NH3: 'NoSensor'
@@ -102,7 +102,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x08, 0x78, 0x03, 0xE8, 0xFF, 0xFF, 0xFF, 0xF6, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           PH: 10
           TempPH: 'NoSensor'
@@ -114,7 +114,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x09, 0x78, 0x03, 0xE8, 0xFC, 0xE8, 0x03, 0xE8, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           NTU: 100
           TempNTU: -7.92
@@ -126,7 +126,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x0A, 0x78, 0x03, 0xE8, 0xFF, 0x30, 0xFF, 0xFF, 0xFF]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           SoildHumi5TE: 10
           SoildTemp5TE: -2.08
@@ -139,7 +139,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x0B, 0x78, 0xF8, 0x30, 0x03, 0xE8, 0x03, 0xE8, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           TempLDO: -20
           LDO_DO: 10
@@ -151,7 +151,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x0C, 0x78, 0xF8, 0x30, 0x03, 0xE8, 0xFF, 0xFF, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           Temperature: -20
           Humidity: 10
@@ -163,7 +163,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x0D, 0x78, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x99, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           WindDirection: 10
           Atomsphere: 1.53
@@ -174,7 +174,7 @@ uplinkDecoder:
         bytes: [0x01, 0x0D, 0x0E, 0x78, 0x03, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00]
       output:
         data:
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Volt: 12
           VOC: 90
 
@@ -185,7 +185,7 @@ uplinkDecoder:
       output:
         data:
           Cmd: 'ConfigReportRsp'
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           Status: 'Success'
 
     - description: Read configure report response
@@ -195,7 +195,7 @@ uplinkDecoder:
       output:
         data:
           Cmd: 'ReadConfigReportRsp'
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           MinTime: 900
           MaxTime: 1800
 
@@ -209,7 +209,7 @@ downlinkDecoder:
       output:
         data:
           Cmd: 'ConfigReportReq'
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           MinTime: 900
           MaxTime: 1800
 
@@ -220,7 +220,7 @@ downlinkDecoder:
       output:
         data:
           Cmd: 'ReadConfigReportReq'
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
 
 downlinkEncoder:
   fileName: payload/ra0715_r72615_ra0715y_r72615a.js
@@ -229,7 +229,7 @@ downlinkEncoder:
       input:
         data:
           Cmd: 'ConfigReportReq'
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
           MinTime: 900
           MaxTime: 1800
       output:
@@ -240,7 +240,7 @@ downlinkEncoder:
       input:
         data:
           Cmd: 'ReadConfigReportReq'
-          Device: 'RA07**YSeries'
+          Device: 'RA07**Y Series'
       output:
         fPort: 7
         bytes: [0x02, 0x0D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

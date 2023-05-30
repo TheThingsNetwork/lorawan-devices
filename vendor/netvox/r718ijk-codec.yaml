@@ -1,0 +1,102 @@
+uplinkDecoder:
+  fileName: payload/r718ijk.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x5C, 0x00, 0x64, 0x0B, 0x20, 0x20, 0x04, 0x24, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718IJK'
+          SWver: 10
+          HWver: 11
+          Datecode: '20200424'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x5C, 0x01, 0x1E, 0x01, 0x64, 0x1A, 0x01, 0xFA, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718IJK'
+          Volt: 3
+          Status: 1
+          Current: 100
+          ADCRaw: 6657
+          FineCurrent: 25
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x5C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718IJK'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x5C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x0A, 0x64, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718IJK'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          ADCRawChange: 10
+          CurrentChange: 100
+
+downlinkDecoder:
+  fileName: payload/r718ijk.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x5C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x0A, 0x64, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718IJK'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          ADCRawChange: 10
+          CurrentChange: 100
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x5C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718IJK'
+
+downlinkEncoder:
+  fileName: payload/r718ijk.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718IJK'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          ADCRawChange: 10
+          CurrentChange: 100
+      output:
+        fPort: 7
+        bytes: [0x01, 0x5C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x0A, 0x64, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718IJK'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x5C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

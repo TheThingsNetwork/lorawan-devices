@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: trackerd.js
+  examples:
+    - description: Temperature
+      input:
+        fPort: 2
+        bytes: [0x01, 0x5A, 0x70, 0x66, 0x06, 0xCF, 0x3C, 0xF8, 0x0F, 0xA2, 0x30, 0x01, 0xAE, 0x00, 0xDA]
+      output:
+        data: { 'BatV': 3.062, 'Bat_status': 3, 'Ext_sensor': 'Temperature Sensor', 'Hum_SHT': 88.6, 'TempC_DS': 27.81, 'TempC_SHT': 28.29 }
+
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01, 0x5A, 0x70, 0x66, 0x06, 0xCF, 0x3C, 0xF8, 0x0F, 0xA2, 0x30, 0x01, 0xAE, 0x00, 0xDA]
+      output:
+        errors:
+          - unknown FPort

@@ -1,0 +1,69 @@
+name: R720G - Wireless GPS Tracker with tilt angle
+description: R720G is a compact GPS tracking device with built-in three-axis acceleration sensor. And transmits the detected data to other devices through the wireless network for display, which adopts the SX1276 wireless communication module.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r720g-codec
+      AS923:
+        id: profile-as923
+        codec: r720g-codec
+      US902-928:
+        id: profile-us915
+        codec: r720g-codec
+      AU915-928:
+        id: profile-au915
+        codec: r720g-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r720g-codec
+      IN865-867:
+        id: profile-in865
+        codec: r720g-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r720g-codec
+
+sensors:
+  - gps
+
+dimensions:
+  width: 65
+  length: 88
+  height: 19
+
+battery:
+  replaceable: true
+  type: 2x3.6V ER14505 lithium batteries
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R720G
+dataSheetURL: http://www.netvox.com.tw/um/R720G/R720Gdatasheet.pdf
+
+photos:
+  main: photos/r720g.jpg
