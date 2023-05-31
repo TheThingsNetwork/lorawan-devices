@@ -32,4 +32,5 @@ downlinkDecoder:
         bytes: [01]
       output:
         data:
-          switchValue: 1
+          bytes: [01]
+          fPort: 1
