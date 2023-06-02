@@ -178,6 +178,30 @@ uplinkDecoder:
           Volt: 9
           VOC: 90
 
+    - description: Status report - 15
+      input:
+        fPort: 6
+        bytes: [0x01, 0x09, 0x0F, 0x5A, 0x03, 0x84, 0x02, 0x08, 0x02, 0x9A, 0x00]
+      output:
+        data:
+          Device: 'R726 Series'
+          Volt: 9
+          Nitrogen: 900
+          Phosphorus: 520
+          Potassium: 666
+
+    - description: Status report - 16
+      input:
+        fPort: 6
+        bytes: [0x01, 0x09, 0x10, 0x5A, 0x03, 0x84, 0x09, 0xD9, 0x02, 0x9A, 0x00]
+      output:
+        data:
+          Device: 'R726 Series'
+          Volt: 9
+          Soil_VWC: 9
+          Soil_Temp: 25.21
+          Soil_EC: 0.666
+
     - description: Configure report response
       input:
         fPort: 7
