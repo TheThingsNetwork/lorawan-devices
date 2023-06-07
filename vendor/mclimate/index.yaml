@@ -4,3 +4,4 @@ endDevices:
   - flood-sensor
   - ht-sensor
   - co2-sensor
+  - wireless-thermostat
