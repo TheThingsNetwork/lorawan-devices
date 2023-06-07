@@ -1,34 +1,34 @@
 function getCfgCmd(cfgcmd){
 	var cfgcmdlist = {
-	  1:   "ConfigReportReq",
-	  129: "ConfigReportRsp",
-	  2:   "ReadConfigReportReq",
-	  130: "ReadConfigReportRsp",
-	  3:   "SetMeasureTypeReq",
-	  131: "SetMeasureTypeRsp",
-	  4:   "GetMeasureTypeReq",
-	  132: "GetMeasureTypeRsp"
+	  0x01:   "ConfigReportReq",
+	  0x81: "ConfigReportRsp",
+	  0x02:   "ReadConfigReportReq",
+	  0x82: "ReadConfigReportRsp",
+	  0x03:   "SetMeasureTypeReq",
+	  0x83: "SetMeasureTypeRsp",
+	  0x04:   "GetMeasureTypeReq",
+	  0x84: "GetMeasureTypeRsp"
 	};
 	return cfgcmdlist[cfgcmd];
 }
   
 function getCmdToID(cmdtype){
 	if (cmdtype == "ConfigReportReq")
-		return 1;
+		return 0x01;
 	else if (cmdtype == "ConfigReportRsp")
-		return 129;
+		return 0x81;
 	else if (cmdtype == "ReadConfigReportReq")
-		return 2;
+		return 0x02;
 	else if (cmdtype == "ReadConfigReportRsp")
-		return 130;
+		return 0x82;
 	else if (cmdtype == "SetMeasureTypeReq")
-		return 3;
+		return 0x03;
 	else if (cmdtype == "SetMeasureTypeRsp")
-		return 131;
+		return 0x83;
 	else if (cmdtype == "GetMeasureTypeReq")
-		return 4;
+		return 0x04;
 	else if (cmdtype == "GetMeasureTypeRsp")
-		return 132;
+		return 0x84;
 }
 
 function getMeasureType(type){
@@ -51,14 +51,16 @@ function getTypeID(id){
 
 function getDeviceName(dev){
 	var deviceName = {
-	  155: "R718PA22"
+	  0x9B: "R718PA22",
+	  0xAE: "R726A22"
 	};
 	return deviceName[dev];
 }
   
 function getDeviceID(devName){
 	var deviceName = {
-	  "R718PA22": 155
+	  "R718PA22": 0x9B,
+	  "R726A22": 0xAE
 	};
 	return deviceName[devName];
 }

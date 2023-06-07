@@ -1,0 +1,110 @@
+name: ELV LoRaWAN® Energy Sensing Interface
+description: The ELV LoRaWAN® Energy Meter Sensor Interface ELV-LW-ESI kit is an interface module that, in conjunction with a radio module (included in the kit), records the energy consumption directly on the electricity or gas meter and sends the determined data via LoRaWAN®. The flexible meter reading can be implemented conveniently  for many of the common electricity and gas consumption meters. Various sensors can be used to read out the meters, e.g. electricity meters with IEC or LED interface, Ferraris or gas meters. The sensors are available separately and can therefore be individually adapted to the application. The ELV-LW-ESI kit is continuously supplied via a USB-C socket and therefore does not require a battery change.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.3'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        #vendorID: elv
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: trx1-profile
+        lorawanCertified: true
+        codec: elv-lw-esi-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - energy
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 29.3
+  length: 33
+  height: 91.6
+
+# Weight in grams (optional)
+weight: 43
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 5
+    max: 35
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+#ipCode: IP64
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://de.elv.com/
+dataSheet: elv-lw-esi-manual.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'ELVshop'
+    region:
+      - European Union
+    url: https://de.elv.com/elv-bausatz-lorawan-energiezaehler-sensor-schnittstelle-elv-lw-esi-157439?fs=2950218405&c=1026
+msrp:
+  EUR: 39.95
+  #USD: 120
+
+# Photos
+photos:
+  main: elv-lw-esi.jpg
+  other:
+    - elv-lw-esi-sensor.jpg
+# Youtube or Vimeo Video (optional)
+#videos:
+#  main: https://www.youtube.com/watch?v=JHzxcD2oEn8

@@ -1,0 +1,34 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-ats.js
+  # Examples (optional)
+  examples:
+    - description: Positon Data Message
+      input:
+        fPort: 10
+        bytes: [0xC3, 0x22, 0x80, 0x6E, 0x2C, 0x03, 0xC7, 0xD2, 0x72, 0x00, 0x00, 0x0A, 0x00, 0x18, 0x0D, 0x05, 0x04]
+      output:
+        data:
+          gnss:
+            altitude: 10
+            hdop: 0.96
+            latitude: 53.24352
+            longitude: 7.525063
+            ttf: 26
+          gnss_info: 'Data_DD'
+          qos_state: 'Almost full'
+          reason: 'Cycle'
+          voltage: 4.06
+    - description: Heartbeat Message
+      input:
+        fPort: 10
+        bytes: [0xC3, 0x01, 0x00, 0x00, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x77, 0x0F]
+      output:
+        data:
+          average_ttf: 30
+          false_activations: 119
+          gps_activations: 11
+          gps_timeouts: 0
+          reason: 'Heartbeat'
+          voltage: 4.06

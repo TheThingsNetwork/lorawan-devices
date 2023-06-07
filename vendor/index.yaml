@@ -567,6 +567,7 @@ vendors:
   - id: orbiwise
     name: OrbiWise
     vendorID: 309
+    logo: orbiwise.png
 
   - id: oresundskraft
     name: Oresundskraft AB
@@ -1930,3 +1931,33 @@ vendors:
     name: ELV Elektronik AG
     website: https://de.elv.com/
     logo: elv-logo.svg
+
+  - id: smartrural
+    name: SmartRural
+    website: https://smartrural.coop/
+    linkedin: https://www.linkedin.com/company/smartrural-coop/
+    twitter: SmartRuralCoop
+
+  - id: cital
+    name: Cital
+    website: https://www.cital.ch/
+    logo: cital-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/getcital/
+      twitter: getcital
+
+  - id: fludia
+    name: Fludia
+    website: https://www.fludia.com/
+
+  - id: atim
+    name: atim
+    website: https://www.atim.com/
+    logo: atim-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/atim-radiocommunications/
+
+  - id: dnt
+    name: dnt Innovation GmbH
+    website: https://www.dnt.de/
+    logo: dnt-logo.svg
