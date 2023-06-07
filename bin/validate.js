@@ -5,7 +5,7 @@ const yargs = require('yargs');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const sizeOf = require('image-size');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
@@ -68,9 +68,11 @@ async function requireDimensions(path) {
   });
 }
 
-function validatePayloadCodecs(vendorId, payloadEncoding) {
-  var runs = [];
-  var promises = [];
+
+async function validatePayloadCodecs(vendorId, payloadEncoding) {
+  const runs = [];
+  const promises = [];
+
 
   [
     { def: payloadEncoding.uplinkDecoder, routine: 'decodeUplink' },
@@ -113,38 +115,72 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     }
   });
 
-  runs.forEach((r) => {
+
+  for (let index = 0; index < runs.length; index++) {
+    const r = runs[index];
     promises.push(
       new Promise((resolve, reject) => {
-        exec(
-          `bin/runscript -codec-path "${r.fileName}" -routine ${r.routine} -input '${JSON.stringify(r.input)}'`,
-          (err, stdout, stderr) => {
-            if (err) {
-              reject(err);
-            } else if (stderr) {
-              reject(stderr);
-            } else {
-              const expected = r.output;
-              let actual = JSON.parse(stdout);
-              if (r.transformOutput) {
-                actual = r.transformOutput(actual);
-              }
-              if (isEqual(expected, actual)) {
-                console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
-                resolve();
+        setTimeout(async () => {
+          try {
+            const childProcess = spawn('bin/runscript', [
+              '-codec-path',
+              r.fileName,
+              '-routine',
+              r.routine,
+              '-input',
+              JSON.stringify(r.input),
+            ]);
+
+
+            let stdout = '';
+            let stderr = '';
+
+
+            childProcess.stdout.on('data', (data) => {
+              stdout += data.toString();
+            });
+
+
+            childProcess.stderr.on('data', (data) => {
+              stderr += data.toString();
+            });
+
+
+            childProcess.on('error', (error) => {
+              reject(error);
+            });
+
+
+            childProcess.on('close', (code) => {
+              if (code !== 0) {
+                reject(`Process exited with code ${code}\n${stderr}`);
               } else {
-                reject(
-                  `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
-                    expected
-                  )}`
-                );
+                const expected = r.output;
+                let actual = JSON.parse(stdout);
+                if (r.transformOutput) {
+                  actual = r.transformOutput(actual);
+                }
+                if (isEqual(expected, actual)) {
+                  console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
+                  resolve();
+                } else {
+                  reject(
+                    `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
+                      expected
+                    )}`
+                  );
+                }
               }
-            }
+            });
+          } catch (error) {
+            reject(error);
           }
-        );
+        }, index * 1000); //slow the process 1 second
       })
     );
-  });
+  }
+
+
   return Promise.all(promises);
 }
 
@@ -167,11 +203,16 @@ function validateImageExtension(filename) {
 function requireImageDecode(fileName) {
   // Test https://golang.org/pkg/image/png/#Decode and https://golang.org/pkg/image/jpeg/#Decode are possible
   return new Promise((resolve, reject) => {
-    exec(`bin/validate-image ${fileName}`, (err) => {
-      if (err) {
-        reject(err);
+    const childProcess = spawn('bin/validate-image', [fileName]);
+    childProcess.on('error', (error) => {
+      reject(error);
+    });
+    childProcess.on('close', (code) => {
+      if (code !== 0) {
+        reject(`Process exited with code ${code}`);
+      } else {
+        resolve();
       }
-      resolve();
     });
   });
 }
