@@ -1,12 +1,10 @@
 name: acw-thx
-description: Temperature + Humidity sensor
+description: The THX facilitates the monitoring of comfort and energy efficiency indicators in your rooms and buildings thanks to its temperature and humidity sensors. Measurements are regularly transmitted to a local gateway or via the LoRaWAN networks. The configuration is done from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
