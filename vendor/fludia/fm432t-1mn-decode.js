@@ -2,7 +2,11 @@ function decodeUplink(input) {
     var decoded = {}
     decoded.temp_list = decode_temp_list(toHexString(input.bytes))
     if(decoded.temp_list.length==20){
-        return decoded
+        return {
+            data:{
+                temperature: decoded.temp_list           
+            }
+        }
     }
     else{
         msg = "The payload has the wrong size !"
