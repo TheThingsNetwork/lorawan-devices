@@ -1,0 +1,16 @@
+uplinkDecoder:
+  fileName: wireless-thermostat.js
+  examples:
+    - description: Periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x01, 0x02, 0x67, 0x98, 0x0C, 0x30, 0x1B, 0x00, 0x02, 0x91, 0x00]
+      output:
+        data:
+          sensorTemperature: 21.5
+          relativeHumidity: 59.38
+          batteryVoltage: 3.12
+          targetTemperature: 27
+          powerSourceStatus: 0
+          lux: 657
+          pir: false
