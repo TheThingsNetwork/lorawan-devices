@@ -1,0 +1,50 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-lw-mob.js
+  # Examples (optional)
+  examples:
+    - description: acceleration data trough short button pressed
+      input:
+        fPort: 10
+        bytes: [0x6c, 0x02, 0x09, 0x05, 0x14]
+      output:
+        data:
+          Accelerated: true
+          Angle: 20
+          Supply_Voltage: 2.88
+          TX_Reason: 'Short App Button Pressed'
+          Tilt_Area_0: false
+          Tilt_Area_1: true
+          Tilt_Area_2: false
+          frame_type: 'Acceleration_Data'
+    - description: cyclic acceleration data (Tilt_Area_1)
+      input:
+        fPort: 10
+        bytes: [0x6c, 0x01, 0x02, 0x05, 0x14, 0x00, 0x01]
+      output:
+        data:
+          Accelerated: true
+          Activation_count: 1
+          Angle: 20
+          Supply_Voltage: 2.88
+          TX_Reason: 'Cyclic Timer'
+          Tilt_Area_0: false
+          Tilt_Area_1: true
+          Tilt_Area_2: false
+          frame_type: 'Device_State'
+    - description: cyclic acceleration data (Tilt_Area_2)
+      input:
+        fPort: 10
+        bytes: [0x6c, 0x01, 0x02, 0x09, 0x14, 0x00, 0x01]
+      output:
+        data:
+          Accelerated: true
+          Activation_count: 1
+          Angle: 20
+          Supply_Voltage: 2.88
+          TX_Reason: 'Cyclic Timer'
+          Tilt_Area_0: false
+          Tilt_Area_1: false
+          Tilt_Area_2: true
+          frame_type: 'Device_State'
