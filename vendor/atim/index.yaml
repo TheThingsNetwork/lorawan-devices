@@ -22,8 +22,6 @@ endDevices:
 
   - acw-dinda
 
-  - acw-dinrsm
-
   - acw-dind21
 
   - acw-dind44
@@ -33,8 +31,6 @@ endDevices:
   - acw-dind80
 
   - acw-dind160
-
-  - acw-dinrs
 
   - acw-pir360
 
