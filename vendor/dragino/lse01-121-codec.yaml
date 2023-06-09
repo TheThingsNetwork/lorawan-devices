@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: lse121.js
+  fileName: lse01-121.js
   examples:
     - description: Temperature
       input:
