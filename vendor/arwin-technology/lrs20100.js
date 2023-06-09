@@ -46,7 +46,7 @@ function decodeUplink(input) {
         case 1:
           return {
             data: {
-              dataUploadInterval: hex2dec(input.bytes[2]<<8|input.bytes[3]),
+              dataUploadInterval: hex2dec(input.bytes[1]<<8|input.bytes[2]),
             }
           };
         default:
