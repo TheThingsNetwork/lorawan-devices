@@ -1,26 +1,26 @@
 /*
  * ELV modular system Payload-Parser
  *
- * Version: V1.5.3
+ * Version: V1.6.0
  *
  * */
 
 function decodeUplink(input) {
   var data = input.bytes;
   var valid = true;
- 
+
   if (typeof Decoder === "function") {
     data = Decoder(data, input.fPort);
   }
- 
+
   if (typeof Converter === "function") {
     data = Converter(data, input.fPort);
   }
- 
+
   if (typeof Validator === "function") {
     valid = Validator(data, input.fPort);
   }
- 
+
   if (valid) {
     return {
       data: data
@@ -33,7 +33,14 @@ function decodeUplink(input) {
   }
 }
 
-var tx_reason = ["Timer_Event", "User_Button", "Input_Event", "Unused_Reason", "App_Cycle_Event", "Timeout_Event"];
+var tx_reason = [
+                  "Timer_Event",        // 0x00
+                  "User_Button_Event",  // 0x01
+                  "Input_Event",        // 0x02
+                  "FUOTA_Event",        // 0x03
+                  "Cyclic_Event",       // 0x04
+                  "Timeout_Event"       // 0x05
+                ];
 
 /*
  * @brief   Receives the bytes transmitted from a device of the ELV modular system
@@ -45,16 +52,23 @@ function Decoder(bytes, port) {
   var decoded = {};   // Container with the decoded output
   var index = 5;      // Index variable for the application data in the bytes[] array
   var Temp_Value = 0; // Variable for temporarily calculated values
-  
+
   if (port === 10) {  // The default port for app data
     if (bytes.length >= 5) {    // Minimum 5 Bytes for Header
-      
+
       // Collecting header data
-      decoded.TX_Reason = tx_reason[(bytes[0] & 0x0F)];   // Read out the reason for sending 
+      if (0xff === bytes[0]) {                        //
+        decoded.TX_Reason = "UNDEFINED_EVENT";        //
+      } else if (tx_reason.length <= bytes[0]) {      // Verify that the TX_Reason value is within the available array elements
+        decoded.TX_Reason = "UNKNOWN_EVENT --> Please update your payload parser";  // The TX_Reason value is not within the available array elements.
+      } else {                                        // The TX_Reason value is within the available array elements.
+        decoded.TX_Reason = tx_reason[bytes[0]];      // Read out the reason for sending
+      }
+
       decoded.Supply_Voltage = (bytes[3] << 8) | bytes[4];
-      
+
       if (bytes.length >= 6) {    // There is not only the header data
-        // Loop for collecting the application data 
+        // Loop for collecting the application data
         do {
           switch (bytes[index]) {
             case 0x00:  // Binary Input
@@ -138,7 +152,7 @@ function Decoder(bytes, port) {
               Temp_Value = (bytes[index] * 256);
               index++;    // Set index to low byte data value
               Temp_Value += bytes[index];
-              
+
               switch (Temp_Value) {
                 case 0x8000:    // Special value
                   decoded.Temperature_Sensor = "Unknown";
@@ -154,7 +168,7 @@ function Decoder(bytes, port) {
                   if (Temp_Value > 0x7fff) {
                     Temp_Value -= 0x10000;
                   }
-                  
+
                   Temp_Value *= 0.1;	// Adjust the temperature resolution
                   decoded.Temperature_Sensor = String(Temp_Value.toFixed(1));
                   break;
@@ -168,7 +182,7 @@ function Decoder(bytes, port) {
               Temp_Value = (bytes[index] * 256);
               index++;    // Set index to low byte data value
               Temp_Value += bytes[index];
-              
+
               switch (Temp_Value) {
                 case 0x8000:    // Special value
                   decoded.TH_Sensor_Temperature = "Unknown";
@@ -188,7 +202,7 @@ function Decoder(bytes, port) {
                   decoded.TH_Sensor_Temperature = String(Temp_Value.toFixed(1));
                   break;
               }
-              
+
               index++;      // Set index to relative humidity data value
               switch (bytes[index]) {
                 case 0xff:  // Special value
@@ -222,7 +236,7 @@ function Decoder(bytes, port) {
               Temp_Value = (bytes[index] * 256);
               index++;    // Set index to low byte data value
               Temp_Value += bytes[index];
-              
+
               switch (Temp_Value) {
                 case 0x3fff:    // Special value
                   decoded.TimeValue_seconds = "Unknown";
@@ -261,7 +275,7 @@ function Decoder(bytes, port) {
               Temp_Value = (bytes[index] * 256);
               index++;    // Set index to low byte data value
               Temp_Value += bytes[index];
-              
+
               decoded.Distance = Temp_Value;
               break;
             }
@@ -300,7 +314,7 @@ function Decoder(bytes, port) {
               Temp_Value = (bytes[index] * 256);
               index++;    // Set index to low byte data value
               Temp_Value += bytes[index];
-              
+
               switch (Temp_Value) {
                 case 0x7fff:    // Special value
                   decoded.Concentration = "Unknown";
@@ -347,13 +361,13 @@ function Decoder(bytes, port) {
               Temp_Value += (bytes[index] * 256);
               index++;    // Set index to low byte data value
               Temp_Value += bytes[index];
-              
+
               switch (Temp_Value) {
                 case 0xffffff:    // Special value
                   decoded.Brightness = "Overflow";
                   break;
-                default:        // Temperature value
-                  Temp_Value *= 0.01;	// Adjust the temperature resolution
+                default:        // Brightness value
+                  Temp_Value *= 0.01;	// Adjust the Brightness resolution
                   decoded.Brightness = String(Temp_Value.toFixed(2));
                   break;
               }
@@ -362,49 +376,49 @@ function Decoder(bytes, port) {
             case 0x0C:  // Acceleration Data
             {
               index++;  // Set index to reason for sending data value
-              
+
               if (bytes[index] & 0x80) {
                 decoded.In_Motion = "True";
               }
               else {
                 decoded.In_Motion = "False";
               }
-              
+
               if (bytes[index] & 0x08) {
                 decoded.Tilt_Area_2 = "True";
               }
               else {
                 decoded.Tilt_Area_2= "False";
               }
-              
+
               if (bytes[index] & 0x04) {
                 decoded.Tilt_Area_1 = "True";
               }
               else {
                 decoded.Tilt_Area_1 = "False";
               }
-              
+
               if (bytes[index] & 0x02) {
                 decoded.Tilt_Area_0 = "True";
               }
               else {
                 decoded.Tilt_Area_0 = "False";
               }
-              
+
               if (bytes[index] & 0x01) {
                 decoded.Acceleration = "True";
               }
               else {
                 decoded.Acceleration = "False";
               }
-              
-              index++;  // Set index to tilt angle data value      
-              
+
+              index++;  // Set index to tilt angle data value
+
               decoded.Tilt_Angle = bytes[index];
-                            
+
               break;
             }
-            case 0x0D:  // Voltage + Current + Power					
+            case 0x0D:  // Voltage + Current + Power
             {
               index++;
               const bitfield = bytes[index];
@@ -494,20 +508,71 @@ function Decoder(bytes, port) {
               }
               break;
             }
+            case 0x0E: // Pressure
+            {
+              // Get the 24 bit value
+              index++;    // Set index to high byte data value
+              Temp_Value = (bytes[index] * 65536);
+              index++;    // Set index to mid byte data value
+              Temp_Value += (bytes[index] * 256);
+              index++;    // Set index to low byte data value
+              Temp_Value += bytes[index];
+
+              Temp_Value /= 10;	// Adjust the resolution
+              decoded.Pressure = Temp_Value.toFixed(1);
+              break;
+            }
+            case 0x0F:  // Error-Bitfield
+            {
+              index++;    // Set index to data value
+              if (bytes[index])
+              {
+                decoded.Error = "";
+                if (bytes[index] & 0x01){  // if Input 1 enabled
+                  decoded.Error += "Bit0 " ;
+                  }
+                if (bytes[index] & 0x02){  // if Input 1 enabled
+                  decoded.Error += "Bit1 " ;
+                  }
+               	if (bytes[index] & 0x04){  // if Input 1 enabled
+                  decoded.Error += "Bit2 " ;
+                  }
+                if (bytes[index] & 0x08){  // if Input 1 enabled
+                  decoded.Error += "Bit3 " ;
+                  }
+                if (bytes[index] & 0x10){  // if Input 1 enabled
+                  decoded.Error += "Bit4 " ;
+                  }
+                if (bytes[index] & 0x20){  // if Input 1 enabled
+                  decoded.Error += "Bit5 " ;
+                  }
+                if (bytes[index] & 0x40){  // if Input 1 enabled
+                  decoded.Error += "Bit6 " ;
+                  }
+                if (bytes[index] & 0x80){  // if Input 1 enabled
+                  decoded.Error += "Bit7 " ;
+                  }
+              }
+              else
+              {
+               decoded.Error = "None ";
+              }
+              break;
+            }
             //case 0x??:    // Further Data Type
-            
+
             //  break;
-            
+
             default:    // There is something wrong with the data type value
               // Removing all added properties from the "decoded" object with a deep clean
               // https://stackoverflow.com/questions/19316857/removing-all-properties-from-a-object/19316873#19316873
               // Object.keys(decoded).forEach(function(key){ delete decoded[key]; });
-              
+
               // Clear all properties from the "decoded" object
               decoded = {};
-              
+
               // Add error code propertiy to the "decoded" object
-              decoded.parser_error = "Data Type Failure";
+              decoded.parser_error = "Data Type Failure --> Please update your payload parser";
               break;
           }
         } while ((++index < bytes.length) && ('parser_error' in decoded === false));

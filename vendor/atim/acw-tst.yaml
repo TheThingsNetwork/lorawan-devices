@@ -1,12 +1,10 @@
 name: acw-tst
-description: Network tester
+description: The TST allows you to check the radio coverage and signal reception quality of LoRaWAN networks. It allows you to optimize and validate the positioning of your IoT sensors in the field.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
