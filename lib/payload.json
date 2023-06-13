@@ -48,12 +48,6 @@
       "minimum": 0,
       "maximum": 100
     },
-    "ec": {
-      "type": "number",
-      "description": "Electrical conductivity (dS/m)",
-      "minimum": 0,
-      "maximum": 621
-    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -79,7 +73,9 @@
             },
             "ec": {
               "description": "Soil electrical conductivity (dS/m)",
-              "$ref": "#/definitions/ec"
+              "type": "number",
+              "minimum": 0,
+              "maximum": 621
             },
             "pH": {
               "description": "Soil pH level",
@@ -131,12 +127,12 @@
         "wind": {
           "type": "object",
           "properties": {
-            "averageSpeed": {
-              "description": "Average wind speed (m/s)",
+            "speed": {
+              "description": "Instantaneous or average wind speed (m/s)",
               "$ref": "#/definitions/speed"
             },
             "gustSpeed": {
-              "description": "Gust wind speed (m/s)",
+              "description": "Maximum wind speed during the measurement interval (m/s)",
               "$ref": "#/definitions/speed"
             },
             "direction": {
