@@ -1,0 +1,461 @@
+uplinkDecoder:
+  fileName: payload/r315.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xD2, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R315'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xD2, 0x01, 0x1C, 0x08, 0x49, 0x00, 0x12, 0x0A, 0xDC, 0x6A]
+      output:
+        data:
+          Device: 'R315'
+          Volt: 2.8
+          FunctionEnable: '100001001001'
+          BinarySensorReport: '10010'
+          Temp: 27.80
+          Humi: 53
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R315'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xD2, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x14, 0x64]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R315'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          HumiChange: 10
+          IllumChange: 100
+
+    - description: Set PIR enable response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetPIREnableRsp'
+          Device: 'R315'
+          Status: 'Success'
+
+    - description: Get PIR enable response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetPIREnableRsp'
+          Device: 'R315'
+          PIREnable: 0
+
+    - description: Set shock sensor sensitivity response
+      input:
+        fPort: 7
+        bytes: [0x85, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R315'
+          Status: 'Success'
+
+    - description: Get shock sensor sensitivity response
+      input:
+        fPort: 7
+        bytes: [0x86, 0xD2, 0x64, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R315'
+          InternalShockSensoerSensitivity: 100
+          ExternalShockSensoerSensitivity: 50
+
+    - description: Set IR disable time response
+      input:
+        fPort: 7
+        bytes: [0x87, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetIRDisableTimeRsp'
+          Device: 'R315'
+          Status: 'Success'
+
+    - description: Get IR disable time response
+      input:
+        fPort: 7
+        bytes: [0x88, 0xD2, 0x01, 0x2C, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetIRDisableTimeRsp'
+          Device: 'R315'
+          IRSDisableTime: 300
+          IRSDetectionTime: 10
+
+    - description: Set alarm on time response
+      input:
+        fPort: 7
+        bytes: [0x89, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetAlarmOnTimeRsp'
+          Device: 'R315'
+          Status: 'Success'
+
+    - description: Get alarm on time response
+      input:
+        fPort: 7
+        bytes: [0x8A, 0xD2, 0x01, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmOnTimeRsp'
+          Device: 'R315'
+          AlarmOnTime: 300
+
+    - description: Set dry contact point out type response
+      input:
+        fPort: 7
+        bytes: [0x8B, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetDryContactPointOutTypeRsp'
+          Device: 'R315'
+          Status: 'Success'
+
+    - description: Get dry contact point out type response
+      input:
+        fPort: 7
+        bytes: [0x8C, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetDryContactPointOutTypeRsp'
+          Device: 'R315'
+          DryContactPointOutType: 1
+
+    - description: Set restore report response
+      input:
+        fPort: 7
+        bytes: [0x8D, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetRestoreReportRsp'
+          Device: 'R315'
+          Status: 'Success'
+
+    - description: Get restore report response
+      input:
+        fPort: 7
+        bytes: [0x8E, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetRestoreReportRsp'
+          Device: 'R315'
+          RestoreReportSet: 1
+
+downlinkDecoder:
+  fileName: payload/r315.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xD2, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x14, 0x64]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R315'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          HumiChange: 10
+          IllumChange: 100
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R315'
+
+    - description: Set PIR enable request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetPIREnableReq'
+          Device: 'R315'
+          PIREnable: 1
+
+    - description: Get PIR enable request
+      input:
+        fPort: 7
+        bytes: [0x04, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetPIREnableReq'
+          Device: 'R315'
+
+    - description: Set shock sensor sensitivity request
+      input:
+        fPort: 7
+        bytes: [0x05, 0xD2, 0x64, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R315'
+          InternalShockSensoerSensitivity: 100
+          ExternalShockSensoerSensitivity: 50
+
+    - description: Get shock sensor sensitivity request
+      input:
+        fPort: 7
+        bytes: [0x06, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R315'
+
+    - description: Set IR disable time request
+      input:
+        fPort: 7
+        bytes: [0x07, 0xD2, 0x01, 0x2C, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetIRDisableTimeReq'
+          Device: 'R315'
+          IRSDisableTime: 300
+          IRSDetectionTime: 10
+          SensorType: 0
+
+    - description: Get IR disable time request
+      input:
+        fPort: 7
+        bytes: [0x08, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetIRDisableTimeReq'
+          Device: 'R315'
+
+    - description: Set alarm on time request
+      input:
+        fPort: 7
+        bytes: [0x09, 0xD2, 0x01, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetAlarmOnTimeReq'
+          Device: 'R315'
+          AlarmOnTime: 300
+
+    - description: Set alarm on time request
+      input:
+        fPort: 7
+        bytes: [0x0A, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmOnTimeReq'
+          Device: 'R315'
+
+    - description: Set dry contact point out type request
+      input:
+        fPort: 7
+        bytes: [0x0B, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetDryContactPointOutTypeReq'
+          Device: 'R315'
+          DryContactPointOutType: 1
+
+    - description: Get dry contact point out type request
+      input:
+        fPort: 7
+        bytes: [0x0C, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetDryContactPointOutTypeReq'
+          Device: 'R315'
+
+    - description: Set restore report request
+      input:
+        fPort: 7
+        bytes: [0x0D, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetRestoreReportReq'
+          Device: 'R315'
+          RestoreReportSet: 1
+
+    - description: Get restore report request
+      input:
+        fPort: 7
+        bytes: [0x0E, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetRestoreReportReq'
+          Device: 'R315'
+
+downlinkEncoder:
+  fileName: payload/r315.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R315'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+          HumiChange: 10
+          IllumChange: 100
+      output:
+        fPort: 7
+        bytes: [0x01, 0xD2, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x32, 0x14, 0x64]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R315'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set PIR enable request
+      input:
+        data:
+          Cmd: 'SetPIREnableReq'
+          Device: 'R315'
+          PIREnable: 1
+      output:
+        fPort: 7
+        bytes: [0x03, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get PIR enable request
+      input:
+        data:
+          Cmd: 'GetPIREnableReq'
+          Device: 'R315'
+      output:
+        fPort: 7
+        bytes: [0x04, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set shock sensor sensitivity request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R315'
+          InternalShockSensoerSensitivity: 100
+          ExternalShockSensoerSensitivity: 50
+      output:
+        fPort: 7
+        bytes: [0x05, 0xD2, 0x64, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get shock sensor sensitivity request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R315'
+      output:
+        fPort: 7
+        bytes: [0x06, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set IR disable time request
+      input:
+        data:
+          Cmd: 'SetIRDisableTimeReq'
+          Device: 'R315'
+          IRSDisableTime: 300
+          IRSDetectionTime: 10
+          SensorType: 0
+      output:
+        fPort: 7
+        bytes: [0x07, 0xD2, 0x01, 0x2C, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get IR disable time request
+      input:
+        data:
+          Cmd: 'GetIRDisableTimeReq'
+          Device: 'R315'
+      output:
+        fPort: 7
+        bytes: [0x08, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set alarm on time request
+      input:
+        data:
+          Cmd: 'SetAlarmOnTimeReq'
+          Device: 'R315'
+          AlarmOnTime: 300
+      output:
+        fPort: 7
+        bytes: [0x09, 0xD2, 0x01, 0x2C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set alarm on time request
+      input:
+        data:
+          Cmd: 'GetAlarmOnTimeReq'
+          Device: 'R315'
+      output:
+        fPort: 7
+        bytes: [0x0A, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set dry contact point out type request
+      input:
+        data:
+          Cmd: 'SetDryContactPointOutTypeReq'
+          Device: 'R315'
+          DryContactPointOutType: 1
+      output:
+        fPort: 7
+        bytes: [0x0B, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get dry contact point out type request
+      input:
+        data:
+          Cmd: 'GetDryContactPointOutTypeReq'
+          Device: 'R315'
+      output:
+        fPort: 7
+        bytes: [0x0C, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set restore report request
+      input:
+        data:
+          Cmd: 'SetRestoreReportReq'
+          Device: 'R315'
+          RestoreReportSet: 1
+      output:
+        fPort: 7
+        bytes: [0x0D, 0xD2, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get restore report request
+      input:
+        data:
+          Cmd: 'GetRestoreReportReq'
+          Device: 'R315'
+      output:
+        fPort: 7
+        bytes: [0x0E, 0xD2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
