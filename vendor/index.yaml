@@ -1961,3 +1961,8 @@ vendors:
     name: dnt Innovation GmbH
     website: https://www.dnt.de/
     logo: dnt-logo.svg
+
+  - id: agriseen
+    name: agriseen
+    website: http://www.agriseen.com
+    logo: agriseen_logo.png
