@@ -46,9 +46,6 @@ sensors:
   - power
   - voltage 
 
-
-
-
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
