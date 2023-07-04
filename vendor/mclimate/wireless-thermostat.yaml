@@ -1,0 +1,119 @@
+name: MClimate Wireless Thermostat
+description: MClimate Wireless Thermostat is a stand-alone thermostat powered entirely by solar energy using an organic solar panel. The device features a 2.9" e-ink screen, sensor for movement (PIR), temperature and humidity sensor, LUX sensor and 3 buttons. The user can change the target temperature and see current indoor conditions.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.5'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.1'
+    numeric: 1
+    hardwareVersions:
+      - '2.5'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: wireless-thermostat-profile
+        lorawanCertified: false
+        codec: wireless-thermostat-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+  - humidity
+  - pir
+  - light
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 115
+  length: 23
+  height: 105
+
+# Weight in grams (optional)
+weight: 170
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.00
+    max: 0.80
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-wireless-thermostat
+dataSheetURL: https://3008755228-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FtAhSZWkH4nsYDx8UVIpf%2FMClimate-Wireless-Thermostat-Datasheet.pdf?alt=media&token=9a9eea05-ccb8-4f13-ad4b-14a579640965
+# resellerURLs:
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
+
+# Photos
+photos:
+  main: wireless-thermostat.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 60950-1
+    - body: ETSI
+      norm: EN
+      standard: 301-489
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300-220
+      version: 3.1.1

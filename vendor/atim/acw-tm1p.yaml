@@ -1,12 +1,10 @@
 name: acw-tm1p
-description: Deported temperature sensor 1 x Class A PT1000 probe (-50°C/+200°C)
+description: The TMxP facilitates the monitoring of up to two remote temperatures of your buildings and energy installations thanks to its two meters long -196°C | +200°C temperature probes. Measurements are regularly transmitted on** LoRaWAN** networks and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
