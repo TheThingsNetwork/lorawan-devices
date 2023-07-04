@@ -17,7 +17,7 @@ uplinkDecoder:
       output:
         data:
           type: heartbeat
-          hw_health_status: 21
+          hw_health_status: 40
           battery_voltage: 2.908
           battery_voltage_mean_24h: 2.888
 
