@@ -64,8 +64,8 @@ weight: 127
 ipCode: IP20
 
 # Product and data sheet URLs (optional)
-productURL: https://yosensi.io/products/yo_analog/
-dataSheetURL: https://yosensi.io/support/datasheets/YO_Analog_datasheet.pdf
+productURL: https://yosensi.io/products/yo_pulse/
+dataSheetURL: https://yosensi.io/support/datasheets/YO_Pulse_datasheet.pdf
 
 # Photos
 photos:
