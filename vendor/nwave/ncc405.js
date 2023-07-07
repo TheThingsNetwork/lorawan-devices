@@ -8,7 +8,7 @@ function decodeUplink(input) {
 
     case 2: // Heartbeat
       data.type = "heartbeat";
-      data.hw_health_status = input.bytes[0] >> 3;
+      data.hw_health_status = input.bytes[0] & 0x7F;
       var batteryVoltageMv = 2500 + input.bytes[1] * 4;
       data.battery_voltage = batteryVoltageMv / 1000;
 
