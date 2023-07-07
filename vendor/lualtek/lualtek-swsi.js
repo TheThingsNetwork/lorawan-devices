@@ -59,19 +59,6 @@ var downlinkByPort = {
   4: downlinkStepTiming
 }
 
-function encodeDownlink(input) {
-  var fPort = input.fPort || 1;
-  var downlink = downlinkByPort[fPort];
-
-  if (downlink === undefined) {
-    return {
-      errors: ['Invalid FPort'],
-    }
-  }
-
-  return downlink(input.data);
-}
-
 function decodeDownlink(input) {
   return {
     data: {
