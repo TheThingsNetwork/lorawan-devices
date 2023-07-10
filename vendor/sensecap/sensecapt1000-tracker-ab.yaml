@@ -60,8 +60,8 @@ firmwareVersions:
 sensors:
   - temperature
   - light
-  - longitude
-  - latitude
+  #- longitude
+  #- latitude
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
