@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs301-wat-profile
         lorawanCertified: true
         codec: rbs301-wat-codec
+# Photos
+photos:
+  main: rbs301-wat.png

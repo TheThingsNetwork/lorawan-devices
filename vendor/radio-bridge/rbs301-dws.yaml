@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs301-dws-profile
         lorawanCertified: true
         codec: rbs301-dws-codec
+# Photos
+photos:
+  main: rbs301-dws.png

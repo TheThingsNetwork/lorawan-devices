@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs301-abm-profile
         lorawanCertified: true
         codec: rbs301-abm-codec
+# Photos
+photos:
+  main: rbs301-abm.png

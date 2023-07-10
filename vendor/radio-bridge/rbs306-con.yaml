@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs306-con-profile
         lorawanCertified: true
         codec: rbs306-con-codec
+# Photos
+photos:
+  main: rbs306-con.png

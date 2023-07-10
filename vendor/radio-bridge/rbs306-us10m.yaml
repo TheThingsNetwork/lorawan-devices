@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs306-us10m-profile
         lorawanCertified: true
         codec: rbs306-us10m-codec
+# Photos
+photos:
+  main: rbs306-us10m.jpg

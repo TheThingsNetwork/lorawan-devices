@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs305-ath-profile
         lorawanCertified: true
         codec: rbs305-ath-codec
+# Photos
+photos:
+  main: rbs305-ath.png
