@@ -1,12 +1,10 @@
 name: acw-wl-o
-description: Liquid detection by cable (Outdoor Version IP66)
+description: The WL facilitates the monitoring of sites at risk of flooding thanks to its liquid presence detection options. Alerts are transmitted on LoRaWAN networks and its configuration is configurable from the ATIM suite tools.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

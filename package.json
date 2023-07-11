@@ -21,7 +21,7 @@
   "homepage": "https://github.com/TheThingsNetwork/lorawan-devices#readme",
   "devDependencies": {
     "ajv": "^6.12.6",
-    "ajv-cli": "^5.0.0",
+    "ajv-cli": "^0.6.0",
     "prettier": "^2.6.2"
   },
   "dependencies": {

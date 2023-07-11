@@ -1,0 +1,113 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dc413.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x02, 0x11, 0x06, 0xA4, 0x00, 0x16, 0x01, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x81]
+      output:
+        data:
+          level: 1700
+          alarmLevel: false
+          alarmFall: false
+          alarmBattery: false
+          angle: 0
+          temperature: 22
+          frameCounter: 1
+
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x19, 0x03, 0x02, 0x06, 0x3C, 0x1E, 0x4B, 0x14, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          firmware: '3.2'
+          uploadInterval: 6
+          detectInterval: 60
+          levelThreshold: 30
+          fallThreshold: 20
+          fallEnable: true
+          workMode: 1
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: dc413.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          uploadInterval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: change periodic detection interval to 10 minutes
+      input:
+        data:
+          detectInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change full alarm threshold to 35cm
+      input:
+        data:
+          levelThreshold: 35
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+        fPort: 3
+    - description: change motion alarm threshold to 45°
+      input:
+        data:
+          fallThreshold: 45
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x32, 0x44, 0x38, 0x31]
+        fPort: 3
+    - description: enable tilt detection
+      input:
+        data:
+          fallEnable: true
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: dc413.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 4
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          detectInterval: 10
+    - description: change full alarm threshold to 35cm
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+      output:
+        data:
+          levelThreshold: 35
+    - description: change motion alarm threshold to 45°
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x32, 0x44, 0x38, 0x31]
+      output:
+        data:
+          fallThreshold: 45
+    - description: enable motion detection
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x39, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          fallEnable: true
