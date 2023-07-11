@@ -1,0 +1,8 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - sdi-12-dra # look in sdi-12-dra.yaml for the end device definition
+  # - rs-485-ln # look in windsensor.yaml for the end device definition
+  # - rs-485-bl # look in windsensor.yaml for the end device definition
+  - sdi-12-tek # look in sdi-12-tek.yaml for the end device definition
