@@ -1,0 +1,66 @@
+name: R718VA - Wireless Capacitive Proximity Sensor
+description: R718VA is a device to detect the status of toilet water, hand sanitizer level, presence or absence of tissue. This device is connected with a non-contact capacitive sensor can be mounted to the exterior of the container, without direct contact with the object to be detected, which may detect the current water level of positions mounted, or the presence or absence of liquid soap or toilet paper; the detected data is transmitted to other devices through the wireless network. It uses the SX1276 wireless communication module.
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718va-codec
+      AS923:
+        id: profile-as923
+        codec: r718va-codec
+      US902-928:
+        id: profile-us915
+        codec: r718va-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718va-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718va-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718va-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718va-codec
+
+dimensions:
+  width: 88.19
+  length: 112
+  height: 32
+
+weight: 150
+
+battery:
+  replaceable: true
+  type: 2 x ER14505 3.6V Lithium AA battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718VA
+dataSheetURL: http://www.netvox.com.tw/um/R718VA/R718VAdatasheet.pdf
+
+photos:
+  main: photos/r718va.jpg

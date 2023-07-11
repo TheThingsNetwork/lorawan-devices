@@ -1,10 +1,16 @@
 function decodeUplink(input) {
   var decoded = {}
-  decoded.index = decode_index(input.bytes)
-  decoded.step = decode_step(input.bytes)
-  decoded.list_increment = decode_list_increment(input.bytes)
+  decoded.index = decode_index(toHexString(input.bytes))
+  decoded.step = decode_step(toHexString(input.bytes))
+  decoded.list_increment = decode_list_increment(toHexString(input.bytes))
   if(decoded.index && decoded.list_increment.length==8 && decoded.step>0){
-      return decoded
+    return {
+      data:{
+        index: decoded.index,
+        values: decoded.list_increment,
+        step: decoded.step
+      }
+    }
   }
   else{
       msg = "The payload has the wrong size !"
@@ -58,4 +64,11 @@ function decode_step(payload){
       if(header == 31) step = 60
   }
   return step
+}
+
+//Convert uplink payload.bytes to hexString payload
+function toHexString(byteArray) {
+  return Array.from(byteArray, function(byte) {
+    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+  }).join('')
 }

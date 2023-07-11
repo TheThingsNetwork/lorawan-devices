@@ -1,8 +1,12 @@
 function decodeUplink(input) {
     var decoded = {}
-    decoded.temp_list = decode_temp_list(input.bytes)
+    decoded.temp_list = decode_temp_list(toHexString(input.bytes))
     if(decoded.temp_list.length==20){
-        return decoded
+        return {
+            data:{
+                temperature: decoded.temp_list           
+            }
+        }
     }
     else{
         msg = "The payload has the wrong size !"
@@ -32,4 +36,10 @@ function decode_temp_list(payload) {
       }
   }    
   return temp_list
+}
+//Convert uplink payload.bytes to hexString payload
+function toHexString(byteArray) {
+    return Array.from(byteArray, function(byte) {
+      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('')
 }

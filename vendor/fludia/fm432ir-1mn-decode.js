@@ -1,13 +1,13 @@
 function decodeUplink(input) {
     var decoded = {}
-    var step = parseInt(input.bytes.substring(4,6), 16)
+    var step = parseInt(toHexString(input.bytes).substring(4,6), 16)
     var list_increment = []    
     var list_power = []    
-    var header = parseInt(input.bytes.substring(2,4), 16)
+    var header = parseInt(toHexString(input.bytes).substring(2,4), 16)
     if(header == 46) obis = "E_SUM"
     if(header == 47) obis = "E_POS"
     if(header == 48) obis = "E_NEG"
-    list_increment = decode_increment(input.bytes)
+    list_increment = decode_increment(toHexString(input.bytes))
     n = 60/step
     for(i=0;i<list_increment.length;i++){
         if(list_increment[i] != null){
@@ -17,12 +17,19 @@ function decodeUplink(input) {
             list_power.push(null)
         }
     }
-    decoded.index = decode_index(input.bytes)
+    decoded.index = decode_index(toHexString(input.bytes))
     decoded.step = step
     decoded.obis = obis  
     decoded.list_power = list_power
-    if(input.bytes.length == 84){
-        return decoded
+    if(toHexString(input.bytes).length == 84){
+        return {
+            data:{
+                index: decoded.index,
+                powers: decoded.power_list,
+                step: decoded.step,
+                obis: decoded.obis
+            }
+        }
     }
     else{
         msg = "The payload has the wrong size !"
@@ -79,4 +86,11 @@ function decode_increment(payload) {
         }
     }                  
     return list_increment
+}
+
+//Convert uplink payload.bytes to hexString payload
+function toHexString(byteArray) {
+    return Array.from(byteArray, function(byte) {
+      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('')
 }

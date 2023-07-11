@@ -1,10 +1,16 @@
 //Main function Decoder
 function decodeUplink(input){
   var decoded = {}
-  decoded.index = decode_index(input.bytes)
-  decoded.power_list = decode_power_list(input.bytes)
+  decoded.index = decode_index(toHexString(input.bytes))
+  decoded.power_list = decode_power_list(toHexString(input.bytes))
   if(decoded.index && decoded.power_list.length==20){
-      return decoded
+    return {
+      data:{
+        index: decoded.index,
+        powers: decoded.power_list
+     
+      }
+    }
   }
   else{
       msg = "The payload has the wrong size !"
@@ -44,4 +50,11 @@ function decode_power_list(payload) {
       }
   }    
   return power_list
+}
+
+//Convert uplink payload.bytes to hexString payload
+function toHexString(byteArray) {
+  return Array.from(byteArray, function(byte) {
+    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+  }).join('')
 }
