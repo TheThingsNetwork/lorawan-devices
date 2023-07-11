@@ -81,7 +81,6 @@ operatingConditions:
     min: 0
     max: 0.97
 
-
 # IP rating (optional)
 ipCode: IP67
 
