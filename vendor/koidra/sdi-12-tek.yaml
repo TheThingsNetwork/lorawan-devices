@@ -25,7 +25,7 @@ firmwareVersions:
         id: sdi-12-tek-profile
         codec: sdi-12-tek-codec
       US902-928:
-        id: us915-sd1-12-tek-profile
+        id: us915-sdi-12-tek-profile
         codec: sdi-12-tek-codec
       KR920-923:
         id: sdi-12-tek-profile
