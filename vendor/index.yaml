@@ -1702,7 +1702,7 @@ vendors:
 
   - id: dingtek
     name: Dingtek
-    website: http://dingtek.com/
+    website: https://www.dingtek.com/
     logo: dingtek_logo.png
 
   - id: elster
