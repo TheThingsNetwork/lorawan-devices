@@ -22,7 +22,14 @@ function decodeUplink(input) {
     decoded.obis = obis  
     decoded.list_power = list_power
     if(toHexString(input.bytes).length == 84){
-        return decoded
+        return {
+            data:{
+                index: decoded.index,
+                powers: decoded.power_list,
+                step: decoded.step,
+                obis: decoded.obis
+            }
+        }
     }
     else{
         msg = "The payload has the wrong size !"

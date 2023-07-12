@@ -1,12 +1,10 @@
 name: acw-dind88
-description: 8 inputs, State of dry contacts or pulse metering 8 outputs, State of dry contacts
+description: The DINDxx facilitates the reporting of the status of up to 8 dry contacts or up to 8 pulse counter indices. It also allows to remotely control industrial equipments and to check their proper functioning. The readings are regularly transmitted on LoRaWAN networks and its configuration is configurable from the ATIM suite tools.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

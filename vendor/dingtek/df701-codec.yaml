@@ -1,0 +1,81 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: df701.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x02, 0x12, 0x27, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x68, 0x00, 0x01, 0x81]
+      output:
+        data:
+          level: 9999
+          alarmLevel: false
+          alarmBattery: false
+          volt: 3.60
+          frameCounter: 1
+
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x0C, 0x01, 0x02, 0x0A, 0x0A, 0x14, 0x00, 0x81]
+      output:
+        data:
+          firmware: '1.2'
+          uploadInterval: 10
+          detectInterval: 10
+          levelThreshold: 20
+          workMode: 0
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: df701.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          uploadInterval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: change detection interval to 10 minutes
+      input:
+        data:
+          detectInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change full alarm threshold to 35cm
+      input:
+        data:
+          levelThreshold: 35
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: df701.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 4
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          detectInterval: 10
+    - description: change full alarm threshold to 35cm
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+      output:
+        data:
+          levelThreshold: 35

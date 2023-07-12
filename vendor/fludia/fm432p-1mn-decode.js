@@ -10,7 +10,13 @@ function decodeUplink(input) {
   }
   decoded.list_increment = decode_list_increment(toHexString(input.bytes))
   if(decoded.index && decoded.list_increment.length==20 && decoded.step>0){
-      return decoded
+    return {
+        data:{
+            index: decoded.index,
+            values: decoded.list_increment,
+            step: decoded.step,            
+        }
+    }
   }
   else{
       msg = "The payload has the wrong size !"
