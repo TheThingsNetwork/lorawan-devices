@@ -1,7 +1,6 @@
 name: ELV Motion Button for LoRaWAN®
 description: Compact LoRaWAN® battery powered radio remote control with acceleration and tilt detection from ELV
 
-
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
