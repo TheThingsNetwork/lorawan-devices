@@ -1,0 +1,137 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dt311.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x02, 0x12, 0x01, 0xA4, 0x00, 0x00, 0x26, 0x69, 0x57, 0x62, 0x10, 0x10, 0x00, 0x01, 0x81]
+      output:
+        data:
+          temperature: '26.69'
+          humidity: '57.62'
+          alarmHighTemperature: true
+          alarmLowTemperature: false
+          alarmHighHumidity: true
+          alarmLowHumidity: false
+          alarmBattery: false
+          volt: 4.20
+          frameCounter: 1
+
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x11, 0x01, 0x02, 0x18, 0x0A, 0x00, 0x64, 0x01, 0x0A, 0x64, 0x00, 0x00, 0x14, 0x81]
+      output:
+        data:
+          firmware: '1.2'
+          uploadInterval: 24
+          detectInterval: 10
+          highTemperatureThreshold: 100
+          lowTemperatureThreshold: -10
+          highHumidityThreshold: 100
+          lowHumidityThreshold: 0
+          batteryThreshold: 20
+          workMode: 0
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: dt311.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          uploadInterval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: change detection interval to 10 minutes
+      input:
+        data:
+          detectInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change high temperature alarm threshold to 50℃
+      input:
+        data:
+          highTemperatureThreshold: 50
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+        fPort: 3
+
+    - description: change low temperature alarm threshold to -10℃
+      input:
+        data:
+          lowTemperatureThreshold: -10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x33, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+
+    - description: change high humidity alarm threshold to 70%
+      input:
+        data:
+          highHumidityThreshold: 70
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x34, 0x36, 0x38, 0x31]
+        fPort: 3
+
+    - description: change low humidity alarm threshold to 20%
+      input:
+        data:
+          lowHumidityThreshold: 20
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x45, 0x31, 0x34, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: dt311.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 4
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          detectInterval: 10
+    - description: change high temperature alarm threshold to 50℃
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+      output:
+        data:
+          highTemperatureThreshold: 50
+
+    - description: change low temperature alarm threshold to -10℃
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x33, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          lowTemperatureThreshold: -10
+
+    - description: change high humidity alarm threshold to 70%
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x34, 0x36, 0x38, 0x31]
+      output:
+        data:
+          highHumidityThreshold: 70
+
+    - description: change low humidity alarm threshold to 10%
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x45, 0x31, 0x34, 0x38, 0x31]
+      output:
+        data:
+          lowHumidityThreshold: 20

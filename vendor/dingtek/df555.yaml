@@ -1,12 +1,12 @@
-name: acw-dinrsm
-description: Gateway Modbus Master gateway 833 registers reading / writing
+name: df555
+description: The CNDingtek df555 is an ultrasonic level for kinds tank, which is installed on top of the tank.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
-    numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
+    numeric: 10
+  - version: '1.1'
+    numeric: 11
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -16,6 +16,7 @@ firmwareVersions:
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
+      - '1.1'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -29,15 +30,33 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
-        vendorID:
-        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: acw-dinrsm-profile
-        lorawanCertified: true
-        codec: codec2
+        id: dingtek-profile-868
+        lorawanCertified: false
+        codec: df555-codec
+      US902-928:
+        id: dingtek-profile-915
+        lorawanCertified: false
+        codec: df555-codec
+      AU915-928:
+        id: dingtek-profile-915
+        lorawanCertified: false
+        codec: df555-codec
+      AS923:
+        id: dingtek-profile-923
+        lorawanCertified: false
+        codec: df555-codec
+      IN865-867:
+        id: dingtek-profile-865
+        lorawanCertified: false
+        codec: df555-codec
+      CN470-510:
+        id: dingtek-profile-470
+        lorawanCertified: false
+        codec: df555-codec
+      RU864-870:
+        id: dingtek-profile-868
+        lorawanCertified: false
+        codec: df555-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -47,42 +66,60 @@ firmwareVersions:
 # power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
-
-# Additional radios that this device has (optional)
-# Valid values are: ble, nfc, wifi, cellular.
-
-# Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-bridgeInterfaces:
-  - modbus
+sensors:
+  - level
+  - gps
+    #- motion
+    #- full_alarm
+    #- fire_alarm
+    #- tilt_alarm
+    #- battery_alarm
+    #- angle
+  - temperature
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 90
-  length: 57
-  height: 67
+  diameter: 95
+  height: 123
+
+# Weight in grams (optional)
+weight: 500
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: ER26500
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -20
-    max: 55
+    max: 70
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
 
 # IP rating (optional)
-ipCode: IP65
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
-keySecurity: none
+keySecurity: read protected
 
 # Firmware programming (optional)
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
@@ -91,16 +128,31 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINRSM/FRANCAIS/ATIM_ACW-DINRSM_DS_FR.pdf
-dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINRSM/FRANCAIS/ATIM_ACW-DINRSM_UG_FR.pdf
-
-# Commercial information
-resellerURLs:
-  - name: 'ATIM'
-    region:
-      - European Union
-    url: https://www.atim.com/produits/gateway-modbus-maitre-liaison-serie-rs485/
+productURL: https://www.dingtek.com/top-installation-level-sensor-df555
+#dataSheetURL: http://www.dingtek.com/documents/23/df555_Waste_Bin_Detector_LoRaWAN_V1.8.pdf
 
 # Photos
 photos:
-  main: acw-dinrsm.png
+  main: df555.png
+  #other:
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://youtu.be/CEzacjJCQm4
+  #other: https://youtu.be/EWrX-4gCLJ4
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 1.9.2
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 1.6.1
