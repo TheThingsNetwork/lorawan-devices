@@ -1702,7 +1702,7 @@ vendors:
 
   - id: dingtek
     name: Dingtek
-    website: http://dingtek.com/
+    website: https://www.dingtek.com/
     logo: dingtek_logo.png
 
   - id: elster
@@ -1969,3 +1969,11 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/lualtek/
       twitter: lualtek
+
+  - id: koidra
+    name: Koidra Inc.
+    description: Koidra is an intelligent automation company, dedicated to modernizing the automation of manufacturing facilities, with the high-tech greenhouse industry being the core market. Our tiered products deliver a comprehensive solution that enhances industrial efficiency.
+    website: https://www.koidra.ai/
+    logo: koidra-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/koidra/

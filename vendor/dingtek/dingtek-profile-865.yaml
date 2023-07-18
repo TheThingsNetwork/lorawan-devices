@@ -1,5 +1,5 @@
-macVersion: 1.0.2
-regionalParametersVersion: RP001-1.0.2
+macVersion: 1.0.3
+regionalParametersVersion: RP001-1.0.3-RevA
 supportsJoin: true
 maxEIRP: 30
 supports32bitFCnt: true
