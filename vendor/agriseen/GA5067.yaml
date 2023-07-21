@@ -35,14 +35,14 @@ firmwareVersions:
         # which is verbose.
         # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: GA5067-profile-868
+        id: ga5067-profile-868
         # lorawanCertified: true
       US902-928:
-        id: GA5067-profile-915
+        id: ga5067-profile-915
         # lorawanCertified: true
         # codec: windsensor-codec
       AS923:
-        id: GA5067-profile-923
+        id: ga5067-profile-923
         # lorawanCertified: true
         # codec: windsensor-codec
 
@@ -140,7 +140,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: Sheep-Goat-GPS-collar.jpg
+  main: sheep-goat-gps-collar.jpg
 # Youtube or Vimeo Video (optional)
 # videos:
 #   main: https://www.youtube.com/watch?v=JHzxcD2oEn8

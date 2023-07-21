@@ -35,14 +35,14 @@ firmwareVersions:
         # which is verbose.
         # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: JS0130-profile-868
+        id: js0130-profile-868
         # lorawanCertified: true
       US902-928:
-        id: JS0130-profile-915
+        id: js0130-profile-915
         # lorawanCertified: true
         # codec: windsensor-codec
       AS923:
-        id: JS0130-profile-923
+        id: js0130-profile-923
         # lorawanCertified: true
         # codec: windsensor-codec
 
@@ -142,7 +142,7 @@ resellerURLs:
 
 # Photos
 photos:
-  main: Smart-rumen-bolus-for-cattle.jpg
+  main: smart-rumen-bolus-for-cattle.jpg
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=RmPI9K4OIY4
