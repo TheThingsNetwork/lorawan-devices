@@ -976,7 +976,7 @@ function Decoder(bytes, port) {
               // 
               initMultiModbusValue()
               stdData.value.multimodbus_payload = ""
-              bytes.slice(index+1).forEach((value, i) => bytes[i] = value.toString( 16 ).toUpperCase().length === 1 ? "0" + value.toString( 16 ).toUpperCase() : value.toString( 16 ).toUpperCase())
+              bytes.slice(index+4).forEach((value, i) => bytes[i] = value.toString( 16 ).toUpperCase().length === 1 ? "0" + value.toString( 16 ).toUpperCase() : value.toString( 16 ).toUpperCase())
               stdData.value.multimodbus_payload = bytes.join('')
             }
             tab.push(stdData);

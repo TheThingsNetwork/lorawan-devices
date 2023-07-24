@@ -1,5 +1,5 @@
-name: ELV LoRaWAN® Bewegungssensor/1-Tastenfernbedienung ELV-LW-MOB
-description: Compact LoRaWAN® battery radio remote control with acceleration and tilt detection from ELV
+name: ELV Motion Button for LoRaWAN®
+description: Compact LoRaWAN® battery powered radio remote control with acceleration and tilt detection from ELV
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
