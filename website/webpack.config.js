@@ -22,14 +22,10 @@ const CopyPlugin = require("copy-webpack-plugin");
 const BASE_URL = process.env.BASE_URL ? process.env.BASE_URL : "http://localhost:9100"
 const BASE_PATH = process.env.BASE_PATH ? process.env.BASE_PATH : "/device-repository"
 
-module.exports = env => {
-    const isProduction = Boolean(env && env.production)
-    console.log('Production: ', isProduction)
-    console.log(BASE_URL)
-    console.log(BASE_PATH)
+module.exports = (env, argv) => {
+    const isProduction = argv?.mode === undefined || argv?.mode === 'production'
 
     return {
-        mode: isProduction ? 'production' : 'development',
         devtool: isProduction ? 'source-map' : 'inline-source-map',
         entry: {
           base: path.resolve(__dirname, 'src/js/index.js'),

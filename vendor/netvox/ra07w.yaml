@@ -1,0 +1,63 @@
+name: RA07W - Wireless Water Leak Detection and Location Sensor
+description: RA07W is a water leak detector leak locating equipment, which can be connected to water leak sensor through the external four-core positioning leak detection sensor line to detect the water leak location, and transmit the detected data to other devices through the wireless network.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: ra07w-codec
+      AS923:
+        id: profile-as923
+        codec: ra07w-codec
+      US902-928:
+        id: profile-us915
+        codec: ra07w-codec
+      AU915-928:
+        id: profile-au915
+        codec: ra07w-codec
+      KR920-923:
+        id: profile-kr920
+        codec: ra07w-codec
+      IN865-867:
+        id: profile-in865
+        codec: ra07w-codec
+      CN470-510:
+        id: profile-cn470
+        codec: ra07w-codec
+
+sensors:
+  - water
+
+dimensions:
+  width: 86
+  length: 111
+  height: 41
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RA07W
+dataSheetURL: http://www.netvox.com.tw/um/RA07W/RA07Wdatasheet.pdf
+
+photos:
+  main: photos/ra07w.jpg

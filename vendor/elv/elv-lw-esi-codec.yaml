@@ -1,0 +1,57 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-lw-esi.js
+  # Examples (optional)
+  examples:
+    - description: Power Consumption
+      input:
+        fPort: 10
+        bytes: [0x03, 0x01, 0x0B, 0xDE, 0x01, 0x01, 0x01, 0x88, 0x47, 0xE8, 0x15, 0x00, 0x00, 0xAE, 0xAE, 0x0A, 0x00]
+      output:
+        data:
+          Energy_Data:
+            Boot_Flag: ['No_Overflow']
+            Consumption_Type: ['Consumption']
+            Energy_Counter: [36754.42]
+            Energy_Counter_Unit: ['kWh']
+            Energy_Power_Unit: ['W']
+            Power: [7000.78]
+            Signum_Of_Power: ['Positive']
+          Supply_Voltage: 3038
+          TX_Reason: 'Timer_Event'
+    - description: Power Delivery
+      input:
+        fPort: 10
+        bytes: [0x03, 0x01, 0x0B, 0xDC, 0x01, 0x02, 0x01, 0x70, 0x5F, 0xBC, 0x00, 0x00, 0x05, 0x80, 0x1A, 0x06, 0x00]
+      output:
+        data:
+          Energy_Data:
+            Boot_Flag: ['No_Overflow']
+            Consumption_Type: ['Delivery']
+            Energy_Counter: [1234.52]
+            Energy_Counter_Unit: ['kWh']
+            Energy_Power_Unit: ['kW']
+            Power: [4000]
+            Signum_Of_Power: ['Negative']
+          Supply_Voltage: 3036
+          TX_Reason: 'Timer_Event'
+    - description: Gas Consumption
+      input:
+        fPort: 10
+        bytes: [0x03, 0x01, 0x0B, 0xE2, 0x01, 0x01, 0x02, 0x90, 0x87, 0x01, 0x00, 0x00, 0x02, 0x96, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Energy_Data:
+            Boot_Flag: ['No_Overflow']
+            Consumption_Type: ['Consumption']
+            Energy_Counter: [10.024]
+            Energy_Counter_Unit: ['m^3']
+            Energy_Power_Unit: ['m^3/h']
+            Power: [1.5]
+            Signum_Of_Power: ['Positive']
+          Supply_Voltage: 3042
+          TX_Reason: 'Timer_Event'
+
+          #Anleitung (Decoded --> Encoded):
+          # Wert (Energy_Counter) * 10.000 --> in Hex umwandeln und umgedreht einsetzen --> mit 00 auffüllen fals Byte Anzahl nicht erreicht
