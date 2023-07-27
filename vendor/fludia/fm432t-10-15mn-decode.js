@@ -3,7 +3,11 @@ function decodeUplink(input) {
     decoded.step = parseInt(toHexString(input.bytes).substring(2,4),16)    
     decoded.temp_list = decode_temp_list(toHexString(input.bytes))
     if(decoded.temp_list.length==8 && decoded.step>0){
-        return decoded
+        return {
+            data:{
+                temperature: decoded.temp_list           
+            }
+        }
     }
     else{
         msg = "The payload has the wrong size !"

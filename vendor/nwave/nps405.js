@@ -28,8 +28,8 @@ function decodeUplink(input) {
   switch (input.fPort) {
     case 1: // Parking status
       data.type = "parking_status";
-      data.occupied = (bytes[0] >> 7 & 0x1) === 0x1;
-      previousState = calculatePreviousState(bytes[0] & 0x7F);
+      data.occupied = (bytes[0] & 0x1) === 0x1;
+      previousState = calculatePreviousState((bytes[0] >> 1) & 0x7F);
       data.previous_state_duration = previousState.previous_state_duration;
       data.previous_state_duration_error = previousState.previous_state_duration_error;
       data.previous_state_duration_overflow = previousState.previous_state_duration_overflow;
@@ -44,9 +44,11 @@ function decodeUplink(input) {
       }
 
       data.type = "heartbeat";
-      data.occupied = (bytes[0] >> 7 & 0x1) === 0x1;
+      data.occupied = (bytes[0] & 0x1) === 0x1;
       data.hw_health_status = bytes[0] & 0x7F;
-      data.temperature = (bytes[2] << 24 >> 24) / 2 + 10;
+
+      var temp_byte = (bytes[2] > 127) ? bytes[2] - 256 : bytes[2]
+      data.temperature = temp_byte / 2 + 10;
 
       var batteryVoltageMv = 2500 + bytes[1] * 4;
       data.battery_voltage = batteryVoltageMv / 1000;
@@ -96,9 +98,9 @@ function decodeUplink(input) {
     case 10: // SDI tag registration
       data.type = "user_registration";
 
-      if ((bytes[0] >> 7 & 0x1) === 0x1) {
+      if ((bytes[0] & 0x1) === 0x1) {
         data.occupied = true;
-        previousState = calculatePreviousState(bytes[0] & 0x7F);
+        previousState = calculatePreviousState((bytes[0] >> 1) & 0x7F);
         data.previous_state_duration = previousState.previous_state_duration;
         data.previous_state_duration_error = previousState.previous_state_duration_error;
         data.previous_state_duration_overflow = previousState.previous_state_duration_overflow;

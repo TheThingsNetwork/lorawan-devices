@@ -1,0 +1,5 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: sensecapt1000-tracker-ab-decoder.js
+  # Examples (optional)
