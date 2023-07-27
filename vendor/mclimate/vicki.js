@@ -35,7 +35,6 @@ function decodeUplink(input) {
         openWindow = byte7Bin[4];
         highMotorConsumption = byte7Bin[5];
         lowMotorConsumption = byte7Bin[6];
-        console.log(byte7Bin[7])
         brokenSensor = byte7Bin[7];
         byte8Bin = decbin(bytes[8]);
         childLock = byte8Bin[0];
