@@ -24,19 +24,25 @@ function decodeUplink(input) {
         batteryTmp = ("0" + bytes[7].toString(16)).substr(-2)[0];
         batteryVoltageCalculated = 2 + parseInt("0x" + batteryTmp, 16) * 0.1;
 
-        decbin = function (number) {
+        decbin = function(number) {
             if (number < 0) {
-                number = 0xFFFFFFFF + number + 1;
+                number = 0xFFFFFFFF + number + 1
             }
-            return parseInt(number, 10).toString(2);
-        };
-        byteBin = decbin(bytes[7].toString(16));
-        openWindow = byteBin.substr(4, 1);
-        childLockBin = decbin(bytes[8].toString(16));
-        childLock = childLockBin.charAt(0);
-        highMotorConsumption = byteBin.substr(-2, 1);
-        lowMotorConsumption = byteBin.substr(-3, 1);
-        brokenSensor = byteBin.substr(-4, 1);
+            number = number.toString(2);
+            return "00000000".substr(number.length) + number;
+        }
+        byte7Bin = decbin(bytes[8]);
+        openWindow = byte7Bin[4];
+        highMotorConsumption = byte7Bin[5];
+        lowMotorConsumption = byte7Bin[6];
+        console.log(byte7Bin[7])
+        brokenSensor = byte7Bin[7];
+        byte8Bin = decbin(bytes[8]);
+        childLock = byte8Bin[0];
+        calibrationFailed = byte8Bin[1];
+        attachedBackplate = byte8Bin[2];
+        perceiveAsOnline = byte8Bin[3];
+
         var sensorTemp = 0;
         if (Number(bytes[0].toString(16))  == 1) {
             sensorTemp = (bytes[2] * 165) / 256 - 40;
@@ -53,11 +59,13 @@ function decodeUplink(input) {
         data.motorPosition = motorPosition;
         data.batteryVoltage = Number(batteryVoltageCalculated.toFixed(2));
         data.openWindow = toBool(openWindow);
-        data.childLock = toBool(childLock);
         data.highMotorConsumption = toBool(highMotorConsumption);
         data.lowMotorConsumption = toBool(lowMotorConsumption);
         data.brokenSensor = toBool(brokenSensor);
-
+        data.childLock = toBool(childLock);
+        data.calibrationFailed = toBool(calibrationFailed);
+        data.attachedBackplate = toBool(attachedBackplate);
+        data.perceiveAsOnline = toBool(perceiveAsOnline);
         return data;
     }
    
@@ -219,6 +227,68 @@ function decodeUplink(input) {
                     {
                         command_len = 1;
                         var data = { algoType: commands[i + 1] };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '36':
+                    {
+                        command_len = 3;
+                        var kp = parseInt(`${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}`, 16) / 131072;
+                        var data = { proportionalGain: Number(kp).toFixed(5) };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '3d':
+                    {
+                        command_len = 3;
+                        var ki = parseInt(`${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}`, 16) / 131072;
+                        var data = { integralGain: Number(ki).toFixed(5) };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '3f':
+                    {
+                        command_len = 2;
+                        var data = { integralValue : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '40':
+                    {
+                        command_len = 1;
+                        var data = { piRunPeriod : parseInt(commands[i + 1], 16) };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '42':
+                    {
+                        command_len = 1;
+                        var data = { tempHysteresis : parseInt(commands[i + 1], 16) };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '44':
+                    {
+                        command_len = 2;
+                        var data = { extSensorTemperature : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '46':
+                    {
+                        command_len = 3;
+                        var enabled = toBool(parseInt(commands[i + 1], 16));
+                        var duration = parseInt(commands[i + 2], 16) * 5;
+                        var delta = parseInt(commands[i + 3], 16) /10;
+
+                        var data = { openWindowParams: { enabled: enabled, duration: duration, delta: delta } };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '48':
+                    {
+                        command_len = 1;
+                        var data = { forceAttach : parseInt(commands[i + 1], 16) };
                         resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
