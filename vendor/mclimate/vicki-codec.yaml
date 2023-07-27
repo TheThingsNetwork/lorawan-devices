@@ -19,3 +19,6 @@ uplinkDecoder:
           highMotorConsumption: false
           lowMotorConsumption: false
           brokenSensor: false
+          attachedBackplate: false
+          calibrationFailed: false
+          perceiveAsOnline: false
