@@ -3,3 +3,7 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - carbon # look in windsensor.yaml for the end device definition
+  - sign
+  - move
+  - rise
+  - feel
