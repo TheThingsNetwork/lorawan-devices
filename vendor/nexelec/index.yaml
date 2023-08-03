@@ -3,7 +3,7 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - carbon # CO2, temp, hum sensor
-  - sign  # CO2, temp, hum sensor
-  - move # CO2, temp, hum sensor
+  - sign  # CO2, COV, temp, hum, lum, pir, sound sensor
+  - move # CO2, temp, hum, lum, pir sensor
   - rise # CO2, temp, hum sensor
-  - feel # CO2, temp, hum sensor
+  - feel # temp, hum sensor
