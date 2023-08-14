@@ -64,8 +64,9 @@ sensors:
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
-  - ltem
-  - lte cat1
+  - ble
+  # - ltem
+  # - lte cat1
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
