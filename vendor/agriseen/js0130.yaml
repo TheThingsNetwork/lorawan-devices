@@ -56,7 +56,7 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - accelerometer
-  - temperature sensor
+  - temperature
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -146,7 +146,6 @@ photos:
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=RmPI9K4OIY4
-
 # Regulatory compliances (optional)
 # compliances:
 #   safety:
