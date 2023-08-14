@@ -1,4 +1,3 @@
-
 function decodeUplink(input) {
     try{
         var bytes = input.bytes;
@@ -6,17 +5,22 @@ function decodeUplink(input) {
         const toBool = value => value == '1';
         var calculateTemperature = function (rawData){return (rawData - 400) / 10};
         var calculateHumidity = function(rawData){return (rawData * 100) / 256};
-        
+        var decbin = function (number) {
+            if (number < 0) {
+                number = 0xFFFFFFFF + number + 1
+            }
+            number = number.toString(2);
+            return "00000000".substr(number.length) + number;
+        }
         function handleKeepalive(bytes, data){
             var tempHex = '0' + bytes[1].toString(16) + bytes[2].toString(16);
             var tempDec = parseInt(tempHex, 16);
             var temperatureValue = calculateTemperature(tempDec);
             var humidityValue = calculateHumidity(bytes[3]);
-            var batteryHex = '0' + bytes[4].toString(16) + bytes[5].toString(16);
-            var batteryVoltageCalculated =  parseInt(batteryHex, 16)/1000;
+
             var temperature = temperatureValue;
             var humidity = humidityValue;
-            var batteryVoltage = batteryVoltageCalculated;
+            var batteryVoltage = parseInt(`${decbin(bytes[4])}${decbin(bytes[5])}`, 2)/1000;
             var targetTemperature = bytes[6];
             var powerSourceStatus = bytes[7];
             var lux = parseInt('0' + bytes[8].toString(16) + bytes[9].toString(16), 16);
@@ -91,6 +95,12 @@ function decodeUplink(input) {
                         data.targetTemperature = parseInt(commands[i + 1], 16) ;
                     }
                 break;
+                case '30':
+                    {
+                        command_len = 1;
+                        data.manualTargetTemperatureUpdate = parseInt(commands[i + 1], 16) ;
+                    }
+                break;
                 case '32':
                     {
                         command_len = 1;
@@ -121,7 +131,7 @@ function decodeUplink(input) {
             data = handleKeepalive(bytes, data);
         }else{
             data = handleResponse(bytes,data);
-            bytes = bytes.slice(-8);
+            bytes = bytes.slice(-11);
             data = handleKeepalive(bytes, data);
         }
         return {data: data};
