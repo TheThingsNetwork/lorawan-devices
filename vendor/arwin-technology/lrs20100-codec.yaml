@@ -33,7 +33,7 @@ uplinkDecoder:
         bytes: [1, 0, 40, 0, 10, 95, 35]
       output:
         data:
-          highTemperatureThreshold : 40
-          lowTemperatureThreshold : 10
-          highHumidityThreshold : 95
-          lowHumidityThreshold : 35
+          highTemperatureThreshold: 40
+          lowTemperatureThreshold: 10
+          highHumidityThreshold: 95
+          lowHumidityThreshold: 35
