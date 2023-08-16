@@ -1702,7 +1702,7 @@ vendors:
 
   - id: dingtek
     name: Dingtek
-    website: http://dingtek.com/
+    website: https://www.dingtek.com/
     logo: dingtek_logo.png
 
   - id: elster
@@ -1967,3 +1967,18 @@ vendors:
     website: https://www.senso8.com/
     logo: senso8-logo.svg
     linkedin: https://www.linkedin.com/company/arwin-technology-limited/
+
+  - id: koidra
+    name: Koidra Inc.
+    description: Koidra is an intelligent automation company, dedicated to modernizing the automation of manufacturing facilities, with the high-tech greenhouse industry being the core market. Our tiered products deliver a comprehensive solution that enhances industrial efficiency.
+    website: https://www.koidra.ai/
+    logo: koidra-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/koidra/
+
+  - id: open-boat-projects
+    name: Open Boat Projects
+    description: Open Boat Projects is a platform on which water sports enthusiasts present their self-constructed DIY projects around boating. The focus is on the idea of open source and open hardware as well as the exchange of ideas.
+    website: https://open-boat-projects.org
+    logo: obp_logo.png
+

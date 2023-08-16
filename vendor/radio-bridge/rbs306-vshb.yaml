@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs306-vshb-profile
         lorawanCertified: true
         codec: rbs306-vshb-codec
+# Photos
+photos:
+  main: rbs306-vshb.jpg
