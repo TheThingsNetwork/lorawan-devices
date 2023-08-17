@@ -1,0 +1,10 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: sign-codec.js
+
+downlinkEncoder:
+  fileName: sign-codec.js
+
+downlinkDecoder:
+  fileName: sign-codec.js

@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs306-420ma-profile
         lorawanCertified: true
         codec: rbs306-420ma-codec
+# Photos
+photos:
+  main: rbs306-420ma.png

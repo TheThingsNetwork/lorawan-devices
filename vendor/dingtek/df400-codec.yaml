@@ -1,0 +1,99 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: df400.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x01, 0x11, 0x02, 0x4C, 0x00, 0x19, 0x00, 0x46, 0x4B, 0x00, 0x00, 0x01, 0x00, 0x81]
+      output:
+        data:
+          level: 70
+          percent: 75
+          alarmLevel: false
+          alarmBattery: false
+          temperature: 25
+          volt: 5.88
+          frameCounter: 1
+
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x0D, 0x00, 0x02, 0x18, 0x1E, 0x14, 0x0A, 0x00, 0x81]
+      output:
+        data:
+          firmware: '0.2'
+          uploadInterval: 24
+          detectInterval: 30
+          batteryThreshold: 20
+          levelThreshold: 10
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: df400.js
+  examples:
+    - description: change periodic upload interval to 10 hours
+      input:
+        data:
+          uploadInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change detection interval to 10 minutes
+      input:
+        data:
+          detectInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change level alarm threshold to 50%
+      input:
+        data:
+          levelThreshold: 50
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x33, 0x32, 0x38, 0x31]
+        fPort: 3
+
+    - description: change battery threshold to 20%
+      input:
+        data:
+          batteryThreshold: 20
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x34, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: df400.js
+  examples:
+    - description: change periodic upload interval to 10 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 10
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          detectInterval: 10
+    - description: change level alarm threshold to 50%
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x33, 0x32, 0x38, 0x31]
+      output:
+        data:
+          levelThreshold: 50
+
+    - description: change battery threshold to 20%
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x34, 0x38, 0x31]
+      output:
+        data:
+          batteryThreshold: 20
