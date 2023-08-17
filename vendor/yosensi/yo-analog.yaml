@@ -43,7 +43,7 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - analog input
-  - 4-20 ma 
+  - 4-20 ma
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
