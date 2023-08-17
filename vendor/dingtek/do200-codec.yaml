@@ -1,0 +1,85 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: do200.js
+  # Examples (optional)
+  examples:
+    - description: telemetry upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x02, 0x01, 0x15, 0x00, 0x00, 0x00, 0x00, 0x01, 0x6F, 0x00, 0x79, 0xFF, 0xB0, 0xFF, 0xF5, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          level: 0
+          volt: 3.67
+          alarmPark: false
+          alarmLevel: false
+          alarmMagnet: false
+          alarmBattery: false
+          xMagnet: 121
+          yMagnet: -80
+          zMagnet: -11
+          Frame_Counter: 0
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x02, 0x03, 0x11, 0x00, 0x0B, 0x18, 0x02, 0x0A, 0x05, 0xA0, 0x00, 0x3C, 0x00, 0x00, 0x81]
+      output:
+        data:
+          firmware: '0.11'
+          uploadInterval: 24
+          ultraDetectInterval: 2
+          magDetectInterval: 10
+          magThreshold: 60
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: do200.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          uploadInterval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x38, 0x38, 0x38, 0x38, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: change geomagnetic detection interval to 10 seconds
+      input:
+        data:
+          magDetectInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x38, 0x38, 0x38, 0x38, 0x30, 0x34, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change geomagnetic threshold to 60mGs
+      input:
+        data:
+          magThreshold: 60
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x38, 0x38, 0x38, 0x38, 0x30, 0x32, 0x33, 0x43, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: do200.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x38, 0x38, 0x38, 0x38, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 4
+    - description: change geomagnetic detection interval to 10 seconds
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x38, 0x38, 0x38, 0x38, 0x30, 0x34, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          magDetectInterval: 10
+    - description: change geomagnetic threshold to 60mGs
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x38, 0x38, 0x38, 0x38, 0x30, 0x32, 0x33, 0x43, 0x38, 0x31]
+      output:
+        data:
+          magThreshold: 60
