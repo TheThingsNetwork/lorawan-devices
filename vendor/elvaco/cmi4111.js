@@ -55,61 +55,64 @@ function checkNegativeValue(reversed_values) {
     return parseInt(reversed_values, 16);
   }
 }
-
-function decodeCMI4110Standard(payloadArr) {
-  const decoded_dictionary = {};
+function decodeCMI4111Standard(payloadArr) {
+  const decodedDictionary = {};
   let i = 1;
-  energy_count = 0;
+
   while (i < payloadArr.length) {
-    const dif = payloadArr[i].toLowerCase();
-    const dif_int = parseInt(dif, 16);
-    let [vif, newIndex] = getVif(payloadArr, i);
-    i = newIndex;
-    let bcd_len = dif_int;
-    if (!(dif_int >= 2 && dif_int <= 4)) {
-      bcd_len = dif_int - 8;
-    }
-    if (payloadArr.length - i <= 3) {
+    const dif = payloadArr[i];
+    const vif = payloadArr[i + 1];
+    const difInt = parseInt(dif, 16);
+    i += 2;
+    const bcdLen = difInt >= 2 && difInt <= 4 ? difInt : 4;
+
+    if (payloadArr.slice(i).length <= 5 && vif === 'fd') {
       vif += payloadArr[i];
       i += 1;
     }
 
-    if (dif in difVifMapping && vif in difVifMapping[dif]) {
-      const reversed_values = payloadArr
-        .slice(i, i + bcd_len)
-        .reverse()
-        .join('');
-      const value_int = checkNegativeValue(reversed_values);
-      i += bcd_len;
-
-      const unit_info = difVifMapping[dif][vif];
-      let register = unit_info['measure'];
-      switch (register) {
-        case 'energy':
-          if (energy_count == 0) {
-          } else if (energy_count < 4) {
-            register = 'energy_tariff_' + energy_count.toString();
-          } else {
-            throw 'more than 4 energy registers';
-          }
-          energy_count += 1;
-          value = parseInt(reversed_values) / Math.pow(10, unit_info['decimal']);
-          break;
-        case 'flow' || 'power':
-          value = value_int / Math.pow(10, unit_info['decimal']);
-          break;
-        default:
-          value = parseInt(reversed_values) / Math.pow(10, unit_info['decimal']);
-          if (!unit_info['unit']) {
-            value = parseInt(reversed_values);
-          }
-      }
-      decoded_dictionary[register] = value;
-    } else {
-      throw 'Unknown dif ' + dif + ' and vif ' + vif;
+    if (!(dif in difVifMapping_CMI4111) || !(vif in difVifMapping_CMI4111[dif])) {
+      throw new Error(`Unknown dif ${dif} and vif ${vif}`);
     }
+
+    if (dif === '34') {
+      if (payloadArr.filter((val) => val === '00').length > 20) {
+        throw new Error('Empty payload, value during error state');
+      } else {
+        throw new Error(`Unknown dif ${dif} and vif ${vif}`);
+      }
+    }
+
+    const reversedValues = payloadArr
+      .slice(i, i + bcdLen)
+      .reverse()
+      .join(''); // Little-endian (LSB)
+    const unitInfo = difVifMapping_CMI4111[dif][vif];
+
+    let valueInt;
+    if (reversedValues.startsWith('fff') && ['power', 'flow'].includes(unitInfo.measure)) {
+      valueInt = parseInt(reversedValues.replace('fff', '-'), 16);
+    } else {
+      valueInt = parseInt(reversedValues, 16);
+    }
+
+    i += bcdLen;
+    let value;
+
+    if (unitInfo.measure === 'date_heat_meter') {
+      throw new Error('date_heat_meter is not supported yet');
+    } else if (unitInfo.measure === 'serial_from_message') {
+      value = parseInt(reversedValues);
+    } else if (unitInfo.unit) {
+      value = valueInt / Math.pow(10, unitInfo.decimal);
+    } else {
+      value = parseInt(reversedValues, 16);
+    }
+
+    decodedDictionary[unitInfo.measure] = value;
   }
-  return decoded_dictionary;
+
+  return standardPayload(decodedDictionary);
 }
 
 function bytesToHexArray(bytes) {
@@ -141,7 +144,7 @@ function decodeUplink(input) {
         };
       }
       return {
-        data: decodeCMI4110Standard(hex_array),
+        data: decodeCMI4111Standard(hex_array),
       };
     default:
       return {
