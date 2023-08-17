@@ -7,7 +7,7 @@ function decodeUplink(input) {
   var interrupt = input.bytes[len-1]; 
   switch (input.fPort) {
     case 2:
-  if(len==5)  
+  if(len==8)  
   {
    data.value=input.bytes[2]<<8 | input.bytes[3];
    data.distance=(value);//distance,units:mm

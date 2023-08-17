@@ -1,0 +1,94 @@
+uplinkDecoder:
+  fileName: payload/r718t2.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x48, 0x00, 0x64, 0x02, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718T2'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x48, 0x01, 0x24, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718T2'
+          Volt: 3.6
+          Alarm1: 0
+          Alarm2: 1
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718T2'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x48, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718T2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+downlinkDecoder:
+  fileName: payload/r718t2.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x48, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718T2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718T2'
+
+downlinkEncoder:
+  fileName: payload/r718t2.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718T2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+      output:
+        fPort: 7
+        bytes: [0x01, 0x48, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718T2'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

@@ -1,0 +1,103 @@
+uplinkDecoder:
+  fileName: payload/r718n360.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xCA, 0x00, 0x64, 0x02, 0x20, 0x20, 0x07, 0x06, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718N360'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200706'
+
+    - description: Status report - 1
+      input:
+        fPort: 6
+        bytes: [0x01, 0xCA, 0x01, 0x24, 0x00, 0x00, 0x05, 0xDC, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718N360'
+          Volt: 3.6
+          Channel_A: 1500
+
+    - description: Status report - 2
+      input:
+        fPort: 6
+        bytes: [0x01, 0xCA, 0x02, 0x00, 0x00, 0x06, 0xA4, 0x00, 0x00, 0x0E, 0x34]
+      output:
+        data:
+          Device: 'R718N360'
+          Channel_B: 1700
+          Channel_C: 3636
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xCA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718N360'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xCA, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x64, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718N360'
+          MinTime: 900
+          MaxTime: 1800
+          RawDataChange: 100
+
+downlinkDecoder:
+  fileName: payload/r718n360.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xCA, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x64, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718N360'
+          MinTime: 900
+          MaxTime: 1800
+          RawDataChange: 100
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xCA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718N360'
+
+downlinkEncoder:
+  fileName: payload/r718n360.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718N360'
+          MinTime: 900
+          MaxTime: 1800
+          RawDataChange: 100
+      output:
+        fPort: 7
+        bytes: [0x01, 0xCA, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x64, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718N360'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xCA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

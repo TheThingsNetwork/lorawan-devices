@@ -1,0 +1,67 @@
+name: R718Y - Wireless Differential Pressure and Temperature Sensor
+description: R718Y is a wireless communication device which can detect the pressure difference. It will transmit the detected data to other devices for display through the wireless network.
+
+hardwareVersions:
+  - version: '2'
+    numeric: 2
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718y-codec
+      AS923:
+        id: profile-as923
+        codec: r718y-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: r718y-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718y-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718y-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718y-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718y-codec
+
+dimensions:
+  width: 65
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: ER14505 AA Lithium
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718Y
+dataSheetURL: http://www.netvox.com.tw/um/R718Y/R718Ydatasheet.pdf
+
+photos:
+  main: photos/r718y.jpg

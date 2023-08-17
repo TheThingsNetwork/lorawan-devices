@@ -1,0 +1,56 @@
+name: Sampols
+description: The Sampols noise sensor is a high-performance and low-cost remote wireless sensor for acoustic noise (sound) measurement.It continuously measures and compute the equivalent noise level averaged over 1 second in dBA (Leq1s) and periodically transmits reports containing noise level distribution information (by default mean, minimum, maximum of Leq1s, L10, L50 L90 and L95) and meta data such as temperature or battery level. Sampols noise sensor is autonomous, easy to deploy and can perform continuous measurements over long periods of time.
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.1'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: sampols21-eu868-profile
+        lorawanCertified: true
+
+      US902-928:
+        id: sampols21-us915-profile
+        lorawanCertified: true
+
+      IN865-867:
+        id: sampols21-in865-profile
+        lorawanCertified: true
+
+      AS923:
+        id: sampols21-as923-profile
+        lorawanCertified: true
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 115
+  length: 25
+  height: 55
+
+# Weight in grams (optional)
+weight: 2
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -40
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# Product and data sheet URLs (optional)
+productURL: https://orbiwise.com/sampols/
+
+# Photos
+photos:
+  main: sampols21.png

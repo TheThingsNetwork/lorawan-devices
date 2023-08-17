@@ -13,7 +13,7 @@ uplinkDecoder:
           Supply_Voltage: 3018
           TH_Sensor_Humidity: '61'
           TH_Sensor_Temperature: '22.2'
-          TX_Reason: 'User_Button'
+          TX_Reason: 'User_Button_Event'
           Temperature_Sensor: '20.9'
     - description: gps position
       input:
@@ -22,9 +22,10 @@ uplinkDecoder:
       output:
         data:
           Supply_Voltage: 3018
-          TX_Reason: 'App_Cycle_Event'
+          TX_Reason: 'Cyclic_Event'
           altitude: 17.66
           hdop: 1.44
           latitude: 53.44717
           longitude: 10.22731
 # Temperatur + Luftfeuchte TH1, GPS
+# added mail Address
