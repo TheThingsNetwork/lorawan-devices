@@ -1,5 +1,5 @@
-name: ELV Motion Button for LoRaWAN®
-description: Compact LoRaWAN® battery powered radio remote control with acceleration and tilt detection from ELV
+name: ELV Outdoor Motion Sensor for LoRaWAN®
+description: The ELV-LW-OMO is a device to track acceleration, vibration or realtive position changes of an outdoor asset. Fields of application are e.g. the monitoring of garbage cans or the detection of activity at a bird house
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.6'
+    version: '1.0.3'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -35,7 +35,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: trx1-profile
         lorawanCertified: true
-        codec: elv-lw-mob-codec
+        codec: elv-lw-omo-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -52,17 +52,17 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 26
-  length: 33
-  height: 10
+  width: 18
+  length: 17
+  height: 81
 
 # Weight in grams (optional)
-weight: 9
+weight: 43
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: CR2032
+  type: LR03
 
 # Operating conditions (optional)
 operatingConditions:
@@ -105,12 +105,14 @@ resellerURLs:
   - name: 'ELVshop'
     region:
       - European Union
-    url: https://de.elv.com/elv-lorawan-bewegungssensor1-tastenfernbedienung-elv-lw-mob-158205
+    url: https://de.elv.com/elv-lorawan-erschuetterungssensor-outdoor-elv-lw-omo-158753
 msrp:
-  EUR: 29.95
+  EUR: 39.95
 
 # Photos
 photos:
-  main: elv-lw-mob-housing.png
+  main: elv-lw-omo-housing.png
   other:
-    - elv-lw-mob.png
+    - elv-lw-omo-frontview.png
+    - elv-lw-omo-backview.png
+    - elv-lw-omo-components.png
