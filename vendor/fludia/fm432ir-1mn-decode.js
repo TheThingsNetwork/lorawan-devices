@@ -41,10 +41,10 @@ function decode_index(payload) {
   var index = null;
   var signed = parseInt(payload.substring(6, 8), 16)
   if(signed){
-      index = BigInt.asIntN(64, "0x"+payload.substring(8,24))
+      index = parseInt(payload.substring(8, 24), 16)
   }
   else{
-      index = BigInt.asUintN(64, "0x"+payload.substring(8,24)) 
+      index = parseInt(payload.substring(8, 24), 16) >>> 0 
   }    
   return index;
 }
