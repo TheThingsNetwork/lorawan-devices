@@ -1,0 +1,70 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dc600.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x01, 0x11, 0x00, 0x00, 0x00, 0x19, 0x00, 0x00, 0x00, 0xF0, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          monitorStatus: true
+          alarmChannel1: false
+          alarmChannel2: false
+          alarmChannel3: false
+          alarmChannel4: false
+          alarmBattery: false
+          temperature: 25
+          frameCounter: 0
+
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x01, 0x03, 0x11, 0x01, 0x04, 0x18, 0x00, 0x00, 0x00, 0x14, 0x00, 0x00, 0x00, 0x00, 0x81]
+      output:
+        data:
+          firmware: '1.4'
+          uploadInterval: 24
+          batteryThreshold: 20
+          monitorStatus: true
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: dc600.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          uploadInterval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: set battery alarm threshold to 20%
+      input:
+        data:
+          batteryThreshold: 20
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x34, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: dc600.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 4
+
+    - description: set battery alarm threshold to 20%
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x34, 0x38, 0x31]
+      output:
+        data:
+          batteryThreshold: 20
