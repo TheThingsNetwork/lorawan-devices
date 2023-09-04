@@ -1,7 +1,7 @@
 // Decoder for Mutelcor LoRaButton payload
-
-// For machine parsing set keywords to true, this will give keywords instead of text descriptions
-var keywords = false;
+var keywords = false; // For machine parsing set keywords to true, this will give keywords instead of text descriptions
+var fahrenheit = false; // Set to true for temperature in Farenheit, otherwise Celcius
+var uid_type_prefix = true; // Add the UID type byte value before the UID to make the type part of the UID
 
 // TTN v3
 function decodeUplink(input) {
@@ -37,24 +37,27 @@ var translation = {
         5: "Thresholds",
         6: "Switch",
         7: "Reminder",
+        80: "Feedback",
         112: "Info",
         113: "Show",
         114: "Update",
         128: "SCD30",
     },
-    opcode_noval: "Unknown OpCode ($)",
+    opcode_noval: "Unknown OpCode (@)",
     buttons: "[05] Buttons",
     totals: "[06] Button Totals",
     counts: "[07] Button Counts",
     qcrc: "[08] Questions CRC",
     meas: "[09] Measurements",
     temp: "[01] Temperature [°C]",
+    temp_f: "[01] Temperature [°F]",
     rh: "[02] Relative Humidity [%]",
     press: "[03] Pressure [hPa]",
     light: "[04] Light [lx]",
     co2: "[05] CO₂ [ppm]",
     tvoc: "[06] Total Volatile Organic Compound [ppb]",
     dist: "[07] Distance [mm]",
+    dinputs: "[08] Digital Inputs",
     trigger: "[10] Thresholds Triggered",
     stop: "[11] Thresholds Stopped",
     state: "[12] Switch State",
@@ -62,36 +65,39 @@ var translation = {
         0: "Off",
         1: "On",
     },
-    state_noval: "Unknown switch state ($)",
+    state_noval: "Unknown switch state (@)",
     lat: "[13] Latitude",
     lon: "[14] Longitude",
     info: "[15] Firmware Info",
     ccrc: "[16] Config CRC",
-    config: "[17] Configuration",
+    cfrom: "[17] Config from position",
+    cto: "[18] Config to position",
+    config: "[19] Configuration",
     confver: "[01] Config layout version",
     conflen: "[02] Config in use length",
     deveui: "[03] LoRaWAN DevEUI",
     appeui: "[04] LoRaWAN AppEUI",
     region: "[05] LoRaWAN Region",
     region_val: {
-        0: "EU868",
-        1: "US915",
-        2: "AU921",
-        3: "AS923-1",
-        4: "IN866",
-        5: "AS923jp",
-        6: "KR920",
-        7: "AS923-2",
-        8: "AS923-3",
-        9: "AS923-4",
+        0: "EU868 (Europe 863-870 MHz ISM)",
+        1: "US915 (USA, Canada and South America 902-928 MHz ISM)",
+        2: "AU915 (Australia 915-928 MHz ISM)",
+        3: "AS923-1 (Asia and South America 923 MHz ISM)",
+        4: "IN866 (India 865-867 MHz ISM)",
+        5: "AS923jp (Japan 923 MHz ISM with listen-before-talk (LBT) rules)",
+        6: "KR920 (Korea 920-923 MHz ISM)",
+        7: "AS923-2 (Indonesia and Vietnam 921 MHz ISM)",
+        8: "AS923-3 (Africa, Middle East, Europe, Russia, Cuba and Philippines 916 MHz ISM)",
+        9: "AS923-4 (Israel 917-920 MHz ISM)",
+        255: "No LoRa (no LoRaWAN communication)",
     },
-    region_noval: "Unknown region ($)",
+    region_noval: "Unknown region (@)",
     adr: "[06] LoRaWAN ADR",
     adr_val: {
         0: "Off",
         1: "On",
     },
-    adr_noval: "Unknown ADR value ($)",
+    adr_noval: "Unknown ADR value (@)",
     uport: "[07] LoRaWAN Upload Port",
     hbport: "[08] LoRaWAN Upload Port for heartbeat/reminder",
     confrm: "[09] LoRaWAN Confirm",
@@ -99,27 +105,27 @@ var translation = {
         0: "Off",
         1: "On",
     },
-    confrm_noval: "Unknown confirm value ($)",
+    confrm_noval: "Unknown confirm value (@)",
     hbconfrm: "[10] LoRaWAN Confirm heartbeat/reminder",
     hbconfrm_val: {
         0: "Off",
         1: "On",
     },
-    hbconfrm_noval: "Unknown confirm value ($)",
+    hbconfrm_noval: "Unknown confirm value (@)",
     dutycycl: "[11] LoRaWAN Duty cycle",
     dutycycl_val: {
         0: "Always",
         1: "Not for new alarm/switch",
         2: "Not for alarm/switch and retries",
     },
-    dutycycl_noval: "Unknown duty cycle value ($)",
+    dutycycl_noval: "Unknown duty cycle value (@)",
     unittype: "[12] LoRaButton Unit type",
     unittype_val: {
         0: "Alarm Unit",
         1: "Vote Unit",
         2: "Switch Unit",
     },
-    unittype_noval: "Unknown unit type value ($)",
+    unittype_noval: "Unknown unit type value (@)",
     numbut: "[13] LoRaButton Number of buttons",
     butitv: "[14] LoRaButton Button press and switch interval [sec]",
     buztog: "[15] LoRaButton Button / switch on buzzer feedback toggle interval [sec]",
@@ -135,12 +141,16 @@ var translation = {
     ledpin: "[22] LoRaButton Button $ LED pin",
     ledpin_val: {
         255: "No pin",
+        128: "Mix LED 1",
+        129: "Mix LED 2",
+        130: "Mix LED 3",
+        131: "Mix LED 4",
     },
     voteaitv: "[23] LoRaButton Vote accumulation interval [sec]",
     voteathr: "[24] LoRaButton Vote accumulation threshold per button",
-    mtitv: "[25] LoRaButton heartbeat/measurement/reminder interval base [sec]",
-    stdel: "[26] LoRaButton Start heartbeat/measurement/reminder delay [sec]",
-    amtitv: "[27] LoRaButton heartbeat/measurement/reminder interval extra [sec]",
+    mtitv: "[25] LoRaButton Heartbeat/measurement/reminder interval base [sec]",
+    stdel: "[26] LoRaButton Transmit first heartbeat/measurement/reminder [sec]",
+    amtitv: "[27] LoRaButton Heartbeat/measurement/reminder interval extra [sec]",
     senspow: "[28] LoRaButton Sensors power pin",
     senspow_val: {
         255: "No pin",
@@ -148,23 +158,31 @@ var translation = {
     tcitv: "[29] LoRaButton Sensor Threshold check interval [sec]",
     tmeas: "[30] LoRaButton Sensor Threshold $ measurement",
     tmeas_val: {
+        0: "Temperature [0.1 K]",
+        1: "Relative Humidity [%]",
         4: "CO₂ [ppm]",
         6: "Distance [mm]",
+        8: "Digital input $",
+        254: "Voltage [10 mV]",
         255: "None/disabled",
     },
-    tmeas_noval: "Unknown Thresholds Measurement value ($)",
+    tmeas_noval: "Unknown Thresholds Measurement value (@)",
     ttval: "[31] LoRaButton Sensor Threshold $ trigger value",
     tsval: "[32] LoRaButton Sensor Threshold $ stop value",
-    tbuztog: "[33] LoRaButton Sensor Threshold $ buzzer toggle interval [sec]",
-    tbuzdur: "[34] LoRaButton Sensor Threshold $ buzzer duration [sec]",
-    tbuzrem: "[35] LoRaButton Sensor Threshold $ buzzer reminder interval [sec]",
-    tledpin: "[36] LoRaButton Sensor Threshold $ LED pin",
+    tbuztog: "[33] LoRaButton Sensor Feedback $ buzzer toggle interval [sec]",
+    tbuzdur: "[34] LoRaButton Sensor Feedback $ buzzer duration [sec]",
+    tbuzrem: "[35] LoRaButton Sensor Feedback $ buzzer reminder interval [sec]",
+    tledpin: "[36] LoRaButton Sensor Feedback $ LED pin",
     tledpin_val: {
         255: "No pin",
+        128: "Mix LED 1",
+        129: "Mix LED 2",
+        130: "Mix LED 3",
+        131: "Mix LED 4",
     },
-    tledtog: "[37] LoRaButton Sensor Threshold $ LED toggle interval [sec]",
-    tleddur: "[38] LoRaButton Sensor Threshold $ LED duration [sec]",
-    tledrem: "[39] LoRaButton Sensor Threshold $ LED reminder interval [sec]",
+    tledtog: "[37] LoRaButton Sensor Feedback $ LED toggle interval [sec]",
+    tleddur: "[38] LoRaButton Sensor Feedback $ LED duration [sec]",
+    tledrem: "[39] LoRaButton Sensor Feedback $ LED reminder interval [sec]",
     subband: "[40] LoRaWAN Sub Band for US like regions (1-8)",
     subband_val: {
         0: "No subband direction",
@@ -182,10 +200,18 @@ var translation = {
     onledpin: "[46] LoRaButton Switch on LED pin",
     onledpin_val: {
         255: "No pin",
+        128: "Mix LED 1",
+        129: "Mix LED 2",
+        130: "Mix LED 3",
+        131: "Mix LED 4",
     },
     ofledpin: "[47] LoRaButton Switch off LED pin",
     ofledpin_val: {
         255: "No pin",
+        128: "Mix LED 1",
+        129: "Mix LED 2",
+        130: "Mix LED 3",
+        131: "Mix LED 4",
     },
     ofledtog: "[48] LoRaButton Switch off LED feedback toggle interval [sec]",
     ofleddur: "[49] LoRaButton Switch off LED feedback duration [sec]",
@@ -195,6 +221,10 @@ var translation = {
     ncledpin: "[53] LoRaButton Alarm No Confirmation LED pin",
     ncledpin_val: {
         255: "No pin",
+        128: "Mix LED 1",
+        129: "Mix LED 2",
+        130: "Mix LED 3",
+        131: "Mix LED 4",
     },
     ncledtog: "[54] LoRaButton Alarm No Confirmation LED feedback toggle interval [sec]",
     ncleddur: "[55] LoRaButton Alarm No Confirmation LED feedback duration [sec]",
@@ -203,11 +233,46 @@ var translation = {
     cledpin: "[58] LoRaButton Alarm Confirmation LED pin",
     cledpin_val: {
         255: "No pin",
+        128: "Mix LED 1",
+        129: "Mix LED 2",
+        130: "Mix LED 3",
+        131: "Mix LED 4",
     },
     cledtog: "[59] LoRaButton Alarm Confirmation LED feedback toggle interval [sec]",
     cleddur: "[60] LoRaButton Alarm Confirmation LED feedback duration [sec]",
     choldoff: "[61] LoRaButton Alarm Confirmation feedback holdoff [sec]",
-    result: "[18] Update Result",
+    mixledpin: "[62] LoRaButton Mix LED $ LED $ pin",
+    mixledpin_val: {
+        255: "No pin",
+    },
+    mixledlev: "[63] LoRaButton Mix LED $ LED $ level [%]",
+    diginp: "[64] Digital Input $ pin",
+    ttameas: "[65] LoRaButton Sensor Threshold $ trigger additional measurements",
+    tsameas: "[66] LoRaButton Sensor Threshold $ stop additional measurements",
+    uidtime: "[67] LoRaButton UID read timeout [sec]",
+    uidtime_val: {
+        0: "UID reader disabled",
+    },
+    uidbcycl: "[68] LoRaButton UID read success beep [cycles]",
+    uidbcycl_val: {
+        0: "No beep",
+    },
+    uidsucc: "[69] LoRaButton UID read success action",
+    uidsucc_val: {
+        0: "Send Alarm and immediately give confirm feedback (when configured)",
+        1: "Send Alarm and (when configured) wait for confirm downlink",
+    },
+    uidsucc_noval: "Unknown UID read success action value (@)",
+    uidfail: "[70] LoRaButton UID read failure action",
+    uidfail_val: {
+        0: "Don't send Alarm and immediately give non confirm feedback (when configured)",
+        1: "Send Alarm and (when configured) wait for confirm downlink",
+        2: "Send Alarm and immediately give non confirm feedback (when configured)",
+    },
+    uidfail_noval: "Unknown UID read failure action value (@)",
+    uidbmask: "[71] LoRaButton UID read button mask (disable UID read for indicated buttons)",
+    buzbmask: "[72] LoRaButton Buzzer button mask (disable buzzer for indicated buttons, both button feedback and alarm (non) confirm)",
+    result: "[20] Update Result",
     result_val: {
         0: "Success",
         1: "Incomplete (update length exceeds payload)",
@@ -215,9 +280,9 @@ var translation = {
         3: "No length field",
         4: "Failed (max heartbeat/measurement/reminder interval increase more than double)",
     },
-    result_noval: "Unknown update result ($)",
-    succcnt: "[19] Update Success count",
-    scd30result: "[20] SCD30 Result",
+    result_noval: "Unknown update result (@)",
+    succcnt: "[21] Update Success count",
+    scd30result: "[22] SCD30 Result",
     scd30result_val: {
         0: "Success",
         1: "Start Timeout",
@@ -228,7 +293,41 @@ var translation = {
         48: "Data NACK",
         56: "Arbitration lost",
     },
-    alarmid: "[21] Alarm ID",
+    alarmid: "[23] Alarm ID",
+    feedbacktime: "[24] Feedback Time [min]",
+    feedbacks: "[25] Feedbacks",
+    uiderror: "[26] UID Error",
+    uiderror_val: {
+        32: "RFID/NFC Reader not detected at startup",
+        48: "No tag/card found",
+        64: "Lost communication with RFID/NFC Reader",
+        96: "Reading card/tag failed, position it closer",
+        112: "Multiple cards/tags, present only one",
+        144: "Card/tag not yet supported",
+        160: "Reading card/tag interrupted",
+        176: "UID too long, maximal 10 bytes",
+        192: "Tag/card with Random UID, not supported",
+    },
+    uidtype: "[27] UID Type",
+    uidtype_val: {
+        0: "Generic passive 106 kbps (ISO/IEC14443-4A, Mifare and DEP)",
+        1: "Generic passive 212 kbps (FeliCa and DEP)",
+        2: "Generic passive 424 kbps (FeliCa and DEP)",
+        3: "Passive 106 kbps ISO/IEC14443-4B",
+        4: "Innovision Jewel/Topaz tag",
+        16: "Mifare card",
+        17: "FeliCa 212 kbps card",
+        18: "FeliCa 424 kbps card",
+        32: "Passive 106 kbps ISO/IEC14443-4A",
+        35: "Passive 106 kbps ISO/IEC14443-4B",
+        64: "DEP passive 106 kbps",
+        65: "DEP passive 212 kbps",
+        66: "DEP passive 424 kbps",
+        128: "DEP active 106 kbps",
+        129: "DEP active 212 kbps",
+        130: "DEP active 424 kbps",
+    },
+    uid: "[28] UID",
     left: "[88] Undecoded Payload Left [hex]",
     error: "[89] Decode error",
     error_val: {
@@ -236,6 +335,7 @@ var translation = {
         10: "Unexpected end, no (complete) voltage",
         20: "Unexpected end, no OpCode",
         30: "Unknown OpCode",
+        35: "Unexpected end, UID Error requires Error value",
         40: "Unexpected end, OpCode Votes requires #Buttons",
         50: "Too many buttons, maximum is 12",
         60: "Unexpected end, incomplete Button Totals",
@@ -248,10 +348,13 @@ var translation = {
         130: "Unexpected end, measurements without (complete) CO₂ value",
         140: "Unexpected end, measurements without (complete) TVOC value",
         143: "Unexpected end, measurements without (complete) Distance value",
+        144: "Unexpected end, measurements without more Measurements",
+        145: "Unexpected end, measurements without Digital Inputs",
         150: "Unexpected end, OpCode Thresholds requires Threshold info",
         160: "Unexpected end, OpCode Location requires (complete) Latitude",
         170: "Unexpected end, OpCode Location requires (complete) Longitude",
         175: "Unexpected end, OpCode Switch/Reminder requires Switch State",
+        177: "Unexpected end, OpCode Feedback requires Feedback Time",
         180: "Unexpected end, OpCode Show/Update require (complete) CRC",
         190: "Unexpected end, OpCode Show requires Config Start",
         200: "Unexpected end, OpCode Show requires Config Length",
@@ -270,9 +373,10 @@ function Descriptions(decode) {
         var value = Descriptions(decode[key]);
         var labels = key.split("_");
         var description = translation[labels[0]];
-        if (description !== undefined && description !== null) {
-            for (var label = 1; label < labels.length; label += 1) {
-                description = description.replace("$", labels[label]);
+        if (fahrenheit && labels[0] == "temp" && translation["temp_f"]) description = translation["temp_f"];
+        if (typeof description === "string") {
+            for (var label_d = 1; label_d < labels.length; label_d += 1) {
+                description = description.replace("$", labels[label_d]);
             }
             key = description;
         }
@@ -281,9 +385,14 @@ function Descriptions(decode) {
             var value_description = value_descriptions[value];
             if (value_description === undefined) {
                 var value_nodescription = translation[labels[0] + "_noval"];
-                if (value_nodescription !== undefined && value_nodescription !== null) value = value_nodescription.replace("$", value);
+                if (typeof value_nodescription === "string") value = value_nodescription.replace("@", value);
             } else {
                 value = value_description;
+            }
+        }
+        if (typeof value === "string") {
+            for (var label_v = 1; label_v < labels.length; label_v += 1) {
+                value = value.replace("$", labels[label_v]);
             }
         }
         descriptions[key] = value;
@@ -313,11 +422,28 @@ function MutelcorLoRaButtonDecode(bytes, port) {
     var opcode = bytes[pos++];
     decoded.opcode = opcode;
     if (!(opcode in translation.opcode_val)) decoded.error = 30;
-    if (decoded.opcode === 1 && pos + 1 == bytes.length) {
-        decoded.buttons = ["1", "2", "3", "4", "5", "6", "7", "8"].filter(bitmaskFilter, bytes[pos++]);
-    }
-    if (decoded.opcode === 1 && pos + 2 == bytes.length) {
-        decoded.alarmid = bytes[pos++] * 256 + bytes[pos++];
+    if (decoded.opcode === 1) {
+        if (pos < bytes.length && pos + 2 != bytes.length) {
+            decoded.buttons = ["1", "2", "3", "4", "5", "6", "7", "8"].filter(bitmaskFilter, bytes[pos++]);
+        }
+        if (pos + 1 < bytes.length) {
+            decoded.alarmid = bytes[pos++] * 256 + bytes[pos++];
+        }
+        if (pos < bytes.length) {
+            var uidtype = bytes[pos++];
+            if (uidtype === 255) {
+                if (pos < bytes.length) {
+                    decoded.uiderror = bytes[pos++];
+                } else {
+                    decoded.error = 35;
+                    return addPayloadLeft(decoded, bytes, pos);
+                }
+            } else {
+                decoded.uidtype = uidtype;
+                decoded.uid = (uid_type_prefix ? toHex(uidtype) : "") + toHexMSBF(bytes.slice(pos));
+                pos = bytes.length;
+            }
+        }
     }
     if (decoded.opcode === 2 && bytes.length < pos + 1) {
         decoded.error = 40;
@@ -331,23 +457,23 @@ function MutelcorLoRaButtonDecode(bytes, port) {
             return addPayloadLeft(decoded, bytes, pos);
         }
         decoded.totals = {};
-        for (var button = 1; button <= buttons; button += 1) {
+        for (var button_t = 1; button_t <= buttons; button_t += 1) {
             if (bytes.length < pos + 2) {
                 decoded.error = 60;
                 return addPayloadLeft(decoded, bytes, pos);
             }
             if (pos + 2 <= bytes.length) {
-                decoded.totals[button] = bytes[pos++] * 256 + bytes[pos++];
+                decoded.totals[button_t] = bytes[pos++] * 256 + bytes[pos++];
             }
         }
         if (decoded.opcode === 2) {
             decoded.counts = {};
-            for (button = 1; button <= buttons; button += 1) {
+            for (var button_c = 1; button_c <= buttons; button_c += 1) {
                 if (bytes.length < pos + 1) {
                     decoded.error = 70;
                     return addPayloadLeft(decoded, bytes, pos);
                 }
-                decoded.counts[button] = bytes[pos++];
+                decoded.counts[button_c] = bytes[pos++];
             }
             if (pos + 4 <= bytes.length) {
                 decoded.qcrc = ((bytes[pos++] * 256 + bytes[pos++]) * 256 + bytes[pos++]) * 256 + bytes[pos++];
@@ -367,6 +493,7 @@ function MutelcorLoRaButtonDecode(bytes, port) {
                 return addPayloadLeft(decoded, bytes, pos);
             }
             decoded.meas.temp = (bytes[pos++] * 256 + bytes[pos++]) / 10;
+            if (fahrenheit) decoded.meas.temp = Math.round((decoded.meas.temp * 1.8 + 32) * 100) / 100;
         }
         if (measurements & 2) {
             if (bytes.length < pos + 1) {
@@ -410,6 +537,25 @@ function MutelcorLoRaButtonDecode(bytes, port) {
             }
             decoded.meas.dist = bytes[pos++] * 256 + bytes[pos++];
         }
+        if (measurements & 128) {
+            if (bytes.length < pos + 2) {
+                decoded.error = 144;
+                return addPayloadLeft(decoded, bytes, pos);
+            }
+            measurements = bytes[pos++];
+            if (measurements & 1) {
+                if (bytes.length < pos + 2) {
+                    decoded.error = 145;
+                    return addPayloadLeft(decoded, bytes, pos);
+                }
+                var digital_inputs = bytes[pos++];
+                var dinputs = {};
+                for (var diginp = 0; diginp < 4; diginp += 1) {
+                    if (digital_inputs & (1 << diginp)) dinputs[diginp + 1] = (digital_inputs & (1 << (diginp + 4))) != 0;
+                }
+                decoded.meas.dinputs = dinputs;
+            }
+        }
         if (decoded.opcode === 5) {
             if (bytes.length < pos + 1) {
                 decoded.error = 150;
@@ -448,6 +594,18 @@ function MutelcorLoRaButtonDecode(bytes, port) {
         }
         decoded.state = bytes[pos++];
     }
+    if (decoded.opcode === 80) {
+        if (bytes.length < pos + 1) {
+            decoded.error = 177;
+            return addPayloadLeft(decoded, bytes, pos);
+        }
+        decoded.feedbacktime = bytes[pos++];
+        if (pos + 1 <= bytes.length) {
+            var feedbacks_bitmask = bytes[pos++];
+            var feedbacks = ["1", "2", "3", "4"].filter(bitmaskFilter, feedbacks_bitmask);
+            if (feedbacks && 0 < feedbacks.length) decoded.feedbacks = feedbacks;
+        }
+    }
     if (decoded.opcode === 112) {
         var info = "";
         while (pos < bytes.length) {
@@ -467,15 +625,17 @@ function MutelcorLoRaButtonDecode(bytes, port) {
                 return addPayloadLeft(decoded, bytes, pos);
             }
             var config_start = bytes[pos++];
+            decoded.cfrom = config_start;
             if (bytes.length < pos + 1) {
                 decoded.error = 200;
                 return addPayloadLeft(decoded, bytes, pos);
             }
             var config_length = bytes[pos++];
-            decoded.config = {};
             var config_index = config_start;
             var config_end = config_start + config_length
             if (bytes.length < pos + config_length) config_end = config_start + bytes.length - pos;
+            decoded.cto = config_end - 1;
+            decoded.config = {};
             while (config_index < config_end) {
                 var field = null;
                 var value = bytes[pos];
@@ -493,6 +653,11 @@ function MutelcorLoRaButtonDecode(bytes, port) {
                 if (118 <= config_index && config_index <= 121) config_pos = 118;
                 if (122 <= config_index && config_index <= 125) config_pos = 122;
                 if (126 <= config_index && config_index <= 129) config_pos = 126;
+                if (152 <= config_index && config_index <= 163) config_pos = 152;
+                if (164 <= config_index && config_index <= 175) config_pos = 164;
+                if (176 <= config_index && config_index <= 179) config_pos = 176;
+                if (180 <= config_index && config_index <= 183) config_pos = 180;
+                if (184 <= config_index && config_index <= 187) config_pos = 184;
                 var index = config_index - config_pos;
                 switch (config_pos) {
                     case 0:
@@ -729,6 +894,43 @@ function MutelcorLoRaButtonDecode(bytes, port) {
                         field = "choldoff";
                         value /= 4;
                         break;
+                    case 152:
+                        field = "mixledpin_" + (index % 4 + 1) + "_" + (Math.floor(index / 4) + 1);
+                        break;
+                    case 164:
+                        field = "mixledlev_" + (index % 4 + 1) + "_" + (Math.floor(index / 4) + 1);
+                        value = Math.round((value * 1000) / 255) / 10;
+                        break;
+                    case 176:
+                        field = "diginp_" + (index + 1);
+                        break;
+                    case 180:
+                        field = "ttameas_" + (index + 1);
+                        break;
+                    case 184:
+                        field = "tsameas_" + (index + 1);
+                        break;
+                    case 188:
+                        field = "uidtime";
+                        value /= 4;
+                        break;
+                    case 189:
+                        field = "uidbcycl";
+                        break;
+                    case 190:
+                        field = "uidsucc";
+                        break;
+                    case 191:
+                        field = "uidfail";
+                        break;
+                    case 192:
+                        field = "uidbmask";
+                        value = ["1", "2", "3", "4", "5", "6", "7", "8"].filter(bitmaskFilter, value);
+                        break;
+                    case 193:
+                        field = "buzbmask";
+                        value = ["1", "2", "3", "4", "5", "6", "7", "8"].filter(bitmaskFilter, value);
+                        break;
                 }
                 if (field !== null) decoded.config[field] = value;
                 pos += shift;
@@ -772,20 +974,20 @@ function bitmaskFilter(value, pos) {
     return this & (1 << pos);
 }
 
+function toHex(byte) {
+    return ("0" + byte.toString(16).toUpperCase()).slice(-2);
+}
+
 function toHexMSBF(buf, len) {
     if (len === undefined) len = buf.length;
     var output = "";
-    for (var i = 0; i < len; i += 1) {
-        output += ("0" + buf[i].toString(16).toUpperCase()).slice(-2);
-    }
+    for (var i = 0; i < len; i += 1) output += toHex(buf[i]);
     return output;
 }
 
 function toHexLSBF(buf, len) {
     if (len === undefined) len = buf.length;
     var output = "";
-    for (var i = len - 1; 0 <= i; i -= 1) {
-        output += ("0" + buf[i].toString(16).toUpperCase()).slice(-2);
-    }
+    for (var i = len - 1; 0 <= i; i -= 1) output += toHex(buf[i]);
     return output;
 }
