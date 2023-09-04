@@ -221,7 +221,7 @@ macVersion: '1.0.3'
 #   1.0.1: TS001-1.0.1
 #   1.0.2: RP001-1.0.2 or RP001-1.0.2-RevB
 #   1.0.3: RP001-1.0.3-RevA
-#   1.0.4: RP002-1.0.0 or RP002-1.0.1
+#   1.0.4: RP002-1.0.0, RP002-1.0.1, RP002-1.0.2, RP002-1.0.3 or RP002-1.0.4
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
 regionalParametersVersion: 'RP001-1.0.3-RevA'
 
