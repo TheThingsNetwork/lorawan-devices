@@ -87,11 +87,11 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.seeedstudio.com/Seeed-Studio-LoRaWAN-Dev-Kit-p-5370.html
-dataSheetURL: https://wiki.seeedstudio.com/Getting-Started-with-Seeed-Studio-LoRaWAN-Dev-Kit/
+productURL: https://www.seeedstudio.com/SenseCAP-Indicator-D1L-p-5646.html 
+dataSheetURL: https://wiki.seeedstudio.com/Sensor/SenseCAP/SenseCAP_Indicator/Get_started_with_SenseCAP_Indicator/#specification
 
 # Commercial information
 
 # Photos
 photos:
-  main: lorawan-dev-kit.png
+  main: sensecap-indicator.png
