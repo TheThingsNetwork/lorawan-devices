@@ -23,7 +23,7 @@ firmwareVersions:
         codec: l0010-codec
 
 sensors:
-  - gasmatic sensor
+  #- gasmatic sensor
 
 dimensions:
   width: 180
