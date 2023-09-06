@@ -22,8 +22,8 @@ firmwareVersions:
         lorawanCertified: true
         codec: l0010-codec
 
-sensors:
-  #- gasmatic sensor
+#sensors:
+# - gasmatic sensor
 
 dimensions:
   width: 180
