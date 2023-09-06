@@ -14,7 +14,7 @@ function decodeUplink(input){
       message_type : null,
       powers : [],
       meter_type : null,
-      battery_status : null,
+      low_battery : null,
       firmware_version: null,
       number_of_starts : null
     },
@@ -38,9 +38,9 @@ function decodeUplink(input){
     var data = decode_T2(input.bytes);
     decoded.data.index = data.index;
     decoded.data.meter_type = data.meter_type;
-    decoded.data.battery_status = data.battery_status;
+    decoded.data.low_battery = data.low_battery;
     decoded.data.firmware_version = data.firmware_version;
-    decoded.number_of_starts = data.number_of_starts;
+    decoded.data.number_of_starts = data.number_of_starts;
   }
 
   return decoded
@@ -83,7 +83,7 @@ function decode_T2(payload){
   data.number_of_starts = payload[1];
   data.index = (payload[5] & 0xFF) << 24 | (payload[6] & 0xFF) << 16 | (payload[7] & 0xFF) << 8 | (payload[8] & 0xFF);
   data.firmware_version = payload[4] >> 2;
-  data.battery_status = payload[4] & 0x1;
+  data.low_battery = payload[4] & 0x1;
   data.meter_type = payload[4] >> 1 & 0x1;
   if(data.meter_type == 0) data.meter_type = "Electromechanical (Position A)"
   if(data.meter_type == 1) data.meter_type = "Electronic (Position B)"
