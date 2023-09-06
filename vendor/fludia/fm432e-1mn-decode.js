@@ -1,60 +1,91 @@
+const PAYLOAD_TYPE = {
+  T1       :  {header: 91,/*0x5b*/ size: 45/*in bytes*/, name: "T1"},
+  TT1_MECA :  {header: 18,/*0x12*/ size: 37/*in bytes*/, name: "TT1_MECA"},
+  TT2_MECA :  {header: 19,/*0x13*/ size: 30/*in bytes*/, name: "TT2_MECA"},
+  T2       :  {header: 81,/*0x51*/ size: 12/*in bytes*/, name: "T2"},
+  START    :  {header: 95,/*0x5f*/ size: 9/*in bytes*/,  name: "START"}
+}
+
 //Main function Decoder
 function decodeUplink(input){
-  var decoded = {}
-  decoded.index = decode_index(toHexString(input.bytes))
-  decoded.power_list = decode_power_list(toHexString(input.bytes))
-  if(decoded.index && decoded.power_list.length==20){
-    return {
-      data:{
-        index: decoded.index,
-        powers: decoded.power_list
-     
-      }
-    }
+  var decoded = {
+    data: {
+      index : null,
+      message_type : null,
+      powers : [],
+      meter_type : null,
+      battery_status : null,
+      firmware_version: null,
+      number_of_starts : null
+    },
+    warnings: [],
+    errors: []
   }
-  else{
-      msg = "The payload has the wrong size !"
-      return msg
-  }    
-}
-//return index from T1 payload
-function decode_index(payload) {
-  var index = null;
-  if (payload.length == 90) {
-      index = payload.substring(2, 8);
+  //Find message type
+  decoded.data.message_type = find_message_type(input.bytes);
+  if(decoded.data.message_type == null){
+    decoded.errors.push("Invalid payload")
+    return decoded
   }
-  return parseInt(index, 16);
+  //Decode message
+  if(decoded.data.message_type == PAYLOAD_TYPE.T1.name){
+    var data = decode_T1(input.bytes);
+    decoded.data.index = data.index;
+    decoded.data.powers = data.power_list;
+  }else if(decoded.data.message_type == PAYLOAD_TYPE.TT1_MECA.name || decoded.data.message_type == PAYLOAD_TYPE.TT2_MECA.name){
+    decoded.data.meter_type = "Electromechanical (Position A)"
+  }else if(decoded.data.message_type == PAYLOAD_TYPE.T2.name){
+    var data = decode_T2(input.bytes);
+    decoded.data.index = data.index;
+    decoded.data.meter_type = data.meter_type;
+    decoded.data.battery_status = data.battery_status;
+    decoded.data.firmware_version = data.firmware_version;
+    decoded.number_of_starts = data.number_of_starts;
+  }
+
+  return decoded
 }
 
-//return hexadecimal power list from T1 payload
-function payload_to_hex(payload) {
-  var power_list_hex = []
-  if (payload.length == 90){
-      for(i=0;i<40;i++){
-          power_list_hex.push(payload.substring((10+2*i),2+(10+2*i)))
-      }
+//Find message type - return null if nothing found
+function find_message_type(payload){
+  switch(payload[0]){
+    case PAYLOAD_TYPE.T1.header:
+      if(payload.length == PAYLOAD_TYPE.T1.size) return PAYLOAD_TYPE.T1.name
+      break;
+    case PAYLOAD_TYPE.TT1_MECA.header:
+      if(payload.length == PAYLOAD_TYPE.TT1_MECA.size) return PAYLOAD_TYPE.TT1_MECA.name
+      break;
+    case PAYLOAD_TYPE.TT2_MECA.header:
+      if(payload.length == PAYLOAD_TYPE.TT2_MECA.size) return PAYLOAD_TYPE.TT2_MECA.name
+      break;
+    case PAYLOAD_TYPE.T2.header:
+      if(payload.length == PAYLOAD_TYPE.T2.size) return PAYLOAD_TYPE.T2.name
+      break;
+    case PAYLOAD_TYPE.START.header:
+      if(payload.length == PAYLOAD_TYPE.START.size) return PAYLOAD_TYPE.START.name
+      break;
   }
-  return power_list_hex
+  return null
 }
 
-//return power list from T1 payload
-function decode_power_list(payload) {
-  var power_list = []
-  var power_list_hex = []
-  if (payload.length == 90){
-      power_list_hex = payload_to_hex(payload)
+function decode_T1(payload){
+  var data = {};
+  data.index  = (payload[1] & 0xFF) << 24 | (payload[2] & 0xFF) << 16 | (payload[3] & 0xFF) << 8 | (payload[4] & 0xFF);
+  data.power_list = []
+  for(i=0;i<20;i++){
+    data.power_list.push((payload[5+2*i] & 0xFF) << 8 | (payload[6+2*i] & 0xFF))
   }
-  if(power_list_hex.length == 40){
-      for(i=0;i<20;i++){
-          power_list.push(parseInt(power_list_hex[i*2]+power_list_hex[i*2+1], 16))
-      }
-  }    
-  return power_list
+  return data
 }
 
-//Convert uplink payload.bytes to hexString payload
-function toHexString(byteArray) {
-  return Array.from(byteArray, function(byte) {
-    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-  }).join('')
+function decode_T2(payload){
+  var data = {};
+  data.number_of_starts = payload[1];
+  data.index = (payload[5] & 0xFF) << 24 | (payload[6] & 0xFF) << 16 | (payload[7] & 0xFF) << 8 | (payload[8] & 0xFF);
+  data.firmware_version = payload[4] >> 2;
+  data.battery_status = payload[4] & 0x1;
+  data.meter_type = payload[4] >> 1 & 0x1;
+  if(data.meter_type == 0) data.meter_type = "Electromechanical (Position A)"
+  if(data.meter_type == 1) data.meter_type = "Electronic (Position B)"
+  return data;
 }
