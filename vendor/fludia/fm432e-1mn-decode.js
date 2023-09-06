@@ -1,9 +1,9 @@
 const PAYLOAD_TYPE = {
-  T1       :  {header: 91,/*0x5b*/ size: 45/*in bytes*/, name: "T1"},
-  TT1_MECA :  {header: 18,/*0x12*/ size: 37/*in bytes*/, name: "TT1_MECA"},
-  TT2_MECA :  {header: 19,/*0x13*/ size: 30/*in bytes*/, name: "TT2_MECA"},
-  T2       :  {header: 81,/*0x51*/ size: 12/*in bytes*/, name: "T2"},
-  START    :  {header: 95,/*0x5f*/ size: 9/*in bytes*/,  name: "START"}
+  T1       :  {header: 0x5b, size: 45/*in bytes*/, name: "T1"},
+  TT1_MECA :  {header: 0x12, size: 37/*in bytes*/, name: "TT1_MECA"},
+  TT2_MECA :  {header: 0x13, size: 30/*in bytes*/, name: "TT2_MECA"},
+  T2       :  {header: 0x51, size: 12/*in bytes*/, name: "T2"},
+  START    :  {header: 0x5f, size: 9/*in bytes*/,  name: "START"}
 }
 
 //Main function Decoder

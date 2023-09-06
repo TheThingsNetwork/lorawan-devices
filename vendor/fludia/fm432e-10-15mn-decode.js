@@ -1,13 +1,13 @@
 const PAYLOAD_TYPE = {
-  T1_10MN  :  {header: 32,/*0x20*/ size: 20/*in bytes*/, name: "T1_10MN"},
-  T1_15MN  :  {header: 33,/*0x21*/ size: 20/*in bytes*/, name: "T1_15MN"},
-  T1_1H    :  {header: 34,/*0x22*/ size: 20/*in bytes*/, name: "T1_1H"},
-  TT1_MECA :  {header: 18,/*0x12*/ size: 37/*in bytes*/, name: "TT1_MECA"},
-  TT2_MECA :  {header: 19,/*0x13*/ size: 30/*in bytes*/, name: "TT2_MECA"},
-  TT1_ELEC :  {header: 18,/*0x12*/ size: 19/*in bytes*/, name: "TT1_ELEC"},
-  TT2_ELEC :  {header: 19,/*0x13*/ size: 11/*in bytes*/, name: "TT2_ELEC"},
-  T2       :  {header: 14,/*0x0e*/ size: 12/*in bytes*/, name: "T2"},
-  START    :  {header: 01,/*0x5f*/ size: 3/*in bytes*/,  name: "START"}
+  T1_10MN  :  {header: 0x20, size: 20/*in bytes*/, name: "T1_10MN"},
+  T1_15MN  :  {header: 0x21, size: 20/*in bytes*/, name: "T1_15MN"},
+  T1_1H    :  {header: 0x22, size: 20/*in bytes*/, name: "T1_1H"},
+  TT1_MECA :  {header: 0x12, size: 37/*in bytes*/, name: "TT1_MECA"},
+  TT2_MECA :  {header: 0x13, size: 30/*in bytes*/, name: "TT2_MECA"},
+  TT1_ELEC :  {header: 0x12, size: 19/*in bytes*/, name: "TT1_ELEC"},
+  TT2_ELEC :  {header: 0x13, size: 11/*in bytes*/, name: "TT2_ELEC"},
+  T2       :  {header: 0x0e, size: 12/*in bytes*/, name: "T2"},
+  START    :  {header: 0x01, size: 3/*in bytes*/,  name: "START"}
 }
 
 //Main function Decoder
@@ -56,6 +56,7 @@ function decodeUplink(input){
     decoded.data.firmware_version = data.firmware_version;
     decoded.data.number_of_starts = data.number_of_starts;
     decoded.data.param_id = data.param_id;
+    decoded.data.time_step = data.time_step;
   }
 
   return decoded
@@ -115,5 +116,9 @@ function decode_T2(payload){
   if(data.meter_type == 0) data.meter_type = "Electromechanical (Position A)"
   if(data.meter_type == 1) data.meter_type = "Electronic (Position B)"
   data.param_id = payload[3];
+  data.time_step = payload[11];
+  if(data.time_step == 0) data.timestep = 10;
+  if(data.time_step == 3) data.timestep = 15;
+  if(data.time_step == 1) data.timestep = 60;
   return data;
 }
