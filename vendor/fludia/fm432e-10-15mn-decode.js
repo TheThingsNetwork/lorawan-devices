@@ -117,8 +117,8 @@ function decode_T2(payload){
   if(data.meter_type == 1) data.meter_type = "Electronic (Position B)"
   data.param_id = payload[3];
   data.time_step = payload[11];
-  if(data.time_step == 0) data.timestep = 10;
-  if(data.time_step == 3) data.timestep = 15;
-  if(data.time_step == 1) data.timestep = 60;
+  if(data.time_step == 0) data.time_step = 10;
+  if(data.time_step == 3) data.time_step = 15;
+  if(data.time_step == 1) data.time_step = 60;
   return data;
 }
