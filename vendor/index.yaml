@@ -1977,3 +1977,10 @@ vendors:
     description: Open Boat Projects is a platform on which water sports enthusiasts present their self-constructed DIY projects around boating. The focus is on the idea of open source and open hardware as well as the exchange of ideas.
     website: https://open-boat-projects.org
     logo: obp_logo.png
+
+  - id: elspina
+    name: Elspina VEINZ Inc.
+    website: https://elspina.veinz.tech/
+    logo: elspina_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/elspinaveinz/
