@@ -14,6 +14,8 @@ function decodeUplink(input){
       time_step: 1,
       meter_type : "Pulse",
       firmware_version: null,
+      step: null,
+      values: null
     },
     warnings: [],
     errors: []
@@ -34,7 +36,8 @@ function decodeUplink(input){
     decoded.data.index = data.index;
     decoded.data.firmware_version = data.firmware_version;
   }
-
+  decoded.data.step = decoded.data.time_step;
+  decoded.data.values = decoded.data.increments;
   return decoded
 }
 

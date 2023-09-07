@@ -18,7 +18,9 @@ function decodeUplink(input){
       meter_type : "Gas",
       firmware_version: null,
       number_of_starts : null,
-      param_id: null
+      param_id: null,
+      values: null,
+      step: null
     },
     warnings: [],
     errors: []
@@ -46,7 +48,9 @@ function decodeUplink(input){
     decoded.data.param_id = data.param_id;
     decoded.data.time_step = data.time_step;
   }
-
+  //Retrocompatibility
+  decoded.data.step = decoded.data.time_step;
+  decoded.data.values = decoded.data.increments;
   return decoded
 }
 

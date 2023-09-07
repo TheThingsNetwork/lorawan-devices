@@ -30,6 +30,8 @@ function decodeUplink(input){
       scaler_e_neg: null,
       low_battery : null,
       number_of_starts : null,
+      obis: null,
+      step : null,
     },
     warnings: [],
     errors: []
@@ -83,7 +85,9 @@ function decodeUplink(input){
   }else if(decoded.data.message_type == PAYLOAD_TYPE.TT1_MECA.name || decoded.data.message_type == PAYLOAD_TYPE.TT2_MECA.name){
     decoded.data.meter_type = "Electromechanical (Position A)"
   }
-
+  //Retrocompatibility
+  decoded.data.step = decoded.data.time_step;
+  decoded.data.obis = decoded.data.type_of_measure;
   return decoded
 }
 

@@ -17,7 +17,8 @@ function decodeUplink(input){
       max_temp: null,
       min_temp: null,
       max_temp_variation: null,
-      sampling : null
+      sampling : null,
+      temperature: null
     },
     warnings: [],
     errors: []
@@ -43,7 +44,8 @@ function decodeUplink(input){
     decoded.data.min_temp = data.min_temp;
     decoded.data.sampling = data.sampling;
   }
-
+  //Retrocompatibility
+  decoded.data.temperature = decoded.data.temperatures;
   return decoded
 }
 

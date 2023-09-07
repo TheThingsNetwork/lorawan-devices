@@ -25,6 +25,9 @@ function decodeUplink(input){
       number_of_starts : null,
       param_id: null
     },
+    index: null,
+    step: null,
+    list_increment: null,
     warnings: [],
     errors: []
   }
@@ -58,7 +61,10 @@ function decodeUplink(input){
     decoded.data.param_id = data.param_id;
     decoded.data.time_step = data.time_step;
   }
-
+  //Retrocompatibility
+  decoded.step = decoded.data.time_step;
+  decoded.list_increment = decoded.data.increments;
+  decoded.index = decoded.data.index;
   return decoded
 }
 
