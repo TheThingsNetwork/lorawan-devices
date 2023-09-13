@@ -9,3 +9,4 @@ endDevices:
   - mtc-scb01 #3 Button Service Call
   - mtc-au01 #LoRa Alarm Unit
   - mtc-aq01 #Air Quality Sensor
+  - mtc-nfc02 #NFC RFID - LoRa Button
