@@ -1,0 +1,29 @@
+name: LM 17500 Primary Li-MnO2 cell - 3 V lithium manganese dioxide A-size spiral cell
+description: Saft's LM 17500 cell is ideally suited for applications requiring high energy and long operating life, with stable voltage under high discharge rates in -40°C / + 85°C environment.
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  diameter (max): 17.5
+  height: 77
+
+# Weight in grams (optional)
+weight: 28
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -40
+    max: 85
+
+# Product and data sheet URLs (optional)
+productURL: https://www.saft.com/products-solutions/products/lm-m
+
+# Photos
+photos:
+  main: lm17500.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=DGBErx4M_ro

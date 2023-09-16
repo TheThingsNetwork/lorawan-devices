@@ -1,0 +1,26 @@
+name: LSP 14500 Hybrid Primary Li-SOCI2 battery - 3.6 V AA size bobbin cell fitted with a 20F LIC
+description: Saft's LSP 14500 cell is ideally suited for long life applications featuring low base currents and periodic pulses and periodic high current pulses up to 1.5 A.
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  length (max): 22.7
+  width (max): 15.2
+  height (max): 52.7
+
+# Weight in grams (optional)
+weight: 22
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 70
+
+# Product and data sheet URLs (optional)
+productURL: https://www.saft.com/products-solutions/products/ls-lsh-lsp
+
+# Photos
+photos:
+  main: lsp14500.png
