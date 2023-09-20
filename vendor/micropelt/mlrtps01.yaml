@@ -1,26 +1,19 @@
-name: RISE
-description: RISE is a 3-in-1 LoRaWAN-connected, battery- or USB-powered room sensor that can be rapidly configurable via NFC. Depending on the model, the sensor can measure co2, temperature and humidity.
+name: MLRTPS01
+description: MLRTPS01 is a wall mount thermostat with presence detection and temperature set point. It is an 868MHz LoRaWAN® Class A device operating in SF7BW125.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: 'V001'
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: 'V01.0'
+    version: '1.0'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - 'V001'
-
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
-    features:
-      - remote rejoin
-      - transmission interval
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -31,11 +24,10 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        #vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: rise-profile
-        lorawanCertified: false
-        codec: sign-codec
+        id: mlrtps01-profile
+        lorawanCertified: true
+        codec: mlrtps01-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -46,21 +38,16 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - co2
   - temperature
-  - humidity
-
-# Additional radios that this device has (optional)
-# Valid values are: ble, nfc, wifi, cellular.
-additionalRadios:
-  - nfc
+  - pir
+  - potentiometer
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 87
-  length: 87
-  height: 23
+  width: 85
+  length: 85
+  height: 34
 
 # Weight in grams (optional)
 weight: 110
@@ -68,65 +55,52 @@ weight: 110
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: Primary Cell
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -30
-    max: 70
+    min: 0
+    max: 40
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 1
-
-# IP rating (optional)
-ipCode: IP30
-
-# Key security (optional)
-# Valid values are: none, read protected and secure element.
-keySecurity: read protected
+    max: 0.7
 
 # Product and data sheet URLs (optional)
-productURL: https://nexelec.eu/produit/rise/
-dataSheetURL: https://support.nexelec.fr/en/support/solutions/articles/80001085097-datasheet/
-
-# Commercial information
-resellerURLs:
-  - name: 'Nexelec'
-    region:
-      - European Union
-    url: https://www.nexelec.fr/
-
-msrp:
-  EUR: 165
-  USD: 181
+productURL: https://www.micropelt.com/en/products/lorawan/mlr003-2
 
 # Photos
 photos:
-  main: sign.png
+  main: mlrtps01.jpg
 
 # Regulatory compliances (optional)
 compliances:
-  safety:
-    - body: IEC
-      norm: EN
-      standard: 62368-1
-    - body: ETSI
-      norm: EN
-      standard: 62479:2010
-
   radioEquipment:
     - body: ETSI
       norm: EN
-      standard: 301 489-1
-      version: 2.2.0
+      standard: 300220-2
+      version: 3.1.1
     - body: ETSI
       norm: EN
-      standard: 301 489-3
-      version: 2.1.0
-    - body: ETSI
-      norm: EN
-      standard: 300 220-2
+      standard: 300220-2
       version: 3.2.1
+    - body: ETSI
+      norm: EN
+      standard: 300220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 301489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301489-3
+      version: 2.1.1
+    - body: IEC
+      norm: EN
+      standard: 55014-1
+    - body: IEC
+      norm: EN
+      standard: 55014-2
