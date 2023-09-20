@@ -1,3 +1,4 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - mlr003 # look in mlr003.yaml for the end device definition
+  - mlrtps01 # look in mlrtps01.yaml for end device definition
