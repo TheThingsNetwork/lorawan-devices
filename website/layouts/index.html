@@ -1,6 +1,30 @@
 {{ define "main" }}
     <main aria-role="main">
       {{ partial "banner.html" (dict "title" "Device Repository for LoRaWAN®" "description" .Description) }}
+      <select id="tagDropdown">
+        <option value="" selected disabled>Select a Tag</option>
+        {{ $tags := slice }}
+        {{ range .Site.RegularPages }}
+            {{ $pageTags := .Params.tags }}
+            {{ range $pageTags }}
+                {{ if not (in $tags .) }}
+                    {{ $tags = $tags | append . }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+        {{ $sortedTags := $tags | sort }}
+        {{ range $sortedTags }}
+            <option value="{{ . | urlize }}">{{ . }}</option>
+        {{ end }}
+      </select>
+      <script>
+          document.getElementById("tagDropdown").addEventListener("change", function() {
+              var selectedTag = this.value;
+              if (selectedTag) {
+                  window.location.href = "{{ .Site.BaseURL }}tags/" + selectedTag + "/";
+              }
+          });
+      </script>
       {{ partial "device-list.html" (dict "devices" ( where site.RegularPages "Section" "devices" ) ) }}
     </main>
 {{ end }}
