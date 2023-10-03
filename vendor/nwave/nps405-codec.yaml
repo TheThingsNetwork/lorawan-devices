@@ -1,0 +1,51 @@
+uplinkDecoder:
+  fileName: 'nps405.js'
+  examples:
+    - description: Parking Status
+      input:
+        fPort: 1
+        bytes: [0x95]
+      output:
+        data:
+          type: parking_status
+          occupied: true
+          previous_state_duration: 74
+          previous_state_duration_error: 0
+          previous_state_duration_overflow: false
+
+    - description: User Registration
+      input:
+        fPort: 10
+        bytes: [0xD1, 0x1F, 0x34, 0x56, 0x78]
+      output:
+        data:
+          type: user_registration
+          occupied: true
+          previous_state_duration: 160
+          previous_state_duration_error: 4
+          previous_state_duration_overflow: false
+          tag_id: '1F345678'
+
+    - description: Heartbeat
+      input:
+        fPort: 2
+        bytes: [0x00, 0xD3, 0xD8, 0x00, 0x59, 0x0B]
+      output:
+        data:
+          type: heartbeat
+          occupied: false
+          battery_voltage: 3.344
+          temperature: -10
+          battery_health: normal
+          hw_health_status: 0
+
+    - description: Startup
+      input:
+        fPort: 3
+        bytes: [0x02, 0x04, 0x09, 0x02, 0x00]
+      output:
+        data:
+          type: startup
+          firmware_version: '2.4.9'
+          reset_cause: power_on
+          occupied: false

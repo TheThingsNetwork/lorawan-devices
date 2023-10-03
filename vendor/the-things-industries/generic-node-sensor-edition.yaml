@@ -10,9 +10,11 @@ firmwareVersions:
       EU863-870:
         id: generic-node-sensor-edition-868
         lorawanCertified: false
+        codec: generic-node-sensor-edition-codec
       US902-928:
         id: generic-node-sensor-edition-915
         lorawanCertified: false
+        codec: generic-node-sensor-edition-codec
 sensors:
   - accelerometer
   - battery

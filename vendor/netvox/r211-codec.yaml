@@ -1,0 +1,138 @@
+uplinkDecoder:
+  fileName: payload/r211.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x0F, 0x00, 0x64, 0x0B, 0x20, 0x20, 0x04, 0x24, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R211'
+          SWver: 10
+          HWver: 11
+          Datecode: '20200424'
+
+    - description: Air IR apply response
+      input:
+        fPort: 33
+        bytes: [0x08, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'AirIRApplyRsp'
+          Status: 'Success'
+          DataIndex: 0
+
+    - description: Air IR apply with IR index response
+      input:
+        fPort: 33
+        bytes: [0x33, 0x00]
+      output:
+        data:
+          Cmd: 'AirIRApplyWithIdxRsp'
+          Status: 'Success'
+
+    - description: New IR learn response
+      input:
+        fPort: 33
+        bytes: [0x4A, 0x00, 0x00, 0x01, 0x00, 0x0F, 0x6F, 0xA6, 0x52, 0x00, 0x00, 0x40, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xD9]
+      output:
+        data:
+          Cmd: 'NewIRLearnRsp'
+          ActualIRIndex: 0
+          DataIndexNum: 1
+          DataIndex: 0
+          DataLen: 15
+          Data: '6FA652000040A000000000000001D9'
+
+    - description: Erase IR response
+      input:
+        fPort: 33
+        bytes: [0x0E, 0x00]
+      output:
+        data:
+          Cmd: 'EraseIRRsp'
+          Status: 'Success'
+
+downlinkDecoder:
+  fileName: payload/r211.js
+  examples:
+    - description: Air IR apply request
+      input:
+        fPort: 33
+        bytes: [0x07, 0x01, 0x00, 0x0F, 0x6F, 0xA6, 0x52, 0x00, 0x00, 0x40, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xD9]
+      output:
+        data:
+          Cmd: 'AirIRApplyReq'
+          DataIndexNum: 1
+          DataIndex: 0
+          DataLen: 15
+          Data: '6FA652000040A000000000000001D9'
+
+    - description: Air IR apply with IR index request
+      input:
+        fPort: 33
+        bytes: [0x32, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'AirIRApplyWithIdxReq'
+          ActualIRIndex: 0
+
+    - description: New IR learn request
+      input:
+        fPort: 33
+        bytes: [0x49, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'NewIRLearnReq'
+          IRIndex: 0
+
+    - description: Erase IR request
+      input:
+        fPort: 33
+        bytes: [0x0D, 0x05, 0x71, 0x71, 0x88]
+      output:
+        data:
+          Cmd: 'EraseIRReq'
+          MagicNum: 91320712
+
+downlinkEncoder:
+  fileName: payload/r211.js
+  examples:
+    - description: Air IR apply request
+      input:
+        data:
+          Cmd: 'AirIRApplyReq'
+          DataIndexNum: 1
+          DataIndex: 0
+          DataLen: 15
+          Data: '6FA652000040A000000000000001D9'
+      output:
+        fPort: 33
+        bytes: [0x07, 0x01, 0x00, 0x0F, 0x6F, 0xA6, 0x52, 0x00, 0x00, 0x40, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xD9]
+
+    - description: Air IR apply with IR index request
+      input:
+        data:
+          Cmd: 'AirIRApplyWithIdxReq'
+          ActualIRIndex: 0
+      output:
+        fPort: 33
+        bytes: [0x32, 0x00, 0x00]
+
+    - description: New IR learn request
+      input:
+        data:
+          Cmd: 'NewIRLearnReq'
+          IRIndex: 0
+      output:
+        fPort: 33
+        bytes: [0x49, 0x00, 0x00]
+
+    - description: Erase IR request
+      input:
+        data:
+          Cmd: 'EraseIRReq'
+          MagicNum: 91320712
+      output:
+        fPort: 33
+        bytes: [0x0D, 0x05, 0x71, 0x71, 0x88]

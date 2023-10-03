@@ -83,7 +83,7 @@ battery:
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
+    min: -18
     max: 55
 
 # IP rating (optional)
@@ -94,8 +94,8 @@ ipCode: IP67
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://mutelcor.com/iot/iot-solutions/lora-customer-feedback/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2021/06/Datasheets-mutelcor-costumerfeedback.pdf
+productURL: https://mutelcor.com/lora-customer-feedback/
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2023/09/MUTELCOR_Datasheet_LoRa_Customer_Feedback.pdf
 
 # Photos
 photos:

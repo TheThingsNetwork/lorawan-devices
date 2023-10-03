@@ -1,0 +1,31 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-bm-trx1.js
+  # Examples (optional)
+  examples:
+    - description: temperature and humidity
+      input:
+        fPort: 10
+        bytes: [0x01, 0x00, 0x00, 0x0B, 0xCA, 0x02, 0x00, 0xD1, 0x03, 0x00, 0xDE, 0x3D]
+      output:
+        data:
+          Supply_Voltage: 3018
+          TH_Sensor_Humidity: '61'
+          TH_Sensor_Temperature: '22.2'
+          TX_Reason: 'User_Button_Event'
+          Temperature_Sensor: '20.9'
+    - description: gps position
+      input:
+        fPort: 10
+        bytes: [0x04, 0x00, 0x00, 0x0B, 0xCA, 0x04, 0x02, 0x8A, 0x2F, 0x03, 0x6E, 0x0E, 0x9C, 0x00, 0xD8, 0xB1, 0x02, 0x00, 0x01, 0x0B]
+      output:
+        data:
+          Supply_Voltage: 3018
+          TX_Reason: 'Cyclic_Event'
+          altitude: 17.66
+          hdop: 1.44
+          latitude: 53.44717
+          longitude: 10.22731
+# Temperatur + Luftfeuchte TH1, GPS
+# added mail Address

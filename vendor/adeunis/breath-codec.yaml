@@ -1,0 +1,22 @@
+uplinkDecoder:
+  fileName: breath_lib.js
+
+  examples:
+    - description: 0x6d Breath periodic data
+      input:
+        fPort: 1
+        bytes: [0x6D, 0x80, 0x01, 0xB3, 0x00, 0x3E, 0x00, 0x1E, 0x00, 0x14, 0x01, 0xB3, 0x00, 0x3E, 0x00, 0x1E, 0x00, 0x14]
+      output:
+        data:
+          bytes:
+            {
+              type: '0x6d Breath periodic data',
+              'status': { 'frameCounter': 4, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false, 'sensorError': false },
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'tvoc': { 'unit': 'µg/m3', 'values': [435, 435] },
+              'pm10': { 'unit': 'µg/m3', 'values': [62, 62] },
+              'pm25': { 'unit': 'µg/m3', 'values': [30, 30] },
+              'pm1': { 'unit': 'µg/m3', 'values': [20, 20] },
+            }
+        warnings: []
+        errors: []

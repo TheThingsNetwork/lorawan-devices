@@ -71,7 +71,7 @@ sensors:
 dimensions:
   width: 95
   length: 95
-  height: 55
+  height: 40
 
 # Weight in grams (optional)
 weight: 150
@@ -80,8 +80,8 @@ weight: 150
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 85
+    min: -18
+    max: 55
 
 # IP rating (optional)
 ipCode: IP30
@@ -91,8 +91,8 @@ ipCode: IP30
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://mutelcor.com/lora-co2-digitalmelder/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2021/03/Datasheet-CO2-english.pdf
+productURL: https://mutelcor.com/smart-co2-lora-sensor/
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2023/09/MUTELCOR_Datasheet_Smart_CO2_LoRa_Sensor.pdf
 
 # Photos
 photos:

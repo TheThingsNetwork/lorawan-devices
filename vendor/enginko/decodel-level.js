@@ -10,6 +10,10 @@ function decodeUplink(payload) {
       content = parseTimeSync(payload.trim());
       break;
 
+    case '0A':
+      content = parseIO(payload.trim());
+      break;
+
     case '14':
       content = parseLevel(payload.trim());
       break;
@@ -59,6 +63,38 @@ function TTNto(content) {
     };
   }
 }
+
+function parseTimeSync(payload) {
+  const uplinkId = payload.substring(0, 2);
+  if (uplinkId.toUpperCase() === '01') {
+    const syncID = {
+      variable: 'syncID',
+      value: payload.substring(2, 10)
+    };
+    const syncVersion = {
+      variable: 'syncVersion',
+      value: payload.substring(10, 12) + "." + payload.substring(12, 14) + "." + payload.substring(14, 16)
+    };
+    const applicationType = {
+      variable: 'applicationType',
+      value: payload.substring(16, 20)
+    };
+    const rfu = {
+      variable: 'rfu',
+      value: payload.substring(20)
+    };
+
+    return [
+      syncID,
+      syncVersion,
+      applicationType,
+      rfu
+    ];
+  } else {
+    return null;
+  }
+}
+
 function parseLevel(payload) {
   var r = [];
 
@@ -84,7 +120,7 @@ function parseLevel(payload) {
 
       ADC = {
         variable: 'ADC',
-        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        value: parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed()),
         unit: 'mV',
       };
       r.push(ADC);
@@ -92,7 +128,7 @@ function parseLevel(payload) {
       startData += 2;
 
       if (startData + 2 <= payloadToByteArray.length) {
-        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        var distanceNumber = parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed());
         if (distanceNumber <= 60000) {
           distance1 = {
             variable: 'distance1',
@@ -113,7 +149,7 @@ function parseLevel(payload) {
       if (startData + 1 === payloadToByteArray.length) {
         battery = {
           variable: 'battery',
-          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          value: parseFloat(Number(parseInt(payloadToByteArray[startData])).toFixed()),
           unit: '%',
         };
         r.push(battery);
@@ -130,7 +166,7 @@ function parseLevel(payload) {
 
       ADC = {
         variable: 'ADC',
-        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        value: parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed()),
         unit: 'mV',
       };
       r.push(ADC);
@@ -138,7 +174,7 @@ function parseLevel(payload) {
       startData += 2;
 
       if (startData + 2 <= payloadToByteArray.length) {
-        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        var distanceNumber = parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed());
         if (distanceNumber <= 60000) {
           distance1 = {
             variable: 'distance1',
@@ -158,7 +194,7 @@ function parseLevel(payload) {
 
       var fillLevel = {
         variable: 'fillLevel',
-        value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+        value: parseFloat(Number(parseInt(payloadToByteArray[startData])).toFixed()),
         unit: '%',
       };
       r.push(fillLevel);
@@ -166,7 +202,7 @@ function parseLevel(payload) {
 
       var temperature = {
         variable: 'temperature',
-        value: getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1]),
+        value: parseFloat(getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1])),
         unit: '� C',
       };
       r.push(temperature);
@@ -175,7 +211,7 @@ function parseLevel(payload) {
       if (startData + 1 === payloadToByteArray.length) {
         battery = {
           variable: 'battery',
-          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          value: parseFloat(Number(parseInt(payloadToByteArray[startData])).toFixed()),
           unit: '%',
         };
         r.push(battery);
@@ -192,7 +228,7 @@ function parseLevel(payload) {
 
       ADC = {
         variable: 'ADC',
-        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        value: parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed()),
         unit: 'mV',
       };
       r.push(ADC);
@@ -200,7 +236,7 @@ function parseLevel(payload) {
       startData += 2;
 
       if (startData + 2 <= payloadToByteArray.length) {
-        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        var distanceNumber = parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed());
         if (distanceNumber <= 60000) {
           distance1 = {
             variable: 'distance1',
@@ -220,7 +256,7 @@ function parseLevel(payload) {
 
       var temperature = {
         variable: 'temperature',
-        value: getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1]),
+        value: parseFloat(getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1])),
         unit: '� C',
       };
       r.push(temperature);
@@ -228,7 +264,7 @@ function parseLevel(payload) {
 
       var humidity = {
         variable: 'humidity',
-        value: getHumidity(parseInt(payloadToByteArray[startData])),
+        value: parseFloat(getHumidity(parseInt(payloadToByteArray[startData]))),
         unit: '%',
       };
       r.push(humidity);
@@ -236,7 +272,7 @@ function parseLevel(payload) {
 
       var pressure = {
         variable: 'pressure',
-        value: getPressure(payloadToByteArray[startData], payloadToByteArray[startData + 1], payloadToByteArray[startData + 2]),
+        value: parseFloat(getPressure(payloadToByteArray[startData], payloadToByteArray[startData + 1], payloadToByteArray[startData + 2])),
         unit: 'hPa',
       };
       r.push(pressure);
@@ -245,7 +281,7 @@ function parseLevel(payload) {
       if (startData + 1 === payloadToByteArray.length) {
         battery = {
           variable: 'battery',
-          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          value: parseFloat(Number(parseInt(payloadToByteArray[startData])).toFixed()),
           unit: '%',
         };
         r.push(battery);
@@ -262,7 +298,7 @@ function parseLevel(payload) {
 
       ADC = {
         variable: 'ADC',
-        value: Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed(),
+        value: parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed()),
         unit: 'mV',
       };
       r.push(ADC);
@@ -270,7 +306,7 @@ function parseLevel(payload) {
       startData += 2;
 
       if (startData + 2 <= payloadToByteArray.length) {
-        var distanceNumber = Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed();
+        var distanceNumber = parseFloat(Number(((payloadToByteArray[startData + 1] << 8) & 0xff00) | (payloadToByteArray[startData] & 0xff)).toFixed());
         if (distanceNumber <= 60000) {
           distance1 = {
             variable: 'distance1',
@@ -290,7 +326,7 @@ function parseLevel(payload) {
 
       var fillLevel = {
         variable: 'fillLevel',
-        value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+        value: parseFloat(Number(parseInt(payloadToByteArray[startData])).toFixed()),
         unit: '%',
       };
       r.push(fillLevel);
@@ -298,7 +334,7 @@ function parseLevel(payload) {
 
       var temperature = {
         variable: 'temperature',
-        value: getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1]),
+        value: parseFloat(getTemperature(payloadToByteArray[startData], payloadToByteArray[startData + 1])),
         unit: '� C',
       };
       r.push(temperature);
@@ -306,7 +342,7 @@ function parseLevel(payload) {
 
       var humidity = {
         variable: 'humidity',
-        value: getHumidity(parseInt(payloadToByteArray[startData])),
+        value: parseFloat(getHumidity(parseInt(payloadToByteArray[startData]))),
         unit: '%',
       };
       r.push(humidity);
@@ -314,7 +350,7 @@ function parseLevel(payload) {
 
       var pressure = {
         variable: 'pressure',
-        value: getPressure(payloadToByteArray[startData], payloadToByteArray[startData + 1], payloadToByteArray[startData + 2]),
+        value: parseFloat(getPressure(payloadToByteArray[startData], payloadToByteArray[startData + 1], payloadToByteArray[startData + 2])),
         unit: 'hPa',
       };
       r.push(pressure);
@@ -323,7 +359,7 @@ function parseLevel(payload) {
       if (startData + 1 === payloadToByteArray.length) {
         battery = {
           variable: 'battery',
-          value: Number(parseInt(payloadToByteArray[startData])).toFixed(),
+          value: parseFloat(Number(parseInt(payloadToByteArray[startData])).toFixed()),
           unit: '%',
         };
         r.push(battery);
@@ -443,4 +479,94 @@ function parseDateByte(payload) {
   year += 2000;
   date = new Date(year, month - 1, day, hour, minute, second, 0).toLocaleString();
   return date;
+}
+
+function parseIO(payload) {
+  var uplinkId = payload.substring(0, 2);
+
+  if (uplinkId.toUpperCase() === '0A') {
+    var date = {
+      variable: 'date',
+      value: parseDate(payload.substring(2, 10)),
+    };
+    var firstByte = [];
+    var secondByte = [];
+    var thirdByte = [];
+    var fourthByte = [];
+    var k = 0;
+
+    for (var i = 0; i < 3; i++) {
+      firstByte[i] = parseInt(payload.substring(k + 10, k + 10 + 2), 16);
+      secondByte[i] = parseInt(payload.substring(k + 10 + 2, k + 10 + 4), 16);
+      thirdByte[i] = parseInt(payload.substring(k + 10 + 4, k + 10 + 6), 16);
+      fourthByte[i] = parseInt(payload.substring(k + 10 + 6, k + 10 + 8), 16);
+      k = k + 8;
+    }
+
+    var inputStatus8_1 = {
+      variable: 'inputStatus8_1',
+      value: parseFloat(firstByte[0].toString(2)),
+    };
+    var inputStatus9_16 = {
+      variable: 'inputStatus9_16',
+      value: parseFloat(secondByte[0].toString(2)),
+    };
+    var inputStatus17_24 = {
+      variable: 'inputStatus17_24',
+      value: parseFloat(thirdByte[0].toString(2)),
+    };
+    var inputStatus25_32 = {
+      variable: 'inputStatus25_32',
+      value: parseFloat(fourthByte[0].toString(2)),
+    };
+    var outputStatus8_1 = {
+      variable: 'outputStatus8_1',
+      value: parseFloat(firstByte[1].toString(2)),
+    };
+    var outputStatus9_16 = {
+      variable: 'outputStatus9_16',
+      value: parseFloat(secondByte[1].toString(2)),
+    };
+    var outputStatus17_24 = {
+      variable: 'outputStatus17_24',
+      value: parseFloat(thirdByte[1].toString(2)),
+    };
+    var outputStatus25_32 = {
+      variable: 'outputStatus25_32',
+      value: parseFloat(fourthByte[1].toString(2)),
+    };
+    var inputTrigger8_1 = {
+      variable: 'inputTrigger8_1',
+      value: parseFloat(firstByte[2].toString(2)),
+    };
+    var inputTrigger9_16 = {
+      variable: 'inputTrigger9_16',
+      value: parseFloat(secondByte[2].toString(2)),
+    };
+    var inputTrigger17_24 = {
+      variable: 'inputTrigger17_24',
+      value: parseFloat(thirdByte[2].toString(2)),
+    };
+    var inputTrigger25_32 = {
+      variable: 'inputTrigger25_32',
+      value: parseFloat(fourthByte[2].toString(2)),
+    };
+    return [
+      date,
+      inputStatus8_1,
+      inputStatus9_16,
+      inputStatus17_24,
+      inputStatus25_32,
+      outputStatus8_1,
+      outputStatus9_16,
+      outputStatus17_24,
+      outputStatus25_32,
+      inputTrigger8_1,
+      inputTrigger9_16,
+      inputTrigger17_24,
+      inputTrigger25_32,
+    ];
+  } else {
+    return null;
+  }
 }

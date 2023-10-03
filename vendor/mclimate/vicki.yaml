@@ -40,7 +40,36 @@ firmwareVersions:
         id: vicki-profile
         lorawanCertified: false
         codec: vicki-codec
+  - # Firmware version
+    version: '4.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.6'
 
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vicki-profile
+        lorawanCertified: true
+        codec: vicki-codec
+  - # Firmware version
+    version: '4.2'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.6'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vicki-profile
+        lorawanCertified: true
+        codec: vicki-codec
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,

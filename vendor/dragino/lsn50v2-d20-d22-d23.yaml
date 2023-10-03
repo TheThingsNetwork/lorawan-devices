@@ -58,6 +58,47 @@ firmwareVersions:
         lorawanCertified: true
         codec: lsn50v2-d20-d22-d23-codec
 
+  - version: 'lsn50v2-d20-d22-d23 1.7.5'
+    numeric: 2
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: eu868-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: lsn50v2-d20-d22-d23-codec
+
   - version: 'lsn50v2-d20-d22-d23 abp'
     numeric: 2
     profiles:

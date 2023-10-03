@@ -101,16 +101,47 @@ function TTNto(content) {
   }
 }
 
+function parseTimeSync(payload) {
+  const uplinkId = payload.substring(0, 2);
+  if (uplinkId.toUpperCase() === '01') {
+    const syncID = {
+      variable: 'syncID',
+      value: payload.substring(2, 10)
+    };
+    const syncVersion = {
+      variable: 'syncVersion',
+      value: payload.substring(10, 12) + "." + payload.substring(12, 14) + "." + payload.substring(14, 16)
+    };
+    const applicationType = {
+      variable: 'applicationType',
+      value: payload.substring(16, 20)
+    };
+    const rfu = {
+      variable: 'rfu',
+      value: payload.substring(20)
+    };
+
+    return [
+      syncID,
+      syncVersion,
+      applicationType,
+      rfu
+    ];
+  } else {
+    return null;
+  }
+}
+
 function parseTER(payload) {
   var uplinkId = payload.substring(0, 2);
 
   if (uplinkId.toUpperCase() === '04') {
-    var m1 = parseTERMeasurement(payload.substring(2, 22));
-    var m2 = parseTERMeasurement(payload.substring(22, 42));
-    var m3 = parseTERMeasurement(payload.substring(42, 62));
+    var m1 = parseTERMeasurement(payload.substring(2, 22), 0);
+    var m2 = parseTERMeasurement(payload.substring(22, 42), 1);
+    var m3 = parseTERMeasurement(payload.substring(42, 62), 2);
     var battery = {
       variable: 'battery',
-      value: Number(parseInt(payload.substring(62, 64), 16)).toFixed(),
+      value: parseInt(Number(parseInt(payload.substring(62, 64), 16)).toFixed()),
       unit: '%',
     };
     var rfu = {
@@ -123,26 +154,49 @@ function parseTER(payload) {
   }
 }
 
-function parseTERMeasurement(payload) {
-  var date = {
-    variable: 'date',
-    value: parseDate(payload.substring(0, 8)),
-  };
-  var temperature = {
-    variable: 'temperature',
-    value: getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16)),
-    unit: '�C',
-  };
-  var humidity = {
-    variable: 'humidity',
-    value: getHumidity(parseInt(payload.substring(12, 14), 16)),
-    unit: '%',
-  };
-  var pressure = {
-    variable: 'pressure',
-    value: getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16)),
-    unit: 'hPa',
-  };
+function parseTERMeasurement(payload, number) {
+  if (number == 0) {
+    var date = {
+      variable: 'date',
+      value: parseDate(payload.substring(0, 8)),
+    };
+    var temperature = {
+      variable: 'temperature',
+      value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+      unit: '�C',
+    };
+    var humidity = {
+      variable: 'humidity',
+      value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+      unit: '%',
+    };
+    var pressure = {
+      variable: 'pressure',
+      value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+      unit: 'hPa',
+    };
+  } else {
+    var date = {
+      variable: 'date_' + number,
+      value: parseDate(payload.substring(0, 8)),
+    };
+    var temperature = {
+      variable: 'temperature_' + number,
+      value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+      unit: '�C',
+    };
+    var humidity = {
+      variable: 'humidity_' + number,
+      value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+      unit: '%',
+    };
+    var pressure = {
+      variable: 'pressure_' + number,
+      value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+      unit: 'hPa',
+    };
+  }
+
   return [date, temperature, humidity, pressure];
 }
 
@@ -155,7 +209,7 @@ function parseVOC(payload, isNew) {
       var m2 = parseVOCMeasurement(payload.substring(30, 58), isNew);
       var battery = {
         variable: 'battery',
-        value: Number(parseInt(payload.substring(58, 60), 16)).toFixed(),
+        value: parseFloat(Number(parseInt(payload.substring(58, 60), 16)).toFixed()),
         unit: '%',
       };
       var rfu = {
@@ -168,11 +222,11 @@ function parseVOC(payload, isNew) {
     }
   } else {
     if (uplinkId.toUpperCase() === '12') {
-      var m1 = parseVOCMeasurement(payload.substring(2, 32), isNew);
-      var m2 = parseVOCMeasurement(payload.substring(32, 62), isNew);
+      var m1 = parseVOCMeasurement(payload.substring(2, 32), isNew, 0);
+      var m2 = parseVOCMeasurement(payload.substring(32, 62), isNew, 1);
       var battery = {
         variable: 'battery',
-        value: Number(parseInt(payload.substring(62, 64), 16)).toFixed(),
+        value: parseFloat(Number(parseInt(payload.substring(62, 64), 16)).toFixed()),
         unit: '%',
       };
       var rfu = {
@@ -186,69 +240,133 @@ function parseVOC(payload, isNew) {
   }
 }
 
-function parseVOCMeasurement(payload, isNew) {
+function parseVOCMeasurement(payload, isNew, number) {
   if (!isNew) {
-    var date = {
-      variable: 'date',
-      value: parseDate(payload.substring(0, 8)),
-    };
-    var temperature = {
-      variable: 'temperature',
-      value: getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16)),
-      unit: '�C',
-    };
-    var humidity = {
-      variable: 'humidity',
-      value: getHumidity(parseInt(payload.substring(12, 14), 16)),
-      unit: '%',
-    };
-    var pressure = {
-      variable: 'pressure',
-      value: getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16)),
-      unit: 'hPa',
-    };
-    var lux = {
-      variable: 'lux',
-      value: Number(parseUnsignedShort(payload.substring(20, 24))).toFixed(),
-      unit: 'lx',
-    };
-    var voc = {
-      variable: 'voc',
-      value: Number(parseUnsignedShort(payload.substring(24, 28))).toFixed(),
-      unit: 'IAQ/ppb',
-    };
+    if (number == 0) {
+      var date = {
+        variable: 'date',
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature',
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity',
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure',
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux',
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc',
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(24, 28))).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+    } else {
+      var date = {
+        variable: 'date_' + number,
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature_' + number,
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity_' + number,
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure_' + number,
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux_' + number,
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc_' + number,
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(24, 28))).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+    }
     return [date, temperature, humidity, pressure, lux, voc];
   } else {
     var payloadToByteArray = hexStringToByteArray(payload);
-    var date = {
-      variable: 'date',
-      value: parseDate(payload.substring(0, 8)),
-    };
-    var temperature = {
-      variable: 'temperature',
-      value: getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16)),
-      unit: '�C',
-    };
-    var humidity = {
-      variable: 'humidity',
-      value: getHumidity(parseInt(payload.substring(12, 14), 16)),
-      unit: '%',
-    };
-    var pressure = {
-      variable: 'pressure',
-      value: getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16)),
-      unit: 'hPa',
-    };
-    var lux = {
-      variable: 'lux',
-      value: Number(parseUnsignedShort(payload.substring(20, 24))).toFixed(),
-      unit: 'lx',
-    };
-    var voc = {
-      variable: 'voc',
-      value: Number(0x00000000 | (payloadToByteArray[12] & 0x000000ff) | ((payloadToByteArray[13] << 8) & 0x0000ff00) | ((payloadToByteArray[14] << 16) & 0x00ff0000)).toFixed(),
-      unit: 'IAQ/ppb',
-    };
+    if (number == 0) {
+      var date = {
+        variable: 'date',
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature',
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity',
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure',
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux',
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc',
+        value: parseFloat(Number(0x00000000 | (payloadToByteArray[12] & 0x000000ff) | ((payloadToByteArray[13] << 8) & 0x0000ff00) | ((payloadToByteArray[14] << 16) & 0x00ff0000)).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+    } else {
+      var date = {
+        variable: 'date_' + number,
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature_' + number,
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity_' + number,
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure_' + number,
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux_' + number,
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc_' + number,
+        value: parseFloat(Number(0x00000000 | (payloadToByteArray[12] & 0x000000ff) | ((payloadToByteArray[13] << 8) & 0x0000ff00) | ((payloadToByteArray[14] << 16) & 0x00ff0000)).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+    }
     return [date, temperature, humidity, pressure, lux, voc];
   }
 }
@@ -258,11 +376,11 @@ function parseCo2(payload, isNew) {
 
   if (!isNew) {
     if (uplinkId.toUpperCase() === '0E') {
-      var m1 = parseCo2Measurement(payload.substring(2, 34), isNew);
-      var m2 = parseCo2Measurement(payload.substring(34, 66), isNew);
+      var m1 = parseCo2Measurement(payload.substring(2, 34), isNew, 0);
+      var m2 = parseCo2Measurement(payload.substring(34, 66), isNew, 1);
       var battery = {
         variable: 'battery',
-        value: Number(parseInt(payload.substring(66, 68), 16)).toFixed(),
+        value: parseFloat(Number(parseInt(payload.substring(66, 68), 16)).toFixed()),
         unit: '%',
       };
       var rfu = {
@@ -275,11 +393,11 @@ function parseCo2(payload, isNew) {
     }
   } else {
     if (uplinkId.toUpperCase() === '13') {
-      var m1 = parseCo2Measurement(payload.substring(2, 36), isNew);
-      var m2 = parseCo2Measurement(payload.substring(36, 70), isNew);
+      var m1 = parseCo2Measurement(payload.substring(2, 36), isNew, 0);
+      var m2 = parseCo2Measurement(payload.substring(36, 70), isNew, 1);
       var battery = {
         variable: 'battery',
-        value: Number(parseInt(payload.substring(70, 72), 16)).toFixed(),
+        value: parseFloat(Number(parseInt(payload.substring(70, 72), 16)).toFixed()),
         unit: '%',
       };
       var rfu = {
@@ -293,79 +411,153 @@ function parseCo2(payload, isNew) {
   }
 }
 
-function parseCo2Measurement(payload, isNew) {
+function parseCo2Measurement(payload, isNew, number) {
   if (!isNew) {
-    var date = {
-      variable: 'date',
-      value: parseDate(payload.substring(0, 8)),
-    };
-    var temperature = {
-      variable: 'temperature',
-      value: getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16)),
-      unit: '�C',
-    };
-    var humidity = {
-      variable: 'humidity',
-      value: getHumidity(parseInt(payload.substring(12, 14), 16)),
-      unit: '%',
-    };
-    var pressure = {
-      variable: 'pressure',
-      value: getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16)),
-      unit: 'hPa',
-    };
-    var lux = {
-      variable: 'lux',
-      value: Number(parseUnsignedShort(payload.substring(20, 24))).toFixed(),
-      unit: 'lx',
-    };
-    var voc = {
-      variable: 'voc',
-      value: Number(parseUnsignedShort(payload.substring(24, 28))).toFixed(),
-      unit: 'IAQ/ppb',
-    };
-    var co2 = {
-      variable: 'co2',
-      value: Number(parseSignedShort(payload.substring(28, 32))).toFixed(),
-      unit: 'ppm',
-    };
+    if (number == 0) {
+      var date = {
+        variable: 'date',
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature',
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity',
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure',
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux',
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc',
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(24, 28))).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+      var co2 = {
+        variable: 'co2',
+        value: parseFloat(Number(parseSignedShort(payload.substring(28, 32))).toFixed()),
+        unit: 'ppm',
+      };
+    } else {
+      var date = {
+        variable: 'date_' + number,
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature_' + number,
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity_' + number,
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure_' + number,
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux_' + number,
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc_' + number,
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(24, 28))).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+      var co2 = {
+        variable: 'co2_' + number,
+        value: parseFloat(Number(parseSignedShort(payload.substring(28, 32))).toFixed()),
+        unit: 'ppm',
+      };
+    }
     return [date, temperature, humidity, pressure, lux, voc, co2];
   } else {
     var payloadToByteArray = hexStringToByteArray(payload);
-    var date = {
-      variable: 'date',
-      value: parseDate(payload.substring(0, 8)),
-    };
-    var temperature = {
-      variable: 'temperature',
-      value: getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16)),
-      unit: '�C',
-    };
-    var humidity = {
-      variable: 'humidity',
-      value: getHumidity(parseInt(payload.substring(12, 14), 16)),
-      unit: '%',
-    };
-    var pressure = {
-      variable: 'pressure',
-      value: getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16)),
-      unit: 'hPa',
-    };
-    var lux = {
-      variable: 'lux',
-      value: Number(parseUnsignedShort(payload.substring(20, 24))).toFixed(),
-      unit: 'lx',
-    };
-    var voc = {
-      variable: 'voc',
-      value: Number(0x00000000 | (payloadToByteArray[12] & 0x000000ff) | ((payloadToByteArray[13] << 8) & 0x0000ff00) | ((payloadToByteArray[14] << 16) & 0x00ff0000)).toFixed(),
-      unit: 'IAQ/ppb',
-    };
-    var co2 = {
-      variable: 'co2',
-      value: Number(parseSignedShort(payload.substring(30, 34))).toFixed(),
-      unit: 'ppm',
-    };
+    if (number == 0) {
+      var date = {
+        variable: 'date',
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature',
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity',
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure',
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux',
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc',
+        value: parseFloat(Number(0x00000000 | (payloadToByteArray[12] & 0x000000ff) | ((payloadToByteArray[13] << 8) & 0x0000ff00) | ((payloadToByteArray[14] << 16) & 0x00ff0000)).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+      var co2 = {
+        variable: 'co2',
+        value: parseFloat(Number(parseSignedShort(payload.substring(30, 34))).toFixed()),
+        unit: 'ppm',
+      };
+    } else {
+      var date = {
+        variable: 'date_' + number,
+        value: parseDate(payload.substring(0, 8)),
+      };
+      var temperature = {
+        variable: 'temperature_' + number,
+        value: parseFloat(getTemperature(parseInt(payload.substring(8, 10), 16), parseInt(payload.substring(10, 12), 16))),
+        unit: '�C',
+      };
+      var humidity = {
+        variable: 'humidity_' + number,
+        value: parseFloat(getHumidity(parseInt(payload.substring(12, 14), 16))),
+        unit: '%',
+      };
+      var pressure = {
+        variable: 'pressure_' + number,
+        value: parseFloat(getPressure(parseInt(payload.substring(14, 16), 16), parseInt(payload.substring(16, 18), 16), parseInt(payload.substring(18, 20), 16))),
+        unit: 'hPa',
+      };
+      var lux = {
+        variable: 'lux_' + number,
+        value: parseFloat(Number(parseUnsignedShort(payload.substring(20, 24))).toFixed()),
+        unit: 'lx',
+      };
+      var voc = {
+        variable: 'voc_' + number,
+        value: parseFloat(Number(0x00000000 | (payloadToByteArray[12] & 0x000000ff) | ((payloadToByteArray[13] << 8) & 0x0000ff00) | ((payloadToByteArray[14] << 16) & 0x00ff0000)).toFixed()),
+        unit: 'IAQ/ppb',
+      };
+      var co2 = {
+        variable: 'co2_' + number,
+        value: parseFloat(Number(parseSignedShort(payload.substring(30, 34))).toFixed()),
+        unit: 'ppm',
+      };
+    }
     return [date, temperature, humidity, pressure, lux, voc, co2];
   }
 }
@@ -428,7 +620,7 @@ function parseModBus(payloads) {
       payloadToByteArray = payloadToByteArray.slice(2);
 
       if (payload.substring(2, 3) === '1' || payload.substring(2, 3) === '4') {
-        var id = Number(payloadToByteArray[0]).toFixed();
+        var id = parseFloat(Number(payloadToByteArray[0]).toFixed());
         var frameId = {
           variable: 'frameId',
           value: id,
@@ -472,7 +664,7 @@ function parseModBus(payloads) {
             //length is declared only on first payload
             var length = {
               variable: 'length',
-              value: Number(((payloadToByteArray[2] << 8) & 0x0000ff00) | (payloadToByteArray[1] & 0x000000ff)).toFixed(),
+              value: parseFloat(Number(((payloadToByteArray[2] << 8) & 0x0000ff00) | (payloadToByteArray[1] & 0x000000ff)).toFixed()),
             };
             m.push.apply(m, [frameId, length, data]);
           } else {
@@ -504,17 +696,17 @@ function parsePM(payload) {
       };
       var pm1 = {
         variable: 'pm1',
-        value: Number((payloadToByteArray[4] & 0xff) + ((payloadToByteArray[5] << 8) & 0xff00)).toFixed(),
+        value: parseFloat(Number((payloadToByteArray[4] & 0xff) + ((payloadToByteArray[5] << 8) & 0xff00)).toFixed()),
         unit: 'micro g/m3',
       };
       var pm25 = {
         variable: 'pm25',
-        value: Number((payloadToByteArray[6] & 0xff) + ((payloadToByteArray[7] << 8) & 0xff00)).toFixed(),
+        value: parseFloat(Number((payloadToByteArray[6] & 0xff) + ((payloadToByteArray[7] << 8) & 0xff00)).toFixed()),
         unit: 'micro g/m3',
       };
       var pm10 = {
         variable: 'pm10',
-        value: Number((payloadToByteArray[8] & 0xff) + ((payloadToByteArray[9] << 8) & 0xff00)).toFixed(),
+        value: parseFloat(Number((payloadToByteArray[8] & 0xff) + ((payloadToByteArray[9] << 8) & 0xff00)).toFixed()),
         unit: 'micro g/m3',
       };
       return [date, pm1, pm25, pm10];
@@ -540,32 +732,32 @@ function parseTERPM(payload) {
       };
       var temperature = {
         variable: 'temperature',
-        value: getTemperature(payloadToByteArray[4], payloadToByteArray[5]),
+        value: parseFloat(getTemperature(payloadToByteArray[4], payloadToByteArray[5])),
         unit: '�C',
       };
       var humidity = {
         variable: 'humidity',
-        value: getHumidity(payloadToByteArray[6]),
+        value: parseFloat(getHumidity(payloadToByteArray[6])),
         unit: '%',
       };
       var pressure = {
         variable: 'pressure',
-        value: getPressure(payloadToByteArray[7], payloadToByteArray[8], payloadToByteArray[9]),
+        value: parseFloat(getPressure(payloadToByteArray[7], payloadToByteArray[8], payloadToByteArray[9])),
         unit: 'hPa',
       };
       var pm1 = {
         variable: 'pm1',
-        value: Number((payloadToByteArray[10] & 0xff) + ((payloadToByteArray[11] << 8) & 0xff00)).toFixed(),
+        value: parseFloat(Number((payloadToByteArray[10] & 0xff) + ((payloadToByteArray[11] << 8) & 0xff00)).toFixed()),
         unit: 'micro g/m3',
       };
       var pm25 = {
         variable: 'pm25',
-        value: Number((payloadToByteArray[12] & 0xff) + ((payloadToByteArray[13] << 8) & 0xff00)).toFixed(),
+        value: parseFloat(Number((payloadToByteArray[12] & 0xff) + ((payloadToByteArray[13] << 8) & 0xff00)).toFixed()),
         unit: 'micro g/m3',
       };
       var pm10 = {
         variable: 'pm10',
-        value: Number((payloadToByteArray[14] & 0xff) + ((payloadToByteArray[15] << 8) & 0xff00)).toFixed(),
+        value: parseFloat(Number((payloadToByteArray[14] & 0xff) + ((payloadToByteArray[15] << 8) & 0xff00)).toFixed()),
         unit: 'micro g/m3',
       };
 
@@ -574,7 +766,7 @@ function parseTERPM(payload) {
       } else {
         var battery = {
           variable: 'battery',
-          value: Number(parseInt(payloadToByteArray[16])).toFixed(),
+          value: parseFloat(Number(parseInt(payloadToByteArray[16])).toFixed()),
           unit: '%',
         };
         return [date, temperature, humidity, pressure, pm1, pm25, pm10, battery];
@@ -597,55 +789,55 @@ function parseWeather(payload) {
     if (payload.substring(2, 3) === '2' && payload.substring(4, 6) === '00') {
       var pressure = {
         variable: 'pressure',
-        value: getAtmosphericPressure((((payloadToByteArray[3] << 8) & 0x0000ff00) | (payloadToByteArray[2] & 0x000000ff)) / 1000.0),
+        value: parseFloat(getAtmosphericPressure((((payloadToByteArray[3] << 8) & 0x0000ff00) | (payloadToByteArray[2] & 0x000000ff)) / 1000.0)),
         unit: 'hPa',
       };
       var outsideTemperature = {
         variable: 'outsideTemperature',
-        value: getFahrenheitToCelsius((((payloadToByteArray[5] << 8) & 0x0000ff00) | (payloadToByteArray[4] & 0x000000ff)) / 10.0),
+        value: parseFloat(getFahrenheitToCelsius((((payloadToByteArray[5] << 8) & 0x0000ff00) | (payloadToByteArray[4] & 0x000000ff)) / 10.0)),
         unit: '�C',
       };
       var windSpeed = {
         variable: 'windSpeed',
-        value: getWindSpeed(payloadToByteArray[6] & 0x00ff),
+        value: parseFloat(getWindSpeed(payloadToByteArray[6] & 0x00ff)),
         unit: 'm/s',
       };
       var tenMinutesAvgWindSpeed = {
         variable: 'tenMinutesAvgWindSpeed',
-        value: getWindSpeed(payloadToByteArray[7] & 0x00ff),
+        value: parseFloat(getWindSpeed(payloadToByteArray[7] & 0x00ff)),
         unit: 'm/s',
       };
       var windDirection = {
         variable: 'windDirection',
-        value: Number(((payloadToByteArray[9] << 8) & 0x0000ff00) | (payloadToByteArray[8] & 0x000000ff)).toFixed(2),
+        value: parseFloat(Number(((payloadToByteArray[9] << 8) & 0x0000ff00) | (payloadToByteArray[8] & 0x000000ff)).toFixed(2)),
         unit: '�',
       };
       var outsideHumidity = {
         variable: 'outsideHumidity',
-        value: Number(payloadToByteArray[10] & 0x00ff).toFixed(2),
+        value: parseFloat(Number(payloadToByteArray[10] & 0x00ff).toFixed(2)),
         unit: '%',
       };
       var rainRate = {
         variable: 'rainRate',
-        value: getRainRate(((payloadToByteArray[12] << 8) & 0x0000ff00) | (payloadToByteArray[11] & 0x000000ff)),
+        value: parseFloat(getRainRate(((payloadToByteArray[12] << 8) & 0x0000ff00) | (payloadToByteArray[11] & 0x000000ff))),
         unit: 'mm/h',
       };
       var uv = {
         variable: 'uv',
-        value: Number(payloadToByteArray[13] & 0x00ff).toFixed(2),
+        value: parseFloat(Number(payloadToByteArray[13] & 0x00ff).toFixed(2)),
       };
       var solarRadiation = {
         variable: 'solarRadiation',
-        value: Number(((payloadToByteArray[15] << 8) & 0x0000ff00) | (payloadToByteArray[14] & 0x000000ff)).toFixed(2),
+        value: parseFloat(Number(((payloadToByteArray[15] << 8) & 0x0000ff00) | (payloadToByteArray[14] & 0x000000ff)).toFixed(2)),
         unit: 'W/m�',
       };
       var dayRain = {
         variable: 'dayRain',
-        value: getRainRate(((payloadToByteArray[17] << 8) & 0x0000ff00) | (payloadToByteArray[16] & 0x000000ff)),
+        value: parseFloat(getRainRate(((payloadToByteArray[17] << 8) & 0x0000ff00) | (payloadToByteArray[16] & 0x000000ff))),
       };
       var dayET = {
         variable: 'dayET',
-        value: getET(((payloadToByteArray[19] << 8) & 0x0000ff00) | (payloadToByteArray[18] & 0x000000ff)),
+        value: parseFloat(getET(((payloadToByteArray[19] << 8) & 0x0000ff00) | (payloadToByteArray[18] & 0x000000ff))),
         unit: 'mm',
       };
       var soilMoistures = [];
@@ -653,7 +845,7 @@ function parseWeather(payload) {
       for (var i = 0; i < 4; i++) {
         var soilMoisture = {
           variable: 'soilMoisture',
-          value: Number(payloadToByteArray[20 + i]).toFixed(2),
+          value: parseFloat(Number(payloadToByteArray[20 + i]).toFixed(2)),
           unit: 'centibar',
         };
         soilMoistures.push(soilMoisture);
@@ -664,18 +856,18 @@ function parseWeather(payload) {
       for (var i = 0; i < 4; i++) {
         var leafWetness = {
           variable: 'leafWetness',
-          value: Number(payloadToByteArray[24 + i]),
+          value: parseFloat(Number(payloadToByteArray[24 + i])),
         };
         leafWetnesses.push(leafWetness);
       }
 
       var forecastIcons = {
         variable: 'forecastIcons',
-        value: Number(payloadToByteArray[28]).toFixed(),
+        value: parseFloat(Number(payloadToByteArray[28]).toFixed()),
       };
       var barTrend = {
         variable: 'barTrend',
-        value: Number(payloadToByteArray[29]).toFixed(2),
+        value: (Number(payloadToByteArray[29]).toFixed(2)),
       };
       return [
         pressure,
@@ -716,7 +908,7 @@ function getWindSpeed(value) {
 }
 
 function getRainRate(value) {
-  var rainRate = value * 0.254;
+  var rainRate = value * 0.2;
   return Number(rainRate).toFixed(2);
 }
 

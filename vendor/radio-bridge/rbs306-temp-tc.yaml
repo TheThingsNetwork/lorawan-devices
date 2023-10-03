@@ -1,0 +1,24 @@
+name: rbs306-temp-tc
+description: radio-bridge door window sensor
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        vendorID: radio-bridge
+        id: rbs306-temp-tc-profile
+        lorawanCertified: true
+        codec: rbs306-temp-tc-codec
+      US902-928:
+        vendorID: radio-bridge
+        id: rbs306-temp-tc-profile
+        lorawanCertified: true
+        codec: rbs306-temp-tc-codec
+# Photos
+photos:
+  main: rbs306-temp-tc.png

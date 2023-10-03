@@ -567,6 +567,7 @@ vendors:
   - id: orbiwise
     name: OrbiWise
     vendorID: 309
+    logo: orbiwise.png
 
   - id: oresundskraft
     name: Oresundskraft AB
@@ -1475,7 +1476,12 @@ vendors:
   - id: ht-micron
     name: HT Micron Semicondutores S.A.
     vendorID: 804
-
+    website: http://www.htmicron.com.br/
+    logo: ht-micron_logo.png
+    social:
+      linkedin: https://linkedin.com/company/ht-micron-semicondutores-sa
+      facebook: https://www.facebook.com/htmicron
+      github: htmicron
   - id: university-of-wurzburg
     name: University of Wurzburg, Chair of Communication Networks
     vendorID: 806
@@ -1696,7 +1702,7 @@ vendors:
 
   - id: dingtek
     name: Dingtek
-    website: http://dingtek.com/
+    website: https://www.dingtek.com/
     logo: dingtek_logo.png
 
   - id: elster
@@ -1907,3 +1913,67 @@ vendors:
       linkedin: https://www.linkedin.com/company/rivercity-innovations/
       facebook: https://www.facebook.com/RivercityInnovations/
       twitter: RivercityInnov1
+
+  - id: restotracker
+    name: Restotracker
+    description: RestoTracker is a modern asset recovery  and tracking company, enabling companies to Know where your equipment is at all times, Recover stolen equipment, Not be the victim of theft
+    website: https://restotracker.com/
+    logo: logo.png
+
+  - id: twtg
+    name: TWTG
+    vendorID: 962
+    linkedin: https://www.linkedin.com/company/twtg
+    twitter: TWTG_io
+    github: TWTG-R-D-B-V
+
+  - id: elv
+    name: ELV Elektronik AG
+    website: https://de.elv.com/
+    logo: elv-logo.svg
+
+  - id: smartrural
+    name: SmartRural
+    website: https://smartrural.coop/
+    linkedin: https://www.linkedin.com/company/smartrural-coop/
+    twitter: SmartRuralCoop
+
+  - id: cital
+    name: Cital
+    website: https://www.cital.ch/
+    logo: cital-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/getcital/
+      twitter: getcital
+
+  - id: fludia
+    name: Fludia
+    website: https://www.fludia.com/
+    social:
+      linkedin: https://www.linkedin.com/company/fludia/
+
+  - id: atim
+    name: atim
+    website: https://www.atim.com/
+    logo: atim-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/atim-radiocommunications/
+
+  - id: dnt
+    name: dnt Innovation GmbH
+    website: https://www.dnt.de/
+    logo: dnt-logo.svg
+
+  - id: koidra
+    name: Koidra Inc.
+    description: Koidra is an intelligent automation company, dedicated to modernizing the automation of manufacturing facilities, with the high-tech greenhouse industry being the core market. Our tiered products deliver a comprehensive solution that enhances industrial efficiency.
+    website: https://www.koidra.ai/
+    logo: koidra-logo.svg
+    social:
+      linkedin: https://www.linkedin.com/company/koidra/
+
+  - id: open-boat-projects
+    name: Open Boat Projects
+    description: Open Boat Projects is a platform on which water sports enthusiasts present their self-constructed DIY projects around boating. The focus is on the idea of open source and open hardware as well as the exchange of ideas.
+    website: https://open-boat-projects.org
+    logo: obp_logo.png

@@ -83,8 +83,8 @@ battery:
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 85
+    min: -18
+    max: 55
 
 # IP rating (optional)
 ipCode: IP67
@@ -94,8 +94,8 @@ ipCode: IP67
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://mutelcor.com/iot/iot-solutions/iot-reflection-panic-button-security-solution/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2021/06/Datasheets-PanicButton.pdf
+productURL: https://mutelcor.com/lora-panic-button-with-confirmation/
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2023/09/MUTELCOR_Datasheet_LoRa_Panic_Button_with_confirmation.pdf
 
 # Photos
 photos:

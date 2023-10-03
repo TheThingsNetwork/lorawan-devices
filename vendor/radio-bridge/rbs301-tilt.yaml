@@ -1,0 +1,24 @@
+name: rbs301-tilt
+description: radio-bridge door window sensor
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        vendorID: radio-bridge
+        id: rbs301-tilt-profile
+        lorawanCertified: true
+        codec: rbs301-tilt-codec
+      US902-928:
+        vendorID: radio-bridge
+        id: rbs301-tilt-profile
+        lorawanCertified: true
+        codec: rbs301-tilt-codec
+# Photos
+photos:
+  main: rbs301-tilt.png

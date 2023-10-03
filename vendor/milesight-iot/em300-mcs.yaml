@@ -1,4 +1,4 @@
-name: EM300-TH
+name: EM300-MCS
 description: The Milesight LoRaWAN® EM300-MCS magnetic contact switch can be mounted to any door or window to detect an opening or closing event. It adds physical security monitoring to your location by alarming for intrusion or unauthorized entry to your monitored conditions.
 
 hardwareVersions:
@@ -14,28 +14,28 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: profile-eu868
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       US902-928:
         id: profile-us915
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       AU915-928:
         id: profile-au915
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       AS923:
         id: profile-as923
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       CN470-510:
         id: profile-cn470
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       KR920-923:
         id: profile-kr920
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       IN865-867:
         id: profile-in865
-        codec: em300-th-codec
+        codec: em300-mcs-codec
       RU864-870:
         id: profile-ru864
-        codec: em300-th-codec
+        codec: em300-mcs-codec
 
 sensors:
   - battery
@@ -67,8 +67,8 @@ keyProvisioning:
   - custom
   - join server
 keySecurity: none
-productURL: https://www.milesight-iot.com/lorawan/sensor/em300-th/
-dataSheetURL: https://resource.milesight-iot.com/milesight/document/em300-th-datasheet-en.pdf
+productURL: https://www.milesight-iot.com/lorawan/sensor/em300-mcs/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/em300-mcs-datasheet-en.pdf
 resellerURLs:
   - name: 'iot.sales@milesight.com'
     region:

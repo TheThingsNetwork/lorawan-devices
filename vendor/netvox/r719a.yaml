@@ -1,0 +1,67 @@
+name: R719A - Wireless Surface-Mounted Parking Sensor
+description: R719A is a smart parking vehicle detection sensor. It can be used to detect the presence or absence of parking vehicles in the parking space. It uses the SX1276 wireless communication module and adds vehicle status information to the gateway and displays the collected data in the gateway
+
+hardwareVersions:
+  - version: '11'
+    numeric: 11
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '11'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r719a-codec
+      AS923:
+        id: profile-as923
+        codec: r719a-codec
+      US902-928:
+        id: profile-us915
+        codec: r719a-codec
+      AU915-928:
+        id: profile-au915
+        codec: r719a-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r719a-codec
+      IN865-867:
+        id: profile-in865
+        codec: r719a-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r719a-codec
+
+sensors:
+  - radar
+
+dimensions:
+  width: 150
+  length: 150
+  height: 30
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER18505
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R719A
+dataSheetURL: http://www.netvox.com.tw/um/R719A/R719Adatasheet.pdf
+
+photos:
+  main: photos/r719a.jpg

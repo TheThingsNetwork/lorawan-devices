@@ -1,0 +1,32 @@
+uplinkDecoder:
+  fileName: 'ncc405.js'
+  examples:
+    - description: Counter Update
+      input:
+        fPort: 1
+        bytes: [0x6, 0xAA]
+      output:
+        data:
+          type: counter_update
+          counter_value: 1706
+
+    - description: Heartbeat
+      input:
+        fPort: 2
+        bytes: [0xA8, 0x66, 0x61]
+      output:
+        data:
+          type: heartbeat
+          hw_health_status: 40
+          battery_voltage: 2.908
+          battery_voltage_mean_24h: 2.888
+
+    - description: Startup
+      input:
+        fPort: 3
+        bytes: [0x01, 0x0D, 0x00, 0x02]
+      output:
+        data:
+          type: startup
+          firmware_version: '1.13.0'
+          reset_cause: power_on

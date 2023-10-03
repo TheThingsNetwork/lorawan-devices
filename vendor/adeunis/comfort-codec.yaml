@@ -1,0 +1,21 @@
+uplinkDecoder:
+  fileName: comfort_lib.js
+
+  examples:
+    - description: 0x4c Comfort 2 data
+      input:
+        fPort: 1
+        bytes: [0x4C, 0x96, 0x00, 0xC5, 0x1F, 0x00, 0xC7, 0x20, 0x00, 0xC8, 0x21, 0x00, 0xCA, 0x22, 0x00, 0xCC, 0x23, 0x00, 0xCD, 0x24, 0x14, 0xAB, 0xA3, 0xE9]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x4c Comfort 2 data',
+              'status': { 'frameCounter': 4, 'hardwareError': false, 'lowBattery': true, 'configurationDone': false, 'configurationInconsistency': false, 'timestamp': true },
+              'timestamp': '2023-12-28T19:22:17.000',
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'temperature': { 'unit': '°C', 'values': [19.7, 19.9, 20, 20.2, 20.4, 20.5] },
+              'humidity': { 'unit': '%', 'values': [31, 32, 33, 34, 35, 36] },
+            }
+        warnings: []
+        errors: []
