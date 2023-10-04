@@ -1949,6 +1949,8 @@ vendors:
   - id: fludia
     name: Fludia
     website: https://www.fludia.com/
+    social:
+      linkedin: https://www.linkedin.com/company/fludia/
 
   - id: atim
     name: atim
