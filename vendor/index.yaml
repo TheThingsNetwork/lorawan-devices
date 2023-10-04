@@ -1981,3 +1981,9 @@ vendors:
   - id: watteco
     name: WATTECO
     vendorID: 296
+
+  - id: arwin-technology
+    name: Arwin Technology Limited
+    website: https://www.senso8.com/
+    logo: senso8-logo.svg
+    linkedin: https://www.linkedin.com/company/arwin-technology-limited/

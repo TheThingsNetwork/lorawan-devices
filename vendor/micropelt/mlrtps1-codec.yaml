@@ -1,7 +1,7 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: mlrtps01.js
+  fileName: mlrtps1.js
   # Examples (optional)
   examples:
     - description: REV1.0 Example 1
