@@ -1,0 +1,38 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lrs20600.js
+  examples:
+    - description: dry contact input reading, input open, battery 90%, triggers since last trigger 5
+      input:
+        fPort: 10
+        bytes: [4, 0, 90, 0, 0, 5]
+      output:
+        data:
+          event: ''
+          battery: 90
+          inputStatus: 'open'
+          eventCount: 5
+    - description: Firmware version 1.00.001
+      input:
+        fPort: 8
+        bytes: [1, 0, 0, 1]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+    - description: device settings, data upload interval = 60 min, NC input, rising/falling edge trigger, deaf time 2 s
+      input:
+        fPort: 12
+        bytes: [4, 0, 60, 3, 0, 2, 1]
+      output:
+        data:
+          dataUploadInterval: 60
+          triggerMode: 3
+          triggerDeafTime: 2
+    - description: input settings, dry contact input enabled
+      input:
+        fPort: 13
+        bytes: [4, 1]
+      output:
+        data:
+          inputEnabled: 'enable'
