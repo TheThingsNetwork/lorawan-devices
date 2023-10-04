@@ -1978,6 +1978,10 @@ vendors:
     website: https://open-boat-projects.org
     logo: obp_logo.png
 
+  - id: watteco
+    name: WATTECO
+    vendorID: 296
+
   - id: arwin-technology
     name: Arwin Technology Limited
     website: https://www.senso8.com/
