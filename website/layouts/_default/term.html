@@ -2,8 +2,10 @@
   <main>
     {{ $title := printf "Tag: %s" .Title}}
     {{ partial "banner.html" (dict "title"  $title "description" .Description) }}
-    {{ partial "tagdropdown.html" . }}
-    {{ partial "vendordropdown.html" . }}
+    <div class="dropdown-container">
+      {{ partial "tagdropdown.html" . }}
+      {{ partial "vendordropdown.html" . }}
+    </div>
     {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
   </main>
 {{ end }}
