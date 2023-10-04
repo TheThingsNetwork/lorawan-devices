@@ -1,6 +1,8 @@
 {{ define "main" }}
   <main>
     {{ partial "banner.html" (dict "title" .Title "description" .Description) }}
+    {{ partial "tagdropdown.html" . }}
+    {{ partial "vendordropdown.html" . }}
     {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
   </main>
 {{ end }}
