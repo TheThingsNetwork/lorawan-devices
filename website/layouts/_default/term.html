@@ -3,8 +3,8 @@
     {{ $title := printf "Tag: %s" .Title}}
     {{ partial "banner.html" (dict "title"  $title "description" .Description) }}
     <div class="dropdown-container">
-      {{ partial "tagdropdown.html" . }}
       {{ partial "vendordropdown.html" . }}
+      {{ partial "freqdropdown.html" . }}
     </div>
     {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
   </main>
