@@ -1,6 +1,8 @@
-function Decoder(bytes, port) {
+function decodeUplink(input) {
     // Decode an uplink message from a buffer
     // (array) of bytes to an object of fields.
+    var port = input.fPort;
+    var bytes = input.bytes;
     var switch_status = (bytes[0]>>4)&0xFF;
     var value=(bytes[0]<<8 | bytes[1]) & 0x0FFF;
     var batV=value/1000;//Battery,units:V
