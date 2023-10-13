@@ -1,0 +1,13 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em500-swl.js
+  examples:
+    - description: Submersible Water Lever Sensor (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x77, 0x02, 0x00]
+      output:
+        data:
+          battery: 92
+          distance: 2

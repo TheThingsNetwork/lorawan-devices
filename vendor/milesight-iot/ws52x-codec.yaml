@@ -1,0 +1,27 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: ws52x.js
+  examples:
+    - description: Portable Socket (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x03, 0x74, 0xED, 0x08]
+      output:
+        data:
+          voltage: 228.5
+
+    - description: Portable Socket (example 2) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x06, 0x83, 0x56, 0x04, 0x00, 0x00]
+      output:
+        data:
+          energy: 1110
+
+    - description: Portable Socket (example 3) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x08, 0x70, 0x01]
+      output:
+        data:
+          button: open
