@@ -5,23 +5,7 @@ uplinkDecoder:
     - description: Ambience Monitoring Sensors (example 1) - Milesight IoT
       input:
         fPort: 85
-        bytes:
-          [
-            0x01,
-            0x75,
-            0x5C,
-            0x03,
-            0x67,
-            0x34,
-            0x01,
-            0x04,
-            0x68,
-            0x65,
-            0x05,
-            0x6A,
-            0x49,
-            0x00,
-          ]
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x67, 0x34, 0x01, 0x04, 0x68, 0x65, 0x05, 0x6A, 0x49, 0x00]
       output:
         data:
           battery: 92
@@ -30,21 +14,7 @@ uplinkDecoder:
     - description: Ambience Monitoring Sensors (example 2) - Milesgiht IoT
       input:
         fPort: 85
-        bytes:
-          [
-            0x07,
-            0x7D,
-            0xE7,
-            0x04,
-            0x08,
-            0x7D,
-            0x07,
-            0x00,
-            0x09,
-            0x73,
-            0x3F,
-            0x27,
-          ]
+        bytes: [0x07, 0x7D, 0xE7, 0x04, 0x08, 0x7D, 0x07, 0x00, 0x09, 0x73, 0x3F, 0x27]
       output:
         data:
           co2: 1255

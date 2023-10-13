@@ -2,14 +2,14 @@ name: Milesight WS301-Wireless Magnetic Contact Switch
 description: Milesight WS301 can be mounted on any doors or windows to detect an opening or closing event. It adds physical security monitoring to your location by warning of intrusion or unauthorized entry. Besides, it provides more than 4 years service life without battery replacement. Compliant with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, WS301 will surely monitor the real-time open/close status and receive alarms via mobile App.
 
 hardwareVersions:
-  - version: "V1.x"
+  - version: 'V1.x'
     numeric: 1
 
 firmwareVersions:
-  - version: "1.x"
+  - version: '1.x'
     numeric: 1
     hardwareVersions:
-      - "V1.x"
+      - 'V1.x'
 
     profiles:
       EU863-870:
@@ -73,7 +73,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/sensor/ws301/?utm_source=platform&utm_medium=web&utm_campaign=milesight
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws301-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union

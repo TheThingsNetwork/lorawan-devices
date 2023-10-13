@@ -2,14 +2,14 @@ name: em300-mld
 description: The EM300-MLD is an innovative LoRaWAN leak sensor that incorporatesaflexible printed membrane
 
 hardwareVersions:
-  - version: "V3.0"
+  - version: 'V3.0'
     numeric: 1
 
 firmwareVersions:
-  - version: "1.07"
+  - version: '1.07'
     numeric: 1
     hardwareVersions:
-      - "V3.0"
+      - 'V3.0'
 
     profiles:
       EU863-870:
@@ -75,7 +75,7 @@ keySecurity: none
 productURL: https://www.milesight.com/iot/product/lorawan-sensor/em300-mld
 dataSheetURL: https://resource.milesight.com/milesight/iot/document/em300-mld-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union

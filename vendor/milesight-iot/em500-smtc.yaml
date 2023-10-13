@@ -2,14 +2,14 @@ name: Milesight EM500-SMTC Soil Moisture, Temperature and Electrical Conductivit
 description: Milesight EM500-SMTC is designed for measuring soil moisture, temperature, and electrical conductivity with high precision in harsh environments. EM500-SMTC features a long-lasting battery life of up to 10 years and can be easily configured via NFC. It offers a corrosion resistance probe and an IP67 UV-resistant and waterproof enclosure. EM500-SMTC is widely used for outdoor applications like smart agriculture, smart horticulture, etc.
 
 hardwareVersions:
-  - version: "V1.x"
+  - version: 'V1.x'
     numeric: 1
 
 firmwareVersions:
-  - version: "2.x"
+  - version: '2.x'
     numeric: 1
     hardwareVersions:
-      - "V1.x"
+      - 'V1.x'
 
     profiles:
       EU863-870:
@@ -78,7 +78,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/sensor/em500-series/?utm_source=platform&utm_medium=web&utm_campaign=milesight
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/em500-smtc-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union

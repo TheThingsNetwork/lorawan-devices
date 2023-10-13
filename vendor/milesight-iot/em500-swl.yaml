@@ -2,14 +2,14 @@ name: Milesight EM500-SWL Submersible Water Level
 description: Milesight EM500-SWL is designed for measuring liquid levels in harsh environments. M500-SWL features a long-lasting battery life of up to 10 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. It offers a stainless probe with corrosion resistance and a customizable measuring range up to 200m. EM500-SWL is widely used for applications like tank level monitoring, river level monitoring, etc.
 
 hardwareVersions:
-  - version: "V1.x"
+  - version: 'V1.x'
     numeric: 1
 
 firmwareVersions:
-  - version: "2.x"
+  - version: '2.x'
     numeric: 1
     hardwareVersions:
-      - "V1.x"
+      - 'V1.x'
 
     profiles:
       EU863-870:
@@ -76,7 +76,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/sensor/em500-series/?utm_source=platform&utm_medium=web&utm_campaign=milesight
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/em500-swl-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union

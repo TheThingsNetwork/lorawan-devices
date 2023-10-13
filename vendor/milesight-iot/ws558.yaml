@@ -2,14 +2,14 @@ name: Milesight WS558 Smart Light Controller
 description: WS558 is a LoRaWAN® Smart Light Controller for monitoring and controlling lights locally or remotely. With 2 circuit types and 8 switches, it fits different rooms without the need of re-wiring,reducing the renovation costs. Compliant with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, WS558 can be monitored and controlled via webpage or mobile App remotely and triggered by other Milesight sensors. Besides, WS558 supports Milesight D2D communication protocol, which can set up connection quickly and be controlled without gateway. WS558 can be widely used for wireless control of indoor lights, fans, heaters, machines, etc.
 
 hardwareVersions:
-  - version: "V1.x"
+  - version: 'V1.x'
     numeric: 1
 
 firmwareVersions:
-  - version: "1.x"
+  - version: '1.x'
     numeric: 1
     hardwareVersions:
-      - "V1.x"
+      - 'V1.x'
 
     profiles:
       EU863-870:
@@ -76,7 +76,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/light-controller/ws558/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws558-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union

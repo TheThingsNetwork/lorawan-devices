@@ -11,4 +11,4 @@ uplinkDecoder:
         data:
           battery: 92
           distance: 2116
-          tilt: "tilt"
+          tilt: 'tilt'

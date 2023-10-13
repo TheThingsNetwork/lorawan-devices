@@ -2,14 +2,14 @@ name: Milesight WS50x Wall Switch
 description: Milesight WS50x is a smart LoRaWAN® wall switch for the local and remote control of lights and electrical appliances. It adopts two standard sizes for most of international wall switch types, which can replace the traditional wall switches directly. Compliant with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, WS50x can be monitored and controlled via webpage or mobile App remotely and triggered by other Milesight sensors.
 
 hardwareVersions:
-  - version: "V1.x"
+  - version: 'V1.x'
     numeric: 1
 
 firmwareVersions:
-  - version: "1.x"
+  - version: '1.x'
     numeric: 1
     hardwareVersions:
-      - "V1.x"
+      - 'V1.x'
 
     profiles:
       EU863-870:
@@ -76,7 +76,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/switch/ws50x/?utm_source=platform&utm_medium=web&utm_campaign=milesight
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws50x-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union

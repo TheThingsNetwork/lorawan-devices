@@ -2,17 +2,17 @@ name: Milesight UC50x Series LoRaWAN® Controller
 description: Milesight UC50x series is a LoRaWAN® controller used for data acquisition from various sensors and equipments. It contains different I/O interfaces such as analog input, digital input, digital output, serial port and so on, which simplify the deployment and replacement of LoRaWAN® networks. For outdoor applications, it provides flexible power like built-in solar panel or high-capacity battery and is equipped with an IP67-rated enclosure and M12 connectors to protect itself from water and dust in harsh environments.
 
 hardwareVersions:
-  - version: "1.x"
+  - version: '1.x'
     numeric: 1
-  - version: "2.x"
+  - version: '2.x'
     numeric: 2
 
 firmwareVersions:
-  - version: "1.x"
+  - version: '1.x'
     numeric: 1
     hardwareVersions:
-      - "1.x"
-      - "2.x"
+      - '1.x'
+      - '2.x'
 
     profiles:
       EU863-870:
@@ -79,7 +79,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/controller/uc500/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/uc50x-series-datasheet-en.pdf
 resellerURLs:
-  - name: "iot.sales@milesight.com"
+  - name: 'iot.sales@milesight.com'
     region:
       - United States
       - European Union
