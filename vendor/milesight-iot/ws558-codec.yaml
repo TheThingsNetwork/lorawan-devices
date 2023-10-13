@@ -16,4 +16,4 @@ uplinkDecoder:
         bytes: [0x06, 0x83, 0x56, 0x04, 0x00, 0x00]
       output:
         data:
-          energy: 1110
+          power_consumption: 1110

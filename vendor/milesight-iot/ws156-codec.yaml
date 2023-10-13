@@ -1,6 +1,6 @@
 # Uplink decoder decodes binary data uplink into a JSON object
 uplinkDecoder:
-  fileName: ws136ws156.js
+  fileName: ws156.js
   examples:
     - description: Smart Scene Panel (example 1) - Milesight IoT
       input:

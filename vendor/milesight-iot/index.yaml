@@ -7,3 +7,34 @@ endDevices:
   - em300-mcs
   - em500-co2
   - em500-udl
+  - am103
+  - am103l
+  - am104
+  - am307
+  - am319
+  - em300-sld
+  - em300-zld
+  - em310-udl
+  - em500-lgt
+  - em500-pp
+  - em500-pt100
+  - em500-smt
+  - em500-smtc
+  - em500-swl
+  - uc1114
+  - uc1122
+  - uc1152
+  - uc100
+  - uc300
+  - uc50x
+  - uc51x
+  - vs121
+  - ws50x
+  - ws52x
+  - ws101
+  - ws136
+  - ws156
+  - ws202
+  - ws301
+  - ws558
+  - am307l
