@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 /**
@@ -24,7 +24,7 @@ function Decoder(bytes, port) {
         var channel_type = bytes[i++];
 
         // Digital Input 1
-         if (channel_id === 0x01 && channel_type !== 0x00) {
+        if (channel_id === 0x01 && channel_type !== 0x00) {
             decoded.digital_input_1 = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
@@ -43,7 +43,7 @@ function Decoder(bytes, port) {
             decoded.pulse_count_2 = readUInt32LE(bytes.slice(i, i + 4));
             i += 4;
         }
-		// Digital Output 1
+        // Digital Output 1
         else if (channel_id === 0x09) {
             decoded.digital_output_1 = bytes[i] === 0 ? "off" : "on";
             i += 1;

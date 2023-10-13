@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 /**
@@ -80,34 +80,34 @@ function Decoder(bytes, port) {
                 case 0:
                     perchannel['index'] = modbus_chn_id;
                     perchannel['reading'] = bytes[i] ? "on" : "off";
-                    decoded.modbus_channels.push (perchannel);
+                    decoded.modbus_channels.push(perchannel);
                     i += 1;
                     break;
                 case 1:
                     perchannel['index'] = modbus_chn_id;
                     perchannel['reading'] = bytes[i];
-                    decoded.modbus_channels.push (perchannel);
+                    decoded.modbus_channels.push(perchannel);
                     i += 1;
                     break;
                 case 2:
                 case 3:
                     perchannel['index'] = modbus_chn_id;
                     perchannel['reading'] = readUInt16LE(bytes.slice(i, i + 2));
-                    decoded.modbus_channels.push (perchannel);
+                    decoded.modbus_channels.push(perchannel);
                     i += 2;
                     break;
                 case 4:
                 case 6:
                     perchannel['index'] = modbus_chn_id;
                     perchannel['reading'] = readUInt32LE(bytes.slice(i, i + 4));
-                    decoded.modbus_channels.push (perchannel);
+                    decoded.modbus_channels.push(perchannel);
                     i += 4;
                     break;
                 case 5:
                 case 7:
                     perchannel['index'] = modbus_chn_id;
                     perchannel['reading'] = readFloatLE(bytes.slice(i, i + 4));
-                    decoded.modbus_channels.push (perchannel);
+                    decoded.modbus_channels.push(perchannel);
                     i += 4;
                     break;
             }

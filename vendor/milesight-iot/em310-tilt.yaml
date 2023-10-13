@@ -2,14 +2,14 @@ name: Tilt Sensor
 description: Milesight EM310 LoRaWAN® tilt sensor makes only the settings of a relative initial surface and angle threshold are needed, and the X, Y, Z tilt angles can be leveraged to know object status accurately in real time, straightforward and effortless.
 
 hardwareVersions:
-  - version: 'V1.0'
+  - version: "V1.0"
     numeric: 1
 
 firmwareVersions:
-  - version: '1.02'
+  - version: "1.02"
     numeric: 1
     hardwareVersions:
-      - 'V1.0'
+      - "V1.0"
 
     profiles:
       EU863-870:
@@ -75,7 +75,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/sensor/em310-tilt/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/em310-tilt-datasheet-en.pdf
 resellerURLs:
-  - name: 'iot.sales@milesight.com'
+  - name: "iot.sales@milesight.com"
     region:
       - United States
       - European Union

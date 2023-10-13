@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 
@@ -24,7 +24,7 @@ function Decoder(bytes, port) {
 function milesight(bytes) {
     var decoded = {};
 
-    for (var i = 0; i < bytes.length; ) {
+    for (var i = 0; i < bytes.length;) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
         // BATTERY

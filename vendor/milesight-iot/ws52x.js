@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 /**
@@ -19,7 +19,7 @@ function decodeUplink(input) {
 function Decoder(bytes, port) {
     var decoded = {};
 
-    for (var i = 0; i < bytes.length; ) {
+    for (var i = 0; i < bytes.length;) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 

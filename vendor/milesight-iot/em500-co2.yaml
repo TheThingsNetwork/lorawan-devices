@@ -2,14 +2,14 @@ name: EM500-CO2
 description: The Milesight EM500-CO2 consists of CO2, temperature, humidity, and barometric pressure sensors for measuring gaseous carbon dioxide (CO2) concentration in harsh environments. It is useful in the application where knowing CO2 level is important like greenhouses, wine cellars, building ventilation, fruit and vegetable storage.
 
 hardwareVersions:
-  - version: 'V1.3'
+  - version: "V1.3"
     numeric: 1
 
 firmwareVersions:
-  - version: '2.28'
+  - version: "2.28"
     numeric: 1
     hardwareVersions:
-      - 'V1.3'
+      - "V1.3"
 
     profiles:
       EU863-870:
@@ -79,7 +79,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/sensor/am100/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/am100-series-datasheet-en.pdf
 resellerURLs:
-  - name: 'iot.sales@milesight.com'
+  - name: "iot.sales@milesight.com"
     region:
       - United States
       - European Union

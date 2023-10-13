@@ -50,7 +50,7 @@ uplinkDecoder:
         data:
           temperature: 30.8
           humidity: 50.5
-          activity: 'trigger'
+          activity: "trigger"
           light_level: 2
           co2: 936
           tvoc: 37

@@ -2,14 +2,14 @@ name: EM300-DI
 description: EM300-DI LoRaWAN® Pulse Counter is used to remotely read metering data from water meters. It turns existing traditional water meters into smart meters via LoRaWAN® network which further enables easier management and increases the efficiency of water use.
 
 hardwareVersions:
-  - version: 'V2.2'
+  - version: "V2.2"
     numeric: 1
 
 firmwareVersions:
-  - version: '1.15'
+  - version: "1.15"
     numeric: 1
     hardwareVersions:
-      - 'V2.2'
+      - "V2.2"
 
     profiles:
       EU863-870:
@@ -74,7 +74,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/products/lorawan-sensor/em300-di/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/em300-di-datasheet-en.pdf
 resellerURLs:
-  - name: 'iot.sales@milesight.com'
+  - name: "iot.sales@milesight.com"
     region:
       - United States
       - European Union

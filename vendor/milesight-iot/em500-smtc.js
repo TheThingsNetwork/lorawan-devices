@@ -1,22 +1,22 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
-  
-  /**
- * Payload Decoder for The Things Network
- * 
- * Copyright 2021 Milesight IoT
- * 
- * @product EM500-SMTC
- */
+
+/**
+* Payload Decoder for The Things Network
+* 
+* Copyright 2021 Milesight IoT
+* 
+* @product EM500-SMTC
+*/
 function Decoder(bytes, port) {
     var decoded = {};
 

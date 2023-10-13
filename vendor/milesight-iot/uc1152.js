@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 /**
@@ -24,11 +24,11 @@ function Decoder(bytes, port) {
         var channel_type = bytes[i++];
 
         // Digital Input 1
-         if (channel_id === 0x01 && channel_type !== 0xc8) {
+        if (channel_id === 0x01 && channel_type !== 0xc8) {
             decoded.digital_input = bytes[i] === 0 ? "off" : "on";
             i += 1;
         }
-		// Digital Output 1
+        // Digital Output 1
         else if (channel_id === 0x09) {
             decoded.digital_output = bytes[i] === 0 ? "off" : "on";
             i += 1;
@@ -58,7 +58,7 @@ function Decoder(bytes, port) {
                 case 2:
                 case 3:
                     channel['index'] = chn;
-                    channel['reading'] = readUInt16LE(bytes.slice(i, i+2));
+                    channel['reading'] = readUInt16LE(bytes.slice(i, i + 2));
                     decoded.channels.push(channel);
                     i += 2;
                     break;

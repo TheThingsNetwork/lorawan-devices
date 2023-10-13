@@ -2,14 +2,14 @@ name: Milesight UC100 Series IoT Controller
 description: UC100 is an IoT controller used for remote control and data acquisition from Modbus RS485 devices via LoRaWAN® networks. It can read up to 16 Modbus RTU devices and support Modbus transparent transmission between server and RS485 devices as a Modbus to LoRaWAN® converter. Besides, UC100 supports multiple trigger conditions and actions which can work autonomously even when the network dropped. Combining with Milesight IoT Cloud solution, it can monitor and control remote assets via web server or mobile App easily. UC100 is widely used in indoor applications like smart metering, smart cities, building automation, etc.
 
 hardwareVersions:
-  - version: 'V1.0'
+  - version: "V1.0"
     numeric: 1
 
 firmwareVersions:
-  - version: '1.x'
+  - version: "1.x"
     numeric: 1
     hardwareVersions:
-      - 'V1.0'
+      - "V1.0"
 
     profiles:
       EU863-870:
@@ -67,7 +67,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/controller/uc100-iot-lorawan-controller/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/uc100-datasheet-en.pdf
 resellerURLs:
-  - name: 'iot.sales@milesight.com'
+  - name: "iot.sales@milesight.com"
     region:
       - United States
       - European Union

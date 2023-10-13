@@ -2,14 +2,14 @@ name: Temperature & Humidity Sensor
 description: EM320-TH is a LoRaWAN®-based device for precise temperature and humidity monitoring.
 
 hardwareVersions:
-  - version: 'V1.0'
+  - version: "V1.0"
     numeric: 1
 
 firmwareVersions:
-  - version: '1.02'
+  - version: "1.02"
     numeric: 1
     hardwareVersions:
-      - 'V1.0'
+      - "V1.0"
 
     profiles:
       EU863-870:
@@ -76,7 +76,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/products/lorawan-sensor/em320-th/
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/em320-th-datasheet-en.pdf
 resellerURLs:
-  - name: 'iot.sales@milesight.com'
+  - name: "iot.sales@milesight.com"
     region:
       - United States
       - European Union

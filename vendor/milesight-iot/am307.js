@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 /**
@@ -16,7 +16,7 @@ function decodeUplink(input) {
  * 
  * @product AM307 / AM319
  */
- function Decoder(bytes, port) {
+function Decoder(bytes, port) {
     var decoded = {};
 
     for (var i = 0; i < bytes.length;) {
@@ -44,7 +44,7 @@ function decodeUplink(input) {
         }
         // PIR
         else if (channel_id === 0x05 && channel_type === 0x00) {
-            decoded.pir = bytes[i] === 1 ? "trigger": "idle";
+            decoded.pir = bytes[i] === 1 ? "trigger" : "idle";
             i += 1;
         }
         // LIGHT

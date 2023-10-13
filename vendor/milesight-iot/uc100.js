@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 
@@ -19,7 +19,7 @@ function decodeUplink(input) {
  */
 function Decoder(bytes, port) {
     var decoded = {};
-    for (i = 0; i < bytes.length; ) {
+    for (i = 0; i < bytes.length;) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 
@@ -86,7 +86,7 @@ function Decoder(bytes, port) {
         }
         // MODBUS READ ERROR
         else if (channel_id === 0xff && channel_type === 0x15) {
-            
+
             var modbus_chn_id = bytes[i] + 1;
             var channel_name = "channel_" + modbus_chn_id + "_error";
             decoded[channel_name] = true;

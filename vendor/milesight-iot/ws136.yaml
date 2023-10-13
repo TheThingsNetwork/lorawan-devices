@@ -2,14 +2,14 @@ name: Milesight WS136/WS156-Smart Scene Panel
 description: Milesight WS136 & WS156 LoRaWAN® Smart Scene Panel gives a multi button control panel that can simply activate different pre-defined scenes with one-press. Without any additional cable, WS136 & WS156 can be easily installed anywhere and used to control devices via LoRaWAN® or Milesight LoRa D2D communication protocol. Besides, It's equipped a user-defined E-ink screen to suit different scenes.
 
 hardwareVersions:
-  - version: 'V1.x'
+  - version: "V1.x"
     numeric: 1
 
 firmwareVersions:
-  - version: '1.x'
+  - version: "1.x"
     numeric: 1
     hardwareVersions:
-      - 'V1.x'
+      - "V1.x"
 
     profiles:
       EU863-870:
@@ -72,7 +72,7 @@ keySecurity: none
 productURL: https://www.milesight-iot.com/lorawan/button/ws136_ws156/?utm_source=platform&utm_medium=web&utm_campaign=milesight
 dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws136_ws156-datasheet-en.pdf
 resellerURLs:
-  - name: 'iot.sales@milesight.com'
+  - name: "iot.sales@milesight.com"
     region:
       - United States
       - European Union

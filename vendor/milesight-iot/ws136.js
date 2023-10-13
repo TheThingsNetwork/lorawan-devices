@@ -1,12 +1,12 @@
 function decodeUplink(input) {
     var res = Decoder(input.bytes, input.fPort);
     if (res.error) {
-      return {
-        errors: [res.error],
-      };
+        return {
+            errors: [res.error],
+        };
     }
     return {
-      data: res,
+        data: res,
     };
 }
 /**
@@ -19,7 +19,7 @@ function decodeUplink(input) {
 function Decoder(bytes, port) {
     var decoded = {};
 
-    for (var i = 0; i < bytes.length; ) {
+    for (var i = 0; i < bytes.length;) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
         // BATTERY
@@ -31,9 +31,9 @@ function Decoder(bytes, port) {
         else if (channel_id === 0xff && channel_type === 0x34) {
             var id = bytes[i];
             var command = [bytes[i + 2], bytes[i + 1]];
-        //  decoded[`button_${id}`] = "trigger";
-			decoded.button = id;
-        //  decoded[`button_${id}_command`] = command;
+            //  decoded[`button_${id}`] = "trigger";
+            decoded.button = id;
+            //  decoded[`button_${id}_command`] = command;
             i += 3;
         } else {
             break;
