@@ -1,6 +1,3 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - ga5067
-  - js0050
-  - js0130
-  - js0140
