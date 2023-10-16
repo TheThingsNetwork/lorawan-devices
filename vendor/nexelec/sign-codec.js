@@ -1,23 +1,28 @@
+
+
 function decodeUplink(input) 
 {
+    var tab_bin=[];
     var output = 0;
     var data;
     
     stringHex = bytesString(input.bytes);
-    //console.log(stringHex)
+    
     var octetTypeProduit = parseInt(stringHex.substring(0,2),16);
     var octetTypeMessage = parseInt(stringHex.substring(2,4),16);
-    //console.log(octetTypeMessage)
+    
 
-    function bytesString(input){
-      var bufferString='';
-      var decToString='';
-            
-      for(var i=0; i<input.length;i++)
-      {
+        function bytesString(input)
+        {
+            var bufferString='';
+            var decToString='';
+
+            for(var i=0; i<input.length;i++)
+            {
                 decToString = input[i].toString(16).padStart(2,'0')
+                        
                 bufferString=bufferString.concat(decToString)
-                
+                        
             }       
             return bufferString;
         }
@@ -33,10 +38,9 @@ function decodeUplink(input)
         {
             if(octetTypeProduit==0xA9){return "Feel LoRa"}
             if(octetTypeProduit==0xAA){return "Rise LoRa"}
-            if(octetTypeProduit==0xAB){return "Feel+ LoRa"}
-            if(octetTypeProduit==0xAC){return "Rise+ LoRa"}
+            if(octetTypeProduit==0xAB){return "Move LoRa"}
             if(octetTypeProduit==0xAD){return "Sign LoRa"}
-        }
+        }    
         
         function typeOfMessage(octetTypeMessage)
         {
@@ -50,6 +54,8 @@ function decodeUplink(input)
         function temperature(octetTemperatureValue)
         {
             if(octetTemperatureValue>=1023){return "Error"}
+            if(octetTemperatureValue>=1022){return "Deconnected sensor"}
+            if(octetTemperatureValue>=1021){return "Desactivated sensor"}
             else{return {"value":((octetTemperatureValue/10)-30), "unit":"°C" }}
             
         }
@@ -57,24 +63,33 @@ function decodeUplink(input)
         function humidity(octetHumidityValue)
         {
             if(octetHumidityValue>=1023){return "Error"}
+            if(octetHumidityValue>=1022){return "Deconnected sensor"}
+            if(octetHumidityValue>=1021){return "Desactivated sensor"}
             else{return {"value":(octetHumidityValue/10), "unit" :"%RH"}}
+
         }
 
         function co2(octetCO2Value)
         {
             if(octetCO2Value>=16383){return "Error"}
+            if(octetCO2Value>=16382){return "Deconnected sensor"}
+            if(octetCO2Value>=16381){return "Desactivated sensor"}
             else{return {"value":octetCO2Value, "unit":"ppm"}};
         }
 
         function covt(octetCOVTValue)
         {
             if(octetCOVTValue>=16383){return "Error"}
+            if(octetCOVTValue>=16382){return "Deconnected sensor"}
+            if(octetCOVTValue>=16381){return "Desactivated sensor"}
             else{return {"value":octetCOVTValue,"unit":"ug/m3"}};
         }
 
         function luminosity(octetLuminosityValue)
         {
             if(octetLuminosityValue>=1023){return "Error"}
+            if(octetLuminosityValue>=1022){return "Deconnected sensor"}
+            if(octetLuminosityValue>=1021){return "Desactivated sensor"}
             else{return {"value":(octetLuminosityValue*5),"unit":"lux"}};
         }
 
@@ -87,18 +102,24 @@ function decodeUplink(input)
         function averageNoise(octetAverageNoise)
         {
             if(octetAverageNoise===127){return "Error"}
+            if(octetAverageNoise>=126){return "Deconnected sensor"}
+            if(octetAverageNoise>=125){return "Desactivated sensor"}
             else{return {"value":octetAverageNoise,"unit":"dB"}};
         }
 
         function peakNoise(octetPeakNoise)
         {
             if(octetPeakNoise===127){return "Error"}
+            if(octetPeakNoise>=126){return "Deconnected sensor"}
+            if(octetPeakNoise>=125){return "Desactivated sensor"}
             else{return {"value":octetPeakNoise,"unit":"dB"}};
         }
         
         function occupancyRate(octetOccupancyRate)
         {
             if(octetOccupancyRate===127){return "Error"}
+            if(octetOccupancyRate>=126){return "Deconnected sensor"}
+            if(octetOccupancyRate>=125){return "Desactivated sensor"}
             else{return {"value":octetOccupancyRate,"unit":"%"}};
         }
 
@@ -187,6 +208,17 @@ function decodeUplink(input)
             else{return {"value":octetTimeCounter,"unit":"month"}};
         }
 
+        function lowBatterieThreshold(octetLowBatterie)
+        {
+           {return {"value":(octetLowBatterie*5)+2000,"unit":"mV"}};
+        }
+
+        function antiTearArgument(octetSDStatus)
+        {
+            const message_name =["Product undetected","Product detected","Product just undetected","Product just detected"]
+            return message_name[octetSDStatus]
+        }
+
         /////////////////////////////////////////////////////
         //Product Configuration Message Function
         ////////////////////////////////////////////////////
@@ -252,24 +284,24 @@ function decodeUplink(input)
         function deltaCO2(octetDeltaCO2)
         {
             if(octetDeltaCO2===255){return "Desactivated"}
-            else{return {"value":(octetDeltaCO2*0.25),"unit":"ppm"}}
+            else{return {"value":(octetDeltaCO2*4),"unit":"ppm"}}
         }
 
         function deltaTemp(octetDeltaTemp)
         {
             if(octetDeltaTemp===127){return "Desactivated"}
-            else{return {"value":(octetDeltaTemp*0.1),"unit":"ppm"}}
+            else{return {"value":(octetDeltaTemp*0.1),"unit":"°C"}}
         }
 
         function co2Threshold(octetCO2Threshold)
         {
-            return {"value":octetCO2Threshold, "unit":"ppm"};
+            return {"value":octetCO2Threshold*5, "unit":"ppm"};
         }
 
         function transmissionPeriodHistorical(octetPeriodHistorical)
         {
             if(octetPeriodHistorical===255){return "Erreur"}
-            else{return {"value":(octetPeriodHistorical*0.1),"unit":"ppm"}}
+            else{return {"value":(octetPeriodHistorical*10),"unit":"minute"}}
         }
 
         function pendingJoin(octetPending)
@@ -280,33 +312,60 @@ function decodeUplink(input)
 
         function nfcStatus(octetNfcStatus)
         {
-            if(octetNfcStatus===0){return "No join request"}
-            else if(octetNfcStatus===1){return "Programmed join request"};
+            if(octetNfcStatus===0){return "Discoverable"}
+            else if(octetNfcStatus===1){return " No Discoverable"};
         }
 
         //////////////////////////////////////////////////////////////////////
         ////// Hex to binary
         ////////////////////////////////////////////////////////////////////
 
+        function hexToBinary(encoded) {
+            var string_bin = "";
+            var string_bin_elements = "";
+            var i;
+            var j;
+    
+            for (i = 0; i < encoded.length; i++) {
+                string_bin_elements = encoded.charAt(i);
+                string_bin_elements = parseInt(string_bin_elements, 16).toString(2);
+                if (string_bin_elements.length < 4) {
+                    var nb_zeros = 4 - string_bin_elements.length;
+                    for (j = 0; j < nb_zeros; j++) {
+                        string_bin_elements = "0" + string_bin_elements;
+                    }
+                }
+                string_bin = string_bin + string_bin_elements;
+            }
+            return string_bin;
+        }
+
+        /*
         function hexToBinary(stringHex)
         {
-          var string_bin=""
-          var string_bin_elements=""; 
-            for(i=0;i<stringHex.length;i++) 
-            {// conversion d'hexa à binaire de tous les bytes puis regroupement sous un seul string
-              string_bin_elements=stringHex[i].toString(2);
-              if(string_bin_elements.length<8)
-              {  // PadStart 
-               var nb_zeros=8-string_bin_elements.length;
-               for (j=0;j<nb_zeros;j++)
-               {
-               string_bin_elements="0"+string_bin_elements;
-               }
-             }
-            string_bin=string_bin+string_bin_elements;
+            var hex2=stringHex.toUpperCase() // pour convertir des string en  hexa il faut qu'ils soient en majuscule 
+            var str1="";
+            var string_bin="";
+            var str=0;
+            var buffer=[];
+
+            // On crée un tableau d'hexa (buffer) 
+            for(i=0; i<hex2.length;i++)
+            {
+                str=parseInt(hex2.charAt(i), 16);
+                buffer.push(str);
             }
+            buffer = Buffer.from(buffer);
+            
+            for(i=0; i<hex2.length;i++)
+            {
+                str1=hex2.charAt(i); // on prend le premier caractères (string)
+                str1=parseInt(str1, 16).toString(2).padStart(4,'0'); 
+                string_bin=string_bin+str1;                         
+            } 
             return string_bin
         }
+        */
 
         //////////////////////////////////////////////////////////////////////
         ////// Product message decoding
@@ -319,7 +378,7 @@ function decodeUplink(input)
             var data_co2 = (parseInt(stringHex.substring(9,13),16)>>2) & 0x3FFF;
             var data_covt = (parseInt(stringHex.substring(12,16),16)) & 0x3FFF;
             var data_luminosity = (parseInt(stringHex.substring(16,19),16) >> 2) & 0x3FF;
-            var data_button_press = (parseInt(stringHex.substring(18,20),16)>>5) & 0x01;
+            var data_button_press = (parseInt(stringHex.substring(18,19),16)>>1) & 0x01;
             var data_avg_noise = (parseInt(stringHex.substring(18,21),16)>>2) & 0x7F;
             var data_peak_noise = (parseInt(stringHex.substring(20,23),16) >> 3) & 0x7F;
             var data_occupancy_rate = (parseInt(stringHex.substring(22,24),16)) & 0x7F;
@@ -344,6 +403,8 @@ function decodeUplink(input)
             "iziairCo2": iaqGlobalArgument(data_izi_air_co2),
             "iziairCov": iaqGlobalArgument(data_izi_air_cov),
             };
+            
+            
             return data;
         }
 
@@ -355,11 +416,10 @@ function decodeUplink(input)
             var offset_octet = 0;
 
             var data_nombre_mesures = (parseInt(stringHex.substring(4,6),16)>>2)&0x3F;
-            var data_time_between_measurement_sec = 60 * ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
+            var data_time_between_measurement_sec = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
             var data_repetition = (parseInt(stringHex.substring(7,9),16))&0x3F;
             var binary=hexToBinary(stringHex)
-            
-
+    
             for(i=0;i<data_nombre_mesures;i++){
 
                 offset_binaire = 36 + (10*i);
@@ -367,8 +427,8 @@ function decodeUplink(input)
 
                 if(mesure[i] === 0x3FF){mesure[i] = 0;}
                 else{mesure[i] = Math.round(mesure[i] * 5)}
-
             }
+
             data={ "typeOfProduct": typeOfProduct(octetTypeProduit),
             "typeOfMessage": typeOfMessage(octetTypeMessage),
             "numberOfRecord": data_nombre_mesures,
@@ -387,12 +447,9 @@ function decodeUplink(input)
             var offset_octet = 0;
 
             var data_nombre_mesures = (parseInt(stringHex.substring(4,6),16)>>2)&0x3F;
-            var data_time_between_measurement_sec = 60 * ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
+            var data_time_between_measurement_sec = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
             var data_repetition = (parseInt(stringHex.substring(7,9),16))&0x3F;
             var binary=hexToBinary(stringHex)
-
-
-           
 
             for(i=0;i<data_nombre_mesures;i++){
 
@@ -412,15 +469,9 @@ function decodeUplink(input)
             "redundancyOfRecord":data_repetition,
             "temperature":{"value":mesure,"unit":"°C"},
             }
-            return data
+
         }
 
-
-        /*
-            var data_hw_status_temperature = (parseInt(stringHex.substring(11,13),16)>>1) & 0x07;
-            var data_hw_status_temperature = (parseInt(stringHex.substring(12,14),16)>>5) & 0x07;
-            à corriger
-        */
         function productStatusDataOutput(stringHex)
         {
             var data_hw_version = (parseInt(stringHex.substring(4,6),16)) & 0xFF;
@@ -433,11 +484,13 @@ function decodeUplink(input)
             var data_hw_status_co2 = (parseInt(stringHex.substring(12,14),16)>>2) & 0x07;
             var data_hw_status_covt = (parseInt(stringHex.substring(13,15),16)>>3) & 0x07;
             var data_hw_status_pir = (parseInt(stringHex.substring(13,15),16)) & 0x07;
-            var data_hw_status_microphone = (parseInt(stringHex.substring(14,16),16)>>1) & 0x07;
-            var data_hw_status_luminosity = (parseInt(stringHex.substring(15,17),16)>>3) & 0x07;
+            var data_hw_status_microphone = (parseInt(stringHex.substring(15,16),16)>>1) & 0x07;
+            var data_hw_status_luminosity = (parseInt(stringHex.substring(15,17),16)>>2) & 0x07;
             var data_hw_status_SD= (parseInt(stringHex.substring(16,18),16)>>3) & 0x07;
-            var data_activation_time = parseInt(stringHex.substring(16,19),16) & 0x3FF;
-            var data_co2_last_manual_calibration_time = parseInt(stringHex.substring(19,21),16);
+            var data_activation_time = (parseInt(stringHex.substring(16,20),16)>>1) & 0x3FF;
+            var data_co2_last_manual_calibration_time = (parseInt(stringHex.substring(19,21),16)>>1);
+            var data_low_threshold_batterie = (parseInt(stringHex.substring(22,24),16)) & 0xFF;
+            var data_hw_status_anti_tear = (parseInt(stringHex.substring(24,25),16)>>2) & 0x3;
 
             data = { "typeOfProduct": typeOfProduct(octetTypeProduit),
             "typeOfMessage": typeOfMessage(octetTypeMessage),
@@ -455,7 +508,9 @@ function decodeUplink(input)
             "luminositySensorStatus":sensorStatusArgument(data_hw_status_luminosity),
             "sdStatus":sdStatusArgument(data_hw_status_SD),
             "cumulativeProductActivationTime":productActivationTimeCounter(data_activation_time),
-            "timeSinceLastManualCalibration": {"value":data_co2_last_manual_calibration_time,"unit":"days"}
+            "timeSinceLastManualCalibration": {"value":data_co2_last_manual_calibration_time,"unit":"days"},
+            "lowBatterieThreshold": lowBatterieThreshold(data_low_threshold_batterie),
+            "antiTearSensorStatus": antiTearArgument(data_hw_status_anti_tear)
             };
             return data;
         }
@@ -465,52 +520,48 @@ function decodeUplink(input)
             var data_config_source = (parseInt(stringHex.substring(4,5),16)>>1) & 0x07;
             var data_config_status = (parseInt(stringHex.substring(4,6),16)>>3) & 0x03;
             var data_periode_mesure = (parseInt(stringHex.substring(5,7),16)>>2) & 0x1F;
-            var data_sensor_on_off_temperature = (parseInt(stringHex.substring(6,7),16)>>1) & 0x01;
-            var data_sensor_on_off_co2 = (parseInt(stringHex.substring(6,7),16)) & 0x01;
-            var data_sensor_on_off_cov = (parseInt(stringHex.substring(7,8),16)>>3) & 0x01;
-            var data_sensor_on_off_pir = (parseInt(stringHex.substring(7,8),16)>>2) & 0x01;
-            var data_sensor_on_off_microphone = (parseInt(stringHex.substring(7,8),16)>>1) & 0x01;
-            var data_sensor_on_off_luminosity = (parseInt(stringHex.substring(7,8),16)) & 0x01;
-            var data_sd_storage_on_off = (parseInt(stringHex.substring(8,9),16)>>3) & 0x01;
-            var data_co2_auto_calibration = (parseInt(stringHex.substring(8,9),16)>>2) & 0x01;
-            var data_co2_medium_level = (parseInt(stringHex.substring(8,11),16)) & 0x3FF;
-            var data_co2_high_level = (parseInt(stringHex.substring(11,14),16)>>2) & 0x3FF;
-            var data_led_on_off = (parseInt(stringHex.substring(13,14),16) >> 1) & 0x01;
-            var data_led_orange_on_off = (parseInt(stringHex.substring(13,14),16)) & 0x01;
-            var data_buzzer_on_off = (parseInt(stringHex.substring(14,15),16) >> 3) & 0x01;
-            var data_buzzer_confirm_on_off = (parseInt(stringHex.substring(14,15),16) >> 2) & 0x01;
-            var data_led_source = parseInt(stringHex.substring(14,15), 16) & 0x03;
-            var data_button_on_off = (parseInt(stringHex.substring(15,16),16) >> 3) & 0x01;
-            var data_lora_region = (parseInt(stringHex.substring(15,17), 16)>>3) & 0x0F;
-            var data_periodic_tx_on_off = (parseInt(stringHex.substring(16,17),16) >> 2) & 0x01;
-            var data_periodic_tx_period = (parseInt(stringHex.substring(16,18),16)) & 0x01;
-            var data_periodic_delta_co2 = (parseInt(stringHex.substring(18,20),16)) & 0xFF;
-            var data_periodic_delta_temp = (parseInt(stringHex.substring(20,22),16)>>1) & 0x7F;
-            var data_datalog_co2_on_off = (parseInt(stringHex.substring(21,22),16)) & 0x01;
-            var data_datalog_temperature_on_off = (parseInt(stringHex.substring(22,23),16)>>3) & 0x01;
-            var data_datalog_new_measure = (parseInt(stringHex.substring(22,24),16)>>1) & 0x3F;
-            var data_datalog_repetition = (parseInt(stringHex.substring(23,25),16)) & 0x1F;
-            var data_datalog_tx_period = (parseInt(stringHex.substring(25,27),16)) & 0xFF;
-            var data_pending_join = (parseInt(stringHex.substring(26,27),16)) & 0x01;
-            var data_nfc_status = (parseInt(stringHex.substring(27,28),16)>>2) & 0x03;
-            var data_date_produit_annee = (parseInt(stringHex.substring(27,29),16)>>2) & 0x3F;
-            var data_date_produit_mois = (parseInt(stringHex.substring(29,31),16)) & 0x0F;
-            var data_date_produit_jour = (parseInt(stringHex.substring(30,32),16)>>2) & 0x1F;
-            var data_date_produit_heure = (parseInt(stringHex.substring(31,33),16)>>1) & 0x1F;
-            var data_date_produit_minute = (parseInt(stringHex.substring(32,35),16)>>3) & 0x3F;
+            var data_sensor_on_off_co2 = (parseInt(stringHex.substring(6,7),16)>>1) & 0x01;
+            var data_sensor_on_off_cov = (parseInt(stringHex.substring(6,7),16))& 0x01;
+            var data_sensor_on_off_pir = (parseInt(stringHex.substring(7,8),16)>>3)& 0x01;
+            var data_sensor_on_off_microphone = (parseInt(stringHex.substring(7,8),16)>>2) & 0x01;
+            var data_sd_storage_on_off = (parseInt(stringHex.substring(7,8),16)>>1) & 0x01;
+            var data_co2_auto_calibration = (parseInt(stringHex.substring(7,8),16)) & 0x01;
+            var data_co2_medium_level = (parseInt(stringHex.substring(8,11),16)>>2) & 0x3FF;
+            var data_co2_high_level = (parseInt(stringHex.substring(10,13),16)) & 0x3FF;
+            var data_led_on_off = (parseInt(stringHex.substring(13,14),16) >> 3) & 0x01;
+            var data_led_orange_on_off = (parseInt(stringHex.substring(13,14),16)>>2) & 0x01;
+            var data_buzzer_on_off = (parseInt(stringHex.substring(13,14),16)>>1) & 0x01;
+            var data_buzzer_confirm_on_off = (parseInt(stringHex.substring(13,14),16)) & 0x01;
+            var data_led_source = (parseInt(stringHex.substring(14,15),16)>>2) & 0x03;
+            var data_button_on_off = (parseInt(stringHex.substring(14,15),16) >> 1) & 0x01;
+            var data_lora_region = (parseInt(stringHex.substring(14,16), 16)>>1) & 0x0F;
+            var data_periodic_tx_on_off = (parseInt(stringHex.substring(15,16),16)) & 0x01;
+            var data_periodic_tx_period = (parseInt(stringHex.substring(16,18),16)>>2) & 0x3F;
+            var data_periodic_delta_co2 = (parseInt(stringHex.substring(17,20),16)>>2) & 0xFF;
+            var data_periodic_delta_temp = (parseInt(stringHex.substring(19,22),16)>>3)& 0x7F;
+            var data_datalog_co2_on_off = (parseInt(stringHex.substring(21,22),16)>>2) & 0x01;
+            var data_datalog_temperature_on_off = (parseInt(stringHex.substring(21,22),16)>>1) & 0x01;
+            var data_datalog_new_measure = (parseInt(stringHex.substring(21,24),16)>>3) & 0x3F;
+            var data_datalog_repetition = (parseInt(stringHex.substring(23,25),16)>>2) & 0x1F;
+            var data_datalog_tx_period = (parseInt(stringHex.substring(24,27),16)>>2) & 0xFF;
+            var data_pending_join = (parseInt(stringHex.substring(26,27),16)>>1) & 0x01;
+            var data_nfc_status = (parseInt(stringHex.substring(26,28),16)>>3) & 0x03;
+            var data_date_produit_annee = (parseInt(stringHex.substring(27,29),16)>>1) & 0x3F;
+            var data_date_produit_mois = (parseInt(stringHex.substring(28,30),16)>>1) & 0x0F;
+            var data_date_produit_jour = (parseInt(stringHex.substring(29,31),16)) & 0x1F;
+            var data_date_produit_heure = (parseInt(stringHex.substring(31,33),16)>>3) & 0x1F;
+            var data_date_produit_minute = (parseInt(stringHex.substring(32,34),16)>>1) & 0x3F;
 
 
-            data = { "typeOfProduct": typeOfProduct(octetTypeProduit),
+            data = {"typeOfProduct": typeOfProduct(octetTypeProduit),
             "typeOfMessage": typeOfMessage(octetTypeMessage),
             "configurationSource": reconfigurationSource(data_config_source),
             "configurationStatus": reconfigurationState(data_config_status),
             "periodBetween2measures": period(data_periode_mesure),
-            "temperatureSensorActivation":sensorActivation(data_sensor_on_off_temperature),
             "co2SensorActivation":sensorActivation(data_sensor_on_off_co2),
             "covSensorActivation":sensorActivation(data_sensor_on_off_cov),
             "pirSensorActivation":sensorActivation(data_sensor_on_off_pir),
             "microphoneSensorActivation":sensorActivation(data_sensor_on_off_microphone),
-            "luminositySensorActivation":sensorActivation(data_sensor_on_off_luminosity),
             "localStorageActivation":sdActivation(data_sd_storage_on_off),
             "automaticCalibrationActivation": calibrationActivation(data_co2_auto_calibration),
             "mediumCO2Threshold":co2Threshold(data_co2_medium_level),
@@ -533,19 +584,16 @@ function decodeUplink(input)
             "transmissionPeriodOfHistoricalMessage":transmissionPeriodHistorical(data_datalog_tx_period),
             "networkJoinStatus": pendingJoin(data_pending_join),
             "nfcStatus": nfcStatus(data_nfc_status),
-            "productDate:Year": {"value":data_date_produit_annee,"unit":"year"},
-            "productDate:Month": {"value":data_date_produit_mois,"unit":"month"},
-            "productDate:Day": {"value":data_date_produit_jour,"unit":"day"},
-            "productDate:Hours": {"value":data_date_produit_heure,"unit":"hours"},
-            "productDate:Minutes": {"value":data_date_produit_minute,"unit":"minutes"}
-
+            "productDateYear": {"value":data_date_produit_annee,"unit":"year"},
+            "productDateMonth": {"value":data_date_produit_mois,"unit":"month"},
+            "productDateDay": {"value":data_date_produit_jour,"unit":"day"},
+            "productDateHours": {"value":data_date_produit_heure,"unit":"hours"},
+            "productDateMinutes": {"value":data_date_produit_minute,"unit":"minutes"}
             };
 
             return data;
         }
-         data=dataOutput(octetTypeMessage);
-return {data};
-    
+        
+        data=dataOutput(octetTypeMessage);
+        return {data};
 } // end of decoder
-
-
