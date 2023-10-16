@@ -36,6 +36,7 @@ endDevices:
   - dl-sht35-002
   - dl-smtp
   - dl-tbrg
+  - dl-tp
   - dl-trs11
   - dl-trs12
   - dl-trs21
