@@ -16,6 +16,7 @@ endDevices:
   - dl-ds18
   - dl-dws
   - dl-iam
+  - dl-isf
   - dl-itst
   - dl-kl66
   - dl-lid
