@@ -1977,3 +1977,13 @@ vendors:
     description: Open Boat Projects is a platform on which water sports enthusiasts present their self-constructed DIY projects around boating. The focus is on the idea of open source and open hardware as well as the exchange of ideas.
     website: https://open-boat-projects.org
     logo: obp_logo.png
+
+  - id: watteco
+    name: WATTECO
+    vendorID: 296
+
+  - id: arwin-technology
+    name: Arwin Technology Limited
+    website: https://www.senso8.com/
+    logo: senso8-logo.svg
+    linkedin: https://www.linkedin.com/company/arwin-technology-limited/
