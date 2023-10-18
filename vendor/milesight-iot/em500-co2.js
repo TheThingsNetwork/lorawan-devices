@@ -39,7 +39,7 @@ function Decoder(bytes, port) {
 
         // PRESSURE
         else if (channel_id === 0x06 && channel_type === 0x73) {
-            decoded.pressure = readInt16LE(bytes.slice(i, i + 2))/10;
+            decoded.pressure = readInt16LE(bytes.slice(i, i + 2)) / 10;
             i += 2;
         } else {
             break;

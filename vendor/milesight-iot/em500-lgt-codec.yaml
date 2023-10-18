@@ -1,0 +1,21 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em500-lgt.js
+  examples:
+    - description: Light Sensors (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x94, 0x50, 0x00, 0x00, 0x00]
+      output:
+        data:
+          battery: 92
+          light: 80
+    - description: Light Sensors (example 2) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x94, 0x50, 0x00, 0x00, 0x00]
+      output:
+        data:
+          battery: 100
+          light: 80
