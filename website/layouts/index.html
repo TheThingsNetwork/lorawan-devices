@@ -1,6 +1,10 @@
 {{ define "main" }}
     <main aria-role="main">
       {{ partial "banner.html" (dict "title" "Device Repository for LoRaWAN®" "description" .Description) }}
+      <div class="dropdown-container">
+        {{ partial "vendordropdown.html" . }}
+        {{ partial "freqdropdown.html" . }}
+      </div>
       {{ partial "device-list.html" (dict "devices" ( where site.RegularPages "Section" "devices" ) ) }}
     </main>
 {{ end }}
