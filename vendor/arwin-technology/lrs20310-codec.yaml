@@ -1,0 +1,37 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lrs20310.js
+  examples:
+    - description: water leak level 70, water leak
+      input:
+        fPort: 10
+        bytes: [5, 4, 80, 70, 0, 0]
+      output:
+        data:
+          event: 'water_leak_alert'
+          battery: 80
+          waterLeakLevel: 70
+    - description: Firmware version 1.00.001
+      input:
+        fPort: 8
+        bytes: [1, 0, 0, 1]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+    - description: device settings, data upload interval = 15 min, number of additional uploads = 3, time between addition uploads = 1 min
+      input:
+        fPort: 12
+        bytes: [5, 0, 10, 0, 3, 1, 1]
+      output:
+        data:
+          dataUploadInterval: 10
+          numAdditionalUploads: 3
+          additionalUploadsInterval: 1
+    - description: water leak  alert threshold = 30
+      input:
+        fPort: 13
+        bytes: [5, 30]
+      output:
+        data:
+          waterLeakAlertThreshold: 30
