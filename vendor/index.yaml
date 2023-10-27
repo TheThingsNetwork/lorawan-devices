@@ -1969,3 +1969,13 @@ vendors:
     logo: koidra-logo.svg
     social:
       linkedin: https://www.linkedin.com/company/koidra/
+
+  - id: volley-boast
+    name: Volley Boast LLC
+    description: Volley Boast designs, deploys, and manages industrial IOT solutions. Combining extremely low-power LPWAN technology with the latest in cloud computing, Volley Boast delivers actionable data and analytics to customers' end-devices with minimal overhead and maintenance.
+    vendorID: 918
+    website: https://volleyboast.com/
+    logo: volley-boast-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/volley-boast-llc
+      github: VolleyBoast
