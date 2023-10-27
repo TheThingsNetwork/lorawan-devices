@@ -93,8 +93,8 @@ ipCode: IP67
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://mutelcor.com/iot/iot-solutions/lora-manhole-sensor/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2022/11/MUTELCOR_Datasheet_LoRa_Manhole_Sensor.pdf
+productURL: https://mutelcor.com/lora-manhole-sensor/
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2023/09/MUTELCOR_Datasheet_LoRa_Manhole_Sensor.pdf
 
 # Photos
 photos:
