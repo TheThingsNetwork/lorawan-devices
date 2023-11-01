@@ -1,0 +1,21 @@
+<!-- Frequency Plan Dropdown -->
+<select id="frequencyPlanDropdown">
+    <option value="" selected disabled>Select a Frequency</option>
+    <option value="as923">AS923</option>
+    <option value="au915-928">AU915-928</option>
+    <option value="cn470-510">CN470-510</option>
+    <option value="eu863-870">EU863-870</option>
+    <option value="eu433">EU433</option>
+    <option value="in865-867">IN865-867</option>
+    <option value="kr920-923">KR920-923</option>
+    <option value="ru864-870">RU864-870</option>
+    <option value="us902-928">US902-928</option>
+</select>
+<script>
+    document.getElementById("frequencyPlanDropdown").addEventListener("change", function() {
+        var selectedFrequencyPlan = this.value;
+        if (selectedFrequencyPlan) {
+            window.location.href = "{{ .Site.BaseURL }}tags/" + selectedFrequencyPlan + "/";
+        }
+    });
+</script>
