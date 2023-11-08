@@ -1,0 +1,21 @@
+# Vendor profile ID, can be freely issued by the vendor
+# This vendor profile ID is also used on the QR code for LoRaWAN devices, see
+# https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
+vendorProfileID: 474
+
+# LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
+macVersion: '1.0.3'
+regionalParametersVersion: 'RP001-1.0.3-RevA'
+
+# Whether the end device supports join (OTAA) or not (ABP)
+supportsJoin: true
+
+# Maximum EIRP
+maxEIRP: 16
+
+# Whether the end device supports 32-bit frame counters
+supports32bitFCnt: true
+
+# Whether the end device supports class B
+supportsClassB: false
+supportsClassC: false
