@@ -8,7 +8,7 @@ uplinkDecoder:
     - description: example meter values with status bytes
       input:
         fPort: 1
-        bytes: [27,00,00,00,0c,00,00,00,0d,00,00,00,0f]
+        bytes: [27, 00, 00, 00, 0c, 00, 00, 00, 0d, 00, 00, 00, 0f]
       output:
         data:
           removal_detection: 1,
@@ -16,4 +16,4 @@ uplinkDecoder:
           battery_end_of_life: 1,
           hw_error: 0,
           coil_manipulation: 1,
-          meter_values: [ 12, 13, 15 ]
+          meter_values: [12, 13, 15]

@@ -19,7 +19,7 @@ firmwareVersions:
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     #features:
-    
+
     profiles:
       EU863-870:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
