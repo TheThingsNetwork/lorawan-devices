@@ -1,4 +1,4 @@
-# Vendor profile ID, can be freely issued by the vendor. NOTE: The vendor profile ID is different from the vendorID. 
+# Vendor profile ID, can be freely issued by the vendor. NOTE: The vendor profile ID is different from the vendorID.
 # The vendor Profile ID should be an incremental counter for every unique device listed in the vendor's folder.
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf
