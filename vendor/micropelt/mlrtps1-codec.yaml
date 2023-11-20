@@ -1,0 +1,53 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: mlrtps1.js
+  # Examples (optional)
+  examples:
+    - description: REV1.0 Example 1
+      input:
+        fPort: 1
+        bytes: [0x6D, 0x20, 0xB5, 0x03]
+      output:
+        data:
+          Ambient_Temperature: 27.25
+          Ambient_Temperature_Failure: 0
+          Energy_Storage_Low: 0
+          PIR_Sensor_Failure: 0
+          PIR_Status: 1
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 0
+          Set_Point_Temperature_Value: '+3'
+          Storage_Voltage: 3.62
+
+    - description: REV1.0 Example 2
+      input:
+        fPort: 1
+        bytes: [0x58, 0x00, 0x96, 0x00]
+      output:
+        data:
+          Ambient_Temperature: 22
+          Ambient_Temperature_Failure: 0
+          Energy_Storage_Low: 0
+          PIR_Sensor_Failure: 0
+          PIR_Status: 0
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 0
+          Set_Point_Temperature_Value: '0'
+          Storage_Voltage: 3
+
+    - description: REV1.0 Example 3
+      input:
+        fPort: 1
+        bytes: [0x4C, 0x20, 0x84, 0xFF]
+      output:
+        data:
+          Ambient_Temperature: 19
+          Ambient_Temperature_Failure: 0
+          Energy_Storage_Low: 0
+          PIR_Sensor_Failure: 0
+          PIR_Status: 1
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 0
+          Set_Point_Temperature_Value: 'Freeze Protection 6°'
+          Storage_Voltage: 2.64

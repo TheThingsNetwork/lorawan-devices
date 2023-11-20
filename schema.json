@@ -758,7 +758,7 @@
           "then": {
             "properties": {
               "regionalParametersVersion": {
-                "enum": ["RP002-1.0.0", "RP002-1.0.1"]
+                "enum": ["RP002-1.0.0", "RP002-1.0.1", "RP002-1.0.2", "RP002-1.0.3", "RP002-1.0.4"]
               }
             }
           }
@@ -972,6 +972,7 @@
               "radar",
               "rainfall",
               "rssi",
+              "sap flow",
               "smart valve",
               "snr",
               "so2",

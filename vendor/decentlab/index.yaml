@@ -2,7 +2,9 @@ endDevices:
   - dl-5tm
   - dl-atm22
   - dl-atm41
+  - dl-blg
   - dl-ctd10
+  - dl-cws
   - dl-dlr2-002
   - dl-dlr2-003
   - dl-dlr2-004
@@ -14,6 +16,7 @@ endDevices:
   - dl-ds18
   - dl-dws
   - dl-iam
+  - dl-isf
   - dl-itst
   - dl-kl66
   - dl-lid
@@ -34,6 +37,7 @@ endDevices:
   - dl-sht35-002
   - dl-smtp
   - dl-tbrg
+  - dl-tp
   - dl-trs11
   - dl-trs12
   - dl-trs21
