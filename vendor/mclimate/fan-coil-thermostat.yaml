@@ -69,7 +69,7 @@ keySecurity: read protected
 
 # Product and data sheet URLs (optional)
 productURL: http://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-fan-coil-thermostat-fct
-dataSheetURL: http://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-fan-coil-thermostat-fct 
+dataSheetURL: http://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-fan-coil-thermostat-fct
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:
