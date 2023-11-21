@@ -17,23 +17,25 @@ function decodeUplink(input) {
             var tempDec = parseInt(tempHex, 16);
             var temperatureValue = calculateTemperature(tempDec);
             var humidityValue = calculateHumidity(bytes[3]);
-
+            var batteryHex = '0' + bytes[4].toString(16) + bytes[5].toString(16);
+            var batteryVoltageCalculated =  parseInt(batteryHex, 16)/1000;
             var temperature = temperatureValue;
             var humidity = humidityValue;
-            var batteryVoltage = parseInt(`${decbin(bytes[4])}${decbin(bytes[5])}`, 2)/1000;
-            var targetTemperature = bytes[6];
-            var powerSourceStatus = bytes[7];
+            var batteryVoltage = batteryVoltageCalculated;
+            var ppmBin = decbin(bytes[6]);
+            var ppmBin2 = decbin(bytes[7]);
+            ppmBin = `${ppmBin2.slice(0,5)}${ppmBin}`
+            var ppm = parseInt(ppmBin, 2);
+            var powerSourceStatus = ppmBin2.slice(5,8);
             var lux = parseInt('0' + bytes[8].toString(16) + bytes[9].toString(16), 16);
             var pir = toBool(bytes[10]);
-            
             data.sensorTemperature = Number(temperature.toFixed(2));
             data.relativeHumidity = Number(humidity.toFixed(2));
             data.batteryVoltage = Number(batteryVoltage.toFixed(3));
-            data.targetTemperature = targetTemperature;
-            data.powerSourceStatus = powerSourceStatus;
+            data.ppm = ppm;
+            data.powerSourceStatus = parseInt(powerSourceStatus,2);
             data.lux = lux;
             data.pir = pir;
-            
             return data;
         }
     
@@ -89,46 +91,42 @@ function decodeUplink(input) {
                         data.watchDogParams= { wdpC: wdpC, wdpUc: wdpUc } ;
                     }
                 break;
-                case '2f':
+                case '1f':
                     {
-                        command_len = 1;
-                        data.targetTemperature = parseInt(commands[i + 1], 16) ;
+                        command_len = 4;
+                        var good_medium = parseInt(commands[i + 1] +'' + commands[i + 2], 16);
+                        var medium_bad = parseInt(commands[i + 3] +'' + commands[i + 4], 16);
+                        
+                        data.boundaryLevels = { good_medium: Number(good_medium), medium_bad: Number(medium_bad) } ;
                     }
                 break;
-                case '30':
+                case '21':
                     {
-                        command_len = 1;
-                        data.manualTargetTemperatureUpdate = parseInt(commands[i + 1], 16) ;
+                        command_len = 2;
+                        data.autoZeroValue = parseInt(commands[i + 1] +'' + commands[i + 2], 16);
                     }
                 break;
-                case '32':
+                case '25':
+                    {
+                        
+                        command_len = 3;
+                        var good_zone = parseInt(commands[i + 1], 16);
+                        var medium_zone = parseInt(commands[i + 2], 16);
+                        var bad_zone = parseInt(commands[i + 3], 16);
+                        
+                        data.measurementPeriod = { good_zone: Number(good_zone), medium_zone: Number(medium_zone), bad_zone: Number(bad_zone) } ;
+                    }
+                break;
+                case '2b':
                     {
                         command_len = 1;
-                        data.heatingStatus = parseInt(commands[i + 1], 16) ;
+                        data.autoZeroPeriod = parseInt(commands[i + 1], 16);
                     }
                 break;
                 case '34':
                     {
                         command_len = 1;
                         data.displayRefreshPeriod = parseInt(commands[i + 1], 16) ;
-                    }
-                break;
-                case '36':
-                    {
-                        command_len = 1;
-                        data.sendTargetTempDelay = parseInt(commands[i + 1], 16) ;
-                    }
-                break;
-                case '38':
-                    {
-                        command_len = 1;
-                        data.automaticHeatingStatus = parseInt(commands[i + 1], 16) ;
-                    }
-                break;
-                case '3a':
-                    {
-                        command_len = 1;
-                        data.sensorMode = parseInt(commands[i + 1], 16) ;
                     }
                 break;
                 case '3d':
@@ -185,6 +183,22 @@ function decodeUplink(input) {
                         data.pirBlindPeriod = parseInt(commands[i + 1], 16) ;
                     }
                 break;
+                case '80':
+                    {
+                        command_len = 1;
+                        data.measurementBlindTime = parseInt(commands[i + 1], 16) ;
+                    }
+                break;
+                case '83':
+                    {
+                        command_len = 1;
+                        var bin = decbin(parseInt(commands[i + 1], 16));
+                        var chart = Number(bin[5]);
+                        var digital_value = Number(bin[6]);
+                        var emoji = Number(bin[7]);
+                        data.imagesVisibility = { chart, digital_value, emoji } ;
+                    }
+                    break;
                 case 'a0':
                     {
                         command_len = 4;

@@ -291,6 +291,15 @@ function decodeUplink(input) {
                         resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
+                case 'a0':
+                    {
+                        command_len = 4;
+                        var fuota_address = parseInt(`${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}${commands[i + 4]}`, 16)
+                        var fuota_address_raw = `${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}${commands[i + 4]}`
+                        var fuotaData = { fuota: { fuota_address, fuota_address_raw } };
+                        resultToPass = merge_obj(resultToPass, fuotaData);
+                    }
+                break;
                 default:
                     break;
             }
