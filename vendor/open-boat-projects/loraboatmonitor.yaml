@@ -1,0 +1,79 @@
+name: LoRa Boat Monitor
+description: The LoRa boat monitor is used to monitor the boat when you are away. Various measured values such as battery voltage, GPS position, humidity, temperature, air pressure, filling levels, bilge and door contact are continuously forwarded to the LoRaWAN and recorded at freely adjustable time intervals via the LoRa radio technology.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.06'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: loraboatmonitor-profile
+        codec: loraboatmonitor-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
+# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
+# water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - digital input
+  - gps
+  - temperature
+  - pressure
+  - humidity
+  - level
+  - voltage
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 90
+  length: 115
+  height: 55
+
+# Weight in grams (optional)
+weight: 275
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP65
+
+# Product and data sheet URLs (optional)
+productURL: https://open-boat-projects.org/en/lora-bootsmonitor
+resellerURLs:
+  - name: 'Open Boat Projects'
+    region:
+      - European Union
+    url: https://open-boat-projects.org/en/kontakt
+
+# Photos
+photos:
+  main: lora_boat_monitor_1.jpg
+  other:
+    - lora_boat_monitor_2.jpg

@@ -1,0 +1,24 @@
+uplinkDecoder:
+  fileName: cd10.js
+  examples:
+    - description: MerryIoT Air Quality CO2 detected
+      input:
+        fPort: 127
+        bytes: [0x11, 0x0f, 0xe7, 0x00, 0x43, 0x07, 0x19]
+      output:
+        data:
+          status: 1
+          button: 0
+          co2threshold: 1
+          co2calibration: 0
+          battery: 3.6
+          temperature: 23.1
+          humidity: 67
+          co2_ppm: 6407
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort
