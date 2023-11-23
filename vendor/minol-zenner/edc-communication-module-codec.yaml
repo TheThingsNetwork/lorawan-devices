@@ -1,0 +1,19 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: edc-communication-module.js
+
+  # Examples
+  examples:
+    - description: example meter values with status bytes
+      input:
+        fPort: 1
+        bytes: [0x27, 0x00, 0x00, 0x00, 0x0C, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x00, 0x00, 0x0F]
+      output:
+        data:
+          removal_detection: 1
+          battery_low: 1
+          battery_end_of_life: 1
+          hw_error: 0
+          coil_manipulation: 1
+          meter_values: [12, 13, 15]
