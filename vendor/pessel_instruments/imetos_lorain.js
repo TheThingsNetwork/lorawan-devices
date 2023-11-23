@@ -1,68 +1,23 @@
-var directions = ['N', 'E', 'S', 'W'];
-var colors = ['red', 'green'];
-var degrees = {
-  N: 0,
-  E: 90,
-  S: 180,
-  W: 270,
-};
-
 function decodeUplink(input) {
-  switch (input.fPort) {
-    case 1:
-      return {
-        // Decoded data
-        data: {
-          direction: directions[input.bytes[0]],
-          speed: input.bytes[1],
-        },
-      };
-    default:
-      return {
-        errors: ['unknown FPort'],
-      };
-  }
-}
-
-function normalizeUplink(input) {
   return {
-    // Normalized data
     data: {
-      wind: {
-        direction: degrees[input.data.direction], // letter to degrees
-        speed: input.data.speed * 0.5144, // knots to m/s
-      },
-    },
-  };
-}
+      battery : input.bytes[14] + (input.bytes[15] << 8),
+      solar : input.bytes[16] + (input.bytes[17] << 8),
+      precipitation : input.bytes[18] + (input.bytes[19] << 8),
+      avg_temp : (input.bytes[20] + (input.bytes[21] << 8))/100, //s4
+      min_temp : (input.bytes[22] + (input.bytes[23] << 8))/100, //s5
+      max_temp : (input.bytes[24] + (input.bytes[25] << 8))/100, //s6
+      humidity_avg : (input.bytes[26] + (input.bytes[27] << 8))/10, //s7
+      humidity_max: (input.bytes[30] + (input.bytes[31] << 8))/10, //s7
+      humidity_min: (input.bytes[28] + (input.bytes[29] << 8))/10, //s7
+      deltaT_avg : (input.bytes[32] + (input.bytes[33] << 8))/100,
+      deltaT_min : (input.bytes[34] + (input.bytes[35] << 8))/100,
+      deltaT_max :(input.bytes[36] + (input.bytes[37] << 8))/100,
+      dewPoint_avg : input.bytes[38] + (input.bytes[39] << 8),
+        //dewPoint_min : input.bytes[40] - (input.bytes[41] << 8),
 
-function encodeDownlink(input) {
-  var i = colors.indexOf(input.data.led);
-  if (i === -1) {
-    return {
-      errors: ['invalid LED color'],
-    };
-  }
-  return {
-    // LoRaWAN FPort used for the downlink message
-    fPort: 2,
-    // Encoded bytes
-    bytes: [i],
+      vpd_avg : (input.bytes[42] + (input.bytes[43] << 8))/100,
+      vpd_min : (input.bytes[44] + (input.bytes[45] << 8))/100,
+    }
   };
-}
-
-function decodeDownlink(input) {
-  switch (input.fPort) {
-    case 2:
-      return {
-        // Decoded downlink (must be symmetric with encodeDownlink)
-        data: {
-          led: colors[input.bytes[0]],
-        },
-      };
-    default:
-      return {
-        errors: ['invalid FPort'],
-      };
-  }
 }
