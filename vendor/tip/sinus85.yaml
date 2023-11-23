@@ -7,7 +7,6 @@ firmwareVersions:
   - # Firmware version
     version: '1.0.3'
     numeric: 1
-
     profiles:
       EU863-870:
         id: sinus85-profile
