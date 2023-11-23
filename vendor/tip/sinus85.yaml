@@ -1,6 +1,5 @@
-name: Sinus 85 
+name: Sinus 85
 description: Direct measuring digital three-phase meter for DIN rail mounting
-
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -12,4 +11,3 @@ firmwareVersions:
         id: sinus85-profile
         lorawanCertified: true
         codec: sinus85-codec
-      
