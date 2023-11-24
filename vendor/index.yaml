@@ -1,3 +1,5 @@
+# To find your vendor's ID, please look here: https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915
+
 vendors:
   - id: example
     name: Example
