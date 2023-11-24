@@ -1,3 +1,5 @@
+# To find your vendor's ID, please look here: https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915
+
 vendors:
   - id: example
     name: Example
@@ -1997,3 +1999,7 @@ vendors:
     website: https://www.senso8.com/
     logo: senso8-logo.svg
     linkedin: https://www.linkedin.com/company/arwin-technology-limited/
+
+  - id: tip
+    name: TIP Meter
+    website: https://www.tip-meter.de/
