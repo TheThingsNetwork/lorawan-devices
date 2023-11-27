@@ -1,0 +1,19 @@
+name: iMetos LoRAIN
+description: LoRAIN is a weather station that operates on the LoRaWAN® network. LoRAIN device measures rainfall, air and soil temperature, relative humidity, leaf wetness, and soil moisture.
+
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.10'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: imetos_lorain-profile
+        lorawanCertified: true
+        codec: imetos_lorain-codec
+      
