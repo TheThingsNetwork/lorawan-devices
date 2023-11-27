@@ -1,3 +1,5 @@
+# To find your vendor's ID, please look here: https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915
+
 vendors:
   - id: example
     name: Example
@@ -165,7 +167,7 @@ vendors:
     description: Decentlab is a Swiss company providing wireless sensor devices and services for distributed, cost-effective monitoring solutions. The sensor devices communicate wirelessly over LoRaWAN® and are designed for ultra low power consumption, capable of operating on batteries for several years. The devices are built for industrial applications and are ready to be deployed in any harsh indoor or outdoor environment. The service framework provides convenient access to measurement data and enables seamless integration into existing monitoring and control systems. Application areas are environmental and air quality monitoring, hydrological measurements, smart agriculture and smart cities.
     social:
       linkedin: https://www.linkedin.com/company/decentlab
-      facebook: https://www.facebook.com/decentlab.gmbh
+      facebook: https://www.facebook.com/decentlab
       twitter: decentlab
       github: decentlab
 
@@ -1972,6 +1974,16 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/koidra/
 
+  - id: volley-boast
+    name: Volley Boast LLC
+    description: Volley Boast designs, deploys, and manages industrial IOT solutions. Combining extremely low-power LPWAN technology with the latest in cloud computing, Volley Boast delivers actionable data and analytics to customers' end-devices with minimal overhead and maintenance.
+    vendorID: 918
+    website: https://volleyboast.com/
+    logo: volley-boast-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/volley-boast-llc
+      github: VolleyBoast
+
   - id: open-boat-projects
     name: Open Boat Projects
     description: Open Boat Projects is a platform on which water sports enthusiasts present their self-constructed DIY projects around boating. The focus is on the idea of open source and open hardware as well as the exchange of ideas.
@@ -1987,3 +1999,7 @@ vendors:
     website: https://www.senso8.com/
     logo: senso8-logo.svg
     linkedin: https://www.linkedin.com/company/arwin-technology-limited/
+
+  - id: tip
+    name: TIP Meter
+    website: https://www.tip-meter.de/
