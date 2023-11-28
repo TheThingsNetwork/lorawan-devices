@@ -1,0 +1,20 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em320-tilt.js
+
+  examples:
+    - description: Temperature & Humidity Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0xD4, 0x00, 0x00, 0x01, 0x00, 0x50, 0x46]
+
+      output:
+        data:
+          battery: 92
+          angle_x: 0
+          angle_y: 0
+          angle_z: 90
+          threshold_x: normal
+          threshold_y: trigger
+          threshold_z: normal

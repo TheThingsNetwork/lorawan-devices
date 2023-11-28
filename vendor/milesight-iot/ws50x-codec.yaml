@@ -1,0 +1,16 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: ws50x.js
+  examples:
+    - description: Wall Switch (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0xFF, 0x29, 0x31]
+      output:
+        data:
+          switch_1: open
+          switch_2: close
+          switch_3: close
+          switch_1_change: yes
+          switch_2_change: yes
+          switch_3_change: no

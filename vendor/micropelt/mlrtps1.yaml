@@ -1,5 +1,5 @@
-name: MLRTPS01
-description: MLRTPS01 is a wall mount thermostat with presence detection and temperature set point. It is an 868MHz LoRaWAN® Class A device operating in SF7BW125.
+name: MLRTPS1
+description: MLRTPS1 is a wall mount thermostat with presence detection and temperature set point. It is an 868MHz LoRaWAN® Class A device operating in SF7BW125.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -25,9 +25,9 @@ firmwareVersions:
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: mlrtps01-profile
+        id: mlrtps1-profile
         lorawanCertified: true
-        codec: mlrtps01-codec
+        codec: mlrtps1-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -73,7 +73,7 @@ productURL: https://www.micropelt.com/en/products/lorawan/mlr003-2
 
 # Photos
 photos:
-  main: mlrtps01.jpg
+  main: mlrtps1.jpg
 
 # Regulatory compliances (optional)
 compliances:
