@@ -16,7 +16,7 @@ uplinkDecoder:
           deltaT_max: 2.89
           deltaT_min: 2.12
           dewPoint_avg: 59
-          //dewPoint_min: -65145
+          dewPoint_min: 117
           humidity_avg: 72.3
           humidity_max: 73.1
           humidity_min: 71
@@ -24,5 +24,5 @@ uplinkDecoder:
           min_temp: 14.5
           precipitation: 360
           solar: 1825
-          vpd_avg: 1.17
-          vpd_min: 0.95
+          vpd_avg: 0.95
+          vpd_min: 0.15
