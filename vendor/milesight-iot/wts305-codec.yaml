@@ -1,0 +1,18 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: wts305.js
+  examples:
+    - description: Weather Station - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x67, 0x10, 0x01, 0x04, 0x68, 0x71, 0x05, 0x84, 0x00, 0x01, 0x06, 0x73, 0xaa, 0x27, 0x07, 0x92, 0x92, 0x01]
+
+      output:
+        data:
+          battery: 100
+          humidity: 56.5
+          pressure: 1015.4
+          temperature: 27.2
+          wind_direction: 25.6
+          wind_speed: 40.2

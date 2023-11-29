@@ -1,0 +1,49 @@
+uplinkDecoder:
+  fileName: l0010.js
+  examples:
+    - description: Gasmatic Sensor
+      input:
+        fPort: 51
+        bytes: [0x04, 0x37, 0xcd, 0x05, 0xca, 0x05, 0xc7, 0x05, 0xbf, 0x05]
+      output:
+        data:
+          Reading_Type: 0
+          Device_Type: 2
+          ADC_group: 0
+          battery: 86.27
+          ADC1: 1485
+          ADC2: 1482
+          ADC4: 1479
+          ADC6: 1471
+    - description: Gasmatic Sensor WIFI
+      input:
+        fPort: 51
+        bytes: [0x0b, 0xa5, 0xcf, 0xf3, 0x7b, 0x49, 0x1c, 0x1e, 0x38]
+      output:
+        data:
+          Reading_Type: 1
+          WiFi_MACs_found: 5
+          packet_seq_number: 0
+          wifi_mac: '1c497bf3cfa5'
+          RSSI: -30
+          battery: 87.84
+    - description: Gasmatic Sensor BLE
+      input:
+        fPort: 64
+        bytes: [0x28, 0xa6, 0x5f, 0x31, 0xd0, 0x55, 0x03, 0xFA, 0x00, 0x38, 0x5b]
+      output:
+        data:
+          Reading_Type: 0
+          Device_Type: 4
+          found_beacons: 2
+          ble_mac: '0355d0315fa6'
+          pressure: 250
+          battery_main: 87.84
+          battery_transducer: 91
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort
