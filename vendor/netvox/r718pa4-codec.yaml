@@ -45,7 +45,6 @@ uplinkDecoder:
           MinTime: 900
           MaxTime: 1800
 
-
 downlinkDecoder:
   fileName: payload/r718pa4.js
   examples:
