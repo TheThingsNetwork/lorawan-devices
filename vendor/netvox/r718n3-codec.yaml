@@ -47,9 +47,9 @@ uplinkDecoder:
           Current1: 1000
           Current2: 200
           Current3: 7000
-          Multiplier1: 2
-          Multiplier2: 1
-          Multiplier3: 3
+          Multiplier1: 10
+          Multiplier2: 5
+          Multiplier3: 100
 
     - description: Status report - 4
       input:
