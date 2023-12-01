@@ -225,9 +225,9 @@ uplinkDecoder:
           LeakageCurrentTripCnt: 7
           UnderVoltagetTripCnt: 8
           OverVoltagetTripCnt: 1
-          TemperaturetTripCnt: 0         
+          TemperaturetTripCnt: 0
           RemoteSelfTesttTripCnt: 20
-          LeakingPhaseTripCnt: 1  
+          LeakingPhaseTripCnt: 1
 
     - description: GetAlarmInfoRsq(For 1P)
       input:
@@ -337,7 +337,7 @@ uplinkDecoder:
           Cmd: 'LeakageCurrentSeftTest'
           Device: 'RP02'
           BreakerRS485Addr: 3
-      
+
     - description: ClearError/AlarmLog
       input:
         fPort: 7
