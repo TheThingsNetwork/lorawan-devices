@@ -40,3 +40,6 @@ firmwareVersions:
 sensors:
   - battery
   - button
+
+photos:
+  main: ambitlocker.png 
