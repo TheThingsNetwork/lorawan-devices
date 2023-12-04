@@ -19,3 +19,5 @@ firmwareVersions:
         id: rbs301-1-profile
         lorawanCertified: true
         codec: rbs301-1-codec
+photos:
+  main: rbs301-1.png
