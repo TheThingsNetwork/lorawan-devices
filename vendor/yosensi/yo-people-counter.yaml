@@ -1,5 +1,5 @@
-name: YO Power
-description: YO Power measures AC current flowing through devices connected to the mains. It can be fitted with up to six current clamps. It is possible to connect current-rated clamps with current output from almost every manufacturer. One YO Power device can measure multiple currents simultaneously (e.g. in one three-phase device, two three-phase devices, six single-phase devices, three single-phase devices, etc.).
+name: YO People Counter
+description: YO People Counter is a bi-directional device that uses a novel 24 GHz radar transceiver to detect motion from both directions simultaneously. This device detects a person moving independently when a certain distance exists between people and measures the speed of moving objects approaching the sensor. This device counts people flow in buildings, exhibitions, airports and more.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '3.0'
@@ -27,10 +27,10 @@ firmwareVersions:
         id: yo-power-profile
         lorawanCertified: true
       US902-928: #dodać profil na US
-        id: yo-power-profile-us
+        id: yo-people-counter-us
         lorawanCertified: true
       AU915-928:
-        id: yo-power-profile-au
+        id: yo-people-counter-au
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -42,8 +42,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - current
-  - power
+  - radar
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -53,20 +52,20 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 71.2
-  length: 58
-  height: 90
+  width: 86
+  length: 86
+  height: 25.5
 
 # Weight in grams (optional)
-weight: 146
+weight: 91
 
 # IP rating (optional)
-ipCode: IP20
+ipCode: IP40
 
 # Product and data sheet URLs (optional)
-productURL: https://yosensi.io/products/yo_power/
-dataSheetURL: https://yosensi.io/support/datasheets/YO_Power_datasheet.pdf
+productURL: https://yosensi.io/products/yo_people_counter/
+dataSheetURL: https://yosensi.io/support/datasheets/YO_People_Counter_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-power-2.png
+  main: yo-people-counter.png
