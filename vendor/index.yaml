@@ -1,3 +1,5 @@
+# To find your vendor's ID, please look here: https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915
+
 vendors:
   - id: example
     name: Example
@@ -1975,6 +1977,16 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/koidra/
 
+  - id: volley-boast
+    name: Volley Boast LLC
+    description: Volley Boast designs, deploys, and manages industrial IOT solutions. Combining extremely low-power LPWAN technology with the latest in cloud computing, Volley Boast delivers actionable data and analytics to customers' end-devices with minimal overhead and maintenance.
+    vendorID: 918
+    website: https://volleyboast.com/
+    logo: volley-boast-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/volley-boast-llc
+      github: VolleyBoast
+
   - id: open-boat-projects
     name: Open Boat Projects
     description: Open Boat Projects is a platform on which water sports enthusiasts present their self-constructed DIY projects around boating. The focus is on the idea of open source and open hardware as well as the exchange of ideas.
@@ -1990,3 +2002,7 @@ vendors:
     website: https://www.senso8.com/
     logo: senso8-logo.svg
     linkedin: https://www.linkedin.com/company/arwin-technology-limited/
+
+  - id: tip
+    name: TIP Meter
+    website: https://www.tip-meter.de/

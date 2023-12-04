@@ -1,11 +1,10 @@
-# Vendor profile ID, can be freely issued by the vendor. NOTE: The vendor profile ID is different from the vendorID.
-# The vendor Profile ID should be an incremental counter for every unique device listed in the vendor's folder.
+# Vendor profile ID, can be freely issued by the vendor
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf
-vendorProfileID: 0
+# https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
+vendorProfileID: 918
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
-macVersion: '1.0.3'
+macVersion: '1.0.4'
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
 #   1.0:   TS001-1.0
 #   1.0.1: TS001-1.0.1
@@ -13,7 +12,8 @@ macVersion: '1.0.3'
 #   1.0.3: RP001-1.0.3-RevA
 #   1.0.4: RP002-1.0.0 or RP002-1.0.1
 #   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-regionalParametersVersion: 'RP001-1.0.3-RevA'
+regionalParametersVersion: 'RP002-1.0.1'
+# regionalParametersVersion: 'RP002-1.0.3' # Supported, can't be assigned as there is no option for it.
 
 # Whether the end device supports join (OTAA) or not (ABP)
 supportsJoin: true
@@ -30,7 +30,7 @@ supportsJoin: true
 #factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
 
 # Maximum EIRP
-maxEIRP: 16
+maxEIRP: 22
 # Whether the end device supports 32-bit frame counters
 supports32bitFCnt: true
 

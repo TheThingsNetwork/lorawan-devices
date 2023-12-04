@@ -209,9 +209,10 @@ There are many other fields that can be set: hardware versions, firmware version
 Each referenced end device profile needs to be defined in the **End device profile**, with the same filename as the profile ID: `vendor/<vendor-id>/<profile-id>.yaml`:
 
 ```yaml
-# Vendor profile ID, can be freely issued by the vendor
+# Vendor profile ID, can be freely issued by the vendor. NOTE: The vendor profile ID is different from the vendorID. 
+# The vendor Profile ID should be an incremental counter for every unique device listed in the vendor's folder.
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/wp-content/uploads/2020/10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
+# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf
 vendorProfileID: 0
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
