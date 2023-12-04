@@ -86,8 +86,7 @@ dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12VOC.pdf
 
 # Photos
 photos:
-  main: mcf-lw12voc.jpg
-
+  main: mcf-lw12voc.png
 # Regulatory compliances (optional)
 compliances:
   safety:

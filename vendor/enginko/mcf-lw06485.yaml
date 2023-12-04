@@ -74,8 +74,7 @@ dataSheetURL: https://enginko.com/wp-content/uploads/2020/09/MCF-LW06485.pdf
 
 # Photos
 photos:
-  main: mcf-lw06485.jpg
-
+  main: mcf-lw06485.png
 # Regulatory compliances (optional)
 compliances:
   safety:
