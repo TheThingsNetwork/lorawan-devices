@@ -205,7 +205,6 @@ function decodeUplink(input) {
 				data.Displacement = (input.bytes[6]<<8 | input.bytes[7])*0.1;
 				data.Surface = (input.bytes[8]<<8 | input.bytes[9])*0.1;
 			}	
-
 		 	break;
 		  
 		case 7:
