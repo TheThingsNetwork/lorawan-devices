@@ -1,0 +1,17 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: gs301.js
+  examples:
+    - description: LoRaWAN Bathroom Odor Detector - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x02, 0x67, 0x1C, 0x01, 0x03, 0x68, 0x64, 0x04, 0x7D, 0x00, 0x00, 0x05, 0x7D, 0x01, 0x00]
+
+      output:
+        data:
+          battery: 100
+          temperature: 28.4
+          humidity: 50
+          nh3: 0
+          h2s: 0.01

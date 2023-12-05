@@ -66,6 +66,7 @@ function decodeUplink(input)
             if(octetHumidityValue>=1022){return "Deconnected sensor"}
             if(octetHumidityValue>=1021){return "Desactivated sensor"}
             else{return {"value":(octetHumidityValue/10), "unit" :"%RH"}}
+
         }
 
         function co2(octetCO2Value)
@@ -443,7 +444,7 @@ function decodeUplink(input)
             var data_time_between_measurement_sec = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
             var data_repetition = (parseInt(stringHex.substring(7,9),16))&0x3F;
             var binary=hexToBinary(stringHex)
-        
+            
             for(i=0;i<data_nombre_mesures;i++){
 
                 offset_binaire = 36 + (10*i);
@@ -461,7 +462,7 @@ function decodeUplink(input)
             "periodBetweenRecord":{"value":data_time_between_measurement_sec,"unit":"minutes"},
             "redundancyOfRecord":data_repetition,
             "temperature":{"value":mesure,"unit":"°C"},
-            }
+             }
             
             return data;
         }
