@@ -258,11 +258,6 @@ function decodeUplink(input)
             else if(octetCalibrationActivate===1){return "Automatic calibration activated"};
         }
 
-        function co2Threshold(octetCO2Threshold)
-        {
-            return {"value":octetCO2Threshold, "unit":"ppm"};
-        }
-
         function active(octetActive)
         {
             if(octetActive===0){return "Non-active"}
@@ -436,7 +431,7 @@ function decodeUplink(input)
             "redundancyOfRecord":data_repetition,
             "co2":{"value":mesure,"unit":"ppm"},
             }
-            
+          
             return data
         }
 
@@ -444,13 +439,12 @@ function decodeUplink(input)
         {
             var mesure = [];
             var i = 0;
-            var offset_octet = 0;
 
             var data_nombre_mesures = (parseInt(stringHex.substring(4,6),16)>>2)&0x3F;
             var data_time_between_measurement_sec = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
             var data_repetition = (parseInt(stringHex.substring(7,9),16))&0x3F;
             var binary=hexToBinary(stringHex)
-
+            
             for(i=0;i<data_nombre_mesures;i++){
 
                 offset_binaire = 36 + (10*i);
@@ -468,8 +462,9 @@ function decodeUplink(input)
             "periodBetweenRecord":{"value":data_time_between_measurement_sec,"unit":"minutes"},
             "redundancyOfRecord":data_repetition,
             "temperature":{"value":mesure,"unit":"°C"},
-            }
-
+             }
+            
+            return data;
         }
 
         function productStatusDataOutput(stringHex)
