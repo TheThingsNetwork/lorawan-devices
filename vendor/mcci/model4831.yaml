@@ -113,9 +113,9 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/model483x-datash
 
 # Photos
 photos:
-  main: model483x-closed.png
+  main: model483x.png
   other:
-    - model483x-open.jpg
+    - model483x-open.png
 # Youtube or Vimeo Video (optional)
 ## videos:
 ##   main: https://youtu.be/nG8MmaR5dsA

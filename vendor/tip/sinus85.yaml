@@ -11,3 +11,6 @@ firmwareVersions:
         id: sinus85-profile
         lorawanCertified: true
         codec: sinus85-codec
+
+photos:
+  main: sinus85.png
