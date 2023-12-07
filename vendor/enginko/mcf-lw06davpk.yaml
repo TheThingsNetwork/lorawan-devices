@@ -1,4 +1,4 @@
-name: MCF-LW06DAVPK
+name: MCF-LW06DAVPK - Weather Station
 description: The enginko MCF-LW06DAVPK integrates a LoRaWAN® communication system in a Davis Instruments Vantage Pro2 Weather Station. The station is equipped with a wide range of sensors such as temperature, humidity, pressure, rainfall, dew point, wind speed, wind direction, solar radiation, PM1, PM2.5, and PM10.
 
 # Firmware versions (at least one is mandatory)

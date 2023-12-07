@@ -1,4 +1,4 @@
-name: MCF-LW12MET
+name: MCF-LW12MET - Energy Meter With I/O
 description: The enginko MCF-LW12MET is a LoRaWAN® Mono-Phase Energy Meter with I/O that can be used for monitoring and checking the power of electronic devices, and can remotely switch devices on/off and read the state of digital input.
 
 # Firmware versions (at least one is mandatory)

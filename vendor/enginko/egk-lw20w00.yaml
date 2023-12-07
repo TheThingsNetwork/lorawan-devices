@@ -1,4 +1,4 @@
-name: EGK-LW20W00
+name: EGK-LW20W00 - Waste Level Sensor
 description: The enginko EGK-LW20W00 is a LoRaWAN® is a battery powered sensor intended for waste level measurement up to 1.5 meters.
 
 # Firmware versions (at least one is mandatory)
