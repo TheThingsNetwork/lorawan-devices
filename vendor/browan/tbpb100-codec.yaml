@@ -10,10 +10,10 @@ uplinkDecoder:
           status: 1
           battery: 3.9
           temperatureBoard: 23
-#    - description: Unknown FPort
-#      input:
-#        fPort: 42
-#        bytes: [0x01]
-#      output:
-#        errors:
-#          - unknown FPort
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        errors:
+          - unknown FPort
