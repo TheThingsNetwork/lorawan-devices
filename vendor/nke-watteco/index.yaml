@@ -24,3 +24,5 @@ endDevices:
   - torano-atex-zone-1-sensor
   - bob-assistant
   - triphaso-sensor
+  - modbus-classe-a-sensor
+  - modbus-classe-c-sensor
