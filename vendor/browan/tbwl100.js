@@ -1,10 +1,11 @@
 function decodeUplink(input) {
     var bytes = input.bytes;
 
-     //Check if temperature Board byte is present
-     if((bytes[2] & 0x7f) === 0) {
-      return {} //Return empty object 
-    }
+     // Check if the payload is empty by verifying if all elements in 'bytes' are 0 or if 'bytes' is empty
+  var isEmptyPayload = bytes.length === 0 || bytes.every(element => element === 0);
+  if (isEmptyPayload) {
+      return {}; // Return an empty object if the payload is empty
+  }
 
     switch (input.fPort) {
       case 106:
