@@ -16,7 +16,23 @@ else
     NC='\033[0m'
 fi
 
+highestVendorProfileID=0
+
+# Function to get the highest vendorProfileID in the directory
+get_highest_vendor_profile_id() {
+    for file in *-profile.yaml; do
+        if [ -f "$file" ]; then
+            current_id=$(grep 'vendorProfileID:' "$file" | awk '{print $2}')
+            if [ "$current_id" -gt "$highestVendorProfileID" ]; then
+                highestVendorProfileID=$current_id
+            fi
+        fi
+    done
+}
+
 add_devices () {
+get_highest_vendor_profile_id
+
 while true; do
     echo "\n${BLUE}How many devices do you want to add?${NC}"
     read device_count
@@ -28,12 +44,19 @@ while true; do
     fi
 done
 
-echo "endDevices:
+while true; do
+    if [ -e "index.yaml" ]; then
+        break
+    else
+        echo "endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)" > index.yaml
+    fi
+done
 
 # Loop to get device info and create files
 for ((i=1;i<=device_count;i++));
 do
+  highestVendorProfileID=$((highestVendorProfileID + 1))
   while true; do
     echo "\n${BLUE}What is the name of device $i? 
 (lowercase, alphanumeric with dashes, max 36 characters) (${RED}required${BLUE}):${NC}"
@@ -196,7 +219,7 @@ echo "# Vendor profile ID, can be freely issued by the vendor. NOTE: The vendor 
 # The vendor Profile ID should be an incremental counter for every unique device listed in the vendor's folder.
 # This vendor profile ID is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf
-vendorProfileID: 1
+vendorProfileID: $highestVendorProfileID
 
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: ''
@@ -249,7 +272,7 @@ supportsClassC: false
 echo "# Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: $devicename.js> $devicename-codec.yaml
+  fileName: $devicename.js" > $devicename-codec.yaml
 
 echo " // Please read here on how to implement the proper codec: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/" > $devicename.js
 done
@@ -264,14 +287,12 @@ The more you add, the more is known about your device.
 For more information look on the github page: 
 https://github.com/TheThingsNetwork/lorawan-devices#files-and-directories \n${NC}"
 
-code $devicename.yaml
-
 exit 0
 }
 
 add_company () {
 while true; do
-  echo "\n${BLUE}What is the unique id of your company? 
+  echo "\n${BLUE}What is the unique id of your company?
 (lowercase, alphanumeric with dashes, max 36 characters) (${RED}required${BLUE}):${NC}"
   read companyid
   if [[ $companyid =~ ^[a-z0-9\-]{1,36}$ ]]; then
