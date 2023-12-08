@@ -1,0 +1,83 @@
+name: Milesight WS101 Smart Button
+description: Milesight WS101 is a LoRaWAN®-based smart button for wireless controls, triggers and alarms. WS101 supports multiple press actions, all of which can be defined by the user to control devices or trigger scenes. Besides, Milesight also provides a red button that is primarily used to send SOS alarms. WS101 can be widely used in smart homes, smart offices, hotels, schools, etc.
+
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: ws101-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: ws101-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: ws101-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: ws101-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: ws101-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: ws101-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: ws101-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: ws101-codec
+
+sensors:
+  - button
+  - battery
+
+dimensions:
+  width: 50
+  length: 18
+  height: 50
+
+operatingConditions:
+  temperature:
+    min: -30
+    max: 60
+
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/button/ws101/?utm_source=platform&utm_medium=web&utm_campaign=milesight
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/ws101-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.alibaba.com/product-detail/Milesight-IoT-WS101-LoRaWAN-Smart-Button_1600565527448.html?spm=a2700.shop_plser.41413.14.60d3353fOwN2AL
+
+photos:
+  main: ws101.png

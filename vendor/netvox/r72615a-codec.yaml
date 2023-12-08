@@ -7,7 +7,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x00, 0x82, 0x04, 0x20, 0x20, 0x11, 0x05, 0x00, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           SWver: 13
           HWver: 4
           Datecode: '20201105'
@@ -18,7 +18,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x01, 0x48, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           PM1_0: 100
           PM2_5: 200
@@ -30,7 +30,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x02, 0x48, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           PM1_0: 100
           PM2_5: 200
@@ -42,7 +42,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x03, 0x48, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           um0_3: 100
           um0_5: 200
@@ -54,7 +54,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x04, 0x48, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           um2_5: 100
           um5_0: 200
@@ -66,7 +66,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x05, 0x48, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           O3: 10
           CO: 20
@@ -78,7 +78,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x06, 0x48, 0x00, 0x64, 0x00, 0xC8, 0x02, 0xBC, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           NO2: 10
           SO2: 20
@@ -90,7 +90,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x07, 0x48, 0x13, 0x88, 0xFF, 0xFF, 0xFF, 0xFF, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           CO2: 500
           NH3: 'NoSensor'
@@ -102,7 +102,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x08, 0x48, 0x03, 0xE8, 0xFF, 0xFF, 0xFF, 0xF6, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           PH: 10
           TempPH: 'NoSensor'
@@ -114,7 +114,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x09, 0x48, 0x03, 0xE8, 0xFC, 0xE8, 0x03, 0xE8, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           NTU: 100
           TempNTU: -7.92
@@ -126,7 +126,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x0A, 0x48, 0x03, 0xE8, 0xFF, 0x30, 0xFF, 0xFF, 0xFF]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           SoildHumi5TE: 10
           SoildTemp5TE: -2.08
@@ -139,7 +139,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x0B, 0x48, 0xF8, 0x30, 0x03, 0xE8, 0x03, 0xE8, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           TempLDO: -20
           LDO_DO: 10
@@ -151,7 +151,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x0C, 0x48, 0xF8, 0x30, 0x03, 0xE8, 0xFF, 0xFF, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           Temperature: -20
           Humidity: 10
@@ -163,7 +163,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x0D, 0x48, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x99, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           WindDirection: 10
           Atomsphere: 1.53
@@ -174,7 +174,7 @@ uplinkDecoder:
         bytes: [0x01, 0x09, 0x0E, 0x48, 0x03, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00]
       output:
         data:
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Volt: 7.2
           VOC: 90
 
@@ -185,7 +185,7 @@ uplinkDecoder:
       output:
         data:
           Cmd: 'ConfigReportRsp'
-          Device: 'R726Series'
+          Device: 'R726 Series'
           Status: 'Success'
 
     - description: Read configure report response
@@ -195,7 +195,7 @@ uplinkDecoder:
       output:
         data:
           Cmd: 'ReadConfigReportRsp'
-          Device: 'R726Series'
+          Device: 'R726 Series'
           MinTime: 900
           MaxTime: 1800
 
@@ -209,7 +209,7 @@ downlinkDecoder:
       output:
         data:
           Cmd: 'ConfigReportReq'
-          Device: 'R726Series'
+          Device: 'R726 Series'
           MinTime: 900
           MaxTime: 1800
 
@@ -220,7 +220,7 @@ downlinkDecoder:
       output:
         data:
           Cmd: 'ReadConfigReportReq'
-          Device: 'R726Series'
+          Device: 'R726 Series'
 
 downlinkEncoder:
   fileName: payload/ra0715_r72615_ra0715y_r72615a.js
@@ -229,7 +229,7 @@ downlinkEncoder:
       input:
         data:
           Cmd: 'ConfigReportReq'
-          Device: 'R726Series'
+          Device: 'R726 Series'
           MinTime: 900
           MaxTime: 1800
       output:
@@ -240,7 +240,7 @@ downlinkEncoder:
       input:
         data:
           Cmd: 'ReadConfigReportReq'
-          Device: 'R726Series'
+          Device: 'R726 Series'
       output:
         fPort: 7
         bytes: [0x02, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

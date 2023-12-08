@@ -1,0 +1,14 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs341.js
+  examples:
+    - description: Desk&Seat Occupancy Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x00, 0x01]
+
+      output:
+        data:
+          battery: 100
+          occupancy: occupied

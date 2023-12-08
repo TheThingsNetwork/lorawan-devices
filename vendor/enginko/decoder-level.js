@@ -107,34 +107,34 @@ function TTNto(content) {
 }
 
 function parseTimeSync(payload) {
-    const uplinkId = payload.substring(0, 2);
-    if (uplinkId.toUpperCase() === '01') {
-        const syncID = {
-            variable: 'syncID',
-            value: payload.substring(2, 10)
-        };
-        const syncVersion = {
-            variable: 'syncVersion',
-            value: payload.substring(10, 12) + "." + payload.substring(12, 14) + "." + payload.substring(14, 16)
-        };
-        const applicationType = {
-            variable: 'applicationType',
-            value: payload.substring(16, 20)
-        };
-        const rfu = {
-            variable: 'rfu',
-            value: payload.substring(20)
-        };
+  const uplinkId = payload.substring(0, 2);
+  if (uplinkId.toUpperCase() === '01') {
+    const syncID = {
+      variable: 'syncID',
+      value: payload.substring(2, 10)
+    };
+    const syncVersion = {
+      variable: 'syncVersion',
+      value: payload.substring(10, 12) + "." + payload.substring(12, 14) + "." + payload.substring(14, 16)
+    };
+    const applicationType = {
+      variable: 'applicationType',
+      value: payload.substring(16, 20)
+    };
+    const rfu = {
+      variable: 'rfu',
+      value: payload.substring(20)
+    };
 
-        return [
-            syncID,
-            syncVersion,
-            applicationType,
-            rfu
-        ];
-    } else {
-        return null;
-    }
+    return [
+      syncID,
+      syncVersion,
+      applicationType,
+      rfu
+    ];
+  } else {
+    return null;
+  }
 }
 
 function parseDate(payload) {
@@ -527,4 +527,94 @@ function getPressure(lo, mi, hi) {
 function getHumidity(lo) {
   var humidity = (((((0 & 0xff) << 8) | (lo & 0xff)) << 16) >> 16) / 2;
   return Number(humidity).toFixed(2);
+}
+
+function parseIO(payload) {
+  var uplinkId = payload.substring(0, 2);
+
+  if (uplinkId.toUpperCase() === '0A') {
+    var date = {
+      variable: 'date',
+      value: parseDate(payload.substring(2, 10)),
+    };
+    var firstByte = [];
+    var secondByte = [];
+    var thirdByte = [];
+    var fourthByte = [];
+    var k = 0;
+
+    for (var i = 0; i < 3; i++) {
+      firstByte[i] = parseInt(payload.substring(k + 10, k + 10 + 2), 16);
+      secondByte[i] = parseInt(payload.substring(k + 10 + 2, k + 10 + 4), 16);
+      thirdByte[i] = parseInt(payload.substring(k + 10 + 4, k + 10 + 6), 16);
+      fourthByte[i] = parseInt(payload.substring(k + 10 + 6, k + 10 + 8), 16);
+      k = k + 8;
+    }
+
+    var inputStatus8_1 = {
+      variable: 'inputStatus8_1',
+      value: parseFloat(firstByte[0].toString(2)),
+    };
+    var inputStatus9_16 = {
+      variable: 'inputStatus9_16',
+      value: parseFloat(secondByte[0].toString(2)),
+    };
+    var inputStatus17_24 = {
+      variable: 'inputStatus17_24',
+      value: parseFloat(thirdByte[0].toString(2)),
+    };
+    var inputStatus25_32 = {
+      variable: 'inputStatus25_32',
+      value: parseFloat(fourthByte[0].toString(2)),
+    };
+    var outputStatus8_1 = {
+      variable: 'outputStatus8_1',
+      value: parseFloat(firstByte[1].toString(2)),
+    };
+    var outputStatus9_16 = {
+      variable: 'outputStatus9_16',
+      value: parseFloat(secondByte[1].toString(2)),
+    };
+    var outputStatus17_24 = {
+      variable: 'outputStatus17_24',
+      value: parseFloat(thirdByte[1].toString(2)),
+    };
+    var outputStatus25_32 = {
+      variable: 'outputStatus25_32',
+      value: parseFloat(fourthByte[1].toString(2)),
+    };
+    var inputTrigger8_1 = {
+      variable: 'inputTrigger8_1',
+      value: parseFloat(firstByte[2].toString(2)),
+    };
+    var inputTrigger9_16 = {
+      variable: 'inputTrigger9_16',
+      value: parseFloat(secondByte[2].toString(2)),
+    };
+    var inputTrigger17_24 = {
+      variable: 'inputTrigger17_24',
+      value: parseFloat(thirdByte[2].toString(2)),
+    };
+    var inputTrigger25_32 = {
+      variable: 'inputTrigger25_32',
+      value: parseFloat(fourthByte[2].toString(2)),
+    };
+    return [
+      date,
+      inputStatus8_1,
+      inputStatus9_16,
+      inputStatus17_24,
+      inputStatus25_32,
+      outputStatus8_1,
+      outputStatus9_16,
+      outputStatus17_24,
+      outputStatus25_32,
+      inputTrigger8_1,
+      inputTrigger9_16,
+      inputTrigger17_24,
+      inputTrigger25_32,
+    ];
+  } else {
+    return null;
+  }
 }

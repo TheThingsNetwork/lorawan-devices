@@ -4,7 +4,7 @@ uplinkDecoder:
     - description: Parking Status
       input:
         fPort: 1
-        bytes: [0xCA]
+        bytes: [0x95]
       output:
         data:
           type: parking_status
@@ -16,7 +16,7 @@ uplinkDecoder:
     - description: User Registration
       input:
         fPort: 10
-        bytes: [0xE8, 0x1F, 0x34, 0x56, 0x78]
+        bytes: [0xD1, 0x1F, 0x34, 0x56, 0x78]
       output:
         data:
           type: user_registration

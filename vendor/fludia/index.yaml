@@ -1,0 +1,13 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - fm432e-1mn # look in fm432e-1mn.yaml for the end device definition
+  - fm432e-10-15mn # look in fm432e-10-15mn.yaml for the end device definition
+  - fm432t-1mn # look in fm432t-1mn.yaml for the end device definition
+  - fm432t-10-15mn # look in fm432t-10-15mn.yaml for the end device definition
+  - fm432ir-1mn # look in fm432ir-1mn.yaml for the end device definition
+  - fm432ir-10-15mn # look in fm432ir-10-15mn.yaml for the end device definition
+  - fm432p-1mn # look in fm432p-1mn.yaml for the end device definition
+  - fm432p-10-15mn # look in fm432p-10-15mn.yaml for the end device definition
+  - fm432g-10-15mn # look in fm432g-10-15mn.yaml for the end device definition

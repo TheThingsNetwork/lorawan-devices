@@ -1,0 +1,111 @@
+uplinkDecoder:
+  fileName: payload/r718nl3.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x99, 0x00, 0x64, 0x02, 0x20, 0x20, 0x07, 0x06, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718NL3'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200706'
+
+    - description: Status report - 1
+      input:
+        fPort: 6
+        bytes: [0x01, 0x99, 0x01, 0x24, 0x03, 0xE8, 0x00, 0xC8, 0x1B, 0x58, 0x01]
+      output:
+        data:
+          Device: 'R718NL3'
+          Volt: 3.6
+          Current1: 1000
+          Current2: 200
+          Current3: 7000
+          Multiplier1: 1
+
+    - description: Status report - 2
+      input:
+        fPort: 6
+        bytes: [0x01, 0x99, 0x02, 0x24, 0x03, 0x0A, 0x00, 0x00, 0x09, 0xC4, 0x00]
+      output:
+        data:
+          Device: 'R718NL3'
+          Volt: 3.6
+          Multiplier2: 3
+          Multiplier3: 10
+          Illuminance: 2500
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x99, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718NL3'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x99, 0x03, 0x84, 0x07, 0x08, 0x00, 0x64, 0x01, 0xF4, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718NL3'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 100
+          IlluminanceChange: 500
+
+downlinkDecoder:
+  fileName: payload/r718nl3.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x99, 0x03, 0x84, 0x07, 0x08, 0x00, 0x64, 0x01, 0xF4, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718NL3'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 100
+          IlluminanceChange: 500
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x99, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718NL3'
+
+downlinkEncoder:
+  fileName: payload/r718nl3.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718NL3'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 100
+          IlluminanceChange: 500
+      output:
+        fPort: 7
+        bytes: [0x01, 0x99, 0x03, 0x84, 0x07, 0x08, 0x00, 0x64, 0x01, 0xF4, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718NL3'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x99, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
