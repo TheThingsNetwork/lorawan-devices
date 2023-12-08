@@ -292,15 +292,21 @@ exit 0
 
 add_company () {
 while true; do
-  echo "\n${BLUE}What is the unique id of your company?
+    echo "\n${BLUE}What is the unique id of your company? 
 (lowercase, alphanumeric with dashes, max 36 characters) (${RED}required${BLUE}):${NC}"
-  read companyid
-  if [[ $companyid =~ ^[a-z0-9\-]{1,36}$ ]]; then
-      break
-  else
-      echo "${RED}Invalid input. Please enter a lowercase alphanumeric string 
+    read companyid
+
+    if [[ $companyid =~ ^[a-z0-9\-]{1,36}$ ]]; then
+        # Check if the company ID already exists in index.yaml
+        if grep -q "id: $companyid" index.yaml; then
+            echo "${RED}This company ID is already in use. Please enter a different one.\n${NC}"
+        else
+            break
+        fi
+    else
+        echo "${RED}Invalid input. Please enter a lowercase alphanumeric string 
 with dashes and a maximum of 36 characters.\n${NC}"
-  fi
+    fi
 done
           
 while true; do
