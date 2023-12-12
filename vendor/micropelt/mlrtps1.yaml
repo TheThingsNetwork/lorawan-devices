@@ -1,4 +1,4 @@
-name: MLRTPS1
+name: MLRTPS1 - Thermostat
 description: MLRTPS1 is a wall mount thermostat with presence detection and temperature set point. It is an 868MHz LoRaWAN® Class A device operating in SF7BW125.
 
 # Hardware versions (optional, use when you have revisions)
