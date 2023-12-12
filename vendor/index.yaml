@@ -1969,6 +1969,11 @@ vendors:
     website: https://www.dnt.de/
     logo: dnt-logo.svg
 
+  - id: agriseen
+    name: Agriseen
+    website: http://www.agriseen.com/
+    logo: agriseen_logo.png
+
   - id: koidra
     name: Koidra Inc.
     description: Koidra is an intelligent automation company, dedicated to modernizing the automation of manufacturing facilities, with the high-tech greenhouse industry being the core market. Our tiered products deliver a comprehensive solution that enhances industrial efficiency.
