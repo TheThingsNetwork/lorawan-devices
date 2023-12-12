@@ -2011,3 +2011,11 @@ vendors:
   - id: tip
     name: TIP Meter
     website: https://www.tip-meter.de/
+
+  - id: lualtek
+    name: Lualtek
+    website: https://lualtek.io
+    logo: lualtek.svg
+    social:
+      linkedin: https://www.linkedin.com/company/lualtek/
+      twitter: lualtek
