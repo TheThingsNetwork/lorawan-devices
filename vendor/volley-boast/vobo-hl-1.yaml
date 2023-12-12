@@ -1,4 +1,4 @@
-name: VoBo-HL-1
+name: VoBo-HL-1 - Input Endpoint
 description: General purpose LoRaWAN bridge certified for use in Class 1 Div 2 hazardous locations
 
 # Firmware versions (at least one is mandatory)

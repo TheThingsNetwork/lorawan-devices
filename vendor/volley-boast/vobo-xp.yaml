@@ -1,4 +1,4 @@
-name: VoBo-XP
+name: VoBo-XP - Input Endpoint
 description: The VoBo XP is an externally powered, industrial grade, 7 input, 4 output, LoRaWAN® bridge certified for Class 1 Division 2 (pending) hazardous areas
 
 # Firmware versions (at least one is mandatory)
