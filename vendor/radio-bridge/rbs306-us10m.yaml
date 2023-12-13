@@ -1,4 +1,4 @@
-name: rbs306-us10m - Ultrasonic Level Sensor 
+name: rbs306-us10m - Ultrasonic Level Sensor
 description: The ultrasonic level sensor provides high accuracy ultrasonic proximity detection and ranging in air. The Outdoor/Industrial enclosure makes the sensor suitable for outdoor and industrial use.
 hardwareVersions:
   - version: '1.0'

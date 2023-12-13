@@ -1,5 +1,5 @@
 name: rbs306-vshb - Vibration Sensor
-description: The vibration analysis and condition monitoring sensor solution provides advanced predictive maintenance capabilities for rotating machines and other equipment. The vibration sensor can be used for simple motor on/off functionality, or vibration analysis utilizing ISO standards such as ISO 10816.  The high frequencies are used for more advanced analysis not specified in ISO standards.  Applications include heavy machinery performance, motor performance, and bearing failure just to name a few. 
+description: The vibration analysis and condition monitoring sensor solution provides advanced predictive maintenance capabilities for rotating machines and other equipment. The vibration sensor can be used for simple motor on/off functionality, or vibration analysis utilizing ISO standards such as ISO 10816.  The high frequencies are used for more advanced analysis not specified in ISO standards.  Applications include heavy machinery performance, motor performance, and bearing failure just to name a few.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
