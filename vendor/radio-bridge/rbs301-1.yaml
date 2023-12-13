@@ -1,5 +1,5 @@
-name: rbs301-1
-description: radio-bridge door window sensor
+name: rbs301-1 - Single Button
+description: The wireless sensors designed and manufactured by Radio Bridge provide full sensor to cloud solutions for Internet of Things (IoT) applications. The wireless single push button sensor can be used as a panic button, PERS, remote control, or other remote push button applications. When the button is pressed, a message is sent over the wireless network.
 hardwareVersions:
   - version: '1.0'
     numeric: 1

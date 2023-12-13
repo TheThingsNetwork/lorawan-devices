@@ -1,5 +1,5 @@
-name: rbs306-vm30
-description: radio-bridge door window sensor
+name: rbs306-vm30 - Voltage Sensor
+description: The wireless voltage sensor measures voltages between 0-30V with 10mV precision. When the voltage rises above or drops below a threshold, an alert is sent over the wireless network. An indoor/smart building version is also available for low cost applications. There are also current sensor attachments that can be added to the voltage sensor to measure AC current from a range of 0-5A up to a range of 0-300A.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
