@@ -30,7 +30,7 @@ firmwareVersions:
         id: yo-ambience-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-ambience-profil-au
+        id: yo-ambience-profile-au
         lorawanCertified: true
 
 # Sensors that this device features (optional)
