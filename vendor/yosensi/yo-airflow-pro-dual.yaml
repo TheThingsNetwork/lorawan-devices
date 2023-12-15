@@ -1,17 +1,17 @@
-name: YO People Counter
-description: YO People Counter is a bi-directional device that uses a novel 24 GHz radar transceiver to detect motion from both directions simultaneously. This device detects a person moving independently when a certain distance exists between people and measures the speed of moving objects approaching the sensor. This device counts people flow in buildings, exhibitions, airports and more.
+name: YO Airflow Pro Dual
+description: The YO Airflow Pro dual is equipped with two differential pressure sensors. It can be used to verify the dirtiness of air filters and control the pressure in air conditioning systems and air blowers. Other uses include controlling and monitoring airflow and air pressure in fan coil units. The device communicates wirelessly over LoRaWAN.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.0'
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.2.0'
+    version: '3.6.1'
     numeric: 1
     hardwareVersions:
-      - '3.0'
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -24,13 +24,13 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-people-counter-profile
+        id: yo-airflow-pro-dual-profile
         lorawanCertified: true
       US902-928: #dodać profil na US
-        id: yo-people-counter-us
+        id: yo-airflow-pro-dual-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-people-counter-au
+        id: yo-airflow-pro-dual-profile-au
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -42,7 +42,9 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - radar
+  - temperature
+  - humidity
+  - pressure
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -52,20 +54,25 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 86
-  length: 86
-  height: 25.5
+  width: 88
+  length: 42
+  height: 64
 
 # Weight in grams (optional)
-weight: 91
+weight: 248
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3 x AA
 
 # IP rating (optional)
-ipCode: IP40
+ipCode: IP67
 
 # Product and data sheet URLs (optional)
-productURL: https://yosensi.io/products/yo_people_counter/
-dataSheetURL: https://yosensi.io/support/datasheets/YO_People_Counter_datasheet.pdf
+productURL: https://yosensi.io/products/yo_airflow_pro_dual/
+dataSheetURL: https://yosensi.io/support/datasheets/YO_Airflow_Pro_Dual_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-people-counter.png
+  main: yo-airflow-pro-dual.png
