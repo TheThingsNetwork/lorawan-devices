@@ -1,4 +1,4 @@
-name: SePem 35x
+name: SePem 35x - Noise Logger
 description: Stationary noise logger
 
 # Hardware versions (optional, use when you have revisions)
@@ -91,7 +91,7 @@ productURL: https://www.sewerin.com/en/products/water/noise-logger?L=5
 
 # Photos
 photos:
-  main: sepem_35x.jpg
+  main: sepem_35x.png
 
 # Regulatory compliances (optional)
 compliances:

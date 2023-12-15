@@ -1,4 +1,4 @@
-name: ToF Laser Distance Sensor
+name: EM400-TLD - ToF Laser Distance Sensor
 description: EM400-TLD is a distance sensor based on ToF (timeof flight), whichis mainly used for detecting the fill level and positionstatus.
 
 hardwareVersions:

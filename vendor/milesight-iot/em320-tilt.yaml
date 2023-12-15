@@ -1,4 +1,4 @@
-name: Tilt Sensor
+name: EM320-TILT - Tilt Sensor
 description: EM320-TILT is an LoRaWAN® tilt sensor mainly for angle measurementand asset movement detection
 
 hardwareVersions:

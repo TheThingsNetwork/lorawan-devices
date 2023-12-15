@@ -1,4 +1,4 @@
-name: VoBo-TC
+name: VoBo-TC - Thermocouple Endpoint
 description: The VoBo TC is an industrial grade 12 channel thermocouple LoRaWAN® bridge certified for Class 1 Division 2 hazardous areas
 
 # Firmware versions (at least one is mandatory)
@@ -65,4 +65,4 @@ dataSheetURL: https://volleyboast.com/products/Latest/VoBoTC/DCM-TC04-A3_VoBo_TC
 
 # Photos
 photos:
-  main: vobo-tc.jpg
+  main: vobo-tc.png

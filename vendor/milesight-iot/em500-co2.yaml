@@ -1,4 +1,4 @@
-name: EM500-CO2
+name: EM500-CO2 - Air Quality Sensor
 description: The Milesight EM500-CO2 consists of CO2, temperature, humidity, and barometric pressure sensors for measuring gaseous carbon dioxide (CO2) concentration in harsh environments. It is useful in the application where knowing CO2 level is important like greenhouses, wine cellars, building ventilation, fruit and vegetable storage.
 
 hardwareVersions:
@@ -87,7 +87,7 @@ resellerURLs:
     url: https://www.milesight-iot.com/contact-us/
 
 photos:
-  main: em500-co2.jpg
+  main: em500-co2.png
 
 compliances:
   safety:

@@ -1,4 +1,4 @@
-name: DL-ISF
+name: DL-ISF - Sap Flow Sensor
 description: The Decentlab DL-ISF is a sap flow sensor for LoRaWAN®. Suitable for applications such as plant physiology, plant water use, hydraulic redistribution, hydrology, and irrigation scheduling.
 
 hardwareVersions:

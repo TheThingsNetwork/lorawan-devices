@@ -1,5 +1,5 @@
-name: rbs101-con
-description: radio-bridge door window sensor
+name: rbs101-con - Dry Contact Sensor
+description: radio-bridge dry contact sensor
 hardwareVersions:
   - version: '1.0'
     numeric: 1
