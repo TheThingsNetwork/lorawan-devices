@@ -3,7 +3,7 @@ description: General purpose LoRaWAN bridge certified for use in Class 1 Div 2 h
 # Hardware versions (optional)
 hardwareVersions:
   - version: '1.06'
-    numeric: 1
+    numeric: 106
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version 1.03.10

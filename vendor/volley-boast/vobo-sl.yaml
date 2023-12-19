@@ -3,7 +3,7 @@ description: The VoBo SL is a cost-effective, autonomous bridge between a single
 # Hardware versions (optional)
 hardwareVersions:
   - version: '1.01'
-    numeric: 1
+    numeric: 101
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version 1.00.00
