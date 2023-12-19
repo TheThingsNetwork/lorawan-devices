@@ -1,5 +1,5 @@
-name: ELT-2 LoRaWAN wireless sensor
-description: The ELT-2 have the capability of solving almost any problem. It is enclosed in an IP67 box which makes it ideal for mounting outside or in extreme conditions.
+name: ELT Ultrasonic LoRaWAN Distance Sensor
+description: The ELT Ultrasonic is designed for measuring the distance. It can be placed in various environments and can work as a bin level sensor, tank level sensor, or water level under bridges, for example.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

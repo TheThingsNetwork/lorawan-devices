@@ -1,4 +1,4 @@
-name: LoRaWAN Insertion Temperature Sensor
+name: TS101 - LoRaWAN Insertion Temperature Sensor
 description: Milesight TS101 is an all-in-one insertion temperature sensor withanintegrated transmitter. It is equipped with an advanced measuringunitthatprovides a wide temperature measuring range.
 
 hardwareVersions:

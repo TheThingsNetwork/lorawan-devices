@@ -1,4 +1,4 @@
-name: LHT52
+name: LHT52 - Temperature & Humidity Sensor
 description: LHT52 indoor LoRaWAN Temperature & Humidity Sensor
 
 # Firmware versions (at least one is mandatory)

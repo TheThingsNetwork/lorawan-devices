@@ -1,4 +1,4 @@
-name: LDDS75
+name: LDDS75 - Distance Sensor
 description: The Dragino LDDS75 consists of an ultrasonic detection sensor for measuring the distance between the sensor and a flat object. It is used to measure the distance between the sensor and a flat object. It uses temperature compensation to improve the reliability of data. The measured distance data are sent to a LoRaWAN® network for further analysis.
 
 # Firmware versions (at least one is mandatory)

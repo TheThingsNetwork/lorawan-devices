@@ -1,5 +1,5 @@
-name: em300-mld
-description: The EM300-MLD is an innovative LoRaWAN leak sensor that incorporatesaflexible printed membrane
+name: em300-mld - Leak Sensor
+description: The EM300-MLD is an innovative LoRaWAN leak sensor that incorporates a flexible printed membrane
 
 hardwareVersions:
   - version: 'V3.0'

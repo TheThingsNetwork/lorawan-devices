@@ -1,4 +1,4 @@
-name: Pulse 4 / Pulse 4 ATEX
+name: Pulse 4 / Pulse 4 ATEX - Metering Interface
 description: The Adeunis Pulse 4 impulse interface allows connecting up to 2 connectable meters (water, gas, electricity, etc) and provides LoRaWAN® connectivity.
 
 # Hardware versions (optional, use when you have revisions)
