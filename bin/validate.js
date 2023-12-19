@@ -68,11 +68,9 @@ async function requireDimensions(path) {
   });
 }
 
-
 async function validatePayloadCodecs(vendorId, payloadEncoding) {
   const runs = [];
   const promises = [];
-
 
   [
     { def: payloadEncoding.uplinkDecoder, routine: 'decodeUplink' },
@@ -115,7 +113,6 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
     }
   });
 
-
   for (let index = 0; index < runs.length; index++) {
     const r = runs[index];
     promises.push(
@@ -131,25 +128,20 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
               JSON.stringify(r.input),
             ]);
 
-
             let stdout = '';
             let stderr = '';
-
 
             childProcess.stdout.on('data', (data) => {
               stdout += data.toString();
             });
 
-
             childProcess.stderr.on('data', (data) => {
               stderr += data.toString();
             });
 
-
             childProcess.on('error', (error) => {
               reject(error);
             });
-
 
             childProcess.on('close', (code) => {
               if (code !== 0) {
@@ -179,7 +171,6 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
       })
     );
   }
-
 
   return Promise.all(promises);
 }
