@@ -1,7 +1,8 @@
 {{ define "main" }}
   <main>
-    {{ $title := printf "Tag: %s" .Title}}
+    {{ $title := printf "Tag: %s" .Title }}
     {{ partial "banner.html" (dict "title"  $title "description" .Description) }}
     {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
+    <script src="{{- (index .Site.Data.manifest `device_list.js`) | relURL -}}"></script>
   </main>
 {{ end }}

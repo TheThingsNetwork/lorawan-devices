@@ -1,21 +1,152 @@
-<ul class="device-list" >
-  <div class="grid">
-  {{- range .devices }}
-    <div class="item-6 sm:item-12">
-      <li class="device-list__item">
-          <h2>{{.Params.Name}}</h2>
-          <p class="device-list__description">{{.Params.Description | truncate 100}}</p>
-          <div class="device-list__image">
-            {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
-            {{with $image}}
-            <img src="{{ ($image.Resize `400x`).RelPermalink }}" />
-            {{ end }}
-          </div>
-          <div class="device-list__cta">
-            <a href="{{.Permalink}}" class="ttui-btn ttui-btn--primary">See more</a>
-          </div>
-      </li>
-    </div>
+<div>
+  {{ $s := newScratch }}
+
+  {{/* Initialize an empty slice for sensors */}}
+  {{ $s.Add "uniqueSensors" (slice) }}
+
+  {{/* Range over .devices and aggregate unique sensor strings */}}
+  {{ range .devices }}
+    {{ range $sensor := .Params.sensors }}
+      {{/* Get the current list of unique sensors */}}
+      {{ $currentUniqueSensors := $s.Get "uniqueSensors" }}
+      {{/* Check if the sensor is already in the list */}}
+      {{ if not (in $currentUniqueSensors $sensor) }}
+        {{/* Create a slice with the current sensor and append it */}}
+        {{ $updatedSensors := append $currentUniqueSensors (slice $sensor) }}
+        {{ $s.Set "uniqueSensors" $updatedSensors }}
+      {{ end }}
+    {{ end }}
   {{ end }}
-  </div>
-</ul>
+
+  {{/* Retrieve the final list of unique sensors */}}
+  {{ $uniqueSensors := $s.Get "uniqueSensors" }}
+
+  {{/* Initialize an empty slice to hold the maps */}}
+  {{ $s.Add "vendorList" (slice (dict)) }}
+  {{ $s.Add "uniqueVendors" (slice) }}
+
+  {{/* Range over .devices */}}
+  {{ range .devices }}
+    {{/* Access the Vendor field */}}
+    {{ $vendor := .Params.Vendor }}
+
+    {{ $vendorID := $vendor.ID }}
+    {{ $currentUniqueVendors := $s.Get "uniqueVendors" }}
+    {{ if not (in $currentUniqueVendors $vendor) }}
+      {{ $updatedVendors := append $currentUniqueVendors (slice $vendor) }}
+      {{ $s.Set "uniqueVendors" $updatedVendors }}
+
+      {{/* Create a map with vendor name and id */}}
+      {{ $vendorMap := dict "name" $vendor.Name "id" $vendor.ID }}
+
+      {{/* Add the map to the slice */}}
+      {{ $currentVendorList := $s.Get "vendorList" }}
+      {{ $updatedVendorList := append $currentVendorList (slice $vendorMap) }}
+      {{ $s.Set "vendorList" $updatedVendorList }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Retrieve the final vendor list */}}
+  {{ $vendorList := $s.Get "vendorList" }}
+
+  {{/* Get all devices */}}
+
+  {{/* Initialize an empty slice */}}
+  {{ $s.Add "allParams" (slice) }}
+
+  {{ range $k, $v := .devices }}
+    {{/* Create a new slice for each Params and add it to the existing slice */}}
+    {{ $newSlice := slice $v.Params }}
+    {{ $currentParams := $s.Get "allParams" }}
+    {{ $updatedParams := append $currentParams $newSlice }}
+    {{ $s.Set "allParams" $updatedParams }}
+  {{ end }}
+
+  {{/* Retrieve the aggregated Params */}}
+  {{ $combinedParams := $s.Get "allParams" }}
+
+  {{/* Convert the combinedParams to JSON */}}
+  {{ $devicesJson := $combinedParams | jsonify }}
+
+  <script type="text/javascript">
+    var config = {
+      devices: JSON.parse("{{ $devicesJson | safeJS }}"),
+    }
+  </script>
+
+  {{/*  for all the values in the form  */}}
+  {{/*  if checked create an object with each filter type  */}}
+  {{/*    */}}
+
+  <div id="device-list"></div>
+    <div class="grid">
+      <div class="item-2">
+
+        <p><a href="#">bread</a> -> <a href="#">crumbs</a></p>
+        <p>clear all filters</p>
+
+        <form class="dr-form-filters">
+          <h3>Sensors</h3>
+          <br />
+          {{ range $sensor := $uniqueSensors }}
+            <div class="ttui-field">
+              <label class="ttui-field__label ttui-field__label--checkbox" for="id-{{ $sensor }}">
+                <input
+                  type="checkbox"
+                  id="id-{{ $sensor }}"
+                  name="sensors"
+                  class="ttui-field__checkbox js-filter js-filter--sensor"
+                  value="{{ $sensor }}"
+                />
+                {{ $sensor }}
+              </label>
+            </div>
+          {{ end }}
+
+
+          <br />
+          <h3>Vendors</h3>
+          <br />
+
+          {{ range $vendor := $vendorList }}
+            <div class="ttui-field">
+              <label class="ttui-field__label ttui-field__label--checkbox" for="id-{{ $vendor.id }}">
+                <input
+                  type="checkbox"
+                  id="id-{{ $vendor.id }}"
+                  name="vendors"
+                  class="ttui-field__checkbox js-filter js-filter--vendor"
+                  value="{{ $vendor.id }}"
+                />
+                {{ $vendor.name }}
+              </label>
+            </div>
+          {{ end }}
+        </form>
+      </div>
+      <div class="item-10">
+        <div id="device-list"></div>
+        <ul class="device-list">
+        <div class="grid">
+          {{- range .devices }}
+            <div class="item-4 sm:item-12">
+              <li class="device-list__item">
+                <h2>{{ .Params.Name }}</h2>
+                <p class="device-list__description">{{ .Params.Description | truncate 100 }}</p>
+                <div class="device-list__image">
+                  {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
+                  {{ with $image }}
+                    <img src="{{ ($image.Resize `400x`).RelPermalink }}" />
+                  {{ end }}
+                </div>
+                <div class="device-list__cta">
+                  <a href="{{ .Permalink }}" class="ttui-btn ttui-btn--primary">See more</a>
+                </div>
+              </li>
+            </div>
+          {{ end }}
+        </div>
+      </ul>
+      </div>
+    </div>
+</div>

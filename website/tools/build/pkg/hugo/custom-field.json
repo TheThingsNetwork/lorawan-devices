@@ -1,0 +1,22 @@
+{
+  "endDevices": [
+    {
+      "modelID": "model-id",
+      "hugo": {
+        "weight": 1, // This is used for ordering the end devices so we can control the ordering
+        "tags": [
+          {
+            "id": "tag-id", // for example wall of fame 2019
+            "name": "tag-name"
+          }
+        ]
+      },
+      "business-case": [
+        {
+          "id": "id", // for example business case, water moitoring
+          "name": "name"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+printWidth: 100
+semi: false
+trailingComma: 'all'
+singleQuote: true
+bracketSpacing: true
+plugins:
+  - prettier-plugin-go-template
+overrides:
+  - files:
+      - '*.html'
+    options:
+      parser: go-template
