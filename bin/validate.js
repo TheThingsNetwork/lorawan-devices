@@ -175,7 +175,7 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
           } catch (error) {
             reject(error);
           }
-        }, index * 1000); //slow the process 1 second
+        }, index * 1000); //slow down the process to 1 process per second
       })
     );
   }
