@@ -1,0 +1,22 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em300-mld.js
+  examples:
+    - description: LoRaWAN leak sensor that incorporatesaflexible printed membrane - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x05, 0x00, 0x00]
+      output:
+        data:
+          battery: 92
+          leakage_status: normal
+
+    - description: LoRaWAN leak sensor that incorporatesaflexible printed membrane - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x05, 0x00, 0x01]
+      output:
+        data:
+          battery: 92
+          leakage_status: leak

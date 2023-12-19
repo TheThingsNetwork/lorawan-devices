@@ -914,13 +914,13 @@ function Decoder(bytes, port) {
             if (  (clusterdID === 0x800d) & (attributID === 0x0000)) {
               tab.push({label: "VrmsA", value: UintToInt(bytes[index+1]*256+bytes[index+2],2)/10, date: lDate});
               tab.push({label: "IrmsA", value: UintToInt(bytes[index+3]*256+bytes[index+4],2)/10, date: lDate});
-              tab.push({label: "AngleA", value: UintToInt(bytes[index+5]*256+bytes[index+6],2)/10, date: lDate});
+              tab.push({label: "AngleA", value: UintToInt(bytes[index+5]*256+bytes[index+6],2), date: lDate});
               tab.push({label: "VrmsB", value: UintToInt(bytes[index+7]*256+bytes[index+8],2)/10, date: lDate});
               tab.push({label: "IrmsB", value: UintToInt(bytes[index+9]*256+bytes[index+10],2)/10, date: lDate});
-              tab.push({label: "AngleB", value: UintToInt(bytes[index+11]*256+bytes[index+12],2)/10, date: lDate});
+              tab.push({label: "AngleB", value: UintToInt(bytes[index+11]*256+bytes[index+12],2), date: lDate});
               tab.push({label: "VrmsC", value: UintToInt(bytes[index+13]*256+bytes[index+14],2)/10, date: lDate});
               tab.push({label: "IrmsC", value: UintToInt(bytes[index+15]*256+bytes[index+16],2)/10, date: lDate});
-              tab.push({label: "AngleC", value: UintToInt(bytes[index+17]*256+bytes[index+18],2)/10, date: lDate});
+              tab.push({label: "AngleC", value: UintToInt(bytes[index+17]*256+bytes[index+18],2), date: lDate});
             }
 
             // lorawan message type

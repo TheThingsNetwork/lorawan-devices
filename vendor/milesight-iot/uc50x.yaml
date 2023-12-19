@@ -1,0 +1,90 @@
+name: Milesight UC50x Series LoRaWAN® Controller
+description: Milesight UC50x series is a LoRaWAN® controller used for data acquisition from various sensors and equipments. It contains different I/O interfaces such as analog input, digital input, digital output, serial port and so on, which simplify the deployment and replacement of LoRaWAN® networks. For outdoor applications, it provides flexible power like built-in solar panel or high-capacity battery and is equipped with an IP67-rated enclosure and M12 connectors to protect itself from water and dust in harsh environments.
+
+hardwareVersions:
+  - version: '1.x'
+    numeric: 1
+  - version: '2.x'
+    numeric: 2
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - '1.x'
+      - '2.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: uc50x-codec
+      US902-928:
+        id: profile-us915
+        codec: uc50x-codec
+      AU915-928:
+        id: profile-au915
+        codec: uc50x-codec
+      AS923:
+        id: profile-as923
+        codec: uc50x-codec
+      CN470-510:
+        id: profile-cn470
+        codec: uc50x-codec
+      KR920-923:
+        id: profile-kr920
+        codec: uc50x-codec
+      IN865-867:
+        id: profile-in865
+        codec: uc50x-codec
+      RU864-870:
+        id: profile-ru864
+        codec: uc50x-codec
+
+sensors:
+  - digital input
+  - pulse count
+  # digital input
+  - analog input
+  # digital output
+  # modbus channels
+  #   index
+  #   reading
+
+bridgeInterfaces:
+  - modbus
+  - rs-485
+  # rs-232
+  - analog
+
+dimensions:
+  width: 116
+  length: 45.5
+  height: 116
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/controller/uc500/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/uc50x-series-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: uc50x.png

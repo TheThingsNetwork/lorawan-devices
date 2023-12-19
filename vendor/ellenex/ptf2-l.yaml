@@ -1,4 +1,4 @@
-name: PTF2-L
+name: PTF2-L - Pressure Transmitter
 description: Low power Flush Type Pressure Transmitter for liquid media compatible with stainless steel (food, viscose materials)
 
 # Hardware versions (optional, use when you have revisions)
@@ -100,7 +100,7 @@ dataSheetURL: https://www.ellenex.com/_files/ugd/b0de6e_5bc417d640324202972f4eda
 
 # Photos
 photos:
-  main: ptf2-l-c.png
+  main: ptf2-l.png
 
 # Regulatory compliances (optional)
 compliances:

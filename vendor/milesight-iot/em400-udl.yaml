@@ -1,0 +1,106 @@
+name: EM400-UDL - Ultrasonic Distance Sensor
+description: EM400-UDL is a non-contact ultrasonic distancesensordesigned for outdoor applications such as monitoringwaterlevel, fill level of tanks and silos, presence of objects, orsnowlevel
+
+hardwareVersions:
+  - version: 'V1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.01'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.0'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: em400-udl-codec
+      US902-928:
+        id: profile-us915
+        codec: em400-udl-codec
+      AU915-928:
+        id: profile-au915
+        codec: em400-udl-codec
+      AS923:
+        id: profile-as923
+        codec: em400-udl-codec
+      CN470-510:
+        id: profile-cn470
+        codec: em400-udl-codec
+      KR920-923:
+        id: profile-kr920
+        codec: em400-udl-codec
+      IN865-867:
+        id: profile-in865
+        codec: em400-udl-codec
+      RU864-870:
+        id: profile-ru864
+        codec: em400-udl-codec
+
+sensors:
+  - battery
+  - temperature
+  - accelerometer
+  - distance
+
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+
+additionalRadios:
+  - cellular
+
+dimensions:
+  width: 80
+  length: 65
+  height: 118
+
+battery:
+  replaceable: true
+  type: ER26500 Li-SoCl2 battery*2
+
+operatingConditions:
+  temperature:
+    min: -30
+    max: 70
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/products/lorawan-sensor/em400-udl/
+dataSheetURL: https://resource.milesight.com/milesight/iot/document/em400-udl-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: em400-udl.png
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

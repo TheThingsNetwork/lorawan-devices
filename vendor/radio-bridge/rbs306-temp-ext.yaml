@@ -1,5 +1,5 @@
-name: rbs306-temp-ext
-description: radio-bridge door window sensor
+name: rbs306-temp-ext - Outdoor External Temperature Probe
+description: The external probe outdoor/industrial temperature sensor measures temperature using an external temperature probe. Ideal for food service, cold chain monitoring, restaurants, laboratory monitoring, server rooms, and warehouses.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -19,3 +19,6 @@ firmwareVersions:
         id: rbs306-temp-ext-profile
         lorawanCertified: true
         codec: rbs306-temp-ext-codec
+# Photos
+photos:
+  main: rbs306-temp-ext.png
