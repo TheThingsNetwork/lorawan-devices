@@ -159,9 +159,9 @@ msrp:
 
 # Photos
 photos:
-  main: windsensor.jpg
+  main: windsensor.png  # Image needs to have a transparent background
   other:
-    - windsensor-package.jpg
+    - windsensor-package.png # Image needs to have a transparent background
 
 # Youtube or Vimeo Video (optional)
 videos:
