@@ -159,7 +159,7 @@ msrp:
 
 # Photos
 photos:
-  main: windsensor.png  # Image needs to have a transparent background
+  main: windsensor.png # Image needs to have a transparent background
   other:
     - windsensor-package.png # Image needs to have a transparent background
 
