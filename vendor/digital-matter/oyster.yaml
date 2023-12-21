@@ -1,4 +1,4 @@
-name: Oyster
+name: Oyster - Asset Tracking
 description: The Digital Matter Oyster is an ultra-rugged and long-life battery-powered GPS tracking device for asset tracking and management on LoRaWAN® networks that is packed with a GPS+GLONASS sensor and a 3-axis accelerometer. The IP67 rated housing ensures the device can withstand fine dust, high-pressure spray, submersion for 30 minutes in 1m of water, and extreme temperatures.
 hardwareVersions:
   - version: '60.1'

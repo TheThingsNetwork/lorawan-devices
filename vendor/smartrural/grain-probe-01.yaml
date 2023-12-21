@@ -131,11 +131,8 @@ msrp:
   EUR: 90
   USD: 120
 
-# Photos
-#photos:
-#  main: windsensor.jpg
-#  other:
-#    - windsensor-package.jpg
+photos:
+  main: grain-probe.png
 
 # Youtube or Vimeo Video (optional)
 videos:
