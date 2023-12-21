@@ -1,0 +1,515 @@
+uplinkDecoder:
+  fileName: payload/rp02.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x00, 0x6E, 0x06, 0x20, 0x23, 0x09, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          SWver: 11
+          HWver: 6
+          Datecode: '20230911'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x01, 0x13, 0x09, 0x08, 0x00, 0x19, 0x01, 0x09, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 19
+          BreakerType: 9
+          BreakerProtectStatusBits_1P: 8
+          AlarmStatusBits_1P: 0
+          Pre_TripStatusBits_1P: 25
+          TripStatusBits_1P: 1
+          HandOrAutoControlAndSelfTestStatus: 9
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x02, 0x13, 0x09, 0x09, 0x00, 0x10, 0x01, 0x08, 0x02]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 19
+          Current: 2313
+          Voltage: 16
+          Power: 264
+          Temperature: 2
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x03, 0x60, 0x00, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          Energy: 589840
+          Frequency: 1
+          PowerFactor: 0
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x04, 0x60, 0x03, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          LeakageCurrent: 777
+          OnOffTotalCount: 1048832
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x11, 0x60, 0x09, 0x09, 0x00, 0x10, 0x03, 0x02, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          BreakerTYpe: 9
+          BreakerProtectStatusBits: 2304
+          AlarmStatusBits: 4099
+          PreTripStatusBits: 512
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x12, 0x55, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 85
+          TripStatusBits: 2313
+          APhaseCurrent: 160
+          BphaseCurrent: 2560
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x13, 0x60, 0x09, 0x01, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          CPhaseCurrent: 23050
+          AphaseVoltage: 16
+          BPhaseVoltage: 256
+          Temperature: 0
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x14, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          CPhaseVoltage: 2313
+          APhasePower: 16
+          BPhasePower: 256
+          Frequency: 0
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x15, 0x60, 0x09, 0x05, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          CPhasePower: 2309
+          APhaseEnergy: 1048832
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x16, 0x60, 0x00, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          BPhaseEnergy: 589840
+          APhasePowerFactor: 1
+          CPhasePowerFactor: 0
+          BPhasePowerFactor: 0
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x17, 0x33, 0x00, 0x08, 0x00, 0x00, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 51
+          CPhaseEnergy: 524288
+          HandOrAutoControlStatus: 1
+          OnOffStatus: 'Off'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x9C, 0x18, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RP02'
+          BreakerRS485Addr: 96
+          LeakageCurrent: 2313
+          OnOffTotalCount: 1048832
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'RP02'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'RP02'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: SetPassThroughModeRsq
+      input:
+        fPort: 7
+        bytes: [0x83, 0x9C, 0x00, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'SetPassThroughModeRsq'
+          Device: 'RP02'
+          Status: 'Success'
+
+    - description: GetPassThroughModeRsq
+      input:
+        fPort: 7
+        bytes: [0x84, 0x9C, 0x03, 0x05, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetPassThroughModeRsq'
+          Device: 'RP02'
+          PassThroughModeOn: 3
+
+    - description: SetProtectionRsp
+      input:
+        fPort: 7
+        bytes: [0x85, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'SetProtectionRsp'
+          Device: 'RP02'
+          Status: 'Failure'
+
+    - description: GetTripCntRsq
+      input:
+        fPort: 7
+        bytes: [0x86, 0x9C, 0x07, 0x04, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetTripCntRsq'
+          Device: 'RP02'
+          OverLoadTripCnt: 7
+          ShortCircuitTripCnt: 4
+          LeakageCurrentTripCnt: 7
+          UnderVoltagetTripCnt: 8
+          OverVoltagetTripCnt: 1
+          TemperaturetTripCnt: 0
+          RemoteSelfTesttTripCnt: 20
+          LeakingPhaseTripCnt: 1
+
+    - description: GetAlarmInfoRsq(For 1P)
+      input:
+        fPort: 7
+        bytes: [0x87, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmInfoRsq(For 1P)'
+          Device: 'RP02'
+          AlarmCurrent: 900
+          AlarmLeakageCurrent: 1800
+          AlarmVoltage: 256
+          AlarmTemperature: 20
+
+    - description: GetAlarmInfoRsp1(For 3P)
+      input:
+        fPort: 7
+        bytes: [0x88, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmInfoRsp1(For 3P)'
+          Device: 'RP02'
+          AlarmAPhaseCurrent: 900
+          AlarmBPhaseCurrent: 1800
+          AlarmCPhaseCurrent: 256
+          AlarmHPhaseCurrent: 5121
+
+    - description: GetAlarmInfoRsp2(For 3P)
+      input:
+        fPort: 7
+        bytes: [0x89, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01, 0x14, 0x03, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmInfoRsp2(For 3P)'
+          Device: 'RP02'
+          AlarmLeakageCurrent: 900
+          AlarmAPhaseVoltage: 1800
+          AlarmBPhaseVoltage: 257
+          AlarmCPhaseVoltage: 5123
+
+    - description: GetAlarmInfoRsp3(For 3P)
+      input:
+        fPort: 7
+        bytes: [0x8A, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmInfoRsp3(For 3P)'
+          Device: 'RP02'
+          AlarmTemperature: 3
+
+    - description: OffCmd
+      input:
+        fPort: 7
+        bytes: [0x90, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'Off'
+          Device: 'RP02'
+          BreakerRS485Addr: 3
+
+    - description: OnCmd
+      input:
+        fPort: 7
+        bytes: [0x91, 0x9C, 0x07, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'On'
+          Device: 'RP02'
+          BreakerRS485Addr: 7
+
+    - description: Off(Cant manually On After Off)
+      input:
+        fPort: 7
+        bytes: [0x92, 0x9C, 0x14, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'Off(Cant manually On After Off)'
+          Device: 'RP02'
+          BreakerRS485Addr: 20
+
+    - description: ClearEnergy
+      input:
+        fPort: 7
+        bytes: [0x93, 0x9C, 0x11, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ClearEnergy'
+          Device: 'RP02'
+          BreakerRS485Addr: 17
+
+    - description: ResetToFactory
+      input:
+        fPort: 7
+        bytes: [0x94, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ResetToFactory'
+          Device: 'RP02'
+          BreakerRS485Addr: 3
+
+    - description: LeakageCurrentSeftTest
+      input:
+        fPort: 7
+        bytes: [0x95, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'LeakageCurrentSeftTest'
+          Device: 'RP02'
+          BreakerRS485Addr: 3
+
+    - description: ClearError/AlarmLog
+      input:
+        fPort: 7
+        bytes: [0x96, 0x9C, 0x07, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ClearError/AlarmLog'
+          Device: 'RP02'
+          BreakerRS485Addr: 7
+
+downlinkDecoder:
+  fileName: payload/rp02.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RP02'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RP02'
+
+    - description: SetPassThroughModeReq
+      input:
+        fPort: 7
+        bytes: [0x03, 0x9C, 0x04, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetPassThroughModeReq'
+          Device: 'RP02'
+          PassThroughModeOn: 4
+
+    - description: GetPassThroughModeReq
+      input:
+        fPort: 7
+        bytes: [0x04, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetPassThroughModeReq'
+          Device: 'RP02'
+
+    - description: SetProtectionRep
+      input:
+        fPort: 7
+        bytes: [0x05, 0x9C, 0x08, 0x10, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetProtectionRep'
+          Device: 'RP02'
+          BreakerRS485Addr: 8
+          ProtectionType: 16
+          ProtectionAction: 17
+
+    - description: GetTripCntReq
+      input:
+        fPort: 7
+        bytes: [0x06, 0x9C, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetTripCntReq'
+          Device: 'RP02'
+
+    - description: GetAlarmInfoReq(For 1P)
+      input:
+        fPort: 7
+        bytes: [0x07, 0x9C, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmInfoReq(For 1P)'
+          Device: 'RP02'
+
+    - description: GetAlarmInfoRep(For 3P)
+      input:
+        fPort: 7
+        bytes: [0x08, 0x9C, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetAlarmInfoRep(For 3P)'
+          Device: 'RP02'
+          BreakerRS485Addr: 20
+
+downlinkEncoder:
+  fileName: payload/rp02.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RP02'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0x9C, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RP02'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: SetPassThroughModeReq
+      input:
+        data:
+          Cmd: 'SetPassThroughModeReq'
+          Device: 'RP02'
+          PassThroughModeOn: 5
+      output:
+        fPort: 7
+        bytes: [0x03, 0x9C, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: GetPassThroughModeReq
+      input:
+        data:
+          Cmd: 'GetPassThroughModeReq'
+          Device: 'RP02'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: SetProtectionRep
+      input:
+        data:
+          Cmd: 'SetProtectionRep'
+          Device: 'RP02'
+          BreakerRS485Addr: 20
+          ProtectionType: 50
+          ProtectionAction: 16
+      output:
+        fPort: 7
+        bytes: [0x05, 0x9C, 0x14, 0x32, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: GetTripCntReq
+      input:
+        data:
+          Cmd: 'GetTripCntReq'
+          Device: 'RP02'
+          PassThroughModeOn: 32
+      output:
+        fPort: 7
+        bytes: [0x06, 0x9C, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: GetAlarmInfoReq(For 1P)
+      input:
+        data:
+          Cmd: 'GetAlarmInfoReq(For 1P)'
+          Device: 'RP02'
+          PassThroughModeOn: 50
+      output:
+        fPort: 7
+        bytes: [0x07, 0x9C, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: GetAlarmInfoRep(For 3P)
+      input:
+        data:
+          Cmd: 'GetAlarmInfoRep(For 3P)'
+          Device: 'RP02'
+          PassThroughModeOn: 55
+      output:
+        fPort: 7
+        bytes: [0x08, 0x9C, 0x37, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
