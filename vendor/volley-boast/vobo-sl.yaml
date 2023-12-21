@@ -1,12 +1,17 @@
 name: VoBo-SL - Input Endpoint
 description: The VoBo SL is a cost-effective, autonomous bridge between a single wired transmitter and a LoRaWAN® network.
-
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.01'
+    numeric: 101
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version 1.00.00
     version: '1.00.00'
     numeric: 10000
-
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.01'
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
