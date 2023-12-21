@@ -1364,5 +1364,5 @@ function printPayload(payload)
     console.log("");
 }
 
-module.exports = {customDecoder, decodeUplink, Decoder, addVoboMetadata, lookupAnalogSensorName, lookupDigitalSensorName, lookupUnits,
-                    hexToFloat, modbusToFloat_AB_CD_to_ABCD, modbusToFloat_AB_CD_to_DCBA, modbusToFloat_AB_CD_to_BADC, modbusToFloat_AB_CD_to_CDAB, printPayload}
+// module.exports = {customDecoder, decodeUplink, Decoder, addVoboMetadata, lookupAnalogSensorName, lookupDigitalSensorName, lookupUnits,
+//                     hexToFloat, modbusToFloat_AB_CD_to_ABCD, modbusToFloat_AB_CD_to_DCBA, modbusToFloat_AB_CD_to_BADC, modbusToFloat_AB_CD_to_CDAB, printPayload}
