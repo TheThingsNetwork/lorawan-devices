@@ -1,5 +1,5 @@
 name: TX 4/20 mA 600-035
-description: The Enless Wireless Transmitter with 4-20 mA interface 
+description: The Enless Wireless Transmitter with 4-20 mA interface
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -43,8 +43,6 @@ firmwareVersions:
 sensors:
   - 4-20 ma
 
-  
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -83,7 +81,6 @@ dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-035.
 
 # Photos
 main: 600-035.png
-
 
 # Regulatory compliances (optional)
 compliances:

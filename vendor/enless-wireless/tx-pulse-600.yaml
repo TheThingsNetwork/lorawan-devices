@@ -42,7 +42,6 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - pulse count
-  
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -83,7 +82,6 @@ dataSheetURL: https://enless-wireless.com/wp-content/uploads/2020/11/TX-PULSE-60
 # Photos
 photos:
   main: tx-pulse-600.png
-
 
 # Regulatory compliances (optional)
 compliances:

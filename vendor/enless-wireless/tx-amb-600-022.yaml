@@ -1,5 +1,5 @@
 name: TX VOC/T&H AMB 600-022
-description: The Enless Wireless Tx Pulse 600-036 consists of Ambient T&H and VOC 
+description: The Enless Wireless Tx Pulse 600-036 consists of Ambient T&H and VOC
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -44,8 +44,6 @@ sensors:
   - temperature
   - humidity
   - tvoc
-  
-  
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -85,7 +83,6 @@ dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-023.
 
 # Photos
 main: 600-022.png
-
 
 # Regulatory compliances (optional)
 compliances:

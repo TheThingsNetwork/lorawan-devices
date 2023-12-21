@@ -43,8 +43,6 @@ firmwareVersions:
 sensors:
   - temperature
 
-  
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -79,10 +77,7 @@ keyProvisioning:
 
 # Product and data sheet URLs (optional)
 
-
-
 # Photos
-
 
 # Regulatory compliances (optional)
 compliances:

@@ -1,5 +1,5 @@
 name: TX TEMP CONT1 600-032
-description: The Enless Wireless Transmitter with Internal Temperature PT100 probe 
+description: The Enless Wireless Transmitter with Internal Temperature PT100 probe
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -43,8 +43,6 @@ firmwareVersions:
 sensors:
   - temperature
 
-  
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -83,7 +81,6 @@ dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-032.
 
 # Photos
 main: 600-032.png
-
 
 # Regulatory compliances (optional)
 compliances:

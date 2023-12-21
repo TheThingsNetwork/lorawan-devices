@@ -13,7 +13,7 @@ firmwareVersions:
   - # Firmware version
     version: '1.0'
     numeric: 1
-# Corresponding hardware versions (optional)
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
 
@@ -45,7 +45,6 @@ sensors:
   - humidity
   - tvoc
   - co2
-  
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -85,7 +84,6 @@ dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-023.
 
 # Photos
 main: 600-022.png
-
 
 # Regulatory compliances (optional)
 compliances:

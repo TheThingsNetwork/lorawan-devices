@@ -43,8 +43,6 @@ firmwareVersions:
 sensors:
   - pulse count
 
-  
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -79,10 +77,8 @@ keyProvisioning:
 
 # Product and data sheet URLs (optional)
 
-
 # Photos
 main: tx-pulse-600.png
-
 
 # Regulatory compliances (optional)
 compliances:
