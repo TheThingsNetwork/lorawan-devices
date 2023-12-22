@@ -2019,3 +2019,10 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/lualtek/
       twitter: lualtek
+
+  - id: n-fuse
+    name: n-fuse GmbH
+    website: https://n-fuse.co/
+    logo: logo.svg
+    social:
+      github: nfhw
