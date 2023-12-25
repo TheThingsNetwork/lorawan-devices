@@ -1,4 +1,4 @@
-name: dt311
+name: dt311 - Temperature & Humidity Sensor
 description: The CNDingtek dt311 is temperature and humidity sensor for indoor using.
 
 # Hardware versions (optional, use when you have revisions)
