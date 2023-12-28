@@ -53,7 +53,7 @@ keyProgramming:
   - bluetooth
 #  - mobile app
 
-# Dimensions in mm 
+# Dimensions in mm
 dimensions:
   width: 90
   length: 115
