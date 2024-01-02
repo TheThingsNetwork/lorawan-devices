@@ -1,0 +1,83 @@
+name: Metering Node
+description: M-BUS Master Gateway and LORAWAN Converter
+
+# Hardware versions
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        id: otaa-class-a-profile
+        lorawanCertified: true
+        codec: generic-codec
+      RU864-870:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      US902-928:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      AS923:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+
+# Sensors that this device features (optional)
+sensors:
+  #- modbus master
+  - 4-20 ma
+  - analog input
+  - digital input
+  - pulse count
+#- Open-drain output
+#- 12V Output
+#- Ext: 12-24V DC
+#- Ext: 230V AC
+
+# Additional radios that this device has
+additionalRadios:
+  - ble
+
+# Battery information
+battery:
+  replaceable: false
+  type: 2 x Li-Ion, CR123A. Backup Lithium Polymer
+
+keyProgramming:
+  - bluetooth
+#- mobile app
+
+# Dimensions in mm
+dimensions:
+  width: 140
+  length: 115
+  height: 40
+#Weight in grams
+weight: 300
+
+# Product and data sheet URLs
+productURL: https://iotfactory.eu/?s=lorawan&post_type=product
+dataSheetURL: https://iotfactory.eu/wp-content/uploads/leaflets/METERING-NODE-by-IOT-Factory.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'IOT Factory'
+    region:
+      - European Union
+    url: https://iotfactory.eu
+
+# Photos
+photos:
+  main: metering-node-lorawan-iot-factory.png

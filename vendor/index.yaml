@@ -2019,3 +2019,9 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/lualtek/
       twitter: lualtek
+
+  - id: iot-factory
+    name: IOT Factory
+    description: Smart Metering & Asset Tracking
+    logo: iot-factory-logo.png
+    website: https://iotfactory.eu/
