@@ -1,0 +1,567 @@
+uplinkDecoder:
+  fileName: payload/r718pb.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x00, 0x6E, 0x06, 0x20, 0x23, 0x09, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          SWver: 11
+          HWver: 6
+          Datecode: '20230911'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x01, 0x77, 0x09, 0x08, 0x00, 0x19, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 11.9
+          PM1_0_CF: 2312
+          PM2_5_CF: 25
+          PM10_CF: 256
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x02, 0x77, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 11.9
+          PM1_0: 2313
+          PM2_5: 16
+          PM10: 256
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x03, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          PM0_3UM: 592128
+          PM0_5UM: 4097
+          PM1_0UM: 0
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x04, 0x60, 0x03, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          PM2_5UM: 777
+          PM5_0UM: 16
+          PM10UM: 256
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x05, 0x60, 0x09, 0x09, 0x00, 0x10, 0x03, 0x02, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          O3: 231.3
+          CO: 1.6
+          NO: 77
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x06, 0x55, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 8.5
+          NO2: 231.3
+          SO2: 16
+          H2S: 25.6
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x07, 0x60, 0x09, 0x01, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          CO2_0_1: 230.5
+          NH3: 1.6
+          Noise: 25.6
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x08, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          PH: 23.13
+          Tempera: 0.16
+          ORP: 256
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x09, 0x60, 0x09, 0x05, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          NTU: 230.9
+          Tempera: 0.16
+          Soil_VWC: 2.56
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x0A, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          Soil_VWC: 23.13
+          Soil_Temp: 0.16
+          water: 256
+          Soil_EC: 0
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x0B, 0x33, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 5.1
+          Tempera: 23.13
+          LDODO: 0.16
+          LDOSat: 25.6
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x0C, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          Tempera: 23.13
+          Humidity: 0.16
+          WindSpeed: 2.56
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x0D, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x01, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          WindDirection: 2313
+          Atomsphere: 10488.33
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x0E, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          VOC_0_1: 231.3
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x0F, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          Nitrogen: 2313
+          Phosphorus: 16
+          Potassium: 256
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x58, 0x010, 0x60, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PB'
+          Volt: 9.6
+          Soil_VWC: 23.13
+          Soil_Temperature: 0.16
+          Soli_EC: 0.256
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718PB'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718PB'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x58, 0x00, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'SetLDOSettingRsp'
+          Device: 'R718PB'
+          Status: 'Success'
+
+    - description: GetLDOSettingRsp
+      input:
+        fPort: 7
+        bytes: [0x84, 0x58, 0x03, 0x05, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetLDOSettingRsp'
+          Device: 'R718PB'
+          LDOsAltiud: 773
+          LDOsPSU: 1800
+
+    - description: ORPCalibrateRsp
+      input:
+        fPort: 7
+        bytes: [0x85, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ORPCalibrateRsp'
+          Device: 'R718PB'
+          Status: 'Failure'
+
+    - description: PHCalibrateRsp
+      input:
+        fPort: 7
+        bytes: [0x86, 0x58, 0x07, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'PHCalibrateRsp'
+          Device: 'R718PB'
+          Status: 'Failure'
+
+    - description: NTUCalibrateRsp
+      input:
+        fPort: 7
+        bytes: [0x87, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'NTUCalibrateRsp'
+          Device: 'R718PB'
+          Status: 'Failure'
+
+    - description: SetWireLengthRsp
+      input:
+        fPort: 7
+        bytes: [0x88, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'SetWireLengthRsp'
+          Device: 'R718PB'
+          Status: 'Failure'
+
+    - description: GetWireLengthRsp
+      input:
+        fPort: 7
+        bytes: [0x89, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetWireLengthRsp'
+          Device: 'R718PB'
+          Length: 900
+
+    - description: SetSoilTypeRsp
+      input:
+        fPort: 7
+        bytes: [0x8A, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'SetSoilTypeRsp'
+          Device: 'R718PB'
+          Status: 'Failure'
+
+    - description: GetSoilTypeRsp
+      input:
+        fPort: 7
+        bytes: [0x8B, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'GetSoilTypeRsp'
+          Device: 'R718PB'
+          SoilType: 3
+
+    - description: SoilCalibrateRsp
+      input:
+        fPort: 7
+        bytes: [0x8C, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'SoilCalibrateRsp'
+          Device: 'R718PB'
+          Status: 'Failure'
+
+downlinkDecoder:
+  fileName: payload/r718pb.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x58, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718PB'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718PB'
+
+    - description: SetLDOSettingReq
+      input:
+        fPort: 7
+        bytes: [0x03, 0x58, 0x04, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetLDOSettingReq'
+          Device: 'R718PB'
+          LDOsAltiud: 1024
+          LDOsPSU: 768
+
+    - description: GetLDOSettingReq
+      input:
+        fPort: 7
+        bytes: [0x04, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetLDOSettingReq'
+          Device: 'R718PB'
+
+    - description: ORPCalibrateReq
+      input:
+        fPort: 7
+        bytes: [0x05, 0x58, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ORPCalibrateReq'
+          Device: 'R718PB'
+          StandORP: 2048
+
+    - description: PHCalibrateReq
+      input:
+        fPort: 7
+        bytes: [0x06, 0x58, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'PHCalibrateReq'
+          Device: 'R718PB'
+          StandPH: 1792
+
+    - description: NTUCalibrateReq
+      input:
+        fPort: 7
+        bytes: [0x07, 0x58, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'NTUCalibrateReq'
+          Device: 'R718PB'
+          StandNTU: 1024
+
+    - description: SetWireLengthReq
+      input:
+        fPort: 7
+        bytes: [0x08, 0x58, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetWireLengthReq'
+          Device: 'R718PB'
+          Length: 10240
+
+    - description: GetWireLengthReq
+      input:
+        fPort: 7
+        bytes: [0x09, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetWireLengthReq'
+          Device: 'R718PB'
+
+    - description: SetSoilTypeReq
+      input:
+        fPort: 7
+        bytes: [0x0A, 0x58, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetSoilTypeReq'
+          Device: 'R718PB'
+          SoildType: 6
+
+    - description: GetSoilTypeReq
+      input:
+        fPort: 7
+        bytes: [0x0B, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetSoilTypeReq'
+          Device: 'R718PB'
+
+    - description: SoilCalibrateReq
+      input:
+        fPort: 7
+        bytes: [0x0C, 0x58, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SoilCalibrateReq'
+          Device: 'R718PB'
+          VWCDelt: 8%
+
+downlinkEncoder:
+  fileName: payload/r718pb.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718PB'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0x58, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718PB'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: SetLDOSettingReq
+      input:
+        data:
+          Cmd: 'SetLDOSettingReq'
+          Device: 'R718PB'
+          LDOsAltiud: 500
+          LDOsPSU: 1800
+      output:
+        fPort: 7
+        bytes: [0x03, 0x58, 0x01, 0xF4, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: GetLDOSettingReq
+      input:
+        data:
+          Cmd: 'GetLDOSettingReq'
+          Device: 'R718PB'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: ORPCalibrateReq
+      input:
+        data:
+          Cmd: 'ORPCalibrateReq'
+          Device: 'R718PB'
+          StandORP: 500
+      output:
+        fPort: 7
+        bytes: [0x05, 0x58, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: PHCalibrateReq
+      input:
+        data:
+          Cmd: 'PHCalibrateReq'
+          Device: 'R718PB'
+          StandPH: 1800
+      output:
+        fPort: 7
+        bytes: [0x06, 0x58, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: NTUCalibrateReq
+      input:
+        data:
+          Cmd: 'NTUCalibrateReq'
+          Device: 'R718PB'
+          StandNTU: 500
+      output:
+        fPort: 7
+        bytes: [0x07, 0x58, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: SetWireLengthReq
+      input:
+        data:
+          Cmd: 'SetWireLengthReq'
+          Device: 'R718PB'
+          Length: 5000
+      output:
+        fPort: 7
+        bytes: [0x08, 0x58, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: GetWireLengthReq
+      input:
+        data:
+          Cmd: 'GetWireLengthReq'
+          Device: 'R718PB'
+      output:
+        fPort: 7
+        bytes: [0x09, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: SetSoilTypeReq
+      input:
+        data:
+          Cmd: 'SetSoilTypeReq'
+          Device: 'R718PB'
+          SoildType: 8
+      output:
+        fPort: 7
+        bytes: [0x0A, 0x58, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: GetSoilTypeReq
+      input:
+        data:
+          Cmd: 'GetSoilTypeReq'
+          Device: 'R718PB'
+      output:
+        fPort: 7
+        bytes: [0x0B, 0x58, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: SoilCalibrateReq
+      input:
+        data:
+          Cmd: 'SoilCalibrateReq'
+          Device: 'R718PB'
+          VWCDelt: 50
+      output:
+        fPort: 7
+        bytes: [0x0C, 0x58, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
