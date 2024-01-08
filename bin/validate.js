@@ -70,7 +70,6 @@ async function requireDimensions(path) {
 
 async function validatePayloadCodecs(vendorId, payloadEncoding) {
   const runs = [];
-  const promises = [];
 
   [
     { def: payloadEncoding.uplinkDecoder, routine: 'decodeUplink' },
@@ -80,7 +79,6 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
     if (d.def) {
       const { routine } = d;
       const fileName = `${vendorId}/${d.def.fileName}`;
-      promises.push(requireFile(fileName));
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
           const { input, output, description, normalizedOutput } = e;
@@ -99,8 +97,6 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
               input: output,
               output: normalizedOutput,
               transformOutput: (output) => {
-                // The normalizer can return an object or an array of objects.
-                // If it's an object, convert it to an array with a single item.
                 if (output.data && !Array.isArray(output.data)) {
                   output.data = [output.data];
                 }
@@ -115,64 +111,60 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
 
   for (let index = 0; index < runs.length; index++) {
     const r = runs[index];
-    promises.push(
-      new Promise((resolve, reject) => {
-        setTimeout(async () => {
-          try {
-            const childProcess = spawn('bin/runscript', [
-              '-codec-path',
-              r.fileName,
-              '-routine',
-              r.routine,
-              '-input',
-              JSON.stringify(r.input),
-            ]);
+    await new Promise((resolve, reject) => {
+      setTimeout(async () => {
+        try {
+          const childProcess = spawn('bin/runscript', [
+            '-codec-path',
+            r.fileName,
+            '-routine',
+            r.routine,
+            '-input',
+            JSON.stringify(r.input),
+          ]);
 
-            let stdout = '';
-            let stderr = '';
+          let stdout = '';
+          let stderr = '';
 
-            childProcess.stdout.on('data', (data) => {
-              stdout += data.toString();
-            });
+          childProcess.stdout.on('data', (data) => {
+            stdout += data.toString();
+          });
 
-            childProcess.stderr.on('data', (data) => {
-              stderr += data.toString();
-            });
+          childProcess.stderr.on('data', (data) => {
+            stderr += data.toString();
+          });
 
-            childProcess.on('error', (error) => {
-              reject(error);
-            });
-
-            childProcess.on('close', (code) => {
-              if (code !== 0) {
-                reject(`Process exited with code ${code}\n${stderr}`);
-              } else {
-                const expected = r.output;
-                let actual = JSON.parse(stdout);
-                if (r.transformOutput) {
-                  actual = r.transformOutput(actual);
-                }
-                if (isEqual(expected, actual)) {
-                  console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
-                  resolve();
-                } else {
-                  reject(
-                    `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
-                      expected
-                    )}`
-                  );
-                }
-              }
-            });
-          } catch (error) {
+          childProcess.on('error', (error) => {
             reject(error);
-          }
-        }, index * 1000); //slow down the process to 1 process per second
-      })
-    );
-  }
+          });
 
-  return Promise.all(promises);
+          childProcess.on('close', (code) => {
+            if (code !== 0) {
+              reject(`Process exited with code ${code}\n${stderr}`);
+            } else {
+              const expected = r.output;
+              let actual = JSON.parse(stdout);
+              if (r.transformOutput) {
+                actual = r.transformOutput(actual);
+              }
+              if (isEqual(expected, actual)) {
+                console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
+                resolve();
+              } else {
+                reject(
+                  `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
+                    expected
+                  )}`
+                );
+              }
+            }
+          });
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+  }
 }
 
 function validateImageExtension(filename) {
