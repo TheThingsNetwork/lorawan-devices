@@ -109,61 +109,59 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
     }
   });
 
-  for (let index = 0; index < runs.length; index++) {
-    const r = runs[index];
-    await new Promise((resolve, reject) => {
-      setTimeout(async () => {
-        try {
-          const childProcess = spawn('bin/runscript', [
-            '-codec-path',
-            r.fileName,
-            '-routine',
-            r.routine,
-            '-input',
-            JSON.stringify(r.input),
-          ]);
+  for (const r of runs) {
+    try {
+      const childProcess = spawn('bin/runscript', [
+        '-codec-path',
+        r.fileName,
+        '-routine',
+        r.routine,
+        '-input',
+        JSON.stringify(r.input),
+      ]);
 
-          let stdout = '';
-          let stderr = '';
+      let stdout = '';
+      let stderr = '';
 
-          childProcess.stdout.on('data', (data) => {
-            stdout += data.toString();
-          });
-
-          childProcess.stderr.on('data', (data) => {
-            stderr += data.toString();
-          });
-
-          childProcess.on('error', (error) => {
-            reject(error);
-          });
-
-          childProcess.on('close', (code) => {
-            if (code !== 0) {
-              reject(`Process exited with code ${code}\n${stderr}`);
-            } else {
-              const expected = r.output;
-              let actual = JSON.parse(stdout);
-              if (r.transformOutput) {
-                actual = r.transformOutput(actual);
-              }
-              if (isEqual(expected, actual)) {
-                console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
-                resolve();
-              } else {
-                reject(
-                  `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
-                    expected
-                  )}`
-                );
-              }
-            }
-          });
-        } catch (error) {
-          reject(error);
-        }
+      childProcess.stdout.on('data', (data) => {
+        stdout += data.toString();
       });
-    });
+
+      childProcess.stderr.on('data', (data) => {
+        stderr += data.toString();
+      });
+
+      await new Promise((resolve, reject) => {
+        childProcess.on('error', (error) => {
+          reject(error);
+        });
+
+        childProcess.on('close', (code) => {
+          if (code !== 0) {
+            reject(`Process exited with code ${code}\n${stderr}`);
+          } else {
+            const expected = r.output;
+            let actual = JSON.parse(stdout);
+            if (r.transformOutput) {
+              actual = r.transformOutput(actual);
+            }
+            if (isEqual(expected, actual)) {
+              console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
+              resolve();
+            } else {
+              reject(
+                `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
+                  expected
+                )}`
+              );
+            }
+          }
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
   }
 }
 
