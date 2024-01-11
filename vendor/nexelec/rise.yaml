@@ -1,4 +1,4 @@
-name: RISE
+name: RISE - Air Quality
 description: RISE is a 3-in-1 LoRaWAN-connected, battery- or USB-powered room sensor that can be rapidly configurable via NFC. Depending on the model, the sensor can measure co2, temperature and humidity.
 
 # Hardware versions (optional, use when you have revisions)

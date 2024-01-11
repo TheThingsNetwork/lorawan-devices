@@ -1,3 +1,5 @@
+# To find your vendor's ID, please look here: https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915
+
 vendors:
   - id: example
     name: Example
@@ -1088,6 +1090,9 @@ vendors:
   - id: yosensi
     name: Yosensi Sp. z o.o.
     vendorID: 659
+    website: https://yosensi.io/
+    social:
+      linkedin: https://www.linkedin.com/company/yosensi/
 
   - id: netze
     name: Netze BW GmbH
@@ -1964,6 +1969,11 @@ vendors:
     website: https://www.dnt.de/
     logo: dnt-logo.svg
 
+  - id: agriseen
+    name: Agriseen
+    website: http://www.agriseen.com/
+    logo: agriseen_logo.png
+
   - id: koidra
     name: Koidra Inc.
     description: Koidra is an intelligent automation company, dedicated to modernizing the automation of manufacturing facilities, with the high-tech greenhouse industry being the core market. Our tiered products deliver a comprehensive solution that enhances industrial efficiency.
@@ -1971,6 +1981,16 @@ vendors:
     logo: koidra-logo.svg
     social:
       linkedin: https://www.linkedin.com/company/koidra/
+
+  - id: volley-boast
+    name: Volley Boast LLC
+    description: Volley Boast designs, deploys, and manages industrial IOT solutions. Combining extremely low-power LPWAN technology with the latest in cloud computing, Volley Boast delivers actionable data and analytics to customers' end-devices with minimal overhead and maintenance.
+    vendorID: 918
+    website: https://volleyboast.com/
+    logo: volley-boast-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/volley-boast-llc
+      github: VolleyBoast
 
   - id: open-boat-projects
     name: Open Boat Projects
@@ -1987,3 +2007,21 @@ vendors:
     website: https://www.senso8.com/
     logo: senso8-logo.svg
     linkedin: https://www.linkedin.com/company/arwin-technology-limited/
+
+  - id: tip
+    name: TIP Meter
+    website: https://www.tip-meter.de/
+
+  - id: lualtek
+    name: Lualtek
+    website: https://lualtek.io
+    logo: lualtek.svg
+    social:
+      linkedin: https://www.linkedin.com/company/lualtek/
+      twitter: lualtek
+
+  - id: iot-factory
+    name: IOT Factory
+    description: Smart Metering & Asset Tracking
+    logo: iot-factory-logo.png
+    website: https://iotfactory.eu/

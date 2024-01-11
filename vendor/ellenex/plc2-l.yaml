@@ -1,4 +1,4 @@
-name: PLC2-L
+name: PLC2-L - Level Transmitter
 description: Low power corrosive resistant submersible level transmitter for corrosive  media (wastewater, acid, mineral)
 
 # Hardware versions (optional, use when you have revisions)
@@ -101,7 +101,7 @@ dataSheetURL: https://www.ellenex.com/_files/ugd/b0de6e_e46c14d1150f4c62a20c901b
 
 # Photos
 photos:
-  main: plc2-l-e.png
+  main: plc2-l.png
 
 # Regulatory compliances (optional)
 compliances:
