@@ -1,11 +1,17 @@
-name: VoBo-HL-1
+name: VoBo-HL-1 - Input Endpoint
 description: General purpose LoRaWAN bridge certified for use in Class 1 Div 2 hazardous locations
-
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.06'
+    numeric: 106
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version 1.03.10
     version: '1.03.10'
     numeric: 10310
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
     profiles:
       US902-928:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
@@ -14,6 +20,9 @@ firmwareVersions:
   - # Firmware version 2.00.00
     version: '2.00.00'
     numeric: 20000
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
     profiles:
       US902-928:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
@@ -79,4 +88,4 @@ dataSheetURL: https://volleyboast.com/products/Latest/VoBoHL1/DCM-0017-A3_VoBo_H
 
 # Photos
 photos:
-  main: vobo-hl-1.jpg
+  main: vobo-hl-1.png

@@ -1,4 +1,4 @@
-name: Analog
+name: Analog - Sensor Interface
 description: The Adeunis Analog has 2 inputs for connecting 0-10 V or 4-20 mA sensors and provides LoRaWAN® connectivity to industrial analog/analog PWM sensors already installed on the production sites.
 
 # Hardware versions (optional, use when you have revisions)

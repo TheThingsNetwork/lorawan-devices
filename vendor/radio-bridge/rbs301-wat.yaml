@@ -1,5 +1,5 @@
-name: rbs301-wat
-description: radio-bridge door window sensor
+name: rbs301-wat - Indoor Water Detect Sensor (Probe)
+description: This sensor uses a probe to detect the presence of water or other liquids. When the presence of water or another liquid is detected, an alert is sent to the wireless network. Designed for indoor use.
 hardwareVersions:
   - version: '1.0'
     numeric: 1

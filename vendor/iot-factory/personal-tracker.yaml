@@ -1,0 +1,79 @@
+name: Personal Tracker
+description: LORAWAN Personal Geolocation and Activity tracker
+
+# Hardware versions
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions
+firmwareVersions:
+  - # Firmware version
+    version: '2.0'
+    numeric: 1
+    # Corresponding hardware versions
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      RU864-870:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      US902-928:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      AS923:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+
+# Sensors that this device features
+sensors:
+  - gps
+  - wifi ssid
+  - accelerometer
+  - button
+#  - bluetooth beacons
+
+# Additional radios that this device has
+additionalRadios:
+  - ble
+  - wifi
+
+battery:
+  replaceable: false
+  type: Lithium Polymer
+
+keyProgramming:
+  - bluetooth
+#  - mobile app
+
+# Dimensions in mm
+dimensions:
+  width: 35
+  length: 55
+  height: 18
+# Weight in grams
+weight: 35
+
+# Product and data sheet URLs
+productURL: https://iotfactory.eu/products/iot-sensors/lorawan-personal-tracker-for-indoor-outdoor-geolocation/
+dataSheetURL: https://iotfactory.eu/wp-content/uploads/leaflets/Personal-Tracker-LORAWAN-by-IOT-Factory.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'IOT Factory'
+    region:
+      - European Union
+    url: https://iotfactory.eu
+
+# Photos
+photos:
+  main: personal-tracker-lorawan-by-iot-factory.png

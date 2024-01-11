@@ -1,4 +1,4 @@
-name: acw-wl-o
+name: acw-wl-o - Outdoor Liquid Monitoring
 description: The WL facilitates the monitoring of sites at risk of flooding thanks to its liquid presence detection options. Alerts are transmitted on LoRaWAN networks and its configuration is configurable from the ATIM suite tools.
 
 # Hardware versions (optional, use when you have revisions)
@@ -109,4 +109,4 @@ resellerURLs:
 
 # Photos
 photos:
-  main: acw-wl.png
+  main: acw-wl-o.png

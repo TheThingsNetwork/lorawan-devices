@@ -1,4 +1,4 @@
-name: EM500-UDL
+name: EM500-UDL - Ultrasonic Distance/Level Sensor
 description: The Milesight EM500-UDL consists of an ultrasonic distance/level sensor that provides highly accurate distance measurement for a variety of applications in harsh environments like snow level monitoring, flood monitoring, wastewater management, fill level monitoring in grains or fertilizer. The measurement is based on ultrasonic waves transmitted and reflected back from nearby objects.
 
 hardwareVersions:
@@ -84,7 +84,7 @@ resellerURLs:
     url: https://www.milesight-iot.com/contact-us/
 
 photos:
-  main: em500-udl.jpg
+  main: em500-udl.png
 
 compliances:
   safety:
