@@ -19,6 +19,8 @@ GO = go
 GOBIN = $(PWD)/bin
 export GOBIN
 
+vendor-id=
+
 .PHONY: default
 default: validate
 
@@ -34,7 +36,11 @@ deps.update:
 
 .PHONY: validate
 validate:
-	$(NPM) run validate
+	@if [ -z "${vendor-id}" ]; then \
+        $(NPM) run validate; \
+    else \
+        $(NPM) run validate -- --vendor-id $(vendor-id); \
+    fi
 
 .PHONY: fmt
 fmt:

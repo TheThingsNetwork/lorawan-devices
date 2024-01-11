@@ -12,13 +12,19 @@ const imageType = require('image-type');
 
 const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
-const options = yargs.usage('Usage: --vendor <file>').option('v', {
-  alias: 'vendor',
-  describe: 'Path to vendor index file',
-  type: 'string',
-  demandOption: true,
-  default: './vendor/index.yaml',
-}).argv;
+const options = yargs.usage('Usage: --vendor <file> [--vendor-id <id>]')
+  .option('v', {
+    alias: 'vendor',
+    describe: 'Path to vendor index file',
+    type: 'string',
+    demandOption: true,
+    default: './vendor/index.yaml',
+  })
+  .option('vendor-id', {
+    describe: 'Specific vendor ID to validate',
+    type: 'string',
+  })
+  .argv;
 
 let validateVendorsIndex = ajv.compile({
   $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendorsIndex',
@@ -243,7 +249,18 @@ console.log(`vendor index: valid`);
 
 const vendorProfiles = {};
 
+const vendorIDToValidate = options['vendor-id'];
+
+if (vendorIDToValidate && !vendors.vendors.some(v => v.id === vendorIDToValidate)) {
+  console.error(`Specified vendor ID '${vendorIDToValidate}' does not exist in the repository.`);
+  process.exit(1);
+}
+
 vendors.vendors.forEach((v) => {
+  if (vendorIDToValidate && v.id !== vendorIDToValidate) {
+    return;
+  }
+  
   const key = v.id;
   const folder = `./vendor/${v.id}`;
   if (v.logo) {
