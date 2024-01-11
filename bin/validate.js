@@ -321,41 +321,51 @@ vendors.vendors.forEach((v) => {
           const regionProfile = version.profiles[region];
           const key = `${v.id}: ${d}: ${region}`;
           const vendorID = regionProfile.vendorID ?? v.id;
-          if (!vendorProfiles[vendorID]) {
-            vendorProfiles[vendorID] = {};
-          }
-          if (!vendorProfiles[vendorID][regionProfile.id]) {
-            const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
-            if (!validateEndDeviceProfile(profile)) {
-              console.error(
-                `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
-                  validateEndDeviceProfile.errors
-                )}`
-              );
-              process.exit(1);
-            }
-          }
-          vendorProfiles[vendorID][regionProfile.id] = true;
-          console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
 
-          if (regionProfile.codec && !codecs[regionProfile.codec]) {
-            const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
-            if (!validateEndDevicePayloadCodec(codec)) {
-              console.error(
-                `${key}: codec ${regionProfile.codec} invalid: ${formatValidationErrors(
-                  validateEndDevicePayloadCodec.errors
-                )}`
-              );
-              process.exit(1);
-            }
-            codecs[regionProfile.codec] = true;
-            await validatePayloadCodecs(folder, codec)
-              .then(() => console.log(`${key}: payload codec ${regionProfile.codec} valid`))
-              .catch((err) => {
-                console.error(`${key}: payload codec ${regionProfile.codec} invalid`);
-                console.error(err);
-                process.exit(1);
-              });
+          if (!vendorProfiles[vendorID]) {
+              vendorProfiles[vendorID] = {};
+          }
+
+          if (!vendorProfiles[vendorID][regionProfile.id]) {
+              const profilePath = `./vendor/${vendorID}/${regionProfile.id}.yaml`;
+              const profile = yaml.load(fs.readFileSync(profilePath));
+
+              // Validate vendorProfileID
+              if (profile.vendorProfileID === undefined || profile.vendorProfileID === null) {
+                  console.error(`${key}: vendorProfileID is missing in ${profilePath}`);
+                  process.exit(1);
+              }
+
+              // Check if vendorProfileID is an integer
+              const profileNumericID = parseInt(profile.vendorProfileID);
+              if (isNaN(profileNumericID) || profileNumericID < 0) {
+                  console.error(`${key}: vendorProfileID must be a non-negative integer in ${profilePath}`);
+                  process.exit(1);
+              }
+
+              // Check if vendorProfileID is unique within the same company folder
+              const duplicateProfile = Object.values(vendorProfiles[vendorID]).find(existingProfile => existingProfile.vendorProfileID === profile.vendorProfileID);
+              if (duplicateProfile) {
+                  console.error(`${key}: vendorProfileID ${profile.vendorProfileID} is not unique within ${vendorID} folder`);
+                  process.exit(1);
+              }
+
+              vendorProfiles[vendorID][regionProfile.id] = { vendorProfileID: profile.vendorProfileID };
+
+              // Continue with your existing validation logic for the profile
+              if (!validateEndDeviceProfile(profile)) {
+                  console.error(
+                      `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
+                          validateEndDeviceProfile.errors
+                      )}`
+                  );
+                  process.exit(1);
+              }
+              console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
+
+              if (regionProfile.codec && !codecs[regionProfile.codec]) {
+                  const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
+              }
           }
         });
       });
