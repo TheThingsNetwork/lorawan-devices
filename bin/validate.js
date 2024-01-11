@@ -202,6 +202,37 @@ function formatValidationErrors(errors) {
   return errors.map((e) => `${e.dataPath} ${e.message}`);
 }
 
+const vendorsIndex = yaml.load(fs.readFileSync(options.vendor));
+
+// Validate vendors index
+if (!validateVendorsIndex(vendorsIndex)) {
+  console.error(`${options.vendor} index is invalid: ${formatValidationErrors(validateVendorsIndex.errors)}`);
+  process.exit(1);
+}
+console.log(`vendor index: valid`);
+
+// Get the list of vendor IDs from the vendor/index.yaml
+const vendorIdsInIndex = vendorsIndex.vendors.map((vendor) => vendor.id);
+
+// Get the list of vendor folders in the vendor directory
+const vendorFolders = fs.readdirSync('./vendor', { withFileTypes: true })
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => dirent.name);
+
+// Check for vendors in the vendor folder that are not in the vendor/index.yaml
+const vendorsNotInIndex = vendorFolders.filter((vendorId) => {
+  // Check if any vendor ID in the index is present in the folder name, or vice versa
+  const normalizedVendorId = vendorId.toLowerCase(); // Normalize for case-insensitive comparison
+  return !vendorIdsInIndex.some((indexId) => normalizedVendorId.includes(indexId.toLowerCase())) &&
+        !vendorIdsInIndex.some((indexId) => indexId.toLowerCase().includes(normalizedVendorId));
+});
+
+if (vendorsNotInIndex.length > 0) {
+  console.error(`Vendors found in the 'vendor' folder that are not listed in ${options.vendor} index:\n${vendorsNotInIndex.join(', ')}`);
+  process.exit(1);
+}
+console.log(`All vendors in the 'vendor' folder are listed in ${options.vendor} index.`);
+
 const vendors = yaml.load(fs.readFileSync(options.vendor));
 
 if (!validateVendorsIndex(vendors)) {
