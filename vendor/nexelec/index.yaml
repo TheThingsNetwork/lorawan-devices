@@ -5,3 +5,7 @@ endDevices:
   - move # CO2, temp, hum, lum, pir sensor
   - rise # CO2, temp, hum sensor
   - feel # temp, hum sensor
+  - origin-plus # smoke detector, temp, hum sensor
+  - origin #smoke detector
+  - guard-plus #smoke detector, temp, hum sensor
+  - guard #smoke detector
