@@ -12,7 +12,8 @@ const imageType = require('image-type');
 
 const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
-const options = yargs.usage('Usage: --vendor <file> [--vendor-id <id>]')
+const options = yargs
+  .usage('Usage: --vendor <file> [--vendor-id <id>]')
   .option('v', {
     alias: 'vendor',
     describe: 'Path to vendor index file',
@@ -23,8 +24,7 @@ const options = yargs.usage('Usage: --vendor <file> [--vendor-id <id>]')
   .option('vendor-id', {
     describe: 'Specific vendor ID to validate',
     type: 'string',
-  })
-  .argv;
+  }).argv;
 
 let validateVendorsIndex = ajv.compile({
   $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendorsIndex',
@@ -221,7 +221,8 @@ console.log(`vendor index: valid`);
 const vendorIdsInIndex = vendorsIndex.vendors.map((vendor) => vendor.id);
 
 // Get the list of vendor folders in the vendor directory
-const vendorFolders = fs.readdirSync('./vendor', { withFileTypes: true })
+const vendorFolders = fs
+  .readdirSync('./vendor', { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory())
   .map((dirent) => dirent.name);
 
@@ -229,12 +230,18 @@ const vendorFolders = fs.readdirSync('./vendor', { withFileTypes: true })
 const vendorsNotInIndex = vendorFolders.filter((vendorId) => {
   // Check if any vendor ID in the index is present in the folder name, or vice versa
   const normalizedVendorId = vendorId.toLowerCase(); // Normalize for case-insensitive comparison
-  return !vendorIdsInIndex.some((indexId) => normalizedVendorId.includes(indexId.toLowerCase())) &&
-        !vendorIdsInIndex.some((indexId) => indexId.toLowerCase().includes(normalizedVendorId));
+  return (
+    !vendorIdsInIndex.some((indexId) => normalizedVendorId.includes(indexId.toLowerCase())) &&
+    !vendorIdsInIndex.some((indexId) => indexId.toLowerCase().includes(normalizedVendorId))
+  );
 });
 
 if (vendorsNotInIndex.length > 0) {
-  console.error(`Vendors found in the 'vendor' folder that are not listed in ${options.vendor} index:\n${vendorsNotInIndex.join(', ')}`);
+  console.error(
+    `Vendors found in the 'vendor' folder that are not listed in ${options.vendor} index:\n${vendorsNotInIndex.join(
+      ', '
+    )}`
+  );
   process.exit(1);
 }
 console.log(`All vendors in the 'vendor' folder are listed in ${options.vendor} index.`);
@@ -251,7 +258,7 @@ const vendorProfiles = {};
 
 const vendorIDToValidate = options['vendor-id'];
 
-if (vendorIDToValidate && !vendors.vendors.some(v => v.id === vendorIDToValidate)) {
+if (vendorIDToValidate && !vendors.vendors.some((v) => v.id === vendorIDToValidate)) {
   console.error(`Specified vendor ID '${vendorIDToValidate}' does not exist in the repository.`);
   process.exit(1);
 }
@@ -260,7 +267,7 @@ vendors.vendors.forEach((v) => {
   if (vendorIDToValidate && v.id !== vendorIDToValidate) {
     return;
   }
-  
+
   const key = v.id;
   const folder = `./vendor/${v.id}`;
   if (v.logo) {
@@ -323,24 +330,36 @@ vendors.vendors.forEach((v) => {
           const vendorID = regionProfile.vendorID ?? v.id;
 
           if (!vendorProfiles[vendorID]) {
-              vendorProfiles[vendorID] = {};
+            vendorProfiles[vendorID] = {};
           }
 
           if (!vendorProfiles[vendorID][regionProfile.id]) {
             const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
-        
+
             // Check if vendorProfileID is unique within the same company folder
             if (profile.vendorProfileID !== undefined) {
-              const duplicateProfile = Object.values(vendorProfiles[vendorID]).find(
-                (existingProfile) => existingProfile.vendorProfileID === profile.vendorProfileID
+              const duplicateProfiles = Object.entries(vendorProfiles[vendorID]).filter(
+                ([profileId, existingProfile]) =>
+                  existingProfile.vendorProfileID === profile.vendorProfileID && profileId !== regionProfile.id
               );
-              if (duplicateProfile) {
-                console.error(`${key}: vendorProfileID ${profile.vendorProfileID} is not unique within ${vendorID} folder`);
+
+              if (duplicateProfiles.length > 0) {
+                const duplicateProfilePaths = duplicateProfiles.map(([duplicateProfileId, duplicateProfile]) => {
+                  return `${duplicateProfileId} (vendorProfileID: ${duplicateProfile.vendorProfileID})`;
+                });
+
+                console.error(
+                  `${key}: vendorProfileID ${
+                    profile.vendorProfileID
+                  } is not unique within ${vendorID} folder. Duplicate profiles found in: ${duplicateProfilePaths.join(
+                    ', '
+                  )}`
+                );
                 process.exit(1);
               }
-        
+
               vendorProfiles[vendorID][regionProfile.id] = { vendorProfileID: profile.vendorProfileID };
-        
+
               if (!validateEndDeviceProfile(profile)) {
                 console.error(
                   `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
@@ -349,12 +368,12 @@ vendors.vendors.forEach((v) => {
                 );
                 process.exit(1);
               }
-        
+
               console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
             } else {
               console.warn(`${key}: vendorProfileID is missing in ${vendorID}/${regionProfile.id}.yaml`);
             }
-        
+
             if (regionProfile.codec && !codecs[regionProfile.codec]) {
               const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
               if (!validateEndDevicePayloadCodec(codec)) {
