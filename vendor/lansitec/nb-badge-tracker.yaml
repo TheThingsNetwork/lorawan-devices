@@ -1,0 +1,99 @@
+name: Lansitec NB-IoT Badge Tracker
+description: Lansitec badge tracker is designed based on GNSS, Bluetooth5.0, NB-IoT and LTE-M technology. It supports indoor and outdoor tracking. The badge is mainly used for personnel and asset management. The build-in 3-axis accelerator could be used for determining the motion status of the terminal to help save battery life and enhance user experience.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - light
+  - battery
+  - button
+  - rssi
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+  - cellular
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+#bridgeInterfaces:
+#  - m-bus
+#  - rs-485
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 62
+  length: 97
+  height: 7
+
+# Weight in grams (optional)
+weight: 35
+
+# Battery information (optional)
+battery:
+  replaceable: false
+  type: Li-ion rechargeable battery, 600mAh
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -10
+    max: 60
+
+# IP rating (optional)
+#ipCode: IP60
+
+# Product and data sheet URLs (optional)
+productURL: 
+dataSheetURL: https://www.lansitec.com/datasheet/Lansitec_NB-IoT_CAT-M_Badge_Tracker_DataSheet_1.21.pdf
+
+# Commercial information
+# resellerURLs:
+#   - name: 'Reseller 1'
+#     region:
+#       - European Union
+#     url: https://example.org/reseller1
+#   - name: 'Reseller 2'
+#     region:
+#       - United States
+#       - Canada
+#     url: https://example.org/reseller2
+
+# Photos
+photos:
+  main: nb-badge-tracker.png # Image needs to have a transparent background
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/@lansitec
