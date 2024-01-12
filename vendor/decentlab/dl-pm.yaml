@@ -1,4 +1,4 @@
-name: DL-PM
+name: DL-PM - Air Quality Sensor
 description: The Decentlab DL-PM is equipped with PM1, PM2.5, PM4, PM10, temperature, humidity, and barometric pressure sensors for air quality and environmental monitoring.
 
 hardwareVersions:

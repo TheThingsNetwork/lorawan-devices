@@ -1,0 +1,92 @@
+uplinkDecoder:
+  fileName: payload/r718pa4.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x57, 0x00, 0x6E, 0x06, 0x20, 0x23, 0x09, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PA4'
+          SWver: 11
+          HWver: 6
+          Datecode: '20230911'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x57, 0x06, 0x55, 0x09, 0x09, 0x00, 0x10, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718PA4'
+          Volt: 8.5
+          NO2: 231.3
+          SO2: 16
+          H2S: 25.6
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x57, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718PA4'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x57, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718PA4'
+          MinTime: 900
+          MaxTime: 1800
+
+downlinkDecoder:
+  fileName: payload/r718pa4.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x57, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x14, 0x01, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718PA4'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x57, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718PA4'
+
+downlinkEncoder:
+  fileName: payload/r718pa4.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718PA4'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0x57, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718PA4'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x57, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

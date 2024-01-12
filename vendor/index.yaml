@@ -1969,6 +1969,11 @@ vendors:
     website: https://www.dnt.de/
     logo: dnt-logo.svg
 
+  - id: agriseen
+    name: Agriseen
+    website: http://www.agriseen.com/
+    logo: agriseen_logo.png
+
   - id: koidra
     name: Koidra Inc.
     description: Koidra is an intelligent automation company, dedicated to modernizing the automation of manufacturing facilities, with the high-tech greenhouse industry being the core market. Our tiered products deliver a comprehensive solution that enhances industrial efficiency.
@@ -2006,3 +2011,17 @@ vendors:
   - id: tip
     name: TIP Meter
     website: https://www.tip-meter.de/
+
+  - id: lualtek
+    name: Lualtek
+    website: https://lualtek.io
+    logo: lualtek.svg
+    social:
+      linkedin: https://www.linkedin.com/company/lualtek/
+      twitter: lualtek
+
+  - id: iot-factory
+    name: IOT Factory
+    description: Smart Metering & Asset Tracking
+    logo: iot-factory-logo.png
+    website: https://iotfactory.eu/

@@ -1,4 +1,4 @@
-name: acw-tcr
+name: acw-tcr - Temperature Probe
 description: ACW-TCR is equipped with an instantaneous temperature sensor with inertia and a precise humidity sensor allowing you to ensure that the storage conditions are well respected.Measurements are regularly transmitted via LoRaWAN networks and the configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)

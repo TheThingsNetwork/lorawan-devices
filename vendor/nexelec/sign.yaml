@@ -1,4 +1,4 @@
-name: SIGN
+name: SIGN - Air Quality, VOC, Light, Movement, Sound
 description: SIGN is a 7-in-1 LoRaWAN-connected, battery- or USB-powered room sensor that can be rapidly configurable via NFC. Depending on the model, the sensor can measure temperature, humidity, CO2, VOCs, brightness, presence and noise.
 
 # Hardware versions (optional, use when you have revisions)
