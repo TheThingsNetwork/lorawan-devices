@@ -87,17 +87,4 @@ main: 600-038.png
 
 
 # Regulatory compliances (optional)
-compliances:
-  safety:
-    - body: IEC
-      norm: EN
-      standard: 62368-1
-  radioEquipment:
-    - body: ETSI
-      norm: EN
-      standard: 301 489-1
-      version: 2.2.0
-    - body: ETSI
-      norm: EN
-      standard: 301 489-3
-      version: 2.1.0
+
