@@ -1,5 +1,5 @@
-name: Tx Pulse 600-036 - Pulse Meter Sensor
-description: The Enless Wireless Tx Pulse 600-036 consists of a pulse sensor that is compatible with pulse meters with a dry contact interface or an open collector inlet. It transmits pulse counts over the LoRaWAN® network. Tx Pulse 600-036 will quickly and economically transform your conventional gas meter into a smart meter.
+name: TX PULSE LED 600-038
+description: The Enless Wireless Transmitter with 4-20 mA interface 
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -24,13 +24,13 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: enless-profile-868
         lorawanCertified: true
-        codec: tx-pulse-600-codec
+        codec: tx-pulse-led-600-038-codec
 
       US902-928:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: enless-profile-915
         lorawanCertified: true
-        codec: tx-pulse-600-codec
+        codec: tx-pulse-led-600-038-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -42,6 +42,8 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - pulse count
+  - digital input
+
   
 
 # Dimensions in mm (optional)
@@ -77,12 +79,11 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/pulse-meter-transmitter-lora/
-dataSheetURL: https://enless-wireless.com/wp-content/uploads/2020/11/TX-PULSE-600-036-EN.pdf
+productURL: https://enless-wireless.com/en/products/pulse-sensor-led-optical-reader-lora/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-038.pdf
 
 # Photos
-photos:
-  main: tx-pulse-600.png
+main: 600-038.png
 
 
 # Regulatory compliances (optional)

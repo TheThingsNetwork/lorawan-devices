@@ -1,5 +1,5 @@
-name: Tx Pulse 600-036 - Pulse Meter Sensor
-description: The Enless Wireless Tx Pulse 600-036 consists of a pulse sensor that is compatible with pulse meters with a dry contact interface or an open collector inlet. It transmits pulse counts over the LoRaWAN® network. Tx Pulse 600-036 will quickly and economically transform your conventional gas meter into a smart meter.
+name: TX TEMP INS 600-031
+description: The Enless Wireless Transmitter with Internal Temp Sensor 
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -24,13 +24,13 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: enless-profile-868
         lorawanCertified: true
-        codec: tx-pulse-600-codec
+        codec: tx-temp-600-031-codec
 
       US902-928:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: enless-profile-915
         lorawanCertified: true
-        codec: tx-pulse-600-codec
+        codec: tx-temp-600-031-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -41,7 +41,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - pulse count
+  - temperature
+
   
 
 # Dimensions in mm (optional)
@@ -77,12 +78,11 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/pulse-meter-transmitter-lora/
-dataSheetURL: https://enless-wireless.com/wp-content/uploads/2020/11/TX-PULSE-600-036-EN.pdf
+productURL: https://enless-wireless.com/en/products/temperature-sensor-embedded-sensor-lora/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-031.pdf
 
 # Photos
-photos:
-  main: tx-pulse-600.png
+main: 600-031.png
 
 
 # Regulatory compliances (optional)
