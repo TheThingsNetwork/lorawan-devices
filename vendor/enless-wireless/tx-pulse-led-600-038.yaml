@@ -1,5 +1,5 @@
-name: TX PULSE LED 600-038
-description: The Enless Wireless Transmitter with 4-20 mA interface 
+name: TX PULSE LED 600-038 - Pulse sensor for Electric Meter - LED optical reader
+description: This LoRa / LoRaWAN pulse meter transmitter works by reading and transcribing pulsed LED flashes and is therefore compatible with electric meters with light diodes.This radio transmitter allows the remote reading of the electric consumption data from the meter to which it is connected without any manual intervention.In other words, this transmitter will quickly and economically transform your electric meter into a smart meter.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

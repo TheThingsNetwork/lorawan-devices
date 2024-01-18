@@ -1,5 +1,5 @@
-name: TX PULSE ATEX 600-037
-description: The Enless Wireless Tx Pulse 600-037 consists of a pulse sensor that is compatible with pulse meters with a dry contact interface or an open collector inlet. It transmits pulse counts over the LoRaWAN® network. Tx Pulse 600-036 will quickly and economically transform your conventional gas meter into a smart meter.
+name: TX PULSE ATEX 600-037 - Pulse Meter sensor - ATEX Approved(Gas)
+description: This LoRa / LoRaWAN pulse transmitter has been specially designed for pulse counting applications on gas meters with a dry contact interface or an open collector inlet.ATEX approved – Explosives Atmospheres – Zone 0, this transmitter allows the remote reading of the data from the gas meter to which it is connected without any manual intervention. In other words, this transmitter will quickly and economically transform your conventional gas meter into a smart meter.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

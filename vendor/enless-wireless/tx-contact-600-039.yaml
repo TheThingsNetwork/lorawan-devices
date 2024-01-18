@@ -1,5 +1,5 @@
-name: TX CONTACT 600-039
-description: The Enless Wireless Tx Pulse 600-037 consists of digital input to monitor the status , door open / close etc.
+name: TX CONTACT 600-039 Digital Input sensor (status report ON/OFF)
+description: This LoRa / LoRaWAN contact/status change transmitter is specifically designed for smart building, security and industrial applications. It meets all types of ON/OFF status change monitoring needs thanks to its two TOR inputs (binary output signal).
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

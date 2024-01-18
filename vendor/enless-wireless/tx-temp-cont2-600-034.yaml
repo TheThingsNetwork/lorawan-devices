@@ -1,6 +1,5 @@
-name: TX T&H 600-034
-description: The Enless Wireless Transmitter with external T&H probe
-
+name: TX T&H 600-034 - Temperature and Humidity sensor - External probe
+description: This Enless Wireless LoRa / LoRaWAN IP65 transmitter with external temperature and humidity probe allows you to measure temperatures and humidity (°C & %rH data) in a remote manner. The robustness of our transmitter - IP 65 housing - and its high environmental tolerance (probe temperature range -40°C / +125°C) allow it to withstand any type of “outdoor” environment, sometimes under extreme conditions.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'

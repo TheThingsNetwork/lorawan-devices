@@ -1,5 +1,5 @@
-name:  TX T&H AMB  600-021
-description: Ambient Temperature & Humidity
+name:  TX T&H AMB  600-021 - Ambient Temperature and Humidity sensor
+description: Specifically designed for indoor applications in an ambient environment, the Enless Wireless LoRa / LoRaWAN humidity and temperature transmitter allows you to monitor occupant comfort  levels
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

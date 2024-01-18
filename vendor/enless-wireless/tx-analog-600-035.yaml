@@ -1,5 +1,5 @@
-name: TX 4/20 mA 600-035
-description: The Enless Wireless Transmitter with 4-20 mA interface 
+name: TX 4/20 mA 600-035 - Analog sensor with 4/20mA interface
+description: This LoRa / LoRaWAN 4/20mA analogue radio transmitter is specifically designed for industrial applications (construction industry - water management - rail industry,etc.).Self-powered, it connects to all types of analogue probes with 4/20mA interface and reassemble the signal.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
