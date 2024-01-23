@@ -16,4 +16,4 @@ endDevices:
   - tx-analog-600-035 ## look in tx-analog-600-035.yaml for the end device definition
   - tx-pulse-led-600-038 ## look in tx-pulse-led-600-038.yaml for the end device definition
   - tx-contact-600-039 ## look in tx-contact-600-039.yaml for the end device definition
- 
+

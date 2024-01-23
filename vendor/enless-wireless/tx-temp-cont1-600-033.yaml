@@ -43,8 +43,6 @@ firmwareVersions:
 sensors:
   - temperature
 
-  
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -76,13 +74,9 @@ ipCode: IP65
 keyProvisioning:
   - custom
   - join server
-
 # Product and data sheet URLs (optional)
 
-
-
 # Photos
-
 
 # Regulatory compliances (optional)
 

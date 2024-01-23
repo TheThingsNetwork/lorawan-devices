@@ -7,7 +7,7 @@ uplinkDecoder:
     - description: TX VOC/T&H AMB 600-022
       input:
         fPort: 1
-        bytes: [0x00,0x00,0x77,0x05,0x11,0x01,0x00,0xE3,0x01,0x1F,0x00,0x14,0x00,0x00,0x00,0x28,0x00,0x00]
+        bytes: [0x00, 0x00, 0x77, 0x05, 0x11, 0x01, 0x00, 0xE3, 0x01, 0x1F, 0x00, 0x14, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00]
       output:
         data:
           alarm_status:
@@ -29,7 +29,7 @@ uplinkDecoder:
           type: 5
           values:
             humidity:
-              unit: "%"
+              unit: '%'
               value: 28.7
             temperature:
               unit: oc
@@ -37,5 +37,3 @@ uplinkDecoder:
             voc:
               unit: ppb
               value: 2
-         
-
