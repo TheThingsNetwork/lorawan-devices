@@ -34,7 +34,7 @@ add_devices () {
 get_highest_vendor_profile_id
 
 while true; do
-    echo "\n${BLUE}How many devices do you want to add?${NC}"
+    echo "\n${BLUE}How many devices do you want to add? (number between 0 and 10)${NC}"
     read device_count
     if [[ $device_count =~ ^[0-9]+$ ]] && [[ "$device_count" -ge 0 && 
     "$device_count" -le 10 ]]; then
@@ -279,8 +279,8 @@ done
 
 echo "\n${GREEN}All the necessary files have now been created containing templates, 
 so you can start adding missing information and extras. 
-Please do go through it and check if everything is correct. 
-This tool is only for helping you add the boilerplate code quicker.
+Please do go through the files and check if everything is correct. 
+This tool is only for helping you add the boilerplate files quicker.
 Some details are still blank, like the codec still requires code to be added or
 extras like images for example. 
 The more you add, the more is known about your device.
@@ -292,8 +292,8 @@ exit 0
 
 add_company () {
 while true; do
-    echo "\n${BLUE}What is the unique id of your company? 
-(lowercase, alphanumeric with dashes, max 36 characters) (${RED}required${BLUE}):${NC}"
+    echo "\n${BLUE}What is the unique id of your company? (a.k.a. the name of the vendor folder)
+(${YELLOW}lowercase, alphanumeric with dashes, max 36 characters${BLUE}) (${RED}required${BLUE}):${NC}"
     read companyid
 
     if [[ $companyid =~ ^[a-z0-9\-]{1,36}$ ]]; then
@@ -361,24 +361,29 @@ sleep 1
 add_devices
 }
 
-echo "${BLUE}Hello! The Device Repository is where we store characteristics and capabilities 
-LoRaWAN devices. To add a new vendor or devices, some files need to be created. 
-To help you along, we've created this setup tool that will create a few
-template files with the basic information needed. 
+echo "${BLUE}Hello! The Device Repository is where we store the characteristics 
+and capabilities of LoRaWAN devices. To add a new vendor or devices, some files 
+need to be created with specific information.
+To help you along, we've created this setup tool that will create a few of the
+necessary template files and apply the basic information needed. 
 Please fill in the upcoming questions.\n${NC}"
 
 cd vendor
 
-echo "${BLUE}Do you want to add new devices to an existing entry or add a new company?${NC}"
+echo "${BLUE}What would you like to do?${NC}"
 
-options=("Add new devices" "Add a new company" "Quit")
+PS3="Type a number: "
+
+COLUMNS=0
+
+options=("Add new devices to an existing entry" "Add a new company" "Quit")
 
 select opt in "${options[@]}"; do
     case $opt in
-        "Add new devices")
+        "Add new devices to an existing entry")
             while true; do
-              echo "\n${BLUE}What is the unique id of your company? 
-(lowercase, alphanumeric with dashes, max 36 characters) (${RED}required${BLUE}):${NC}"
+              echo "\n${BLUE}What is the unique id of your company? (a.k.a. the name of the vendor folder)
+(${YELLOW}lowercase, alphanumeric with dashes, max 36 characters${BLUE}) (${RED}required${BLUE}):${NC}"
               read companyid
               if [[ $companyid =~ ^[a-z0-9\-]{1,36}$ ]]; then
                   if [ -d "$companyid" ]; then
@@ -386,12 +391,12 @@ select opt in "${options[@]}"; do
                       add_devices
                       break
                   else 
-                      echo "${RED}id not found. Make sure that you entered it correctly or go back and 
-add a new company.${NC}\n"
+                      echo "${RED}id not found. Make sure that you entered it 
+correctly or go back and add a new company.${NC}\n"
                   fi
               else
-                  echo "${RED}Invalid input. Please enter a lowercase alphanumeric string with dashes and a 
-maximum of 36 characters.\n${NC}"
+                  echo "${RED}Invalid input. Please enter a lowercase 
+alphanumeric string with dashes and a maximum of 36 characters.\n${NC}"
               fi
             done
             ;;
