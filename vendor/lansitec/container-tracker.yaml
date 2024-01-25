@@ -133,5 +133,5 @@ photos:
   main: container-tracker.png # Image needs to have a transparent background
 
 # Youtube or Vimeo Video (optional)
-videos:
-  main: https://www.youtube.com/@lansitec
+#videos:
+#  main: https://www.youtube.com/@lansitec
