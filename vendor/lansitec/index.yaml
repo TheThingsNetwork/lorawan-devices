@@ -7,8 +7,5 @@ endDevices:
   - macro-bluetooth-gateway
   - container-tracker
   - helmet-sensor
-  - nb-badge-tracker
-  - nb-bluetooth-gateway
-  - nb-container-tracker
   - temperature-humidity-sensor
   - precision-platinum-sensor
