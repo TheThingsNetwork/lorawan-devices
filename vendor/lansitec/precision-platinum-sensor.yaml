@@ -34,31 +34,31 @@ firmwareVersions:
         # vendorID: lansitec
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: profile-eu868
-        lorawanCertified: true
+        lorawanCertified: false
         codec: precision-platinum-sensor-codec
       US902-928:
         id: profile-us915
-        lorawanCertified: true
+        lorawanCertified: false
         codec: precision-platinum-sensor-codec
       AU915-928:
         id: profile-au915
-        lorawanCertified: true
+        lorawanCertified: false
         codec: precision-platinum-sensor-codec
       AS923:
         id: profile-as923
-        lorawanCertified: true
+        lorawanCertified: false
         codec: precision-platinum-sensor-codec
       CN470-510:
         id: profile-cn470
-        lorawanCertified: true
+        lorawanCertified: false
         codec: precision-platinum-sensor-codec
       KR920-923:
         id: profile-kr920
-        lorawanCertified: true
+        lorawanCertified: false
         codec: precision-platinum-sensor-codec
       IN865-867:
         id: profile-in865
-        lorawanCertified: true
+        lorawanCertified: false
         codec: precision-platinum-sensor-codec
 
 # Sensors that this device features (optional)
@@ -131,5 +131,5 @@ photos:
   main: precision-platinum-sensor.png # Image needs to have a transparent background
 
 # Youtube or Vimeo Video (optional)
-videos:
-  main: https://www.youtube.com/@lansitec
+#videos:
+#  main: https://www.youtube.com/@lansitec
