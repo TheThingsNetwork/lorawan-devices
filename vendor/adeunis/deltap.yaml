@@ -1,4 +1,4 @@
-name: Delta P
+name: Delta P - Air Pressure Delta Monitor
 description: The Adeunis Delta P monitors the operation of a ventilation unit, air handling unit or air network of a building, provides LoRaWAN® connectivity.
 
 # Hardware versions (optional, use when you have revisions)

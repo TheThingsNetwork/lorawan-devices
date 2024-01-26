@@ -1,4 +1,4 @@
-name: IOT4-LORA-THMove
+name: IOT4-LORA-THMove - Temperature, Humidity & Movement
 description: Lorawan and Helium temperature,humidity and PIR sensor
 
 # Hardware versions (optional, use when you have revisions)

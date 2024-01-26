@@ -1,4 +1,4 @@
-name: LLDS12
+name: LLDS12 - LiDAR Distance Sensor
 description: LoRaWAN LiDAR ToF Distance Sensor
 
 # Firmware versions (at least one is mandatory)

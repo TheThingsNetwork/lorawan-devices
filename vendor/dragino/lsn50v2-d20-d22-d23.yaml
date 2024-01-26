@@ -1,4 +1,4 @@
-name: LSN50v2-D20-D22-D23
+name: LSN50v2-D20-D22-D23 - Temperature Sensor
 description: LoRaWAN Temperature Sensor
 
 # Hardware versions (optional, use when you have revisions)

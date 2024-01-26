@@ -1,4 +1,4 @@
-name: Dry Contact
+name: Dry Contact - I/O Interface
 description: The Adeunis Dry Contact has 4 configurable inputs/outputs for connecting sensors (E.g. contact sensor, double level sensor, water leak spot, or water leak cable) and provides LoRaWAN® connectivity. It reports 0-1 states and controls relays.
 
 # Hardware versions (optional, use when you have revisions)

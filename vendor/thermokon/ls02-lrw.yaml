@@ -1,5 +1,5 @@
-name: LS02+ LRW
-description: Lekage detection sensor with relay output
+name: LS02+ LRW - Leakage Sensor
+description: Leakage detection sensor with relay output
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

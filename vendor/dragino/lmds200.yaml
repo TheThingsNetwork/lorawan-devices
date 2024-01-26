@@ -1,4 +1,4 @@
-name: LMDS200
+name: LMDS200 - Microwave Radar Distance Sensor
 description: LMDS200 LoRaWAN Microwave Radar Distance Detection Sensor
 
 # Firmware versions (at least one is mandatory)

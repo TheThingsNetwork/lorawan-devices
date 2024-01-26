@@ -1,4 +1,4 @@
-name: TIC PME-PMI
+name: TIC PME-PMI - Electricity Meter Interface
 description: The Adeunis Tic has an interface compatible with any type of TIC, PME-PMI and Linky electricity meter.
 
 # Hardware versions (optional, use when you have revisions)
