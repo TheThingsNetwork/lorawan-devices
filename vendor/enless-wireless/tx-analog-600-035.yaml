@@ -43,8 +43,6 @@ firmwareVersions:
 sensors:
   - 4-20 ma
 
-  
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -83,7 +81,5 @@ dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-035.
 
 # Photos
 main: 600-035.png
-
-
 # Regulatory compliances (optional)
 
