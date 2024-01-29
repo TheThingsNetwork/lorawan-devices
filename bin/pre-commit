@@ -1,5 +1,8 @@
 #!/bin/bash
 
+make validate fmt
+make validate
+
 validation_output=$(node ./validate.js 2>&1)
 
 # Capture the exit status of the validation script
