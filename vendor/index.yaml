@@ -1469,6 +1469,12 @@ vendors:
   - id: ks-technologies
     name: KS Technologies, LLC
     vendorID: 800
+    website: https://kstechnologies.com/
+    description: Your Vision. Our Solution.
+    social:
+      twitter: kstechnologies
+      linkedin: https://www.linkedin.com/company/ks-technologies-llc
+      github: kstechnologies
 
   - id: crd-hk-charity
     name: The CRD-HK Charity
