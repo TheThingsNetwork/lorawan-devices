@@ -1,0 +1,16 @@
+#!/bin/bash
+
+validation_output=$(node ./validate.js 2>&1)
+
+# Capture the exit status of the validation script
+VALIDATION_STATUS=$?
+
+# Check the exit status
+if [ $VALIDATION_STATUS -ne 0 ]; then
+
+    # Display the last line of the validation log
+    last_line=$(echo "$validation_output" | tail -n 1)
+    echo "$last_line"
+
+    exit 1
+fi
