@@ -47,3 +47,6 @@ keySecurity: none
 
 keyProvisioning:
   - manifest
+
+photos:
+  main: tbpb100.png

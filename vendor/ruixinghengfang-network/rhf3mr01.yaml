@@ -1,4 +1,4 @@
-name: RHF3MR01
+name: RHF3MR01 - Signal Relay
 description:
   The RisingHF RHF3MR01 auk bridge relay consists of a relay, buttons, and LED indicators. It can be used to turn on and off any electronic or electrical appliance remotely through the LoRaWAN® network.
 

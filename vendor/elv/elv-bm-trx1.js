@@ -1,7 +1,7 @@
 /*
  * ELV modular system Payload-Parser
  *
- * Version: V1.6.0
+ * Version: V1.7.0
  *
  * */
 
@@ -559,11 +559,202 @@ function Decoder(bytes, port) {
               }
               break;
             }
-            //case 0x??:    // Further Data Type
+            case 0x10:  // Absolute angle
+            {
+              // Get the 8 bit value
+              index++;    // Set index to data value
+              Temp_Value = bytes[index];
+              switch ( bytes[index] )
+              {
+                case 0xff:
+                {
+                  decoded.Absolut_Angle = "Unknown";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 2.5;  // Multiply the value with the angle resolution of 2.5 °
+                  decoded.Absolut_Angle = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            case 0x11:  // Speed
+            {
+              // Get the 16 bit value
+              index++;    // Set index to high byte data value
+              Temp_Value = (bytes[index] * 256);
+              index++;    // Set index to low byte data value
+              Temp_Value += bytes[index];
 
-            //  break;
+              // Check the wind detection bit
+              if( Temp_Value & 0x0800 )
+              {
+                decoded.Wind_Detection = "1";
+              }
+              else
+              {
+                decoded.Wind_Detection = "0";
+              }
 
+              // Get the unsigned 11 bit speed value
+              Temp_Value &= 0x07ff;
+              switch ( Temp_Value )
+              {
+                case 0x7ff:
+                {
+                  decoded.Wind_Speed = "Unknown";
+                }
+                break;
+                case 0x7fe:
+                {
+                  decoded.Wind_Speed = "Overflow";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 0.1;  // Multiply the value with the speed resolution of 0.1 km/h
+                  decoded.Wind_Speed = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            case 0x12:  // Wind
+            {
+              // Get the 16 bit value
+              index++;    // Set index to high byte data value
+              Temp_Value = (bytes[index] * 256);
+              index++;    // Set index to low byte data value
+              Temp_Value += bytes[index];
+
+              // Check the variation range
+              switch ( ((Temp_Value & 0xf000) / 4096) )
+              {
+                case 0xf:
+                {
+                  decoded.Variation_Angle = "Unknown";
+                }
+                break;
+                case 0xe:
+                {
+                  decoded.Variation_Angle = "Overflow";
+                }
+                break;
+                default:
+                {
+                  decoded.Variation_Angle = String(((11.25 * (Temp_Value & 0xf000) / 4096)).toFixed(2));
+                }
+                break;
+
+              }
+              // Check the wind detection bit
+              if( Temp_Value & 0x0800 )
+              {
+                decoded.Wind_Detection = "1";
+              }
+              else
+              {
+                decoded.Wind_Detection = "0";
+              }
+
+              // Get the unsigned 11 bit speed value
+              Temp_Value &= 0x07ff;
+              switch ( Temp_Value )
+              {
+                case 0x7ff:
+                {
+                  decoded.Wind_Speed = "Unknown";
+                }
+                break;
+                case 0x7fe:
+                {
+                  decoded.Wind_Speed = "Overflow";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 0.1;  // Multiply the value with the speed resolution of 0.1 km/h
+                  decoded.Wind_Speed = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+
+              // Get the 8 bit value
+              index++;    // Set index to data value
+              Temp_Value = bytes[index];
+              switch ( bytes[index] )
+              {
+                case 0xff:
+                {
+                  decoded.Absolut_Angle = "Unknown";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 2.5;  // Multiply the value with the angle resolution of 2.5 °
+                  decoded.Absolut_Angle = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            case 0x13:  // Rainfall
+            {
+              // Get the 16 bit value
+              index++;    // Set index to high byte data value
+              Temp_Value = (bytes[index] * 256);
+              index++;    // Set index to low byte data value
+              Temp_Value += bytes[index];
+              
+              // Check the rain detection bit
+              if( Temp_Value & 0x8000 )
+              {
+                decoded.Rain_Detection = "1";
+              }
+              else
+              {
+                decoded.Rain_Detection = "0";
+              }
+              
+              // Check the rain counter overflow bit
+              if( Temp_Value & 0x4000 )
+              {
+                decoded.Rain_Counter_Overflow = "1";
+              }
+              else
+              {
+                decoded.Rain_Counter_Overflow = "0";
+              }
+
+              // Get the unsigned 14 bit rain amount value
+              Temp_Value &= 0x3fff;
+              switch ( Temp_Value )
+              {
+                case 0x3fff:
+                {
+                  decoded.Rain_Amount = "Unknown";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 0.1;  // Multiply the value with the rainfall resolution of 0.1 l/m²
+                  decoded.Rain_Amount = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            // case 0x??:    // Further Data Type
+            // {
+            //   .
+            //   .
+            //   .
+            //   break;
+            // }
             default:    // There is something wrong with the data type value
+            {
               // Removing all added properties from the "decoded" object with a deep clean
               // https://stackoverflow.com/questions/19316857/removing-all-properties-from-a-object/19316873#19316873
               // Object.keys(decoded).forEach(function(key){ delete decoded[key]; });
@@ -574,6 +765,7 @@ function Decoder(bytes, port) {
               // Add error code propertiy to the "decoded" object
               decoded.parser_error = "Data Type Failure --> Please update your payload parser";
               break;
+            }
           }
         } while ((++index < bytes.length) && ('parser_error' in decoded === false));
       }
@@ -588,3 +780,4 @@ function Decoder(bytes, port) {
 
   return decoded;
 }
+

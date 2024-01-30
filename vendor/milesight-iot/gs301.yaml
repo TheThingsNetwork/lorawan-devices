@@ -1,0 +1,103 @@
+name: GS301 - LoRaWAN Bathroom Odor Detector
+description: GS301 is a 4-in-1 LoRaWAN® bathroomodor detector todetectammonia (NH3) and hydrogen sulfide (H2S) gas, GS301 is also able to detect temperature and humidity to fully aware of the environment of bathrooms
+
+hardwareVersions:
+  - version: 'V1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.01'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.0'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: gs301-codec
+      US902-928:
+        id: profile-us915
+        codec: gs301-codec
+      AU915-928:
+        id: profile-au915
+        codec: gs301-codec
+      AS923:
+        id: profile-as923
+        codec: gs301-codec
+      CN470-510:
+        id: profile-cn470
+        codec: gs301-codec
+      KR920-923:
+        id: profile-kr920
+        codec: gs301-codec
+      IN865-867:
+        id: profile-in865
+        codec: gs301-codec
+      RU864-870:
+        id: profile-ru864
+        codec: gs301-codec
+
+sensors:
+  - battery
+  - iaq
+  - temperature
+  - humidity
+
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+
+dimensions:
+  width: 32.5
+  length: 85
+  height: 120
+
+battery:
+  replaceable: true
+  type: ER18050 Li-SoCl2 battery*4
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 55
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/products/lorawan-sensor/gs301/
+dataSheetURL: https://resource.milesight.com/milesight/iot/document/gs301-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: gs301.png
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

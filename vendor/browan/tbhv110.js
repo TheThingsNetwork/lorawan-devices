@@ -1,6 +1,12 @@
 function decodeUplink(input) {
   var bytes = input.bytes;
 
+  // Check if the payload is empty by verifying if all elements in 'bytes' are 0 or if 'bytes' is empty
+  var isEmptyPayload = bytes.length === 0 || bytes.every(element => element === 0);
+  if (isEmptyPayload) {
+      return {}; // Return an empty object if the payload is empty
+  }
+
   switch (input.fPort) {
     case 103:
       return {
@@ -14,12 +20,15 @@ function decodeUplink(input) {
           eco2: (bytes[5] << 8) | bytes[4],
           voc: (bytes[7] << 8) | bytes[6],
           iaq: (bytes[9] << 8) | bytes[8],
-          temperature: (bytes[10] & 0x7f) -32
-        }
-    };
-  default:
-    return {
-      errors: ['unknown FPort'],
-    };
+          temperature: (bytes[10] & 0x7f) - 32,
+        },
+      };
+    default:
+      return {
+        errors: ["unknown FPort"],
+      };
   }
 }
+
+
+

@@ -1,0 +1,85 @@
+name: EM300-DI - Pulse Counter
+description: EM300-DI LoRaWAN® Pulse Counter is used to remotely read metering data from water meters. It turns existing traditional water meters into smart meters via LoRaWAN® network which further enables easier management and increases the efficiency of water use.
+
+hardwareVersions:
+  - version: 'V2.2'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.15'
+    numeric: 1
+    hardwareVersions:
+      - 'V2.2'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: em300-di-codec
+      US902-928:
+        id: profile-us915
+        codec: em300-di-codec
+      AU915-928:
+        id: profile-au915
+        codec: em300-di-codec
+      AS923:
+        id: profile-as923
+        codec: em300-di-codec
+      CN470-510:
+        id: profile-cn470
+        codec: em300-di-codec
+      KR920-923:
+        id: profile-kr920
+        codec: em300-di-codec
+      IN865-867:
+        id: profile-in865
+        codec: em300-di-codec
+      RU864-870:
+        id: profile-ru864
+        codec: em300-di-codec
+
+sensors:
+  - battery
+  - pulse count
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+
+dimensions:
+  width: 27
+  length: 88
+  height: 87
+
+battery:
+  replaceable: true
+  type: ER18505 Li-SoCl2 battery
+
+operatingConditions:
+  temperature:
+    min: -30
+    max: 70
+
+  relativeHumidity:
+    min: 0
+    max: 1.00
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/products/lorawan-sensor/em300-di/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/em300-di-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: em300-di.png

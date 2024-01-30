@@ -37,7 +37,7 @@ function Decoder(bytes, port) {
 
         }
 
-       
+
 
         else {
 
