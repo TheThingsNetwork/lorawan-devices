@@ -15,12 +15,13 @@ uplinkDecoder:
     - description: Status report
       input:
         fPort: 6
-        bytes: [0x01, 0x31, 0x01, 0x24, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x01, 0x31, 0x01, 0x24, 0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00]
       output:
         data:
           Device: 'R718T'
           Volt: 3.6
           Alarm: 1
+          FunctionKeyTrigger: 'fuctionkey2'
 
     - description: Configure report response
       input:
