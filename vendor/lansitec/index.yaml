@@ -1,0 +1,11 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - badge-tracker # look in windsensor.yaml for the end device definition
+  - indoor-bluetooth-gateway
+  - macro-bluetooth-gateway
+  - container-tracker
+  - helmet-sensor
+  - temperature-humidity-sensor
+  - precision-platinum-sensor
