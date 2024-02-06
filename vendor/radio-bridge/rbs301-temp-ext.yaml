@@ -1,5 +1,5 @@
-name: rbs301-temp-ext
-description: radio-bridge door window sensor
+name: rbs301-temp-ext - Indoor External Temperature Probe Sensor
+description: This indoor temperature sensor measures temperature using an external temperature probe. Ideal for food service, cold chain monitoring, restaurants, laboratory monitoring, server rooms, and warehouses.
 hardwareVersions:
   - version: '1.0'
     numeric: 1

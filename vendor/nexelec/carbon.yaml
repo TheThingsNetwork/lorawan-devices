@@ -1,4 +1,4 @@
-name: Carbon
+name: Carbon - Air Quality
 description: Carbon measures the CO2 level and continuously monitors air quality to visually alert occupants when it is time to ventilate to renew indoor air. With its temperature and humidity sensors, Carbon also analyzes the ambient parameters of the building. Carbon integrates the iZiAiR air quality and hygrothermal comfort algorithm to easily study each indoor environment and identify possible improvements. Thanks to its wireless communication module, data can be accessed remotely, simply from a smartphone or a computer screen
 
 # Hardware versions (optional, use when you have revisions)

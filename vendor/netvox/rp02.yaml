@@ -1,0 +1,62 @@
+name: RP02 - Wireless Bottom-installed Ultrasonic Liquid Level Sensor
+description: The RP02 is a wireless communication device that measures the liquid level with an ultrasonic liquid level sensor. Ultrasonic liquid level sensor installed at the bottom of the container, it may measure water, gasoline, diesel and small, medium, large capacity storage tanks (metal, plastic, glass material). RP0222 main unit and the ultrasonic liquid level sensor communicate via RS485 interface, and the detected data is sent to the other equipment shown which employs compliance LoraWANTM wireless communication protocol standards.
+
+hardwareVersions:
+  - version: '4'
+    numeric: 4
+
+firmwareVersions:
+  - version: '11'
+    numeric: 11
+    hardwareVersions:
+      - '4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: rp02-codec
+      AS923:
+        id: profile-as923
+        codec: rp02-codec
+      US902-928:
+        id: profile-us915
+        codec: rp02-codec
+      AU915-928:
+        id: profile-au915
+        codec: rp02-codec
+      KR920-923:
+        id: profile-kr920
+        codec: rp02-codec
+      IN865-867:
+        id: profile-in865
+        codec: rp02-codec
+      CN470-510:
+        id: profile-cn470
+        codec: rp02-codec
+
+dimensions:
+  width: 88.19
+  length: 112
+  height: 32
+
+weight: 200
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=RP02
+dataSheetURL: http://www.netvox.com.tw/um/RP02/RP02datasheet.pdf
+
+photos:
+  main: photos/rp02rh1pn.jpg

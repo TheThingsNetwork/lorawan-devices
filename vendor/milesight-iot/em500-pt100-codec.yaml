@@ -1,0 +1,13 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em500-pt100.js
+  examples:
+    - description: PT100 Temperature Sensors (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x67, 0x19, 0x01]
+      output:
+        data:
+          battery: 92
+          temperature: 28.1

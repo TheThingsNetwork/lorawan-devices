@@ -1,4 +1,4 @@
-name: LSE01
+name: LSE01 - Soil Moisture & EC Sensor
 description: The Dragino LSE01 consists of soil moisture, soil temperature, and soil conductivity sensors. It is suitable for smart agriculture applications. The measured data is sent to the LoRaWAN® network.
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

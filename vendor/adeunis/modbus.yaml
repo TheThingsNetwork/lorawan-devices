@@ -1,4 +1,4 @@
-name: Modbus
+name: Modbus - Modbus Interface
 description: The Adeunis Modbus provides an interface for Modbus slave devices to connect with LoRaWAN® networks. It is compatible with RS485/RS232 and provides supervision of up to 20 slaves.
 
 # Hardware versions (optional, use when you have revisions)
