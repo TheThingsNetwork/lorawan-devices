@@ -5,6 +5,7 @@ endDevices:
   - badge-tracker # look in windsensor.yaml for the end device definition
   - indoor-bluetooth-gateway
   - macro-bluetooth-gateway
+  - solar-bluetooth-gateway
   - container-tracker
   - helmet-sensor
   - temperature-humidity-sensor
