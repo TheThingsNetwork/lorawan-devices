@@ -2031,3 +2031,9 @@ vendors:
     description: Smart Metering & Asset Tracking
     logo: iot-factory-logo.png
     website: https://iotfactory.eu/
+
+  - id: lansitec
+    name: Lansitec
+    description: Lansitec is a technology-driven company providing cutting-edge active people and asset tracking products and services. i.e., trackers, gateways and bridges, beacons and tags, and related accessories like sensors.
+    logo: lansitec.png
+    website: https://www.lansitec.com/

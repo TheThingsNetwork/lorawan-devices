@@ -15,12 +15,13 @@ uplinkDecoder:
     - description: Status report
       input:
         fPort: 6
-        bytes: [0x01, 0x10, 0x01, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x01, 0x10, 0x01, 0x1E, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]
       output:
         data:
           Device: 'RB02I'
           Volt: 3
           Alarm: 0
+          FunctionKeyTrigger: 'fuctionkey1'
 
     - description: Configure report response
       input:
