@@ -21,6 +21,7 @@ uplinkDecoder:
           Device: 'R312A'
           Volt: 3
           Alarm: 1
+          FunctionKeyTrigger: 'others'
 
     - description: Configure report response
       input:
