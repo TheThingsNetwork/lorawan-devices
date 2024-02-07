@@ -6,7 +6,7 @@
     "validate": "bin/validate.js"
   },
   "scripts": {
-    "prestart": "cp bin/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit && echo 'hook copied'",
+    "install-hooks": "cp bin/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit && echo 'hook copied'",
     "validate": "node bin/validate.js",
     "format": "prettier --write schema.json \"vendor/**/*.yaml\" \"bin/**/*.js\""
   },

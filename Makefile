@@ -29,6 +29,7 @@ deps:
 	$(NPM) install
 	pushd ./tools/runscript && $(GO) install . && popd
 	pushd ./tools/validate-image && $(GO) install . && popd
+	$(NPM) run install-hooks
 
 .PHONY: deps.update
 deps.update:
@@ -36,11 +37,7 @@ deps.update:
 
 .PHONY: validate
 validate:
-	@if [ -z "${vendor-id}" ]; then \
-        $(NPM) run validate; \
-    else \
-        $(NPM) run validate -- --vendor-id $(vendor-id); \
-    fi
+	@if [ -z "${vendor-id}" ]; then $(NPM) run validate; else $(NPM) run validate -- --vendor-id $(vendor-id); fi
 
 .PHONY: fmt
 fmt:
