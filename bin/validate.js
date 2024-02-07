@@ -229,10 +229,9 @@ const vendorFolders = fs
 // Check for vendors in the vendor folder that are not in the vendor/index.yaml
 const vendorsNotInIndex = vendorFolders.filter((vendorId) => {
   // Check if any vendor ID in the index is present in the folder name, or vice versa
-  const normalizedVendorId = vendorId.toLowerCase(); // Normalize for case-insensitive comparison
   return (
-    !vendorIdsInIndex.some((indexId) => normalizedVendorId.includes(indexId.toLowerCase())) &&
-    !vendorIdsInIndex.some((indexId) => indexId.toLowerCase().includes(normalizedVendorId))
+    !vendorIdsInIndex.some((indexId) => vendorId.includes(indexId)) &&
+    !vendorIdsInIndex.some((indexId) => indexId.includes(vendorId))
   );
 });
 
@@ -337,7 +336,7 @@ vendors.vendors.forEach((v) => {
             const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
 
             // Check if vendorProfileID is unique within the same company folder
-            if (profile.vendorProfileID !== undefined) {
+            if (profile.vendorProfileID !== undefined && profile.vendorProfileID !== 0) {
               const duplicateProfiles = Object.entries(vendorProfiles[vendorID]).filter(
                 ([profileId, existingProfile]) =>
                   existingProfile.vendorProfileID === profile.vendorProfileID && profileId !== regionProfile.id
@@ -371,7 +370,7 @@ vendors.vendors.forEach((v) => {
 
               console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
             } else {
-              console.warn(`${key}: vendorProfileID is missing in ${vendorID}/${regionProfile.id}.yaml`);
+              console.error(`${key}: vendorProfileID is missing in ${vendorID}/${regionProfile.id}.yaml`);
             }
 
             if (regionProfile.codec && !codecs[regionProfile.codec]) {
