@@ -9,10 +9,10 @@ const extractData = (filePath, vendor) => {
     try {
         const fileContents = fs.readFileSync(filePath, 'utf8');
         const data = yaml.load(fileContents);
-        if (data.name && data.description) {
+        if (data && data.name && data.description) {
             // Format sensors as a string
             const name = `"${data.name}"`;
-            const description = `"${data.description}"`;
+            const description = data.description.replace(/"/g, "'");
             const sensors = Array.isArray(data.sensors) ? `"${data.sensors.join(', ')}"` : '';
             const imageUrl = data.photos && data.photos.main ? `"${baseUrl}/${vendor}/${data.photos.main}"` : '';
             const additionalRadios = Array.isArray(data.additionalRadios) ? `"${data.additionalRadios.join(', ')}"` : '';
@@ -21,10 +21,12 @@ const extractData = (filePath, vendor) => {
             const length = data.dimensions?.length || '';
             const weight = data.weight || '';
             const ipCode = data.ipCode || '';
+            const battery_replace = data.battery && data.battery.replaceable || '';
+            const battery_type = data.battery && data.battery.type || '';
             const productURL = data.productURL || '';
             const dataSheetURL = data.dataSheetURL || '';
 
-            return `${name},${vendor},${description},${imageUrl},${sensors},${height},${width},${length},${weight},"${ipCode}","${productURL}","${dataSheetURL}"\n`;
+            return `${name},${vendor},"${description}",${imageUrl},${sensors},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}"\n`;
         }
     } catch (e) {
         console.error(`Failed to process ${filePath}: ${e}`);
@@ -52,7 +54,7 @@ const walkSync = (dir, vendor = '', csvContent = '') => {
 const startPath = './vendor';
 
 // Start the directory walk
-let csvHeader = 'Name,Vendor,Description,Image,Sensor,Radios,Height,Width,Length,Weight,IP Rating,Product URL,Datasheet URL\n';
+let csvHeader = 'Name,Vendor,Description,Image,Sensor,Radios,Height,Width,Length,Weight,IP Rating,Battery Replaceable?,Battery Type,Product URL,Datasheet URL\n';
 let csvData = walkSync(startPath);
 
 // Save to CSV file
