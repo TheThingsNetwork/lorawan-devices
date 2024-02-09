@@ -25,8 +25,44 @@ const extractData = (filePath, vendor) => {
             const battery_type = data.battery && data.battery.type || '';
             const productURL = data.productURL || '';
             const dataSheetURL = data.dataSheetURL || '';
+            let highestMacVersion = '0.0.0'; // Start with a default low version number
+            let regionalParametersVersion = '';
+            let supportsClassB = false;
+            let supportsClassC = false;
 
-            return `${name},${vendor},"${description}",${imageUrl},${sensors},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}"\n`;
+            if (data.firmwareVersions) {
+                data.firmwareVersions.forEach(firmwareVersion => {
+                    if (firmwareVersion.profiles) {
+                        Object.values(firmwareVersion.profiles).forEach(profile => {
+                            if (profile.id) {
+                                const relatedFilePath = path.join(path.dirname(filePath), `${profile.id}.yaml`);
+                                try {
+                                    const profileContents = fs.readFileSync(relatedFilePath, 'utf8');
+                                    const profileData = yaml.load(profileContents);
+                                    const macVersion = profileData.macVersion || '';
+                                    // Update if this version is higher
+                                    if (macVersion.localeCompare(highestMacVersion, undefined, { numeric: true, sensitivity: 'base' }) > 0) {
+                                        highestMacVersion = macVersion;
+                                        // Update additional fields from the same profile with the highest macVersion
+                                        regionalParametersVersion = profileData.regionalParametersVersion || '';
+                                        supportsClassB = profileData.supportsClassB || false;
+                                        supportsClassC = profileData.supportsClassC || false;
+                                    }
+                                } catch (e) {
+                                    console.error(`Failed to extract data from ${relatedFilePath}: ${e}`);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Prepare values for CSV
+            supportsClassB = supportsClassB ? 'Yes' : 'No';
+            supportsClassC = supportsClassC ? 'Yes' : 'No';
+            highestMacVersion = highestMacVersion === '0.0.0' ? '' : highestMacVersion; // Check if highestMacVersion was updated; otherwise, leave it as an empty string
+
+            return `${name},${vendor},"${description}",${imageUrl},${sensors},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
         }
     } catch (e) {
         console.error(`Failed to process ${filePath}: ${e}`);
@@ -54,7 +90,7 @@ const walkSync = (dir, vendor = '', csvContent = '') => {
 const startPath = './vendor';
 
 // Start the directory walk
-let csvHeader = 'Name,Vendor,Description,Image,Sensor,Radios,Height,Width,Length,Weight,IP Rating,Battery Replaceable?,Battery Type,Product URL,Datasheet URL\n';
+let csvHeader = 'Name,Vendor,Description,Image,Sensor,Radios,Height,Width,Length,Weight,IP Rating,Battery Replaceable?,Battery Type,Product URL,Datasheet URL,MAC Version,Regional Parameter Version,Supports Class B?, Supports Class C?\n';
 let csvData = walkSync(startPath);
 
 // Save to CSV file
