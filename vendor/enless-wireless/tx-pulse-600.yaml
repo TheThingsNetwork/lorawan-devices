@@ -22,8 +22,15 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: pulse-profile-868
+        id: enless-profile-868
         lorawanCertified: true
+        codec: tx-pulse-600-codec
+
+      US902-928:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: enless-profile-915
+        lorawanCertified: true
+        codec: tx-pulse-600-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -74,20 +81,6 @@ dataSheetURL: https://enless-wireless.com/wp-content/uploads/2020/11/TX-PULSE-60
 
 # Photos
 photos:
-  main: txpulse.png
-
+  main: 600-036.png
 # Regulatory compliances (optional)
-compliances:
-  safety:
-    - body: IEC
-      norm: EN
-      standard: 62368-1
-  radioEquipment:
-    - body: ETSI
-      norm: EN
-      standard: 301 489-1
-      version: 2.2.0
-    - body: ETSI
-      norm: EN
-      standard: 301 489-3
-      version: 2.1.0
+
