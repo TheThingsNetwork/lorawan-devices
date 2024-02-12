@@ -1,4 +1,4 @@
-name: DL-ITST
+name: DL-ITST - Infrared Thermometer Sensor
 description: The Decentlab DL-ITST is equipped with an infrared pyrometer (thermometer) for measuring surface temperature. Ideal for road surface monitoring, ice warning, and smart agriculture.
 
 hardwareVersions:

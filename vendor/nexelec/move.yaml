@@ -1,4 +1,4 @@
-name: MOVE
+name: MOVE - Air Quality, Light, Motion
 description: MOVE is a 5-in-1 LoRaWAN-connected, battery- or USB-powered room sensor that can be rapidly configurable via NFC. Depending on the model, the sensor can measure temperature, humidity, brightness, presence and noise.
 
 # Hardware versions (optional, use when you have revisions)

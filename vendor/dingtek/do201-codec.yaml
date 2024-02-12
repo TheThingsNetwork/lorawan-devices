@@ -1,0 +1,115 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: do201.js
+  # Examples (optional)
+  examples:
+    - description: telemetry upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x31, 0x02, 0x17, 0x06, 0xB4, 0x00, 0x00, 0x01, 0x61, 0x00, 0x10, 0xFF, 0xF6, 0xFF, 0xF0, 0x8B, 0x2D, 0x00, 0x01, 0x00, 0x81]
+      output:
+        data:
+          level: 1716
+          volt: 3.53
+          alarmPark: false
+          alarmLevel: false
+          alarmMagnet: false
+          alarmBattery: false
+          xMagnet: 16
+          yMagnet: -10
+          zMagnet: -16
+          temperature: -117
+          humidity: 45
+          frameCounter: 1
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x31, 0x03, 0x10, 0x01, 0x01, 0x18, 0x1E, 0x3C, 0x00, 0x3C, 0x14, 0x00, 0x00, 0x81]
+      output:
+        data:
+          firmware: '1.1'
+          uploadInterval: 24
+          detectInterval: 30
+          levelThreshold: 60
+          magnetThreshold: 60
+          batteryThreshold: 20
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: do201.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        data:
+          uploadInterval: 4
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+        fPort: 3
+    - description: change detection interval to 10 minutes
+      input:
+        data:
+          detectInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change magnet threshold to 60
+      input:
+        data:
+          magnetThreshold: 60
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x46, 0x30, 0x30, 0x33, 0x43, 0x38, 0x31]
+        fPort: 3
+    - description: change level threshold to 60cm
+      input:
+        data:
+          levelThreshold: 60
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x33, 0x43, 0x38, 0x31]
+        fPort: 3
+    - description: change battery threshold to 20%
+      input:
+        data:
+          batteryThreshold: 20
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x34, 0x38, 0x31]
+        fPort: 3
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: do201.js
+  examples:
+    - description: change periodic upload interval to 4 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x34, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 4
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          detectInterval: 10
+    - description: change magnet threshold to 60
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x46, 0x30, 0x30, 0x33, 0x43, 0x38, 0x31]
+      output:
+        data:
+          magnetThreshold: 60
+    - description: change level threshold to 60cm
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x33, 0x43, 0x38, 0x31]
+      output:
+        data:
+          levelThreshold: 60
+    - description: change battery threshold to 20%
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x34, 0x38, 0x31]
+      output:
+        data:
+          batteryThreshold: 20

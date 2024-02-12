@@ -1,4 +1,4 @@
-name: LLMS01
+name: LLMS01 - Leaf Moisture Sensor
 description: LoRaWAN Leaf Moisture Sensor
 
 # Firmware versions (at least one is mandatory)

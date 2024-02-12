@@ -1,4 +1,4 @@
-name: LDDS45
+name: LDDS45 - Distance Sensor
 description: LoRaWAN Distance Detection Sensor
 
 # Firmware versions (at least one is mandatory)

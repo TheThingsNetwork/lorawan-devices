@@ -1,4 +1,4 @@
-name: LDDS04
+name: LDDS04 - Distance Sensor
 description: LoRaWAN 4-Channels Distance Sensor
 
 # Firmware versions (at least one is mandatory)
