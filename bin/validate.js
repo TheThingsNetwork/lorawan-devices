@@ -13,7 +13,7 @@ const imageType = require('image-type');
 const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
 const options = yargs
-  .usage('Usage: --vendor <file> [--vendor-id <id>]')
+  .usage('Usage: --vendor <file> [--VENDOR_ID <id>]')
   .option('v', {
     alias: 'vendor',
     describe: 'Path to vendor index file',
@@ -21,7 +21,7 @@ const options = yargs
     demandOption: true,
     default: './vendor/index.yaml',
   })
-  .option('vendor-id', {
+  .option('VENDOR_ID', {
     describe: 'Specific vendor ID to validate',
     type: 'string',
   }).argv;
@@ -255,7 +255,7 @@ console.log(`vendor index: valid`);
 
 const vendorProfiles = {};
 
-const vendorIDToValidate = options['vendor-id'];
+const vendorIDToValidate = options['VENDOR_ID'];
 
 if (vendorIDToValidate && !vendors.vendors.some((v) => v.id === vendorIDToValidate)) {
   console.error(`Specified vendor ID '${vendorIDToValidate}' does not exist in the repository.`);

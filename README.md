@@ -74,7 +74,7 @@ $ make validate
 The validation also supports validating a single vendor's files:
 
 ```bash
-$ make validate vendor-id=<id-of-vendor>
+$ make validate VENDOR_ID=<id-of-vendor>
 ```
 
 [Visual Studio Code](https://code.visualstudio.com/) is a great editor for editing the Device Repository. You can validate your data automatically using the [YAML plugin](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml).
