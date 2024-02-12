@@ -33,10 +33,11 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - tvoc
   - co2
   - temperature
   - humidity
+  - button
+  - digital input
 
 # Dimensions use width, height, length and/or diameter
 dimensions:

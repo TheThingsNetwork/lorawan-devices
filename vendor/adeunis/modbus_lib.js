@@ -114,25 +114,6 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var GenericStatusByteParser = (function () {
-        function GenericStatusByteParser() {
-            this.deviceType = 'any';
-            this.frameCode = 0;
-        }
-        GenericStatusByteParser.prototype.parseFrame = function (payload, configuration) {
-            var statusContent = {};
-            statusContent['frameCounter'] = (payload[1] & 0xe0) >> 5;
-            statusContent['hardwareError'] = false;
-            statusContent['lowBattery'] = Boolean(payload[1] & 0x02);
-            statusContent['configurationDone'] = Boolean(payload[1] & 0x01);
-            return statusContent;
-        };
-        return GenericStatusByteParser;
-    }());
-    codec.GenericStatusByteParser = GenericStatusByteParser;
-})(codec || (codec = {}));
-var codec;
-(function (codec) {
     var Generic0x20Parser = (function () {
         function Generic0x20Parser() {
             this.deviceType = 'any';
@@ -199,6 +180,21 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
+    var Generic0x30Parser = (function () {
+        function Generic0x30Parser() {
+            this.deviceType = 'any';
+            this.frameCode = 0x30;
+        }
+        Generic0x30Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x30 Keep alive' };
+            return appContent;
+        };
+        return Generic0x30Parser;
+    }());
+    codec.Generic0x30Parser = Generic0x30Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
     var Generic0x33Parser = (function () {
         function Generic0x33Parser() {
             this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' + 'temp3|temp4|comfort|comfort2|comfortCo2|modbus|motion|deltap|breath|comfortSerenity';
@@ -236,259 +232,216 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Drycontacts20x10Parser = (function () {
-        function Drycontacts20x10Parser() {
-            this.deviceType = 'drycontacts2';
+    var Modbus0x10Parser = (function () {
+        function Modbus0x10Parser() {
+            this.deviceType = 'modbus';
             this.frameCode = 0x10;
         }
-        Drycontacts20x10Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x10 Dry Contacts 2 configuration' };
-            appContent['keepAlivePeriod'] = { unit: 's', value: payload.readUInt16BE(2) * 10 };
-            appContent['transmitPeriod'] = { unit: 's', value: payload.readUInt16BE(4) * 10 };
-            var debounce = this.getDebounceText(payload[6] >> 4);
-            var type = this.getTypeText(payload[6] & 0x0f);
-            if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelA'] = { type: type[0] };
+        Modbus0x10Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x10 Modbus configuration' };
+            appContent['transmissionPeriodKeepAlive'] = { unit: 's', value: payload.readUInt16BE(2) * 10 };
+            appContent['transmissionPeriod1'] = { unit: 's', value: payload.readUInt16BE(4) * 10 };
+            appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(6) * 10 };
+            appContent['modbusConfiguration'] = payload[8];
+            appContent['supplyTime'] = { unit: 's', value: payload.readUInt16BE(9) / 10 };
+            return appContent;
+        };
+        return Modbus0x10Parser;
+    }());
+    codec.Modbus0x10Parser = Modbus0x10Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Modbus0x44Parser = (function () {
+        function Modbus0x44Parser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x44;
+        }
+        Modbus0x44Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x44 Modbus data (int32)' };
+            var registers = [];
+            for (var offset = 2; offset < payload.length; offset += 4) {
+                registers.push(payload.readInt32BE(offset));
             }
-            else {
-                appContent['channelA'] = {
-                    type: type[0],
-                    edge: type[1],
-                    debounceDuration: { unit: debounce[1], value: debounce[0] },
-                };
-            }
-            debounce = this.getDebounceText(payload[7] >> 4);
-            type = this.getTypeText(payload[7] & 0x0f);
-            if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelB'] = { type: type[0] };
-            }
-            else {
-                appContent['channelB'] = {
-                    type: type[0],
-                    edge: type[1],
-                    debounceDuration: { unit: debounce[1], value: debounce[0] },
-                };
-            }
-            debounce = this.getDebounceText(payload[8] >> 4);
-            type = this.getTypeText(payload[8] & 0x0f);
-            if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelC'] = { type: type[0] };
-            }
-            else {
-                appContent['channelC'] = {
-                    type: type[0],
-                    edge: type[1],
-                    debounceDuration: { unit: debounce[1], value: debounce[0] },
-                };
-            }
-            debounce = this.getDebounceText(payload[9] >> 4);
-            type = this.getTypeText(payload[9] & 0x0f);
-            if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelD'] = { type: type[0] };
-            }
-            else {
-                appContent['channelD'] = {
-                    type: type[0],
-                    edge: type[1],
-                    debounceDuration: { unit: debounce[1], value: debounce[0] },
-                };
+            appContent['registerValues'] = registers;
+            return appContent;
+        };
+        return Modbus0x44Parser;
+    }());
+    codec.Modbus0x44Parser = Modbus0x44Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Modbus0x45Parser = (function () {
+        function Modbus0x45Parser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x45;
+        }
+        Modbus0x45Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x45 Modbus alarm' };
+            appContent['alarmStatus'] = this.getAlarmStatusText(payload.readUInt8(2));
+            appContent['slaveAdress'] = payload.readUInt8(3);
+            appContent['registerAddress'] = payload.readUInt16BE(4);
+            appContent['registerUint16Value1'] = payload.readUInt16BE(6);
+            if (payload.length == 10) {
+                appContent['registerUint16Value2'] = payload.readUInt16BE(8);
             }
             return appContent;
         };
-        Drycontacts20x10Parser.prototype.getTypeText = function (value) {
+        Modbus0x45Parser.prototype.getAlarmStatusText = function (value) {
             switch (value) {
-                case 0:
-                    return ['disabled', ''];
                 case 1:
-                    return ['input', 'high'];
+                    return 'highThreshold';
                 case 2:
-                    return ['input', 'low'];
-                case 3:
-                    return ['input', 'both'];
-                case 4:
-                    return ['output', ''];
+                    return 'lowThreshold';
                 default:
-                    return ['disabled', ''];
+                    return 'none';
             }
         };
-        Drycontacts20x10Parser.prototype.getDebounceText = function (value) {
-            switch (value) {
-                case 0:
-                    return [0, 's'];
-                case 1:
-                    return [10, 'ms'];
-                case 2:
-                    return [20, 'ms'];
-                case 3:
-                    return [50, 'ms'];
-                case 4:
-                    return [100, 'ms'];
-                case 5:
-                    return [200, 'ms'];
-                case 6:
-                    return [500, 'ms'];
-                case 7:
-                    return [1, 's'];
-                case 8:
-                    return [2, 's'];
-                case 9:
-                    return [5, 's'];
-                case 10:
-                    return [10, 's'];
-                case 11:
-                    return [20, 's'];
-                case 12:
-                    return [40, 's'];
-                case 13:
-                    return [60, 's'];
-                case 14:
-                    return [5, 'm'];
-                case 15:
-                    return [10, 'm'];
-                default:
-                    return [0, 's'];
-            }
-        };
-        return Drycontacts20x10Parser;
+        return Modbus0x45Parser;
     }());
-    codec.Drycontacts20x10Parser = Drycontacts20x10Parser;
+    codec.Modbus0x45Parser = Modbus0x45Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Drycontacts20x30Parser = (function () {
-        function Drycontacts20x30Parser() {
-            this.deviceType = 'drycontacts2';
-            this.frameCode = 0x30;
+    var Modbus0x5eParser = (function () {
+        function Modbus0x5eParser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x5e;
         }
-        Drycontacts20x30Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x30 Dry Contacts 2 keep alive' };
-            if (payload[1] & 0x04) {
-                var myDate = new Date((payload.readUInt32BE(11) + 1356998400) * 1000);
-                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+        Modbus0x5eParser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x5e Modbus read registers' };
+            var registers = [];
+            for (var offset = 2; offset < payload.length; offset += 2) {
+                registers.push(payload.readUInt16BE(offset));
             }
-            appContent['channelA'] = { value: payload.readUInt16BE(2), state: Boolean(payload[10] & 0x01) };
-            appContent['channelB'] = { value: payload.readUInt16BE(4), state: Boolean(payload[10] & 0x02) };
-            appContent['channelC'] = { value: payload.readUInt16BE(6), state: Boolean(payload[10] & 0x04) };
-            appContent['channelD'] = { value: payload.readUInt16BE(8), state: Boolean(payload[10] & 0x08) };
+            appContent['registerUint16Values'] = registers;
             return appContent;
         };
-        return Drycontacts20x30Parser;
+        return Modbus0x5eParser;
     }());
-    codec.Drycontacts20x30Parser = Drycontacts20x30Parser;
+    codec.Modbus0x5eParser = Modbus0x5eParser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Drycontacts20x40Parser = (function () {
-        function Drycontacts20x40Parser() {
-            this.deviceType = 'drycontacts2';
-            this.frameCode = 0x40;
+    var Modbus0x5fParser = (function () {
+        function Modbus0x5fParser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x5f;
         }
-        Drycontacts20x40Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x40 Dry Contacts 2 data' };
-            if (payload[1] & 0x04) {
-                var myDate = new Date((payload.readUInt32BE(11) + 1356998400) * 1000);
-                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+        Modbus0x5fParser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x5f Modbus data (int32)' };
+            var registers = [];
+            for (var offset = 2; offset < payload.length; offset += 4) {
+                registers.push(payload.readInt32BE(offset));
             }
-            appContent['decodingInfo'] = 'true: ON/CLOSED, false: OFF/OPEN';
-            appContent['channelA'] = {
-                value: payload.readUInt16BE(2),
-                currentState: Boolean(payload[10] & 0x01),
-                previousFrameState: Boolean(payload[10] & 0x02),
-            };
-            appContent['channelB'] = {
-                value: payload.readUInt16BE(4),
-                currentState: Boolean(payload[10] & 0x04),
-                previousFrameState: Boolean(payload[10] & 0x08),
-            };
-            appContent['channelC'] = {
-                value: payload.readUInt16BE(6),
-                currentState: Boolean(payload[10] & 0x10),
-                previousFrameState: Boolean(payload[10] & 0x20),
-            };
-            appContent['channelD'] = {
-                value: payload.readUInt16BE(8),
-                currentState: Boolean(payload[10] & 0x40),
-                previousFrameState: Boolean(payload[10] & 0x80),
-            };
+            appContent['registerValues'] = registers;
             return appContent;
         };
-        return Drycontacts20x40Parser;
+        return Modbus0x5fParser;
     }());
-    codec.Drycontacts20x40Parser = Drycontacts20x40Parser;
+    codec.Modbus0x5fParser = Modbus0x5fParser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Drycontacts20x41Parser = (function () {
-        function Drycontacts20x41Parser() {
-            this.deviceType = 'drycontacts2';
-            this.frameCode = 0x41;
+    var Modbus0x60Parser = (function () {
+        function Modbus0x60Parser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x60;
         }
-        Drycontacts20x41Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x41 Dry Contacts 2 duration alarm' };
-            if (payload[1] & 0x04) {
-                var myDate = new Date((payload.readUInt32BE(5) + 1356998400) * 1000);
-                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+        Modbus0x60Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x60 Modbus data (float)' };
+            var registers = [];
+            for (var offset = 2; offset < payload.length; offset += 4) {
+                registers.push(payload.readFloatBE(offset));
             }
-            appContent['channel'] = payload.readUInt8(2);
-            appContent['durationThreshold'] = { unit: 'min', value: payload.readUInt16BE(3) };
+            appContent['registerValues'] = registers;
             return appContent;
         };
-        return Drycontacts20x41Parser;
+        return Modbus0x60Parser;
     }());
-    codec.Drycontacts20x41Parser = Drycontacts20x41Parser;
+    codec.Modbus0x60Parser = Modbus0x60Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Drycontacts20x59Parser = (function () {
-        function Drycontacts20x59Parser() {
-            this.deviceType = 'drycontacts2';
-            this.frameCode = 0x59;
+    var Modbus0x61Parser = (function () {
+        function Modbus0x61Parser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x61;
         }
-        Drycontacts20x59Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x59 Dry Contacts 2 time counting data' };
-            if (payload[1] & 0x04) {
-                var myDate = new Date((payload.readUInt32BE(payload.length - 4) + 1356998400) * 1000);
-                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+        Modbus0x61Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x61 Modbus data (float)' };
+            var registers = [];
+            for (var offset = 2; offset < payload.length; offset += 4) {
+                registers.push(payload.readFloatBE(offset));
             }
-            var offset = 3;
-            if (payload[2] & 0x01) {
-                appContent['channelATimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
-                offset += 4;
-            }
-            if (payload[2] & 0x02) {
-                appContent['channelBTimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
-                offset += 4;
-            }
-            if (payload[2] & 0x04) {
-                appContent['channelCTimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
-                offset += 4;
-            }
-            if (payload[2] & 0x08) {
-                appContent['channelDTimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
-            }
+            appContent['registerValues'] = registers;
             return appContent;
         };
-        return Drycontacts20x59Parser;
+        return Modbus0x61Parser;
     }());
-    codec.Drycontacts20x59Parser = Drycontacts20x59Parser;
+    codec.Modbus0x61Parser = Modbus0x61Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Drycontacts2StatusByteParser = (function () {
-        function Drycontacts2StatusByteParser() {
-            this.deviceType = 'drycontacts2';
+    var Modbus0x62Parser = (function () {
+        function Modbus0x62Parser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x62;
+        }
+        Modbus0x62Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x62 Modbus data (uint32)' };
+            var registers = [];
+            for (var offset = 2; offset < payload.length; offset += 4) {
+                registers.push(payload.readUInt32BE(offset));
+            }
+            appContent['registerValues'] = registers;
+            return appContent;
+        };
+        return Modbus0x62Parser;
+    }());
+    codec.Modbus0x62Parser = Modbus0x62Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Modbus0x63Parser = (function () {
+        function Modbus0x63Parser() {
+            this.deviceType = 'modbus';
+            this.frameCode = 0x63;
+        }
+        Modbus0x63Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x63 Modbus data (uint32)' };
+            var registers = [];
+            for (var offset = 2; offset < payload.length; offset += 4) {
+                registers.push(payload.readUInt32BE(offset));
+            }
+            appContent['registerValues'] = registers;
+            return appContent;
+        };
+        return Modbus0x63Parser;
+    }());
+    codec.Modbus0x63Parser = Modbus0x63Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var ModbusStatusByteParser = (function () {
+        function ModbusStatusByteParser() {
+            this.deviceType = 'modbus';
             this.frameCode = 0;
         }
-        Drycontacts2StatusByteParser.prototype.parseFrame = function (payload, configuration, network) {
+        ModbusStatusByteParser.prototype.parseFrame = function (payload, configuration) {
             var statusContent = {};
-            var parser = new codec.GenericStatusByteParser();
-            statusContent = parser.parseFrame(payload, configuration);
-            statusContent['timestamp'] = Boolean(payload[1] & 0x04);
+            statusContent['frameCounter'] = (payload[1] & 0xe0) >> 5;
+            statusContent['configurationDone'] = Boolean(payload[1] & 0x01);
+            statusContent['lowBattery'] = Boolean(payload[1] & 0x02);
+            statusContent['hardwareError'] = Boolean(payload[1] & 0x04);
+            statusContent['configurationInconsistency'] = Boolean(payload[1] & 0x08);
+            statusContent['modbusReadError'] = Boolean(payload[1] & 0x10);
             return { status: statusContent };
         };
-        return Drycontacts2StatusByteParser;
+        return ModbusStatusByteParser;
     }());
-    codec.Drycontacts2StatusByteParser = Drycontacts2StatusByteParser;
+    codec.ModbusStatusByteParser = ModbusStatusByteParser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
@@ -551,28 +504,16 @@ var codec;
         __extends(Decoder, _super);
         function Decoder() {
             var _this = _super.call(this) || this;
-            _this.deviceType = 'drycontacts2';
+            _this.deviceType = 'modbus';
             return _this;
         }
         Decoder.prototype.getActiveParsers = function (frameCode) {
             var activeParsers = [];
-            var statusByteParsers = new codec.Drycontacts2StatusByteParser();
+            var statusByteParsers = new codec.ModbusStatusByteParser();
             var dataParser;
             switch (frameCode) {
                 case 0x10:
-                    dataParser = new codec.Drycontacts20x10Parser();
-                    break;
-                case 0x30:
-                    dataParser = new codec.Drycontacts20x30Parser();
-                    break;
-                case 0x40:
-                    dataParser = new codec.Drycontacts20x40Parser();
-                    break;
-                case 0x41:
-                    dataParser = new codec.Drycontacts20x41Parser();
-                    break;
-                case 0x59:
-                    dataParser = new codec.Drycontacts20x59Parser();
+                    dataParser = new codec.Modbus0x10Parser();
                     break;
                 case 0x20:
                     dataParser = new codec.Generic0x20Parser();
@@ -580,8 +521,35 @@ var codec;
                 case 0x2f:
                     dataParser = new codec.Generic0x2fParser();
                     break;
+                case 0x30:
+                    dataParser = new codec.Generic0x30Parser();
+                    break;
                 case 0x33:
                     dataParser = new codec.Generic0x33Parser();
+                    break;
+                case 0x44:
+                    dataParser = new codec.Modbus0x44Parser();
+                    break;
+                case 0x45:
+                    dataParser = new codec.Modbus0x45Parser();
+                    break;
+                case 0x5e:
+                    dataParser = new codec.Modbus0x5eParser();
+                    break;
+                case 0x5f:
+                    dataParser = new codec.Modbus0x5fParser();
+                    break;
+                case 0x60:
+                    dataParser = new codec.Modbus0x60Parser();
+                    break;
+                case 0x61:
+                    dataParser = new codec.Modbus0x61Parser();
+                    break;
+                case 0x62:
+                    dataParser = new codec.Modbus0x62Parser();
+                    break;
+                case 0x63:
+                    dataParser = new codec.Modbus0x63Parser();
                     break;
                 default:
                     return activeParsers;
