@@ -1,5 +1,5 @@
-name: TX CONTACT 600-039 Digital Input sensor (status report ON/OFF)
-description: This LoRa / LoRaWAN contact/status change transmitter is specifically designed for smart building, security and industrial applications. It meets all types of ON/OFF status change monitoring needs thanks to its two TOR inputs (binary output signal).
+name: 600-039 - Digital Input sensor (status report ON/OFF)
+description: This LoRaWAN contact/status change transmitter is specifically designed for smart building, security and industrial applications.It meets all types of ON/OFF status change monitoring needs thanks to its two dry-contact inputs (binary output signal).
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -78,6 +78,7 @@ keyProvisioning:
 # Product and data sheet URLs (optional)
 
 # Photos
-main: tx-pulse-600.png
+photos:
+  main: 600-039.png
 # Regulatory compliances (optional)
 
