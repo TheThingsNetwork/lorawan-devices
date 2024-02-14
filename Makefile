@@ -37,7 +37,7 @@ deps.update:
 
 .PHONY: validate
 validate:
-	@if [ -z "${VENDOR_ID}" ]; then $(NPM) run validate; else $(NPM) run validate -- --VENDOR_ID $(VENDOR_ID); fi
+	@if [ -z "${VENDOR_ID}" ]; then $(NPM) run validate; else $(NPM) run validate -- --vendor-id $(VENDOR_ID); fi
 
 .PHONY: fmt
 fmt:
