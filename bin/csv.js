@@ -76,7 +76,7 @@ const walkSync = (dir, vendor = '', csvContent = '') => {
 };
 
 // Start directory 
-const startPath = './vendor';
+const startPath = '../vendor';
 
 // Initialize CSV data
 let csvHeader = 'Name,Vendor,Description,Image,Sensor,Radios,Height,Width,Length,Weight,IP Rating,Battery Replaceable?,Battery Type,Product URL,Datasheet URL,MAC Version,Regional Parameter Version,Supports Class B?, Supports Class C?\n';
