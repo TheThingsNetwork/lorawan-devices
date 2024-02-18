@@ -1,19 +1,19 @@
-name: Seeed SenseCAP Indicator 
+name: Seeed SenseCAP Indicator
 description: SenseCAP Indicator is a 4-inch touch screen driven by ESP32 and RP2040 dual-MCU and supports Wi-Fi/BLE/LoRa® communication. It is a fully open-source powerful IoT development platform for developers. One-stop ODM Fusion service is also available for customization and quick scale-up.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: "1.0"
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: "1.0"
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - "1.0"
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -87,7 +87,7 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.seeedstudio.com/SenseCAP-Indicator-D1L-p-5646.html 
+productURL: https://www.seeedstudio.com/SenseCAP-Indicator-D1L-p-5646.html
 dataSheetURL: https://wiki.seeedstudio.com/Sensor/SenseCAP/SenseCAP_Indicator/Get_started_with_SenseCAP_Indicator/#specification
 
 # Commercial information
