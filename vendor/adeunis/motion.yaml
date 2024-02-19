@@ -1,4 +1,4 @@
-name: Motion
+name: Motion - Motion Sensor
 description: The Adeunis Motion has several functions (presence, luminosity, alert button, dry contact input) optimizing the comfort of occupants and the energy consumption of a building, and provides LoRaWAN® connectivity.
 
 # Hardware versions (optional, use when you have revisions)

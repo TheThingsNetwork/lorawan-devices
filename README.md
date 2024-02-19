@@ -28,7 +28,8 @@ One of the operating systems:
 
 Development dependencies:
 
-- Node.js version 16.x
+- Node.js version 16.x 
+  - (This is recommended, as newer versions may give errors)
 - npm version 8.x
 - Go version 1.18.x
 
@@ -94,19 +95,19 @@ An example directory structure with a vendor named `company-x` that produces two
 ```bash
 lorawan-devices
 ├── vendor
-│   ├── index.yaml              # vendor index (1)
+│   ├── index.yaml                    # vendor index (1)
 │   ├── module-maker
 │   │   └── module-profile-eu868.yaml # generic end device profile for EU868 (4)
 │   ├── company-x
-│   │   ├── index.yaml          # vendor device index (2)
-│   │   ├── logo.svg            # vendor logo
-│   │   ├── device-a.jpg        # photo of device-a
-│   │   ├── device-a.yaml       # device-a definition (3)
-│   │   ├── device-b.jpg        # photo of device-b
-│   │   ├── device-b.yaml       # device-b definition (3)
+│   │   ├── index.yaml                # vendor device index (2)
+│   │   ├── logo.svg                  # vendor logo
+│   │   ├── device-a.png              # photo of device-a
+│   │   ├── device-a.yaml             # device-a definition (3)
+│   │   ├── device-b.png              # photo of device-b
+│   │   ├── device-b.yaml             # device-b definition (3)
 │   │   ├── custom-profile-us915.yaml # end device profile for US915 (4)
-│   │   ├── codec.js            # payload codec implementation (6)
-│   │   └── codec.yaml          # payload codec definition (5)
+│   │   ├── codec.js                  # payload codec implementation (6)
+│   │   └── codec.yaml                # payload codec definition (5)
 ```
 
 ### Vendor Index
@@ -156,7 +157,7 @@ endDevices:
   - device-b
 ```
 
-All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters.
+All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters. **Make sure you include every device you add.**
 
 ### End Device
 
@@ -203,6 +204,14 @@ firmwareVersions:
 There are many other fields that can be set: hardware versions, firmware versions, sensors, dimensions, weight, battery information, operating conditions, IP code, security information, photos and regulatory and compliancy information. See [Example Wind Sensor](./vendor/example/windsensor.yaml) for a full example.
 
 > **NOTE** It is highly recommended to fill out as many information about the end devices as possible. The definition above is the bare minimum information.
+
+### End Device Image
+
+There are a few guidelines to follow for images:
+- At least 1 image of each device you intent to add.
+- Make sure the image has a transparent background. 
+- Image should be of high quality.
+- The image cannot be bigger then 2000 x 2000 pixels. 
 
 ### End Device Profile
 

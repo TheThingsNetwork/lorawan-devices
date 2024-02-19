@@ -1,4 +1,4 @@
-name: MCF-LW12TERWP
+name: MCF-LW12TERWP - Outdoor Environmental Sensor
 description: The mfc88 MCF-LW12TERWP is a LoRaWAN® end device that has a temperature sensor, humidity sensor, and pressure sensor for monitoring outdoor environments. Ideally suited for a wide range of applications such as weather stations, urban monitoring, air quality, industrial, environmental, or farming projects.
 
 # Firmware versions (at least one is mandatory)
@@ -83,7 +83,7 @@ dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12TERWP.pd
 
 # Photos
 photos:
-  main: mcf-lw12terwp.jpg
+  main: mcf-lw12terwp.png
 
 # Regulatory compliances (optional)
 compliances:

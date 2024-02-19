@@ -1,5 +1,5 @@
-name: TrackerD
-description: The Dragino TrackerD consists of a water leak sensor that detects the water leak status and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
+name: TrackerD - GPS Tracker
+description: The Dragino TrackerD consists of a LoRaWAN tracker based on ESP32 MCU and Semtech LoRa Wireless Chip. It features various sensors and functions such as GPS, WiFi, BLE, temperature, humidity, motion detection, alarm button and a buzzer.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -109,4 +109,4 @@ sellerURLs:
 
 # Photos
 photos:
-  main: trackerd.jpg
+  main: trackerd.png

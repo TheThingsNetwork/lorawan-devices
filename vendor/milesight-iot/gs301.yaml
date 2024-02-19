@@ -1,4 +1,4 @@
-name: LoRaWAN Bathroom Odor Detector
+name: GS301 - LoRaWAN Bathroom Odor Detector
 description: GS301 is a 4-in-1 LoRaWAN® bathroomodor detector todetectammonia (NH3) and hydrogen sulfide (H2S) gas, GS301 is also able to detect temperature and humidity to fully aware of the environment of bathrooms
 
 hardwareVersions:

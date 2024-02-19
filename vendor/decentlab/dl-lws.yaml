@@ -1,4 +1,4 @@
-name: DL-LWS
+name: DL-LWS - Leaf Wetness Sensor
 description: The Decentlab DL-LWS is a LoRaWAN® end device equipped with leaf wetness sensor. Suitable for applications such as outdoor remote monitoring, plant disease and infection prevention, greenhouse and soil-less plantations, and smart agriculture.
 
 hardwareVersions:

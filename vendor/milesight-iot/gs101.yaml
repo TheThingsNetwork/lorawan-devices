@@ -1,4 +1,4 @@
-name: LoRaWAN Gas Detector
+name: GS101 - LoRaWAN Gas Detector
 description: GS101 is a LoRaWAN ® residential gas detector to detect thenatural gas leak and send alarms.
 hardwareVersions:
   - version: 'V1.0'
