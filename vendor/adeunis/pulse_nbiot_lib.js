@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,11 +21,11 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    var a = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
     if ((a & 0x80000000) > 0) {
         return a - 0x10000000;
     }
@@ -33,12 +33,17 @@ Object.prototype.readInt32BE = function (offset) {
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -140,51 +145,53 @@ var codec;
         }
         PulseV4NbIot0x10Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x10 Pulse 4 NB-IoT configuration' };
-            var chA = { 'name': 'channel A' };
-            var chB = { 'name': 'channel B' };
+            var chA = { name: 'channel A' };
+            var chB = { name: 'channel B' };
             appContent['productMode'] = codec.PlateformCommonUtils.getProductModeText(payload[this.hOffset + 2]);
             appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(this.hOffset + 3);
-            appContent['samplingPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(this.hOffset + 6) * 2 };
+            appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(this.hOffset + 6) * 2 };
             appContent['calculatedSendingPeriod'] = {
-                'unit': 's',
-                'value': payload.readUInt16BE(this.hOffset + 3) * payload.readUInt16BE(this.hOffset + 6) * 2
+                unit: 's',
+                value: payload.readUInt16BE(this.hOffset + 3) * payload.readUInt16BE(this.hOffset + 6) * 2,
             };
             if (payload[this.hOffset + 2] === 2) {
-                appContent['flowCalculationPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(this.hOffset + 9) * 20 };
+                appContent['flowCalculationPeriod'] = { unit: 's', value: payload.readUInt16BE(this.hOffset + 9) * 20 };
             }
             else {
-                appContent['flowCalculationPeriod'] = { 'unit': 'm', 'value': payload.readUInt16BE(this.hOffset + 9) };
+                appContent['flowCalculationPeriod'] = { unit: 'm', value: payload.readUInt16BE(this.hOffset + 9) };
             }
             appContent['redundantSamples'] = payload.readUInt8(this.hOffset + 27);
             chA['state'] = this.getStateText(Boolean(payload[this.hOffset + 5] & 0x01));
             chA['type'] = this.getTypeText(Boolean(payload[this.hOffset + 5] & 0x02));
             chA['debouncingPeriod'] = {
-                'unit': 'ms', 'value': this.getDebouncingPeriodText(payload[this.hOffset + 8] & 0x0f)
+                unit: 'ms',
+                value: this.getDebouncingPeriodText(payload[this.hOffset + 8] & 0x0f),
             };
             chA['leakageDetection'] = {
-                'overflowAlarmTriggerThreshold': payload.readUInt16BE(this.hOffset + 11),
-                'threshold': payload.readUInt16BE(this.hOffset + 15),
-                'dailyPeriodsBelowWhichLeakageAlarmTriggered': payload.readUInt16BE(this.hOffset + 19)
+                overflowAlarmTriggerThreshold: payload.readUInt16BE(this.hOffset + 11),
+                threshold: payload.readUInt16BE(this.hOffset + 15),
+                dailyPeriodsBelowWhichLeakageAlarmTriggered: payload.readUInt16BE(this.hOffset + 19),
             };
             chA['tamper'] = {
-                'activated': Boolean(payload[this.hOffset + 5] & 0x08),
-                'samplePeriodForDetection': { 'unit': 's', 'value': payload.readUInt8(this.hOffset + 23) * 10 },
-                'threshold': payload.readUInt8(this.hOffset + 24)
+                activated: Boolean(payload[this.hOffset + 5] & 0x08),
+                samplePeriodForDetection: { unit: 's', value: payload.readUInt8(this.hOffset + 23) * 10 },
+                threshold: payload.readUInt8(this.hOffset + 24),
             };
             chB['state'] = this.getStateText(Boolean(payload[this.hOffset + 5] & 0x10));
             chB['type'] = this.getTypeText(Boolean(payload[this.hOffset + 5] & 0x20));
             chB['debouncingPeriod'] = {
-                'unit': 'ms', 'value': this.getDebouncingPeriodText((payload[this.hOffset + 8] & 0xf0) >> 4)
+                unit: 'ms',
+                value: this.getDebouncingPeriodText((payload[this.hOffset + 8] & 0xf0) >> 4),
             };
             chB['leakageDetection'] = {
-                'overflowAlarmTriggerThreshold': payload.readUInt16BE(this.hOffset + 13),
-                'threshold': payload.readUInt16BE(this.hOffset + 17),
-                'dailyPeriodsBelowWhichLeakageAlarmTriggered': payload.readUInt16BE(this.hOffset + 21)
+                overflowAlarmTriggerThreshold: payload.readUInt16BE(this.hOffset + 13),
+                threshold: payload.readUInt16BE(this.hOffset + 17),
+                dailyPeriodsBelowWhichLeakageAlarmTriggered: payload.readUInt16BE(this.hOffset + 21),
             };
             chB['tamper'] = {
-                'activated': Boolean(payload[this.hOffset + 5] & 0x80),
-                'samplePeriodForDetection': { 'unit': 's', 'value': payload.readUInt8(this.hOffset + 25) * 10 },
-                'threshold': payload.readUInt8(this.hOffset + 26)
+                activated: Boolean(payload[this.hOffset + 5] & 0x80),
+                samplePeriodForDetection: { unit: 's', value: payload.readUInt8(this.hOffset + 25) * 10 },
+                threshold: payload.readUInt8(this.hOffset + 26),
             };
             appContent['channels'] = [chA, chB];
             return appContent;
@@ -272,19 +279,19 @@ var codec;
                 var myDate = new Date((payload.readUInt32BE(this.hOffset + 11) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
-            var chA = { 'name': 'channel A' };
-            var chB = { 'name': 'channel B' };
+            var chA = { name: 'channel A' };
+            var chB = { name: 'channel B' };
             chA['flow'] = {
-                'alarm': Boolean(payload[this.hOffset + 2] & 0x01),
-                'last24hMin': payload.readUInt16BE(this.hOffset + 7),
-                'last24hMax': payload.readUInt16BE(this.hOffset + 3)
+                alarm: Boolean(payload[this.hOffset + 2] & 0x01),
+                last24hMin: payload.readUInt16BE(this.hOffset + 7),
+                last24hMax: payload.readUInt16BE(this.hOffset + 3),
             };
             chA['tamperAlarm'] = Boolean(payload[this.hOffset + 2] & 0x04);
             chA['leakageAlarm'] = Boolean(payload[this.hOffset + 2] & 0x10);
             chB['flow'] = {
-                'alarm': Boolean(payload[this.hOffset + 2] & 0x02),
-                'last24hMin': payload.readUInt16BE(this.hOffset + 9),
-                'last24hMax': payload.readUInt16BE(this.hOffset + 5)
+                alarm: Boolean(payload[this.hOffset + 2] & 0x02),
+                last24hMin: payload.readUInt16BE(this.hOffset + 9),
+                last24hMax: payload.readUInt16BE(this.hOffset + 5),
             };
             chB['tamperAlarm'] = Boolean(payload[this.hOffset + 2] & 0x08);
             chB['leakageAlarm'] = Boolean(payload[this.hOffset + 2] & 0x20);
@@ -389,7 +396,7 @@ var codec;
             var absCounterValue = payload.readUInt32BE(this.hOffset + 2);
             var appContent = { type: '0x5a Pulse 4 NB-IoT data - channel A' };
             var values = [absCounterValue];
-            var payloadLength = (payload[this.hOffset + 1] & 0x04) ? payload.length - 4 : payload.length;
+            var payloadLength = payload[this.hOffset + 1] & 0x04 ? payload.length - 4 : payload.length;
             if (payload[this.hOffset + 1] & 0x04) {
                 var myDate = new Date((payload.readUInt32BE(payload.length - 4) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
@@ -421,7 +428,7 @@ var codec;
             var absCounterValue = payload.readUInt32BE(this.hOffset + 2);
             var appContent = { type: '0x5b Pulse 4 NB-IoT data - channel B' };
             var values = [absCounterValue];
-            var payloadLength = (payload[this.hOffset + 1] & 0x04) ? payload.length - 4 : payload.length;
+            var payloadLength = payload[this.hOffset + 1] & 0x04 ? payload.length - 4 : payload.length;
             if (payload[this.hOffset + 1] & 0x04) {
                 var myDate = new Date((payload.readUInt32BE(payload.length - 4) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
@@ -459,7 +466,7 @@ var codec;
             statusContent['lowBattery'] = Boolean(payload[this.hOffset + 1] & 0x02);
             statusContent['configurationDone'] = Boolean(payload[this.hOffset + 1] & 0x01);
             statusContent['timestamp'] = Boolean(payload[this.hOffset + 1] & 0x04);
-            return { 'nbIot': headerContent, 'status': statusContent };
+            return { nbIot: headerContent, status: statusContent };
         };
         return PulseV4NbIotStatusByteParser;
     }());
@@ -484,7 +491,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -543,7 +550,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -600,9 +607,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }

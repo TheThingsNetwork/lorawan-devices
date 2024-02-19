@@ -1,0 +1,22 @@
+uplinkDecoder:
+  fileName: comfort_serenity_lib.js
+
+  examples:
+    - description: 0x6a Comfort Serenity data
+      input:
+        fPort: 1
+        bytes: [0x6A, 0x84, 0x01, 0xB3, 0x3E, 0x01, 0xA4, 0x01, 0xB4, 0x3F, 0x01, 0xA6, 0x14, 0xAB, 0xA3, 0xE9]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x6a Comfort Serenity data',
+              'status': { 'frameCounter': 4, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false, 'timestamp': true },
+              'timestamp': '2023-12-28T19:22:17.000',
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'temperature': { 'unit': '°C', 'values': [43.5, 43.6] },
+              'humidity': { 'unit': '%', 'values': [62, 63] },
+              'co2': { 'unit': 'ppm', 'values': [420, 422] },
+            }
+        warnings: []
+        errors: []
