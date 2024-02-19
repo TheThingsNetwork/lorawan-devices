@@ -1,5 +1,5 @@
-name: TX 4/20 mA 600-035 - Analog sensor with 4/20mA interface
-description: This LoRa / LoRaWAN 4/20mA analogue radio transmitter is specifically designed for industrial applications (construction industry - water management - rail industry,etc.).Self-powered, it connects to all types of analogue probes with 4/20mA interface and reassemble the signal.
+name: 600-035 - Analog sensor with 4/20mA interface
+description: This LoRa / LoRaWAN 4/20mA analogue radio transmitter is specifically designed for industrial applications (construction industry - water management - rail industry,etc.).Self-powered, it connects to all types of analogue probes with 4/20mA interface and reassemble the signal.This transmitter can meet all types of applications including pressure, flow, fluid levels (water, fuel oil, gas,etc.) / gauges (ultrasonic probes), etc.The robustness of our LoRaWAN transmitter – IP 65 enclosure – and its high environmental tolerance (-20°C / +55°C) allow it to withstand any type of environment.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -80,6 +80,7 @@ productURL: https://enless-wireless.com/en/products/analog-sensor-4-20ma-lora/
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-035.pdf
 
 # Photos
-main: 600-035.png
+photos:
+  main: 600-035.png
 # Regulatory compliances (optional)
 
