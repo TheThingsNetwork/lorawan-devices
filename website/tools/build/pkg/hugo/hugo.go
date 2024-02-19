@@ -129,6 +129,8 @@ func CreateContentSingleDevice(dir config.Dir, drs devicerepository.Store) error
 			endDeviceModel.Vendor = vendor
 			endDeviceModel.Title = endDeviceModel.Name
 			endDeviceModel.Tags = generateTags(endDeviceModel)
+			endDeviceModel.DeviceWeight = endDeviceModel.Weight
+			endDeviceModel.Weight = 1
 
 			if endDeviceModel.Photos != nil && endDeviceModel.Photos.Main != "" {
 				PhotoMain := Photo{FileName: filepath.Base(endDeviceModel.Photos.Main), Path: endDeviceModel.Photos.Main}

@@ -1,4 +1,4 @@
-name: LDS01
+name: LDS01 - Door Sensor
 description: The Dragino LDS01 consists of a magnetic sensor for detecting the opening and closing of doors, windows, garage doors, vaults, and entryways. The sensor sends a data packet on each open/close event to a LoRaWAN®network server.
 
 # Firmware versions (at least one is mandatory)

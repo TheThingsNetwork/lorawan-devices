@@ -1,4 +1,4 @@
-name: MCF-LW12CO2
+name: MCF-LW12CO2 - Indoor Environmental Sensor
 description: The enginko MCF-LW12CO2 LoRaWAN® indoor environmental sensor equipped with temperature, humidity, pressure, light intensity, air quality (expressed as IAQ or bVOC value), and CO2 sensors and sends collected data over the LoRaWAN® network. Ideally suited for a wide range of applications such as building automation, condition monitoring, predictive maintenance, security, healthcare, and many more use cases.
 
 # Firmware versions (at least one is mandatory)
@@ -85,7 +85,7 @@ dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12CO2.pdf
 
 # Photos
 photos:
-  main: mcf-lw12co2.jpg
+  main: mcf-lw12co2.png
 
 # Regulatory compliances (optional)
 compliances:

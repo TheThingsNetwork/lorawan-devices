@@ -1,4 +1,4 @@
-name: RISE
+name: RISE - Air Quality
 description: RISE is a 3-in-1 LoRaWAN-connected, battery- or USB-powered room sensor that can be rapidly configurable via NFC. Depending on the model, the sensor can measure co2, temperature and humidity.
 
 # Hardware versions (optional, use when you have revisions)
@@ -89,7 +89,7 @@ ipCode: IP30
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nexelec.fr/
+productURL: https://nexelec.eu/produit/rise/
 dataSheetURL: https://support.nexelec.fr/en/support/solutions/articles/80001085097-datasheet/
 
 # Commercial information

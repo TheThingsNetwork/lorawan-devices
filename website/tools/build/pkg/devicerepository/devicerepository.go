@@ -73,8 +73,9 @@ type EndDevice struct {
 		Diameter float32 `yaml:"diameter"`
 		Length   float32 `yaml:"length"`
 	} `yaml:"dimensions"`
-	Weight  float32 `yaml:"weight"`
-	Battery *struct {
+	Weight       float32 `yaml:"weight"`
+	DeviceWeight float32
+	Battery      *struct {
 		Replaceable bool   `yaml:"replaceable"`
 		Type        string `yaml:"type"`
 	} `yaml:"battery"`
