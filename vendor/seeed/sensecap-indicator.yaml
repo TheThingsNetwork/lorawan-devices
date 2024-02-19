@@ -3,17 +3,17 @@ description: SenseCAP Indicator is a 4-inch touch screen driven by ESP32 and RP2
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: "1.0"
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "1.0"
+    version: '1.0'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - "1.0"
+      - '1.0'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
