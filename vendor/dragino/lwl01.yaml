@@ -1,4 +1,4 @@
-name: LWL01
+name: LWL01 - Water Leak Sensor
 description: The Dragino LWL01 consists of a water leak sensor that detects the water leak status and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
 
 # Firmware versions (at least one is mandatory)

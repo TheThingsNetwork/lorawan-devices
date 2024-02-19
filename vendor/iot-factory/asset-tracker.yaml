@@ -1,0 +1,75 @@
+name: Asset Tracker
+description: LORAWAN  Geolocation and Activity Asset Tracker
+
+# Hardware versions
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      RU864-870:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      US902-928:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+      AS923:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: generic-codec
+
+# Sensors that this device features
+sensors:
+  - gps
+  #  - bluetooth beacons
+  - accelerometer
+
+# Additional radios that this device has
+additionalRadios:
+  - ble
+
+# Battery information
+battery:
+  replaceable: true
+  type: 2x CR123A
+
+keyProgramming:
+  - bluetooth
+#  - mobile app
+
+# Dimensions in mm
+dimensions:
+  width: 125
+  length: 75
+  height: 37
+
+# Product and data sheet URLs
+productURL: https://iotfactory.eu/products/iot-sensors/lorawan-outdoor-indoor-asset-tracker-gps-ble/
+#datasheet :
+
+# Commercial information
+resellerURLs:
+  - name: 'IOT Factory'
+    region:
+      - European Union
+    url: https://iotfactory.eu
+
+# Photos
+photos:
+  main: asset-tracker-lorawan-by-iot-factory.png

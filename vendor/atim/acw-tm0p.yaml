@@ -1,4 +1,4 @@
-name: acw-tm0p
+name: acw-tm0p - Temperature Probe
 description: The TMxP facilitates the monitoring of up to two remote temperatures of your buildings and energy installations thanks to its two meters long -196°C | +200°C temperature probes. Measurements are regularly transmitted on** LoRaWAN** networks and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)

@@ -1,0 +1,11 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: ws101.js
+  examples:
+    - description: Smart Button (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0xFF, 0x2E, 0x01]
+      output:
+        data:
+          button: short

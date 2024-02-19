@@ -1,4 +1,4 @@
-name: Skydome
+name: Skydome - Window Position Sensor
 description: The nke WATTECO Skydome has an onboard accelerometer for detecting the change of position to verify that a roof window is properly closed.
 
 # Hardware versions (optional, use when you have revisions)
