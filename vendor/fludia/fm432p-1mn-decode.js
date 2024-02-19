@@ -1,66 +1,75 @@
-function decodeUplink(input) {
-  var decoded = {}
-  var header = parseInt(toHexString(input.bytes).substring(0,2), 16)
-  decoded.index = decode_index(toHexString(input.bytes))
-  if(header == 92){
-      decoded.step = 1
-  }
-  else{
-      decoded.step = 0
-  }
-  decoded.list_increment = decode_list_increment(toHexString(input.bytes))
-  if(decoded.index && decoded.list_increment.length==20 && decoded.step>0){
-    return {
-        data:{
-            index: decoded.index,
-            values: decoded.list_increment,
-            step: decoded.step,            
-        }
-    }
-  }
-  else{
-      msg = "The payload has the wrong size !"
-      return msg
-  }    
-}
-//return index from T1 payload
-function decode_index(payload) {
-  var index = null;
-  if (payload.length == 88) {
-      index = payload.substring(2, 8);
-  }
-  return parseInt(index, 16);
+const PAYLOAD_TYPE = {
+  T1_1MN   :  {header: 0x5c, size: 44/*in bytes*/, name: "T1_1MN"},
+  T2       :  {header: 0x29, size: 10/*in bytes*/, name: "T2"},
+  START    :  {header: 0x01, size: 3/*in bytes*/,  name: "START"}
 }
 
-//return hexadecimal power list from T1 payload
-function payload_to_hex(payload) {
-  var list_increment_hex = []
-  if (payload.length == 88){
-      for(i=0;i<40;i++){
-          list_increment_hex.push(payload.substring((8+2*i),2+(8+2*i)))
-      }
+//Main function Decoder
+function decodeUplink(input){
+  var decoded = {
+    data: {
+      index : null,
+      message_type : null,
+      increments : [],
+      time_step: 1,
+      meter_type : "Pulse",
+      firmware_version: null,
+      step: null,
+      values: null
+    },
+    warnings: [],
+    errors: []
   }
-  return list_increment_hex
+  //Find message type
+  decoded.data.message_type = find_message_type(input.bytes);
+  if(decoded.data.message_type == null){
+    decoded.errors.push("Invalid payload")
+    return decoded
+  }
+  //Decode message
+  if(decoded.data.message_type == PAYLOAD_TYPE.T1_1MN.name){
+    var data = decode_T1(input.bytes);
+    decoded.data.index = data.index;
+    decoded.data.increments = data.increments;
+  }else if(decoded.data.message_type == PAYLOAD_TYPE.T2.name){
+    var data = decode_T2(input.bytes);
+    decoded.data.index = data.index;
+    decoded.data.firmware_version = data.firmware_version;
+  }
+  decoded.data.step = decoded.data.time_step;
+  decoded.data.values = decoded.data.increments;
+  return decoded
 }
 
-//return power list from T1 payload
-function decode_list_increment(payload) {
-  var list_increment = []
-  var list_increment_hex = []
-  if (payload.length == 88){
-      list_increment_hex = payload_to_hex(payload)
+//Find message type - return null if nothing found
+function find_message_type(payload){
+  switch(payload[0]){
+    case PAYLOAD_TYPE.T1_1MN.header:
+      if(payload.length == PAYLOAD_TYPE.T1_1MN.size) return PAYLOAD_TYPE.T1_1MN.name
+      break;
+    case PAYLOAD_TYPE.T2.header:
+      if(payload.length == PAYLOAD_TYPE.T2.size) return PAYLOAD_TYPE.T2.name
+      break;
+    case PAYLOAD_TYPE.START.header:
+      if(payload.length == PAYLOAD_TYPE.START.size) return PAYLOAD_TYPE.START.name
+      break;
   }
-  if(list_increment_hex.length == 40){
-      for(i=0;i<20;i++){
-          list_increment.push(parseInt(list_increment_hex[i*2]+list_increment_hex[i*2+1], 16))
-      }
-  }    
-  return list_increment
+  return null
 }
 
-//Convert uplink payload.bytes to hexString payload
-function toHexString(byteArray) {
-    return Array.from(byteArray, function(byte) {
-      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-    }).join('')
+function decode_T1(payload,time_step){
+  var data = {};
+  data.index  = (payload[1] & 0xFF) << 16 | (payload[2] & 0xFF) << 8 | (payload[3] & 0xFF);
+  data.increments = []
+  for(i=0;i<20;i++){
+    data.increments.push((payload[4+2*i] & 0xFF) << 8 | (payload[5+2*i] & 0xFF))
+  }
+  return data
+}
+
+function decode_T2(payload){
+  var data = {};
+  data.index = (payload[4] & 0xFF) << 24 | (payload[5] & 0xFF) << 16 | (payload[6] & 0xFF) << 8 | (payload[7] & 0xFF);
+  data.firmware_version = String.fromCharCode(payload[1])+"."+String.fromCharCode(payload[2])+"."+String.fromCharCode(payload[3]);
+  return data;
 }

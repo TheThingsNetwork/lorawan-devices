@@ -1,4 +1,4 @@
-name: LSNPK01
+name: LSNPK01 - Soil NPK Sensor
 description: LoRaWAN Soil NPK Sensor
 
 # Firmware versions (at least one is mandatory)

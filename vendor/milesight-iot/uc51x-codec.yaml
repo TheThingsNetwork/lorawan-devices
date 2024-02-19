@@ -1,0 +1,11 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: uc51x.js
+  examples:
+    - description: Solenoid Valve Controller (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x03, 0x01, 0x01]
+      output:
+        data:
+          valve_1: on

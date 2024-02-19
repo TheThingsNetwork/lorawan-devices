@@ -10,3 +10,5 @@ endDevices:
   - mtc-au01 #LoRa Alarm Unit
   - mtc-aq01 #Air Quality Sensor
   - mtc-nfc02 #NFC RFID - LoRa Button
+  - mtc-aqb01 #Air Quality Button
+  - mtc-mf01 #Multi-Function Device

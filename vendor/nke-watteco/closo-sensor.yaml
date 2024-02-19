@@ -1,4 +1,4 @@
-name: Clos'O
+name: Clos'O - Contact Sensor
 description: The Clos’O sensor is used to ensure an access gate is properly closed. Attached to the frame (or the fixed part), it detects the position of a magnet mounted on the moving part of the gate. It also reports the open or closed state of the gate over a public or private LoRaWAN™ radio network. An alert is transmitted if the sensor is pulled off.
 
 # Hardware versions (optional, use when you have revisions)

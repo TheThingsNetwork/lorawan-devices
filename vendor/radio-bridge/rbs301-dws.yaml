@@ -1,5 +1,5 @@
-name: rbs301-dws
-description: radio-bridge door window sensor
+name: rbs301-dws - Door/Window Sensor
+description: The door/window sensor uses a magnet to detect open/close events for doors, windows, or other applications that use a magnet to detect close proximity.
 hardwareVersions:
   - version: '1.0'
     numeric: 1

@@ -1,4 +1,4 @@
-name: WSC1-L
+name: WSC1-L - Weather Station Process Unit
 description: WSC1-L is the main process unit in Dragino Weather Station solution.
 
 # Firmware versions (at least one is mandatory)

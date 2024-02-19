@@ -1,0 +1,170 @@
+uplinkDecoder:
+  fileName: dl-tp.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x3e,
+            0x3e,
+            0x00,
+            0x03,
+            0x8a,
+            0xbc,
+            0x8a,
+            0x92,
+            0x8a,
+            0xa0,
+            0x8a,
+            0x84,
+            0x8a,
+            0xb3,
+            0x8a,
+            0x89,
+            0x8a,
+            0xc3,
+            0x8a,
+            0xad,
+            0x8a,
+            0xb7,
+            0x8a,
+            0x92,
+            0x8a,
+            0xa1,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x0a,
+            0xfc,
+          ]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.812
+          device_id: 15934
+          protocol_version: 2
+          temperature_at_level_0:
+            displayName: Temperature at level 0
+            unit: "\xB0C"
+            value: 27.48
+          temperature_at_level_1:
+            displayName: Temperature at level 1
+            unit: "\xB0C"
+            value: 27.06
+          temperature_at_level_10:
+            displayName: Temperature at level 10
+            unit: "\xB0C"
+            value: 27.21
+          temperature_at_level_11:
+            displayName: Temperature at level 11
+            unit: "\xB0C"
+            value: -327.68
+          temperature_at_level_12:
+            displayName: Temperature at level 12
+            unit: "\xB0C"
+            value: -327.68
+          temperature_at_level_13:
+            displayName: Temperature at level 13
+            unit: "\xB0C"
+            value: -327.68
+          temperature_at_level_14:
+            displayName: Temperature at level 14
+            unit: "\xB0C"
+            value: -327.68
+          temperature_at_level_15:
+            displayName: Temperature at level 15
+            unit: "\xB0C"
+            value: -327.68
+          temperature_at_level_2:
+            displayName: Temperature at level 2
+            unit: "\xB0C"
+            value: 27.2
+          temperature_at_level_3:
+            displayName: Temperature at level 3
+            unit: "\xB0C"
+            value: 26.92
+          temperature_at_level_4:
+            displayName: Temperature at level 4
+            unit: "\xB0C"
+            value: 27.39
+          temperature_at_level_5:
+            displayName: Temperature at level 5
+            unit: "\xB0C"
+            value: 26.97
+          temperature_at_level_6:
+            displayName: Temperature at level 6
+            unit: "\xB0C"
+            value: 27.55
+          temperature_at_level_7:
+            displayName: Temperature at level 7
+            unit: "\xB0C"
+            value: 27.33
+          temperature_at_level_8:
+            displayName: Temperature at level 8
+            unit: "\xB0C"
+            value: 27.43
+          temperature_at_level_9:
+            displayName: Temperature at level 9
+            unit: "\xB0C"
+            value: 27.06
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x3e, 0x3e, 0x00, 0x02, 0x0a, 0xfc]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.812
+          device_id: 15934
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

@@ -2,7 +2,7 @@
 
 {{ $siteUrl := .Site.BaseURL }}
 
-<section class="device-single" >
+<section class="device-single">
   <div class="grid">
     <div class="item-6 item-start-4 item-xs-12 item-start-xs-1">
       {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
@@ -21,12 +21,13 @@
     <div class="item-12">
       <div class="device-single__cta">
         {{ with (index .Params.resellerURLs 0) }}
-            <a href="{{ .url }}" class="ttui-btn ttui-btn--primary">Buy Device</a>
+        <a href="{{ .url }}" class="ttui-btn ttui-btn--primary">Buy Device</a>
         {{ end }}
         {{with .Params.producturl}}
-          <a href="{{ . }}" class="ttui-btn ttui-btn--primary">Partner Webpage</a>
+        <a href="{{ . }}" class="ttui-btn ttui-btn--primary">Partner Webpage</a>
         {{ end }}
-        <button class="ttui-btn ttui-btn--primary" id="partner-toggle">Contact Partner</button>
+        <a href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{.Params.name}}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{.Params.Vendor.Name}}."
+          class="ttui-btn ttui-btn--primary" id="partner-toggle">Contact Partner</a>
       </div>
     </div>
     <div class="item-12">
@@ -37,20 +38,24 @@
           </div>
           <div class="item-6 item-xs-12">
             <ul>
-              {{with .Params.sensors}} <li><b>Sensors:</b> {{ range . }} <a href="{{ $siteUrl }}/tags/{{  lower . | replaceRE ` ` `-` }}">{{ . }}</a> {{ end }}</li>{{ end }}
-              {{with .Params.ipcode}}<li><b>Enclosure:</b> <a href="{{ $siteUrl }}/tags/{{ lower . }}">{{ . }}</a></li>{{ end }}
+              {{with .Params.sensors}} <li><b>Sensors:</b> {{ range . }} <a
+                  href="{{ $siteUrl }}/tags/{{  lower . | replaceRE ` ` `-` }}">{{ . }}</a> {{ end }}</li>{{ end }}
+              {{with .Params.ipcode}}<li><b>Enclosure:</b> <a href="{{ $siteUrl }}/tags/{{ lower . }}">{{ . }}</a></li>
+              {{ end }}
               {{with .Params.dimensions}}
-                <li>
-                  <b>Dimensions:</b> {{ .length }} x {{ .width }} x {{ .height }} mm
-                </li>{{ end }}
+              <li>
+                <b>Dimensions:</b> {{ .length }} x {{ .width }} x {{ .height }} mm
+              </li>{{ end }}
               {{with .Params.dimensions.diameter}}<li><b>Diameter:</b> {{ . }}</li>{{ end }}
-              {{with .Params.operatingconditions.temperature}}<li><b>Temperature:</b> {{ .min }}&#176;C to {{ .max }}&#176;C</li>{{ end }}
+              {{with .Params.operatingconditions.temperature}}<li><b>Temperature:</b> {{ .min }}&#176;C to {{ .max
+                }}&#176;C</li>{{ end }}
             </ul>
           </div>
           <div class="item-6 item-xs-12">
             <ul>
-              {{with .Params.weight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
-              {{with .Params.codecs}}<li><b>Frequency plans: </b>{{ range $key, $value := . }}<a href="{{ $siteUrl }}/tags/{{ lower $key }}">{{ $key }}</a> {{ end }}</li>{{ end }}
+              {{with .Params.deviceweight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
+              {{with .Params.codecs}}<li><b>Frequency plans: </b>{{ range $key, $value := . }}<a
+                  href="{{ $siteUrl }}/tags/{{ lower $key }}">{{ $key }}</a> {{ end }}</li>{{ end }}
             </ul>
           </div>
         </div>
@@ -60,94 +65,12 @@
       <div id="device-events"></div>
     </div>
   </div>
-
-  <div class="contact contact--hidden js-contact" >
-      <form id="contact" name="contact" >
-        <div class="grid">
-          <div class="item-10">
-            <h3>Contact Partner</h3>
-            <p class="contact__error"></p>
-          </div>
-          <div class="item-2 item-m" style="justify-self: end;">
-            <span id="partner-cross" type="button"><svg width="15" height="15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.233.43L7.929 5.732 2.626.43.86 2.197 6.16 7.5.86 12.803l1.767 1.767L7.93 9.267l5.304 5.303L15 12.802 9.698 7.5 15 2.197 13.233.43z" fill="#B7B6BC"/></svg></span>
-          </div>
-          <div class="item-6 item-xxs-12">
-            <label>Full Name*</label>
-            <input type="text" id="name" placeholder="Enter text" name="name" required/>
-          </div>
-          <div class="item-6 item-xxs-12">
-            <label>Company Name*</label>
-            <input type="text" id="company" placeholder="Enter text" name="company" required />
-          </div>
-          <div class="item-12">
-            <label>Email*</label>
-            <input type="email" id="email" placeholder="Enter text"  name="email" required  />
-          </div>
-          <div class="item-12">
-            <label>Message*</label>
-            <textarea id="message" placeholder="Enter text" name="message" required rows=10 maxlength=1000></textarea>
-          </div>
-          <div class="item-12">
-            <input type="hidden" id="url" name="url" value="{{ .Page.Permalink }}" />
-            <button class="ttui-btn ttui-btn--primary" type="submit">Send</button>
-          </div>
-        </div>
-      </form>
-  </div>
-
 </section>
 
 <script>
   var config = {
     device: JSON.parse("{{ .Params | jsonify }}")
   }
-
-  document.getElementById('partner-toggle').addEventListener("click", handleContact, false)
-  document.getElementById('partner-cross').addEventListener("click", handleContact, false)
-  document.getElementById('contact').addEventListener("submit", handleSubmit);
-
-  function handleContact() {
-    clearError()
-    clearForm()
-    const form = document.getElementsByClassName('js-contact')[0].classList.toggle("contact--hidden")
-  }
-
-  var contactError = document.getElementsByClassName("contact__error")[0]
-
-  function setError(message) {
-    contactError.innerHTML = message
-  }
-
-  function clearError() {
-    contactError.innerHTML = ""
-  }
-
-  function clearForm() {
-    document.getElementById('contact').reset()
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    clearError()
-
-    fetch('https://www.thethingsnetwork.org/api/partners/contact-partner/', {
-      method: 'POST',
-      body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    }).then(function (response) {
-      if (response.ok) {
-        clearForm()
-        handleContact()
-      } else {
-        setError("There was an error, please try again.")
-      }
-    }).catch(function() {
-      setError("There was an error, please try again.")
-    });
-  }
-
 </script>
 
 <script src="{{- (index .Site.Data.manifest `device_single.js`) | relURL -}}"></script>
