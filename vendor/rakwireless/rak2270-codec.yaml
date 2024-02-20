@@ -1,4 +1,2 @@
 uplinkDecoder:
   fileName: decoder-rakwireless-standardized-payload.js
-#  examples:
-#    - description: WisBlock Kits Uplink Decoder
