@@ -168,218 +168,236 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Generic0x30Parser = (function () {
-        function Generic0x30Parser() {
-            this.deviceType = 'any';
-            this.frameCode = 0x30;
-        }
-        Generic0x30Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x30 Keep alive' };
-            return appContent;
-        };
-        return Generic0x30Parser;
-    }());
-    codec.Generic0x30Parser = Generic0x30Parser;
-})(codec || (codec = {}));
-var codec;
-(function (codec) {
-    var Tic0x10Parser = (function () {
-        function Tic0x10Parser() {
-            this.deviceType = 'ticPmePmi|ticCbeLinkyMono|ticCbeLinkyTri';
+    var Analog20x10Parser = (function () {
+        function Analog20x10Parser() {
+            this.deviceType = 'analog2';
             this.frameCode = 0x10;
         }
-        Tic0x10Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x10 TIC configuration' };
-            if (payload[5] === 2) {
-                appContent['transmissionPeriodKeepAlive'] = { unit: 's', value: payload[2] * 20 };
-                appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(6) * 20 };
-            }
-            else {
-                appContent['transmissionPeriodKeepAlive'] = { unit: 'm', value: payload[2] * 10 };
-                appContent['samplingPeriod'] = { unit: 'm', value: payload.readUInt16BE(6) };
-            }
-            appContent['transmissionPeriodData'] = payload.readUInt16BE(3);
-            appContent['productMode'] = codec.PlateformCommonUtils.getProductModeText(payload[5]);
+        Analog20x10Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x10 Analog V2 configuration' };
+            (appContent['transmissionPeriodKeepAlive'] = { unit: 's', value: payload.readUInt16BE(2) * 10 }),
+                (appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(4)),
+                (appContent['numberOfSamplingBeforeHistorization'] = payload.readUInt16BE(6)),
+                (appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(8) * 2 }),
+                (appContent['redundantSamples'] = payload.readUInt8(10)),
+                (appContent['calculatedPeriodRecording'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * 2,
+                }),
+                (appContent['calculatedSendingPeriod'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * payload.readUInt16BE(4) * 2,
+                });
             return appContent;
         };
-        return Tic0x10Parser;
+        return Analog20x10Parser;
     }());
-    codec.Tic0x10Parser = Tic0x10Parser;
+    codec.Analog20x10Parser = Analog20x10Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Tic0x49Parser = (function () {
-        function Tic0x49Parser() {
-            this.deviceType = 'ticPmePmi|ticCbeLinkyMono|ticCbeLinkyTri';
-            this.frameCode = 0x49;
+    var Analog20x30Parser = (function () {
+        function Analog20x30Parser() {
+            this.deviceType = 'analog2';
+            this.frameCode = 0x30;
+            this.parser = new codec.Analog20x42Parser();
         }
-        Tic0x49Parser.prototype.parseFrame = function (payload, configuration, network, deviceType) {
-            var appContent = { type: '0x49 TIC data' };
-            if (deviceType === 'ticCbeLinkyMono') {
-                appContent = this.payloadToString(payload, 2, 2 + 12, appContent, 'ADCO');
-                appContent = this.payloadToString(payload, 14, 14 + 4, appContent, 'OPTARIF');
-                appContent = this.payloadToValue(payload, 18, 'Wh', appContent, 'BASE');
-                appContent = this.payloadToValue(payload, 22, 'A', appContent, 'ISOUSC');
-                appContent = this.payloadToValue(payload, 26, 'A', appContent, 'IINST');
-                appContent = this.payloadToValue(payload, 30, 'A', appContent, 'IMAX');
-                appContent = this.payloadToValue(payload, 34, 'VA', appContent, 'PAPP');
-                appContent = this.payloadToValue(payload, 38, 'Wh', appContent, 'HCHC');
-                appContent = this.payloadToValue(payload, 42, 'Wh', appContent, 'HCHP');
-                appContent = this.payloadToString(payload, 46, 46 + 4, appContent, 'PTEC');
-            }
-            else if (deviceType === 'ticCbeLinkyTri') {
-                appContent = this.payloadToString(payload, 2, 2 + 12, appContent, 'ADCO');
-                appContent = this.payloadToValue(payload, 14, 'Wh', appContent, 'BASE');
-                appContent = this.payloadToValue(payload, 18, 'A', appContent, 'IINST1');
-                appContent = this.payloadToValue(payload, 22, 'A', appContent, 'IINST2');
-                appContent = this.payloadToValue(payload, 26, 'A', appContent, 'IINST3');
-                appContent = this.payloadToValue(payload, 30, 'A', appContent, 'IMAX1');
-                appContent = this.payloadToValue(payload, 34, 'A', appContent, 'IMAX2');
-                appContent = this.payloadToValue(payload, 38, 'A', appContent, 'IMAX3');
-                appContent = this.payloadToValue(payload, 42, 'W', appContent, 'PMAX');
-                appContent = this.payloadToValue(payload, 46, 'VA', appContent, 'PAPP');
-            }
-            else if (deviceType === 'ticPmePmi') {
-                appContent = this.payloadToDate(payload, 2, deviceType, appContent, 'DATE');
-                appContent = this.payloadToValue(payload, 8, 'Wh', appContent, 'EA_s');
-                appContent = this.payloadToValue(payload, 12, 'varh', appContent, 'ER+_s');
-                appContent = this.payloadToValue(payload, 16, 'varh', appContent, 'ER-_s');
-                appContent = this.payloadToValue(payload, 20, 'VAh', appContent, 'EAPP_s');
-                appContent = this.payloadToString(payload, 24, 24 + 3, appContent, 'PTCOUR1');
-                appContent = this.payloadToValue(payload, 27, 'kWh', appContent, 'EAP_s');
-                appContent = this.payloadToValue(payload, 31, 'kvarh', appContent, 'ER+P_s');
-                appContent = this.payloadToValue(payload, 35, 'kvarh', appContent, 'ER-P_s');
-                appContent = this.payloadToValue(payload, 39, 'kWh', appContent, 'EaP-1_s');
-                appContent = this.payloadToValue(payload, 43, 'kvarh', appContent, 'ER+P-1_s');
-                appContent = this.payloadToValue(payload, 47, 'kvarh', appContent, 'ER-P-1_s');
-            }
+        Analog20x30Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = this.parser.parseFrame(payload, configuration, network);
+            appContent['type'] = '0x30 Analog V2 keep alive';
             return appContent;
         };
-        Tic0x49Parser.prototype.payloadToString = function (payload, start, end, appContent, label) {
-            var charCode = [];
-            for (var i = start; i < end; i++) {
-                if (payload[i] !== 0x00) {
-                    charCode.push(payload[i]);
+        return Analog20x30Parser;
+    }());
+    codec.Analog20x30Parser = Analog20x30Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Analog20x38Parser = (function () {
+        function Analog20x38Parser() {
+            this.deviceType = 'analog2';
+            this.frameCode = 0x38;
+            this.parser = new codec.Analog20x71Parser();
+        }
+        Analog20x38Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = this.parser.parseFrame(payload, configuration, network);
+            appContent['type'] = '0x38 Analog V2 keep alive';
+            return appContent;
+        };
+        return Analog20x38Parser;
+    }());
+    codec.Analog20x38Parser = Analog20x38Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Analog20x42Parser = (function () {
+        function Analog20x42Parser() {
+            this.deviceType = 'analog2';
+            this.frameCode = 0x42;
+        }
+        Analog20x42Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x42 Analog V2 data' };
+            var ch1 = { name: 'channel A' };
+            var ch2 = { name: 'channel B' };
+            var type = payload[2] & 0x0f;
+            var rawValue = payload.readUInt32BE(2) & 0x00ffffff;
+            if (type === 1) {
+                ch1['unit'] = 'V';
+                ch1['value'] = parseFloat((rawValue / (1000 * 1000)).toFixed(3));
+            }
+            else if (type === 2) {
+                ch1['unit'] = 'mA';
+                ch1['value'] = parseFloat((rawValue / (100 * 1000)).toFixed(3));
+            }
+            else {
+                ch1['state'] = 'deactivated';
+            }
+            type = payload[6] & 0x0f;
+            rawValue = payload.readUInt32BE(6) & 0x00ffffff;
+            if (type === 1) {
+                ch2['unit'] = 'V';
+                ch2['value'] = parseFloat((rawValue / (1000 * 1000)).toFixed(3));
+            }
+            else if (type === 2) {
+                ch2['unit'] = 'mA';
+                ch2['value'] = parseFloat((rawValue / (100 * 1000)).toFixed(3));
+            }
+            else {
+                ch2['state'] = 'deactivated';
+            }
+            appContent['channels'] = [ch1, ch2];
+            return appContent;
+        };
+        return Analog20x42Parser;
+    }());
+    codec.Analog20x42Parser = Analog20x42Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Analog20x71Parser = (function () {
+        function Analog20x71Parser() {
+            this.deviceType = 'analog2';
+            this.frameCode = 0x71;
+        }
+        Analog20x71Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x71 Analog V2 periodic data' };
+            var rawValue;
+            var channels = [];
+            var ch1 = [], ch2 = [];
+            var nbSensors = (payload[2] & 0x01 ? 1 : 0) + (payload[2] & 0x04 ? 1 : 0);
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
+            for (var offset = 3; offset < payloadLength; offset += 2 * nbSensors) {
+                rawValue = payload.readUInt16BE(offset);
+                ch1.push(rawValue / 1000);
+                if (nbSensors === 2) {
+                    rawValue = payload.readUInt16BE(offset + 2);
+                    ch2.push(rawValue / 1000);
                 }
             }
-            var str = String.fromCharCode.apply(String, charCode);
-            if (str.length > 0) {
-                appContent["".concat(label)] = str;
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(payload.length - 4) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            appContent['decodingInfo'] = 'values: [t=0, t-1, t-2, ...]';
+            if (nbSensors == 1 && payload[2] & 0x04) {
+                channels['push']({ name: 'channel B', unit: payload[2] & 0x08 ? 'mA' : 'V', values: ch1 });
             }
             else {
-                appContent["".concat(label, "status")] = 'notFound';
+                channels['push']({ name: 'channel A', unit: payload[2] & 0x02 ? 'mA' : 'V', values: ch1 });
             }
+            if (nbSensors === 2) {
+                channels['push']({ name: 'channel B', unit: payload[2] & 0x08 ? 'mA' : 'V', values: ch2 });
+            }
+            appContent['channels'] = channels;
             return appContent;
         };
-        Tic0x49Parser.prototype.payloadToValue = function (payload, start, unit, appContent, label) {
-            var val = payload.readUInt32BE(start);
-            if (val !== 0x80000000) {
-                appContent["".concat(label)] = { unit: unit, value: val };
-            }
-            else {
-                appContent["".concat(label, "status")] = 'notFound';
-            }
-            return appContent;
-        };
-        Tic0x49Parser.prototype.p2d = function (val) {
-            return ('0' + val).slice(-2);
-        };
-        Tic0x49Parser.prototype.payloadToDate = function (payload, start, deviceType, appContent, label) {
-            var str = '2000-01-01T00:00:00';
-            if (deviceType === 'ticPmePmi') {
-                str =
-                    2000 +
-                        payload[start + 2] +
-                        '-' +
-                        this.p2d(payload[start + 1]) +
-                        '-' +
-                        this.p2d(payload[start + 0]) +
-                        'T' +
-                        this.p2d(payload[start + 3]) +
-                        ':' +
-                        this.p2d(payload[start + 4]) +
-                        ':' +
-                        this.p2d(payload[start + 5]);
-            }
-            if (str !== '2000-01-01T00:00:00') {
-                appContent["".concat(label)] = str;
-            }
-            else {
-                appContent["".concat(label, "status")] = 'notFound';
-            }
-            return appContent;
-        };
-        return Tic0x49Parser;
+        return Analog20x71Parser;
     }());
-    codec.Tic0x49Parser = Tic0x49Parser;
+    codec.Analog20x71Parser = Analog20x71Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Tic0x4aParser = (function () {
-        function Tic0x4aParser() {
-            this.deviceType = 'ticPmePmi|ticCbeLinkyMono|ticCbeLinkyTri';
-            this.frameCode = 0x4a;
+    var Analog20x72Parser = (function () {
+        function Analog20x72Parser() {
+            this.deviceType = 'analog2';
+            this.frameCode = 0x72;
         }
-        Tic0x4aParser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x4a TIC alarm' };
-            appContent['label'] = this.payloadToString(payload, 2, 12);
-            appContent['alarmType'] = this.getAlarmTypeText(payload[12]);
-            appContent['value'] = this.payloadToString(payload, 13, payload.length);
+        Analog20x72Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x72 Analog V2 alarm' };
+            var alarms = [];
+            var nbSensors = (payload[2] & 0x01 ? 1 : 0) + (payload[2] & 0x04 ? 1 : 0);
+            if (nbSensors == 1 && payload[2] & 0x04) {
+                alarms['push']({
+                    name: 'channel B',
+                    alarmStatus: this.getAlarmStatusText(payload.readUInt8(3)),
+                    unit: payload[2] & 0x08 ? 'mA' : 'V',
+                    value: payload.readUInt16BE(4) / 1000,
+                });
+            }
+            else {
+                alarms['push']({
+                    name: 'channel A',
+                    alarmStatus: this.getAlarmStatusText(payload.readUInt8(3)),
+                    unit: payload[2] & 0x02 ? 'mA' : 'V',
+                    value: payload.readUInt16BE(4) / 1000,
+                });
+            }
+            if (nbSensors === 2) {
+                alarms['push']({
+                    name: 'channel B',
+                    alarmStatus: this.getAlarmStatusText(payload.readUInt8(6)),
+                    unit: payload[2] & 0x08 ? 'mA' : 'V',
+                    value: payload.readUInt16BE(7) / 1000,
+                });
+            }
+            appContent['alarms'] = alarms;
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(payload.length - 4) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            appContent['alarms'] = alarms;
             return appContent;
         };
-        Tic0x4aParser.prototype.getAlarmTypeText = function (value) {
+        Analog20x72Parser.prototype.getAlarmStatusText = function (value) {
             switch (value) {
-                case 0:
-                    return 'manualTrigger';
                 case 1:
-                    return 'labelAppearance';
+                    return 'highThreshold';
                 case 2:
-                    return 'labelDisappearance';
+                    return 'lowThreshold';
                 case 3:
-                    return 'highTreshold';
-                case 4:
-                    return 'lowTreshold';
-                case 5:
-                    return 'endThresholdAlarm';
-                case 6:
-                    return 'deltaPositive';
-                case 7:
-                    return 'deltaNegative';
+                    return 'inputEvent';
                 default:
-                    return '';
+                    return 'none';
             }
         };
-        Tic0x4aParser.prototype.payloadToString = function (payload, start, end) {
-            var charCode = [];
-            for (var i = start; i < end; i++) {
-                if (payload[i] !== 0x00) {
-                    charCode.push(payload[i]);
-                }
-            }
-            var str = String.fromCharCode.apply(String, charCode);
-            return str.length > 0 ? str : 'notFound';
-        };
-        return Tic0x4aParser;
+        return Analog20x72Parser;
     }());
-    codec.Tic0x4aParser = Tic0x4aParser;
+    codec.Analog20x72Parser = Analog20x72Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var TicStatusByteParser = (function () {
-        function TicStatusByteParser() {
-            this.deviceType = 'ticPmePmi|ticCbeLinkyMono|ticCbeLinkyTri';
+    var Analog2StatusByteParser = (function () {
+        function Analog2StatusByteParser() {
+            this.deviceType = 'analog2';
             this.frameCode = 0;
         }
-        TicStatusByteParser.prototype.parseFrame = function (payload, configuration, network) {
+        Analog2StatusByteParser.prototype.parseFrame = function (payload, configuration, network) {
+            var statusContent = {};
             var parser = new codec.GenericStatusByteParser();
-            var statusContent = parser.parseFrame(payload, configuration);
-            statusContent['configurationInconsistency'] = Boolean(payload[1] & 0x08);
-            statusContent['readError'] = Boolean(payload[1] & 0x10);
+            statusContent = parser.parseFrame(payload, configuration);
+            if (payload[0] == 0x30 || payload[0] == 0x42) {
+                statusContent['alarmChannelA'] = Boolean(payload[1] & 0x08);
+                statusContent['alarmChannelB'] = Boolean(payload[1] & 0x10);
+            }
+            else {
+                statusContent['configurationInconsistency'] = Boolean(payload[1] & 0x08);
+                statusContent['timestamp'] = Boolean(payload[1] & 0x04);
+            }
             return { status: statusContent };
         };
-        return TicStatusByteParser;
+        return Analog2StatusByteParser;
     }());
-    codec.TicStatusByteParser = TicStatusByteParser;
+    codec.Analog2StatusByteParser = Analog2StatusByteParser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
@@ -442,28 +460,34 @@ var codec;
         __extends(Decoder, _super);
         function Decoder() {
             var _this = _super.call(this) || this;
-            _this.deviceType = 'ticPmePmi';
+            _this.deviceType = 'analog2';
             return _this;
         }
         Decoder.prototype.getActiveParsers = function (frameCode) {
             var activeParsers = [];
-            var statusByteParsers = new codec.TicStatusByteParser();
+            var statusByteParsers = new codec.Analog2StatusByteParser();
             var dataParser;
             switch (frameCode) {
                 case 0x10:
-                    dataParser = new codec.Tic0x10Parser();
-                    break;
-                case 0x49:
-                    dataParser = new codec.Tic0x49Parser();
-                    break;
-                case 0x4a:
-                    dataParser = new codec.Tic0x4aParser();
+                    dataParser = new codec.Analog20x10Parser();
                     break;
                 case 0x20:
                     dataParser = new codec.Generic0x20Parser();
                     break;
                 case 0x30:
-                    dataParser = new codec.Generic0x20Parser();
+                    dataParser = new codec.Analog20x30Parser();
+                    break;
+                case 0x38:
+                    dataParser = new codec.Analog20x38Parser();
+                    break;
+                case 0x42:
+                    dataParser = new codec.Analog20x42Parser();
+                    break;
+                case 0x71:
+                    dataParser = new codec.Analog20x71Parser();
+                    break;
+                case 0x72:
+                    dataParser = new codec.Analog20x72Parser();
                     break;
                 default:
                     return activeParsers;
