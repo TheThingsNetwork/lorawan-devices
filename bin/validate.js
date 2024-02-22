@@ -54,7 +54,7 @@ function requireFile(path) {
 async function validateUniqueDeviceNames(folder) {
   const files = fs.readdirSync(folder);
   const deviceNames = new Set();
-  
+
   for (const file of files) {
     if (file.endsWith('.yaml') && file !== 'index.yaml') {
       const deviceData = yaml.load(fs.readFileSync(`${folder}/${file}`, 'utf8'));
