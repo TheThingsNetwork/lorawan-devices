@@ -1,5 +1,5 @@
-name: Milesight EM500-SWL Submersible Water Level
-description: Milesight EM500-SWL is designed for measuring liquid levels in harsh environments. M500-SWL features a long-lasting battery life of up to 10 years, an IP67 UV-resistant and waterproof enclosure, and can be easily configured via NFC. It offers a stainless probe with corrosion resistance and a customizable measuring range up to 200m. EM500-SWL is widely used for applications like tank level monitoring, river level monitoring, etc.
+name: Milesight EM500-SMT Soil Moisture Sensor
+description: EM500-SMT is designed for measuring soil moisture in harsh environments and transmitting data using LoRaWAN® technology. With this low power consumption technology, EM500-SMT can work up to 10 years with 19000 mAh battery. Combining with Milesight LoRaWAN® gateway and Milesight IoT Cloud solution, users can manage all sensor data remotely and visually.
 
 hardwareVersions:
   - version: 'V1.x'

@@ -51,6 +51,25 @@ function requireFile(path) {
   });
 }
 
+async function validateUniqueDeviceNames(folder) {
+  const files = fs.readdirSync(folder);
+  const deviceNames = new Set();
+  
+  for (const file of files) {
+    if (file.endsWith('.yaml') && file !== 'index.yaml') {
+      const deviceData = yaml.load(fs.readFileSync(`${folder}/${file}`, 'utf8'));
+      if (deviceData && deviceData.name) {
+        if (deviceNames.has(deviceData.name)) {
+          throw new Error(`Duplicate device name found: ${deviceData.name} in folder ${folder}`);
+        }
+        deviceNames.add(deviceData.name);
+      } else {
+        console.error(`Error: Unable to load device data from file ${file}, or 'name' property is missing.`);
+      }
+    }
+  }
+}
+
 async function requireDimensions(path) {
   await requireFile(path);
   return await new Promise((resolve, reject) => {
@@ -215,6 +234,20 @@ const vendorProfiles = {};
 vendors.vendors.forEach((v) => {
   const key = v.id;
   const folder = `./vendor/${v.id}`;
+
+  // Check if the vendor's folder exists before proceeding
+  if (!fs.existsSync(folder)) {
+    return; // Skip this vendor and continue with the next one
+  }
+
+  // Validate unique device names
+  validateUniqueDeviceNames(folder)
+    .then(() => console.log(`${key}: Device names are unique within the vendor`))
+    .catch((err) => {
+      console.error(err.message);
+      process.exit(1);
+    });
+
   if (v.logo) {
     requireFile(`${folder}/${v.logo}`).catch((err) => {
       console.error(`${key}: ${err}`);
