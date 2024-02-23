@@ -9,7 +9,6 @@ const { spawn } = require('child_process');
 const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
-const path = require('path');
 
 const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
@@ -216,34 +215,6 @@ const vendorProfiles = {};
 vendors.vendors.forEach((v) => {
   const key = v.id;
   const folder = `./vendor/${v.id}`;
-  const vendorIndexPath = `${folder}/index.yaml`;
-
-  // Check for the existence of the vendor's index.yaml file
-  if (!fs.existsSync(vendorIndexPath)) {
-    return; // Skip this vendor if the index file doesn't exist
-  }
-
-  const vendorIndex = yaml.load(fs.readFileSync(vendorIndexPath, 'utf8'));
-  // Initialize a new Set for each vendor to track device names, ensuring isolation
-  const deviceNames = new Map();
-
-  vendorIndex.endDevices?.forEach((deviceFileName) => {
-    const deviceFilePath = `${folder}/${deviceFileName}.yaml`;
-
-    if (!fs.existsSync(deviceFilePath)) {
-      return;
-    }
-
-    const deviceData = yaml.load(fs.readFileSync(deviceFilePath, 'utf8'));
-    const existingFilePath = deviceNames.get(deviceData.name);
-
-    if (existingFilePath && existingFilePath !== deviceFilePath) {
-      console.error(`Duplicate name "${deviceData.name}" in files: "${existingFilePath}" and "${deviceFilePath}".`);
-      process.exit(1);
-    }
-
-    deviceNames.set(deviceData.name, deviceFilePath);
-  });
 
   if (v.logo) {
     requireFile(`${folder}/${v.logo}`).catch((err) => {
@@ -252,6 +223,7 @@ vendors.vendors.forEach((v) => {
     });
   }
 
+  const vendorIndexPath = `${folder}/index.yaml`;
   fs.stat(vendorIndexPath, (err) => {
     if (err) {
       if (err.code !== 'ENOENT') {
@@ -270,15 +242,34 @@ vendors.vendors.forEach((v) => {
 
     const codecs = {};
 
+    const deviceNames = {};
+
     vendor.endDevices.forEach(async (d) => {
       const key = `${v.id}: ${d}`;
-
-      const endDevice = yaml.load(fs.readFileSync(`${folder}/${d}.yaml`));
+      const endDevicePath = `${folder}/${d}.yaml`;
+      const endDevice = yaml.load(fs.readFileSync(endDevicePath));
       if (!validateEndDevice(endDevice)) {
         console.error(`${key}: invalid: ${formatValidationErrors(validateEndDevice.errors)}`);
         process.exit(1);
       }
       console.log(`${key}: valid`);
+
+      // Create a regex to check if the vendor's name is a standalone word in the device name
+      const regex = new RegExp(`\\b${v.id}\\b`, 'i'); // The 'i' flag makes it case-insensitive
+
+      if (regex.test(endDevice.name)) {
+        console.error(`Device name "${endDevice.name}" incorrectly contains the vendor's name.`);
+        process.exit(1);
+      }
+
+      if (deviceNames[endDevice.name] && deviceNames[endDevice.name] !== endDevicePath) {
+        console.error(
+          `Duplicate name "${endDevice.name}" in files: "${deviceNames[endDevice.name]}" and "${endDevicePath}".`
+        );
+        process.exit(1);
+      }
+
+      deviceNames[endDevice.name] = endDevicePath;
 
       endDevice.firmwareVersions.forEach((version) => {
         const key = `${v.id}: ${d}: ${version.version}`;
