@@ -9,6 +9,7 @@ const { spawn } = require('child_process');
 const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
+const path = require('path');
 
 const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
@@ -49,25 +50,6 @@ function requireFile(path) {
       }
     });
   });
-}
-
-async function validateUniqueDeviceNames(folder) {
-  const files = fs.readdirSync(folder);
-  const deviceNames = new Set();
-
-  for (const file of files) {
-    if (file.endsWith('.yaml') && file !== 'index.yaml') {
-      const deviceData = yaml.load(fs.readFileSync(`${folder}/${file}`, 'utf8'));
-      if (deviceData && deviceData.name) {
-        if (deviceNames.has(deviceData.name)) {
-          throw new Error(`Duplicate device name found: ${deviceData.name} in folder ${folder}`);
-        }
-        deviceNames.add(deviceData.name);
-      } else {
-        console.error(`Error: Unable to load device data from file ${file}, or 'name' property is missing.`);
-      }
-    }
-  }
 }
 
 async function requireDimensions(path) {
@@ -234,19 +216,34 @@ const vendorProfiles = {};
 vendors.vendors.forEach((v) => {
   const key = v.id;
   const folder = `./vendor/${v.id}`;
+  const vendorIndexPath = `${folder}/index.yaml`;
 
-  // Check if the vendor's folder exists before proceeding
-  if (!fs.existsSync(folder)) {
-    return; // Skip this vendor and continue with the next one
+  // Check for the existence of the vendor's index.yaml file
+  if (!fs.existsSync(vendorIndexPath)) {
+    return; // Skip this vendor if the index file doesn't exist
   }
 
-  // Validate unique device names
-  validateUniqueDeviceNames(folder)
-    .then(() => console.log(`${key}: Device names are unique within the vendor`))
-    .catch((err) => {
-      console.error(err.message);
+  const vendorIndex = yaml.load(fs.readFileSync(vendorIndexPath, 'utf8'));
+  // Initialize a new Set for each vendor to track device names, ensuring isolation
+  const deviceNames = new Map();
+
+  vendorIndex.endDevices?.forEach(deviceFileName => {
+    const deviceFilePath = `${folder}/${deviceFileName}.yaml`;
+
+    if (!fs.existsSync(deviceFilePath)) {
+      return;
+    }
+
+    const deviceData = yaml.load(fs.readFileSync(deviceFilePath, 'utf8'));
+    const existingFilePath = deviceNames.get(deviceData.name);
+
+    if (existingFilePath && existingFilePath !== deviceFilePath) {
+      console.error(`Duplicate name "${deviceData.name}" in files: "${existingFilePath}" and "${deviceFilePath}".`);
       process.exit(1);
-    });
+    }
+
+    deviceNames.set(deviceData.name, deviceFilePath);
+  });
 
   if (v.logo) {
     requireFile(`${folder}/${v.logo}`).catch((err) => {
@@ -255,7 +252,6 @@ vendors.vendors.forEach((v) => {
     });
   }
 
-  const vendorIndexPath = `${folder}/index.yaml`;
   fs.stat(vendorIndexPath, (err) => {
     if (err) {
       if (err.code !== 'ENOENT') {
