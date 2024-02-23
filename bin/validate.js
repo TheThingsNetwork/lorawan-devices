@@ -227,7 +227,7 @@ vendors.vendors.forEach((v) => {
   // Initialize a new Set for each vendor to track device names, ensuring isolation
   const deviceNames = new Map();
 
-  vendorIndex.endDevices?.forEach(deviceFileName => {
+  vendorIndex.endDevices?.forEach((deviceFileName) => {
     const deviceFilePath = `${folder}/${deviceFileName}.yaml`;
 
     if (!fs.existsSync(deviceFilePath)) {
