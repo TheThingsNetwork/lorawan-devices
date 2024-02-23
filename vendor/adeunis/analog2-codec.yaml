@@ -1,0 +1,19 @@
+uplinkDecoder:
+  fileName: analog_v2_lib.js
+
+  examples:
+    - description: 0x71 Analog V2 periodic data
+      input:
+        fPort: 1
+        bytes: [0x71, 0x80, 0x0D, 0x1F, 0xBB, 0x14, 0xEA, 0x0F, 0xA0, 0x12, 0xC0]
+      output:
+        data:
+          bytes:
+            {
+              'type': '0x71 Analog V2 periodic data',
+              'status': { 'frameCounter': 4, 'hardwareError': false, 'lowBattery': false, 'configurationDone': false, 'configurationInconsistency': false, 'timestamp': false },
+              'decodingInfo': 'values: [t=0, t-1, t-2, ...]',
+              'channels': [{ 'name': 'channel A', 'unit': 'V', 'values': [8.123, 4] }, { 'name': 'channel B', 'unit': 'mA', 'values': [5.354, 4.8] }],
+            }
+        warnings: []
+        errors: []

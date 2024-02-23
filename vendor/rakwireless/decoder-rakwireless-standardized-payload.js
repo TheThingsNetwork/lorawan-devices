@@ -1,3 +1,6 @@
+// Source:
+// https://github.com/RAKWireless/RAKwireless_Standardized_Payload/blob/main/RAKwireless_Standardized_Payload.js
+
 /**
  * @reference https://github.com/myDevicesIoT/cayenne-docs/blob/master/docs/LORA.md
  * @reference http://openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html#extlabel
@@ -35,10 +38,22 @@
  *  Colour              3335    135     87      3           R: 255 G: 255 B: 255
  *  Direction           3332    132     84      2           1º Unsigned MSB
  *  Switch              3342    142     8E      1           0/1
- *  GPS Location        3337    137     89      11          Latitude  : 0.000001 ° Signed MSB
+ * 
+ *  RAKwireless specific types
+ *  GPS Location        3337    137     89      11          Higher precision location information
+ *                                                          Latitude  : 0.000001 ° Signed MSB
  *                                                          Longitude : 0.000001 ° Signed MSB
  *                                                          Altitude  : 0.01 meter Signed MSB
  *  VOC index           3338    138     8A      1           VOC index
+ *  Wind Speed          3390    190     BE      2           Wind speed 0.01 m/s
+ *  Wind Direction      3391    191     BF      2           Wind direction 1º Unsigned MSB
+ *  Light Level         3403    203     CB      1           0 0-5 lux, 1 6-50 lux, 2 51-100 lux, 3 101-500 lux, 4 501-2000 lux, 6 >2000 lux
+ *  Soil Moisture       3388    188     BC      2           0.1 % in 0~100% (m3/m3)
+ *  Soil EC             3392    192     C0      2           0.001, mS/cm
+ *  Soil pH high prec.  3393    193     C1      2           0.01 pH
+ *  Soil pH low prec.   3394    194     C2      2           0.1 pH
+ *  Pyranometer         3395    195     C3      2           1 unsigned MSB (W/m2)
+ *  Precise Humidity    3312    112     70      2           0.1 %RH
  * 
  */
 
@@ -56,6 +71,7 @@ function lppDecode(bytes) {
 		102: { 'size': 1, 'name': 'presence', 'signed': false, 'divisor': 1 },
 		103: { 'size': 2, 'name': 'temperature', 'signed': true, 'divisor': 10 },
 		104: { 'size': 1, 'name': 'humidity', 'signed': false, 'divisor': 2 },
+		112: { 'size': 2, 'name': 'humidity_prec', 'signed': true, 'divisor': 10 },
 		113: { 'size': 6, 'name': 'accelerometer', 'signed': true, 'divisor': 1000 },
 		115: { 'size': 2, 'name': 'barometer', 'signed': false, 'divisor': 10 },
 		116: { 'size': 2, 'name': 'voltage', 'signed': false, 'divisor': 100 },
@@ -75,6 +91,14 @@ function lppDecode(bytes) {
 		137: { 'size': 11, 'name': 'gps', 'signed': true, 'divisor': [1000000, 1000000, 100] },
 		138: { 'size': 2, 'name': 'voc', 'signed': false, 'divisor': 1 },
 		142: { 'size': 1, 'name': 'switch', 'signed': false, 'divisor': 1 },
+		188: { 'size': 2, 'name': 'soil_moist', 'signed': false, 'divisor': 10 },
+		190: { 'size': 2, 'name': 'wind_speed', 'signed': false, 'divisor': 100 },
+		191: { 'size': 2, 'name': 'wind_direction', 'signed': false, 'divisor': 1 },
+		192: { 'size': 2, 'name': 'soil_ec', 'signed': false, 'divisor': 1000 },
+		193: { 'size': 2, 'name': 'soil_ph_h', 'signed': false, 'divisor': 100 },
+		194: { 'size': 2, 'name': 'soil_ph_l', 'signed': false, 'divisor': 10 },
+		195: { 'size': 2, 'name': 'pyranometer', 'signed': false, 'divisor': 1 },
+		203: { 'size': 1, 'name': 'light', 'signed': false, 'divisor': 1 },
 	};
 
 	function arrayToDecimal(stream, is_signed, divisor) {
@@ -133,6 +157,18 @@ function lppDecode(bytes) {
 					'longitude': arrayToDecimal(bytes.slice(i + 4, i + 8), type.signed, type.divisor[1]),
 					'altitude': arrayToDecimal(bytes.slice(i + 8, i + 11), type.signed, type.divisor[2])
 				};
+				sensors.push({
+					'channel': s_no,
+					'type': s_type,
+					'name': 'location',
+					'value': "(" + s_value.latitude + "," + s_value.longitude + ")"
+				});
+				sensors.push({
+					'channel': s_no,
+					'type': s_type,
+					'name': 'altitude',
+					'value': s_value.altitude
+				});
 				break;
 			case 135:   // Colour
 				s_value = {
@@ -162,12 +198,20 @@ function lppDecode(bytes) {
 
 }
 
-// To use with TTN
-function Decoder(bytes, port) {
-	// flat output (like original decoder):
+function decodeUplink(input) {
+
+	bytes = input.bytes;
+	fPort = input.fPort;
+
 	var response = {};
 	lppDecode(bytes, 1).forEach(function (field) {
 		response[field['name'] + '_' + field['channel']] = field['value'];
 	});
-	return { data: response };
+
+	return {
+		data: response,
+		warnings: [],
+		errors: []
+	};
+
 }

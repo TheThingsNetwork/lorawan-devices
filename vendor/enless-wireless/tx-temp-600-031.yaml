@@ -1,5 +1,5 @@
-name: TX TEMP INS 600-031 - Rugged Temperature Sensor LoRa
-description: This Enless Wireless LoRa / LoRaWAN “hardened” (IP65) transmitter with integrated temperature sensor is used for temperature monitoring (°C) for different applications in outdoor environments and/or in areas subject to extreme conditions.
+name: 600-031 - Rugged Temperature Sensor
+description: Many sectors (building - smart building - industry - agriculture...) integrate temperature monitoring activities into their processes. This Enless Wireless LoRaWAN “hardened” (IP65) transmitter with integrated temperature sensor is used for temperature monitoring (°C) for different applications in outdoor environments and/or in areas subject to extreme conditions.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -80,5 +80,6 @@ productURL: https://enless-wireless.com/en/products/temperature-sensor-embedded-
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-031.pdf
 
 # Photos
-main: 600-031.png
+photos:
+  main: 600-031.png
 # Regulatory compliances (optional)
