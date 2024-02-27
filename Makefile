@@ -42,7 +42,7 @@ fmt:
 	$(NPM) run format
 
 devices.csv:
-	$(NODE) csv.js
+	$(NODE) bin/csv.js
 
 
 # vim: ft=make
