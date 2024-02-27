@@ -78,7 +78,7 @@ const walkSync = (dir, vendor = '', csvContent = '') => {
 };
 
 // Start directory
-const startPath = '../vendor';
+const startPath = path.join(__dirname, '..', 'vendor');
 
 // Initialize CSV data
 let csvHeader =
@@ -86,4 +86,4 @@ let csvHeader =
 let csvData = walkSync(startPath);
 
 // Save to CSV file
-fs.writeFileSync('devices.csv', csvHeader + csvData);
+fs.writeFileSync(__dirname + '/devices.csv', csvHeader + csvData);
