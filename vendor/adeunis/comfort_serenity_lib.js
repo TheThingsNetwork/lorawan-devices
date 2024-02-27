@@ -133,41 +133,6 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Generic0x20Parser = (function () {
-        function Generic0x20Parser() {
-            this.deviceType = 'any';
-            this.frameCode = 0x20;
-        }
-        Generic0x20Parser.prototype.parseFrame = function (payload, configuration, network, deviceType) {
-            var appContent = { type: '0x20 Configuration' };
-            switch (payload.length) {
-                case 4:
-                    appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
-                    }
-                    break;
-                case 3:
-                case 5:
-                    appContent['sigfoxRetry'] = payload[2] & 0x03;
-                    if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
-                    }
-                    break;
-                default:
-                    appContent.partialDecoding = codec.PartialDecodingReason.MISSING_NETWORK;
-                    break;
-            }
-            return appContent;
-        };
-        return Generic0x20Parser;
-    }());
-    codec.Generic0x20Parser = Generic0x20Parser;
-})(codec || (codec = {}));
-var codec;
-(function (codec) {
     var Generic0x1fParser = (function () {
         function Generic0x1fParser() {
             this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath|comfortSerenity';
@@ -248,6 +213,41 @@ var codec;
         return Generic0x1fParser;
     }());
     codec.Generic0x1fParser = Generic0x1fParser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var Generic0x20Parser = (function () {
+        function Generic0x20Parser() {
+            this.deviceType = 'any';
+            this.frameCode = 0x20;
+        }
+        Generic0x20Parser.prototype.parseFrame = function (payload, configuration, network, deviceType) {
+            var appContent = { type: '0x20 Configuration' };
+            switch (payload.length) {
+                case 4:
+                    appContent['loraAdr'] = Boolean(payload[2] & 0x01);
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
+                    }
+                    break;
+                case 3:
+                case 5:
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
+                    if (payload.length === 5) {
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
+                    }
+                    break;
+                default:
+                    appContent.partialDecoding = codec.PartialDecodingReason.MISSING_NETWORK;
+                    break;
+            }
+            return appContent;
+        };
+        return Generic0x20Parser;
+    }());
+    codec.Generic0x20Parser = Generic0x20Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
@@ -359,157 +359,299 @@ var codec;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Breath0x10Parser = (function () {
-        function Breath0x10Parser() {
-            this.deviceType = 'breath';
+    var ComfortSerenity0x10Parser = (function () {
+        function ComfortSerenity0x10Parser() {
+            this.deviceType = 'comfortSerenity';
             this.frameCode = 0x10;
         }
-        Breath0x10Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x10 Breath configuration' };
-            (appContent['dailyFrameActivated'] = Boolean(payload.readUInt8(2) === 0 ? false : true)),
-                (appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(3)),
-                (appContent['historyPeriod'] = { unit: 's', value: payload.readUInt16BE(5) }),
-                (appContent['alarmRepeatActivated'] = Boolean(payload.readUInt8(7) === 0 ? false : true)),
-                (appContent['alarmRepeatPeriod'] = { unit: 's', value: payload.readUInt16BE(8) }),
-                (appContent['redundantSamples'] = payload.readUInt8(10));
+        ComfortSerenity0x10Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x10 Comfort Serenity configuration' };
+            (appContent['dailyFrameActivated'] = Boolean(payload.readUInt16BE(2) === 0 ? false : true)),
+                (appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(4)),
+                (appContent['numberOfSamplingBeforeHistorization'] = payload.readUInt16BE(6)),
+                (appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(8) * 2 }),
+                (appContent['redundantSamples'] = payload.readUInt8(10)),
+                (appContent['calculatedPeriodRecording'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * 2,
+                }),
+                (appContent['calculatedSendingPeriod'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * payload.readUInt16BE(4) * 2,
+                });
+            if (payload.length >= 12) {
+                appContent['blackOutDuration'] = { unit: 'h', value: payload.readUInt8(11) };
+                appContent['blackOutStartTime'] = { unit: 'h', value: payload.readUInt8(12) };
+            }
             return appContent;
         };
-        return Breath0x10Parser;
+        return ComfortSerenity0x10Parser;
     }());
-    codec.Breath0x10Parser = Breath0x10Parser;
+    codec.ComfortSerenity0x10Parser = ComfortSerenity0x10Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Breath0x30Parser = (function () {
-        function Breath0x30Parser() {
-            this.deviceType = 'breath';
+    var ComfortSerenity0x30Parser = (function () {
+        function ComfortSerenity0x30Parser() {
+            this.deviceType = 'comfortSerenity';
             this.frameCode = 0x30;
         }
-        Breath0x30Parser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x30 Daily frame' };
-            if (payload.length >= 11) {
-                appContent['tvoc'] = {
-                    min: { unit: 'µg/m3', value: payload.readUInt16BE(2) },
-                    max: { unit: 'µg/m3', value: payload.readUInt16BE(4) },
-                    average: { unit: 'µg/m3', value: payload.readUInt16BE(6) },
-                    duration: { unit: 'min', value: payload.readUInt16BE(8) },
-                };
-                appContent['pm10'] = {
-                    min: { unit: 'µg/m3', value: payload.readUInt16BE(10) },
-                    max: { unit: 'µg/m3', value: payload.readUInt16BE(12) },
-                    average: { unit: 'µg/m3', value: payload.readUInt16BE(14) },
-                    duration: { unit: 'min', value: payload.readUInt16BE(16) },
-                };
-                appContent['pm25'] = {
-                    min: { unit: 'µg/m3', value: payload.readUInt16BE(18) },
-                    max: { unit: 'µg/m3', value: payload.readUInt16BE(20) },
-                    average: { unit: 'µg/m3', value: payload.readUInt16BE(22) },
-                    duration: { unit: 'min', value: payload.readUInt16BE(24) },
-                };
-                appContent['pm1'] = {
-                    min: { unit: 'µg/m3', value: payload.readUInt16BE(26) },
-                    max: { unit: 'µg/m3', value: payload.readUInt16BE(28) },
-                    average: { unit: 'µg/m3', value: payload.readUInt16BE(30) },
-                };
+        ComfortSerenity0x30Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x30 Comfort Serenity Daily frame' };
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(19) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
-            else {
-                appContent['tvoc'] = { max: { unit: 'µg/m3', value: payload.readUInt16BE(2) } };
-                appContent['pm10'] = { max: { unit: 'µg/m3', value: payload.readUInt16BE(4) } };
-                appContent['pm25'] = { max: { unit: 'µg/m3', value: payload.readUInt16BE(6) } };
-                appContent['pm1'] = { max: { unit: 'µg/m3', value: payload.readUInt16BE(8) } };
+            appContent['icone'] = payload.readUInt8(2);
+            appContent['qaiRedDuration'] = { unit: 'min', value: payload.readUInt8(3) * 10 };
+            appContent['temperatureMax'] = { unit: '\u00B0' + 'C', value: payload.readInt16BE(4) / 10 };
+            appContent['co2Max'] = { unit: 'ppm', value: payload.readUInt16BE(6) };
+            appContent['humidityMax'] = { unit: '%', value: payload.readUInt8(8) };
+            appContent['temperatureMin'] = { unit: '\u00B0' + 'C', value: payload.readInt16BE(9) / 10 };
+            switch (payload.length) {
+                case 13:
+                    break;
+                case 19:
+                case 23:
+                    appContent['co2Min'] = { unit: 'ppm', value: payload.readUInt16BE(11) };
+                    appContent['humidityMin'] = { unit: '%', value: payload.readUInt8(13) };
+                    appContent['temperatureAverage'] = { unit: '\u00B0' + 'C', value: payload.readInt16BE(14) / 10 };
+                    appContent['co2Average'] = { unit: 'ppm', value: payload.readUInt16BE(16) };
+                    appContent['humidityAverage'] = { unit: '%', value: payload.readUInt8(18) };
+                    break;
+                default:
+                    appContent.partialDecoding = codec.PartialDecodingReason.MISSING_NETWORK;
+                    break;
             }
             return appContent;
         };
-        return Breath0x30Parser;
+        return ComfortSerenity0x30Parser;
     }());
-    codec.Breath0x30Parser = Breath0x30Parser;
+    codec.ComfortSerenity0x30Parser = ComfortSerenity0x30Parser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Breath0x6dParser = (function () {
-        function Breath0x6dParser() {
-            this.deviceType = 'breath';
-            this.frameCode = 0x6d;
+    var ComfortSerenity0x31Parser = (function () {
+        function ComfortSerenity0x31Parser() {
+            this.deviceType = 'comfortSerenity';
+            this.frameCode = 0x31;
         }
-        Breath0x6dParser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x6d Breath periodic data' };
+        ComfortSerenity0x31Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x31 Comfort Serenity Get Register' };
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(payloadLength) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            appContent['value1'] = payload.readUInt16BE(2);
+            appContent['value2'] = payload.readUInt8(4);
+            appContent['value3'] = payload.readUInt32BE(5);
+            return appContent;
+        };
+        return ComfortSerenity0x31Parser;
+    }());
+    codec.ComfortSerenity0x31Parser = ComfortSerenity0x31Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var ComfortSerenity0x38Parser = (function () {
+        function ComfortSerenity0x38Parser() {
+            this.deviceType = 'comfortSerenity';
+            this.frameCode = 0x38;
+        }
+        ComfortSerenity0x38Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x38 Comfort Serenity Daily frame' };
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(25) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            appContent['icone'] = payload.readUInt8(2);
+            appContent['qaiRedDuration'] = { unit: 'min', value: payload.readUInt8(3) * 10 };
+            appContent['temperatureMax'] = { unit: '\u00B0' + 'C', value: payload.readInt16BE(4) / 10 };
+            appContent['co2Max'] = { unit: 'ppm', value: payload.readUInt16BE(6) };
+            appContent['humidityMax'] = { unit: '%', value: payload.readUInt8(8) };
+            appContent['vocMax'] = { unit: 'index value', value: payload.readUInt16BE(9) };
+            switch (payload.length) {
+                case 11:
+                    break;
+                case 25:
+                case 29:
+                    appContent['temperatureMin'] = { unit: '\u00B0' + 'C', value: payload.readInt16BE(11) / 10 };
+                    appContent['co2Min'] = { unit: 'ppm', value: payload.readUInt16BE(13) };
+                    appContent['humidityMin'] = { unit: '%', value: payload.readUInt8(15) };
+                    appContent['vocMin'] = { unit: 'index value', value: payload.readUInt16BE(16) };
+                    appContent['temperatureAverage'] = { unit: '\u00B0' + 'C', value: payload.readInt16BE(18) / 10 };
+                    appContent['co2Average'] = { unit: 'ppm', value: payload.readUInt16BE(20) };
+                    appContent['humidityAverage'] = { unit: '%', value: payload.readUInt8(22) };
+                    appContent['vocAverage'] = { unit: 'index value', value: payload.readUInt16BE(23) };
+                    break;
+                default:
+                    appContent.partialDecoding = codec.PartialDecodingReason.MISSING_NETWORK;
+                    break;
+            }
+            return appContent;
+        };
+        return ComfortSerenity0x38Parser;
+    }());
+    codec.ComfortSerenity0x38Parser = ComfortSerenity0x38Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var ComfortSerenity0x6aParser = (function () {
+        function ComfortSerenity0x6aParser() {
+            this.deviceType = 'comfortSerenity';
+            this.frameCode = 0x6a;
+        }
+        ComfortSerenity0x6aParser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x6a Comfort Serenity data' };
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(payloadLength) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
             var rawValue;
-            var pm10 = [], pm25 = [], pm1 = [], tvoc = [];
-            var payloadLength = payload.length;
-            for (var offset = 2; offset < payloadLength; offset += 8) {
-                rawValue = payload.readUInt16BE(offset);
-                tvoc.push(rawValue);
-                rawValue = payload.readUInt16BE(offset + 2);
-                pm10.push(rawValue);
-                rawValue = payload.readUInt16BE(offset + 4);
-                pm25.push(rawValue);
-                rawValue = payload.readUInt16BE(offset + 6);
-                pm1.push(rawValue);
+            var temp = [], humidity = [], CO2 = [];
+            for (var offset = 2; offset < payloadLength; offset += 5) {
+                rawValue = payload.readInt16BE(offset);
+                temp.push(rawValue / 10);
+                rawValue = payload.readUInt8(offset + 2);
+                humidity.push(rawValue);
+                rawValue = payload.readUInt16BE(offset + 3);
+                CO2.push(rawValue);
             }
             appContent['decodingInfo'] = 'values: [t=0, t-1, t-2, ...]';
-            appContent['tvoc'] = { unit: 'µg/m3', values: tvoc };
-            appContent['pm10'] = { unit: 'µg/m3', values: pm10 };
-            appContent['pm25'] = { unit: 'µg/m3', values: pm25 };
-            appContent['pm1'] = { unit: 'µg/m3', values: pm1 };
+            appContent['temperature'] = { unit: '\u00B0' + 'C', values: temp };
+            appContent['humidity'] = { unit: '%', values: humidity };
+            appContent['co2'] = { unit: 'ppm', values: CO2 };
             return appContent;
         };
-        return Breath0x6dParser;
+        return ComfortSerenity0x6aParser;
     }());
-    codec.Breath0x6dParser = Breath0x6dParser;
+    codec.ComfortSerenity0x6aParser = ComfortSerenity0x6aParser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var Breath0x6eParser = (function () {
-        function Breath0x6eParser() {
-            this.deviceType = 'breath';
-            this.frameCode = 0x6e;
+    var ComfortSerenity0x6bParser = (function () {
+        function ComfortSerenity0x6bParser() {
+            this.deviceType = 'comfortSerenity';
+            this.frameCode = 0x6b;
         }
-        Breath0x6eParser.prototype.parseFrame = function (payload, configuration, network) {
-            var appContent = { type: '0x6e Breath alarm' };
-            appContent['tvoc'] = {
+        ComfortSerenity0x6bParser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x6b Comfort Serenity alarm' };
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(payloadLength) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            appContent['alarmTemperature'] = {
+                alarmStatus: payload[2] & 0x10 ? 'active' : 'inactive',
+                temperature: { unit: '\u00B0' + 'C', value: payload.readInt16BE(3) / 10 },
+            };
+            appContent['alarmHumidity'] = {
                 alarmStatus: payload[2] & 0x01 ? 'active' : 'inactive',
-                unit: 'µg/m3',
-                value: payload.readUInt16BE(3),
+                humidity: { unit: '%', value: payload.readUInt8(5) },
             };
-            appContent['pm10'] = {
-                alarmStatus: payload[2] & 0x02 ? 'active' : 'inactive',
-                unit: 'µg/m3',
-                value: payload.readUInt16BE(5),
-            };
-            appContent['pm25'] = {
-                alarmStatus: payload[2] & 0x04 ? 'active' : 'inactive',
-                unit: 'µg/m3',
-                value: payload.readUInt16BE(7),
-            };
-            appContent['pm1'] = {
-                alarmStatus: payload[2] & 0x08 ? 'active' : 'inactive',
-                unit: 'µg/m3',
-                value: payload.readUInt16BE(9),
+            appContent['alarmCo2'] = {
+                alarmStatus: payload[2] & 0x20 ? 'active' : 'inactive',
+                co2: { unit: 'ppm', value: payload.readInt16BE(6) },
             };
             return appContent;
         };
-        return Breath0x6eParser;
+        return ComfortSerenity0x6bParser;
     }());
-    codec.Breath0x6eParser = Breath0x6eParser;
+    codec.ComfortSerenity0x6bParser = ComfortSerenity0x6bParser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
-    var BreathStatusByteParser = (function () {
-        function BreathStatusByteParser() {
-            this.deviceType = 'breath';
+    var ComfortSerenity0x6fParser = (function () {
+        function ComfortSerenity0x6fParser() {
+            this.deviceType = 'comfortSerenity';
+            this.frameCode = 0x6f;
+        }
+        ComfortSerenity0x6fParser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x6f Comfort Serenity data' };
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(payloadLength) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            var rawValue;
+            var temp = [], humidity = [], CO2 = [], COV = [];
+            for (var offset = 2; offset < payloadLength; offset += 7) {
+                rawValue = payload.readInt16BE(offset);
+                temp.push(rawValue / 10);
+                rawValue = payload.readUInt8(offset + 2);
+                humidity.push(rawValue);
+                rawValue = payload.readUInt16BE(offset + 3);
+                CO2.push(rawValue);
+                rawValue = payload.readUInt16BE(offset + 5);
+                COV.push(rawValue);
+            }
+            appContent['decodingInfo'] = 'values: [t=0, t-1, t-2, ...]';
+            appContent['temperature'] = { unit: '\u00B0' + 'C', values: temp };
+            appContent['humidity'] = { unit: '%', values: humidity };
+            appContent['co2'] = { unit: 'ppm', values: CO2 };
+            appContent['voc'] = { unit: 'index value', values: COV };
+            return appContent;
+        };
+        return ComfortSerenity0x6fParser;
+    }());
+    codec.ComfortSerenity0x6fParser = ComfortSerenity0x6fParser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var ComfortSerenity0x70Parser = (function () {
+        function ComfortSerenity0x70Parser() {
+            this.deviceType = 'comfortSerenity';
+            this.frameCode = 0x70;
+        }
+        ComfortSerenity0x70Parser.prototype.parseFrame = function (payload, configuration, network) {
+            var appContent = { type: '0x70 Comfort Serenity alarm' };
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
+            if (payload[1] & 0x04) {
+                var myDate = new Date((payload.readUInt32BE(payloadLength) + 1356998400) * 1000);
+                appContent['timestamp'] = myDate.toJSON().replace('Z', '');
+            }
+            appContent['alarmTemperature'] = {
+                alarmStatus: payload[2] & 0x10 ? 'active' : 'inactive',
+                temperature: { unit: '\u00B0' + 'C', value: payload.readInt16BE(3) / 10 },
+            };
+            appContent['alarmHumidity'] = {
+                alarmStatus: payload[2] & 0x01 ? 'active' : 'inactive',
+                humidity: { unit: '%', value: payload.readUInt8(5) },
+            };
+            appContent['alarmCo2'] = {
+                alarmStatus: payload[2] & 0x20 ? 'active' : 'inactive',
+                co2: { unit: 'ppm', value: payload.readInt16BE(6) },
+            };
+            appContent['alarmVoc'] = {
+                alarmStatus: payload[2] & 0x40 ? 'active' : 'inactive',
+                voc: { unit: 'index value', value: payload.readInt16BE(8) },
+            };
+            return appContent;
+        };
+        return ComfortSerenity0x70Parser;
+    }());
+    codec.ComfortSerenity0x70Parser = ComfortSerenity0x70Parser;
+})(codec || (codec = {}));
+var codec;
+(function (codec) {
+    var ComfortSerenityStatusByteParser = (function () {
+        function ComfortSerenityStatusByteParser() {
+            this.deviceType = 'comfortSerenity';
             this.frameCode = 0;
         }
-        BreathStatusByteParser.prototype.parseFrame = function (payload, configuration, network) {
+        ComfortSerenityStatusByteParser.prototype.parseFrame = function (payload, configuration, network) {
             var statusContent = {};
             var parser = new codec.GenericStatusByteParser();
             statusContent = parser.parseFrame(payload, configuration);
             statusContent['configurationInconsistency'] = Boolean(payload[1] & 0x08);
-            statusContent['sensorError'] = Boolean(payload[1] & 0x16);
+            statusContent['timestamp'] = Boolean(payload[1] & 0x04);
             return { status: statusContent };
         };
-        return BreathStatusByteParser;
+        return ComfortSerenityStatusByteParser;
     }());
-    codec.BreathStatusByteParser = BreathStatusByteParser;
+    codec.ComfortSerenityStatusByteParser = ComfortSerenityStatusByteParser;
 })(codec || (codec = {}));
 var codec;
 (function (codec) {
@@ -572,25 +714,40 @@ var codec;
         __extends(Decoder, _super);
         function Decoder() {
             var _this = _super.call(this) || this;
-            _this.deviceType = 'breath';
+            _this.deviceType = 'comfortSerenity';
             return _this;
         }
         Decoder.prototype.getActiveParsers = function (frameCode) {
             var activeParsers = [];
-            var statusByteParsers = new codec.BreathStatusByteParser();
+            var statusByteParsers = new codec.ComfortSerenityStatusByteParser();
             var dataParser;
             switch (frameCode) {
                 case 0x10:
-                    dataParser = new codec.Breath0x10Parser();
+                    dataParser = new codec.ComfortSerenity0x10Parser();
+                    break;
+                case 0x30:
+                    dataParser = new codec.ComfortSerenity0x30Parser();
+                    break;
+                case 0x38:
+                    dataParser = new codec.ComfortSerenity0x38Parser();
+                    break;
+                case 0x6a:
+                    dataParser = new codec.ComfortSerenity0x6aParser();
+                    break;
+                case 0x6b:
+                    dataParser = new codec.ComfortSerenity0x6bParser();
+                    break;
+                case 0x6f:
+                    dataParser = new codec.ComfortSerenity0x6fParser();
+                    break;
+                case 0x70:
+                    dataParser = new codec.ComfortSerenity0x70Parser();
                     break;
                 case 0x1f:
                     dataParser = new codec.Generic0x1fParser();
                     break;
                 case 0x20:
                     dataParser = new codec.Generic0x20Parser();
-                    break;
-                case 0x30:
-                    dataParser = new codec.Breath0x30Parser();
                     break;
                 case 0x33:
                     dataParser = new codec.Generic0x33Parser();
@@ -603,12 +760,6 @@ var codec;
                     break;
                 case 0x52:
                     dataParser = new codec.Generic0x52Parser();
-                    break;
-                case 0x6d:
-                    dataParser = new codec.Breath0x6dParser();
-                    break;
-                case 0x6e:
-                    dataParser = new codec.Breath0x6eParser();
                     break;
                 default:
                     return activeParsers;
