@@ -53,11 +53,11 @@ firmwareVersions:
         lorawanCertified: false
         codec: stx-codec
 sensors:
-  - battery       # health via voltage (MCU internal)
-  - temperature   # HDC2080
-  - humidity      # HDC2080
+  - battery # health via voltage (MCU internal)
+  - temperature # HDC2080
+  - humidity # HDC2080
   - accelerometer # BMA400
-  - light         # SFH7776
+  - light # SFH7776
   # reed_switch   # binary magnet sensing switch
 additionalRadios:
   - nfc

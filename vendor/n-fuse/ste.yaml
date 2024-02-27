@@ -53,13 +53,13 @@ firmwareVersions:
         lorawanCertified: false
         codec: ste-codec
 sensors:
-  - battery       # health via voltage (MCU internal)
-  - temperature   # BME680
-  - humidity      # BME680
-  - iaq           # BME680
-  - co2           # BME680
-  - bvoc          # BME680
-  - pressure      # BME680
+  - battery # health via voltage (MCU internal)
+  - temperature # BME680
+  - humidity # BME680
+  - iaq # BME680
+  - co2 # BME680
+  - bvoc # BME680
+  - pressure # BME680
   # iaq accuraccy # 0-3: ['none', 'low', 'mid', 'high']
 additionalRadios:
   - nfc

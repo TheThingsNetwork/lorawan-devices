@@ -2019,11 +2019,12 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/lualtek/
       twitter: lualtek
-      
+
   - id: n-fuse
     name: n-fuse GmbH
-    website: https://n-fuse.co/
+    description: n-fuse is a digitization focusd company providing cutting-edge end-to-end solutions including LoRaWAN devices like environment sensors, IoT bbuttons, gateways and bridges.
     logo: logo.svg
+    website: https://www.n-fuse.co/
     social:
       github: nfhw
 
@@ -2038,4 +2039,3 @@ vendors:
     description: Lansitec is a technology-driven company providing cutting-edge active people and asset tracking products and services. i.e., trackers, gateways and bridges, beacons and tags, and related accessories like sensors.
     logo: lansitec.png
     website: https://www.lansitec.com/
-

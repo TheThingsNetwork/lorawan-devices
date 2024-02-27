@@ -53,9 +53,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: sta-codec
 sensors:
-  - battery       # health via voltage (MCU internal)
-  - temperature   # MCU internal
-  - button        # Gestures: 1xTap, 2xTap, Hold
+  - battery # health via voltage (MCU internal)
+  - temperature # MCU internal
+  - button # Gestures: 1xTap, 2xTap, Hold
 additionalRadios:
   - nfc
 dimensions:
