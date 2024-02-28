@@ -7,4 +7,3 @@ bin/validate-image
 bin/validate-image.exe
 .envrc
 .idea
-yarn.lock
