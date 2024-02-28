@@ -35,7 +35,7 @@ if(mode=='3')
   }
   else
   {
-  	data.Temp_Black=parseFloat(((bytes[9]<<8 | bytes[10])/10) .toFixed(1)); 
+  	data.Temp_Black=parseFloat(((bytes[9]<<24>>16 | bytes[10])/10) .toFixed(1)); 
   }
 }
 else if(mode=='31')
