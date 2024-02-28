@@ -142,4 +142,4 @@ function decodeUplink(input) {
 // payload = "150405b827bd3a04142cddb10d02290000023a000002598f26025d61160c784405817904fd1700000000"
 bytes = [21, 4, 5, 184, 39, 189, 58, 4, 20, 44, 221, 177, 13, 2, 41, 0, 0, 2, 58, 0, 0, 2, 89, 143, 38, 2, 93, 97, 22, 12, 120, 68, 5, 129, 121, 4, 253, 23, 0, 0, 0, 0];
 input = { fPort: 2, bytes: bytes };
-console.log(decodeUplink(input));
+// console.log(decodeUplink(input));
