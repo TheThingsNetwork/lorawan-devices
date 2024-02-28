@@ -1,4 +1,14 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - mlr003 # look in mlr003.yaml for the end device definition
-  - mlrtps1 # look in mlrtps1.yaml for end device definition
+  - mlr003
+  - mlrtps1
+profileIDs:
+  '1':
+    endDeviceID: mlr003
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '2':
+    endDeviceID: mlrtps1
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: EU863-870

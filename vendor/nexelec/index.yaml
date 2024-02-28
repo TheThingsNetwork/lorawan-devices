@@ -1,11 +1,56 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - carbon # CO2, temp, hum sensor
-  - sign # CO2, COV, temp, hum, lum, pir, sound sensor
-  - move # CO2, temp, hum, lum, pir sensor
-  - rise # CO2, temp, hum sensor
-  - feel # temp, hum sensor
-  - origin-plus # smoke detector, temp, hum sensor
-  - origin #smoke detector
-  - guard-plus #smoke detector, temp, hum sensor
-  - guard #smoke detector
+  - carbon
+  - sign
+  - move
+  - rise
+  - feel
+  - origin-plus
+  - origin
+  - guard-plus
+  - guard
+profileIDs:
+  '8':
+    endDeviceID: carbon
+    firmwareVersion: '3.6'
+    hardwareVersion: C024C
+    region: EU863-870
+  '9':
+    endDeviceID: feel
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870
+  '10':
+    endDeviceID: guard-plus
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870
+  '11':
+    endDeviceID: guard
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870
+  '12':
+    endDeviceID: move
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870
+  '13':
+    endDeviceID: origin-plus
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870
+  '14':
+    endDeviceID: origin
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870
+  '15':
+    endDeviceID: rise
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870
+  '16':
+    endDeviceID: sign
+    firmwareVersion: V01.0
+    hardwareVersion: V001
+    region: EU863-870

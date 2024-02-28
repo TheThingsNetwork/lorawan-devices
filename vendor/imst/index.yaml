@@ -1,3 +1,19 @@
 endDevices:
   - range-extender
   - ioke868
+profileIDs:
+  '1':
+    endDeviceID: ioke868
+    firmwareVersion: '1.0'
+    hardwareVersion: C100
+    region: EU863-870
+  '2':
+    endDeviceID: range-extender
+    firmwareVersion: '1.1'
+    hardwareVersion: C100
+    region: EU863-870
+  '3':
+    endDeviceID: range-extender
+    firmwareVersion: '1.0'
+    hardwareVersion: C100
+    region: EU863-870

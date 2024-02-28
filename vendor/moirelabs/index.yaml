@@ -1,3 +1,9 @@
 endDevices:
   - p1ap
   - p1at
+profileIDs:
+  '22':
+    endDeviceID: p1at
+    firmwareVersion: '1.0'
+    hardwareVersion: ''
+    region: EU863-870

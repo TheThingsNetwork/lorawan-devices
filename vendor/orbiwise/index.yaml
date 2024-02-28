@@ -1,2 +1,23 @@
 endDevices:
   - sampols21
+profileIDs:
+  '1':
+    endDeviceID: sampols21
+    firmwareVersion: '2.1'
+    hardwareVersion: ''
+    region: AS923
+  '2':
+    endDeviceID: sampols21
+    firmwareVersion: '2.1'
+    hardwareVersion: ''
+    region: EU863-870
+  '3':
+    endDeviceID: sampols21
+    firmwareVersion: '2.1'
+    hardwareVersion: ''
+    region: IN865-867
+  '4':
+    endDeviceID: sampols21
+    firmwareVersion: '2.1'
+    hardwareVersion: ''
+    region: US902-928

@@ -16,3 +16,89 @@ endDevices:
   - model4831
   - model4832
   - model4841
+profileIDs:
+  '1':
+    endDeviceID: catena4430
+    firmwareVersion: '0.3.4'
+    hardwareVersion: ''
+    region: IN865-867
+  '2':
+    endDeviceID: catena4450
+    firmwareVersion: '0.3.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '3':
+    endDeviceID: model4841
+    firmwareVersion: '2.0.2'
+    hardwareVersion: ''
+    region: IN865-867
+  '5':
+    endDeviceID: model4821
+    firmwareVersion: '0.2.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '6':
+    endDeviceID: model4822
+    firmwareVersion: '0.1.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '7':
+    endDeviceID: model4823
+    firmwareVersion: '0.1.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '8':
+    endDeviceID: model4811
+    firmwareVersion: '1.4.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '9':
+    endDeviceID: catena4610
+    firmwareVersion: '0.2.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '10':
+    endDeviceID: catena4612
+    firmwareVersion: '0.2.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '11':
+    endDeviceID: catena4618
+    firmwareVersion: '0.2.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '12':
+    endDeviceID: catena4618m201
+    firmwareVersion: '0.1.2'
+    hardwareVersion: ''
+    region: IN865-867
+  '13':
+    endDeviceID: catena4801
+    firmwareVersion: '0.5.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '14':
+    endDeviceID: catena4802
+    firmwareVersion: '0.5.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '15':
+    endDeviceID: model4831
+    firmwareVersion: '0.1.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '16':
+    endDeviceID: model4832
+    firmwareVersion: '0.1.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '17':
+    endDeviceID: catena4470
+    firmwareVersion: '0.3.0'
+    hardwareVersion: ''
+    region: IN865-867
+  '18':
+    endDeviceID: catena4460
+    firmwareVersion: '0.3.0'
+    hardwareVersion: ''
+    region: IN865-867

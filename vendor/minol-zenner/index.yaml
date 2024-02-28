@@ -1,3 +1,7 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - edc-communication-module # look in edc-communication-module.yaml for the end device definition
+  - edc-communication-module
+profileIDs:
+  '1':
+    endDeviceID: edc-communication-module
+    firmwareVersion: '2.02.01.0'
+    region: EU863-870

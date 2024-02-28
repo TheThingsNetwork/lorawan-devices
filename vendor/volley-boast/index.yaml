@@ -1,7 +1,23 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - vobo-gp-1
   - vobo-hl-1
   - vobo-tc
   - vobo-xp
   - vobo-sl
+profileIDs:
+  '1':
+    endDeviceID: vobo-sl
+    firmwareVersion: '1.00.001.01'
+    region: US902-928
+  '2':
+    endDeviceID: vobo-tc
+    firmwareVersion: '1.00.001.01'
+    region: US902-928
+  '3':
+    endDeviceID: vobo-xp
+    firmwareVersion: '1.00.001.01'
+    region: US902-928
+  '4':
+    endDeviceID: vobo-hl-1
+    firmwareVersion: '2.00.001.06'
+    region: US902-928

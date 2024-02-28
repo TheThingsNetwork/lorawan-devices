@@ -3,3 +3,14 @@ endDevices:
   - adt1-box
   - arc1-tube
   - arc1-box
+profileIDs:
+  '1':
+    endDeviceID: adt1-box
+    firmwareVersion: 'all'
+    hardwareVersion: ''
+    region: IN865-867
+  '2':
+    endDeviceID: arc1-box
+    firmwareVersion: 'all'
+    hardwareVersion: ''
+    region: US902-928

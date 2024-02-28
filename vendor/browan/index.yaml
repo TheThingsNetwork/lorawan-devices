@@ -9,3 +9,12 @@ endDevices:
   - tbhv110
   - cd10
   - l0010
+profileIDs:
+  '2':
+    endDeviceID: cd10
+    firmwareVersion: '1.0.11.0'
+    region: US902-928
+  '613':
+    endDeviceID: l0010
+    firmwareVersion: '1.0.11.0'
+    region: US902-928

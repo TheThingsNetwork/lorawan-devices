@@ -1,5 +1,3 @@
-# enginko
-
 endDevices:
   - mcf-lw06davk
   - mcf-lw06davpk
@@ -20,3 +18,36 @@ endDevices:
   - egk-lw22plg
   - egk-lw20w00
   - egk-lw20l00
+profileIDs:
+  '1':
+    endDeviceID: mcf-lwws03
+    firmwareVersion: '0.02.18'
+    region: AS923
+  '2':
+    endDeviceID: mcf-lw13mio
+    firmwareVersion: '0.02.07'
+    region: AS923
+  '3':
+    endDeviceID: mcf-lwws03
+    firmwareVersion: '0.02.18'
+    region: AU915-928
+  '4':
+    endDeviceID: mcf-lw13mio
+    firmwareVersion: '0.02.07'
+    region: AU915-928
+  '5':
+    endDeviceID: egk-lw20l00
+    firmwareVersion: '0.02.61'
+    region: EU863-870
+  '6':
+    endDeviceID: egk-lw22plg
+    firmwareVersion: '0.02.61'
+    region: EU863-870
+  '7':
+    endDeviceID: mcf-lwws03
+    firmwareVersion: '0.02.18'
+    region: US902-928
+  '8':
+    endDeviceID: mcf-lw13mio
+    firmwareVersion: '0.02.07'
+    region: US902-928

@@ -325,64 +325,36 @@ vendors.vendors.forEach((v) => {
 
           if (!vendorProfiles[vendorID][regionProfile.id]) {
             const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
-
-            // Check if vendorProfileID is unique within the same company folder
-            if (profile.vendorProfileID !== undefined && profile.vendorProfileID !== 0) {
-              const duplicateProfiles = Object.entries(vendorProfiles[vendorID]).filter(
-                ([profileId, existingProfile]) =>
-                  existingProfile.vendorProfileID === profile.vendorProfileID && profileId !== regionProfile.id
+            if (!validateEndDeviceProfile(profile)) {
+              console.error(
+                `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
+                  validateEndDeviceProfile.errors
+                )}`
               );
-
-              if (duplicateProfiles.length > 0) {
-                const duplicateProfilePaths = duplicateProfiles.map(([duplicateProfileId, duplicateProfile]) => {
-                  return `${duplicateProfileId} (vendorProfileID: ${duplicateProfile.vendorProfileID})`;
-                });
-
-                console.error(
-                  `${key}: vendorProfileID ${
-                    profile.vendorProfileID
-                  } is not unique within ${vendorID} folder. Duplicate profiles found in: ${duplicateProfilePaths.join(
-                    ', '
-                  )}`
-                );
-                process.exit(1);
-              }
-
-              vendorProfiles[vendorID][regionProfile.id] = { vendorProfileID: profile.vendorProfileID };
-
-              if (!validateEndDeviceProfile(profile)) {
-                console.error(
-                  `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
-                    validateEndDeviceProfile.errors
-                  )}`
-                );
-                process.exit(1);
-              }
-
-              console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
-            } else {
-              console.error(`${key}: vendorProfileID is missing in ${vendorID}/${regionProfile.id}.yaml`);
+              process.exit(1);
             }
+          }
+          vendorProfiles[vendorID][regionProfile.id] = true;
+          console.log(`${key}: profile ${vendorID}/${regionProfile.id} valid`);
 
-            if (regionProfile.codec && !codecs[regionProfile.codec]) {
-              const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
-              if (!validateEndDevicePayloadCodec(codec)) {
-                console.error(
-                  `${key}: codec ${regionProfile.codec} invalid: ${formatValidationErrors(
-                    validateEndDevicePayloadCodec.errors
-                  )}`
-                );
-                process.exit(1);
-              }
-              codecs[regionProfile.codec] = true;
-              await validatePayloadCodecs(folder, codec)
-                .then(() => console.log(`${key}: payload codec ${regionProfile.codec} valid`))
-                .catch((err) => {
-                  console.error(`${key}: payload codec ${regionProfile.codec} invalid`);
-                  console.error(err);
-                  process.exit(1);
-                });
+          if (regionProfile.codec && !codecs[regionProfile.codec]) {
+            const codec = yaml.load(fs.readFileSync(`${folder}/${regionProfile.codec}.yaml`));
+            if (!validateEndDevicePayloadCodec(codec)) {
+              console.error(
+                `${key}: codec ${regionProfile.codec} invalid: ${formatValidationErrors(
+                  validateEndDevicePayloadCodec.errors
+                )}`
+              );
+              process.exit(1);
             }
+            codecs[regionProfile.codec] = true;
+            await validatePayloadCodecs(folder, codec)
+              .then(() => console.log(`${key}: payload codec ${regionProfile.codec} valid`))
+              .catch((err) => {
+                console.error(`${key}: payload codec ${regionProfile.codec} invalid`);
+                console.error(err);
+                process.exit(1);
+              });
           }
         });
       });

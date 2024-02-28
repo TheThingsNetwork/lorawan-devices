@@ -1,2 +1,7 @@
 endDevices:
-  - iwm-lr3 # look in iwm-lr3.yaml for the end device definition
+  - iwm-lr3
+profileIDs:
+  '528':
+    endDeviceID: iwm-lr3
+    firmwareVersion: 'aa0400'
+    region: EU863-870

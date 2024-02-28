@@ -1,7 +1,151 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - rhf0m0e5 # look in rhf0m0e5.yaml for the end device definition
-  - rhf0m003 # look in rhf0m003.yaml for the end device definition
-  - rhf3mr01 # look in rhf3mr01.yaml for the end device definition
-  - rhf1s052 # look in rhf1s052.yaml for the end device definition
-  - rhf1s213 # look in rhf1s213.yaml for the end device definition
+  - rhf0m0e5
+  - rhf0m003
+  - rhf3mr01
+  - rhf1s052
+  - rhf1s213
+profileIDs:
+  '1':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: AS923
+  '2':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: AU915-928
+  '3':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: CN470-510
+  '4':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: CN779-787
+  '5':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: EU863-870
+  '6':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: IN865-867
+  '7':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: KR920-923
+  '8':
+    endDeviceID: rhf0m0e5
+    firmwareVersion: 'V4'
+    region: US902-928
+  '9':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: AS923
+  '10':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: AU915-928
+  '11':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: CN470-510
+  '12':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: CN779-787
+  '13':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: EU433
+  '14':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: EU863-870
+  '15':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: IN865-867
+  '16':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: KR920-923
+  '17':
+    endDeviceID: rhf0m003
+    firmwareVersion: 'V3'
+    region: US902-928
+  '18':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: AS923
+  '19':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: AU915-928
+  '20':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: CN470-510
+  '21':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: CN779-787
+  '22':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: EU433
+  '23':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: EU863-870
+  '24':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: IN865-867
+  '25':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: KR920-923
+  '26':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: RU864-870
+  '27':
+    endDeviceID: rhf1s052
+    firmwareVersion: 'V1.1.0'
+    region: US902-928
+  '28':
+    endDeviceID: rhf1s213
+    firmwareVersion: 'v4.1.629'
+    region: AS923
+  '30':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: AU915-928
+  '31':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: CN470-510
+  '32':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: CN779-787
+  '33':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: EU433
+  '34':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: EU863-870
+  '35':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: IN865-867
+  '36':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: KR920-923
+  '37':
+    endDeviceID: rhf3mr01
+    firmwareVersion: 'V3'
+    region: US902-928

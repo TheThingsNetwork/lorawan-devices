@@ -1,7 +1,37 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - wisblock-4631
   - rak7431
   - rak7201
   - wisblock-kit1
   - wisblock-kit4
+profileIDs:
+  '1':
+    endDeviceID: wisblock-kit4
+    firmwareVersion: '1.0.8'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '2':
+    endDeviceID: wisblock-kit4
+    firmwareVersion: '1.0.8'
+    hardwareVersion: '1.0'
+    region: US902-928
+  '3':
+    endDeviceID: rak7201
+    firmwareVersion: '1.0.2.210520'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '4':
+    endDeviceID: rak7201
+    firmwareVersion: '1.0.2.210520'
+    hardwareVersion: '1.0'
+    region: US902-928
+  '5':
+    endDeviceID: rak7431
+    firmwareVersion: '1.2.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '6':
+    endDeviceID: rak7431
+    firmwareVersion: '1.2.0'
+    hardwareVersion: '1.0'
+    region: US902-928

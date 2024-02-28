@@ -1,7 +1,4 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - th-sensor
   - t-indoor-sensor
   - t-2-ctn-sensor
@@ -26,3 +23,124 @@ endDevices:
   - triphaso-sensor
   - modbus-classe-a-sensor
   - modbus-classe-c-sensor
+profileIDs:
+  '1':
+    endDeviceID: atmo-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-099'
+    region: EU863-870
+  '2':
+    endDeviceID: bob-assistant
+    firmwareVersion: '0.4.5'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '3':
+    endDeviceID: celso-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-049'
+    region: EU863-870
+  '5':
+    endDeviceID: flasho-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-071'
+    region: EU863-870
+  '6':
+    endDeviceID: humido-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-144'
+    region: EU863-870
+  '7':
+    endDeviceID: ino-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-016'
+    region: EU863-870
+  '8':
+    endDeviceID: intenso-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-091'
+    region: EU863-870
+  '9':
+    endDeviceID: levo-plus-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-196'
+    region: EU863-870
+  '10':
+    endDeviceID: modbus-classe-a-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-080'
+    region: EU863-870
+  '11':
+    endDeviceID: modbus-classe-c-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-109'
+    region: EU863-870
+  '12':
+    endDeviceID: presso-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-017'
+    region: EU863-870
+  '13':
+    endDeviceID: pulse-senso-atex-zone-1-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-123'
+    region: EU863-870
+  '14':
+    endDeviceID: pulse-senso-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-014'
+    region: EU863-870
+  '15':
+    endDeviceID: remote-t-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-043'
+    region: EU863-870
+  '16':
+    endDeviceID: skydome-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-143'
+    region: EU863-870
+  '17':
+    endDeviceID: smart-plug
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-003'
+    region: EU863-870
+  '18':
+    endDeviceID: t-2-ctn-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-163'
+    region: EU863-870
+  '19':
+    endDeviceID: t-indoor-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-085'
+    region: EU863-870
+  '20':
+    endDeviceID: th-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-053'
+    region: EU863-870
+  '21':
+    endDeviceID: torano-atex-zone-1-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-124'
+    region: EU863-870
+  '22':
+    endDeviceID: triphaso-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-105'
+    region: EU863-870
+  '23':
+    endDeviceID: vaqao-plus-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-074'
+    region: EU863-870
+  '24':
+    endDeviceID: vaqao-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-074'
+    region: EU863-870
+  '25':
+    endDeviceID: ventilo-sensor
+    firmwareVersion: '3.5.2'
+    hardwareVersion: '50-70-101'
+    region: EU863-870

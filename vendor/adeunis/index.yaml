@@ -1,21 +1,51 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - pulse # look in pulse.yaml for the end device definition
-  - pulse-4 # look in pulse-4.yaml for the end device definition
-  - analog # look in analog.yaml
-  - dry-contact # look in dry-contact.yaml
-  - dry-contacts-2 # look in dry-contact.yaml
-  - ftd-network-tester # look in ftd-network-tester-yaml
-  - modbus # look in modbus.yaml
-  - temp # look in temp.yaml
-  - temp-4 # look in temp-4p.yaml
-  - breath # look in breath.yaml
-  - comfort # look in comfort.yaml
-  - comfort-co2 # look in comfort-co2.yaml
-  - deltap # look in deltap.yaml
-  - motion # look in motion.yaml
-  - pulse-nb-iot # look in pulse-nb-iot.yaml
-  - repeater # look in repeater.yaml
-  - tic-cbe-linky-mono # look in tic-cbe-linky-mono.yaml
-  - tic-cbe-linky-tri # look in tic-cbe-linky-tri.yaml
-  - tic-pme-pmi # look in tic-pme-pmi.yaml
+  - pulse
+  - pulse-4
+  - analog
+  - dry-contact
+  - dry-contacts-2
+  - ftd-network-tester
+  - modbus
+  - temp
+  - temp-4
+  - breath
+  - comfort
+  - comfort-co2
+  - deltap
+  - motion
+  - pulse-nb-iot
+  - repeater
+  - tic-cbe-linky-mono
+  - tic-cbe-linky-tri
+  - tic-pme-pmi
+profileIDs:
+  '1':
+    endDeviceID: breath
+    firmwareVersion: '2.4.X'
+    hardwareVersion: 8377AA
+    region: EU863-870
+  '2':
+    endDeviceID: tic-pme-pmi
+    firmwareVersion: '1.4.X'
+    hardwareVersion: 8250AA
+    region: EU863-870
+  '3':
+    endDeviceID: ftd-network-tester
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.00'
+    region: EU863-870
+  '4':
+    endDeviceID: pulse
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: AS923
+  '5':
+    endDeviceID: temp
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.00'
+    region: EU863-870
+  '6':
+    endDeviceID: pulse
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: US902-928

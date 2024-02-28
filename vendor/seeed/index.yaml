@@ -1,7 +1,15 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - loradevelopkit-e5 # look in windsensor.yaml for the end device definition
+  - loradevelopkit-e5
   - loraeminidevboard-e5
   - lorawan-dev-kit
+profileIDs:
+  '1':
+    endDeviceID: lorawan-dev-kit
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '2':
+    endDeviceID: lorawan-dev-kit
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: US902-928

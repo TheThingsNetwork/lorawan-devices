@@ -1,8 +1,5 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - badge-tracker # look in windsensor.yaml for the end device definition
+  - badge-tracker
   - indoor-bluetooth-gateway
   - macro-bluetooth-gateway
   - solar-bluetooth-gateway
@@ -10,3 +7,34 @@ endDevices:
   - helmet-sensor
   - temperature-humidity-sensor
   - precision-platinum-sensor
+profileIDs:
+  '1':
+    endDeviceID: precision-platinum-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: AU915-928
+  '2':
+    endDeviceID: precision-platinum-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: CN470-510
+  '3':
+    endDeviceID: precision-platinum-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '4':
+    endDeviceID: precision-platinum-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: IN865-867
+  '5':
+    endDeviceID: precision-platinum-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: KR920-923
+  '6':
+    endDeviceID: precision-platinum-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: US902-928

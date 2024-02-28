@@ -1,5 +1,8 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - sepem-35x # look in windsensor.yaml for the end device definition
+  - sepem-35x
+profileIDs:
+  '3':
+    endDeviceID: sepem-35x
+    firmwareVersion: '1.007'
+    hardwareVersion: '1.0'
+    region: EU863-870

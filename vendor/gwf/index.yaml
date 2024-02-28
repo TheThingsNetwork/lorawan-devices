@@ -1,3 +1,19 @@
 endDevices:
   - rcm-lrw10
   - rcm-h200
+profileIDs:
+  '1':
+    endDeviceID: rcm-h200
+    firmwareVersion: '1.3'
+    hardwareVersion: '11'
+    region: EU863-870
+  '2':
+    endDeviceID: rcm-h200
+    firmwareVersion: '1.3'
+    hardwareVersion: '11'
+    region: US902-928
+  '3':
+    endDeviceID: rcm-lrw10
+    firmwareVersion: '1.6'
+    hardwareVersion: '21.0'
+    region: EU863-870

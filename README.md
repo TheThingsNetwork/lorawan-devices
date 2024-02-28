@@ -161,6 +161,16 @@ All vendor data is referenced from the **Vendor device index** file: `vendor/<ve
 endDevices:
   - device-a
   - device-b
+# The profileIDs is a distinct (preferably incremental) value for every unique profile listed in the vendor's folder.
+# This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
+# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
+# NOTE: The profileIDs is different from the vendorID.
+profileIDs:
+  '1':
+    endDeviceID: 'device-a'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
 ```
 
 All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters. **Make sure you include every device you add.**
@@ -224,12 +234,6 @@ There are a few guidelines to follow for images:
 Each referenced end device profile needs to be defined in the **End device profile**, with the same filename as the profile ID: `vendor/<vendor-id>/<profile-id>.yaml`:
 
 ```yaml
-# The vendorProfileID is a distinct (preferably incremental) value for every unique profile listed in the vendor's folder.
-# This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
-# NOTE: The vendorProfileID is different from the vendorID. 
-vendorProfileID: 0
-
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: '1.0.3'
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:

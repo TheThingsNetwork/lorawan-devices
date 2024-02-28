@@ -1,5 +1,20 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - co2-stoplicht # look in co2-stoplicht.yaml for the end device definition
-  - filling-degree-sensor # look in filling-degree-sensor.yaml for the end device definition
-  - soil-moisture-sensor # look in soil-moisture-sensor.yaml for the end device definition
+  - co2-stoplicht
+  - filling-degree-sensor
+  - soil-moisture-sensor
+profileIDs:
+  '1':
+    endDeviceID: co2-stoplicht
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '2':
+    endDeviceID: filling-degree-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '3':
+    endDeviceID: soil-moisture-sensor
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: EU863-870

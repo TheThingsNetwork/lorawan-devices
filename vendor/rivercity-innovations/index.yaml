@@ -1,4 +1,20 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - txh
   - lynx
+profileIDs:
+  '1':
+    endDeviceID: lynx
+    firmwareVersion: '1.2.2.02.0'
+    region: EU863-870
+  '2':
+    endDeviceID: lynx
+    firmwareVersion: '1.2.2.02.0'
+    region: AU915-928
+  '3':
+    endDeviceID: txh
+    firmwareVersion: '1.6.0.01.2'
+    region: EU863-870
+  '4':
+    endDeviceID: txh
+    firmwareVersion: '1.6.0.01.2'
+    region: US902-928

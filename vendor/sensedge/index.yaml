@@ -1,4 +1,24 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - senstick-pro # look in senstick-pro.yaml for the end device definition
-  - senstick-pure # look in senstick-pure.yaml for the end device definition
+  - senstick-pro
+  - senstick-pure
+profileIDs:
+  '1':
+    endDeviceID: senstick-pure
+    firmwareVersion: '1.0'
+    hardwareVersion: '3.1'
+    region: EU863-870
+  '2':
+    endDeviceID: senstick-pure
+    firmwareVersion: '1.0'
+    hardwareVersion: '3.1'
+    region: US902-928
+  '3':
+    endDeviceID: senstick-pure
+    firmwareVersion: '1.0'
+    hardwareVersion: '3.1'
+    region: AS923
+  '4':
+    endDeviceID: senstick-pure
+    firmwareVersion: '1.0'
+    hardwareVersion: '3.1'
+    region: AU915-928

@@ -21,7 +21,7 @@ Closes #0000, References #0000, etc.
 <!-- Guidelines to follow when reviewing pull request, please do not remove. -->
 
 - [ ] Title and description should be descriptive (Not just a serial number for example).
-- [ ] `vendorProfileID` should not be `vendorID` and should be a unique value for every profile.
+- [ ] `profileIDs` should not be `vendorID` and should be a unique value for every profile.
 - [ ] All devices should be listed in the vendor's `index.yaml` file.
 - [ ] At least 1 image per device and should be transparent.
 
