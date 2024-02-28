@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,24 +21,25 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
-    if ((a & 0x80000000) > 0) {
-        return a - 0x10000000;
-    }
-    return a;
+    return (buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3];
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -142,18 +143,17 @@ var codec;
             switch (payload.length) {
                 case 4:
                     appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
-                        && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
                     }
                     break;
                 case 3:
                 case 5:
-                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
                     if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
                     }
                     break;
                 default:
@@ -170,8 +170,7 @@ var codec;
 (function (codec) {
     var Generic0x33Parser = (function () {
         function Generic0x33Parser() {
-            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' +
-                'temp3|temp4|comfort|comfort2|comfortCo2|motion|deltap|breath';
+            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' + 'temp3|temp4|comfort|comfort2|comfortCo2|modbus|motion|deltap|breath|comfortSerenity';
             this.frameCode = 0x33;
         }
         Generic0x33Parser.prototype.parseFrame = function (payload, configuration, network) {
@@ -213,19 +212,21 @@ var codec;
         }
         PulseV40x10Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x10 Pulse 4 configuration' };
-            var chA = { 'name': 'channel A' };
-            var chB = { 'name': 'channel B' };
+            var chA = { name: 'channel A' };
+            var chB = { name: 'channel B' };
             appContent['productMode'] = codec.PlateformCommonUtils.getProductModeText(payload[2]);
             var knownNetwork = this.inferNetwork(payload.length);
             appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(3);
-            appContent['samplingPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(6) * 2 };
-            appContent['calculatedSendingPeriod'] = { 'unit': 's',
-                'value': payload.readUInt16BE(3) * payload.readUInt16BE(6) * 2 };
+            appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(6) * 2 };
+            appContent['calculatedSendingPeriod'] = {
+                unit: 's',
+                value: payload.readUInt16BE(3) * payload.readUInt16BE(6) * 2,
+            };
             if (payload[2] === 2) {
-                appContent['flowCalculationPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(9) * 20 };
+                appContent['flowCalculationPeriod'] = { unit: 's', value: payload.readUInt16BE(9) * 20 };
             }
             else {
-                appContent['flowCalculationPeriod'] = { 'unit': 'm', 'value': payload.readUInt16BE(9) };
+                appContent['flowCalculationPeriod'] = { unit: 'm', value: payload.readUInt16BE(9) };
             }
             if (knownNetwork === 'lora868') {
                 appContent['redundantSamples'] = payload.readUInt8(27);
@@ -233,42 +234,44 @@ var codec;
             chA['state'] = this.getStateText(Boolean(payload[5] & 0x01));
             chA['type'] = this.getTypeText(Boolean(payload[5] & 0x02));
             chA['debouncingPeriod'] = {
-                'unit': 'ms', 'value': this.getDebouncingPeriodText(payload[8] & 0x0f)
+                unit: 'ms',
+                value: this.getDebouncingPeriodText(payload[8] & 0x0f),
             };
             if (knownNetwork === 'lora868') {
                 chA['leakageDetection'] = {
-                    'overflowAlarmTriggerThreshold': payload.readUInt16BE(11),
-                    'threshold': payload.readUInt16BE(15),
-                    'dailyPeriodsBelowWhichLeakageAlarmTriggered': payload.readUInt16BE(19)
+                    overflowAlarmTriggerThreshold: payload.readUInt16BE(11),
+                    threshold: payload.readUInt16BE(15),
+                    dailyPeriodsBelowWhichLeakageAlarmTriggered: payload.readUInt16BE(19),
                 };
                 chA['tamper'] = {
-                    'activated': Boolean(payload[5] & 0x08),
-                    'samplePeriodForDetection': { 'unit': 's', 'value': payload.readUInt8(23) * 10 },
-                    'threshold': payload.readUInt8(24)
+                    activated: Boolean(payload[5] & 0x08),
+                    samplePeriodForDetection: { unit: 's', value: payload.readUInt8(23) * 10 },
+                    threshold: payload.readUInt8(24),
                 };
             }
             else if (knownNetwork === 'sigfox') {
-                chA['tamper'] = { 'activated': Boolean(payload[5] & 0x08) };
+                chA['tamper'] = { activated: Boolean(payload[5] & 0x08) };
             }
             chB['state'] = this.getStateText(Boolean(payload[5] & 0x10));
             chB['type'] = this.getTypeText(Boolean(payload[5] & 0x20));
             chB['debouncingPeriod'] = {
-                'unit': 'ms', 'value': this.getDebouncingPeriodText((payload[8] & 0xf0) >> 4)
+                unit: 'ms',
+                value: this.getDebouncingPeriodText((payload[8] & 0xf0) >> 4),
             };
             if (knownNetwork === 'lora868') {
                 chB['leakageDetection'] = {
-                    'overflowAlarmTriggerThreshold': payload.readUInt16BE(13),
-                    'threshold': payload.readUInt16BE(17),
-                    'dailyPeriodsBelowWhichLeakageAlarmTriggered': payload.readUInt16BE(21)
+                    overflowAlarmTriggerThreshold: payload.readUInt16BE(13),
+                    threshold: payload.readUInt16BE(17),
+                    dailyPeriodsBelowWhichLeakageAlarmTriggered: payload.readUInt16BE(21),
                 };
                 chB['tamper'] = {
-                    'activated': Boolean(payload[5] & 0x80),
-                    'samplePeriodForDetection': { 'unit': 's', 'value': payload.readUInt8(25) * 10 },
-                    'threshold': payload.readUInt8(26)
+                    activated: Boolean(payload[5] & 0x80),
+                    samplePeriodForDetection: { unit: 's', value: payload.readUInt8(25) * 10 },
+                    threshold: payload.readUInt8(26),
                 };
             }
             else if (knownNetwork === 'sigfox') {
-                chB['tamper'] = { 'activated': Boolean(payload[5] & 0x80) };
+                chB['tamper'] = { activated: Boolean(payload[5] & 0x80) };
             }
             appContent['channels'] = [chA, chB];
             return appContent;
@@ -332,15 +335,15 @@ var codec;
         }
         PulseV40x11Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x11 Pulse 4 configuration' };
-            var chA = { 'name': 'channel A' };
-            var chB = { 'name': 'channel B' };
+            var chA = { name: 'channel A' };
+            var chB = { name: 'channel B' };
             chA['leakageDetection'] = {
-                'overflowAlarmTriggerThreshold': payload.readUInt16BE(2),
-                'threshold': payload.readUInt16BE(6)
+                overflowAlarmTriggerThreshold: payload.readUInt16BE(2),
+                threshold: payload.readUInt16BE(6),
             };
             chB['leakageDetection'] = {
-                'overflowAlarmTriggerThreshold': payload.readUInt16BE(4),
-                'threshold': payload.readUInt16BE(8)
+                overflowAlarmTriggerThreshold: payload.readUInt16BE(4),
+                threshold: payload.readUInt16BE(8),
             };
             appContent['channels'] = [chA, chB];
             return appContent;
@@ -358,21 +361,21 @@ var codec;
         }
         PulseV40x12Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x12 Pulse 4 configuration' };
-            var chA = { 'name': 'channel A' };
-            var chB = { 'name': 'channel B' };
+            var chA = { name: 'channel A' };
+            var chB = { name: 'channel B' };
             chA['leakageDetection'] = {
-                'dailyPeriodsBelowWhichLeakageAlarmTriggered': payload.readUInt16BE(2),
+                dailyPeriodsBelowWhichLeakageAlarmTriggered: payload.readUInt16BE(2),
             };
             chA['tamper'] = {
-                'samplePeriodForDetection': { 'unit': 's', 'value': payload.readUInt8(6) * 10 },
-                'threshold': payload.readUInt8(7)
+                samplePeriodForDetection: { unit: 's', value: payload.readUInt8(6) * 10 },
+                threshold: payload.readUInt8(7),
             };
             chB['leakageDetection'] = {
-                'dailyPeriodsBelowWhichLeakageAlarmTriggered': payload.readUInt16BE(4),
+                dailyPeriodsBelowWhichLeakageAlarmTriggered: payload.readUInt16BE(4),
             };
             chB['tamper'] = {
-                'samplePeriodForDetection': { 'unit': 's', 'value': payload.readUInt8(8) * 10 },
-                'threshold': payload.readUInt8(9)
+                samplePeriodForDetection: { unit: 's', value: payload.readUInt8(8) * 10 },
+                threshold: payload.readUInt8(9),
             };
             appContent['channels'] = [chA, chB];
             return appContent;
@@ -394,19 +397,19 @@ var codec;
                 var myDate = new Date((payload.readUInt32BE(11) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
-            var chA = { 'name': 'channel A' };
-            var chB = { 'name': 'channel B' };
+            var chA = { name: 'channel A' };
+            var chB = { name: 'channel B' };
             chA['flow'] = {
-                'alarm': Boolean(payload[2] & 0x01),
-                'last24hMin': payload.readUInt16BE(7),
-                'last24hMax': payload.readUInt16BE(3)
+                alarm: Boolean(payload[2] & 0x01),
+                last24hMin: payload.readUInt16BE(7),
+                last24hMax: payload.readUInt16BE(3),
             };
             chA['tamperAlarm'] = Boolean(payload[2] & 0x04);
             chA['leakageAlarm'] = Boolean(payload[2] & 0x10);
             chB['flow'] = {
-                'alarm': Boolean(payload[2] & 0x02),
-                'last24hMin': payload.readUInt16BE(9),
-                'last24hMax': payload.readUInt16BE(5)
+                alarm: Boolean(payload[2] & 0x02),
+                last24hMin: payload.readUInt16BE(9),
+                last24hMax: payload.readUInt16BE(5),
             };
             chB['tamperAlarm'] = Boolean(payload[2] & 0x08);
             chB['leakageAlarm'] = Boolean(payload[2] & 0x20);
@@ -470,7 +473,7 @@ var codec;
             var absCounterValue = payload.readUInt32BE(2);
             var appContent = { type: '0x5a Pulse 4 data - channel A' };
             var values = [absCounterValue];
-            var payloadLength = (payload[1] & 0x04) ? payload.length - 4 : payload.length;
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
             if (payload[1] & 0x04) {
                 var myDate = new Date((payload.readUInt32BE(payload.length - 4) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
@@ -501,7 +504,7 @@ var codec;
             var absCounterValue = payload.readUInt32BE(2);
             var appContent = { type: '0x5b Pulse 4 data - channel B' };
             var values = [absCounterValue];
-            var payloadLength = (payload[1] & 0x04) ? payload.length - 4 : payload.length;
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
             if (payload[1] & 0x04) {
                 var myDate = new Date((payload.readUInt32BE(payload.length - 4) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
@@ -533,7 +536,7 @@ var codec;
             var parser = new codec.GenericStatusByteParser();
             statusContent = parser.parseFrame(payload, configuration);
             statusContent['timestamp'] = Boolean(payload[1] & 0x04);
-            return { 'status': statusContent };
+            return { status: statusContent };
         };
         return PulseV4StatusByteParser;
     }());
@@ -558,7 +561,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -653,9 +656,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }

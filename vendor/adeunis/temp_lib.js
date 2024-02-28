@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,24 +21,25 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
-    if ((a & 0x80000000) > 0) {
-        return a - 0x10000000;
-    }
-    return a;
+    return (buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3];
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -142,18 +143,17 @@ var codec;
             switch (payload.length) {
                 case 4:
                     appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
-                        && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
                     }
                     break;
                 case 3:
                 case 5:
-                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
                     if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
                     }
                     break;
                 default:
@@ -170,7 +170,7 @@ var codec;
 (function (codec) {
     var Generic0x2fParser = (function () {
         function Generic0x2fParser() {
-            this.deviceType = 'drycontacts|drycontacts2|temp4';
+            this.deviceType = 'drycontacts|drycontacts2|temp4|comfortSerenity|modbus';
             this.frameCode = 0x2f;
         }
         Generic0x2fParser.prototype.parseFrame = function (payload, configuration) {
@@ -201,8 +201,7 @@ var codec;
 (function (codec) {
     var Generic0x33Parser = (function () {
         function Generic0x33Parser() {
-            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' +
-                'temp3|temp4|comfort|comfort2|comfortCo2|motion|deltap|breath';
+            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' + 'temp3|temp4|comfort|comfort2|comfortCo2|modbus|motion|deltap|breath|comfortSerenity';
             this.frameCode = 0x33;
         }
         Generic0x33Parser.prototype.parseFrame = function (payload, configuration, network) {
@@ -264,7 +263,7 @@ var codec;
 (function (codec) {
     var Generic0x37Parser = (function () {
         function Generic0x37Parser() {
-            this.deviceType = 'temp4|comfort2|comfortCo2|breath';
+            this.deviceType = 'temp4|comfort2|comfortCo2|breath|comfortSerenity|modbus';
             this.frameCode = 0x37;
         }
         Generic0x37Parser.prototype.parseFrame = function (payload, configuration, network) {
@@ -286,15 +285,19 @@ var codec;
         }
         TempV40x10Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x10 Temp 4 configuration' };
-            appContent['transmissionPeriodKeepAlive'] = { 'unit': 's', 'value': payload.readUInt16BE(2) * 10 },
-                appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(4),
-                appContent['numberOfSamplingBeforeHistorization'] = payload.readUInt16BE(6),
-                appContent['samplingPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(8) * 2 },
-                appContent['redundantSamples'] = payload.readUInt8(10),
-                appContent['calculatedPeriodRecording'] = { 'unit': 's',
-                    'value': payload.readUInt16BE(8) * payload.readUInt16BE(6) * 2 },
-                appContent['calculatedSendingPeriod'] = { 'unit': 's',
-                    'value': payload.readUInt16BE(8) * payload.readUInt16BE(6) * payload.readUInt16BE(4) * 2 };
+            (appContent['transmissionPeriodKeepAlive'] = { unit: 's', value: payload.readUInt16BE(2) * 10 }),
+                (appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(4)),
+                (appContent['numberOfSamplingBeforeHistorization'] = payload.readUInt16BE(6)),
+                (appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(8) * 2 }),
+                (appContent['redundantSamples'] = payload.readUInt8(10)),
+                (appContent['calculatedPeriodRecording'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * 2,
+                }),
+                (appContent['calculatedSendingPeriod'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * payload.readUInt16BE(4) * 2,
+                });
             return appContent;
         };
         return TempV40x10Parser;
@@ -310,16 +313,16 @@ var codec;
         }
         TempV40x30Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x30 Temp 4 keep alive' };
-            var nbSensors = (payload[1] & 0x10) ? 2 : 1;
+            var nbSensors = payload[1] & 0x10 ? 2 : 1;
             if (payload[1] & 0x04) {
-                var offsetType = (nbSensors === 2) ? 6 : 4;
+                var offsetType = nbSensors === 2 ? 6 : 4;
                 var myDate = new Date((payload.readUInt32BE(offsetType) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
             var temperatures = [];
-            temperatures.push({ 'name': 'temperature 1', 'unit': '\u00B0' + 'C', 'value': payload.readInt16BE(2) / 10 });
+            temperatures['push']({ name: 'temperature 1', unit: '\u00B0' + 'C', value: payload.readInt16BE(2) / 10 });
             if (nbSensors === 2) {
-                temperatures.push({ 'name': 'temperature 2', 'unit': '\u00B0' + 'C', 'value': payload.readInt16BE(4) / 10 });
+                temperatures['push']({ name: 'temperature 2', unit: '\u00B0' + 'C', value: payload.readInt16BE(4) / 10 });
             }
             appContent['temperatures'] = temperatures;
             return appContent;
@@ -337,11 +340,11 @@ var codec;
         }
         TempV40x57Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x57 Temp 4 periodic data' };
-            var nbSensors = (payload[1] & 0x10) ? 2 : 1;
+            var nbSensors = payload[1] & 0x10 ? 2 : 1;
             var rawValue;
             var temperatures = [];
             var ch1Temp = [], ch2Temp = [];
-            var payloadLength = (payload[1] & 0x04) ? payload.length - 4 : payload.length;
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
             for (var offset = 2; offset < payloadLength; offset += 2 * nbSensors) {
                 rawValue = payload.readInt16BE(offset);
                 ch1Temp.push(rawValue / 10);
@@ -355,9 +358,9 @@ var codec;
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
             appContent['decodingInfo'] = 'values: [t=0, t-1, t-2, ...]';
-            temperatures.push({ 'name': 'temperature 1', 'unit': '\u00B0' + 'C', 'values': ch1Temp });
+            temperatures['push']({ name: 'temperature 1', unit: '\u00B0' + 'C', values: ch1Temp });
             if (nbSensors === 2) {
-                temperatures.push({ 'name': 'temperature 2', 'unit': '\u00B0' + 'C', 'values': ch2Temp });
+                temperatures['push']({ name: 'temperature 2', unit: '\u00B0' + 'C', values: ch2Temp });
             }
             appContent['temperatures'] = temperatures;
             return appContent;
@@ -376,18 +379,18 @@ var codec;
         TempV40x58Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x58 Temp 4 alarm' };
             var alarms = [];
-            var nbSensors = (payload[1] & 0x10) ? 2 : 1;
-            var offsetType = (nbSensors === 2) ? 8 : 5;
-            alarms.push({
-                'name': 'temperature 1',
-                'alarmStatus': this.getAlarmStatusText(payload.readUInt8(2)),
-                'temperature': { 'unit': '\u00B0' + 'C', 'value': payload.readInt16BE(3) / 10 },
+            var nbSensors = payload[1] & 0x10 ? 2 : 1;
+            var offsetType = nbSensors === 2 ? 8 : 5;
+            alarms['push']({
+                name: 'temperature 1',
+                alarmStatus: this.getAlarmStatusText(payload.readUInt8(2)),
+                temperature: { unit: '\u00B0' + 'C', value: payload.readInt16BE(3) / 10 },
             });
             if (nbSensors === 2) {
-                alarms.push({
-                    'name': 'temperature 2',
-                    'alarmStatus': this.getAlarmStatusText(payload.readUInt8(5)),
-                    'temperature': { 'unit': '\u00B0' + 'C', 'value': payload.readInt16BE(6) / 10 }
+                alarms['push']({
+                    name: 'temperature 2',
+                    alarmStatus: this.getAlarmStatusText(payload.readUInt8(5)),
+                    temperature: { unit: '\u00B0' + 'C', value: payload.readInt16BE(6) / 10 },
                 });
             }
             if (payload[1] & 0x04) {
@@ -425,7 +428,7 @@ var codec;
             statusContent['configurationInconsistency'] = Boolean(payload[1] & 0x08);
             statusContent['configuration2ChannelsActivated'] = Boolean(payload[1] & 0x10);
             statusContent['timestamp'] = Boolean(payload[1] & 0x04);
-            return { 'status': statusContent };
+            return { status: statusContent };
         };
         return TempV4StatusByteParser;
     }());
@@ -450,7 +453,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -542,9 +545,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }

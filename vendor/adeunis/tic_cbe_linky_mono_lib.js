@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,24 +21,25 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
-    if ((a & 0x80000000) > 0) {
-        return a - 0x10000000;
-    }
-    return a;
+    return (buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3];
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -142,18 +143,17 @@ var codec;
             switch (payload.length) {
                 case 4:
                     appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
-                        && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
                     }
                     break;
                 case 3:
                 case 5:
-                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
                     if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
                     }
                     break;
                 default:
@@ -191,12 +191,12 @@ var codec;
         Tic0x10Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x10 TIC configuration' };
             if (payload[5] === 2) {
-                appContent['transmissionPeriodKeepAlive'] = { 'unit': 's', 'value': payload[2] * 20 };
-                appContent['samplingPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(6) * 20 };
+                appContent['transmissionPeriodKeepAlive'] = { unit: 's', value: payload[2] * 20 };
+                appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(6) * 20 };
             }
             else {
-                appContent['transmissionPeriodKeepAlive'] = { 'unit': 'm', 'value': payload[2] * 10 };
-                appContent['samplingPeriod'] = { 'unit': 'm', 'value': payload.readUInt16BE(6) };
+                appContent['transmissionPeriodKeepAlive'] = { unit: 'm', value: payload[2] * 10 };
+                appContent['samplingPeriod'] = { unit: 'm', value: payload.readUInt16BE(6) };
             }
             appContent['transmissionPeriodData'] = payload.readUInt16BE(3);
             appContent['productMode'] = codec.PlateformCommonUtils.getProductModeText(payload[5]);
@@ -264,20 +264,20 @@ var codec;
             }
             var str = String.fromCharCode.apply(String, charCode);
             if (str.length > 0) {
-                appContent["" + label] = str;
+                appContent["".concat(label)] = str;
             }
             else {
-                appContent[label + "status"] = 'notFound';
+                appContent["".concat(label, "status")] = 'notFound';
             }
             return appContent;
         };
         Tic0x49Parser.prototype.payloadToValue = function (payload, start, unit, appContent, label) {
             var val = payload.readUInt32BE(start);
             if (val !== 0x80000000) {
-                appContent["" + label] = { 'unit': unit, 'value': val };
+                appContent["".concat(label)] = { unit: unit, value: val };
             }
             else {
-                appContent[label + "status"] = 'notFound';
+                appContent["".concat(label, "status")] = 'notFound';
             }
             return appContent;
         };
@@ -287,15 +287,25 @@ var codec;
         Tic0x49Parser.prototype.payloadToDate = function (payload, start, deviceType, appContent, label) {
             var str = '2000-01-01T00:00:00';
             if (deviceType === 'ticPmePmi') {
-                str = 2000 + payload[start + 2] + '-' + this.p2d(payload[start + 1])
-                    + '-' + this.p2d(payload[start + 0]) + 'T' + this.p2d(payload[start + 3])
-                    + ':' + this.p2d(payload[start + 4]) + ':' + this.p2d(payload[start + 5]);
+                str =
+                    2000 +
+                        payload[start + 2] +
+                        '-' +
+                        this.p2d(payload[start + 1]) +
+                        '-' +
+                        this.p2d(payload[start + 0]) +
+                        'T' +
+                        this.p2d(payload[start + 3]) +
+                        ':' +
+                        this.p2d(payload[start + 4]) +
+                        ':' +
+                        this.p2d(payload[start + 5]);
             }
             if (str !== '2000-01-01T00:00:00') {
-                appContent["" + label] = str;
+                appContent["".concat(label)] = str;
             }
             else {
-                appContent[label + "status"] = 'notFound';
+                appContent["".concat(label, "status")] = 'notFound';
             }
             return appContent;
         };
@@ -347,7 +357,7 @@ var codec;
                 }
             }
             var str = String.fromCharCode.apply(String, charCode);
-            return (str.length > 0) ? str : 'notFound';
+            return str.length > 0 ? str : 'notFound';
         };
         return Tic0x4aParser;
     }());
@@ -361,12 +371,11 @@ var codec;
             this.frameCode = 0;
         }
         TicStatusByteParser.prototype.parseFrame = function (payload, configuration, network) {
-            var statusContent;
             var parser = new codec.GenericStatusByteParser();
-            statusContent = parser.parseFrame(payload, configuration);
-            statusContent['configurationInconsistency'] = Boolean((payload[1] & 0x08));
-            statusContent['readError'] = Boolean((payload[1] & 0x10));
-            return { 'status': statusContent };
+            var statusContent = parser.parseFrame(payload, configuration);
+            statusContent['configurationInconsistency'] = Boolean(payload[1] & 0x08);
+            statusContent['readError'] = Boolean(payload[1] & 0x10);
+            return { status: statusContent };
         };
         return TicStatusByteParser;
     }());
@@ -391,7 +400,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -471,9 +480,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }
