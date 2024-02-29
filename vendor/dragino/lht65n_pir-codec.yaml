@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: lht65n.js
+  fileName: lht65n_pir.js
   examples:
     - description: Temperature
       input:
@@ -10,7 +10,7 @@ uplinkDecoder:
 
     - description: Unknown FPort
       input:
-        fPort: 42
+        fPort: 2
         bytes: [0xCB, 0xF6, 0x0B, 0x0D, 0x03, 0x76, 0x01, 0x0A, 0xDD, 0x7F, 0xFF]
       output:
         errors:
