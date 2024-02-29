@@ -1998,6 +1998,13 @@ vendors:
     website: https://open-boat-projects.org
     logo: obp_logo.png
 
+  - id: elspina
+    name: Elspina VEINZ Inc.
+    website: https://elspina.veinz.tech/
+    logo: elspina_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/elspinaveinz/
+
   - id: watteco
     name: WATTECO
     vendorID: 296
@@ -2019,6 +2026,14 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/lualtek/
       twitter: lualtek
+
+  - id: n-fuse
+    name: n-fuse GmbH
+    description: n-fuse is a digitization focusd company providing cutting-edge end-to-end solutions including LoRaWAN devices like environment sensors, IoT bbuttons, gateways and bridges.
+    logo: logo.svg
+    website: https://www.n-fuse.co/
+    social:
+      github: nfhw
 
   - id: iot-factory
     name: IOT Factory
