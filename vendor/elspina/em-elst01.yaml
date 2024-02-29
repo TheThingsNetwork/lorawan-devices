@@ -30,7 +30,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: elspina
+        #vendorID: elspina
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: em-elst01-profile
         lorawanCertified: true

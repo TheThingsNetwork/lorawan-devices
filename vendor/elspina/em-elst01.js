@@ -64,16 +64,18 @@ function decodeUplink(input) {
       else
         temp_DS18B20=(value/10).toFixed(1);
       return {
-        status:switch_status,
-        Bat:batV ,
-        TODE:tode1,
-        LDOD:ldod1,
-        ALARM:alarm1,
-        TNOMD:tnomd1,
-        X:X,
-        Y:Y,
-        Z:Z,
-        temp_ds:temp_DS18B20
+        data:{
+          status:switch_status,
+          Bat:batV ,
+          TODE:tode1,
+          LDOD:ldod1,
+          ALARM:alarm1,
+          TNOMD:tnomd1,
+          X:X,
+          Y:Y,
+          Z:Z,
+          temp_ds:temp_DS18B20
+        },
       };
     }
   }
