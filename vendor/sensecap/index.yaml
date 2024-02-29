@@ -16,7 +16,8 @@ endDevices:
 profileIDs:
   '1':
     endDeviceID: loramodule-e5
-    firmwareVersion: 'classb1.0'
+    firmwareVersion: 'classb'
+    hardwareVersion: '1.0'
     region: EU863-870
   '2':
     endDeviceID: loramodule-e5

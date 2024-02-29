@@ -4,4 +4,5 @@ profileIDs:
   '1':
     endDeviceID: sinus85
     firmwareVersion: '1.0.3'
+    hardwareVersion: ''
     region: EU863-870

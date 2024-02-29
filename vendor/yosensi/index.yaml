@@ -18,193 +18,241 @@ endDevices:
 profileIDs:
   '1':
     endDeviceID: yo-360
-    firmwareVersion: '3.1.01.3'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.3'
     region: AU915-928
   '2':
     endDeviceID: yo-360
-    firmwareVersion: '3.1.01.3'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.3'
     region: US902-928
   '3':
     endDeviceID: yo-360
-    firmwareVersion: '3.1.01.3'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.3'
     region: EU863-870
   '4':
     endDeviceID: yo-agribox
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: AU915-928
   '5':
     endDeviceID: yo-agribox
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: US902-928
   '6':
     endDeviceID: yo-agribox
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: EU863-870
   '7':
     endDeviceID: yo-airflow-pro-dual
-    firmwareVersion: '3.6.11.0'
+    firmwareVersion: 3.6.1
+    hardwareVersion: '1.0'
     region: AU915-928
   '8':
     endDeviceID: yo-airflow-pro-dual
-    firmwareVersion: '3.6.11.0'
+    firmwareVersion: 3.6.1
+    hardwareVersion: '1.0'
     region: US902-928
   '9':
     endDeviceID: yo-airflow-pro-dual
-    firmwareVersion: '3.6.11.0'
+    firmwareVersion: 3.6.1
+    hardwareVersion: '1.0'
     region: EU863-870
   '10':
     endDeviceID: yo-airflow-pro
-    firmwareVersion: '3.1.02.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.0'
     region: AU915-928
   '11':
     endDeviceID: yo-airflow-pro
-    firmwareVersion: '3.1.02.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.0'
     region: US902-928
   '12':
     endDeviceID: yo-airflow-pro
-    firmwareVersion: '3.1.02.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.0'
     region: EU863-870
   '13':
     endDeviceID: yo-ambience
-    firmwareVersion: '3.2.01.2'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.2'
     region: AU915-928
   '14':
     endDeviceID: yo-ambience
-    firmwareVersion: '3.2.01.2'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.2'
     region: US902-928
   '15':
     endDeviceID: yo-ambience
-    firmwareVersion: '3.2.01.2'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.2'
     region: EU863-870
   '16':
     endDeviceID: yo-analog
-    firmwareVersion: '3.2.01.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.0'
     region: AU915-928
   '17':
     endDeviceID: yo-analog
-    firmwareVersion: '3.2.01.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.0'
     region: US902-928
   '18':
     endDeviceID: yo-analog
-    firmwareVersion: '3.2.01.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.0'
     region: EU863-870
   '19':
     endDeviceID: yo-distance
-    firmwareVersion: '3.1.02.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.1'
     region: AU915-928
   '20':
     endDeviceID: yo-distance
-    firmwareVersion: '3.1.02.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.1'
     region: US902-928
   '21':
     endDeviceID: yo-distance
-    firmwareVersion: '3.1.02.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.1'
     region: EU863-870
   '22':
     endDeviceID: yo-h2o
-    firmwareVersion: '3.1.01.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.1'
     region: AU915-928
   '23':
     endDeviceID: yo-h2o
-    firmwareVersion: '3.1.01.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.1'
     region: US902-928
   '24':
     endDeviceID: yo-h2o
-    firmwareVersion: '3.1.01.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.1'
     region: EU863-870
   '25':
     endDeviceID: yo-meter-pulse
-    firmwareVersion: '3.1.02.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.0'
     region: AU915-928
   '26':
     endDeviceID: yo-meter-pulse
-    firmwareVersion: '3.1.02.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.0'
     region: US902-928
   '27':
     endDeviceID: yo-meter-pulse
-    firmwareVersion: '3.1.02.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.0'
     region: EU863-870
   '28':
     endDeviceID: yo-modbus
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: AU915-928
   '29':
     endDeviceID: yo-modbus
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: US902-928
   '30':
     endDeviceID: yo-modbus
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: EU863-870
   '31':
     endDeviceID: yo-people-counter
-    firmwareVersion: '3.2.03.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '3.0'
     region: AU915-928
   '32':
     endDeviceID: yo-people-counter
-    firmwareVersion: '3.2.03.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '3.0'
     region: EU863-870
   '33':
     endDeviceID: yo-people-counter
-    firmwareVersion: '3.2.03.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '3.0'
     region: US902-928
   '34':
     endDeviceID: yo-power
-    firmwareVersion: '3.2.03.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '3.0'
     region: AU915-928
   '35':
     endDeviceID: yo-power
-    firmwareVersion: '3.2.03.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '3.0'
     region: US902-928
   '36':
     endDeviceID: yo-power
-    firmwareVersion: '3.2.03.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '3.0'
     region: EU863-870
   '37':
     endDeviceID: yo-pulse
-    firmwareVersion: '3.2.01.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.0'
     region: AU915-928
   '38':
     endDeviceID: yo-pulse
-    firmwareVersion: '3.2.01.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.0'
     region: US902-928
   '39':
     endDeviceID: yo-pulse
-    firmwareVersion: '3.2.01.0'
+    firmwareVersion: 3.2.0
+    hardwareVersion: '1.0'
     region: EU863-870
   '40':
     endDeviceID: yo-pure-pro
-    firmwareVersion: '3.3.03.1'
+    firmwareVersion: 3.3.0
+    hardwareVersion: '3.1'
     region: AU915-928
   '41':
     endDeviceID: yo-pure-pro
-    firmwareVersion: '3.3.03.1'
+    firmwareVersion: 3.3.0
+    hardwareVersion: '3.1'
     region: US902-928
   '42':
     endDeviceID: yo-pure-pro
-    firmwareVersion: '3.3.03.1'
+    firmwareVersion: 3.3.0
+    hardwareVersion: '3.1'
     region: EU863-870
   '43':
     endDeviceID: yo-refrigerant-monitor
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: AU915-928
   '44':
     endDeviceID: yo-refrigerant-monitor
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: US902-928
   '45':
     endDeviceID: yo-refrigerant-monitor
-    firmwareVersion: '3.1.01.0'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '1.0'
     region: EU863-870
   '46':
     endDeviceID: yo-temp
-    firmwareVersion: '3.1.02.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.1'
     region: AU915-928
   '47':
     endDeviceID: yo-temp
-    firmwareVersion: '3.1.02.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.1'
     region: US902-928
   '48':
     endDeviceID: yo-temp
-    firmwareVersion: '3.1.02.1'
+    firmwareVersion: 3.1.0
+    hardwareVersion: '2.1'
     region: EU863-870

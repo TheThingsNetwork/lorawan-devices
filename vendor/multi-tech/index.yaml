@@ -4,24 +4,30 @@ profileIDs:
   '1':
     endDeviceID: multi-tech-xdot
     firmwareVersion: '3.5.5'
+    hardwareVersion: ''
     region: AS923
   '2':
     endDeviceID: multi-tech-xdot
     firmwareVersion: '3.5.5'
+    hardwareVersion: ''
     region: AU915-928
   '3':
     endDeviceID: multi-tech-xdot
     firmwareVersion: '3.5.5'
+    hardwareVersion: ''
     region: EU863-870
   '4':
     endDeviceID: multi-tech-xdot
     firmwareVersion: '3.5.5'
+    hardwareVersion: ''
     region: IN865-867
   '5':
     endDeviceID: multi-tech-xdot
     firmwareVersion: '3.5.5'
+    hardwareVersion: ''
     region: KR920-923
   '6':
     endDeviceID: multi-tech-xdot
     firmwareVersion: '3.5.5'
+    hardwareVersion: ''
     region: US902-928

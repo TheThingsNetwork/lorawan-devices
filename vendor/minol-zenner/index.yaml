@@ -3,5 +3,6 @@ endDevices:
 profileIDs:
   '1':
     endDeviceID: edc-communication-module
-    firmwareVersion: '2.02.01.0'
+    firmwareVersion: '2.02.0'
+    hardwareVersion: '1.0'
     region: EU863-870

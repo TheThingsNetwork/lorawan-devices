@@ -4,4 +4,5 @@ profileIDs:
   '1':
     endDeviceID: ds-vb-01-xx
     firmwareVersion: '1.2.81.0'
+    hardwareVersion: '1.0'
     region: EU863-870

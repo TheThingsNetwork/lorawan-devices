@@ -102,7 +102,7 @@
                       "$ref": "#/definitions/region"
                     }
                   },
-                  "required": ["endDeviceID", "firmwareVersion", "region"]
+                  "required": ["endDeviceID", "hardwareVersion", "firmwareVersion", "region"]
                 },
                 {
                   "type": "object",
