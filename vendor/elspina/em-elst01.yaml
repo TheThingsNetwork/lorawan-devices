@@ -2,17 +2,17 @@ name: EM-ELST01
 description: Device to capture state changes through its accelerometer and switch sensor.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: "1.0"
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: "1.6.3"
+    version: '1.6.3'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - "1.0"
+      - '1.0'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -115,7 +115,7 @@ dataSheetURL: https://docs.elspina.space/products/em-elst01/ELmote_EM-ELST01_OL.
 
 # Commercial information
 resellerURLs:
-  - name: "ELSPINA VEINZ Inc."
+  - name: 'ELSPINA VEINZ Inc.'
     region:
       - Japan
     url: https://elspina.veinz.tech/
