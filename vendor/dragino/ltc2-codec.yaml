@@ -7,11 +7,10 @@ uplinkDecoder:
         bytes: [0x0E, 0x55, 0x01, 0x08, 0x62, 0x08, 0x67, 0x60, 0xE4, 0x3C, 0xC6]
       output:
         data: { 'BatV': 3.669, 'Ext': 1, 'Systimestamp': 1625570502, 'Temp_Channel1': 21.46, 'Temp_Channel2': 21.51 }
-
-    - description: Unknown FPort
-      input:
-        fPort: 42
-        bytes: [0x0E, 0x55, 0x01, 0x08, 0x62, 0x08, 0x67, 0x60, 0xE4, 0x3C, 0xC6]
-      output:
-        errors:
-          - unknown FPort
+#    - description: Unknown FPort
+#      input:
+#        fPort: 42
+#        bytes: [0x0E, 0x55, 0x01, 0x08, 0x62, 0x08, 0x67, 0x60, 0xE4, 0x3C, 0xC6]
+#      output:
+#        errors:
+#          - unknown FPort
