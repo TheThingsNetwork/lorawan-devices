@@ -55,6 +55,9 @@ function decodeUplink(input) {
 				data: data,
 			};
 		}
+		var map = new Map([
+			[0,1],[1,5],[2,10],[3,100]
+		]);
 		
 		data.Device = getDeviceName(input.bytes[1]);
 		if (input.bytes[3] & 0x80)
@@ -76,6 +79,24 @@ function decodeUplink(input) {
 		{	
 			data.Multiplier2 = input.bytes[4];
 			data.Multiplier3 = input.bytes[5];
+		}
+		else if (input.bytes[2] === 0x03)
+		{	
+			data.Current1 = (input.bytes[4]<<8 | input.bytes[5]);
+			data.Current2 = (input.bytes[6]<<8 | input.bytes[7]);
+			data.Current3 = (input.bytes[8]<<8 | input.bytes[9]);
+			data.Multiplier1 = map.get(input.bytes[10] & 3);
+			data.Multiplier2 = map.get(input.bytes[10]>>2 & 3);
+			data.Multiplier3 = map.get(input.bytes[10]>>4 & 3);
+		}
+		else if (input.bytes[2] === 0x04)
+		{	
+			data.LowCurrent1Alarm = input.bytes[4] & 1;
+			data.HighCurrent1Alarm = input.bytes[4]>>1 & 1;
+			data.LowCurrent2Alarm = input.bytes[4] >>2 & 1;
+			data.HighCurren2Alarm = input.bytes[4]>>3 & 1;
+			data.LowCurrent3Alarm = input.bytes[4]>>4 & 1;
+			data.HighCurrent3Alarm = input.bytes[4]>>5 & 1;
 		}
 		break;
 		

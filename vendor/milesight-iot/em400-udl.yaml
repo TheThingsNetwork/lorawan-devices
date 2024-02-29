@@ -1,4 +1,4 @@
-name: Ultrasonic Distance Sensor
+name: EM400-UDL - Ultrasonic Distance Sensor
 description: EM400-UDL is a non-contact ultrasonic distancesensordesigned for outdoor applications such as monitoringwaterlevel, fill level of tanks and silos, presence of objects, orsnowlevel
 
 hardwareVersions:
