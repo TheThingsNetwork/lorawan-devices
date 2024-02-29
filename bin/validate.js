@@ -5,7 +5,7 @@ const yargs = require('yargs');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const sizeOf = require('image-size');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
@@ -68,9 +68,8 @@ async function requireDimensions(path) {
   });
 }
 
-function validatePayloadCodecs(vendorId, payloadEncoding) {
-  var runs = [];
-  var promises = [];
+async function validatePayloadCodecs(vendorId, payloadEncoding) {
+  const runs = [];
 
   [
     { def: payloadEncoding.uplinkDecoder, routine: 'decodeUplink' },
@@ -80,7 +79,6 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     if (d.def) {
       const { routine } = d;
       const fileName = `${vendorId}/${d.def.fileName}`;
-      promises.push(requireFile(fileName));
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
           const { input, output, description, normalizedOutput } = e;
@@ -99,8 +97,6 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
               input: output,
               output: normalizedOutput,
               transformOutput: (output) => {
-                // The normalizer can return an object or an array of objects.
-                // If it's an object, convert it to an array with a single item.
                 if (output.data && !Array.isArray(output.data)) {
                   output.data = [output.data];
                 }
@@ -113,39 +109,60 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     }
   });
 
-  runs.forEach((r) => {
-    promises.push(
-      new Promise((resolve, reject) => {
-        exec(
-          `bin/runscript -codec-path "${r.fileName}" -routine ${r.routine} -input '${JSON.stringify(r.input)}'`,
-          (err, stdout, stderr) => {
-            if (err) {
-              reject(err);
-            } else if (stderr) {
-              reject(stderr);
+  for (const r of runs) {
+    try {
+      const childProcess = spawn('bin/runscript', [
+        '-codec-path',
+        r.fileName,
+        '-routine',
+        r.routine,
+        '-input',
+        JSON.stringify(r.input),
+      ]);
+
+      let stdout = '';
+      let stderr = '';
+
+      childProcess.stdout.on('data', (data) => {
+        stdout += data.toString();
+      });
+
+      childProcess.stderr.on('data', (data) => {
+        stderr += data.toString();
+      });
+
+      await new Promise((resolve, reject) => {
+        childProcess.on('error', (error) => {
+          reject(error);
+        });
+
+        childProcess.on('close', (code) => {
+          if (code !== 0) {
+            reject(`Process exited with code ${code}\n${stderr}`);
+          } else {
+            const expected = r.output;
+            let actual = JSON.parse(stdout);
+            if (r.transformOutput) {
+              actual = r.transformOutput(actual);
+            }
+            if (isEqual(expected, actual)) {
+              console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
+              resolve();
             } else {
-              const expected = r.output;
-              let actual = JSON.parse(stdout);
-              if (r.transformOutput) {
-                actual = r.transformOutput(actual);
-              }
-              if (isEqual(expected, actual)) {
-                console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
-                resolve();
-              } else {
-                reject(
-                  `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
-                    expected
-                  )}`
-                );
-              }
+              reject(
+                `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
+                  expected
+                )}`
+              );
             }
           }
-        );
-      })
-    );
-  });
-  return Promise.all(promises);
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
+  }
 }
 
 function validateImageExtension(filename) {
@@ -167,11 +184,16 @@ function validateImageExtension(filename) {
 function requireImageDecode(fileName) {
   // Test https://golang.org/pkg/image/png/#Decode and https://golang.org/pkg/image/jpeg/#Decode are possible
   return new Promise((resolve, reject) => {
-    exec(`bin/validate-image ${fileName}`, (err) => {
-      if (err) {
-        reject(err);
+    const childProcess = spawn('bin/validate-image', [fileName]);
+    childProcess.on('error', (error) => {
+      reject(error);
+    });
+    childProcess.on('close', (code) => {
+      if (code !== 0) {
+        reject(`Process exited with code ${code}`);
+      } else {
+        resolve();
       }
-      resolve();
     });
   });
 }

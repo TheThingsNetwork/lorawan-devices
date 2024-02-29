@@ -1,4 +1,4 @@
-name: LPN CM-4 Sensor
+name: LPN CM-4 Sensor - Temperature & Humidity Sensor
 description: The comtac LPN CM-4 SENSOR has a built-in temperature sensor and a humidity sensor that records temperature and moisture at programmable intervals. The collected data is sent over the LoRaWAN® network for further processing.
 
 # Hardware versions (optional, use when you have revisions)

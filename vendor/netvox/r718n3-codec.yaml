@@ -36,6 +36,36 @@ uplinkDecoder:
           Multiplier2: 3
           Multiplier3: 10
 
+    - description: Status report - 3
+      input:
+        fPort: 6
+        bytes: [0x01, 0x4A, 0x03, 0x24, 0x03, 0xE8, 0x00, 0xC8, 0x1B, 0x58, 0x36]
+      output:
+        data:
+          Device: 'R718N3'
+          Volt: 3.6
+          Current1: 1000
+          Current2: 200
+          Current3: 7000
+          Multiplier1: 10
+          Multiplier2: 5
+          Multiplier3: 100
+
+    - description: Status report - 4
+      input:
+        fPort: 6
+        bytes: [0x01, 0x4A, 0x04, 0x24, 0x39, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718N3'
+          Volt: 3.6
+          LowCurrent1Alarm: 1
+          HighCurrent1Alarm: 0
+          LowCurrent2Alarm: 0
+          HighCurren2Alarm: 1
+          LowCurrent3Alarm: 1
+          HighCurrent3Alarm: 1
+
     - description: Configure report response
       input:
         fPort: 7

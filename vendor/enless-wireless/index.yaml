@@ -3,3 +3,17 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - tx-pulse-600 # look in tx-pulse-600.yaml for the end device definition
+  - tx-trh-amb-600-021 # look in tx-600-021.yaml for the end device definition
+
+  - tx-amb-600-023 ## look in tx-amb-600-023.yaml for the end device definition
+  - tx-temp-600-031 ## look in tx-temp-600-031.yaml for the end device definition
+  - tx-temp-cont1-600-032 ## look in tx-temp-cont1-600-032.yaml for the end device definition
+
+  - tx-temp-cont2-600-034 ## look in tx-temp-cont2-600-034.yaml for the end device definition
+  - tx-pulse-atex-600-037 ## look in tx-pulse-atex-600-037.yaml for the end device definition
+  - tx-temp-cont2-600-232 ## look in tx-temp-cont2-600-232.yaml for the end device definition
+
+  - tx-analog-600-035 ## look in tx-analog-600-035.yaml for the end device definition
+  - tx-pulse-led-600-038 ## look in tx-pulse-led-600-038.yaml for the end device definition
+  - tx-contact-600-039 ## look in tx-contact-600-039.yaml for the end device definition
+

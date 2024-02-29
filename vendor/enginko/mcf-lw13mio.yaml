@@ -1,4 +1,4 @@
-name: MCF-LW13MIO
+name: MCF-LW13MIO - Multi I/O Module
 description: The enginko MCF-LW13MIO is a LoRaWAN® multi I/O module that transmits the state of its 16 inputs and controls 8 outputs through the LoRaWAN® network. All these inputs and outputs are galvanically isolated. It can be used for industrial process control, home automation, water treatment, agriculture irrigation, and similar applications.
 
 # Firmware versions (at least one is mandatory)
@@ -74,4 +74,4 @@ dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW13MIO.pdf
 
 # Photos
 photos:
-  main: mcf-lw13mio.jpg
+  main: mcf-lw13mio.png

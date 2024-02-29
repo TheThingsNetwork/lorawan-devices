@@ -1,6 +1,12 @@
 function decodeUplink(input) {
     var bytes = input.bytes;
 
+     // Check if the payload is empty by verifying if all elements in 'bytes' are 0 or if 'bytes' is empty
+  var isEmptyPayload = bytes.length === 0 || bytes.every(element => element === 0);
+  if (isEmptyPayload) {
+      return {}; // Return an empty object if the payload is empty
+  }
+
     switch (input.fPort) {
       case 106:
         return {

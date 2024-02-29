@@ -1,0 +1,118 @@
+name: Comfort Serenity - Indoor Air Quality Sensor
+description: The Adeunis Comfort Serenity has several functions (CO2, VOC, temperature, humidity, alert button, dry contact input) optimizing occupant comfort and energy performance in a building.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '8273BR'
+    numeric: 1
+  - version: '8273IR'
+    numeric: 2
+  - version: '8273JR'
+    numeric: 3
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.1.X'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '8273BR'
+      - '8273IR'
+      - '8273JR'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: adeunis-lora104-profile
+        lorawanCertified: true
+        codec: comfort-serenity-codec
+      US902-928:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: adeunis-lora104-profile
+        lorawanCertified: true
+        codec: comfort-serenity-codec
+      AU915-928:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: adeunis-lora104-profile
+        lorawanCertified: true
+        codec: comfort-serenity-codec
+      AS923:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: adeunis-lora104-profile
+        lorawanCertified: true
+        codec: comfort-serenity-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - co2
+  - tvoc
+  - temperature
+  - humidity
+  - button
+  - digital input
+
+# Dimensions use width, height, length and/or diameter
+dimensions:
+  width: 61
+  length: 111
+  height: 40
+
+# Weight in grams (optional)
+weight: 141
+
+# Battery information (optional)
+battery:
+  replaceable: true
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.85
+
+# IP rating (optional)
+ipCode: IP20
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://www.adeunis.com/en/produit/comfort-serenity-temperature-humidity-co2-voc/
+
+# Photos
+photos:
+  main: comfort-serenity.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
