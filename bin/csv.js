@@ -4,6 +4,28 @@ const yaml = require('js-yaml');
 
 const baseUrl = 'https://raw.githubusercontent.com/TheThingsNetwork/lorawan-devices/master/vendor';
 
+// Start directory
+const startPath = path.join(__dirname, '..', 'vendor');
+
+// Function to load vendor names from the vendor/index.yaml file
+const loadVendorNames = (vendorIndexPath) => {
+  try {
+    const indexContents = fs.readFileSync(vendorIndexPath, 'utf8');
+    const indexData = yaml.load(indexContents);
+    const vendorMap = new Map();
+    indexData.vendors.forEach((vendor) => {
+      vendorMap.set(vendor.id, vendor.name);
+    });
+    return vendorMap;
+  } catch (e) {
+    console.error(`Failed to load vendor names from ${vendorIndexPath}: ${e}`);
+    return new Map(); // Return an empty map if there's an error
+  }
+};
+
+// Load the vendor names into a map
+const vendorNamesMap = loadVendorNames(path.join(startPath, 'index.yaml'));
+
 // Function to extract data from device.yaml and create a CSV line
 const extractData = (filePath, vendor) => {
   try {
@@ -12,6 +34,7 @@ const extractData = (filePath, vendor) => {
     if (data && data.name && data.description) {
       //only read files with these in its content
       const name = data.name;
+      const vendorname = vendorNamesMap.get(vendor) || vendor; // Fallback to the vendor ID if no name is found
       const description = data.description.replace(/"/g, "'");
       const sensors = Array.isArray(data.sensors) ? `"${data.sensors.join(', ')}"` : '';
       const imageUrl = data.photos?.main ? `"${baseUrl}/${vendor}/${data.photos.main}"` : '';
@@ -52,7 +75,7 @@ const extractData = (filePath, vendor) => {
         });
       });
 
-      return `"${name}",${vendor},"${description}",${imageUrl},${sensors},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
+      return `"${name}","${vendorname}","${description}",${imageUrl},${sensors},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
     }
   } catch (e) {
     console.error(`Failed to process ${filePath}: ${e}`);
@@ -76,9 +99,6 @@ const walkSync = (dir, vendor = '', csvContent = '') => {
   });
   return csvContent;
 };
-
-// Start directory
-const startPath = path.join(__dirname, '..', 'vendor');
 
 // Initialize CSV data
 let csvHeader =
