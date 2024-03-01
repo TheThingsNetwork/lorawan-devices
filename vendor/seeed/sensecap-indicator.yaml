@@ -1,9 +1,7 @@
-name: LoRa-E5 mini (STM32WLE5JC) Dev Board, LoRaWAN protocol and worldwide frequency supported
-description: LoRa-E5 mini is a compacted-sized dev board suitable for the rapid testing and building of small-size LoRa device and application prototyping. LoRa-E5 mini is embedded with and leads out full GPIOs of LoRa-E5 STM32WLE5JC. It has rich interfaces including UART, ADC, SPI, IIC,etc. Supporting LoRaWAN protocol and global frequency, LoRa-E5 mini is able to achieve a transmission range of up to 10 km in open area and ultra-low power consumption.
+name: Seeed SenseCAP Indicator
+description: SenseCAP Indicator is a 4-inch touch screen driven by ESP32 and RP2040 dual-MCU and supports Wi-Fi/BLE/LoRa® communication. It is a fully open-source powerful IoT development platform for developers. One-stop ODM Fusion service is also available for customization and quick scale-up.
 
 # Hardware versions (optional, use when you have revisions)
-
-# Firmware versions (at least one is mandatory)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -39,10 +37,6 @@ firmwareVersions:
         id: loradevelopkit-e5-profile-915
         lorawanCertified: true
         codec: loradevelopkit-e5-codec
-      AU915-928:
-        id: loradevelopkit-e5-profile-915
-        lorawanCertified: true
-        codec: loradevelopkit-e5-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -62,25 +56,16 @@ firmwareVersions:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 23
-  length: 50
-  height: 1.7
+  width: 93
+  length: 97
+  height: 18
 
 # Weight in grams (optional)
-weight: 350
+weight: 273
 
 # Battery information (optional)
-battery:
-  replaceable: true
-  type: AA
 
-# Operating conditions (optional)
-operatingConditions:
-  # Temperature (Celsius)
-  temperature:
-    min: -40
-    max: 85
-  # Relative humidity (fraction of 1)
+# Relative humidity (fraction of 1)
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -102,20 +87,11 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.seeedstudio.com/LoRa-E5-mini-STM32WLE5JC-p-4869.html
-dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRa-E5%20module%20datasheet_V1.0.pdf
+productURL: https://www.seeedstudio.com/SenseCAP-Indicator-D1L-p-5646.html
+dataSheetURL: https://wiki.seeedstudio.com/Sensor/SenseCAP/SenseCAP_Indicator/Get_started_with_SenseCAP_Indicator/#specification
 
 # Commercial information
 
-msrp:
-  USD: 26.90
-
 # Photos
 photos:
-  main: loraeminidevboard-e5.png
-  other:
-    - loraeminidevboard-e51.png
-# Youtube or Vimeo Video (optional)
-
-# Regulatory compliances (optional)
-
+  main: sensecap-indicator.png

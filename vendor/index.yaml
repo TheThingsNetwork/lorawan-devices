@@ -2004,6 +2004,13 @@ vendors:
     website: https://open-boat-projects.org
     logo: obp_logo.png
 
+  - id: elspina
+    name: Elspina VEINZ Inc.
+    website: https://elspina.veinz.tech/
+    logo: elspina_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/elspinaveinz/
+
   - id: watteco
     name: WATTECO
     vendorID: 296
