@@ -586,6 +586,31 @@
       "title": "End Device Profile",
       "description": "End device capabilities and boot parameters",
       "type": "object",
+      "examples": [
+        {
+          "supportsClassB": false,
+          "supportsClassC": false,
+          "macVersion": "1.0.2",
+          "regionalParametersVersion": "RP001-1.0.2-RevB",
+          "supportsJoin": true,
+          "maxEIRP": 14,
+          "supports32bitFCnt": true
+        },
+        {
+          "supportsClassB": false,
+          "supportsClassC": false,
+          "macVersion": "1.0.4",
+          "regionalParametersVersion": "RP002-1.0.1",
+          "supportsJoin": false,
+          "rx1Delay": 1,
+          "rx1DataRateOffset": 0,
+          "rx2DataRateIndex": 3,
+          "rx2Frequency": 869.525,
+          "factoryPresetFrequencies": [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9],
+          "maxEIRP": 14,
+          "supports32bitFCnt": true
+        }
+      ],
       "properties": {
         "supportsClassB": {
           "type": "boolean",

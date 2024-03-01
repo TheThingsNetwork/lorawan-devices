@@ -49,3 +49,6 @@ profileIDs:
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
     region: US902-928
+  '16':
+    id: adeunis-lora104-profile
+    codec: comfort-serenity-codec

@@ -5,3 +5,19 @@ endDevices:
   - cmi4130
   - cmi4140
   # - cmi4160
+profileIDs:
+  '1':
+    endDeviceID: 'cmi4110'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '2':
+    endDeviceID: 'cmi4130'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '3':
+    endDeviceID: 'cmi4140'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

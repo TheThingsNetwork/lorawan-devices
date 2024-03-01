@@ -142,8 +142,8 @@ profileIDs:
     region: US902-928
   '28':
     endDeviceID: rhf1s213
-    firmwareVersion: 'v4.1.629'
-    hardwareVersion: ''
+    firmwareVersion: 'v4.1.6'
+    hardwareVersion: '1.0'
     region: AS923
   '30':
     endDeviceID: rhf3mr01

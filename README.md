@@ -161,7 +161,7 @@ All vendor data is referenced from the **Vendor device index** file: `vendor/<ve
 endDevices:
   - device-a
   - device-b
-# The profileIDs is a distinct (preferably incremental) value for every unique profile listed in the vendor's folder.
+# The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
 # This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
 # NOTE: The profileIDs is different from the vendorID.
@@ -171,6 +171,9 @@ profileIDs:
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
     region: 'EU863-870'
+  '2':
+    id: 'device-a-profile-915'
+    codec: 'device-codec'
 ```
 
 All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters. **Make sure you include every device you add.**

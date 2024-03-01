@@ -211,7 +211,7 @@ function formatValidationErrors(errors) {
 const vendors = yaml.load(fs.readFileSync(options.vendor));
 
 // Get the list of vendor IDs from the vendor/index.yaml
-const vendorid = vendors.vendors.map((vendor) => vendor.id);
+const vendorIds = vendors.vendors.map((vendor) => vendor.id);
 
 // Get the list of vendor folders in the vendor directory
 const vendorFolders = fs
@@ -223,7 +223,7 @@ const vendorFolders = fs
 const vendorsNotInIndex = vendorFolders.filter((vendorId) => {
   // Check if any vendor ID in the index is present in the folder name, or vice versa
   return (
-    !vendorid.some((indexId) => vendorId.includes(indexId)) && !vendorid.some((indexId) => indexId.includes(vendorId))
+    !vendorIds.some((indexId) => vendorId.includes(indexId)) && !vendorIds.some((indexId) => indexId.includes(vendorId))
   );
 });
 

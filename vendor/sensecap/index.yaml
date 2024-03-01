@@ -15,17 +15,23 @@ endDevices:
   - sensecapt1000-tracker-ab
 profileIDs:
   '1':
-    endDeviceID: loramodule-e5
-    firmwareVersion: 'classb'
-    hardwareVersion: '1.0'
-    region: EU863-870
+    id: sensecap-profile
+    codec: sensecap-codec
   '2':
-    endDeviceID: loramodule-e5
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: IN865-867
+    id: sensecap-profile
+    codec: sensecap210x-codec
   '3':
-    endDeviceID: sensecapt1000-tracker-ab
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: RU864-870
+    id: sensecap-profile
+    codec: sensecap2100-codec
+  '4':
+    id: sensecap-profile
+    codec: sensecap2120-8-in-1-codec
+  '5':
+    id: loramodule-e5-profile
+    codec: loramodule-e5-codec
+  '6':
+    id: loramodule-e5-b-profile
+    codec: loramodule-e5-codec
+  '7':
+    id: 'sensecap-tracker-profile'
+    codec: 'sensecapt1000-tracker-ab-codec'
