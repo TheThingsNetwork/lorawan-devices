@@ -33,6 +33,7 @@ const extractData = (filePath, vendor) => {
     const data = yaml.load(fileContents);
     if (data && data.name && data.description) {
       //only read files with these in its content
+      const id = data.name.replace(/\s/g, '').toLowerCase() + "_" + vendor
       const name = data.name;
       const vendorname = vendorNamesMap.get(vendor) || vendor; // Fallback to the vendor ID if no name is found
       const description = data.description.replace(/"/g, "'");
@@ -75,7 +76,7 @@ const extractData = (filePath, vendor) => {
         });
       });
 
-      return `"${name}","${vendorname}","${description}",${imageUrl},${sensors},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
+      return `"${id}","${name}","${vendorname}","${description}",${imageUrl},${sensors},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
     }
   } catch (e) {
     console.error(`Failed to process ${filePath}: ${e}`);
@@ -102,7 +103,7 @@ const walkSync = (dir, vendor = '', csvContent = '') => {
 
 // Initialize CSV data
 let csvHeader =
-  'Name,Vendor,Description,Image,Sensor,Radios,Height,Width,Length,Weight,IP Rating,Battery Replaceable?,Battery Type,Product URL,Datasheet URL,MAC Version,Regional Parameter Version,Supports Class B?, Supports Class C?\n';
+  'ID,Name,Vendor,Description,Image,Sensor,Radios,Height,Width,Length,Weight,IP Rating,Battery Replaceable?,Battery Type,Product URL,Datasheet URL,MAC Version,Regional Parameter Version,Supports Class B?, Supports Class C?\n';
 let csvData = walkSync(startPath);
 
 // Save to CSV file
