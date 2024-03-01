@@ -164,6 +164,7 @@ endDevices:
 # The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
 # This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
 # https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
+# It can either be a combo of device ID + hardware version + firmware version + region, or profile ID + codec ID
 # NOTE: The profileIDs is different from the vendorID.
 profileIDs:
   '1':
@@ -172,8 +173,8 @@ profileIDs:
     hardwareVersion: '1.0'
     region: 'EU863-870'
   '2':
-    id: 'device-a-profile-915'
-    codec: 'device-codec'
+    id: 'device-b-profile-915' # Name of the file of the profile 
+    codec: 'device-b-codec' # Name of the yaml file of the codec
 ```
 
 All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters. **Make sure you include every device you add.**
