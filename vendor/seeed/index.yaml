@@ -2,6 +2,7 @@ endDevices:
   - loradevelopkit-e5
   - loraeminidevboard-e5
   - lorawan-dev-kit
+  - sensecap-indicator
 profileIDs:
   '1':
     endDeviceID: lorawan-dev-kit
