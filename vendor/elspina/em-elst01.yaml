@@ -1,9 +1,6 @@
-name: LoRa-E5 mini (STM32WLE5JC) Dev Board, LoRaWAN protocol and worldwide frequency supported
-description: LoRa-E5 mini is a compacted-sized dev board suitable for the rapid testing and building of small-size LoRa device and application prototyping. LoRa-E5 mini is embedded with and leads out full GPIOs of LoRa-E5 STM32WLE5JC. It has rich interfaces including UART, ADC, SPI, IIC,etc. Supporting LoRaWAN protocol and global frequency, LoRa-E5 mini is able to achieve a transmission range of up to 10 km in open area and ultra-low power consumption.
-
+name: EM-ELST01
+description: Device to capture state changes through its accelerometer and switch sensor.
 # Hardware versions (optional, use when you have revisions)
-
-# Firmware versions (at least one is mandatory)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -11,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: '1.6.3'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -19,30 +16,25 @@ firmwareVersions:
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
+    # often the device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
     profiles:
-      EU863-870:
+      AS923:
         # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        # vendorID: example
+        #vendorID: elspina
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: loradevelopkit-e5-profile-868
+        id: em-elst01-profile
         lorawanCertified: true
-        codec: loradevelopkit-e5-codec
-      US902-928:
-        id: loradevelopkit-e5-profile-915
-        lorawanCertified: true
-        codec: loradevelopkit-e5-codec
-      AU915-928:
-        id: loradevelopkit-e5-profile-915
-        lorawanCertified: true
-        codec: loradevelopkit-e5-codec
+        codec: em-elst01-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -52,27 +44,37 @@ firmwareVersions:
 # power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - conductivity
+  - temperature
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
+# additionalRadios:
+#   - ble
+#   - cellular
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# bridgeInterfaces:
+#  - m-bus
+#  - rs-485
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 23
-  length: 50
-  height: 1.7
+  width: 140
+  length: 70
+  height: 50
 
 # Weight in grams (optional)
-weight: 350
+weight: 200
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: Li/SOCl2
 
 # Operating conditions (optional)
 operatingConditions:
@@ -80,16 +82,21 @@ operatingConditions:
   temperature:
     min: -40
     max: 85
-  # Relative humidity (fraction of 1)
+
+# IP rating (optional)
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
-keyProvisioning:
-  - custom
+# keyProvisioning:
+#  - custom
+#  - join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - firmware
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -100,22 +107,41 @@ keySecurity: none
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
+#  - fuota lorawan
 
 # Product and data sheet URLs (optional)
-productURL: https://www.seeedstudio.com/LoRa-E5-mini-STM32WLE5JC-p-4869.html
-dataSheetURL: https://files.seeedstudio.com/products/317990687/res/LoRa-E5%20module%20datasheet_V1.0.pdf
+productURL: https://docs.elspina.space/products/em-elst01
+dataSheetURL: https://docs.elspina.space/products/em-elst01/ELmote_EM-ELST01_OL.pdf
 
 # Commercial information
-
-msrp:
-  USD: 26.90
+resellerURLs:
+  - name: 'ELSPINA VEINZ Inc.'
+    region:
+      - Japan
+    url: https://elspina.veinz.tech/
 
 # Photos
 photos:
-  main: loraeminidevboard-e5.png
+  main: em-elst01-e.jpg
   other:
-    - loraeminidevboard-e51.png
+    - em-elst01-i.jpg
+    - em-elst01-3.jpg
 # Youtube or Vimeo Video (optional)
+# videos:
+#  main: https://www.youtube.com/
 
 # Regulatory compliances (optional)
-
+# compliances:
+#  safety:
+#    - body: IEC
+#     norm: EN
+#      standard: 62368-1
+#  radioEquipment:
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-1
+#      version: 2.2.0
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-3
+#      version: 2.1.0
