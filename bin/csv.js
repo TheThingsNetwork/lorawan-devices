@@ -33,7 +33,7 @@ const extractData = (filePath, vendor) => {
     const data = yaml.load(fileContents);
     if (data && data.name && data.description) {
       //only read files with these in its content
-      const id = data.name.replace(/\s/g, '').toLowerCase() + "_" + vendor
+      const id = data.name.replace(/\s/g, '').toLowerCase() + '_' + vendor;
       const name = data.name;
       const vendorname = vendorNamesMap.get(vendor) || vendor; // Fallback to the vendor ID if no name is found
       const description = data.description.replace(/"/g, "'");

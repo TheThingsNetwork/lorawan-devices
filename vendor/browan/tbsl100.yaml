@@ -1,4 +1,4 @@
-name: TBSL100 - Sound Level Sensor
+name: Sound Level Sensor
 description: The Browan Sound Level Sensor integrates a MEMS microphone for measuring sound levels in decibels (dBA). It utilizes LoRaWAN® connectivity to transmit data and is suitable for use in a variety of building environments.
 
 hardwareVersions:

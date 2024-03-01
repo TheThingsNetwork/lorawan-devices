@@ -1,4 +1,4 @@
-name: FLOLWE01 - Flood Sensor
+name: Flood Sensor
 description: The Aqua-Scope Water Sensor has a built-in water sensor and a freeze sensor that detects water leaks and floods in critical areas. In addition to the built-in water sensor, it allows connecting an external second water detection probe. When the water is detected, an alarm is sent to a gateway using LoRaWAN® wireless protocol.
 
 hardwareVersions:
