@@ -1,0 +1,164 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: m-bus-gateway-decoder.js
+  # Examples
+  examples:
+    - description: MBUS gateway
+      input:
+        fPort: 10
+        bytes:
+          [
+            160,
+            227,
+            5,
+            189,
+            1,
+            5,
+            22,
+            0,
+            219,
+            58,
+            120,
+            101,
+            0,
+            8,
+            18,
+            33,
+            33,
+            2,
+            0,
+            12,
+            4,
+            0,
+            0,
+            0,
+            0,
+            22,
+            0,
+            219,
+            58,
+            120,
+            101,
+            0,
+            8,
+            18,
+            33,
+            33,
+            2,
+            0,
+            12,
+            4,
+            84,
+            0,
+            0,
+            0,
+            22,
+            0,
+            223,
+            58,
+            120,
+            101,
+            0,
+            8,
+            18,
+            33,
+            33,
+            0,
+            2,
+            0,
+            0,
+            0,
+          ]
+      output:
+        data:
+          battery_pct: 80
+          frames:
+            - dif:
+                countByte: 4
+                extension_bit: 0
+                function_field: 0
+                function_field_desc: 'instantaneous_value'
+                lsb_storage_number: 0
+                raw: 12
+                type: 'bcd'
+              frame_isotime: '2023-12-12T10:50:03.000Z'
+              frame_unixtime: 1702378203
+              measurement:
+                dataType: 'instantaneous_value'
+                desc: 'energy'
+                raw: [0, 0, 0, 0]
+                unit: 'Wh'
+                value: 0
+                value_raw: 0
+              medium: 'Electricity'
+              meter_serial_number: '21211208'
+              reason: 'regular'
+              status: 'no_error'
+              type: 'MBUS'
+              units: [4, 10, 'Wh', 'energy']
+              vif:
+                data: [4, 10, 'Wh', 'energy']
+                extension_bit: 0
+                raw: 4
+                value: 4
+
+            - dif:
+                countByte: 4
+                extension_bit: 0
+                function_field: 0
+                function_field_desc: 'instantaneous_value'
+                lsb_storage_number: 0
+                raw: 12
+                type: 'bcd'
+              frame_isotime: '2023-12-12T10:50:03.000Z'
+              frame_unixtime: 1702378203
+              measurement:
+                dataType: 'instantaneous_value'
+                desc: 'energy'
+                raw: [84, 0, 0, 0]
+                unit: 'Wh'
+                value: 540
+                value_raw: 54
+              medium: 'Electricity'
+              meter_serial_number: '21211208'
+              reason: 'regular'
+              status: 'no_error'
+              type: 'MBUS'
+              units: [4, 10, 'Wh', 'energy']
+              vif:
+                data: [4, 10, 'Wh', 'energy']
+                extension_bit: 0
+                raw: 4
+                value: 4
+
+            - dif:
+                countByte: 0
+                extension_bit: 0
+                function_field: 0
+                function_field_desc: 'instantaneous_value'
+                lsb_storage_number: 0
+                raw: 0
+                type: 'no_data'
+              frame_isotime: '2023-12-12T10:50:07.000Z'
+              frame_unixtime: 1702378207
+              measurement:
+                value_raw: 'no_data'
+              medium: 'Other'
+              meter_serial_number: '21211208'
+              reason: 'regular'
+              status: 'any_application_error'
+              type: 'MBUS'
+              units: [0, 0.001, 'Wh', 'energy']
+              vif:
+                data: [0, 0.001, 'Wh', 'energy']
+                extension_bit: 0
+                raw: 0
+                value: 0
+
+          sn: 84000005
+          status_decode: true
+          type_power: 'battery'
+          version_protocol: 1
+
+        errors: []
+        warnings: []

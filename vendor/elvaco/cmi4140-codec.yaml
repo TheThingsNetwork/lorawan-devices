@@ -2,4 +2,18 @@
 # For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: cmi4140.js
-  # Examples (optional)
+  examples:
+   - description: Multical temperature, energy, volume, power, flow , flow_temperature, return_temperature, serial and error flag.
+     input:
+       fPort: 2
+       bytes: [0, 12, 6, 82, 103, 97,   2, 12,  20, 151,137, 153,   0, 11,  45,  0,   0,  0,  11,  59,0,   0,   0, 10,  90, 51,   6, 10,  94,  65,  5,  12, 120, 41,  17,  3, 102,  2, 253,  23,0,   0]
+     output:
+       data:
+         energy: 98547500,
+         volume: 2297603,
+         power: 0,
+         flow: 0,
+         flow_temperature: 98.71,
+         return_temperature: 57.29,
+         serial: 79810544,
+         error_flag: 0

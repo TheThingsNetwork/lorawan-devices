@@ -1,0 +1,144 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lrs10701.js
+  examples:
+    - description: AQI 34, CO2 554 ppm, 22.7 C, 62.5% RH, battery 90%, gas1 15 ppm, gas2 2.345 ppm, heartbeat/button
+      input:
+        fPort: 10
+        bytes: [1, 17, 8, 170, 15, 125, 58, 152, 9, 41, 90]
+      output:
+        data:
+          event: heartbeat/button
+          aqi: 34
+          co2: 554
+          temperature: 22.7
+          humidity: 62.5
+          gas1: 15
+          gas2: 2.345
+          battery: 90
+    - description: TVOC 270 ppb, PM1.0 6.3 ug/m3, PM2.5 7.2 ug/m3, PM10 8.1 ug/m3
+      input:
+        fPort: 11
+        bytes: [1, 14, 0, 24, 156, 0, 28, 32, 0, 31, 164]
+      output:
+        data:
+          tvoc: 270
+          pm1.0: 6.3
+          pm2.5: 7.2
+          pm10: 8.1
+    - description: Firmware version 1.07.000
+      input:
+        fPort: 8
+        bytes: [1, 7, 0, 0]
+      output:
+        data:
+          firmwareVersion: '1.07.000'
+    - description: data upload interval 15 min, AQI led on, active sensor T/H, CO2, PMx, Gas 1, Gas 1 type NH3
+      input:
+        fPort: 12
+        bytes: [0, 15, 1, 29, 29, 1, 0, 1]
+      output:
+        data:
+          dataUploadInterval: 15
+          statusLED: on
+          sensorType: 'T/H,CO2,PMx,Gas1'
+          sensorStatus: 'T/H,CO2,PMx,Gas1'
+          gas1Type: 'NH3'
+          gas2Type: 'None'
+    - description: High temperature threshold 40C, Low temperature threshold 10C, High humidity threshold 95%, Low humidity threshold 35%
+      input:
+        fPort: 13
+        bytes: [0, 0, 40, 0, 10, 95, 35]
+      output:
+        data:
+          highTemperatureThreshold: 40
+          lowTemperatureThreshold: 10
+          highHumidityThreshold: 95
+          lowHumidityThreshold: 35
+    - description: CO2 threshold 1500 ppm, TVOC threshold 435 ppb, Gas 1 threshold 2 ppm, Gas 2 threshold 2 ppm
+      input:
+        fPort: 13
+        bytes: [1, 5, 220, 1, 179, 7, 208, 7, 208]
+      output:
+        data:
+          co2Threshold: 1500
+          tvocThreshold: 435
+          gas1Threshold: 2
+          gas2Threshold: 2
+    - description: PM1.0 threshold 0 ug/m3, PM2.5 threshold 56 ug/m3, PM10 threshold 254 ug/m3
+      input:
+        fPort: 13
+        bytes: [2, 0, 0, 0, 0, 0, 56, 0, 0, 254]
+      output:
+        data:
+          'pm1.0 Threshold': 0
+          'pm2.5 Threshold': 56
+          'pm10 Threshold': 254
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: lrs10701.js
+  examples:
+    - description: Get firmware version
+      input:
+        data:
+          cmd: getFirmwareVersion
+      output:
+        fPort: 20
+        bytes: [0]
+    - description: Get device settings
+      input:
+        data:
+          cmd: getDeviceSettings
+      output:
+        fPort: 21
+        bytes: [0]
+    - description: Get threshold settings
+      input:
+        data:
+          cmd: getThresholdSettings
+      output:
+        fPort: 21
+        bytes: [1]
+    - description: Set device settings
+      input:
+        data:
+          cmd: setDeviceSettings
+          dataUploadInterval: 60
+          statusLED: 'off'
+      output:
+        fPort: 22
+        bytes: [0, 60, 0, 1]
+    - description: Set temperature/humidity thresholds high temperature 10 C, low temperature -10 C, high humidity 90 %, low humidity 10 %
+      input:
+        data:
+          cmd: setTHThresholds
+          highTemperatureThreshold: 10
+          lowTemperatureThreshold: -10
+          highHumidityThreshold: 90
+          lowHumidityThreshold: 10
+      output:
+        fPort: 23
+        bytes: [0, 0, 10, 255, 246, 90, 10]
+    - description: Set gases thresholds CO2 800 ppm, TVOC 1200 ppb, Gas1 10 ppm, Gas2 3.5 ppm
+      input:
+        data:
+          cmd: setGasesThresholds
+          co2Threshold: 800
+          tvocThreshold: 1200
+          gas1Threshold: 10
+          gas2Threshold: 3.5
+      output:
+        fPort: 23
+        bytes: [1, 3, 32, 4, 176, 39, 16, 13, 172]
+    - description: Set PM thresholds PM1.0 10 ug/m3, PM2.5 128 ug/m3 PM10 512 ug/m3
+      input:
+        data:
+          cmd: setPMThresholds
+          'pm1.0 Threshold': 10
+          'pm2.5 Threshold': 128
+          'pm10 Threshold': 512
+      output:
+        fPort: 23
+        bytes: [2, 0, 0, 10, 0, 0, 128, 0, 2, 0]

@@ -1,5 +1,5 @@
 //Based on user's Manual V1.3
-const DIF_VIF_MAPPING = {
+const difVifMapping = {
   '04': {
     '00': { measure: 'energy', unit: 'kWh', decimal: 6 },
     '01': { measure: 'energy', unit: 'kWh', decimal: 5 },
@@ -35,10 +35,10 @@ const DIF_VIF_MAPPING = {
     '3d': { measure: 'flow', unit: 'm3/h', decimal: 1 },
     '3e': { measure: 'flow', unit: 'm3/h', decimal: 0 },
     '3f': { measure: 'flow', unit: 'm3/h', decimal: -1 },
-    58: { measure: 'forward_temperature', unit: '°C', decimal: 3 },
-    59: { measure: 'forward_temperature', unit: '°C', decimal: 2 },
-    '5a': { measure: 'forward_temperature', unit: '°C', decimal: 1 },
-    '5b': { measure: 'forward_temperature', unit: '°C', decimal: 0 },
+    58: { measure: 'flow_temperature', unit: '°C', decimal: 3 },
+    59: { measure: 'flow_temperature', unit: '°C', decimal: 2 },
+    '5a': { measure: 'flow_temperature', unit: '°C', decimal: 1 },
+    '5b': { measure: 'flow_temperature', unit: '°C', decimal: 0 },
     '5c': { measure: 'return_temperature', unit: '°C', decimal: 3 },
     '5d': { measure: 'return_temperature', unit: '°C', decimal: 2 },
     '5e': { measure: 'return_temperature', unit: '°C', decimal: 1 },
@@ -46,50 +46,48 @@ const DIF_VIF_MAPPING = {
     fd17: { measure: 'error_flag', unit: '', decimal: 0 },
   },
   '0c': {
-    78: { measure: 'serial_from_message', unit: '', decimal: 0 },
+    78: { measure: 'serial', unit: '', decimal: 0 },
   },
 };
 
-function get_vif(payload_arr, index) {
-  const dif = payload_arr[index].toLowerCase();
+function getVif(payloadArr, index) {
+  const dif = payloadArr[index].toLowerCase();
   const dif_int = parseInt(dif, 16);
 
   if (dif_int === 132) {
-    const vif = payload_arr
+    const vif = payloadArr
       .slice(index + 1, index + 3)
       .join('')
       .toLowerCase();
     return [vif, index + 3];
   } else {
-    const vif = payload_arr[index + 1].toLowerCase();
+    const vif = payloadArr[index + 1].toLowerCase();
     return [vif, index + 2];
   }
 }
 
-
-//javascript
-function decode_cmi4140_standard(payload_arr) {
+function decode_cmi4140_standard(payloadArr) {
   let decoded_dictionary = {};
   let i = 1;
-  while (i < payload_arr.length) {
-    let dif = payload_arr[i].toLowerCase();
+  while (i < payloadArr.length) {
+    let dif = payloadArr[i].toLowerCase();
     let dif_int = parseInt(dif, 16);
-    let [vif, newIndex] = get_vif(payload_arr, i);
+    let [vif, newIndex] = getVif(payloadArr, i);
     i = newIndex;
     let bcd_len = dif_int >= 2 && dif_int <= 4 ? dif_int : 4;
-    if (payload_arr.slice(i).length <= 5 && vif == 'fd') {
-      vif = vif + payload_arr[i];
+    if (payloadArr.slice(i).length <= 5 && vif == 'fd') {
+      vif += payloadArr[i];
       i += 1;
     }
-    if (!(dif in DIF_VIF_MAPPING) || !(vif in DIF_VIF_MAPPING[dif])) {
+    if (!(dif in difVifMapping) || !(vif in difVifMapping[dif])) {
       throw new Error('Unknown dif ' + dif + ' and vif ' + vif);
     }
-    let reversed_values = payload_arr
+    let reversed_values = payloadArr
       .slice(i, i + bcd_len)
       .reverse()
       .join(''); // Little-endian (LSB)
     i += bcd_len;
-    let unit_info = DIF_VIF_MAPPING[dif][vif];
+    let unit_info = difVifMapping[dif][vif];
     let value;
 
     value = unit_info['unit'] ? parseInt(reversed_values, 16) / Math.pow(10, unit_info['decimal']) : parseInt(reversed_values);
@@ -99,14 +97,14 @@ function decode_cmi4140_standard(payload_arr) {
   return decoded_dictionary;
 }
 
-function bytes_to_hex_array(bytes) {
+function bytesToHexArray(bytes) {
   return bytes.map(function (byte) {
     return ('0' + (byte & 0xff).toString(16)).slice(-2);
   });
 }
 
-function hex_to_bytes(hex) {
-  return hex.match(/.{1,2}/g).map(function (byte) {
+function hexToBytes(hex) {
+  return hex.map(function (byte) {
     return parseInt(byte, 16);
   });
 }
@@ -114,24 +112,34 @@ function hex_to_bytes(hex) {
 function decodeUplink(input) {
   switch (input.fPort) {
     case 2:
-      const hex_array = bytes_to_hex_array(input.bytes);
+      const hex_array = bytesToHexArray(input.bytes);
       if (hex_array.length < 40) {
+        return {
+          data: {},
+          errors: ['payload length < 40 '],
+        };
+      }
+      switch (hex_array[0]) {
+        case '15':
           return {
-              data: {},
-              errors: ['payload length < 40 '],
+            data: decode_cmi4140_standard(hex_array),
           };
-      }   
-      return {
-        data: decode_cmi4140_standard(hex_array),
-      };
+        default:
+          return {
+            data: {},
+            errors: ['Payload type unknown, currently standard format supported'],
+          };
+      }
+
     default:
       return {
-          data: {},
+        data: {},
         errors: ['unknown FPort'],
       };
   }
 }
 
-
-
-// array= 000c06526761020c14978999000b2d0000000b3b0000000a5a33060a5e41050c782911036602fd170000
+// payload = "150405b827bd3a04142cddb10d02290000023a000002598f26025d61160c784405817904fd1700000000"
+// bytes = [21, 4, 5, 184, 39, 189, 58, 4, 20, 44, 221, 177, 13, 2, 41, 0, 0, 2, 58, 0, 0, 2, 89, 143, 38, 2, 93, 97, 22, 12, 120, 68, 5, 129, 121, 4, 253, 23, 0, 0, 0, 0];
+// input = { fPort: 2, bytes: bytes };
+// console.log(decodeUplink(input));

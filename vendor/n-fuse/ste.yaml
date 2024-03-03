@@ -1,0 +1,119 @@
+name: Environment sensor
+description: Environment sensor. BME680 (IAQ, CO2-e, bVOC-e, pressure, temperature, humidity).
+firmwareVersions:
+  - version: '1.1'
+    numeric: 11
+    profiles:
+      EU863-870:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      US902-928:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      EU433:
+        id: sx1261-12db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      AU915-928:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      CN470-510:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      KR920-923:
+        id: sx1261-14db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      IN865-867:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      RU864-870:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      AS923:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      AS923-2:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      AS923-3:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+      AS923-4:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: ste-codec
+sensors:
+  - battery # health via voltage (MCU internal)
+  - temperature # BME680
+  - humidity # BME680
+  - iaq # BME680
+  - co2 # BME680
+  - bvoc # BME680
+  - pressure # BME680
+  # iaq accuraccy # 0-3: ['none', 'low', 'mid', 'high']
+additionalRadios:
+  - nfc
+dimensions:
+  width: 40.9
+  length: 40.9
+  height: 14.4
+weight: 16
+battery:
+  replaceable: true
+  type: CR2430
+operatingConditions:
+  temperature: # Limited by battery cell
+    min: 0
+    max: 40
+  relativeHumidity:
+    min: 0.10
+    max: 0.90
+ipCode: IP54
+keyProvisioning:
+  - custom
+  - join server
+keyProgramming:
+  - nfc
+keySecurity: none
+firmwareProgramming:
+  - fuota other # NFC
+# Protocol: https://github.com/nfhw/stx-firmware/blob/master/MESSAGE_FORMAT_LORA_01.md
+#githubURL: https://github.com/nfhw/stx-firmware
+productURL: https://n-fuse.co/devices/stx-lr-familiy-of-lorawan-iot-sensors.html
+dataSheetURL: https://n-fuse.co/assets/products/stx/stx-lr-datasheet.pdf
+msrp:
+  EUR: 73
+photos:
+  main: stx.png
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+    - body: ETSI
+      norm: EN
+      standard: 300 330
+      version: 2.2.1

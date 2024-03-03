@@ -1,0 +1,17 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em400-tld.js
+
+  examples:
+    - description: ToF Laser Distance Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x67, 0x01, 0x01, 0x04, 0x82, 0x44, 0x08, 0x05, 0x00, 0x01]
+
+      output:
+        data:
+          battery: 92
+          temperature: 25.7
+          distance: 2116
+          position: tilt

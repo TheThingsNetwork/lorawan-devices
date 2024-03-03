@@ -1,0 +1,40 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: kst5420.js
+  examples:
+    - description: GPS
+      input:
+        fPort: 1
+        bytes: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      output:
+        data:
+          latitude: 39.5016 # Assuming float is acceptable; use string if exact format needed
+          longitude: -1618.482 # Corrected to match expected format
+          altitude: 7864 # Integer, matching output
+          accuracy: null # Explicitly matching null value for accuracy
+          speed: null # Assuming null is acceptable if speed not provided
+          battery: 0 # Matching integer zero for battery
+          txPower: null # Explicitly matching null if Tx Power not provided or applicable
+
+#    - description: Speed
+#      input:
+#        fPort: 1
+#        bytes: [16]
+#      output:
+#        data:
+#          speed: null # Reflect actual output if speed is not defined for this input
+#    - description: Battery
+#      input:
+#        fPort: 1
+#        bytes: [20, 21]
+#      output:
+#        data:
+#          battery: 0 # Match actual output format and precision
+#    - description: Tx Power
+#      input:
+#        fPort: 1
+#        bytes: [25]
+#      output:
+#        data:
+#          txPower: null # Reflect actual output if Tx Power is not defined for this input

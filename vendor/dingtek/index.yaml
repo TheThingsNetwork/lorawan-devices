@@ -12,8 +12,11 @@ endDevices:
   - dc413
   - dc500
   - dc510
+  - dc520
   - dc600
   - do200
+  - do201
+  - do202
   - dt311
   - dt320
   #- dt322

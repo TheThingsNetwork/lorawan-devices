@@ -1,4 +1,4 @@
-name: EM300-MCS
+name: EM300-MCS - Contact Sensor
 description: The Milesight LoRaWAN® EM300-MCS magnetic contact switch can be mounted to any door or window to detect an opening or closing event. It adds physical security monitoring to your location by alarming for intrusion or unauthorized entry to your monitored conditions.
 
 hardwareVersions:
