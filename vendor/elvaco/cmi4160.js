@@ -1,5 +1,10 @@
-//Based on user's Manual V1.3
 const difVifMapping = {
+  '00': {
+    '2f': { measure: '', unit: '', decimal: 0 },
+  },
+  '01': {
+    fd17: { measure: 'error_flag', unit: '', decimal: 0 },
+  },
   '04': {
     '00': { measure: 'energy', unit: 'kWh', decimal: 6 },
     '01': { measure: 'energy', unit: 'kWh', decimal: 5 },
@@ -9,7 +14,6 @@ const difVifMapping = {
     '05': { measure: 'energy', unit: 'kWh', decimal: 1 },
     '06': { measure: 'energy', unit: 'kWh', decimal: 0 },
     '07': { measure: 'energy', unit: 'kWh', decimal: -1 },
-    10: { measure: 'volume', unit: 'm3', decimal: 6 },
     11: { measure: 'volume', unit: 'm3', decimal: 5 },
     12: { measure: 'volume', unit: 'm3', decimal: 4 },
     13: { measure: 'volume', unit: 'm3', decimal: 3 },
@@ -17,19 +21,15 @@ const difVifMapping = {
     15: { measure: 'volume', unit: 'm3', decimal: 1 },
     16: { measure: 'volume', unit: 'm3', decimal: 0 },
     17: { measure: 'volume', unit: 'm3', decimal: -1 },
-    fd17: { measure: 'error_flag', unit: '', decimal: 0 },
     '6d': { measure: 'datetime_heat_meter', unit: '', decimal: 0 },
   },
   '02': {
-    29: { measure: 'power', unit: 'kW', decimal: 5 }, // to verify
     '2a': { measure: 'power', unit: 'kW', decimal: 4 },
     '2b': { measure: 'power', unit: 'kW', decimal: 3 },
     '2c': { measure: 'power', unit: 'kW', decimal: 2 },
     '2d': { measure: 'power', unit: 'kW', decimal: 1 },
     '2e': { measure: 'power', unit: 'kW', decimal: 0 },
     '2f': { measure: 'power', unit: 'kW', decimal: -1 },
-    39: { measure: 'flow', unit: 'm3/h', decimal: 5 }, // assumption
-    '3a': { measure: 'flow', unit: 'm3/h', decimal: 4 },
     '3b': { measure: 'flow', unit: 'm3/h', decimal: 3 },
     '3c': { measure: 'flow', unit: 'm3/h', decimal: 2 },
     '3d': { measure: 'flow', unit: 'm3/h', decimal: 1 },
@@ -45,54 +45,55 @@ const difVifMapping = {
     '5f': { measure: 'return_temperature', unit: '°C', decimal: 0 },
     fd17: { measure: 'error_flag', unit: '', decimal: 0 },
   },
-  '0c': {
-    78: { measure: 'serial', unit: '', decimal: 0 },
-  },
+  '07': { 79: { measure: 'serial', unit: '', decimal: 0 } },
 };
 
-function getVif(payloadArr, index) {
-  const dif = payloadArr[index].toLowerCase();
-  const dif_int = parseInt(dif, 16);
-
-  if (dif_int === 132) {
-    const vif = payloadArr
-      .slice(index + 1, index + 3)
-      .join('')
-      .toLowerCase();
-    return [vif, index + 3];
-  } else {
-    const vif = payloadArr[index + 1].toLowerCase();
-    return [vif, index + 2];
-  }
-}
-
-function decode_cmi4140_standard(payloadArr) {
-  let decoded_dictionary = {};
+function decode_cmi4160_standard(payloadArr) {
+  const decoded_dictionary = {};
+  let error_state = false;
   let i = 1;
   while (i < payloadArr.length) {
-    let dif = payloadArr[i].toLowerCase();
-    let dif_int = parseInt(dif, 16);
-    let [vif, newIndex] = getVif(payloadArr, i);
-    i = newIndex;
-    let bcd_len = dif_int >= 2 && dif_int <= 4 ? dif_int : 4;
-    if (payloadArr.slice(i).length <= 5 && vif == 'fd') {
+    const dif = payloadArr[i].toLowerCase();
+    const dif_int = parseInt(dif, 16);
+    let vif = payloadArr[i + 1].toLowerCase();
+    i += 2;
+
+    if (payloadArr.length - i <= 3 && vif == 'fd') {
+      // end of payload: error flag
       vif += payloadArr[i];
       i += 1;
     }
-    if (!(dif in difVifMapping) || !(vif in difVifMapping[dif])) {
-      throw new Error('Unknown dif ' + dif + ' and vif ' + vif);
+    let bcd_len = 4;
+    if ((dif_int >= 2 && dif_int <= 4) || dif_int == 7) {
+      bcd_len = dif_int;
     }
-    let reversed_values = payloadArr
+
+    if (!(dif in difVifMapping && vif in difVifMapping[dif])) {
+      throw 'Unknown dif ' + dif + ' and vif dif in difVifMapping' + vif;
+    }
+    const reversed_values = payloadArr
       .slice(i, i + bcd_len)
       .reverse()
-      .join(''); // Little-endian (LSB)
+      .join(''); //Little-endian (LSB)
     i += bcd_len;
-    let unit_info = difVifMapping[dif][vif];
-    let value;
-
-    value = unit_info['unit'] ? parseInt(reversed_values, 16) / Math.pow(10, unit_info['decimal']) : parseInt(reversed_values);
-
-    decoded_dictionary[unit_info['measure']] = value;
+    unit_info = difVifMapping[dif][vif];
+    if (unit_info['unit']) {
+      value = parseInt(reversed_values, 16) / Math.pow(10, unit_info['decimal']);
+    } else if (unit_info['measure'] == 'serial') {
+      value = parseInt(reversed_values.slice(-8)); // byte 2-5 is serial number
+      i += 1;
+    } else {
+      value = parseInt(reversed_values, 16);
+    }
+    if (dif == '32') {
+      decoded_dictionary[unit_info['measure']] = 0;
+      error_state = true;
+    } else {
+      decoded_dictionary[unit_info['measure']] = value;
+    }
+  }
+  if (error_state) {
+    decoded_dictionary['error_flag'] = 32;
   }
   return decoded_dictionary;
 }
@@ -120,18 +121,15 @@ function decodeUplink(input) {
           errors: ['payload length < 40 '],
         };
       }
-      switch (hex_array[0]) {
-        case '15':
-          return {
-            data: decode_cmi4140_standard(hex_array),
-          };
-        default:
-          return {
-            data: {},
-            errors: ['Payload type unknown, currently standard format supported'],
-          };
+      if (hex_array[0] != '1e') {
+        return {
+          data: {},
+          errors: ['Payload type unknown, currently standard format supported'],
+        };
       }
-
+      return {
+        data: decode_cmi4160_standard(hex_array),
+      };
     default:
       return {
         data: {},
@@ -140,6 +138,7 @@ function decodeUplink(input) {
   }
 }
 
-// bytes = [21, 4, 5, 252, 67, 127, 14, 4, 19, 64, 145, 152, 34, 2, 46, 144, 21, 2, 60, 72, 43, 2, 89, 216, 37, 2, 93, 232, 20, 12, 120, 39, 148, 129, 121, 4, 253, 23, 0, 0, 1, 0];
+// bytes = [30, 4, 7, 233, 28, 5, 0, 4, 21, 141, 103, 15, 0, 50, 47, 75, 51, 50, 61, 55, 51, 50, 90, 89, 4, 50, 94, 89, 4, 7, 121, 34, 152, 132, 97, 165, 17, 64, 4, 1, 253, 23, 4];
+// bytes = [30, 4, 6, 143, 161, 1, 0, 4, 19, 132, 183, 30, 0, 2, 43, 207, 15, 2, 59, 93, 0, 2, 90, 16, 3, 2, 94, 152, 1, 7, 121, 130, 37, 50, 105, 165, 17, 64, 4, 1, 253, 23, 0];
 // input = { fPort: 2, bytes: bytes };
 // console.log(decodeUplink(input));

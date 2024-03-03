@@ -13,7 +13,7 @@ uplinkDecoder:
           volume: 6607.2,
           power: 1.1,
           flow: 0.038,
-          forward_temperature: 63.5,
+          flow_temperature: 63.5,
           return_temperature: 38,
           serial_from_message: 69493571,
           error_flag: 524288

@@ -39,10 +39,10 @@ const difVifMapping = {
     '3d': { measure: 'flow', unit: 'm3/h', decimal: 1 },
     '3e': { measure: 'flow', unit: 'm3/h', decimal: 0 },
     '3f': { measure: 'flow', unit: 'm3/h', decimal: -1 },
-    58: { measure: 'forward_temperature', unit: '°C', decimal: 3 },
-    59: { measure: 'forward_temperature', unit: '°C', decimal: 2 },
-    '5a': { measure: 'forward_temperature', unit: '°C', decimal: 1 },
-    '5b': { measure: 'forward_temperature', unit: '°C', decimal: 0 },
+    58: { measure: 'flow_temperature', unit: '°C', decimal: 3 },
+    59: { measure: 'flow_temperature', unit: '°C', decimal: 2 },
+    '5a': { measure: 'flow_temperature', unit: '°C', decimal: 1 },
+    '5b': { measure: 'flow_temperature', unit: '°C', decimal: 0 },
     '5c': { measure: 'return_temperature', unit: '°C', decimal: 3 },
     '5d': { measure: 'return_temperature', unit: '°C', decimal: 2 },
     '5e': { measure: 'return_temperature', unit: '°C', decimal: 1 },
@@ -116,7 +116,8 @@ function decodeCMI4111Standard(payloadArr) {
     const difInt = parseInt(dif, 16);
     i += 2;
     if (payloadArr.slice(i).length <= 5 && vif === 'fd') {
-      vif = payloadArr.slice(i - 1, i + 1).join('');
+      //end of payload: error flag
+      vif += payloadArr[i];
       i += 1;
     }
     const bcdLen = difInt >= 2 && difInt <= 4 ? difInt : 4;
@@ -172,7 +173,8 @@ function bytesToHexArray(bytes) {
 }
 
 function hexToBytes(hex) {
-  return hex.map(function (byte) {
+  const hexArray = hex.match(/.{1,2}/g);
+  return hexArray.map(function (byte) {
     return parseInt(byte, 16);
   });
 }
