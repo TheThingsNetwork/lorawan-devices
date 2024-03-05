@@ -34,6 +34,8 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - tvoc
+  - pm2.5
+  - pm10
 
 # Dimensions use width, height, length and/or diameter
 dimensions:
