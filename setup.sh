@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -n "$NO_COLOR" ]; then
     # The variable is set, so disable color output
@@ -16,31 +16,16 @@ else
     NC='\033[0m'
 fi
 
-highestVendorProfileID=0
-
-# Function to get the highest vendorProfileID in the directory
-get_highest_vendor_profile_id() {
-    for file in *-profile.yaml; do
-        if [ -f "$file" ]; then
-            current_id=$(grep 'vendorProfileID:' "$file" | awk '{print $2}')
-            if [ "$current_id" -gt "$highestVendorProfileID" ]; then
-                highestVendorProfileID=$current_id
-            fi
-        fi
-    done
-}
-
 add_devices () {
-get_highest_vendor_profile_id
 
 while true; do
-    echo "\n${BLUE}How many devices do you want to add? (number between 0 and 10)${NC}"
+    echo -e "\n${BLUE}How many devices do you want to add? (number between 0 and 10)${NC}"
     read device_count
     if [[ $device_count =~ ^[0-9]+$ ]] && [[ "$device_count" -ge 0 && 
     "$device_count" -le 10 ]]; then
         break
     else
-        echo "${RED}Invalid input. Please enter a number between 0 and 10.\n${NC}"
+        echo -e "${RED}Invalid input. Please enter a number between 0 and 10.\n${NC}"
     fi
 done
 
@@ -56,26 +41,25 @@ done
 # Loop to get device info and create files
 for ((i=1;i<=device_count;i++));
 do
-  highestVendorProfileID=$((highestVendorProfileID + 1))
   while true; do
-    echo "\n${BLUE}What is the name of device $i? 
+    echo -e "\n${BLUE}What is the name of device $i? 
 (lowercase, alphanumeric with dashes, max 36 characters) (${RED}required${BLUE}):${NC}"
     read devicename
-    if [[ $devicename =~ ^[a-z0-9\-]{1,36}$ ]]; then
+    if [[ $devicename =~ ^[a-z0-9\-]{3,36}$ ]]; then
         break
     else
-        echo "${RED}Invalid input. Please enter a lowercase alphanumeric string 
-with dashes and a maximum of 36 characters.\n${NC}"
+        echo -e "${RED}Invalid input. Please enter a lowercase alphanumeric string 
+with dashes and between 3 and 36 characters.\n${NC}"
     fi
   done
 
   while true; do
-    echo "${BLUE}What is the description of device $i? (${RED}required${BLUE}):${NC}"
+    echo -e "${BLUE}What is the description of device $i? (${RED}required${BLUE}):${NC}"
     read devicedescription
     if [[ $devicedescription =~ .+ ]]; then
       break
     else
-        echo "${RED}Invalid input. Please enter at least one character.\n${NC}"
+        echo -e "${RED}Invalid input. Please enter at least one character.\n${NC}"
     fi
   done
 
@@ -99,24 +83,110 @@ firmwareVersions:
       - '1.0' # Must refer to hardwareVersions declared above
     # LoRaWAN Device Profiles per region
     # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters).
-        # This is the file name of the profile and must have the .yaml extension.
-        id: $devicename-profile
-        # Specify whether the device is LoRa Alliance certified.
-        lorawanCertified: true
-        # This is the file name of the codec definition and must have the .yaml extension.
-        codec: $devicename-codec
-      US902-928:
-        # This is the file name of the profile and must have the .yaml extension.
-        id: $devicename-profile
-        # Specify whether the device is LoRa Alliance certified.
-        lorawanCertified: true
-        # This is the file name of the codec definition and must have the .yaml extension.
-        codec: $devicename-codec
+    profiles:" > $devicename.yaml
 
-# Sensors that this device features (optional)
+while true; do
+  echo -e "${BLUE}How many profiles do you want to add for device $i?${NC}"
+  read profile_count
+  if [[ ! $profile_count =~ ^[0-9]+$ ]]; then
+    echo -e "${RED}Invalid input. Please enter a number.\n${NC}"
+  else
+    break
+  fi
+done
+
+declare -a profile_names=("EU863-870" "US902-928" "AU915-928" "AS923" "CN779-787" "EU433" "CN470-510" "KR920-923" "IN865-867" "RU864-870")
+declare -A profile_to_base_freq=(["EU863-870"]="eu868" ["US902-928"]="us915" ["AU915-928"]="au915" ["AS923"]="as923" ["CN779-787"]="cn779" ["EU433"]="eu433" ["CN470-510"]="cn470" ["KR920-923"]="kr920" ["IN865-867"]="in865" ["RU864-870"]="ru864")
+declare -a selected_profiles=()
+declare -A selected_profiles_check=() # Associative array to check if a profile has been selected
+
+for ((j=1; j<=profile_count; j++)); do
+  echo -e "${BLUE}Available profiles:${NC}"
+  # Display only profiles that have not been selected yet
+  for k in "${!profile_names[@]}"; do
+    if [[ -z ${selected_profiles_check[${profile_names[$k]}]} ]]; then
+      echo "$((k+1))) ${profile_names[$k]}"
+    fi
+  done
+  
+  echo -e "${BLUE}Which profile do you want to add for profile $j? (Enter the number)${NC}"
+  read profile_selection
+  profile_index=$((profile_selection-1))
+
+  if [[ $profile_index -ge 0 && $profile_index -lt ${#profile_names[@]} ]]; then
+    profile_name=${profile_names[$profile_index]}
+    # Check if this profile has already been selected
+    if [[ -n ${selected_profiles_check[$profile_name]} ]]; then
+      echo -e "${RED}This profile has already been selected. Please choose a different profile.\n${NC}"
+      ((j--)) # Decrement to ask for profile again
+    else
+      selected_profiles+=("$profile_name")
+      selected_profiles_check[$profile_name]=1 # Mark as selected
+    fi
+  else
+    echo -e "${RED}Invalid selection. Please select a valid profile number.\n${NC}"
+    ((j--)) # Decrement to ask for profile again
+    continue
+  fi
+done
+
+# Now you have the selected profiles in selected_profiles array, you can use them to generate the device file
+for profile in "${selected_profiles[@]}"; do
+  base_freq=${profile_to_base_freq[$profile]}
+  echo "       $profile:
+        id: $devicename-profile-$base_freq
+        lorawanCertified:
+        codec: $devicename-codec" >> $devicename.yaml
+  echo "# LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
+macVersion: ''
+# LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
+#   1.0:   TS001-1.0
+#   1.0.1: TS001-1.0.1
+#   1.0.2: RP001-1.0.2 or RP001-1.0.2-RevB
+#   1.0.3: RP001-1.0.3-RevA
+#   1.0.4: RP002-1.0.0, RP002-1.0.1, RP002-1.0.2, RP002-1.0.3 or RP002-1.0.4
+#   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
+regionalParametersVersion: ''
+
+# Whether the end device supports join (OTAA) or not (ABP)
+supportsJoin: true
+# If your device is an ABP device (supportsJoin is false), uncomment the following fields:
+# RX1 delay
+#rx1Delay: 5
+# RX1 data rate offset
+#rx1DataRateOffset: 0
+# RX2 data rate index
+#rx2DataRateIndex: 0
+# RX2 frequency (MHz)
+#rx2Frequency: 869.525
+# Factory preset frequencies (MHz)
+#factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
+
+# Maximum EIRP
+maxEIRP:
+# Whether the end device supports 32-bit frame counters
+supports32bitFCnt: 
+
+# Whether the end device supports class B
+supportsClassB: 
+# If your device supports class B, uncomment the following fields:
+# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
+#classBTimeout: 60
+# Ping slot period (seconds)
+#pingSlotPeriod: 128
+# Ping slot data rate index
+#pingSlotDataRateIndex: 0
+# Ping slot frequency (MHz). Set to 0 if the band supports ping slot frequency hopping.
+#pingSlotFrequency: 869.525
+
+# Whether the end device supports class C
+supportsClassC: 
+# If your device supports class C, uncomment the following fields:
+# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
+#classCTimeout: 60" > $devicename-profile-$base_freq.yaml
+done
+
+echo "# Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
 # current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
@@ -213,61 +283,7 @@ compliances:
     - body: 
       norm: 
       standard: 
-      version: "> $devicename.yaml
-
-echo "# The vendorProfileID is a distinct (preferably incremental) value for every unique profile listed in the vendor's folder.
-# This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
-# NOTE: The vendorProfileID is different from the vendorID.
-vendorProfileID: $highestVendorProfileID
-
-# LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
-macVersion: ''
-# LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
-#   1.0:   TS001-1.0
-#   1.0.1: TS001-1.0.1
-#   1.0.2: RP001-1.0.2 or RP001-1.0.2-RevB
-#   1.0.3: RP001-1.0.3-RevA
-#   1.0.4: RP002-1.0.0, RP002-1.0.1, RP002-1.0.2, RP002-1.0.3 or RP002-1.0.4
-#   1.1:   RP001-1.1-RevA or RP001-1.1-RevB
-regionalParametersVersion: 'RP001-1.0.3-RevA'
-
-# Whether the end device supports join (OTAA) or not (ABP)
-supportsJoin: true
-# If your device is an ABP device (supportsJoin is false), uncomment the following fields:
-# RX1 delay
-#rx1Delay: 5
-# RX1 data rate offset
-#rx1DataRateOffset: 0
-# RX2 data rate index
-#rx2DataRateIndex: 0
-# RX2 frequency (MHz)
-#rx2Frequency: 869.525
-# Factory preset frequencies (MHz)
-#factoryPresetFrequencies: [868.1, 868.3, 868.5, 867.1, 867.3, 867.5, 867.7, 867.9]
-
-# Maximum EIRP
-maxEIRP: 16
-# Whether the end device supports 32-bit frame counters
-supports32bitFCnt: true
-
-# Whether the end device supports class B
-supportsClassB: false
-# If your device supports class B, uncomment the following fields:
-# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
-#classBTimeout: 60
-# Ping slot period (seconds)
-#pingSlotPeriod: 128
-# Ping slot data rate index
-#pingSlotDataRateIndex: 0
-# Ping slot frequency (MHz). Set to 0 if the band supports ping slot frequency hopping.
-#pingSlotFrequency: 869.525
-
-# Whether the end device supports class C
-supportsClassC: false
-# If your device supports class C, uncomment the following fields:
-# Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
-#classCTimeout: 60" > $devicename-profile.yaml
+      version: ">> $devicename.yaml
 
 echo "# Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
@@ -277,7 +293,7 @@ uplinkDecoder:
 echo " // Please read here on how to implement the proper codec: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/" > $devicename.js
 done
 
-echo "\n${GREEN}All the necessary files have now been created containing templates, 
+echo -e "\n${GREEN}All the necessary files have now been created containing templates, 
 so you can start adding missing information and extras. 
 Please do go through the files and check if everything is correct. 
 This tool is only for helping you add the boilerplate files quicker.
@@ -292,35 +308,38 @@ exit 0
 
 add_company () {
 while true; do
-    echo "\n${BLUE}What is the unique id of your company? (a.k.a. the name of the vendor folder)
+    echo -e "\n${BLUE}What is the unique id of your company? (a.k.a. the name of the vendor folder)
 (${YELLOW}lowercase, alphanumeric with dashes, max 36 characters${BLUE}) (${RED}required${BLUE}):${NC}"
     read companyid
 
     if [[ $companyid =~ ^[a-z0-9\-]{1,36}$ ]]; then
         # Check if the company ID already exists in index.yaml
         if grep -q "id: $companyid" index.yaml; then
-            echo "${RED}This company ID is already in use. Please enter a different one.\n${NC}"
+            echo -e "${RED}This company ID is already in use. Please enter a different one.\n${NC}"
         else
             break
         fi
     else
-        echo "${RED}Invalid input. Please enter a lowercase alphanumeric string 
+        echo -e "${RED}Invalid input. Please enter a lowercase alphanumeric string 
 with dashes and a maximum of 36 characters.\n${NC}"
     fi
 done
           
 while true; do
-    echo "${BLUE}What is the name of your company? (${RED}required${BLUE}):${NC}"
+    echo -e "${BLUE}What is the name of your company? (${RED}required${BLUE}):${NC}"
     read companyname
     if [[ -z "$companyname" ]]; then
-        echo "${RED}Invalid input. Please enter at least 1 character.\n${NC}"
+        echo -e "${RED}Invalid input. Please enter at least 1 character.\n${NC}"
     else
         break
     fi
 done
 
+echo -e "\n  - id: $companyid
+    name: $companyname">> index.yaml
+
 while true; do
-    echo "${BLUE}What is the LoRa Alliance issued Vendor ID? (${YELLOW}optional${BLUE}):${NC}"
+    echo -e "${BLUE}What is the LoRa Alliance issued Vendor ID? (${YELLOW}optional${BLUE}):${NC}"
     read vendorid
     if [ -z "$vendorid" ]; then
         break
@@ -328,26 +347,23 @@ while true; do
     if [[ $vendorid =~ ^[0-9]+$ ]] && [[ $vendorid -ge 0 && 
     $vendorid -le 1000 ]]; then
         if grep -q -w "vendorID: $vendorid" ./index.yaml; then
-            echo "${RED}This Vendor ID is already in use.\n${NC}"
+            echo -e "${RED}This Vendor ID is already in use.\n${NC}"
         else
+            echo -e "    vendorID: $vendorid">> index.yaml
             break
         fi
     else
-        echo "${RED}Invalid input. Please enter a number between 0 and 1000.\n${NC}"
+        echo -e "${RED}Invalid input. Please enter a number between 0 and 1000.\n${NC}"
     fi
 done
 
-printf "\n \n  - id: $companyid
-    name: $companyname
-    vendorID: $vendorid">> index.yaml
-
 while true; do
-    echo "${BLUE}What is the address of the company's website? (${YELLOW}optional${BLUE}):${NC}"
+    echo -e "${BLUE}What is the address of the company's website? (${YELLOW}optional${BLUE}):${NC}"
     read website
     if [[ -z "$website" ]]; then
         break
     else
-        printf "\n    website: $website">> index.yaml
+        printf "    website: $website">> index.yaml
         break
     fi
 done
@@ -361,7 +377,7 @@ sleep 1
 add_devices
 }
 
-echo "${BLUE}Hello! The Device Repository is where we store the characteristics 
+echo -e "${BLUE}Hello! The Device Repository is where we store the characteristics 
 and capabilities of LoRaWAN devices. To add a new vendor or devices, some files 
 need to be created with specific information.
 To help you along, we've created this setup tool that will create a few of the
@@ -370,19 +386,17 @@ Please fill in the upcoming questions.\n${NC}"
 
 cd vendor
 
-echo "${BLUE}What would you like to do?${NC}"
+echo -e "${BLUE}What would you like to do?${NC}"
 
 PS3="Type a number: "
 
-COLUMNS=0
-
-options=("Add new devices to an existing entry" "Add a new company" "Quit")
+options=("Add new devices to an existing entry" "Add a new company")
 
 select opt in "${options[@]}"; do
     case $opt in
         "Add new devices to an existing entry")
             while true; do
-              echo "\n${BLUE}What is the unique id of your company? (a.k.a. the name of the vendor folder)
+              echo -e "\n${BLUE}What is the unique id of your company? (a.k.a. the name of the vendor folder)
 (${YELLOW}lowercase, alphanumeric with dashes, max 36 characters${BLUE}) (${RED}required${BLUE}):${NC}"
               read companyid
               if [[ $companyid =~ ^[a-z0-9\-]{1,36}$ ]]; then
@@ -391,11 +405,11 @@ select opt in "${options[@]}"; do
                       add_devices
                       break
                   else 
-                      echo "${RED}id not found. Make sure that you entered it 
+                      echo -e "${RED}id not found. Make sure that you entered it 
 correctly or go back and add a new company.${NC}\n"
                   fi
               else
-                  echo "${RED}Invalid input. Please enter a lowercase 
+                  echo -e "${RED}Invalid input. Please enter a lowercase 
 alphanumeric string with dashes and a maximum of 36 characters.\n${NC}"
               fi
             done
@@ -403,10 +417,6 @@ alphanumeric string with dashes and a maximum of 36 characters.\n${NC}"
         "Add a new company")
             add_company
             break
-            ;;
-        "Quit")
-            echo "${BLUE}Exiting.${NC}"
-            exit 0
             ;;
         *) echo "Invalid option";;
     esac
