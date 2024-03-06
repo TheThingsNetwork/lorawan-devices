@@ -46,7 +46,11 @@ do
 (lowercase, alphanumeric with dashes, max 36 characters) (${RED}required${BLUE}):${NC}"
     read devicename
     if [[ $devicename =~ ^[a-z0-9\-]{3,36}$ ]]; then
-        break
+        if grep -q -E "\b$devicename\b" index.yaml; then
+            echo -e "${RED}This device name already exists. Please enter a unique name.\n${NC}"
+        else
+            break
+        fi
     else
         echo -e "${RED}Invalid input. Please enter a lowercase alphanumeric string 
 with dashes and between 3 and 36 characters.\n${NC}"
@@ -95,44 +99,37 @@ while true; do
   fi
 done
 
-declare -a profile_names=("EU863-870" "US902-928" "AU915-928" "AS923" "CN779-787" "EU433" "CN470-510" "KR920-923" "IN865-867" "RU864-870")
-declare -A profile_to_base_freq=(["EU863-870"]="eu868" ["US902-928"]="us915" ["AU915-928"]="au915" ["AS923"]="as923" ["CN779-787"]="cn779" ["EU433"]="eu433" ["CN470-510"]="cn470" ["KR920-923"]="kr920" ["IN865-867"]="in865" ["RU864-870"]="ru864")
-declare -a selected_profiles=()
-declare -A selected_profiles_check=() # Associative array to check if a profile has been selected
+profile_names=("EU863-870" "US902-928" "AU915-928" "AS923" "CN779-787" "EU433" "CN470-510" "KR920-923" "IN865-867" "RU864-870")
+profile_base_freqs=("eu868" "us915" "au915" "as923" "cn779" "eu433" "cn470" "kr920" "in865" "ru864")
+selected_indexes=() # Track selected profile indexes to avoid duplicates
 
 for ((j=1; j<=profile_count; j++)); do
-  echo -e "${BLUE}Available profiles:${NC}"
-  # Display only profiles that have not been selected yet
-  for k in "${!profile_names[@]}"; do
-    if [[ -z ${selected_profiles_check[${profile_names[$k]}]} ]]; then
-      echo "$((k+1))) ${profile_names[$k]}"
-    fi
-  done
-  
-  echo -e "${BLUE}Which profile do you want to add for profile $j? (Enter the number)${NC}"
-  read profile_selection
-  profile_index=$((profile_selection-1))
+    echo -e "${BLUE}\nAvailable profiles:${NC}"
+    for i in "${!profile_names[@]}"; do
+        if [[ ! " ${selected_indexes[@]} " =~ " ${i} " ]]; then
+            echo "$((i+1))) ${profile_names[$i]}"
+        fi
+    done
 
-  if [[ $profile_index -ge 0 && $profile_index -lt ${#profile_names[@]} ]]; then
-    profile_name=${profile_names[$profile_index]}
-    # Check if this profile has already been selected
-    if [[ -n ${selected_profiles_check[$profile_name]} ]]; then
-      echo -e "${RED}This profile has already been selected. Please choose a different profile.\n${NC}"
-      ((j--)) # Decrement to ask for profile again
+    echo -e "${BLUE}Which profile do you want to add for profile $j? (Enter the number)${NC}"
+    read profile_selection
+    profile_index=$((profile_selection-1))
+
+    if [[ " ${selected_indexes[@]} " =~ " ${profile_index} " ]]; then
+        echo -e "${RED}This profile has already been selected. Please choose a different profile.${NC}"
+        ((j--)) # Decrement to ask for profile again
+    elif [[ $profile_index -ge 0 && $profile_index -lt ${#profile_names[@]} ]]; then
+        selected_indexes+=("$profile_index") # Add index to selected
     else
-      selected_profiles+=("$profile_name")
-      selected_profiles_check[$profile_name]=1 # Mark as selected
+        echo -e "${RED}Invalid selection. Please select a valid profile number.\n${NC}"
+        ((j--)) # Decrement to ask for profile again
     fi
-  else
-    echo -e "${RED}Invalid selection. Please select a valid profile number.\n${NC}"
-    ((j--)) # Decrement to ask for profile again
-    continue
-  fi
 done
 
 # Now you have the selected profiles in selected_profiles array, you can use them to generate the device file
-for profile in "${selected_profiles[@]}"; do
-  base_freq=${profile_to_base_freq[$profile]}
+for index in "${selected_indexes[@]}"; do
+  profile="${profile_names[$index]}"
+  base_freq="${profile_base_freqs[$index]}"
   echo "       $profile:
         id: $devicename-profile-$base_freq
         lorawanCertified:
