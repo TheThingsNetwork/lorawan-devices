@@ -5,6 +5,7 @@ endDevices:
   - wisblock-kit1
   - wisblock-kit4
   - rak2270
+  - rak2560
 profileIDs:
   '1':
     endDeviceID: wisblock-kit4
