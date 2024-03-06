@@ -105,9 +105,9 @@ selected_indexes=() # Track selected profile indexes to avoid duplicates
 
 for ((j=1; j<=profile_count; j++)); do
     echo -e "${BLUE}\nAvailable profiles:${NC}"
-    for i in "${!profile_names[@]}"; do
-        if [[ ! " ${selected_indexes[@]} " =~ " ${i} " ]]; then
-            echo "$((i+1))) ${profile_names[$i]}"
+    for k in "${!profile_names[@]}"; do
+        if [[ ! " ${selected_indexes[@]} " =~ " ${k} " ]]; then
+            echo "$((k+1))) ${profile_names[$k]}"
         fi
     done
 
