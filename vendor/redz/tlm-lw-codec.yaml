@@ -1,0 +1,29 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: tlm-lw.js
+  # Examples (optional)
+  examples:
+    - description: Frame Type
+      input:
+        fPort: 1
+        bytes: [10]
+      output:
+        data:
+          frameType: 'ModbusRTU'
+      
+    - description: Device ID
+      input:
+        fPort: 1
+        bytes: [0,1,159,15]
+      output:
+        data:
+          deviceID: '0x00019F0F'
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [1, 42]
+      output:
+        errors:
+          - unknown FPort
+
