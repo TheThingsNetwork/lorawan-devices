@@ -46,7 +46,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: busylight-codec
 
-# Sensors that this device features (optional) 
+# Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
 # current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
