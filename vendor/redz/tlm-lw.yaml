@@ -15,7 +15,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0' 
+      - '1.xx'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -33,7 +33,7 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: 
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: tlm-lw-profile-868
         lorawanCertified: true
@@ -51,9 +51,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: tlm-lw-codec
 
-
-
-
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
 bridgeInterfaces:
@@ -69,8 +66,6 @@ dimensions:
 
 # Weight in grams (optional)
 weight: 400
-
-
 
 # Operating conditions (optional)
 operatingConditions:
@@ -117,19 +112,10 @@ dataSheetURL: https://admin.redz-sc.com/uploads/brochure/tlm354-datasheet-en.pdf
 # Commercial information
 resellerURLs:
   - name: 'Z Telemetri'
-    region:
-      - European Union
-      - United States
-      - Canada
-      - Etc
     url: https://ztelemetry.com/en/
   - name: 'Marcom'
-    region:
-      - European Union
     url: https://shop.marcomweb.it/it/
   - name: 'S Kommunikacja'
-    region:
-      - European Union
     url: https://pomiary.pl/
 msrp:
   USD: 280
@@ -140,5 +126,4 @@ photos:
   other:
     - tlm-lw-sc1.jpg # Image needs to have a transparent background
     - tlm-lw-sc2.jpg # Image needs to have a transparent background
-
 
