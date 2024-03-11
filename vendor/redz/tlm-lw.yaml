@@ -125,12 +125,10 @@ resellerURLs:
     url: https://ztelemetry.com/en/
   - name: 'Marcom'
     region:
-      - Italy
       - European Union
     url: https://shop.marcomweb.it/it/
   - name: 'S Kommunikacja'
     region:
-      - Poland
       - European Union
     url: https://pomiary.pl/
 msrp:
