@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: lht65.js
+  fileName: lht65n.js
   examples:
     - description: Temperature
       input:
