@@ -2056,7 +2056,7 @@ vendors:
   - id: redz
     name: REDZ Smart Communication
     description: REDZ Smart Communication Technologies is a provider for industrial coomunication devices such as LoraWAN EndNode Modems, Electricity Meter Protocol to Modbus Protocol Gateways, LoRa RF Modems, Wireless Mbus Modems, Remote IO Devices, Serial to ETH Gateways, Industrial Unmanaged Switches with or without Broadband Powerline (BPL) connection and Energy Meter Reading Optical Probes.
-    logo: redz.jpg
+    logo: redz.png
     website: https://www.redz-sc.com
     social:
       linkedin: https://www.linkedin.com/in/redz-smartcommunication

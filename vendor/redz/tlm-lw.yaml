@@ -11,7 +11,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '2.xx.xx'
+    version: '2.xx'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -50,8 +50,6 @@ firmwareVersions:
         id: tlm-lw-profile-865
         lorawanCertified: true
         codec: tlm-lw-codec
-
-  -
 
 
 
@@ -120,24 +118,29 @@ dataSheetURL: https://admin.redz-sc.com/uploads/brochure/tlm354-datasheet-en.pdf
 resellerURLs:
   - name: 'Z Telemetri'
     region:
-      - Worldwide
+      - European Union
+      - United States
+      - Canada
+      - Etc
     url: https://ztelemetry.com/en/
   - name: 'Marcom'
     region:
       - Italy
+      - European Union
     url: https://shop.marcomweb.it/it/
   - name: 'S Kommunikacja'
     region:
       - Poland
+      - European Union
     url: https://pomiary.pl/
 msrp:
   USD: 280
 
 # Photos
 photos:
-  main: TLM-LW.png # Image needs to have a transparent background
+  main: tlm-lw.png # Image needs to have a transparent background
   other:
-    - TLM-LW-sc1.jpg # Image needs to have a transparent background
-    - TLM-LW-sc2.jpg # Image needs to have a transparent background
+    - tlm-lw-sc1.jpg # Image needs to have a transparent background
+    - tlm-lw-sc2.jpg # Image needs to have a transparent background
 
 
