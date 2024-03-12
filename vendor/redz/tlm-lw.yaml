@@ -122,7 +122,7 @@ msrp:
 
 # Photos
 photos:
-  main: tlm-lw.png # Image needs to have a transparent background
+  main: tlm-lw-1.png # Image needs to have a transparent background
   other:
     - tlm-lw-sc1.jpg # Image needs to have a transparent background
     - tlm-lw-sc2.jpg # Image needs to have a transparent background
