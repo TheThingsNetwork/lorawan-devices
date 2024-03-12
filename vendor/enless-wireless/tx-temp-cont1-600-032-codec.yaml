@@ -23,5 +23,5 @@ uplinkDecoder:
           type: 15
           values:
             temperature_1:
-              unit: oc
+              unit: °C
               value: 20.8

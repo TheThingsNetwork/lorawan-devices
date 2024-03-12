@@ -26,8 +26,8 @@ uplinkDecoder:
           type: 12
           values:
             temperature_1:
-              unit: oC
+              unit: °C
               value: 20.2
             temperature_2:
-              unit: oC
+              unit: °C
               value: 38.6
