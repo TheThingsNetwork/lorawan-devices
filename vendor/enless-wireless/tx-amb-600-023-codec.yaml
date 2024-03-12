@@ -23,7 +23,7 @@ uplinkDecoder:
             voc:
               high: false
               low: false
-          fw_version: 1
+          fw_version: 17
           id: 129
           seq_counter: 14
           states:
@@ -38,7 +38,7 @@ uplinkDecoder:
               unit: ppm
               value: 60.9
             temperature:
-              unit: oc
+              unit: °C
               value: 21.1
             voc:
               unit: ppb
