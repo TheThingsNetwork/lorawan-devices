@@ -1,0 +1,2 @@
+endDevices:
+  - tlm-lw # look in tlm-lw.yaml for the end device definition
