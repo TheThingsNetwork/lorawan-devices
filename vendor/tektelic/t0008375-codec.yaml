@@ -1,0 +1,28 @@
+uplinkDecoder:
+  fileName: decoder_stork.js
+  examples:
+    - description: Transducer Data Uplink
+      input:
+        fPort: 10
+        bytes: [0x03, 0x67, 0x00, 0xF7, 0x04, 0x68, 0x1D]
+      output:
+        data:
+          temperature: 25
+          relative_humidity: 14.5
+          port: '10'
+          raw: '[03, 67, 00, F7, 04, 68, 1D]'
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_stork.js
+  examples:
+    - description: Core Ticks Configuration Downlink
+      input:
+        data:
+          mode:
+            tracker_beacon_mode:
+              write: 01
+      output:
+        bytes: [138, 01]
+        port: '100'
