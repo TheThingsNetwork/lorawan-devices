@@ -1,8 +1,2 @@
 endDevices:
   - cotxpetfon
-profileIDs:
-  '1':
-    endDeviceID: cotxpetfon
-    firmwareVersion: '0.2.32.1'
-    hardwareVersion: '2.1'
-    region: EU863-870

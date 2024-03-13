@@ -1,8 +1,2 @@
 endDevices:
   - strips
-profileIDs:
-  '1':
-    endDeviceID: strips
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: US902-928

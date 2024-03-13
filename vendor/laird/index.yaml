@@ -3,9 +3,3 @@ endDevices:
   - rs1xx-ext-temp-1w-sensor
   - rs1xx-ext-multi-sensor
   - rs1xx-ext-temp-rtd-sensor
-profileIDs:
-  '1':
-    endDeviceID: rs1xx-ext-temp-rtd-sensor
-    firmwareVersion: '6.1_20_6_16'
-    hardwareVersion: rev 4
-    region: AS923

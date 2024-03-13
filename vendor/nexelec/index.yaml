@@ -9,48 +9,8 @@ endDevices:
   - guard-plus
   - guard
 profileIDs:
-  '8':
+  '420':
     endDeviceID: carbon
     firmwareVersion: '3.6'
-    hardwareVersion: C024C
-    region: EU863-870
-  '9':
-    endDeviceID: feel
-    firmwareVersion: V01.0
-    hardwareVersion: V001
-    region: EU863-870
-  '10':
-    endDeviceID: guard-plus
-    firmwareVersion: V01.0
-    hardwareVersion: V001
-    region: EU863-870
-  '11':
-    endDeviceID: guard
-    firmwareVersion: V01.0
-    hardwareVersion: V001
-    region: EU863-870
-  '12':
-    endDeviceID: move
-    firmwareVersion: V01.0
-    hardwareVersion: V001
-    region: EU863-870
-  '13':
-    endDeviceID: origin-plus
-    firmwareVersion: V01.0
-    hardwareVersion: V001
-    region: EU863-870
-  '14':
-    endDeviceID: origin
-    firmwareVersion: V01.0
-    hardwareVersion: V001
-    region: EU863-870
-  '15':
-    endDeviceID: rise
-    firmwareVersion: V01.0
-    hardwareVersion: V001
-    region: EU863-870
-  '16':
-    endDeviceID: sign
-    firmwareVersion: V01.0
-    hardwareVersion: V001
+    hardwareVersion: 'C024C'
     region: EU863-870

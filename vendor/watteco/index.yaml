@@ -1,8 +1,2 @@
 endDevices:
   - th-sensor
-profileIDs:
-  '1':
-    endDeviceID: th-sensor
-    firmwareVersion: '3.5.2'
-    hardwareVersion: '50-70-162'
-    region: 'EU863-870'

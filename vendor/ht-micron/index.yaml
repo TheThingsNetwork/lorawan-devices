@@ -1,13 +1,2 @@
 endDevices:
   - htlrbl32l
-profileIDs:
-  '1':
-    endDeviceID: htlrbl32l
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: EU863-870
-  '2':
-    endDeviceID: htlrbl32l
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: US902-928

@@ -1,8 +1,2 @@
 endDevices:
   - sepem-35x
-profileIDs:
-  '3':
-    endDeviceID: sepem-35x
-    firmwareVersion: '1.007'
-    hardwareVersion: '1.0'
-    region: EU863-870

@@ -1,8 +1,2 @@
 endDevices:
   - tk4-rf
-profileIDs:
-  '59':
-    endDeviceID: tk4-rf
-    firmwareVersion: 'V60/261.0'
-    hardwareVersion: '1.0'
-    region: EU863-870

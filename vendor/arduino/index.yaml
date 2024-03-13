@@ -1,14 +1,3 @@
 endDevices:
   - mkr-wan-1310
   - lora-vision-shield
-profileIDs:
-  '1':
-    endDeviceID: lora-vision-shield
-    firmwareVersion: '1.2.1'
-    hardwareVersion: '1.0'
-    region: EU863-870
-  '2':
-    endDeviceID: lora-vision-shield
-    firmwareVersion: '1.2.1'
-    hardwareVersion: '1.0'
-    region: US902-928
