@@ -26,12 +26,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: tx-pulse-600-codec
 
-      US902-928:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: enless-profile-915
-        lorawanCertified: true
-        codec: tx-pulse-600-codec
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

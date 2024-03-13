@@ -119,7 +119,8 @@ function bytesToHexArray(bytes) {
 }
 
 function hexToBytes(hex) {
-  return hex.map(function (byte) {
+  const hexArray = hex.match(/.{1,2}/g);
+  return hexArray.map(function (byte) {
     return parseInt(byte, 16);
   });
 }
@@ -153,6 +154,6 @@ function decodeUplink(input) {
 
 // array= 000c06526761020c14978999000b2d0000000b3b0000000a5a33060a5e41050c782911036602fd170000
 // hex = ["00","0c","06","52","67","61","02","0c","14","97","89","99","00","0b","2d","00","00","00","0b","3b","00","00","00","0a","5a","33","06","0a","5e","41","05","0c","78","29","11","03","66","02","fd","17","00","00"]
-bytes = [0, 12, 6, 82, 103, 97, 2, 12, 20, 151, 137, 153, 0, 11, 45, 0, 0, 0, 11, 59, 0, 0, 0, 10, 90, 51, 6, 10, 94, 65, 5, 12, 120, 41, 17, 3, 102, 2, 253, 23, 0, 0];
-input = { fPort: 2, bytes: bytes };
+// bytes = [0, 12, 6, 82, 103, 97, 2, 12, 20, 151, 137, 153, 0, 11, 45, 0, 0, 0, 11, 59, 0, 0, 0, 10, 90, 51, 6, 10, 94, 65, 5, 12, 120, 41, 17, 3, 102, 2, 253, 23, 0, 0];
+// input = { fPort: 2, bytes: bytes };
 // console.log(decodeUplink(input));
