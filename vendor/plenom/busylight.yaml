@@ -37,6 +37,14 @@ firmwareVersions:
         id: busylight-profile
         lorawanCertified: true
         codec: busylight-codec
+      AS923:
+        id: busylight-profile
+        lorawanCertified: true
+        codec: busylight-codec
+      IN865-867:
+        id: busylight-profile
+        lorawanCertified: true
+        codec: busylight-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
