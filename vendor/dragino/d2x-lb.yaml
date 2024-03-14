@@ -1,4 +1,4 @@
-name: d2x-lb
+name: D2x-LB - Outdoor Temperature Sensor
 description: The Dragino d2x-lb consists of  detects the temperature status and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
 
 # Firmware versions (at least one is mandatory)

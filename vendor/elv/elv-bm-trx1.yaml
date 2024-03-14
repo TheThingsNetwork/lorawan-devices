@@ -1,4 +1,4 @@
-name: experimental platform for LoRaWAN
+name: LoRIS-BM-TRX1 - Experimental platform for LoRaWAN
 description: The modular system of ELV Elektronik AG makes it possible to carry out LoRaWAN experiments. The basis is the ELV LoRaWAN Base, on which various application modules and power modules equipped with sensors can be attached. The integrated antenna and compact form factor allow experiments to be carried out flexibly. The required firmware is provided by ELV, but the programming adapter can also be used to execute your own code.
 
 # Hardware versions (optional, use when you have revisions)
