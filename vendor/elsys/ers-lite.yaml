@@ -95,6 +95,9 @@ operatingConditions:
 # Product and data sheet URLs (optional)
 productURL: https://www.elsys.se/en/ers-lite/
 dataSheetURL: https://elsys.se/public/datasheets/ERS_Lite_datasheet.pdf
+# URL for onboarding device (optional).
+# Can be a link to your own documentation or from us. Do not advertise the device in any way.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/elsys-ers-lite/
 
 # Photos
 photos:

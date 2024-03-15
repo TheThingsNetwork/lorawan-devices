@@ -40,3 +40,6 @@ photos:
 # Product and data sheet URLs (optional)
 productURL: https://sensative.com/sensors/strips-lorawan-sensors/
 dataSheetURL: https://sensative.com/sensors/strips-brochure-2021-lineup/
+# URL for onboarding device (optional).
+# Can be a link to your own documentation or from us. Do not advertise the device in any way.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/sensative-strips/

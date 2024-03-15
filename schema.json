@@ -1132,6 +1132,10 @@
           "type": "string",
           "format": "uri"
         },
+        "onboardingGuideURL": {
+          "type": "string",
+          "format": "uri"
+        },
         "resellerURLs": {
           "type": "array",
           "items": {
