@@ -1,0 +1,26 @@
+uplinkDecoder:
+  fileName: lse01-121.js
+  examples:
+    - description: Soil Measurements
+      input:
+        fPort: 2
+        bytes: [0xCB, 0xF6, 0x0B, 0x0D, 0x03, 0x76, 0x01, 0x0A, 0xDD, 0x7F, 0xFF]
+      output:
+        data:
+          BatV: 3.062
+          Mod: 1
+          Raw_conduct_SOIL: 56703 # Assuming this needs to be converted to conduct_SOIL
+          Raw_water_SOIL: 266 # Assuming this needs to be converted to water_SOIL
+          Soil_dielectric_constant: '88.6' # Might need to align with temp_SOIL or another field
+          i_flag: 15
+          s_flag: 1
+          temp_DS18B20: '282.90' # Assuming conversion to TempC_DS18B20 or alignment with expected format
+
+
+  #   - description: Unknown FPort
+  #      input:
+  #        fPort: 42
+  #        bytes: [0xCB, 0xF6, 0x0B, 0x0D, 0x03, 0x76, 0x01, 0x0A, 0xDD, 0x7F, 0xFF]
+  #      output:
+  #        errors:
+  #          - unknown FPort

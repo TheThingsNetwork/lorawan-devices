@@ -1,0 +1,3 @@
+# Docs: https://github.com/nfhw/stx-firmware/blob/master/MESSAGE_FORMAT_LORA_01.md
+uplinkDecoder:
+  fileName: sta.js
