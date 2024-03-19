@@ -1,4 +1,4 @@
-name: EMU Professional II LoRa
+name: EMU Professional II LoRa - 3 Phase Energy Meter
 description: '3-phase energy meter with MID B+D approval for billing purpose. Connection: Direct (100A) or indirect (CT /5 and /1A). Internal clock. External or internal antenna.'
 
 # Hardware versions (optional, use when you have revisions)

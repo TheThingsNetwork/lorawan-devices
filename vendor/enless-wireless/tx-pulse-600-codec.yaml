@@ -1,0 +1,48 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: enlessdecoder.js
+  # Examples (optional)
+  examples:
+    - description: TX Pulse 600-036
+      input:
+        fPort: 1
+        bytes: [0x00, 0x00, 0x95, 0x08, 0x31, 0x11, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00]
+      output:
+        data:
+          alarm_status:
+            pulse_ch1_flow:
+              high: false
+              low: false
+            pulse_ch1_leak: false
+            pulse_ch2_flow:
+              high: false
+              low: false
+            pulse_ch2_leak: false
+            pulse_oc_flow:
+              high: false
+              low: false
+            pulse_oc_leak: false
+          fw_version: 17
+          id: 149
+          seq_counter: 49
+          states:
+            status:
+              debounce_ch1: enabled
+              debounce_ch2: enabled
+              debounce_ch3: enabled
+              msg_type: normal
+              pulse_ch1: open
+              pulse_ch2: open
+              pulse_oc: open
+          type: 8
+          values:
+            pulse_ch1:
+              unit: ''
+              value: 1
+            pulse_ch2:
+              unit: ''
+              value: 1
+            pulse_oc:
+              unit: ''
+              value: 0

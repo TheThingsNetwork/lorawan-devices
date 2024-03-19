@@ -755,7 +755,7 @@ function UintToInt(Uint, Size) {
   return Uint;
 }
 
-
+const Int32UnsignedToSigned = (uint32) => Int32Array.from(Uint32Array.of(uint32))[0];
 
 function decimalToHex(d, padding) {
   var hex = Number(d).toString(16).toUpperCase();
@@ -890,6 +890,38 @@ function Decoder(bytes, port) {
             tab.push({label: "Irms", value: UintToInt(bytes[index+3]*256+bytes[index+4],2)/10, date: lDate});
             tab.push({label: "Angle", value: UintToInt(bytes[index+5]*256+bytes[index+6],2), date: lDate});
 			  	}
+          //energy and power multi metering
+          if (  (clusterdID === 0x8010) & (attributID === 0x0000)) {
+            tab.push({label: "ActiveEnergyWhPhaseA"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4]), date: lDate});
+            tab.push({label:"ReactiveEnergyWhPhaseA"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+5]*256*256*256+bytes[index+6]*256*256+bytes[index+7]*256+bytes[index+8]), date: lDate});
+            tab.push({label: "ActiveEnergyWhPhaseB"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+9]*256*256*256+bytes[index+10]*256*256+bytes[index+11]*256+bytes[index+12]), date: lDate});
+            tab.push({label:"ReactiveEnergyWhPhaseB"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+13]*256*256*256+bytes[index+14]*256*256+bytes[index+15]*256+bytes[index+16]), date: lDate});
+            tab.push({label: "ActiveEnergyWhPhaseC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+17]*256*256*256+bytes[index+18]*256*256+bytes[index+19]*256+bytes[index+20]), date: lDate});
+            tab.push({label:"ReactiveEnergyWhPhaseC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+21]*256*256*256+bytes[index+22]*256*256+bytes[index+23]*256+bytes[index+24]), date: lDate});
+            tab.push({label: "ActiveEnergyWhPhaseABC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28]), date: lDate});
+            tab.push({label:"ReactiveEnergyWhPhaseABC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32]), date: lDate});
+          } else if (  (clusterdID === 0x8010) & (attributID === 0x0001)) {
+            tab.push({label: "ActivePowerWhPhaseA"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+1]*256*256*256+bytes[index+2]*256*256+bytes[index+3]*256+bytes[index+4]), date: lDate});
+            tab.push({label:"ReactivePowerWhPhaseA"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+5]*256*256*256+bytes[index+6]*256*256+bytes[index+7]*256+bytes[index+8]), date: lDate});
+            tab.push({label: "ActivePowerWhPhaseB"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+9]*256*256*256+bytes[index+10]*256*256+bytes[index+11]*256+bytes[index+12]), date: lDate});
+            tab.push({label:"ReactivePowerWhPhaseB"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+13]*256*256*256+bytes[index+14]*256*256+bytes[index+15]*256+bytes[index+16]), date: lDate});
+            tab.push({label: "ActivePowerWhPhaseC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+17]*256*256*256+bytes[index+18]*256*256+bytes[index+19]*256+bytes[index+20]), date: lDate});
+            tab.push({label:"ReactivePowerWhPhaseC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+21]*256*256*256+bytes[index+22]*256*256+bytes[index+23]*256+bytes[index+24]), date: lDate});
+            tab.push({label: "ActivePowerWhPhaseABC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+25]*256*256*256+bytes[index+26]*256*256+bytes[index+27]*256+bytes[index+28]), date: lDate});
+            tab.push({label:"ReactivePowerWhPhaseABC"+(decoded.zclheader.endpoint+1), value: Int32UnsignedToSigned(bytes[index+29]*256*256*256+bytes[index+30]*256*256+bytes[index+31]*256+bytes[index+32]), date: lDate});
+         }
+            //voltage and current multi metering
+            if (  (clusterdID === 0x800d) & (attributID === 0x0000)) {
+              tab.push({label: "VrmsA", value: UintToInt(bytes[index+1]*256+bytes[index+2],2)/10, date: lDate});
+              tab.push({label: "IrmsA", value: UintToInt(bytes[index+3]*256+bytes[index+4],2)/10, date: lDate});
+              tab.push({label: "AngleA", value: UintToInt(bytes[index+5]*256+bytes[index+6],2), date: lDate});
+              tab.push({label: "VrmsB", value: UintToInt(bytes[index+7]*256+bytes[index+8],2)/10, date: lDate});
+              tab.push({label: "IrmsB", value: UintToInt(bytes[index+9]*256+bytes[index+10],2)/10, date: lDate});
+              tab.push({label: "AngleB", value: UintToInt(bytes[index+11]*256+bytes[index+12],2), date: lDate});
+              tab.push({label: "VrmsC", value: UintToInt(bytes[index+13]*256+bytes[index+14],2)/10, date: lDate});
+              tab.push({label: "IrmsC", value: UintToInt(bytes[index+15]*256+bytes[index+16],2)/10, date: lDate});
+              tab.push({label: "AngleC", value: UintToInt(bytes[index+17]*256+bytes[index+18],2), date: lDate});
+            }
 
             // lorawan message type
             if (  (clusterdID === 0x8004 ) & (attributID === 0x0000)) {

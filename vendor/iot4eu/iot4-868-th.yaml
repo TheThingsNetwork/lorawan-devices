@@ -1,4 +1,4 @@
-name: IOT4-LORA-TH
+name: IOT4-LORA-TH - Temperature & Humidity Sensor
 description: Lorawan and Helium temperature and humidity sensor
 
 # Hardware versions (optional, use when you have revisions)

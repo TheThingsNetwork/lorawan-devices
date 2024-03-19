@@ -1,0 +1,19 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: cmi4110.js
+  examples:
+    - description: Landis UH temperature, energy, volume, power, flow, flow_temperature, return_temperature, serial, and error flag.
+      input:
+        fPort: 2
+        bytes: [0, 12, 6, 82, 103, 97, 2, 12, 20, 151, 137, 153, 0, 11, 45, 0, 0, 0, 11, 59, 0, 0, 0, 10, 90, 51, 6, 10, 94, 65, 5, 12, 120, 41, 17, 3, 102, 2, 253, 23, 0, 0]
+      output:
+        data:
+          energy: 2616752
+          volume: 9989.97
+          power: 0
+          flow: 0
+          flow_temperature: 63.3
+          return_temperature: 54.1
+          serial: 66031129
+          error_flag: 0

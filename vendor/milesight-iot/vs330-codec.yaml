@@ -1,0 +1,16 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs330.js
+  examples:
+    - description: LoRaWAN Bathroom Occupancy Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x62, 0x02, 0x82, 0x0F, 0x00, 0x03, 0x8E, 0x01, 0x04, 0x8E, 0x01]
+
+      output:
+        data:
+          battery: 98
+          distance: 15
+          occupancy: occupied
+          calibration: success

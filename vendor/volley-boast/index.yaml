@@ -1,0 +1,7 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - vobo-gp-1
+  - vobo-hl-1
+  - vobo-tc
+  - vobo-xp
+  - vobo-sl

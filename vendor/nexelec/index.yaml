@@ -1,5 +1,11 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - carbon # look in windsensor.yaml for the end device definition
+  - carbon # CO2, temp, hum sensor
+  - sign # CO2, COV, temp, hum, lum, pir, sound sensor
+  - move # CO2, temp, hum, lum, pir sensor
+  - rise # CO2, temp, hum sensor
+  - feel # temp, hum sensor
+  - origin-plus # smoke detector, temp, hum sensor
+  - origin #smoke detector
+  - guard-plus #smoke detector, temp, hum sensor
+  - guard #smoke detector

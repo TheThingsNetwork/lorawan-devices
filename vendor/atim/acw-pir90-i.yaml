@@ -1,12 +1,10 @@
-name: acw-pir90-i
-description: Mural infrared detection sensor 90°
+name: acw-pir90-i - 90° Indoor Wall Motion Sensor
+description: ACW-ILB (Infrared Light Barrier) infrared presence detection when a person passes between the barriers.This wireless barrier has 4 active infrared beams and is intended for outdoor use over a range of 100 m. It is waterproof IP65, autonomous for several years and connected. The alerts and detections are transmitted on the networks LoRaWAN and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
