@@ -2,7 +2,7 @@ endDevices:
   - sinus85
 profileIDs:
   '1':
-    endDeviceID: sinus85
+    endDeviceID: 'sinus85'
     firmwareVersion: '1.0.3'
     hardwareVersion: ''
-    region: EU863-870
+    region: 'EU863-870'

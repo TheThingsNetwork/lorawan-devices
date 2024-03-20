@@ -2,7 +2,7 @@ endDevices:
   - merlin-868
 profileIDs:
   '42':
-    endDeviceID: merlin-868
+    endDeviceID: 'merlin-868'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
-    region: EU863-870
+    region: 'EU863-870'

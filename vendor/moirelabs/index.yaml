@@ -3,7 +3,5 @@ endDevices:
   - p1at
 profileIDs:
   '22':
-    endDeviceID: p1at
-    firmwareVersion: '1.0'
-    hardwareVersion: ''
-    region: EU863-870
+    id: 'p1a-profile'
+    codec: 'p1a-codec'

@@ -2,7 +2,7 @@ endDevices:
   - wireless-water-meter
 profileIDs:
   '2':
-    endDeviceID: wireless-water-meter
+    endDeviceID: 'wireless-water-meter'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
-    region: EU863-870
+    region: 'EU863-870'

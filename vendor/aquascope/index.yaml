@@ -5,22 +5,22 @@ endDevices:
   - kfr
 profileIDs:
   '13':
-    endDeviceID: bvs
+    endDeviceID: 'bvs'
     firmwareVersion: '2.52'
     hardwareVersion: '1.0'
-    region: EU863-870
+    region: 'EU863-870'
   '14':
-    endDeviceID: wwd
+    endDeviceID: 'wwd'
     firmwareVersion: '2.52'
     hardwareVersion: '1.0'
-    region: EU863-870
+    region: 'EU863-870'
   '15':
-    endDeviceID: kfr
+    endDeviceID: 'kfr'
     firmwareVersion: '1.36'
     hardwareVersion: '1.0'
-    region: US902-928
+    region: 'US902-928'
   '16':
-    endDeviceID: aqs
+    endDeviceID: 'aqs'
     firmwareVersion: '220110'
     hardwareVersion: '1.0'
-    region: US902-928
+    region: 'US902-928'

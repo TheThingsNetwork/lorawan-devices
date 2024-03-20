@@ -5,12 +5,8 @@ endDevices:
   - sensecap-indicator
 profileIDs:
   '1':
-    endDeviceID: lorawan-dev-kit
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: EU863-870
+    id: 'loradevelopkit-e5-profile-868'
+    codec: 'loradevelopkit-e5-codec'
   '2':
-    endDeviceID: lorawan-dev-kit
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: US902-928
+    id: 'loradevelopkit-e5-profile-915'
+    codec: 'loradevelopkit-e5-codec'

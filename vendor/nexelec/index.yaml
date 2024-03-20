@@ -10,7 +10,7 @@ endDevices:
   - guard
 profileIDs:
   '420':
-    endDeviceID: carbon
+    endDeviceID: 'carbon'
     firmwareVersion: '3.6'
     hardwareVersion: 'C024C'
-    region: EU863-870
+    region: 'EU863-870'
