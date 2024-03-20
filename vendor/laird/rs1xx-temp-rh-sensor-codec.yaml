@@ -16,6 +16,11 @@ uplinkDecoder:
           humidity: 52.33
           alarmMsgCount: 256
           backlogMsgCount: 1
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 37.03888888888889
+              relativeHumidity: 52.33
 
     - description: Send Temp and RH Aggregated Data Notification
       input:
@@ -31,6 +36,16 @@ uplinkDecoder:
           numberOfReadings: 2
           timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }
           readings: [{ temperature: 98.67, humidity: 52.33 }, { temperature: 99.68, humidity: 53.34 }]
+      normalizedOutput:
+        data:
+          - time: '2015-01-01T00:00:00.000Z'
+            air:
+              temperature: 37.03888888888889
+              relativeHumidity: 52.33
+          - time: '2015-01-01T00:00:00.000Z'
+            air:
+              temperature: 37.6
+              relativeHumidity: 53.34
 
     - description: Send Backlog Message Notification
       input:
@@ -43,6 +58,12 @@ uplinkDecoder:
           timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 2 }
           temperature: 107.76
           humidity: 61.42
+      normalizedOutput:
+        data:
+          - time: '2015-01-01T00:00:02.000Z'
+            air:
+              temperature: 42.08888888888889
+              relativeHumidity: 61.42
 
     - description: Send Backlog Messages Notification
       input:
@@ -58,6 +79,16 @@ uplinkDecoder:
               { timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 107.76, humidity: 61.42 },
               { timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 107.76, humidity: 61.42 },
             ]
+      normalizedOutput:
+        data:
+          - time: '2015-01-01T00:00:00.000Z'
+            air:
+              temperature: 42.08888888888889
+              relativeHumidity: 61.42
+          - time: '2015-01-01T00:00:00.000Z'
+            air:
+              temperature: 42.08888888888889
+              relativeHumidity: 61.42
 
     - description: Send Sensor Config Simple Notification
       input:

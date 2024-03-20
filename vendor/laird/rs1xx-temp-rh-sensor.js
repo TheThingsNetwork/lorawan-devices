@@ -3481,3 +3481,52 @@ function decodeUplink(input) {
     return(result);
 }
 
+function normalizeUplink(input) {
+    parseDecodedTimestamp = (t) => {
+        return new Date(Date.UTC(
+            t.year,
+            monthTypeEnum.list.map(kv => kv.key).indexOf(t.month),
+            t.day,
+            t.hours,
+            t.minutes,
+            t.seconds,
+        )).toISOString();
+    }
+
+    let rootTimestamp;
+    if ('timestamp' in input.data) {
+        rootTimestamp = parseDecodedTimestamp(input.data.timestamp);
+    }
+
+    if ('humidity' in input.data && 'temperature' in input.data) {
+        return {
+            data: {
+                ...(rootTimestamp ? { time: rootTimestamp } : {}),
+                air: {
+                    relativeHumidity: input.data.humidity,
+                    temperature: (input.data.temperature - 32) * 5 / 9
+                }
+            }
+        }
+    }
+
+    if ('readings' in input.data) {
+        return {
+            data: input.data.readings.map(r => {
+                let timestamp = rootTimestamp;
+                if ('timestamp' in r) {
+                    timestamp = parseDecodedTimestamp(r.timestamp);
+                }
+                return {
+                    ...(timestamp ? { time: timestamp } : {}),
+                    air: {
+                        relativeHumidity: r.humidity,
+                        temperature: (r.temperature - 32) * 5 / 9
+                    }
+                }
+            })
+        }
+    }
+
+    return;
+}
