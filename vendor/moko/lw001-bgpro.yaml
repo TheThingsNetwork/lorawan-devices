@@ -156,6 +156,9 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 productURL: https://www.mokosmart.co/lorawan-tracker-lw001-bg-pro/
 dataSheetURL: https://www.dropbox.com/s/o11fg58vcgn47kc/LW001-BG%20PRO%20Specification%20V1.1-.pdf?dl=0
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/lw001-bg-pro/
 
 # Photos
 photos:
