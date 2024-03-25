@@ -2060,3 +2060,16 @@ vendors:
     website: https://www.redz-sc.com
     social:
       linkedin: https://www.linkedin.com/in/redz-smartcommunication
+
+  - id: te-connectivity
+    name: TE Connectivity
+    description: TE Connectivity empowers engineers by designing and manufacturing sensor and connectivity solutions for our increasingly connected world. Every Connection Counts !
+    logo: te_logo.svg
+    website: https://www.te.com/
+    vendorID: 260
+    ouis: ['BCAF91']
+    social:
+      linkedin: https://www.linkedin.com/company/te-connectivity
+      facebook: https://www.facebook.com/teconnectivity
+      twitter: teconnectivity
+      github: TEConnectivity
