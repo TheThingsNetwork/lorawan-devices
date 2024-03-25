@@ -141,8 +141,8 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 productURL: https://example.org/wind-sensor
 dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
-# URL for onboarding device (optional).
-# Can be a link to your own documentation or from us. Do not advertise the device in any way.
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
 onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/windsensor
 
 # Commercial information

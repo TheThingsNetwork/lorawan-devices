@@ -102,8 +102,8 @@ sensors:
 # Product and data sheet URLs (optional)
 productURL: https://www.dragino.com/products/temperature-humidity-sensor/item/199-lht52.html
 dataSheetURL: https://www.dragino.com/products/temperature-humidity-sensor/item/199-lht52.html
-# URL for onboarding device (optional).
-# Can be a link to your own documentation or from us. Do not advertise the device in any way.
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
 onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/dragino-lht52/
 
 sellerURLs:

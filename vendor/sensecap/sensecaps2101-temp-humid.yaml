@@ -103,8 +103,8 @@ keySecurity: none
 # Product and data sheet URLs (optional)
 productURL: https://www.seeedstudio.com/SenseCAP-S2101-LoRaWAN-Air-Temperature-and-Humidity-Sensor-p-5354.html
 dataSheetURL: https://files.seeedstudio.com/products/114992867/SenseCAP%20S210X%20LoRaWAN%20Sensor%20Catalogue.pdf
-# URL for onboarding device (optional).
-# Can be a link to your own documentation or from us. Do not advertise the device in any way.
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
 onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/seeed-s210x/
 
 # Commercial information

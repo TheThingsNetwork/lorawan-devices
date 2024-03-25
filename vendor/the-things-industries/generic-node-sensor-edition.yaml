@@ -37,8 +37,8 @@ keySecurity: read protected
 # Product and data sheet URLs (optional)
 productURL: https://www.genericnode.com/
 dataSheetURL: https://github.com/TheThingsIndustries/generic-node-se
-# URL for onboarding device (optional).
-# Can be a link to your own documentation or from us. Do not advertise the device in any way.
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
 onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/generic-node-se/
 
 photos:
