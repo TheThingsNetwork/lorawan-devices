@@ -1,25 +1,25 @@
-name: ERS Lite indoor environment monitoring
-description: The ELSYS ERS Lite is an indoor LoRaWAN® room sensor that contains two internal sensors for measuring indoor temperature and humidity. It is suitable for applications such as indoor environment measuring, smart buildings, and workplace management.
+name: 69XXN - Pressure Transducer
+description: The 69XXN is a high accuracy wireless transducer that allow measurement of liquid or gas pressure, even for difficult media such as contaminated water, steam, and mildly corrosive fluids.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: 'Platform B - HCC512B'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: '3.4.4'
     numeric: 1
+
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - 'Platform B - HCC512B'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     features:
-      - remote rejoin
       - transmission interval
 
     # LoRaWAN Device Profiles per region
@@ -27,27 +27,14 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
-        # vendorID: example
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: elsys-eu868-profile
+        id: te-radio-profile-eu868
         lorawanCertified: true
-        codec: ers-lite-codec
+        codec: 69xx-codec
       US902-928:
-        id: elsys-us902-profile
+        id: te-radio-profile-us902
         lorawanCertified: true
-        codec: ers-lite-codec
-      AS923:
-        id: elsys-as923-profile
-        lorawanCertified: true
-        codec: ers-lite-codec
-      AU915-928:
-        id: elsys-au915-profile
-        lorawanCertified: true
-        codec: ers-lite-codec
+        codec: 69xx-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -58,51 +45,72 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
+  - pressure
+  - vapor pressure
   - temperature
-  - humidity
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:
-  - nfc
+  - ble
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 86
-  length: 86
-  height: 27
+  width: 40
+  length: 40
+  height: 80
 
 # Weight in grams (optional)
-weight: 80
+weight: 170
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: LS 1733
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 0
-    max: 50
+    min: -30
+    max: 75
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.85
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP66
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.elsys.se/en/ers-lite/
-dataSheetURL: https://elsys.se/public/datasheets/ERS_Lite_datasheet.pdf
-# Link to simple, easy onboarding instructions for the device (optional).
-# Please do not use this for marketing or overly technical documents like a data sheet.
-onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/elsys-ers-lite/
+productURL: https://www.te.com/usa-en/product-CAT-WPT0001.html
+dataSheetURL: https://www.te.com/usa-en/product-CAT-WPT0001.datasheet.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'TE'
+    region:
+      - European Union
+      - United States
+    url: https://www.te.com/usa-en/product-CAT-WPT0001.html
 
 # Photos
 photos:
-  main: erslite.png
-
-# Youtube or Vimeo Video (optional)
-videos:
-  main: https://www.youtube.com/watch?v=9G4bjGLY3Sc
+  main: 69xx.png # Image needs to have a transparent background
