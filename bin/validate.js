@@ -219,13 +219,8 @@ const vendorFolders = fs
   .filter((dirent) => dirent.isDirectory())
   .map((dirent) => dirent.name);
 
-// Check for vendors in the vendor folder that are not in the vendor/index.yaml
-const vendorsNotInIndex = vendorFolders.filter((vendorId) => {
-  // Check if any vendor ID in the index is present in the folder name, or vice versa
-  return (
-    !vendorIds.some((indexId) => vendorId.includes(indexId)) && !vendorIds.some((indexId) => indexId.includes(vendorId))
-  );
-});
+// Check for vendor folders that are not listed in the vendor/index.yaml
+const vendorsNotInIndex = vendorFolders.filter((folderName) => !vendorIds.includes(folderName));
 
 if (vendorsNotInIndex.length > 0) {
   console.error(
@@ -234,8 +229,9 @@ if (vendorsNotInIndex.length > 0) {
     )}`
   );
   process.exit(1);
+} else {
+  console.log(`All vendors in the 'vendor' folder are listed in ${options.vendor} index.`);
 }
-console.log(`All vendors in the 'vendor' folder are listed in ${options.vendor} index.`);
 
 // Validate vendors index
 if (!validateVendorsIndex(vendors)) {
