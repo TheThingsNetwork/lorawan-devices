@@ -19,6 +19,8 @@ GO = go
 GOBIN = $(PWD)/bin
 export GOBIN
 
+VENDOR_ID=
+
 .PHONY: default
 default: validate
 
@@ -27,6 +29,7 @@ deps:
 	$(NPM) install
 	pushd ./tools/runscript && $(GO) install . && popd
 	pushd ./tools/validate-image && $(GO) install . && popd
+	$(NPM) run install-hooks
 
 .PHONY: deps.update
 deps.update:
@@ -34,7 +37,7 @@ deps.update:
 
 .PHONY: validate
 validate:
-	$(NPM) run validate
+	@if [ -z "${VENDOR_ID}" ]; then $(NPM) run validate; else $(NPM) run validate -- --vendor-id $(VENDOR_ID); fi
 
 .PHONY: fmt
 fmt:

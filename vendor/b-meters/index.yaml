@@ -1,2 +1,2 @@
 endDevices:
-  - iwm-lr3 # look in iwm-lr3.yaml for the end device definition
+  - iwm-lr3

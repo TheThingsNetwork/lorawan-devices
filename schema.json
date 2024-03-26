@@ -79,6 +79,47 @@
           "items": {
             "$ref": "#/definitions/identifier"
           }
+        },
+        "profileIDs": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "endDeviceID": {
+                      "$ref": "#/definitions/identifier"
+                    },
+                    "hardwareVersion": {
+                      "type": "string"
+                    },
+                    "firmwareVersion": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "region": {
+                      "$ref": "#/definitions/region"
+                    }
+                  },
+                  "required": ["endDeviceID", "hardwareVersion", "firmwareVersion", "region"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "$ref": "#/definitions/identifier"
+                    },
+                    "codec": {
+                      "$ref": "#/definitions/identifier"
+                    }
+                  },
+                  "required": ["id", "codec"]
+                }
+              ]
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
@@ -547,7 +588,6 @@
       "type": "object",
       "examples": [
         {
-          "vendorProfileID": 1,
           "supportsClassB": false,
           "supportsClassC": false,
           "macVersion": "1.0.2",
@@ -557,7 +597,6 @@
           "supports32bitFCnt": true
         },
         {
-          "vendorProfileID": 2,
           "supportsClassB": false,
           "supportsClassC": false,
           "macVersion": "1.0.4",
@@ -573,12 +612,6 @@
         }
       ],
       "properties": {
-        "vendorProfileID": {
-          "type": "integer",
-          "description": "VendorProfileID managed by the vendor, as defined in TR005",
-          "minimum": 0,
-          "maximum": 65535
-        },
         "supportsClassB": {
           "type": "boolean",
           "description": "End device supports class B"

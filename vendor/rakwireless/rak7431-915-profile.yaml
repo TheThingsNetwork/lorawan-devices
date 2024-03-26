@@ -1,5 +1,3 @@
-vendorProfileID: 7431
-suvendorProfileID: 7431
 supportsClassB: true
 # Maximum delay for the end device to answer a MAC request or confirmed downlink frame (seconds)
 classBTimeout: 60

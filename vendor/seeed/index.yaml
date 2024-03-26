@@ -1,8 +1,12 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - loradevelopkit-e5 # look in windsensor.yaml for the end device definition
+  - loradevelopkit-e5
   - loraeminidevboard-e5
   - lorawan-dev-kit
   - sensecap-indicator
+profileIDs:
+  '1':
+    id: 'loradevelopkit-e5-profile-868'
+    codec: 'loradevelopkit-e5-codec'
+  '2':
+    id: 'loradevelopkit-e5-profile-915'
+    codec: 'loradevelopkit-e5-codec'

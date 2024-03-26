@@ -1,5 +1,3 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
   - lw001-bgpro
   - lw003-b

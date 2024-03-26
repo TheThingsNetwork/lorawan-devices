@@ -1,5 +1,4 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - co2-stoplicht # look in co2-stoplicht.yaml for the end device definition
-  - filling-degree-sensor # look in filling-degree-sensor.yaml for the end device definition
-  - soil-moisture-sensor # look in soil-moisture-sensor.yaml for the end device definition
+  - co2-stoplicht
+  - filling-degree-sensor
+  - soil-moisture-sensor

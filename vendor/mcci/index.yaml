@@ -16,3 +16,14 @@ endDevices:
   - model4831
   - model4832
   - model4841
+profileIDs:
+  '3':
+    endDeviceID: 'model4841'
+    firmwareVersion: '2.0.2'
+    hardwareVersion: ''
+    region: 'IN865-867'
+  '8':
+    endDeviceID: 'model4811'
+    firmwareVersion: '1.4.0'
+    hardwareVersion: ''
+    region: 'IN865-867'

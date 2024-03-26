@@ -1,8 +1,5 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - yo-pure-pro # look in windsensor.yaml for the end device definition
+  - yo-pure-pro
   - yo-temp
   - yo-power
   - yo-360

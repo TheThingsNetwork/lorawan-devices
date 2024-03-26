@@ -1,7 +1,3 @@
-# Vendor profile ID, can be freely issued by the vendor
-# This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/sites/default/files/2020-10/LoRa_Alliance_Vendor_ID_for_QR_Code.pdf
-vendorProfileID: 235
 # Whether the end device supports class B
 supportsClassB: false
 # Whether the end device supports class C

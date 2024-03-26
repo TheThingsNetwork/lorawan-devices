@@ -1,9 +1,6 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - lrs20100 # LRS20100 LoRaWAN temperature/humidity sensor
-  - lrs20310 # LRS20310 LoRaWAN water leak sensor
-  - lrs20600 # LRS20600 LoRaWAN open close sensor
-  - lrs10701 # LRS10710 LoRaWAN indoor air quality (IAQ) sensor
-  - lrs2m001-4xxx # LRS2M001-4P3P LoRaWAN power monitoring sensor
+  - lrs20100
+  - lrs20310
+  - lrs20600
+  - lrs10701
+  - lrs2m001-4xxx

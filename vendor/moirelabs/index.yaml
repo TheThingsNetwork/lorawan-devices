@@ -1,3 +1,7 @@
 endDevices:
   - p1ap
   - p1at
+profileIDs:
+  '22':
+    id: 'p1a-profile'
+    codec: 'p1a-codec'

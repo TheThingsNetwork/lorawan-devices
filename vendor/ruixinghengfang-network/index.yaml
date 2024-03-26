@@ -1,7 +1,6 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - rhf0m0e5 # look in rhf0m0e5.yaml for the end device definition
-  - rhf0m003 # look in rhf0m003.yaml for the end device definition
-  - rhf3mr01 # look in rhf3mr01.yaml for the end device definition
-  - rhf1s052 # look in rhf1s052.yaml for the end device definition
-  - rhf1s213 # look in rhf1s213.yaml for the end device definition
+  - rhf0m0e5
+  - rhf0m003
+  - rhf3mr01
+  - rhf1s052
+  - rhf1s213
