@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,24 +21,25 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
-    if ((a & 0x80000000) > 0) {
-        return a - 0x10000000;
-    }
-    return a;
+    return (buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3];
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -142,18 +143,17 @@ var codec;
             switch (payload.length) {
                 case 4:
                     appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
-                        && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
                     }
                     break;
                 case 3:
                 case 5:
-                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
                     if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
                     }
                     break;
                 default:
@@ -170,7 +170,7 @@ var codec;
 (function (codec) {
     var Generic0x2fParser = (function () {
         function Generic0x2fParser() {
-            this.deviceType = 'drycontacts|drycontacts2|temp4';
+            this.deviceType = 'drycontacts|drycontacts2|temp4|comfortSerenity|modbus';
             this.frameCode = 0x2f;
         }
         Generic0x2fParser.prototype.parseFrame = function (payload, configuration) {
@@ -201,8 +201,7 @@ var codec;
 (function (codec) {
     var Generic0x33Parser = (function () {
         function Generic0x33Parser() {
-            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' +
-                'temp3|temp4|comfort|comfort2|comfortCo2|motion|deltap|breath';
+            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' + 'temp3|temp4|comfort|comfort2|comfortCo2|modbus|motion|deltap|breath|comfortSerenity';
             this.frameCode = 0x33;
         }
         Generic0x33Parser.prototype.parseFrame = function (payload, configuration, network) {
@@ -244,50 +243,54 @@ var codec;
         }
         Drycontacts20x10Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x10 Dry Contacts 2 configuration' };
-            appContent['keepAlivePeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(2) * 10 };
-            appContent['transmitPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(4) * 10 };
+            appContent['keepAlivePeriod'] = { unit: 's', value: payload.readUInt16BE(2) * 10 };
+            appContent['transmitPeriod'] = { unit: 's', value: payload.readUInt16BE(4) * 10 };
             var debounce = this.getDebounceText(payload[6] >> 4);
             var type = this.getTypeText(payload[6] & 0x0f);
             if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelA'] = { 'type': type[0] };
+                appContent['channelA'] = { type: type[0] };
             }
             else {
                 appContent['channelA'] = {
-                    'type': type[0], 'edge': type[1],
-                    'debounceDuration': { 'unit': debounce[1], 'value': debounce[0] }
+                    type: type[0],
+                    edge: type[1],
+                    debounceDuration: { unit: debounce[1], value: debounce[0] },
                 };
             }
             debounce = this.getDebounceText(payload[7] >> 4);
             type = this.getTypeText(payload[7] & 0x0f);
             if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelB'] = { 'type': type[0] };
+                appContent['channelB'] = { type: type[0] };
             }
             else {
                 appContent['channelB'] = {
-                    'type': type[0], 'edge': type[1],
-                    'debounceDuration': { 'unit': debounce[1], 'value': debounce[0] }
+                    type: type[0],
+                    edge: type[1],
+                    debounceDuration: { unit: debounce[1], value: debounce[0] },
                 };
             }
             debounce = this.getDebounceText(payload[8] >> 4);
             type = this.getTypeText(payload[8] & 0x0f);
             if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelC'] = { 'type': type[0] };
+                appContent['channelC'] = { type: type[0] };
             }
             else {
                 appContent['channelC'] = {
-                    'type': type[0], 'edge': type[1],
-                    'debounceDuration': { 'unit': debounce[1], 'value': debounce[0] }
+                    type: type[0],
+                    edge: type[1],
+                    debounceDuration: { unit: debounce[1], value: debounce[0] },
                 };
             }
             debounce = this.getDebounceText(payload[9] >> 4);
             type = this.getTypeText(payload[9] & 0x0f);
             if (type[0] === 'disabled' || type[0] === 'output') {
-                appContent['channelD'] = { 'type': type[0] };
+                appContent['channelD'] = { type: type[0] };
             }
             else {
                 appContent['channelD'] = {
-                    'type': type[0], 'edge': type[1],
-                    'debounceDuration': { 'unit': debounce[1], 'value': debounce[0] }
+                    type: type[0],
+                    edge: type[1],
+                    debounceDuration: { unit: debounce[1], value: debounce[0] },
                 };
             }
             return appContent;
@@ -363,10 +366,10 @@ var codec;
                 var myDate = new Date((payload.readUInt32BE(11) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
-            appContent['channelA'] = { 'value': payload.readUInt16BE(2), 'state': Boolean(payload[10] & 0x01) };
-            appContent['channelB'] = { 'value': payload.readUInt16BE(4), 'state': Boolean(payload[10] & 0x02) };
-            appContent['channelC'] = { 'value': payload.readUInt16BE(6), 'state': Boolean(payload[10] & 0x04) };
-            appContent['channelD'] = { 'value': payload.readUInt16BE(8), 'state': Boolean(payload[10] & 0x08) };
+            appContent['channelA'] = { value: payload.readUInt16BE(2), state: Boolean(payload[10] & 0x01) };
+            appContent['channelB'] = { value: payload.readUInt16BE(4), state: Boolean(payload[10] & 0x02) };
+            appContent['channelC'] = { value: payload.readUInt16BE(6), state: Boolean(payload[10] & 0x04) };
+            appContent['channelD'] = { value: payload.readUInt16BE(8), state: Boolean(payload[10] & 0x08) };
             return appContent;
         };
         return Drycontacts20x30Parser;
@@ -388,20 +391,24 @@ var codec;
             }
             appContent['decodingInfo'] = 'true: ON/CLOSED, false: OFF/OPEN';
             appContent['channelA'] = {
-                'value': payload.readUInt16BE(2), 'currentState': Boolean(payload[10] & 0x01),
-                'previousFrameState': Boolean(payload[10] & 0x02)
+                value: payload.readUInt16BE(2),
+                currentState: Boolean(payload[10] & 0x01),
+                previousFrameState: Boolean(payload[10] & 0x02),
             };
             appContent['channelB'] = {
-                'value': payload.readUInt16BE(4), 'currentState': Boolean(payload[10] & 0x04),
-                'previousFrameState': Boolean(payload[10] & 0x08)
+                value: payload.readUInt16BE(4),
+                currentState: Boolean(payload[10] & 0x04),
+                previousFrameState: Boolean(payload[10] & 0x08),
             };
             appContent['channelC'] = {
-                'value': payload.readUInt16BE(6), 'currentState': Boolean(payload[10] & 0x10),
-                'previousFrameState': Boolean(payload[10] & 0x20)
+                value: payload.readUInt16BE(6),
+                currentState: Boolean(payload[10] & 0x10),
+                previousFrameState: Boolean(payload[10] & 0x20),
             };
             appContent['channelD'] = {
-                'value': payload.readUInt16BE(8), 'currentState': Boolean(payload[10] & 0x40),
-                'previousFrameState': Boolean(payload[10] & 0x80)
+                value: payload.readUInt16BE(8),
+                currentState: Boolean(payload[10] & 0x40),
+                previousFrameState: Boolean(payload[10] & 0x80),
             };
             return appContent;
         };
@@ -423,7 +430,7 @@ var codec;
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
             appContent['channel'] = payload.readUInt8(2);
-            appContent['durationThreshold'] = { 'unit': 'min', 'value': payload.readUInt16BE(3) };
+            appContent['durationThreshold'] = { unit: 'min', value: payload.readUInt16BE(3) };
             return appContent;
         };
         return Drycontacts20x41Parser;
@@ -445,19 +452,19 @@ var codec;
             }
             var offset = 3;
             if (payload[2] & 0x01) {
-                appContent['channelATimeCounter'] = { 'unit': 's', 'value': payload.readUInt32BE(offset) };
+                appContent['channelATimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
                 offset += 4;
             }
             if (payload[2] & 0x02) {
-                appContent['channelBTimeCounter'] = { 'unit': 's', 'value': payload.readUInt32BE(offset) };
+                appContent['channelBTimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
                 offset += 4;
             }
             if (payload[2] & 0x04) {
-                appContent['channelCTimeCounter'] = { 'unit': 's', 'value': payload.readUInt32BE(offset) };
+                appContent['channelCTimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
                 offset += 4;
             }
             if (payload[2] & 0x08) {
-                appContent['channelDTimeCounter'] = { 'unit': 's', 'value': payload.readUInt32BE(offset) };
+                appContent['channelDTimeCounter'] = { unit: 's', value: payload.readUInt32BE(offset) };
             }
             return appContent;
         };
@@ -477,7 +484,7 @@ var codec;
             var parser = new codec.GenericStatusByteParser();
             statusContent = parser.parseFrame(payload, configuration);
             statusContent['timestamp'] = Boolean(payload[1] & 0x04);
-            return { 'status': statusContent };
+            return { status: statusContent };
         };
         return Drycontacts2StatusByteParser;
     }());
@@ -502,7 +509,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -591,9 +598,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }

@@ -1,0 +1,7 @@
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - cmi4110
+  - cmi4111
+  - cmi4130
+  - cmi4140
+  - cmi4160

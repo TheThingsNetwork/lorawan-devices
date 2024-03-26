@@ -21,31 +21,31 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: sensecap-profile
+        id: sensecap-tracker-profile
         lorawanCertified: true
         codec: sensecapt1000-tracker-ab-codec
       US902-928:
-        id: sensecap-profile
+        id: sensecap-tracker-profile
         lorawanCertified: true
         codec: sensecapt1000-tracker-ab-codec
       AU915-928:
-        id: sensecap-profile
+        id: sensecap-tracker-profile
         lorawanCertified: true
         codec: sensecapt1000-tracker-ab-codec
       KR920-923:
-        id: sensecap-profile
+        id: sensecap-tracker-profile
         lorawanCertified: true
         codec: sensecapt1000-tracker-ab-codec
       IN865-867:
-        id: sensecap-profile
+        id: sensecap-tracker-profile
         lorawanCertified: true
         codec: sensecapt1000-tracker-ab-codec
       AS923:
-        id: sensecap-profile
+        id: sensecap-tracker-profile
         lorawanCertified: true
         codec: sensecapt1000-tracker-ab-codec
       RU864-870:
-        id: sensecap-profile
+        id: sensecap-tracker-profile
         lorawanCertified: true
         codec: sensecapt1000-tracker-ab-codec
 
@@ -104,14 +104,14 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://files.seeedstudio.com/products/SenseCAP/SenseCAP_Tracker/SenseCAP_Tracker_T1000-AB_User_Guide.pdf
-dataSheetURL: https://files.seeedstudio.com/products/SenseCAP/SenseCAP_Tracker/SenseCAP_Tracker_T1000_Datasheet.pdf
+dataSheetURL: https://www.seeedstudio.com/sensecap-t1000-tracker
 
 # Commercial information
 resellerURLs:
   - name: 'Seeed'
     region:
       - Other
-    url: https://www.seeedstudio.com/sensecap-s2120-lorawan-8-in-1-weather-sensor-p-5436.html
+    url: https://www.seeedstudio.com/sensecap-t1000-tracker
 
 # Photos
 photos:

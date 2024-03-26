@@ -1,0 +1,26 @@
+uplinkDecoder:
+  fileName: em-elst01.js
+  examples:
+    - description: Device to capture state changes through its accelerometer and switch sensor.
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xF5, 0xFF, 0xC6, 0x03, 0x9D, 0x01, 0x00]
+      output:
+        data:
+          ALARM: 0
+          Bat: 3.4
+          LDOD: 0
+          TNOMD: 0
+          TODE: 0
+          X: '-0.10'
+          Y: '-0.57'
+          Z: '9.25'
+          status: 0
+          temp_ds: '25.6'
+
+  #   - description: Unknown FPort
+  #     input:
+  #       fPort: 42
+  #       bytes: [0x0D, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xF5, 0xFF, 0xC6, 0x03, 0x9D, 0x01, 0x00]
+  #     output:
+  #       errors: ["unknown FPort"]

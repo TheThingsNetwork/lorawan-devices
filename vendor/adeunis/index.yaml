@@ -12,6 +12,7 @@ endDevices:
   - breath # look in breath.yaml
   - comfort # look in comfort.yaml
   - comfort-co2 # look in comfort-co2.yaml
+  - comfort-serenity # look in comfort-serenity.yaml
   - deltap # look in deltap.yaml
   - motion # look in motion.yaml
   - pulse-nb-iot # look in pulse-nb-iot.yaml

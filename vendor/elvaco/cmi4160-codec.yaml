@@ -1,0 +1,25 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: cmi4160.js
+  examples:
+    - description: Second example
+      input:
+        fPort: 2
+        bytes: [30, 4, 6, 143, 161, 1, 0, 4, 19, 132, 183, 30, 0, 2, 43, 207, 15, 2, 59, 93, 0, 2, 90, 16, 3, 2, 94, 152, 1, 7, 121, 130, 37, 50, 105, 165, 17, 64, 4, 1, 253, 23, 0]
+      output:
+        data:
+          energy: 106895
+          volume: 2013.06
+          power: 4.047
+          flow: 0.093
+          flow_temperature: 78.4
+          return_temperature: 40.8
+          error_flag: 0
+          serial: 69322582
+    # - description: Value during error state
+    #   input:
+    #     fPort: 2
+    #     bytes : [30, 4, 7, 233, 28, 5, 0, 4, 21, 141, 103, 15, 0, 50, 47, 75, 51, 50, 61, 55, 51, 50, 90, 89, 4, 50, 94, 89, 4, 7, 121, 34, 152, 132, 97, 165, 17, 64, 4, 1, 253, 23, 4]
+    #   output:
+    #     data:

@@ -18,9 +18,9 @@ switch (input.fPort) {
     else if (input.bytes[11] === 0x0E){
       data.vif = input.bytes[11]*10;
     }
-    //hectoliters
-    else if(input.bytes[11] === 0x0D){
-      data.vif = input.bytes[11]*100;
+    // hectoliters
+    else if (input.bytes[11] === 0x0F) {
+      data.vif = input.bytes[11] * 100; // Corrected to use 0x0F for hectoliters and directly use the byte value as a multiplier
     }
 
     //alarms
