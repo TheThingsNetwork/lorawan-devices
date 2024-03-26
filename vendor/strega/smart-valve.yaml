@@ -1,4 +1,4 @@
-name: smart-valve
+name: Smart Valve
 description: The STREGA LoRaWAN wireless smart-valve has an embedded temperature and humidity sensor, tamper detection sensor, and wire-cut detection sensor. It also accepts external analog, digital, and leak detection sensor inputs. The valve may also be configured for full water meter reading and data transmission capabilities.
 
 # Hardware versions (optional, use when you have revisions)

@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Air Quality Button (IP30, IP54)
+name: LoRa Air Quality Button (IP30, IP54)
 description: The Mutelcor LoRa Air Quality Button is a LoRaWAN® Device that combines sending LoRa messages on a button press with measuring wirelessly Temperature and Humidity. Can be used for indoor applications like Corporate Buildings & Healthcare centers to combine monitoring of the Air Quality with an integrated Service Call Button or Emergency Button.
 
 # Hardware versions (optional, use when you have revisions)

@@ -1,4 +1,4 @@
-name: Abeeway Micro Tracker
+name: Micro Tracker
 description: The Abeeway Micro Tracker is a multi-mode tracker for indoor and outdoor use. It provides accurate indoor and outdoor positioning using embedded geolocation sensors combining GPS, Low-power GPS, Wi-Fi Sniffing, BLE, and LoRaWAN® TDoA geolocation technologies. Ideal for tracking anything including people, pets, vehicles, and assets with antitheft and geofencing technologies.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

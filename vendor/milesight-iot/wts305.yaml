@@ -1,4 +1,4 @@
-name: Weather Station
+name: WTS305 - Weather Station
 description: WTS Series are an all-in-one LoRaWAN® weather monitoring system for various atmospheric conditions, such as temperature, humidity, wind speed, wind direction, barometric pressure and rainfall
 
 hardwareVersions:

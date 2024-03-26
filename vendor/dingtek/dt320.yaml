@@ -1,4 +1,4 @@
-name: dt320 - Air Quality Sensor
+name: DT320 - Air Quality Sensor
 description: The CNDingtek dt320 is air quality sensor monitoring the level of methanal, ammonia, ethanol and cigarette.
 
 # Hardware versions (optional, use when you have revisions)

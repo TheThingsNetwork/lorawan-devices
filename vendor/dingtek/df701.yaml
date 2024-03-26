@@ -1,4 +1,4 @@
-name: df701 - Indoor Waste Bin Laser Level Sensor
+name: DF701 - Indoor Waste Bin Laser Level Sensor
 description: The CNDingtek df701 is a laser level sensor for indoor waste bins. The measured data is reported to a LoRaWAN® network that notifies garbage collecting authorities to collect and empty the bins.
 
 # Hardware versions (optional, use when you have revisions)

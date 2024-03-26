@@ -1,4 +1,4 @@
-name: Milesight AM103-LoRaWAN Indoor Air Quality Sensor (3 in 1)
+name: Milesight AM103L-LoRaWAN Indoor Air Quality Sensor (3 in 1)
 description: Milesight AM103 is a compact indoor ambience monitoring sensor that supports long-lasting battery life, wall-mounted installation, and visual display via an E-ink screen. Meanwhile, AM103L is a more economical model without E-ink screen to meet your various needs. Their built-in NFC lead to easy batch installation. The clean and modern design of AM103 and AM103L is ideal for offices, classrooms, libraries, hospitals, etc.
 
 hardwareVersions:

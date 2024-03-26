@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: gro_point_air.js
+  fileName: gro-point-air.js
   examples:
     - description: soil moisture
       input:

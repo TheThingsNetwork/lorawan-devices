@@ -1,4 +1,4 @@
-name: s31-lb
+name: S31-LB - Temperature & Humidity Sensor
 description: The Dragino s31-lb consists of a temperature and humidity and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
 
 # Firmware versions (at least one is mandatory)

@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Multi-Function Device
+name: LoRa Multi-Function Device
 description: The Mutelcor LoRa Multi-Function Device is a LoRaWAN® Device that allows you to connect up to 3 external switches. Whenever the status of a connected switch changes, a LoRa message is sent indicating which switch status changed and what the status of the other connected switches is. Can be used to combine e.g. monitoring of a manhole cover with a float sensor inside the manhole to alert on a rising water level.
 
 # Hardware versions (optional, use when you have revisions)

@@ -1,4 +1,4 @@
-name: do201 - Parking Occupancy Sensor
+name: DO201 - Parking Occupancy Sensor
 description: The CNDingtek do201 is parking occupancy sensor with combination of ultrasonic and magnetic detection, temperature and humidity measurement.
 
 # Hardware versions (optional, use when you have revisions)

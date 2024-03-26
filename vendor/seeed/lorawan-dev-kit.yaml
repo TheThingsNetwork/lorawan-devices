@@ -1,4 +1,4 @@
-name: Seeed Studio LoRaWAN Dev Kit
+name: LoRaWAN Dev Kit
 description: The kit includes a Wio Terminal master controller with WIFI/BLE and display, as well as carefully selected Grove - LoRa-E5, Grove - VOC and eCO2 Gas Sensor SGP30, Grove - Soil Moisture Sensor, Grove - Temp&Humi Sensor (SHT40), and Grove - Vision AI Module. Humi Sensor (SHT40), and Grove - Vision AI Module. This kit is a perfect combination of LoRa and Edge AI, which allows software engineers to quickly deploy their first LoRaWAN projects through plug-and-play connectivity.
 
 # Hardware versions (optional, use when you have revisions)

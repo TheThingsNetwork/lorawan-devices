@@ -1,4 +1,4 @@
-name: acw-wl-i - Indoor Liquid Monitoring
+name: ACW-WL-I - Indoor Liquid Monitoring
 description: The WL facilitates the monitoring of sites at risk of flooding thanks to its liquid presence detection options. Alerts are transmitted on LoRaWAN networks and its configuration is configurable from the ATIM suite tools.
 
 # Hardware versions (optional, use when you have revisions)

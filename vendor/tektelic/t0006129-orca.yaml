@@ -1,4 +1,4 @@
-name: TEKTELIC ORCA Industrial GPS Asset Tracker
+name: ORCA Industrial GPS Asset Tracker
 description: The TEKTELIC ORCA [Industrial GPS Asset Tracker] is an ideal solution for geolocalizing your assets in the field. This device provides GPS enabled near real-time satellite location tracking with LoRaWAN®. The rugged IP67 design allows for operation in diverse deployment environments, with an operable temperature range of -40°C to +85°C and an optional BLE integration. The device contains 2x D Cell batteries for optimal battery life of up to 8-10 years. The unit is equipped with an accelerometer to accommodate event-based start-up, minimizing unnecessary battery usage. The ORCA is seamlessly integrated with TEKTELIC’s End-to-End IoT solution.
 
 # Hardware versions (optional, use when you have revisions)

@@ -1,4 +1,4 @@
-name: MUTELCOR Smart CO2 LoRa Sensor (IP30, IP54)
+name: Smart CO2 LoRa Sensor (IP30, IP54)
 description: The Mutelcor Smart CO2 LoRa Sensor is a unique power-driven Air Quality sensor. It measures CO2, Temperature and Humidity every 2 seconds with a robust dual-channel NDIR sensor and offers automatic Traffic Light Feature with local and LoRa-based Alarms based on multi-color LEDs and Sound. The device offers plug-and-play handling with multiple Threshold settings and quick and easy Calibration.
 
 # Hardware versions (optional, use when you have revisions)

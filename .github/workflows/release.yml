@@ -54,3 +54,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: website/public
+      - name: Make devices.csv
+        run: make devices.csv
+      - name: Sync devices.csv to airtable
+        run: |
+          curl -X POST ${{ secrets.AIRTABLE_DEVICES_API_ENDPOINT }} \
+          -H "Authorization: Bearer ${{ secrets.AIRTABLE_DEVICES_API_KEY }}" \
+          -H "Content-Type: text/csv" \
+          --data-binary "@bin/devices.csv"

@@ -1,4 +1,4 @@
-name: df703 - Ultrasonic Waste Bin Level Sensor
+name: DF703 - Ultrasonic Waste Bin Level Sensor
 description: The CNDingtek df703 is an ultrasonic level waste bin sensor that consists of a level sensor, fire sensor, and accelerometer. The measured data is reported to a LoRaWAN® network that notifies garbage collecting authorities to collect and empty the bins.
 
 # Hardware versions (optional, use when you have revisions)

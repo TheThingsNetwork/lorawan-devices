@@ -1,4 +1,4 @@
-name: TEKTELIC FINCH SafeAlert Indoor Sensor
+name: FINCH SafeAlert Indoor Sensor
 description: TEKTELIC’s FINCH [SafeAlert Indoor Sensor] is a compact, mobile, wireless BLE panic button that transmits an emergency signal from any location. FINCH is ideal for lone workers, seniors, and children to signal for help in an emergency situation. When triggered, this device instantly sends an SOS message containing location details to designated support staff or security personnel to ensure a rapid response in the event of a panic situation. This device combines the long-range, low-power communication capabilities of LoRaWAN® with the universal availability and reliability of Bluetooth Low Energy (BLE) to provide real-time location information. FINCH is seamlessly integrated with TEKTELIC’s endto-end IoT solution
 
 # Hardware versions (optional, use when you have revisions)

@@ -15,6 +15,7 @@
 SHELL = bash
 GIT = git
 NPM = npm
+NODE = node
 GO = go
 GOBIN = $(PWD)/bin
 export GOBIN
@@ -39,5 +40,9 @@ validate:
 .PHONY: fmt
 fmt:
 	$(NPM) run format
+
+devices.csv:
+	$(NODE) bin/csv.js
+
 
 # vim: ft=make

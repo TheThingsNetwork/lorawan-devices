@@ -1,4 +1,4 @@
-name: LoRaWAN street light module
+name: LoRaWAN street light module (ZHAGA DALI)
 description: Smart street lighting module with ZHAGA socket based on the STM32WL with the 40mm enclosure in diameter is DALI and DALI-2 compatible. We can provide you with just a hardware or both with the complex solution or just a backend with API access.
 hardwareVersions:
   - version: 'v1.0'

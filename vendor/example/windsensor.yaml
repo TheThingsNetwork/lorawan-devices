@@ -1,4 +1,4 @@
-name: Wind Sensor
+name: Wind Sensor # Device name can not contain the vendor name
 description: Wind Sensor with controllable LED
 
 # Hardware versions (optional, use when you have revisions)

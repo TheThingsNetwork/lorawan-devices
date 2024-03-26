@@ -1,4 +1,4 @@
-name: acw-pir180-o - 180° Outdoor Wall Motion Sensor
+name: ACW-PIR180-O - 180° Outdoor Wall Motion Sensor
 description: The PIR range facilitates the monitoring of sites thanks to its alarm and counting detection modes. The alerts are transmitted on LoRaWAN networks and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)

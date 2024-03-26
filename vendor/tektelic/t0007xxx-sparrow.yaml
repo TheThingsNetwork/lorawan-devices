@@ -1,4 +1,4 @@
-name: TEKTELIC SPARROW Enterprise Asset Tracker
+name: SPARROW Enterprise Asset Tracker
 description: The TEKTELIC SPARROW [Enterprise Asset Tracker] is an ideal solution for locating, tracking and managing assets in difficult RF environments such as hospitals and medical facilities. This device combines the long range, low power benefits of LoRaWAN® with the universal availability and reliability of Bluetooth Low Energy (BLE). The unit is equipped with an accelerometer to accommodate event-based start-up, minimizing unnecessary battery usage. The SPARROW is seamlessly integrated with TEKTELIC’s end-to-end IoT solution.
 
 # Hardware versions (optional, use when you have revisions)

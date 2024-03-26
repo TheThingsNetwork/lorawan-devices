@@ -1,5 +1,5 @@
-name: Desk&Seat Occupancy Sensor
-description: VS34x is an occupancy sensor designed to detect whether desksorseats in a workspace are occupied, allowing for better managementand optimization of space usage.
+name: VS340 - Desk&Seat Occupancy Sensor
+description: VS34x is an occupancy sensor designed to detect whether desks or seats in a workspace are occupied, allowing for better management and optimization of space usage.
 
 hardwareVersions:
   - version: 'V1.0'

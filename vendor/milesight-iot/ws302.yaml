@@ -1,4 +1,4 @@
-name: Sound Level Sensor
+name: WS302 - Sound Level Sensor
 description: WS302 is a LoRa sound level sensor with integrated microphone. WS302 can not only measure a wide range of noise levels
 
 hardwareVersions:

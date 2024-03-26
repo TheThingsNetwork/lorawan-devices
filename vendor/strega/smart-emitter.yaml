@@ -1,4 +1,4 @@
-name: smart-emitter
+name: Smart Emitter
 description: The STREGA LoRaWAN Time-controlled Emitter remotely actuates an irrigation valve. With its ultra-low-power consumption, the Smart-Emitter can trigger Open or Close operations of any irrigation valve equipped with a DC latching solenoid. Watering schedulers can be programmed directly at the zone level, avoiding the necessity to use an irrigation controller.
 
 # Hardware versions (optional, use when you have revisions)

@@ -1,4 +1,4 @@
-name: lmds120
+name: LMDS120 - Microwave Radar Distance Sensor
 description: The Dragino LMDS120 is a LoRaWAN Microwave Radar distance sensor. It uses use Microwave Radar to detect the distance between sensor and different objects. Different from ultrosonic or Lidar measurement. Microwave Radar is more reliable for condensation / dusty environment. It can sense correct distance even there is water or think dust on top of the sensor.
 
 # Firmware versions (at least one is mandatory)
@@ -109,4 +109,4 @@ sellerURLs:
 
 # Photos
 photos:
-  main: lmds120.jpg
+  main: lmds120.png
