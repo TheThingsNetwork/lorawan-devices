@@ -1,5 +1,5 @@
-name: TEKTELIC MEMO Multi-Purpose Display Tablet
-description: Dynamic, adaptable, and low-power E-ink display
+name: TEKTELIC TEMPO Meeting Room Booking Solution
+description: Easily and Efficiently Track and Manage Meeting Rooms Occupancy Status and Bookings
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -24,8 +24,8 @@ firmwareVersions:
 # Use width, height, length and/or diameter
 dimensions:
   width: 157
-  length: 112
-  height: 25
+  length: 112.4
+  height: 24.5
 
 # Battery information (optional)
 battery:
@@ -36,7 +36,7 @@ operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: 0
-    max: 60
+    max: -40
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0.05
@@ -46,13 +46,13 @@ operatingConditions:
 ipCode: IP67
 
 # Product and data sheet URLs (optional)
-productURL: https://tektelic.com/products/sensors/memo-multi-purpose-display-tablet/
-dataSheetURL: https://tektelic.com/wp-content/uploads/MEMO-Multi-Purpose-Display-Tablet.pdf
-manuals: https://support.tektelic.com/portal/en/kb/articles/custom-display-tablet-technical-reference-manual
+productURL: https://tektelic.com/products/solutions/tempo-meeting-room-booking-solution/
+dataSheetURL: https://tektelic.com/wp-content/uploads/TEKTELIC-TEMPO-Solution.pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/meeting-room-display-tablet-trm
 
 # Photos
 photos:
-  main: memo.png # Image needs to have a transparent background
+  main: tempo.png # Image needs to have a transparent background
 
 # Regulatory compliances (optional)
 compliances:
