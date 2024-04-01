@@ -19,7 +19,7 @@
 */
 
 // Constants for sensor data types
-const SENSOR_TYPES = {
+const SENSOR_DATA_TYPES = {
     TEMP: 0x01, // Temperature Sensor: 2 bytes, range -3276.8°C to 3276.7°C.
     RH: 0x02, // Humidity Sensor: 1 byte, percentage range 0-100%.
     ACC: 0x03, // Accelerometer: 3 bytes for X, Y, Z axes, range -128 to 127, where +/-63 equals 1G.
@@ -79,77 +79,77 @@ function DecodeElsysPayload(data) {
     for (let i = 0; i < data.length; i++) {
         switch (data[i]) {
             // Case handlers for each sensor data type
-            case SENSOR_TYPES.TEMP: // Decode temperature from 2 bytes, convert to real value in °C.
+            case SENSOR_DATA_TYPES.TEMP: // Decode temperature from 2 bytes, convert to real value in °C.
                 var temp = (data[i + 1] << 8) | (data[i + 2]);
                 temp = bin16dec(temp);
                 obj.temperature = temp / 10; // Temperature is in tenths of a degree.
                 i += 2;
                 break;
-            case SENSOR_TYPES.RH: // Decode relative humidity from 1 byte, value in percentage.
+            case SENSOR_DATA_TYPES.RH: // Decode relative humidity from 1 byte, value in percentage.
                 var rh = data[i + 1];
                 obj.humidity = rh; // Humidity percentage, 0 to 100%.
                 i += 1;
                 break;
-            case SENSOR_TYPES.ACC: // Decode 3-axis acceleration, values in Gs, from 3 bytes.
+            case SENSOR_DATA_TYPES.ACC: // Decode 3-axis acceleration, values in Gs, from 3 bytes.
                 obj.x = bin8dec(data[i + 1]); // X-axis acceleration.
                 obj.y = bin8dec(data[i + 2]); // Y-axis acceleration.
                 obj.z = bin8dec(data[i + 3]); // Z-axis acceleration.
                 i += 3;
                 break;
-            case SENSOR_TYPES.LIGHT: // Decode light intensity from 2 bytes, value in Lux.
+            case SENSOR_DATA_TYPES.LIGHT: // Decode light intensity from 2 bytes, value in Lux.
                 obj.light = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.MOTION: // Decode motion count from 1 byte, number of detected movements.
+            case SENSOR_DATA_TYPES.MOTION: // Decode motion count from 1 byte, number of detected movements.
                 obj.motion = data[i + 1];
                 i += 1;
                 break;
-            case SENSOR_TYPES.CO2: // Decode CO2 concentration from 2 bytes, value in ppm.
+            case SENSOR_DATA_TYPES.CO2: // Decode CO2 concentration from 2 bytes, value in ppm.
                 obj.co2 = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.VDD: // Decode battery voltage level from 2 bytes, value in mV.
+            case SENSOR_DATA_TYPES.VDD: // Decode battery voltage level from 2 bytes, value in mV.
                 obj.vdd = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.ANALOG1: // Decode analog input 1 from 2 bytes, value in mV.
+            case SENSOR_DATA_TYPES.ANALOG1: // Decode analog input 1 from 2 bytes, value in mV.
                 obj.analog1 = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.GPS: // Decode GPS coordinates from 6 bytes, converted to decimal degrees.
+            case SENSOR_DATA_TYPES.GPS: // Decode GPS coordinates from 6 bytes, converted to decimal degrees.
                 i++;
                 obj.lat = (data[i + 0] | data[i + 1] << 8 | data[i + 2] << 16 | (data[i + 2] & 0x80 ? 0xFF << 24 : 0)) / 10000;
                 obj.long = (data[i + 3] | data[i + 4] << 8 | data[i + 5] << 16 | (data[i + 5] & 0x80 ? 0xFF << 24 : 0)) / 10000;
                 i += 5;
                 break;
-            case SENSOR_TYPES.PULSE1: // Decode pulse input 1 from 2 bytes, relative pulse count.
+            case SENSOR_DATA_TYPES.PULSE1: // Decode pulse input 1 from 2 bytes, relative pulse count.
                 obj.pulse1 = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.PULSE1_ABS: // Decode absolute value of pulse input 1 from 4 bytes.
+            case SENSOR_DATA_TYPES.PULSE1_ABS: // Decode absolute value of pulse input 1 from 4 bytes.
                 var pulseAbs = (data[i + 1] << 24) | (data[i + 2] << 16) | (data[i + 3] << 8) | (data[i + 4]);
                 obj.pulseAbs = pulseAbs;
                 i += 4;
                 break;
-            case SENSOR_TYPES.EXT_TEMP1: // Decode external temperature from 2 bytes, convert to real value in °C.
+            case SENSOR_DATA_TYPES.EXT_TEMP1: // Decode external temperature from 2 bytes, convert to real value in °C.
                 var temp = (data[i + 1] << 8) | (data[i + 2]);
                 temp = bin16dec(temp);
                 obj.externalTemperature = temp / 10; // External temperature in tenths of a degree.
                 i += 2;
                 break;
-            case SENSOR_TYPES.EXT_DIGITAL: // Decode external digital input from 1 byte, value 1 or 0.
+            case SENSOR_DATA_TYPES.EXT_DIGITAL: // Decode external digital input from 1 byte, value 1 or 0.
                 obj.digital = data[i + 1];
                 i += 1;
                 break;
-            case SENSOR_TYPES.EXT_DISTANCE: // Decode distance sensor input from 2 bytes, value in mm.
+            case SENSOR_DATA_TYPES.EXT_DISTANCE: // Decode distance sensor input from 2 bytes, value in mm.
                 obj.distance = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.ACC_MOTION: // Decode acceleration-based motion detection from 1 byte.
+            case SENSOR_DATA_TYPES.ACC_MOTION: // Decode acceleration-based motion detection from 1 byte.
                 obj.accMotion = data[i + 1]; // Number of detected movements via accelerometer.
                 i += 1;
                 break;
-            case SENSOR_TYPES.IR_TEMP: // Decode IR temperatures: internal and external, from 4 bytes, convert to °C.
+            case SENSOR_DATA_TYPES.IR_TEMP: // Decode IR temperatures: internal and external, from 4 bytes, convert to °C.
                 var iTemp = (data[i + 1] << 8) | (data[i + 2]);
                 iTemp = bin16dec(iTemp); // Internal temperature.
                 var eTemp = (data[i + 3] << 8) | (data[i + 4]);
@@ -158,15 +158,15 @@ function DecodeElsysPayload(data) {
                 obj.irExternalTemperature = eTemp / 10; // Converted to real temperature value.
                 i += 4;
                 break;
-            case SENSOR_TYPES.OCCUPANCY: // Decode occupancy from 1 byte, presence detected or not.
+            case SENSOR_DATA_TYPES.OCCUPANCY: // Decode occupancy from 1 byte, presence detected or not.
                 obj.occupancy = data[i + 1]; // Occupancy data, binary presence indication.
                 i += 1;
                 break;
-            case SENSOR_TYPES.WATERLEAK: // Decode water leak detection from 1 byte.
+            case SENSOR_DATA_TYPES.WATERLEAK: // Decode water leak detection from 1 byte.
                 obj.waterleak = data[i + 1]; // Water leak data, 0-255 indicating the detection level.
                 i += 1;
                 break;
-            case SENSOR_TYPES.GRIDEYE: // Decode Grid-Eye sensor data: 1 byte reference temperature + 64 bytes external temperatures.
+            case SENSOR_DATA_TYPES.GRIDEYE: // Decode Grid-Eye sensor data: 1 byte reference temperature + 64 bytes external temperatures.
                 var ref = data[i + 1];
                 i++;
                 obj.grideye = []; // Array to store temperature data.
@@ -175,29 +175,29 @@ function DecodeElsysPayload(data) {
                 }
                 i += 64;
                 break;
-            case SENSOR_TYPES.PRESSURE: // Decode atmospheric pressure from 4 bytes, value in hPa.
+            case SENSOR_DATA_TYPES.PRESSURE: // Decode atmospheric pressure from 4 bytes, value in hPa.
                 var temp = (data[i + 1] << 24) | (data[i + 2] << 16) | (data[i + 3] << 8) | (data[i + 4]);
                 obj.pressure = temp / 1000; // Convert to hPa.
                 i += 4;
                 break;
-            case SENSOR_TYPES.SOUND: // Decode sound levels from 2 bytes: peak and average sound levels.
+            case SENSOR_DATA_TYPES.SOUND: // Decode sound levels from 2 bytes: peak and average sound levels.
                 obj.soundPeak = data[i + 1]; // Peak sound level.
                 obj.soundAvg = data[i + 2]; // Average sound level.
                 i += 2;
                 break;
-            case SENSOR_TYPES.PULSE2: // Decode pulse input 2 from 2 bytes, relative pulse count.
+            case SENSOR_DATA_TYPES.PULSE2: // Decode pulse input 2 from 2 bytes, relative pulse count.
                 obj.pulse2 = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.PULSE2_ABS: // Decode absolute value of pulse input 2 from 4 bytes.
+            case SENSOR_DATA_TYPES.PULSE2_ABS: // Decode absolute value of pulse input 2 from 4 bytes.
                 obj.pulseAbs2 = (data[i + 1] << 24) | (data[i + 2] << 16) | (data[i + 3] << 8) | (data[i + 4]);
                 i += 4;
                 break;
-            case SENSOR_TYPES.ANALOG2: // Decode analog input 2 from 2 bytes, value in mV.
+            case SENSOR_DATA_TYPES.ANALOG2: // Decode analog input 2 from 2 bytes, value in mV.
                 obj.analog2 = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2;
                 break;
-            case SENSOR_TYPES.EXT_TEMP2: // Decode and manage external temperature 2 data from 2 bytes, convert to °C.
+            case SENSOR_DATA_TYPES.EXT_TEMP2: // Decode and manage external temperature 2 data from 2 bytes, convert to °C.
                 var temp = (data[i + 1] << 8) | (data[i + 2]);
                 temp = bin16dec(temp); // Convert binary to decimal.
                 // Ensure externalTemperature2 is properly handled as an array if multiple readings exist.
@@ -211,15 +211,15 @@ function DecodeElsysPayload(data) {
                 }
                 i += 2;
                 break;
-            case SENSOR_TYPES.EXT_DIGITAL2: // Decode external digital input 2 from 1 byte, value 1 or 0.
+            case SENSOR_DATA_TYPES.EXT_DIGITAL2: // Decode external digital input 2 from 1 byte, value 1 or 0.
                 obj.digital2 = data[i + 1];
                 i += 1;
                 break;
-            case SENSOR_TYPES.EXT_ANALOG_UV: // Decode load cell analog data in microvolts (uV) from 4 bytes.
+            case SENSOR_DATA_TYPES.EXT_ANALOG_UV: // Decode load cell analog data in microvolts (uV) from 4 bytes.
                 obj.analogUv = (data[i + 1] << 24) | (data[i + 2] << 16) | (data[i + 3] << 8) | (data[i + 4]);
                 i += 4;
                 break;
-            case SENSOR_TYPES.TVOC: // Decode Total Volatile Organic Compounds (TVOC) from 2 bytes, value in parts per billion (ppb).
+            case SENSOR_DATA_TYPES.TVOC: // Decode Total Volatile Organic Compounds (TVOC) from 2 bytes, value in parts per billion (ppb).
                 obj.tvoc = (data[i + 1] << 8) | (data[i + 2]);
                 i += 2; // Move past the bytes used for TVOC data.
                 break;
