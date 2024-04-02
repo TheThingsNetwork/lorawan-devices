@@ -1,0 +1,24 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: universal_decoder.js
+  # Examples (optional)
+  examples:
+    - description: Typical pressure data
+      input:
+        fPort: 10
+        bytes: [0x13, 0x21, 0x00, 0x0F, 0x08, 0x63, 0x0B, 0x47, 0x3F, 0x81, 0x31, 0xE1]
+      output:
+        data:
+          bat: 99
+          cnt: 15
+          data: '1.009334683418274'
+          devstat:
+            - PrelPhase
+          devtype:
+            Output: Float
+            Platform: Platform_21
+            Sensor: Pressure
+            Unit: Bar
+            Wireless: BLE/LoRaWAN
+          temp: '28.87'

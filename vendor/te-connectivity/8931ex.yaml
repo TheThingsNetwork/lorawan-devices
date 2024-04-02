@@ -1,19 +1,20 @@
-name: dnt LoRaWAN® Solar-GPS-Tracker
-description: The dnt LoRaWAN® Asset Tracker Solar is a reliable and compact GNSS tracker with a water- and dust proof housing according to IP44. Through the built-in solar cell, self-sufficient operation is possible. The position determination can be done cyclically or motion-based. In addition, there are many configuration options through LoRaWAN® downlinks, like the motion sensitivity or the positioning interval. The average sleep mode current is below 10 µA.
+name: 8931EX - Triaxis Vibration Sensor
+description: The TE model 8931EX wireless vibration sensor combines a tri axis accelerometer, a bundled DSP (FFT peak search), a data collector, and a radio into one compact, battery operated device that measures both vibration and temperature data. It was designed for hash environment and comes with the ATEX certification.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: 'Platform B - HCC512B'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.6'
+    version: '2.0.4'
     numeric: 1
+
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - 'Platform B - HCC512B'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -26,14 +27,14 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
+        id: te-radio-profile-eu868
         lorawanCertified: true
-        codec: dnt-lw-ats-codec
+        codec: 89xxex-codec
+      US902-928:
+        id: te-radio-profile-us902
+        lorawanCertified: true
+        codec: 89xxex-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -44,32 +45,18 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - accelerometer
-  - gps
+  - vibration
+  - temperature
 
-# Dimensions in mm (optional)
-# Use width, height, length and/or diameter
-dimensions:
-  width: 68
-  length: 136
-  height: 35
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
 
-# Weight in grams (optional)
-weight: 158
-
-# Operating conditions (optional)
-operatingConditions:
-  # Temperature (Celsius)
-  temperature:
-    min: -20
-    max: 55
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.97
-
-# IP rating (optional)
-ipCode: IP44
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: LS 1733
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -77,32 +64,31 @@ keyProvisioning:
   - custom
   - join server
 
-# Key programming (optional)
-# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
-# and firmware (when the user should change the firmware to set the keys).
-keyProgramming:
-  - firmware
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
 
 # Firmware programming (optional)
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
-  - serial
-
-# Product and data sheet URLs (optional)
-productURL: https://de.elv.com/
+  - fuota other
 
 # Commercial information
 resellerURLs:
-  - name: 'ELVshop'
+  - name: 'TE'
     region:
       - European Union
-    url: https://de.elv.com/dnt-lorawan-solar-gps-tracker-dnt-lw-ats-157142
-msrp:
-  EUR: 199.95
+      - United States
+    url: https://www.te.com/
 
 # Photos
 photos:
-  main: dnt-lw-ats.jpg
-  other:
-    - dnt-lw-ats-top-view.jpg
+  main: 8931ex.png # Image needs to have a transparent background
+
+# ATEX ?
+compliances:
+  safety:
+    - body: IEC
+      norm: IEC
+      standard: 60079-11

@@ -1008,7 +1008,7 @@
         "bridgeInterfaces": {
           "type": "array",
           "items": {
-            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog", "ethernet"]
           },
           "uniqueItems": true
         },
@@ -1110,7 +1110,7 @@
         "keyProgramming": {
           "type": "array",
           "items": {
-            "enum": ["bluetooth", "nfc", "wifi", "serial", "firmware"]
+            "enum": ["bluetooth", "nfc", "wifi", "ethernet", "serial", "firmware"]
           },
           "uniqueItems": true
         },
@@ -1120,7 +1120,7 @@
         "firmwareProgramming": {
           "type": "array",
           "items": {
-            "enum": ["serial", "fuota lorawan", "fuota other"]
+            "enum": ["serial", "ethernet", "fuota lorawan", "fuota other"]
           },
           "uniqueItems": true
         },
@@ -1129,6 +1129,10 @@
           "format": "uri"
         },
         "dataSheetURL": {
+          "type": "string",
+          "format": "uri"
+        },
+        "onboardingGuideURL": {
           "type": "string",
           "format": "uri"
         },
