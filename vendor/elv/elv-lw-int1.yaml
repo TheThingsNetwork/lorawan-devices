@@ -1,4 +1,4 @@
-name: ELV LoRaWAN® Interface 1
+name: LoRaWAN® Interface 1
 description: Interface to connect UART and I2C sensors to LoRaWAN® Network
 
 # Hardware versions (optional, use when you have revisions)
