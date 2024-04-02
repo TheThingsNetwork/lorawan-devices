@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Air Quality Sensor (IP30, IP67)
+name: LoRa Air Quality Sensor (IP30, IP67)
 description: The Mutelcor LoRa Air Quality Sensor is a LoRaWAN® Device that measures wirelessly Temperature and Humidity in Regfrigerators, Deep Freezers, including indoor applications like Corporate Buildings & Healthcare centers (ICUs Operation Theatre & Medical Labs) and Triggers alarms on exceeded thresholds.
 
 # Hardware versions (optional, use when you have revisions)

@@ -1,4 +1,4 @@
-name: dc410 - Manhole Sensor
+name: DC410 - Manhole Sensor
 description: The CNDingtek DC410 is a smart manhole sensor that integrates a liquid/solid level sensor and a movement sensor. Suitable for measuring water and sewage levels in wells and manholes. The data is sent to a LoRaWAN network, then the application server for further processing.
 
 # Hardware versions (optional, use when you have revisions)

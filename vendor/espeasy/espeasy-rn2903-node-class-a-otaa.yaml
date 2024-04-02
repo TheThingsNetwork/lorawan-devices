@@ -1,4 +1,4 @@
-name: ESPEasy RN2903 (Class A OTAA)
+name: RN2903 (Class A OTAA)
 description: The ESPEasy RN2903 (Class A OTAA) is a LoRaWAN® development board on Microchip RN2903 that supports Over The Air Activation (OTAA). It supports over 100 sensors.
 
 firmwareVersions:

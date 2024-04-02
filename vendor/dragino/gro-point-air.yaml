@@ -1,10 +1,10 @@
-name: lht65n_e31f
-description: The Dragino LHT65N consists of a water leak sensor that detects the water leak status and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
+name: GroPoint Air - Multi Segment Soil Sensor Converter
+description: The Dragino GroPoint is a LoRaWAN Multi Soil Segment Converter for IoT of Agriculture. It is designed to connect to GroPoint Profile Multi-depth Soil moisture and temperature profile Sensor and get GroPoint Profile’s reading and send it to IoT server via LoRaWAN wireless network
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.3.2'
+    version: '1.1.0'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
@@ -14,79 +14,79 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       EU433:
         id: eu433-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       US902-928:
         id: us915-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       KR920-923:
         id: kr920-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       AU915-928:
         id: au915-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       RU864-870:
         id: ru864-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       IN865-867:
         id: in865-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       CN470-510:
         id: cn470-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       AS923:
         id: as923-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
 
-  - version: 'lht65n_e31f abp'
+  - version: 'gro-point-air abp'
     numeric: 2
     profiles:
       EU863-870:
         id: eu868-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       EU433:
         id: eu433-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       US902-928:
         id: us915-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       AU915-928:
         id: au915-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       AS923:
         id: as923-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       CN470-510:
         id: cn470-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       IN865-867:
         id: in865-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       KR920-923:
         id: kr920-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
       RU864-870:
         id: ru864-a-abp-profile
         lorawanCertified: true
-        codec: lht65n_e31f-codec
+        codec: gro-point-air-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -99,8 +99,8 @@ sensors:
   - water
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dragino.com/products/temperature-humidity-sensor/item/256-lht65s.html
-dataSheetURL: https://www.dropbox.com/sh/g99v0fxcltn9r1y/AAC38MvKyWPlmhaaJifcC2l9a/LHT65N%20Temperature%20%26%20Humidity%20Sensor?dl=0&subfolder_nav_tracking=1
+productURL: https://www.dragino.com/products/agriculture-weather-station/item/227-gropoint-air.html
+dataSheetURL: https://www.dropbox.com/sh/g99v0fxcltn9r1y/AACuba0opBd1_Mlfi1akWUTea/GroPoint%20Air?dl=0&subfolder_nav_tracking=1
 sellerURLs:
   - name: 'Dragino'
     region:
@@ -109,4 +109,4 @@ sellerURLs:
 
 # Photos
 photos:
-  main: lht65n_e31f.jpg
+  main: gro-point-air.png

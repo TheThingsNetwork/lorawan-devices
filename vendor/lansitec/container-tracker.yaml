@@ -1,4 +1,4 @@
-name: Lansitec Container Tracker
+name: Container Tracker
 description: Lansitec Container Tracker is designed based on GNSS, Bluetooth and LoRaWAN technology for indoor and outdoor tracking. It has an ultra-long standby time and IP68 enclosure that makes it perfect for asset tracking. It is suitable for the following use cases:Container tracking, Transit case tracking, Machine usage monitor, Asset management
 
 # Hardware versions (optional, use when you have revisions)

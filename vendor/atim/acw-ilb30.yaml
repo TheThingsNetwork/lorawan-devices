@@ -1,4 +1,4 @@
-name: acw-ilb30 - Outdoor Barrier Motion Sensor
+name: ACW-ILB30 - Outdoor Barrier Motion Sensor
 description: ACW-ILB (Infrared Light Barrier) infrared presence detection when a person passes between the barriers.This wireless barrier has 4 active infrared beams and is intended for outdoor use over a range of 100 m. It is waterproof IP65, autonomous for several years and connected. The alerts and detections are transmitted on the networks LoRaWAN and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)
