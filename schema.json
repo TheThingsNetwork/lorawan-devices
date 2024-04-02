@@ -758,7 +758,7 @@
           "then": {
             "properties": {
               "regionalParametersVersion": {
-                "enum": ["RP002-1.0.0", "RP002-1.0.1"]
+                "enum": ["RP002-1.0.0", "RP002-1.0.1", "RP002-1.0.2", "RP002-1.0.3", "RP002-1.0.4"]
               }
             }
           }
@@ -972,6 +972,7 @@
               "radar",
               "rainfall",
               "rssi",
+              "sap flow",
               "smart valve",
               "snr",
               "so2",
@@ -1007,7 +1008,7 @@
         "bridgeInterfaces": {
           "type": "array",
           "items": {
-            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog", "ethernet"]
           },
           "uniqueItems": true
         },
@@ -1109,7 +1110,7 @@
         "keyProgramming": {
           "type": "array",
           "items": {
-            "enum": ["bluetooth", "nfc", "wifi", "serial", "firmware"]
+            "enum": ["bluetooth", "nfc", "wifi", "ethernet", "serial", "firmware"]
           },
           "uniqueItems": true
         },
@@ -1119,7 +1120,7 @@
         "firmwareProgramming": {
           "type": "array",
           "items": {
-            "enum": ["serial", "fuota lorawan", "fuota other"]
+            "enum": ["serial", "ethernet", "fuota lorawan", "fuota other"]
           },
           "uniqueItems": true
         },
@@ -1128,6 +1129,10 @@
           "format": "uri"
         },
         "dataSheetURL": {
+          "type": "string",
+          "format": "uri"
+        },
+        "onboardingGuideURL": {
           "type": "string",
           "format": "uri"
         },

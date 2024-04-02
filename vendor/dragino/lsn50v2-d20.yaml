@@ -1,4 +1,4 @@
-name: LSN50v2-D20
+name: LSN50v2-D20 - Temperature Sensor
 description: The Dragino LSN50v2-D20 consists of a temperature sensor for measuring the temperature of the air, liquid, or any object, and then uploaded to the IoT server via LoRaWAN® wireless protocol. It can be used with home and building automation, industrial monitoring and control, and irrigation systems.
 
 # Firmware versions (at least one is mandatory)

@@ -1,0 +1,114 @@
+name: Action button
+description: Action Button with tactile feedback in a very compact Form Factor
+firmwareVersions:
+  - version: '1.1'
+    numeric: 11
+    profiles:
+      EU863-870:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      US902-928:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      EU433:
+        id: sx1261-12db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      AU915-928:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      CN470-510:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      KR920-923:
+        id: sx1261-14db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      IN865-867:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      RU864-870:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      AS923:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      AS923-2:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      AS923-3:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+      AS923-4:
+        id: sx1261-16db-profile
+        lorawanCertified: false
+        codec: sta-codec
+sensors:
+  - battery # health via voltage (MCU internal)
+  - temperature # MCU internal
+  - button # Gestures: 1xTap, 2xTap, Hold
+additionalRadios:
+  - nfc
+dimensions:
+  width: 40.9
+  length: 40.9
+  height: 16.8
+weight: 17
+battery:
+  replaceable: true
+  type: CR2430
+operatingConditions:
+  temperature: # Limited by battery cell
+    min: 0
+    max: 40
+  relativeHumidity:
+    min: 0.10
+    max: 0.90
+ipCode: IP54
+keyProvisioning:
+  - custom
+  - join server
+keyProgramming:
+  - nfc
+keySecurity: none
+firmwareProgramming:
+  - fuota other # NFC
+# Protocol: https://github.com/nfhw/stx-firmware/blob/master/MESSAGE_FORMAT_LORA_01.md
+#githubURL: https://github.com/nfhw/stx-firmware
+productURL: https://n-fuse.co/devices/stx-lr-familiy-of-lorawan-iot-sensors.html
+dataSheetURL: https://n-fuse.co/assets/products/stx/stx-lr-datasheet.pdf
+msrp:
+  EUR: 60
+photos:
+  main: sta.png
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+    - body: ETSI
+      norm: EN
+      standard: 300 330
+      version: 2.2.1

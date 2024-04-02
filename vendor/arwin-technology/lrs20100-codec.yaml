@@ -1,0 +1,39 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lrs20100.js
+  examples:
+    - description: 23 C, 58% RH, battery 90%, heartbeat
+      input:
+        fPort: 10
+        bytes: [1, 1, 90, 0, 230, 2, 68, 0, 0]
+      output:
+        data:
+          event: heartbeat
+          battery: 90
+          temperature: 23.0
+          humidity: 58.0
+    - description: Firmware version 1.00.001
+      input:
+        fPort: 8
+        bytes: [1, 0, 0, 1]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+    - description: Device settings, data upload interval = 15 min
+      input:
+        fPort: 12
+        bytes: [1, 0, 15, 0, 1]
+      output:
+        data:
+          dataUploadInterval: 15
+    - description: High temperature threshold 40C, Low temperature threshold 10C, High humidity threshold 95%, Low humidity threshold 35%
+      input:
+        fPort: 13
+        bytes: [1, 0, 40, 0, 10, 95, 35]
+      output:
+        data:
+          highTemperatureThreshold: 40
+          lowTemperatureThreshold: 10
+          highHumidityThreshold: 95
+          lowHumidityThreshold: 35
