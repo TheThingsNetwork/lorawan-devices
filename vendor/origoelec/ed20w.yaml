@@ -1,4 +1,4 @@
-name: ed20w - LoRaWAN Smartwatch
+name: ED20W - LoRaWAN Smartwatch
 description: ED20W is a smart IoT watch based on LoRaWAN. Combined with motion sensor, it can achieve indoor and outdoor real-time positioning. With wearing detection, it can realize a real-time collection of health data such as heart rate, body temperature,blood pressure, and steps. The data will be transmitted to the platform through the LoRaWAN Network.
 
 # Hardware versions (optional, use when you have revisions)
