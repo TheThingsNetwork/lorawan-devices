@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Service Call Button
+name: LoRa Service Call Button
 description: The Mutelcor LoRa Service Call Button is a LoRaWAN® Device that raises alarms or requests to multiple services for help, assistance or support from a single device in real time in a matter of seconds by pressing a button. A physical feedback to the button press using a buzzer and LED can be configured.
 
 # Hardware versions (optional, use when you have revisions)
