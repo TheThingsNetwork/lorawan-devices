@@ -184,7 +184,7 @@ All end device identifiers must be lowercase, alphanumeric with dashes and max 3
 For each end device, create an **End device definition** file with the same filename as the identifier in the index: `vendor/<vendor-id>/<device-id>.yaml`:
 
 ```yaml
-name: Device A
+name: Device A # Device name can not contain the vendor name
 description: My first LoRaWAN device
 # Hardware versions (optional)
 hardwareVersions:

@@ -256,6 +256,7 @@ vendors.vendors.forEach((v) => {
 
   const key = v.id;
   const folder = `./vendor/${v.id}`;
+
   if (v.logo) {
     requireFile(`${folder}/${v.logo}`).catch((err) => {
       console.error(`${key}: ${err}`);
@@ -282,15 +283,34 @@ vendors.vendors.forEach((v) => {
 
     const codecs = {};
 
+    const deviceNames = {};
+
     vendor.endDevices.forEach(async (d) => {
       const key = `${v.id}: ${d}`;
-
-      const endDevice = yaml.load(fs.readFileSync(`${folder}/${d}.yaml`));
+      const endDevicePath = `${folder}/${d}.yaml`;
+      const endDevice = yaml.load(fs.readFileSync(endDevicePath));
       if (!validateEndDevice(endDevice)) {
         console.error(`${key}: invalid: ${formatValidationErrors(validateEndDevice.errors)}`);
         process.exit(1);
       }
       console.log(`${key}: valid`);
+
+      // Create a regex to check if the vendor's name is a standalone word in the device name
+      const regex = new RegExp(`\\b${v.id}\\b`, 'i'); // The 'i' flag makes it case-insensitive
+
+      if (regex.test(endDevice.name)) {
+        console.error(`Device name "${endDevice.name}" incorrectly contains the vendor's name.`);
+        process.exit(1);
+      }
+
+      if (deviceNames[endDevice.name] && deviceNames[endDevice.name] !== endDevicePath) {
+        console.error(
+          `Duplicate name "${endDevice.name}" in files: "${deviceNames[endDevice.name]}" and "${endDevicePath}".`
+        );
+        process.exit(1);
+      }
+
+      deviceNames[endDevice.name] = endDevicePath;
 
       endDevice.firmwareVersions.forEach((version) => {
         const key = `${v.id}: ${d}: ${version.version}`;
