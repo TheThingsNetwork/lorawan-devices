@@ -29,6 +29,8 @@ jobs:
         run: |
           cd website/
           make go.deps
+      - name: Install Node.js dependencies
+        run: npm install
       - name: Build content
         run: |
           cd website/
