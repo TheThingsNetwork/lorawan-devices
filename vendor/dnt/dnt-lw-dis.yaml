@@ -1,5 +1,5 @@
 name: dnt LoRaWAN® distance sensor 1
-description: The dnt LoRaWAN® distance sensor 1 (dnt-lw-dis1) uses a time-of-flight sensor to mesure distance between a few centimeters up to over 3 meters. The device also features a sabotage and temperature alarm, to get a notification if the if the position deviates from the mounting position or the temperature is too high.
+description: The dnt-LW-DIS1 is a robust LoRaWAN® device for measuring distances outdoors. With its measuring range of 4 to 360 cm and the easy-to-install housing, it can be used for a wide range of applications.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
