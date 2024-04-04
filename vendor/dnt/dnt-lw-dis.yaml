@@ -70,7 +70,7 @@ operatingConditions:
     max: 0.97
 
 # IP rating (optional)
-ipCode: IP66
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
