@@ -21,6 +21,9 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: windy-mkr-profile
 
+devicetype:
+  - devboard
+
 # Product and data sheet URLs (optional)
 productURL: https://midatronics.com/shop/development-boards/mkr-windy/
 

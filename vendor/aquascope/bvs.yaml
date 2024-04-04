@@ -25,6 +25,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: bvs-codec
 
+devicetype:
+  - actuator
+
 sensors:
   - temperature
 

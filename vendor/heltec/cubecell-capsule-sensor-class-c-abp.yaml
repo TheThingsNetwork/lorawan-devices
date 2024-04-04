@@ -23,6 +23,9 @@ firmwareVersions:
       KR920-923:
         id: profile-kr920-class-c-abp
 
+devicetype:
+  - devboard
+
 dimensions:
   height: 67
 

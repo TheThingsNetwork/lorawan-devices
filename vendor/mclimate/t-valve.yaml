@@ -16,6 +16,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: t-valve-codec
 
+devicetype:
+  - actuator
+
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,

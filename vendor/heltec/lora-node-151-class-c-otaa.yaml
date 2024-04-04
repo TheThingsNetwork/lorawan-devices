@@ -22,6 +22,9 @@ firmwareVersions:
       KR920-923:
         id: profile-kr920-class-c-otaa
 
+devicetype:
+  - devboard
+
 dimensions:
   width: 24
   length: 56.6

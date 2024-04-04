@@ -918,6 +918,12 @@
           "description": "Instructions for finding firmware version",
           "examples": ["In the WebFig configuration panel, the firmware version is stated in the top left (e.g RouterOS v6.47.9)"]
         },
+        "devicetype": {
+          "type": "array",
+          "items": {
+            "enum": ["sensor", "devboard", "actuator", "module"]
+          }
+        },
         "sensors": {
           "type": "array",
           "items": {

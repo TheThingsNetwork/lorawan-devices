@@ -22,6 +22,9 @@ firmwareVersions:
         id: mamwle-au915-profile
         lorawanCertified: false
 
+devicetype:
+  - module
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
