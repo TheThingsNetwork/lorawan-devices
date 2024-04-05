@@ -13,6 +13,8 @@ firmwareVersions:
       EU863-870:
         lorawanCertified: true
         id: acr-cv-101l-m-d-profile
+devicetype:
+  - converter
 bridgeInterfaces:
   - m-bus
 dimensions:

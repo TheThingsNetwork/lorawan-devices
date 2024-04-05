@@ -34,6 +34,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: m-bus-gateway-codec
 
+devicetype:
+  - converter
+
 # Sensors that this device features
 #sensors:
 #  - m-bus master

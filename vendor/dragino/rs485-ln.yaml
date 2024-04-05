@@ -61,6 +61,10 @@ firmwareVersions:
         id: kr920-c-abp-profile
       RU864-870:
         id: ru864-c-abp-profile
+
+devicetype:
+  - converter
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

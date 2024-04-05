@@ -43,6 +43,9 @@ firmwareVersions:
         id: sdi-12-tek-profile
         codec: sdi-12-tek-codec
 
+devicetype:
+  - converter
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

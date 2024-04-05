@@ -921,7 +921,7 @@
         "devicetype": {
           "type": "array",
           "items": {
-            "enum": ["sensor", "devboard", "actuator", "module"]
+            "enum": ["sensor", "devboard", "actuator", "module", "converter"]
           }
         },
         "sensors": {
