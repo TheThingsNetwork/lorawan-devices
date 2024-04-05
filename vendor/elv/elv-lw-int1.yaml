@@ -37,6 +37,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: elv-lw-int1-codec
 
+devicetype:
+  - converter
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

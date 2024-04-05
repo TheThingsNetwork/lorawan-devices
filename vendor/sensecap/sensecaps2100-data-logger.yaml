@@ -49,6 +49,10 @@ firmwareVersions:
         lorawanCertified: true
         codec: sensecap2100-codec
 
+sensors:
+  - 4-20 ma
+  - analog input
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

@@ -35,6 +35,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: range-extender-codec
 
+devicetype:
+  - converter
+
 # Sensors that this device features (optional)
 
 # Dimensions in mm (optional)
