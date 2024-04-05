@@ -25,6 +25,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: kst5420-codec
 
+devicetype:
+  - coveragetest
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

@@ -50,6 +50,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: portentamaxcarrier-codec
 
+devicetype:
+  - devboard
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

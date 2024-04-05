@@ -921,7 +921,7 @@
         "devicetype": {
           "type": "array",
           "items": {
-            "enum": ["sensor", "devboard", "actuator", "module", "converter"]
+            "enum": ["sensor", "devboard", "actuator", "module", "converter", "coveragetest"]
           }
         },
         "sensors": {
@@ -942,6 +942,7 @@
               "conductivity",
               "current",
               "digital input",
+              "digital output",
               "dissolved oxygen",
               "distance",
               "dust",
