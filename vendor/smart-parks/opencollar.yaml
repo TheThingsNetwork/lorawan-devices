@@ -25,6 +25,15 @@ firmwareVersions:
         lorawanCertified: false
         codec: opencollar-v26-codec
 
+devicetype:
+  - sensor
+
+sensors:
+  - gps
+  - temperature
+  - humidity
+  - accelerometer
+
 # Product and data sheet URLs (optional)
 productURL: https://www.smartparks.org
 

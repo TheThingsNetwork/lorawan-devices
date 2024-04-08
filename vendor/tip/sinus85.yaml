@@ -12,5 +12,8 @@ firmwareVersions:
         lorawanCertified: true
         codec: sinus85-codec
 
+devicetype:
+  - sensor
+
 photos:
   main: sinus85.png

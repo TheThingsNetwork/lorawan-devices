@@ -51,6 +51,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: tlm-lw-codec
 
+devicetype:
+  - converter
+
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
 bridgeInterfaces:
