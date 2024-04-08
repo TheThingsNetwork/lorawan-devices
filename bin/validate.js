@@ -373,6 +373,9 @@ vendors.vendors.forEach((v) => {
               });
           });
         }
+      } else {
+        console.error(`${key}: image is missing.`);
+        process.exit(1);
       }
     });
   });
