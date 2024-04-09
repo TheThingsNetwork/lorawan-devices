@@ -34,6 +34,10 @@ firmwareVersions:
         id: profile-cn470
         codec: r718x-codec
 
+sensors:
+  - distance
+  - temperature
+
 weight: 143
 
 dimensions:

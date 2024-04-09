@@ -1,5 +1,5 @@
-name: RP02 - Wireless Bottom-installed Ultrasonic Liquid Level Sensor
-description: The RP02 is a wireless communication device that measures the liquid level with an ultrasonic liquid level sensor. Ultrasonic liquid level sensor installed at the bottom of the container, it may measure water, gasoline, diesel and small, medium, large capacity storage tanks (metal, plastic, glass material). RP0222 main unit and the ultrasonic liquid level sensor communicate via RS485 interface, and the detected data is sent to the other equipment shown which employs compliance LoraWANTM wireless communication protocol standards.
+name: RP02 - Wireless 1P+N Miniature Circuit Breaker with Power Meter
+description: RP02 is a class C smart 1P+N Miniature Circuit Breaker with Power Meter based on LoRaWAN open protocol.It can monitor the status of all external circuit breakers in real time. (connect up to 9 poles). When the power line is abnormal (such as undervoltage, overvoltage, overload, etc.), the system will automatically give early warning, alarm and power off to prevent electrical fire to the greatest extent. At the same time, it can periodically monitor the temperature, electric quantity, current, voltage, power, leakage current, circuit breaker status and other data information of all external circuit breakers and report to the gateway platform.
 
 hardwareVersions:
   - version: '4'
@@ -33,6 +33,10 @@ firmwareVersions:
       CN470-510:
         id: profile-cn470
         codec: rp02-codec
+
+sensors:
+  - current
+  - voltage
 
 dimensions:
   width: 88.19

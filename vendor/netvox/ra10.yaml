@@ -34,6 +34,9 @@ firmwareVersions:
         id: profile-cn470
         codec: ra10-codec
 
+devicetype:
+  - actuator
+
 dimensions:
   width: 70.99
   length: 152.99

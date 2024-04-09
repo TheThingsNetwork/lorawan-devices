@@ -34,6 +34,9 @@ firmwareVersions:
         id: profile-cn470
         codec: r718ma-codec
 
+sensors:
+  - rssi
+
 dimensions:
   width: 65
   length: 112
