@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-temp-ext-profile
         lorawanCertified: true
         codec: rbs306-temp-ext-codec
+
+sensors:
+  - temperature
+
 # Photos
 photos:
   main: rbs306-temp-ext.png

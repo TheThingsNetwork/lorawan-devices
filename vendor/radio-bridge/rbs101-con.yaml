@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs101-con-profile
         lorawanCertified: true
         codec: rbs101-con-codec
+
+sensors:
+  - digital input
+
 # Photos
 photos:
   main: rbs101-con.png
