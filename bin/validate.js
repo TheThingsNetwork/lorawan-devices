@@ -292,7 +292,7 @@ vendors.vendors.forEach((v) => {
 
         Object.keys(version.profiles).forEach(async (region) => {
           const regionProfile = version.profiles[region];
-          const key = `${v.id}: ${d}: ${region}`;
+          const key = `${v.id}: ${d}: ${version.version}: ${region}`;
           const vendorID = regionProfile.vendorID ?? v.id;
           if (!vendorProfiles[vendorID]) {
             vendorProfiles[vendorID] = {};
