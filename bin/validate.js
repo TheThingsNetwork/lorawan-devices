@@ -173,8 +173,9 @@ function validateImageExtension(filename) {
     if (ext !== type.ext) {
       if (ext === 'jpeg' && type.ext === 'jpg') {
         resolve();
+      } else {
+        reject(`${filename} extension is incorrect, it should be ${type.ext}`);
       }
-      reject(`${filename} extension is incorrect, it should be ${type.ext}`);
     } else {
       resolve();
     }
@@ -291,7 +292,7 @@ vendors.vendors.forEach((v) => {
 
         Object.keys(version.profiles).forEach(async (region) => {
           const regionProfile = version.profiles[region];
-          const key = `${v.id}: ${d}: ${region}`;
+          const key = `${v.id}: ${d}: ${version.version}: ${region}`;
           const vendorID = regionProfile.vendorID ?? v.id;
           if (!vendorProfiles[vendorID]) {
             vendorProfiles[vendorID] = {};
