@@ -1,2 +1,13 @@
 endDevices:
   - generic-node-sensor-edition
+profileIDs:
+  '1':
+    endDeviceID: 'generic-node-sensor-edition'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.1'
+    region: 'EU863-870'
+  '2':
+    endDeviceID: 'generic-node-sensor-edition'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.1'
+    region: 'US902-928'

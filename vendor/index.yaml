@@ -1011,7 +1011,7 @@ vendors:
     name: Cavagna Group SPA
     vendorID: 604
 
-  - id: jsc-axioma
+  - id: axioma
     name: JSC Axioma Metering
     vendorID: 605
 

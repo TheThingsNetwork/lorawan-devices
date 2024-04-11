@@ -71,6 +71,12 @@ To validate data:
 $ make validate
 ```
 
+The validation also supports validating a single vendor's files:
+
+```bash
+$ make validate VENDOR_ID=<id-of-vendor>
+```
+
 [Visual Studio Code](https://code.visualstudio.com/) is a great editor for editing the Device Repository. You can validate your data automatically using the [YAML plugin](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml).
 
 The YAML plugin supports you with filling out the document. When hitting Ctrl + Space, all fields are shown. The Debug Console of Visual Studio provides feedback by highlighting the incorrect fields.
@@ -155,6 +161,20 @@ All vendor data is referenced from the **Vendor device index** file: `vendor/<ve
 endDevices:
   - device-a
   - device-b
+# The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
+# This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
+# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
+# It can either be a combo of device ID + hardware version + firmware version + region, or profile ID + codec ID
+# NOTE: The profileIDs is different from the vendorID.
+profileIDs:
+  '1':
+    endDeviceID: 'device-a'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '2':
+    id: 'device-b-profile-915' # Name of the file of the profile 
+    codec: 'device-b-codec' # Name of the yaml file of the codec
 ```
 
 All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters. **Make sure you include every device you add.**
@@ -218,12 +238,6 @@ There are a few guidelines to follow for images:
 Each referenced end device profile needs to be defined in the **End device profile**, with the same filename as the profile ID: `vendor/<vendor-id>/<profile-id>.yaml`:
 
 ```yaml
-# Vendor profile ID, can be freely issued by the vendor. NOTE: The vendor profile ID is different from the vendorID. 
-# The vendor Profile ID should be an incremental counter for every unique device listed in the vendor's folder.
-# This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf
-vendorProfileID: 0
-
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: '1.0.3'
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:
