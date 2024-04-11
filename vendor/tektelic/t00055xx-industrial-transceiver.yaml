@@ -21,9 +21,12 @@ firmwareVersions:
         lorawanCertified: true
         codec: t00055xx-codec
 
+devicetype:
+  - sensor
+  - actuator
+
 sensors:
   - digital input
-  - digital output
   - temperature
   - humidity
 
