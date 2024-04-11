@@ -173,8 +173,9 @@ function validateImageExtension(filename) {
     if (ext !== type.ext) {
       if (ext === 'jpeg' && type.ext === 'jpg') {
         resolve();
+      } else {
+        reject(`${filename} extension is incorrect, it should be ${type.ext}`);
       }
-      reject(`${filename} extension is incorrect, it should be ${type.ext}`);
     } else {
       resolve();
     }
