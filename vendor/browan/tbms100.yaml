@@ -45,6 +45,9 @@ operatingConditions:
 ipCode: IP50
 
 productURL: http://www.browan.com/product/motion-sensor-pir/detail
+# Link to simple, easy onboarding instructions for the device.
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/browan-tbms100/
 
 photos:
   main: tbms100.png

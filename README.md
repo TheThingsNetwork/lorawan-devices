@@ -28,7 +28,8 @@ One of the operating systems:
 
 Development dependencies:
 
-- Node.js version 16.x
+- Node.js version 16.x 
+  - (This is recommended, as newer versions may give errors)
 - npm version 8.x
 - Go version 1.18.x
 
@@ -70,6 +71,12 @@ To validate data:
 $ make validate
 ```
 
+The validation also supports validating a single vendor's files:
+
+```bash
+$ make validate VENDOR_ID=<id-of-vendor>
+```
+
 [Visual Studio Code](https://code.visualstudio.com/) is a great editor for editing the Device Repository. You can validate your data automatically using the [YAML plugin](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml).
 
 The YAML plugin supports you with filling out the document. When hitting Ctrl + Space, all fields are shown. The Debug Console of Visual Studio provides feedback by highlighting the incorrect fields.
@@ -94,19 +101,19 @@ An example directory structure with a vendor named `company-x` that produces two
 ```bash
 lorawan-devices
 ├── vendor
-│   ├── index.yaml              # vendor index (1)
+│   ├── index.yaml                    # vendor index (1)
 │   ├── module-maker
 │   │   └── module-profile-eu868.yaml # generic end device profile for EU868 (4)
 │   ├── company-x
-│   │   ├── index.yaml          # vendor device index (2)
-│   │   ├── logo.svg            # vendor logo
-│   │   ├── device-a.jpg        # photo of device-a
-│   │   ├── device-a.yaml       # device-a definition (3)
-│   │   ├── device-b.jpg        # photo of device-b
-│   │   ├── device-b.yaml       # device-b definition (3)
+│   │   ├── index.yaml                # vendor device index (2)
+│   │   ├── logo.svg                  # vendor logo
+│   │   ├── device-a.png              # photo of device-a
+│   │   ├── device-a.yaml             # device-a definition (3)
+│   │   ├── device-b.png              # photo of device-b
+│   │   ├── device-b.yaml             # device-b definition (3)
 │   │   ├── custom-profile-us915.yaml # end device profile for US915 (4)
-│   │   ├── codec.js            # payload codec implementation (6)
-│   │   └── codec.yaml          # payload codec definition (5)
+│   │   ├── codec.js                  # payload codec implementation (6)
+│   │   └── codec.yaml                # payload codec definition (5)
 ```
 
 ### Vendor Index
@@ -154,16 +161,30 @@ All vendor data is referenced from the **Vendor device index** file: `vendor/<ve
 endDevices:
   - device-a
   - device-b
+# The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
+# This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
+# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
+# It can either be a combo of device ID + hardware version + firmware version + region, or profile ID + codec ID
+# NOTE: The profileIDs is different from the vendorID.
+profileIDs:
+  '1':
+    endDeviceID: 'device-a'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '2':
+    id: 'device-b-profile-915' # Name of the file of the profile 
+    codec: 'device-b-codec' # Name of the yaml file of the codec
 ```
 
-All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters.
+All end device identifiers must be lowercase, alphanumeric with dashes and max 36 characters. **Make sure you include every device you add.**
 
 ### End Device
 
 For each end device, create an **End device definition** file with the same filename as the identifier in the index: `vendor/<vendor-id>/<device-id>.yaml`:
 
 ```yaml
-name: Device A
+name: Device A # Device name can not contain the vendor name
 description: My first LoRaWAN device
 # Hardware versions (optional)
 hardwareVersions:
@@ -204,17 +225,19 @@ There are many other fields that can be set: hardware versions, firmware version
 
 > **NOTE** It is highly recommended to fill out as many information about the end devices as possible. The definition above is the bare minimum information.
 
+### End Device Image
+
+There are a few guidelines to follow for images:
+- At least 1 image of each device you intent to add.
+- Make sure the image has a transparent background. 
+- Image should be of high quality.
+- The image cannot be bigger then 2000 x 2000 pixels. 
+
 ### End Device Profile
 
 Each referenced end device profile needs to be defined in the **End device profile**, with the same filename as the profile ID: `vendor/<vendor-id>/<profile-id>.yaml`:
 
 ```yaml
-# Vendor profile ID, can be freely issued by the vendor. NOTE: The vendor profile ID is different from the vendorID. 
-# The vendor Profile ID should be an incremental counter for every unique device listed in the vendor's folder.
-# This vendor profile ID is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf
-vendorProfileID: 0
-
 # LoRaWAN MAC version: 1.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4 or 1.1
 macVersion: '1.0.3'
 # LoRaWAN Regional Parameters version. Values depend on the LoRaWAN version:

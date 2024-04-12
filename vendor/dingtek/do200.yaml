@@ -1,4 +1,4 @@
-name: do200
+name: DO200 - Parking Occupancy Sensor
 description: The CNDingtek do200 is parking occupation sensor with combination of ultrasonic and magnetic detection , fire sensor, and accelerometer.
 
 # Hardware versions (optional, use when you have revisions)

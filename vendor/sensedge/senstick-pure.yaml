@@ -1,4 +1,4 @@
-name: Senstick Pure
+name: Senstick Pure - Air Quality & Microclimate Sensor
 description: The Sensedge Senstick Pure is an indoor LoRaWAN® air quality and microclimate sensor that features IAQ, temperature, humidity, and pressure sensors. Suitable for monitoring air quality in personal and public spaces. The device sends data to the LoRaWAN® network and notifies users to open the windows if the air quality is poor.
 
 # Hardware versions (optional, use when you have revisions)

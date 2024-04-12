@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,24 +21,25 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
-    if ((a & 0x80000000) > 0) {
-        return a - 0x10000000;
-    }
-    return a;
+    return (buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3];
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -134,7 +135,7 @@ var codec;
 (function (codec) {
     var Generic0x1fParser = (function () {
         function Generic0x1fParser() {
-            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath';
+            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath|comfortSerenity';
             this.frameCode = 0x1f;
         }
         Generic0x1fParser.prototype.parseFrame = function (payload, configuration, network) {
@@ -143,12 +144,14 @@ var codec;
             var input2 = {};
             input1['type'] = this.getTypeText(payload[2] & 0x0f);
             input1['debouncingPeriod'] = {
-                'unit': 'ms', 'value': this.getDebouncingPeriodText((payload[2] & 0xf0) >> 4)
+                unit: 'ms',
+                value: this.getDebouncingPeriodText((payload[2] & 0xf0) >> 4),
             };
             input1['threshold'] = payload.readUInt16BE(3);
             input2['type'] = this.getTypeText(payload[5] & 0x0f);
             input2['debouncingPeriod'] = {
-                'unit': 'ms', 'value': this.getDebouncingPeriodText((payload[5] & 0xf0) >> 4)
+                unit: 'ms',
+                value: this.getDebouncingPeriodText((payload[5] & 0xf0) >> 4),
             };
             input2['threshold'] = payload.readUInt16BE(6);
             appContent['digitalInput1'] = input1;
@@ -223,18 +226,17 @@ var codec;
             switch (payload.length) {
                 case 4:
                     appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
-                        && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
                     }
                     break;
                 case 3:
                 case 5:
-                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
                     if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
                     }
                     break;
                 default:
@@ -266,8 +268,7 @@ var codec;
 (function (codec) {
     var Generic0x33Parser = (function () {
         function Generic0x33Parser() {
-            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' +
-                'temp3|temp4|comfort|comfort2|comfortCo2|motion|deltap|breath';
+            this.deviceType = 'drycontacts|drycontacts2|pulse3|pulse4|' + 'temp3|temp4|comfort|comfort2|comfortCo2|modbus|motion|deltap|breath|comfortSerenity';
             this.frameCode = 0x33;
         }
         Generic0x33Parser.prototype.parseFrame = function (payload, configuration, network) {
@@ -304,7 +305,7 @@ var codec;
 (function (codec) {
     var Generic0x37Parser = (function () {
         function Generic0x37Parser() {
-            this.deviceType = 'temp4|comfort2|comfortCo2|breath';
+            this.deviceType = 'temp4|comfort2|comfortCo2|breath|comfortSerenity|modbus';
             this.frameCode = 0x37;
         }
         Generic0x37Parser.prototype.parseFrame = function (payload, configuration, network) {
@@ -321,7 +322,7 @@ var codec;
 (function (codec) {
     var Generic0x51Parser = (function () {
         function Generic0x51Parser() {
-            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath';
+            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath|comfortSerenity';
             this.frameCode = 0x51;
         }
         Generic0x51Parser.prototype.parseFrame = function (payload, configuration, network) {
@@ -331,12 +332,12 @@ var codec;
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
             appContent['state'] = {
-                'previousFrame': Boolean(payload.readUInt8(2) >> 1 & 1),
-                'current': Boolean(payload.readUInt8(2) >> 0 & 1)
+                previousFrame: Boolean((payload.readUInt8(2) >> 1) & 1),
+                current: Boolean((payload.readUInt8(2) >> 0) & 1),
             };
             appContent['counter'] = {
-                'global': payload.readUInt32BE(3),
-                'instantaneous': payload.readUInt16BE(7)
+                global: payload.readUInt32BE(3),
+                instantaneous: payload.readUInt16BE(7),
             };
             return appContent;
         };
@@ -359,7 +360,7 @@ var codec;
 (function (codec) {
     var Generic0x52Parser = (function () {
         function Generic0x52Parser() {
-            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath';
+            this.deviceType = 'motion|comfort|comfort2|comfortCo2|deltap|breath|comfortSerenity';
             this.frameCode = 0x52;
             this.parser = new codec.Generic0x51Parser();
         }
@@ -380,15 +381,19 @@ var codec;
         }
         Comfort20x10Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x10 Comfort 2 configuration' };
-            appContent['transmissionPeriodKeepAlive'] = { 'unit': 's', 'value': payload.readUInt16BE(2) * 10 },
-                appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(4),
-                appContent['numberOfSamplingBeforeHistorization'] = payload.readUInt16BE(6),
-                appContent['samplingPeriod'] = { 'unit': 's', 'value': payload.readUInt16BE(8) * 2 },
-                appContent['redundantSamples'] = payload.readUInt8(10),
-                appContent['calculatedPeriodRecording'] = { 'unit': 's',
-                    'value': payload.readUInt16BE(8) * payload.readUInt16BE(6) * 2 },
-                appContent['calculatedSendingPeriod'] = { 'unit': 's',
-                    'value': payload.readUInt16BE(8) * payload.readUInt16BE(6) * payload.readUInt16BE(4) * 2 };
+            (appContent['transmissionPeriodKeepAlive'] = { unit: 's', value: payload.readUInt16BE(2) * 10 }),
+                (appContent['numberOfHistorizationBeforeSending'] = payload.readUInt16BE(4)),
+                (appContent['numberOfSamplingBeforeHistorization'] = payload.readUInt16BE(6)),
+                (appContent['samplingPeriod'] = { unit: 's', value: payload.readUInt16BE(8) * 2 }),
+                (appContent['redundantSamples'] = payload.readUInt8(10)),
+                (appContent['calculatedPeriodRecording'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * 2,
+                }),
+                (appContent['calculatedSendingPeriod'] = {
+                    unit: 's',
+                    value: payload.readUInt16BE(8) * payload.readUInt16BE(6) * payload.readUInt16BE(4) * 2,
+                });
             return appContent;
         };
         return Comfort20x10Parser;
@@ -404,7 +409,7 @@ var codec;
         }
         Comfort20x4cParser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x4c Comfort 2 data' };
-            var payloadLength = (payload[1] & 0x04) ? payload.length - 4 : payload.length;
+            var payloadLength = payload[1] & 0x04 ? payload.length - 4 : payload.length;
             if (payload[1] & 0x04) {
                 var myDate = new Date((payload.readUInt32BE(payloadLength) + 1356998400) * 1000);
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
@@ -418,8 +423,8 @@ var codec;
                 humidity.push(rawValue);
             }
             appContent['decodingInfo'] = 'values: [t=0, t-1, t-2, ...]';
-            appContent['temperature'] = { 'unit': '\u00B0' + 'C', 'values': temp };
-            appContent['humidity'] = { 'unit': '\u0025', 'values': humidity };
+            appContent['temperature'] = { unit: '\u00B0' + 'C', values: temp };
+            appContent['humidity'] = { unit: '\u0025', values: humidity };
             return appContent;
         };
         return Comfort20x4cParser;
@@ -440,12 +445,12 @@ var codec;
                 appContent['timestamp'] = myDate.toJSON().replace('Z', '');
             }
             appContent['alarmTemperature'] = {
-                'alarmStatus': (payload.readUInt8(2) >> 4) ? 'active' : 'inactive',
-                'temperature': { 'unit': '\u00B0' + 'C', 'value': payload.readInt16BE(3) / 10 }
+                alarmStatus: payload.readUInt8(2) >> 4 ? 'active' : 'inactive',
+                temperature: { unit: '\u00B0' + 'C', value: payload.readInt16BE(3) / 10 },
             };
             appContent['alarmHumidity'] = {
-                'alarmStatus': (payload.readUInt8(2) & 1) ? 'active' : 'inactive',
-                'humidity': { 'unit': '\u0025', 'value': payload.readUInt8(5) }
+                alarmStatus: payload.readUInt8(2) & 1 ? 'active' : 'inactive',
+                humidity: { unit: '\u0025', value: payload.readUInt8(5) },
             };
             return appContent;
         };
@@ -466,7 +471,7 @@ var codec;
             statusContent = parser.parseFrame(payload, configuration);
             statusContent['configurationInconsistency'] = Boolean(payload[1] & 0x08);
             statusContent['timestamp'] = Boolean(payload[1] & 0x04);
-            return { 'status': statusContent };
+            return { status: statusContent };
         };
         return Comfort2StatusByteParser;
     }());
@@ -491,7 +496,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -586,9 +591,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }

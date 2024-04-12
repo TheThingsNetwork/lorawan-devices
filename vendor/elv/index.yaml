@@ -7,3 +7,5 @@ endDevices:
   - elv-lw-gps1
   - elv-lw-mob
   - elv-lw-omo
+  - elv-lw-int1
+  - elv-lw-swd

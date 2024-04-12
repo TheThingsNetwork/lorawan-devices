@@ -1,4 +1,4 @@
-name: LTC2
+name: LTC2 - Temperature Transmitter
 description: Industrial LoRaWAN Temperature Transmitter
 
 # Firmware versions (at least one is mandatory)

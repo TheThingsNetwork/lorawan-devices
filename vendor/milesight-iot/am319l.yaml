@@ -1,5 +1,5 @@
-name: Milesight AM319-LoRaWAN Indoor Air Quality Sensor (9 in 1)
-description: Milesight AM309 collects various indoor ambience conditionsam308 through 9 built-in sensors and delivers the data to the mobile App and its 4.2-inch E-ink screen. It supports batteries or DC power supply and can be easily equipped via NFC. It features a tri-color LED indicator, anti-theft design, and emoticon indication. AM307 is widely used for offices, stores, classrooms, hospitals, etc.
+name: Milesight AM319L-LoRaWAN Indoor Air Quality Sensor (9 in 1)
+description: Milesight AM309 collects various indoor ambience conditions through 9 built-in sensors and delivers the data to the mobile App and its 4.2-inch E-ink screen. It supports batteries or DC power supply and can be easily equipped via NFC. It features a tri-color LED indicator, anti-theft design, and emoticon indication. AM307 is widely used for offices, stores, classrooms, hospitals, etc.
 
 hardwareVersions:
   - version: '1.x'

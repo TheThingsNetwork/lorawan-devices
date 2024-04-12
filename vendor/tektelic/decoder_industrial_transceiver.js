@@ -1,5 +1,5 @@
 function decodeUplink(input) {
-    var sensor = 
+    var sensor =
     {
       "10": {
         "0x00 0xFF": [
@@ -1190,12 +1190,12 @@ function decodeUplink(input) {
                 if (target === null || target === undefined) {
                     throw new TypeError('Cannot convert undefined or null to object');
                 }
-    
+
                 var to = Object(target);
-    
+
                 for (var index = 1; index < arguments.length; index++) {
                     var nextSource = arguments[index];
-    
+
                     if (nextSource !== null && nextSource !== undefined) {
                         for (var nextKey in nextSource) {
                             // Avoid bugs when hasOwnProperty is shadowed
@@ -1211,14 +1211,14 @@ function decodeUplink(input) {
             configurable: true
         });
     }
-    
+
     function crc16(buffer) {
         var crc = 0xFFFF;
         var odd;
-    
+
         for (var i = 0; i < buffer.length; i++) {
             crc = crc ^ buffer[i];
-    
+
             for (var j = 0; j < 8; j++) {
                 odd = crc & 0x0001;
                 crc = crc >> 1;
@@ -1227,16 +1227,16 @@ function decodeUplink(input) {
                 }
             }
         }
-    
+
         return crc;
     };
-    
+
     function trunc(v){
         v = +v;
         if (!isFinite(v)) return v;
         return (v - v % 1)   ||   (v < 0 ? -0 : v === 0 ? v : 0);
     }
-    
+
     function stringifyHex(header) {
         // expects Number, returns stringified hex number in format (FF -> 0xFF) || (A -> 0x0A)
         var ret = header.toString(16).toUpperCase()
@@ -1245,11 +1245,11 @@ function decodeUplink(input) {
         }
         return "0x" + ret;
     }
-    
+
     function toUint(x) {
         return x >>> 0;
     }
-    
+
     function byteArrayToArray(byteArray) {
         var array = []
         for (i = 0; i < byteArray.length; i++){
@@ -1258,7 +1258,7 @@ function decodeUplink(input) {
         }
         return array;
     }
-    
+
     function byteArrayToHexString(byteArray) {
         var arr = [];
         for (var i = 0; i < byteArray.length; ++i) {
@@ -1266,7 +1266,7 @@ function decodeUplink(input) {
         }
         return arr.join('');
     }
-    
+
     function extractBytes(chunk, startBit, endBit) {
         // example:
         //          chunk = [ 0b00000100, 0b11111000 ]
@@ -1274,21 +1274,21 @@ function decodeUplink(input) {
         // startBit =  11
         // endBit = 4
         // RETURN: [ 01001111 ]. Array is expanded to fit an appropriate number of bits.
-    
+
         // You are heavily encouraged to run this function with debug to get a feel for what it does.
         // A great example would be LoRaMAC options
-    
+
         var totalBits = startBit - endBit + 1;
         var totalBytes = totalBits % 8 === 0 ? toUint(totalBits / 8) : toUint(totalBits / 8) + 1;
         var bitOffset = endBit % 8;
         var arr = new Array(totalBytes);
-    
+
         for (var byte = totalBytes-1; byte >= 0; byte--) {
             // we'll be looking at up to 2 bytes at a time: hi (the right one) and lo (the left one).
             // in the above example those would be byte 0 (from which we took 0b0100)
             // and byte 1 (from which we took 0b1111)
             // after which we *hi | lo* and received 0b01000000 | 0b00001111 = 0b01001111
-    
+
             var chunkIndex = byte + (chunk.length - 1 - trunc(startBit / 8));
             var lo = chunk[chunkIndex] >> bitOffset; // from the example: 0b11111000 >> 4 = 0b1111 (0b1000 was trunc'ed)
             var hi = 0;
@@ -1304,7 +1304,7 @@ function decodeUplink(input) {
         }
         return arr;
     }
-    
+
     function byteTo8Bits(byte){
         var bits = byte.toString(2).split('')
         for (var i = 0; i < bits.length; i++) {
@@ -1315,7 +1315,7 @@ function decodeUplink(input) {
         }
         return bits
     }
-    
+
     function bytesToValue(bytes, dataType, coefficient, round, addition) {
         var output = 0;
         if (dataType === "unsigned") {
@@ -1324,7 +1324,7 @@ function decodeUplink(input) {
             }
             return round ? Number( (output*coefficient + addition).toFixed(round) ) : Number(output*coefficient + addition);
         }
-    
+
         if (dataType === "signed") {
             for (var i = 0; i < bytes.length; ++i) {
                 output = (output << 8) | bytes[i];
@@ -1333,14 +1333,14 @@ function decodeUplink(input) {
             if (output > Math.pow(2, 8*bytes.length-1)) {
                 output -= Math.pow(2, 8*bytes.length);
             }
-    
+
             return Number( (output*coefficient + addition).toFixed(round) )
         }
-    
+
         if (dataType === "hexstring") {
             return byteArrayToHexString(bytes);
         }
-    
+
         if (dataType === "double") {
             if (bytes.length !== 8)
                 return 0;
@@ -1360,11 +1360,11 @@ function decodeUplink(input) {
             }
             return sign*fraction*Math.pow(2, exp-1023)
         }
-    
+
         // Incorrect data type
         return null;
     }
-    
+
     function decodeField(chunk, p) {
         //decodeField(valueArray, p["bit_start"], p["bit_end"], p["type"], p["coefficient"], p["round"], p["addition"])
         var startBit = p["bit_start"]
@@ -1373,22 +1373,22 @@ function decodeUplink(input) {
         var addition = (typeof p["addition"] !== 'undefined') ?  Number(p["addition"]) : 0;
         var coefficient = (typeof p["coefficient"] !== 'undefined') ? Number(p["coefficient"]) : 1;
         var round = (typeof p["round"] !== 'undefined') ? Number(p["round"]) : 0;
-    
+
         var bytes = extractBytes(chunk, startBit, endBit);
         return bytesToValue(bytes, dataType, coefficient, round, addition);
     }
-    
+
     function flattenObject(ob) {
         var toReturn = {};
-    
+
         for (var i in ob) {
             if (!ob.hasOwnProperty(i)) continue;
-    
+
             if ((typeof ob[i]) == 'object') {
                 var flatObject = flattenObject(ob[i]);
                 for (var x in flatObject) {
                     if (!flatObject.hasOwnProperty(x)) continue;
-    
+
                     toReturn[i + '.' + x] = flatObject[x];
                 }
             } else {
@@ -1397,19 +1397,19 @@ function decodeUplink(input) {
         }
         return toReturn;
     }
-    
+
     function decode(parameters, bytes, port, flat){
         if (typeof(port)==="number")
             port = port.toString();
         //below is performed in case the NS the decoder is used on supplies a byteArray that isn't an array
         bytes = byteArrayToArray(bytes)
-    
+
         var decodedData = {};
         decodedData.raw = stringifyBytes(bytes);
         decodedData.port = port;
-    
+
         // uncomment below for 1-wire solution
-    
+
         /*if (port === "20") {
             if (bytes.length <= 1)
                 return decodedData;
@@ -1419,11 +1419,11 @@ function decodeUplink(input) {
             var crc_received = [bytes[bytes.length-2], bytes[bytes.length-1]]
             console.log(crc_received)
             bytes = bytes.slice(0, -2)
-    
+
             decodedData.crc_ok = crc_received[0] === crc_le[0] && crc_received[1] === crc_le[1];
             decodedData.crc = stringifyBytes(crc_received)
         }
-    
+
         if (port == "11") {
             let data_types=["harness_0_periodic", "harness_1_periodic", "harness_0_threshold", "harness_1_threshold"]
             properties = parameters["11"]["none"]
@@ -1434,10 +1434,10 @@ function decodeUplink(input) {
                 bytes = bytes.slice(2)
                 if (bytes.length === 0)
                     return decodedData
-    
+
                 let str_bitmask = bitmask.toString(2)
                 let arr_bitmask = [...str_bitmask].map((el)=>parseInt(el))
-    
+
                 for (var i = 0; i < arr_bitmask.length; i++) {
                     if (arr_bitmask[i] === 1) {
                         let valueArray = bytes.slice(0, 2)
@@ -1449,28 +1449,28 @@ function decodeUplink(input) {
                                 *
                                 bytesToValue(extractBytes(valueArray, 9, 0),
                                     "unsigned", 0.0625, 2, 0),
-    
+
                             alarm: bytesToValue(extractBytes(valueArray, 15, 15),
                                 "unsigned", 1,0, 0)
                         }
                     }
                 }
             }
-    
+
             return decodedData;
         }*/
-    
+
         if (port === "32") {
             decodedData.fragment_number = bytesToValue(extractBytes(bytes.slice(0,2), 15, 0), "unsigned", 1, 0, 0)
             bytes = bytes.slice(2)
             port = "10";
         }
-    
+
         if (!parameters.hasOwnProperty(port)) {
             decodedData.error = "Wrong port: " + port;
             return decodedData
         }
-    
+
         while (bytes.length > 0) {
             // To find the length of the header, we will search for a header in the decoder object that starts with the same
             // byte, and then see how many bytes the header contains.
@@ -1483,7 +1483,7 @@ function decodeUplink(input) {
                     headerLength = (headers[i].split(' ')).length;
                 }
             }
-    
+
             var header
             if (parameters[port].hasOwnProperty("none")){
                 header = "none"
@@ -1496,33 +1496,33 @@ function decodeUplink(input) {
                     header = stringifyHex(header[0]) + " " + stringifyHex(header[1])
                 }
             }
-    
+
             if (!parameters[port].hasOwnProperty(header)) {
                 decodedData.error = "Couldn't find header " + header + " in decoder object." +
                     " Are you decoding the correct sensor?";
                 return decodedData;
             }
-    
+
             var properties = parameters[port][header];
-    
+
             if (properties.length === 0) {
                 decodedData.error = "Something is wrong with the decoder object. Check " +
                     "port "+ port + ", header " + header + ""
                 return decodedData;
             }
-    
+
             var i, j, p, bytesToConsume, valueArray
             // WARNING: arrays can only ever be in the end of the properties for a given port / header
             if (properties.length === 1) {
                 // if property array has only one element, then its either going to be a value or a value array,
                 // since a group would require at least 2 elements
-    
+
                 p = properties[0];
                 if (!decodedData.hasOwnProperty(p["category_name"]))
                     decodedData[p["category_name"]] = {}
-    
+
                 if (p["multiple"] == 0) {
-    
+
                     // CASE 1:
                     // value
                     bytesToConsume = parseInt( p["data_size"] )
@@ -1531,10 +1531,10 @@ function decodeUplink(input) {
                         valueArray.push(bytes[0])
                         bytes = bytes.slice(1)
                     }
-    
+
                     decodedData[p["category_name"]][p["parameter_name"]] =
                         decodeField(valueArray, p)
-    
+
                 } else {
                     // CASE 2:
                     // array of values (without anything in front)
@@ -1554,10 +1554,10 @@ function decodeUplink(input) {
             } else {
                 for (i = 0; i < properties.length && bytes.length > 0; i++) {
                     p = properties[i];
-    
+
                     if (!decodedData.hasOwnProperty(p["category_name"]))
                         decodedData[p["category_name"]] = {}
-    
+
                     if (p["multiple"] == 0){
                         if (p["group_name"] == "") {
                             // CASE 3:
@@ -1594,14 +1594,14 @@ function decodeUplink(input) {
                             }
                         }
                     }
-    
+
                     if (p["multiple"] == 0){
                         if (properties[i+1] && properties[i+1]["multiple"] == "1")
                             continue
                         else
                             break;
                     }
-    
+
                     if (p["group_name"] === "") {
                         // CASE 5:
                         // array of values (after a group or a value)
@@ -1610,7 +1610,7 @@ function decodeUplink(input) {
                         while (bytes.length > 0) {
                             bytesToConsume = parseInt(p["data_size"])
                             valueArray = []
-    
+
                             for (j = 0; j < bytesToConsume; j++) {
                                 valueArray.push(bytes[0])
                                 bytes = bytes.slice(1)
@@ -1633,9 +1633,9 @@ function decodeUplink(input) {
                         else
                             decodedData[ p["category_name"] ][ p["group_name"] ] = []
                         // else throw new Error("Fail in CASE 6. If multiple == 1, the parameter must be a part of an existing group or a stand alone array of groups/values.")
-    
+
                         //TODO: REMOVE HARDCODE
-    
+
                         while (bytes.length > 0) {
                             bytesToConsume = parseInt(p["data_size"])
                             valueArray = []
@@ -1654,7 +1654,7 @@ function decodeUplink(input) {
                             else
                                 decodedData[ p["category_name"] ][ p["group_name"] ].push(obj)
                         }
-    
+
                     }
                 }
             }
@@ -1663,10 +1663,10 @@ function decodeUplink(input) {
             decodedData = Object.assign(decodedData, decodedData[""])  // this will take care of it
             delete decodedData[""]
         }
-    
+
         return flat ? flattenObject(decodedData) : decodedData;
     }
-    
+
     function stringifyBytes(bytes){
         var stringBytes = "["
         for (var i = 0; i < bytes.length; i++){
@@ -1678,12 +1678,12 @@ function decodeUplink(input) {
             stringBytes+= byte
         }
         stringBytes+="]"
-    
+
         return stringBytes
     }
-    
-    
-    
+
+
+
     return {
             data: decode(sensor, input.bytes, input.fPort, false),
             warnings: [],

@@ -1,4 +1,4 @@
-name: Temperature & Humidity Sensor
+name: EM320-TH - Temperature & Humidity Sensor
 description: EM320-TH is a LoRaWAN®-based device for precise temperature and humidity monitoring.
 
 hardwareVersions:

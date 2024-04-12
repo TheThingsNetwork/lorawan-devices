@@ -1,5 +1,12 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - tx-pulse-600 # look in tx-pulse-600.yaml for the end device definition
+  - tx-pulse-600
+  - tx-trh-amb-600-021
+  - tx-amb-600-023
+  - tx-temp-600-031
+  - tx-temp-cont1-600-032
+  - tx-temp-cont2-600-034
+  - tx-pulse-atex-600-037
+  - tx-temp-cont2-600-232
+  - tx-analog-600-035
+  - tx-pulse-led-600-038
+  - tx-contact-600-039

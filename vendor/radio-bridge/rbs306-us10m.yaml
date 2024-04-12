@@ -1,5 +1,5 @@
-name: rbs306-us10m
-description: radio-bridge door window sensor
+name: RBS306-US10M - Ultrasonic Level Sensor
+description: The ultrasonic level sensor provides high accuracy ultrasonic proximity detection and ranging in air. The Outdoor/Industrial enclosure makes the sensor suitable for outdoor and industrial use.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -21,4 +21,4 @@ firmwareVersions:
         codec: rbs306-us10m-codec
 # Photos
 photos:
-  main: rbs306-us10m.jpg
+  main: rbs306-us10m.png
