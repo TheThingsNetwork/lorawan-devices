@@ -29,6 +29,7 @@ while true; do
     fi
 done
 
+# Check if index exists
 while true; do
     if [ -e "index.yaml" ]; then
         break
@@ -57,6 +58,8 @@ with dashes and between 3 and 36 characters.\n${NC}"
     fi
   done
 
+  awk "/endDevices:/{print;print \"  - $devicename\";next}1" index.yaml > temp_index.yaml && mv temp_index.yaml index.yaml
+
   while true; do
     echo -e "${BLUE}What is the description of device $i? (${RED}required${BLUE}):${NC}"
     read devicedescription
@@ -66,8 +69,6 @@ with dashes and between 3 and 36 characters.\n${NC}"
         echo -e "${RED}Invalid input. Please enter at least one character.\n${NC}"
     fi
   done
-
-  echo "  - $devicename" >> index.yaml
 
   echo "name: $devicename
 description: $devicedescription
@@ -126,7 +127,7 @@ for ((j=1; j<=profile_count; j++)); do
     fi
 done
 
-# Now you have the selected profiles in selected_profiles array, you can use them to generate the device file
+# When all profiles are selected, iterate over all of them to add profile.
 for index in "${selected_indexes[@]}"; do
   profile="${profile_names[$index]}"
   base_freq="${profile_base_freqs[$index]}"
