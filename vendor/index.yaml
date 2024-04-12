@@ -1011,7 +1011,7 @@ vendors:
     name: Cavagna Group SPA
     vendorID: 604
 
-  - id: jsc-axioma
+  - id: axioma
     name: JSC Axioma Metering
     vendorID: 605
 
@@ -1951,7 +1951,7 @@ vendors:
 
   - id: cital
     name: Cital
-    website: https://www.cital.ch/
+    website: https://www.cital.io
     logo: cital-logo.svg
     social:
       linkedin: https://www.linkedin.com/company/getcital/
@@ -2052,3 +2052,24 @@ vendors:
     description: Lansitec is a technology-driven company providing cutting-edge active people and asset tracking products and services. i.e., trackers, gateways and bridges, beacons and tags, and related accessories like sensors.
     logo: lansitec.png
     website: https://www.lansitec.com/
+
+  - id: redz
+    name: REDZ Smart Communication
+    description: REDZ Smart Communication Technologies is a provider for industrial coomunication devices such as LoraWAN EndNode Modems, Electricity Meter Protocol to Modbus Protocol Gateways, LoRa RF Modems, Wireless Mbus Modems, Remote IO Devices, Serial to ETH Gateways, Industrial Unmanaged Switches with or without Broadband Powerline (BPL) connection and Energy Meter Reading Optical Probes.
+    logo: redz.png
+    website: https://www.redz-sc.com
+    social:
+      linkedin: https://www.linkedin.com/in/redz-smartcommunication
+
+  - id: te-connectivity
+    name: TE Connectivity
+    description: TE Connectivity empowers engineers by designing and manufacturing sensor and connectivity solutions for our increasingly connected world. Every Connection Counts !
+    logo: te_logo.svg
+    website: https://www.te.com/
+    vendorID: 260
+    ouis: ['BCAF91']
+    social:
+      linkedin: https://www.linkedin.com/company/te-connectivity
+      facebook: https://www.facebook.com/teconnectivity
+      twitter: teconnectivity
+      github: TEConnectivity

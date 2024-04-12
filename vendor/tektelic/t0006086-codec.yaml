@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: decoder_memo.js
+  examples:
+    - description: Seconds Per Core Tick
+      input:
+        fPort: 10
+        bytes: [0x20, 0x00, 0x00, 0x00, 0x3C]
+      output:
+        data:
+          port: '10'
+          raw: '[20, 00, 00, 00, 3C]'
+          seconds_per_core_tick: 0
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_memo.js

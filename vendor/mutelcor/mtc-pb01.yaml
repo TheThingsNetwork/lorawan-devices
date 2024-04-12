@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Panic Button with Confirmation
+name: LoRa Panic Button with Confirmation
 description: The Mutelcor LoRa Panic Button with Confirmation is a LoRaWAN® emergency response device that enables users to quickly raise an alarm, notify security and to seek assistance in a matter of seconds by pressing a button. Its unique confirmation feature can indicate if the button-press has been received and acknowledged by the backend application. A physical feedback to the button press using a buzzer and LED can be configured.
 
 # Hardware versions (optional, use when you have revisions)

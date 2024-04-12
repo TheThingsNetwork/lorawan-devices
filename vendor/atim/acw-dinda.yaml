@@ -1,4 +1,4 @@
-name: acw-dinda - Analog Monitoring
+name: ACW-DINDA - Analog Monitoring
 description: The DINDA facilitates the wireless supervision of an analog signal from a 4-20 mA or 0-10V sensor.  It takes care of controlling the power supply of the sensor in order to optimize the energy consumption, it is thus particularly adapted for the isolated sites without energy.  In this case, a small solar panel or a simple battery can power the sensor and the radio transmitter.The readings are regularly transmitted on LoRaWAN networks and its configuration is configurable from the tools of the ATIM suite.
 
 # Hardware versions (optional, use when you have revisions)

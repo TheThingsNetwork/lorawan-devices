@@ -1,9 +1,26 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - bvs # ball valve servo
-  - wwd # water sensor
-  - aqs # aquascope monitor
-  - kfr # gate valve servo
-
+  - bvs
+  - wwd
+  - aqs
+  - kfr
+profileIDs:
+  '13':
+    endDeviceID: 'bvs'
+    firmwareVersion: '2.52'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '14':
+    endDeviceID: 'wwd'
+    firmwareVersion: '2.52'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '15':
+    endDeviceID: 'kfr'
+    firmwareVersion: '1.36'
+    hardwareVersion: '1.0'
+    region: 'US902-928'
+  '16':
+    endDeviceID: 'aqs'
+    firmwareVersion: '220110'
+    hardwareVersion: '1.0'
+    region: 'US902-928'

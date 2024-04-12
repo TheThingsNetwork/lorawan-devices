@@ -1,4 +1,4 @@
-name: Wind Sensor
+name: Wind Sensor # Device name can not contain the vendor name
 description: Wind Sensor with controllable LED
 
 # Hardware versions (optional, use when you have revisions)
@@ -80,7 +80,7 @@ additionalRadios:
   - cellular
 
 # Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog, ethernet.
 bridgeInterfaces:
   - m-bus
   - rs-485
@@ -121,7 +121,7 @@ keyProvisioning:
   - join server
 
 # Key programming (optional)
-# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 keyProgramming:
   - serial
@@ -132,7 +132,7 @@ keyProgramming:
 keySecurity: none
 
 # Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
@@ -141,11 +141,15 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 productURL: https://example.org/wind-sensor
 dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/windsensor
 
 # Commercial information
 resellerURLs:
   - name: 'Reseller 1'
-    region:
+    region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
+      # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
       - European Union
     url: https://example.org/reseller1
   - name: 'Reseller 2'

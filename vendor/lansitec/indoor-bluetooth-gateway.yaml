@@ -1,4 +1,4 @@
-name: Lansitec Indoor Bluetooth Gateway
+name: Indoor Bluetooth Gateway
 description: Lansitec Indoor Bluetooth gateway is based on Bluetooth 5.0 technology and LoRaWAN. It receives nearby Bluetooth beacon messages and transmits them to the server through LoRaWAN. With LoRaWAN technology, there is no network usage fee for long-distance transmission.
 
 # Hardware versions (optional, use when you have revisions)
