@@ -34,8 +34,11 @@ firmwareVersions:
         id: profile-cn470
         codec: r831c-codec
 
+devicetype:
+  - sensor
+  - actuator
+
 sensors:
-  - digital output
   - digital input
 
 dimensions:
