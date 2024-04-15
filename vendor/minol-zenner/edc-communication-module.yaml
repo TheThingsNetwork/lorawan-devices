@@ -27,9 +27,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: edc-communication-module-codec
 
-devicetype:
-  - sensor
-
 sensors:
   - pulse count
   - pulse frequency

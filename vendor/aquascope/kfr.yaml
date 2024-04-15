@@ -27,9 +27,6 @@ firmwareVersions:
         lorawanCertified: false
         codec: kfr-codec
 
-devicetype:
-  - actuator
-
 sensors:
   - temperature
 

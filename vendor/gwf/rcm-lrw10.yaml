@@ -11,8 +11,8 @@ firmwareVersions:
         id: rcm-lrw10-868
         lorawanCertified: true
         codec: rcm-lrw10-codec
-devicetype:
-  - converter
+bridgeInterfaces:
+  - analog
 battery:
   replaceable: false
   type: 2x A

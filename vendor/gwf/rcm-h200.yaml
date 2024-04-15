@@ -15,8 +15,8 @@ firmwareVersions:
         id: rcm-h200-915
         lorawanCertified: false
         codec: rcm-h200-codec
-devicetype:
-  - converter
+bridgeInterfaces:
+  - analog
 battery:
   replaceable: false
   type: 1x A

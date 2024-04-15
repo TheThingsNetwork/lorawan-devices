@@ -62,9 +62,9 @@ firmwareVersions:
         codec: windsensor-codec
 
 # Type of device (optional)
-# Valid values are: sensor, devboard, actuator, module, converter, coveragetest, display
+# Valid values are: devboard, module, coveragetest, display
 devicetype:
-  - sensor
+  - devboard
 
 # Sensors that this device features (optional)
 # Valid values are:

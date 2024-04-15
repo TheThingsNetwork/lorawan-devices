@@ -29,9 +29,6 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: sanisensor2-profile
 
-devicetype:
-  - sensor
-
 # Battery information (optional)
 battery:
   replaceable: true

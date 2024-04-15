@@ -21,10 +21,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: t00053xx-codec
 
-devicetype:
-  - sensor
-  - actuator
-
 sensors:
   - digital input
   - temperature

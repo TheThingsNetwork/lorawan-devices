@@ -34,14 +34,14 @@ firmwareVersions:
         lorawanCertified: false
         codec: m-bus-gateway-codec
 
-devicetype:
-  - converter
-
 # Sensors that this device features
 #sensors:
 #  - m-bus master
 #  - 8-24V DC
 #  - 230V AC
+
+bridgeInterfaces:
+  - m-bus
 
 # Additional radios that this device has
 additionalRadios:

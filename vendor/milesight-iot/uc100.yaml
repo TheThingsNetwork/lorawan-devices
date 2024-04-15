@@ -37,9 +37,6 @@ firmwareVersions:
         id: profile-ru864
         codec: uc100-codec
 
-devicetype:
-  - converter
-
 #sensors:
 # modbus channels
 
