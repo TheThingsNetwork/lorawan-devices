@@ -87,9 +87,11 @@ To use the YAML plugin correctly, you need to assign the schema to the plugin. T
 
 ```json
 {
+  // other settings go here
+
   "yaml.schemas": {
           "https://schema.thethings.network/devicerepository/1/schema": "vendor/**/*.yaml"
-      }
+  }
 }
 ```
 
