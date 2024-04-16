@@ -104,4 +104,5 @@ jobs:
       - name: Upload schema
         run: |
           aws s3 cp schema.json s3://schema.thethings.network/devicerepository/1/schema --content-type application/json
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_SCHEMA }} --paths "/devicerepository/1/schema"
+          aws s3 cp lib/payload.json s3://schema.thethings.network/devicerepository/1/payload/schema --content-type application/json
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_SCHEMA }} --paths "/devicerepository/1/*"
