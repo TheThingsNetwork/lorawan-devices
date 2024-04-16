@@ -17,7 +17,7 @@ jobs:
         with:
           go-version: '~1.22'
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
       - name: Setup Hugo
@@ -72,7 +72,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Install Node.js dependencies
@@ -96,7 +96,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ secrets.AWS_REGION }}
           role-to-assume: 'arn:aws:iam::${{ secrets.AWS_USER_ID }}:role/${{ secrets.AWS_ROLE_NAME }}'
