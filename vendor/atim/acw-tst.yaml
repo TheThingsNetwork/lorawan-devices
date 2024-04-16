@@ -37,8 +37,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: codec2
 
-devicetype:
-  - coveragetest
+devicetype: cots
 
 # Sensors that this device features (optional)
 # Valid values are:

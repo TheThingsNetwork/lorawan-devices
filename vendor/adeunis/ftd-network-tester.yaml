@@ -23,8 +23,7 @@ firmwareVersions:
         id: ftd-profile-eu868
         lorawanCertified: true
 
-devicetype:
-  - coveragetest
+devicetype: cots
 
 # Sensors that this device features (optional)
 # Valid values are:

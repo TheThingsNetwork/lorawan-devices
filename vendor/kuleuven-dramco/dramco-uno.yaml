@@ -27,8 +27,7 @@ firmwareVersions:
         lorawanCertified: true
         # No codec, Cayenne LPP is used
 
-devicetype:
-  - devboard
+devicetype: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:

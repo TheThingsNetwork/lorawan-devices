@@ -952,10 +952,7 @@
           "examples": ["In the WebFig configuration panel, the firmware version is stated in the top left (e.g RouterOS v6.47.9)"]
         },
         "devicetype": {
-          "type": "array",
-          "items": {
-            "enum": ["devboard", "module", "coveragetest", "display"]
-          }
+          "enum": ["devkit", "module", "cots"]
         },
         "sensors": {
           "type": "array",

@@ -18,8 +18,7 @@ firmwareVersions:
         lorawanCertified: false
         codec: generic-node-sensor-edition-codec
 
-devicetype:
-  - devboard
+devicetype: devkit
 
 sensors:
   - accelerometer

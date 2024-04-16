@@ -26,8 +26,7 @@ firmwareVersions:
         id: rak4631-915-profile
         lorawanCertified: false
 
-devicetype:
-  - devboard
+devicetype: devkit
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

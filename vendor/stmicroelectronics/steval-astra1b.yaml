@@ -41,8 +41,7 @@ firmwareVersions:
         id: steval-astra1b-profile-16
         lorawanCertified: false
         codec: steval-astra1b-codec
-devicetype:
-  - devboard
+devicetype: devkit
 sensors:
   - accelerometer
   - gyroscope

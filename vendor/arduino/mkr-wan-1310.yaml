@@ -50,8 +50,7 @@ firmwareVersions:
         lorawanCertified: false
         codec: mkrwan1310-codec
 
-devicetype:
-  - devboard
+devicetype: devkit
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

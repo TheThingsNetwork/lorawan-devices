@@ -38,8 +38,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: loradevelopkit-e5-codec
 
-devicetype:
-  - devboard
+devicetype: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:

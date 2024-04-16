@@ -51,8 +51,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: espeasy-codec
 
-devicetype:
-  - devboard
+devicetype: devkit
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.

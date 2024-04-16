@@ -23,8 +23,7 @@ firmwareVersions:
       KR920-923:
         id: profile-kr920-class-c-abp
 
-devicetype:
-  - module
+devicetype: module
 
 dimensions:
   width: 18

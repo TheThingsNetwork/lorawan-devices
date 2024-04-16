@@ -26,8 +26,7 @@ firmwareVersions:
       KR920-923:
         id: multi-tech-xdot-profile-kr920
 
-devicetype:
-  - module
+devicetype: module
 
 # Sensors that this device features (optional)
 # Valid values are:

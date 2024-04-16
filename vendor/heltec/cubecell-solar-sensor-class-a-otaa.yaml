@@ -29,8 +29,7 @@ firmwareVersions:
       KR920-923:
         id: profile-kr920-class-a-otaa
 
-devicetype:
-  - devboard
+devicetype: devkit
 
 dimensions:
   height: 67

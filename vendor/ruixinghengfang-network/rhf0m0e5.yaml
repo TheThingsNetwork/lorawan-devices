@@ -60,8 +60,7 @@ firmwareVersions:
         #lorawanCertified: true
         #codec:
 
-devicetype:
-  - module
+devicetype: module
 
 # Sensors that this device features (optional)
 # Valid values are:
