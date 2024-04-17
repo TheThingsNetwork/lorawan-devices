@@ -37,7 +37,7 @@ const extractData = (filePath, vendor) => {
       const name = data.name;
       const vendorname = vendorNamesMap.get(vendor) || vendor; // Fallback to the vendor ID if no name is found
       const description = data.description.replace(/"/g, "'");
-      const devicetype = data.devicetype || '';
+      const deviceType = data.devicetype || '';
       const sensors = Array.isArray(data.sensors) ? `"${data.sensors.join(', ')}"` : '';
       const imageUrl = data.photos?.main ? `"${baseUrl}/${vendor}/${data.photos.main}"` : '';
       const additionalRadios = Array.isArray(data.additionalRadios) ? `"${data.additionalRadios.join(', ')}"` : '';
@@ -77,7 +77,7 @@ const extractData = (filePath, vendor) => {
         });
       });
 
-      return `"${id}","${name}","${vendorname}","${description}",${imageUrl},${sensors},${devicetype},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
+      return `"${id}","${name}","${vendorname}","${description}",${imageUrl},${sensors},${deviceType},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
     }
   } catch (e) {
     console.error(`Failed to process ${filePath}: ${e}`);
