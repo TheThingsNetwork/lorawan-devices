@@ -63,7 +63,7 @@ firmwareVersions:
 
 # Type of device (optional)
 # Valid values are: devkit, module, cots
-devicetype: cots
+deviceType: cots
 
 # Sensors that this device features (optional)
 # Valid values are:

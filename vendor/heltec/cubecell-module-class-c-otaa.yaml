@@ -23,7 +23,7 @@ firmwareVersions:
       KR920-923:
         id: profile-kr920-class-c-otaa
 
-devicetype: module
+deviceType: module
 
 dimensions:
   width: 18

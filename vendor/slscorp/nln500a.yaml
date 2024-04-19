@@ -24,7 +24,7 @@ firmwareVersions:
       IN865-867:
         id: nln500a-profile-in865
 
-devicetype: module
+deviceType: module
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

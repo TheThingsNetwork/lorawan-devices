@@ -37,7 +37,7 @@ const extractData = (filePath, vendor) => {
       const name = data.name;
       const vendorname = vendorNamesMap.get(vendor) || vendor; // Fallback to the vendor ID if no name is found
       const description = data.description.replace(/"/g, "'");
-      const deviceType = data.devicetype || '';
+      const deviceType = data.deviceType || '';
       const sensors = Array.isArray(data.sensors) ? `"${data.sensors.join(', ')}"` : '';
       const imageUrl = data.photos?.main ? `"${baseUrl}/${vendor}/${data.photos.main}"` : '';
       const additionalRadios = Array.isArray(data.additionalRadios) ? `"${data.additionalRadios.join(', ')}"` : '';

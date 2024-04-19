@@ -115,7 +115,7 @@ firmwareVersions:
         id: nucleo-wl55jc-profile-16-lw104
         lorawanCertified: false
         codec: nucleo-wl55jc-codec
-devicetype: devkit
+deviceType: devkit
 sensors:
   - light
   - pressure

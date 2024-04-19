@@ -63,7 +63,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: loramodule-e5-codec
 
-devicetype: module
+deviceType: module
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

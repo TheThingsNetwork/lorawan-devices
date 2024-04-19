@@ -46,7 +46,7 @@ firmwareVersions:
         lorawanCertified: false
         codec: codec-catena-generic
 
-devicetype: devkit
+deviceType: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:

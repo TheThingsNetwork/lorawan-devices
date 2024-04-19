@@ -40,7 +40,7 @@ firmwareVersions:
         id: abeeway-geolocation-module-profile
         lorawanCertified: true
 
-devicetype: module
+deviceType: module
 
 # Sensors that this device features (optional)
 # Valid values are:
