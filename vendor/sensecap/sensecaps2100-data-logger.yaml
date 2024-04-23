@@ -1,4 +1,4 @@
-name: SenseCAP S2100 LoRaWAN® Data Logger
+name: S2100 LoRaWAN® Data Logger
 description: SenseCAP S2100 LoRaWAN® Data Logger is an easy-to-deploy, industrial-grade LoRaWAN® sensor hub that can support 100+ industrial sensors including various sensor types such as 0~5V / 4~20mA / RS485.
 
 # Hardware versions (optional, use when you have revisions)
@@ -91,6 +91,9 @@ keySecurity: none
 # Product and data sheet URLs (optional)
 productURL: https://www.seeedstudio.com/SenseCAP-S2100-LoRaWAN-Data-Logger-p-5361.html
 dataSheetURL: https://files.seeedstudio.com/products/114992867/SenseCAP%20S210X%20LoRaWAN%20Sensor%20Catalogue.pdf
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/seeed-s210x/
 
 # Commercial information
 resellerURLs:

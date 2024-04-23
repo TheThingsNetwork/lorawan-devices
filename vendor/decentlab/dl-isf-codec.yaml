@@ -1,0 +1,161 @@
+uplinkDecoder:
+  fileName: dl-isf.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x3d,
+            0x01,
+            0x00,
+            0x03,
+            0x0c,
+            0x29,
+            0x0b,
+            0xab,
+            0x0c,
+            0x3e,
+            0x79,
+            0x70,
+            0x7a,
+            0x1d,
+            0x78,
+            0x43,
+            0x79,
+            0x91,
+            0x49,
+            0x08,
+            0x45,
+            0x99,
+            0x7e,
+            0x4c,
+            0xac,
+            0xde,
+            0xaa,
+            0x6e,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x45,
+            0x7e,
+            0x41,
+            0x5a,
+            0x0b,
+            0x59,
+          ]
+      output:
+        data:
+          alpha_inner:
+            displayName: Alpha (inner)
+            value: 0.00352
+          alpha_outer:
+            displayName: Alpha (outer)
+            value: -0.05184
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.905
+          beta_inner:
+            displayName: Beta (inner)
+            value: -0.04128
+          beta_outer:
+            displayName: Beta (outer)
+            value: -0.14816
+          device_id: 15617
+          diagnostic:
+            displayName: Diagnostic
+            value: 0
+          heat_velocity_inner:
+            displayName: Heat velocity (inner)
+            unit: "cm\u22C5h\u207B\xB9"
+            value: 0.144
+          heat_velocity_outer:
+            displayName: Heat velocity (outer)
+            unit: "cm\u22C5h\u207B\xB9"
+            value: -2.208
+          max_voltage:
+            displayName: Max voltage
+            unit: V
+            value: 11.486
+          min_voltage:
+            displayName: Min voltage
+            unit: V
+            value: 10.862
+          protocol_version: 2
+          sap_flow:
+            displayName: Sap flow
+            unit: "l\u22C5h\u207B\xB9"
+            value: -0.192
+          temperature_outer:
+            displayName: Temperature (outer)
+            unit: "\xB0C"
+            value: -4.36
+          tmax_inner:
+            displayName: Tmax (inner)
+            unit: s
+            value: 35.634
+          tmax_outer:
+            displayName: Tmax (outer)
+            unit: s
+            value: 37.392
+          upstream_tmax_inner:
+            displayName: Upstream Tmax (inner)
+            unit: s
+            value: 33.46
+          upstream_tmax_outer:
+            displayName: Upstream Tmax (outer)
+            unit: s
+            value: 35.58
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x3d, 0x01, 0x00, 0x02, 0x0b, 0x59]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.905
+          device_id: 15617
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

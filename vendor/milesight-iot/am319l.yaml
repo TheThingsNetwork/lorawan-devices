@@ -1,0 +1,97 @@
+name: Milesight AM319L-LoRaWAN Indoor Air Quality Sensor (9 in 1)
+description: Milesight AM309 collects various indoor ambience conditions through 9 built-in sensors and delivers the data to the mobile App and its 4.2-inch E-ink screen. It supports batteries or DC power supply and can be easily equipped via NFC. It features a tri-color LED indicator, anti-theft design, and emoticon indication. AM307 is widely used for offices, stores, classrooms, hospitals, etc.
+
+hardwareVersions:
+  - version: '1.x'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - '1.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: am319l-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: am319l-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: am319l-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: am319l-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: am319l-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: am319l-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: am319l-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: am319l-codec
+
+sensors:
+  - temperature
+  - humidity
+  - co2
+  - tvoc
+  - pressure
+  - pir
+  - light
+  - pm2.5
+  - pm10
+  # hcho
+  - o3
+
+dimensions:
+  width: 22
+  length: 100.8
+  height: 114
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+
+  relativeHumidity:
+    min: 0.1
+    max: 0.9
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/sensor/am300/?utm_source=platform&utm_medium=web&utm_campaign=milesight
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/am300-series-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.alibaba.com/product-detail/Milesight-AM319-LoRaWAN-Sensor-indoor-ambience_1600336362534.html?spm=a2700.galleryofferlist.normal_offer.d_title.c54f1672nliIa5
+
+photos:
+  main: am319l.png
+  other:
+    - am319l.png
+
+videos:
+  main: https://youtu.be/ax-kQnPY3PA

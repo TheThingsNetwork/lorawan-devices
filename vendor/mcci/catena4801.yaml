@@ -1,4 +1,4 @@
-name: MCCI Catena® 4801 Modbus Node
+name: Catena® 4801 Modbus Node
 description: The MCCI Catena® 4801 RS-485 Node for LoRaWAN® technology networks is a complete open-source single-board IoT device that can monitor and control remote Modbus, M-Bus and other industrial devices. It also allows connecting external sensors. Based on the Murata CMWX1ZZABZ-078, the Catena 4801 is a great platform for RS-485/Modbus based LoRaWAN investigation and deployment.
 
 # Hardware versions (optional, used for revisions)

@@ -1,4 +1,4 @@
-name: Breath
+name: Breath - Indoor Air Quality Sensor
 description: The Adeunis Breath has several functions (PM1, PM2.5, PM10 and VOCT, alert button, dry contact input) optimising comfort, and ensuring the health of occupants.
 
 # Hardware versions (optional, use when you have revisions)
@@ -34,6 +34,8 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - tvoc
+  - pm2.5
+  - pm10
 
 # Dimensions use width, height, length and/or diameter
 dimensions:

@@ -1,4 +1,4 @@
-name: KLAX
+name: KLAX - Electricity Meter Reader
 description: The KLAX is a LoRaWAN® device that has an optohead for recording the infrared interface of modern electricity meters.
 
 hardwareVersions:

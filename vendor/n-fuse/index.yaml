@@ -1,0 +1,4 @@
+endDevices:
+  - sta # Button Action device # CR2430 Battery. RG LEDs. MCU Temperature. Button.
+  - ste # Environment   device # CR2430 Battery. RG LEDs. BME680 (Humid/Temp/AQI) sensor.
+  - stx # Multi-sensor  device # CR2430 Battery. RG LEDs. HDC2080 (Humid/Temp), SFH7776 (Light), BMA400 (Acceleration) sensors.

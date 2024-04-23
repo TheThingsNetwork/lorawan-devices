@@ -1,4 +1,4 @@
-name: MERLIN 868 HB-G3
+name: MERLIN 868 HB-G3 - Water Meter
 description: The Merlin 868 HB-G3 LoRaWAN® module consists of a pulse/hall effect sensor that is suitable for both the volume meters and the S220. The module communicates with both the LoRaWAN and the Sigfox network.
 
 # Hardware versions (optional, use when you have revisions)

@@ -118,12 +118,12 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.cital.ch/anwendungen/cital-soil-sensor/
+productURL: https://www.cital.io
 dataSheetURL: https://valenco.atlassian.net/wiki/external/330530817/NTMzZWQwOWRlNjEwNDAyMmJlMDkwYzE3MGFmY2YwMDM?atlOrigin=eyJpIjoiNDU0YTQ3ZTBlMTEwNDNlM2JlNmNjNGE0ZjkxZDU5YzEiLCJwIjoiYyJ9
 
 # Photos
 photos:
-  main: lorasoil.jpg
+  main: lorasoil.png
   other:
     - lorasoil_installation_1.jpg
     - lorasoil_installation_2.jpg

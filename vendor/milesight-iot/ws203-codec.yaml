@@ -1,0 +1,16 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: ws203.js
+  examples:
+    - description: Motion&TH Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x67, 0x34, 0x01, 0x04, 0x68, 0x65, 0x05, 0x00, 0x00]
+
+      output:
+        data:
+          battery: 100
+          humidity: 50.5
+          occupancy: vacant
+          temperature: 30.8

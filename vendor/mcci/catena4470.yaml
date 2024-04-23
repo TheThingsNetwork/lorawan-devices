@@ -1,4 +1,4 @@
-name: MCCI Catena® 4470 Node with Modbus
+name: Catena® 4470 Node with Modbus
 description: The MCCI Catena® 4470 Node with Modbus for LoRaWAN® technology is a powerful open-source IoT device that consists of temperature, humidity, pressure, and lux sensors and also allows it to connect various external sensors. It is designed specifically to integrate Modbus control with The Things Network. It is based on the Adafruit Feather M0. The Catena 4470 Node with Modbus is a ready-to-use platform for LoRaWAN 1.0.2 and 1.1 wireless IoT applications.
 
 # Hardware versions (optional, used for revisions)

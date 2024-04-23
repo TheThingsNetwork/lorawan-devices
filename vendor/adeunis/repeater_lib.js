@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,24 +21,25 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
-    if ((a & 0x80000000) > 0) {
-        return a - 0x10000000;
-    }
-    return a;
+    return (buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3];
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -142,18 +143,17 @@ var codec;
             switch (payload.length) {
                 case 4:
                     appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
-                        && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
                     }
                     break;
                 case 3:
                 case 5:
-                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
                     if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
                     }
                     break;
                 default:
@@ -294,10 +294,10 @@ var codec;
 (function (codec) {
     var errorCode = {
         0x00: '0x00 The action has been correctly realized',
-        0x0A: '0x0A Uplink code is invalid',
-        0x0B: '0x0B Harware error, please contact adeunis support',
-        0x0C: '0x0C Callback error',
-        0x0D: '0x0D Generic error',
+        0x0a: '0x0A Uplink code is invalid',
+        0x0b: '0x0B Harware error, please contact adeunis support',
+        0x0c: '0x0C Callback error',
+        0x0d: '0x0D Generic error',
         0x01: '0x01 White List already empty',
         0x02: '0x02 White List not erased',
         0x03: '0x03 White List is empty, repeater switch into OPERATION with “auto-record” mode',
@@ -315,25 +315,25 @@ var codec;
         0x17: '0x17 Error with S300, S303, S304 configuration',
         0x18: '0x18 Error with S306 configuration',
         0x19: '0x19 Error with S300, S306 configuration',
-        0x1A: '0x1A Error with S303, S306 configuration',
-        0x1B: '0x1B Error with S300, S303, S306 configuration',
-        0x1C: '0x1C Error with S304, S306 configuration',
-        0x1D: '0x1D Error with S300, S304, S306 configuration',
-        0x1E: '0x1E Error with S303, S304, S306 configuration',
-        0x1F: '0x1F Error with S300, S303, S304, S306 configuration'
+        0x1a: '0x1A Error with S303, S306 configuration',
+        0x1b: '0x1B Error with S300, S303, S306 configuration',
+        0x1c: '0x1C Error with S304, S306 configuration',
+        0x1d: '0x1D Error with S300, S304, S306 configuration',
+        0x1e: '0x1E Error with S303, S304, S306 configuration',
+        0x1f: '0x1F Error with S300, S303, S304, S306 configuration',
     };
     var dlCode = {
         0x01: '0x01 Suppress all IDs from White List',
         0x02: '0x02 Delete an ID from White List',
         0x03: '0x03 Add an ID into White List',
         0x05: '0x05 Freeze the list of devices repeated in auto-record mode into the White List',
-        0x04: '0x04 Modify Repeater configuration'
+        0x04: '0x04 Modify Repeater configuration',
     };
     var RepeaterHelper = (function () {
         function RepeaterHelper() {
         }
         RepeaterHelper.hex2bin = function (hex) {
-            return (parseInt(hex, 16).toString(2)).padStart(8, '0');
+            return parseInt(hex, 16).toString(2).padStart(8, '0');
         };
         RepeaterHelper.getUPStatusFromPayload = function (payload, appContent) {
             var byte = payload[1];
@@ -348,7 +348,7 @@ var codec;
             var hexLb = payload.readUInt8(1).toString(16);
             var binLb = RepeaterHelper.hex2bin(hexLb);
             var bitLb = binLb[binLb.length - 1];
-            appContent['lowBattery'] = (bitLb === '1') ? true : false;
+            appContent['lowBattery'] = bitLb === '1' ? true : false;
             return appContent;
         };
         RepeaterHelper.getDownlinkDescriptionForCode = function (code) {
@@ -380,7 +380,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -463,9 +463,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }

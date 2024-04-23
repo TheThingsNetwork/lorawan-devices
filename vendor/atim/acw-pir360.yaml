@@ -1,4 +1,4 @@
-name: acw-pir360
+name: ACW-PIR360 - 360° Indoor Ceiling Motion Sensor
 description: The PIR range facilitates the monitoring of sites thanks to its alarm and counting detection modes. The alerts are transmitted on LoRaWAN networks and its configuration is configurable from the tools of the ATIM suite.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

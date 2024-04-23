@@ -79,6 +79,47 @@
           "items": {
             "$ref": "#/definitions/identifier"
           }
+        },
+        "profileIDs": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "endDeviceID": {
+                      "$ref": "#/definitions/identifier"
+                    },
+                    "hardwareVersion": {
+                      "type": "string"
+                    },
+                    "firmwareVersion": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "region": {
+                      "$ref": "#/definitions/region"
+                    }
+                  },
+                  "required": ["endDeviceID", "hardwareVersion", "firmwareVersion", "region"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "$ref": "#/definitions/identifier"
+                    },
+                    "codec": {
+                      "$ref": "#/definitions/identifier"
+                    }
+                  },
+                  "required": ["id", "codec"]
+                }
+              ]
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
@@ -547,7 +588,6 @@
       "type": "object",
       "examples": [
         {
-          "vendorProfileID": 1,
           "supportsClassB": false,
           "supportsClassC": false,
           "macVersion": "1.0.2",
@@ -557,7 +597,6 @@
           "supports32bitFCnt": true
         },
         {
-          "vendorProfileID": 2,
           "supportsClassB": false,
           "supportsClassC": false,
           "macVersion": "1.0.4",
@@ -573,12 +612,6 @@
         }
       ],
       "properties": {
-        "vendorProfileID": {
-          "type": "integer",
-          "description": "VendorProfileID managed by the vendor, as defined in TR005",
-          "minimum": 0,
-          "maximum": 65535
-        },
         "supportsClassB": {
           "type": "boolean",
           "description": "End device supports class B"
@@ -972,6 +1005,7 @@
               "radar",
               "rainfall",
               "rssi",
+              "sap flow",
               "smart valve",
               "snr",
               "so2",
@@ -1007,7 +1041,7 @@
         "bridgeInterfaces": {
           "type": "array",
           "items": {
-            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog"]
+            "enum": ["modbus", "m-bus", "can bus", "rs-485", "sdi-12", "analog", "ethernet"]
           },
           "uniqueItems": true
         },
@@ -1109,7 +1143,7 @@
         "keyProgramming": {
           "type": "array",
           "items": {
-            "enum": ["bluetooth", "nfc", "wifi", "serial", "firmware"]
+            "enum": ["bluetooth", "nfc", "wifi", "ethernet", "serial", "firmware"]
           },
           "uniqueItems": true
         },
@@ -1119,7 +1153,7 @@
         "firmwareProgramming": {
           "type": "array",
           "items": {
-            "enum": ["serial", "fuota lorawan", "fuota other"]
+            "enum": ["serial", "ethernet", "fuota lorawan", "fuota other"]
           },
           "uniqueItems": true
         },
@@ -1128,6 +1162,10 @@
           "format": "uri"
         },
         "dataSheetURL": {
+          "type": "string",
+          "format": "uri"
+        },
+        "onboardingGuideURL": {
           "type": "string",
           "format": "uri"
         },
