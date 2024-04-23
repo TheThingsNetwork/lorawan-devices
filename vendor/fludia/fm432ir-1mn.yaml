@@ -91,7 +91,7 @@ weight: 18
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium AA 3.6V
+  type: Lithium A 3.6V
 
 # Operating conditions (optional)
 # operatingConditions:
