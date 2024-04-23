@@ -83,6 +83,18 @@ The YAML plugin supports you with filling out the document. When hitting Ctrl + 
 
 ![Validation in Visual Studio Code](./doc/vs-code-validation.png)
 
+To use the YAML plugin correctly, you need to assign the schema to the plugin. To do this, open the command palette (**Shift+Command+P** on Mac or **Ctrl+Shift+P** for Windows/Linux) and search for **Preferences: Open Workspace Settings (JSON)**. Then add the following lines:
+
+```json
+{
+  // other settings go here
+
+  "yaml.schemas": {
+          "https://schema.thethings.network/devicerepository/1/schema": "vendor/**/*.yaml"
+  }
+}
+```
+
 ## Files and Directories
 
 There are six file types in the Device Repository:
