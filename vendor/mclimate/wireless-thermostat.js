@@ -21,11 +21,19 @@ function decodeUplink(input) {
             var temperature = temperatureValue;
             var humidity = humidityValue;
             var batteryVoltage = parseInt(`${decbin(bytes[4])}${decbin(bytes[5])}`, 2)/1000;
-            var targetTemperature = bytes[6];
-            var powerSourceStatus = bytes[7];
-            var lux = parseInt('0' + bytes[8].toString(16) + bytes[9].toString(16), 16);
-            var pir = toBool(bytes[10]);
-            
+            var targetTemperature, powerSourceStatus, lux, pir;
+        if(bytes[0] == 1){
+            targetTemperature = bytes[6];
+            powerSourceStatus = bytes[7];
+            lux = parseInt('0' + bytes[8].toString(16) + bytes[9].toString(16), 16);
+            pir = toBool(bytes[10]);
+        }else{
+            targetTemperature = parseInt(`${decbin(bytes[6])}${decbin(bytes[7])}`, 2)/10;
+            powerSourceStatus = bytes[8];
+            lux = parseInt('0' + bytes[9].toString(16) + bytes[10].toString(16), 16);
+            pir = toBool(bytes[11]);
+        }
+
             data.sensorTemperature = Number(temperature.toFixed(2));
             data.relativeHumidity = Number(humidity.toFixed(2));
             data.batteryVoltage = Number(batteryVoltage.toFixed(3));
@@ -37,11 +45,11 @@ function decodeUplink(input) {
             return data;
         }
     
-        function handleResponse(bytes, data){
+        function handleResponse(bytes, data, keepaliveLength){
         var commands = bytes.map(function(byte){
             return ("0" + byte.toString(16)).substr(-2); 
         });
-        commands = commands.slice(0,-11);
+        commands = commands.slice(0,-keepaliveLength);
         var command_len = 0;
     
         commands.map(function (command, i) {
@@ -66,6 +74,12 @@ function decodeUplink(input) {
                         data.childLock = toBool(parseInt(commands[i + 1], 16)) ;
                     }
                 break;
+                case '15':
+                    {
+                        command_len = 2;
+                        data.temperatureRangeSettings = { min: parseInt(commands[i + 1], 16), max: parseInt(commands[i + 2], 16) };
+                    }
+                    break;
                 case '19':
                     {
                         command_len = 1;
@@ -185,6 +199,30 @@ function decodeUplink(input) {
                         data.pirBlindPeriod = parseInt(commands[i + 1], 16) ;
                     }
                 break;
+                case '4f':
+                    {
+                        command_len = 1;
+                        data.temperatureHysteresis = parseInt(commands[i + 1], 16)/10 ;
+                    }
+                break;
+                case '51':
+                    {
+                        command_len = 2;
+                        data.targetTemperature = parseInt(`0x${commands[i + 1]}${commands[i + 2]}`, 16)/10  ;
+                    }
+                break;
+                case '53':
+                    {
+                        command_len = 1;
+                        data.targetTemperatureStep = parseInt(commands[i + 1], 16) / 10;
+                    }
+                break;
+                case '54':
+                    {
+                        command_len = 2;
+                        data.manualTargetTemperatureUpdate = parseInt(`0x${commands[i + 1]}${commands[i + 2]}`, 16)/10;
+                    }
+                break;
                 case 'a0':
                     {
                         command_len = 4;
@@ -193,7 +231,6 @@ function decodeUplink(input) {
                         data.fuota = { fuota_address, fuota_address_raw };
                     }
                 break;
-                
                 default:
                     break;
             }
@@ -201,11 +238,14 @@ function decodeUplink(input) {
         });
         return data;
         }
-        if (bytes[0] == 1) {
+        if (bytes[0] == 1|| bytes[0] == 129) {
             data = handleKeepalive(bytes, data);
         }else{
-            data = handleResponse(bytes,data);
-            bytes = bytes.slice(-11);
+            var keepaliveLength = 12;
+            var potentialKeepAlive = bytes.slice(-12/2);
+            if(potentialKeepAlive[0] == "81") keepaliveLength = 12;
+            data = handleResponse(bytes,data, keepaliveLength);
+            bytes = bytes.slice(-keepaliveLength);
             data = handleKeepalive(bytes, data);
         }
         return {data: data};
