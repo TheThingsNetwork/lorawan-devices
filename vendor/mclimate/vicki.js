@@ -41,6 +41,7 @@ function decodeUplink(input) {
         calibrationFailed = byte8Bin[1];
         attachedBackplate = byte8Bin[2];
         perceiveAsOnline = byte8Bin[3];
+        antiFreezeProtection = byte8Bin[4];
 
         var sensorTemp = 0;
         if (Number(bytes[0].toString(16))  == 1) {
@@ -65,6 +66,11 @@ function decodeUplink(input) {
         data.calibrationFailed = toBool(calibrationFailed);
         data.attachedBackplate = toBool(attachedBackplate);
         data.perceiveAsOnline = toBool(perceiveAsOnline);
+        data.antiFreezeProtection = toBool(antiFreezeProtection);
+        data.motorOpenness = Math.round((1-(motorPosition/motorRange))*100);
+        if(!data.hasOwnProperty('targetTemperatureFloat')){
+            data.targetTemperatureFloat =  bytes[1].toFixed(2);
+        }
         return data;
     }
    
@@ -291,13 +297,44 @@ function decodeUplink(input) {
                         resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
-                case 'a0':
+                case '4a':
                     {
-                        command_len = 4;
-                        var fuota_address = parseInt(`${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}${commands[i + 4]}`, 16)
-                        var fuota_address_raw = `${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}${commands[i + 4]}`
-                        var fuotaData = { fuota: { fuota_address, fuota_address_raw } };
-                        resultToPass = merge_obj(resultToPass, fuotaData);
+                        command_len = 3;
+                        var activatedTemperature = parseInt(commands[i + 1], 16)/10;
+                        var deactivatedTemperature = parseInt(commands[i + 2], 16)/10;
+                        var targetTemperature = parseInt(commands[i + 3], 16);
+
+                        var data = { antiFreezeParams: { activatedTemperature, deactivatedTemperature, targetTemperature } };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '4d':
+                    {
+                        command_len = 2;
+                        var data = { maxAllowedIntegralValue : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '50':
+                    {
+                        command_len = 2;
+                        var data = { valveOpennessRangeInPercentage: { min: parseInt(commands[i + 1], 16), max: parseInt(commands[i + 2], 16) } };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '52':
+                    {
+                        command_len = 2;
+                        var data = { targetTemperatureFloat : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '54':
+                    {
+                        command_len = 1;
+                        var offset =  (parseInt(commands[i + 1], 16) - 28) * 0.176
+                        var data = { temperatureOffset : offset };
+                        resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
                 default:
