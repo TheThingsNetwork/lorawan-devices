@@ -22,3 +22,6 @@ uplinkDecoder:
           attachedBackplate: false
           calibrationFailed: false
           perceiveAsOnline: false
+          antiFreezeProtection: false
+          motorOpenness: 17
+          targetTemperatureFloat: '29.00'
