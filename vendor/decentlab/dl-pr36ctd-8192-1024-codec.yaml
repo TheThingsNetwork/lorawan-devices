@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: dl-pr36ctd-8192.js
+  fileName: dl-pr36ctd-8192-1024.js
   examples:
     - description: Example 1
       input:

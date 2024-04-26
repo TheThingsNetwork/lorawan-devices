@@ -5,7 +5,8 @@ var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
   /* device-specific parameters */
   PARAMETERS: {
-    kp: 8192
+    kp: 8192,
+    kec: 1024
   },
   SENSORS: [
     {length: 4,
@@ -23,7 +24,7 @@ var decentlab_decoder = {
                unit: '°C'},
               {name: 'electrical_conductivity',
                displayName: 'Electrical conductivity',
-               convert: function (x) { return (x[3] - 32768) / 1024; },
+               convert: function (x) { return (x[3] - 32768) / this.PARAMETERS.kec; },
                unit: 'mS⋅cm⁻¹'}]},
     {length: 1,
      values: [{name: 'battery_voltage',
