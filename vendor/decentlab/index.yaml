@@ -1,5 +1,6 @@
 endDevices:
   - dl-5tm
+  - dl-alb
   - dl-atm22
   - dl-atm41
   - dl-blg

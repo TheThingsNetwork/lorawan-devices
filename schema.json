@@ -957,6 +957,7 @@
             "enum": [
               "4-20 ma",
               "accelerometer",
+              "albedo",
               "altitude",
               "analog input",
               "auxiliary",
