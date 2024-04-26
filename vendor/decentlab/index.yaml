@@ -28,6 +28,7 @@ endDevices:
   - dl-lpw
   - dl-lws
   - dl-mbx
+  - dl-mes5
   - dl-ntu
   - dl-optod
   - dl-par
