@@ -1,0 +1,19 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: ws558.js
+  examples:
+    - description: Light Controller (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x03, 0x74, 0xB2, 0x08]
+      output:
+        data:
+          voltage: 222.6
+
+    - description: Light Controller (example 2) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x06, 0x83, 0x56, 0x04, 0x00, 0x00]
+      output:
+        data:
+          power_consumption: 1110

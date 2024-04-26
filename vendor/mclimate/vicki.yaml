@@ -1,4 +1,4 @@
-name: MClimate Vicki - Smart Radiator Thermostat
+name: Vicki - Smart Radiator Thermostat
 description: The MClimate Vicki is a smart radiator thermostat valve that contains a temperature and humidity sensor allowing for temperature control and monitoring temperature and humidity from distance through a LoRaWAN® network. Manual target temperature selection is possible by rotating the outer ring of the device. The target temperature is displayed on the device.
 
 # Hardware versions (optional, use when you have revisions)
@@ -57,6 +57,21 @@ firmwareVersions:
         codec: vicki-codec
   - # Firmware version
     version: '4.2'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.6'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vicki-profile
+        lorawanCertified: true
+        codec: vicki-codec
+  - # Firmware version
+    version: '4.3'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:

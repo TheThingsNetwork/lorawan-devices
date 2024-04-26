@@ -1,4 +1,4 @@
-name: R726 Series & RA07 Series
+name: R726 Series & RA07 Series - Air Quality Sensors
 
 hardwareVersions:
   - version: '4'
@@ -54,4 +54,4 @@ productURL: http://www.netvox.com.tw/product.asp?pro=R72615
 dataSheetURL: http://www.netvox.com.tw/um/R72615/R72615datasheet.pdf
 
 photos:
-  main: photos/r72615.jpg
+  main: photos/r726xx.jpg

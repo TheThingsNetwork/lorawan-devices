@@ -14,6 +14,7 @@ uplinkDecoder:
           statusChange: 1
           lux: 251
           keepAlive: 0
+
     - description: Unknown FPort
       input:
         fPort: 42

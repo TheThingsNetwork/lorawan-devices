@@ -2,7 +2,7 @@
 
 {{ $siteUrl := .Site.BaseURL }}
 
-<section class="device-single" >
+<section class="device-single">
   <div class="grid">
     <div class="item-6 item-start-4 item-xs-12 item-start-xs-1">
       {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
@@ -21,12 +21,13 @@
     <div class="item-12">
       <div class="device-single__cta">
         {{ with (index .Params.resellerURLs 0) }}
-            <a href="{{ .url }}" class="ttui-btn ttui-btn--primary">Buy Device</a>
+        <a href="{{ .url }}" class="ttui-btn ttui-btn--primary">Buy Device</a>
         {{ end }}
         {{with .Params.producturl}}
-          <a href="{{ . }}" class="ttui-btn ttui-btn--primary">Partner Webpage</a>
+        <a href="{{ . }}" class="ttui-btn ttui-btn--primary">Partner Webpage</a>
         {{ end }}
-        <a href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{.Params.name}}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{.Params.Vendor.Name}}." class="ttui-btn ttui-btn--primary" id="partner-toggle">Contact Partner</a>
+        <a href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{.Params.name}}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{.Params.Vendor.Name}}."
+          class="ttui-btn ttui-btn--primary" id="partner-toggle">Contact Partner</a>
       </div>
     </div>
     <div class="item-12">
@@ -37,20 +38,24 @@
           </div>
           <div class="item-6 item-xs-12">
             <ul>
-              {{with .Params.sensors}} <li><b>Sensors:</b> {{ range . }} <a href="{{ $siteUrl }}/tags/{{  lower . | replaceRE ` ` `-` }}">{{ . }}</a> {{ end }}</li>{{ end }}
-              {{with .Params.ipcode}}<li><b>Enclosure:</b> <a href="{{ $siteUrl }}/tags/{{ lower . }}">{{ . }}</a></li>{{ end }}
+              {{with .Params.sensors}} <li><b>Sensors:</b> {{ range . }} <a
+                  href="{{ $siteUrl }}/tags/{{  lower . | replaceRE ` ` `-` }}">{{ . }}</a> {{ end }}</li>{{ end }}
+              {{with .Params.ipcode}}<li><b>Enclosure:</b> <a href="{{ $siteUrl }}/tags/{{ lower . }}">{{ . }}</a></li>
+              {{ end }}
               {{with .Params.dimensions}}
-                <li>
-                  <b>Dimensions:</b> {{ .length }} x {{ .width }} x {{ .height }} mm
-                </li>{{ end }}
+              <li>
+                <b>Dimensions:</b> {{ .length }} x {{ .width }} x {{ .height }} mm
+              </li>{{ end }}
               {{with .Params.dimensions.diameter}}<li><b>Diameter:</b> {{ . }}</li>{{ end }}
-              {{with .Params.operatingconditions.temperature}}<li><b>Temperature:</b> {{ .min }}&#176;C to {{ .max }}&#176;C</li>{{ end }}
+              {{with .Params.operatingconditions.temperature}}<li><b>Temperature:</b> {{ .min }}&#176;C to {{ .max
+                }}&#176;C</li>{{ end }}
             </ul>
           </div>
           <div class="item-6 item-xs-12">
             <ul>
-              {{with .Params.weight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
-              {{with .Params.codecs}}<li><b>Frequency plans: </b>{{ range $key, $value := . }}<a href="{{ $siteUrl }}/tags/{{ lower $key }}">{{ $key }}</a> {{ end }}</li>{{ end }}
+              {{with .Params.deviceweight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
+              {{with .Params.codecs}}<li><b>Frequency plans: </b>{{ range $key, $value := . }}<a
+                  href="{{ $siteUrl }}/tags/{{ lower $key }}">{{ $key }}</a> {{ end }}</li>{{ end }}
             </ul>
           </div>
         </div>
@@ -61,6 +66,12 @@
     </div>
   </div>
 </section>
+
+<script>
+  var config = {
+    device: JSON.parse("{{ .Params | jsonify }}")
+  }
+</script>
 
 <script src="{{- (index .Site.Data.manifest `device_single.js`) | relURL -}}"></script>
 

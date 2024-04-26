@@ -1,5 +1,4 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - smc30
   - spu20
   - spu20b

@@ -13,7 +13,7 @@ Object.prototype.readUInt8 = function (offset) {
 };
 Object.prototype.readInt16BE = function (offset) {
     var buffer = this;
-    var a = buffer[offset] << 8 | buffer[offset + 1];
+    var a = (buffer[offset] << 8) | buffer[offset + 1];
     if ((a & 0x8000) > 0) {
         return a - 0x10000;
     }
@@ -21,24 +21,25 @@ Object.prototype.readInt16BE = function (offset) {
 };
 Object.prototype.readUInt16BE = function (offset) {
     var buffer = this;
-    return buffer[offset] << 8 | buffer[offset + 1];
+    return (buffer[offset] << 8) | buffer[offset + 1];
 };
 Object.prototype.readInt32BE = function (offset) {
     var buffer = this;
-    var a = (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
-    if ((a & 0x80000000) > 0) {
-        return a - 0x10000000;
-    }
-    return a;
+    return (buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3];
 };
 Object.prototype.readUInt32BE = function (offset) {
     var buffer = this;
-    return (buffer[offset] << 24 | buffer[offset + 1] << 16 | buffer[offset + 2] << 8 | buffer[offset + 3]) >>> 0;
+    return ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+};
+Object.prototype.readFloatBE = function (offset) {
+    var buffer = this;
+    var value = ((buffer[offset] << 24) | (buffer[offset + 1] << 16) | (buffer[offset + 2] << 8) | buffer[offset + 3]) >>> 0;
+    return new Float32Array(new Uint32Array([value]).buffer)[0];
 };
 if (typeof module !== 'undefined') {
     module.exports = codec;
 }
-if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+if (typeof process !== 'undefined' && process.env['NODE_ENV'] === 'test') {
     global.codec = codec;
 }
 var codec;
@@ -142,18 +143,17 @@ var codec;
             switch (payload.length) {
                 case 4:
                     appContent['loraAdr'] = Boolean(payload[2] & 0x01);
-                    appContent['loraProvisioningMode'] = (payload[3] === 0) ? 'ABP' : 'OTAA';
-                    if (deviceType !== 'analog' && deviceType !== 'drycontacts'
-                        && deviceType !== 'pulse' && deviceType !== 'temp') {
-                        appContent['loraDutycyle'] = (payload[2] & 0x04) ? 'activated' : 'deactivated';
-                        appContent['loraClassMode'] = (payload[2] & 0x20) ? 'CLASS C' : 'CLASS A';
+                    appContent['loraProvisioningMode'] = payload[3] === 0 ? 'ABP' : 'OTAA';
+                    if (deviceType !== 'analog' && deviceType !== 'drycontacts' && deviceType !== 'pulse' && deviceType !== 'temp') {
+                        appContent['loraDutycyle'] = payload[2] & 0x04 ? 'activated' : 'deactivated';
+                        appContent['loraClassMode'] = payload[2] & 0x20 ? 'CLASS C' : 'CLASS A';
                     }
                     break;
                 case 3:
                 case 5:
-                    appContent['sigfoxRetry'] = (payload[2] & 0x03);
+                    appContent['sigfoxRetry'] = payload[2] & 0x03;
                     if (payload.length === 5) {
-                        appContent['sigfoxDownlinkPeriod'] = { 'unit': 'm', 'value': payload.readInt16BE(3) };
+                        appContent['sigfoxDownlinkPeriod'] = { unit: 'm', value: payload.readInt16BE(3) };
                     }
                     break;
                 default:
@@ -175,15 +175,15 @@ var codec;
         }
         Analog0x10Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x10 Analog configuration' };
-            var ch1 = { 'name': 'channel A' };
-            var ch2 = { 'name': 'channel B' };
+            var ch1 = { name: 'channel A' };
+            var ch2 = { name: 'channel B' };
             if (payload[8] === 2) {
-                appContent['transmissionPeriodKeepAlive'] = { 'unit': 's', 'value': payload[2] * 20 };
-                appContent['transmissionPeriodData'] = { 'unit': 's', 'value': payload[3] * 20 };
+                appContent['transmissionPeriodKeepAlive'] = { unit: 's', value: payload[2] * 20 };
+                appContent['transmissionPeriodData'] = { unit: 's', value: payload[3] * 20 };
             }
             else {
-                appContent['transmissionPeriodKeepAlive'] = { 'unit': 'm', 'value': payload[2] * 10 };
-                appContent['transmissionPeriodData'] = { 'unit': 'm', 'value': payload[3] * 10 };
+                appContent['transmissionPeriodKeepAlive'] = { unit: 'm', value: payload[2] * 10 };
+                appContent['transmissionPeriodData'] = { unit: 'm', value: payload[3] * 10 };
             }
             var debounce = this.getDebounceText(payload[5] >> 4);
             ch1['id'] = (payload[4] & 0xf0) >> 4;
@@ -191,8 +191,8 @@ var codec;
             if (payload[4] & 0x0f) {
                 ch1['threshold'] = this.getThresholdTriggeringText(payload[5] & 0x03);
                 ch1['externalTrigger'] = {
-                    'type': this.getThresholdTriggeringText((payload[5] >> 2) & 0x03),
-                    'debounceDuration': { 'unit': debounce[1], 'value': debounce[0] }
+                    type: this.getThresholdTriggeringText((payload[5] >> 2) & 0x03),
+                    debounceDuration: { unit: debounce[1], value: debounce[0] },
                 };
             }
             debounce = this.getDebounceText(payload[7] >> 4);
@@ -201,8 +201,8 @@ var codec;
             if (payload[6] & 0x0f) {
                 ch2['threshold'] = this.getThresholdTriggeringText(payload[7] & 0x03);
                 ch2['externalTrigger'] = {
-                    'type': this.getThresholdTriggeringText((payload[7] >> 2) & 0x03),
-                    'debounceDuration': { 'unit': debounce[1], 'value': debounce[0] }
+                    type: this.getThresholdTriggeringText((payload[7] >> 2) & 0x03),
+                    debounceDuration: { unit: debounce[1], value: debounce[0] },
                 };
             }
             appContent['channels'] = [ch1, ch2];
@@ -285,12 +285,12 @@ var codec;
         Analog0x11Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x11 Analog configuration' };
             appContent['threshold'] = {
-                'name': 'channel A',
-                'unit': '\u00B5' + 'V or 10 nA',
-                'high': {
-                    'value': payload.readUInt32BE(1) & 0x00ffffff,
-                    'hysteresis': payload.readUInt32BE(4) & 0x00ffffff,
-                }
+                name: 'channel A',
+                unit: '\u00B5' + 'V or 10 nA',
+                high: {
+                    value: payload.readUInt32BE(1) & 0x00ffffff,
+                    hysteresis: payload.readUInt32BE(4) & 0x00ffffff,
+                },
             };
             return appContent;
         };
@@ -308,12 +308,12 @@ var codec;
         Analog0x12Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x12 Analog configuration' };
             appContent['threshold'] = {
-                'name': 'channel A',
-                'unit': '\u00B5' + 'V or 10 nA',
-                'low': {
-                    'value': payload.readUInt32BE(1) & 0x00ffffff,
-                    'hysteresis': payload.readUInt32BE(4) & 0x00ffffff,
-                }
+                name: 'channel A',
+                unit: '\u00B5' + 'V or 10 nA',
+                low: {
+                    value: payload.readUInt32BE(1) & 0x00ffffff,
+                    hysteresis: payload.readUInt32BE(4) & 0x00ffffff,
+                },
             };
             return appContent;
         };
@@ -331,12 +331,12 @@ var codec;
         Analog0x13Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x13 Analog configuration' };
             appContent['threshold'] = {
-                'name': 'channel B',
-                'unit': '\u00B5' + 'V or 10 nA',
-                'high': {
-                    'value': payload.readUInt32BE(1) & 0x00ffffff,
-                    'hysteresis': payload.readUInt32BE(4) & 0x00ffffff,
-                }
+                name: 'channel B',
+                unit: '\u00B5' + 'V or 10 nA',
+                high: {
+                    value: payload.readUInt32BE(1) & 0x00ffffff,
+                    hysteresis: payload.readUInt32BE(4) & 0x00ffffff,
+                },
             };
             return appContent;
         };
@@ -354,12 +354,12 @@ var codec;
         Analog0x14Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x14 Analog configuration' };
             appContent['threshold'] = {
-                'name': 'channel B',
-                'unit': '\u00B5' + 'V or 10 nA',
-                'low': {
-                    'value': payload.readUInt32BE(1) & 0x00ffffff,
-                    'hysteresis': payload.readUInt32BE(4) & 0x00ffffff,
-                }
+                name: 'channel B',
+                unit: '\u00B5' + 'V or 10 nA',
+                low: {
+                    value: payload.readUInt32BE(1) & 0x00ffffff,
+                    hysteresis: payload.readUInt32BE(4) & 0x00ffffff,
+                },
             };
             return appContent;
         };
@@ -393,8 +393,8 @@ var codec;
         }
         Analog0x42Parser.prototype.parseFrame = function (payload, configuration, network) {
             var appContent = { type: '0x42 Analog data' };
-            var ch1 = { 'name': 'channel A' };
-            var ch2 = { 'name': 'channel B' };
+            var ch1 = { name: 'channel A' };
+            var ch2 = { name: 'channel B' };
             var type = payload[2] & 0x0f;
             var rawValue = payload.readUInt32BE(2) & 0x00ffffff;
             if (type === 1) {
@@ -439,9 +439,9 @@ var codec;
             var statusContent = {};
             var parser = new codec.GenericStatusByteParser();
             statusContent = parser.parseFrame(payload, configuration);
-            statusContent['alarmChannelA'] = Boolean((payload[1] & 0x08));
-            statusContent['alarmChannelB'] = Boolean((payload[1] & 0x10));
-            return { 'status': statusContent };
+            statusContent['alarmChannelA'] = Boolean(payload[1] & 0x08);
+            statusContent['alarmChannelB'] = Boolean(payload[1] & 0x10);
+            return { status: statusContent };
         };
         return AnalogStatusByteParser;
     }());
@@ -466,7 +466,7 @@ var codec;
                     partialContent = p.parseFrame(payload, configuration, 'unknown', _this.deviceType);
                 }
                 catch (error) {
-                    partialContent = { 'error': error.toString() };
+                    partialContent = { error: error.toString() };
                 }
                 return partialContent;
             });
@@ -555,9 +555,9 @@ function decodeUplink(input) {
     var decoder = new codec.Decoder();
     return {
         data: {
-            bytes: decoder.decode(input.bytes)
+            bytes: decoder.decode(input.bytes),
         },
         warnings: [],
-        errors: []
+        errors: [],
     };
 }

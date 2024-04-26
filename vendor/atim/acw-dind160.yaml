@@ -1,4 +1,4 @@
-name: acw-dind160
+name: ACW-DIND160 - Digital Monitoring
 description: The DINDxxx facilitates the reporting of up to 16 ToR output states. Readings are regularly transmitted over LoRaWAN networks and its configuration is configurable from the ATIM suite tools.
 
 # Hardware versions (optional, use when you have revisions)

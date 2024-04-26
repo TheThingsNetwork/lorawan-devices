@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Customer Feedback
+name: LoRa Customer Feedback
 description: The Mutelcor LoRa Customer Feedback is an end-to-end feedback monitoring device leveraging LoRaWAN® Technology. An easy to use device with 3 smiley-buttons which facilitates to gather, analyse and report user feedback in real time.
 
 # Hardware versions (optional, use when you have revisions)
@@ -87,7 +87,7 @@ operatingConditions:
     max: 55
 
 # IP rating (optional)
-ipCode: IP67
+ipCode: IP40
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -95,7 +95,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://mutelcor.com/lora-customer-feedback/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2023/09/MUTELCOR_Datasheet_LoRa_Customer_Feedback.pdf
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2024/04/MUTELCOR_Datasheet_LoRa_Customer_Feedback.pdf
 
 # Photos
 photos:

@@ -1,4 +1,4 @@
-name: DL-NTU
+name: DL-NTU - Infrared Turbidity Sensor
 description: The Decentlab DL-NTU is equipped with optical infrared turbidity and temperature sensors for water quality monitoring.
 
 hardwareVersions:

@@ -6,18 +6,18 @@ on:
       - master
 
 jobs:
-  release:
-    name: Release Device Repository
+  pages:
+    name: Release Pages
     runs-on: ubuntu-20.04
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-          go-version: '~1.18'
+          go-version: '~1.22'
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
       - name: Setup Hugo
@@ -29,6 +29,8 @@ jobs:
         run: |
           cd website/
           make go.deps
+      - name: Install Node.js dependencies
+        run: npm ci
       - name: Build content
         run: |
           cd website/
@@ -54,3 +56,53 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: website/public
+      - name: Make devices.csv
+        run: make devices.csv
+      - name: Sync devices.csv to airtable
+        run: |
+          curl -X POST ${{ secrets.AIRTABLE_DEVICES_API_ENDPOINT }} \
+          -H "Authorization: Bearer ${{ secrets.AIRTABLE_DEVICES_API_KEY }}" \
+          -H "Content-Type: text/csv" \
+          --data-binary "@bin/devices.csv"
+
+  csv:
+    name: Upload CSV to Airtable
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: Make devices.csv
+        run: make devices.csv
+      - name: Upload to Airtable
+        run: |
+          curl -X POST ${{ secrets.AIRTABLE_DEVICES_API_ENDPOINT }} \
+          -H "Authorization: Bearer ${{ secrets.AIRTABLE_DEVICES_API_KEY }}" \
+          -H "Content-Type: text/csv" \
+          --data-binary "@bin/devices.csv"
+
+  schema:
+    name: Upload schema
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: 'arn:aws:iam::${{ secrets.AWS_USER_ID }}:role/${{ secrets.AWS_ROLE_NAME }}'
+          role-session-name: '${{ github.job }}-${{ github.run_id }}'
+      - name: Upload schema
+        run: |
+          aws s3 cp schema.json s3://schema.thethings.network/devicerepository/1/schema --content-type application/json
+          aws s3 cp lib/payload.json s3://schema.thethings.network/devicerepository/1/payload/schema --content-type application/json
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_SCHEMA }} --paths "/devicerepository/1/*"

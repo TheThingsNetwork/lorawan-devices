@@ -84,10 +84,14 @@ function decodeUplink(input) {
 		else
 			data.Volt = input.bytes[3]/10;
 
-		if (data.Device == "R312")
-			data.Doorbell = input.bytes[4];
-		else
-			data.Alarm = input.bytes[4];
+		data.Alarm = input.bytes[4];
+		if(input.bytes[5]===0x00){
+			data.FunctionKeyTrigger = 'others';
+		}else if(input.bytes[5]===0x01){
+			data.FunctionKeyTrigger = 'fuctionkey1';
+		}else if(input.bytes[5]===0x02){
+			data.FunctionKeyTrigger = 'fuctionkey2';
+		}
 		
 		break;
 		

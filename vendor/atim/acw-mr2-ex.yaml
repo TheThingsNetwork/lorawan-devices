@@ -1,4 +1,4 @@
-name: acw-mr2-ex
+name: ACW-MR2-EX - Smart Metering
 description: The MR2-EX allows the remote reading of one or two meters with pulse type output (dry contacts). The cycle time is configurable as well as the number of samples per message transmitted. For example, in order to save energy, the meter index can be read every 10 minutes and the 6 indexes can be transmitted only once per hour.This information is transmitted by radio and on the LoRaWAN operated networks or in local mode with a Gateway installed on the site. The configuration can be configured locally by an internal USB link or remotely by Downlink from the network.
 
 # Hardware versions (optional, use when you have revisions)

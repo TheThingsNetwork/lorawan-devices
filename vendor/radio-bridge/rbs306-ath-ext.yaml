@@ -1,5 +1,5 @@
-name: rbs306-ath-ext
-description: radio-bridge door window sensor
+name: RBS306-ATH-EXT - Outdoor Air Temperature & Humidity Sensor
+description: The external-probe air temperature and humidity sensor uses air flow through a sintered porous stainless steel filter to allow for temperature and humidity measurements in outdoor and industrial environments. The sintered porous filter is IP54 rated to protect against dust and debris.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
