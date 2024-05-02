@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs301-temp-int-profile
         lorawanCertified: true
         codec: rbs301-temp-int-codec
+
+sensors:
+  - temperature
+
 # Photos
 photos:
   main: rbs301-temp-int.png

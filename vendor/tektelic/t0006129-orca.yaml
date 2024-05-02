@@ -45,6 +45,10 @@ firmwareVersions:
         lorawanCertified: true
         codec: t0006129-codec
 
+sensors:
+  - gps
+  - accelerometer
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

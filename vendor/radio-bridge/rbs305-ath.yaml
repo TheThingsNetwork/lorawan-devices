@@ -19,6 +19,11 @@ firmwareVersions:
         id: rbs305-ath-profile
         lorawanCertified: true
         codec: rbs305-ath-codec
+
+sensors:
+  - temperature
+  - humidity
+
 # Photos
 photos:
   main: rbs305-ath.png

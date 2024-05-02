@@ -40,6 +40,8 @@ firmwareVersions:
         id: abeeway-geolocation-module-profile
         lorawanCertified: true
 
+deviceType: module
+
 # Sensors that this device features (optional)
 # Valid values are:
 # accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,

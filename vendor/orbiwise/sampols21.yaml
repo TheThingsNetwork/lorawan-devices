@@ -27,6 +27,9 @@ firmwareVersions:
         id: sampols21-as923-profile
         lorawanCertified: true
 
+sensors:
+  - sound
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
