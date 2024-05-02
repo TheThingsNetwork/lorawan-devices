@@ -95,6 +95,15 @@ To use the YAML plugin correctly, you need to assign the schema to the plugin. T
 }
 ```
 
+## Setup script
+
+To help you get started with adding vendors and devices to the repo we made a script that creates all the necessary files with some basic information. To run the script, open a terminal (preferably inside a code editor like VSCode) and enter:
+
+```bash
+$ make setup
+```
+After that just follow the instructions given to you by the script. 
+
 ## Files and Directories
 
 There are six file types in the Device Repository:
