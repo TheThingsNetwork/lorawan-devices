@@ -1,8 +1,0 @@
-endDevices:
-  - temp-humid-node
-profileIDs:
-  '1':
-    endDeviceID: 'temp-humid-node'
-    firmwareVersion: '1.0'
-    hardwareVersion: ''
-    region: 'EU863-870'

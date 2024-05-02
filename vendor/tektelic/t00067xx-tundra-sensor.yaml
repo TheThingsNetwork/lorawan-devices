@@ -41,6 +41,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: t00067xx-codec
 
+sensors:
+  - temperature
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

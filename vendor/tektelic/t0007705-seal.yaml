@@ -1,4 +1,4 @@
-name: SEAL Wearble Safety & GPS Trcker
+name: SEAL Wearable Safety & GPS Tracker
 description: Wearable industrial device for comprehensive safety monitoring and location tracking of personnel
 
 # Firmware versions (at least one is mandatory)
@@ -19,6 +19,10 @@ firmwareVersions:
         id: t0007705-915-profile
         lorawanCertified: false
         codec: t0007705-codec
+
+sensors:
+  - gps
+  - accelerometer
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

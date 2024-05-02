@@ -45,6 +45,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: t0007127-codec
 
+sensors:
+  - button
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

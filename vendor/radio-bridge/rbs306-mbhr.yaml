@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-mbhr-profile
         lorawanCertified: true
         codec: rbs306-mbhr-codec
+
+sensors:
+  - distance
+
 # Photos
 photos:
   main: rbs306-mbhr.png

@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs301-wr1m-profile
         lorawanCertified: true
         codec: rbs301-wr1m-codec
+
+sensors:
+  - water
+
 # Photos
 photos:
   main: rbs301-wr1m.png

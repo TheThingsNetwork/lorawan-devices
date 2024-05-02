@@ -21,6 +21,11 @@ firmwareVersions:
         lorawanCertified: true
         codec: t00056xx-codec
 
+sensors:
+  - digital input
+  - temperature
+  - humidity
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

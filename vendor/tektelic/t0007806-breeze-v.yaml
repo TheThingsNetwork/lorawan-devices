@@ -40,6 +40,10 @@ firmwareVersions:
         lorawanCertified: false
         codec: t0007806-codec
 
+sensors:
+  - co2
+  - occupancy
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
