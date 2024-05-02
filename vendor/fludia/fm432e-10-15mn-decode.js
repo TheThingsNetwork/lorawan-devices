@@ -174,16 +174,16 @@ function decode_T2(payload){
 
 function decode_T2_adjustable_step(payload){
   var data = {};
-  data.firmware_version = payload[1];
-  data.time_step = payload[2];
-  data.nb_values = payload[3];
-  data.redundancy = payload[4];
-  data.number_of_starts = payload[5];
-  data.param_id = payload[6];
-  data.low_battery = payload[7];
-  data.meter_type = payload[10];
+  data.number_of_starts = payload[1];
+  data.param_id = payload[4];
+  data.firmware_version = payload[5];
+  data.meter_type = payload[6];
   if(data.meter_type == 0) data.meter_type = "Electromechanical (Position A)"
   if(data.meter_type == 1) data.meter_type = "Electronic (Position B)"
-  data.index = (payload[11] & 0xFF) << 24 | (payload[12] & 0xFF) << 16 | (payload[13] & 0xFF) << 8 | (payload[14] & 0xFF);
+  data.low_battery = payload[7];
+  data.index = (payload[8] & 0xFF) << 24 | (payload[9] & 0xFF) << 16 | (payload[10] & 0xFF) << 8 | (payload[11] & 0xFF);
+  data.time_step = payload[12];
+  data.nb_values = payload[13];
+  data.redundancy = payload[14];
   return data;
 }
