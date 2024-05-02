@@ -1,30 +1,14 @@
 
-/* https://www.decentlab.com/products/high-precision-pressure-/-liquid-level-temperature-and-electrical-conductivity-sensor-for-lorawan */
+/* https://www.decentlab.com/products/linear-position-/-way-for-lorawan */
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
-  /* device-specific parameters */
-  PARAMETERS: {
-    kp: 8192
-  },
   SENSORS: [
-    {length: 4,
-     values: [{name: 'pressure',
-               displayName: 'Pressure',
-               convert: function (x) { return (x[0] - 32768) / this.PARAMETERS.kp; },
-               unit: 'bar'},
-              {name: 'temperature_electronics',
-               displayName: 'Temperature (electronics)',
-               convert: function (x) { return (x[1] - 32768) / 256; },
-               unit: '°C'},
-              {name: 'temperature_pt1000',
-               displayName: 'Temperature (PT1000)',
-               convert: function (x) { return (x[2] - 32768) / 256; },
-               unit: '°C'},
-              {name: 'electrical_conductivity',
-               displayName: 'Electrical conductivity',
-               convert: function (x) { return (x[3] - 32768) / 1024; },
-               unit: 'mS⋅cm⁻¹'}]},
+    {length: 2,
+     values: [{name: 'potentiometer_position',
+               displayName: 'Potentiometer position',
+               convert: function (x) { return ((x[0] + x[1]*65536) / 8388608 - 1) * 1 * 100; },
+               unit: '%'}]},
     {length: 1,
      values: [{name: 'battery_voltage',
                displayName: 'Battery voltage',
