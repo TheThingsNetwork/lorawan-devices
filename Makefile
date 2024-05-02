@@ -47,5 +47,7 @@ fmt:
 devices.csv:
 	$(NODE) bin/csv.js
 
+setup:
+	bin/setup.sh
 
 # vim: ft=make
