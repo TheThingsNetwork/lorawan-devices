@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '2.01.xx'
+    version: '2.xx'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -48,7 +48,6 @@ firmwareVersions:
         id: tlm-lw-profile-865
         lorawanCertified: true
         codec: tlm-lw-codec
-
 
   - # Firmware version
     version: '2.02.xx'
