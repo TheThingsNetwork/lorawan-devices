@@ -40,6 +40,9 @@ firmwareVersions:
 #  - 8-24V DC
 #  - 230V AC
 
+bridgeInterfaces:
+  - m-bus
+
 # Additional radios that this device has
 additionalRadios:
   - ble

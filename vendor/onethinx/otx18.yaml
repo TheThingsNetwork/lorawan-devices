@@ -30,6 +30,8 @@ firmwareVersions:
         lorawanCertified: false
         #codec: otx18-eu868-codec
 
+deviceType: module
+
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:

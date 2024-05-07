@@ -23,6 +23,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: t000662x-codec
 
+sensors:
+  - switch
+
 operatingConditions:
   temperature:
     min: 0

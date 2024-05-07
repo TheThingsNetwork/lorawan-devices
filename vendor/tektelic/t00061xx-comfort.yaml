@@ -48,7 +48,12 @@ firmwareVersions:
         id: t00061xx-864-profile
         lorawanCertified: true
         codec: t00061xx-codec
-
+sensors:
+  - temperature
+  - humidity
+  - light
+  - water
+  - reed switch
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

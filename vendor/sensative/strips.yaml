@@ -33,6 +33,14 @@ firmwareVersions:
         lorawanCertified: true
         codec: strips-codec
 
+sensors:
+  - magnetometer
+  - temperature
+  - light
+  - water
+  - humidity
+  - infrared
+
 # Photos
 photos:
   main: strip.png

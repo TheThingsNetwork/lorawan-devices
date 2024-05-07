@@ -27,6 +27,12 @@ firmwareVersions:
         lorawanCertified: false
         codec: rak2560-codec
 
+sensors:
+  - temperature
+  - humidity
+  - barometer
+  - accelerometer
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

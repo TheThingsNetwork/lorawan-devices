@@ -342,7 +342,7 @@ vendors.vendors.forEach((v) => {
 
           if (!vendorProfiles[vendorID][regionProfile.id]) {
             const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
-            if (profile.vendorProfileID) {
+            if ('vendorProfileID' in profile) {
               console.log(`\n${key}: vendorProfileID exists. This method has been replaced with VendorIDs, see:`);
               console.log(`https://github.com/TheThingsNetwork/lorawan-devices?tab=readme-ov-file#vendor-device-index`);
               process.exit(1);
@@ -422,6 +422,9 @@ vendors.vendors.forEach((v) => {
               });
           });
         }
+      } else {
+        console.error(`${key}: image is missing.`);
+        process.exit(1);
       }
     });
   });

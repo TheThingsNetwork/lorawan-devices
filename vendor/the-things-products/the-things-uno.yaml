@@ -29,6 +29,8 @@ firmwareVersions:
         lorawanCertified: true
         codec: the-things-uno-codec-quickstart
 
+deviceType: devkit
+
 keyProvisioning:
   - custom
 keySecurity: none
