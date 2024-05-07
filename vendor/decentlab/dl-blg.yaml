@@ -57,7 +57,7 @@ keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan
+productURL: https://www.decentlab.com/products/black-globe-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-BLG-datasheet.pdf
 photos:
   main: dl-blg.png
