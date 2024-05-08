@@ -60,6 +60,8 @@ firmwareVersions:
         #lorawanCertified: true
         #codec:
 
+deviceType: module
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

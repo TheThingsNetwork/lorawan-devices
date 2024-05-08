@@ -34,6 +34,10 @@ firmwareVersions:
         id: profile-cn470
         codec: r309-codec
 
+sensors:
+  - button
+  - vibration
+
 dimensions:
   width: 48
   length: 55

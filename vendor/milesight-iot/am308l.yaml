@@ -1,4 +1,4 @@
-name: Milesight AM308-LoRaWAN Indoor Air Quality Sensor (7 in 1)
+name: Milesight AM308L-LoRaWAN Indoor Air Quality Sensor (7 in 1)
 description: Milesight AM308 collects various indoor ambience conditions through 7 built-in sensors and delivers the data to the mobile App and its 4.2-inch E-ink screen. It supports batteries or DC power supply and can be easily equipped via NFC. It features a tri-color LED indicator, anti-theft design, and emoticon indication. am308 is widely used for offices, stores, classrooms, hospitals, etc.
 
 hardwareVersions:

@@ -1,0 +1,28 @@
+uplinkDecoder:
+  fileName: decoder_seal.js
+  examples:
+    - description: Battery Lifetime Percentage
+      input:
+        fPort: 10
+        bytes: [0x00, 0xD3, 0x64, 0x00, 0xBD, 0x01, 0x99]
+      output:
+        data:
+          battery_lifetime_pct: 100
+          battery_lifetime_dys: 409
+          port: '10'
+          raw: '[00, D3, 64, 00, BD, 01, 99]'
+        errors: []
+        warnings: []
+
+downlinkEncoder:
+  fileName: encoder_seal.js
+  examples:
+    - description: Core Ticks Configuration Downlink
+      input:
+        data:
+          periodic_tx_config:
+            seconds_per_core_tick:
+              write: 120
+      output:
+        bytes: [160, 0, 0, 0, 120]
+        port: '100'

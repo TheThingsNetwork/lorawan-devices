@@ -1,4 +1,4 @@
-name: DL-PR36CTD
+name: DL-PR36CTD - High-Precision Pressure / Liquid Level, Temperature and Electrical Conductivity Sensor
 description: The Decentlab DL-PR36CTD includes pressure, temperature, and electrical conductivity sensors. It is suitable for measuring water levels and monitoring water quality, salinity, and chloride.
 
 hardwareVersions:
@@ -15,19 +15,19 @@ firmwareVersions:
       EU863-870:
         id: profile-eu868
         lorawanCertified: true
-        codec: dl-pr36ctd-8192-codec
+        codec: dl-pr36ctd-8192-1024-codec
       AS923:
         id: profile-as923
         lorawanCertified: false
-        codec: dl-pr36ctd-8192-codec
+        codec: dl-pr36ctd-8192-1024-codec
       US902-928:
         id: profile-us915
         lorawanCertified: true
-        codec: dl-pr36ctd-8192-codec
+        codec: dl-pr36ctd-8192-1024-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: false
-        codec: dl-pr36ctd-8192-codec
+        codec: dl-pr36ctd-8192-1024-codec
 
 sensors:
   - pressure

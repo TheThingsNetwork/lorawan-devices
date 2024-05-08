@@ -1,4 +1,4 @@
-name: IMBuildings Comfort Sensor
+name: Comfort Sensor
 description: Sensor for monitoring Indoor Air Quality
 
 hardwareVersions:
@@ -31,13 +31,12 @@ firmwareVersions:
         id: imbuildings-profile-au915
         codec: imbuildings-codec
 
-#sensors:
-#  - device status
-#  - battery voltage
-#  - co2
-#  - temperature
-#  - relative humidity
-#  - presence
+sensors:
+  - battery
+  - co2
+  - temperature
+  - humidity
+  - motion
 
 additionalRadios:
   - nfc

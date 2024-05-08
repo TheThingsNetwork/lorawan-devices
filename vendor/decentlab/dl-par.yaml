@@ -1,4 +1,4 @@
-name: DL-PAR
+name: DL-PAR - Photosynthetically Active Radiation Sensor
 description: The Decentlab DL-PAR consists of a Photosynthetically Active Radiation (PAR) sensor for measuring the amount of light available for photosynthesis. It is suitable for use in outdoor environments, greenhouses, and growth chambers.
 
 hardwareVersions:

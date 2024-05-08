@@ -1,7 +1,7 @@
 /*
  * ELV modular system Payload-Parser
  *
- * Version: V1.7.0
+ * Version: V1.8.0
  *
  * */
 
@@ -573,7 +573,7 @@ function Decoder(bytes, port) {
                 break;
                 default:
                 {
-                  Temp_Value *= 2.5;  // Multiply the value with the angle resolution of 2.5 °
+                 Temp_Value *= 2.5;  // Multiply the value with the angle resolution of 2.5 °
                   decoded.Absolut_Angle = String(Temp_Value.toFixed(1));
                 }
                 break;
@@ -707,7 +707,7 @@ function Decoder(bytes, port) {
               Temp_Value = (bytes[index] * 256);
               index++;    // Set index to low byte data value
               Temp_Value += bytes[index];
-              
+
               // Check the rain detection bit
               if( Temp_Value & 0x8000 )
               {
@@ -717,7 +717,7 @@ function Decoder(bytes, port) {
               {
                 decoded.Rain_Detection = "0";
               }
-              
+
               // Check the rain counter overflow bit
               if( Temp_Value & 0x4000 )
               {
@@ -744,6 +744,41 @@ function Decoder(bytes, port) {
                 }
                 break;
               }
+              break;
+            }
+            case 0x14: //6-Axis-Sensor
+            {
+                index++;
+              decoded.Acc_x = !!(bytes[index] & 0x01);
+              decoded.Acc_y = !!(bytes[index] & 0x02);
+              decoded.Acc_z = !!(bytes[index] & 0x04);
+              decoded.Gyr_x = !!(bytes[index] & 0x08);
+              decoded.Gyr_y = !!(bytes[index] & 0x10);
+              decoded.Gyr_z = !!(bytes[index] & 0x20);
+              break;
+            }
+            case 0x15: //Window-State
+            {
+                index++;
+              data = bytes[index];
+              if (data < 100)
+              {
+                decoded.window_state = data;
+              }
+              else if (data == 255)
+              {
+                decoded.window_state = "Tilted"
+              }
+              else
+              {
+                decoded.window_state = "Undefined"
+              }
+              break;
+            }
+            case 0x16:
+            {
+              index++;
+              decoded.situation = bytes[index];
               break;
             }
             // case 0x??:    // Further Data Type
@@ -780,4 +815,3 @@ function Decoder(bytes, port) {
 
   return decoded;
 }
-

@@ -24,7 +24,7 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-power-profile
+        id: yo-people-counter-profile
         lorawanCertified: true
       US902-928: #dodać profil na US
         id: yo-people-counter-us

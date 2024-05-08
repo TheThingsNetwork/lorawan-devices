@@ -1,4 +1,4 @@
-name: R726 Series & RA07 Series
+name: R726 Series & RA07 Series - Air Quality Sensors
 
 hardwareVersions:
   - version: '4'
@@ -32,6 +32,11 @@ firmwareVersions:
       CN470-510:
         id: profile-cn470
         codec: r726xx-codec
+
+sensors:
+  - co2
+  - temperature
+  - humidity
 
 battery:
   type: solar and rechargeable lithium batteries

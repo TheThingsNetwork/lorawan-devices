@@ -1,4 +1,4 @@
-name: MCF-LW12TERPM
+name: MCF-LW12TERPM - Outdoor Environmental Sensor
 description: The enginko MCF-LW12TERPM is an outdoor PM and environmental sensor that consists of temperature, humidity, pressure, and PM (PM1, PM2.5, PM10) sensors. It sends collected data over the LoRaWAN® network. Ideally suited for a wide range of applications such as weather stations, urban monitoring, air quality, industrial, environmental, or farming projects.
 
 # Firmware versions (at least one is mandatory)
@@ -87,7 +87,7 @@ dataSheetURL: https://www.enginko.it/wp-content/uploads/2020/07/MCF-LW12TERPM.pd
 
 # Photos
 photos:
-  main: mcf-lw12terpm.jpg
+  main: mcf-lw12terpm.png
 
 # Regulatory compliances (optional)
 compliances:

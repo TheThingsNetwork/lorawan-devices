@@ -1,0 +1,80 @@
+name: M-BUS LORAWAN GATEWAY
+description: M-BUS Master Gateway and LORAWAN Converter
+
+# Hardware versions
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: m-bus-gateway-codec
+      RU864-870:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: m-bus-gateway-codec
+      US902-928:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: m-bus-gateway-codec
+      AS923:
+        id: otaa-class-a-profile
+        lorawanCertified: false
+        codec: m-bus-gateway-codec
+
+# Sensors that this device features
+#sensors:
+#  - m-bus master
+#  - 8-24V DC
+#  - 230V AC
+
+bridgeInterfaces:
+  - m-bus
+
+# Additional radios that this device has
+additionalRadios:
+  - ble
+
+# Battery information
+battery:
+  replaceable: false
+  type: Backup Lithium Polymer
+
+keyProgramming:
+  - bluetooth
+#  - mobile app
+
+# Dimensions in mm
+dimensions:
+  width: 90
+  length: 115
+  height: 55
+# Weight in grams
+weight: 200
+
+# Product and data sheet URLs
+productURL: https://iotfactory.eu/?s=lorawan&post_type=product
+dataSheetURL: https://iotfactory.eu/wp-content/uploads/leaflets/mBus-to-lorawan-gateway-by-IOT-Factory.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'IOT Factory'
+    region:
+      - European Union
+    url: https://iotfactory.eu
+
+# Photos
+photos:
+  main: m-bus-gateway-lorawan-by-iot-factory.png

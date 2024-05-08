@@ -1,0 +1,21 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: tlm-lw.js
+
+  # based on following payload
+  #10 00036FFE 02 61703B0F 020201 4C4F52415F4C575F534552564552
+  examples:
+    - description: TLM LW example frame decode
+      input:
+        fPort: 1
+        bytes: [0x10, 0x00, 0x03, 0x6F, 0xFE, 0x02, 0x61, 0x75, 0x31, 0x6F, 0x02, 0x02, 0x01, 0x4C, 0x4F, 0x52, 0x41, 0x5F, 0x4C, 0x57, 0x5F, 0x53, 0x45, 0x52, 0x56, 0x45, 0x52]
+
+      output:
+        data:
+          deviceID: '0x36ffe'
+          deviceName: 'LORA_LW_SERVER'
+          deviceTime: '2024-3-11 21:5:47'
+          firmwareVersion: '2.2.1'
+          frameType: 'ModbusRTU'
+          targetPort: 2

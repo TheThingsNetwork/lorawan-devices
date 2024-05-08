@@ -1,0 +1,76 @@
+uplinkDecoder:
+  fileName: dl-alb.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x52, 0x85, 0x00, 0x03, 0x80, 0x99, 0x80, 0x22, 0x0b, 0xd3]
+      output:
+        data:
+          albedo:
+            displayName: albedo
+            value: 0.2222222222222222
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.027
+          device_id: 21125
+          incoming_radiation:
+            displayName: Incoming radiation
+            unit: "W\u22C5m\u207B\xB2"
+            value: 15.3
+          protocol_version: 2
+          reflected_radiation:
+            displayName: Reflected radiation
+            unit: "W\u22C5m\u207B\xB2"
+            value: 3.4
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x52, 0x85, 0x00, 0x02, 0x0b, 0xd3]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.027
+          device_id: 21125
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

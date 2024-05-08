@@ -1,4 +1,4 @@
-name: ADT1 Box
+name: ADT1 Box - Remote Transmitter
 description: The KELLER ADT1-Box is an autonomous device that can be linked with digital level probes and pressure transmitters in the KELLER D and X product lines. The measured data can be collected through a LoRaWAN® network.
 
 firmwareVersions:

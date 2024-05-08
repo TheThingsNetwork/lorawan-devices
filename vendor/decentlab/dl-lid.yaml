@@ -1,4 +1,4 @@
-name: DL-LID
+name: DL-LID - Laser Distance / Level Sensor
 description: The Decentlab DL-LID is equipped with a distance/level sensor for measuring distance. Suitable for generic ranging and proximity monitoring, snow level monitoring, water level monitoring, and flood monitoring.
 
 hardwareVersions:

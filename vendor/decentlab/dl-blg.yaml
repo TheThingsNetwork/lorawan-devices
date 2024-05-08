@@ -1,4 +1,4 @@
-name: DL-BLG
+name: DL-BLG - Black Globe Temperature Sensor
 description: The Decentlab DL-BLG is equipped with a black globe temperature sensor. It is suitable for use in workplace safety, heat stress measurement, WBGT calculation for heat stress and meteorology.
 
 hardwareVersions:
@@ -57,7 +57,7 @@ keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://www.decentlab.com/black-globe-temperature-sensor-for-lorawan
+productURL: https://www.decentlab.com/products/black-globe-temperature-sensor-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-BLG-datasheet.pdf
 photos:
   main: dl-blg.png

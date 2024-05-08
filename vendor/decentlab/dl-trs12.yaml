@@ -1,4 +1,4 @@
-name: DL-TRS12
+name: DL-TRS12 - Soil Moisture, Temperature and Electrical Conductivity Sensor
 description: The Decentlab DL-TRS12 includes a volumetric water content (VWC), temperature, and dielectric permittivity sensor. It is suitable for irrigation control, smart agriculture, greenhouse and soilless plantations, parks, and golf courses.
 
 hardwareVersions:

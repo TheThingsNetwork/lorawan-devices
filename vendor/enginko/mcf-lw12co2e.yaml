@@ -1,4 +1,4 @@
-name: MCF-LW12CO2E
+name: MCF-LW12CO2E - Indoor Environmental sensor
 description: The MCF-LW12CO2E is a battery powered sensor for indoor applications that reads temperature, relative humidity, pressure, ambient light, IAQ air quality index and CO2. Ideally suited for a wide range of applications such as home buildings, air quality monitoring and energy saving applications.
 
 # Firmware versions (at least one is mandatory)
@@ -86,7 +86,7 @@ dataSheetURL: https://enginko.com/wp-content/uploads/2020/09/ENGINKO_datasheet-l
 
 # Photos
 photos:
-  main: mcf-lw12co2e.jpg
+  main: mcf-lw12co2e.png
 
 # Regulatory compliances (optional)
 compliances:

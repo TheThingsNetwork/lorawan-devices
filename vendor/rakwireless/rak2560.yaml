@@ -1,0 +1,60 @@
+name: RAK2560 Sensor Hub
+description: The RAK2560 WisNode Sensor Hub is a modular sensor ecosystem consisting of the Sensor Hub Smart Datalogger and multiple pre-configured sensor probes. With pluggable, interchangeable probes, and the option to add third-party sensors to the mixture, the Sensor Hub is a suitable and versatile solution platform for various IoT applications where environmental monitoring is needed.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: rak2560-868-profile
+        lorawanCertified: false
+        codec: rak2560-codec
+      US902-928:
+        id: rak2560-915-profile
+        lorawanCertified: false
+        codec: rak2560-codec
+
+sensors:
+  - temperature
+  - humidity
+  - barometer
+  - accelerometer
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 80
+  length: 120
+  height: 39
+
+# Weight in grams (optional)
+#weight: 10
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 80
+
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://store.rakwireless.com/products/sensor-hub
+dataSheetURL: https://docs.rakwireless.com/Product-Categories/WisNode/RAK2560
+
+# Photos
+photos:
+  main: rak2560.png

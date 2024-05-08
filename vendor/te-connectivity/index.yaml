@@ -1,0 +1,7 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - 69xx # look in 69xxn.yaml for the end device definition
+  - 8931ex # look in 8931ex.yaml for the end device definition
+  - 8911ex # look in 8911ex.yaml for the end device definition

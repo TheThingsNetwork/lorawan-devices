@@ -1,0 +1,93 @@
+uplinkDecoder:
+  fileName: dl-gmm.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x53, 0x2b, 0x00, 0x03, 0x87, 0x26, 0x89, 0x20, 0x81, 0x14, 0x82, 0x97, 0xa5, 0x73, 0x80, 0xcf, 0x81, 0x70, 0x0b, 0xbc]
+      output:
+        data:
+          air_humidity:
+            displayName: Air humidity
+            unit: '%'
+            value: 27.6
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 23.36
+          atmospheric_pressure:
+            displayName: Atmospheric pressure
+            unit: kPa
+            value: 95.87
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.004
+          co2_concentration:
+            displayName: CO2 concentration
+            unit: ppm
+            value: 663
+          device_id: 21291
+          dew_point:
+            displayName: Dew point
+            unit: "\xB0C"
+            value: 3.68
+          photosynthetically_active_radiation:
+            displayName: Photosynthetically active radiation
+            unit: "\xB5mol\u22C5m\u207B\xB2\u22C5s\u207B\xB9"
+            value: 183
+          protocol_version: 2
+          vapor_pressure_deficit:
+            displayName: Vapor pressure deficit
+            unit: kPa
+            value: 2.07
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x52, 0x85, 0x00, 0x02, 0x0b, 0xbc]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.004
+          device_id: 21125
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

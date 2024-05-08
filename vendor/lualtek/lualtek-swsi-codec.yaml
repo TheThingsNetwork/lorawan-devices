@@ -1,0 +1,36 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lualtek-swsi.js
+
+# # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: lualtek-swsi.js
+#   examples:
+#     - description: Turn on relay 1
+#       input:
+#         data:
+#           switchValue: 1
+#       output:
+#         bytes: [01]
+#         fPort: 1
+#     - description: Turn off relay 1
+#       input:
+#         data:
+#           switchValue: 0
+#       output:
+#         bytes: [00]
+#         fPort: 1
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: lualtek-swsi.js
+  examples:
+    - description: Turn on relay 1
+      input:
+        fPort: 1
+        bytes: [01]
+      output:
+        data:
+          bytes: [01]
+          fPort: 1

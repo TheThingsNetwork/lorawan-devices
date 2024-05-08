@@ -91,7 +91,7 @@ weight: 18
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium AA 3.6V
+  type: Lithium A 3.6V
 
 # Operating conditions (optional)
 # operatingConditions:
@@ -151,7 +151,7 @@ msrp:
 
 # Photos
 photos:
-  main: fm432e.jpg
+  main: fm432e.png
   # other:
   #   - windsensor-package.jpg
 # Youtube or Vimeo Video (optional)

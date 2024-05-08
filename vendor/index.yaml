@@ -1011,7 +1011,7 @@ vendors:
     name: Cavagna Group SPA
     vendorID: 604
 
-  - id: jsc-axioma
+  - id: axioma
     name: JSC Axioma Metering
     vendorID: 605
 
@@ -1469,6 +1469,12 @@ vendors:
   - id: ks-technologies
     name: KS Technologies, LLC
     vendorID: 800
+    website: https://kstechnologies.com/
+    description: Your Vision. Our Solution.
+    social:
+      twitter: kstechnologies
+      linkedin: https://www.linkedin.com/company/ks-technologies-llc
+      github: kstechnologies
 
   - id: crd-hk-charity
     name: The CRD-HK Charity
@@ -1616,9 +1622,6 @@ vendors:
 
   - id: the-things-products
     name: The Things Products
-
-  - id: the-box-development
-    name: The-Box Development
 
   - id: beiselen
     name: Beiselen Service GmbH
@@ -1890,16 +1893,6 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/saninudge/
 
-  - id: grinn
-    name: Grinn sp. z o.o.
-    description: Grinn is a technology company dedicated to building IoT solutions from a scratch. Since 2008 we are delivering high class services on embedded software development, electronics design, mechanical engineering and production management. During the last 15 years we've designed plenty of projects for different industries like automotive, healthcare, security, agriculture, business, etc.
-    website: https://grinn-global.com
-    logo: grinn-logo.png
-    social:
-      linkedin: https://www.linkedin.com/company/grinn
-      facebook: https://www.facebook.com/GRINNGLOBAL
-      twitter: GrinnInt
-
   - id: ambitlocker
     name: Ambitlocker
     description: Established in 2017, Ambitlocker is a Danish technology business that develops digital management systems for locking units. We have initially concentrated on implementing our technology in our padlocks, which makes it extremely easy to digitalise analogue and mechanical units without the need to rebuild them.
@@ -1945,7 +1938,7 @@ vendors:
 
   - id: cital
     name: Cital
-    website: https://www.cital.ch/
+    website: https://www.cital.io
     logo: cital-logo.svg
     social:
       linkedin: https://www.linkedin.com/company/getcital/
@@ -1968,6 +1961,11 @@ vendors:
     name: dnt Innovation GmbH
     website: https://www.dnt.de/
     logo: dnt-logo.svg
+
+  - id: agriseen
+    name: Agriseen
+    website: http://www.agriseen.com/
+    logo: agriseen_logo.png
 
   - id: koidra
     name: Koidra Inc.
@@ -1993,6 +1991,13 @@ vendors:
     website: https://open-boat-projects.org
     logo: obp_logo.png
 
+  - id: elspina
+    name: Elspina VEINZ Inc.
+    website: https://elspina.veinz.tech/
+    logo: elspina_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/elspinaveinz/
+
   - id: watteco
     name: WATTECO
     vendorID: 296
@@ -2006,3 +2011,52 @@ vendors:
   - id: tip
     name: TIP Meter
     website: https://www.tip-meter.de/
+
+  - id: lualtek
+    name: Lualtek
+    website: https://lualtek.io
+    logo: lualtek.svg
+    social:
+      linkedin: https://www.linkedin.com/company/lualtek/
+      twitter: lualtek
+
+  - id: n-fuse
+    name: n-fuse GmbH
+    description: n-fuse is a digitization focusd company providing cutting-edge end-to-end solutions including LoRaWAN devices like environment sensors, IoT bbuttons, gateways and bridges.
+    logo: logo.svg
+    website: https://www.n-fuse.co/
+    social:
+      github: nfhw
+
+  - id: iot-factory
+    name: IOT Factory
+    description: Smart Metering & Asset Tracking
+    logo: iot-factory-logo.png
+    website: https://iotfactory.eu/
+
+  - id: lansitec
+    name: Lansitec
+    description: Lansitec is a technology-driven company providing cutting-edge active people and asset tracking products and services. i.e., trackers, gateways and bridges, beacons and tags, and related accessories like sensors.
+    logo: lansitec.png
+    website: https://www.lansitec.com/
+
+  - id: redz
+    name: REDZ Smart Communication
+    description: REDZ Smart Communication Technologies is a provider for industrial coomunication devices such as LoraWAN EndNode Modems, Electricity Meter Protocol to Modbus Protocol Gateways, LoRa RF Modems, Wireless Mbus Modems, Remote IO Devices, Serial to ETH Gateways, Industrial Unmanaged Switches with or without Broadband Powerline (BPL) connection and Energy Meter Reading Optical Probes.
+    logo: redz.png
+    website: https://www.redz-sc.com
+    social:
+      linkedin: https://www.linkedin.com/in/redz-smartcommunication
+
+  - id: te-connectivity
+    name: TE Connectivity
+    description: TE Connectivity empowers engineers by designing and manufacturing sensor and connectivity solutions for our increasingly connected world. Every Connection Counts !
+    logo: te_logo.svg
+    website: https://www.te.com/
+    vendorID: 260
+    ouis: ['BCAF91']
+    social:
+      linkedin: https://www.linkedin.com/company/te-connectivity
+      facebook: https://www.facebook.com/teconnectivity
+      twitter: teconnectivity
+      github: TEConnectivity

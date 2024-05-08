@@ -1,5 +1,5 @@
 name: LoRaWAN Bathroom Occupancy Sensor
-description: VS330 is a LoRaWAN® bathroom occupancy sensor providingacost-effectivesolution for monitoring the occupancy status of the bathroomsandthecubiclesof a public toilet in different scenarios
+description: VS330 is a LoRaWAN® bathroom occupancy sensor providing a cost-effective solution for monitoring the occupancy status of the bathrooms and the cubicles of a public toilet in different scenarios.
 
 hardwareVersions:
   - version: 'V1.0'
@@ -40,6 +40,7 @@ firmwareVersions:
 sensors:
   - motion
   - pir
+  - distance
 
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
 # current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
