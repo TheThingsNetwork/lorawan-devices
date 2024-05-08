@@ -1,5 +1,5 @@
 
-/* https://www.decentlab.com/greenhouse-multi-monitor-for-lorawan */
+/* https://www.decentlab.com/products/greenhouse-multi-monitor-for-lorawan */
 
 var decentlab_decoder = {
   PROTOCOL_VERSION: 2,
