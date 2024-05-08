@@ -59,7 +59,7 @@ keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://www.decentlab.com/soil-moisture-temperature-and-salinity-profile
+productURL: https://www.decentlab.com/products/soil-moisture-temperature-and-salinity-profile
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-SDD-datasheet.pdf
 photos:
   main: dl-sdd.png
