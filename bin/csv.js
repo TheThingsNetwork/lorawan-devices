@@ -1,11 +1,39 @@
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+const { createObjectCsvStringifier } = require('csv-writer');
 
 const baseUrl = 'https://raw.githubusercontent.com/TheThingsNetwork/lorawan-devices/master/vendor';
 
 // Start directory
 const startPath = path.join(__dirname, '..', 'vendor');
+
+// CSV Writer setup
+const csvWriter = createObjectCsvStringifier({
+  header: [
+    { id: 'id', title: 'ID' },
+    { id: 'name', title: 'Name' },
+    { id: 'vendorname', title: 'Vendor' },
+    { id: 'description', title: 'Description' },
+    { id: 'imageUrl', title: 'Image' },
+    { id: 'sensors', title: 'Sensor' },
+    { id: 'deviceType', title: 'Device Type' },
+    { id: 'additionalRadios', title: 'Radios' },
+    { id: 'height', title: 'Height' },
+    { id: 'width', title: 'Width' },
+    { id: 'length', title: 'Length' },
+    { id: 'weight', title: 'Weight' },
+    { id: 'ipCode', title: 'IP Rating' },
+    { id: 'battery_replace', title: 'Battery Replaceable?' },
+    { id: 'battery_type', title: 'Battery Type' },
+    { id: 'productURL', title: 'Product URL' },
+    { id: 'dataSheetURL', title: 'Datasheet URL' },
+    { id: 'highestMacVersion', title: 'MAC Version' },
+    { id: 'regionalParametersVersion', title: 'Regional Parameter Version' },
+    { id: 'supportsClassB', title: 'Supports Class B?' },
+    { id: 'supportsClassC', title: 'Supports Class C?' },
+  ],
+});
 
 // Function to load vendor names from the vendor/index.yaml file
 const loadVendorNames = (vendorIndexPath) => {
@@ -37,19 +65,19 @@ const extractData = (filePath, vendor) => {
       const name = data.name;
       const vendorname = vendorNamesMap.get(vendor) || vendor; // Fallback to the vendor ID if no name is found
       const description = data.description.replace(/"/g, "'");
-      const deviceType = data.deviceType || '';
-      const sensors = Array.isArray(data.sensors) ? `"${data.sensors.join(', ')}"` : '';
-      const imageUrl = data.photos?.main ? `"${baseUrl}/${vendor}/${data.photos.main}"` : '';
-      const additionalRadios = Array.isArray(data.additionalRadios) ? `"${data.additionalRadios.join(', ')}"` : '';
-      const height = data.dimensions?.height || '';
-      const width = data.dimensions?.width || '';
-      const length = data.dimensions?.length || '';
-      const weight = data.weight || '';
-      const ipCode = data.ipCode || '';
-      const battery_replace = data.battery?.replaceable || '';
-      const battery_type = data.battery?.type || '';
-      const productURL = data.productURL || '';
-      const dataSheetURL = data.dataSheetURL || '';
+      const imageUrl = data.photos?.main ? `${baseUrl}/${vendor}/${data.photos.main}` : undefined;
+      const sensors = data.sensors ? data.sensors.join(', ') : undefined;
+      const deviceType = data.deviceType;
+      const additionalRadios = data.additionalRadios ? data.additionalRadios.join(', ') : undefined;
+      const height = data.dimensions?.height;
+      const width = data.dimensions?.width;
+      const length = data.dimensions?.length;
+      const weight = data.weight;
+      const ipCode = data.ipCode;
+      const battery_replace = data.battery?.replaceable;
+      const battery_type = data.battery?.type;
+      const productURL = data.productURL;
+      const dataSheetURL = data.dataSheetURL;
       let highestMacVersion = '';
       let regionalParametersVersion = '';
       let supportsClassB = '';
@@ -77,15 +105,37 @@ const extractData = (filePath, vendor) => {
         });
       });
 
-      return `"${id}","${name}","${vendorname}","${description}",${imageUrl},${sensors},${deviceType},${additionalRadios},${height},${width},${length},${weight},"${ipCode}","${battery_replace}","${battery_type}","${productURL}","${dataSheetURL}","${highestMacVersion}",${regionalParametersVersion},${supportsClassB},${supportsClassC}\n`;
+      return {
+        id,
+        name,
+        vendorname,
+        description,
+        imageUrl,
+        sensors,
+        deviceType,
+        additionalRadios,
+        height,
+        width,
+        length,
+        weight,
+        ipCode,
+        battery_replace,
+        battery_type,
+        productURL,
+        dataSheetURL,
+        highestMacVersion,
+        regionalParametersVersion,
+        supportsClassB,
+        supportsClassC,
+      };
     }
   } catch (e) {
     console.error(`Failed to process ${filePath}: ${e}`);
   }
-  return '';
+  return null;
 };
 
-const walkSync = (dir, vendor = '', csvContent = '') => {
+const walkSync = (dir, vendor = '', records = []) => {
   const files = fs.readdirSync(dir);
   files.forEach((file) => {
     const filePath = path.join(dir, file);
@@ -93,19 +143,20 @@ const walkSync = (dir, vendor = '', csvContent = '') => {
     if (stat.isDirectory()) {
       const newVendor = path.basename(filePath);
       // Recurse into vendor directories
-      csvContent += walkSync(filePath, newVendor);
+      walkSync(filePath, newVendor, records);
     } else if (filePath.endsWith('.yaml')) {
       // Process any YAML file
-      csvContent += extractData(filePath, vendor);
+      const record = extractData(filePath, vendor);
+      if (record) {
+        records.push(record);
+      }
     }
   });
-  return csvContent;
+  return records;
 };
 
-// Initialize CSV data
-let csvHeader =
-  'ID,Name,Vendor,Description,Image,Sensor,Device Type,Radios,Height,Width,Length,Weight,IP Rating,Battery Replaceable?,Battery Type,Product URL,Datasheet URL,MAC Version,Regional Parameter Version,Supports Class B?, Supports Class C?\n';
-let csvData = walkSync(startPath);
+let records = walkSync(startPath);
+const csvString = csvWriter.getHeaderString() + csvWriter.stringifyRecords(records);
 
 // Save to CSV file
-fs.writeFileSync(__dirname + '/devices.csv', csvHeader + csvData);
+fs.writeFileSync(__dirname + '/devices.csv', csvString);

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "csv-write-stream": "^2.0.0",
+    "csv-writer": "^1.6.0",
     "image-size": "^0.9.7",
     "image-type": "^4.1.0",
     "js-yaml": "^4.1.0",
