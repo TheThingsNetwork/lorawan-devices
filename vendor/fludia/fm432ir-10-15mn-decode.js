@@ -1,21 +1,22 @@
 const PAYLOAD_TYPE = {
-  T1_E_SUM                 :  {header: 0x2e, size: 28/*in bytes*/, name: "T1_E_SUM"},
-  T1_E_POS                 :  {header: 0x2f, size: 28/*in bytes*/, name: "T1_E_POS"},
-  T1_E_NEG                 :  {header: 0x30, size: 28/*in bytes*/, name: "T1_E_NEG"},
-  T1_E_SUM_ADJUSTABLE_STEP :  {header: 0x71, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_SUM_ADJUSTABLE_STEP"},
-  T1_E_POS_ADJUSTABLE_STEP :  {header: 0x72, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_POS_ADJUSTABLE_STEP"},
-  T1_E_NEG_ADJUSTABLE_STEP :  {header: 0x73, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_NEG_ADJUSTABLE_STEP"},
-  T2_MME                   :  {header: 0x2a, size: 18/*in bytes*/, name: "T2_MME"},
-  T2_MME_ADJUSTABLE_STEP   :  {header: 0x3a, size: 20/*in bytes*/, name: "T2_MME_ADJUSTABLE_STEP"},
-  T1_MECA_10MN             :  {header: 0x48, size: 21/*in bytes*/, name: "T1_MECA_10MN"},
-  T1_MECA_15MN             :  {header: 0x49, size: 21/*in bytes*/, name: "T1_MECA_15MN"},
-  T1_MECA_1H               :  {header: 0x4a, size: 21/*in bytes*/, name: "T1_MECA_1H"},
-  T1_MECA_ADJUSTABLE_STEP  :  {header: 0x6F, size_min: 8/*in bytes*/, size_max: 46/*in bytes*/, name: "T1_MECA_ADJUSTABLE_STEP"},
-  T2_MECA                  :  {header: 0x4b, size: 12/*in bytes*/, name: "T2_MECA"},
-  T2_MECA_ADJUSTABLE_STEP  :  {header: 0x70, size: 16/*in bytes*/, name: "T2_MECA_ADJUSTABLE_STEP"},
-  TT1_MECA                 :  {header: 0x12, size: 37/*in bytes*/, name: "TT1_MECA"},
-  TT2_MECA                 :  {header: 0x13, size: 30/*in bytes*/, name: "TT2_MECA"},
-  START                    :  {header: 0x01, size: 3/*in bytes*/,  name: "START"}
+  T1_E_SUM                          :  {header: 0x2e, size: 28/*in bytes*/, name: "T1_E_SUM"},
+  T1_E_POS                          :  {header: 0x2f, size: 28/*in bytes*/, name: "T1_E_POS"},
+  T1_E_NEG                          :  {header: 0x30, size: 28/*in bytes*/, name: "T1_E_NEG"},
+  T1_E_SUM_ADJUSTABLE_STEP          :  {header: 0x71, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_SUM_ADJUSTABLE_STEP"},
+  T1_E_POS_ADJUSTABLE_STEP          :  {header: 0x72, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_POS_ADJUSTABLE_STEP"},
+  T1_E_NEG_ADJUSTABLE_STEP          :  {header: 0x73, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_NEG_ADJUSTABLE_STEP"},
+  T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP :  {header: 0x74, size_min: 23/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP"},
+  T2_MME                            :  {header: 0x2a, size: 18/*in bytes*/, name: "T2_MME"},
+  T2_MME_ADJUSTABLE_STEP            :  {header: 0x3a, size: 20/*in bytes*/, name: "T2_MME_ADJUSTABLE_STEP"},
+  T1_MECA_10MN                      :  {header: 0x48, size: 21/*in bytes*/, name: "T1_MECA_10MN"},
+  T1_MECA_15MN                      :  {header: 0x49, size: 21/*in bytes*/, name: "T1_MECA_15MN"},
+  T1_MECA_1H                        :  {header: 0x4a, size: 21/*in bytes*/, name: "T1_MECA_1H"},
+  T1_MECA_ADJUSTABLE_STEP           :  {header: 0x6F, size_min: 8/*in bytes*/, size_max: 46/*in bytes*/, name: "T1_MECA_ADJUSTABLE_STEP"},
+  T2_MECA                           :  {header: 0x4b, size: 12/*in bytes*/, name: "T2_MECA"},
+  T2_MECA_ADJUSTABLE_STEP           :  {header: 0x70, size: 16/*in bytes*/, name: "T2_MECA_ADJUSTABLE_STEP"},
+  TT1_MECA                          :  {header: 0x12, size: 37/*in bytes*/, name: "TT1_MECA"},
+  TT2_MECA                          :  {header: 0x13, size: 30/*in bytes*/, name: "TT2_MECA"},
+  START                             :  {header: 0x01, size: 3/*in bytes*/,  name: "START"}
 }
 
 //Main function Decoder
@@ -23,6 +24,7 @@ function decodeUplink(input){
   var decoded = {
     data: {
       index : null,
+      index_solar: null,
       message_type : null,
       increments : [],
       powers : [],
@@ -66,8 +68,21 @@ function decodeUplink(input){
     || decoded.data.message_type == PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP.name
     || decoded.data.message_type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name){
     var data = decode_T1_mme_adjustable_step(input.bytes,decoded.data.message_type);
+    for(var i = 0;i<data.warnings.length;i++){
+      decoded.warnings.push(data.warnings[i]);
+    }
     decoded.data.meter_type = "mME (Position B)";
     decoded.data.index = data.index;
+    decoded.data.powers = data.powers;
+    decoded.data.time_step = data.time_step;
+    decoded.data.type_of_measure = data.type_of_measure;
+  }else if(decoded.data.message_type == PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.name){
+    var data = decode_T1_mme_double_mode_adjustable_step(input.bytes,decoded.data.message_type);
+    for(var i = 0;i<data.warnings.length;i++){
+      decoded.warnings.push(data.warnings[i]);
+    }
+    decoded.data.meter_type = "mME (Position B)";
+    decoded.data.index_solar = data.index_solar;
     decoded.data.powers = data.powers;
     decoded.data.time_step = data.time_step;
     decoded.data.type_of_measure = data.type_of_measure;
@@ -173,6 +188,10 @@ function find_message_type(payload){
       case PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.header:
         if(payload.length >= PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.size_min && payload.length <= PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.size_max)
           return PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name
+        break;
+      case PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.header:
+        if(payload.length >= PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.size_min && payload.length <= PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.size_max)
+          return PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.name
         break;
       case PAYLOAD_TYPE.T1_MECA_10MN.header:
         if(payload.length == PAYLOAD_TYPE.T1_MECA_10MN.size) return PAYLOAD_TYPE.T1_MECA_10MN.name
@@ -293,6 +312,114 @@ function decode_T1_mme_adjustable_step(payload, type){
   return data
 }
 
+function decode_T1_mme_double_mode_adjustable_step(payload, type){
+  var data = {};
+  data.time_step = payload[1];
+  data.powers = [[],[]];
+  data.warnings = [];
+  data.index_solar = {
+    e_pos: null,
+    e_neg: null
+  }
+  var nb_values_in_payload = (payload.length-19)/4
+  var signedPos = false;
+  var signedNeg = false;
+  if(payload[2] == 1) signedPos = true;
+  else if(payload[2] == 2) signedNeg = true;
+  else if(payload[2] == 3){
+    signedNeg = true;
+    signedPos = true;
+  }
+  if(!signedPos){
+    data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10
+  }else{
+    if(payload[3] & 0x80){
+      //We have a negative number
+      //For signed values we will have an issue with javascript handling only 52 bits and not 64
+      if(payload[3] == 0xFF && (payload[4] >> 4) == 0xFF && (payload[5] >> 4) == 0xFF && (payload[6] >> 4) == 0xFF){
+        data.index_solar.e_pos = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
+      }else{
+        //Overflow in data
+        data.warnings.push("Overflow with index value");
+        data.index_solar.e_pos = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
+      }
+    }else{//Positive no issue
+        data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10
+    }
+  }
+  if(!signedNeg){
+    data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
+    data.index_solar.e_neg = - data.index_solar.e_neg
+  }else{
+    if(payload[3+8+2*nb_values_in_payload] & 0x80){
+      //We have a negative number
+      //For signed values we will have an issue with javascript handling only 52 bits and not 64
+      if(payload[3+8+2*nb_values_in_payload] == 0xFF && (payload[4+8+2*nb_values_in_payload] >> 4) == 0xFF
+         && (payload[5+8+2*nb_values_in_payload] >> 4) == 0xFF && (payload[6+8+2*nb_values_in_payload] >> 4) == 0xFF){
+        data.index_solar.e_neg = (parseInt(toHexString(payload).substring((15+2*nb_values_in_payload)*2, (15+2*nb_values_in_payload)*2+8),16) >> 0)/10
+      }else{
+        //Overflow in data
+        data.warnings.push("Overflow with index value");
+        data.index_solar.e_neg = (parseInt(toHexString(payload).substring((15+2*nb_values_in_payload)*2, (15+2*nb_values_in_payload)*2+8),16) >> 0)/10
+      }
+    }else{//Positive no issue
+        data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
+    }
+  }
+  for(var i = 0;i<nb_values_in_payload;i++){
+    if(payload[11+i*2] == 0xFF
+      && (payload[12+i*2] == 0xFF || payload[12+i*2] == 0xFE || payload[12+i*2] == 0xFD || payload[12+i*2] == 0xFC || payload[12+i*2] == 0xFB)){
+        data.powers[0].push(null);
+    }else{
+      var value = 0;
+      if(!signedPos) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      data.powers[0].push(value)
+    }
+  }
+
+  for(var i = 0;i<nb_values_in_payload;i++){
+    if(payload[19+nb_values_in_payload*2+i*2] == 0xFF
+      && (payload[20+nb_values_in_payload*2+i*2] == 0xFF || payload[20+nb_values_in_payload*2+i*2+i*2] == 0xFE
+        || payload[20+nb_values_in_payload*2+i*2] == 0xFD || payload[20+nb_values_in_payload*2+i*2] == 0xFC
+        || payload[20+nb_values_in_payload*2+i*2] == 0xFB)){
+        data.powers[1].push(null);
+    }else{
+      var value = 0;
+      if(!signedNeg){
+        value = toUnsignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
+        value = -value;
+      }
+      else value = toSignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
+      data.powers[1].push(value)
+    }
+  }
+
+
+
+
+  /*
+  if(type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name && data.index > 0){
+    data.index = -data.index;
+  }
+  var nb_values_in_payload = (payload.length-11)/2
+  for(var i = 0;i<nb_values_in_payload;i++){
+    if(payload[11+i*2] == 0xFF
+      && (payload[12+i*2] == 0xFF || payload[12+i*2] == 0xFE || payload[12+i*2] == 0xFD || payload[12+i*2] == 0xFC || payload[12+i*2] == 0xFB)){
+        data.powers.push(null);
+    }else{
+      var value = 0;
+      if(!signed) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
+        value = -value;
+      }
+      data.powers.push(value)
+    }
+  }*/
+  return data
+}
+
 function decode_T1_meca(payload, time_step){
   var data = {};
   data.index  = (payload[1] & 0xFF) << 24 | (payload[2] & 0xFF) << 16 | (payload[3] & 0xFF) << 8 | (payload[4] & 0xFF);
@@ -404,6 +531,7 @@ function decode_T2_mme_adjustable_step(payload){
   if(data.measure == 0) data.type_of_measure = "E-POS values (OBIS code 1.8.0)";
   if(data.measure == 1) data.type_of_measure = "E-SUM values (OBIS code 16.8.0)";
   if(data.measure == 2) data.type_of_measure = "E-NEG values (OBIS code 2.8.0)";
+  if(data.measure == 3) data.type_of_measure = "E-POS values (OBIS code 1.8.0) & E-NEG values (OBIS code 2.8.0)";
   data.firmware_version = payload[7];
   data.sensor_sensitivity = payload[8];
   data.scaler_e_pos = toSignedInt8(payload[9]);
