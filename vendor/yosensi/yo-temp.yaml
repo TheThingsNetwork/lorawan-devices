@@ -79,4 +79,4 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Temp_datasheet.pdf
 photos:
   main: yo-temp-02.png
   other:
-    -yo-temp-01.png
+    - yo-temp-01.png
