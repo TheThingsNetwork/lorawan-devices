@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.3.0'
+    version: '3.6.3'
     numeric: 1
     hardwareVersions:
       - '3.1'
@@ -25,13 +25,16 @@ firmwareVersions:
         # which is verbose.
         # vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-pure-pro-profile
+        id: yo-pure-pro-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-pure-pro-profile-us
+      US902-928:
+        id: yo-pure-pro-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-pure-pro-profile-au
+        id: yo-pure-pro-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-pure-pro-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -67,7 +70,7 @@ dimensions:
   height: 45
 
 # Weight in grams (optional)
-weight: 200
+weight: 260
 
 # Battery information (optional)
 battery:
@@ -83,7 +86,7 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Pure_Pro_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-pure-pro.png
+  main: yo-pure-pro-01.png
   other:
-    - yo-pure-pro-celling.png
-    - yo-pure-pro-wall.png
+    - yo-pure-pro-02.png
+    - yo-pure-pro-03.png

@@ -2,16 +2,16 @@ name: YO Power
 description: YO Power measures AC current flowing through devices connected to the mains. It can be fitted with up to six current clamps. It is possible to connect current-rated clamps with current output from almost every manufacturer. One YO Power device can measure multiple currents simultaneously (e.g. in one three-phase device, two three-phase devices, six single-phase devices, three single-phase devices, etc.).
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.0'
+  - version: '3.1'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.2.0'
+    version: '4.0.3'
     numeric: 1
     hardwareVersions:
-      - '3.0'
+      - '3.1'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -24,13 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-power-profile
+        id: yo-power-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-power-profile-us
+      US902-928:
+        id: yo-power-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-power-profile-au
+        id: yo-power-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-power-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -69,4 +72,6 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Power_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-power-2.png
+  main: yo-power-02.png
+  other:
+    yo-power-01.png

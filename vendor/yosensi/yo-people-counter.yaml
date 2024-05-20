@@ -2,16 +2,16 @@ name: YO People Counter
 description: YO People Counter is a bi-directional device that uses a novel 24 GHz radar transceiver to detect motion from both directions simultaneously. This device detects a person moving independently when a certain distance exists between people and measures the speed of moving objects approaching the sensor. This device counts people flow in buildings, exhibitions, airports and more.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '3.0'
+  - version: '1.1'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.2.0'
+    version: '3.6.2'
     numeric: 1
     hardwareVersions:
-      - '3.0'
+      - '1.1'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -24,13 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-people-counter-profile
+        id: yo-people-counter-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-people-counter-us
+      US902-928:
+        id: yo-people-counter-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-people-counter-au
+        id: yo-people-counter-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-people-counter-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -68,4 +71,4 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_People_Counter_datasheet.
 
 # Photos
 photos:
-  main: yo-people-counter.png
+  main: yo-people-counter-01.png

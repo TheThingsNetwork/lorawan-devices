@@ -8,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.1.0'
+    version: '3.6.5'
     numeric: 1
     hardwareVersions:
       - '1.1'
@@ -24,13 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-h2o-profile
+        id: yo-h2o-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-h2o-profile-us
+      US902-928:
+        id: yo-h2o-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-h2o-profile-au
+        id: yo-h2o-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-h2o-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -61,8 +64,13 @@ dimensions:
 # Weight in grams (optional)
 weight: 18.6
 
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 1 x CR2450 3V
+
 # IP rating (optional)
-ipCode: IP67
+ipCode: IP54
 
 # Product and data sheet URLs (optional)
 productURL: https://yosensi.io/products/yo_h2o/
@@ -70,4 +78,4 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_H2O_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-h2o.png
+  main: yo-h2o-01.png

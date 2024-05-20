@@ -1,17 +1,17 @@
 name: YO Modbus
-description: YO Modbus is the bridge between the Modbus network and LoRaWAN. It allows to read data via Modbus RTU from Slave devices and send it via LoRaWAN.With one YO Modbus device, it is possible to create up to 150 Modbus queries and send via LoRaWAN collected in up to 30 different LoRa frames. The device is designed for mounting on standard 35 mm DIN rails in electrical switchboards.
+description: YO Modbus is the bridge between the Modbus network and LoRaWAN. It allows to read data via Modbus RTU from Slave devices and send it via LoRaWAN. One YO Modbus device provides capacity to create up to 150 Modbus queries and to send them in up to 30 different LoRa packets. These are sent in LoRA packets of up to 5 queries each (i.e. maximum of 30 packets).
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: '1.1'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.1.0'
+    version: '3.6.3'
     numeric: 1
     hardwareVersions:
-      - '1.0'
+      - '1.1'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -24,13 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-modbus-profile
+        id: yo-modbus-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-modbus-profile-us
+      US902-928:
+        id: yo-modbus-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-modbus-profile-au
+        id: yo-modbus-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-modbus-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -70,4 +73,4 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Modbus_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-modbus.png
+  main: yo-modbus-01.png

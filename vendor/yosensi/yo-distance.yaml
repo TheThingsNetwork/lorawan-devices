@@ -8,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.1.0'
+    version: '3.6.5'
     numeric: 1
     hardwareVersions:
       - '2.1'
@@ -23,13 +23,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-distance-profile
+        id: yo-distance-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-distance-profile-us
+      US902-928:
+        id: yo-distance-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-distance-profile-au
+        id: yo-distance-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-distance-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -63,7 +66,7 @@ weight: 176
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3 x AA
+  type: 3 x AA (3 x 1.5V)
 
 # IP rating (optional)
 ipCode: IP67
@@ -74,4 +77,6 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Distance_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-distance-2.png
+  main: yo-distance-02.png
+  other:
+    - yo-distance-01.png

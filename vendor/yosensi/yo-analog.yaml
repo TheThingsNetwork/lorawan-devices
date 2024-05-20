@@ -8,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.2.0'
+    version: '3.6.2'
     numeric: 1
     hardwareVersions:
       - '1.0'
@@ -24,13 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-analog-profile
+        id: yo-analog-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-analog-profile-us
+      US902-928:
+        id: yo-analog-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-analog-profile-au
+        id: yo-analog-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-analog-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -69,4 +72,6 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Analog_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-analog-2.png
+  main: yo-analog-02.png
+  other:
+    - yo-analog-01.png

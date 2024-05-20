@@ -8,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.1.0'
+    version: '3.6.5'
     numeric: 1
     hardwareVersions:
       - '2.1'
@@ -24,13 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-temp-profile
+        id: yo-temp-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-temp-profile-us
+      US902-928:
+        id: yo-temp-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-temp-profile-au
+        id: yo-temp-profile-AU915
+        lorawanCertified: true
+      AS923:
+        id: yo-temp-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -54,16 +57,16 @@ additionalRadios:
 # Use width, height, length and/or diameter
 dimensions:
   width: 88
-  length: 42
-  height: 64
+  length: 64
+  height: 42
 
 # Weight in grams (optional)
-weight: 204
+weight: 134
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3 x AA
+  type: 3 x AA (3 x 1.5V)
 
 # IP rating (optional)
 ipCode: IP67
@@ -74,4 +77,6 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Temp_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-temp-2.png
+  main: yo-temp-02.png
+  other:
+    -yo-temp-01.png
