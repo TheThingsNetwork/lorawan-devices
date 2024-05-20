@@ -74,4 +74,4 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Power_datasheet.pdf
 photos:
   main: yo-power-02.png
   other:
-    yo-power-01.png
+    - yo-power-01.png

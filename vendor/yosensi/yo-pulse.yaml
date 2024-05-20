@@ -74,4 +74,4 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Pulse_datasheet.pdf
 photos:
   main: yo-pulse-02.png
   other:
-    -yo-pulse-01.png
+    - yo-pulse-01.png
