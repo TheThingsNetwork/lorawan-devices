@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-meter-reader-2_0-profile
+        id: yo-meter-reader-2-0-profile-EU868
         lorawanCertified: true
-      US902-928: #dodać profil na US
-        id: yo-meter-reader-2_0-profile-us
+      US902-928:
+        id: yo-meter-reader-2-0-profile-US915
         lorawanCertified: true
       AU915-928:
-        id: yo-meter-reader-2_0-profile-au
+        id: yo-meter-reader-2-0-profile-AU915
         lorawanCertified: true
       AS923:
-        id: yo-meter-reader-2_0-profile-as
+        id: yo-meter-reader-2-0-profile-AS923
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -47,7 +47,9 @@ firmwareVersions:
 sensors:
   - temperature
   - humidity
-  -
+  - pulse count
+  - energy
+  - water
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
