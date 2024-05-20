@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-people-counter-profile-EU868
+        id: yo-people-counter-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-people-counter-profile-US915
+        id: yo-people-counter-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-people-counter-profile-AU915
+        id: yo-people-counter-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-people-counter-profile-AS923
+        id: yo-people-counter-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)

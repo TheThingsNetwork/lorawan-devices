@@ -23,16 +23,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-distance-profile-EU868
+        id: yo-distance-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-distance-profile-US915
+        id: yo-distance-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-distance-profile-AU915
+        id: yo-distance-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-distance-profile-AS923
+        id: yo-distance-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)

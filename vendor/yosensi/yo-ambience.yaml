@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-ambience-profile-EU868
+        id: yo-ambience-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-ambience-profile-US915
+        id: yo-ambience-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-ambience-profile-AU915
+        id: yo-ambience-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-ambience-profile-AS923
+        id: yo-ambience-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)

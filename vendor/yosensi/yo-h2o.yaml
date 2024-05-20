@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-h2o-profile-EU868
+        id: yo-h2o-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-h2o-profile-US915
+        id: yo-h2o-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-h2o-profile-AU915
+        id: yo-h2o-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-h2o-profile-AS923
+        id: yo-h2o-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)

@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-meter-pulse-profile-EU868
+        id: yo-meter-pulse-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-meter-pulse-profile-US915
+        id: yo-meter-pulse-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-meter-pulse-profile-AU915
+        id: yo-meter-pulse-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-meter-pulse-profile-AS923
+        id: yo-meter-pulse-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)

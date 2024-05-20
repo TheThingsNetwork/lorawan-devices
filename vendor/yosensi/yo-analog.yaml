@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-analog-profile-EU868
+        id: yo-analog-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-analog-profile-US915
+        id: yo-analog-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-analog-profile-AU915
+        id: yo-analog-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-analog-profile-AS923
+        id: yo-analog-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)

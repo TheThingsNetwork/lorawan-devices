@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-360-profile-EU868
+        id: yo-360-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-360-profile-US915
+        id: yo-360-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-360-profile-AU915
+        id: yo-360-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-360-profile-AS923
+        id: yo-360-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)

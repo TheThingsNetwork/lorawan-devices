@@ -24,16 +24,16 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-modbus-profile-EU868
+        id: yo-modbus-profile-eu
         lorawanCertified: true
       US902-928:
-        id: yo-modbus-profile-US915
+        id: yo-modbus-profile-us
         lorawanCertified: true
       AU915-928:
-        id: yo-modbus-profile-AU915
+        id: yo-modbus-profile-au
         lorawanCertified: true
       AS923:
-        id: yo-modbus-profile-AS923
+        id: yo-modbus-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)
