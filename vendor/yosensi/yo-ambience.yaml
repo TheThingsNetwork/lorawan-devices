@@ -8,8 +8,15 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.6.8'
+    version: '3.2.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.2'
+  - # Firmware version
+    version: '3.6.8'
+    numeric: 2
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.2'
 

@@ -2,14 +2,23 @@ name: YO People Counter
 description: YO People Counter is a bi-directional device that uses a novel 24 GHz radar transceiver to detect motion from both directions simultaneously. This device detects a person moving independently when a certain distance exists between people and measures the speed of moving objects approaching the sensor. This device counts people flow in buildings, exhibitions, airports and more.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.1'
+  - version: '3.0'
     numeric: 1
+  - version: '1.1'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '3.6.2'
+    version: '3.2.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '3.0'
+  - # Firmware version
+    version: '3.6.2'
+    numeric: 2
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.1'
 
