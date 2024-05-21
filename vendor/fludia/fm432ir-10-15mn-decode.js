@@ -125,6 +125,7 @@ function decodeUplink(input){
     decoded.data.powers = data.powers;
   }else if(decoded.data.message_type == PAYLOAD_TYPE.T1_MECA_ADJUSTABLE_STEP.name){
     var data = decode_T1_meca_adjustable_step(input.bytes, decoded.data.time_step);
+    decoded.data.time_step = data.time_step;
     decoded.data.index = data.index;
     decoded.data.increments = data.increments;
     decoded.data.powers = data.powers;
