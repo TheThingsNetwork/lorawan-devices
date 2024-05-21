@@ -35,13 +35,13 @@ sensors:
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
-dimensions:
-  width: 
-  length: 
-  height: 
+# dimensions:
+#  width: 
+#  length: 
+#  height: 
 
 # Weight in grams (optional)
-weight: 
+# weight: 
 
 # Battery information (optional)
 battery:
@@ -58,7 +58,7 @@ keyProvisioning:
 
 # Product and data sheet URLs (optional)
 productURL: https://cicicom.gr/pages/lora-wan/lora-parking-sensor/
-dataSheetURL:
+# dataSheetURL:
 
 # Photos
 photos:
