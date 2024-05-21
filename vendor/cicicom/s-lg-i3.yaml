@@ -9,7 +9,7 @@ hardwareVersions:
 firmwareVersions:
   - # Firmware version
     version: 'V1.4.0'
-    numeric: 1
+    numeric: 14
     hardwareVersions:
       - '1.0'
 
@@ -45,7 +45,7 @@ sensors:
 
 # Battery information (optional)
 battery:
-  replaceable: yes
+  replaceable: true
   type: 3.6V Lithium
 
 # IP rating (optional)
@@ -55,7 +55,7 @@ ipCode: IP68
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - join server
-
+  - custom
 # Product and data sheet URLs (optional)
 productURL: https://cicicom.gr/pages/lora-wan/lora-parking-sensor/
 # dataSheetURL:
