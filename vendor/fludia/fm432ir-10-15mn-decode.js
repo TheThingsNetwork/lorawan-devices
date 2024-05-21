@@ -139,6 +139,7 @@ function decodeUplink(input){
     decoded.data.time_step = data.time_step;
   }else if(decoded.data.message_type == PAYLOAD_TYPE.T2_MECA_ADJUSTABLE_STEP.name){
     var data = decode_T2_meca_adjustable_step(input.bytes);
+    decoded.data.param_id = data.param_id;
     decoded.data.index = data.index;
     decoded.data.meter_type = "Electromechanical (Position A)";
     decoded.data.low_battery = data.low_battery;
