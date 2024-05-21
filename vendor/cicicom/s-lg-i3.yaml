@@ -30,7 +30,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-   - radar, magnetometer
+   - radar
+   - magnetometer
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
