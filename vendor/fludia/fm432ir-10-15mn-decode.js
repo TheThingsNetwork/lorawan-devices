@@ -343,7 +343,7 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
       }else{
         var bytes = [];
         for(var i = 0;i<8;i++) bytes.push(payload[i+3])
-        data.index = toSignedInt64(bytes)/10
+        data.index_solar.e_po = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10
@@ -362,7 +362,7 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
       }else{
         var bytes = [];
         for(var i = 0;i<8;i++) bytes.push(payload[i+(11+2*nb_values_in_payload)])
-        data.index = toSignedInt64(bytes)/10
+        data.index_solar.e_neg = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
