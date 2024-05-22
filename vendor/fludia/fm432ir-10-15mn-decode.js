@@ -20,7 +20,7 @@ const PAYLOAD_TYPE = {
 }
 
 //Main function Decoder
-function decodeUplink(input){
+export function decodeUplink(input){
   var decoded = {
     data: {
       index : null,
@@ -264,7 +264,7 @@ function decode_T1_mme(payload, type){
       if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
         value = -value;
       }
-      data.powers.push(value)
+      data.powers.push(value*60/data.time_step)
     }
   }
   return data
@@ -308,7 +308,7 @@ function decode_T1_mme_adjustable_step(payload, type){
       if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
         value = -value;
       }
-      data.powers.push(value)
+      data.powers.push(value*60/data.time_step)
     }
   }
   return data
@@ -376,7 +376,7 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
       var value = 0;
       if(!signedPos) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
       else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
-      data.powers[0].push(value)
+      data.powers[0].push(value*60/data.time_step)
     }
   }
 
@@ -393,7 +393,7 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
         value = -value;
       }
       else value = toSignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
-      data.powers[1].push(value)
+      data.powers[1].push(value*60/data.time_step)
     }
   }
 
@@ -427,10 +427,10 @@ function decode_T1_meca(payload, time_step){
   data.index  = (payload[1] & 0xFF) << 24 | (payload[2] & 0xFF) << 16 | (payload[3] & 0xFF) << 8 | (payload[4] & 0xFF);
   data.increments = []
   data.powers = []
-  for(i=0;i<8;i++){
+  for(var i=0;i<8;i++){
     data.increments.push((payload[5+2*i] & 0xFF) << 8 | (payload[6+2*i] & 0xFF))
   }
-  for(i=0;i<8;i++){
+  for(var i=0;i<8;i++){
     data.powers.push(data.increments[i] * 60 / time_step)
   }
   return data
@@ -443,10 +443,10 @@ function decode_T1_meca_adjustable_step(payload, time_step){
   data.increments = []
   data.powers = []
   var nb_values_in_payload = (payload.length-6)/2
-  for(i=0;i<nb_values_in_payload;i++){
+  for(var i=0;i<nb_values_in_payload;i++){
     data.increments.push((payload[6+2*i] & 0xFF) << 8 | (payload[7+2*i] & 0xFF))
   }
-  for(i=0;i<nb_values_in_payload;i++){
+  for(var i=0;i<nb_values_in_payload;i++){
     data.powers.push(data.increments[i] * 60 / data.time_step)
   }
   return data
