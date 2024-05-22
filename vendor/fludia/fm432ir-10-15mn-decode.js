@@ -250,9 +250,9 @@ function decode_T1_mme(payload, type){
         data.index = parseInt(toHexString(payload).substring(8, 24),16)/10
     }
   }
-  if(type == PAYLOAD_TYPE.T1_E_NEG.name && data.index > 0){
+  /*if(type == PAYLOAD_TYPE.T1_E_NEG.name && data.index > 0){
     data.index = -data.index;
-  }
+  }*/
   for(var i = 0;i<8;i++){
     if(payload[12+i*2] == 0xFF
       && (payload[13+i*2] == 0xFF || payload[13+i*2] == 0xFE || payload[13+i*2] == 0xFD || payload[13+i*2] == 0xFC || payload[13+i*2] == 0xFB)){
@@ -261,9 +261,9 @@ function decode_T1_mme(payload, type){
       var value = 0;
       if(!signed) value = toUnsignedInt16(payload[12+i*2],payload[13+i*2])/10;
       else value = toSignedInt16(payload[12+i*2],payload[13+i*2])/10;
-      if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
+      /*if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
         value = -value;
-      }
+      }*/
       data.powers.push(value*60/data.time_step)
     }
   }
@@ -293,9 +293,9 @@ function decode_T1_mme_adjustable_step(payload, type){
         data.index = parseInt(toHexString(payload).substring(6, 22),16)/10
     }
   }
-  if(type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name && data.index > 0){
+  /*if(type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name && data.index > 0){
     data.index = -data.index;
-  }
+  }*/
   var nb_values_in_payload = (payload.length-11)/2
   for(var i = 0;i<nb_values_in_payload;i++){
     if(payload[11+i*2] == 0xFF
@@ -305,9 +305,9 @@ function decode_T1_mme_adjustable_step(payload, type){
       var value = 0;
       if(!signed) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
       else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
-      if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
+      /*if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
         value = -value;
-      }
+      }*/
       data.powers.push(value*60/data.time_step)
     }
   }
@@ -351,7 +351,7 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
   }
   if(!signedNeg){
     data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
-    data.index_solar.e_neg = - data.index_solar.e_neg
+    //data.index_solar.e_neg = - data.index_solar.e_neg
   }else{
     if(payload[3+8+2*nb_values_in_payload] & 0x80){
       //We have a negative number
@@ -390,7 +390,7 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
       var value = 0;
       if(!signedNeg){
         value = toUnsignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
-        value = -value;
+        //value = -value;
       }
       else value = toSignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
       data.powers[1].push(value*60/data.time_step)
@@ -519,7 +519,7 @@ function decode_T2_mme(payload){
         data.index = parseInt(toHexString(payload).substring(20, 36),16)/10
     }
   }
-  if(data.measure == 2) data.index = -parseInt(toHexString(payload).substring(20, 36),16)/10;
+  if(data.measure == 2) data.index = parseInt(toHexString(payload).substring(20, 36),16)/10;
   return data;
 }
 
@@ -560,7 +560,7 @@ function decode_T2_mme_adjustable_step(payload){
         data.index = parseInt(toHexString(payload).substring(24, 40),16)/10
     }
   }
-  if(data.measure == 2) data.index = -parseInt(toHexString(payload).substring(24, 40),16)/10;
+  if(data.measure == 2) data.index = parseInt(toHexString(payload).substring(24, 40),16)/10;
   return data;
 }
 
