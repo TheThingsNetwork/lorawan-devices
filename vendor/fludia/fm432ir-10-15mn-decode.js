@@ -242,9 +242,9 @@ function decode_T1_mme(payload, type){
       if(payload[4] == 0xFF && (payload[5] >> 4) == 0xFF && (payload[6] >> 4) == 0xFF && (payload[7] >> 4) == 0xFF){
         data.index = (parseInt(toHexString(payload).substring(16, 24),16) >> 0)/10
       }else{
-        //Overflow in data
-        data.warnings.push("Overflow with index value");
-        data.index = (parseInt(toHexString(payload).substring(16, 24),16) >> 0)/10
+        var bytes = [];
+        for(var i = 0;i<8;i++) bytes.push(payload[i+4])
+        data.index = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index = parseInt(toHexString(payload).substring(8, 24),16)/10
@@ -285,9 +285,9 @@ function decode_T1_mme_adjustable_step(payload, type){
       if(payload[3] == 0xFF && (payload[4] >> 4) == 0xFF && (payload[5] >> 4) == 0xFF && (payload[6] >> 4) == 0xFF){
         data.index = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
       }else{
-        //Overflow in data
-        data.warnings.push("Overflow with index value");
-        data.index = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
+        var bytes = [];
+        for(var i = 0;i<8;i++) bytes.push(payload[i+3])
+        data.index = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index = parseInt(toHexString(payload).substring(6, 22),16)/10
@@ -341,9 +341,9 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
       if(payload[3] == 0xFF && (payload[4] >> 4) == 0xFF && (payload[5] >> 4) == 0xFF && (payload[6] >> 4) == 0xFF){
         data.index_solar.e_pos = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
       }else{
-        //Overflow in data
-        data.warnings.push("Overflow with index value");
-        data.index_solar.e_pos = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
+        var bytes = [];
+        for(var i = 0;i<8;i++) bytes.push(payload[i+3])
+        data.index = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10
@@ -360,9 +360,9 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
          && (payload[5+8+2*nb_values_in_payload] >> 4) == 0xFF && (payload[6+8+2*nb_values_in_payload] >> 4) == 0xFF){
         data.index_solar.e_neg = (parseInt(toHexString(payload).substring((15+2*nb_values_in_payload)*2, (15+2*nb_values_in_payload)*2+8),16) >> 0)/10
       }else{
-        //Overflow in data
-        data.warnings.push("Overflow with index value");
-        data.index_solar.e_neg = (parseInt(toHexString(payload).substring((15+2*nb_values_in_payload)*2, (15+2*nb_values_in_payload)*2+8),16) >> 0)/10
+        var bytes = [];
+        for(var i = 0;i<8;i++) bytes.push(payload[i+(11+2*nb_values_in_payload)])
+        data.index = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
@@ -511,9 +511,9 @@ function decode_T2_mme(payload){
       if(payload[10] == 0xFF && (payload[11]) == 0xFF && (payload[12]) == 0xFF && (payload[13]) == 0xFF){
         data.index = (parseInt(toHexString(payload).substring(28, 36),16) >> 0)/10
       }else{
-        //Overflow in data
-        data.warnings.push("Overflow with index value");
-        data.index = (Number("0x"+toHexString(payload).substring(28, 36)) >> 0)/10
+        var bytes = [];
+        for(var i = 0;i<8;i++) bytes.push(payload[i+10])
+        data.index = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index = parseInt(toHexString(payload).substring(20, 36),16)/10
@@ -553,9 +553,8 @@ function decode_T2_mme_adjustable_step(payload){
       if(payload[12] == 0xFF && (payload[13]) == 0xFF && (payload[14]) == 0xFF && (payload[15]) == 0xFF){
         data.index = (parseInt(toHexString(payload).substring(32, 40),16) >> 0)/10
       }else{
-        //Overflow in data
-        data.warnings.push("Overflow with index value");
-        data.index = (Number("0x"+toHexString(payload).substring(32, 40)) >> 0)/10
+        for(var i = 0;i<8;i++) bytes.push(payload[i+12])
+        data.index = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
         data.index = parseInt(toHexString(payload).substring(24, 40),16)/10
@@ -584,4 +583,27 @@ function toHexString(byteArray) {
   return Array.from(byteArray, function (byte) {
     return ('0' + (byte & 0xff).toString(16)).slice(-2);
   }).join('');
+}
+
+function toSignedInt64(bytes){
+  var size = 8
+  var first = true;
+  var pos = 0
+  var value = 0;
+  while (size--) {
+    if (first) {
+      let byte = bytes[pos++];
+      value += byte & 0x7f;
+      if (byte & 0x80) {
+        value -= 0x80;
+        // Treat most-significant bit as -2^i instead of 2^i
+      }
+      first = false;
+    }
+    else {
+      value *= 256;
+      value += bytes[pos++];
+    }
+  }
+  return value;
 }
