@@ -7,7 +7,7 @@ const PAYLOAD_TYPE = {
   T1_E_NEG_ADJUSTABLE_STEP          :  {header: 0x73, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_NEG_ADJUSTABLE_STEP"},
   T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP :  {header: 0x74, size_min: 23/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP"},
   T2_MME                            :  {header: 0x2a, size: 18/*in bytes*/, name: "T2_MME"},
-  T2_MME_ADJUSTABLE_STEP            :  {header: 0x3a, size: 20/*in bytes*/, name: "T2_MME_ADJUSTABLE_STEP"},
+  T2_MME_ADJUSTABLE_STEP            :  {header: 0x3a, size: 21/*in bytes*/, name: "T2_MME_ADJUSTABLE_STEP"},
   T1_MECA_10MN                      :  {header: 0x48, size: 21/*in bytes*/, name: "T1_MECA_10MN"},
   T1_MECA_15MN                      :  {header: 0x49, size: 21/*in bytes*/, name: "T1_MECA_15MN"},
   T1_MECA_1H                        :  {header: 0x4a, size: 21/*in bytes*/, name: "T1_MECA_1H"},
@@ -105,6 +105,7 @@ export function decodeUplink(input){
     for(var i = 0;i<data.warnings.length;i++){
       decoded.warnings.push(data.warnings[i]);
     }
+    decoded.data.low_battery = data.low_battery;
     decoded.data.index = data.index;
     decoded.data.meter_type = "mME (Position B)";
     decoded.data.firmware_version = data.firmware_version;
@@ -536,31 +537,32 @@ function decode_T2_mme_adjustable_step(payload){
   if(data.measure == 3) data.type_of_measure = "E-POS values (OBIS code 1.8.0) & E-NEG values (OBIS code 2.8.0)";
   data.firmware_version = payload[7];
   data.sensor_sensitivity = payload[8];
-  data.scaler_e_pos = toSignedInt8(payload[9]);
-  if(payload[9] == 0x7F) data.scaler_e_pos = null;
+  data.low_battery = payload[9] & 0x1;
+  data.scaler_e_pos = toSignedInt8(payload[10]);
+  if(payload[10] == 0x7F) data.scaler_e_pos = null;
   else data.scaler_e_pos = Math.pow(10, data.scaler_e_pos)
-  data.scaler_e_sum = toSignedInt8(payload[10]);
-  if(payload[10] == 0x7F) data.scaler_e_sum = null;
+  data.scaler_e_sum = toSignedInt8(payload[11]);
+  if(payload[11] == 0x7F) data.scaler_e_sum = null;
   else data.scaler_e_sum = Math.pow(10, data.scaler_e_sum)
-  data.scaler_e_neg = toSignedInt8(payload[10]);
-  if(payload[11] == 0x7F) data.scaler_e_neg = null;
+  data.scaler_e_neg = toSignedInt8(payload[12]);
+  if(payload[12] == 0x7F) data.scaler_e_neg = null;
   else data.scaler_e_neg = Math.pow(10, data.scaler_e_neg)
-  if(data.measure == 0) data.index = parseInt(toHexString(payload).substring(24, 40),16)/10;
+  if(data.measure == 0) data.index = parseInt(toHexString(payload).substring(26, 42),16)/10;
   if(data.measure == 1){
-    if(payload[12] & 0x80){
+    if(payload[13] & 0x80){
       //We have a negative number
       //For signed values we will have an issue with javascript handling only 32 bits
-      if(payload[12] == 0xFF && (payload[13]) == 0xFF && (payload[14]) == 0xFF && (payload[15]) == 0xFF){
-        data.index = (parseInt(toHexString(payload).substring(32, 40),16) >> 0)/10
+      if(payload[13] == 0xFF && (payload[14]) == 0xFF && (payload[15]) == 0xFF && (payload[16]) == 0xFF){
+        data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0)/10
       }else{
         for(var i = 0;i<8;i++) bytes.push(payload[i+12])
         data.index = toSignedInt64(bytes)/10
       }
     }else{//Positive no issue
-        data.index = parseInt(toHexString(payload).substring(24, 40),16)/10
+        data.index = parseInt(toHexString(payload).substring(26, 42),16)/10
     }
   }
-  if(data.measure == 2) data.index = parseInt(toHexString(payload).substring(24, 40),16)/10;
+  if(data.measure == 2) data.index = parseInt(toHexString(payload).substring(26, 42),16)/10;
   return data;
 }
 
