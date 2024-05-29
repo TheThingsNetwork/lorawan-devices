@@ -5,8 +5,6 @@ description: TLM LoRaWAN EndNode Modem read field Modbus/TCP/RTU devices and sen
 hardwareVersions:
   - version: '1.xx'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -51,11 +49,53 @@ firmwareVersions:
         lorawanCertified: true
         codec: tlm-lw-codec
 
+  - # Firmware version
+    version: '2.02.xx'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.xx'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: tlm-lw-profile-868
+        lorawanCertified: true
+        codec: tlm-lw-codec-2404
+      US902-928:
+        id: tlm-lw-profile-915
+        lorawanCertified: true
+        codec: tlm-lw-codec-2404
+      AS923:
+        id: tlm-lw-profile-923
+        lorawanCertified: true
+        codec: tlm-lw-codec-2404
+      IN865-867:
+        id: tlm-lw-profile-865
+        lorawanCertified: true
+        codec: tlm-lw-codec-2404
+
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
 bridgeInterfaces:
   - modbus
   - rs-485
+  - ethernet
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -93,6 +133,7 @@ keyProvisioning:
 keyProgramming:
   - serial
   - firmware
+  - ethernet
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -104,6 +145,7 @@ keySecurity: none
 firmwareProgramming:
   - serial
   - fuota other
+  - ethernet
 
 # Product and data sheet URLs (optional)
 productURL: https://redz-sc.com/en/product/tlm-series-lora-and-lorawan-modems/tlm354-868mhz-lorawan-endnode-modem-with-modbus-tcprtu-scheduler-with-2-x-10100base-tx-ports-1-x-rs232-and-1-x-rs485-serial-ports
@@ -122,8 +164,9 @@ msrp:
 
 # Photos
 photos:
-  main: tlm-lw-1.png # Image needs to have a transparent background
+  main: tlm-lw.png # Image needs to have a transparent background
   other:
-    - tlm-lw-sc01.jpg # Image needs to have a transparent background
-    - tlm-lw-sc02.jpg # Image needs to have a transparent background
+    - tlm-lw-sc1.png # Image needs to have a transparent background
+    - tlm-lw-sc2.png # Image needs to have a transparent background
+    - tlm-lw-sc3.png # Image needs to have a transparent background
 

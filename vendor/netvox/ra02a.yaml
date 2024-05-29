@@ -34,6 +34,9 @@ firmwareVersions:
         id: profile-cn470
         codec: ra02a-codec
 
+sensors:
+  - smoke
+
 dimensions:
   diameter: 106
   height: 40.6

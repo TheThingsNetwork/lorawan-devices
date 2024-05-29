@@ -46,6 +46,8 @@ firmwareVersions:
         lorawanCertified: false
         codec: codec-catena-generic
 
+deviceType: devkit
+
 # Sensors that this device features (optional)
 # Valid values are:
 # accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,

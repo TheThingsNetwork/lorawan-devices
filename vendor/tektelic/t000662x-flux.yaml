@@ -23,6 +23,10 @@ firmwareVersions:
         lorawanCertified: true
         codec: t000662x-codec
 
+sensors:
+  - voltage
+  - current
+
 operatingConditions:
   temperature:
     min: 0

@@ -1,4 +1,4 @@
-name: DL-PR21 - Pressure/Liquid Level Sensor
+name: DL-PR21 - Pressure / Liquid Level and Temperature Sensor with G1/4" Pipe Thread
 description: The Decentlab DL-PR21 is equipped with pressure, liquid level, and temperature sensors. It is suitable for use with water distribution systems for measuring and monitoring liquid levels, temperature, and leaks.
 
 hardwareVersions:

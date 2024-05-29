@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-vshb-profile
         lorawanCertified: true
         codec: rbs306-vshb-codec
+
+sensors:
+  - vibration
+
 # Photos
 photos:
   main: rbs306-vshb.png

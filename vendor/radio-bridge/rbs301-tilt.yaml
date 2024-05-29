@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs301-tilt-profile
         lorawanCertified: true
         codec: rbs301-tilt-codec
+
+sensors:
+  - tilt
+
 # Photos
 photos:
   main: rbs301-tilt.png

@@ -46,6 +46,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: t0007377-codec
 
+sensors:
+  - accelerometer
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

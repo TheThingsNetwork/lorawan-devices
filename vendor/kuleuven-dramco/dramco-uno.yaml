@@ -27,6 +27,8 @@ firmwareVersions:
         lorawanCertified: true
         # No codec, Cayenne LPP is used
 
+deviceType: devkit
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,

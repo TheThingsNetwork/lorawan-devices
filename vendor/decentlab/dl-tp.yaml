@@ -1,4 +1,4 @@
-name: DL-TP - Temperature Profile Sensor
+name: DL-TP - Temperature Profile
 description: The Decentlab DL-TP comes with temperature profiling sensors that can be used in monitoring of glaciers, lakes, ocean, permafrost, dike, dam and soils.
 
 hardwareVersions:

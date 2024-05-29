@@ -854,7 +854,6 @@ function Decoder(bytes, port) {
   return decoded;
 }
 
-
 function decodeDownlink(input) {
   return {
     data: {
@@ -864,3 +863,4 @@ function decodeDownlink(input) {
     errors: []
   }
 }
+

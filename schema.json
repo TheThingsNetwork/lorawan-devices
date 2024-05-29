@@ -79,6 +79,47 @@
           "items": {
             "$ref": "#/definitions/identifier"
           }
+        },
+        "profileIDs": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "endDeviceID": {
+                      "$ref": "#/definitions/identifier"
+                    },
+                    "hardwareVersion": {
+                      "type": "string"
+                    },
+                    "firmwareVersion": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "region": {
+                      "$ref": "#/definitions/region"
+                    }
+                  },
+                  "required": ["endDeviceID", "hardwareVersion", "firmwareVersion", "region"]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "$ref": "#/definitions/identifier"
+                    },
+                    "codec": {
+                      "$ref": "#/definitions/identifier"
+                    }
+                  },
+                  "required": ["id", "codec"]
+                }
+              ]
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
@@ -547,7 +588,6 @@
       "type": "object",
       "examples": [
         {
-          "vendorProfileID": 1,
           "supportsClassB": false,
           "supportsClassC": false,
           "macVersion": "1.0.2",
@@ -557,7 +597,6 @@
           "supports32bitFCnt": true
         },
         {
-          "vendorProfileID": 2,
           "supportsClassB": false,
           "supportsClassC": false,
           "macVersion": "1.0.4",
@@ -573,12 +612,6 @@
         }
       ],
       "properties": {
-        "vendorProfileID": {
-          "type": "integer",
-          "description": "VendorProfileID managed by the vendor, as defined in TR005",
-          "minimum": 0,
-          "maximum": 65535
-        },
         "supportsClassB": {
           "type": "boolean",
           "description": "End device supports class B"
@@ -918,12 +951,16 @@
           "description": "Instructions for finding firmware version",
           "examples": ["In the WebFig configuration panel, the firmware version is stated in the top left (e.g RouterOS v6.47.9)"]
         },
+        "deviceType": {
+          "enum": ["devkit", "module", "cots"]
+        },
         "sensors": {
           "type": "array",
           "items": {
             "enum": [
               "4-20 ma",
               "accelerometer",
+              "albedo",
               "altitude",
               "analog input",
               "auxiliary",
@@ -935,6 +972,7 @@
               "co2",
               "conductivity",
               "current",
+              "dew point",
               "digital input",
               "dissolved oxygen",
               "distance",
@@ -943,8 +981,10 @@
               "gps",
               "gyroscope",
               "h2s",
+              "hall effect",
               "humidity",
               "iaq",
+              "infrared",
               "leaf wetness",
               "level",
               "light",
@@ -953,9 +993,11 @@
               "magnetometer",
               "moisture",
               "motion",
+              "nfc",
               "no",
               "no2",
               "o3",
+              "occupancy",
               "optical meter",
               "particulate matter",
               "ph",
@@ -971,15 +1013,19 @@
               "pulse frequency",
               "radar",
               "rainfall",
+              "reed switch",
               "rssi",
               "sap flow",
+              "salinity",
               "smart valve",
+              "smoke",
               "snr",
               "so2",
               "solar radiation",
               "sound",
               "strain",
               "surface temperature",
+              "switch",
               "temperature",
               "tilt",
               "time",
@@ -987,6 +1033,7 @@
               "tvoc",
               "uv",
               "vapor pressure",
+              "vapor pressure deficit",
               "velocity",
               "vibration",
               "voltage",

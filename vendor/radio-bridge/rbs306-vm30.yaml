@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-vm30-profile
         lorawanCertified: true
         codec: rbs306-vm30-codec
+
+sensors:
+  - voltage
+
 # Photos
 photos:
   main: rbs306-vm30.png
