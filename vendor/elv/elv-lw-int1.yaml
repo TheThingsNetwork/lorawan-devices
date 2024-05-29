@@ -48,7 +48,6 @@ firmwareVersions:
 #sensors:
 deviceType: devkit
 
-
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
