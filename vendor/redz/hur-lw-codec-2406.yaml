@@ -22,10 +22,10 @@ uplinkDecoder:
           slotQty: 4
           slotTypes: 
           [
-            [ 1, 'HUR_5_ANALOG_OUT' ],
-            [ 2, 'HUR_8_DIGITAL_OUT' ],
-            [ 3, 'HUR_8_ANALOG_IN' ],
-            [ 4, 'HUR_8_DIGITAL_IN' ]
+            [1, 'HUR_5_ANALOG_OUT'],
+            [2, 'HUR_8_DIGITAL_OUT'],
+            [3, 'HUR_8_ANALOG_IN'],
+            [4, 'HUR_8_DIGITAL_IN'],
           ]
           targetPort: 3
 
