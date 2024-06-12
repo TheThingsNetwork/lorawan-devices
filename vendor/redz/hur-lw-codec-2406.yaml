@@ -32,7 +32,7 @@ uplinkDecoder:
 
       output:
         data:
-          dataLength: 16
+          dataLength: 10
           dataList: [[0], [0], [500], [0], [0]]
           deviceID: 225257
           deviceTime: '2024-5-8 16:55:56'
