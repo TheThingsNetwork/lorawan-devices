@@ -1,19 +1,19 @@
-name: LoRaWAN® Interface 1
-description: Interface to connect UART and I2C sensors to LoRaWAN® Network
+name: HUR LoRaWAN Remote I/O Device
+description: HUR LoRaWAN I/O Device has various Inputs and/or Outputs and send I/O data to LoRaWAN Server ( and to MQTT server if needed and converts data to Modbus)
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
+  - version: '1.xx'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.2'
-    numeric: 1
+    version: '2.03.xx'
+    numeric: 2
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '1.xx'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -31,48 +31,54 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        #vendorID: elv
+        vendorID:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: trx1-profile
+        id: tlm-lw-profile-868
         lorawanCertified: true
-        codec: elv-lw-int1-codec
+        codec: hur-lw-codec-2406
+      US902-928:
+        id: tlm-lw-profile-915
+        lorawanCertified: true
+        codec: hur-lw-codec-2406
+      AS923:
+        id: tlm-lw-profile-923
+        lorawanCertified: true
+        codec: hur-lw-codec-2406
+      IN865-867:
+        id: tlm-lw-profile-865
+        lorawanCertified: true
+        codec: hur-lw-codec-2406
 
-# Sensors that this device features (optional)
-# Valid values are:
-# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
-# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
-# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
-# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
-# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
-# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
-#sensors:
-deviceType: devkit
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+bridgeInterfaces:
+  - modbus
+  - rs-485
+  - ethernet
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 68
-  height: 20
+  width: 43
+  length: 124
+  height: 95
 
 # Weight in grams (optional)
-weight: 37
-
-# Battery information (optional)
-battery:
-  replaceable: true
-  type: LR6
+weight: 400
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 55
+    min: -40
+    max: 85
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP52
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -84,7 +90,9 @@ keyProvisioning:
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 keyProgramming:
+  - serial
   - firmware
+  - ethernet
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -96,19 +104,28 @@ keySecurity: none
 firmwareProgramming:
   - serial
   - fuota other
+  - ethernet
 
 # Product and data sheet URLs (optional)
-productURL: https://de.elv.com/
+productURL: https://redz-sc.com/en/product/hur-series-modbus-tcp-and-rtu-remote-io-devices/hur1741-4-x-5-channels-4-20ma-analog-output-1-x-8-channels-digital-5amps-250vac30vdc-relay-output-1-x-8-channels-0-20ma-analog-input-1-x-8-channels-12-275-ac-dc-60ma-digital-optocoupler-input-modbus-tcp-remote-io-device-with-mqtt-and-868mhz-lorawan-connectivity-2x-10100-tx-eth-ports
+dataSheetURL: https://admin.redz-sc.com/uploads/brochure/hur1721-datasheet-en.pdf
 
 # Commercial information
 resellerURLs:
-  - name: 'ELVshop'
-    region:
-      - European Union
-    url: https://de.elv.com/elv-lorawan-interface-1-elv-lw-int1-160149
+  - name: 'Z Telemetri'
+    url: https://ztelemetry.com/en/
+  - name: 'Marcom'
+    url: https://shop.marcomweb.it/it/
+  - name: 'S Kommunikacja'
+    url: https://pomiary.pl/
 msrp:
-  EUR: 39.95
+  USD: 280
 
 # Photos
 photos:
-  main: elv-lw-int1.png
+  main: hur-lw.png # Image needs to have a transparent background
+  other:
+    - hur-lw-sc1.png # Image needs to have a transparent background
+    - hur-lw-sc2.png # Image needs to have a transparent background
+    - hur-lw-sc3.png # Image needs to have a transparent background
+
