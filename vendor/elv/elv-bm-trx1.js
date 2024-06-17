@@ -1,7 +1,7 @@
 /*
  * ELV modular system Payload-Parser
  *
- * Version: V1.8.0
+ * Version: V1.9.0
  *
  * */
 
@@ -36,11 +36,15 @@ function decodeUplink(input) {
 var tx_reason = [
                   "Timer_Event",        // 0x00
                   "User_Button_Event",  // 0x01
-                  "Input_Event",        // 0x02
+                  "App_Event",          // 0x02
                   "FUOTA_Event",        // 0x03
                   "Cyclic_Event",       // 0x04
                   "Timeout_Event"       // 0x05
                 ];
+
+const PM_VM1_AS_PM = 0;       // Selection value for using the ELV-PM-VM1.
+                              // 0: ELV-PM-VM1 is used as an application module.
+                              // 1: ELV-PM-VM1 is used as a pure power module.
 
 /*
  * @brief   Receives the bytes transmitted from a device of the ELV modular system
@@ -52,6 +56,7 @@ function Decoder(bytes, port) {
   var decoded = {};   // Container with the decoded output
   var index = 5;      // Index variable for the application data in the bytes[] array
   var Temp_Value = 0; // Variable for temporarily calculated values
+  var Datatype_usage = 0; // Variable counts the usage of the datatype temperatue (0x02)
 
   if (port === 10) {  // The default port for app data
     if (bytes.length >= 5) {    // Minimum 5 Bytes for Header
@@ -66,6 +71,13 @@ function Decoder(bytes, port) {
       }
 
       decoded.Supply_Voltage = (bytes[3] << 8) | bytes[4];
+      
+      // If the ELV-PM-VM1 is used as a pure power module.
+      if( PM_VM1_AS_PM === 1 )
+      {
+        // Calculating the correct operating voltage
+        decoded.Supply_Voltage = Math.round( decoded.Supply_Voltage * 4.6 );
+      }
 
       if (bytes.length >= 6) {    // There is not only the header data
         // Loop for collecting the application data
@@ -147,6 +159,10 @@ function Decoder(bytes, port) {
             }
             case 0x02:  // Temperature
             {
+              var Temp_String = "";
+              // 
+              Datatype_usage++;
+
               // Get the 16 bit value
               index++;    // Set index to high byte data value
               Temp_Value = (bytes[index] * 256);
@@ -155,13 +171,13 @@ function Decoder(bytes, port) {
 
               switch (Temp_Value) {
                 case 0x8000:    // Special value
-                  decoded.Temperature_Sensor = "Unknown";
+                  Temp_String = "Unknown";
                   break;
                 case 0x8001:    // Special value
-                  decoded.Temperature_Sensor = "Overflow";
+                  Temp_String = "Overflow";
                   break;
                 case 0x8002:    // Special value
-                  decoded.Temperature_Sensor = "Underflow";
+                  Temp_String = "Underflow";
                   break;
                 default:        // Temperature value
                   // Convert to 16 bit signed value
@@ -170,7 +186,29 @@ function Decoder(bytes, port) {
                   }
 
                   Temp_Value *= 0.1;	// Adjust the temperature resolution
-                  decoded.Temperature_Sensor = String(Temp_Value.toFixed(1));
+                  Temp_String = String(Temp_Value.toFixed(1));
+                  break;
+              }
+              
+              switch (Datatype_usage) {
+                case 1:
+                  // The first temperature element will be named with Temperature_Sensor
+                  decoded.Temperature_Sensor = Temp_String;
+                  break;
+                case 2:
+                  // There is a second temperature element, so a new naming scheme is used for the elements.
+                  decoded.Temperature_T1 = decoded.Temperature_Sensor;
+                  // Delete the old element
+                  delete decoded.Temperature_Sensor;
+                  // The second temperature element will be the temperature T2
+                  decoded.Temperature_T2 = Temp_String;
+                  break;
+                case 3:
+                  // The third temperature element will be the temperature T3
+                  decoded.Temperature_T3 = Temp_String;
+                  break;
+                default:
+                  
                   break;
               }
               break;
@@ -815,3 +853,14 @@ function Decoder(bytes, port) {
 
   return decoded;
 }
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  }
+}
+
