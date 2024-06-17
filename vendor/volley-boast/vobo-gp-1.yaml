@@ -28,6 +28,29 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: vobo-xx-profile
         codec: vobo-codec
+  - # Firmware version 2.01.00
+    version: '2.01.00'
+    numeric: 20100
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
+    profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      AU915-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      AS923:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
 
 # Sensors that this device features (optional)
 # Valid values are:

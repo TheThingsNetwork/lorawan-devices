@@ -16,8 +16,8 @@ function customDecoder(bytes, fport) {
 // DO NOT EDIT BELOW THIS POINT!!
 //===========================================================
 const DECODER_MAJOR_VERSION = 2;
-const DECODER_MINOR_VERSION = 0;
-const DECODER_PATCH_VERSION = 2;
+const DECODER_MINOR_VERSION = 1;
+const DECODER_PATCH_VERSION = 0;
 
 function decodeUplink(input) {
     const decoded = Decoder(input.bytes, input.fPort);
@@ -59,6 +59,12 @@ function Decoder(bytes, fport) {
     }
     else if((fport >= 100) && (fport <= 109)) {
         decodedData = parseModbusGenericPayload(bytes, fport);
+    }
+    else if((fport >= 110) && (fport <= 119)) {
+        decodedData = parseAnalogInputVariableLengthPayload(bytes, fport);
+    }
+    else if((fport >= 120) && (fport <= 129)) {
+        decodedData = parseModbusStandardVariableLengthPayload(bytes, fport);
     }
     else {
         errors.push('unknown FPort')
@@ -126,6 +132,8 @@ function addVoboMetadata(decodedData, fport)
     else if((fport >= 60) && (fport <= 69)) payloadType = "Event Log";
     else if((fport >= 70) && (fport <= 79)) payloadType = "Configuration";
     else if((fport >= 100) && (fport <= 109)) payloadType = "Modbus Generic";
+    else if((fport >= 110) && (fport <= 119)) payloadType = "Analog Input Variable Length";
+    else if((fport >= 120) && (fport <= 129)) payloadType = "Modbus Standard Variable Length";
 
     payload.data.fport = fport;
     payload.data.voboType = voboType;
@@ -266,23 +274,40 @@ function parseVoboLibGeneralConfigurationPayload(bytes)
     var decoded = {};
     decoded.subgroupID = bytes[0] & 0x0F;                                           // Sub-Group ID (4-bit)
     decoded.sequenceNumber = (bytes[0] & 0xF0) >> 4;                                // Sequence Number (4-bit)
-    decoded.transRejoin = bytes[1] & 0x0F;                                          // Transmission Rejoin (4-bit)
-    decoded.ackFrequency = (bytes[1] & 0xF0) >> 4;                                  // Acknowledgement Frequency for Data (4-bit)
-    decoded.lowBattery = parseFloat(((bytes[2] & 0x0F) / 10.0 + 2.5).toFixed(1));   // Low Battery Threshold (4-bit)
-    decoded.reserved1 = (bytes[2] & 0x10) >> 4;                                     // Reserved 1 Field (1-bit)
-    decoded.heartbeatAckEnable = Boolean((bytes[2] & 0x20) >> 5);                   // Acknowledgement Enable for Heartbeat (1-bit)
-    decoded.operationMode = (bytes[2] & 0x40) >> 6;                                 // Operation Mode (1-bit)
-    decoded.cycleSubBands = Boolean((bytes[2] & 0x80) >> 7);                        // Cycle Sub Bands Enable (1-bit)
-    decoded.ackRetries = (bytes[3] & 0x07);                                         // Acknowledgement Retries (3-bit)
-    decoded.reservedLL = (bytes[3] & 0x38) >> 3;                                    // Reserved LL (3-bit)
-    decoded.ackEnable = Boolean((bytes[3] & 0x40) >> 6);                            // Acknowledgement Enable for Data (1-bit)
-    decoded.heartbeatEnable = Boolean((bytes[3] & 0x80) >> 7);                      // Heartbeat Enable (1-bit)
-    decoded.cycleTime = ((bytes[6] & 0x03) << 16) | (bytes[5] << 8) | bytes[4];     // Cycle Time (18-bit)
-    decoded.backOffReset = (bytes[6] & 0xFC) >> 2;                                  // BackOff Reset (6-bit)
-    decoded.reservedRD = bytes[7] & 0x3F;                                           // Reserved RD (6-bit)
-    decoded.reserved2 = (bytes[7] & 0xC0) >> 6;                                     // Reserved 2 Field (2-bit)
-    decoded.resendAttempts = bytes[8] & 0x0F;                                       // Resend Attempts (4-bit)
-    decoded.freqSubBand = (bytes[8] & 0xF0) >> 4;                                   // Frequency Sub Band (4-bit)
+
+    if (decoded.sequenceNumber == 0)
+    {
+        decoded.transRejoin = bytes[1] & 0x0F;                                          // Transmission Rejoin (4-bit)
+        decoded.ackFrequency = (bytes[1] & 0xF0) >> 4;                                  // Acknowledgement Frequency for Data (4-bit)
+        decoded.lowBattery = parseFloat(((bytes[2] & 0x0F) / 10.0 + 2.5).toFixed(1));   // Low Battery Threshold (4-bit)
+        decoded.reserved1 = (bytes[2] & 0x10) >> 4;                                     // Reserved 1 Field (1-bit)
+        decoded.heartbeatAckEnable = Boolean((bytes[2] & 0x20) >> 5);                   // Acknowledgement Enable for Heartbeat (1-bit)
+        decoded.operationMode = (bytes[2] & 0x40) >> 6;                                 // Operation Mode (1-bit)
+        decoded.cycleSubBands = Boolean((bytes[2] & 0x80) >> 7);                        // Cycle Sub Bands Enable (1-bit)
+        decoded.ackRetries = (bytes[3] & 0x07);                                         // Acknowledgement Retries (3-bit)
+        decoded.reservedLL = (bytes[3] & 0x38) >> 3;                                    // Reserved LL (3-bit)
+        decoded.ackEnable = Boolean((bytes[3] & 0x40) >> 6);                            // Acknowledgement Enable for Data (1-bit)
+        decoded.heartbeatEnable = Boolean((bytes[3] & 0x80) >> 7);                      // Heartbeat Enable (1-bit)
+        decoded.cycleTime = ((bytes[6] & 0x03) << 16) | (bytes[5] << 8) | bytes[4];     // Cycle Time (18-bit)
+        decoded.backOffReset = (bytes[6] & 0xFC) >> 2;                                  // BackOff Reset (6-bit)
+        decoded.reservedRD = bytes[7] & 0x3F;                                           // Reserved RD (6-bit)
+        decoded.reserved2 = (bytes[7] & 0xC0) >> 6;                                     // Reserved 2 Field (2-bit)
+        decoded.resendAttempts = bytes[8] & 0x0F;                                       // Resend Attempts (4-bit)
+        decoded.freqSubBand = (bytes[8] & 0xF0) >> 4;                                   // Frequency Sub Band (4-bit)
+    }
+    if (decoded.sequenceNumber == 1)
+    {
+        decoded.timeSyncInterval = bytes[1];                                // Time Sync Interval in 30 minutes quantities (8-bit)
+        decoded.joinEUI = "";                                               // LoRaWAN Join EUI (64-bit)
+        for(let i = 9; i >= 2; i--)
+        {
+            decoded.joinEUI += bytes[i].toString(16).toUpperCase().padStart(2,0);
+            if(i != 2) decoded.joinEUI += "-";
+        }
+        decoded.joinNonceResetEnable = Boolean(bytes[10] & 0x01);            // Join Nonce Reset Enable (1-bit)
+        decoded.timeSyncWakeupEnable = Boolean((bytes[10] & 0x02) >> 1);    // Time Sync Wakeup Enable (1-bit)
+        decoded.reserved1 = (bytes[10] & 0xFC) >> 2;                         // Reserved 1 Field (1-bit)
+    }
 
     return decoded;
 }
@@ -296,13 +321,13 @@ function parseVoboLibVoboSyncConfigurationPayload(bytes)
     if (decoded.sequenceNumber == 0)
     {
         decoded.vbsNodeNumber = (bytes[2] << 8) | bytes[1];                                             // VoboSync Node Number (16-bit)
-        decoded.vbsTimeReference = (bytes[6] << 24) | (bytes[5] << 16) | (bytes[4] << 8) | bytes[3];    // VoboSync Time Reference (32-bit)
+        decoded.vbsTimeReference = bytes.slice(3, 7).readUInt32LE();                                    // VoboSync Time Reference (32-bit)
         decoded.reservedVCPDS = bytes[7] & 0x0F;                                                        // Reserved VCPDS (4-bit)
         decoded.reservedVMPDS = (bytes[7] & 0xF0) >> 4;                                                 // Reserved VMPDS (4-bit)
         decoded.reservedVUDS = bytes[8] & 0x0F;                                                         // Reserved VUDS (4-bit)
         decoded.reserved1 = (bytes[8] & 0x70) >> 4;                                                     // Reserved 1 Field (3-bit)
         decoded.vbsEnable = Boolean((bytes[8] & 0x80) >> 7);                                            // VoboSync Enable (1-bit)
-        decoded.reservedVTSIH = bytes[9] & 0x3F;                                                        // Reserved VTSIH (6-bit)
+        decoded.reserved3 = bytes[9] & 0x3F;                                                            // Reserved 3 (6-bit)
         decoded.reserved2 = (bytes[9] & 0xC0) >> 6;                                                     // Reserved 2 Field (2-bit)
     }
     if (decoded.sequenceNumber == 1)
@@ -335,8 +360,9 @@ function parseVoboXXGeneralConfigurationPayload(bytes)
     decoded.batteryLevelTransmitEnable = Boolean((bytes[4] >> 1) & 0x01);   // Battery Level Transmit Enable (1-bit)
     decoded.adcTemperatureTransmitEnable = Boolean((bytes[4] >> 2) & 0x01); // ADC Temperature Transmit Enable (1-bit)
     decoded.mbTransmitEnable = Boolean((bytes[4] >> 3) & 0x01);             // Modbus Transmit Enable (1-bit)
-    decoded.reserved1 = (bytes[4] >> 4) & 0x70;                             // Reserved 1 Field (3-bit)
-    decoded.reservedMAME = Boolean((bytes[4] >> 7) & 0x01);                          // Reserved MAME Field (1-bit) 
+    decoded.ainPayloadType = (bytes[4] >> 4) & 0x01;                        // Ain Payload Type (1-bit)
+    decoded.reserved1 = (bytes[4] >> 4) & 0x07;                             // Reserved 1 Field (2-bit)
+    decoded.reservedMAME = Boolean((bytes[4] >> 7) & 0x01);                 // Reserved MAME Field (1-bit) 
 
     return decoded;
 }
@@ -350,8 +376,8 @@ function parseVoboXXModbusGeneralConfigurationPayload(bytes)
     decoded.mbBaud = bytes[3] & 0x0F;                                   // Modbus Baud Rate - encoded (4-bit)
     decoded.mbStopBits = (bytes[3] >> 4) & 0x03;                        // Modbus Stop Bits (2-bit)
     decoded.mbParity = (bytes[3] >> 6) & 0x03;                          // Modbus Parity (2-bit)
-    decoded.mbPayloadType = bytes[4] & 0x01;                            // Modbus Payload Type (1-bit)
-    decoded.reserved1 = (bytes[4] >> 1) & 0x7F;                         // Reserved 1 Field (7-bit) 
+    decoded.mbPayloadType = bytes[4] & 0x03;                            // Modbus Payload Type (2-bit)
+    decoded.reserved1 = (bytes[4] >> 2) & 0x3F;                         // Reserved 1 Field (6-bit) 
 
     return decoded;
 }
@@ -364,93 +390,93 @@ function parseVoboXXModbusGroupsEnableConfigurationPayload(bytes)
 
     if (decoded.subgroupID == 6)
     {
-        decoded.mbFirstCycleG1 = bytes[1] & 0x01;                       // Group 1 First Cycle Enable
-        decoded.mbFirstCycleG2 = (bytes[1] >> 1) & 0x01;                // Group 2 First Cycle Enable
-        decoded.mbFirstCycleG3 = (bytes[1] >> 2) & 0x01;                // Group 3 First Cycle Enable
-        decoded.mbFirstCycleG4 = (bytes[1] >> 3) & 0x01;                // Group 4 First Cycle Enable
-        decoded.mbFirstCycleG5 = (bytes[1] >> 4) & 0x01;                // Group 5 First Cycle Enable
-        decoded.mbFirstCycleG6 = (bytes[1] >> 5) & 0x01;                // Group 6 First Cycle Enable
-        decoded.mbFirstCycleG7 = (bytes[1] >> 6) & 0x01;                // Group 7 First Cycle Enable
-        decoded.mbFirstCycleG8 = (bytes[1] >> 7) & 0x01;                // Group 8 First Cycle Enable
-        decoded.mbFirstCycleG9 = bytes[2] & 0x01;                       // Group 9 First Cycle Enable
-        decoded.mbFirstCycleG10 = (bytes[2] >> 1) & 0x01;               // Group 10 First Cycle Enable
-        decoded.mbFirstCycleG11 = (bytes[2] >> 2) & 0x01;               // Group 11 First Cycle Enable
-        decoded.mbFirstCycleG12 = (bytes[2] >> 3) & 0x01;               // Group 12 First Cycle Enable
-        decoded.mbFirstCycleG13 = (bytes[2] >> 4) & 0x01;               // Group 13 First Cycle Enable
-        decoded.mbFirstCycleG14 = (bytes[2] >> 5) & 0x01;               // Group 14 First Cycle Enable
-        decoded.mbFirstCycleG15 = (bytes[2] >> 6) & 0x01;               // Group 15 First Cycle Enable
-        decoded.mbFirstCycleG16 = (bytes[2] >> 7) & 0x01;               // Group 16 First Cycle Enable
-        decoded.mbFirstCycleG17 = bytes[3] & 0x01;                      // Group 17 First Cycle Enable
-        decoded.mbFirstCycleG18 = (bytes[3] >> 1) & 0x01;               // Group 18 First Cycle Enable
-        decoded.mbFirstCycleG19 = (bytes[3] >> 2) & 0x01;               // Group 19 First Cycle Enable
-        decoded.mbFirstCycleG20 = (bytes[3] >> 3) & 0x01;               // Group 20 First Cycle Enable
-        decoded.mbFirstCycleG21 = (bytes[3] >> 4) & 0x01;               // Group 21 First Cycle Enable
-        decoded.mbFirstCycleG22 = (bytes[3] >> 5) & 0x01;               // Group 22 First Cycle Enable
-        decoded.mbFirstCycleG23 = (bytes[3] >> 6) & 0x01;               // Group 23 First Cycle Enable
-        decoded.mbFirstCycleG24 = (bytes[3] >> 7) & 0x01;               // Group 24 First Cycle Enable
-        decoded.mbFirstCycleG25 = bytes[4] & 0x01;                      // Group 25 First Cycle Enable
-        decoded.mbFirstCycleG26 = (bytes[4] >> 1) & 0x01;               // Group 26 First Cycle Enable
-        decoded.mbFirstCycleG27 = (bytes[4] >> 2) & 0x01;               // Group 27 First Cycle Enable
-        decoded.mbFirstCycleG28 = (bytes[4] >> 3) & 0x01;               // Group 28 First Cycle Enable
-        decoded.mbFirstCycleG29 = (bytes[4] >> 4) & 0x01;               // Group 29 First Cycle Enable
-        decoded.mbFirstCycleG30 = (bytes[4] >> 5) & 0x01;               // Group 30 First Cycle Enable
-        decoded.mbFirstCycleG31 = (bytes[4] >> 6) & 0x01;               // Group 31 First Cycle Enable
-        decoded.mbFirstCycleG32 = (bytes[4] >> 7) & 0x01;               // Group 32 First Cycle Enable
-        decoded.mbFirstCycleG33 = bytes[5] & 0x01;                      // Group 33 First Cycle Enable
-        decoded.mbFirstCycleG34 = (bytes[5] >> 1) & 0x01;               // Group 34 First Cycle Enable
-        decoded.mbFirstCycleG35 = (bytes[5] >> 2) & 0x01;               // Group 35 First Cycle Enable
-        decoded.mbFirstCycleG36 = (bytes[5] >> 3) & 0x01;               // Group 36 First Cycle Enable
-        decoded.mbFirstCycleG37 = (bytes[5] >> 4) & 0x01;               // Group 37 First Cycle Enable
-        decoded.mbFirstCycleG38 = (bytes[5] >> 5) & 0x01;               // Group 38 First Cycle Enable
-        decoded.mbFirstCycleG39 = (bytes[5] >> 6) & 0x01;               // Group 39 First Cycle Enable
-        decoded.mbFirstCycleG40 = (bytes[5] >> 7) & 0x01;               // Group 40 First Cycle Enable
-        decoded.mbFirstCycleG41 = bytes[6] & 0x01;                      // Group 41 First Cycle Enable
+        decoded.mbFirstCycleG1 = Boolean(bytes[1] & 0x01);              // Group 1 First Cycle Enable
+        decoded.mbFirstCycleG2 = Boolean((bytes[1] >> 1) & 0x01);       // Group 2 First Cycle Enable
+        decoded.mbFirstCycleG3 = Boolean((bytes[1] >> 2) & 0x01);       // Group 3 First Cycle Enable
+        decoded.mbFirstCycleG4 = Boolean((bytes[1] >> 3) & 0x01);       // Group 4 First Cycle Enable
+        decoded.mbFirstCycleG5 = Boolean((bytes[1] >> 4) & 0x01);       // Group 5 First Cycle Enable
+        decoded.mbFirstCycleG6 = Boolean((bytes[1] >> 5) & 0x01);       // Group 6 First Cycle Enable
+        decoded.mbFirstCycleG7 = Boolean((bytes[1] >> 6) & 0x01);       // Group 7 First Cycle Enable
+        decoded.mbFirstCycleG8 = Boolean((bytes[1] >> 7) & 0x01);       // Group 8 First Cycle Enable
+        decoded.mbFirstCycleG9 = Boolean(bytes[2] & 0x01);              // Group 9 First Cycle Enable
+        decoded.mbFirstCycleG10 = Boolean((bytes[2] >> 1) & 0x01);      // Group 10 First Cycle Enable
+        decoded.mbFirstCycleG11 = Boolean((bytes[2] >> 2) & 0x01);      // Group 11 First Cycle Enable
+        decoded.mbFirstCycleG12 = Boolean((bytes[2] >> 3) & 0x01);      // Group 12 First Cycle Enable
+        decoded.mbFirstCycleG13 = Boolean((bytes[2] >> 4) & 0x01);      // Group 13 First Cycle Enable
+        decoded.mbFirstCycleG14 = Boolean((bytes[2] >> 5) & 0x01);      // Group 14 First Cycle Enable
+        decoded.mbFirstCycleG15 = Boolean((bytes[2] >> 6) & 0x01);      // Group 15 First Cycle Enable
+        decoded.mbFirstCycleG16 = Boolean((bytes[2] >> 7) & 0x01);      // Group 16 First Cycle Enable
+        decoded.mbFirstCycleG17 = Boolean(bytes[3] & 0x01);             // Group 17 First Cycle Enable
+        decoded.mbFirstCycleG18 = Boolean((bytes[3] >> 1) & 0x01);      // Group 18 First Cycle Enable
+        decoded.mbFirstCycleG19 = Boolean((bytes[3] >> 2) & 0x01);      // Group 19 First Cycle Enable
+        decoded.mbFirstCycleG20 = Boolean((bytes[3] >> 3) & 0x01);      // Group 20 First Cycle Enable
+        decoded.mbFirstCycleG21 = Boolean((bytes[3] >> 4) & 0x01);      // Group 21 First Cycle Enable
+        decoded.mbFirstCycleG22 = Boolean((bytes[3] >> 5) & 0x01);      // Group 22 First Cycle Enable
+        decoded.mbFirstCycleG23 = Boolean((bytes[3] >> 6) & 0x01);      // Group 23 First Cycle Enable
+        decoded.mbFirstCycleG24 = Boolean((bytes[3] >> 7) & 0x01);      // Group 24 First Cycle Enable
+        decoded.mbFirstCycleG25 = Boolean(bytes[4] & 0x01);             // Group 25 First Cycle Enable
+        decoded.mbFirstCycleG26 = Boolean((bytes[4] >> 1) & 0x01);      // Group 26 First Cycle Enable
+        decoded.mbFirstCycleG27 = Boolean((bytes[4] >> 2) & 0x01);      // Group 27 First Cycle Enable
+        decoded.mbFirstCycleG28 = Boolean((bytes[4] >> 3) & 0x01);      // Group 28 First Cycle Enable
+        decoded.mbFirstCycleG29 = Boolean((bytes[4] >> 4) & 0x01);      // Group 29 First Cycle Enable
+        decoded.mbFirstCycleG30 = Boolean((bytes[4] >> 5) & 0x01);      // Group 30 First Cycle Enable
+        decoded.mbFirstCycleG31 = Boolean((bytes[4] >> 6) & 0x01);      // Group 31 First Cycle Enable
+        decoded.mbFirstCycleG32 = Boolean((bytes[4] >> 7) & 0x01);      // Group 32 First Cycle Enable
+        decoded.mbFirstCycleG33 = Boolean(bytes[5] & 0x01);             // Group 33 First Cycle Enable
+        decoded.mbFirstCycleG34 = Boolean((bytes[5] >> 1) & 0x01);      // Group 34 First Cycle Enable
+        decoded.mbFirstCycleG35 = Boolean((bytes[5] >> 2) & 0x01);      // Group 35 First Cycle Enable
+        decoded.mbFirstCycleG36 = Boolean((bytes[5] >> 3) & 0x01);      // Group 36 First Cycle Enable
+        decoded.mbFirstCycleG37 = Boolean((bytes[5] >> 4) & 0x01);      // Group 37 First Cycle Enable
+        decoded.mbFirstCycleG38 = Boolean((bytes[5] >> 5) & 0x01);      // Group 38 First Cycle Enable
+        decoded.mbFirstCycleG39 = Boolean((bytes[5] >> 6) & 0x01);      // Group 39 First Cycle Enable
+        decoded.mbFirstCycleG40 = Boolean((bytes[5] >> 7) & 0x01);      // Group 40 First Cycle Enable
+        decoded.mbFirstCycleG41 = Boolean(bytes[6] & 0x01);             // Group 41 First Cycle Enable
         decoded.reserved1 = (bytes[6] >> 1) & 0x7F;                     // Reserved 1 Field (7-bit) 
     }
     if (decoded.subgroupID == 7)
     {
-        decoded.mbSubseqCycleG1 = bytes[1] & 0x01;                       // Group 1 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG2 = (bytes[1] >> 1) & 0x01;                // Group 2 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG3 = (bytes[1] >> 2) & 0x01;                // Group 3 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG4 = (bytes[1] >> 3) & 0x01;                // Group 4 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG5 = (bytes[1] >> 4) & 0x01;                // Group 5 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG6 = (bytes[1] >> 5) & 0x01;                // Group 6 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG7 = (bytes[1] >> 6) & 0x01;                // Group 7 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG8 = (bytes[1] >> 7) & 0x01;                // Group 8 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG9 = bytes[2] & 0x01;                       // Group 9 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG10 = (bytes[2] >> 1) & 0x01;               // Group 10 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG11 = (bytes[2] >> 2) & 0x01;               // Group 11 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG12 = (bytes[2] >> 3) & 0x01;               // Group 12 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG13 = (bytes[2] >> 4) & 0x01;               // Group 13 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG14 = (bytes[2] >> 5) & 0x01;               // Group 14 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG15 = (bytes[2] >> 6) & 0x01;               // Group 15 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG16 = (bytes[2] >> 7) & 0x01;               // Group 16 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG17 = bytes[3] & 0x01;                      // Group 17 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG18 = (bytes[3] >> 1) & 0x01;               // Group 18 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG19 = (bytes[3] >> 2) & 0x01;               // Group 19 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG20 = (bytes[3] >> 3) & 0x01;               // Group 20 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG21 = (bytes[3] >> 4) & 0x01;               // Group 21 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG22 = (bytes[3] >> 5) & 0x01;               // Group 22 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG23 = (bytes[3] >> 6) & 0x01;               // Group 23 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG24 = (bytes[3] >> 7) & 0x01;               // Group 24 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG25 = bytes[4] & 0x01;                      // Group 25 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG26 = (bytes[4] >> 1) & 0x01;               // Group 26 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG27 = (bytes[4] >> 2) & 0x01;               // Group 27 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG28 = (bytes[4] >> 3) & 0x01;               // Group 28 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG29 = (bytes[4] >> 4) & 0x01;               // Group 29 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG30 = (bytes[4] >> 5) & 0x01;               // Group 30 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG31 = (bytes[4] >> 6) & 0x01;               // Group 31 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG32 = (bytes[4] >> 7) & 0x01;               // Group 32 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG33 = bytes[5] & 0x01;                      // Group 33 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG34 = (bytes[5] >> 1) & 0x01;               // Group 34 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG35 = (bytes[5] >> 2) & 0x01;               // Group 35 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG36 = (bytes[5] >> 3) & 0x01;               // Group 36 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG37 = (bytes[5] >> 4) & 0x01;               // Group 37 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG38 = (bytes[5] >> 5) & 0x01;               // Group 38 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG39 = (bytes[5] >> 6) & 0x01;               // Group 39 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG40 = (bytes[5] >> 7) & 0x01;               // Group 40 Subsequent Cycle Enable
-        decoded.mbSubseqCycleG41 = bytes[6] & 0x01;                      // Group 41 Subsequent Cycle Enable
-        decoded.reserved1 = (bytes[6] >> 1) & 0x7F;                      // Reserved 1 Field (7-bit) 
+        decoded.mbSubseqCyclesG1 = Boolean(bytes[1] & 0x01);             // Group 1 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG2 = Boolean((bytes[1] >> 1) & 0x01);      // Group 2 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG3 = Boolean((bytes[1] >> 2) & 0x01);      // Group 3 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG4 = Boolean((bytes[1] >> 3) & 0x01);      // Group 4 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG5 = Boolean((bytes[1] >> 4) & 0x01);      // Group 5 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG6 = Boolean((bytes[1] >> 5) & 0x01);      // Group 6 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG7 = Boolean((bytes[1] >> 6) & 0x01);      // Group 7 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG8 = Boolean((bytes[1] >> 7) & 0x01);      // Group 8 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG9 = Boolean(bytes[2] & 0x01);             // Group 9 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG10 = Boolean((bytes[2] >> 1) & 0x01);     // Group 10 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG11 = Boolean((bytes[2] >> 2) & 0x01);     // Group 11 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG12 = Boolean((bytes[2] >> 3) & 0x01);     // Group 12 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG13 = Boolean((bytes[2] >> 4) & 0x01);     // Group 13 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG14 = Boolean((bytes[2] >> 5) & 0x01);     // Group 14 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG15 = Boolean((bytes[2] >> 6) & 0x01);     // Group 15 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG16 = Boolean((bytes[2] >> 7) & 0x01);     // Group 16 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG17 = Boolean(bytes[3] & 0x01);            // Group 17 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG18 = Boolean((bytes[3] >> 1) & 0x01);     // Group 18 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG19 = Boolean((bytes[3] >> 2) & 0x01);     // Group 19 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG20 = Boolean((bytes[3] >> 3) & 0x01);     // Group 20 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG21 = Boolean((bytes[3] >> 4) & 0x01);     // Group 21 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG22 = Boolean((bytes[3] >> 5) & 0x01);     // Group 22 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG23 = Boolean((bytes[3] >> 6) & 0x01);     // Group 23 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG24 = Boolean((bytes[3] >> 7) & 0x01);     // Group 24 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG25 = Boolean(bytes[4] & 0x01);            // Group 25 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG26 = Boolean((bytes[4] >> 1) & 0x01);     // Group 26 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG27 = Boolean((bytes[4] >> 2) & 0x01);     // Group 27 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG28 = Boolean((bytes[4] >> 3) & 0x01);     // Group 28 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG29 = Boolean((bytes[4] >> 4) & 0x01);     // Group 29 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG30 = Boolean((bytes[4] >> 5) & 0x01);     // Group 30 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG31 = Boolean((bytes[4] >> 6) & 0x01);     // Group 31 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG32 = Boolean((bytes[4] >> 7) & 0x01);     // Group 32 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG33 = Boolean(bytes[5] & 0x01);            // Group 33 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG34 = Boolean((bytes[5] >> 1) & 0x01);     // Group 34 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG35 = Boolean((bytes[5] >> 2) & 0x01);     // Group 35 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG36 = Boolean((bytes[5] >> 3) & 0x01);     // Group 36 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG37 = Boolean((bytes[5] >> 4) & 0x01);     // Group 37 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG38 = Boolean((bytes[5] >> 5) & 0x01);     // Group 38 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG39 = Boolean((bytes[5] >> 6) & 0x01);     // Group 39 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG40 = Boolean((bytes[5] >> 7) & 0x01);     // Group 40 Subsequent Cycle Enable
+        decoded.mbSubseqCyclesG41 = Boolean(bytes[6] & 0x01);            // Group 41 Subsequent Cycle Enable
+        decoded.reserved1 = (bytes[6] >> 1) & 0x7F;                     // Reserved 1 Field (7-bit) 
     }
 
     return decoded;
@@ -464,10 +490,10 @@ function parseVoboXXModbusGroupsConfigurationPayload(bytes)
 
     var groupIdx = ((decoded.subgroupID - 8) * 16) + decoded.sequenceNumber + 1;    // Sub-Groups 8, 9 and 10 carry the groups configurations. Group index is determined by Sub-Group ID and Sequence Number.
     var groupIdxStr = (groupIdx).toString();
-    decoded["mbFirstCycleG" + groupIdxStr] = bytes[1] & 0x01;                       // Modbus Group First Cycle Enable (1-bit)
-    decoded["mbSubseqCyclesG" + groupIdxStr] = (bytes[1] >> 1) & 0x01;              // Modbus Group Subsequent Cycle Enable (1-bit)
-    decoded["mbByteSwapG" + groupIdxStr] = (bytes[1] >> 2) & 0x01;                  // Modbus Group Byte Swap Enable (1-bit)
-    decoded["mbWordSwapG" + groupIdxStr] = (bytes[1] >> 3) & 0x01;                  // Modbus Group Word Swap Enable (1-bit)
+    decoded["mbFirstCycleG" + groupIdxStr] = Boolean(bytes[1] & 0x01);              // Modbus Group First Cycle Enable (1-bit)
+    decoded["mbSubseqCyclesG" + groupIdxStr] = Boolean((bytes[1] >> 1) & 0x01);     // Modbus Group Subsequent Cycle Enable (1-bit)
+    decoded["mbByteSwapG" + groupIdxStr] = Boolean((bytes[1] >> 2) & 0x01);         // Modbus Group Byte Swap Enable (1-bit)
+    decoded["mbWordSwapG" + groupIdxStr] = Boolean((bytes[1] >> 3) & 0x01);         // Modbus Group Word Swap Enable (1-bit)
     decoded["mbNumTypeG" + groupIdxStr] = (bytes[1] >> 4) & 0x03;                   // Modbus Group Numerical Type (2-bit)
     decoded["reserved1"] = (bytes[1] >> 6) & 0x03;                                  // Reserved 1 Field (2-bit)
     decoded["mbSlaveAddrG" + groupIdxStr] = bytes[2];                               // Modbus Group Slave Address (8-bit)
@@ -603,70 +629,70 @@ function parseVoboXXModbusPayloadsSlotsConfigurationPayload(bytes)
 function parseVoboXXEngineeringUnitsConfigurationPayload(bytes)
 {
     var decoded = {};
-    decoded.subgroupID = bytes[0] & 0x0F;                                                                                           // Sub-Group ID (4-bit)
-    decoded.sequenceNumber = (bytes[0] & 0xF0) >> 4;                                                                                // Sequence Number (4-bit)
+    decoded.subgroupID = bytes[0] & 0x0F;                                           // Sub-Group ID (4-bit)
+    decoded.sequenceNumber = (bytes[0] & 0xF0) >> 4;                                // Sequence Number (4-bit)
 
     // AIN1 General
     if (decoded.sequenceNumber == 0)
     {
-        decoded.ain1UnitsCode = bytes[1];                                                                                           // AIN1 Units Code (8-bit)
-        decoded.ain1MinValue = parseFloat(((bytes[5] << 24) | (bytes[4] << 16) | (bytes[3] << 8) | bytes[2]).toFixed(3));           // AIN1 Minimum Value (32-bit)
-        decoded.ain1MaxValue = parseFloat(((bytes[9] << 24) | (bytes[8] << 16) | (bytes[7] << 8) | bytes[6]).toFixed(3));           // AIN1 Maximum Value (32-bit)
-        decoded.ain1Type = bytes[10] & 0x03;                                                                                        // AIN1 Type (2-bit)
-        decoded.reserved1 = (bytes[10] >> 2) & 0x3F                                                                                 // Reserved 1 Field (6-bit)
+        decoded.ain1UnitsCode = bytes[1];                                           // AIN1 Units Code (8-bit)
+        decoded.ain1MinValue = bytesToFloat32(bytes.slice(2,6));                    // AIN1 Minimum Value (32-bit)
+        decoded.ain1MaxValue = bytesToFloat32(bytes.slice(6,10));                   // AIN1 Maximum Value (32-bit)
+        decoded.ain1Type = bytes[10] & 0x03;                                        // AIN1 Type (2-bit)
+        decoded.reserved1 = (bytes[10] >> 2) & 0x3F                                 // Reserved 1 Field (6-bit)
     }
     // AIN1 Series Resistance
     if (decoded.sequenceNumber == 1)
     {
-        decoded.ain1SeriesResistance = parseFloat(((bytes[4] << 24) | (bytes[3] << 16) | (bytes[2] << 8) | bytes[1]).toFixed(3));   // AIN1 Series Resistance (32-bit)
+        decoded.ain1SeriesResistance = bytesToFloat32(bytes.slice(1,5));            // AIN1 Series Resistance (32-bit)
     }
     // AIN1 Calibration
     if (decoded.sequenceNumber == 2)
     {
-        decoded.ain1Gain = parseFloat(((bytes[4] << 24) | (bytes[3] << 16) | (bytes[2] << 8) | bytes[1]).toFixed(3));               // AIN1 Calibration Gain (32-bit)
-        decoded.ain1Offset = parseFloat(((bytes[8] << 24) | (bytes[7] << 16) | (bytes[6] << 8) | bytes[5]).toFixed(3));             // AIN1 Calibration Offset (32-bit)
+        decoded.ain1Gain = bytesToFloat32(bytes.slice(1,5));                        // AIN1 Calibration Gain (32-bit)
+        decoded.ain1Offset = bytesToFloat32(bytes.slice(5,9));                      // AIN1 Calibration Offset (32-bit)
     }
 
     // AIN2 General
     if (decoded.sequenceNumber == 3)
     {
-        decoded.ain2UnitsCode = bytes[1];                                                                                           // AIN2 Units Code (8-bit)
-        decoded.ain2MinValue = parseFloat(((bytes[5] << 24) | (bytes[4] << 16) | (bytes[3] << 8) | bytes[2]).toFixed(3));           // AIN2 Minimum Value (32-bit)
-        decoded.ain2MaxValue = parseFloat(((bytes[9] << 24) | (bytes[8] << 16) | (bytes[7] << 8) | bytes[6]).toFixed(3));           // AIN2 Maximum Value (32-bit)
-        decoded.ain2Type = bytes[10] & 0x03;                                                                                        // AIN2 Type (2-bit)
-        decoded.reserved1 = (bytes[10] >> 2) & 0x3F                                                                                 // Reserved 1 Field (6-bit)
+        decoded.ain2UnitsCode = bytes[1];                                           // AIN2 Units Code (8-bit)
+        decoded.ain2MinValue = bytesToFloat32(bytes.slice(2,6));                    // AIN2 Minimum Value (32-bit)
+        decoded.ain2MaxValue = bytesToFloat32(bytes.slice(6,10));                   // AIN2 Maximum Value (32-bit)
+        decoded.ain2Type = bytes[10] & 0x03;                                        // AIN2 Type (2-bit)
+        decoded.reserved1 = (bytes[10] >> 2) & 0x3F                                 // Reserved 1 Field (6-bit)
     }
     // AIN2 Series Resistance
     if (decoded.sequenceNumber == 4)
     {
-        decoded.ain2SeriesResistance = parseFloat(((bytes[4] << 24) | (bytes[3] << 16) | (bytes[2] << 8) | bytes[1]).toFixed(3));   // AIN2 Series Resistance (32-bit)
+        decoded.ain2SeriesResistance = bytesToFloat32(bytes.slice(1,5));            // AIN2 Series Resistance (32-bit)
     }
     // AIN2 Calibration
     if (decoded.sequenceNumber == 5)
     {
-        decoded.ain2Gain = parseFloat(((bytes[4] << 24) | (bytes[3] << 16) | (bytes[2] << 8) | bytes[1]).toFixed(3));               // AIN2 Calibration Gain (32-bit)
-        decoded.ain2Offset = parseFloat(((bytes[8] << 24) | (bytes[7] << 16) | (bytes[6] << 8) | bytes[5]).toFixed(3));             // AIN2 Calibration Offset (32-bit)
+        decoded.ain2Gain = bytesToFloat32(bytes.slice(1,5));                        // AIN2 Calibration Gain (32-bit)
+        decoded.ain2Offset = bytesToFloat32(bytes.slice(5,9));                       // AIN2 Calibration Offset (32-bit)
     }
 
     // AIN3 General
     if (decoded.sequenceNumber == 6)
     {
-        decoded.ain3UnitsCode = bytes[1];                                                                                           // AIN3 Units Code (8-bit)
-        decoded.ain3MinValue = parseFloat(((bytes[5] << 24) | (bytes[4] << 16) | (bytes[3] << 8) | bytes[2]).toFixed(3));           // AIN3 Minimum Value (32-bit)
-        decoded.ain3MaxValue = parseFloat(((bytes[9] << 24) | (bytes[8] << 16) | (bytes[7] << 8) | bytes[6]).toFixed(3));           // AIN3 Maximum Value (32-bit)
-        decoded.ain3Type = bytes[10] & 0x03;                                                                                        // AIN3 Type (2-bit)
-        decoded.reserved1 = (bytes[10] >> 2) & 0x3F                                                                                 // Reserved 1 Field (6-bit)
+        decoded.ain3UnitsCode = bytes[1];                                           // AIN3 Units Code (8-bit)
+        decoded.ain3MinValue = bytesToFloat32(bytes.slice(2,6));                    // AIN3 Minimum Value (32-bit)
+        decoded.ain3MaxValue = bytesToFloat32(bytes.slice(6,10));                   // AIN3 Maximum Value (32-bit)
+        decoded.ain3Type = bytes[10] & 0x03;                                        // AIN3 Type (2-bit)
+        decoded.reserved1 = (bytes[10] >> 2) & 0x3F                                 // Reserved 1 Field (6-bit)
     }
     // AIN3 Series Resistance
     if (decoded.sequenceNumber == 7)
     {
-        decoded.ain3SeriesResistance = parseFloat(((bytes[4] << 24) | (bytes[3] << 16) | (bytes[2] << 8) | bytes[1]).toFixed(3));   // AIN3 Series Resistance (32-bit)
+        decoded.ain3SeriesResistance = bytesToFloat32(bytes.slice(1,5));            // AIN3 Series Resistance (32-bit)
     }
     // AIN3 Calibration
     if (decoded.sequenceNumber == 8)
     {
-        decoded.ain3Gain = parseFloat(((bytes[4] << 24) | (bytes[3] << 16) | (bytes[2] << 8) | bytes[1]).toFixed(3));               // AIN3 Calibration Gain (32-bit)
-        decoded.ain3Offset = parseFloat(((bytes[8] << 24) | (bytes[7] << 16) | (bytes[6] << 8) | bytes[5]).toFixed(3));             // AIN3 Calibration Offset (32-bit)
+        decoded.ain3Gain = bytesToFloat32(bytes.slice(1,5));                        // AIN3 Calibration Gain (32-bit)
+        decoded.ain3Offset = bytesToFloat32(bytes.slice(5,9));                      // AIN3 Calibration Offset (32-bit)
     }
 
     return decoded;
@@ -677,46 +703,96 @@ function parseVoboTCGeneralConfigurationPayload(bytes)
     var decoded = {};
     decoded.subgroupID = bytes[0] & 0x0F;                                       // Sub-Group ID (4-bit)
     decoded.sequenceNumber = (bytes[0] & 0xF0) >> 4;                            // Sequence Number (4-bit)
-    decoded.deviceType1 = bytes[1] & 0x07;                                      // Device Type 1 (3-bit)
-    decoded.enabled1 = Boolean((bytes[1] & 0x08) >> 3);                         // Enabled 1 (1-bit)
-    decoded.deviceType2 = (bytes[1] & 0x70) >> 4;                               // Device Type 2 (3-bit)
-    decoded.enabled2 = Boolean((bytes[1] & 0x80) >> 7);                         // Enabled 2 (1-bit)
-    decoded.deviceType3 = bytes[2] & 0x07;                                      // Device Type 3 (3-bit)
-    decoded.enabled3 = Boolean((bytes[2] & 0x08) >> 3);                         // Enabled 3 (1-bit)
-    decoded.deviceType4 = (bytes[2] & 0x70) >> 4;                               // Device Type 4 (3-bit)
-    decoded.enabled4 = Boolean((bytes[2] & 0x80) >> 7);                         // Enabled 4 (1-bit)
-    decoded.deviceType5 = bytes[3] & 0x07;                                      // Device Type 5 (3-bit)
-    decoded.enabled5 = Boolean((bytes[3] & 0x08) >> 3);                         // Enabled 5 (1-bit)
-    decoded.deviceType6 = (bytes[3] & 0x70) >> 4;                               // Device Type 6 (3-bit)
-    decoded.enabled6 = Boolean((bytes[3] & 0x80) >> 7);                         // Enabled 6 (1-bit)
-    decoded.deviceType7 = bytes[4] & 0x07;                                      // Device Type 7 (3-bit)
-    decoded.enabled7 = Boolean((bytes[4] & 0x08) >> 3);                         // Enabled 7 (1-bit)
-    decoded.deviceType8 = (bytes[4] & 0x70) >> 4;                               // Device Type 8 (3-bit)
-    decoded.enabled8 = Boolean((bytes[4] & 0x80) >> 7);                         // Enabled 8 (1-bit)
-    decoded.deviceType9 = bytes[5] & 0x07;                                      // Device Type 9 (3-bit)
-    decoded.enabled9 = Boolean((bytes[5] & 0x08) >> 3);                         // Enabled 9 (1-bit)
-    decoded.deviceType10 = (bytes[5] & 0x70) >> 4;                              // Device Type 10 (3-bit)
-    decoded.enabled10 = Boolean((bytes[5] & 0x80) >> 7);                        // Enabled 10 (1-bit)
-    decoded.deviceType11 = bytes[6] & 0x07;                                     // Device Type 11 (3-bit)
-    decoded.enabled11 = Boolean((bytes[6] & 0x08) >> 3);                        // Enabled 11 (1-bit)
-    decoded.deviceType12 = (bytes[6] & 0x70) >> 4;                              // Device Type 12 (3-bit)
-    decoded.enabled12 = Boolean((bytes[6] & 0x80) >> 7);                        // Enabled 12 (1-bit)
-    decoded.deviceUnits1 = bytes[7] & 0x01;                                     // Device Units 1 (1-bit)
-    decoded.deviceUnits2 = (bytes[7] & 0x02) >> 1;                              // Device Units 2 (1-bit)
-    decoded.deviceUnits3 = (bytes[7] & 0x04) >> 2;                              // Device Units 3 (1-bit)
-    decoded.deviceUnits4 = (bytes[7] & 0x08) >> 3;                              // Device Units 4 (1-bit)
-    decoded.deviceUnits5 = (bytes[7] & 0x10) >> 4;                              // Device Units 5 (1-bit)
-    decoded.deviceUnits6 = (bytes[7] & 0x20) >> 5;                              // Device Units 6 (1-bit)
-    decoded.deviceUnits7 = (bytes[7] & 0x40) >> 6;                              // Device Units 7 (1-bit)
-    decoded.deviceUnits8 = (bytes[7] & 0x80) >> 7;                              // Device Units 8 (1-bit)
-    decoded.deviceUnits9 = bytes[8] & 0x01;                                     // Device Units 9 (1-bit)
-    decoded.deviceUnits10 = (bytes[8] & 0x02) >> 1;                             // Device Units 10 (1-bit)
-    decoded.deviceUnits11 = (bytes[8] & 0x04) >> 2;                             // Device Units 11 (1-bit)
-    decoded.deviceUnits12 = (bytes[8] & 0x08) >> 3;                             // Device Units 12 (1-bit)
-    decoded.wkupSensorTransmitEnable = Boolean((bytes[8] & 0x10) >> 4);         // WKUP Sensor Transmit Enable (1-bit)
-    decoded.batterySensorTransmitEnable = Boolean((bytes[8] & 0x20) >> 5);      // Battery Sensor Transmit Enable (1-bit)
-    decoded.coldJointSensorTransmitEnable = Boolean((bytes[8] & 0x40) >> 6);    // Cold Joint Sensor Transmit Enable (1-bit)
-    decoded.reserved1 = (bytes[8] & 0x80) >> 7;                                 // Reserved 1 Field (1-bit)
+
+    if (decoded.sequenceNumber == 0)
+    {
+        decoded.deviceType1 = bytes[1] & 0x07;                                      // Device Type 1 (3-bit)
+        decoded.enable1 = Boolean((bytes[1] & 0x08) >> 3);                          // Enable 1 (1-bit)
+        decoded.deviceType2 = (bytes[1] & 0x70) >> 4;                               // Device Type 2 (3-bit)
+        decoded.enable2 = Boolean((bytes[1] & 0x80) >> 7);                          // Enable 2 (1-bit)
+        decoded.deviceType3 = bytes[2] & 0x07;                                      // Device Type 3 (3-bit)
+        decoded.enable3 = Boolean((bytes[2] & 0x08) >> 3);                          // Enable 3 (1-bit)
+        decoded.deviceType4 = (bytes[2] & 0x70) >> 4;                               // Device Type 4 (3-bit)
+        decoded.enable4 = Boolean((bytes[2] & 0x80) >> 7);                          // Enable 4 (1-bit)
+        decoded.deviceType5 = bytes[3] & 0x07;                                      // Device Type 5 (3-bit)
+        decoded.enable5 = Boolean((bytes[3] & 0x08) >> 3);                          // Enable 5 (1-bit)
+        decoded.deviceType6 = (bytes[3] & 0x70) >> 4;                               // Device Type 6 (3-bit)
+        decoded.enable6 = Boolean((bytes[3] & 0x80) >> 7);                          // Enable 6 (1-bit)
+        decoded.deviceType7 = bytes[4] & 0x07;                                      // Device Type 7 (3-bit)
+        decoded.enable7 = Boolean((bytes[4] & 0x08) >> 3);                          // Enable 7 (1-bit)
+        decoded.deviceType8 = (bytes[4] & 0x70) >> 4;                               // Device Type 8 (3-bit)
+        decoded.enable8 = Boolean((bytes[4] & 0x80) >> 7);                          // Enable 8 (1-bit)
+        decoded.deviceType9 = bytes[5] & 0x07;                                      // Device Type 9 (3-bit)
+        decoded.enable9 = Boolean((bytes[5] & 0x08) >> 3);                          // Enable 9 (1-bit)
+        decoded.deviceType10 = (bytes[5] & 0x70) >> 4;                              // Device Type 10 (3-bit)
+        decoded.enable10 = Boolean((bytes[5] & 0x80) >> 7);                         // Enable 10 (1-bit)
+        decoded.deviceType11 = bytes[6] & 0x07;                                     // Device Type 11 (3-bit)
+        decoded.enable11 = Boolean((bytes[6] & 0x08) >> 3);                         // Enable 11 (1-bit)
+        decoded.deviceType12 = (bytes[6] & 0x70) >> 4;                              // Device Type 12 (3-bit)
+        decoded.enable12 = Boolean((bytes[6] & 0x80) >> 7);                         // Enable 12 (1-bit)
+        decoded.deviceUnits1 = bytes[7] & 0x01;                                     // Device Units 1 (1-bit)
+        decoded.deviceUnits2 = (bytes[7] & 0x02) >> 1;                              // Device Units 2 (1-bit)
+        decoded.deviceUnits3 = (bytes[7] & 0x04) >> 2;                              // Device Units 3 (1-bit)
+        decoded.deviceUnits4 = (bytes[7] & 0x08) >> 3;                              // Device Units 4 (1-bit)
+        decoded.deviceUnits5 = (bytes[7] & 0x10) >> 4;                              // Device Units 5 (1-bit)
+        decoded.deviceUnits6 = (bytes[7] & 0x20) >> 5;                              // Device Units 6 (1-bit)
+        decoded.deviceUnits7 = (bytes[7] & 0x40) >> 6;                              // Device Units 7 (1-bit)
+        decoded.deviceUnits8 = (bytes[7] & 0x80) >> 7;                              // Device Units 8 (1-bit)
+        decoded.deviceUnits9 = bytes[8] & 0x01;                                     // Device Units 9 (1-bit)
+        decoded.deviceUnits10 = (bytes[8] & 0x02) >> 1;                             // Device Units 10 (1-bit)
+        decoded.deviceUnits11 = (bytes[8] & 0x04) >> 2;                             // Device Units 11 (1-bit)
+        decoded.deviceUnits12 = (bytes[8] & 0x08) >> 3;                             // Device Units 12 (1-bit)
+        decoded.wkupSensorTransmitEnable = Boolean((bytes[8] & 0x10) >> 4);         // WKUP Sensor Transmit Enable (1-bit)
+        decoded.batterySensorTransmitEnable = Boolean((bytes[8] & 0x20) >> 5);      // Battery Sensor Transmit Enable (1-bit)
+        decoded.coldJointSensorTransmitEnable = Boolean((bytes[8] & 0x40) >> 6);    // Cold Joint Sensor Transmit Enable (1-bit)
+        decoded.reserved1 = (bytes[8] & 0x80) >> 7;                                 // Reserved 1 Field (1-bit)
+    }
+    else if (decoded.sequenceNumber == 1)
+    {
+        decoded.deviceType1 = bytes[1] & 0x07;                                      // Device Type 1 (3-bit)
+        decoded.enable1 = Boolean((bytes[1] & 0x08) >> 3);                          // Enable 1 (1-bit)
+        decoded.deviceType2 = (bytes[1] & 0x70) >> 4;                               // Device Type 2 (3-bit)
+        decoded.enable2 = Boolean((bytes[1] & 0x80) >> 7);                          // Enable 2 (1-bit)
+        decoded.deviceType3 = bytes[2] & 0x07;                                      // Device Type 3 (3-bit)
+        decoded.enable3 = Boolean((bytes[2] & 0x08) >> 3);                          // Enable 3 (1-bit)
+        decoded.deviceType4 = (bytes[2] & 0x70) >> 4;                               // Device Type 4 (3-bit)
+        decoded.enable4 = Boolean((bytes[2] & 0x80) >> 7);                          // Enable 4 (1-bit)
+        decoded.deviceType5 = bytes[3] & 0x07;                                      // Device Type 5 (3-bit)
+        decoded.enable5 = Boolean((bytes[3] & 0x08) >> 3);                          // Enable 5 (1-bit)
+        decoded.deviceType6 = (bytes[3] & 0x70) >> 4;                               // Device Type 6 (3-bit)
+        decoded.enable6 = Boolean((bytes[3] & 0x80) >> 7);                          // Enable 6 (1-bit)
+        decoded.deviceType7 = bytes[4] & 0x07;                                      // Device Type 7 (3-bit)
+        decoded.enable7 = Boolean((bytes[4] & 0x08) >> 3);                          // Enable 7 (1-bit)
+        decoded.deviceType8 = (bytes[4] & 0x70) >> 4;                               // Device Type 8 (3-bit)
+        decoded.enable8 = Boolean((bytes[4] & 0x80) >> 7);                          // Enable 8 (1-bit)
+        decoded.deviceType9 = bytes[5] & 0x07;                                      // Device Type 9 (3-bit)
+        decoded.enable9 = Boolean((bytes[5] & 0x08) >> 3);                          // Enable 9 (1-bit)
+        decoded.deviceType10 = (bytes[5] & 0x70) >> 4;                              // Device Type 10 (3-bit)
+        decoded.enable10 = Boolean((bytes[5] & 0x80) >> 7);                         // Enable 10 (1-bit)
+        decoded.deviceType11 = bytes[6] & 0x07;                                     // Device Type 11 (3-bit)
+        decoded.enable11 = Boolean((bytes[6] & 0x08) >> 3);                         // Enable 11 (1-bit)
+        decoded.deviceType12 = (bytes[6] & 0x70) >> 4;                              // Device Type 12 (3-bit)
+        decoded.enable12 = Boolean((bytes[6] & 0x80) >> 7);                         // Enable 12 (1-bit)
+        decoded.deviceUnits1 = bytes[7] & 0x03;                                     // Device Units 1 (2-bit)
+        decoded.deviceUnits2 = (bytes[7] & 0x0C) >> 2;                              // Device Units 2 (2-bit)
+        decoded.deviceUnits3 = (bytes[7] & 0x30) >> 4;                              // Device Units 3 (2-bit)
+        decoded.deviceUnits4 = (bytes[7] & 0xC0) >> 6;                              // Device Units 4 (2-bit)
+        decoded.deviceUnits5 = bytes[8] & 0x03;                                     // Device Units 5 (2-bit)
+        decoded.deviceUnits6 = (bytes[8] & 0x0C) >> 2;                              // Device Units 6 (2-bit)
+        decoded.deviceUnits7 = (bytes[8] & 0x30) >> 4;                              // Device Units 7 (2-bit)
+        decoded.deviceUnits8 = (bytes[8] & 0xC0) >> 6;                              // Device Units 8 (2-bit)
+        decoded.deviceUnits9 = bytes[9] & 0x03;                                     // Device Units 9 (2-bit)
+        decoded.deviceUnits10 = (bytes[9] & 0x0C) >> 2;                             // Device Units 10 (2-bit)
+        decoded.deviceUnits11 = (bytes[9] & 0x30) >> 4;                             // Device Units 11 (2-bit)
+        decoded.deviceUnits12 = (bytes[9] & 0xC0) >> 6;                             // Device Units 12 (2-bit)
+        decoded.coldJointSensorUnits = bytes[10] & 0x03;                            // Cold Joint Sensor Units (2-bit)
+        decoded.wkupSensorTransmitEnable = Boolean((bytes[10] & 0x04) >> 2);        // WKUP Sensor Transmit Enable (1-bit)
+        decoded.batterySensorTransmitEnable = Boolean((bytes[10] & 0x08) >> 3);     // Battery Sensor Transmit Enable (1-bit)
+        decoded.coldJointSensorTransmitEnable = Boolean((bytes[10] & 0x10) >> 4);   // Cold Joint Sensor Transmit Enable (1-bit)
+        decoded.tcSensorsTransmitEnable = Boolean((bytes[10] & 0x20) >> 5);;        // TC Sensors Transmit Enable (1-bit)
+        decoded.ainPayloadType = (bytes[10] & 0x40) >> 6;                           // Ain Payload Type (1-bit)
+        decoded.reserved1 = (bytes[10] & 0x80) >> 7;                                // Reserved 1 Field (1-bit)
+    }
 
     return decoded;
 }
@@ -881,6 +957,52 @@ function parseModbusGenericPayload(bytes, fport)
         }
         else break;
     }
+    return decoded;
+}
+
+function parseAnalogInputVariableLengthPayload(bytes, fport)
+{
+    var decoded = {};
+    var decodedAinPayloads = [];
+    const AIN_PAYLOAD_SIZE = 6;
+
+    var payloadLength = bytes.length
+    var byteIdx = 0;
+    while(byteIdx < payloadLength)
+    {
+        var ainPayload = bytes.slice(byteIdx, byteIdx + AIN_PAYLOAD_SIZE)
+        var decodedAinPayload = parseOneAnalogSensorPayload(ainPayload)
+        decodedAinPayloads.push(decodedAinPayload)
+        byteIdx += AIN_PAYLOAD_SIZE;
+    }
+
+    decoded.ainPayloads = decodedAinPayloads;
+    decoded.numOfAinPayloads = decodedAinPayloads.length
+
+    return decoded;
+}
+
+function parseModbusStandardVariableLengthPayload(bytes, fport)
+{
+    var decoded = {};
+    var decodedModbusSlots = {};
+
+    var payloadLength = bytes.length
+    var firstSlotNum = bytes[payloadLength - 1]
+    const REGISTER_SIZE = 2
+    var byteIdx = 0;
+    while(byteIdx < payloadLength - 1)
+    {
+        var registerIdx = byteIdx / 2;
+        var slotIdx = firstSlotNum + registerIdx;
+        decodedModbusSlots["Modbus"+ slotIdx] = (bytes[byteIdx + 1] << 8) | bytes[byteIdx];
+        byteIdx += REGISTER_SIZE;
+    }
+
+    decoded.modbusSlots = decodedModbusSlots;
+    decoded.firstSlotNum = firstSlotNum;
+    decoded.numModbusSlots = (payloadLength - 1) / 2;
+
     return decoded;
 }
 
@@ -1323,6 +1445,38 @@ function printPayload(payload)
         return;
     }
 
+    if (payload.data.payloadType == "Analog Input Variable Length")
+    {
+        var stringToPrint = "";
+        for (let i = 0; i < payload.data.numOfAinPayloads; i++)
+        {
+            analogSensorString0 = lookupAnalogSensorName(payload.data.voboType, payload.data.ainPayloads[i].sensorNum0);
+            engUnitsString0 = lookupUnits(1, payload.data.ainPayloads[i].sensorUnits0);
+            sensorData0 = payload.data.ainPayloads[i].sensorData0;
+
+            let fractionDigitsData0 = 1;
+            if(engUnitsString0 == "mV" || engUnitsString0 == "V" || engUnitsString0 == "mA" || engUnitsString0 == "A") fractionDigitsData0 = 3;
+            if (engUnitsString0 == "ADC code") fractionDigitsData0 = 0;
+            stringToPrint = stringToPrint + analogSensorString0 + " = " + parseFloat(sensorData0).toFixed(fractionDigitsData0) + " " + engUnitsString0 + " | ";
+        }
+        console.log("%s | %s | %s | %s | %s\n", payload.timestamp, payload.deveui, payload.data.voboType, payload.data.payloadType, stringToPrint);
+        return;
+    }
+
+    if(payload.data.payloadType == "Modbus Standard Variable Length")
+    {
+        dataKeys = Object.keys(payload.data.modbusSlots);
+        let stringToPrint = payload.timestamp + " | " + payload.deveui + " | " + payload.data.voboType + " | " + payload.data.payloadType + " | ";
+        for (let idx = 0; idx < dataKeys.length; idx++)
+        {
+            let fieldName = dataKeys[idx];
+            let valueHex = "0x" + payload.data.modbusSlots[fieldName].toString(16).toUpperCase().padStart(4,0);
+            stringToPrint += fieldName + " = " + valueHex + " | ";
+        }
+        console.log("%s\n", stringToPrint);
+        return;
+    }
+    
     if(payload.data.payloadType == "Digital Inputs") 
     {
         var stringToPrint = ""
