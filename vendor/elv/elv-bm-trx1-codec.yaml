@@ -27,5 +27,5 @@ uplinkDecoder:
           hdop: 1.44
           latitude: 53.44717
           longitude: 10.22731
-# Temperatur + Luftfeuchte TH1, GPS
-# added mail Address
+downlinkDecoder:
+  fileName: elv-bm-trx1.js

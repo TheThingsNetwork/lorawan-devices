@@ -1,5 +1,5 @@
-name: TX PULSE ATEX 600-037 - Pulse Meter sensor - ATEX Approved(Gas)
-description: This LoRa / LoRaWAN pulse transmitter has been specially designed for pulse counting applications on gas meters with a dry contact interface or an open collector inlet.ATEX approved – Explosives Atmospheres – Zone 0, this transmitter allows the remote reading of the data from the gas meter to which it is connected without any manual intervention. In other words, this transmitter will quickly and economically transform your conventional gas meter into a smart meter.
+name: 600-037 - Pulse Meter sensor - ATEX Approved(Gas)
+description: This LoRaWAN pulse transmitter has been specially designed for pulse counting applications on gas meters with a dry contact interface or an open collector inlet.ATEX approved – Explosives Atmospheres – Zone 0, this transmitter allows the remote reading of the data from the gas meter to which it is connected without any manual intervention. In other words, this transmitter will quickly and economically transform your conventional gas meter into a smart meter.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -26,12 +26,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: tx-pulse-atex-600-037-codec
 
-      US902-928:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: enless-profile-915
-        lorawanCertified: true
-        codec: tx-pulse-atex-600-037-codec
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -41,7 +35,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
+  - pulse count
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -80,5 +74,6 @@ productURL: https://enless-wireless.com/en/products/pulse-meter-sensor-atex-appr
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-037.pdf
 
 # Photos
-main: 600-037.png
+photos:
+  main: 600-037.png
 # Regulatory compliances (optional)

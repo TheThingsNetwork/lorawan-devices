@@ -1,0 +1,73 @@
+name: Impulse - Proof of Coverage Test Tool
+description: Proof of Coverage Test Tool
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'E'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'E'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      US902-928:
+        #  vendorID: 800
+        id: kst5420-profile
+        lorawanCertified: false
+        codec: kst5420-codec
+
+deviceType: cots
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 20
+  length: 72
+  height: 88
+
+# Weight in grams (optional)
+weight: 100
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 35
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://kstechnologies.com/productPages/kst5420
+dataSheetURL: https://kstechnologies.com/assets/ers/KST5420ProductRequirementsDocument.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'KS Technologies Store'
+    region:
+      - United States
+    url: https://store.kstechnologies.com/products/impulse-proof-of-coverage-test-tool-for-lorawan
+msrp:
+  USD: 150.00
+
+# Photos
+photos:
+  main: kst5420.png
+  other:
+    - kst5420_alt.png

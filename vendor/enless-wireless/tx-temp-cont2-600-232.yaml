@@ -1,5 +1,5 @@
-name: TX TEMP CONT2 600-232 Temperature Sensor-2 External contact probes (PT1000)
-description: This Enless Wireless LoRa / LoRaWAN IP65 transmitter with two external temperature contact probe allows you to measure temperatures (°C) in a remote manner, on contact with surfaces.The robustness of our transmitter is IP 65 housing and its high environmental tolerance (probe temperature range -180°C / +250°C) allow it to withstand any type of “outdoor” environment, sometimes under extreme conditions.
+name: 600-232 - Temperature Sensor-2 External contact probes (PT1000)
+description: This Enless Wireless LoRaWAN IP65 transmitter with two external temperature contact probes allows you to measure two temperature points (°C) simultaneously in a remote manner, on contact with surfaces.The robustness of our transmitter – IP 65 housing – and its high environmental tolerance (probe temperature range - 180°C / +250°C) allow it to withstand any type of “outdoor” environment, sometimes under extreme conditions.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -23,12 +23,6 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: enless-profile-868
-        lorawanCertified: true
-        codec: tx-temp-cont2-600-232-codec
-
-      US902-928:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: enless-profile-915
         lorawanCertified: true
         codec: tx-temp-cont2-600-232-codec
 
@@ -80,6 +74,7 @@ productURL: https://enless-wireless.com/en/products/temperature-sensor-2-probes-
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-232.pdf
 
 # Photos
-main: 600-232.png
+photos:
+  main: 600-232.png
 # Regulatory compliances (optional)
 

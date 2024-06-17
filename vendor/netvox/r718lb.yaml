@@ -34,6 +34,9 @@ firmwareVersions:
         id: profile-cn470
         codec: r718lb-codec
 
+sensors:
+  - hall effect
+
 dimensions:
   width: 65
   length: 112
@@ -63,4 +66,4 @@ productURL: http://www.netvox.com.tw/product.asp?pro=R718LB
 dataSheetURL: http://www.netvox.com.tw/um/R718LB/R718LBdatasheet.pdf
 
 photos:
-  main: photos/r718j.jpg
+  main: photos/r718lb.jpg

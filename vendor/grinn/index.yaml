@@ -1,3 +1,0 @@
-endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - firealarm-radiomodule

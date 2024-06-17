@@ -6,4 +6,13 @@ uplinkDecoder:
         fPort: 2
         bytes: [0x01, 0x5A, 0x70, 0x66, 0x06, 0xCF, 0x3C, 0xF8, 0x0F, 0xA2, 0x30, 0x01, 0xAE, 0x00, 0xDA]
       output:
-        data: { 'ALARM_status': 'FALSE', 'Hum': 43, 'LON': 'ON', 'Latitude': 22.70423, 'Location': '22.70423,114.244856', 'Longitud': 114.244856, 'MD': 0, 'Tem': 21.8, 'Transport': 'MOVE' }
+        data:
+          ALARM_status: 'FALSE'
+          Hum: 43
+          LON: 'ON'
+          Latitude: 22.70423
+          Location: '22.70423,114.244856'
+          Longitude: 114.244856 # Corrected key name here
+          MD: 0
+          Tem: 21.8
+          Transport: 'MOVE'

@@ -1,4 +1,4 @@
-name: dnt LoRaWAN® Solar-GPS-Tracker
+name: LoRaWAN® Solar-GPS-Tracker
 description: The dnt LoRaWAN® Asset Tracker Solar is a reliable and compact GNSS tracker with a water- and dust proof housing according to IP44. Through the built-in solar cell, self-sufficient operation is possible. The position determination can be done cyclically or motion-based. In addition, there are many configuration options through LoRaWAN® downlinks, like the motion sensitivity or the positioning interval. The average sleep mode current is below 10 µA.
 
 # Hardware versions (optional, use when you have revisions)
@@ -103,6 +103,6 @@ msrp:
 
 # Photos
 photos:
-  main: dnt-lw-ats.png
+  main: dnt-lw-ats.jpg
   other:
     - dnt-lw-ats-top-view.jpg

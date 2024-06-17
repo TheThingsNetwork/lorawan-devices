@@ -1,6 +1,16 @@
 endDevices:
   - acr-slc
   - acr-cv-101l-m-d
-  #- acr-slc-100l-zhaga-dali
   - acr-cv-101l-m-eac
   - acr-cv-101l-r-eac
+profileIDs:
+  '1':
+    endDeviceID: 'acr-cv-101l-r-eac'
+    firmwareVersion: '2.5'
+    hardwareVersion: 'ACR-CV-101L-RM-D2EAC_v2.0'
+    region: 'EU863-870'
+  '2':
+    endDeviceID: 'acr-slc'
+    firmwareVersion: '1.2'
+    hardwareVersion: 'v1.0'
+    region: 'EU863-870'

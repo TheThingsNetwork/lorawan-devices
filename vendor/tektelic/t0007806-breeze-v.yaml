@@ -1,0 +1,110 @@
+name: Breeze-V Indoor Ambient Environment Monitoring
+description: Sensor that efficiently monitors CO2 and occupancy
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.0.20'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: t0007806-868-profile
+        lorawanCertified: false
+        codec: t0007806-codec
+      US902-928:
+        id: t0007806-915-profile
+        lorawanCertified: false
+        codec: t0007806-codec
+      AU915-928:
+        id: t0007806-915-profile
+        lorawanCertified: false
+        codec: t0007806-codec
+      AS923:
+        id: t0007806-923-profile
+        lorawanCertified: false
+        codec: t0007806-codec
+      IN865-867:
+        id: t0007806-865-profile
+        lorawanCertified: false
+        codec: t0007806-codec
+      KR920-923:
+        id: t0007806-920-profile
+        lorawanCertified: false
+        codec: t0007806-codec
+      RU864-870:
+        id: t0007806-864-profile
+        lorawanCertified: false
+        codec: t0007806-codec
+
+sensors:
+  - co2
+  - occupancy
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 80
+  length: 80
+  height: 30
+
+# Weight in grams (optional)
+weight: 91
+
+# Battery information (optional)
+battery:
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.05
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP30
+
+# Product and data sheet URLs (optional)
+productURL: https://tektelic.com/products/sensors/breeze-v-occupancy-sensor/
+dataSheetURL: https://tektelic.com/wp-content/uploads/TEKTELIC_BREEZE_Spec-sheet.pdf
+manuals: https://support.tektelic.com/portal/en/kb/articles/breeze-sensor-technical-reference-manual
+
+# Photos
+photos:
+  main: breeze-v.png # Image needs to have a transparent background
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: CE
+      standard: 60950-1
+  regulatory:
+    - body: ETSI EN
+      standard: 300 220-1
+    - body: ETSI EN
+      standard: 300 220-2
+    - body: ETSI EN
+      standard: 301 489-1
+    - body: ETSI EN
+      standard: 301 489-3
+    - body: FCC
+      standard: '15.247'
+    - body: FCC
+      standard: '15.209'
+    - body: FCC
+      standard: '15.109'
+    - body: ICES
+      standard: '-003'
+    - body: RSS
+      standard: '-247'
+    - body: RSS
+      standard: '-Gen'

@@ -1,4 +1,4 @@
-name: Tektelic Industrial Transceiver
+name: T00053xx - Industrial Transceiver
 description: The Tektelic KONA Industrial Transceiver interfaces automation and control instrumentation to LoRaWAN® networks. It has a temperature sensor and a humidity sensor. It supports up to 3 Analog and Digital inputs enabling remote capture of data, 2 Switched Outputs to activate actuators and different control system components, and a configurable RS-232, RS-422, or RS-485 interface with numerous protocols.
 
 # Hardware versions (optional, use when you have revisions)
@@ -20,6 +20,11 @@ firmwareVersions:
         id: t00053xx-868-profile
         lorawanCertified: true
         codec: t00053xx-codec
+
+sensors:
+  - digital input
+  - temperature
+  - humidity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

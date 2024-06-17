@@ -1,4 +1,4 @@
-name: rbs306-temp-tc - Thermocouple Temperature Sensor
+name: RBS306-TEMP-TC - Thermocouple Temperature Sensor
 description: 'The wireless thermocouple temperature sensor measures temperature using an external K-type thermocouple. Other thermocouples may be used and can be configured via downlink messages. Multiple thermocouple types supported: B, E, J, K, N, R, S, and T. The Armored Sensor™ enclosure makes the sensor suitable for outdoor and industrial use. Applications include gas turbine exhaust, diesel engines, industrial processes, flame sensor, petroleum refineries, appliance heating, and food processing and production.'
 hardwareVersions:
   - version: '1.0'
@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-temp-tc-profile
         lorawanCertified: true
         codec: rbs306-temp-tc-codec
+
+sensors:
+  - temperature
+
 # Photos
 photos:
   main: rbs306-temp-tc.png

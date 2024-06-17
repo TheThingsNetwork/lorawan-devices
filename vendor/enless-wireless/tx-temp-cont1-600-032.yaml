@@ -1,5 +1,5 @@
-name: TX TEMP CONT1 600-032 - Temperature sensor with External contact probe (PT1000)
-description: This Enless Wireless LoRa / LoRaWAN IP65 transmitter with external temperature contact probe allows you to measure temperatures (°C) in a remote manner, on contact with surfaces.The robustness of our transmitter is IP 65 housing and its high environmental tolerance (probe temperature range -180°C / +250°C) allow it to withstand any type of “outdoor” environment, sometimes under extreme conditions.
+name: 600-032 - Temperature sensor with External contact probe (PT1000)
+description: This Enless Wireless LoRaWAN IP65 transmitter with external temperature contact probe allows you to measure temperatures (°C) in a remote manner, on contact with surfaces.The robustness of our transmitter – IP 65 housing – and its high environmental tolerance (probe temperature range -180°C / +250°C) allow it to withstand any type of “outdoor” environment, sometimes under extreme conditionse monitoring activities into their processes. This Enless Wireless LoRaWAN “hardened” (IP65) transmitter with integrated temperature sensor is used for temperature monitoring (°C) for different applications in outdoor environments and/or in areas subject to extreme conditions.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -23,12 +23,6 @@ firmwareVersions:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: enless-profile-868
-        lorawanCertified: true
-        codec: tx-temp-cont1-600-032-codec
-
-      US902-928:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: enless-profile-915
         lorawanCertified: true
         codec: tx-temp-cont1-600-032-codec
 
@@ -80,6 +74,7 @@ productURL: https://enless-wireless.com/en/products/temperature-sensor-external-
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-032.pdf
 
 # Photos
-main: 600-032.png
+photos:
+  main: 600-032.png
 # Regulatory compliances (optional)
 

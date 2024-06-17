@@ -1,0 +1,95 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: universal_decoder.js
+  # Examples (optional)
+  examples:
+    - description: Typical vibration data
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x4c,
+            0x08,
+            0xeb,
+            0x04,
+            0x0b,
+            0x00,
+            0x00,
+            0x00,
+            0x09,
+            0x00,
+            0x08,
+            0x00,
+            0x3f,
+            0x8d,
+            0x01,
+            0x00,
+            0x00,
+            0x02,
+            0x7a,
+            0x00,
+            0x00,
+            0x00,
+            0x01,
+            0xe2,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0xce,
+            0x03,
+            0x00,
+            0x00,
+            0x00,
+            0x09,
+            0x2d,
+            0x00,
+            0x00,
+            0x00,
+            0x0b,
+            0x39,
+            0x00,
+            0x00,
+            0x00,
+            0xc2,
+            0x07,
+            0x00,
+            0x00,
+            0x00,
+          ]
+      output:
+        data:
+          bat: 76%
+          peak_nb: 8
+          temp: 25.9
+          sig_rms: 0.011
+          preset: 0
+          devstat:
+            acc: ok
+            temp: ok
+            rotEn: disabled
+            com: ok
+            battery: ok
+          peaks:
+            - freq: 9
+              mag: 0.008
+              ratio: 63
+            - freq: 397
+              mag: 0
+              ratio: 2
+            - freq: 122
+              mag: 0
+              ratio: 1
+            - freq: 226
+              mag: 0
+              ratio: 0
+            - freq: 974
+              mag: 0
+              ratio: 0
+            - freq: 11529
+              mag: 0
+              ratio: 0
+            - freq: 14603
+              mag: 0
+              ratio: 0

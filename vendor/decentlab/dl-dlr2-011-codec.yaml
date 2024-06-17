@@ -1,0 +1,71 @@
+uplinkDecoder:
+  fileName: dl-dlr2-011.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x43, 0x71, 0x00, 0x07, 0x00, 0x01, 0x00, 0x00, 0x0a, 0xf9]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.809
+          ch0_input:
+            displayName: 'CH0: Input'
+            value: 1
+          ch1_input:
+            displayName: 'CH1: Input'
+            value: 0
+          device_id: 17265
+          protocol_version: 2
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x43, 0x71, 0x00, 0x04, 0x0a, 0xf9]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.809
+          device_id: 17265
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

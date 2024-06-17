@@ -1,4 +1,4 @@
-name: MUTELCOR NFC RFID - LoRa Button
+name: NFC RFID - LoRa Button
 description: The Mutelcor NFC RFID - LoRa Button makes it easy to combine sending alarm messages via LoRa with an option to authenticate using a NFC Tag by holding it next to the device when pressing a button. Our dynamic web-dashboard allows you to monitor the status of deployed NFC RFID - LoRa Buttons, handle events sent and collect statistics about device usage. Other Mutelcor products can be monitored using the same dashboard.
 
 # Hardware versions (optional, use when you have revisions)
@@ -90,7 +90,7 @@ operatingConditions:
     max: 55
 
 # IP rating (optional)
-ipCode: IP67
+ipCode: IP40
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -98,7 +98,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://mutelcor.com/nfc-rfid-lora-button/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2023/09/MUTELCOR_Datasheet_NFC_RFID_LoRa_Button.pdf
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2024/04/MUTELCOR_Datasheet_NFC_RFID_LoRa_Button.pdf
 
 # Photos
 photos:

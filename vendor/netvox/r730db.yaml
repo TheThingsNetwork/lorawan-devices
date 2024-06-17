@@ -33,6 +33,9 @@ firmwareVersions:
         id: profile-cn470
         codec: r730db-codec
 
+sensors:
+  - vibration
+
 battery:
   replaceable: true
   type: 2 x ER14505 3.6V Lithium AA battery
@@ -55,4 +58,4 @@ productURL: http://www.netvox.com.tw/product.asp?pro=R730DB
 dataSheetURL: http://www.netvox.com.tw/um/R730DB/R730DBdatasheet.pdf
 
 photos:
-  main: photos/r730mba.png
+  main: photos/r730db.png

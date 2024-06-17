@@ -1,5 +1,5 @@
-name: TX CO2/VOC/T&H AMB 600-023
-description: The Enless Wireless TX CO2/VOC/T&H AMB 600-023 consists of temperature humidity VOC and CO2 .
+name: 600-023 - Ambient VOC,CO2,Temperature and Humidity sensor
+description: Specifically designed for indoor applications in an ambient environment, the Enless Wireless LoRaWAN CO2, VOC, humidity and temperature transmitter allows you to monitor occupant comfort levels, thanks to its integrated sensors of CO2 (ppm), VOC (ppb), temperature (°C) and humidity (%rH). The CO2 and the VOC contents are the main indicators of the air quality breathed by users.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -26,12 +26,6 @@ firmwareVersions:
         lorawanCertified: true
         codec: tx-amb-600-023-codec
 
-      US902-928:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: enless-profile-915
-        lorawanCertified: true
-        codec: tx-amb-600-023-codec
-
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -49,9 +43,9 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 43
-  length: 118
-  height: 79
+  width: 38
+  length: 105
+  height: 95
 
 # Battery information (optional)
 battery:
@@ -79,10 +73,11 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/pulse-meter-transmitter-lora/
+productURL: https://enless-wireless.com/en/products/ambient-voc-co2-temperature-humidity-sensor-lora/
 dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-023.pdf
 
 # Photos
-main: 600-022.png
+photos:
+  main: 600-023.png
 # Regulatory compliances (optional)
 
