@@ -1,5 +1,5 @@
-name: Lansitec Solar Bluetooth Gateway
-description: Lansitec Solar Bluetooth Gateway is designed based on LoRaWAN and Bluetooth 5.0 technology. It receives nearby Bluetooth beacon messages, and then transmit to a LoRaWAN gateways through LoRaWAN after restructure the data. It is powered with robust solar film and a 5300mAh rechargeable battery.
+name: Lansitec Compact Bluetooth Gateway
+description: Lansitec Compact Bluetooth gateway is based on Bluetooth5.0 technology and LoRaWAN. It receives nearby Bluetooth beacon messages and transmits them to the server through LoRaWAN. The built-in 600mAh rechargeable battery makes it last about 10 hours when not powered. The standby time can be significantly extended by changing Bluetooth receiving settings.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.10'
+    version: '1.0'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -35,31 +35,31 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: profile-eu868
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: compact-bluetooth-gateway-codec
       US902-928:
         id: profile-us915
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: compact-bluetooth-gateway-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: compact-bluetooth-gateway-codec
       AS923:
         id: profile-as923
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: compact-bluetooth-gateway-codec
       CN470-510:
         id: profile-cn470
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: compact-bluetooth-gateway-codec
       KR920-923:
         id: profile-kr920
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: compact-bluetooth-gateway-codec
       IN865-867:
         id: profile-in865
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: compact-bluetooth-gateway-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -70,8 +70,9 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
-  - pressure
+  - accelerometer
+  - gps
+  - light
   - battery
   - button
   - rssi
@@ -90,47 +91,35 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 160
-  length: 160
-  height: 55
+  width: 62
+  length: 97
+  height: 7
 
 # Weight in grams (optional)
-weight: 150
+weight: 28
 
 # Battery information (optional)
 battery:
   replaceable: false
-  type: Li-ion rechargeable battery 5300mAh
+  type: Li-ion rechargeable battery, 600mAh
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 70
+    min: -10
+    max: 60
 
 # IP rating (optional)
-ipCode: IP66
+#ipCode: IP60
 
 # Product and data sheet URLs (optional)
-productURL: https://www.lansitec.com/products/solar-bluetooth-gateway
+productURL: https://www.lansitec.com/products/compact-bluetooth-gateway
 dataSheetURL: https://www.lansitec.com/datasheet/Lansitec_Bluetooth_Gateway_DataSheet_2.27.pdf
-
-# Commercial information
-# resellerURLs:
-#   - name: 'Reseller 1'
-#     region:
-#       - European Union
-#     url: https://example.org/reseller1
-#   - name: 'Reseller 2'
-#     region:
-#       - United States
-#       - Canada
-#     url: https://example.org/reseller2
 
 # Photos
 photos:
-  main: solar-bluetooth-gateway.png # Image needs to have a transparent background
+  main: compact-bluetooth-gateway.png # Image needs to have a transparent background
 
 # Youtube or Vimeo Video (optional)
 #videos:

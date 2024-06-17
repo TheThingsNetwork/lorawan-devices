@@ -1,5 +1,5 @@
-name: Lansitec Solar Bluetooth Gateway
-description: Lansitec Solar Bluetooth Gateway is designed based on LoRaWAN and Bluetooth 5.0 technology. It receives nearby Bluetooth beacon messages, and then transmit to a LoRaWAN gateways through LoRaWAN after restructure the data. It is powered with robust solar film and a 5300mAh rechargeable battery.
+name: Lansitec Tracking Label
+description: Lansitec LoRaWAN tracking label is designed based on GNSS, Bluetooth 5.0 and LoRaWAN technology. It supports indoor and outdoor tracking. The super thin label design makes it a perfect disposable device for tracking packages, pallets and all sorts of containers. The built-in 3-axis accelerator determines the motion status of the label and can help save battery and enhance user experience.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.10'
+    version: '1.0'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -35,31 +35,31 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: profile-eu868
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: tracking-label-codec
       US902-928:
         id: profile-us915
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: tracking-label-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: tracking-label-codec
       AS923:
         id: profile-as923
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: tracking-label-codec
       CN470-510:
         id: profile-cn470
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: tracking-label-codec
       KR920-923:
         id: profile-kr920
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: tracking-label-codec
       IN865-867:
         id: profile-in865
         lorawanCertified: false
-        codec: solar-bluetooth-gateway-codec
+        codec: tracking-label-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -70,8 +70,9 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
-  - pressure
+  - accelerometer
+  - gps
+  - light
   - battery
   - button
   - rssi
@@ -90,47 +91,35 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 160
-  length: 160
-  height: 55
+  width: 65
+  length: 100
+  height: 3.8
 
 # Weight in grams (optional)
-weight: 150
+weight: 50
 
 # Battery information (optional)
 battery:
   replaceable: false
-  type: Li-ion rechargeable battery 5300mAh
+  type: 2000mAh Disposable Lithium Battery
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -40
-    max: 70
+    min: -35
+    max: 75
 
 # IP rating (optional)
-ipCode: IP66
+#ipCode: IP60
 
 # Product and data sheet URLs (optional)
-productURL: https://www.lansitec.com/products/solar-bluetooth-gateway
-dataSheetURL: https://www.lansitec.com/datasheet/Lansitec_Bluetooth_Gateway_DataSheet_2.27.pdf
-
-# Commercial information
-# resellerURLs:
-#   - name: 'Reseller 1'
-#     region:
-#       - European Union
-#     url: https://example.org/reseller1
-#   - name: 'Reseller 2'
-#     region:
-#       - United States
-#       - Canada
-#     url: https://example.org/reseller2
+#productURL: https://www.lansitec.com/products/socket-sync-gateway
+#dataSheetURL: https://www.lansitec.com/datasheet/Lansitec_Plug_Bluetooth_Gateway_ForTrueSpot_DataSheet_1.5.pdf
 
 # Photos
 photos:
-  main: solar-bluetooth-gateway.png # Image needs to have a transparent background
+  main: tracking-label.png # Image needs to have a transparent background
 
 # Youtube or Vimeo Video (optional)
 #videos:
