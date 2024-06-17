@@ -52,6 +52,5 @@ uplinkDecoder:
             Signum_Of_Power: ['Positive']
           Supply_Voltage: 3042
           TX_Reason: 'Timer_Event'
-
-          #Anleitung (Decoded --> Encoded):
-          # Wert (Energy_Counter) * 10.000 --> in Hex umwandeln und umgedreht einsetzen --> mit 00 auffüllen fals Byte Anzahl nicht erreicht
+downlinkDecoder:
+  fileName: elv-bm-trx1.js
