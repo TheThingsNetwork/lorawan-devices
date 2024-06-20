@@ -1,4 +1,4 @@
-name: ga5067 - Cattle Tracking
+name: GA5067 - Cattle Tracking
 description: GA5067 is a LoRa-based (LTE cat1, LTEM optional) GPS tracking device for cattle tracking with Li-SOCl2 battery. The Collar’s GPS location data will be uplinked to the LoRaWAN gateway according to the schedule you choose, The collar is programmed wirelessly by the network server. You can control how often GPS location data are collected, and can also remotely command program changes to the fixed-rate and mortality schedule, fixed duration time, and GPS location data transmission interval.
 
 # Hardware versions (optional, use when you have revisions)

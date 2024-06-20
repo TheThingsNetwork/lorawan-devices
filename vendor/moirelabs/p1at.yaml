@@ -11,6 +11,9 @@ firmwareVersions:
         lorawanCertified: true
         codec: p1a-codec
 
+sensors:
+  - surface temperature
+
 additionalRadios:
   - ble
 

@@ -1,0 +1,73 @@
+uplinkDecoder:
+  fileName: dl-dlr2-009-2000.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x4c, 0x62, 0x00, 0x03, 0x57, 0x34, 0x00, 0xad, 0x0a, 0xe1]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.785
+          device_id: 19554
+          protocol_version: 2
+          temperature:
+            displayName: Temperature
+            unit: "\xB0C"
+            value: 24.908127512458456
+          thermistor_resistance:
+            displayName: Thermistor resistance
+            unit: "\u03A9"
+            value: 1097.0478279778865
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x4c, 0x62, 0x00, 0x02, 0x0a, 0xe1]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.785
+          device_id: 19554
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

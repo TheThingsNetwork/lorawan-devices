@@ -1,4 +1,4 @@
-name: Wind Sensor
+name: Wind Sensor # Device name can not contain the vendor name
 description: Wind Sensor with controllable LED
 
 # Hardware versions (optional, use when you have revisions)
@@ -61,14 +61,18 @@ firmwareVersions:
         id: windsensor-profile
         codec: windsensor-codec
 
+# Type of device (optional)
+# Valid values are: devkit, module, cots
+deviceType: cots
+
 # Sensors that this device features (optional)
 # Valid values are:
-# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
-# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
-# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
-# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
-# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
-# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - wind direction
   - wind speed
@@ -80,7 +84,7 @@ additionalRadios:
   - cellular
 
 # Bridge interfaces (optional)
-# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog, ethernet.
 bridgeInterfaces:
   - m-bus
   - rs-485
@@ -121,7 +125,7 @@ keyProvisioning:
   - join server
 
 # Key programming (optional)
-# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
 # and firmware (when the user should change the firmware to set the keys).
 keyProgramming:
   - serial
@@ -132,7 +136,7 @@ keyProgramming:
 keySecurity: none
 
 # Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
@@ -141,11 +145,15 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 productURL: https://example.org/wind-sensor
 dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/windsensor
 
 # Commercial information
 resellerURLs:
   - name: 'Reseller 1'
-    region:
+    region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
+      # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
       - European Union
     url: https://example.org/reseller1
   - name: 'Reseller 2'

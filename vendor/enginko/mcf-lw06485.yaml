@@ -34,6 +34,9 @@ firmwareVersions:
 sensors:
   - auxiliary
 
+bridgeInterfaces:
+  - modbus
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

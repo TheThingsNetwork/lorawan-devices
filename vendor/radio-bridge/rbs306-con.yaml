@@ -1,4 +1,4 @@
-name: rbs306-con - Dry Contact Sensor
+name: RBS306-CON - Dry Contact Sensor
 description: This two-wire dry sensor detects a connection between two-wires. The weather-proof enclosure makes the sensor suitable for outdoor and industrial use. The contact sensor can also be used as a bridge device to enable a wide variety of sensors.
 hardwareVersions:
   - version: '1.0'
@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-con-profile
         lorawanCertified: true
         codec: rbs306-con-codec
+
+sensors:
+  - digital input
+
 # Photos
 photos:
   main: rbs306-con.png

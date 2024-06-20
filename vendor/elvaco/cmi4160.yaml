@@ -1,4 +1,4 @@
-name: CMi4130
+name: CMi4160
 description: Heat Meter Connectivity Module (MCM) for Diehl Metering SHARKY 775
 # Hardware versions (optional)
 hardwareVersions:
@@ -33,3 +33,8 @@ firmwareVersions:
       #   lorawanCertified: true
       #   # This is the file name of the codec defintion and must have the .yaml extension.
       #   codec: device-a-codec
+
+deviceType: module
+
+photos:
+  main: cmi4160.jpeg

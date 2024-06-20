@@ -24,3 +24,444 @@ endDevices:
   - t000589x-ac-switch-gen1
   - t000489x-smart-room-base
   - t00048xx-smart-room-pir
+  - t0007806-breeze-v
+  - t0008375-stork
+  - t0007705-seal
+  - t0006377-memo
+  - t0006377-tempo
+profileIDs:
+  '1':
+    endDeviceID: 't0007xxx-sparrow'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'RU864-870'
+  '2':
+    endDeviceID: 't0007xxx-sparrow'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'IN865-867'
+  '3':
+    endDeviceID: 't0007xxx-sparrow'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '4':
+    endDeviceID: 't0007xxx-sparrow'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '5':
+    endDeviceID: 't0007xxx-sparrow'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'KR920-923'
+  '6':
+    endDeviceID: 't0007xxx-sparrow'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'AS923'
+  '7':
+    endDeviceID: 't00048xx-smart-room-pir'
+    firmwareVersion: 'D'
+    hardwareVersion: 'D'
+    region: 'EU863-870'
+  '8':
+    endDeviceID: 't00048xx-smart-room-pir'
+    firmwareVersion: 'D'
+    hardwareVersion: 'D'
+    region: 'US902-928'
+  '9':
+    endDeviceID: 't00053xx-industrial-transceiver'
+    firmwareVersion: '1.1.1'
+    hardwareVersion: 'E'
+    region: 'EU863-870'
+  '10':
+    endDeviceID: 't00055xx-industrial-transceiver'
+    firmwareVersion: '1.1.1'
+    hardwareVersion: 'E'
+    region: 'US902-928'
+  '11':
+    endDeviceID: 't00056xx-industrial-transceiver'
+    firmwareVersion: '1.1.1'
+    hardwareVersion: 'C'
+    region: 'CN470-510'
+  '12':
+    endDeviceID: 't00059xx-kiwi'
+    firmwareVersion: '1.0'
+    hardwareVersion: 'D'
+    region: 'RU864-870'
+  '13':
+    endDeviceID: 't00059xx-kiwi'
+    firmwareVersion: '1.0'
+    hardwareVersion: 'D'
+    region: 'IN865-867'
+  '14':
+    endDeviceID: 't00059xx-kiwi'
+    firmwareVersion: '1.0'
+    hardwareVersion: 'D'
+    region: 'EU863-870'
+  '15':
+    endDeviceID: 't00059xx-kiwi'
+    firmwareVersion: '1.0'
+    hardwareVersion: 'D'
+    region: 'AU915-928'
+  '16':
+    endDeviceID: 't00059xx-kiwi'
+    firmwareVersion: '1.0'
+    hardwareVersion: 'D'
+    region: 'KR920-923'
+  '17':
+    endDeviceID: 't00059xx-kiwi'
+    firmwareVersion: '1.0'
+    hardwareVersion: 'D'
+    region: 'AS923'
+  '18':
+    endDeviceID: 't00061xx-vivid'
+    firmwareVersion: '2.1'
+    hardwareVersion: 'D'
+    region: 'CN470-510'
+  '19':
+    endDeviceID: 't00061xx-vivid'
+    firmwareVersion: '2.1'
+    hardwareVersion: 'D'
+    region: 'RU864-870'
+  '20':
+    endDeviceID: 't00061xx-vivid'
+    firmwareVersion: '2.1'
+    hardwareVersion: 'D'
+    region: 'IN865-867'
+  '21':
+    endDeviceID: 't00061xx-vivid'
+    firmwareVersion: '2.1'
+    hardwareVersion: 'D'
+    region: 'EU863-870'
+  '22':
+    endDeviceID: 't00061xx-vivid'
+    firmwareVersion: '2.1'
+    hardwareVersion: 'D'
+    region: 'AU915-928'
+  '23':
+    endDeviceID: 't00061xx-vivid'
+    firmwareVersion: '2.1'
+    hardwareVersion: 'D'
+    region: 'KR920-923'
+  '24':
+    endDeviceID: 't00061xx-vivid'
+    firmwareVersion: '2.1'
+    hardwareVersion: 'D'
+    region: 'AS923'
+  '25':
+    endDeviceID: 't00067xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'IN865-867'
+  '26':
+    endDeviceID: 't00067xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'EU863-870'
+  '27':
+    endDeviceID: 't00067xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'AU915-928'
+  '28':
+    endDeviceID: 't00067xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'KR920-923'
+  '29':
+    endDeviceID: 't00067xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'AS923'
+  '30':
+    endDeviceID: 't00073xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'IN865-867'
+  '31':
+    endDeviceID: 't00073xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'EU863-870'
+  '32':
+    endDeviceID: 't00073xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'AU915-928'
+  '33':
+    endDeviceID: 't00073xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'KR920-923'
+  '34':
+    endDeviceID: 't00073xx-tundra-sensor'
+    firmwareVersion: '2.1.12'
+    hardwareVersion: 'B'
+    region: 'AS923'
+  '35':
+    endDeviceID: 't00078xx-smart-room-sensor-co2'
+    firmwareVersion: '2.0.12'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '36':
+    endDeviceID: 't00078xx-smart-room-sensor-co2'
+    firmwareVersion: '2.0.12'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '37':
+    endDeviceID: 't00078xx-smart-room-sensor-co2'
+    firmwareVersion: '2.0.12'
+    hardwareVersion: 'A'
+    region: 'AS923'
+  '38':
+    endDeviceID: 't000589x-ac-switch-gen1'
+    firmwareVersion: '0.7'
+    hardwareVersion: 'A'
+    region: 'US902-928'
+  '39':
+    endDeviceID: 't000662x-aura'
+    firmwareVersion: '0.7'
+    hardwareVersion: 'B'
+    region: 'US902-928'
+  '40':
+    endDeviceID: 't0006129-orca'
+    firmwareVersion: '0.3.52'
+    hardwareVersion: 'C1'
+    region: 'RU864-870'
+  '41':
+    endDeviceID: 't0006129-orca'
+    firmwareVersion: '0.3.52'
+    hardwareVersion: 'C1'
+    region: 'IN865-867'
+  '42':
+    endDeviceID: 't0006129-orca'
+    firmwareVersion: '0.3.52'
+    hardwareVersion: 'C1'
+    region: 'EU863-870'
+  '43':
+    endDeviceID: 't0006129-orca'
+    firmwareVersion: '0.3.52'
+    hardwareVersion: 'C1'
+    region: 'AU915-928'
+  '44':
+    endDeviceID: 't0006129-orca'
+    firmwareVersion: '0.3.52'
+    hardwareVersion: 'C1'
+    region: 'KR920-923'
+  '45':
+    endDeviceID: 't0006129-orca'
+    firmwareVersion: '0.3.52'
+    hardwareVersion: 'C1'
+    region: 'AS923'
+  '46':
+    endDeviceID: 't0006909-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A0'
+    region: 'RU864-870'
+  '47':
+    endDeviceID: 't0006909-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A0'
+    region: 'IN865-867'
+  '48':
+    endDeviceID: 't0006909-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A0'
+    region: 'EU863-870'
+  '49':
+    endDeviceID: 't0006909-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A0'
+    region: 'AU915-928'
+  '50':
+    endDeviceID: 't0006909-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A0'
+    region: 'KR920-923'
+  '51':
+    endDeviceID: 't0006909-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A0'
+    region: 'AS923'
+  '52':
+    endDeviceID: 't0006923-edoctor'
+    firmwareVersion: '0.1.16'
+    hardwareVersion: 'A'
+    region: 'RU864-870'
+  '53':
+    endDeviceID: 't0006923-edoctor'
+    firmwareVersion: '0.1.16'
+    hardwareVersion: 'A'
+    region: 'IN865-867'
+  '54':
+    endDeviceID: 't0006923-edoctor'
+    firmwareVersion: '0.1.16'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '55':
+    endDeviceID: 't0006923-edoctor'
+    firmwareVersion: '0.1.16'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '56':
+    endDeviceID: 't0006923-edoctor'
+    firmwareVersion: '0.1.16'
+    hardwareVersion: 'A'
+    region: 'KR920-923'
+  '57':
+    endDeviceID: 't0006923-edoctor'
+    firmwareVersion: '0.1.16'
+    hardwareVersion: 'A'
+    region: 'AS923'
+  '58':
+    endDeviceID: 't0007127-robin'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'RU864-870'
+  '59':
+    endDeviceID: 't0007127-robin'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'IN865-867'
+  '60':
+    endDeviceID: 't0007127-robin'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '61':
+    endDeviceID: 't0007127-robin'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '62':
+    endDeviceID: 't0007127-robin'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'KR920-923'
+  '63':
+    endDeviceID: 't0007127-robin'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'AS923'
+  '64':
+    endDeviceID: 't0007367-pelican-ex'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'RU864-870'
+  '65':
+    endDeviceID: 't0007367-pelican-ex'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'IN865-867'
+  '66':
+    endDeviceID: 't0007367-pelican-ex'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '67':
+    endDeviceID: 't0007367-pelican-ex'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '68':
+    endDeviceID: 't0007367-pelican-ex'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'KR920-923'
+  '69':
+    endDeviceID: 't0007367-pelican-ex'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'AS923'
+  '70':
+    endDeviceID: 't0007377-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'RU864-870'
+  '71':
+    endDeviceID: 't0007377-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'IN865-867'
+  '72':
+    endDeviceID: 't0007377-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '73':
+    endDeviceID: 't0007377-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '74':
+    endDeviceID: 't0007377-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'KR920-923'
+  '75':
+    endDeviceID: 't0007377-pelican'
+    firmwareVersion: '2.0.10'
+    hardwareVersion: 'A'
+    region: 'AS923'
+  '76':
+    endDeviceID: 't0007392-finch'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'RU864-870'
+  '77':
+    endDeviceID: 't0007392-finch'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'IN865-867'
+  '78':
+    endDeviceID: 't0007392-finch'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '79':
+    endDeviceID: 't0007392-finch'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '80':
+    endDeviceID: 't0007392-finch'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'KR920-923'
+  '81':
+    endDeviceID: 't0007392-finch'
+    firmwareVersion: '1.0.17'
+    hardwareVersion: 'A'
+    region: 'AS923'
+  '82':
+    endDeviceID: 't0007405-ebeat'
+    firmwareVersion: '1.3'
+    hardwareVersion: 'A'
+    region: 'RU864-870'
+  '83':
+    endDeviceID: 't0007405-ebeat'
+    firmwareVersion: '1.3'
+    hardwareVersion: 'A'
+    region: 'IN865-867'
+  '84':
+    endDeviceID: 't0007405-ebeat'
+    firmwareVersion: '1.3'
+    hardwareVersion: 'A'
+    region: 'EU863-870'
+  '85':
+    endDeviceID: 't0007405-ebeat'
+    firmwareVersion: '1.3'
+    hardwareVersion: 'A'
+    region: 'AU915-928'
+  '86':
+    endDeviceID: 't0007405-ebeat'
+    firmwareVersion: '1.3'
+    hardwareVersion: 'A'
+    region: 'KR920-923'
+  '87':
+    endDeviceID: 't0007405-ebeat'
+    firmwareVersion: '1.3'
+    hardwareVersion: 'A'
+    region: 'AS923'
