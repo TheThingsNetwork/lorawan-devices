@@ -48,6 +48,10 @@
       "minimum": 0,
       "maximum": 100
     },
+    "status": {
+      "type": "number",
+      "description": "Status of action (number)"
+    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -142,6 +146,15 @@
             }
           },
           "additionalProperties": false
+        },
+        "action": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Motion Status",
+              "$ref": "#/definitions/status"
+            }
+          }
         }
       },
       "additionalProperties": false
