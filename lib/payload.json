@@ -56,6 +56,11 @@
           "format": "date-time",
           "description": "Date and time of the measurement (RFC3339)"
         },
+        "battVolt": {
+          "type": "number",
+          "description": "Voltage (V)",
+          "minimum": 0
+        },
         "soil": {
           "type": "object",
           "properties": {
