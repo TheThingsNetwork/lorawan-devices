@@ -33,3 +33,5 @@ uplinkDecoder:
           Tilt_Area_1: false
           Tilt_Area_2: false
           Angle: 45
+downlinkDecoder:
+  fileName: elv-bm-trx1.js

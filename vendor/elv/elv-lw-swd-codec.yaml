@@ -47,3 +47,5 @@ uplinkDecoder:
           TX_Reason: 'Water'
           Tilt_Angle: 0
           Water: true
+downlinkDecoder:
+  fileName: elv-bm-trx1.js

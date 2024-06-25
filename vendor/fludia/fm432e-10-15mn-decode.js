@@ -8,7 +8,7 @@ const PAYLOAD_TYPE = {
   TT1_ELEC           :  {header: 0x12, size: 19/*in bytes*/, name: "TT1_ELEC"},
   TT2_ELEC           :  {header: 0x13, size: 11/*in bytes*/, name: "TT2_ELEC"},
   T2                 :  {header: 0x0e, size: 12/*in bytes*/, name: "T2"},
-  T2_ADJUSTABLE_STEP :  {header: 0x6a, size: 15/*in bytes*/, name: "T2_ADJUSTABLE_STEP"},
+  T2_ADJUSTABLE_STEP :  {header: 0x6a, size: 16/*in bytes*/, name: "T2_ADJUSTABLE_STEP"},
   START              :  {header: 0x01, size: 3/*in bytes*/,  name: "START"}
 }
 
@@ -27,7 +27,8 @@ function decodeUplink(input){
       number_of_starts : null,
       param_id: null,
       redundancy: null,
-      nb_values: null
+      nb_values: null,
+      sensibility: null
     },
     index: null,
     step: null,
@@ -81,6 +82,7 @@ function decodeUplink(input){
     decoded.data.time_step = data.time_step;
     decoded.data.redundancy = data.redundancy;
     decoded.data.nb_values = data.nb_values;
+    decoded.data.sensibility = data.sensibility;
   }
   //Retrocompatibility
   decoded.step = decoded.data.time_step;
@@ -174,16 +176,17 @@ function decode_T2(payload){
 
 function decode_T2_adjustable_step(payload){
   var data = {};
-  data.firmware_version = payload[1];
-  data.time_step = payload[2];
-  data.nb_values = payload[3];
-  data.redundancy = payload[4];
-  data.number_of_starts = payload[5];
-  data.param_id = payload[6];
-  data.low_battery = payload[7];
-  data.meter_type = payload[10];
+  data.number_of_starts = payload[1];
+  data.param_id = payload[4];
+  data.firmware_version = payload[5];
+  data.meter_type = payload[6];
   if(data.meter_type == 0) data.meter_type = "Electromechanical (Position A)"
   if(data.meter_type == 1) data.meter_type = "Electronic (Position B)"
-  data.index = (payload[11] & 0xFF) << 24 | (payload[12] & 0xFF) << 16 | (payload[13] & 0xFF) << 8 | (payload[14] & 0xFF);
+  data.low_battery = payload[7];
+  data.index = (payload[8] & 0xFF) << 24 | (payload[9] & 0xFF) << 16 | (payload[10] & 0xFF) << 8 | (payload[11] & 0xFF);
+  data.time_step = payload[12];
+  data.nb_values = payload[13];
+  data.redundancy = payload[14];
+  data.sensibility = payload[15];
   return data;
 }
