@@ -52,6 +52,10 @@
       "type": "number",
       "description": "Status of action (number)"
     },
+    "doorStatus": {
+      "type": "string",
+      "description": "Status of door (Open/Close)"
+    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -157,6 +161,10 @@
             "status": {
               "description": "Motion Status",
               "$ref": "#/definitions/status"
+            },
+            "doorStatus": {
+              "description": "Status of Door",
+              "$ref": "#/definitions/doorStatus"
             }
           }
         }
