@@ -100,3 +100,20 @@ default:
 }
 
 }
+
+function normalizeUplink(input) {
+  return {
+    data: [
+      {
+        air: {
+          temperature: input.data.TempC_SHT,
+          relativeHumidity: input.data.Hum_SHT,
+          temperatureEXT: input.data.TempC_DS
+        }
+      },
+      {
+        battVolt: input.data.BatV,
+      }
+    ]
+  };
+}

@@ -112,6 +112,10 @@
               "description": "Air temperature (°C)",
               "$ref": "#/definitions/temperature"
             },
+            "temperatureEXT": {
+              "description": "External Air temperature (°C)",
+              "$ref": "#/definitions/temperature"
+            },
             "relativeHumidity": {
               "description": "Relative humidity (%)",
               "$ref": "#/definitions/percentage"
