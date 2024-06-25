@@ -1,3 +1,15 @@
+function decodeUplink(input) {
+  var res = Decoder(input.bytes, input.fPort);
+  if (res.error) {
+      return {
+          errors: [res.error],
+      };
+  }
+  return {
+      data: res,
+  };
+}
+
 function Decoder(bytes, port) {
     var decoded = {};
 
@@ -51,6 +63,21 @@ function Decoder(bytes, port) {
 
 }
 
+function normalizeUplink(input) {
+    return {
+      data: [
+        {
+          air: {
+            temperature: input.data.temperature,
+            relativeHumidity: input.data.humidity
+          }
+        },
+        {
+          battVolt: input.data.battery,
+        }
+      ]
+    };
+  }
 
 
 /* ******************************************
