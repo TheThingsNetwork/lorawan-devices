@@ -12,6 +12,13 @@ uplinkDecoder:
           status: 0
           temperatureBoard: 21
           time: 0
+      normalizedOutput:
+        data:
+          - action:
+              status: 0
+          - air:
+              temperature: 21
+            battVolt: 3.6
     - description: Unknown FPort
       input:
         fPort: 42

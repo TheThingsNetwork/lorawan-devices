@@ -24,3 +24,21 @@ function decodeUplink(input) {
       };
     }
   }
+
+function normalizeUplink(input) {
+  return {
+    data: [
+      {
+        action: {
+          status: input.data.status,
+        },
+      },
+      {
+        air: {
+          temperature: input.data.temperatureBoard,
+        },
+        battVolt: input.data.battery,
+      },
+    ],
+  };
+}
