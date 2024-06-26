@@ -12,7 +12,7 @@ function uint16(bytes) {
 
   let integer = 0;
   for (let x = 0; x < bytes.length; x++) {
-    integer += integer*255 + bytes[x];
+    integer += integer * 255 + bytes[x];
   }
   return integer;
 };
@@ -24,7 +24,7 @@ function uint32(bytes) {
 
   let integer = 0;
   for (let x = 0; x < bytes.length; x++) {
-    integer += integer*255 + bytes[x];
+    integer += integer * 255 + bytes[x];
   }
   return integer;
 };
@@ -172,12 +172,27 @@ function parseDeviceUseCase(payload){
   };
   return data;
 }
+function parseSoftwareVersion(payload) {
+  // Extract bytes for version string
+  const versionBytes = payload.slice(1, 11);
 
-function parseSoftwareVersion(payload){
-  const data = {
-    software_version: String.fromCharCode(...payload.slice(1, 11)).slice(0, -1)
-  };
-  return data;
+  // Convert bytes to characters and remove null characters
+  let version = '';
+  for (let i = 0; i < versionBytes.length; i++) {
+    if (versionBytes[i] !== 0) {
+      version += String.fromCharCode(versionBytes[i]);
+    }
+  }
+
+  // Trim leading and trailing whitespace
+  version = version.trim();
+
+  // Validate the version format strictly
+  if (!/^\d+(\.\d+){3}$/.test(version)) {
+    throw new Error(`Invalid software version format: ${version}`);
+  }
+
+  return { software_version: version };
 }
 
 function parseLoRaModuleVersion(payload){
@@ -294,137 +309,124 @@ const COUNTING_DATA_UPLINK = 83;
 const F_PORT_OCCUPANCY_MANAGEMENT = 101;
 /* HANDLER GROUP OCCUPANCY MANAGEMENT COMMANDS */
 registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_SET_OCCUPANCY_ZONE", 129);
-registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_SET_EXCLUDING_ZONE", 130);
-registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_DELETE_OCCUPANCY_ZONE", 131);
-registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_GET_ACTIVE_ZONES", 1,
-  parseActiveZones
-);
-registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_GET_OCCUPANCY_ZONE_COORDINATES", 2,
-  parseZoneCoordinates
-);
-registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_GET_EXCLUDING_ZONE_COORDINATES", 3,
-  parseZoneCoordinates
-);
-/* HANDLER GROUP OCCUPANCY MANAGEMENT END */
+registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_SET_ACTIVE_ZONES", 136);
+registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_SET_OCCUPANCY_CONFIGURATION", 137);
 
-const F_PORT_DEVICE_PARAM = 100;
-/* HANDLER GROUP DEVICE PARAMETERS COMMANDS */
-registerCommand(commands, F_PORT_DEVICE_PARAM, "CMD_GET_HEIGHT", 1,
-  parseMountingHeight
-);
-registerCommand(commands, F_PORT_DEVICE_PARAM, "CMD_SET_HEIGHT", 129);
+registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_GET_OCCUPANCY_ZONE", 1, parseZoneCoordinates);
+registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_GET_OCCUPANCY_CONFIGURATION", 9);
+registerCommand(commands, F_PORT_OCCUPANCY_MANAGEMENT, "CMD_GET_ACTIVE_ZONES", 3, parseActiveZones);
+/* HANDLER GROUP OCCUPANCY MANAGEMENT COMMANDS END */
 
-registerCommand(commands, F_PORT_DEVICE_PARAM, "CMD_SET_DEVICE_USE_CASE", 133);
-registerCommand(commands, F_PORT_DEVICE_PARAM, "CMD_GET_DEVICE_USE_CASE", 5,
-  parseDeviceUseCase
-);
+/* HANDLER GROUP DEVICE MANAGEMENT COMMANDS */
+const F_PORT_DEVICE_MANAGEMENT = 4;
+registerCommand(commands, F_PORT_DEVICE_MANAGEMENT, "CMD_GET_SW_VER", 8, parseSoftwareVersion);
+registerCommand(commands, F_PORT_DEVICE_MANAGEMENT, "CMD_GET_DEVICE_TYPE", 128, parseDeviceType);
+registerCommand(commands, F_PORT_DEVICE_MANAGEMENT, "CMD_GET_LORA_MODULE_VERSION", 139, parseLoRaModuleVersion);
+/* HANDLER GROUP DEVICE MANAGEMENT COMMANDS END */
 
-registerCommand(commands, F_PORT_DEVICE_PARAM, "CMD_GET_PUSH_PERIOD", 3,
-  parsePushPeriod
-);
-registerCommand(commands, F_PORT_DEVICE_PARAM, "CMD_SET_PUSH_PERIOD", 131);
-/* HANDLER GROUP DEVICE PARAMETERS END */
+const F_PORT_ACCESS_POINT_MANAGEMENT = 5;
+registerCommand(commands, F_PORT_ACCESS_POINT_MANAGEMENT, "CMD_GET_ACCESS_POINT_STATE", 1, parseAccessPointState);
 
-const F_PORT_REBOOT = 3;
-/* HANDLER GROUP REBOOT COMMANDS */
-registerCommand(commands, F_PORT_REBOOT, "CMD_DEVICE_REBOOT", 1);
-/* HANDLER GROUP REBOOT END */
+const F_PORT_HEIGHT_MANAGEMENT = 100;
+registerCommand(commands, F_PORT_HEIGHT_MANAGEMENT, "CMD_GET_HEIGHT", 1, parseMountingHeight);
 
-const F_PORT_GET_SOFTWARE_VERSION = 4;
-/* HANDLER GROUP GET SOFTWARE VERSION COMMANDS */
-registerCommand(commands, F_PORT_GET_SOFTWARE_VERSION, "CMD_GET_SW_VER", 138,
-  parseSoftwareVersion
-);
-registerCommand(commands, F_PORT_GET_SOFTWARE_VERSION, "CMD_GET_DEVICE_TYPE", 128,
-  parseDeviceType
-);
-registerCommand(commands, F_PORT_GET_SOFTWARE_VERSION, "CMD_GET_LORA_MODULE_VERSION", 139,
-  parseLoRaModuleVersion
-);
-/* HANDLER GROUP GET SOFTWARE VERSION END */
-
-const F_PORT_ACCESS_POINT = 5;
-/* HANDLER GROUP ACCESS POINT COMMANDS */
-registerCommand(commands, F_PORT_ACCESS_POINT, "CMD_GET_ACCESS_POINT_STATE", 1,
-  parseAccessPointState
-);
-registerCommand(commands, F_PORT_ACCESS_POINT, "CMD_SET_ACCESS_POINT_STATE", 129);
-/* HANDLER GROUP ACCESS POINT END */
-
-const F_PORT_REJOIN = 6;
-/* HANDLER GROUP REJOIN COMMANDS */
-registerCommand(commands, F_PORT_REJOIN, "CMD_FORCE_REJOIN", 1);
-/* HANDLER GROUP REJOIN END */
-
-const F_PORT_ANALOG_OUTPUT = 8;
-/* HANDLER GROUP ANALOG OUTPUT COMMANDS */
-registerCommand(commands, F_PORT_ANALOG_OUTPUT, "CMD_GET_ANALOG_OUTPUT", 1,
-  parseAnalogOutput
-);
-registerCommand(commands, F_PORT_ANALOG_OUTPUT, "CMD_SET_ANALOG_OUTPUT", 129);
-/* HANLDER GROUP ANALOG OUTPUT END */
 
 function decodeUplink(input) {
+  let data = {};
+  const bytes = input.bytes;
 
-  const data = new Object();
-  const fport = input.fPort;
+  switch (input.fPort) {
+    case COUNTING_DATA_UPLINK:
+      const flags = bytes[0];
 
-  if (fport === COUNTING_DATA_UPLINK) {
-    data.flags = decodeFlags(input.bytes[0]);
-    data.zone_global = input.bytes[1];
-    data.zone_0 = decodeZoneOccupancy(input.bytes[2]);
-    data.zone_1 = decodeZoneOccupancy(input.bytes[3]);
-    data.zone_2 = decodeZoneOccupancy(input.bytes[4]);
-    data.zone_3 = decodeZoneOccupancy(input.bytes[5]);
-    data.zone_4 = decodeZoneOccupancy(input.bytes[6]);
-    data.zone_5 = decodeZoneOccupancy(input.bytes[7]);
-    data.zone_6 = decodeZoneOccupancy(input.bytes[8]);
-    data.zone_7 = decodeZoneOccupancy(input.bytes[9]);
+      data.flags = decodeFlags(flags);
 
-    return {
-      data
-    };
-  }
+      data.zone_global = bytes[1];
+      data.zone_0 = decodeZoneOccupancy(bytes[2]);
+      data.zone_1 = decodeZoneOccupancy(bytes[3]);
+      data.zone_2 = decodeZoneOccupancy(bytes[4]);
+      data.zone_3 = decodeZoneOccupancy(bytes[5]);
+      data.zone_4 = decodeZoneOccupancy(bytes[6]);
+      data.zone_5 = decodeZoneOccupancy(bytes[7]);
+      data.zone_6 = decodeZoneOccupancy(bytes[8]);
+      data.zone_7 = decodeZoneOccupancy(bytes[9]);
 
-  const header = parseHeader(input.bytes);
+      break;
 
-  let command;
-  try {
-    command = getCommand(commands, fport, header.cmd_id);
-  } catch (e) {
-    return {
-      errors: [e]
-    };
-  }
+    case F_PORT_OCCUPANCY_MANAGEMENT:
+    case F_PORT_DEVICE_MANAGEMENT:
+    case F_PORT_ACCESS_POINT_MANAGEMENT:
+    case F_PORT_HEIGHT_MANAGEMENT:
 
-  data.cmd = {
-      name: command.command_name,
-      id: header.cmd_id,
-      success: header.ack
-  };
+      let command;
 
-  if (header.type === "response") {
-    const payload = input.bytes.slice(1);
-    data.cmd.value = command.parsePayload(payload);
+      try {
+        command = getCommand(commands, input.fPort, bytes[0]);
+      } catch (err) {
+        data.error = err;
+        return {
+          data: data,
+        };
+      }
+
+      let header;
+
+      try {
+        header = parseHeader(bytes);
+      } catch (err) {
+        data.error = err;
+        return {
+          data: data,
+        };
+      }
+
+      const payload = bytes.slice(1);
+
+      if (header.ack) {
+        data.cmd = {
+          name: command.command_name,
+          id: header.cmd_id,
+          success: true,
+          value: (
+            command.parsePayload ? command.parsePayload(payload) : payload
+          )
+        };
+      } else {
+        data.cmd = {
+          name: command.command_name,
+          id: header.cmd_id,
+          success: false,
+          value: (
+            command.parsePayload ? command.parsePayload(payload) : payload
+          )
+        };
+      }
+
+      break;
+
+    default:
+      return {
+        errors: ['unknown FPort'],
+      };
   }
 
   return {
-    data
+    data: data,
   };
-
 }
-
 
 // Exporting for testing only, don't copy the lines below
 // To Network Server Decoder
-module.exports = {
-  decodeUplink,
-  decodeFlags,
-  isKthBitSet,
-  decodeZoneOccupancy,
-  registerCommand,
-  getCommand,
-  parseHeader,
-  uint16,
-  uint32
-};
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = {
+    decodeUplink,
+    decodeFlags,
+    isKthBitSet,
+    decodeZoneOccupancy,
+    registerCommand,
+    getCommand,
+    parseHeader,
+    uint16,
+    uint32
+  };
+}

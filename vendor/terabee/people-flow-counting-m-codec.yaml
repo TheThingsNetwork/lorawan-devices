@@ -3,7 +3,6 @@
 uplinkDecoder:
   fileName: people-flow-counting-m.js
   # Examples (optional)
-
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 
 # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)

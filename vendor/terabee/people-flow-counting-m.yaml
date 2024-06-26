@@ -1,5 +1,5 @@
 name: people-flow-counting-m # Device name can not contain the vendor name
-description:  Compact, small and discrete people counting device for single doorways and narrow passages
+description: Compact, small and discrete people counting device for single doorways and narrow passages
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -108,7 +108,6 @@ photos:
   main: people-flow-counting-m.png
   other:
     - people-flow-counting-m-package.jpg
-
 # Youtube or Vimeo Video (optional)
 
 # Regulatory compliances (optional)
