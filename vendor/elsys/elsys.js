@@ -237,3 +237,24 @@ function decodeUplink(input) {
         "data": DecodeElsysPayload(input.bytes)
     }
 }
+
+function normalizeUplink(input) {
+    return {
+      data: [
+        {
+          air: {
+            temperature: input.data.temperature,
+            relativeHumidity: input.data.humidity,
+            lightIntensity: input.data.light,
+          }
+        },
+        {
+          action: {
+            motion: input.data.motion
+          }
+        }
+      ]
+    };
+  }
+  
+
