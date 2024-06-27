@@ -16,7 +16,7 @@ firmwareVersions:
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
+    # often the device sends a message).
     features:
       - transmission interval
 
@@ -48,7 +48,6 @@ firmwareVersions:
 # tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - distance
-
 # Additional radios that this device has (optional)
 
 # Bridge interfaces (optional)
@@ -57,11 +56,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  diameter: 110
-  height: 36
+  width: 130
+  length: 130
+  height: 36.2
 
 # Weight in grams (optional)
-weight: 128
+weight: 220
 
 # Battery information (optional)
 
@@ -69,8 +69,8 @@ weight: 128
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 65
+    min: 0
+    max: 35
 
 # IP rating (optional)
 ipCode: IP65
@@ -97,16 +97,32 @@ firmwareProgramming:
   - serial
 
 # Product and data sheet URLs (optional)
-productURL: https://www.terabee.com/shop/people-counting/terabee-people-counting-l-xl/
-dataSheetURL: https://terabee.b-cdn.net/wp-content/uploads/2021/09/Terabee-People-Counting-l-xl-Specification-Sheet.pdf
+productURL: https://www.terabee.com/shop/people-counting/terabee-people-counting-l/
+dataSheetURL: https://terabee.b-cdn.net/wp-content/uploads/2022/06/Terabee-People-Counting-L-XL-Specification-sheet.pdf
 
 # Commercial information
+resellerURLs:
+  - name: 'Mouser'
+    region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
+      # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
+      - European Union
+    url: https://www.mouser.fr/ProductDetail/Terabee/TB-PCL-XL-LORA-US-W?qs=IPgv5n7u5Qb3aV3Wxsn08w%3D%3D
+  - name: 'DigiKey'
+    region:
+      - United States
+      - Canada
+    url: https://www.digikey.fr/en/products/detail/terabee-sas/TB-PCL-XL-LORA-EU-W/17047393
+msrp:
+  EUR: 950
+  USD: 1020
 
 # Photos
 photos:
-  main: people-flow-counting-l-xl.png
+  main: people-flow-counting-l-xl.png # Image needs to have a transparent background
   other:
-    - people-flow-counting-l-xl-package.jpg
-# Youtube or Vimeo Video (optional)
+    - people-flow-counting-l-xl-package.jpg # Image needs to have a transparent background
 
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=4qqXGiU6yUc
 # Regulatory compliances (optional)

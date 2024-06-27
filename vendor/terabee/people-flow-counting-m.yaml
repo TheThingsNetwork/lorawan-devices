@@ -58,11 +58,12 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  diameter: 110
+  width: 110
+  length: 110
   height: 36
 
 # Weight in grams (optional)
-weight: 128
+weight: 129
 
 # Battery information (optional)
 
@@ -70,11 +71,10 @@ weight: 128
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 65
+    min: 0
+    max: 35
 
 # IP rating (optional)
-ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -105,9 +105,11 @@ dataSheetURL: https://terabee.b-cdn.net/wp-content/uploads/2021/09/Terabee-Peopl
 
 # Photos
 photos:
-  main: people-flow-counting-m.png
+  main: people-flow-counting-m.png # Image needs to have a transparent background
   other:
-    - people-flow-counting-m-package.jpg
-# Youtube or Vimeo Video (optional)
+    - people-flow-counting-m-package.jpg # Image needs to have a transparent background
 
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
 # Regulatory compliances (optional)
