@@ -12,7 +12,7 @@ function uint16(bytes) {
 
   let integer = 0;
   for (let x = 0; x < bytes.length; x++) {
-    integer += integer*255 + bytes[x];
+    integer += integer * 255 + bytes[x];
   }
   return integer;
 };
@@ -24,7 +24,7 @@ function uint32(bytes) {
 
   let integer = 0;
   for (let x = 0; x < bytes.length; x++) {
-    integer += integer*255 + bytes[x];
+    integer += integer * 255 + bytes[x];
   }
   return integer;
 };
@@ -89,7 +89,11 @@ function parseHeader(bytes) {
 }
 
 function decodeFlags(flagByte) {
-  var flags = new Object();
+  var flags = {
+    TPC_STOPPED: 0,
+    TPC_STUCK: 0,
+    NETWORK_ON: 0
+  };
 
   if (isKthBitSet(flagByte, 0))
     flags.TPC_STOPPED = 1;
@@ -185,13 +189,6 @@ function parseAccessPointState(payload){
   return data;
 }
 
-
-
-
-
-
-
-
 /* The Things Network Payload Decoder
   Converts raw bytes to ouptut object
 
@@ -205,7 +202,6 @@ function parseAccessPointState(payload){
  *      "data": { ... }, // JSON object
  *      "warnings": ["warning 1", "warning 2"], // Optional warnings
  *      "errors": ["error 1", "error 2"] // Optional errors
- *    }
  *
 */
 
@@ -220,7 +216,6 @@ function parseAccessPointState(payload){
 /* UPLINKS WITH CUSTOM FRAME STRUCTURE */
 const COUNTING_DATA_UPLINK = 82;
 /* UPLINKS WITH CUSTOM FRAME STRUCTURE END */
-
 
 const F_PORT_COUNTS = 2;
 /* HANDLER GROUP COUNTS COMMANDS */
@@ -255,38 +250,41 @@ const F_PORT_ACCESS_POINT = 5;
 registerCommand(commands, F_PORT_ACCESS_POINT, "CMD_GET_ACCESS_POINT_STATE", 1,
   parseAccessPointState
 );
-registerCommand(commands, F_PORT_ACCESS_POINT, "CMD_SET_ACCESS_POINT_STATE", 129);
+registerCommand(commands, F_PORT_ACCESS_POINT, "CMD_SET_ACCESS_POINT_STATE", 2,
+  parseAccessPointState
+);
 /* HANDLER GROUP ACCESS POINT END */
 
-const F_PORT_REJOIN = 6;
-/* HANDLER GROUP REJOIN COMMANDS */
-registerCommand(commands, F_PORT_REJOIN, "CMD_FORCE_REJOIN", 1);
-/* HANDLER GROUP REJOIN END */
+const F_PORT_MOUNTING = 6;
+/* HANDLER GROUP MOUNTING PARAMETERS COMMANDS */
+registerCommand(commands, F_PORT_MOUNTING, "CMD_GET_MOUNTING_HEIGHT", 4,
+  parseMountingHeight
+);
+/* HANDLER GROUP MOUNTING PARAMETERS END */
+
+const F_PORT_PUSH_PERIOD = 7;
+/* HANDLER GROUP PUSH PERIOD COMMANDS */
+registerCommand(commands, F_PORT_PUSH_PERIOD, "CMD_GET_PUSH_PERIOD", 4,
+  parsePushPeriod
+);
+/* HANDLER GROUP PUSH PERIOD END */
 
 const F_PORT_ANALOG_OUTPUT = 8;
 /* HANDLER GROUP ANALOG OUTPUT COMMANDS */
-registerCommand(commands, F_PORT_ANALOG_OUTPUT, "CMD_GET_ANALOG_OUTPUT", 1,
+registerCommand(commands, F_PORT_ANALOG_OUTPUT, "CMD_GET_ANALOG_OUTPUT", 4,
   parseAnalogOutput
 );
-registerCommand(commands, F_PORT_ANALOG_OUTPUT, "CMD_SET_ANALOG_OUTPUT", 129);
-/* HANLDER GROUP ANALOG OUTPUT END */
+/* HANDLER GROUP ANALOG OUTPUT END */
 
-const F_PORT_COUNTING_PARAM = 100;
-/* HANDLER GROUP COUNTING PARAMETERS COMMANDS */
-registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_SET_HEIGHT", 129);
-registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_GET_HEIGHT", 1,
-  parseMountingHeight
-);
-
-registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_SET_COUNTING_DIRECTION", 130);
-registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_GET_COUNTING_DIRECTION", 2,
+const F_PORT_COUNT_DIRECTION = 9;
+/* HANDLER GROUP COUNTING DIRECTION COMMANDS */
+registerCommand(commands, F_PORT_COUNT_DIRECTION, "CMD_SET_COUNTING_DIRECTION", 1,
   parseCountDirection
 );
-registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_SET_PUSH_PERIOD", 131);
-registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_GET_PUSH_PERIOD", 3,
-  parsePushPeriod
-);
-registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_SET_CABLE_CONNECTION", 132);
+/* HANDLER GROUP COUNTING DIRECTION END */
+
+const F_PORT_COUNTING_PARAM = 10;
+/* HANDLER GROUP COUNTING PARAMETERS */
 registerCommand(commands, F_PORT_COUNTING_PARAM, "CMD_GET_CABLE_CONNECTION", 4,
   parseCablePosition
 );
@@ -335,15 +333,9 @@ function decodeUplink(input) {
 
 }
 
-
-// Exporting for testing only, don't copy the lines below
-// To Network Server Decoder
-module.exports = {
-  isKthBitSet,
-  uint32,
-  decodeUplink,
-  parseCounts,
-  registerCommand,
-  getCommand
-};
-
+// Conditionally export the decodeUplink function if module is defined
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = {
+    decodeUplink
+  };
+}
