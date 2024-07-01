@@ -20,7 +20,7 @@ const PAYLOAD_TYPE = {
 }
 
 //Main function Decoder
-export function decodeUplink(input){
+function decodeUplink(input){
   var decoded = {
     data: {
       index : null,
