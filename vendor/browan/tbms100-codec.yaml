@@ -18,7 +18,7 @@ uplinkDecoder:
               status: 1
           - air:
               temperature: 20
-            battVolt: 3.6
+            battery: 3.6
     - description: Unknown FPort
       input:
         fPort: 42

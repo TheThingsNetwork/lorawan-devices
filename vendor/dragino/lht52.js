@@ -68,3 +68,24 @@ function decodeUplink(input) {
     }
 }
 }
+
+function normalizeUplink(input) {
+  var data = [
+    {
+      air: {
+        temperature: input.data.TempC_SHT,
+        relativeHumidity: input.data.Hum_SHT,
+        temperatureEXT: input.data.TempC_DS
+      }
+    }
+  ];
+
+  // Add battery data if battVolt exists
+  if ('battVolt' in input.data) {
+    data.push({ batteryLevel: input.data.battVolt });
+  }
+
+  return { data: data };
+}
+
+

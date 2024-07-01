@@ -14,7 +14,7 @@ uplinkDecoder:
               relativeHumidity: 51.7
           - action:
               doorStatus: 'OPEN'
-          - battVolt: 2.9
+          - battery: 2.9
 
     - description: Unknown FPort
       input:

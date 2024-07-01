@@ -239,22 +239,33 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
-    return {
-      data: [
-        {
-          air: {
-            temperature: input.data.temperature,
-            relativeHumidity: input.data.humidity,
-            lightIntensity: input.data.light,
-          }
-        },
-        {
-          action: {
-            motion: input.data.motion
-          }
-        }
-      ]
-    };
-  }
-  
+    var data = []
+    var air = {};
+    var action = {};
 
+    if ('temperature' in input.data) {
+        air.temperature = input.data.temperature;
+      }
+
+    if ('humidity' in input.data) {
+        air.relativeHumidity = input.data.humidity;
+      }
+
+    if ('light' in input.data) {
+        air.lightIntensity = input.data.light;
+      }
+
+    if ('motion' in input.data) {
+        action.motion = input.data.motion;
+      }
+
+    if (Object.keys(air).length > 0) {
+        data.push({ air: air });
+    }
+
+    if (Object.keys(action).length > 0) {
+        data.push({ action: action });
+    }
+
+    return { data: data };
+  }

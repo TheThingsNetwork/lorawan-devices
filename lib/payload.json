@@ -64,7 +64,7 @@
           "format": "date-time",
           "description": "Date and time of the measurement (RFC3339)"
         },
-        "battVolt": {
+        "battery": {
           "type": "number",
           "description": "Voltage (V)",
           "minimum": 0

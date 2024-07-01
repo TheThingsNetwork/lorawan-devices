@@ -53,7 +53,7 @@ function normalizeUplink(input) {
           }
         },
         {
-          battVolt: input.data.battery,
+          battery: input.data.battery,
         }
       ]
     };

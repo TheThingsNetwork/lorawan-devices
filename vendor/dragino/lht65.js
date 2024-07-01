@@ -112,7 +112,7 @@ function normalizeUplink(input) {
         }
       },
       {
-        battVolt: input.data.BatV,
+        battery: input.data.BatV,
       }
     ]
   };

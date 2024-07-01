@@ -37,7 +37,7 @@ function normalizeUplink(input) {
         air: {
           temperature: input.data.temperatureBoard,
         },
-        battVolt: input.data.battery,
+        battery: input.data.battery,
       },
     ],
   };

@@ -17,7 +17,7 @@ function normalizeUplink(input) {
         temperature: input.data.temperature,
         relativeHumidity: input.data.humidity,
       },
-      battVolt: input.data.batt_volt,
+      battery: input.data.batt_volt,
     },
   };
 }

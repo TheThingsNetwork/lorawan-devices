@@ -14,7 +14,7 @@ uplinkDecoder:
         data:
           - action:
               doorStatus: 'open'
-          - battVolt: 75
+          - battery: 75
     - description: Magnetic Contact Switch (example 2) - Milesight IoT
       input:
         fPort: 85

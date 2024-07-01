@@ -13,7 +13,7 @@ uplinkDecoder:
               temperature: 28.29
               relativeHumidity: 88.6
               temperatureEXT: 27.81
-          - battVolt: 3.062
+          - battery: 3.062
 
     - description: Unknown FPort
       input:

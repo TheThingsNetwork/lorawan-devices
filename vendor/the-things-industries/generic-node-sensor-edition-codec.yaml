@@ -19,4 +19,4 @@ uplinkDecoder:
           - air:
               temperature: 22.8
               relativeHumidity: 25.0
-            battVolt: 3.5
+            battery: 3.5
