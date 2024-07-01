@@ -112,4 +112,7 @@ photos:
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+  other:
+   - https://www.youtube.com/watch?v=5qGelSDHoZA
+        
 # Regulatory compliances (optional)

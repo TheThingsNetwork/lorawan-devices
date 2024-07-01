@@ -73,7 +73,6 @@ operatingConditions:
     max: 35
 
 # IP rating (optional)
-ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -125,4 +124,11 @@ photos:
 # Youtube or Vimeo Video (optional)
 videos:
   main: https://www.youtube.com/watch?v=4qqXGiU6yUc
+  other:
+    - https://www.youtube.com/watch?v=p7XqcoUYHwM
+    - https://www.youtube.com/watch?v=Y9siwJePolk
+    - https://www.youtube.com/watch?v=HxdhaaJqrd8
+    - https://www.youtube.com/watch?v=I9pHDLqpm0o
+    - https://www.youtube.com/watch?v=0-tvMGTF4Lc
+        
 # Regulatory compliances (optional)
