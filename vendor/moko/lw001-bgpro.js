@@ -41,7 +41,7 @@ function Decoder(bytes, port)
 		}
 
 		dev_info.lorawan_downlink_count = bytes[2]&0x0f;
-		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10 + "V";
+		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10;
 	}
 	if(port == 1)
 	{
@@ -218,7 +218,7 @@ function Decoder(bytes, port)
 		dev_info.fix_type = dev_fix_type[(bytes[0]>>6)&0x01];
 
 		dev_info.lorawan_downlink_count = bytes[1]&0x0f;
-		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10 + "V";
+		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10;
 
 		var parse_len = 2;
 		lat =BytestoInt(bytes,parse_len);
@@ -237,3 +237,19 @@ function Decoder(bytes, port)
 	}
 	return dev_info;
 } 
+
+function decodeUplink(input) {
+	return {
+	  data : Decoder(input.bytes, input.fPort),
+	};
+}
+
+function normalizeUplink(input) {
+	return {
+	  data: [
+		{
+		  battery: input.data.battery_voltage,
+		}
+	  ]
+	};
+  }
