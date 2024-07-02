@@ -15,8 +15,6 @@ uplinkDecoder:
           count_out: 5
           flags:
             NETWORK_ON: 1
-            TPC_STOPPED: 0
-            TPC_STUCK: 0
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 
 # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
