@@ -56,6 +56,14 @@
       "type": "string",
       "description": "Status of door or window (Open/Close)"
     },
+    "latitude": {
+      "type": "number",
+      "description": "Horizontal distance from equator"
+    },
+    "longitude": {
+      "type": "number",
+      "description": "Vertical distance from prime meridian"
+    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -169,6 +177,19 @@
             "windowStatus": {
               "description": "Status of Window",
               "$ref": "#/definitions/doorStatus"
+            }
+          }
+        },
+        "position": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "description": "Horizontal distance from equator",
+              "$ref": "#/definitions/latitude"
+            },
+            "longitude": {
+              "description": "Vertical distance from prime meridian",
+              "$ref": "#/definitions/longitude"
             }
           }
         }

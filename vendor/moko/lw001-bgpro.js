@@ -245,11 +245,33 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
-	return {
-	  data: [
-		{
-		  battery: input.data.battery_voltage,
-		}
-	  ]
-	};
-  }
+	var data = []
+	var action = {};
+	var position = {};
+
+	if (input.data.motion_state) {
+		action.status = input.data.motion_state;
+	}
+
+	if (input.data.lat) {
+		position.latitude = input.data.lat;
+	}
+
+	if (input.data.lon) {
+		position.longitude = input.data.lon;
+	}
+
+	if (Object.keys(action).length > 0) {
+		data.push({ action: action });
+	}
+
+	if (Object.keys(position).length > 0) {
+		data.push({ position: position });
+	}
+
+	if (input.data.battery_voltage) {
+		data.push({ battery: input.data.battery_voltage, });
+	}
+
+	return { data: data };
+}
