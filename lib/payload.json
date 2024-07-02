@@ -54,7 +54,7 @@
     },
     "doorStatus": {
       "type": "string",
-      "description": "Status of door (Open/Close)"
+      "description": "Status of door or window (Open/Close)"
     },
     "measurement": {
       "type": "object",
@@ -164,6 +164,10 @@
             },
             "doorStatus": {
               "description": "Status of Door",
+              "$ref": "#/definitions/doorStatus"
+            },
+            "windowStatus": {
+              "description": "Status of Window",
               "$ref": "#/definitions/doorStatus"
             }
           }
