@@ -33,11 +33,11 @@ uplinkDecoder:
       output:
         data:
           cmd:
-            name: "CMD_GET_AP_STATE"
+            name: 'CMD_GET_AP_STATE'
             id: 1
             success: true
             value:
-              state: "disabled"
+              state: 'disabled'
     - description: Mounting height response
       input:
         fPort: 100
@@ -73,7 +73,7 @@ uplinkDecoder:
             id: 3
             success: true
             value:
-              software_version: "2.0.1"
+              software_version: '2.0.1'
     - description: Get counting area points response
       input:
         fPort: 101
@@ -86,16 +86,7 @@ uplinkDecoder:
             success: true
             value:
               nb_of_points: 2
-              points: [
-                {
-                  "x": 0,
-                  "y": 0
-                },
-                {
-                  "x": 0,
-                  "y": 0
-                }
-              ]
+              points: [{ 'x': 0, 'y': 0 }, { 'x': 0, 'y': 0 }]
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 
 # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
