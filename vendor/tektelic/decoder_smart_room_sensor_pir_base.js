@@ -802,12 +802,12 @@ function normalizeUplink(input) {
     }
 
     if (input.data.motion_event_state) {
-      action.state = input.data.motion_event_state;
+      action.motionState = input.data.motion_event_state;
     }
 
     if (input.data.reed_state) {
-        action.doorStatus = input.data.reed_state;
-      }
+      action.doorStatus = input.data.reed_state;
+    }
   
     if (Object.keys(air).length > 0) {
       data.push({ air: air });

@@ -2883,7 +2883,7 @@ function decodeUplink(input) {
     }
 
     if (input.data.motion_event_state) {
-      action.state = input.data.motion_event_state;
+      action.motionState = input.data.motion_event_state;
     }
 
     if (input.data.reed_state) {

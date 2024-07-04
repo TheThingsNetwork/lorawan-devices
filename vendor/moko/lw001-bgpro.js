@@ -250,7 +250,7 @@ function normalizeUplink(input) {
 	var position = {};
 
 	if (input.data.motion_state) {
-		action.status = input.data.motion_state;
+		action.motionState = input.data.motion_state;
 	}
 
 	if (input.data.lat) {

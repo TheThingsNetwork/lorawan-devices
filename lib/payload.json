@@ -48,9 +48,9 @@
       "minimum": 0,
       "maximum": 100
     },
-    "status": {
+    "state": {
       "type": "number",
-      "description": "Status of action (number)"
+      "description": "State of action (number)"
     },
     "doorStatus": {
       "type": "string",
@@ -63,6 +63,10 @@
     "longitude": {
       "type": "number",
       "description": "Vertical distance from prime meridian"
+    },
+    "leak": {
+      "type": "string",
+      "description": "Status of water leaking (leak/no leak"
     },
     "measurement": {
       "type": "object",
@@ -163,12 +167,22 @@
           },
           "additionalProperties": false
         },
+        "water": {
+          "type": "object",
+          "properties": {
+            "leak": {
+              "description": "Water leaking (string)",
+              "$ref": "#/definitions/leak"
+            }
+          },
+          "additionalProperties": false
+        },
         "action": {
           "type": "object",
           "properties": {
-            "status": {
-              "description": "Motion Status",
-              "$ref": "#/definitions/status"
+            "motionState": {
+              "description": "State of Motion (number)",
+              "$ref": "#/definitions/state"
             },
             "doorStatus": {
               "description": "Status of Door",
@@ -178,7 +192,8 @@
               "description": "Status of Window",
               "$ref": "#/definitions/doorStatus"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "position": {
           "type": "object",
@@ -191,7 +206,8 @@
               "description": "Vertical distance from prime meridian",
               "$ref": "#/definitions/longitude"
             }
-          }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false

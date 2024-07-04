@@ -49,7 +49,7 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - action:
-              state: 255
+              motionState: 255
 
 downlinkEncoder:
   fileName: encoder_smart_room_sensor.js

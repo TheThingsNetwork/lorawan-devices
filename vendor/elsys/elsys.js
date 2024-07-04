@@ -243,20 +243,20 @@ function normalizeUplink(input) {
     var air = {};
     var action = {};
 
-    if ('temperature' in input.data) {
+    if (input.data.temperature) {
         air.temperature = input.data.temperature;
       }
 
-    if ('humidity' in input.data) {
+    if (input.data.humidity) {
         air.relativeHumidity = input.data.humidity;
       }
 
-    if ('light' in input.data) {
+    if (input.data.light) {
         air.lightIntensity = input.data.light;
       }
 
-    if ('motion' in input.data) {
-        action.motion = input.data.motion;
+    if (input.data.motion) {
+        action.motionState = input.data.motion;
       }
 
     if (Object.keys(air).length > 0) {
