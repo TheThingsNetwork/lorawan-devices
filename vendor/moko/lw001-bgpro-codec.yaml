@@ -27,7 +27,7 @@ uplinkDecoder:
         data:
           - action:
               motionState: 1
-          - battery: 3.4
+            battery: 3.4
     - description: gps fixed payload
       input:
         fPort: 2
@@ -54,4 +54,4 @@ uplinkDecoder:
           - position:
               latitude: 30.458075
               longitude: 114.4692816
-          - battery: 3.4
+            battery: 3.4

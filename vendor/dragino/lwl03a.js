@@ -145,7 +145,7 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
-  var data = []
+  var data = {};
   var water = {};
 
   if (input.data.WATER_LEAK_STATUS) {
@@ -153,7 +153,7 @@ function normalizeUplink(input) {
   }
 
   if (Object.keys(water).length > 0) {
-    data.push({ water: water });
+    data.water = water;
   }
 
   return { data: data };

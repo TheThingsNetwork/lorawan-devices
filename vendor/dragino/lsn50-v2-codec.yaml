@@ -12,9 +12,9 @@ uplinkDecoder:
           - air:
               temperature: 25.2
               relativeHumidity: 51.7
-          - action:
+            action:
               doorStatus: 'OPEN'
-          - battery: 2.9
+            battery: 2.9
 
     - description: Unknown FPort
       input:

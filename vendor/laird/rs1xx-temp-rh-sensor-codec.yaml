@@ -21,6 +21,7 @@ uplinkDecoder:
           - air:
               temperature: 98.67
               relativeHumidity: 52.33
+
     - description: Send Temp and RH Aggregated Data Notification
       input:
         fPort: 1

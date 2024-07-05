@@ -65,17 +65,13 @@ function Decoder(bytes, port) {
 
 function normalizeUplink(input) {
   return {
-    data: [
-      {
-        air: {
-          temperature: input.data.temperature,
-          relativeHumidity: input.data.humidity
-        }
+    data: {
+      air: {
+        temperature: input.data.temperature,
+        relativeHumidity: input.data.humidity
       },
-      {
-        battery: input.data.battery,
-      }
-    ]
+      battery: input.data.battery,
+    }
   };
 }
 

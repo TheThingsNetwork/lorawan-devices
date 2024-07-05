@@ -46,15 +46,11 @@ function Decoder(bytes, port) {
 
 function normalizeUplink(input) {
     return {
-      data: [
-        {
-          action: {
+        data: {
+            action: {
             doorStatus: input.data.door
-          }
-        },
-        {
-          battery: input.data.battery,
+            },
+            battery: input.data.battery,
         }
-      ]
     };
 }

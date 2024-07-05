@@ -7,6 +7,7 @@ uplinkDecoder:
         bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
       output:
         data: { 'Bat_mV': 1, 'Firmware_Version': '8801', 'Freq_Band': 0, 'Sensor_Model': 11, 'Sub_Band': 37 }
+
     - description: Temperature & Humidity
       input:
         fPort: 2
@@ -19,6 +20,7 @@ uplinkDecoder:
               temperature: 22.53
               relativeHumidity: 54.4
               temperatureEXT: 327.67
+
     - description: Unknown FPort
       input:
         fPort: 42

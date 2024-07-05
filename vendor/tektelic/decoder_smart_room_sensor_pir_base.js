@@ -785,7 +785,7 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
-    var data = []
+    var data = {};
     var air = {};
   	var action = {};
 
@@ -810,15 +810,15 @@ function normalizeUplink(input) {
     }
   
     if (Object.keys(air).length > 0) {
-      data.push({ air: air });
+      data.air = air;
     }
     
     if (Object.keys(action).length > 0) {
-      data.push({ action: action });
+      data.action = action;
     }
   
     if (input.data.battery_voltage) {
-      data.push({ battery: input.data.battery_voltage, });
+      data.battery = input.data.battery_voltage;
     }
   
     return { data: data };

@@ -185,11 +185,7 @@
               "$ref": "#/definitions/state"
             },
             "doorStatus": {
-              "description": "Status of Door",
-              "$ref": "#/definitions/doorStatus"
-            },
-            "windowStatus": {
-              "description": "Status of Window",
+              "description": "Status of a door",
               "$ref": "#/definitions/doorStatus"
             }
           },

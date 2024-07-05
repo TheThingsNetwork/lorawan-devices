@@ -101,21 +101,15 @@ default:
 
 function normalizeUplink(input) {
   return {
-    data: [
-      {
+    data: {
         air: {
           temperature: input.data.TempC_SHT,
           relativeHumidity: input.data.Hum_SHT,
-        }
-      },
-      {
+        },
         action: {
           doorStatus: input.data.Door_status
-        }
-      },
-      {
+        },
         battery: input.data.BatV,
       }
-    ]
   };
 }

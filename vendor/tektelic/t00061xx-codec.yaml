@@ -34,7 +34,7 @@ uplinkDecoder:
           - air:
               temperature: 29.4
               relativeHumidity: 25.5
-          - battery: 3.025
+            battery: 3.025
     - description: Motion Event Uplink
       input:
         fPort: 10

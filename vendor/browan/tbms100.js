@@ -27,18 +27,14 @@ function decodeUplink(input) {
 
 function normalizeUplink(input) {
   return {
-    data: [
-      {
-        action: {
-          motionState: input.data.status,
-        },
+    data: {
+      action: {
+        motionState: input.data.status,
       },
-      {
-        air: {
-          temperature: input.data.temperatureBoard,
-        },
-        battery: input.data.battery,
+      air: {
+        temperature: input.data.temperatureBoard,
       },
-    ],
+      battery: input.data.battery,
+    },
   };
 }

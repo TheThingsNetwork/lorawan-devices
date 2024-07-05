@@ -20,5 +20,5 @@ uplinkDecoder:
               temperature: 22.6
               relativeHumidity: 41
               lightIntensity: 39
-          - action:
+            action:
               motionState: 6

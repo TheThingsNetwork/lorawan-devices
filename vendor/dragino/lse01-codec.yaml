@@ -11,11 +11,11 @@ uplinkDecoder:
         data:
           - air:
               temperatureEXT: 24.1
-          - soil:
+            soil:
               temperature: 24.59
               moisture: 19.57
               ec: 28.2
-          - battery: 3.625
+            battery: 3.625
     - description: Unknown FPort
       input:
         fPort: 42

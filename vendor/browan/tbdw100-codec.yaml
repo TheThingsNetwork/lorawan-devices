@@ -16,7 +16,7 @@ uplinkDecoder:
         data:
           - action:
               motionState: 0
-          - air:
+            air:
               temperature: 21
             battery: 3.6
     - description: Unknown FPort

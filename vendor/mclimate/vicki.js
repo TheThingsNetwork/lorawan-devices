@@ -361,6 +361,10 @@ function decodeUplink(input) {
 function normalizeUplink(input) {
   const warnings = [];
 
+  if (input.data.openWindow) {
+    warnings.push("openWindow: true");
+  }
+
   if (input.data.highMotorConsumption) {
     warnings.push("highMotorConsumption: true");
   }
@@ -394,22 +398,13 @@ function normalizeUplink(input) {
   }
 
   return {
-    data: [
-      {
+    data: {
         air: {
           temperature: input.data.sensorTemperature,
           relativeHumidity: input.data.relativeHumidity,
-        }
-      },
-      {
-        action: {
-          windowStatus: input.data.openWindow ? "true" : "false"
-        }
-      },
-      {
+        },
         battery: input.data.batteryVoltage,
-      }
-    ],
+    },
     warnings: warnings
   };
 }
