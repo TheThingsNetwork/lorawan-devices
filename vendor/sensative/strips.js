@@ -186,9 +186,8 @@ function Decoder(bytes, port) {
 }
 
 function decodeUplink(input) {
-	var decoded = Decoder(input.bytes, input.fPort);
 	return {
-		data: decoded,
+	  data : Decoder(input.bytes, input.fPort),
 	};
 }
 

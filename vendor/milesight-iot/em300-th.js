@@ -1,13 +1,7 @@
 function decodeUplink(input) {
-  var res = Decoder(input.bytes, input.fPort);
-  if (res.error) {
-      return {
-          errors: [res.error],
-      };
-  }
-  return {
-      data: res,
-  };
+	return {
+	  data : Decoder(input.bytes, input.fPort),
+	};
 }
 
 function Decoder(bytes, port) {
