@@ -48,7 +48,7 @@ function normalizeUplink(input) {
     return {
         data: {
             action: {
-            doorStatus: input.data.door
+            doorState: input.data.door
             },
             battery: input.data.battery,
         }

@@ -52,9 +52,9 @@
       "type": "number",
       "description": "State of action (number)"
     },
-    "doorStatus": {
+    "doorState": {
       "type": "string",
-      "description": "Status of door or window (Open/Close)"
+      "description": "State of door or window (Open/Close)"
     },
     "latitude": {
       "type": "number",
@@ -66,7 +66,7 @@
     },
     "leak": {
       "type": "string",
-      "description": "Status of water leaking (leak/no leak"
+      "description": "Status of water leaking (leak/no leak)"
     },
     "measurement": {
       "type": "object",
@@ -184,9 +184,9 @@
               "description": "State of Motion (number)",
               "$ref": "#/definitions/state"
             },
-            "doorStatus": {
-              "description": "Status of a door",
-              "$ref": "#/definitions/doorStatus"
+            "doorState": {
+              "description": "State of a door",
+              "$ref": "#/definitions/doorState"
             }
           },
           "additionalProperties": false

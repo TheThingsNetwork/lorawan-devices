@@ -2887,7 +2887,7 @@ function decodeUplink(input) {
     }
 
     if (input.data.reed_state) {
-      action.doorStatus = input.data.reed_state;
+      action.doorState = input.data.reed_state;
     }
   
     if (Object.keys(air).length > 0) {

@@ -245,19 +245,19 @@ function normalizeUplink(input) {
 
     if (input.data.temperature) {
         air.temperature = input.data.temperature;
-      }
+    }
 
     if (input.data.humidity) {
         air.relativeHumidity = input.data.humidity;
-      }
+    }
 
     if (input.data.light) {
         air.lightIntensity = input.data.light;
-      }
+    }
 
     if (input.data.motion) {
         action.motionState = input.data.motion;
-      }
+    }
 
     if (Object.keys(air).length > 0) {
         data.air = air;

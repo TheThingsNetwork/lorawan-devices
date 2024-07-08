@@ -107,7 +107,7 @@ function normalizeUplink(input) {
           relativeHumidity: input.data.Hum_SHT,
         },
         action: {
-          doorStatus: input.data.Door_status
+          doorState: input.data.Door_status
         },
         battery: input.data.BatV,
       }
