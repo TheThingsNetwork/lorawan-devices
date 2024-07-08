@@ -14,21 +14,23 @@ function getzf(c_num){
   return c_num;
 }
 
-function getMyDate(str){
+function getMyDate(str) {
   var c_Date;
-  if(str > 9999999999)
+  if (str > 9999999999) {
     c_Date = new Date(parseInt(str));
-  else
+  } else {
     c_Date = new Date(parseInt(str) * 1000);
-  var c_Year = c_Date.getFullYear(),
-  c_Month = c_Date.getMonth()+1,
-  c_Day = c_Date.getDate(),
-  c_Hour = c_Date.getHours(),
-  c_Min = c_Date.getMinutes(),
-  c_Sen = c_Date.getSeconds();
-  var c_Time = c_Year +'-'+ getzf(c_Month) +'-'+ getzf(c_Day) +' '+ getzf(c_Hour) +':'+ getzf(c_Min) +':'+getzf(c_Sen);
+  }
+  var c_Year = c_Date.getUTCFullYear(),
+    c_Month = c_Date.getUTCMonth() + 1,
+    c_Day = c_Date.getUTCDate(),
+    c_Hour = c_Date.getUTCHours(),
+    c_Min = c_Date.getUTCMinutes(),
+    c_Sen = c_Date.getUTCSeconds();
+  var c_Time = c_Year + '-' + getzf(c_Month) + '-' + getzf(c_Day) + ' ' + getzf(c_Hour) + ':' + getzf(c_Min) + ':' + getzf(c_Sen);
   return c_Time;
 }
+
 
 function Decoder(bytes, port) {
   if(port==0x03)
