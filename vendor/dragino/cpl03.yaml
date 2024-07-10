@@ -1,0 +1,101 @@
+name: CPL03 - Outdoor LoRaWAN Open/Close Dry Contact Sensor
+description: CPL03 -- Outdoor LoRaWAN Open/Close Dry Contact Sensor
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+
+  - version: 'cpl03 abp'
+    numeric: 2
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: cpl03-codec
+
+# Sensors that this device features (optional)
+sensors:
+  - level
+
+# Product and data sheet URLs (optional)
+productURL: https://www.dragino.com/products/lorawan-nb-iot-door-sensor-water-leak/item/278-cpl03-lb-ls.html
+dataSheetURL: https://www.dragino.com/products/lorawan-nb-iot-door-sensor-water-leak/item/278-cpl03-lb-ls.html
+sellerURLs:
+  - name: 'Dragino'
+    region:
+      - China
+    url: http://www.dragino.com/
+
+# Photos
+photos:
+  main: cpl03.png
