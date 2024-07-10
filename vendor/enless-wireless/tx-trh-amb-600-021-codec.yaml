@@ -30,4 +30,4 @@ uplinkDecoder:
               value: 28.8
             temperature:
               unit: °C
-              value: 6550.9
+              value: -2.7

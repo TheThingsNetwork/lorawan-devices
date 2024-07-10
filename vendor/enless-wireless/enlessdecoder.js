@@ -190,7 +190,7 @@ function bin_decode(deviceType, payload) {
                 addValueField(template, {
                     current: {
                         unit: "mA",
-                        value: hexToInt(payload.substring(12, 16), 10),
+                        value: hexToInt(payload.substring(12, 16), 1000),
                     },
                 });
 
@@ -468,14 +468,25 @@ function hexToUInt(hex, divider=1) {
     return parseInt(hex, 16) / divider;
 }
 
-function hexToInt(hex, divider) {
-    const upperHex = hex.toUpperCase();
+// function hexToInt(hex, divider) {
+//     const upperHex = hex.toUpperCase();
 
-    if (parseInt(upperHex, 16) >= "8000" && parseInt(upperHex, 16) <= "FFFF") {
-        return (parseInt(hex, 16) - INT_MAX - 1) / divider;
-    } else {
-        return parseInt(hex, 16) / divider;
+//     if (parseInt(upperHex, 16) >= "8000" && parseInt(upperHex, 16) <= "FFFF") {
+//         return (parseInt(hex, 16) - INT_MAX - 1) / divider;
+//     } else {
+//         return parseInt(hex, 16) / divider;
+//     }
+// }
+function hexToInt(hex,divider) {
+    if (hex.length % 2 != 0) {
+        hex = "0" + hex;
     }
+    var num = parseInt(hex, 16);
+    var maxVal = Math.pow(2, hex.length / 2 * 8);
+    if (num > maxVal / 2 - 1) {
+        num = num - maxVal
+    }
+    return num /divider;
 }
 
 function hexToBin(hex, numOfBytes = 2) {
