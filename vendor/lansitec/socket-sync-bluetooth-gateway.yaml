@@ -1,4 +1,4 @@
-name: Lansitec SocketSync Bluetooth Gateway
+name: SocketSync Bluetooth Gateway
 description: The SocketSync Bluetooth Gateway is designed based on BLE and LoRa technology. With the advanced LoRa technology and built-in BLE module, the BLE gateway receives and reports the BLE devices messages to the LoRaWAN gateway. The parameter settings, such as the heartbeat period, LoRaWAN work mode, and sensor data to send in a BLE message, are adjustable as per customers’ requirements.
 
 # Hardware versions (optional, use when you have revisions)

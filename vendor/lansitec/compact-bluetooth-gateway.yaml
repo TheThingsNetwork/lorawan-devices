@@ -1,4 +1,4 @@
-name: Lansitec Compact Bluetooth Gateway
+name: Compact Bluetooth Gateway
 description: Lansitec Compact Bluetooth gateway is based on Bluetooth5.0 technology and LoRaWAN. It receives nearby Bluetooth beacon messages and transmits them to the server through LoRaWAN. The built-in 600mAh rechargeable battery makes it last about 10 hours when not powered. The standby time can be significantly extended by changing Bluetooth receiving settings.
 
 # Hardware versions (optional, use when you have revisions)
