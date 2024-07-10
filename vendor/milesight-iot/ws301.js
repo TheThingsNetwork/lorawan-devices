@@ -44,11 +44,12 @@ function Decoder(bytes, port) {
     return decoded;
 }
 
+
 function normalizeUplink(input) {
     return {
         data: {
             action: {
-            doorState: input.data.door
+                doorState: input.data.door.toUpperCase()
             },
             battery: input.data.battery,
         }

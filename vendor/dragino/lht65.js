@@ -105,9 +105,13 @@ function normalizeUplink(input) {
   return {
     data: {
       air: {
-        temperature: input.data.TempC_SHT,
-        relativeHumidity: input.data.Hum_SHT,
-        temperatureEXT: input.data.TempC_DS
+        indoor: {
+          temperature: input.data.TempC_SHT,
+          relativeHumidity: input.data.Hum_SHT,
+        },
+        outdoor: {
+          temperature: input.data.TempC_DS
+        }
       },
       battery: input.data.BatV,
     }

@@ -151,7 +151,7 @@ function normalizeUplink(input) {
   var water = {};
 
   if (input.data.WATER_LEAK_STATUS) {
-    water.leak = input.data.WATER_LEAK_STATUS;
+    water.leak = input.data.WATER_LEAK_STATUS ? true : false
   }
 
   if (Object.keys(water).length > 0) {

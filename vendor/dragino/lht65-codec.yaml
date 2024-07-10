@@ -10,9 +10,11 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              temperature: 28.29
-              relativeHumidity: 88.6
-              temperatureEXT: 27.81
+              indoor:
+                temperature: 28.29
+                relativeHumidity: 88.6
+              outdoor:
+                temperature: 27.81
             battery: 3.062
 
     - description: Unknown FPort

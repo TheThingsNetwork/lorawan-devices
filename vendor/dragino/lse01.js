@@ -38,7 +38,7 @@ function normalizeUplink(input) {
   return {
     data: {
         air: {
-          temperatureEXT: Number(input.data.TempC_DS18B20),
+          temperature: Number(input.data.TempC_DS18B20),
         },
         soil: {
           temperature: Number(input.data.temp_SOIL),

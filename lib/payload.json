@@ -48,26 +48,6 @@
       "minimum": 0,
       "maximum": 100
     },
-    "state": {
-      "type": "number",
-      "description": "State of action (number)"
-    },
-    "doorState": {
-      "type": "string",
-      "description": "State of door or window (Open/Close)"
-    },
-    "latitude": {
-      "type": "number",
-      "description": "Horizontal distance from equator"
-    },
-    "longitude": {
-      "type": "number",
-      "description": "Vertical distance from prime meridian"
-    },
-    "leak": {
-      "type": "string",
-      "description": "Status of water leaking (leak/no leak)"
-    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -124,12 +104,64 @@
         "air": {
           "type": "object",
           "properties": {
+            "indoor": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "description": "Indoor air temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                },
+                "relativeHumidity": {
+                  "description": "Indoor relative humidity (%)",
+                  "$ref": "#/definitions/percentage"
+                },
+                "pressure": {
+                  "type": "number",
+                  "description": "Indoor atmospheric pressure (hPa)",
+                  "minimum": 900,
+                  "maximum": 1100
+                },
+                "co2": {
+                  "description": "Indoor concentration of CO2 in the air (ppm)",
+                  "$ref": "#/definitions/concentration"
+                },
+                "lightIntensity": {
+                  "description": "Indoor light intensity (lux)",
+                  "$ref": "#/definitions/illuminance"
+                }
+              },
+              "additionalProperties": false
+            },
+            "outdoor": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "description": "Outdoor air temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                },
+                "relativeHumidity": {
+                  "description": "Outdoor relative humidity (%)",
+                  "$ref": "#/definitions/percentage"
+                },
+                "pressure": {
+                  "type": "number",
+                  "description": "Outdoor atmospheric pressure (hPa)",
+                  "minimum": 900,
+                  "maximum": 1100
+                },
+                "co2": {
+                  "description": "Outdoor concentration of CO2 in the air (ppm)",
+                  "$ref": "#/definitions/concentration"
+                },
+                "lightIntensity": {
+                  "description": "Outdoor light intensity (lux)",
+                  "$ref": "#/definitions/illuminance"
+                }
+              },
+              "additionalProperties": false
+            },
             "temperature": {
               "description": "Air temperature (°C)",
-              "$ref": "#/definitions/temperature"
-            },
-            "temperatureEXT": {
-              "description": "External Air temperature (°C)",
               "$ref": "#/definitions/temperature"
             },
             "relativeHumidity": {
@@ -171,8 +203,8 @@
           "type": "object",
           "properties": {
             "leak": {
-              "description": "Water leaking (string)",
-              "$ref": "#/definitions/leak"
+              "type": "boolean",
+              "description": "Status of water leaking (true/false)"
             }
           },
           "additionalProperties": false
@@ -181,12 +213,13 @@
           "type": "object",
           "properties": {
             "motionState": {
-              "description": "State of Motion (number)",
-              "$ref": "#/definitions/state"
+              "type": "number",
+              "description": "State of Motion (number)"
             },
             "doorState": {
-              "description": "State of a door",
-              "$ref": "#/definitions/doorState"
+              "type": "string",
+              "description": "State of door or window",
+              "enum": ["OPEN", "CLOSE"]
             }
           },
           "additionalProperties": false
@@ -195,12 +228,12 @@
           "type": "object",
           "properties": {
             "latitude": {
-              "description": "Horizontal distance from equator",
-              "$ref": "#/definitions/latitude"
+              "type": "number",
+              "description": "Horizontal distance from equator (°)"
             },
             "longitude": {
-              "description": "Vertical distance from prime meridian",
-              "$ref": "#/definitions/longitude"
+              "type": "number",
+              "description": "Vertical distance from prime meridian (°)"
             }
           },
           "additionalProperties": false
