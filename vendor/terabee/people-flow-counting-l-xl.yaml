@@ -1,0 +1,134 @@
+name: people-flow-counting-l-xl # Device name can not contain the vendor name
+description: Compact, discrete device that improve facility efficiency with accurate people counting data
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.7.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often the device sends a message).
+    features:
+      - transmission interval
+      - remote rejoin
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: terabee-lora103-profile-868
+        lorawanCertified: true
+        codec: people-flow-counting-l-xl-codec
+      US902-928:
+        id: terabee-lora103-profile-915
+        lorawanCertified: true
+        codec: people-flow-counting-l-xl-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - distance
+# Additional radios that this device has (optional)
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog, ethernet.
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 130
+  length: 130
+  height: 36.2
+
+# Weight in grams (optional)
+weight: 220
+
+# Battery information (optional)
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 35
+
+# IP rating (optional)
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - wifi
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://www.terabee.com/shop/people-counting/terabee-people-counting-l/
+dataSheetURL: https://terabee.b-cdn.net/wp-content/uploads/2022/06/Terabee-People-Counting-L-XL-Specification-sheet.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'Mouser'
+    region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
+      # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
+      - European Union
+    url: https://www.mouser.fr/ProductDetail/Terabee/TB-PCL-XL-LORA-US-W?qs=IPgv5n7u5Qb3aV3Wxsn08w%3D%3D
+  - name: 'DigiKey'
+    region:
+      - United States
+      - Canada
+    url: https://www.digikey.fr/en/products/detail/terabee-sas/TB-PCL-XL-LORA-EU-W/17047393
+msrp:
+  EUR: 950
+  USD: 1020
+
+# Photos
+photos:
+  main: people-flow-counting-l-xl.png # Image needs to have a transparent background
+  other:
+    - people-flow-counting-l-xl-package.jpg # Image needs to have a transparent background
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=4qqXGiU6yUc
+  other:
+    - https://www.youtube.com/watch?v=p7XqcoUYHwM
+    - https://www.youtube.com/watch?v=Y9siwJePolk
+    - https://www.youtube.com/watch?v=HxdhaaJqrd8
+    - https://www.youtube.com/watch?v=I9pHDLqpm0o
+    - https://www.youtube.com/watch?v=0-tvMGTF4Lc
+# Regulatory compliances (optional)
