@@ -21,4 +21,6 @@ uplinkDecoder:
               relativeHumidity: 41
               lightIntensity: 39
             action:
-              motionState: 6
+              motion:
+                motionState: true
+                motionCount: 6

@@ -242,6 +242,7 @@ function normalizeUplink(input) {
     var data = {};
     var air = {};
     var action = {};
+    var motion = {};
 
     if (input.data.temperature) {
         air.temperature = input.data.temperature;
@@ -256,7 +257,9 @@ function normalizeUplink(input) {
     }
 
     if (input.data.motion) {
-        action.motionState = input.data.motion;
+        motion.motionState = input.data.motion > 0;
+        motion.motionCount = input.data.motion;
+        action.motion = motion;
     }
 
     if (Object.keys(air).length > 0) {

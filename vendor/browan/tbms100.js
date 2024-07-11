@@ -29,7 +29,9 @@ function normalizeUplink(input) {
   return {
     data: {
       action: {
-        motionState: input.data.status,
+        motion: {
+          motionState: input.data.status > 0,
+        }
       },
       air: {
         temperature: input.data.temperatureBoard,

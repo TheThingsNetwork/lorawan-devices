@@ -248,9 +248,12 @@ function normalizeUplink(input) {
 	var data = {};
 	var action = {};
 	var position = {};
+	var motion = {};
 
 	if (input.data.motion_state) {
-		action.motionState = input.data.motion_state;
+		motion.motionState = input.data.motion_state > 0;
+        motion.motionCount = input.data.motion_count;
+        action.motion = motion;
 	}
 
 	if (input.data.lat) {

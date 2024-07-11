@@ -2869,6 +2869,7 @@ function decodeUplink(input) {
     var data = {};
     var air = {};
   	var action = {};
+    var motion = {};
 
     if (input.data.ambient_temperature) {
       air.temperature = input.data.ambient_temperature;
@@ -2883,7 +2884,13 @@ function decodeUplink(input) {
     }
 
     if (input.data.motion_event_state) {
-      action.motionState = input.data.motion_event_state;
+      motion.motionState = input.data.motion_event_state > 0;
+      action.motion = motion;
+    }
+
+    if (input.data.motion_event_count) {
+      motion.motionCount = input.data.motion_event_count;
+      action.motion = motion;
     }
 
     if (input.data.reed_state) {

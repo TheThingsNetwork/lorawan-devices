@@ -212,9 +212,19 @@
         "action": {
           "type": "object",
           "properties": {
-            "motionState": {
-              "type": "number",
-              "description": "State of Motion (number)"
+            "motion": {
+              "type": "object",
+              "properties": {
+                "motionState": {
+                  "type": "boolean",
+                  "description": "State of Motion"
+                },
+                "motionCount": {
+                  "type": "number",
+                  "description": "Number of motion events (count)"
+                }
+              },
+              "additionalProperties": false
             },
             "doorState": {
               "type": "string",

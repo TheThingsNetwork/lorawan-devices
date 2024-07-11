@@ -15,7 +15,8 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - action:
-              motionState: 1
+              motion:
+                motionState: true
             air:
               temperature: 20
             battery: 3.6
