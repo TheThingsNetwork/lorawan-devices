@@ -2,4 +2,7 @@
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - lora-lm-xl # look in windsensor.yaml for the end device definition
+  - lora-lm-xl # look in lora-lm-xl.yaml for the end device definition
+  - people-flow-counting-m # look in people-flow-counting-m.yaml for the end device definition
+  - people-flow-counting-l-xl # look in people-flow-counting-l-xl.yaml for the end device definition
+  - people-occupancy-counting # look in people-occupancy-counting.yaml for the end device definition
