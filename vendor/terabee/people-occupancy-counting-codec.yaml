@@ -1,0 +1,53 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: people-occupancy-counting.js
+  # Examples (optional)
+  examples:
+    - description: Counting data uplink with specific flags and zone occupancies
+      input:
+        fPort: 83
+        bytes: [15, 5, 3, 4, 2, 1, 0, 255, 255, 255]
+      output:
+        data:
+          flags:
+            STOPPED: 1
+            STUCK: 1
+            WIFI_ACCESS_POINT_ON: 1
+            WARMUP: 1
+          zone_global: 5
+          zone_0: 3
+          zone_1: 4
+          zone_2: 2
+          zone_3: 1
+          zone_4: 0
+          zone_5: 'not set'
+          zone_6: 'not set'
+          zone_7: 'not set'
+    - description: Access point state response
+      input:
+        fPort: 5
+        bytes: [1, 1]
+      output:
+        data:
+          cmd:
+            name: CMD_GET_ACCESS_POINT_STATE
+            id: 1
+            success: true
+            value:
+              state: 'ENABLED'
+    - description: Mounting height response
+      input:
+        fPort: 100
+        bytes: [1, 0, 120]
+      output:
+        data:
+          cmd:
+            name: CMD_GET_HEIGHT
+            id: 1
+            success: true
+            value:
+              mounting_height: 120
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
