@@ -2069,3 +2069,12 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/cicicom-ltd
       facebook: https://www.facebook.com/cicicom
+
+  - id: corssystem
+    name: Cors System Technologies
+    description: Cors System Technologies is a Nigerian digital transformation company, with a focus in bringing existing industries into Industry 4.0.
+    logo: corssystem.png
+    website: https://corssystem.com/
+    social:
+      linkedin: https://www.linkedin.com/company/cors-system/
+      github: corssystem
