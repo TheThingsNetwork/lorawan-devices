@@ -16,7 +16,7 @@ uplinkDecoder:
         data:
           - action:
               motion:
-                motionState: true
+                detected: true
             air:
               temperature: 20
             battery: 3.6

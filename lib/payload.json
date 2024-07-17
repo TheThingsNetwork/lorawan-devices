@@ -215,11 +215,11 @@
             "motion": {
               "type": "object",
               "properties": {
-                "motionState": {
+                "detected": {
                   "type": "boolean",
-                  "description": "State of Motion"
+                  "description": "Motion detected"
                 },
-                "motionCount": {
+                "count": {
                   "type": "number",
                   "description": "Number of motion events (count)"
                 }

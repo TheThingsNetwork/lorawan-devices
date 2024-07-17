@@ -22,5 +22,5 @@ uplinkDecoder:
               lightIntensity: 39
             action:
               motion:
-                motionState: true
-                motionCount: 6
+                detected: true
+                count: 6

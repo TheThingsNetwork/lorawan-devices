@@ -2884,12 +2884,12 @@ function decodeUplink(input) {
     }
 
     if (input.data.motion_event_state) {
-      motion.motionState = input.data.motion_event_state > 0;
+      motion.detected = input.data.motion_event_state > 0;
       action.motion = motion;
     }
 
     if (input.data.motion_event_count) {
-      motion.motionCount = input.data.motion_event_count;
+      motion.count = input.data.motion_event_count;
       action.motion = motion;
     }
 

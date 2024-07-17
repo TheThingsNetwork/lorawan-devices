@@ -30,7 +30,7 @@ function normalizeUplink(input) {
     data: {
       action: {
         motion: {
-          motionState: input.data.status > 0,
+          detected: input.data.status > 0,
         }
       },
       air: {

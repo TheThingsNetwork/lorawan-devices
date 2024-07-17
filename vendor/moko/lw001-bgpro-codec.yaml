@@ -27,8 +27,8 @@ uplinkDecoder:
         data:
           - action:
               motion:
-                motionState: true
-                motionCount: 0
+                detected: true
+                count: 0
             battery: 3.4
     - description: gps fixed payload
       input:

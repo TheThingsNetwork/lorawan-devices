@@ -251,8 +251,8 @@ function normalizeUplink(input) {
 	var motion = {};
 
 	if (input.data.motion_state) {
-		motion.motionState = input.data.motion_state > 0;
-        motion.motionCount = input.data.motion_count;
+		motion.detected = input.data.motion_state > 0;
+        motion.count = input.data.motion_count;
         action.motion = motion;
 	}
 

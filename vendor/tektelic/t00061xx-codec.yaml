@@ -50,7 +50,7 @@ uplinkDecoder:
         data:
           - action:
               motion:
-                motionState: true
+                detected: true
 
 downlinkEncoder:
   fileName: encoder_smart_room_sensor.js
