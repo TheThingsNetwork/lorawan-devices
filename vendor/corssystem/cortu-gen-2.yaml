@@ -43,8 +43,6 @@ firmwareVersions:
         # lorawanCertified: true
         codec: cortugenesis-codec
 
-
-
 # Type of device (optional)
 # Valid values are: devkit, module, cots
 deviceType: cots
@@ -125,7 +123,6 @@ firmwareProgramming:
 
 # Product and data sheet URLs (optional)
 productURL: https://corssystem.com/products/cortu-v1-0/
-
 
 # Photos
 photos:

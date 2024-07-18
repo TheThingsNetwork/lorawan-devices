@@ -15,4 +15,3 @@ supportsClassB: false
 
 # Whether the end device supports class C
 supportsClassC: false
-
