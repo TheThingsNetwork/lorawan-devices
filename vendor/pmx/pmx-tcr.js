@@ -199,7 +199,7 @@ function decodeUplink(input) {
     errors: [],
     warnings: []
   };
-  const bytes = Buffer.from(input.bytes);
+  var bytes = input.bytes;
   var port = input.fPort;
 
   // it's a Device ID Payload V2 (PMX Firmware for TCR)
@@ -222,4 +222,3 @@ function decodeUplink(input) {
 
   return result;
 }
-
