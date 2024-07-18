@@ -24,4 +24,4 @@ uplinkDecoder:
           values:
             current:
               unit: mA
-              value: 0.2
+              value: 0.002
