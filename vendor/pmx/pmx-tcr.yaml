@@ -26,15 +26,15 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: pmx-tcr-profile_v11
+        id: profile-v11
         lorawanCertified: false
         codec: pmx-tcr-codec
       AS923:
-        id: pmx-tcr-profile_v11
+        id: profile-v11
         lorawanCertified: false
         codec: pmx-tcr-codec
       AU915-928:
-        id: pmx-tcr-profile_v11
+        id: profile-v11
         lorawanCertified: false
         codec: pmx-tcr-codec
 
@@ -80,10 +80,11 @@ productURL: https://www.pmx.systems/products/tcr
 
 # Photos
 photos:
-  main: pmx.tcr-png # Image needs to have a transparent background
-  other: pmx-tcr-kit.png
+  main: pmx-tcr.png # Image needs to have a transparent background
+  other: 
+    - pmx-tcr-kit.png
  
 # Youtube or Vimeo Video (optional)
 videos:
-  main: https://www.youtube.com/watch?v=dC293LOZnWM&list=LL&ab_channel=PMXSystemsAG
+  main: https://www.youtube.com/watch?v=dC293LOZnWM
 
