@@ -43,22 +43,7 @@ firmwareVersions:
         # lorawanCertified: true
         codec: cortugenesis-codec
 
-  # - # You can add more firmware versions and use different profiles per version
-  # version: '2.0'
-  # numeric: 2
-  # hardwareVersions:
-  #   - '1.0-rev-A'
-  # profiles:
-  #   EU863-870:
-  #     id: windsensor-profile
-  #     codec: windsensor-codec
-  # US902-928:
-  #   id: windsensor-profile
-  #   lorawanCertified: true
-  #   codec: windsensor-codec
-  # AS923:
-  #   id: windsensor-profile
-  #   codec: windsensor-codec
+
 
 # Type of device (optional)
 # Valid values are: devkit, module, cots
@@ -100,11 +85,6 @@ dimensions:
 # Weight in grams (optional)
 weight: 350
 
-# Battery information (optional)
-# battery:
-#   replaceable: true
-#   type: AA
-
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
@@ -145,48 +125,8 @@ firmwareProgramming:
 
 # Product and data sheet URLs (optional)
 productURL: https://corssystem.com/products/cortu-v1-0/
-# dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
-# Link to simple, easy onboarding instructions for the device (optional).
-# Please do not use this for marketing or overly technical documents like a data sheet.
-# onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/windsensor
 
-# Commercial information
-# resellerURLs:
-#   - name: 'Reseller 1'
-#     region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
-#       # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
-#       - European Union
-#     url: https://example.org/reseller1
-#   - name: 'Reseller 2'
-#     region:
-#       - United States
-#       - Canada
-#     url: https://example.org/reseller2
-# msrp:
-#   EUR: 90
-#   USD: 120
 
 # Photos
 photos:
   main: cortugenesis.png # Image needs to have a transparent background
-  # other:
-  #   - windsensor-package.png # Image needs to have a transparent background
-# Youtube or Vimeo Video (optional)
-# videos:
-#   main: https://www.youtube.com/watch?v=JHzxcD2oEn8
-
-# Regulatory compliances (optional)
-# compliances:
-#   safety:
-#     - body: IEC
-#       norm: EN
-#       standard: 62368-1
-#   radioEquipment:
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-1
-#       version: 2.2.0
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-3
-#       version: 2.1.0
