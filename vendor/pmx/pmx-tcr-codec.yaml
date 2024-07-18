@@ -1,0 +1,216 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: pmx-tcr.js
+  examples:
+    - description: device id uplink
+      input:
+        fPort: 190
+        bytes: [210,10,2,2,17,0,66,0]
+      output:        
+        data: 
+          typestr: "TCR-DLI",
+          fu_level: "PRO",
+          speedclass: "HS",
+          fw_version: "1.1.0",        
+          sbx_version": "4.2.0"
+    
+    - description: unfiltered detections counter uplink (port 13)
+      input:
+        fPort: 13
+        bytes: 
+          [
+            162,
+            20,
+            10,
+            3,
+            232,
+            50,
+            4,
+            76,
+            52,
+            51
+          ]
+      output:
+        data:         
+          ud_time: 
+            displayName: Measure Interval End Timestamp (Military Time format)
+            value: 2010
+          ud_ltr_cnt: 
+            displayName: Left-to-Right (LTR) Counter Value (0-65535)
+            value: 1000
+          ud_ltr_spd: 
+            displayName: Left-to-Right (LTR) average speed of all objects counted in this interval
+            value: 50
+            unit: km/h
+          ud_rtl_cnt: 
+            displayName: Right-to-Left (RTL) Counter Value (0-65535)
+            value: 1100        
+          ud_rtl_spd: 
+            displayName: Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
+            value: 52
+            unit: km/h
+          volts:
+            displayName: Power supply voltage 
+            value: 5.1
+            unit: V
+
+    - description: cat 1 counter uplink (port 14)
+      input:
+        fPort: 14
+        bytes: 
+          [
+            162,
+            20,
+            10,
+            3,
+            232,
+            50,
+            4,
+            76,
+            52,
+            51
+          ]
+      output:
+        data:         
+          ud_time: 
+            displayName: Measure Interval End Timestamp (Military Time format)
+            value: 2010
+          ud_ltr_cnt: 
+            displayName: Left-to-Right (LTR) Counter Value (0-65535)
+            value: 1000
+          ud_ltr_spd: 
+            displayName: Left-to-Right (LTR) average speed of all objects counted in this interval
+            value: 50
+            unit: km/h
+          ud_rtl_cnt: 
+            displayName: Right-to-Left (RTL) Counter Value (0-65535)
+            value: 1100        
+          ud_rtl_spd: 
+            displayName: Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
+            value: 52
+            unit: km/h
+          volts:
+            displayName: Power supply voltage 
+            value: 5.1
+            unit: V
+
+    - description: cat 2 counter uplink (port 15)
+      input:
+        fPort: 15
+        bytes: 
+          [
+            162,
+            20,
+            10,
+            3,
+            232,
+            50,
+            4,
+            76,
+            52,
+            51
+          ]
+      output:
+        data:         
+          ud_time: 
+            displayName: Measure Interval End Timestamp (Military Time format)
+            value: 2010
+          ud_ltr_cnt: 
+            displayName: Left-to-Right (LTR) Counter Value (0-65535)
+            value: 1000
+          ud_ltr_spd: 
+            displayName: Left-to-Right (LTR) average speed of all objects counted in this interval
+            value: 50
+            unit: km/h
+          ud_rtl_cnt: 
+            displayName: Right-to-Left (RTL) Counter Value (0-65535)
+            value: 1100        
+          ud_rtl_spd: 
+            displayName: Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
+            value: 52
+            unit: km/h
+          volts:
+            displayName: Power supply voltage 
+            value: 5.1
+            unit: V
+
+    - description: cat 3 counter uplink (port 16)
+      input:
+        fPort: 16
+        bytes: 
+          [
+            162,
+            20,
+            10,
+            3,
+            232,
+            50,
+            4,
+            76,
+            52,
+            51
+          ]
+      output:
+        data:         
+          ud_time: 
+            displayName: Measure Interval End Timestamp (Military Time format)
+            value: 2010
+          ud_ltr_cnt: 
+            displayName: Left-to-Right (LTR) Counter Value (0-65535)
+            value: 1000
+          ud_ltr_spd: 
+            displayName: Left-to-Right (LTR) average speed of all objects counted in this interval
+            value: 50
+            unit: km/h
+          ud_rtl_cnt: 
+            displayName: Right-to-Left (RTL) Counter Value (0-65535)
+            value: 1100        
+          ud_rtl_spd: 
+            displayName: Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
+            value: 52
+            unit: km/h
+          volts:
+            displayName: Power supply voltage 
+            value: 5.1
+            unit: V
+
+    - description: cat 4 counter uplink (port 17)
+      input:
+        fPort: 17
+        bytes: 
+          [
+            162,
+            20,
+            10,
+            3,
+            232,
+            50,
+            4,
+            76,
+            52,
+            51
+          ]
+      output:
+        data:         
+          ud_time: 
+            displayName: Measure Interval End Timestamp (Military Time format)
+            value: 2010
+          ud_ltr_cnt: 
+            displayName: Left-to-Right (LTR) Counter Value (0-65535)
+            value: 1000
+          ud_ltr_spd: 
+            displayName: Left-to-Right (LTR) average speed of all objects counted in this interval
+            value: 50
+            unit: km/h
+          ud_rtl_cnt: 
+            displayName: Right-to-Left (RTL) Counter Value (0-65535)
+            value: 1100        
+          ud_rtl_spd: 
+            displayName: Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
+            value: 52
+            unit: km/h
+          volts:
+            displayName: Power supply voltage 
+            value: 5.1
+            unit: V
