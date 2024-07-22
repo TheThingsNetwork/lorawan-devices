@@ -1,4 +1,4 @@
-name: AS201 # Device name can not contain the vendor name
+name: AS201 LoRaWAN Indoor Air Quality CO2 Sensor # Device name can not contain the vendor name
 description: CO2 Sensor with Temperature & humidity
 
 # Hardware versions (optional, use when you have revisions)
@@ -35,15 +35,17 @@ firmwareVersions:
         # which is verbose.
         vendorID: atomsenses
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: AS201-profile
+        id: as-201-profile
         lorawanCertified: true
-        codec: AS201-codec
+        codec: as-201-codec
       US902-928:
-        id: AS201-profile
+        id: as-201-profile
         lorawanCertified: true
-        codec: AS201-codec
-
-
+        codec: as-201-codec
+      EU863-870:
+        id: as-201-profile
+        lorawanCertified: true
+        codec: as-201-codec
 
 # Type of device (optional)
 # Valid values are: devkit, module, cots
@@ -58,7 +60,7 @@ deviceType: cots
 # sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
 # tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - CO2
+  - co2
   - temperature
   - humidity
 
@@ -133,8 +135,8 @@ dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-201.pdf
 
 # Photos
 photos:
-  main: AS201.png # Image needs to have a transparent background
- 
+  main: as-201.png # Image needs to have a transparent background
+
 # Regulatory compliances (optional)
 compliances:
   safety:

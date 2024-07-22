@@ -2072,4 +2072,9 @@ vendors:
 
   - id: atomsenses
     name: Atomsenses
+    description: Atomsenses is a specialist IoT solution provider focusing on Lorawan sensors for indoor air quality monitoring, our vision is to transform how we manage and maintain healthy indoor environments.
+    logo: atomsenses.png
     website: https://www.atomsenses.com/
+    social:
+      linkedin: https://www.linkedin.com/company/atomsenses-iot
+      github: Atomsenses
