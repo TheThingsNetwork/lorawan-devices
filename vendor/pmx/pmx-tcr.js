@@ -194,31 +194,28 @@ function hexToBytes(hex) {
 
 
 function decodeUplink(input) {
-  let result = {
-    data: {},
-    errors: [],
-    warnings: []
-  };
+  var data = {};
   var bytes = input.bytes;
   var port = input.fPort;
 
   // it's a Device ID Payload V2 (PMX Firmware for TCR)
   if (port == 190 && bytes[0] == 0xd2) {
 
-    result.data = d2_decoder(bytes, port);
+    data = d2_decoder(bytes, port);
   }
 
   // it's a Counter Payload V2 (PMX Firmware for TCR)
   if (port >= 13 && port <= 17 && bytes[0] == 0xa2) {
 
-    result.data = a2_decoder(bytes, port);
+    data = a2_decoder(bytes, port);
   }
 
   // it's a Config Payload Response (PMX Firmware for TCR)
   if (port == 1 && bytes[0] == 0xc2) {
 
-    result.data = c2_decoder(bytes, port);
+    data = c2_decoder(bytes, port);
   }
-
-  return result;
+  return {
+    data: data,
+  };
 }
