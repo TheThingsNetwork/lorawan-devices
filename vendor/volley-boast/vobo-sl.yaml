@@ -16,7 +16,19 @@ firmwareVersions:
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
     profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-sl-profile
+        codec: vobo-codec
       US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-sl-profile
+        codec: vobo-codec
+      AU915-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-sl-profile
+        codec: vobo-codec
+      AS923:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: vobo-sl-profile
         codec: vobo-codec
