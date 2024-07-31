@@ -63,6 +63,7 @@ function Decoder(bytes, port) {
         else if (channel_id === 0x09 && channel_type === 0x7d) {
             decoded.h2s = readUInt16LE(bytes.slice(i, i + 2)) / 100;
             i += 2;
+        }
         // TVOC
         else if (channel_id === 0x06 && channel_type === 0x7D) {
             decoded.tvoc = readUInt16LE(bytes.slice(i, i + 2));

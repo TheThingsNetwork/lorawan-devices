@@ -1,5 +1,5 @@
-name: AS201 LoRaWAN Indoor Air Quality CO2 Sensor # Device name can not contain the vendor name
-description: CO2 Sensor with Temperature & humidity
+name: AS201 LoRaWAN Indoor Ambient Environment Sensor # Device name can not contain the vendor name
+description: 3-in-1 Temp / Humidity / CO2 Sensor
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

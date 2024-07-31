@@ -1,4 +1,4 @@
-name: AS204 LoRaWAN 5-IN-1 Odour Sensor # Device name can not contain the vendor name
+name: AS204 LoRaWAN Smart Toilet Odour Sensor # Device name can not contain the vendor name
 description: 5-in-1 Sensor – Temp / Humidity / CO2 / NH3 / H2S
 
 # Hardware versions (optional, use when you have revisions)
@@ -77,7 +77,7 @@ sensors:
   - co2
   - temperature
   - humidity
-  - nh3
+  #  - nh3
   - h2s
 
 # Additional radios that this device has (optional)

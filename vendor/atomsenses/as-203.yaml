@@ -78,7 +78,7 @@ sensors:
   - temperature
   - humidity
   - tvoc
-  - hcho
+#  - hcho
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.

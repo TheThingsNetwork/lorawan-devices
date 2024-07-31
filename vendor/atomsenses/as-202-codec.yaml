@@ -11,6 +11,6 @@ uplinkDecoder:
         data:
           battery: 92
           no2: 8
-          co: 16
+          #          co: 16
           humidity: 50.5
           temperature: 30.8

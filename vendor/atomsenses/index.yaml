@@ -6,7 +6,7 @@ endDevices:
   - as-202
   - as-203
   - as-204
-  - es-108  
+  - es-108
 
 # The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
 # This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see

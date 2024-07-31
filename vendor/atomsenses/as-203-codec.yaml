@@ -14,5 +14,4 @@ uplinkDecoder:
           humidity: 50.5
           co2: 1255
           tvoc: 7
-          hcho: 67
-
+          hcho: 63

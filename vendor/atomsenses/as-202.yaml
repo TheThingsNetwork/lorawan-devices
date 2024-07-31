@@ -1,5 +1,5 @@
-name: AS202 LoRaWAN Car Park Air Quality Sensor # Device name can not contain the vendor name
-description: CO, NO2, Temperature & humidity Sensor
+name: AS202 LoRaWAN Car Park Air Quality # Device name can not contain the vendor name
+description: 4-in-1 Temp / Humidity / CO / NO2 Sensor
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
