@@ -17,7 +17,7 @@ firmwareVersions:
     # LoRaWAN Device Profiles per region
     # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
-       EU863-870:
+      EU863-870:
         id: mtx1-profile-eu868
         lorawanCertified: true
         codec: mtx1-codec
