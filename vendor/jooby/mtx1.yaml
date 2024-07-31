@@ -19,7 +19,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: mtx1-profile-eu868
-        lorawanCertified: true
+        lorawanCertified: false
         codec: mtx1-codec
 
 # Sensors that this device features (optional)
