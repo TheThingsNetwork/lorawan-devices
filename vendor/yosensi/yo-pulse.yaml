@@ -1,5 +1,5 @@
 name: YO Pulse
-description: YO Pulse enables monitoring of logical states of devices and processes in automation and collection of pulses from measuring devices (e.g. water meters). The device provides six configurable measurement inputs, each of which can operate in one of three modes, normally open contact monitoring, normally closed contact monitoring, and pulse counting.The device enclosure has been designed to mount on electrical switchboards or automation cabinets on standard 35 mm DIN rails.
+description: YO Pulse enables monitoring of logical states of devices and processes in automation and collection of pulses from measuring devices (e.g. water meters). The device provides six configurable measurement inputs, each of which can operate in one of three modes, normally open contact monitoring, normally closed contact monitoring, and pulse counting. The device enclosure has been designed to mount on electrical switchboards or automation cabinets on standard 35 mm DIN rails.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
@@ -10,9 +10,9 @@ firmwareVersions:
   - # Firmware version
     version: '3.2.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
-
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -24,13 +24,45 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-pulse-profile
+        id: yo-pulse-profile-eu
         lorawanCertified: true
-      US902-928: #dodać profil na US
+      US902-928:
         id: yo-pulse-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-pulse-profile-au
+        lorawanCertified: true
+      AS923:
+        id: yo-pulse-profile-as
+        lorawanCertified: true
+
+  - # Firmware version
+    version: '3.6.5'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        #vendorID: 659
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: yo-pulse-profile-eu
+        lorawanCertified: true
+      US902-928:
+        id: yo-pulse-profile-us
+        lorawanCertified: true
+      AU915-928:
+        id: yo-pulse-profile-au
+        lorawanCertified: true
+      AS923:
+        id: yo-pulse-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -58,7 +90,7 @@ dimensions:
   height: 90
 
 # Weight in grams (optional)
-weight: 127
+weight: 151
 
 # IP rating (optional)
 ipCode: IP20
@@ -69,4 +101,6 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Pulse_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-pulse-2.png
+  main: yo-pulse-02.png
+  other:
+    - yo-pulse-01.png

@@ -2060,3 +2060,21 @@ vendors:
       facebook: https://www.facebook.com/teconnectivity
       twitter: teconnectivity
       github: TEConnectivity
+
+  - id: cicicom
+    name: Cicicom
+    description: Cicicom, a distinguished Greek company, specializes in delivering complete IoT solutions
+    logo: cicicom.png
+    website: https://cicicom.gr/
+    social:
+      linkedin: https://www.linkedin.com/company/cicicom-ltd
+      facebook: https://www.facebook.com/cicicom
+
+  - id: atomsenses
+    name: Atomsenses
+    description: Atomsenses is a specialist IoT solution provider focusing on Lorawan sensors for indoor air quality monitoring, our vision is to transform how we manage and maintain healthy indoor environments.
+    logo: atomsenses.png
+    website: https://www.atomsenses.com/
+    social:
+      linkedin: https://www.linkedin.com/company/atomsenses-iot
+      github: Atomsenses

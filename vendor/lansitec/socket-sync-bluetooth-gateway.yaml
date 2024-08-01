@@ -1,0 +1,124 @@
+name: SocketSync Bluetooth Gateway
+description: The SocketSync Bluetooth Gateway is designed based on BLE and LoRa technology. With the advanced LoRa technology and built-in BLE module, the BLE gateway receives and reports the BLE devices messages to the LoRaWAN gateway. The parameter settings, such as the heartbeat period, LoRaWAN work mode, and sensor data to send in a BLE message, are adjustable as per customers’ requirements.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        # vendorID: lansitec
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: profile-eu868
+        lorawanCertified: false
+        codec: socket-sync-bluetooth-gateway-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: false
+        codec: socket-sync-bluetooth-gateway-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: false
+        codec: socket-sync-bluetooth-gateway-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: false
+        codec: socket-sync-bluetooth-gateway-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: false
+        codec: socket-sync-bluetooth-gateway-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: false
+        codec: socket-sync-bluetooth-gateway-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: false
+        codec: socket-sync-bluetooth-gateway-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - light
+  - battery
+  - button
+  - rssi
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+#bridgeInterfaces:
+#  - m-bus
+#  - rs-485
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 61
+  length: 81
+  height: 26
+
+# Weight in grams (optional)
+weight: 85
+
+# Battery information (optional)
+battery:
+  replaceable: false
+  type: Li-ion rechargeable battery, 300mAh
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -10
+    max: 60
+
+# IP rating (optional)
+#ipCode: IP60
+
+# Product and data sheet URLs (optional)
+productURL: https://www.lansitec.com/products/socket-sync-gateway
+dataSheetURL: https://www.lansitec.com/datasheet/Lansitec_Plug_Bluetooth_Gateway_ForTrueSpot_DataSheet_1.5.pdf
+
+# Photos
+photos:
+  main: socket-sync-bluetooth-gateway.png # Image needs to have a transparent background
+
+# Youtube or Vimeo Video (optional)
+#videos:
+#  main: https://www.youtube.com/@lansitec

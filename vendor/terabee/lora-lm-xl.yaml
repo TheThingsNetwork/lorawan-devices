@@ -31,11 +31,11 @@ firmwareVersions:
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: lora-lm-xl-profile-868
+        id: terabee-profile-868
         lorawanCertified: false
         codec: lora-lm-xl-codec
       US902-928:
-        id: lora-lm-xl-profile-915
+        id: terabee-profile-915
         lorawanCertified: false
         codec: lora-lm-xl-codec
 
