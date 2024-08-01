@@ -1,5 +1,5 @@
-name: AS201 LoRaWAN Indoor Ambient Environment Sensor # Device name can not contain the vendor name
-description: 3-in-1 Temp / Humidity / CO2 Sensor
+name: AS203 LoRaWAN Indoor Air Quality GAS Sensor # Device name can not contain the vendor name
+description: 5-in-1 Temp / Humidity / CO2 / TVOC / HCHO
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -28,24 +28,38 @@ firmwareVersions:
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
     profiles:
-      AS923:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
-        vendorID: atomsenses
-        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: as-201-profile
-        lorawanCertified: true
-        codec: as-201-codec
-      US902-928:
-        id: as-201-profile
-        lorawanCertified: true
-        codec: as-201-codec
       EU863-870:
-        id: as-201-profile
+        id: profile-eu868
         lorawanCertified: true
-        codec: as-201-codec
+        codec: as-203-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: as-203-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: as-203-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: as-203-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: as-203-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: as-203-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: as-203-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: as-203-codec
 
 # Type of device (optional)
 # Valid values are: devkit, module, cots
@@ -63,6 +77,8 @@ sensors:
   - co2
   - temperature
   - humidity
+  - tvoc
+#  - hcho
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -79,17 +95,17 @@ bridgeInterfaces:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 34
-  length: 26
-  height: 77
+  width: 98
+  length: 98
+  height: 29.5
 
 # Weight in grams (optional)
-weight: 350
+weight: 150
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: ER14505
 
 # Operating conditions (optional)
 operatingConditions:
@@ -100,10 +116,10 @@ operatingConditions:
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 0.95
 
 # IP rating (optional)
-ipCode: IP64
+ipCode: IP30
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -130,12 +146,12 @@ firmwareProgramming:
   - fuota lorawan
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atomsenses.com/product/lorawan-3-in-1-co2-sensor/
-dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-201.pdf
+productURL: https://www.atomsenses.com/product/as-203/
+dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-203.pdf
 
 # Photos
 photos:
-  main: as-201.png # Image needs to have a transparent background
+  main: as-203.png # Image needs to have a transparent background
 
 # Regulatory compliances (optional)
 compliances:
