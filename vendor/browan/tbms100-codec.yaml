@@ -12,6 +12,14 @@ uplinkDecoder:
           status: 1
           temperatureBoard: 20
           time: 4
+      normalizedOutput:
+        data:
+          - action:
+              motion:
+                detected: true
+            air:
+              temperature: 20
+            battery: 3.6
     - description: Unknown FPort
       input:
         fPort: 42

@@ -1,2 +1,22 @@
 uplinkDecoder:
   fileName: strips.js
+  examples:
+    - description: payload
+      input:
+        fPort: 1
+        bytes: [0xFF, 0xFF, 0x01, 0x50, 0x02, 0x00, 0xEA, 0x03, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x10, 0x00]
+      output:
+        data:
+          battery: 80
+          flood: { value: 0 }
+          floodAlarm: { value: false }
+          historySeqNr: 65535
+          prevHistSeqNr: 65535
+          tempAlarm: { highAlarm: false, lowAlarm: false }
+          temperature: { value: 23.4 }
+          userSwitch1Alarm: { value: false }
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 23.4
+            battery: 80

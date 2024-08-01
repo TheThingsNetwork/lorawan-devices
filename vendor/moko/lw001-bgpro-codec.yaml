@@ -4,44 +4,56 @@
 uplinkDecoder:
   fileName: lw001-bgpro.js
   # Examples (optional)
-#  examples:
-#    - description: heratbeat payload
-#      input:
-#        fPort: 1
-#        bytes: [0x21, 0x1E, 0xC0, 0x01, 0x47, 0x00, 0x00, 0x00, 0x00]
-#      output:
-#        data:
-#          battery voltage: '3.4V'
-#          demolish_state: '0'
-#          idle_state: '0'
-#          lorawan_downlink_count: '0'
-#          low_power_state: '0'
-#          motion_count: '0'
-#          motion_state: '1'
-#          pack_type: 'heart'
-#          last_restart_reason: 'ble_cmd_restart'
-#          ic_temperature: '30°C'
-#          firmware ver: 'V1.0.7'
-#          work_mode: 'period'
-
-#    - description: gps fixed payload
-#      input:
-#        fPort: 2
-#        bytes: [0x01, 0x1F, 0xC0, 0x02, 0x07, 0xE6, 0x08, 0x03, 0x09, 0x0F, 0x1F, 0x00, 0x09, 0x12, 0x27, 0x88, 0x8E, 0x44, 0x3A, 0xA0, 0x50, 0x0C]
-#      output:
-#        data:
-#          utc_time: '2022-8-3 9:15:31  Timezone:0'
-#          battery voltage: '3.4V'
-#          demolish_state: '0'
-#          fix_tech: 'gps'
-#          fix_type: 'work_mode_fix'
-#          idle_state: '0'
-#          lat: '30.458075'
-#          lon: '114.4692816'
-#          lorawan_downlink_count: '0'
-#          low_power_state: '0'
-#          motion_state: '0'
-#          pack_type: 'fix_success'
-#          pdop: '1.2'
-#          ic_temperature: '31°C'
-#          work_mode: 'period'
+  examples:
+    - description: heartbeat payload
+      input:
+        fPort: 1
+        bytes: [0x21, 0x1E, 0xC0, 0x01, 0x47, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          battery_voltage: 3.4
+          demolish_state: 0
+          idle_state: 0
+          lorawan_downlink_count: 0
+          low_power_state: 0
+          motion_count: 0
+          motion_state: 1
+          pack_type: 'heart'
+          last_restart_reason: 'ble_cmd_restart'
+          ic_temperature: '30°C'
+          firmware_ver: 'V1.0.7'
+          work_mode: 'period mode'
+      normalizedOutput:
+        data:
+          - action:
+              motion:
+                detected: true
+                count: 0
+            battery: 3.4
+    - description: gps fixed payload
+      input:
+        fPort: 2
+        bytes: [0x01, 0x1F, 0xC0, 0x02, 0x07, 0xE6, 0x08, 0x03, 0x09, 0x0F, 0x1F, 0x00, 0x09, 0x12, 0x27, 0x88, 0x8E, 0x44, 0x3A, 0xA0, 0x50, 0x0C]
+      output:
+        data:
+          utc_time: '2022-8-3 9:15:31  TZ:0'
+          battery_voltage: 3.4
+          demolish_state: 0
+          fix_tech: 'gps'
+          fix_type: 'work_mode_fix'
+          idle_state: 0
+          lat: 30.458075
+          lon: 114.4692816
+          lorawan_downlink_count: 0
+          low_power_state: 0
+          motion_state: 0
+          pack_type: 'fix_success'
+          pdop: 1.2
+          ic_temperature: '31°C'
+          work_mode: 'period mode'
+      normalizedOutput:
+        data:
+          - position:
+              latitude: 30.458075
+              longitude: 114.4692816
+            battery: 3.4

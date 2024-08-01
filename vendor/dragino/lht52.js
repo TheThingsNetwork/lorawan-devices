@@ -68,3 +68,25 @@ function decodeUplink(input) {
     }
 }
 }
+
+function normalizeUplink(input) {
+  var data = {
+    air: {
+      indoor: {
+        temperature: input.data.TempC_SHT,
+        relativeHumidity: input.data.Hum_SHT,
+      },
+      outdoor: {
+        temperature: input.data.TempC_DS
+      }
+    }
+  };
+
+  if (input.data.battVolt) {
+    data.battery = input.data.battVolt;
+  }
+
+  return { data: data };
+}
+
+

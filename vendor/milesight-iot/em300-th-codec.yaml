@@ -2,3 +2,19 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: em300-th.js
+  examples:
+    - description: Example with battery, temperature, and humidity
+      input:
+        fPort: 1
+        bytes: [0x01, 0x75, 0x32, 0x03, 0x67, 0xC8, 0x00, 0x04, 0x68, 0x3C]
+      output:
+        data:
+          battery: 50
+          temperature: 20.0
+          humidity: 30.0
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 20.0
+              relativeHumidity: 30.0
+            battery: 50

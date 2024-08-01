@@ -16,3 +16,8 @@ uplinkDecoder:
           y: 39
           z: 5
           occupancy: 2
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 22.6
+              relativeHumidity: 41

@@ -197,3 +197,18 @@ default:
 }
 }
 }
+
+function normalizeUplink(input) {
+  return {
+    data: {
+      air: {
+        temperature: input.data.TempC_SHT,
+        relativeHumidity: input.data.Hum_SHT,
+      },
+      action: {
+        doorState: input.data.Door_status
+      },
+      battery: input.data.BatV,
+    }
+  };
+}

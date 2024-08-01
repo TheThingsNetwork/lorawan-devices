@@ -16,6 +16,11 @@ uplinkDecoder:
           humidity: 52.33
           alarmMsgCount: 256
           backlogMsgCount: 1
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 98.67
+              relativeHumidity: 52.33
 
     - description: Send Temp and RH Aggregated Data Notification
       input:

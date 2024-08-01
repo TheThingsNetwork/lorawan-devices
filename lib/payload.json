@@ -56,6 +56,11 @@
           "format": "date-time",
           "description": "Date and time of the measurement (RFC3339)"
         },
+        "battery": {
+          "type": "number",
+          "description": "Voltage (V)",
+          "minimum": 0
+        },
         "soil": {
           "type": "object",
           "properties": {
@@ -99,6 +104,62 @@
         "air": {
           "type": "object",
           "properties": {
+            "indoor": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "description": "Indoor air temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                },
+                "relativeHumidity": {
+                  "description": "Indoor relative humidity (%)",
+                  "$ref": "#/definitions/percentage"
+                },
+                "pressure": {
+                  "type": "number",
+                  "description": "Indoor atmospheric pressure (hPa)",
+                  "minimum": 900,
+                  "maximum": 1100
+                },
+                "co2": {
+                  "description": "Indoor concentration of CO2 in the air (ppm)",
+                  "$ref": "#/definitions/concentration"
+                },
+                "lightIntensity": {
+                  "description": "Indoor light intensity (lux)",
+                  "$ref": "#/definitions/illuminance"
+                }
+              },
+              "additionalProperties": false
+            },
+            "outdoor": {
+              "type": "object",
+              "properties": {
+                "temperature": {
+                  "description": "Outdoor air temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                },
+                "relativeHumidity": {
+                  "description": "Outdoor relative humidity (%)",
+                  "$ref": "#/definitions/percentage"
+                },
+                "pressure": {
+                  "type": "number",
+                  "description": "Outdoor atmospheric pressure (hPa)",
+                  "minimum": 900,
+                  "maximum": 1100
+                },
+                "co2": {
+                  "description": "Outdoor concentration of CO2 in the air (ppm)",
+                  "$ref": "#/definitions/concentration"
+                },
+                "lightIntensity": {
+                  "description": "Outdoor light intensity (lux)",
+                  "$ref": "#/definitions/illuminance"
+                }
+              },
+              "additionalProperties": false
+            },
             "temperature": {
               "description": "Air temperature (°C)",
               "$ref": "#/definitions/temperature"
@@ -134,6 +195,55 @@
             "direction": {
               "description": "Wind direction (°)",
               "$ref": "#/definitions/direction"
+            }
+          },
+          "additionalProperties": false
+        },
+        "water": {
+          "type": "object",
+          "properties": {
+            "leak": {
+              "type": "boolean",
+              "description": "Status of water leaking (true/false)"
+            }
+          },
+          "additionalProperties": false
+        },
+        "action": {
+          "type": "object",
+          "properties": {
+            "motion": {
+              "type": "object",
+              "properties": {
+                "detected": {
+                  "type": "boolean",
+                  "description": "Motion detected"
+                },
+                "count": {
+                  "type": "number",
+                  "description": "Number of motion events (count)"
+                }
+              },
+              "additionalProperties": false
+            },
+            "doorState": {
+              "type": "string",
+              "description": "State of door or window",
+              "enum": ["OPEN", "CLOSE"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "position": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "description": "Horizontal distance from equator (°)"
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Vertical distance from prime meridian (°)"
             }
           },
           "additionalProperties": false

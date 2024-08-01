@@ -1,0 +1,13 @@
+uplinkDecoder:
+  fileName: lwl03a.js
+  examples:
+    - description: Distance Detection
+      input:
+        fPort: 2
+        bytes: [0x01, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x0A, 0x63, 0x5C, 0xD2, 0xF2]
+      output:
+        data: { 'TDC': 'NO', 'ALARM': 'FALSE', 'WATER_LEAK_STATUS': 'LEAK', 'WATER_LEAK_TIMES': 10, 'LAST_WATER_LEAK_DURATION': 10, 'TIME': '2022-10-29 07:14:58' }
+      normalizedOutput:
+        data:
+          - water:
+              leak: true
