@@ -1,0 +1,21 @@
+# This example contains just one end device: windsensor. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - as-201 # look in AS105.yaml for the end device definition
+  - as-202
+  - as-203
+  - as-204
+  - es-108
+
+# The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
+# This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
+# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
+# It can either be a combo of device ID + hardware version + firmware version + region, or profile ID + codec ID
+# NOTE: The profileIDs is different from the vendorID.
+profileIDs:
+  '1':
+    endDeviceID: 'as-201'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'AS923'
