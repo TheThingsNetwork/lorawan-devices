@@ -29,7 +29,7 @@ function decodeUplink(input)
         
         function dataOutput(octetTypeMessage)
         {
-            outputTypeMessage=["Reserved",periodicDataOutput(stringHex),historicalCO2DataOutput(stringHex),historicalTemperatureDataOutput(stringHex),"Reserved",productStatusDataOutput(stringHex),
+            outputTypeMessage=["Reserved",periodicDataOutput(stringHex),historicalCO2DataOutput(stringHex),historicalTemperatureDataOutput(stringHex),historicalHumidityDataOutput(stringHex),productStatusDataOutput(stringHex),
                                 productConfigurationDataOutput(stringHex)]
             return outputTypeMessage[octetTypeMessage]
         }
@@ -39,12 +39,13 @@ function decodeUplink(input)
             if(octetTypeProduit==0xA9){return "Feel LoRa"}
             if(octetTypeProduit==0xAA){return "Rise LoRa"}
             if(octetTypeProduit==0xAB){return "Move LoRa"}
+            if(octetTypeProduit==0xAC){return "Wave LoRa"}
             if(octetTypeProduit==0xAD){return "Sign LoRa"}
         }    
         
         function typeOfMessage(octetTypeMessage)
         {
-            const message_name =["Reserved","Periodic data","CO2 Historical Data","Temperature Historical Data" ,"Reserved","Product Status","Product Configuration"]
+            const message_name =["Reserved","Periodic data","CO2 Historical Data","Temperature Historical Data" ,"Humidity Historical Data","Product Status","Product Configuration"]
             return message_name[octetTypeMessage]
         }
 
@@ -272,7 +273,7 @@ function decodeUplink(input)
 
         function loraRegion(octetLoRaRegion)
         {
-            const message_name =["EU868","US915","AS923","AU915","KR920","IN865","RU864"]
+            const message_name =["Reserved","EU868","US915","Reserved","Reserved","Reserved","Reserved","Reserved","SF-RC1"]
             return message_name[octetLoRaRegion]
         }
 
@@ -335,37 +336,11 @@ function decodeUplink(input)
             return string_bin;
         }
 
-        /*
-        function hexToBinary(stringHex)
-        {
-            var hex2=stringHex.toUpperCase() // pour convertir des string en  hexa il faut qu'ils soient en majuscule 
-            var str1="";
-            var string_bin="";
-            var str=0;
-            var buffer=[];
-
-            // On crée un tableau d'hexa (buffer) 
-            for(i=0; i<hex2.length;i++)
-            {
-                str=parseInt(hex2.charAt(i), 16);
-                buffer.push(str);
-            }
-            buffer = Buffer.from(buffer);
-            
-            for(i=0; i<hex2.length;i++)
-            {
-                str1=hex2.charAt(i); // on prend le premier caractères (string)
-                str1=parseInt(str1, 16).toString(2).padStart(4,'0'); 
-                string_bin=string_bin+str1;                         
-            } 
-            return string_bin
-        }
-        */
-
         //////////////////////////////////////////////////////////////////////
         ////// Product message decoding
         ////////////////////////////////////////////////////////////////////
 
+        
         function periodicDataOutput(stringHex)
         {
             var data_temperature = (parseInt(stringHex.substring(4,8),16) >> 6) & 0x3FF;
@@ -398,7 +373,7 @@ function decodeUplink(input)
             "iziairCo2": iaqGlobalArgument(data_izi_air_co2),
             "iziairCov": iaqGlobalArgument(data_izi_air_cov),
             };
-            
+        
             
             return data;
         }
@@ -411,7 +386,7 @@ function decodeUplink(input)
             var offset_octet = 0;
 
             var data_nombre_mesures = (parseInt(stringHex.substring(4,6),16)>>2)&0x3F;
-            var data_time_between_measurement_sec = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
+            var data_time_between_measurement_min = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
             var data_repetition = (parseInt(stringHex.substring(7,9),16))&0x3F;
             var binary=hexToBinary(stringHex)
     
@@ -421,17 +396,17 @@ function decodeUplink(input)
                 mesure[i]= parseInt(binary.substring(offset_binaire,offset_binaire+10),2);
 
                 if(mesure[i] === 0x3FF){mesure[i] = 0;}
-                else{mesure[i] = Math.round(mesure[i] * 5)}
+                else{mesure[i] = parseFloat((mesure[i] * 5).toFixed(2))}
             }
 
             data={ "typeOfProduct": typeOfProduct(octetTypeProduit),
             "typeOfMessage": typeOfMessage(octetTypeMessage),
             "numberOfRecord": data_nombre_mesures,
-            "periodBetweenRecord":{"value":data_time_between_measurement_sec,"unit":"minutes"},
+            "periodBetweenRecord":{"value":data_time_between_measurement_min*10,"unit":"minutes"},
             "redundancyOfRecord":data_repetition,
             "co2":{"value":mesure,"unit":"ppm"},
             }
-          
+            
             return data
         }
 
@@ -441,10 +416,10 @@ function decodeUplink(input)
             var i = 0;
 
             var data_nombre_mesures = (parseInt(stringHex.substring(4,6),16)>>2)&0x3F;
-            var data_time_between_measurement_sec = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
+            var data_time_between_measurement_min = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
             var data_repetition = (parseInt(stringHex.substring(7,9),16))&0x3F;
             var binary=hexToBinary(stringHex)
-            
+        
             for(i=0;i<data_nombre_mesures;i++){
 
                 offset_binaire = 36 + (10*i);
@@ -452,18 +427,48 @@ function decodeUplink(input)
                 mesure[i]= parseInt(binary.substring(offset_binaire,offset_binaire+10),2);  
 
                 if(mesure[i] === 0x3FF){mesure[i] = 0;}
-                else{mesure[i] = Math.round((mesure[i]/10)-30)}
+                else{mesure[i] = parseFloat(((mesure[i] / 10) - 30).toFixed(2))}
 
             }
 
             data={ "typeOfProduct": typeOfProduct(octetTypeProduit),
             "typeOfMessage": typeOfMessage(octetTypeMessage),
             "numberOfRecord": data_nombre_mesures,
-            "periodBetweenRecord":{"value":data_time_between_measurement_sec,"unit":"minutes"},
+            "periodBetweenRecord":{"value":data_time_between_measurement_min*10,"unit":"minutes"},
             "redundancyOfRecord":data_repetition,
             "temperature":{"value":mesure,"unit":"°C"},
-             }
-            
+            }
+            return data;
+        }
+
+        function historicalHumidityDataOutput(stringHex)
+        {
+            var mesure = [];
+            var i = 0;
+
+            var data_nombre_mesures = (parseInt(stringHex.substring(4,6),16)>>2)&0x3F;
+            var data_time_between_measurement_min = ((parseInt(stringHex.substring(4,8),16)>>2)&0xFF);
+            var data_repetition = (parseInt(stringHex.substring(7,9),16))&0x3F;
+            var binary=hexToBinary(stringHex)
+        
+            for(i=0;i<data_nombre_mesures;i++){
+
+                offset_binaire = 36 + (10*i);
+
+                mesure[i]= parseInt(binary.substring(offset_binaire,offset_binaire+10),2);  
+
+                if(mesure[i] === 0x3FF){mesure[i] = 0;}
+                else{mesure[i] = parseFloat((mesure[i]*0.1).toFixed(2))}
+
+            }
+
+            data={ "typeOfProduct": typeOfProduct(octetTypeProduit),
+            "typeOfMessage": typeOfMessage(octetTypeMessage),
+            "numberOfRecord": data_nombre_mesures,
+            "periodBetweenRecord":{"value":data_time_between_measurement_min*10,"unit":"minutes"},
+            "redundancyOfRecord":data_repetition,
+            "humidity":{"value":mesure,"unit":"%RH"},
+            }
             return data;
         }
 
@@ -546,6 +551,7 @@ function decodeUplink(input)
             var data_date_produit_jour = (parseInt(stringHex.substring(29,31),16)) & 0x1F;
             var data_date_produit_heure = (parseInt(stringHex.substring(31,33),16)>>3) & 0x1F;
             var data_date_produit_minute = (parseInt(stringHex.substring(32,34),16)>>1) & 0x3F;
+            var data_datalog_humidity_on_off = (parseInt(stringHex.substring(33,34),16)) & 0x01;
 
 
             data = {"typeOfProduct": typeOfProduct(octetTypeProduit),
@@ -574,6 +580,7 @@ function decodeUplink(input)
             "deltaTemperature": deltaTemp(data_periodic_delta_temp),
             "historicalCO2DataActivation":active(data_datalog_co2_on_off),
             "historicalTemperatureDataActivation":active(data_datalog_temperature_on_off),
+            "historicalHumidityDataActivation":active(data_datalog_humidity_on_off),
             "numberOfRecordsInADatalogMessage":data_datalog_new_measure,
             "numberOfMessagesFor1Record":data_datalog_repetition,
             "transmissionPeriodOfHistoricalMessage":transmissionPeriodHistorical(data_datalog_tx_period),
