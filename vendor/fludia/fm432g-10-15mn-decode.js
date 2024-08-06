@@ -115,11 +115,11 @@ function decode_T1(payload,time_step){
 function decode_T1_adjustable_step(payload){
   var data = {};
   data.time_step = payload[1];
-  data.index  = (payload[2] & 0xFF) << 24 | (payload[3] & 0xFF) << 16 | (payload[4] & 0xFF) << 8 | (payload[5] & 0xFF);
+  data.index  = ((payload[2] & 0xFF) << 24 | (payload[3] & 0xFF) << 16 | (payload[4] & 0xFF) << 8 | (payload[5] & 0xFF))/10;
   data.increments = []
   var nb_values_in_payload = (payload.length-6)/2
   for(i=0;i<nb_values_in_payload;i++){
-    data.increments.push((payload[6+2*i] & 0xFF) << 8 | (payload[7+2*i] & 0xFF))
+    data.increments.push(((payload[6+2*i] & 0xFF) << 8 | (payload[7+2*i] & 0xFF))/10)
   }
   return data
 }
@@ -142,7 +142,7 @@ function decode_T2_adjustable_step(payload){
   data.number_of_starts = payload[1];
   data.param_id = payload[4];
   data.firmware_version = payload[5];
-  data.index = (payload[8] & 0xFF) << 24 | (payload[9] & 0xFF) << 16 | (payload[10] & 0xFF) << 8 | (payload[11] & 0xFF);
+  data.index = ((payload[8] & 0xFF) << 24 | (payload[9] & 0xFF) << 16 | (payload[10] & 0xFF) << 8 | (payload[11] & 0xFF))/10;
   data.time_step = payload[12];
   data.nb_values = payload[13];
   data.redundancy = payload[14];
