@@ -1,0 +1,52 @@
+name: mtx1
+description: JOOBY ELECTRA MTX1
+
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.0' # Must refer to hardwareVersions declared above
+    # LoRaWAN Device Profiles per region
+    # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: mtx1-profile-eu868
+        lorawanCertified: false
+        codec: mtx1-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - battery
+  - current
+  - energy
+  - power
+  - voltage
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 125
+  length: 160
+  height: 57
+
+# Product and data sheet URLs (optional)
+productURL: https://jooby.eu/rdc/jooby-electra-mtx1/
+dataSheetURL: https://jooby.eu/wp-content/uploads/2023/09/20230323_Jooby_RDC_Datasheet_ELECTRA_MTX1_EN_web-2.pdf
+
+photos:
+  main: mtx1.png
