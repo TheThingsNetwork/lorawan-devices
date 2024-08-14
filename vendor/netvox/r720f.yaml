@@ -34,6 +34,9 @@ firmwareVersions:
         id: profile-cn470
         codec: r720f-codec
 
+sensors:
+  - water
+
 dimensions:
   width: 65
   length: 88

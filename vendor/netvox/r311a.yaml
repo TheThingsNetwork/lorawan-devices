@@ -34,6 +34,9 @@ firmwareVersions:
         id: profile-cn470
         codec: r311a-codec
 
+sensors:
+  - reed switch
+
 dimensions:
   width: 35
   length: 57

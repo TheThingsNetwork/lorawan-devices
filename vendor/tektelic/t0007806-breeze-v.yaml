@@ -1,4 +1,4 @@
-name: TEKTELIC Breeze-V Indoor Ambient Environment Monitoring
+name: Breeze-V Indoor Ambient Environment Monitoring
 description: Sensor that efficiently monitors CO2 and occupancy
 
 # Firmware versions (at least one is mandatory)
@@ -39,6 +39,10 @@ firmwareVersions:
         id: t0007806-864-profile
         lorawanCertified: false
         codec: t0007806-codec
+
+sensors:
+  - co2
+  - occupancy
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

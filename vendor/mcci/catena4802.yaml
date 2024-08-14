@@ -1,4 +1,4 @@
-name: MCCI Catena® 4802 Modbus/Sensor Node
+name: Catena® 4802 Modbus/Sensor Node
 description: The MCCI Catena® 4802 RS-485/Sensor Node for LoRaWAN® technology networks is a complete open-source single-board IoT device that can monitor and control remote Modbus, M-Bus, and other industrial devices, while also monitoring temperature and humidity with an integrated Sensirion SHT31 sensor. It also incorporates a QWICC connector for easy connection of external I2C devices.
 
 # Hardware versions (optional, used for revisions)

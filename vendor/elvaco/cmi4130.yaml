@@ -33,3 +33,8 @@ firmwareVersions:
       #   lorawanCertified: true
       #   # This is the file name of the codec defintion and must have the .yaml extension.
       #   codec: device-a-codec
+
+deviceType: module
+
+photos:
+  main: cmi4130.jpeg

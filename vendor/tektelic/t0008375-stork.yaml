@@ -1,4 +1,4 @@
-name: TEKTELIC Stork Outdoor & Indoor Asset Tracker
+name: Stork Outdoor & Indoor Asset Tracker
 description: Rugged device for indoor & outdoor asset tracking and monitoring
 
 # Firmware versions (at least one is mandatory)
@@ -19,6 +19,10 @@ firmwareVersions:
         id: t0008375-915-profile
         lorawanCertified: false
         codec: t0008375-codec
+
+sensors:
+  - gps
+  - accelerometer
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

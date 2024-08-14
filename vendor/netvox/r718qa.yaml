@@ -34,6 +34,11 @@ firmwareVersions:
         id: profile-cn470
         codec: r718qa-codec
 
+sensors:
+  - reed switch
+  - pir
+  - occupancy
+
 dimensions:
   width: 88.19
   length: 112

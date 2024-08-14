@@ -34,6 +34,9 @@ firmwareVersions:
         id: profile-cn470
         codec: r718mbc-codec
 
+sensors:
+  - vibration
+
 dimensions:
   width: 65
   length: 112
@@ -63,4 +66,4 @@ productURL: http://www.netvox.com.tw/product.asp?pro=R718mbc
 dataSheetURL: http://www.netvox.com.tw/um/R718mbc/R718mbcdatasheet.pdf
 
 photos:
-  main: photos/r718mbb.png
+  main: photos/r718mbc.png

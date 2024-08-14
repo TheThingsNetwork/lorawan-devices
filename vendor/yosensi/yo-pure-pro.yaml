@@ -1,6 +1,5 @@
 name: YO Pure Pro
 description: YO Pure Pro is a device for measuring indoor environmental conditions. The device measures concentrations of particulate matter (PM2.5, PM4 and PM10), carbon monoxide (CO), carbon dioxide (CO2), total volatile organic compounds (TVOC), atmospheric pressure, illumination, temperature, humidity, noise level.
-
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '3.1'
@@ -11,9 +10,9 @@ firmwareVersions:
   - # Firmware version
     version: '3.3.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '3.1'
-
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -25,13 +24,45 @@ firmwareVersions:
         # which is verbose.
         # vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-pure-pro-profile
+        id: yo-pure-pro-profile-eu
         lorawanCertified: true
-      US902-928: #dodać profil na US
+      US902-928:
         id: yo-pure-pro-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-pure-pro-profile-au
+        lorawanCertified: true
+      AS923:
+        id: yo-pure-pro-profile-as
+        lorawanCertified: true
+
+  - # Firmware version
+    version: '3.6.3'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '3.1'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        # vendorID: 659
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: yo-pure-pro-profile-eu
+        lorawanCertified: true
+      US902-928:
+        id: yo-pure-pro-profile-us
+        lorawanCertified: true
+      AU915-928:
+        id: yo-pure-pro-profile-au
+        lorawanCertified: true
+      AS923:
+        id: yo-pure-pro-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -67,7 +98,7 @@ dimensions:
   height: 45
 
 # Weight in grams (optional)
-weight: 200
+weight: 260
 
 # Battery information (optional)
 battery:
@@ -83,7 +114,7 @@ dataSheetURL: https://yosensi.io/support/datasheets/YO_Pure_Pro_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-pure-pro.png
+  main: yo-pure-pro-01.png
   other:
-    - yo-pure-pro-celling.png
-    - yo-pure-pro-wall.png
+    - yo-pure-pro-02.png
+    - yo-pure-pro-03.png

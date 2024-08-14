@@ -1,4 +1,4 @@
-name: Seeed SenseCAP Indicator
+name: SenseCAP Indicator
 description: SenseCAP Indicator is a 4-inch touch screen driven by ESP32 and RP2040 dual-MCU and supports Wi-Fi/BLE/LoRa® communication. It is a fully open-source powerful IoT development platform for developers. One-stop ODM Fusion service is also available for customization and quick scale-up.
 
 # Hardware versions (optional, use when you have revisions)
@@ -37,6 +37,8 @@ firmwareVersions:
         id: loradevelopkit-e5-profile-915
         lorawanCertified: true
         codec: loradevelopkit-e5-codec
+
+deviceType: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:

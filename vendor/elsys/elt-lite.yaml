@@ -49,6 +49,11 @@ firmwareVersions:
         lorawanCertified: true
         codec: elt-2-codec
 
+sensors:
+  - digital input
+  - analog input
+  - pulse count
+
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 additionalRadios:

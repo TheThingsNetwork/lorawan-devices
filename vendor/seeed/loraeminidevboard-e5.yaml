@@ -1,5 +1,5 @@
-name: LoRa-E5 mini (STM32WLE5JC) Dev Board, LoRaWAN protocol and worldwide frequency supported
-description: LoRa-E5 mini is a compacted-sized dev board suitable for the rapid testing and building of small-size LoRa device and application prototyping. LoRa-E5 mini is embedded with and leads out full GPIOs of LoRa-E5 STM32WLE5JC. It has rich interfaces including UART, ADC, SPI, IIC,etc. Supporting LoRaWAN protocol and global frequency, LoRa-E5 mini is able to achieve a transmission range of up to 10 km in open area and ultra-low power consumption.
+name: Wio-E5 mini (STM32WLE5JC) Dev Board
+description: Wio-E5 mini is a compacted-sized dev board suitable for the rapid testing and building of small-size LoRa device and application prototyping. Wio-E5 mini is embedded with and leads out full GPIOs of Wio-E5 STM32WLE5JC. It has rich interfaces including UART, ADC, SPI, IIC,etc. Supporting LoRaWAN protocol and global frequency, Wio-E5 mini is able to achieve a transmission range of up to 10 km in open area and ultra-low power consumption.
 
 # Hardware versions (optional, use when you have revisions)
 
@@ -43,6 +43,8 @@ firmwareVersions:
         id: loradevelopkit-e5-profile-915
         lorawanCertified: true
         codec: loradevelopkit-e5-codec
+
+deviceType: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:

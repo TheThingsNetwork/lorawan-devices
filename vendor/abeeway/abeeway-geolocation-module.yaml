@@ -1,4 +1,4 @@
-name: Abeeway Geolocation Module
+name: Geolocation Module
 description: The Abeeway Geolocation module for outdoor geolocation contains a high-performance multi-constellation GNSS receiver (GPS, GLONASS, Beidou, and Galileo) and supports a patented ultra Low-Power GPS (LP GPS) mode. Indoor positioning can be achieved by combining the Bluetooth Low Energy receiver and the ultra-low power Wi-Fi receiver.
 
 # Hardware versions (optional, use when you have revisions)
@@ -39,6 +39,8 @@ firmwareVersions:
       RU864-870:
         id: abeeway-geolocation-module-profile
         lorawanCertified: true
+
+deviceType: module
 
 # Sensors that this device features (optional)
 # Valid values are:

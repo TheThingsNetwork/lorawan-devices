@@ -1011,7 +1011,7 @@ vendors:
     name: Cavagna Group SPA
     vendorID: 604
 
-  - id: jsc-axioma
+  - id: axioma
     name: JSC Axioma Metering
     vendorID: 605
 
@@ -1623,9 +1623,6 @@ vendors:
   - id: the-things-products
     name: The Things Products
 
-  - id: the-box-development
-    name: The-Box Development
-
   - id: beiselen
     name: Beiselen Service GmbH
     website: https://digitale-services.beiselen.de/
@@ -1896,16 +1893,6 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/saninudge/
 
-  - id: grinn
-    name: Grinn sp. z o.o.
-    description: Grinn is a technology company dedicated to building IoT solutions from a scratch. Since 2008 we are delivering high class services on embedded software development, electronics design, mechanical engineering and production management. During the last 15 years we've designed plenty of projects for different industries like automotive, healthcare, security, agriculture, business, etc.
-    website: https://grinn-global.com
-    logo: grinn-logo.png
-    social:
-      linkedin: https://www.linkedin.com/company/grinn
-      facebook: https://www.facebook.com/GRINNGLOBAL
-      twitter: GrinnInt
-
   - id: ambitlocker
     name: Ambitlocker
     description: Established in 2017, Ambitlocker is a Danish technology business that develops digital management systems for locking units. We have initially concentrated on implementing our technology in our padlocks, which makes it extremely easy to digitalise analogue and mechanical units without the need to rebuild them.
@@ -1951,7 +1938,7 @@ vendors:
 
   - id: cital
     name: Cital
-    website: https://www.cital.ch/
+    website: https://www.cital.io
     logo: cital-logo.svg
     social:
       linkedin: https://www.linkedin.com/company/getcital/
@@ -2073,3 +2060,31 @@ vendors:
       facebook: https://www.facebook.com/teconnectivity
       twitter: teconnectivity
       github: TEConnectivity
+
+  - id: cicicom
+    name: Cicicom
+    description: Cicicom, a distinguished Greek company, specializes in delivering complete IoT solutions
+    logo: cicicom.png
+    website: https://cicicom.gr/
+    social:
+      linkedin: https://www.linkedin.com/company/cicicom-ltd
+      facebook: https://www.facebook.com/cicicom
+
+  - id: atomsenses
+    name: Atomsenses
+    description: Atomsenses is a specialist IoT solution provider focusing on Lorawan sensors for indoor air quality monitoring, our vision is to transform how we manage and maintain healthy indoor environments.
+    logo: atomsenses.png
+    website: https://www.atomsenses.com/
+    social:
+      linkedin: https://www.linkedin.com/company/atomsenses-iot
+      github: Atomsenses
+
+  - id: jooby
+    name: Jooby
+    description: Jooby offers smart lighting and automates power, gas, heat, and water readings.
+    vendorID: 670
+    logo: jooby.png
+    website: https://jooby.eu/
+    social:
+      facebook: https://www.facebook.com/jooby.eu
+      github: jooby-dev
