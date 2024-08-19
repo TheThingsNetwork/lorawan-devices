@@ -18,7 +18,7 @@ uplinkDecoder:
               motion:
                 detected: false
             air:
-              temperature: 21
+              - temperature: 21
             battery: 3.6
     - description: Unknown FPort
       input:

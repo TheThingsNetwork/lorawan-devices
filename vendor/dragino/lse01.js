@@ -37,9 +37,11 @@ switch (input.fPort) {
 function normalizeUplink(input) {
   return {
     data: {
-        air: {
-          temperature: Number(input.data.TempC_DS18B20),
-        },
+        air: [
+          {
+            temperature: Number(input.data.TempC_DS18B20),
+          }
+        ],
         soil: {
           temperature: Number(input.data.temp_SOIL),
           moisture: Number(input.data.water_SOIL),

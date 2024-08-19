@@ -28,8 +28,8 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              temperature: 18.01
-              relativeHumidity: 46.88
+              - temperature: 18.01
+                relativeHumidity: 46.88
             battery: 3.5
         warnings:
           - 'childLock: true'

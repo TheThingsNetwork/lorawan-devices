@@ -13,10 +13,12 @@ function decodeUplink(input) {
 function normalizeUplink(input) {
   return {
     data: {
-      air: {
-        temperature: input.data.temperature,
-        relativeHumidity: input.data.humidity,
-      },
+      air: [
+        {
+          temperature: input.data.temperature,
+          relativeHumidity: input.data.humidity,
+        },
+      ],
       battery: input.data.batt_volt,
     },
   };

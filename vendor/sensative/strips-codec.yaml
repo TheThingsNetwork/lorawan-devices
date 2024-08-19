@@ -18,5 +18,5 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              temperature: 23.4
+              - temperature: 23.4
             battery: 80

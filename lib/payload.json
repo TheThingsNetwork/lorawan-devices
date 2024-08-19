@@ -102,88 +102,40 @@
           "additionalProperties": false
         },
         "air": {
-          "type": "object",
-          "properties": {
-            "indoor": {
-              "type": "object",
-              "properties": {
-                "temperature": {
-                  "description": "Indoor air temperature (°C)",
-                  "$ref": "#/definitions/temperature"
-                },
-                "relativeHumidity": {
-                  "description": "Indoor relative humidity (%)",
-                  "$ref": "#/definitions/percentage"
-                },
-                "pressure": {
-                  "type": "number",
-                  "description": "Indoor atmospheric pressure (hPa)",
-                  "minimum": 900,
-                  "maximum": 1100
-                },
-                "co2": {
-                  "description": "Indoor concentration of CO2 in the air (ppm)",
-                  "$ref": "#/definitions/concentration"
-                },
-                "lightIntensity": {
-                  "description": "Indoor light intensity (lux)",
-                  "$ref": "#/definitions/illuminance"
-                }
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "string",
+                "enum": ["indoor", "outdoor"],
+                "description": "Specifies whether the measurement was taken indoors or outdoors."
               },
-              "additionalProperties": false
-            },
-            "outdoor": {
-              "type": "object",
-              "properties": {
-                "temperature": {
-                  "description": "Outdoor air temperature (°C)",
-                  "$ref": "#/definitions/temperature"
-                },
-                "relativeHumidity": {
-                  "description": "Outdoor relative humidity (%)",
-                  "$ref": "#/definitions/percentage"
-                },
-                "pressure": {
-                  "type": "number",
-                  "description": "Outdoor atmospheric pressure (hPa)",
-                  "minimum": 900,
-                  "maximum": 1100
-                },
-                "co2": {
-                  "description": "Outdoor concentration of CO2 in the air (ppm)",
-                  "$ref": "#/definitions/concentration"
-                },
-                "lightIntensity": {
-                  "description": "Outdoor light intensity (lux)",
-                  "$ref": "#/definitions/illuminance"
-                }
+              "temperature": {
+                "description": "Air temperature (°C)",
+                "$ref": "#/definitions/temperature"
               },
-              "additionalProperties": false
+              "relativeHumidity": {
+                "description": "Relative humidity (%)",
+                "$ref": "#/definitions/percentage"
+              },
+              "pressure": {
+                "type": "number",
+                "description": "Atmospheric pressure (hPa)",
+                "minimum": 900,
+                "maximum": 1100
+              },
+              "co2": {
+                "description": "Concentration of CO2 in the air (ppm)",
+                "$ref": "#/definitions/concentration"
+              },
+              "lightIntensity": {
+                "description": "Light intensity (lux)",
+                "$ref": "#/definitions/illuminance"
+              }
             },
-            "temperature": {
-              "description": "Air temperature (°C)",
-              "$ref": "#/definitions/temperature"
-            },
-            "relativeHumidity": {
-              "description": "Relative humidity (%)",
-              "$ref": "#/definitions/percentage"
-            },
-            "pressure": {
-              "type": "number",
-              "description": "Atmospheric pressure (hPa)",
-              "minimum": 900,
-              "maximum": 1100
-            },
-            "co2": {
-              "description": "Concentration of CO2 in the air (ppm)",
-              "$ref": "#/definitions/concentration"
-            },
-            "lightIntensity": {
-              "description": "Light intensity (lux)",
-              "$ref": "#/definitions/illuminance"
-            }
-          },
-          "additionalProperties": false
+            "additionalProperties": false
+          }
         },
         "wind": {
           "type": "object",
@@ -204,7 +156,7 @@
           "properties": {
             "leak": {
               "type": "boolean",
-              "description": "Status of water leaking (true/false)"
+              "description": "Leak detected"
             }
           },
           "additionalProperties": false

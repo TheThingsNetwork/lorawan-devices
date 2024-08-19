@@ -33,9 +33,11 @@ function normalizeUplink(input) {
           detected: input.data.status > 0,
         }
       },
-      air: {
-        temperature: input.data.temperatureBoard,
-      },
+      air: [
+        {
+          temperature: input.data.temperatureBoard,
+        },
+      ],
       battery: input.data.battery,
     },
   };

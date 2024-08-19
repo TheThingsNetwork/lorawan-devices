@@ -10,7 +10,7 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              temperature: 24.1
+              - temperature: 24.1
             soil:
               temperature: 24.59
               moisture: 19.57

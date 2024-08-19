@@ -10,10 +10,10 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              indoor:
+              - location: 'indoor'
                 temperature: 28.29
                 relativeHumidity: 88.6
-              outdoor:
+              - location: 'outdoor'
                 temperature: 27.81
             battery: 3.062
 

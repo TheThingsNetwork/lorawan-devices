@@ -12,8 +12,8 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              temperature: 1
-              relativeHumidity: 20
+              - temperature: 1
+                relativeHumidity: 20
 
 downlinkEncoder:
   fileName: encoder_smart_room_sensor_pir_base.js

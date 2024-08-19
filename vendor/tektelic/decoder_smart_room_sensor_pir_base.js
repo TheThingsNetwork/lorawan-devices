@@ -817,7 +817,7 @@ function normalizeUplink(input) {
     }
   
     if (Object.keys(air).length > 0) {
-      data.air = air;
+      data.air = [air];
     }
     
     if (Object.keys(action).length > 0) {
