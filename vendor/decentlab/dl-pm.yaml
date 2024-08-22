@@ -1,4 +1,4 @@
-name: DL-PM
+name: DL-PM - Particulate Matter, Temperature, Humidity and Barometric Pressure Sensor
 description: The Decentlab DL-PM is equipped with PM1, PM2.5, PM4, PM10, temperature, humidity, and barometric pressure sensors for air quality and environmental monitoring.
 
 hardwareVersions:
@@ -62,6 +62,7 @@ keyProvisioning:
 keySecurity: none
 
 productURL: https://www.decentlab.com/products/particulate-matter-temperature-humidity-and-barometric-pressure-sensor-for-lorawan
+dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PM-datasheet.pdf
 photos:
   main: dl-pm.png
   other:

@@ -1,4 +1,4 @@
-name: DL-TRS21
+name: DL-TRS21 - Soil Water Potential and Temperature Sensor
 description: The Decentlab DL-TRS21 is a soil water potential and temperature sensor for LoRaWAN®. Suitable for applications such as irrigation control, smart agriculture, parks, and golf courses.
 
 hardwareVersions:

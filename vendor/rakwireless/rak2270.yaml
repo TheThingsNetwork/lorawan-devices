@@ -1,0 +1,73 @@
+name: RAK2270 WisNode Sticker Tracker
+description: RAK2270 is a sleek sticker tracker for LoRaWAN® designed like a label, making it easy to attach to any product. It offers real-time location tracking through network trilateration. With a built-in temperature sensor and an integrated 3-axis accelerometer, it provides accurate temperature monitoring and optimized device usage.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: rak2270-868-profile
+        lorawanCertified: false
+        codec: rak2270-codec
+      US902-928:
+        id: rak2270-915-profile
+        lorawanCertified: false
+        codec: rak2270-codec
+
+sensors:
+  - temperature
+  - accelerometer
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 85
+  length: 118
+  height: 1.5
+
+# Weight in grams (optional)
+#weight: 10
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://store.rakwireless.com/products/rak2270-rak-sticker-tracker
+dataSheetURL: https://docs.rakwireless.com/Product-Categories/WisNode/RAK2270
+
+# Photos
+photos:
+  main: rak2270.jpg
+#videos:
+#  main: https://www.youtube.com/watch?v=XVRR7Akyy8M
+
+# Regulatory compliances (optional)
+#compliances:
+#  emc:
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-1
+#      version: 2.2.3
+#  radio:
+#    - body: ETSI
+#      norm: EN
+#      standard: 300 220-2
+#      version: 3.2.1

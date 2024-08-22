@@ -1,4 +1,4 @@
-name: acw-thaq
+name: ACW-THAQ - CO2/VOC/Temperature/Humidity Sensor
 description: The THAQ facilitates the monitoring of your rooms and buildings thanks to its CO2, VOC (volatile organic compounds), temperature and relative humidity sensors. Equipped with a LED on the front panel (Green > Orange > Red) clearly indicating the need to ventilate the room, the air quality is displayed locally or the complete measurements are sent to an operated LoRaWAN network.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

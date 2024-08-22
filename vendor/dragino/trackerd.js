@@ -42,7 +42,6 @@ var bytes = input.bytes;
 	case 2:
 	var decode = {};
     bat =(((bytes[8] & 0x3f) <<8) | bytes[9]);//Battery,units:V
-
 		latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
 		longitude=(bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7])/1000000;//gps longitude,units: °
 
@@ -53,9 +52,13 @@ var bytes = input.bytes;
 							field: "location",
 						  location= "" + latitude + "," + longitude + ""
 
+					
 					}        
 			   }
 			}		
+			else
+					location="invalid value";
+		
 			alarm=(bytes[8] & 0x40)?"TRUE":"FALSE";//Alarm status
 			batV=(((bytes[8] & 0x3f) <<8) | bytes[9])/1000;//Battery,units:V
 			mod = bytes[10] & 0xC0;
@@ -72,7 +75,7 @@ var bytes = input.bytes;
 			var decode = {};
 			decode.Location=location
 			decode.Latitude=latitude
-			decode.Longitud=longitude
+			decode.Longitude=longitude
 			decode.Hum=hum
 			decode.Tem=tem
 			decode.ALARM_status=alarm
@@ -88,8 +91,9 @@ var bytes = input.bytes;
 			case 3:
 			{
 	var decode = {};
-    bat =(((bytes[8] & 0x3f) <<8) | bytes[9]);//Battery,units:V
 
+     bat =(((bytes[8] & 0x3f) <<8) | bytes[9]);//Battery,units:V
+    
 		latitude=(bytes[0]<<24 | bytes[1]<<16 | bytes[2]<<8 | bytes[3])/1000000;//gps latitude,units: °
 		longitude=(bytes[4]<<24 | bytes[5]<<16 | bytes[6]<<8 | bytes[7])/1000000;//gps longitude,units: °
 
@@ -100,9 +104,14 @@ var bytes = input.bytes;
 							field: "location",
 						  location= "" + latitude + "," + longitude + ""
 
+					
 					}        
 			   }
 			}		
+			else
+					location="invalid value";
+					
+
 			alarm=(bytes[8] & 0x40)?"TRUE":"FALSE";//Alarm status
 			batV=(((bytes[8] & 0x3f) <<8) | bytes[9])/1000;//Battery,units:V
 			mod = bytes[10] & 0xC0;
@@ -118,7 +127,7 @@ var bytes = input.bytes;
 			var decode = {};
 			decode.Location=location
 			decode.Latitude=latitude
-			decode.Longitud=longitude
+			decode.Longitude=longitude
 			decode.BatV=batV
 			decode.ALARM_status=alarm
 			decode.MD=mod
@@ -140,11 +149,16 @@ case 4:
 				if ((longitude < 190) && (longitude > -190)) {
 					if ((latitude !== 0) && (longitude !==0)) {
 							field: "location",
-						  location= "" + latitude + "," + longitude + ""
 
+						  location= "" + latitude + "," + longitude + "";
+					
 					}        
 			   }
 			}	
+			else
+					location="invalid value";
+					
+
 			var year = bytes[8]<<8 | bytes[9];
 			var Month =  bytes[10];
 			var day =  bytes[11];

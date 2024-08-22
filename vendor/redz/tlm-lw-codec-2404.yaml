@@ -1,0 +1,149 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: tlm-lw-2404.js
+
+  # based on following payload
+  #10 00036FFE 02 61703B0F 020201 4C4F52415F4C575F534552564552
+  examples:
+    - description: TLM LW example frame decode - Status
+      input:
+        fPort: 1
+        bytes: [0x00, 0x03, 0x6F, 0xFE, 0x00, 0x01, 0x04, 0x60, 0x55, 0x54, 0x96, 0x02, 0x02, 0x01, 0x4C, 0x4F, 0x52, 0x41, 0x5F, 0x4C, 0x57, 0x5F, 0x53, 0x45, 0x52, 0x56, 0x45, 0x52]
+
+      output:
+        data:
+          deviceID: 225278
+          deviceName: 'LORA_LW_SERVER'
+          deviceTime: '2024-5-2 21:18:22'
+          firmwareVersion: '2.2.1'
+          frameCounter: 0
+          frameType: 'Status Message - Device'
+          modbusQueryQty: 1
+          targetPort: 4
+
+    - description: TLM LW example frame decode - Modbus RTU Payload
+      input:
+        fPort: 3
+        bytes:
+          [
+            0x00,
+            0x03,
+            0x6F,
+            0xFE,
+            0x01,
+            0x01,
+            0x03,
+            0x00,
+            0x00,
+            0x00,
+            0x0A,
+            0x14,
+            0x00,
+            0x01,
+            0x00,
+            0x02,
+            0x00,
+            0x03,
+            0x00,
+            0x04,
+            0x00,
+            0x05,
+            0x00,
+            0x06,
+            0x00,
+            0x07,
+            0x00,
+            0x08,
+            0x00,
+            0x09,
+            0x00,
+            0x0A,
+          ]
+
+      output:
+        data:
+          dataList: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]]
+          deviceID: 225278
+          frameCounter: 0
+          frameType: 'Modbus RTU Payload'
+          functionCode: 3
+          modbusID: 1
+          registerQty: 10
+          registerStartAdd: 0
+          totalNumberOfBytes: 20
+
+    - description: TLM LW example frame decode - Modbus TCP Payload
+      input:
+        fPort: 3
+        bytes:
+          [
+            0x00,
+            0x03,
+            0x6F,
+            0xFE,
+            0x02,
+            0x01,
+            0x03,
+            0x00,
+            0x00,
+            0x00,
+            0x0A,
+            0x14,
+            0x00,
+            0x01,
+            0x00,
+            0x02,
+            0x00,
+            0x03,
+            0x00,
+            0x04,
+            0x00,
+            0x05,
+            0x00,
+            0x06,
+            0x00,
+            0x07,
+            0x00,
+            0x08,
+            0x00,
+            0x09,
+            0x00,
+            0x0A,
+          ]
+
+      output:
+        data:
+          dataList: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]]
+          deviceID: 225278
+          frameCounter: 0
+          frameType: 'Modbus TCP Payload'
+          functionCode: 3
+          modbusID: 1
+          registerQty: 10
+          registerStartAdd: 0
+          totalNumberOfBytes: 20
+
+    - description: TLM LW example frame decode - Transparent Payload from Serial
+      input:
+        fPort: 4
+        bytes: [0x00, 0x03, 0x6F, 0xFE, 0x03, 0x74, 0x65, 0x73, 0x74, 0x50, 0x61, 0x79, 0x6C, 0x6F, 0x61, 0x64, 0x31, 0x32, 0x33, 0x34, 0x0D, 0x0A]
+
+      output:
+        data:
+          dataList: "testPayload1234\r\n"
+          deviceID: 225278
+          frameCounter: 0
+          frameType: 'Transparent Payload - Serial'
+
+    - description: TLM LW example frame decode - Transparent Payload from TCP
+      input:
+        fPort: 4
+        bytes: [0x00, 0x03, 0x6F, 0xFE, 0x04, 0x54, 0x65, 0x73, 0x74, 0x20, 0x70, 0x61, 0x79, 0x6C, 0x6F, 0x61, 0x64, 0x2E, 0x2E, 0x2E, 0x0D, 0x0A]
+
+      output:
+        data:
+          dataList: "Test payload...\r\n"
+          deviceID: 225278
+          frameCounter: 0
+          frameType: 'Transparent Payload - TCP'

@@ -1,5 +1,5 @@
-name: rbs306-mbhr
-description: radio-bridge door window sensor
+name: RBS306-MBHR - Maxbotix Ultrasonic Distance Sensor
+description: The Maxbotix Ultrasonic Sensor measures distances between the sensor and objects using high-frequency sound pulses. If the distance exceeds or drops below a defined threshold, an alert is sent over the wireless network. It works with Maxbotix HR series sensors (models MB738, MB758, and MB7150). The weather-proof enclosure makes the sensor suitable for outdoor and industrial use.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-mbhr-profile
         lorawanCertified: true
         codec: rbs306-mbhr-codec
+
+sensors:
+  - distance
+
 # Photos
 photos:
-  main: rbs306-mbhr.jpg
+  main: rbs306-mbhr.png

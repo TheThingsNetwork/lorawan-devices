@@ -53,7 +53,7 @@
           </div>
           <div class="item-6 item-xs-12">
             <ul>
-              {{with .Params.weight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
+              {{with .Params.deviceweight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
               {{with .Params.codecs}}<li><b>Frequency plans: </b>{{ range $key, $value := . }}<a
                   href="{{ $siteUrl }}/tags/{{ lower $key }}">{{ $key }}</a> {{ end }}</li>{{ end }}
             </ul>

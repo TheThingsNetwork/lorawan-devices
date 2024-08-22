@@ -1,0 +1,51 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-lw-swd.js
+  # Examples (optional)
+  examples:
+    - description: cyclic status message
+      input:
+        fPort: 10
+        bytes: [0x6C, 0x01, 0x02, 0x00, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Activation_count: 0
+          Dryness: true
+          Error_Msg: 0
+          Frame_Type: 'Device_State'
+          Moisture: false
+          Supply_Voltage: 2.88
+          TX_Reason: 'Cyclic Timer'
+          Tilt_Angle: 0
+          Water: false
+    - description: moisture detected
+      input:
+        fPort: 10
+        bytes: [0x6C, 0x02, 0x07, 0x00, 0x02, 0x00, 0x00]
+      output:
+        data:
+          Dry: false
+          Error_Msg: 0
+          Frame_Type: 'Sensor_Data'
+          Moisture: true
+          Supply_Voltage: 2.88
+          TX_Reason: 'Moisture'
+          Tilt_Angle: 0
+          Water: false
+    - description: water detected
+      input:
+        fPort: 10
+        bytes: [0x6C, 0x02, 0x08, 0x00, 0x06, 0x00, 0x00]
+      output:
+        data:
+          Dry: false
+          Error_Msg: 0
+          Frame_Type: 'Sensor_Data'
+          Moisture: true
+          Supply_Voltage: 2.88
+          TX_Reason: 'Water'
+          Tilt_Angle: 0
+          Water: true
+downlinkDecoder:
+  fileName: elv-bm-trx1.js

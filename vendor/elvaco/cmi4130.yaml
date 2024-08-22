@@ -1,0 +1,40 @@
+name: CMi4130
+description: Heat Meter Connectivity Module (MCM) for Itron CF /51/55/ECHO II
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.0' # Must refer to hardwareVersions declared above
+    # LoRaWAN Device Profiles per region
+    # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # When vendorID is empty, the profile is loaded from the current directory.
+        vendorID: elvaco
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters).
+        # This is the file name of the profile and must have the .yaml extension.
+        id: cmi4130-profile
+        # Specify whether the device is LoRa Alliance certified.
+        lorawanCertified: true
+        codec: cmi4130-codec
+      # US902-928:
+      #   # This is the file name of the profile and must have the .yaml extension.
+      #   id: custom-profile-us915
+      #   # Specify whether the device is LoRa Alliance certified.
+      #   lorawanCertified: true
+      #   # This is the file name of the codec defintion and must have the .yaml extension.
+      #   codec: device-a-codec
+
+deviceType: module
+
+photos:
+  main: cmi4130.jpeg

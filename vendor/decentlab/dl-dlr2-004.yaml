@@ -1,4 +1,4 @@
-name: DL-DLR2-004
+name: DL-DLR2-004 - Analog 4 … 20 mA Sensor Transmitter
 description: The Decentlab DL-DLR2-004 is an Analog or Digital Sensor Device for LoRaWAN® that consists of an Analog 4 … 20 mA Sensor.
 
 hardwareVersions:

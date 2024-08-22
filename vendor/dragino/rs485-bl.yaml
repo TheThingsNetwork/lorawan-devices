@@ -1,4 +1,4 @@
-name: RS485-BL
+name: RS485-BL - RS485 / UART to LoRaWAN®
 description: The Dragino RS485-BL is an RS485 / UART to LoRaWAN® converter that provides interfaces to connect RS485 sensors, 3.3v/5v UART sensors, and interrupt sensors. The measured data is sent to a LoRaWAN network. Ideal for wireless alarm and security systems, home and building automation, automated meter reading, industrial monitoring and control, long-range irrigation systems, etc.
 
 # Firmware versions (at least one is mandatory)
@@ -52,17 +52,8 @@ firmwareVersions:
       RU864-870:
         id: ru864-a-abp-profile
 
-# Sensors that this device features (optional)
-# Valid values are:
-# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
-# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
-# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
-# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
-# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
-# water potential, water, weight, wifi ssid, wind direction, wind speed.
-#sensors:
-#  - wind direction
-#  - wind speed
+bridgeInterfaces:
+  - rs-485
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

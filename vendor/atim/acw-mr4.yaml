@@ -1,4 +1,4 @@
-name: acw-mr4
+name: ACW-MR4 - Smart Metering
 description: The MR4 facilitates the remote reading of meters with pulse output and also the reporting of dry contact status. Each channel can be configured alternatively as a count or as a Boolean state of the corresponding input. The information collected is transmitted regularly via the LoRaWAN networks or locally by installing one or more gateways on site.
 
 # Hardware versions (optional, use when you have revisions)

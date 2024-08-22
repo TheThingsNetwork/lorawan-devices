@@ -1,5 +1,5 @@
 name: R720E - Wireless TVOC Detection Sensor
-description: R720E is a wireless communication device that detects temperature, humility and TVOC. TVOC refers to all organic gaseous substances in a space, and generally refers to the indoor volatile organic substances. TVOC is also the much serious one of the three types of pollution affecting indoor air quality. R720E can detect the concentration value of TVOC.
+description: R720E is a wireless communication device that detects temperature, humidity and TVOC. TVOC refers to all organic gaseous substances in a space, and generally refers to the indoor volatile organic substances. TVOC is also the much serious one of the three types of pollution affecting indoor air quality. R720E can detect the concentration value of TVOC.
 
 hardwareVersions:
   - version: '1'
@@ -33,6 +33,11 @@ firmwareVersions:
       CN470-510:
         id: profile-cn470
         codec: r720e-codec
+
+sensors:
+  - temperature
+  - humidity
+  - tvoc
 
 weight: 113
 

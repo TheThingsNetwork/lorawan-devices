@@ -34,8 +34,8 @@ firmwareVersions:
         id: profile-cn470
         codec: r311ca-codec
 
-#sensors:
-#  - dry contact
+sensors:
+  - digital input
 
 dimensions:
   width: 57

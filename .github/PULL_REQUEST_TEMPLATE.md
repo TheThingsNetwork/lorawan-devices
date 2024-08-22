@@ -17,6 +17,15 @@ Closes #0000, References #0000, etc.
 - ...
 - ...
 
+#### Checklist for Reviewers
+<!-- Guidelines to follow when reviewing pull request, please do not remove. -->
+
+- [ ] Title and description should be descriptive (Not just a serial number for example).
+- [ ] `profileIDs` should not be `vendorID` and should be a unique value for every profile.
+- [ ] All devices should be listed in the vendor's `index.yaml` file.
+- [ ] Firmware versions can not be changed.
+- [ ] At least 1 image per device and should be transparent.
+
 #### Notes for Reviewers
 <!--
 NOTE: This section is optional.

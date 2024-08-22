@@ -1,0 +1,7 @@
+macVersion: '1.0.4'
+regionalParametersVersion: 'RP002-1.0.3'
+supportsJoin: true
+maxEIRP: 16 # 16 protocol level maps to 14 dBm, 15 dBm on NACK retransmit.
+supports32bitFCnt: true
+supportsClassB: false
+supportsClassC: false

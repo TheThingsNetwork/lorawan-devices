@@ -1,4 +1,4 @@
-name: OpenCollar
+name: OpenCollar - Wildlife Protection
 description: First generation of OpenCollar devices. A collection of advanced devices designed for wildlife protection.
 
 # Hardware versions (optional, use when you have revisions)
@@ -24,6 +24,12 @@ firmwareVersions:
         id: opencollar-eu868-profile
         lorawanCertified: false
         codec: opencollar-v26-codec
+
+sensors:
+  - gps
+  - temperature
+  - humidity
+  - accelerometer
 
 # Product and data sheet URLs (optional)
 productURL: https://www.smartparks.org

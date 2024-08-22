@@ -1,0 +1,170 @@
+name: AS204 LoRaWAN Smart Toilet Odour Sensor # Device name can not contain the vendor name
+description: 5-in-1 Sensor – Temp / Humidity / CO2 / NH3 / H2S
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: as-204-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: as-204-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: as-204-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: as-204-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: as-204-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: as-204-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: as-204-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: as-204-codec
+
+# Type of device (optional)
+# Valid values are: devkit, module, cots
+deviceType: cots
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - co2
+  - temperature
+  - humidity
+  #  - nh3
+  - h2s
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+  - cellular
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog, ethernet.
+bridgeInterfaces:
+  - m-bus
+  - rs-485
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 98
+  length: 98
+  height: 29.5
+
+# Weight in grams (optional)
+weight: 150
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: ER14505
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -30
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+
+# Product and data sheet URLs (optional)
+productURL: https://www.atomsenses.com/product/as-204/
+dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-204.pdf
+
+# Photos
+photos:
+  main: as-204.png # Image needs to have a transparent background
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

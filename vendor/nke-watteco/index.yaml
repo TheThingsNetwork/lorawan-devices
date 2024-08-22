@@ -1,7 +1,4 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - th-sensor
   - t-indoor-sensor
   - t-2-ctn-sensor
@@ -24,3 +21,5 @@ endDevices:
   - torano-atex-zone-1-sensor
   - bob-assistant
   - triphaso-sensor
+  - modbus-classe-a-sensor
+  - modbus-classe-c-sensor

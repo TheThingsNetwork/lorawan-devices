@@ -1,7 +1,16 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - carbon # CO2, temp, hum sensor
-  - sign # CO2, COV, temp, hum, lum, pir, sound sensor
-  - move # CO2, temp, hum, lum, pir sensor
-  - rise # CO2, temp, hum sensor
-  - feel # temp, hum sensor
+  - carbon
+  - sign
+  - move
+  - rise
+  - feel
+  - origin-plus
+  - origin
+  - guard-plus
+  - guard
+profileIDs:
+  '420':
+    endDeviceID: 'carbon'
+    firmwareVersion: '3.6'
+    hardwareVersion: 'C024C'
+    region: 'EU863-870'

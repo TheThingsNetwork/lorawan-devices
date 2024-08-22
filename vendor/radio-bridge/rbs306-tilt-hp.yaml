@@ -1,5 +1,5 @@
-name: rbs306-tilt-hp
-description: radio-bridge door window sensor
+name: RBS306-TILT-HP - High Precision Tilt Sensor
+description: The high-precision tilt sensor uses an accelerometer to measure angle of tilt between 0-180 degrees with precision of 0.1 degrees. Available as a weather-proof version suitable for outdoor and industrial use.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs306-tilt-hp-profile
         lorawanCertified: true
         codec: rbs306-tilt-hp-codec
+
+sensors:
+  - tilt
+
 # Photos
 photos:
   main: rbs306-tilt-hp.png

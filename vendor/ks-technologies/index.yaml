@@ -1,0 +1,8 @@
+endDevices:
+  - kst5420
+profileIDs:
+  '101':
+    endDeviceID: 'wireless-water-meter'
+    firmwareVersion: '1.0.0'
+    hardwareVersion: 'E'
+    region: 'US902-928'

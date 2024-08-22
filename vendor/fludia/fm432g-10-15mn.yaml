@@ -90,7 +90,7 @@ weight: 18
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium AA 3.6V
+  type: Lithium A 3.6V ER17505 from EVE Energy Co Ltd
 
 # Operating conditions (optional)
 # operatingConditions:
@@ -149,7 +149,7 @@ msrp:
   # USD: 120
 # Photos
 photos:
-  main: fm432g.jpg
+  main: fm432g.png
 # other:
 #   - windsensor-package.jpg
 

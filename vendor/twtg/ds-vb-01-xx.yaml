@@ -1,4 +1,4 @@
-name: TWTG NEON Vibration Sensor
+name: NEON Vibration Sensor
 description: NEON Vibration Sensor
 
 # Hardware versions
@@ -94,7 +94,7 @@ dataSheetURL: https://github.com/TWTG-R-D-B-V/neon-product-documentation/blob/ma
 
 # Photos
 photos:
-  main: vb.jpg
+  main: vb.png
 
 # Youtube or Vimeo Video (optional)
 
