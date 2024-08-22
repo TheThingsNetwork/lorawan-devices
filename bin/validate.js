@@ -5,20 +5,26 @@ const yargs = require('yargs');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const sizeOf = require('image-size');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
 const imageType = require('image-type');
 
 const ajv = new Ajv({ schemas: [require('../lib/payload.json'), require('../schema.json')] });
 
-const options = yargs.usage('Usage: --vendor <file>').option('v', {
-  alias: 'vendor',
-  describe: 'Path to vendor index file',
-  type: 'string',
-  demandOption: true,
-  default: './vendor/index.yaml',
-}).argv;
+const options = yargs
+  .usage('Usage: --vendor <file> [--vendor-id <id>]')
+  .option('v', {
+    alias: 'vendor',
+    describe: 'Path to vendor index file',
+    type: 'string',
+    demandOption: true,
+    default: './vendor/index.yaml',
+  })
+  .option('vendor-id', {
+    describe: 'Specific vendor ID to validate',
+    type: 'string',
+  }).argv;
 
 let validateVendorsIndex = ajv.compile({
   $ref: 'https://schema.thethings.network/devicerepository/1/schema#/definitions/vendorsIndex',
@@ -68,9 +74,8 @@ async function requireDimensions(path) {
   });
 }
 
-function validatePayloadCodecs(vendorId, payloadEncoding) {
-  var runs = [];
-  var promises = [];
+async function validatePayloadCodecs(vendorId, payloadEncoding) {
+  const runs = [];
 
   [
     { def: payloadEncoding.uplinkDecoder, routine: 'decodeUplink' },
@@ -80,7 +85,6 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     if (d.def) {
       const { routine } = d;
       const fileName = `${vendorId}/${d.def.fileName}`;
-      promises.push(requireFile(fileName));
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
           const { input, output, description, normalizedOutput } = e;
@@ -99,8 +103,6 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
               input: output,
               output: normalizedOutput,
               transformOutput: (output) => {
-                // The normalizer can return an object or an array of objects.
-                // If it's an object, convert it to an array with a single item.
                 if (output.data && !Array.isArray(output.data)) {
                   output.data = [output.data];
                 }
@@ -113,39 +115,60 @@ function validatePayloadCodecs(vendorId, payloadEncoding) {
     }
   });
 
-  runs.forEach((r) => {
-    promises.push(
-      new Promise((resolve, reject) => {
-        exec(
-          `bin/runscript -codec-path "${r.fileName}" -routine ${r.routine} -input '${JSON.stringify(r.input)}'`,
-          (err, stdout, stderr) => {
-            if (err) {
-              reject(err);
-            } else if (stderr) {
-              reject(stderr);
+  for (const r of runs) {
+    try {
+      const childProcess = spawn('bin/runscript', [
+        '-codec-path',
+        r.fileName,
+        '-routine',
+        r.routine,
+        '-input',
+        JSON.stringify(r.input),
+      ]);
+
+      let stdout = '';
+      let stderr = '';
+
+      childProcess.stdout.on('data', (data) => {
+        stdout += data.toString();
+      });
+
+      childProcess.stderr.on('data', (data) => {
+        stderr += data.toString();
+      });
+
+      await new Promise((resolve, reject) => {
+        childProcess.on('error', (error) => {
+          reject(error);
+        });
+
+        childProcess.on('close', (code) => {
+          if (code !== 0) {
+            reject(`Process exited with code ${code}\n${stderr}`);
+          } else {
+            const expected = r.output;
+            let actual = JSON.parse(stdout);
+            if (r.transformOutput) {
+              actual = r.transformOutput(actual);
+            }
+            if (isEqual(expected, actual)) {
+              console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
+              resolve();
             } else {
-              const expected = r.output;
-              let actual = JSON.parse(stdout);
-              if (r.transformOutput) {
-                actual = r.transformOutput(actual);
-              }
-              if (isEqual(expected, actual)) {
-                console.debug(`${r.fileName}:${r.routine}: ${r.description} has correct output`);
-                resolve();
-              } else {
-                reject(
-                  `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
-                    expected
-                  )}`
-                );
-              }
+              reject(
+                `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
+                  expected
+                )}`
+              );
             }
           }
-        );
-      })
-    );
-  });
-  return Promise.all(promises);
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
+  }
 }
 
 function validateImageExtension(filename) {
@@ -156,8 +179,9 @@ function validateImageExtension(filename) {
     if (ext !== type.ext) {
       if (ext === 'jpeg' && type.ext === 'jpg') {
         resolve();
+      } else {
+        reject(`${filename} extension is incorrect, it should be ${type.ext}`);
       }
-      reject(`${filename} extension is incorrect, it should be ${type.ext}`);
     } else {
       resolve();
     }
@@ -167,11 +191,16 @@ function validateImageExtension(filename) {
 function requireImageDecode(fileName) {
   // Test https://golang.org/pkg/image/png/#Decode and https://golang.org/pkg/image/jpeg/#Decode are possible
   return new Promise((resolve, reject) => {
-    exec(`bin/validate-image ${fileName}`, (err) => {
-      if (err) {
-        reject(err);
+    const childProcess = spawn('bin/validate-image', [fileName]);
+    childProcess.on('error', (error) => {
+      reject(error);
+    });
+    childProcess.on('close', (code) => {
+      if (code !== 0) {
+        reject(`Process exited with code ${code}`);
+      } else {
+        resolve();
       }
-      resolve();
     });
   });
 }
@@ -182,6 +211,30 @@ function formatValidationErrors(errors) {
 
 const vendors = yaml.load(fs.readFileSync(options.vendor));
 
+// Get the list of vendor IDs from the vendor/index.yaml
+const vendorIds = vendors.vendors.map((vendor) => vendor.id);
+
+// Get the list of vendor folders in the vendor directory
+const vendorFolders = fs
+  .readdirSync('./vendor', { withFileTypes: true })
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => dirent.name);
+
+// Check for vendor folders that are not listed in the vendor/index.yaml
+const vendorsNotInIndex = vendorFolders.filter((folderName) => !vendorIds.includes(folderName));
+
+if (vendorsNotInIndex.length > 0) {
+  console.error(
+    `Vendors found in the 'vendor' folder that are not listed in ${options.vendor} index:\n${vendorsNotInIndex.join(
+      ', '
+    )}`
+  );
+  process.exit(1);
+} else {
+  console.log(`All vendors in the 'vendor' folder are listed in ${options.vendor} index.`);
+}
+
+// Validate vendors index
 if (!validateVendorsIndex(vendors)) {
   console.error(`${options.vendor} index is invalid: ${formatValidationErrors(validateVendorsIndex.errors)}`);
   process.exit(1);
@@ -190,9 +243,21 @@ console.log(`vendor index: valid`);
 
 const vendorProfiles = {};
 
+const vendorIDToValidate = options['vendor-id'];
+
+if (vendorIDToValidate && !vendors.vendors.some((v) => v.id === vendorIDToValidate)) {
+  console.error(`Specified vendor ID '${vendorIDToValidate}' does not exist in the repository.`);
+  process.exit(1);
+}
+
 vendors.vendors.forEach((v) => {
+  if (vendorIDToValidate && v.id !== vendorIDToValidate) {
+    return;
+  }
+
   const key = v.id;
   const folder = `./vendor/${v.id}`;
+
   if (v.logo) {
     requireFile(`${folder}/${v.logo}`).catch((err) => {
       console.error(`${key}: ${err}`);
@@ -219,15 +284,34 @@ vendors.vendors.forEach((v) => {
 
     const codecs = {};
 
+    const deviceNames = {};
+
     vendor.endDevices.forEach(async (d) => {
       const key = `${v.id}: ${d}`;
-
-      const endDevice = yaml.load(fs.readFileSync(`${folder}/${d}.yaml`));
+      const endDevicePath = `${folder}/${d}.yaml`;
+      const endDevice = yaml.load(fs.readFileSync(endDevicePath));
       if (!validateEndDevice(endDevice)) {
         console.error(`${key}: invalid: ${formatValidationErrors(validateEndDevice.errors)}`);
         process.exit(1);
       }
       console.log(`${key}: valid`);
+
+      // Create a regex to check if the vendor's name is a standalone word in the device name
+      const regex = new RegExp(`\\b${v.id}\\b`, 'i'); // The 'i' flag makes it case-insensitive
+
+      if (regex.test(endDevice.name)) {
+        console.error(`Device name "${endDevice.name}" incorrectly contains the vendor's name.`);
+        process.exit(1);
+      }
+
+      if (deviceNames[endDevice.name] && deviceNames[endDevice.name] !== endDevicePath) {
+        console.error(
+          `Duplicate name "${endDevice.name}" in files: "${deviceNames[endDevice.name]}" and "${endDevicePath}".`
+        );
+        process.exit(1);
+      }
+
+      deviceNames[endDevice.name] = endDevicePath;
 
       endDevice.firmwareVersions.forEach((version) => {
         const key = `${v.id}: ${d}: ${version.version}`;
@@ -249,13 +333,20 @@ vendors.vendors.forEach((v) => {
 
         Object.keys(version.profiles).forEach(async (region) => {
           const regionProfile = version.profiles[region];
-          const key = `${v.id}: ${d}: ${region}`;
+          const key = `${v.id}: ${d}: ${version.version}: ${region}`;
           const vendorID = regionProfile.vendorID ?? v.id;
+
           if (!vendorProfiles[vendorID]) {
             vendorProfiles[vendorID] = {};
           }
+
           if (!vendorProfiles[vendorID][regionProfile.id]) {
             const profile = yaml.load(fs.readFileSync(`./vendor/${vendorID}/${regionProfile.id}.yaml`));
+            if ('vendorProfileID' in profile) {
+              console.log(`\n${key}: vendorProfileID exists. This method has been replaced with VendorIDs, see:`);
+              console.log(`https://github.com/TheThingsNetwork/lorawan-devices?tab=readme-ov-file#vendor-device-index`);
+              process.exit(1);
+            }
             if (!validateEndDeviceProfile(profile)) {
               console.error(
                 `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
@@ -331,6 +422,9 @@ vendors.vendors.forEach((v) => {
               });
           });
         }
+      } else {
+        console.error(`${key}: image is missing.`);
+        process.exit(1);
       }
     });
   });

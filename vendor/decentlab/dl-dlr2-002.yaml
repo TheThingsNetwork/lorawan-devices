@@ -1,4 +1,4 @@
-name: DL-DLR2-002
+name: DL-DLR2-002 - Pulse Counter Dry Contact Transmitter
 description: The Decentlab DL-DLR2-002 is an Analog or Digital Sensor Device for LoRaWAN® that consists of a Pulse Counter Dry Contact sensor interface.
 
 hardwareVersions:

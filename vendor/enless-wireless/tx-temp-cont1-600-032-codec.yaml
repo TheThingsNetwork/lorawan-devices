@@ -1,0 +1,27 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: enlessdecoder.js
+  # Examples (optional)
+  examples:
+    - description: TX TEMP INS 600-032
+      input:
+        fPort: 1
+        bytes: [0x00, 0x00, 0xDC, 0x0F, 0x0A, 0x01, 0xFE, 0xD0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          alarm_status:
+            temperature_1:
+              high: false
+              low: false
+          fw_version: 1
+          id: 220
+          seq_counter: 10
+          states:
+            battery: 100%
+            msg_type: normal
+          type: 15
+          values:
+            temperature_1:
+              unit: °C
+              value: -30.4

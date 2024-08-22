@@ -1,17 +1,34 @@
-name: VoBo-SL
+name: VoBo-SL - Input Endpoint
 description: The VoBo SL is a cost-effective, autonomous bridge between a single wired transmitter and a LoRaWAN® network.
-
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.01'
+    numeric: 101
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version 1.00.00
     version: '1.00.00'
     numeric: 10000
-
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.01'
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
     profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-sl-profile
+        codec: vobo-codec
       US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-sl-profile
+        codec: vobo-codec
+      AU915-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-sl-profile
+        codec: vobo-codec
+      AS923:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: vobo-sl-profile
         codec: vobo-codec
@@ -73,4 +90,4 @@ dataSheetURL: https://volleyboast.com/products/Latest/VoBoSL/DCM-SL04-A1_VoBo_SL
 
 # Photos
 photos:
-  main: vobo-sl.jpg
+  main: vobo-sl.png

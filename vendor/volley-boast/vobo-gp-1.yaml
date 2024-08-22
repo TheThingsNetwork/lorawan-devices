@@ -1,11 +1,17 @@
-name: VoBo-GP-1
+name: VoBo-GP-1 - Input Endpoint
 description: General purpose LoRaWAN bridge
-
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.06'
+    numeric: 106
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version 1.03.10
     version: '1.03.10'
     numeric: 10310
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
     profiles:
       US902-928:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
@@ -14,8 +20,34 @@ firmwareVersions:
   - # Firmware version 2.00.00
     version: '2.00.00'
     numeric: 20000
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
     profiles:
       US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+  - # Firmware version 2.01.00
+    version: '2.01.00'
+    numeric: 20100
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
+    profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      AU915-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      AS923:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: vobo-xx-profile
         codec: vobo-codec
@@ -79,4 +111,4 @@ dataSheetURL: https://volleyboast.com/products/Latest/VoBoGP1/DCM-0018-A5_VoBo_G
 
 # Photos
 photos:
-  main: vobo-gp-1.jpg
+  main: vobo-gp-1.png

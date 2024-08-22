@@ -1,0 +1,131 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dc520.js
+  # Examples (optional)
+  examples:
+    - description: event trigger upload
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x52, 0x02, 0x13, 0x00, 0x01, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x01, 0x81]
+      output:
+        data:
+          balanceCounter: 1
+          inCounter: 2
+          outCounter: 1
+          alarmBalance: 0
+          alarmIn: 0
+          alarmOut: 0
+          alarmBattery: 0
+          volt: 5
+          errorCode: 0
+          frameCounter: 1
+
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x52, 0x03, 0x12, 0x01, 0x02, 0x01, 0x00, 0x05, 0x00, 0x23, 0x00, 0x32, 0x00, 0x14, 0x14, 0x81]
+      output:
+        data:
+          firmware: '1.2'
+          uploadInterval: 1
+          originalBalance: 5
+          balanceThreshold: 35
+          inThreshold: 50
+          outThreshold: 20
+          batteryThreshold: 20
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: dc520.js
+  examples:
+    - description: change periodic upload interval to 10 hours
+      input:
+        data:
+          uploadInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+
+    - description: change balance threshold to 50
+      input:
+        data:
+          balanceThreshold: 50
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+        fPort: 3
+    - description: change in threshold to 50
+      input:
+        data:
+          inThreshold: 50
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x33, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+        fPort: 3
+    - description: change out threshold to 50
+      input:
+        data:
+          outThreshold: 50
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+        fPort: 3
+    - description: change battery threshold to 30%
+      input:
+        data:
+          batteryThreshold: 30
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x45, 0x38, 0x31]
+        fPort: 3
+    - description: change original balance to 50
+      input:
+        data:
+          originalBalance: 50
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x41, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: dc520.js
+  examples:
+    - description: change periodic upload interval to 10 hours
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 10
+    - description: change original balance to 50
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x41, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+      output:
+        data:
+          originalBalance: 50
+    - description: change balance threshold to 50
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+      output:
+        data:
+          balanceThreshold: 50
+    - description: change in threshold to 50
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x33, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+      output:
+        data:
+          inThreshold: 50
+    - description: change out threshold to 50
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x34, 0x30, 0x30, 0x33, 0x32, 0x38, 0x31]
+      output:
+        data:
+          outThreshold: 50
+    - description: change battery threshold to 30%
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x35, 0x31, 0x45, 0x38, 0x31]
+      output:
+        data:
+          batteryThreshold: 30

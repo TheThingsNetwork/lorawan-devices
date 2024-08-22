@@ -1,5 +1,5 @@
-name: rbs301-abm
-description: radio-bridge door window sensor
+name: RBS301-ABM - Movement Sensor
+description: The acceleration-based movement sensor uses an internal accelerometer to detect movement of an asset and is designed for internal use. Applications include asset monitoring, building security, shock sensing and movement detection.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -19,6 +19,10 @@ firmwareVersions:
         id: rbs301-abm-profile
         lorawanCertified: true
         codec: rbs301-abm-codec
+
+sensors:
+  - accelerometer
+
 # Photos
 photos:
   main: rbs301-abm.png

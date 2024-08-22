@@ -1,0 +1,176 @@
+uplinkDecoder:
+  fileName: dl-sdd.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x43,
+            0xe3,
+            0x00,
+            0x05,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x87,
+            0x41,
+            0x87,
+            0x7b,
+            0x87,
+            0x49,
+            0x87,
+            0x6c,
+            0x87,
+            0x6c,
+            0x87,
+            0x66,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x01,
+            0x4a,
+            0x09,
+            0xe3,
+          ]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.531
+          device_id: 17379
+          moisture_at_level_0:
+            displayName: Moisture at level 0
+            unit: '%'
+            value: 0
+          moisture_at_level_1:
+            displayName: Moisture at level 1
+            unit: '%'
+            value: 0
+          moisture_at_level_2:
+            displayName: Moisture at level 2
+            unit: '%'
+            value: 0
+          moisture_at_level_3:
+            displayName: Moisture at level 3
+            unit: '%'
+            value: 0
+          moisture_at_level_4:
+            displayName: Moisture at level 4
+            unit: '%'
+            value: 0
+          moisture_at_level_5:
+            displayName: Moisture at level 5
+            unit: '%'
+            value: 0
+          protocol_version: 2
+          salinity_at_level_0:
+            displayName: Salinity at level 0
+            value: -100
+          salinity_at_level_1:
+            displayName: Salinity at level 1
+            value: -100
+          salinity_at_level_2:
+            displayName: Salinity at level 2
+            value: -100
+          salinity_at_level_3:
+            displayName: Salinity at level 3
+            value: -100
+          salinity_at_level_4:
+            displayName: Salinity at level 4
+            value: -100
+          salinity_at_level_5:
+            displayName: Salinity at level 5
+            value: 230
+          temperature_at_level_0:
+            displayName: Temperature at level 0
+            unit: "\xB0C"
+            value: 18.57
+          temperature_at_level_1:
+            displayName: Temperature at level 1
+            unit: "\xB0C"
+            value: 19.15
+          temperature_at_level_2:
+            displayName: Temperature at level 2
+            unit: "\xB0C"
+            value: 18.65
+          temperature_at_level_3:
+            displayName: Temperature at level 3
+            unit: "\xB0C"
+            value: 19
+          temperature_at_level_4:
+            displayName: Temperature at level 4
+            unit: "\xB0C"
+            value: 19
+          temperature_at_level_5:
+            displayName: Temperature at level 5
+            unit: "\xB0C"
+            value: 18.94
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x43, 0xe3, 0x00, 0x04, 0x09, 0xe3]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.531
+          device_id: 17379
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

@@ -1,4 +1,4 @@
-name: DL-5TM
+name: DL-5TM - Legacy Soil Moisture and Temperature Sensor
 description: The Decentlab DL-5TM is equipped with a legacy soil moisture and a temperature sensor. Suitable for applications such as irrigation control, smart agriculture, parks, and golf courses.
 
 hardwareVersions:

@@ -22,19 +22,19 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        #codec: rs1xx-ext-temp-1w-sensor-codec
+        codec: rs1xx-ext-temp-1w-sensor-codec
       US902-928:
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        #codec: rs1xx-ext-temp-1w-sensor-codec
+        codec: rs1xx-ext-temp-1w-sensor-codec
       AU915-928:
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        #codec: rs1xx-ext-temp-1w-sensor-codec
+        codec: rs1xx-ext-temp-1w-sensor-codec
       AS923:
         id: rs1xx-sensor-profile
         lorawanCertified: false
-        #codec: rs1xx-ext-temp-1w-sensor-codec
+        codec: rs1xx-ext-temp-1w-sensor-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,

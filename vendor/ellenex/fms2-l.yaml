@@ -1,5 +1,5 @@
-name: FMS2-L
-description: Low power pulse counter and analogue interface for the water meter and flowmeter totalising for usage and leakage monitoring
+name: FMS2-L - Pulse Counter Sensor
+description: Low power pulse counter and analogue interface for the water meter and flowmeter totalizing for usage and leakage monitoring
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

@@ -1,4 +1,4 @@
-name: LWL02
+name: LWL02 - Water Leak Sensor
 description: LoRaWAN Water Leak Sensor
 
 # Firmware versions (at least one is mandatory)

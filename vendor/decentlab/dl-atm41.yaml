@@ -1,4 +1,4 @@
-name: DL-ATM41
+name: DL-ATM41 - Eleven Parameter Weather Station
 description: The Decentlab DL-ATM41 consists of solar radiation, precipitation, vapor pressure, barometric pressure, humidity, temperature, horizontal wind speed, wind gust, wind direction, tilt, and lighting sensors. It is suitable for smart agriculture, urban heat islands, frost alarming, microclimate, and building automation.
 
 hardwareVersions:

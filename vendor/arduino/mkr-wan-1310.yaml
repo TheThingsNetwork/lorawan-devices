@@ -1,4 +1,4 @@
-name: Arduino MKR WAN 1310
+name: MKR WAN 1310
 description: The Arduino MKR WAN 1310 is a development board that provides a practical and cost-effective solution to add LoRaWAN® connectivity for projects requiring long-range, low-power wireless communication. Sensors and actuators can be connected to the board through the analog, digital, UART, SPI, and I2C pins. The MKR WAN 1310 comes complete with an ATECC508 secure element, a battery charger, 2MByte SPI Flash, and power consumption as low as 104 uA.
 
 # Hardware versions (optional, use when you have revisions)
@@ -49,6 +49,8 @@ firmwareVersions:
         id: arduino-915-profile
         lorawanCertified: false
         codec: mkrwan1310-codec
+
+deviceType: devkit
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

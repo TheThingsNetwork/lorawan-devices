@@ -1,0 +1,19 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: cmi4130.js
+  examples:
+    - description: Itron Meter temperature, energy, volume, power, flow, flow_temperature, return_temperature, serial, and error flag.
+      input:
+        fPort: 2
+        bytes: [15, 4, 7, 225, 4, 2, 0, 4, 21, 17, 162, 76, 0, 2, 45, 62, 0, 2, 59, 12, 3, 2, 90, 166, 2, 2, 94, 96, 2, 12, 120, 25, 103, 144, 16, 2, 253, 23, 0, 0]
+      output:
+        data:
+          energy: 1323210
+          volume: 502222.5
+          power: 6.2
+          flow: 0.78
+          flow_temperature: 67.8
+          return_temperature: 60.8
+          serial: 277899033
+          error_flag: 0

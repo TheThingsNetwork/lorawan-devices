@@ -1,4 +1,4 @@
-name: TEKTELIC TUNDRA Sensor
+name: T00073xx - TUNDRA Temperature Sensor
 description: TEKTELIC’s TUNDRA Temperature Sensor is the ideal solution for maintaining optimal and consistent temperatures within cold rooms and refrigerated areas. The device can be implemented within cold storage such as fridges, coolers, cold rooms and even freezers with minimal impact on battery life or radio signal strength. The Cold Room Temperature Sensor is seamlessly integrated with TEKTELIC’s end-to-end IoT solution.
 
 # Hardware versions (optional, use when you have revisions)
@@ -40,6 +40,9 @@ firmwareVersions:
         id: t00073xx-920-profile
         lorawanCertified: true
         codec: t00067xx-codec
+
+sensors:
+  - temperature
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

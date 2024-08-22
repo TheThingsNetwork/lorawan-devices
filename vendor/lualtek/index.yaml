@@ -1,0 +1,8 @@
+endDevices:
+  - lualtek-swsi
+profileIDs:
+  '1':
+    endDeviceID: 'lualtek-swsi'
+    firmwareVersion: '0.1'
+    hardwareVersion: '0.1'
+    region: 'EU863-870'

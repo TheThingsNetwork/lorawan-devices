@@ -1,4 +1,4 @@
-name: DL-DWS
+name: DL-DWS - Weighing Scale
 description: The Decentlab DL-DWS is a WEIGHING SCALE FOR LoRaWAN® that comes with a ‘vibrating wire for weight’ sensor. Suitable for applications such as logistics, inventory, and weighing.
 
 hardwareVersions:

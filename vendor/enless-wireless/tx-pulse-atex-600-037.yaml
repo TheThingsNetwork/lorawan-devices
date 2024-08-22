@@ -1,0 +1,79 @@
+name: 600-037 - Pulse Meter sensor - ATEX Approved(Gas)
+description: This LoRaWAN pulse transmitter has been specially designed for pulse counting applications on gas meters with a dry contact interface or an open collector inlet.ATEX approved – Explosives Atmospheres – Zone 0, this transmitter allows the remote reading of the data from the gas meter to which it is connected without any manual intervention. In other words, this transmitter will quickly and economically transform your conventional gas meter into a smart meter.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: enless-profile-868
+        lorawanCertified: true
+        codec: tx-pulse-atex-600-037-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - pulse count
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 43
+  length: 118
+  height: 79
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3.6V lithium battery 3.6Ah
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 55
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://enless-wireless.com/en/products/pulse-meter-sensor-atex-approved-gas-lora/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-037.pdf
+
+# Photos
+photos:
+  main: 600-037.png
+# Regulatory compliances (optional)

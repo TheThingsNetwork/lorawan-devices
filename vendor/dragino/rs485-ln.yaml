@@ -1,4 +1,4 @@
-name: RS485-LN
+name: RS485-LN - RS485 to LoRaWAN®
 description: The Dragino RS485-LN is an RS485 to LoRaWAN® converter. It allows the RS485 devices to use LoRaWAN wireless protocol which simplifies the IoT installation and reduces the installation/maintaining cost.
 
 # Hardware versions (optional, use when you have revisions)
@@ -61,17 +61,9 @@ firmwareVersions:
         id: kr920-c-abp-profile
       RU864-870:
         id: ru864-c-abp-profile
-# Sensors that this device features (optional)
-# Valid values are:
-# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
-# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
-# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
-# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
-# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
-# water potential, water, weight, wifi ssid, wind direction, wind speed.
-#sensors:
-#  - wind direction
-#  - wind speed
+
+bridgeInterfaces:
+  - rs-485
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

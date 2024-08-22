@@ -1,4 +1,4 @@
-name: DL-OPTOD
+name: DL-OPTOD - Optical Dissolved Oxygen and Temperature Sensor
 description: The Decentlab DL-OPTOD consists of dissolved oxygen and temperature sensors. It is suitable for use in wastewater treatment, industrial effluent treatment, open water monitoring, fish farming, aquarium, and drinking water monitoring.
 
 hardwareVersions:

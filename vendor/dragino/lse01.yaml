@@ -1,6 +1,5 @@
-name: LSE01
+name: LSE01 - Soil Moisture & EC Sensor
 description: The Dragino LSE01 consists of soil moisture, soil temperature, and soil conductivity sensors. It is suitable for smart agriculture applications. The measured data is sent to the LoRaWAN® network.
-
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
@@ -50,12 +49,8 @@ firmwareVersions:
 
   - version: '1.1.4'
     numeric: 2
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
         codec: lse01-114-codec
@@ -93,13 +88,9 @@ firmwareVersions:
         codec: lse01-114-codec
 
   - version: '1.1.6'
-    numeric: 2
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    numeric: 3
     profiles:
       EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: true
         codec: lse01-114-codec
@@ -140,6 +131,46 @@ firmwareVersions:
     numeric: 4
     profiles:
       EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+
+  - version: 'lse01 1.1.1 abp'
+    numeric: 5
+    profiles:
+      EU863-870:
         id: eu868-a-abp-profile
         lorawanCertified: true
         codec: lse01-codec
@@ -177,7 +208,7 @@ firmwareVersions:
         codec: lse01-codec
 
   - version: 'lse01 abp 1.1.4'
-    numeric: 5
+    numeric: 6
     profiles:
       EU863-870:
         id: eu868-a-abp-profile
@@ -215,6 +246,46 @@ firmwareVersions:
         id: ru864-a-abp-profile
         lorawanCertified: true
         codec: lse01-114-codec
+
+  - version: 'LSE01 1.2.1 abp'
+    numeric: 7
+    profiles:
+      EU863-870:
+        id: eu868-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      EU433:
+        id: eu433-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      US902-928:
+        id: us915-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      AU915-928:
+        id: au915-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      AS923:
+        id: as923-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      CN470-510:
+        id: cn470-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      IN865-867:
+        id: in865-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      KR920-923:
+        id: kr920-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
+      RU864-870:
+        id: ru864-a-abp-profile
+        lorawanCertified: true
+        codec: lse01-121-codec
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -224,9 +295,7 @@ firmwareVersions:
 # sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - moisture
-  - conductivity
-#  - wind speed
+  - water
 
 # Product and data sheet URLs (optional)
 productURL: http://www.dragino.com/products/lora-lorawan-end-node/item/159-lse01.html
@@ -240,5 +309,3 @@ sellerURLs:
 # Photos
 photos:
   main: lse01.jpg
-  # other:
-  #   - lseo1-10.jpg

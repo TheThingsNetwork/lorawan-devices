@@ -1,5 +1,5 @@
-name: LHT65N
-description: The Dragino LHT65N consists of a water leak sensor that detects the water leak status and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
+name: LHT65N - Water Leak Sensor
+description: The Dragino LHT65N Temperature & Humidity sensor is a Long Range LoRaWAN Sensor. It includes a built-in Temperature & Humidity sensor and has an external sensor connector to connect to an external Temperature Sensor.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:

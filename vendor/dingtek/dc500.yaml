@@ -1,4 +1,4 @@
-name: dc500
+name: DC500 - People Counter
 description: The CNDingtek dc500 is a pir people counter, which calculate the people number.
 
 # Hardware versions (optional, use when you have revisions)

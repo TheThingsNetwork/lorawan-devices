@@ -1,0 +1,20 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: people-flow-counting-m.js
+  # Examples (optional)
+  examples:
+    # Example 1
+    - description: Counting data uplink with specific flags and counts
+      input:
+        fPort: 82
+        bytes: [0, 0, 0, 10, 0, 0, 0, 5, 4]
+      output:
+        data:
+          count_in: 10
+          count_out: 5
+          flags:
+            NETWORK_ON: 1
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)

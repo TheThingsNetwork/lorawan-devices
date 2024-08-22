@@ -1,4 +1,4 @@
-name: LW004
+name: LW004 - Panic Button
 description: LW004 is LoRaWAN based panic button with positioning function, with a compact and smart outlook, and easy to use. It integrates BLE and GPS that is specially designed for indoor and outdoor positioning of object or person.
 
 # Hardware versions (optional, use when you have revisions)

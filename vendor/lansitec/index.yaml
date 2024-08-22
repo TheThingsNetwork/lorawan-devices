@@ -1,0 +1,13 @@
+endDevices:
+  - badge-tracker
+  - indoor-bluetooth-gateway
+  - macro-bluetooth-gateway
+  - solar-bluetooth-gateway
+  - container-tracker
+  - helmet-sensor
+  - temperature-humidity-sensor
+  - precision-platinum-sensor
+  - compact-bluetooth-gateway
+  - socket-sync-bluetooth-gateway
+  - tracking-label
+  - contact-tracing-badge

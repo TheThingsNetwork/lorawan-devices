@@ -1,4 +1,4 @@
-name: RHF3MR01
+name: RHF3MR01 - Signal Relay
 description:
   The RisingHF RHF3MR01 auk bridge relay consists of a relay, buttons, and LED indicators. It can be used to turn on and off any electronic or electrical appliance remotely through the LoRaWAN® network.
 
@@ -72,10 +72,8 @@ firmwareVersions:
 # power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
-#sensors:
-#  - wind direction
-#  - wind speed
-
+sensors:
+  - button
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
 #additionalRadios:

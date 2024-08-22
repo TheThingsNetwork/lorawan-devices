@@ -1,4 +1,4 @@
-name: Modbus classe C
+name: Modbus classe C - Modbus Interface
 description: The ModBus/LoRaWAN® Bridge collects data from any ModBus RTU existing equipment and connects these devices to a public or private LoRaWAN® network. The Bridge has the capability to change the behaviour of the ModBus device by writing into its registers.
 
 # Hardware versions (optional, use when you have revisions)
@@ -33,7 +33,7 @@ firmwareVersions:
         # which is verbose.
         vendorID: nke-watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: modbus-classe-a-sensor-profile
+        id: modbus-classe-c-sensor-profile
         lorawanCertified: true
         codec: modbus-sensor-codec
 
@@ -53,7 +53,8 @@ firmwareVersions:
 
 # Bridge interfaces (optional)
 # Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
-bridgeInterfaces: modbus
+bridgeInterfaces:
+  - modbus
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
