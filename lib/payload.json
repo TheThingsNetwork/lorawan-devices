@@ -178,9 +178,9 @@
               },
               "additionalProperties": false
             },
-            "doorState": {
+            "contactState": {
               "type": "string",
-              "description": "State of door or window",
+              "description": "State of a contact sensor",
               "enum": ["OPEN", "CLOSE"]
             }
           },

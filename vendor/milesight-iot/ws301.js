@@ -49,7 +49,7 @@ function normalizeUplink(input) {
     return {
         data: {
             action: {
-                doorState: input.data.door.toUpperCase()
+                contactState: input.data.door.toUpperCase()
             },
             battery: input.data.battery,
         }

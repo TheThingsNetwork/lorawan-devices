@@ -109,7 +109,7 @@ function normalizeUplink(input) {
           },
         ],
         action: {
-          doorState: input.data.Door_status
+          contactState: input.data.Door_status
         },
         battery: input.data.BatV,
       }

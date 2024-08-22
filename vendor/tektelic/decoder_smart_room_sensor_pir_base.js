@@ -813,7 +813,7 @@ function normalizeUplink(input) {
     }
 
     if (input.data.reed_state) {
-      action.doorState = input.data.reed_state;
+      action.contactState = input.data.reed_state;
     }
   
     if (Object.keys(air).length > 0) {
