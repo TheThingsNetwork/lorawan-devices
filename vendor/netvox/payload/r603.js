@@ -81,49 +81,49 @@ function getDeviceID(devName){
 }
 function getSirenNoType(id){
 	var type = {
-		"0X00":"EmergencyMode",
-		"0X01":"Doorbel",
-		"0X02":"Burglar",
-		"0X03":"FireMode",
-		"0X04":"Help",
-		"0X05":"No Smoking",
-		"0X06":"Poor Air Quality",
-		"0X07":"The temperature is too high",
-		"0X08":"Thief",
-		"0X09":"Welcome"
+		0X00:"EmergencyMode",
+		0X01:"Doorbel",
+		0X02:"Burglar",
+		0X03:"FireMode",
+		0X04:"Help",
+		0X05:"No Smoking",
+		0X06:"Poor Air Quality",
+		0X07:"The temperature is too high",
+		0X08:"Thief",
+		0X09:"Welcome"
 	};
 	return type[id];
 }
 function getSirenNoTypeByName(name){
 	var typeList = {
-		"EmergencyMode":"0X00",
-		"Doorbel":"0X01",
-		"Burglar":"0X02",
-		"FireMode":"0X03",
-		"Help":"0X04",
-		"No Smoking":"0X05",
-		"Poor Air Quality":"0X06",
-		"The temperature is too high":"0X07",
-		"Thief":"0X08",
-		"Welcome":"0X09"
+		"EmergencyMode":0X00,
+		"Doorbel":0X01,
+		"Burglar":0X02,
+		"FireMode":0X03,
+		"Help":0X04,
+		"No Smoking":0X05,
+		"Poor Air Quality":0X06,
+		"The temperature is too high":0X07,
+		"Thief":0X08,
+		"Welcome":0X09
 	};
-	return typeList[id];
+	return typeList[name];
 }
 function getStrobeModeType(id){
 	var type = {
-		"0X00":"NoLedIndication",
-		"0X01":"LedBlinkMode1 in Parallel to Warning",
-		"0X02":"LedBlinkMode2 in Parallel to Warning"
+		0X00:"NoLedIndication",
+		0X01:"LedBlinkMode1 in Parallel to Warning",
+		0X02:"LedBlinkMode2 in Parallel to Warning"
 	};
 	return type[id];
 }
 function getStrobeModeTypeByName(name){
 	var typeList = {
-		"NoLedIndication":"0X00",
-		"LedBlinkMode1 in Parallel to Warning":"0X01",
-		"LedBlinkMode2 in Parallel to Warning":"0X02"
+		"NoLedIndication":0X00,
+		"LedBlinkMode1 in Parallel to Warning":0X01,
+		"LedBlinkMode2 in Parallel to Warning":0X02
 	};
-	return typeList[id];
+	return typeList[name];
 }
 function padLeft(str, len) {
     str = '' + str;
@@ -141,8 +141,8 @@ function decodeUplink(input) {
 		if (input.bytes[2] === 0x00)
 		{
 			data.Device = getDeviceName(input.bytes[1]);
-			data.HWver =  input.bytes[3];
-			data.SWver =  input.bytes[4];
+			data.SWver =  input.bytes[3]/10;
+			data.HWver =  input.bytes[4];
 			data.Datecode = padLeft(input.bytes[5].toString(16), 2) + padLeft(input.bytes[6].toString(16), 2) + padLeft(input.bytes[7].toString(16), 2) + padLeft(input.bytes[8].toString(16), 2);
 			
 			return {
@@ -298,9 +298,9 @@ function decodeDownlink(input) {
 		}
 		else if (input.bytes[0] === getCmdToID("SetLEDColorReq"))
 		{
-			data.Red= getSirenNoType(input.bytes[2]);
+			data.Red= input.bytes[2];
 			data.Green=input.bytes[3];
-			data.Blue=getStrobeModeType(input.bytes[4])
+			data.Blue=input.bytes[4];
 		}
 		break;
 		

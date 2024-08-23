@@ -102,23 +102,23 @@ function getDeviceID(devName){
 
 function getSmokesensorSensitivityType(id){
 	var type = {
-		"0X00": "accroding the hardware sensitivity knob",
-		"0X01":"Level1",
-		"0X02":"Level2",
-		"0X03":"Level3",
-		"0X04":"Level4",
+		0X00:"accroding the hardware sensitivity knob",
+		0X01:"Level1",
+		0X02:"Level2",
+		0X03:"Level3",
+		0X04:"Level4",
 	};
 	return type[id];
 }
 function getTypeByName(name){
 	var typeList = {
 		"accroding the hardware sensitivity knob":"0X00",
-		"Level1":"0X01",
-		"Level2":"0X02",
-		"Level3":"0X03",
-		"Level4":"0X04"
+		"Level1":0X01,
+		"Level2":0X02,
+		"Level3":0X03,
+		"Level4":0X04
 	};
-	return typeList[id];
+	return typeList[name];
 }
 function padLeft(str, len) {
     str = '' + str;
@@ -136,8 +136,8 @@ function decodeUplink(input) {
 		if (input.bytes[2] === 0x00)
 		{
 			data.Device = getDeviceName(input.bytes[1]);
-			data.HWver =  input.bytes[3];
-			data.SWver =  input.bytes[4];
+			data.SWver =  input.bytes[3]/10;
+			data.HWver =  input.bytes[4];
 			data.Datecode = padLeft(input.bytes[5].toString(16), 2) + padLeft(input.bytes[6].toString(16), 2) + padLeft(input.bytes[7].toString(16), 2) + padLeft(input.bytes[8].toString(16), 2);
 			
 			return {
@@ -156,8 +156,8 @@ function decodeUplink(input) {
 		
 		data.IncenseSmokeAlarm = (input.bytes[4] == 0x00) ? 'No Alarm' : 'Alarm';
 		data.HighSoundAlarm = (input.bytes[5] == 0x00) ? 'No Alarm' : 'Alarm';
-		data.ShockTamperAlarm = (input.bytes[4] == 0x00) ? 'No Alarm' : 'Alarm';
-		data.PowerOffAlarm = (input.bytes[5] == 0x00) ? 'No Alarm' : 'Alarm';
+		data.TemShockTamperAlarmp = (input.bytes[6] == 0x00) ? 'No Alarm' : 'Alarm';
+		data.PowerOffAlarm = (input.bytes[7] == 0x00) ? 'No Alarm' : 'Alarm';
 		break;
 		
 	case 7:
@@ -191,7 +191,7 @@ function decodeUplink(input) {
 			data.HighSoundAlarmTriggerDuration = (input.bytes[4]<<8 | input.bytes[5]);
 		}else if (input.bytes[0] === getCmdToID("GetBeeperDurationRsp"))
 		{
-			data.BeeperDuration = input.bytes[2]+input.bytes[3] ==0?"DisableBeeper":input.bytes[2]+input.bytes[3];
+			data.BeeperDuration = (input.bytes[2]<<8 | input.bytes[3]) ==0?"DisableBeeper":(input.bytes[2]<<8 | input.bytes[3]);
 			data.AlarmSoundLevel = input.bytes[4];
 		}else if (input.bytes[0] === getCmdToID("GetSmokeDebounceandResumeCheckTimeRsp"))
 		{
@@ -251,7 +251,7 @@ function encodeDownlink(input) {
   {
 	  var highSoundAlarmThreshold = input.data.HighSoundAlarmTriggerThreshold;
 	  var highSoundAlarmDuration = input.data.HighSoundAlarmTriggerDuration;
-	  ret = ret.concat(getCmdID, devid, (highSoundAlarmThreshold >> 8), (highSoundAlarmThreshold & 0xFF), highSoundAlarmDuration, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+	  ret = ret.concat(getCmdID, devid, (highSoundAlarmThreshold >> 8), (highSoundAlarmThreshold & 0xFF),(highSoundAlarmDuration >> 8), (highSoundAlarmDuration & 0xFF), 0x00, 0x00, 0x00, 0x00, 0x00);
   }
   else if (input.data.Cmd == "SetBeeperDurationReq")
   {
@@ -298,7 +298,7 @@ function decodeDownlink(input) {
 		}
 		else if (input.bytes[0] === getCmdToID("SetBeeperDurationReq"))
 		{
-			data.BeeperDuration = input.bytes[2]+input.bytes[3] ==0?"DisableBeeper":input.bytes[2]+input.bytes[3];
+			data.BeeperDuration = (input.bytes[2]<<8 | input.bytes[3]) ==0?"DisableBeeper":(input.bytes[2]<<8 | input.bytes[3]);
 			data.AlarmSoundLevel = input.bytes[4];
 		}
 		else if (input.bytes[0] === getCmdToID("SetSmokeDebounceandResumeCheckTimeReq"))

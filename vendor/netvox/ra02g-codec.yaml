@@ -8,8 +8,8 @@ uplinkDecoder:
       output:
         data:
           Device: 'RA02G'
-          SWver: 64
-          HWver: 15
+          SWver: 10
+          HWver: 21
           Datecode: '20200811'
 
     - description: Status report
@@ -99,72 +99,8 @@ uplinkDecoder:
           SmokeDebounceTIme: 528
           SmokeResumeTime: 22
 
-    - description: Read configure report response
-      input:
-        fPort: 7
-        bytes: [0x01, 0xD7, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
-      output:
-        data:
-          Cmd: 'ConfigReportReq'
-          Device: 'RA02G'
-          MinTime: 900
-          MaxTime: 1800
-
-    - description: Read configure report response
-      input:
-        fPort: 7
-        bytes: [0x03, 0xD7, 0x00, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
-      output:
-        data:
-          Cmd: 'SetSmokeSensitivityReq'
-          Device: 'RA02G'
-          MinTiSmokesensorSensitivityme: 'accroding the hardware sensitivity knob'
-
-    - description: Read configure report response
-      input:
-        fPort: 7
-        bytes: [0x05, 0xD7, 0x13, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
-      output:
-        data:
-          Cmd: 'SetShockSensorSensitivityReq'
-          Device: 'RA02G'
-          ShockSensorSensitivity: 19
-
-    - description: Read configure report response
-      input:
-        fPort: 7
-        bytes: [0x07, 0xD7, 0x03, 0x18, 0x07, 0x18, 0x01, 0x00, 0x00, 0x00, 0x00]
-      output:
-        data:
-          Cmd: 'SetHighSoundAlarmTriggerThresholdTimeReq'
-          Device: 'RA02G'
-          HighSoundAlarmTriggerThreshold: 782
-          HighSoundAlarmTriggerDuration: 1816
-
-    - description: Read configure report response
-      input:
-        fPort: 7
-        bytes: [0x09, 0xD7, 0x03, 0x12, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
-      output:
-        data:
-          Cmd: 'SetBeeperDurationReq'
-          Device: 'RA02G'
-          BeeperDuration: 786
-          AlarmSoundLevel: 7
-
-    - description: Read configure report response
-      input:
-        fPort: 7
-        bytes: [0x0C, 0xD7, 0x06, 0x04, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
-      output:
-        data:
-          Cmd: 'SetSmokeDebounceandResumeCheckTimeReq'
-          Device: 'RA02G'
-          SmokeDebounceTIme: 1540
-          SmokeResumeTime: 7
-
 downlinkDecoder:
-  fileName: payload/RA02G.js
+  fileName: payload/ra02g.js
   examples:
     - description: Configure report request
       input:
@@ -205,7 +141,7 @@ downlinkDecoder:
         data:
           Cmd: 'SetHighSoundAlarmTriggerThresholdTimeReq'
           Device: 'RA02G'
-          HighSoundAlarmTriggerThreshold: 782
+          HighSoundAlarmTriggerThreshold: 792
           HighSoundAlarmTriggerDuration: 1816
 
     - description: Read configure report response
@@ -231,7 +167,7 @@ downlinkDecoder:
           SmokeResumeTime: 7
 
 downlinkEncoder:
-  fileName: payload/RA02G.js
+  fileName: payload/ra02g.js
   examples:
     - description: Configure report request
       input:
@@ -242,7 +178,7 @@ downlinkEncoder:
           MaxTime: 1800
       output:
         fPort: 7
-        bytes: [0x01, 0xD7, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x01, 0xD7, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
 
     - description: Read configure report request
       input:
@@ -262,18 +198,18 @@ downlinkEncoder:
           ShockSensorSensitivity: 19
       output:
         fPort: 7
-        bytes: [0x05, 0xD7, 0x13, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x05, 0xD7, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
 
     - description: Read configure report request
       input:
         data:
           Cmd: 'SetHighSoundAlarmTriggerThresholdTimeReq'
           Device: 'RA02G'
-          HighSoundAlarmTriggerThreshold: 782
+          HighSoundAlarmTriggerThreshold: 792
           HighSoundAlarmTriggerDuration: 1816
       output:
         fPort: 7
-        bytes: [0x07, 0xD7, 0x03, 0x18, 0x07, 0x18, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x07, 0xD7, 0x03, 0x18, 0x07, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00]
 
     - description: Read configure report request
       input:
@@ -284,7 +220,7 @@ downlinkEncoder:
           AlarmSoundLevel: 7
       output:
         fPort: 7
-        bytes: [0x09, 0xD7, 0x03, 0x12, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x09, 0xD7, 0x03, 0x12, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
 
     - description: Read configure report request
       input:
@@ -295,4 +231,4 @@ downlinkEncoder:
           SmokeResumeTime: 7
       output:
         fPort: 7
-        bytes: [0x0C, 0xD7, 0x06, 0x04, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+        bytes: [0x0C, 0xD7, 0x06, 0x04, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
