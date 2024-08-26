@@ -208,7 +208,7 @@ function normalizeUplink(input) {
         },
       ],
       action: {
-        contactState: input.data.Door_status
+        contactState: input.data.Door_status ? "OPEN":"CLOSED"
       },
       battery: input.data.BatV,
     }
