@@ -1,0 +1,10 @@
+uplinkDecoder:
+  fileName: acr-cv-101l-m-x.js
+  examples:
+    - description: 32 knots from the North
+      input:
+        fPort: 1
+        bytes: [01, 01, 68, 13, 13, 68, 08, 05, 73, 78, 56, 34, 12, 0a, 00, e9, 7e, 01, 00, 00, 00, 35, 01, 00, 00, 3c, 16]
+      output:
+        data:
+          parsed: {"len":25,"type":"Data","l":19,"c":8,"a":5,"ci":115,"errors":[],"fixed":true,"id":12345678,"accessN":10,"status":0,"cStored":"Actual","deviceCode":7,"deviceType":"Water meter","data":[{"id":0,"storage":0,"func":"Instantaneous","value":1,"unit":"l"},{"id":1,"storage":1,"func":"Instantaneous","value":135,"unit":"l"}]}
