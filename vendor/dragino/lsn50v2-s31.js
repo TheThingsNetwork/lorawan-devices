@@ -109,7 +109,7 @@ function normalizeUplink(input) {
           },
         ],
         action: {
-          contactState: input.data.Door_status ? "OPEN":"CLOSED"
+          contactState: input.data.Door_status === "CLOSE" ? "CLOSED" : input.data.Door_status === "OPEN" ? "OPEN" : undefined
         },
         battery: input.data.BatV,
       }
