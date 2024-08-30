@@ -17,7 +17,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         lorawanCertified: true
-        id: acr-slc-profile
+        id: acr-slc-100l-zhaga-dali-profile
 
 sensors:
   - light
@@ -66,8 +66,8 @@ msrp:
 
 photos:
   main: acr-slc-100l-zhaga-dali.png
-  other: acr-slc-100l-zhaga-dali-top.png
-
+  other:
+    - acr-slc-100l-zhaga-dali-top.png
 
 compliances:
   safety:

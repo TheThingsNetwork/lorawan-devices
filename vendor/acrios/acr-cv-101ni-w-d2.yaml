@@ -1,0 +1,95 @@
+name: Wireless M-Bus to LoRaWAN® Converter
+description: Battery-powered ACRIOS Systems IoT converter working as Wireless M-Bus to LoRaWAN® (NB-IoT HW - LoRaWAN FW) bridge with implemented LUA scripting interface. The LUA scripting interface allows for message buffering, message splitting, LoRaWAN communication class changes, implementation of custom Wireless M-Bus protocols as well as other operations on the hardware level.
+
+hardwareVersions:
+  - version: 'ACR-CV-101NI-W-D_v4.1'
+    numeric: 1
+
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - 'ACR-CV-101NI-W-D_v4.1'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        vendorID: acrios
+        id: acr-cv-otaa-profile
+        lorawanCertified: true
+
+additionalRadios:
+  - cellular
+
+dimensions:
+  width: 145
+  length: 90
+  height: 55
+
+weight: 475
+
+battery:
+  replaceable: true
+
+operatingConditions:
+  temperature:
+    min: -30
+    max: 60
+  relativeHumidity:
+    min: 0
+    max: 0.85
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+
+keyProgramming:
+  - serial
+  - firmware
+
+keySecurity: read protected
+
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+
+productURL: https://www.acrios.com/converters/wm-bus-nb-iot
+dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101ni-w-x/
+
+resellerURLs:
+  - name: 'ACRIOS Systems'
+    region:
+      - European Union
+    url: https://www.acrios.com/
+
+msrp:
+  EUR: 199
+
+photos:
+  main: acr-cv-101ni-w-d2.png
+  other:
+    - acr-cv-101ni-w-d2-top.png
+    - acr-cv-101ni-w-d2-inside.png
+    - acr-cv-101ni-w-d2-battery.png
+
+videos:
+  main: https://www.youtube.com/watch?v=UXfMkgXZw1c&t=488s
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

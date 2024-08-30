@@ -45,9 +45,9 @@ keyProgramming:
 keySecurity: read protected
 
 productURL: https://acrios.com/m-bus-iot-prevodnik/?lang=en#
-
 dataSheetURL: https://acrios.com/wp-content/uploads/2023/02/ACR-CV-101L-M-D.pdf
 
 photos:
   main: acr-cv-101l-x-d.png
-  other: acr-cv-101l-x-d-top.png
+  other:
+    - acr-cv-101l-x-d-top.png
