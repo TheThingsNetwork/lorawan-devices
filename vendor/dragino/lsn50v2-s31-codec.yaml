@@ -10,8 +10,8 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              - temperature: 25.2
-                relativeHumidity: 51.7
+              temperature: 25.2
+              relativeHumidity: 51.7
             action:
               contactState: 'OPEN'
             battery: 2.9

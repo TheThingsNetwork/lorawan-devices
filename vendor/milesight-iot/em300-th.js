@@ -60,12 +60,10 @@ function Decoder(bytes, port) {
 function normalizeUplink(input) {
   return {
     data: {
-      air: [
-        {
+      air: {
           temperature: input.data.temperature,
           relativeHumidity: input.data.humidity
-        },
-      ],
+      },
       battery: input.data.battery,
     }
   };

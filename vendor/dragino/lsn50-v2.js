@@ -201,12 +201,10 @@ default:
 function normalizeUplink(input) {
   return {
     data: {
-      air: [
-        {
+      air: {
           temperature: input.data.TempC_SHT,
           relativeHumidity: input.data.Hum_SHT,
-        },
-      ],
+      },
       action: {
         contactState: input.data.Door_status === "CLOSE" ? "CLOSED" : input.data.Door_status === "OPEN" ? "OPEN" : undefined
       },

@@ -17,6 +17,6 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              - temperature: 22.8
-                relativeHumidity: 25.0
+              temperature: 22.8
+              relativeHumidity: 25.0
             battery: 3.5

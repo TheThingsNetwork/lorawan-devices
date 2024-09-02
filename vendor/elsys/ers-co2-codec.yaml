@@ -18,9 +18,9 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - air:
-              - temperature: 22.6
-                relativeHumidity: 41
-                lightIntensity: 39
+              temperature: 22.6
+              relativeHumidity: 41
+              lightIntensity: 39
             action:
               motion:
                 detected: true

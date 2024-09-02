@@ -194,11 +194,9 @@ function decodeUplink(input) {
 function normalizeUplink(input) {
 	return {
 	  	data: {
-			air: [
-				{
-					temperature: input.data.temperature.value,
-				},
-			],
+			air: {
+				temperature: input.data.temperature.value,
+			},
 		  	battery: input.data.battery
 		}
 	};

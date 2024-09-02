@@ -102,40 +102,37 @@
           "additionalProperties": false
         },
         "air": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "location": {
-                "type": "string",
-                "enum": ["indoor", "outdoor"],
-                "description": "Specifies whether the measurement was taken indoors or outdoors."
-              },
-              "temperature": {
-                "description": "Air temperature (°C)",
-                "$ref": "#/definitions/temperature"
-              },
-              "relativeHumidity": {
-                "description": "Relative humidity (%)",
-                "$ref": "#/definitions/percentage"
-              },
-              "pressure": {
-                "type": "number",
-                "description": "Atmospheric pressure (hPa)",
-                "minimum": 900,
-                "maximum": 1100
-              },
-              "co2": {
-                "description": "Concentration of CO2 in the air (ppm)",
-                "$ref": "#/definitions/concentration"
-              },
-              "lightIntensity": {
-                "description": "Light intensity (lux)",
-                "$ref": "#/definitions/illuminance"
-              }
+          "type": "object",
+          "properties": {
+            "location": {
+              "type": "string",
+              "enum": ["indoor", "outdoor"],
+              "description": "Specifies whether the measurement was taken indoors or outdoors."
             },
-            "additionalProperties": false
-          }
+            "temperature": {
+              "description": "Air temperature (°C)",
+              "$ref": "#/definitions/temperature"
+            },
+            "relativeHumidity": {
+              "description": "Relative humidity (%)",
+              "$ref": "#/definitions/percentage"
+            },
+            "pressure": {
+              "type": "number",
+              "description": "Atmospheric pressure (hPa)",
+              "minimum": 900,
+              "maximum": 1100
+            },
+            "co2": {
+              "description": "Concentration of CO2 in the air (ppm)",
+              "$ref": "#/definitions/concentration"
+            },
+            "lightIntensity": {
+              "description": "Light intensity (lux)",
+              "$ref": "#/definitions/illuminance"
+            }
+          },
+          "additionalProperties": false
         },
         "wind": {
           "type": "object",

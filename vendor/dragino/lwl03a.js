@@ -147,15 +147,20 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
-  var data = {};
-  var water = {};
+  var data = [];
 
   if (input.data.WATER_LEAK_STATUS) {
-    water.leak = input.data.WATER_LEAK_STATUS ? true : false
+    data.push({
+      water: {
+        leak: input.data.WATER_LEAK_STATUS === "LEAK"
+      }
+    });
   }
 
-  if (Object.keys(water).length > 0) {
-    data.water = water;
+  if (input.data.BAT) {
+    data.push({
+      battery: input.data.BAT
+    });
   }
 
   return { data: data };

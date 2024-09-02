@@ -3484,12 +3484,10 @@ function decodeUplink(input) {
 function normalizeUplink(input) {
     return {
       data: {
-          air: [
-            {
+          air: {
                 temperature: input.data.temperature,
                 relativeHumidity: input.data.humidity,
             }
-          ]
     }
   }
 }

@@ -70,25 +70,32 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
-  var data = {
-    air: [
-      {
+  var data = [];
+
+  if (input.data.TempC_SHT) {
+    data.push({
+      air: {
         location: "indoor",
         temperature: input.data.TempC_SHT,
         relativeHumidity: input.data.Hum_SHT,
-      },
-      {
+      }
+    });
+  }
+
+  if (input.data.TempC_DS) {
+    data.push({
+      air: {
         location: "outdoor",
         temperature: input.data.TempC_DS
       }
-    ]
-  };
+    });
+  }
 
-  if (input.data.battVolt) {
-    data.battery = input.data.battVolt;
+  if (input.data.Bat_mV) {
+    data.push({
+      battery: input.data.Bat_mV
+    });
   }
 
   return { data: data };
 }
-
-

@@ -399,12 +399,10 @@ function normalizeUplink(input) {
 
   return {
     data: {
-        air: [
-          {
+        air: {
             temperature: input.data.sensorTemperature,
             relativeHumidity: input.data.relativeHumidity,
-          },
-        ],
+        },
         battery: input.data.batteryVoltage,
     },
     warnings: warnings
