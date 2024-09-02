@@ -2079,3 +2079,22 @@ vendors:
     social:
       linkedin: https://www.linkedin.com/company/cicicom-ltd
       facebook: https://www.facebook.com/cicicom
+
+  - id: atomsenses
+    name: Atomsenses
+    description: Atomsenses is a specialist IoT solution provider focusing on Lorawan sensors for indoor air quality monitoring, our vision is to transform how we manage and maintain healthy indoor environments.
+    logo: atomsenses.png
+    website: https://www.atomsenses.com/
+    social:
+      linkedin: https://www.linkedin.com/company/atomsenses-iot
+      github: Atomsenses
+
+  - id: jooby
+    name: Jooby
+    description: Jooby offers smart lighting and automates power, gas, heat, and water readings.
+    vendorID: 670
+    logo: jooby.png
+    website: https://jooby.eu/
+    social:
+      facebook: https://www.facebook.com/jooby.eu
+      github: jooby-dev
