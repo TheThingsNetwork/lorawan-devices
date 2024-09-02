@@ -595,7 +595,7 @@ vendors:
     name: PMX Systems AG
     vendorID: 1141
     website: https://www.pmx.systems
-    logo: pmx-logo.svg    
+    logo: pmx-logo.svg
     description: PMX Systems AG is a Swiss company specialising in smart outdoor sensors.
     social:
       linkedin: https://www.linkedin.com/company/pmx-systems
