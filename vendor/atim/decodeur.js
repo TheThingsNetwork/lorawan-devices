@@ -22,8 +22,12 @@ function decodeUplink(input) {
       errors: errors,
       warnings: warnings
     };
+<<<<<<< HEAD
 }
 
+=======
+};
+>>>>>>> master
 
 function postProcess(data, decoded) {
     /*gamme acw*/
@@ -42,7 +46,11 @@ function postProcess(data, decoded) {
     postProcessPeriode(decoded,data);
     postProcessTension(decoded,data);
     postProcessSpecifique(decoded,data);
+<<<<<<< HEAD
     postProcessHistoEchan(decoded,data);
+=======
+
+>>>>>>> master
 
     /*ancien produit */
     postProcessAncienCompteur(decoded,data);
@@ -68,9 +76,15 @@ function postProcess(data, decoded) {
 function postProcessSpecifique(decoded,data){
     if(decoded.wr != undefined){
         if(decoded.wr[1]===0x01){
+<<<<<<< HEAD
             var wr = "cable Wirecut non coupé";
         }else if(decoded.wr[1]===0x20){
             var wr = "cable Wirecut coupé";
+=======
+            var wr = "câble Wirecut non coupé";
+        }else if(decoded.wr[1]===0x20){
+            var wr = "câble Wirecut coupé";
+>>>>>>> master
         }
         decoded.wr = {
                 value : wr
@@ -91,6 +105,7 @@ function  postProcessTension(decoded,data){
                 unit : "V"
         };
     }
+<<<<<<< HEAD
     if(decoded.tension != undefined){
         var valeur_echan_hist = (data.echan * data.historique);
         var valeur_tension = [];
@@ -125,6 +140,13 @@ function postProcessTypeAlerte(decoded,data){
         }
         decoded.alerte = {
                 value : res
+=======
+}
+function postProcessTypeAlerte(decoded,data){
+    if(data.typeAlerte != undefined){
+        decoded.alerte = {
+                value : data.typeAlerte,
+>>>>>>> master
         };
     }
 }
@@ -153,16 +175,35 @@ function postProcessFrameType(decoded,data){
 
 function postProcessTemp(decoded,data){
     var j = 0;
+<<<<<<< HEAD
     var valeur_temp0 = [];
     var valeur_temp1 = [];
+=======
+    var valeur_temp0 = '[ ';
+    var valeur_temp1 = '[ ';
+>>>>>>> master
     var valeur_echan_hist = (data.echan * data.historique);
 
     if(decoded.temp0 != undefined){
         for(var i=0;i<valeur_echan_hist;i++){
             if(((decoded.temp0[1+i*2]<<8 | decoded.temp0[2+i*2])<<16>>16 )/100 === -327.68){
+<<<<<<< HEAD
                 valeur_temp0.push("erreur");
             }else{
                 valeur_temp0.push(((decoded.temp0[1+i*2]<<8 | decoded.temp0[2+i*2])<<16>>16 )/100) ;
+=======
+                valeur_temp0 += "erreur";
+            }else{
+                valeur_temp0 += (((decoded.temp0[1+i*2]<<8 | decoded.temp0[2+i*2])<<16>>16 )/100).toString() ;
+            }
+
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                valeur_temp0 += " ][ ";
+            }else if(i === (valeur_echan_hist-1)){
+                valeur_temp0 += " ]";
+            }else{
+               valeur_temp0 += ' ; ';
+>>>>>>> master
             }
 
         }
@@ -177,9 +218,22 @@ function postProcessTemp(decoded,data){
     if(decoded.temp1 != undefined){
         for(var i=0;i<valeur_echan_hist;i++){
             if(((decoded.temp1[1+i*2]<<8 | decoded.temp1[2+i*2])<<16>>16)/100 === -327.68){
+<<<<<<< HEAD
                 valeur_temp1.push("erreur");
             }else{
                 valeur_temp1.push(((decoded.temp1[1+i*2]<<8 | decoded.temp1[2+i*2])<<16>>16)/100) ;
+=======
+                valeur_temp1 += "erreur";
+            }else{
+                valeur_temp1 += (((decoded.temp1[1+i*2]<<8 | decoded.temp1[2+i*2])<<16>>16)/100).toString() ;
+            }
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                valeur_temp1 += " ][ ";
+            }else if(i === (valeur_echan_hist-1)){
+                valeur_temp1 += " ]";
+            }else{
+               valeur_temp1 += ' ; ';
+>>>>>>> master
             }
         }
         decoded.temperature1 = {
@@ -192,17 +246,37 @@ function postProcessTemp(decoded,data){
 }
 function postProcessHum(decoded,data){
     var j = 0;
+<<<<<<< HEAD
     var valeur_hum0 = [];
     var valeur_hum1 = [];
+=======
+    var valeur_hum0 = "[ ";
+    var valeur_hum1 = "[ ";
+>>>>>>> master
     var valeur_echan_hist = (data.echan * data.historique);
 
     if(decoded.hum0 != undefined){
         for(var i=0;i<valeur_echan_hist;i++){
             if(((decoded.hum0[1+i*2]<<8 | decoded.hum0[2+i*2])/100) === 327.68){
+<<<<<<< HEAD
                 valeur_hum0.push("erreur");
             }else{
                 valeur_hum0.push((decoded.hum0[1+i*2]<<8 | decoded.hum0[2+i*2])/100);
             }
+=======
+                valeur_hum0 += "erreur";
+            }else{
+                valeur_hum0 += ((decoded.hum0[1+i*2]<<8 | decoded.hum0[2+i*2])/100).toString();
+            }
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+               valeur_hum0 += " ][ ";
+           }else if(i === (valeur_echan_hist-1)){
+               valeur_hum0 += " ]";
+           }else{
+              valeur_hum0 += ' ; ';
+           };
+
+>>>>>>> master
         }
         decoded.humidity0 = {
                 value : valeur_hum0,
@@ -215,10 +289,24 @@ function postProcessHum(decoded,data){
     if(decoded.hum1 != undefined){
         for(var i=0;i<valeur_echan_hist;i++){
             if(((decoded.hum1[1+i*2]<<8 | decoded.hum1[2+i*2])/100) === 327.68){
+<<<<<<< HEAD
                 valeur_hum1.push("erreur");
             }else{
                 valeur_hum1.push((decoded.hum1[1+i*2]<<8 | decoded.hum1[2+i*2])/100);
             }
+=======
+                valeur_hum1 += "erreur";
+            }else{
+                valeur_hum1 += ((decoded.hum1[1+i*2]<<8 | decoded.hum1[2+i*2])/100).toString();
+            }
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+               valeur_hum1 += " ][ ";
+           }else if(i === (valeur_echan_hist-1)){
+               valeur_hum1 += " ]";
+           }else{
+              valeur_hum1 += ' ; ';
+           };
+>>>>>>> master
         }
         decoded.humidity1 = {
                 value : valeur_hum1,
@@ -231,12 +319,27 @@ function postProcessHum(decoded,data){
 }
 
 function  postProcessDp(decoded,data){
+<<<<<<< HEAD
     var valeur_dp = [];
+=======
+    var valeur_dp = "[ ";
+>>>>>>> master
     var valeur_echan_hist = (data.echan * data.historique);
 
     if(decoded.dp != undefined){
         for(var i=0;i<valeur_echan_hist;i++){
+<<<<<<< HEAD
             valeur_dp.push((decoded.dp[1+i*2]<<8 | decoded.dp[2+i*2])<<16>>16);
+=======
+            valeur_dp += ((decoded.dp[1+i*2]<<8 | decoded.dp[2+i*2])<<16>>16).toString();
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                  valeur_dp += " ][ ";
+              }else if(i === (valeur_echan_hist-1)){
+                  valeur_dp += " ]";
+              }else{
+                 valeur_dp += ' ; ';
+              }
+>>>>>>> master
         }
         decoded.pression_differentielle = {
                 value : valeur_dp,
@@ -246,35 +349,74 @@ function  postProcessDp(decoded,data){
     }
 }
 function  postProcessCov(decoded,data){
+<<<<<<< HEAD
     var valeur_cov = [];
+=======
+    var valeur_cov = "[ ";
+>>>>>>> master
     var valeur_echan_hist = (data.echan * data.historique);
 
     if(decoded.cov != undefined){
         for(var i=0;i<valeur_echan_hist;i++){
             if((decoded.cov[1+i*2]<<8 | decoded.cov[2+i*2]) === 512){
+<<<<<<< HEAD
                 valeur_cov.push("erreur");
             }else{
                 valeur_cov.push(decoded.cov[1+i*2]<<8 | decoded.cov[2+i*2]);
             }
+=======
+                valeur_cov += "erreur";
+            }else{
+                valeur_cov += (decoded.cov[1+i*2]<<8 | decoded.cov[2+i*2]).toString();
+            }
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                  valeur_cov += " ][ ";
+              }else if(i === (valeur_echan_hist-1)){
+                  valeur_cov += " ]";
+              }else{
+                 valeur_cov += ' ; ';
+              }
+>>>>>>> master
         }
         decoded.COV = {
                 value : valeur_cov
         };
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         delete decoded.cov;
     }
 }
 function  postProcessCo2(decoded,data){
+<<<<<<< HEAD
     var valeur_co2 = [];
+=======
+    var valeur_co2 = "[ ";
+>>>>>>> master
     var valeur_echan_hist = (data.echan * data.historique);
 
     if(decoded.co2 != undefined){
         for(var i=0;i<valeur_echan_hist;i++){
             if((decoded.co2[1+i*2]<<8 | decoded.co2[2+i*2]) === 256){
+<<<<<<< HEAD
                 valeur_co2.push("erreur");
             }else{
                 valeur_co2.push(decoded.co2[1+i*2]<<8 | decoded.co2[2+i*2]);
             }
+=======
+                valeur_co2 += "erreur";
+            }else{
+                valeur_co2 += (decoded.co2[1+i*2]<<8 | decoded.co2[2+i*2]).toString();
+            }
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                  valeur_co2 += " ][ ";
+              }else if(i === (valeur_echan_hist-1)){
+                  valeur_co2 += " ]";
+              }else{
+                 valeur_co2 += ' ; ';
+              }
+>>>>>>> master
         }
         decoded.CO2 = {
                 value : valeur_co2,
@@ -284,12 +426,27 @@ function  postProcessCo2(decoded,data){
     }
 }
 function postProcessDist(decoded,data){
+<<<<<<< HEAD
     var valeur_dist = [];
+=======
+    var valeur_dist = "[ ";
+>>>>>>> master
     var valeur_echan_hist = (data.echan * data.historique);
 
    if(decoded.dist != undefined){
        for(var i=0;i<valeur_echan_hist;i++){
+<<<<<<< HEAD
            valeur_dist.push(decoded.dist[1+i*2]<<8 | decoded.dist[2+i*2]);
+=======
+           valeur_dist += (decoded.dist[1+i*2]<<8 | decoded.dist[2+i*2]).toString();
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                valeur_dist += " ][ ";
+            }else if(i === (valeur_echan_hist-1)){
+                valeur_dist += " ]";
+            }else{
+               valeur_dist += ' ; ';
+            }
+>>>>>>> master
        }
        decoded.distance = {
                value : valeur_dist,
@@ -301,10 +458,17 @@ function postProcessDist(decoded,data){
 }
 function postProcessEntree(decoded,data){
     var valeur_entree = [];
+<<<<<<< HEAD
     valeur_entree[0] = [];
     valeur_entree[1] = [];
     valeur_entree[2] = [];
     valeur_entree[3] = [];
+=======
+    valeur_entree[0] = "Entrée 1 : [ ";
+    valeur_entree[1] = "Entrée 2 : [ ";
+    valeur_entree[2] = "Entrée 3 : [ ";
+    valeur_entree[3] = "Entrée 4 : [ ";
+>>>>>>> master
 
     var valeur_echan_hist = (data.echan * data.historique);
 
@@ -326,6 +490,7 @@ function postProcessEntree(decoded,data){
 
                for(var j=0;j<4;j++){
                    if(bin1[j] === '1'){
+<<<<<<< HEAD
                         valeur_entree[j].push(1);
                    }else{
                         valeur_entree[j].push(0);
@@ -334,6 +499,21 @@ function postProcessEntree(decoded,data){
 
             }else{
                 var taille_bin = bin1.length;
+=======
+                        valeur_entree[j] += '1';
+                   }else{
+                        valeur_entree[j] += '0';
+                   }
+                 if(i!=(valeur_echan_hist-1)){
+                   valeur_entree[j] += ' ; ';
+                 }else{
+                   valeur_entree[j] += ' ] ';
+                 }
+               }
+
+            }else{
+ var taille_bin = bin1.length;
+>>>>>>> master
                 if(taille_bin<=8){
                     for(var j=0;j<(8-(taille_bin));j++){
                         bin1 = '0'+bin1 ;
@@ -341,6 +521,7 @@ function postProcessEntree(decoded,data){
                 }
                 if(bin1[3] === "1" ){
                     if(bin1[7] === "1"){
+<<<<<<< HEAD
                         valeur_entree[0].push("mise à l'état haut");
                     }
                     else{
@@ -378,6 +559,45 @@ function postProcessEntree(decoded,data){
                     }
                 }else{
                     valeur_entree[3].push("pas de mouvement");
+=======
+                        valeur_entree[0] += "mise à l'état haut ]";
+                    }
+                    else{
+                        valeur_entree[0] += "mise à l'état bas ]";
+                    }
+                }else{
+                    valeur_entree[0] += "pas de mouvement ]";
+                }
+                if(bin1[2] === "1"){
+                    if(bin1[6] === "1"){
+                        valeur_entree[1] += "mise à l'état haut ]";
+                    }
+                    else{
+                        valeur_entree[1] += "mise à l'état bas ]";
+                    }
+                }else{
+                    valeur_entree[1] += "pas de mouvement ]";
+                }
+                if(bin1[1] === "1"){
+                    if(bin1[5] === "1"){
+                        valeur_entree[2] += "mise à l'état haut ]";
+                    }
+                    else{
+                        valeur_entree[2] += "mise à l'état bas ]";
+                    }
+                }else{
+                    valeur_entree[2] += "pas de mouvement ]";
+                }
+                if(bin1[0] === "1"){
+                    if(bin1[4] === "1"){
+                        valeur_entree[3] += "mise à l'état haut ]";
+                    }
+                    else{
+                        valeur_entree[3] += "mise à l'état bas ]";
+                    }
+                }else{
+                    valeur_entree[3] += "pas de mouvement ]";
+>>>>>>> master
                 }
                 selec = 2;
             }
@@ -392,6 +612,7 @@ function postProcessEntree(decoded,data){
 
 function postProcessCompteur(decoded,data){
        var valeur_echan_hist = (data.echan * data.historique);
+<<<<<<< HEAD
        var valeur_compte0 = [];
        var valeur_compte1 = [];
        var valeur_compte2 = [];
@@ -400,6 +621,23 @@ function postProcessCompteur(decoded,data){
        if(decoded.compte0 != undefined){
             for(var i=0;i<valeur_echan_hist;i++){
                 valeur_compte0.push(decoded.compte0[1+i*4]<<24 | decoded.compte0[2+i*4]<<16 | decoded.compte0[3+i*4]<<8 | decoded.compte0[4+i*4]);
+=======
+       var valeur_compte0 = "[ ";
+       var valeur_compte1 = "[ ";
+       var valeur_compte2 = "[ ";
+       var valeur_compte3 = "[ ";
+
+       if(decoded.compte0 != undefined){
+            for(var i=0;i<valeur_echan_hist;i++){
+                valeur_compte0 += (decoded.compte0[1+i*4]<<24 | decoded.compte0[2+i*4]<<16 | decoded.compte0[3+i*4]<<8 | decoded.compte0[4+i*4]).toString();
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                    valeur_compte0 += " ][ ";
+                }else if(i === (valeur_echan_hist-1)){
+                    valeur_compte0 += " ]";
+                }else{
+                   valeur_compte0 += ' ; ';
+                }
+>>>>>>> master
             }
             delete decoded.compte0;
                decoded.compte0 = {
@@ -409,6 +647,7 @@ function postProcessCompteur(decoded,data){
        }
       if(decoded.compte1 != undefined){
            for(var i=0;i<valeur_echan_hist;i++){
+<<<<<<< HEAD
                valeur_compte1.push(decoded.compte1[1+i*4]<<24 | decoded.compte1[2+i*4]<<16 | decoded.compte1[3+i*4]<<8 | decoded.compte1[4+i*4]);
            }
           delete decoded.compte1;
@@ -420,6 +659,33 @@ function postProcessCompteur(decoded,data){
      if(decoded.compte2 != undefined){
           for(var i=0;i<valeur_echan_hist;i++){
               valeur_compte2.push(decoded.compte2[1+i*4]<<24 | decoded.compte2[2+i*4]<<16 | decoded.compte2[3+i*4]<<8 | decoded.compte2[4+i*4]);
+=======
+               valeur_compte1 += (decoded.compte1[1+i*4]<<24 | decoded.compte1[2+i*4]<<16 | decoded.compte1[3+i*4]<<8 | decoded.compte1[4+i*4]).toString();
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                   valeur_compte1 += " ][ ";
+               }else if(i === (valeur_echan_hist-1)){
+                   valeur_compte1 += " ]";
+               }else{
+                  valeur_compte1 += ' ; ';
+               }
+           }
+              delete decoded.compte1;
+              decoded.compte1 = {
+                      value : valeur_compte1,
+                      voie : 1
+              };
+      }
+     if(decoded.compte2 != undefined){
+          for(var i=0;i<valeur_echan_hist;i++){
+              valeur_compte2 += (decoded.compte2[1+i*4]<<24 | decoded.compte2[2+i*4]<<16 | decoded.compte2[3+i*4]<<8 | decoded.compte2[4+i*4]);
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                 valeur_compte2 += " ][ ";
+             }else if(i === (valeur_echan_hist-1)){
+                 valeur_compte2 += " ]";
+             }else{
+                valeur_compte2 += ' ; ';
+             }
+>>>>>>> master
           }
           delete decoded.compte2;
              decoded.compte2 = {
@@ -429,7 +695,18 @@ function postProcessCompteur(decoded,data){
      }
     if(decoded.compte3 != undefined){
          for(var i=0;i<valeur_echan_hist;i++){
+<<<<<<< HEAD
              valeur_compte3.push(decoded.compte3[1+i*4]<<24 | decoded.compte3[2+i*4]<<16 | decoded.compte3[3+i*4]<<8 | decoded.compte3[4+i*4]);
+=======
+             valeur_compte3 += decoded.compte3[1+i*4]<<24 | decoded.compte3[2+i*4]<<16 | decoded.compte3[3+i*4]<<8 | decoded.compte3[4+i*4];
+            if((i%(data.echan) === (data.echan-1)) && (valeur_echan_hist != 1) && (i != (valeur_echan_hist-1))){
+                  valeur_compte3 += " ][ ";
+              }else if(i === (valeur_echan_hist-1)){
+                  valeur_compte3 += " ]";
+              }else{
+                 valeur_compte3 += ' ; ';
+              }
+>>>>>>> master
          }
          delete decoded.compte3;
             decoded.compte3 = {
@@ -497,11 +774,14 @@ function  postProcessPeriode(decoded,data){
    }
 }
 
+<<<<<<< HEAD
 function  postProcessHistoEchan(decoded,data){
     delete decoded.histo_echan;
 
 }
 
+=======
+>>>>>>> master
 /***********/
 /*Ancien produit*/
 /***********/
@@ -603,6 +883,7 @@ function postProcessAncienCompteur0_15(decoded,data){
         };
         delete  decoded.ancien_compteur15;
     }
+<<<<<<< HEAD
     if( data.frame_type === "Trame Compteur mode ECO (Compteur 1 22 bits et 5 deltas 32 bits LoraWan )"){
         decoded.compteur0.temps = "Tref";
         decoded.compteur1.temps = "Tref-10";
@@ -615,6 +896,12 @@ function postProcessAncienCompteur0_15(decoded,data){
 
 function postProcessAncienSortieEntree(decoded,data){
     var res_bin = [];
+=======
+}
+
+function postProcessAncienSortieEntree(decoded,data){
+    var res_bin = "";
+>>>>>>> master
     if(decoded.sortie_digital != undefined){
         var bin2 = (parseInt(((decoded.sortie_digital)-0).toString(16),16)).toString(2);
         var taille_bin2 = bin2.length+1;
@@ -627,13 +914,24 @@ function postProcessAncienSortieEntree(decoded,data){
        }
         bin2 =  bin2.split('').reverse().join('');
         for(var i =0;i<8;i++){
+<<<<<<< HEAD
             res_bin.push(parseInt(bin2[i]));
+=======
+            res_bin += "Sortie " + (i+1) + ": " + bin2[i];
+            if(i != 7){
+                res_bin += "|"
+            }       
+>>>>>>> master
         }
         decoded.sortie_digital = {
                 value :  res_bin
         };
     }
+<<<<<<< HEAD
     res_bin = [];
+=======
+    res_bin = "";
+>>>>>>> master
     if(decoded.entree_digital != undefined){
         var bin1 = (parseInt(((decoded.entree_digital)-0).toString(16),16)).toString(2);
         var taille_bin1 = bin1.length+1;
@@ -647,18 +945,33 @@ function postProcessAncienSortieEntree(decoded,data){
         }
         bin1 =  bin1.split('').reverse().join('');
         for(var i =0;i<8;i++){
+<<<<<<< HEAD
             res_bin.push(parseInt(bin1[i]));
+=======
+            res_bin += "Entrée " + (i+1) + ": " + bin1[i];
+            if(i != 7){
+                res_bin += "|"
+            }       
+>>>>>>> master
         }
         decoded.entree_digital = {
                 value :  res_bin
         };
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 function postProcessAncienTemperature(decoded,data){
     if(decoded.temperature != undefined){
         decoded.temperature = {
                 value :  (decoded.temperature[0]<<8 |decoded.temperature[1])/10,
+<<<<<<< HEAD
                 unit : "°C"
+=======
+                unit: "°C"
+>>>>>>> master
         };
     }
 }
@@ -671,9 +984,14 @@ function postProcessAncienCompteur(decoded,data){
     }
 }
 
+<<<<<<< HEAD
 
 function postProcessEntrerAncien(decoded,data){
     var res_bin = [];
+=======
+function postProcessEntrerAncien(decoded,data){
+    var res_bin = "";
+>>>>>>> master
     if(decoded.entree_ancien != undefined){
         var bin1 = (parseInt(((decoded.entree_ancien[0])-0).toString(16),16)).toString(2);
         var bin2 = (parseInt(((decoded.entree_ancien[1])-0).toString(16),16)).toString(2);
@@ -698,8 +1016,17 @@ function postProcessEntrerAncien(decoded,data){
         bin2 =  bin2.split('').reverse().join('');
         var binaire = bin1 + bin2;
         for(var i=0;i<16;i++){
+<<<<<<< HEAD
             res_bin.push(parseInt(binaire[i]));
         }
+=======
+            res_bin += "Entrée " + (i+1) + ": " + binaire[i];
+            if(i != 15){
+                res_bin += "|"
+            }
+        }
+
+>>>>>>> master
         decoded.entree = {
                 value :  res_bin
         };
@@ -711,7 +1038,11 @@ function postProcessAncienPir(decoded,data){
     var trame="";
     if(decoded.type_trame != undefined){
         if(decoded.type_trame === 0x01){
+<<<<<<< HEAD
             trame = "Trame d'ourture boitier";
+=======
+            trame = "Trame d'ouverture boîtier";
+>>>>>>> master
         }
         if(decoded.type_trame === 0x08){
              trame = "Trame alarme";
@@ -727,9 +1058,15 @@ function postProcessAncienPir(decoded,data){
     var boitier;
     if(decoded.ouverture_boitier != undefined){
         if(decoded.ouverture_boitier === 0x00){
+<<<<<<< HEAD
             boitier = "boitier ouvert";
         }else{
             boitier = "boitier fermée";
+=======
+            boitier = "boîtier ouvert";
+        }else{
+            boitier = "boîtier fermée";
+>>>>>>> master
         }
         delete decoded.ouverture_boitier;
         decoded.ouverture_boitier = {
@@ -841,8 +1178,13 @@ function postProcessAncienMR2(decoded,data){
              var temps4 = "Tref-240min";
              var temps5 = "Tref-300min";
         }
+<<<<<<< HEAD
         decoded.counter_init = {
                 value : parseInt(Tref,2),
+=======
+        decoded.tref = {
+                value :  parseInt(Tref,2)/*parseInt(Tref)*/
+>>>>>>> master
         };
         decoded.Delta1 = {
                 value :   parseInt(Delta1,2),
@@ -864,7 +1206,10 @@ function postProcessAncienMR2(decoded,data){
                 value :  parseInt(Delta5,2),
                 temps : temps5
         };
+<<<<<<< HEAD
         delete decoded.sigfox;
+=======
+>>>>>>> master
     }
 }
 
@@ -879,6 +1224,7 @@ function postProcessAncienDINDA(decoded,data){
               }
            }
         }
+<<<<<<< HEAD
         var logic_level_dinda = [];
         if(bin1[2]=== '1'){
             logic_level_dinda.push(1);
@@ -889,6 +1235,18 @@ function postProcessAncienDINDA(decoded,data){
             logic_level_dinda.push(1);
         }else{
             logic_level_dinda.push(0);
+=======
+        var logic_level_dinda = "";
+        if(bin1[2]=== '1'){
+            logic_level_dinda = "Entrée 1 : 1";
+        }else{
+            logic_level_dinda = "Entrée 1 : 0";
+        }
+        if(bin1[3]=== '1'){
+            logic_level_dinda += " / Entrée 2 : 1";
+        }else{
+            logic_level_dinda += " / Entrée 2 : 0";
+>>>>>>> master
         }
         delete decoded.logic_level_dinda;
         decoded.logic_level = {
@@ -898,7 +1256,11 @@ function postProcessAncienDINDA(decoded,data){
 
      if(decoded.voltage != undefined){
         if(decoded.voltage != undefined){
+<<<<<<< HEAD
             var voltage = parseFloat(((decoded.voltage[0]<<8 |decoded.voltage[1]) * 10 / 64240).toFixed(2));
+=======
+            var voltage = ((decoded.voltage[0]<<8 |decoded.voltage[1]) * 10 / 64240).toFixed(2);
+>>>>>>> master
             delete decoded.voltage;
             decoded.voltage = {
                     value :  voltage,
@@ -911,10 +1273,17 @@ function postProcessAncienDINDA(decoded,data){
         if(decoded.current != undefined){
             if(decoded.offset != undefined){
                  delete decoded.offset;
+<<<<<<< HEAD
                  var current = parseFloat(((decoded.current[0]<<8 |decoded.current[1]) * 16 / 47584).toFixed(2));
             }else{
                  delete decoded.offset;
                  var current = parseFloat(((decoded.current[0]<<8 |decoded.current[1]) * 20 / 47584).toFixed(2));
+=======
+                 var current = ((decoded.current[0]<<8 |decoded.current[1]) * 16 / 47584).toFixed(2);
+            }else{
+                 delete decoded.offset;
+                 var current = ((decoded.current[0]<<8 |decoded.current[1]) * 20 / 47584).toFixed(2);
+>>>>>>> master
             }
             delete decoded.current;
             decoded.current = {
@@ -941,7 +1310,11 @@ function decode_pay(encoded){
         Horodatage = 1;
     }
     var alerte = 0;
+<<<<<<< HEAD
     if(frame_type === "Trame de mesure" || frame_type === "Trame de test" || frame_type === "Trame de mesure étendu"){
+=======
+    if(frame_type === "Trame de mesure" || frame_type === "Trame de test"){
+>>>>>>> master
         data = decode_trame_test_mesure(encoded,frame_type,Horodatage,alerte);
     }else if(frame_type === "Trame de vie"){
         data = decode_trame_vie(encoded,Horodatage);
@@ -957,9 +1330,15 @@ function decode_pay(encoded){
     }else if(frame_type === "Trame spécifique"){
         var WR1	= parseInt(encoded[4], 16);
         if(WR1 === 0){
+<<<<<<< HEAD
             data.data = 'byte frame_type;' + 'byte[2] wr;';
         }else if(WR1 === 2){
             data.data = 'byte frame_type;' + 'byte[2] wrs;';
+=======
+            data.data = 'byte frame_type;' + 'ubyte[2] wr;';
+        }else if(WR1 === 2){
+            data.data = 'byte frame_type;' + 'ubyte[2] wr;';
+>>>>>>> master
         }else{
         }
     }
@@ -1012,8 +1391,11 @@ function getFrameType(encoded) {
         frameType = "Réponse à une trame de commande";
     }else if(oct2 === 0x8){
         frameType = "Réponse à une trame erronee";
+<<<<<<< HEAD
     }else if(oct2 === 0x9){
         frameType = "Trame de mesure étendu";
+=======
+>>>>>>> master
     }else {
         frameType = "Type de trame inconnu";
     }
@@ -1054,15 +1436,22 @@ function decode_alerte(encoded,Horodatage,data){
         if(data.typeAlerte != undefined){
             if(type_data === 0x08){
                  k = k+5;
+<<<<<<< HEAD
                  data.typeAlerte[i] += " sur la température";
                  data.typeAlerte[i] += " voie " + data.voieTemp[i];
             }
             else if(type_data === 0x06){
                 data.typeAlerte[i] += " sur la pression différentiel";
+=======
+                 data.typeAlerte[i] += " voie " + data.voieTemp[i];
+            }
+            else if(type_data === 0x06){
+>>>>>>> master
                 k = k+5;
             }
             else if(type_data === 0x09){
                 k = k+5;
+<<<<<<< HEAD
                 data.typeAlerte[i] += " sur l'humidité";
                 data.typeAlerte[i] += " voie " + data.voieRh[i];
             }
@@ -1072,10 +1461,19 @@ function decode_alerte(encoded,Horodatage,data){
             }
             else if(type_data === 0x0d){
                 data.typeAlerte[i] += " sur le CO2";
+=======
+                data.typeAlerte[i] += " voie " + data.voieRh[i];
+            }
+            else if(type_data === 0x0c){
+                k = k+5;
+            }
+            else if(type_data === 0x0d){
+>>>>>>> master
                 k = k+5;
             }
             else if(type_data === 0x04){
                 k=k+11;
+<<<<<<< HEAD
                 data.typeAlerte[i] += " sur le CO2";
                 data.typeAlerte[i] += " voie " + data.voieComptage[i];
             }
@@ -1091,6 +1489,13 @@ function decode_alerte(encoded,Horodatage,data){
                 data.typeAlerte[i] += " sur la courant";
                  k = k+5;
             }
+=======
+                 data.typeAlerte[i] += " voie " + data.voieComptage[i];
+            }
+            else if(type_data === 0x07){
+                k = k+5;
+            }
+>>>>>>> master
         }
     }
 
@@ -1136,6 +1541,10 @@ function decode_trame_test_mesure(encoded,frame_type,Horodatage,alerte){
     var historique=0;
     var echan=0;
     if(frame_type === "Trame de mesure"){
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
         if(bin_frame_0[3] === "1" || bin_frame_1[0] === "1" ){
             var bin_hist = bin_frame_0[3] + bin_frame_1[0];
             historique = parseInt(bin_hist, 2) + 1;
@@ -1144,6 +1553,7 @@ function decode_trame_test_mesure(encoded,frame_type,Horodatage,alerte){
 		    var bin_ech = bin_frame_1[1] + bin_frame_1[2] + bin_frame_1[3];
             echan = parseInt(bin_ech, 2) + 1;
         }
+<<<<<<< HEAD
        var data = decodeFrame(encoded,historique,echan,Horodatage,alerte,0);
     }
     if(frame_type === "Trame de mesure étendu"){
@@ -1167,6 +1577,15 @@ function decode_trame_test_mesure(encoded,frame_type,Horodatage,alerte){
     }
     if(alerte === 1){
         var data = decodeFrame(encoded,0,0,Horodatage,alerte,0);
+=======
+       var data = decodeFrame(encoded,historique,echan,Horodatage,alerte);
+    }
+    if(frame_type === "Trame de test") {
+        var data = decodeFrame(encoded,0,0,Horodatage,alerte);
+    }
+    if(alerte === 1){
+        var data = decodeFrame(encoded,0,0,Horodatage,alerte);
+>>>>>>> master
     }
 
     return data;
@@ -1178,7 +1597,11 @@ function hexToBytes(hex) {
     return bytes;
 }
 
+<<<<<<< HEAD
 function decodeFrame(frame,historique,echan,Horodatage,alerte,etendu){
+=======
+function decodeFrame(frame,historique,echan,Horodatage,alerte){
+>>>>>>> master
    	var bytes = hexToBytes(frame);
     var res_str = 'byte frame_type;';
     var start_bcl = 1;
@@ -1189,17 +1612,25 @@ function decodeFrame(frame,historique,echan,Horodatage,alerte,etendu){
 	var ctn_voie_temp = 0;var ctn_voie_rh = 0;var ctn_voie_comptage = 0;
     var taille_comptage = 0;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     if(Horodatage === 1){
         res_str = res_str + 'ubyte[4] horo;';
         start_bcl += 4;
     }
     if(historique >= 1 | echan >= 1){
         res_str = res_str + 'ubyte[2] periode;';
+<<<<<<< HEAD
         start_bcl += 2;
     }
     if(etendu){
         res_str = res_str + 'ubyte[3] histo_echan;';
         start_bcl += 3;
+=======
+        start_bcl +=2;
+>>>>>>> master
     }
     if(historique<1){
         historique = 1;
@@ -1319,6 +1750,7 @@ function decodeFrame(frame,historique,echan,Horodatage,alerte,etendu){
 					data.voieComptage[ctn_voie_comptage] = voie;
 					ctn_voie_comptage++;
 					break;
+<<<<<<< HEAD
 
                 case 0x0a:
                     k=1;
@@ -1338,6 +1770,8 @@ function decodeFrame(frame,historique,echan,Horodatage,alerte,etendu){
                     res_str = res_str + 'ubyte['+ k +'] courant;';
                     i++;
                     break;
+=======
+>>>>>>> master
 				default:
 					i++;
 			}
@@ -1560,6 +1994,7 @@ function frame_type_ancien(encoded){
             frameType = "Trame alerte état câble coupé";
     }else if(oct1 === 0x09){
              frameType = "Trame de détection de changement d'état (TOR)";
+<<<<<<< HEAD
     }else if(oct1 === 0x30){
             frameType = "Trame Compteur mode ECO (Compteur 1 22 bits et 5 deltas 32 bits LoraWan )";
     }else if(oct1 === 0x31){
@@ -1572,6 +2007,12 @@ function frame_type_ancien(encoded){
             frameType = "Trame 3B Compteur mode ECO (Compteur 1 20 bits et 5 deltas 12 bits concaténés SIGFOX)";
     }else if(oct1 === 0x18){
             frameType = "Trame de relevé périodique d'une valeur 0-10V";
+=======
+    }else if(oct1 === 0x31){
+             frameType = "Trame Test LoraWan";
+    }else if(oct1 === 0x18){
+         frameType = "Trame de relevé périodique d'une valeur 0-10V";
+>>>>>>> master
      }else if(oct1 === 0x19){
              frameType = "Trame de relevé périodique d'une valeur 0- 20mA";
      }else if(oct1 === 0x1e){
@@ -1590,8 +2031,11 @@ function frame_type_ancien(encoded){
              frameType = "Trame de fin d’alerte HAUT d’une valeur 0-10V";
      }else if(oct1 === 0x25){
              frameType = "Trame de fin d'alerte HAUT d'une valeur 4-20mA";
+<<<<<<< HEAD
      }else{
              frameType = "Type de trame inconnu";
+=======
+>>>>>>> master
      }
     return frameType;
 }
@@ -1599,7 +2043,11 @@ function decode_trame_ancien(encoded,frame_type){
     var bytes = hexToBytes(encoded);
     var res_str = 'byte frame_type;';
     var data = {};
+<<<<<<< HEAD
     switch (frame_type) {
+=======
+    switch (frameType) {
+>>>>>>> master
         case "Trame de vie":
             res_str = res_str + 'ubyte[2] tensionc;';
             break;
@@ -1650,7 +2098,13 @@ function decode_trame_ancien(encoded,frame_type){
             for(var j=0;j<taille_bytes;j++){
                 res_str = res_str + 'ubyte[4] ancien_compteur' + j + ';';
             }
+<<<<<<< HEAD
             break;
+=======
+
+            break;
+
+>>>>>>> master
         case "Trame d’entrées digitales et compteurs":
             res_str = res_str + 'ubyte[2] entree_ancien;';
             var taille_bytes = (bytes.length-3)/4;
@@ -1712,7 +2166,11 @@ function decode_trame_ancien(encoded,frame_type){
             res_str = res_str + 'ubyte[2] logic_level;';
         break;
         case "Trame Compteur mode ECO (Compteur 1 22 bits et 5 deltas 32 bits LoraWan )":
+<<<<<<< HEAD
             res_str = res_str  + 'ubyte[4] ancien_compteur5;' + 'ubyte[4] ancien_compteur4;' + 'ubyte[4] ancien_compteur3;' + 'ubyte[4] ancien_compteur2;' + 'ubyte[4] ancien_compteur1;' + 'ubyte[4] ancien_compteur0;';
+=======
+            res_str = res_str  + 'ubyte[4] ancien_compteur1;' + 'ubyte[4] ancien_compteur2;' + 'ubyte[4] ancien_compteur3;' + 'ubyte[4] ancien_compteur4;' + 'ubyte[4] ancien_compteur5;' + 'ubyte[4] ancien_compteur6;';
+>>>>>>> master
         break;
         case "Trame Test LoraWan":
             res_str = res_str + 'ubyte[4] ancien_compteur1;';
@@ -1726,6 +2184,10 @@ function decode_trame_ancien(encoded,frame_type){
         case "Trame 3B Compteur mode ECO (Compteur 1 20 bits et 5 deltas 12 bits concaténés SIGFOX)":
             res_str = res_str + 'ubyte[10] sigfox;';
         break;
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
          case "Trame de relevé périodique d'une valeur 0-10V":
             res_str = res_str + 'ubyte logic_level_dinda;' + 'ubyte[2] voltage;';
          break;
@@ -1776,13 +2238,22 @@ for(var w=0;w<str.length;w++){
     declarationString = declarationString.split(' ');
 
     // Extraire les types et les noms des variables de la déclaration
+<<<<<<< HEAD
+=======
+    var regex = /(\w+)\s+(\w+)\s*(?:\[(\d+)\])?/g;
+    var match;
+>>>>>>> master
     var variables = [];
     if(isNaN(parseInt(declarationString[0][6]))){
         var length = 1;
     }else if(isNaN(parseInt(declarationString[0][7]))){
         var length = parseInt(declarationString[0][6]);
     }else{
+<<<<<<< HEAD
         var length = parseInt(parseInt(declarationString[0][6]) * 10 + parseInt(declarationString[0][7]));        
+=======
+        var length = parseInt(declarationString[0][6] * 10 + declarationString[0][7]);        
+>>>>>>> master
     }
     var variable = {
       type: declarationString[0],

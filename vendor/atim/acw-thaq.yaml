@@ -4,8 +4,6 @@ description: The THAQ facilitates the monitoring of your rooms and buildings tha
 hardwareVersions:
   - version: '1.0'
     numeric: 1
-  - version: '1.0-rev-A'
-    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
