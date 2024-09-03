@@ -1,0 +1,89 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: hur-lw-2406.js
+
+  # based on following payload
+  #00036FE90004452838180361105B750203014855525F4C575F534552564552
+  examples:
+    - description: HUR LW example frame decode - Status
+      input:
+        fPort: 1
+        bytes:
+          [0x00, 0x03, 0x6F, 0xE9, 0x00, 0x04, 0x45, 0x28, 0x38, 0x18, 0x03, 0x61, 0x10, 0x5B, 0x75, 0x02, 0x03, 0x01, 0x48, 0x55, 0x52, 0x5F, 0x4C, 0x57, 0x5F, 0x53, 0x45, 0x52, 0x56, 0x45, 0x52]
+
+      output:
+        data:
+          deviceID: 225257
+          deviceName: 'HUR_LW_SERVER'
+          deviceTime: '2024-5-8 16:45:53'
+          firmwareVersion: '2.3.1'
+          frameCounter: 0
+          frameType: 'Status Message - Device'
+          slotQty: 4
+          slotTypes: [[1, 'HUR_5_ANALOG_OUT'], [2, 'HUR_8_DIGITAL_OUT'], [3, 'HUR_8_ANALOG_IN'], [4, 'HUR_8_DIGITAL_IN']]
+          targetPort: 3
+
+    - description: HUR LW example frame decode - I/O Data for Slot HUR_5_ANALOG_OUT
+      input:
+        fPort: 3
+        bytes: [0x00, 0x03, 0x6F, 0xE9, 0x02, 0x61, 0x10, 0x5D, 0xF8, 0x01, 0x45, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x01, 0xF4, 0x00, 0x00, 0x00, 0x00]
+
+      output:
+        data:
+          dataLength: 10
+          dataList: [[0], [0], [500], [0], [0]]
+          deviceID: 225257
+          deviceTime: '2024-5-8 16:55:56'
+          frameCounter: 0
+          frameType: 'IO Slot Response Message'
+          slotNumber: 1
+          slotType: 'HUR_5_ANALOG_OUT'
+
+    - description: HUR LW example frame decode - I/O Data for Slot HUR_8_DIGITAL_OUT
+      input:
+        fPort: 3
+        bytes: [0x00, 0x03, 0x6F, 0xE9, 0x02, 0x61, 0x10, 0x5D, 0xE2, 0x02, 0x28, 0x01, 0xC3]
+
+      output:
+        data:
+          dataLength: 1
+          dataList: [[1], [1], [0], [0], [0], [0], [1], [1]]
+          deviceID: 225257
+          deviceTime: '2024-5-8 16:55:34'
+          frameCounter: 0
+          frameType: 'IO Slot Response Message'
+          slotNumber: 2
+          slotType: 'HUR_8_DIGITAL_OUT'
+
+    - description: HUR LW example frame decode - I/O Data for Slot HUR_8_ANALOG_IN
+      input:
+        fPort: 3
+        bytes: [0x00, 0x03, 0x6F, 0xE9, 0x02, 0x61, 0x10, 0x5D, 0xE2, 0x03, 0x38, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+      output:
+        data:
+          dataLength: 16
+          dataList: [[0], [0], [0], [0], [0], [0], [0], [0]]
+          deviceID: 225257
+          deviceTime: '2024-5-8 16:55:34'
+          frameCounter: 0
+          frameType: 'IO Slot Response Message'
+          slotNumber: 3
+          slotType: 'HUR_8_ANALOG_IN'
+
+    - description: HUR LW example frame decode - I/O Data for Slot HUR_8_DIGITAL_IN
+      input:
+        fPort: 3
+        bytes: [0x00, 0x03, 0x6F, 0xE9, 0x02, 0x61, 0x10, 0x5D, 0xE2, 0x04, 0x18, 0x01, 0x00]
+
+      output:
+        data:
+          dataLength: 1
+          dataList: [[0], [0], [0], [0], [0], [0], [0], [0]]
+          deviceID: 225257
+          deviceTime: '2024-5-8 16:55:34'
+          frameCounter: 0
+          frameType: 'IO Slot Response Message'
+          slotNumber: 4
+          slotType: 'HUR_8_DIGITAL_IN'

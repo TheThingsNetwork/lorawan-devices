@@ -1,7 +1,7 @@
 <ul class="device-list" >
   <div class="grid">
   {{- range .devices }}
-    <div class="item-6 item-xs-12">
+    <div class="item-6 sm:item-12">
       <li class="device-list__item">
           <h2>{{.Params.Name}}</h2>
           <p class="device-list__description">{{.Params.Description | truncate 100}}</p>

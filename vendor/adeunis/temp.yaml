@@ -1,4 +1,4 @@
-name: Temp
+name: Temp - Temperature Probe
 description: The Adeunis Temp is a LoRaWAN® device that supports integrated and remote temperature probes for measuring and monitoring temperature in indoor and outdoor environments.
 
 # Hardware versions (optional, use when you have revisions)

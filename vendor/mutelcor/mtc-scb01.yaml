@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Service Call Button
+name: LoRa Service Call Button
 description: The Mutelcor LoRa Service Call Button is a LoRaWAN® Device that raises alarms or requests to multiple services for help, assistance or support from a single device in real time in a matter of seconds by pressing a button. A physical feedback to the button press using a buzzer and LED can be configured.
 
 # Hardware versions (optional, use when you have revisions)
@@ -87,7 +87,7 @@ operatingConditions:
     max: 55
 
 # IP rating (optional)
-ipCode: IP67
+ipCode: IP40
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -95,7 +95,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://mutelcor.com/iot/iot-solutions/iot-lora-service-call-button/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2022/11/MUTELCOR_Datasheet_LoRa_Service_Call_Button.pdf
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2024/04/MUTELCOR_Datasheet_LoRa_Service_Call_Button.pdf
 
 # Photos
 photos:

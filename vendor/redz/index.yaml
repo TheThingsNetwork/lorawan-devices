@@ -1,0 +1,7 @@
+# This example contains just one end device: tlm-lw. It is referenced here in the index.
+
+endDevices:
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+  - tlm-lw # look in tlm-lw.yaml for the end device definition
+  - lkm-lw # look in lkm-lw.yaml for the end device definition
+  - hur-lw # look in hur-lw.yaml for the end device definition

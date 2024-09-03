@@ -1,0 +1,60 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs133.js
+  examples:
+    - description: LoRaWAN Insertion Temperature Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes:
+          [
+            0x03,
+            0xd2,
+            0x48,
+            0x00,
+            0x00,
+            0x00,
+            0x04,
+            0xd2,
+            0xc8,
+            0x00,
+            0x00,
+            0x00,
+            0x06,
+            0xd2,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x07,
+            0xd2,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x05,
+            0xcc,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x08,
+            0xcc,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+          ]
+
+      output:
+        data:
+          line_1:
+            total_in: 72
+            total_out: 200
+            period_in: 0
+            period_out: 0
+          line_2:
+            total_in: 0
+            total_out: 0
+            period_in: 0
+            period_out: 0

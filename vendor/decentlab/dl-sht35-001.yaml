@@ -1,4 +1,4 @@
-name: DL-SHT35-001
+name: DL-SHT35-001 - Air Temperature and Humidity Sensor with Radiation Shield
 description: The Decentlab DL-SHT35-001 is equipped with a temperature and a humidity sensor that can be used for monitoring and measuring air temperature and humidity. Suitable for applications such as smart agriculture, urban heat islands, greenhouses, frost alarming, and building automation.
 
 hardwareVersions:

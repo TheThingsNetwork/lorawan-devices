@@ -28,6 +28,13 @@ firmwareVersions:
         lorawanCertified: false
         codec: wisblock-kit-codec
 
+sensors:
+  - temperature
+  - humidity
+  - barometer
+  - pressure
+  - iaq
+
 # Battery information (optional)
 battery:
   replaceable: true

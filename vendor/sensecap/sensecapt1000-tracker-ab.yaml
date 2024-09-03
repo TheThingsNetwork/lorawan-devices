@@ -1,0 +1,136 @@
+name: T1000 Tracker A/B
+description: SenseCAP T1000 A/B is a credit card-sized tracker, which is designed for asset and personal tracking. By utilizing GNSS/Wi-Fi/Bluetooth, it covers both outdoor and indoor positioning scenarios with high accuracy.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: sensecap-tracker-profile
+        lorawanCertified: true
+        codec: sensecapt1000-tracker-ab-codec
+      US902-928:
+        id: sensecap-tracker-profile
+        lorawanCertified: true
+        codec: sensecapt1000-tracker-ab-codec
+      AU915-928:
+        id: sensecap-tracker-profile
+        lorawanCertified: true
+        codec: sensecapt1000-tracker-ab-codec
+      KR920-923:
+        id: sensecap-tracker-profile
+        lorawanCertified: true
+        codec: sensecapt1000-tracker-ab-codec
+      IN865-867:
+        id: sensecap-tracker-profile
+        lorawanCertified: true
+        codec: sensecapt1000-tracker-ab-codec
+      AS923:
+        id: sensecap-tracker-profile
+        lorawanCertified: true
+        codec: sensecapt1000-tracker-ab-codec
+      RU864-870:
+        id: sensecap-tracker-profile
+        lorawanCertified: true
+        codec: sensecapt1000-tracker-ab-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - light
+  #- longitude
+  #- latitude
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 6.5
+  length: 55
+  height: 85
+
+# Weight in grams (optional)
+weight: 32
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: Rechargeable lithium battery, 700mAh
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://files.seeedstudio.com/products/SenseCAP/SenseCAP_Tracker/SenseCAP_Tracker_T1000-AB_User_Guide.pdf
+dataSheetURL: https://www.seeedstudio.com/sensecap-t1000-tracker
+
+# Commercial information
+resellerURLs:
+  - name: 'Seeed'
+    region:
+      - Other
+    url: https://www.seeedstudio.com/sensecap-t1000-tracker
+
+# Photos
+photos:
+  main: sensecapt1000.png
+
+video: https://youtu.be/jj6XN8IcchI
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

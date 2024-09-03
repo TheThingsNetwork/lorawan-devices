@@ -1,0 +1,13 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: vs121.js
+  examples:
+    - description: AI Workplace Sensor (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x04, 0xC9, 0x03, 0x03, 0x00, 0x02]
+      output:
+        data:
+          people_counter_all: 3
+          region_count: 3
+          regions: [{ 'count': 1, 'index': 0 }, { 'count': 1, 'index': 1 }, { 'count': 0, 'index': 2 }]

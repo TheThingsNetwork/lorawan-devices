@@ -1,5 +1,16 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - carbon # look in windsensor.yaml for the end device definition
+  - carbon
+  - sign
+  - move
+  - rise
+  - feel
+  - origin-plus
+  - origin
+  - guard-plus
+  - guard
+profileIDs:
+  '420':
+    endDeviceID: 'carbon'
+    firmwareVersion: '3.6'
+    hardwareVersion: 'C024C'
+    region: 'EU863-870'

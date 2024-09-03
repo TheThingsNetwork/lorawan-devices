@@ -5,5 +5,6 @@ bin/runscript
 bin/runscript.exe
 bin/validate-image
 bin/validate-image.exe
+bin/devices.csv
 .envrc
 .idea

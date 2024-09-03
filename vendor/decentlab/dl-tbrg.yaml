@@ -1,4 +1,4 @@
-name: DL-TBRG
+name: DL-TBRG - Tipping Bucket Rain Gauge
 description: The Decentlab DL-TBRG consists of a precipitation sensor for measuring rainfall. It is suitable for precipitation and weather monitoring, flood monitoring, and smart agriculture.
 
 hardwareVersions:

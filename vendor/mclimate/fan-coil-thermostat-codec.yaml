@@ -1,0 +1,17 @@
+uplinkDecoder:
+  fileName: fan-coil-thermostat.js
+  examples:
+    - description: Periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x01, 0x02, 0x88, 0x75, 0x01, 0x3B, 0x01, 0x00, 0x06, 0x01, 0x01]
+      output:
+        data:
+          sensorTemperature: 24.8
+          relativeHumidity: 45.7
+          targetTemperature: 31.5
+          operationalMode: 1
+          displayedFanSpeed: 0
+          actualFanSpeed: 6
+          valveStatus: 1
+          deviceStatus: 1

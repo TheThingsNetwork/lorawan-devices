@@ -1,4 +1,4 @@
-name: MClimate Flood Sensor
+name: Flood Sensor
 description: The MClimate Flood Sensor contains a flood sensor for detecting floods and water leakage in residential and commercial buildings. In addition to that, the MClimate flood sensor contains a device tampering detection sensor and a temperature sensor. When a flood or fraud is detected an uplink containing the desired values is transferred to the LoRaWAN® network.
 
 # Hardware versions (optional, use when you have revisions)
@@ -98,7 +98,7 @@ dataSheetURL: https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.
 
 # Photos
 photos:
-  main: flood-sensor.jpg
+  main: flood-sensor.png
 
 # Regulatory compliances (optional)
 compliances:

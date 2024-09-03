@@ -1,4 +1,4 @@
-name: DL-SMTP
+name: DL-SMTP - Soil Moisture and Temperature Profile
 description: The Decentlab DL-SMTP consists of soil moisture and temperature sensors. It is suitable for irrigation control, smart agriculture, greenhouse and soilless plantations, parks, and golf courses.
 
 hardwareVersions:

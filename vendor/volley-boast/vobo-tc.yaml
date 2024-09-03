@@ -1,0 +1,99 @@
+name: VoBo-TC - Thermocouple Endpoint
+description: The VoBo TC is an industrial grade 12 channel thermocouple LoRaWAN® bridge certified for Class 1 Division 2 hazardous areas
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.01'
+    numeric: 101
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version 1.00.00
+    version: '1.00.00'
+    numeric: 10000
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.01'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+  - # Firmware version 2.00.00
+    version: '2.00.00'
+    numeric: 20000
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.01'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+      AU915-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+      AS923:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - button
+  - temperature
+  - voltage
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 89
+  length: 219
+  height: 119
+
+# Weight in grams (optional)
+weight: 1498
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: LSH20 (D size)
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -40
+    max: 80
+
+# IP rating (optional)
+ipCode: IP66
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://volleyboast.com/products/vobotc/
+dataSheetURL: https://volleyboast.com/products/Latest/VoBoTC/DCM-TC04-A3_VoBo_TC_Datasheet.pdf
+
+# Photos
+photos:
+  main: vobo-tc.png

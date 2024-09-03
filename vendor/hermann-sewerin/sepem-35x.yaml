@@ -1,4 +1,4 @@
-name: SePem 35x
+name: SePem 35x - Noise Logger
 description: Stationary noise logger
 
 # Hardware versions (optional, use when you have revisions)
@@ -48,7 +48,8 @@ firmwareVersions:
 # power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
 # sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
-
+sensors:
+  - sound
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -91,7 +92,7 @@ productURL: https://www.sewerin.com/en/products/water/noise-logger?L=5
 
 # Photos
 photos:
-  main: sepem_35x.jpg
+  main: sepem_35x.png
 
 # Regulatory compliances (optional)
 compliances:

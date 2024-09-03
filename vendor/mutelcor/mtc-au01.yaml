@@ -1,4 +1,4 @@
-name: MUTELCOR LoRa Alarm Unit
+name: LoRa Alarm Unit
 description: The Mutelcor LoRa Alarm Unit is a unique device that can be used either independently or with our other products like LoRa Panic Button with Confirmation or Smart CO2 LoRa Sensor to siren Alarms and Alerts. Up to 4 different Alarm-Types can be configured on the device with customizable LED Color Buzzer behavior per Alarm-Type. A Battery operated version is also available on request.
 
 # Hardware versions (optional, use when you have revisions)
@@ -89,7 +89,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://mutelcor.com/lora-alarm-unit/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2022/11/MUTELCOR_Datasheet_LoRa_Alarm_Unit.pdf
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2024/04/MUTELCOR_Datasheet_LoRa_Alarm_Unit.pdf
 
 # Photos
 photos:

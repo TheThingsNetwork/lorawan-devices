@@ -1,4 +1,4 @@
-name: FM432e-1mn
+name: FM432e - Electricity consumption sensor - 1 min
 description: FM432e is an IoT sensor for monitoring the electricity consumption (electric power) of all types of buildings. It is easy to install on the existing main electricity meter. It connects to LoRaWAN communication networks so that the power curve can be collected at regular intervals. This professional solution is extremely adequate for the remote monitoring of small and medium buildings
 
 # Firmware versions (at least one is mandatory)
@@ -91,7 +91,7 @@ weight: 18
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium AA 3.6V
+  type: Lithium A 3.6V
 
 # Operating conditions (optional)
 # operatingConditions:
@@ -136,7 +136,7 @@ productURL: https://shop.fludia.com/shop/en/isoFR/4-fm432e.html
 
 # Commercial information
 resellerURLs:
-  - name: 'Reseller 1'
+  - name: 'Fludia'
     region:
       - European Union
     url: https://shop.fludia.com/shop/en/isoFR/4-fm432e.html
@@ -151,7 +151,7 @@ msrp:
 
 # Photos
 photos:
-  main: fm432e.jpg
+  main: fm432e.png
   # other:
   #   - windsensor-package.jpg
 # Youtube or Vimeo Video (optional)

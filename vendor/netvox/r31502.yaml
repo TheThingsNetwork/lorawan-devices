@@ -34,6 +34,14 @@ firmwareVersions:
         id: profile-cn470
         codec: r315-codec
 
+sensors:
+  - temperature
+  - humidity
+  - light
+  - tilt
+  - reed switch
+  - vibration
+
 dimensions:
   width: 44
   length: 75.5

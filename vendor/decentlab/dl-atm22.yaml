@@ -1,4 +1,4 @@
-name: DL-ATM22
+name: DL-ATM22 - Wind Speed, Wind Direction and Temperature Sensor
 description: The Decentlab DL-ATM22 consists of wind speed, wind gust, wind direction, tilt, and temperature sensors. It is suitable for smart agriculture, urban heat islands, and building automation.
 
 hardwareVersions:

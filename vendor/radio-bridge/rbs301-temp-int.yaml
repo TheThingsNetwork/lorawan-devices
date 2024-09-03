@@ -1,5 +1,5 @@
-name: rbs301-temp-int
-description: radio-bridge door window sensor
+name: RBS301-TEMP-INT - Probeless Temperature Sensor
+description: This sensor measures the temperature of the air surrounding the sensor without any external probes such as a thermocouple or thermistor.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -19,3 +19,10 @@ firmwareVersions:
         id: rbs301-temp-int-profile
         lorawanCertified: true
         codec: rbs301-temp-int-codec
+
+sensors:
+  - temperature
+
+# Photos
+photos:
+  main: rbs301-temp-int.png

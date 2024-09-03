@@ -1,4 +1,22 @@
 endDevices:
+  - df701
   - df702
-  - dc410
+  - df703
+  - df200
+  - df400
+  #- df520
   - df530
+  - df555
+  - df556
+  - dc410
+  - dc413
+  - dc500
+  - dc510
+  - dc520
+  - dc600
+  - do200
+  - do201
+  - do202
+  - dt311
+  - dt320
+  #- dt322

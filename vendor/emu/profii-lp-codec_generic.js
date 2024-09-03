@@ -297,11 +297,40 @@ function encodeDownlink(data){
  * @param {*} input  binary data containing configuration
  * @returns data object containing decoded configuration
  */
-function decodeDownlink(input){
-    //TODO 
+function decodeDownlink(input) {
     var data = {};
+    data.fPort = input.fPort;
+    if(input.bytes.length > 3){
+        var i = 0;
+        data.timeInterval = Number(getInt16([input.bytes[i++], input.bytes[i++]]));
+        configFlag = input.bytes[i++];
+        //sndAck activated ?
+        if (configFlag & 0x02) {
+            data.sndAck = true;
+        }
+        else {
+            data.sndAck = false;
+        }
+        //start a rejoin after receiving this uplink ?
+        if (configFlag & 0x04) {
+            data.startReJoin = true;
+        }
+        else {
+            data.startReJoin = false;
+        }
+        //is this uplink on this port activated ?
+        if (configFlag & 0x08) {
+            data.portIsActive = true;
+        }
+        else {
+            data.portIsActive = false;
+        }
+        data.values = []
+        for (i; i < input.bytes.length - 1; ++i) {
+            data.values.push(Number(getUint8(input.bytes[i])));
+        }
+    }
     return data;
-
 }
 /**
  * Encode is called by Chirpstack

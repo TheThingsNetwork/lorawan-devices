@@ -1,0 +1,123 @@
+name: NFC RFID - LoRa Button
+description: The Mutelcor NFC RFID - LoRa Button makes it easy to combine sending alarm messages via LoRa with an option to authenticate using a NFC Tag by holding it next to the device when pressing a button. Our dynamic web-dashboard allows you to monitor the status of deployed NFC RFID - LoRa Buttons, handle events sent and collect statistics about device usage. Other Mutelcor products can be monitored using the same dashboard.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.4'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.4.7'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.4'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: mutelcor-profile
+        lorawanCertified: false
+        codec: mutelcor-codec
+      US902-928:
+        id: mutelcor-profile
+        lorawanCertified: false
+        codec: mutelcor-codec
+      IN865-867:
+        id: mutelcor-profile
+        lorawanCertified: false
+        codec: mutelcor-codec
+      AU915-928:
+        id: mutelcor-profile
+        lorawanCertified: false
+        codec: mutelcor-codec
+      AS923:
+        id: mutelcor-profile
+        lorawanCertified: false
+        codec: mutelcor-codec
+      KR920-923:
+        id: mutelcor-profile
+        lorawanCertified: false
+        codec: mutelcor-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - button
+  - battery
+  - digital input
+
+additionalRadios:
+  - nfc
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 180
+  length: 80
+  height: 48
+
+# Weight in grams (optional)
+weight: 350
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -18
+    max: 55
+
+# IP rating (optional)
+ipCode: IP40
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://mutelcor.com/nfc-rfid-lora-button/
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2024/04/MUTELCOR_Datasheet_NFC_RFID_LoRa_Button.pdf
+
+# Photos
+photos:
+  main: mtc-nfc02.png
+
+# Youtube or Vimeo Video (optional)
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

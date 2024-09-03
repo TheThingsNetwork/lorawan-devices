@@ -1,8 +1,86 @@
-# This file contains three device
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - smart-valve
   - smart-emitter
   - smart-switch
   - motorized-valve
+profileIDs:
+  '1':
+    endDeviceID: 'motorized-valve'
+    firmwareVersion: '3.x'
+    hardwareVersion: '4.6'
+    region: 'IN865-867'
+  '2':
+    endDeviceID: 'motorized-valve'
+    firmwareVersion: '3.x'
+    hardwareVersion: '4.6'
+    region: 'EU863-870'
+  '3':
+    endDeviceID: 'motorized-valve'
+    firmwareVersion: '3.x'
+    hardwareVersion: '4.6'
+    region: 'US902-928'
+  '4':
+    endDeviceID: 'motorized-valve'
+    firmwareVersion: '3.x'
+    hardwareVersion: '4.6'
+    region: 'AS923'
+  '5':
+    endDeviceID: 'smart-emitter'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'IN865-867'
+  '6':
+    endDeviceID: 'smart-emitter'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'EU863-870'
+  '7':
+    endDeviceID: 'smart-emitter'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'US902-928'
+  '8':
+    endDeviceID: 'smart-emitter'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'AS923'
+  '9':
+    endDeviceID: 'smart-switch'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'IN865-867'
+  '10':
+    endDeviceID: 'smart-switch'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'EU863-870'
+  '11':
+    endDeviceID: 'smart-switch'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'US902-928'
+  '12':
+    endDeviceID: 'smart-switch'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: AS923
+  '13':
+    endDeviceID: 'smart-valve'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'IN865-867'
+  '14':
+    endDeviceID: 'smart-valve'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'EU863-870'
+  '15':
+    endDeviceID: 'smart-valve'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'US902-928'
+  '16':
+    endDeviceID: 'smart-valve'
+    firmwareVersion: '2.x'
+    hardwareVersion: '3.x'
+    region: 'AS923'

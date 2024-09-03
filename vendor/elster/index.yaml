@@ -1,3 +1,8 @@
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - merlin-868 # look in merlin-868.yaml for the end device definition
+  - merlin-868
+profileIDs:
+  '42':
+    endDeviceID: 'merlin-868'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

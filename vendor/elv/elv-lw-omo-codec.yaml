@@ -1,0 +1,37 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-lw-omo.js
+  # Examples (optional)
+  examples:
+    - description: device status information
+      input:
+        fPort: 10
+        bytes: [0x96, 0x01, 0x01, 0x00, 0x00, 0x00, 0x10]
+      output:
+        data:
+          Supply_Voltage: 1500
+          frame_type: 'Device_State'
+          TX_Reason: 'Button Pressed'
+          Accelerated: false
+          Tilt_Area_0: false
+          Tilt_Area_1: false
+          Tilt_Area_2: false
+          Angle: 0
+          Activation_count: 16
+    - description: device acceleration
+      input:
+        fPort: 10
+        bytes: [0x96, 0x02, 0x05, 0x01, 0x2D]
+      output:
+        data:
+          Supply_Voltage: 1500
+          frame_type: 'Acceleration_Data'
+          TX_Reason: 'Acceleration'
+          Accelerated: true
+          Tilt_Area_0: false
+          Tilt_Area_1: false
+          Tilt_Area_2: false
+          Angle: 45
+downlinkDecoder:
+  fileName: elv-bm-trx1.js

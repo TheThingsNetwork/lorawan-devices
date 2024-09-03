@@ -1,7 +1,7 @@
 /*
  * ELV modular system Payload-Parser
  *
- * Version: V1.6.0
+ * Version: V1.9.0
  *
  * */
 
@@ -36,11 +36,15 @@ function decodeUplink(input) {
 var tx_reason = [
                   "Timer_Event",        // 0x00
                   "User_Button_Event",  // 0x01
-                  "Input_Event",        // 0x02
+                  "App_Event",          // 0x02
                   "FUOTA_Event",        // 0x03
                   "Cyclic_Event",       // 0x04
                   "Timeout_Event"       // 0x05
                 ];
+
+const PM_VM1_AS_PM = 0;       // Selection value for using the ELV-PM-VM1.
+                              // 0: ELV-PM-VM1 is used as an application module.
+                              // 1: ELV-PM-VM1 is used as a pure power module.
 
 /*
  * @brief   Receives the bytes transmitted from a device of the ELV modular system
@@ -52,6 +56,7 @@ function Decoder(bytes, port) {
   var decoded = {};   // Container with the decoded output
   var index = 5;      // Index variable for the application data in the bytes[] array
   var Temp_Value = 0; // Variable for temporarily calculated values
+  var Datatype_usage = 0; // Variable counts the usage of the datatype temperatue (0x02)
 
   if (port === 10) {  // The default port for app data
     if (bytes.length >= 5) {    // Minimum 5 Bytes for Header
@@ -66,6 +71,13 @@ function Decoder(bytes, port) {
       }
 
       decoded.Supply_Voltage = (bytes[3] << 8) | bytes[4];
+      
+      // If the ELV-PM-VM1 is used as a pure power module.
+      if( PM_VM1_AS_PM === 1 )
+      {
+        // Calculating the correct operating voltage
+        decoded.Supply_Voltage = Math.round( decoded.Supply_Voltage * 4.6 );
+      }
 
       if (bytes.length >= 6) {    // There is not only the header data
         // Loop for collecting the application data
@@ -147,6 +159,10 @@ function Decoder(bytes, port) {
             }
             case 0x02:  // Temperature
             {
+              var Temp_String = "";
+              // 
+              Datatype_usage++;
+
               // Get the 16 bit value
               index++;    // Set index to high byte data value
               Temp_Value = (bytes[index] * 256);
@@ -155,13 +171,13 @@ function Decoder(bytes, port) {
 
               switch (Temp_Value) {
                 case 0x8000:    // Special value
-                  decoded.Temperature_Sensor = "Unknown";
+                  Temp_String = "Unknown";
                   break;
                 case 0x8001:    // Special value
-                  decoded.Temperature_Sensor = "Overflow";
+                  Temp_String = "Overflow";
                   break;
                 case 0x8002:    // Special value
-                  decoded.Temperature_Sensor = "Underflow";
+                  Temp_String = "Underflow";
                   break;
                 default:        // Temperature value
                   // Convert to 16 bit signed value
@@ -170,7 +186,29 @@ function Decoder(bytes, port) {
                   }
 
                   Temp_Value *= 0.1;	// Adjust the temperature resolution
-                  decoded.Temperature_Sensor = String(Temp_Value.toFixed(1));
+                  Temp_String = String(Temp_Value.toFixed(1));
+                  break;
+              }
+              
+              switch (Datatype_usage) {
+                case 1:
+                  // The first temperature element will be named with Temperature_Sensor
+                  decoded.Temperature_Sensor = Temp_String;
+                  break;
+                case 2:
+                  // There is a second temperature element, so a new naming scheme is used for the elements.
+                  decoded.Temperature_T1 = decoded.Temperature_Sensor;
+                  // Delete the old element
+                  delete decoded.Temperature_Sensor;
+                  // The second temperature element will be the temperature T2
+                  decoded.Temperature_T2 = Temp_String;
+                  break;
+                case 3:
+                  // The third temperature element will be the temperature T3
+                  decoded.Temperature_T3 = Temp_String;
+                  break;
+                default:
+                  
                   break;
               }
               break;
@@ -559,11 +597,237 @@ function Decoder(bytes, port) {
               }
               break;
             }
-            //case 0x??:    // Further Data Type
+            case 0x10:  // Absolute angle
+            {
+              // Get the 8 bit value
+              index++;    // Set index to data value
+              Temp_Value = bytes[index];
+              switch ( bytes[index] )
+              {
+                case 0xff:
+                {
+                  decoded.Absolut_Angle = "Unknown";
+                }
+                break;
+                default:
+                {
+                 Temp_Value *= 2.5;  // Multiply the value with the angle resolution of 2.5 °
+                  decoded.Absolut_Angle = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            case 0x11:  // Speed
+            {
+              // Get the 16 bit value
+              index++;    // Set index to high byte data value
+              Temp_Value = (bytes[index] * 256);
+              index++;    // Set index to low byte data value
+              Temp_Value += bytes[index];
 
-            //  break;
+              // Check the wind detection bit
+              if( Temp_Value & 0x0800 )
+              {
+                decoded.Wind_Detection = "1";
+              }
+              else
+              {
+                decoded.Wind_Detection = "0";
+              }
 
+              // Get the unsigned 11 bit speed value
+              Temp_Value &= 0x07ff;
+              switch ( Temp_Value )
+              {
+                case 0x7ff:
+                {
+                  decoded.Wind_Speed = "Unknown";
+                }
+                break;
+                case 0x7fe:
+                {
+                  decoded.Wind_Speed = "Overflow";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 0.1;  // Multiply the value with the speed resolution of 0.1 km/h
+                  decoded.Wind_Speed = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            case 0x12:  // Wind
+            {
+              // Get the 16 bit value
+              index++;    // Set index to high byte data value
+              Temp_Value = (bytes[index] * 256);
+              index++;    // Set index to low byte data value
+              Temp_Value += bytes[index];
+
+              // Check the variation range
+              switch ( ((Temp_Value & 0xf000) / 4096) )
+              {
+                case 0xf:
+                {
+                  decoded.Variation_Angle = "Unknown";
+                }
+                break;
+                case 0xe:
+                {
+                  decoded.Variation_Angle = "Overflow";
+                }
+                break;
+                default:
+                {
+                  decoded.Variation_Angle = String(((11.25 * (Temp_Value & 0xf000) / 4096)).toFixed(2));
+                }
+                break;
+
+              }
+              // Check the wind detection bit
+              if( Temp_Value & 0x0800 )
+              {
+                decoded.Wind_Detection = "1";
+              }
+              else
+              {
+                decoded.Wind_Detection = "0";
+              }
+
+              // Get the unsigned 11 bit speed value
+              Temp_Value &= 0x07ff;
+              switch ( Temp_Value )
+              {
+                case 0x7ff:
+                {
+                  decoded.Wind_Speed = "Unknown";
+                }
+                break;
+                case 0x7fe:
+                {
+                  decoded.Wind_Speed = "Overflow";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 0.1;  // Multiply the value with the speed resolution of 0.1 km/h
+                  decoded.Wind_Speed = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+
+              // Get the 8 bit value
+              index++;    // Set index to data value
+              Temp_Value = bytes[index];
+              switch ( bytes[index] )
+              {
+                case 0xff:
+                {
+                  decoded.Absolut_Angle = "Unknown";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 2.5;  // Multiply the value with the angle resolution of 2.5 °
+                  decoded.Absolut_Angle = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            case 0x13:  // Rainfall
+            {
+              // Get the 16 bit value
+              index++;    // Set index to high byte data value
+              Temp_Value = (bytes[index] * 256);
+              index++;    // Set index to low byte data value
+              Temp_Value += bytes[index];
+
+              // Check the rain detection bit
+              if( Temp_Value & 0x8000 )
+              {
+                decoded.Rain_Detection = "1";
+              }
+              else
+              {
+                decoded.Rain_Detection = "0";
+              }
+
+              // Check the rain counter overflow bit
+              if( Temp_Value & 0x4000 )
+              {
+                decoded.Rain_Counter_Overflow = "1";
+              }
+              else
+              {
+                decoded.Rain_Counter_Overflow = "0";
+              }
+
+              // Get the unsigned 14 bit rain amount value
+              Temp_Value &= 0x3fff;
+              switch ( Temp_Value )
+              {
+                case 0x3fff:
+                {
+                  decoded.Rain_Amount = "Unknown";
+                }
+                break;
+                default:
+                {
+                  Temp_Value *= 0.1;  // Multiply the value with the rainfall resolution of 0.1 l/m²
+                  decoded.Rain_Amount = String(Temp_Value.toFixed(1));
+                }
+                break;
+              }
+              break;
+            }
+            case 0x14: //6-Axis-Sensor
+            {
+                index++;
+              decoded.Acc_x = !!(bytes[index] & 0x01);
+              decoded.Acc_y = !!(bytes[index] & 0x02);
+              decoded.Acc_z = !!(bytes[index] & 0x04);
+              decoded.Gyr_x = !!(bytes[index] & 0x08);
+              decoded.Gyr_y = !!(bytes[index] & 0x10);
+              decoded.Gyr_z = !!(bytes[index] & 0x20);
+              break;
+            }
+            case 0x15: //Window-State
+            {
+                index++;
+              data = bytes[index];
+              if (data < 100)
+              {
+                decoded.window_state = data;
+              }
+              else if (data == 255)
+              {
+                decoded.window_state = "Tilted"
+              }
+              else
+              {
+                decoded.window_state = "Undefined"
+              }
+              break;
+            }
+            case 0x16:
+            {
+              index++;
+              decoded.situation = bytes[index];
+              break;
+            }
+            // case 0x??:    // Further Data Type
+            // {
+            //   .
+            //   .
+            //   .
+            //   break;
+            // }
             default:    // There is something wrong with the data type value
+            {
               // Removing all added properties from the "decoded" object with a deep clean
               // https://stackoverflow.com/questions/19316857/removing-all-properties-from-a-object/19316873#19316873
               // Object.keys(decoded).forEach(function(key){ delete decoded[key]; });
@@ -574,6 +838,7 @@ function Decoder(bytes, port) {
               // Add error code propertiy to the "decoded" object
               decoded.parser_error = "Data Type Failure --> Please update your payload parser";
               break;
+            }
           }
         } while ((++index < bytes.length) && ('parser_error' in decoded === false));
       }
@@ -588,3 +853,14 @@ function Decoder(bytes, port) {
 
   return decoded;
 }
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  }
+}
+

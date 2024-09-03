@@ -1,4 +1,4 @@
-name: Strips
+name: Strips - Multisensor
 description: Strips multisensor by Sensative AB
 
 # Hardware versions (optional, use when you have revisions)
@@ -33,6 +33,14 @@ firmwareVersions:
         lorawanCertified: true
         codec: strips-codec
 
+sensors:
+  - magnetometer
+  - temperature
+  - light
+  - water
+  - humidity
+  - infrared
+
 # Photos
 photos:
   main: strip.png
@@ -40,3 +48,6 @@ photos:
 # Product and data sheet URLs (optional)
 productURL: https://sensative.com/sensors/strips-lorawan-sensors/
 dataSheetURL: https://sensative.com/sensors/strips-brochure-2021-lineup/
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/sensative-strips/

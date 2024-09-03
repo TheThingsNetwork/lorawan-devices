@@ -1,0 +1,114 @@
+name: VoBo-HL-1 - Input Endpoint
+description: General purpose LoRaWAN bridge certified for use in Class 1 Div 2 hazardous locations
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.06'
+    numeric: 106
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version 1.03.10
+    version: '1.03.10'
+    numeric: 10310
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
+    profiles:
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+  - # Firmware version 2.00.00
+    version: '2.00.00'
+    numeric: 20000
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
+    profiles:
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+  - # Firmware version 2.01.00
+    version: '2.01.00'
+    numeric: 20100
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.06'
+    profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      AU915-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+      AS923:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-xx-profile
+        codec: vobo-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - 4-20 ma
+  - analog input
+  - battery
+  - button
+  - digital input
+  - voltage
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+bridgeInterfaces:
+  - analog
+  - modbus
+  - rs-485
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 79
+  length: 193
+  height: 117
+
+# Weight in grams (optional)
+weight: 681
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: LSH20 (D size)
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -35
+    max: 80
+
+# IP rating (optional)
+ipCode: IP66
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://volleyboast.com/products/vobo-endpoints/
+dataSheetURL: https://volleyboast.com/products/Latest/VoBoHL1/DCM-0017-A3_VoBo_HL1_DataSheet.pdf
+
+# Photos
+photos:
+  main: vobo-hl-1.png

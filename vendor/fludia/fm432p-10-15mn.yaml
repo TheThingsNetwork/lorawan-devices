@@ -1,4 +1,4 @@
-name: FM432p-10-15mn
+name: FM432p - Pulse Multifluid Tracker - 10/15 min
 description: FM432p is a multifluid LoRawan reader transmitting « pulse » data consumption from a Gas, Water or Heat meter to a server. It provides the ideal starting point for analyzing the level of consumption and offers a complete interoperability with IoT LoRa networks in order to rapidly report any change. This device is perfectly designed for deployment of energy efficiency services for Small and Medium Buildings.
 
 # Firmware versions (at least one is mandatory)
@@ -90,7 +90,7 @@ weight: 18
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium AA 3.6V
+  type: Lithium A 3.6V
 
 # Operating conditions (optional)
 # operatingConditions:
@@ -150,7 +150,7 @@ msrp:
 
 # Photos
 photos:
-  main: fm432p.jpg
+  main: fm432p.png
   # other:
   #   - windsensor-package.jpg
 # Youtube or Vimeo Video (optional)

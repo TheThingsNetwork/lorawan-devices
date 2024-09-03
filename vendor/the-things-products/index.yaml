@@ -1,3 +1,29 @@
 endDevices:
   - the-things-node
   - the-things-uno
+profileIDs:
+  '1':
+    endDeviceID: 'the-things-node'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '2':
+    endDeviceID: 'the-things-node'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'US902-928'
+  '3':
+    endDeviceID: 'the-things-uno'
+    firmwareVersion: 'quickstart'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '4':
+    endDeviceID: 'the-things-uno'
+    firmwareVersion: 'quickstart'
+    hardwareVersion: '1.0'
+    region: 'US902-928'
+  '5':
+    endDeviceID: 'the-things-uno'
+    firmwareVersion: 'abp'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

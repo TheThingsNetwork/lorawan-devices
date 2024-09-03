@@ -1,0 +1,22 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: uc1122.js
+  examples:
+    - description: Remote I/O Controllers (example 1) - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x00, 0x01]
+      output:
+        data:
+          digital_input: on
+    - description: Remote I/O Controllers (example 2) - Milesgiht IoT
+      input:
+        fPort: 85
+        bytes: [0x11, 0x02, 0x0D, 0x00, 0x0A, 0x00, 0x0F, 0x00, 0x0B, 0x00]
+      output:
+        data:
+          analog_input_1:
+            avg: 0.11
+            cur: 0.13
+            min: 0.10
+            max: 0.15

@@ -1,4 +1,4 @@
-name: DL-DLR2-010
+name: DL-DLR2-010 - Dual Pulse Counter Dry Contact Transmitter
 description: The Decentlab DL-DLR2-010 is an Analog or Digital Sensor Device for LoRaWAN® that consists of a Dual Pulse Counter Dry Contact sensor interface.
 
 hardwareVersions:

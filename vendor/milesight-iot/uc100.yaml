@@ -1,0 +1,78 @@
+name: Milesight UC100 Series IoT Controller
+description: UC100 is an IoT controller used for remote control and data acquisition from Modbus RS485 devices via LoRaWAN® networks. It can read up to 16 Modbus RTU devices and support Modbus transparent transmission between server and RS485 devices as a Modbus to LoRaWAN® converter. Besides, UC100 supports multiple trigger conditions and actions which can work autonomously even when the network dropped. Combining with Milesight IoT Cloud solution, it can monitor and control remote assets via web server or mobile App easily. UC100 is widely used in indoor applications like smart metering, smart cities, building automation, etc.
+
+hardwareVersions:
+  - version: 'V1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.0'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: uc100-codec
+      US902-928:
+        id: profile-us915
+        codec: uc100-codec
+      AU915-928:
+        id: profile-au915
+        codec: uc100-codec
+      AS923:
+        id: profile-as923
+        codec: uc100-codec
+      CN470-510:
+        id: profile-cn470
+        codec: uc100-codec
+      KR920-923:
+        id: profile-kr920
+        codec: uc100-codec
+      IN865-867:
+        id: profile-in865
+        codec: uc100-codec
+      RU864-870:
+        id: profile-ru864
+        codec: uc100-codec
+
+#sensors:
+# modbus channels
+
+bridgeInterfaces:
+  - modbus
+  - rs-485
+
+dimensions:
+  width: 70
+  length: 45
+  height: 13
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/controller/uc100-iot-lorawan-controller/
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/uc100-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.alibaba.com/product-detail/Milesight-UC100-IoT-Controller_1600114835889.html?spm=a2700.galleryofferlist.normal_offer.d_title.1b6e5b85Uvb080
+
+photos:
+  main: uc100.png

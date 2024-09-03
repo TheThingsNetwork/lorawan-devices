@@ -1,4 +1,4 @@
-name: LHT65
+name: LHT65 - Temperature & Humidity Sensor
 description: LoRaWAN Temperature & Humidity sensor
 
 # Firmware versions (at least one is mandatory)

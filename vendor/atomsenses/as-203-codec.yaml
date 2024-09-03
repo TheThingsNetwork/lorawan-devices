@@ -1,0 +1,17 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: as-203.js
+  examples:
+    - description: 5 in 1  Indoor Air Quality GAS Sensor (example 1) - Atomsenses
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x67, 0x34, 0x01, 0x04, 0x68, 0x65, 0x07, 0x7D, 0xE7, 0x04, 0x08, 0x7D, 0x07, 0x00, 0x0A, 0x7D, 0x3F, 0x00]
+      output:
+        data:
+          battery: 92
+          temperature: 30.8
+          humidity: 50.5
+          co2: 1255
+          tvoc: 7
+          hcho: 63

@@ -1,0 +1,19 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em300-zld.js
+  examples:
+    - description: Zone Leakage Detection Sensor (example 1) - Milesgiht IoT
+      input:
+        fPort: 85
+        bytes: [0x05, 0x00, 0x00]
+      output:
+        data:
+          water: normal
+    - description: Zone Leakage Detection Sensor (example 2) - Milesgiht IoT
+      input:
+        fPort: 85
+        bytes: [0x05, 0x00, 0x01]
+      output:
+        data:
+          water: leak

@@ -13,6 +13,8 @@ firmwareVersions:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: emb-lr1280s-profile
 
+deviceType: module
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

@@ -1,4 +1,4 @@
-name: FM432g-10-15mn
+name: FM432g - Gas consumption sensor - 10/15 min
 description: universal sensor transmitting gas consumption data from an existing meter to a server. It provides the ideal starting point for analyzing the level of consumption and offers a complete interoperability with IoT LoRa networks in order to rapidly report any change. It is the ideal device for deployment of energy efficiency services dedicated to Small and Medium Buildings, especially in the SoHo and residential markets
 
 # Firmware versions (at least one is mandatory)
@@ -90,7 +90,7 @@ weight: 18
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium AA 3.6V
+  type: Lithium A 3.6V ER17505 from EVE Energy Co Ltd
 
 # Operating conditions (optional)
 # operatingConditions:
@@ -149,7 +149,7 @@ msrp:
   # USD: 120
 # Photos
 photos:
-  main: fm432g.jpg
+  main: fm432g.png
 # other:
 #   - windsensor-package.jpg
 

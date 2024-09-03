@@ -28,6 +28,9 @@ firmwareVersions:
         lorawanCertified: false
         codec: rak7201-codec
 
+sensors:
+  - button
+
 # Valid values are: none, read protected and secure element.
 keySecurity: none
 

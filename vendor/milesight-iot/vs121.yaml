@@ -1,0 +1,74 @@
+name: Milesight VS121 AI Workplace Occupancy Sensor
+description: Milesight VS121, based on Artificial Intelligence (AI) technology, is an AI workplace sensor designed to monitor occupancy & utilization in modern workspace, which can reach up to 95% recognition rate. With the ability to sense from up to more than 78 m2, few sensors are needed to cover the same area, decreasing the deploy costs for users. Milesight VS121 sensors are equipped with Wi-Fi for easy configuration without any configuration tools.
+
+hardwareVersions:
+  - version: 'V1.x'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: vs121-codec
+      US902-928:
+        id: profile-us915
+        codec: vs121-codec
+      AU915-928:
+        id: profile-au915
+        codec: vs121-codec
+      AS923:
+        id: profile-as923
+        codec: vs121-codec
+      CN470-510:
+        id: profile-cn470
+        codec: vs121-codec
+      KR920-923:
+        id: profile-kr920
+        codec: vs121-codec
+      IN865-867:
+        id: profile-in865
+        codec: vs121-codec
+      RU864-870:
+        id: profile-ru864
+        codec: vs121-codec
+
+sensors:
+  - occupancy
+
+dimensions:
+  width: 50
+  length: 23.8
+  height: 50
+
+operatingConditions:
+  temperature:
+    min: -5
+    max: 55
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/lorawan/sensor/vs121/?utm_source=platform&utm_medium=web&utm_campaign=milesight
+dataSheetURL: https://resource.milesight-iot.com/milesight/document/vs121-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.alibaba.com/product-detail/Milesight-VS121-LoRaWAN-AI-Workplace-Sensor_1600323708781.html?spm=a2700.galleryofferlist.normal_offer.d_title.4dbd6596x5KHxg
+
+photos:
+  main: vs121.png

@@ -1,0 +1,114 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: df556.js
+  # Examples (optional)
+  examples:
+    - description: heartbeat upload without gps
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x16, 0x02, 0x12, 0x02, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x68, 0x00, 0x01, 0x81]
+      output:
+        data:
+          level: 613
+          gpsEnabled: false
+          alarmLevel: false
+          alarmBattery: false
+          volt: 360
+          frameCounter: 1
+
+    - description: heartbeat upload with gps
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x16, 0x02, 0x1A, 0x02, 0x65, 0x01, 0xCD, 0x03, 0xE9, 0x42, 0xEF, 0x27, 0x20, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x68, 0x00, 0x01, 0x81]
+      output:
+        data:
+          level: 613
+          gpsEnabled: true
+          longitude: '116.507430'
+          latitude: '40.038999'
+          alarmLevel: false
+          alarmBattery: false
+          volt: 360
+          frameCounter: 1
+    - description: parameter packet
+      input:
+        fPort: 3
+        bytes: [0x80, 0x00, 0x16, 0x03, 0x11, 0x04, 0x05, 0x00, 0x3C, 0x0A, 0x1E, 0x4B, 0x03, 0xE8, 0x14, 0x00, 0x81]
+      output:
+        data:
+          firmware: '4.5'
+          uploadInterval: 60
+          detectInterval: 10
+          levelThreshold: 30
+          density: 1000
+          batteryThreshold: 20
+          workMode: 0
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: df556.js
+  examples:
+    - description: change periodic upload interval to 60 minutes
+      input:
+        data:
+          uploadInterval: 60
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x30, 0x33, 0x43, 0x38, 0x31]
+        fPort: 3
+    - description: change detection interval to 10 minutes
+      input:
+        data:
+          detectInterval: 10
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+        fPort: 3
+    - description: change level alarm threshold to 35cm
+      input:
+        data:
+          levelThreshold: 35
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+        fPort: 3
+
+    - description: change liquid density to 1000mg/cm3
+      input:
+        data:
+          density: 1000
+      output:
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x41, 0x30, 0x33, 0x45, 0x38, 0x38, 0x31]
+        fPort: 3
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: df556.js
+  examples:
+    - description: change periodic upload interval to 60 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x31, 0x30, 0x30, 0x33, 0x43, 0x38, 0x31]
+      output:
+        data:
+          uploadInterval: 60
+    - description: change detection interval to 10 minutes
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x38, 0x30, 0x41, 0x38, 0x31]
+      output:
+        data:
+          detectInterval: 10
+    - description: change level alarm threshold to 35cm
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x32, 0x32, 0x33, 0x38, 0x31]
+      output:
+        data:
+          levelThreshold: 35
+
+    - description: change liquid density to 1000mg/cm3
+      input:
+        fPort: 3
+        bytes: [0x38, 0x30, 0x30, 0x32, 0x39, 0x39, 0x39, 0x39, 0x30, 0x41, 0x30, 0x33, 0x45, 0x38, 0x38, 0x31]
+      output:
+        data:
+          density: 1000

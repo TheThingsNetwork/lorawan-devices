@@ -1,4 +1,4 @@
-name: iOKE868
+name: iOKE868 - Smart Meter Reader
 description: The IMST iOKE868 LoRaWAN® optical reading head unit leverages the long range and low power consumption of LoRa® to provide real-time data monitoring of energy consumption and secure connectivity to the LoRaWAN® IoT network.
 
 # Hardware versions
@@ -26,7 +26,8 @@ firmwareVersions:
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
-#sensors:
+sensors:
+  - optical meter
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

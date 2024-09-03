@@ -1,4 +1,4 @@
-name: DL-DLR2-003
+name: DL-DLR2-003 - Digital Input Dry Contact Transmitter
 description: The Decentlab DL-DLR2-003 is an Analog or Digital Sensor Device for LoRaWAN® that consists of a Digital Input Dry Contact sensor interface.
 
 hardwareVersions:

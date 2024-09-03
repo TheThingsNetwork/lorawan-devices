@@ -1,4 +1,4 @@
-name: FM432t-10-15mn
+name: FM432t - Indoor temperature sensor - 10/15 min
 description: FM432t is an IoT sensor monitoring temperature in buildings.
 
 # Firmware versions (at least one is mandatory)
@@ -90,7 +90,7 @@ weight: 18
 # Battery information (optional)
 battery:
   replaceable: true
-  type: Lithium AA 3.6V
+  type: Lithium A 3.6V
 
 # Operating conditions (optional)
 # operatingConditions:
@@ -149,7 +149,7 @@ msrp:
   # USD: 120
 # Photos
 photos:
-  main: fm432t.jpg
+  main: fm432t.png
 # other:
 #   - windsensor-package.jpg
 

@@ -1,5 +1,5 @@
-name: rbs306-420ma
-description: radio-bridge door window sensor
+name: RBS306-420MA - 4-20mA Current Loop Sensor
+description: The 4-20mA Current Loop Sensor can measure the current from another device or sensor. It uses a 10-bit ADC to measure an analog value between 4 and 20mA with a 10uA resolution.  If the measured value rises above or fails below the configured thresholds, an alert is sent over the wireless network. The weather-proof enclosure makes the sensor suitable for outdoor and industrial use. The 4-20mA sensor can also be used as a bridge device to enable a wide variety of sensors with only a 4-20mA output.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -19,3 +19,10 @@ firmwareVersions:
         id: rbs306-420ma-profile
         lorawanCertified: true
         codec: rbs306-420ma-codec
+
+sensors:
+  - 4-20 ma
+
+# Photos
+photos:
+  main: rbs306-420ma.png

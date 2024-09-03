@@ -4,15 +4,17 @@ description: The YO Meter Pulse input accepts connection to potential-free conta
 hardwareVersions:
   - version: '2.0'
     numeric: 1
+  - version: '2.1'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
     version: '3.1.0'
     numeric: 1
+    # Corresponding hardware versions (optional)
     hardwareVersions:
       - '2.0'
-
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
     # RU864-870
@@ -24,13 +26,45 @@ firmwareVersions:
         # which is verbose.
         #vendorID: 659
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: yo-meter-pulse-profile
+        id: yo-meter-pulse-profile-eu
         lorawanCertified: true
-      US902-928: #dodać profil na US
+      US902-928:
         id: yo-meter-pulse-profile-us
         lorawanCertified: true
       AU915-928:
         id: yo-meter-pulse-profile-au
+        lorawanCertified: true
+      AS923:
+        id: yo-meter-pulse-profile-as
+        lorawanCertified: true
+
+  - # Firmware version
+    version: '3.6.4'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.1'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        #vendorID: 659
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: yo-meter-pulse-profile-eu
+        lorawanCertified: true
+      US902-928:
+        id: yo-meter-pulse-profile-us
+        lorawanCertified: true
+      AU915-928:
+        id: yo-meter-pulse-profile-au
+        lorawanCertified: true
+      AS923:
+        id: yo-meter-pulse-profile-as
         lorawanCertified: true
 
 # Sensors that this device features (optional)
@@ -55,8 +89,8 @@ additionalRadios:
 # Use width, height, length and/or diameter
 dimensions:
   width: 88
-  length: 42
-  height: 64
+  length: 64
+  height: 42
 
 # Weight in grams (optional)
 weight: 126.5
@@ -64,15 +98,17 @@ weight: 126.5
 # Battery information (optional)
 battery:
   replaceable: true
-  type: 3 x AA
+  type: 3 x AA (3 x 1.5V)
 
 # IP rating (optional)
 ipCode: IP67
 
 # Product and data sheet URLs (optional)
-productURL: https://yosensi.io/products/yo_temp/
-dataSheetURL: https://yosensi.io/support/datasheets/YO_Temp_datasheet.pdf
+productURL: https://www.yosensi.io/products/yo_meter_pulse/
+dataSheetURL: https://www.yosensi.io/support/datasheets/YO_Meter_Pulse_datasheet.pdf
 
 # Photos
 photos:
-  main: yo-meter-pulse.png
+  main: yo-meter-pulse-02.png
+  other:
+    - yo-meter-pulse-01.png
