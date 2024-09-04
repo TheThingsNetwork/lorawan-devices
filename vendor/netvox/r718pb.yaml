@@ -36,7 +36,7 @@ firmwareVersions:
 
 sensors:
   - level
-
+  
 dimensions:
   width: 88.19
   length: 112

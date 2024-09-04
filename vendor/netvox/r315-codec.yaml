@@ -25,6 +25,80 @@ uplinkDecoder:
           Temp: 27.80
           Humi: 53
 
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xD2, 0x02, 0x1C, 0x08, 0x03, 0x39, 0x12, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R315'
+          Volt: 2.8
+          Illuminance: '2051Lux'
+          LowTemperatureAlarm: 1
+          HighTemperatureAlarm: 0
+          LowHumidityAlarm: 0
+          HighHumidityAlarm: 1
+          LowIlluminanceAlarm: 1
+          HighIlluminanceAlarm: 1
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xD2, 0x011, 0x1C, 0x01, 0x03, 0x39, 0x12, 0x80, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R315'
+          Volt: 2.8
+          THSensor: 1
+          LightSensor: 0
+          PIRSensor: 0
+          EmergenceButton: 1
+          TiltSensor: 1
+          InternalContactSwitch: 1
+          ExternalContactSwitch1: 0
+          ExternalContactSwitch2: 0
+          InternalShockSensor: 1
+          ExternalShockSensor: 1
+          ExternalDryContactPointIN: 0
+          DryContactPointOut: 0
+          ExternalWaterLeakSenor1: 0
+          ExternalWaterLeakSenor2: 0
+          ExternalSeatSensor: 0
+          ExternalGlassSensor1: 0
+          ExternalGlassSensor2: 1
+          PIRSensorState: 0
+          EmergenceButtonaLAlarmState: 0
+          TiltSensorState: 0
+          InternalContactSwitchSensorState: 0
+          ExternalContactSwitch1SensorState: 0
+          ExternalContactSwitch2SensorState: 0
+          InternalShockSensorState: 0
+          ExternalShockSensorState: 1
+          ExternalDryContactPointINState: 0
+          ExternalWaterLeak1SenorState: 1
+          ExternalWaterLeak2SenorState: 0
+          ExternalSeatSenorState: 0
+          ExternalGlassSenor1State: 1
+          ExternalGlassSenor2State: 0
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xD2, 0x12, 0x1C, 0x03, 0x03, 0x39, 0x12, 0x39, 0x03, 0x39]
+      output:
+        data:
+          Device: 'R315'
+          Volt: 2.8
+          Temp: 7.71
+          Humidity: '146.1%'
+          Illuminance: '14595Lux'
+          LowTemperatureAlarm: 1
+          HighTemperatureAlarm: 0
+          LowHumidityAlarm: 0
+          HighHumidityAlarm: 1
+          LowIlluminanceAlarm: 1
+          HighIlluminanceAlarm: 1
+
     - description: Configure report response
       input:
         fPort: 7
