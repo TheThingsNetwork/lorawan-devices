@@ -5,4 +5,4 @@ endDevices:
   - dnt-lw-ats # look in dnt-lw-ats.yaml for the end device definition
   - dnt-lw-etrv
   - dnt-lw-dis
-  #- dnt-lw-esi
+  - dnt-lw-etrv-c
