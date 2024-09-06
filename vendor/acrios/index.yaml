@@ -3,6 +3,7 @@ endDevices:
   - acr-cv-101l-m-d
   - acr-cv-101l-m-eac
   - acr-cv-101l-r-eac
+  - acr-cv-101ni-w-d2
 profileIDs:
   '1':
     endDeviceID: 'acr-cv-101l-r-eac'

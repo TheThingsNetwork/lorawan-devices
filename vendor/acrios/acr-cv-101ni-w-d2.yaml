@@ -7,7 +7,7 @@ hardwareVersions:
 
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
+    version: '2.13.18'
     numeric: 1
     hardwareVersions:
       - 'ACR-CV-101NI-W-D_v4.1'
@@ -16,7 +16,6 @@ firmwareVersions:
       - transmission interval
     profiles:
       EU863-870:
-        vendorID: acrios
         id: acr-cv-otaa-profile
         lorawanCertified: true
 
@@ -32,6 +31,7 @@ weight: 475
 
 battery:
   replaceable: true
+  type: Double D-Cell with JST-XH 2pin connector
 
 operatingConditions:
   temperature:
@@ -57,8 +57,8 @@ firmwareProgramming:
   - fuota lorawan
 
 productURL: https://www.acrios.com/converters/wm-bus-nb-iot
-dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
-onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101ni-w-x/
+# dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101NI-W-D2.pdf
+# onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101ni-w-x/
 
 resellerURLs:
   - name: 'ACRIOS Systems'
@@ -76,20 +76,17 @@ photos:
     - acr-cv-101ni-w-d2-inside.png
     - acr-cv-101ni-w-d2-battery.png
 
-videos:
-  main: https://www.youtube.com/watch?v=UXfMkgXZw1c&t=488s
-
-compliances:
-  safety:
-    - body: IEC
-      norm: EN
-      standard: 62368-1
-  radioEquipment:
-    - body: ETSI
-      norm: EN
-      standard: 301 489-1
-      version: 2.2.0
-    - body: ETSI
-      norm: EN
-      standard: 301 489-3
-      version: 2.1.0
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0

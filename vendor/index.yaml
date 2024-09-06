@@ -1695,8 +1695,8 @@ vendors:
 
   - id: acrios
     name: ACRIOS Systems s.r.o.
-    website: https://acrios.com/?lang=en
-    logo: acrioslogo.png
+    website: https://acrios.com/
+    logo: acrios-logo.png
 
   - id: espeasy
     name: ESP Easy

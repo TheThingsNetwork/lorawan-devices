@@ -28,7 +28,7 @@ dimensions:
   length: 90
   height: 55
 
-weight: 250
+weight: 166
 
 battery:
   replaceable: false
@@ -38,8 +38,11 @@ operatingConditions:
   temperature:
     min: -30
     max: 60
+  relativeHumidity:
+    min: 0
+    max: 0.85
 
-ipCode: IP65
+ipCode: IP67
 
 keyProvisioning:
   - custom
@@ -54,14 +57,15 @@ firmwareProgramming:
   - serial
   - fuota lorawan
 
-productURL: https://acrios.com/rs485-iot-prevodnik/?lang=en
-dataSheetURL: https://wiki.acrios.com/en/acr-cv/modbus_cv
+productURL: https://www.acrios.com/converters/modbus-rs485-na-lorawan
+# dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101L-R-EAC.pdf
+# onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101l-r-x/
 
 resellerURLs:
   - name: 'ACRIOS Systems'
     region:
       - European Union
-    url: https://acrios.com/?lang=en
+    url: https://acrios.com/
 
 msrp:
   EUR: 141

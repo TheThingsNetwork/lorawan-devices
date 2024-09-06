@@ -2,19 +2,23 @@ name: M-Bus IoT converter
 description: The Acrios M-Bus IoT converter is an M-Bus to LoRaWAN® converter that can be used for reading electricity meters and calorimeters. The M-Bus converter supports connections of up to 5 UL (Unit Loads) and communication is based on the EN 137 57-3 protocol.
 
 hardwareVersions:
-  - version: 'v3.7'
+  - version: 'ACR-CV-101L-M-DEAC_v1.1'
     numeric: 1
 
 firmwareVersions:
   - # Firmware version
-    version: 'e8d17c15795f'
+    version: '2.5'
     numeric: 1
     hardwareVersions:
-      - 'v3.7'
+      - 'ACR-CV-101L-M-DEAC_v1.1'
+    features:
+      - remote rejoin
+      - transmission interval
     profiles:
       EU863-870:
-        lorawanCertified: true
         id: acr-cv-101l-m-d-profile
+        lorawanCertified: true
+        codec: acr-cv-101l-m-x-codec
 
 bridgeInterfaces:
   - m-bus
@@ -24,30 +28,64 @@ dimensions:
   length: 90
   height: 55
 
-weight: 250
+weight: 336
 
 battery:
   replaceable: true
+  type: D-Cell with JST-XH 2pin connector
 
 operatingConditions:
   temperature:
     min: -30
     max: 60
+  relativeHumidity:
+    min: 0
+    max: 0.85
 
-ipCode: IP65
+ipCode: IP67
 
 keyProvisioning:
   - custom
 
 keyProgramming:
   - serial
+  - firmware
 
 keySecurity: read protected
 
-productURL: https://acrios.com/m-bus-iot-prevodnik/?lang=en#
-dataSheetURL: https://acrios.com/wp-content/uploads/2023/02/ACR-CV-101L-M-D.pdf
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+
+productURL: https://www.acrios.com/converters/m-bus-lorawan
+# dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101L-M-D.pdf
+# onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101l-m-x/
+
+resellerURLs:
+  - name: 'ACRIOS Systems'
+    region:
+      - European Union
+    url: https://acrios.com/
 
 photos:
   main: acr-cv-101l-x-d.png
   other:
     - acr-cv-101l-x-d-top.png
+
+videos:
+  main: https://www.youtube.com/watch?v=fiuiulh-8BY&t=1287s
+
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0

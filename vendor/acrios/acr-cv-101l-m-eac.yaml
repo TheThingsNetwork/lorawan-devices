@@ -18,6 +18,7 @@ firmwareVersions:
       EU863-870:
         id: acr-cv-otaa-profile
         lorawanCertified: true
+        codec: acr-cv-101l-m-x-codec
 
 bridgeInterfaces:
   - m-bus
@@ -27,7 +28,7 @@ dimensions:
   length: 90
   height: 55
 
-weight: 250
+weight: 166
 
 battery:
   replaceable: false
@@ -37,8 +38,11 @@ operatingConditions:
   temperature:
     min: -30
     max: 60
+  relativeHumidity:
+    min: 0
+    max: 0.85
 
-ipCode: IP65
+ipCode: IP67
 
 keyProvisioning:
   - custom
@@ -53,14 +57,15 @@ firmwareProgramming:
   - serial
   - fuota lorawan
 
-productURL: https://acrios.com/m-bus-iot-prevodnik/?lang=en
-dataSheetURL: https://acrios.com/wp-content/uploads/2023/02/ACR-CV-101L-M-EAC.pdf
+productURL: https://www.acrios.com/converters/m-bus-lorawan
+# dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101L-M-EAC.pdf
+# onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101l-m-x/
 
 resellerURLs:
   - name: 'ACRIOS Systems'
     region:
       - European Union
-    url: https://acrios.com/?lang=en
+    url: https://acrios.com/
 
 msrp:
   EUR: 137
@@ -70,6 +75,9 @@ photos:
   other:
     - acr-cv-101l-x-eac-top.png
     - acr-cv-101l-m-eac-inside.png
+
+videos:
+  main: https://www.youtube.com/watch?v=fiuiulh-8BY&t=1287s
 
 compliances:
   safety:
