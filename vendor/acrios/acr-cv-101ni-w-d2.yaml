@@ -1,5 +1,5 @@
-name: Wireless M-Bus to LoRaWAN® Converter
-description: Battery-powered ACRIOS Systems IoT converter working as Wireless M-Bus to LoRaWAN® (NB-IoT HW - LoRaWAN FW) bridge with implemented LUA scripting interface. The LUA scripting interface allows for message buffering, message splitting, LoRaWAN communication class changes, implementation of custom Wireless M-Bus protocols as well as other operations on the hardware level.
+name: Wireless M-Bus to LoRaWAN converter
+description: Wireless M-Bus to LoRaWAN converter is used to retrofit ANY Wireless M-Bus meter with LoRaWAN communication
 
 hardwareVersions:
   - version: 'ACR-CV-101NI-W-D_v4.1'
@@ -16,8 +16,11 @@ firmwareVersions:
       - transmission interval
     profiles:
       EU863-870:
+        vendorID: acrios
         id: acr-cv-otaa-profile
         lorawanCertified: true
+
+deviceType: cots
 
 additionalRadios:
   - cellular
@@ -75,18 +78,3 @@ photos:
     - acr-cv-101ni-w-d2-top.png
     - acr-cv-101ni-w-d2-inside.png
     - acr-cv-101ni-w-d2-battery.png
-
-# compliances:
-#   safety:
-#     - body: IEC
-#       norm: EN
-#       standard: 62368-1
-#   radioEquipment:
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-1
-#       version: 2.2.0
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-3
-#       version: 2.1.0

@@ -1,5 +1,5 @@
-name: M-Bus IoT converter
-description: The Acrios M-Bus IoT converter is an M-Bus to LoRaWAN® converter that can be used for reading electricity meters and calorimeters. The M-Bus converter supports connections of up to 5 UL (Unit Loads) and communication is based on the EN 137 57-3 protocol.
+name: M-Bus to LoRaWAN converter
+description: M-Bus to LoRaWAN converter is used to retrofit ANY M-Bus meter with LoRaWAN communication
 
 hardwareVersions:
   - version: 'ACR-CV-101L-M-DEAC_v1.1'
@@ -7,7 +7,7 @@ hardwareVersions:
 
 firmwareVersions:
   - # Firmware version
-    version: '2.5'
+    version: '2.13.18'
     numeric: 1
     hardwareVersions:
       - 'ACR-CV-101L-M-DEAC_v1.1'
@@ -16,9 +16,12 @@ firmwareVersions:
       - transmission interval
     profiles:
       EU863-870:
-        id: acr-cv-101l-m-d-profile
+        vendorID: acrios
+        id: acr-cv-otaa-profile
         lorawanCertified: true
         codec: acr-cv-101l-m-x-codec
+
+deviceType: cots
 
 bridgeInterfaces:
   - m-bus
@@ -58,14 +61,19 @@ firmwareProgramming:
   - fuota lorawan
 
 productURL: https://www.acrios.com/converters/m-bus-lorawan
+dataSheetURL: https://cdn.prod.website-files.com/66967900e67b9bbd56c4b73c/66d08c240b2ddf57a76697c6_ACR-CV-101L-M-D.pdf
 # dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101L-M-D.pdf
 # onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101l-m-x/
 
 resellerURLs:
-  - name: 'ACRIOS Systems'
+  - name: 'ZENNERSHOP'
     region:
       - European Union
-    url: https://acrios.com/
+      - Saudi Arabia
+    url: https://iot.zenner.shop/en/M-Bus-LoRa-Bridge-ACR-CV-101L-M-D/188113
+
+msrp:
+  EUR: 192
 
 photos:
   main: acr-cv-101l-x-d.png
@@ -73,19 +81,10 @@ photos:
     - acr-cv-101l-x-d-top.png
 
 videos:
-  main: https://www.youtube.com/watch?v=fiuiulh-8BY&t=1287s
+  main: https://youtu.be/fiuiulh-8BY
 
-# compliances:
-#   safety:
-#     - body: IEC
-#       norm: EN
-#       standard: 62368-1
-#   radioEquipment:
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-1
-#       version: 2.2.0
-#     - body: ETSI
-#       norm: EN
-#       standard: 301 489-3
-#       version: 2.1.0
+compliances:
+  safety:
+    - body: M-Bus
+      norm: EN
+      standard: 13757-3
