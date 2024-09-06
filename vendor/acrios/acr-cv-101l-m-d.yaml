@@ -2,13 +2,22 @@ name: M-Bus to LoRaWAN converter
 description: M-Bus to LoRaWAN converter is used to retrofit ANY M-Bus meter with LoRaWAN communication
 
 hardwareVersions:
-  - version: 'ACR-CV-101L-M-DEAC_v1.1'
+  - version: 'v3.7'
     numeric: 1
+  - version: 'ACR-CV-101L-M-DEAC_v1.1'
+    numeric: 2
 
 firmwareVersions:
-  - # Firmware version
-    version: '2.13.18'
+  - version: 'e8d17c15795f'
     numeric: 1
+    hardwareVersions:
+      - 'v3.7'
+    profiles:
+      EU863-870:
+        lorawanCertified: true
+        id: acr-cv-101l-m-d-profile
+  - version: '2.13.18'
+    numeric: 2
     hardwareVersions:
       - 'ACR-CV-101L-M-DEAC_v1.1'
     features:
