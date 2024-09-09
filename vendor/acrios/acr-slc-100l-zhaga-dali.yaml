@@ -1,34 +1,24 @@
 name: LoRaWAN street light module (ZHAGA DALI)
 description: Smart street lighting module with ZHAGA socket based on the STM32WL with the 40mm enclosure in diameter is DALI and DALI-2 compatible. We can provide you with just a hardware or both with the complex solution or just a backend with API access.
+
 hardwareVersions:
   - version: 'v1.0'
     numeric: 1
+
 firmwareVersions:
   - # Firmware version
     version: '1.2'
     numeric: 1
     hardwareVersions:
       - 'v1.0'
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
     features:
       - remote rejoin
       - transmission interval
-
     profiles:
       EU863-870:
         lorawanCertified: true
-        id: acr-slc-profile
+        id: acr-slc-100l-zhaga-dali-profile
 
-# Sensors that this device features (optional)
-# Valid values are:
-# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
-# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
-# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
-# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
-# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
-# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - light
   - temperature
@@ -37,30 +27,34 @@ dimensions:
   width: 40
   length: 40
   height: 40
+
 weight: 120
+
 battery:
   replaceable: false
+
 operatingConditions:
   temperature:
     min: -30
     max: 60
+
 ipCode: IP67
+
 keyProvisioning:
   - custom
+
 keyProgramming:
   - firmware
+
 keySecurity: read protected
 
-# Firmware programming (optional)
-# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
-# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - fuota lorawan
 
 productURL: https://acrios.com/zhaga-lwes-modul/?lang=en
+
 dataSheetURL: https://wiki.acrios.com/en/SLC
 
-# Commercial information
 resellerURLs:
   - name: 'ACRIOS Systems'
     region:
@@ -72,8 +66,9 @@ msrp:
 
 photos:
   main: acr-slc-100l-zhaga-dali.png
+  other:
+    - acr-slc-100l-zhaga-dali-top.png
 
-# Regulatory compliances (optional)
 compliances:
   safety:
     - body: IEC
