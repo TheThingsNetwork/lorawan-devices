@@ -101,9 +101,67 @@ function decodeUplink(input) {
 				data.Humi = input.bytes[10]*0.5;
 			}
 		}
-		else if (input.bytes[2] == 0x02)
-			data.Illuminance = (input.bytes[4]<<8 | input.bytes[5]);
-		
+		else if (input.bytes[2] == 0x02){
+			data.Illuminance = (input.bytes[4]<<8 | input.bytes[5])+"Lux";
+			data.LowTemperatureAlarm = input.bytes[6] & 1;
+			data.HighTemperatureAlarm = input.bytes[6]>>1 & 1;
+			data.LowHumidityAlarm = input.bytes[6]>>2 & 1;
+			data.HighHumidityAlarm = input.bytes[6]>>3 & 1;
+			data.LowIlluminanceAlarm = input.bytes[6]>>4 & 1;
+			data.HighIlluminanceAlarm = input.bytes[6]>>5 & 1;
+		}
+		else if(input.bytes[2] == 0x011){
+			let FunctionEnable = (input.bytes[5]<<8 |input.bytes[6]);
+			data.THSensor = FunctionEnable & 1;
+			data.LightSensor = FunctionEnable>>1 & 1;
+			data.PIRSensor = FunctionEnable>>2 & 1;
+			data.EmergenceButton = FunctionEnable>>3 & 1;
+			data.TiltSensor = FunctionEnable>>4 & 1;
+			data.InternalContactSwitch = FunctionEnable>>5 & 1;
+			data.ExternalContactSwitch1 = FunctionEnable>>6 & 1;
+			data.ExternalContactSwitch2 = FunctionEnable>>7 & 1;
+			data.InternalShockSensor = FunctionEnable>>8 & 1;
+			data.ExternalShockSensor = FunctionEnable>>9 & 1;
+			data.ExternalDryContactPointIN = FunctionEnable>>10 & 1;
+			data.DryContactPointOut = FunctionEnable>>11 & 1;
+			data.ExternalWaterLeakSenor1 = FunctionEnable>>12 & 1;
+			data.ExternalWaterLeakSenor2 = FunctionEnable>>13 & 1;
+			data.ExternalSeatSensor = FunctionEnable>>14 & 1;
+			data.ExternalGlassSensor1 = FunctionEnable>>15 & 1;
+			data.ExternalGlassSensor2 = input.bytes[4]& 1;
+
+			let BinarySensorReport = (input.bytes[7]<<8 | input.bytes[8]);
+			data.PIRSensorState = BinarySensorReport & 1;
+			data.EmergenceButtonaLAlarmState = BinarySensorReport>>1 & 1;
+			data.TiltSensorState = BinarySensorReport>>2 & 1;
+			data.InternalContactSwitchSensorState = BinarySensorReport>>3 & 1;
+			data.ExternalContactSwitch1SensorState = BinarySensorReport>>4 & 1;
+			data.ExternalContactSwitch2SensorState = BinarySensorReport>>5 & 1;
+			data.InternalShockSensorState = BinarySensorReport>>6 & 1;
+			data.ExternalShockSensorState = BinarySensorReport>>7 & 1;
+			data.ExternalDryContactPointINState = BinarySensorReport>>8 & 1;
+			data.ExternalWaterLeak1SenorState = BinarySensorReport>>9 & 1;
+			data.ExternalWaterLeak2SenorState = BinarySensorReport>>10 & 1;
+			data.ExternalSeatSenorState = BinarySensorReport>>11 & 1;
+			data.ExternalGlassSenor1State = BinarySensorReport>>12 & 1;
+			data.ExternalGlassSenor2State = BinarySensorReport>>13 & 1;
+		}
+		else if(input.bytes[2] == 0x12){
+			if (input.bytes[4] & 0x80){
+					var tmpval = (input.bytes[4]<<8 | input.bytes[5]);
+					data.Temp = (0x10000 - tmpval)/100 * -1;
+			}else{
+				data.Temp = (input.bytes[4]<<8 | input.bytes[5])/100;
+			}
+			data.Humidity = (input.bytes[6]<<8 | input.bytes[7])*0.01 +"%";
+			data.Illuminance = (input.bytes[8]<<8 | input.bytes[9])+"Lux";
+			data.LowTemperatureAlarm = input.bytes[10] & 1;
+			data.HighTemperatureAlarm = input.bytes[10]>>1 & 1;
+			data.LowHumidityAlarm = input.bytes[10]>>2 & 1;
+			data.HighHumidityAlarm = input.bytes[10]>>3 & 1;
+			data.LowIlluminanceAlarm = input.bytes[10]>>4 & 1;
+			data.HighIlluminanceAlarm = input.bytes[10]>>5 & 1;		
+		}	
 		break;
 		
 	case 7:
