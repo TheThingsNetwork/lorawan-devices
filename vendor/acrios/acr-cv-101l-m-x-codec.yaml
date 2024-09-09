@@ -1,0 +1,37 @@
+uplinkDecoder:
+  fileName: acr-cv-101l-m-x.js
+  examples:
+    - description: M-Bus payload
+      input:
+        fPort: 1
+        # HEX payload: 01 01 68 13 13 68 08 05 73 78 56 34 12 0a 00 e9 7e 01 00 00 00 35 01 00 00 3c 16
+        bytes: [1, 1, 104, 19, 19, 104, 8, 5, 115, 120, 86, 52, 18, 10, 0, 233, 126, 1, 0, 0, 0, 53, 1, 0, 0, 60, 22]
+      output:
+        data:
+          a: 5
+          accessN: 10
+          c: 8
+          cStored: Actual
+          ci: 115
+          data:
+            - func: Instantaneous
+              id: 0
+              storage: 0
+              unit: l
+              value: 1
+            - func: Instantaneous
+              id: 1
+              storage: 1
+              unit: l
+              value: 135
+          deviceCode: 7
+          deviceType: Water meter
+          errors: []
+          fixed: true
+          id: 12345678
+          l: 19
+          len: 25
+          status: 0
+          type: Data
+        errors: []
+        warnings: []

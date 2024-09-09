@@ -1,0 +1,42 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-etrv-c.js
+  # Examples (optional)
+  examples:
+    - description: Status Uplink
+      input:
+        fPort: 10
+        bytes: [0x04, 0xF4, 0xB6, 0x28, 0x28, 0x00, 0x04]
+      output:
+        data:
+          battery_cover_locked:
+            unit: 'bool'
+            value: true
+          battery_voltage:
+            unit: 'mV'
+            value: '3320'
+          heating_control:
+            mode:
+              active_mode:
+                unit: 'string'
+                value: 'Manu Temp'
+              holiday:
+                is_pending:
+                  unit: 'bool'
+                  value: false
+              window_open_detection:
+                is_open:
+                  unit: 'bool'
+                  value: false
+            room_temperature:
+              unit: '°C'
+              value: '20.0'
+            set_point_temperature:
+              unit: '°C'
+              value: '20.0'
+            valve_position:
+              unit: '%'
+              value: '0.0'
+        errors: []
+        warnings: []
