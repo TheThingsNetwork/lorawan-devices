@@ -1,5 +1,5 @@
-name: LoRaWAN® Radiator thermostat
-description: The dnt LoRaWAN® Radiator thermostat enables remote control of the room temperature. It features three customizable heating profiles with up to ten switching times per day. Because of very low energy consumption of only 3.8 uA, a battery life up to 5 years can be archived.
+name: LoRaWAN® distance sensor 1
+description: The dnt-LW-DIS1 is a robust LoRaWAN® device for measuring distances outdoors. With its measuring range of 4 to 360 cm and the easy-to-install housing, it can be used for a wide range of applications.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.1.5'
+    version: '1.0.5'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -33,7 +33,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: dnt-profile
         lorawanCertified: true
-        codec: dnt-lw-etrv-codec
+        codec: dnt-lw-dis-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -44,31 +44,33 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
+  - distance
+  - accelerometer
   - temperature
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 50
-  length: 98
-  height: 48
+  width: 116
+  length: 23
+  height: 70
 
 # Weight in grams (optional)
-weight: 172
+weight: 97
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 0
-    max: 50
+    min: -20
+    max: 55
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 0.97
 
 # IP rating (optional)
-ipCode: IP20
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -96,14 +98,13 @@ resellerURLs:
   - name: 'ELVshop'
     region:
       - European Union
-    url: https://www.dnt.de/Produkte/dnt-LoRaWAN-Heizkoerperthermostat-dnt-LW-eTRV/
+    url: https://www.dnt.de/Produkte/dnt-LoRaWAN-Distanzsensor-dnt-LW-DIS1/
 msrp:
-  EUR: 79.95
+  EUR: 164.95
 
 # Photos
 photos:
-  main: dnt-lw-etrv-sideview.png
+  main: dnt-lw-dis-front-view.png
   other:
-    - dnt-lw-etrv-backview.png
-    - dnt-lw-etrv-batteryholder-open.png
-    - dnt-lw-etrv-delivery-scope.png
+    - dnt-lw-dis-back-view.png
+    - dnt-lw-dis-side-view-key.png
