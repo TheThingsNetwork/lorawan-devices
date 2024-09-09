@@ -1,11 +1,14 @@
-name: M-Bus IoT converter
-description: The Acrios M-Bus IoT converter is an M-Bus to LoRaWAN® converter that can be used for reading electricity meters and calorimeters. The M-Bus converter supports connections of up to 5 UL (Unit Loads) and communication is based on the EN 137 57-3 protocol.
+name: M-Bus to LoRaWAN converter
+description: M-Bus to LoRaWAN converter is used to retrofit ANY M-Bus meter with LoRaWAN communication
+
 hardwareVersions:
   - version: 'v3.7'
     numeric: 1
+  - version: 'ACR-CV-101L-M-DEAC_v1.1'
+    numeric: 2
+
 firmwareVersions:
-  - # Firmware version
-    version: 'e8d17c15795f'
+  - version: 'e8d17c15795f'
     numeric: 1
     hardwareVersions:
       - 'v3.7'
@@ -13,26 +16,84 @@ firmwareVersions:
       EU863-870:
         lorawanCertified: true
         id: acr-cv-101l-m-d-profile
+  - version: '2.13.18'
+    numeric: 2
+    hardwareVersions:
+      - 'ACR-CV-101L-M-DEAC_v1.1'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        vendorID: acrios
+        id: acr-cv-otaa-profile
+        lorawanCertified: true
+        codec: acr-cv-101l-m-x-codec
+
+deviceType: cots
+
 bridgeInterfaces:
   - m-bus
+
 dimensions:
   width: 145
   length: 90
   height: 55
-weight: 250
+
+weight: 336
+
 battery:
   replaceable: true
+  type: D-Cell with JST-XH 2pin connector
+
 operatingConditions:
   temperature:
     min: -30
     max: 60
-ipCode: IP65
+  relativeHumidity:
+    min: 0
+    max: 0.85
+
+ipCode: IP67
+
 keyProvisioning:
   - custom
+
 keyProgramming:
   - serial
+  - firmware
+
 keySecurity: read protected
-productURL: https://acrios.com/m-bus-iot-prevodnik/?lang=en#
-dataSheetURL: https://acrios.com/wp-content/uploads/2023/02/ACR-CV-101L-M-D.pdf
+
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+
+productURL: https://www.acrios.com/converters/m-bus-lorawan
+dataSheetURL: https://cdn.prod.website-files.com/66967900e67b9bbd56c4b73c/66d08c240b2ddf57a76697c6_ACR-CV-101L-M-D.pdf
+# dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101L-M-D.pdf
+# onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101l-m-x/
+
+resellerURLs:
+  - name: 'ZENNERSHOP'
+    region:
+      - European Union
+      - Saudi Arabia
+    url: https://iot.zenner.shop/en/M-Bus-LoRa-Bridge-ACR-CV-101L-M-D/188113
+
+msrp:
+  EUR: 192
+
 photos:
-  main: acr-cv-101l-m-d.png
+  main: acr-cv-101l-x-d.png
+  other:
+    - acr-cv-101l-x-d-top.png
+
+videos:
+  main: https://youtu.be/fiuiulh-8BY
+
+compliances:
+  safety:
+    - body: M-Bus
+      norm: EN
+      standard: 13757-3

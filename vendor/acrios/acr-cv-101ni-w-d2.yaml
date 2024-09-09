@@ -1,0 +1,80 @@
+name: Wireless M-Bus to LoRaWAN converter
+description: Wireless M-Bus to LoRaWAN converter is used to retrofit ANY Wireless M-Bus meter with LoRaWAN communication
+
+hardwareVersions:
+  - version: 'ACR-CV-101NI-W-D_v4.1'
+    numeric: 1
+
+firmwareVersions:
+  - # Firmware version
+    version: '2.13.18'
+    numeric: 1
+    hardwareVersions:
+      - 'ACR-CV-101NI-W-D_v4.1'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        vendorID: acrios
+        id: acr-cv-otaa-profile
+        lorawanCertified: true
+
+deviceType: cots
+
+additionalRadios:
+  - cellular
+
+dimensions:
+  width: 145
+  length: 90
+  height: 55
+
+weight: 475
+
+battery:
+  replaceable: true
+  type: Double D-Cell with JST-XH 2pin connector
+
+operatingConditions:
+  temperature:
+    min: -30
+    max: 60
+  relativeHumidity:
+    min: 0
+    max: 0.85
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+
+keyProgramming:
+  - serial
+  - firmware
+
+keySecurity: read protected
+
+firmwareProgramming:
+  - serial
+  - fuota lorawan
+
+productURL: https://www.acrios.com/converters/wm-bus-nb-iot
+# dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101NI-W-D2.pdf
+# onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101ni-w-x/
+
+resellerURLs:
+  - name: 'ACRIOS Systems'
+    region:
+      - European Union
+    url: https://www.acrios.com/
+
+msrp:
+  EUR: 260
+
+photos:
+  main: acr-cv-101ni-w-d2.png
+  other:
+    - acr-cv-101ni-w-d2-top.png
+    - acr-cv-101ni-w-d2-inside.png
+    - acr-cv-101ni-w-d2-battery.png
