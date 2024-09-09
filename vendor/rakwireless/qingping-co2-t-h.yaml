@@ -1,0 +1,74 @@
+name: QingPing CO2 & Temperature & Humidity Monitor for LoRaWAN
+description: The QingPing LoRaWAN CO2 monitor Sensor is a remote monitoring device that uses nondispersive infrared (NDIR) spectral analysis to accurately measure CO2 levels. Aside from CO2 levels, it also monitors temperature and relative humidity, providing a comprehensive overview of the indoor environment in real time.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.3.4'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: qingping-co2-t-h-868-profile
+        lorawanCertified: false
+        codec: qingping-co2-t-h-codec
+      US902-928:
+        id: qingping-co2-t-h-915-profile
+        lorawanCertified: false
+        codec: qingping-co2-t-h-codec
+
+sensors:
+  - temperature
+  - humidity
+  - co2
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 77
+  length: 77
+  height: 28
+
+# Weight in grams (optional)
+#weight: 10
+
+operatingConditions:
+  temperature:
+    min: -10
+    max: 50
+
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://store.rakwireless.com/products/qingping-lorawan-co2-monitoring-sensor
+dataSheetURL: https://downloads.rakwireless.com/IoT-Marketplace/Qingping/Indoor%20CO2%20Monitoring%20Solution/QingPing%20LoRaWAN%20CO2%20Sensor%20Datasheet.pdf
+
+# Photos
+photos:
+  main: qingping-co2-t-h.png
+#videos:
+#  main: https://www.youtube.com/watch?v=XVRR7Akyy8M
+
+# Regulatory compliances (optional)
+#compliances:
+#  emc:
+#    - body: ETSI
+#      norm: EN
+#      standard: 301 489-1
+#      version: 2.2.3
+#  radio:
+#    - body: ETSI
+#      norm: EN
+#      standard: 300 220-2
+#      version: 3.2.1
