@@ -1,7 +1,7 @@
 /*
  * ELV modular system Payload-Parser
  *
- * Version: V1.9.0
+ * Version: V1.10.1
  *
  * */
 
@@ -786,7 +786,7 @@ function Decoder(bytes, port) {
             }
             case 0x14: //6-Axis-Sensor
             {
-                index++;
+              index++;
               decoded.Acc_x = !!(bytes[index] & 0x01);
               decoded.Acc_y = !!(bytes[index] & 0x02);
               decoded.Acc_z = !!(bytes[index] & 0x04);
@@ -797,26 +797,65 @@ function Decoder(bytes, port) {
             }
             case 0x15: //Window-State
             {
-                index++;
+              index++;
               data = bytes[index];
               if (data < 100)
               {
-                decoded.window_state = data;
+                decoded.Window_State = data;
               }
               else if (data == 255)
               {
-                decoded.window_state = "Tilted"
+                decoded.Window_State = "Tilted"
               }
               else
               {
-                decoded.window_state = "Undefined"
+                decoded.Window_State = "Undefined"
               }
               break;
             }
             case 0x16:
             {
               index++;
-              decoded.situation = bytes[index];
+              decoded.Situation = bytes[index];
+              break;
+            }
+            case 0x17:  // UV-Index
+            {
+              decoded.UVI = bytes[++index];
+              break;
+            }
+            case 0x18:  // UV-A
+            {
+              decoded.UVA = ( bytes[++index] << 24 ) | ( bytes[++index] << 16 ) | ( bytes[++index] << 8 ) | bytes[++index];
+              decoded.UVA /= 1000000;
+
+              break;
+            }
+            case 0x19:  // UV-B
+            {
+              decoded.UVB = ( bytes[++index] << 24 ) | ( bytes[++index] << 16 ) | ( bytes[++index] << 8 ) | bytes[++index];
+              decoded.UVB /= 1000000;
+
+              break;
+            }
+            case 0x1A:  // UV-C
+            {
+              decoded.UVC = ( bytes[++index] << 24 ) | ( bytes[++index] << 16 ) | ( bytes[++index] << 8 ) | bytes[++index];
+              decoded.UVC /= 1000000;
+
+              break;
+            }
+            case 0x1B:  // Irradiance
+            {
+              decoded.Irradiance = ( bytes[++index] << 8 ) | bytes[++index];
+
+              if( decoded.Irradiance == 0xFFFF )
+              {
+                decoded.Irradiance = 0;
+              }
+
+              decoded.Irradiance /= 10;
+
               break;
             }
             // case 0x??:    // Further Data Type
@@ -853,14 +892,3 @@ function Decoder(bytes, port) {
 
   return decoded;
 }
-
-function decodeDownlink(input) {
-  return {
-    data: {
-      bytes: input.bytes
-    },
-    warnings: [],
-    errors: []
-  }
-}
-
