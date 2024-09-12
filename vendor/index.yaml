@@ -2088,3 +2088,9 @@ vendors:
     social:
       facebook: https://www.facebook.com/jooby.eu
       github: jooby-dev
+
+  - id: accuwatch
+    name: Accuwatch
+    description: Accuwatch is a company that provides a range of IoT solutions for various industries.
+    logo: accuwatch.png
+    website: https://accuwatch.nl/
