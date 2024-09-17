@@ -2,3 +2,21 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: generic-node-sensor-edition-codec.js
+  # Examples (optional)
+  examples:
+    - description: Uplink example
+      input:
+        fPort: 1
+        bytes: [35, 2, 216, 0, 250, 1]
+      output:
+        data:
+          batt_volt: 3.5
+          temperature: 22.8
+          humidity: 25.0
+          button: 1
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 22.8
+              relativeHumidity: 25.0
+            battery: 3.5
