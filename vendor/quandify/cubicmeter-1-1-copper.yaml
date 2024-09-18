@@ -1,5 +1,5 @@
-name: cubicmeter-1-1-copper
-description: CubicMeter 1.1 Copper
+name: CubicMeter 1.1 Copper
+description: Non-invasive water meter and leakage sensor
 
 # Hardware versions (optional)
 hardwareVersions:
