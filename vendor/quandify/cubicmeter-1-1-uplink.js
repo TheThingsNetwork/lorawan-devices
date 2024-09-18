@@ -1,6 +1,6 @@
 // Please read here on how to implement the proper codec: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 
-// Cubicmeter 1.1 Plastic decoder
+// Cubicmeter 1.1 uplink decoder
 
 function decodeUplink(input) {
   var decoded;
