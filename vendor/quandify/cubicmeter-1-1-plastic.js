@@ -1,5 +1,7 @@
 // Please read here on how to implement the proper codec: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 
+// Cubicmeter 1.1 Plastic decoder
+
 function decodeUplink(input) {
   var decoded;
   if (getPacketType(input.fPort) == 'periodicReport' || getPacketType(input.fPort) == 'alarmReport') {
