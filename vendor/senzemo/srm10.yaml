@@ -40,8 +40,7 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
-  - rain level
-  - battery
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -88,7 +87,7 @@ dataSheetURL: https://senzemo.com/wp-content/uploads/2023/06/Senstick-Rainmeter-
 resellerURLs:
   - name: 'Sensational Systems'
     region:
-      - UK
+      - United Kingdom
     url: https://sensational.systems/
   - name: 'Arcsgroup'
     region:
@@ -108,19 +107,19 @@ resellerURLs:
     url: https://iot-shop.de/en/shop/category/brand-senzemo-945
   - name: M2M Germany
     region:
-      - Germany
+      - European Union
     url: https://www.m2mgermany.de/
   - name: Allnet
     region:
-      - Germany and Austria
+      - European Union
     url: https://www.allnet.de/
   - name: IoT Systems
     region: 
-      - Austria
+      - European Union
     url: https://www.iot-systems.at/
   - name: AgroID
     region:
-      - Italy
+      - European Union
     url: https://www.agroid.it/
   - name: EdgeIoT
     region:

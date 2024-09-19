@@ -36,12 +36,15 @@ firmwareVersions:
         codec: stp40-codec
 
 # Sensors that this device features (optional)
-# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
-# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
-# vibration, water, wind direction and wind speed.
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - soil moisture
-  - battery
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -56,7 +59,7 @@ weight: 90
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: ER14505
 
 # Operating conditions (optional)
 operatingConditions:
@@ -88,7 +91,7 @@ dataSheetURL: https://senzemo.com/wp-content/uploads/2023/08/Senstick-STP40_Data
 resellerURLs:
   - name: 'Sensational Systems'
     region:
-      - UK
+      - United Kingdom
     url: https://sensational.systems/
   - name: 'Arcsgroup'
     region:
@@ -108,19 +111,19 @@ resellerURLs:
     url: https://iot-shop.de/en/shop/category/brand-senzemo-945
   - name: M2M Germany
     region:
-      - Germany
+      - European Union
     url: https://www.m2mgermany.de/
   - name: Allnet
     region:
-      - Germany and Austria
+      - European Union
     url: https://www.allnet.de/
   - name: IoT Systems
     region: 
-      - Austria
+      - European Union
     url: https://www.iot-systems.at/
   - name: AgroID
     region:
-      - Italy
+      - European Union
     url: https://www.agroid.it/
   - name: EdgeIoT
     region:
