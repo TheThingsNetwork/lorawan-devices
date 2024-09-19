@@ -39,9 +39,9 @@ var statusReportDecoder = function (bytes) {
     leak_status: data.getUint8(22), // current water leakage state
     battery_active: decodeBatteryLevel(data.getUint8(23)), // battery mV active
     battery_recovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
-    water_temp_min: decodeTemperature_C(data.getUint8(25)), // min water temperature since last statusReport
-    water_temp_max: decodeTemperature_C(data.getUint8(26)), // max water temperature since last statusReport
-    ambient_temp: decodeTemperature_C(data.getUint8(27)), // current ambient temperature
+    water_temp_min: decodeTemperature(data.getUint8(25)), // min water temperature since last statusReport
+    water_temp_max: decodeTemperature(data.getUint8(26)), // max water temperature since last statusReport
+    ambient_temp: decodeTemperature(data.getUint8(27)), // current ambient temperature
   };
 };
 
@@ -57,8 +57,8 @@ function decodeBatteryStatus(input) {
   return 'OK';
 }
 
-function decodeTemperature_C(input) {
-  return input * 0.5 - 20 + '°C'; // to °C
+function decodeTemperature(input) {
+  return input * 0.5 - 20; // to °C
 }
 
 // More packet types only available when using Quandify platform API
