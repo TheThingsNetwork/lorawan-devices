@@ -34,14 +34,14 @@ var statusReportDecoder = function (bytes) {
   }
 
   return {
-    error_code: data.getUint16(4, LSB), // current error code
-    total_volume: data.getUint32(6, LSB), // All-time aggregated water usage in litres
-    leak_status: data.getUint8(22), // current water leakage state
-    battery_active: decodeBatteryLevel(data.getUint8(23)), // battery mV active
-    battery_recovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
-    water_temp_min: decodeTemperature(data.getUint8(25)), // min water temperature since last statusReport
-    water_temp_max: decodeTemperature(data.getUint8(26)), // max water temperature since last statusReport
-    ambient_temp: decodeTemperature(data.getUint8(27)), // current ambient temperature
+    errorCode: data.getUint16(4, LSB), // current error code
+    totalVolume: data.getUint32(6, LSB), // All-time aggregated water usage in litres
+    leakStatus: data.getUint8(22), // current water leakage state
+    batteryActive: decodeBatteryLevel(data.getUint8(23)), // battery mV active
+    batteryRecovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
+    waterTemperatureMin: decodeTemperature(data.getUint8(25)), // min water temperature since last statusReport
+    waterTemperatureMax: decodeTemperature(data.getUint8(26)), // max water temperature since last statusReport
+    ambientTemperature: decodeTemperature(data.getUint8(27)), // current ambient temperature
   };
 };
 
@@ -49,16 +49,16 @@ function decodeBatteryLevel(input) {
   return 1800 + (input << 3); // convert to milliVolt
 }
 
-function decodeBatteryStatus(input) {
+function parseBatteryStatus(input) {
   if (input <= 3100) {
-    return 'Low';
+    return 'Low battery';
   }
 
-  return 'OK';
+  return '';
 }
 
 function decodeTemperature(input) {
-  return input * 0.5 - 20; // to °C
+  return input * 0.5 - 20.0; // to °C
 }
 
 // More packet types only available when using Quandify platform API
@@ -75,14 +75,14 @@ var getPacketType = function (type) {
 
 /* Smaller water leakages only availble when using Quandify platform API
 as it requires cloud analytics */
-var getLeakState = function (input) {
+var parseLeakState = function (input) {
   switch (input) {
     case 3:
       return 'Medium';
     case 4:
       return 'Large';
     default:
-      return 'No leak';
+      return '';
   }
 };
 
@@ -92,8 +92,8 @@ function toHexString(byteArray) {
   }).join('');
 }
 
-function parseErrorCode(error_code) {
-  switch (error_code) {
+function parseErrorCode(errorCode) {
+  switch (errorCode) {
     case 0:
       return '';
     case 384:
@@ -111,21 +111,21 @@ function normalizeUplink(input) {
   return {
     data: {
       air: {
-        temperature: input.ambient_temp, // °C
+        temperature: input.data.decoded.ambientTemperature, // °C
       },
       water: {
         temperature: {
-          min: input.water_temp_min, // °C
-          max: input.water_temp_max, // °C
+          min: input.data.decoded.waterTemperatureMin, // °C
+          max: input.data.decoded.waterTemperatureMax, // °C
         },
-        leak: getLeakState(input.leak_state), // String
-        totalVolume: input.total_volume, // L
+        leak: input.data.decoded.leak_state > 2, // Boolean
+        volume: {
+          total: input.data.decoded.totalVolume, // L
+        },
       },
-      battery: {
-        voltage: input.battery_recovered, // mV
-        status: decodeBatteryStatus(input.battery_recovered), // String
-      },
+      battery: input.data.decoded.batteryRecovered / 1000, // V
     },
-    errors: [parseErrorCode(input.error_code)],
+    warnings: [parseBatteryStatus(input.data.decoded.batteryRecovered), parseLeakState(input.data.decoded.leak_state)].filter((item) => item),
+    errors: [parseErrorCode(input.data.decoded.errorCode)].filter((item) => item),
   };
 }
