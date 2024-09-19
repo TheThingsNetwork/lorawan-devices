@@ -3,10 +3,14 @@
 // Cubicmeter 1.1 uplink decoder
 
 function decodeUplink(input) {
-  var decoded;
-  if (getPacketType(input.fPort) == 'periodicReport' || getPacketType(input.fPort) == 'alarmReport') {
-    decoded = periodicReportDecoder(input.bytes);
+  var decoded = {};
+
+  switch (input.fPort) {
+    case 1: // Status report
+      decoded = periodicReportDecoder(input.bytes);
+      break;
   }
+
   return {
     data: {
       type: getPacketType(input.fPort),
@@ -32,51 +36,92 @@ var periodicReportDecoder = function (bytes) {
   }
 
   return {
-    error_code: data.getUint16(4, LSB) ? data.getUint16(4, LSB) : 'No Error', // current error code
-    total_volume: data.getUint32(6, LSB) + ' L', // All-time aggregated water usage in litres
-    leak_status: getLeakState(data.getUint8(22)), // current water leakage state
-    battery_status: decodeBatteryStatus(data.getUint8(23), data.getUint8(24)), // current battery state
+    error_code: data.getUint16(4, LSB), // current error code
+    total_volume: data.getUint32(6, LSB), // All-time aggregated water usage in litres
+    leak_status: data.getUint8(22), // current water leakage state
+    battery_active: decodeBatteryLevel(data.getUint8(23)), // battery mV active
+    battery_recovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
     water_temp_min: decodeTemperature_C(data.getUint8(25)), // min water temperature since last periodicReport
     water_temp_max: decodeTemperature_C(data.getUint8(26)), // max water temperature since last periodicReport
     ambient_temp: decodeTemperature_C(data.getUint8(27)), // current ambient temperature
   };
 };
 
-var decodeBatteryStatus = function (input1, input2) {
-  var level = 1800 + (input2 << 3); // convert to status
-  if (level <= 3100) return 'LOW_BATTERY';
-  else return 'OK';
-};
+function decodeBatteryLevel(input) {
+  return 1800 + (input << 3); // convert to milliVolt
+}
 
-var decodeTemperature_C = function (input) {
+function decodeBatteryStatus(input) {
+  if (input <= 3100) {
+    return 'Low';
+  }
+
+  return 'OK';
+}
+
+function decodeTemperature_C(input) {
   return input * 0.5 - 20 + '°C'; // to °C
-};
+}
 
 // More packet types only available when using Quandify platform API
 var getPacketType = function (type) {
-  if (type == 0) {
-    return 'ping'; // empty ping message
-  } else if (type == 1) {
-    return 'periodicReport'; // periodic message
-  } else if (type == 2) {
-    return 'alarmReport'; // same as periodic but pushed due to an urgent alarm
-  } else return 'Unknown';
+  switch (type) {
+    case 0:
+      return 'ping'; // empty ping message
+    case 1:
+      return 'periodicReport'; // periodic message
+  }
+
+  return 'Unknown';
 };
 
 /* Smaller water leakages only availble when using Quandify platform API
 as it requires cloud analytics */
 var getLeakState = function (input) {
-  if (input <= 2) {
-    return 'NoLeak';
-  } else if (input == 3) {
-    return 'Medium';
-  } else if (input == 4) {
-    return 'Large';
-  } else return 'N/A';
+  switch (input) {
+    case 3:
+      return 'Medium';
+    case 4:
+      return 'Large';
+    default:
+      return 'No leak';
+  }
 };
 
 function toHexString(byteArray) {
   return Array.from(byteArray, function (byte) {
     return ('0' + (byte & 0xff).toString(16)).slice(-2).toUpperCase();
   }).join('');
+}
+
+function parseErrorCode(error_code) {
+  switch (error_code) {
+    case 32678:
+      return 'No sensing';
+    default:
+      return '';
+  }
+}
+
+function normalizeUplink(input) {
+  return {
+    data: {
+      air: {
+        temperature: input.ambient_temp, // °C
+      },
+      water: {
+        temperature: {
+          min: input.water_temp_min, // °C
+          max: input.water_temp_max, // °C
+        },
+        leak: getLeakState(input.leak_state), // String
+        totalVolume: input.total_volume, // L
+      },
+      battery: {
+        voltage: input.battery_recovered, // mV
+        status: decodeBatteryStatus(input.battery_recovered), // String
+      },
+    },
+    errors: [parseErrorCode(input.error_code)],
+  };
 }
