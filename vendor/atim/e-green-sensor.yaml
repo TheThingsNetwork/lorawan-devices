@@ -1,0 +1,108 @@
+name: E-GREEN-SENSOR - E Green Sensor
+description: L’e-green sensor est un capteur autonome auto-alimenté qui permet de mesurer le courant dans un câble électrique ainsi que la température d’un équipement. Ce capteur participe au développement durable grâce à son récupérateur d’énergie. Il ne contient ni batterie, ni pile. Le montage peut s’effectuer sous tension sans nécessité d'intervenir sur l'installation (pas besoin de désinstaller le système existant ni de décâbler). Les mesures sont transmises régulièrement soit localement , soit à distance en LoRaWAN.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: e-green-sensor-profile
+        lorawanCertified: true
+        codec: codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - voltage
+  - current
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 51
+  length: 60
+  height: 62
+
+# Weight in grams (optional)
+weight: 130
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 55
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+
+# Product and data sheet URLs (optional)
+productURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-CTS/ATIM_ACW-CTS_DS_FR.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-CTS/ATIM_CTS_UG_FR.pdf
+
+# Commercial information
+resellerURLs:
+  - name: 'ATIM'
+    region:
+      - European Union
+    url: https://www.atim.com/produits/capteur-autonome/
+
+# Photos
+photos:
+  main: e-green-sensor.png

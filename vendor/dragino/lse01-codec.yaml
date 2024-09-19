@@ -7,7 +7,15 @@ uplinkDecoder:
         bytes: [0xCE, 0x29, 0x00, 0xF1, 0x07, 0xA5, 0x09, 0x9B, 0x6E, 0x28, 0x90]
       output:
         data: { 'Bat': 3.625, 'TempC_DS18B20': '24.1', 'conduct_SOIL': 28200, 'temp_SOIL': '24.59', 'water_SOIL': '19.57' }
-
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 24.1
+            soil:
+              temperature: 24.59
+              moisture: 19.57
+              ec: 28.2
+            battery: 3.625
     - description: Unknown FPort
       input:
         fPort: 42

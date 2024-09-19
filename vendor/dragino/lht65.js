@@ -100,3 +100,24 @@ default:
 }
 
 }
+
+function normalizeUplink(input) {
+  return {
+    data: [
+      {
+        air: {
+          location: "indoor",
+          temperature: input.data.TempC_SHT,
+          relativeHumidity: input.data.Hum_SHT,
+        }
+      },
+      {
+        air: {
+          location: "outdoor",
+          temperature: input.data.TempC_DS,
+        },
+        battery: input.data.BatV
+      }
+    ]
+  };
+}

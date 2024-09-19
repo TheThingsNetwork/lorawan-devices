@@ -7,6 +7,25 @@ uplinkDecoder:
         bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
       output:
         data: { 'Bat_mV': 1, 'Firmware_Version': '8801', 'Freq_Band': 0, 'Sensor_Model': 11, 'Sub_Band': 37 }
+      normalizedOutput:
+        data:
+          - battery: 1
+
+    - description: Temperature & Humidity
+      input:
+        fPort: 2
+        bytes: [0x08, 0xCD, 0x02, 0x20, 0x7F, 0xFF, 0x01, 0x61, 0xCD, 0x4E, 0xDD]
+      output:
+        data: { 'Ext': 1, 'Hum_SHT': 54.4, 'Systimestamp': 1640845021, 'TempC_DS': 327.67, 'TempC_SHT': 22.53 }
+      normalizedOutput:
+        data:
+          - air:
+              location: 'indoor'
+              temperature: 22.53
+              relativeHumidity: 54.4
+          - air:
+              location: 'outdoor'
+              temperature: 327.67
 
     - description: Unknown FPort
       input:

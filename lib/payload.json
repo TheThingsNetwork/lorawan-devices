@@ -56,6 +56,11 @@
           "format": "date-time",
           "description": "Date and time of the measurement (RFC3339)"
         },
+        "battery": {
+          "type": "number",
+          "description": "Voltage (V)",
+          "minimum": 0
+        },
         "soil": {
           "type": "object",
           "properties": {
@@ -99,6 +104,11 @@
         "air": {
           "type": "object",
           "properties": {
+            "location": {
+              "type": "string",
+              "enum": ["indoor", "outdoor"],
+              "description": "Specifies whether the measurement was taken indoors or outdoors."
+            },
             "temperature": {
               "description": "Air temperature (°C)",
               "$ref": "#/definitions/temperature"
@@ -134,6 +144,55 @@
             "direction": {
               "description": "Wind direction (°)",
               "$ref": "#/definitions/direction"
+            }
+          },
+          "additionalProperties": false
+        },
+        "water": {
+          "type": "object",
+          "properties": {
+            "leak": {
+              "type": "boolean",
+              "description": "Leak detected"
+            }
+          },
+          "additionalProperties": false
+        },
+        "action": {
+          "type": "object",
+          "properties": {
+            "motion": {
+              "type": "object",
+              "properties": {
+                "detected": {
+                  "type": "boolean",
+                  "description": "Motion detected"
+                },
+                "count": {
+                  "type": "number",
+                  "description": "Number of motion events (count)"
+                }
+              },
+              "additionalProperties": false
+            },
+            "contactState": {
+              "type": "string",
+              "description": "State of a contact sensor",
+              "enum": ["OPEN", "CLOSED"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "position": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "description": "Horizontal distance from equator (°)"
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Vertical distance from prime meridian (°)"
             }
           },
           "additionalProperties": false
