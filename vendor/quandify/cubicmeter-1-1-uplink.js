@@ -7,25 +7,23 @@ function decodeUplink(input) {
 
   switch (input.fPort) {
     case 1: // Status report
-      decoded = periodicReportDecoder(input.bytes);
+      decoded = statusReportDecoder(input.bytes);
       break;
   }
 
   return {
     data: {
-      type: getPacketType(input.fPort),
-      decoded: decoded,
-      hexBytes: toHexString(input.bytes),
       fport: input.fPort,
       length: input.bytes.length,
+      hexBytes: toHexString(input.bytes),
+      type: getPacketType(input.fPort),
+      decoded: decoded,
     },
-    warnings: [],
-    errors: [],
   };
 }
 var LSB = true;
 
-var periodicReportDecoder = function (bytes) {
+var statusReportDecoder = function (bytes) {
   const buffer = new ArrayBuffer(bytes.length);
   const data = new DataView(buffer);
   if (bytes.length < 28) {
@@ -41,8 +39,8 @@ var periodicReportDecoder = function (bytes) {
     leak_status: data.getUint8(22), // current water leakage state
     battery_active: decodeBatteryLevel(data.getUint8(23)), // battery mV active
     battery_recovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
-    water_temp_min: decodeTemperature_C(data.getUint8(25)), // min water temperature since last periodicReport
-    water_temp_max: decodeTemperature_C(data.getUint8(26)), // max water temperature since last periodicReport
+    water_temp_min: decodeTemperature_C(data.getUint8(25)), // min water temperature since last statusReport
+    water_temp_max: decodeTemperature_C(data.getUint8(26)), // max water temperature since last statusReport
     ambient_temp: decodeTemperature_C(data.getUint8(27)), // current ambient temperature
   };
 };
@@ -69,7 +67,7 @@ var getPacketType = function (type) {
     case 0:
       return 'ping'; // empty ping message
     case 1:
-      return 'periodicReport'; // periodic message
+      return 'statusReport'; // status message
   }
 
   return 'Unknown';
@@ -96,10 +94,16 @@ function toHexString(byteArray) {
 
 function parseErrorCode(error_code) {
   switch (error_code) {
-    case 32678:
+    case 0:
+      return '';
+    case 384:
+      return 'Reverse flow';
+    case 419:
+    case 421:
+    case 32768:
       return 'No sensing';
     default:
-      return '';
+      return 'Contact support';
   }
 }
 
