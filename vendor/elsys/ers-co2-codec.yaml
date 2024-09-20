@@ -15,3 +15,13 @@ uplinkDecoder:
           light: 39
           motion: 6
           co2: 776
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 22.6
+              relativeHumidity: 41
+              lightIntensity: 39
+            action:
+              motion:
+                detected: true
+                count: 6
