@@ -13,7 +13,7 @@ function decodeUplink(input) {
 
   return {
     data: {
-      fport: input.fPort,
+      fPort: input.fPort,
       length: input.bytes.length,
       hexBytes: toHexString(input.bytes),
       type: getPacketType(input.fPort),
@@ -118,14 +118,15 @@ function normalizeUplink(input) {
           min: input.data.decoded.waterTemperatureMin, // °C
           max: input.data.decoded.waterTemperatureMax, // °C
         },
-        leak: input.data.decoded.leak_state > 2, // Boolean
-        volume: {
+        leak: parseLeakState(input.data.decoded.leak_state), // String
+      },
+      metering: {
+        water: {
           total: input.data.decoded.totalVolume, // L
         },
       },
       battery: input.data.decoded.batteryRecovered / 1000, // V
     },
-    warnings: [parseBatteryStatus(input.data.decoded.batteryRecovered), parseLeakState(input.data.decoded.leak_state)].filter((item) => item),
-    errors: [parseErrorCode(input.data.decoded.errorCode)].filter((item) => item),
+    warnings: [parseErrorCode(input.data.decoded.errorCode), parseBatteryStatus(input.data.decoded.batteryRecovered)].filter((item) => item),
   };
 }

@@ -152,7 +152,7 @@
           "type": "object",
           "properties": {
             "leak": {
-              "type": "boolean",
+              "type": ["boolean", "string"],
               "description": "Leak detected"
             }
           },
