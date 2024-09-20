@@ -2070,6 +2070,15 @@ vendors:
       linkedin: https://www.linkedin.com/company/cicicom-ltd
       facebook: https://www.facebook.com/cicicom
 
+  - id: corssystem
+    name: Cors System Technologies
+    description: Cors System Technologies is a Nigerian digital transformation company, with a focus in bringing existing industries into Industry 4.0.
+    logo: corssystem.png
+    website: https://corssystem.com/
+    social:
+      linkedin: https://www.linkedin.com/company/cors-system/
+      github: corssystem
+
   - id: atomsenses
     name: Atomsenses
     description: Atomsenses is a specialist IoT solution provider focusing on Lorawan sensors for indoor air quality monitoring, our vision is to transform how we manage and maintain healthy indoor environments.
