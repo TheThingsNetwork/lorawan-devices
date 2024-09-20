@@ -2,3 +2,40 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: cubicmeter-1-1-uplink.js
+
+  # Examples (optional)
+  examples:
+    - description: Normal status report
+      input:
+        fPort: 1
+        bytes: [73, 251, 223, 1, 0, 0, 222, 20, 0, 0, 0, 0, 0, 0, 70, 237, 223, 1, 6, 252, 139, 7, 2, 226, 230, 83, 84, 85]
+      output:
+        data:
+          fPort: 1
+          length: 28
+          hexBytes: '49FBDF010000DE1400000000000046EDDF0106FC8B0702E2E6535455'
+          type: 'statusReport'
+          decoded:
+            ambientTemperature: 22.5
+            batteryActive: 3608
+            batteryRecovered: 3640
+            errorCode: 0
+            leakState: 2
+            totalVolume: 5342
+            waterTemperatureMax: 22
+            waterTemperatureMin: 21.5
+      # Normalized output, uses the normalizeUplink function (optional)
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 22.5
+            water:
+              temperature:
+                min: 21.5
+                max: 22
+              leak: ''
+            metering:
+              water:
+                total: 5342
+            battery: 3.64
+        warnings: []

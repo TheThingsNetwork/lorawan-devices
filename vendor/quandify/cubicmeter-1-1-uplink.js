@@ -36,7 +36,7 @@ var statusReportDecoder = function (bytes) {
   return {
     errorCode: data.getUint16(4, LSB), // current error code
     totalVolume: data.getUint32(6, LSB), // All-time aggregated water usage in litres
-    leakStatus: data.getUint8(22), // current water leakage state
+    leakState: data.getUint8(22), // current water leakage state
     batteryActive: decodeBatteryLevel(data.getUint8(23)), // battery mV active
     batteryRecovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
     waterTemperatureMin: decodeTemperature(data.getUint8(25)), // min water temperature since last statusReport
@@ -58,7 +58,7 @@ function parseBatteryStatus(input) {
 }
 
 function decodeTemperature(input) {
-  return input * 0.5 - 20.0; // to °C
+  return parseFloat(input) * 0.5 - 20.0; // to °C
 }
 
 // More packet types only available when using Quandify platform API
