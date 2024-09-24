@@ -33,11 +33,9 @@ firmwareVersions:
       CN470-510:
         id: profile-cn470
         codec: rp02-codec
-
 sensors:
   - current
   - voltage
-
 dimensions:
   width: 88.19
   length: 112
