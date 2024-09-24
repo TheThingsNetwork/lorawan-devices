@@ -25,6 +25,8 @@ const DeviceTypes = [
   "TCR-DLE",        /* 11 DC powered, LoRaWAN, External Antenna */
   "TCR-SLI",        /* 12 Solar powered, LoRaWAN, Internal Antenna */
   "TCR-SLE",        /* 13 Solar powered, LoRaWAN, External Antenna */
+  "PCR2-OD",        /* 14 Outdoor Models w/o battery*/
+  "PCR2-ODS",       /* 15 Outdoor Models, Solar Powered */  
 ];
 
 // Function levels 
@@ -117,16 +119,16 @@ function a2_decoder(bytes, port) {
 
   if (port == 13) // Unfiltered Detections
   {
-    obj.ud_time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
-    obj.ud_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
-    obj.ud_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
-    obj.ud_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
-    obj.ud_rtl_spd = bytes[8];                        // Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
+    obj.time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
+    obj.udc_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
+    obj.udc_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
+    obj.udc_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
+    obj.udc_rtl_spd = bytes[8];                        // Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
   }
 
   if (port == 14) // Filter Category 1 
   {
-    obj.cat1_time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
+    obj.time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
     obj.cat1_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
     obj.cat1_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
     obj.cat1_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
@@ -135,7 +137,7 @@ function a2_decoder(bytes, port) {
 
   if (port == 15) // Filter Category 2 
   {
-    obj.cat2_time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
+    obj.time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
     obj.cat2_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
     obj.cat2_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
     obj.cat2_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
@@ -144,7 +146,7 @@ function a2_decoder(bytes, port) {
 
   if (port == 16) // Filter Category 3 
   {
-    obj.cat3_time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
+    obj.time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
     obj.cat3_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
     obj.cat3_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
     obj.cat3_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
@@ -153,7 +155,7 @@ function a2_decoder(bytes, port) {
 
   if (port == 17) // Filter Category 4 
   {
-    obj.cat4_time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
+    obj.time = bytes[1] * 100 + bytes[2];          // Measure Interval End Timestamp (Military Time format)
     obj.cat4_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
     obj.cat4_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
     obj.cat4_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
