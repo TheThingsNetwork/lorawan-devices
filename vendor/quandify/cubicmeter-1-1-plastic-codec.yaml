@@ -20,6 +20,7 @@ uplinkDecoder:
             batteryActive: 3608
             batteryRecovered: 3640
             errorCode: 0
+            isSensing: true
             leakState: 2
             totalVolume: 5342
             waterTemperatureMax: 22
