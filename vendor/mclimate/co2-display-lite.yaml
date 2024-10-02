@@ -1,5 +1,5 @@
 name: MClimate CO2 Display Lite
-description: MClimate CO2 Display lite LoRaWAN is a stand-alone CO2 sensor powered entirely by solar energy using an organic solar panel. The device features a 1.54" e-ink screen, temperature and humidity sensor, LUX sensor and NDIR CO2 sensor. 
+description: MClimate CO2 Display lite LoRaWAN is a stand-alone CO2 sensor powered entirely by solar energy using an organic solar panel. The device features a 1.54" e-ink screen, temperature and humidity sensor, LUX sensor and NDIR CO2 sensor.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -115,23 +115,23 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 50491-3
-      version: "2009"
+      version: '2009'
     - body: ETSI
       norm: EN
       standard: 300220-1
-      version: "V3.1.1:2017"
+      version: 'V3.1.1:2017'
     - body: ETSI
       norm: EN
       standard: 300220-2
-      version: "V3.1.1:2017"
+      version: 'V3.1.1:2017'
     - body: ETSI
       norm: EN
       standard: 301489-1
-      version: "V2.1.1:2017"
+      version: 'V2.1.1:2017'
   safety:
     - body: IEC
       norm: EN
       standard: 60950-1
-      version: "2006+A11:2009+A1:2010+A12:2011+A2:2013+AC:2015"
+      version: '2006+A11:2009+A1:2010+A12:2011+A2:2013+AC:2015'
   generalCompliance:
-    - directive: "2014/53/EC"
+    - directive: '2014/53/EC'

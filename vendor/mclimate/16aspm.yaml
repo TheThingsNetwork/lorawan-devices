@@ -104,7 +104,7 @@ compliances:
   safety:
     - body: IEC
       norm: EN
-      standard: 62368-1:2020 
+      standard: 62368-1:2020
     - body: IEC
       norm: EN
       standard: 61010-1:2010
@@ -112,11 +112,11 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301489-1
-      version: "latest" 
+      version: 'latest'
     - body: ETSI
       norm: EN
       standard: 301489-17
-      version: "latest"  
+      version: 'latest'
     - body: CENELEC
       norm: EN
       standard: 55032:2015
