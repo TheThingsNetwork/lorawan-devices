@@ -14,3 +14,13 @@ uplinkDecoder:
           humidity: 41
           light: 39
           motion: 6
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 22.6
+              relativeHumidity: 41
+              lightIntensity: 39
+            action:
+              motion:
+                detected: true
+                count: 6

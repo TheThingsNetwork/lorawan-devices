@@ -357,3 +357,54 @@ function decodeUplink(input) {
         data: data
     };
 }
+
+function normalizeUplink(input) {
+  const warnings = [];
+
+  if (input.data.openWindow) {
+    warnings.push("openWindow: true");
+  }
+
+  if (input.data.highMotorConsumption) {
+    warnings.push("highMotorConsumption: true");
+  }
+
+  if (input.data.lowMotorConsumption) {
+    warnings.push("lowMotorConsumption: true");
+  }
+
+  if (input.data.brokenSensor) {
+    warnings.push("brokenSensor: true");
+  }
+
+  if (input.data.childLock) {
+    warnings.push("childLock: true");
+  }
+
+  if (input.data.calibrationFailed) {
+    warnings.push("calibrationFailed: true");
+  }
+
+  if (input.data.attachedBackplate) {
+    warnings.push("attachedBackplate: true");
+  }
+
+  if (input.data.perceiveAsOnline) {
+    warnings.push("perceiveAsOnline: true");
+  }
+
+  if (input.data.antiFreezeProtection) {
+    warnings.push("antiFreezeProtection: true");
+  }
+
+  return {
+    data: {
+        air: {
+            temperature: input.data.sensorTemperature,
+            relativeHumidity: input.data.relativeHumidity,
+        },
+        battery: input.data.batteryVoltage,
+    },
+    warnings: warnings
+  };
+}
