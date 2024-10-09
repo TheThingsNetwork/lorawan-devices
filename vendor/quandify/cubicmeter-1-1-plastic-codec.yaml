@@ -25,6 +25,8 @@ uplinkDecoder:
             totalVolume: 5342
             waterTemperatureMax: 22
             waterTemperatureMin: 21.5
+        warnings: []
+        errors: []
       normalizedOutput:
         data:
           - air:
@@ -39,6 +41,7 @@ uplinkDecoder:
                 total: 5342
             battery: 3.64
         warnings: []
+        errors: []
     - description: Response from set pipe downlink
       input:
         fPort: 6
@@ -60,6 +63,8 @@ uplinkDecoder:
               pipe:
                 id: 0
                 type: 'custom'
+        warnings: []
+        errors: []
     - description: Response from set lorawan report interval
       input:
         fPort: 6
@@ -76,3 +81,5 @@ uplinkDecoder:
             type: 'settingsReport'
             data:
               lorawanReportInterval: 600
+        warnings: []
+        errors: []

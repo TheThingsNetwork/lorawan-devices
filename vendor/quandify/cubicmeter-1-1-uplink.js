@@ -52,10 +52,12 @@ var pipeTypes = {
 };
 
 /**
+ * 4.1 Uplink Decode
  * The 'decodeUplink' function takes a message object and returns a parsed data object.
  * @param input Message object
- * @param input.fPort Fport.
- * @param input.bytes Byte array.
+ * @param input.fPort int,  The uplink message LoRaWAN fPort.
+ * @param input.bytes int[], The uplink payload byte array, where each byte is represented by an integer between 0 and 255.
+ * @param input.recvTime Date, The uplink message timestamp recorded by the LoRaWAN network server as a JavaScript Date object.
  */
 function decodeUplink(input) {
   const buffer = new ArrayBuffer(input.bytes.length);
@@ -65,14 +67,21 @@ function decodeUplink(input) {
   }
 
   var decoded = {};
+  var errors = [];
+  var warnings = [];
 
-  switch (input.fPort) {
-    case 1: // Status report
-      decoded = statusReportDecoder(data).data;
-      break;
-    case 6: // Response
-      decoded = responseDecoder(data);
-      break;
+  try {
+    switch (input.fPort) {
+      case 1: // Status report
+        ({ decoded, warnings } = statusReportDecoder(data));
+        break;
+      case 6: // Response
+        ({ decoded, warnings } = responseDecoder(data));
+        break;
+    }
+  } catch (err) {
+    // Something went terribly wrong
+    errors.push(err.message);
   }
 
   return {
@@ -81,8 +90,10 @@ function decodeUplink(input) {
       length: input.bytes.length,
       hexBytes: decArrayToStr(input.bytes),
       type: uplinkTypes[input.fPort],
-      decoded: decoded,
+      decoded,
     },
+    errors,
+    warnings,
   };
 }
 
@@ -93,63 +104,82 @@ var statusReportDecoder = function (data) {
     throw new Error(`Wrong payload length (${data.byteLength}), should be 28 bytes`);
   }
 
+  let warnings = [];
   const error = data.getUint16(4, LSB);
 
   // The is sensing value is a bit flag of the error field
   const isSensing = !(error & 0x8000);
   const errorCode = error & 0x7fff;
 
+  const decoded = {
+    errorCode: errorCode, // current error code
+    isSensing: isSensing, // is the ultrasonic sensor sensing water
+    totalVolume: data.getUint32(6, LSB), // All-time aggregated water usage in litres
+    leakState: data.getUint8(22), // current water leakage state
+    batteryActive: decodeBatteryLevel(data.getUint8(23)), // battery mV active
+    batteryRecovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
+    waterTemperatureMin: decodeTemperature(data.getUint8(25)), // min water temperature since last statusReport
+    waterTemperatureMax: decodeTemperature(data.getUint8(26)), // max water temperature since last statusReport
+    ambientTemperature: decodeTemperature(data.getUint8(27)), // current ambient temperature
+  };
+
+  // Warnings
+  if (decoded.isSensing === false) {
+    warnings.push('Not sensing water');
+  }
+
+  if (decoded.errorCode) {
+    warnings.push(parseErrorCode(decoded.errorCode));
+  }
+
+  if (isLowBattery(decoded.batteryRecovered)) {
+    warnings.push('Low battery');
+  }
+
   return {
-    type: 'statusReport',
-    data: {
-      errorCode: errorCode, // current error code
-      isSensing: isSensing, // is the ultrasonic sensor sensing water
-      totalVolume: data.getUint32(6, LSB), // All-time aggregated water usage in litres
-      leakState: data.getUint8(22), // current water leakage state
-      batteryActive: decodeBatteryLevel(data.getUint8(23)), // battery mV active
-      batteryRecovered: decodeBatteryLevel(data.getUint8(24)), // battery mV recovered
-      waterTemperatureMin: decodeTemperature(data.getUint8(25)), // min water temperature since last statusReport
-      waterTemperatureMax: decodeTemperature(data.getUint8(26)), // max water temperature since last statusReport
-      ambientTemperature: decodeTemperature(data.getUint8(27)), // current ambient temperature
-    },
+    decoded,
+    warnings,
   };
 };
 
 var responseDecoder = function (data) {
-  const responseStatus = responseStatuses[data.getUint8(1)];
-  if (responseStatus === undefined) {
+  const status = responseStatuses[data.getUint8(1)];
+  if (status === undefined) {
     throw new Error(`Invalid response status: ${data.getUint8(1)}`);
   }
 
-  const responseType = responseTypes[data.getUint8(2)];
-  if (responseType === undefined) {
+  const type = responseTypes[data.getUint8(2)];
+  if (type === undefined) {
     throw new Error(`Invalid response type: ${data.getUint8(2)}`);
   }
 
-  const dataPayload = new DataView(data.buffer, 3);
+  const payload = new DataView(data.buffer, 3);
 
-  var responseData = {
-    type: undefined,
+  var response = {
     data: {},
+    warnings: [],
   };
 
-  switch (responseType) {
+  switch (type) {
     case 'statusReport':
-      responseData = statusReportDecoder(dataPayload);
+      response = statusReportDecoder(payload);
       break;
     case 'hardwareReport':
-      responseData = hardwareReportDecoder(dataPayload);
+      response = hardwareReportDecoder(payload);
       break;
     case 'settingsReport':
-      responseData = settingsReportDecoder(dataPayload);
+      response = settingsReportDecoder(payload);
       break;
   }
 
   return {
-    fPort: data.getUint8(0),
-    status: responseStatus,
-    type: responseData.type,
-    data: responseData.data,
+    decoded: {
+      fPort: data.getUint8(0),
+      status: status,
+      type: type,
+      data: response.data,
+    },
+    warnings: response.warnings,
   };
 };
 
@@ -171,7 +201,6 @@ var hardwareReportDecoder = function (data) {
   const firmwareVersion = intToSemver(data.getUint32(0, LSB));
 
   return {
-    type: 'hardwareReport',
     data: {
       firmwareVersion,
       hardwareVersion: data.getUint8(4),
@@ -181,6 +210,7 @@ var hardwareReportDecoder = function (data) {
         type: pipeType,
       },
     },
+    warnings: [],
   };
 };
 
@@ -190,10 +220,10 @@ var settingsReportDecoder = function (data) {
   }
 
   return {
-    type: 'settingsReport',
     data: {
       lorawanReportInterval: data.getUint32(5, LSB),
     },
+    warnings: [],
   };
 };
 
@@ -205,18 +235,12 @@ var decodeTemperature = function (input) {
   return parseFloat(input) * 0.5 - 20.0; // to °C
 };
 
-var parseBatteryStatus = function (input) {
-  if (input <= 3100) {
-    return 'Low battery';
-  }
-
-  return '';
+var isLowBattery = function (batteryRecovered) {
+  return batteryRecovered <= 3100;
 };
 
 var parseErrorCode = function (errorCode) {
   switch (errorCode) {
-    case 0:
-      return '';
     case 384:
       return 'Reverse flow';
     default:
@@ -248,7 +272,8 @@ var normalizeUplink = function (input) {
       },
       battery: input.data.decoded.batteryRecovered / 1000, // V
     },
-    warnings: [parseErrorCode(input.data.decoded.errorCode), parseBatteryStatus(input.data.decoded.batteryRecovered)].filter((item) => item),
+    warnings: input.warnings,
+    errors: input.errors,
   };
 };
 
