@@ -863,7 +863,16 @@ function Decoder(bytes, port) {
             // multibinary input present value
             if (  (clusterdID === 0x8005 ) & (attributID === 0x0000))
             {
-                tab.push({label:stdData = "State"+(decoded.zclheader.endpoint+1), value:stdData = (((bytes[index+1]&0x01) === 0x01)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State1", value:stdData = (((bytes[index+1]&0x01) === 0x01)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State2", value:stdData = (((bytes[index+1]&0x02) === 0x02)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State3", value:stdData = (((bytes[index+1]&0x04) === 0x04)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State4", value:stdData = (((bytes[index+1]&0x08) === 0x08)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State5", value:stdData = (((bytes[index+1]&0x10) === 0x10)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State6", value:stdData = (((bytes[index+1]&0x20) === 0x20)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State7", value:stdData = (((bytes[index+1]&0x40) === 0x40)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State8", value:stdData = (((bytes[index+1]&0x80) === 0x80)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State9", value:stdData = (((bytes[index]&0x01) === 0x01)?1:0), date:stdData = lDate});
+              tab.push({label:stdData = "State10", value:stdData = (((bytes[index]&0x02) === 0x02)?1:0), date:stdData = lDate});
             }
 
             //binary input counter

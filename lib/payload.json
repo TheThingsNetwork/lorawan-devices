@@ -152,11 +152,46 @@
           "type": "object",
           "properties": {
             "leak": {
-              "type": "boolean",
+              "type": ["boolean", "string"],
               "description": "Leak detected"
+            },
+            "temperature": {
+              "type": "object",
+              "properties": {
+                "min": {
+                  "description": "Minimum temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                },
+                "max": {
+                  "description": "Maximum temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                },
+                "avg": {
+                  "description": "Average temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                },
+                "current": {
+                  "description": "Current temperature (°C)",
+                  "$ref": "#/definitions/temperature"
+                }
+              }
             }
           },
           "additionalProperties": false
+        },
+        "metering": {
+          "type": "object",
+          "properties": {
+            "water": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "description": "Total volume (L)"
+                }
+              }
+            }
+          }
         },
         "action": {
           "type": "object",
