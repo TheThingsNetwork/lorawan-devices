@@ -35,20 +35,20 @@ var leakStates = {
 };
 
 var pipeTypes = {
-  0: 'custom',
-  1: 'copper15',
-  2: 'copper18',
-  3: 'copper22',
-  4: 'chrome15',
-  5: 'chrome18',
-  6: 'chrome22',
-  7: 'pal16',
-  8: 'pal20',
-  9: 'pal25',
-  14: 'pex16',
-  15: 'pex20',
-  16: 'pex25',
-  17: 'distpipe',
+  0: 'Custom',
+  1: 'Copper 15 mm',
+  2: 'Copper 18 mm',
+  3: 'Copper 22 mm',
+  4: 'Chrome 15 mm',
+  5: 'Chrome 18 mm',
+  6: 'Chrome 22 mm',
+  7: 'Pal 16 mm',
+  8: 'Pal 20 mm',
+  9: 'Pal 25 mm',
+  14: 'Pex 16 mm',
+  15: 'Pex 20 mm',
+  16: 'Pex 25 mm',
+  17: 'Distpipe',
 };
 
 /**

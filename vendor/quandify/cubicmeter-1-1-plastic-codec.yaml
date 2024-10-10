@@ -62,7 +62,7 @@ uplinkDecoder:
               hardwareVersion: 2
               pipe:
                 id: 0
-                type: 'custom'
+                type: 'Custom'
         warnings: []
         errors: []
     - description: Response from set lorawan report interval
