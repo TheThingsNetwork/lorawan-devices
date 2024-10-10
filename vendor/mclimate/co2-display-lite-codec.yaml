@@ -1,0 +1,15 @@
+uplinkDecoder:
+  fileName: co2-display-lite.js
+  examples:
+    - description: Periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x01, 0x02, 0x63, 0x87, 0x0A, 0xAC, 0x39, 0x10, 0x01, 0x17]
+      output:
+        data:
+          sensorTemperature: 21.1
+          relativeHumidity: 52.73
+          batteryVoltage: 2.73
+          CO2: 569
+          powerSourceStatus: 0
+          lux: 279
