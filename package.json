@@ -35,5 +35,8 @@
     "lodash.isequal": "^4.5.0",
     "read-chunk": "^3.2.0",
     "yargs": "^16.2.0"
+  },
+  "overrides": {
+    "fast-json-patch": "3.1.1"
   }
 }
