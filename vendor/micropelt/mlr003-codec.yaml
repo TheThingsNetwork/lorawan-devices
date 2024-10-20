@@ -15,6 +15,7 @@ uplinkDecoder:
           Flow_Temperature: 106.00
           Ambient_Sensor_Raw: 60.75
           Ambient_Temperature: 40.25
+          Temperature_Drop_Detection: 0
           Energy_Storage: 0
           Harvesting_Active: 1
           Ambient_Sensor_Failure: 0
@@ -42,6 +43,7 @@ uplinkDecoder:
           Flow_Temperature: 13.50
           Ambient_Sensor_Raw: 15.00
           Ambient_Temperature: 15.00
+          Temperature_Drop_Detection: 0
           Energy_Storage: 0
           Harvesting_Active: 0
           Ambient_Sensor_Failure: 0
@@ -69,6 +71,7 @@ uplinkDecoder:
           Flow_Temperature: 33
           Ambient_Sensor_Raw: 28.75
           Ambient_Temperature: 24
+          Temperature_Drop_Detection: 0
           Energy_Storage: 0
           Harvesting_Active: 1
           Ambient_Sensor_Failure: 0
@@ -94,6 +97,7 @@ uplinkDecoder:
           Flow_Temperature: 22
           Ambient_Sensor_Raw: 19.75
           Ambient_Temperature: 19.25
+          Temperature_Drop_Detection: 0
           Energy_Storage: 0
           Harvesting_Active: 0
           Ambient_Sensor_Failure: 0
