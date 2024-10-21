@@ -23,8 +23,8 @@ uplinkDecoder:
           calibrationFailed: false
           perceiveAsOnline: false
           antiFreezeProtection: false
-          motorOpenness: 17
-          targetTemperatureFloat: '29.00'
+          valveOpenness: 17
+          targetTemperatureFloat: 29
       normalizedOutput:
         data:
           - air:
