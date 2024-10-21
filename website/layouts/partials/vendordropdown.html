@@ -1,0 +1,30 @@
+<select id="vendorDropdown">
+    <option value="" selected disabled>Select a Vendor</option>
+    {{ $uniqueVendors := dict }}
+    {{ $sortedVendors := slice }}
+    {{ range .Site.RegularPages }}
+        {{ with .Params.vendor }}
+            {{ $vendorID := .id | urlize }}
+            {{ $vendorName := .name }}
+            {{ with index $uniqueVendors $vendorID }}
+                {{/* Vendor already encountered, do nothing */}}
+            {{ else }}
+                {{ $uniqueVendors = $uniqueVendors | merge (dict $vendorID $vendorName) }}
+                {{ $sortedVendors = $sortedVendors | append $vendorID }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    {{ $sortedVendors = sort $sortedVendors }}
+    {{ range $sortedVendors }}
+        <option value="{{ . }}">{{ index $uniqueVendors . }}</option>
+    {{ end }}
+</select>
+<script>
+    document.getElementById("vendorDropdown").addEventListener("change", function() {
+        var selectedVendor = this.value;
+        if (selectedVendor) {
+            // Redirect to the URL for the selected vendor
+            window.location.href = "{{ .Site.BaseURL }}devices/" + selectedVendor + "/";
+        }
+    });
+</script>
