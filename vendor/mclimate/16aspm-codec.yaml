@@ -8,8 +8,8 @@ uplinkDecoder:
       output:
         data:
           internalTemperature: 28
-          energy_kWh: 55190.552,
-          power_W: 1497,
-          acVoltage_V: 231,
-          acCurrent_mA: 6482,
+          energy_kWh: 55190.552
+          power_W: 1497
+          acVoltage_V: 231
+          acCurrent_mA: 6482
           relayState: 'ON'
