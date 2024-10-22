@@ -30,8 +30,8 @@ var responseTypes = {
 /* Smaller water leakages only availble when using Quandify platform API
 as it requires cloud analytics */
 var leakStates = {
-  2: 'medium',
-  3: 'large',
+  3: 'medium',
+  4: 'large',
 };
 
 var pipeTypes = {
