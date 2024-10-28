@@ -81,8 +81,7 @@ ipCode: IP67
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
-   - custom
-#  - join server
+  - join server
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
@@ -90,7 +89,6 @@ keyProvisioning:
 # keyProgramming:
 #  - serial
 #  - firmware
-
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
@@ -105,23 +103,23 @@ firmwareProgramming:
 
 # Product and data sheet URLs (optional)
 productURL: https://accuwatch.nl/LoRaWAN-voltage-sensor
-dataSheetURL: https://accuwatch.nl/LoRaWAN-voltage-sensor/datasheet.pdf
+# dataSheetURL: https://accuwatch.nl/LoRaWAN-voltage-sensor/datasheet.pdf
 # Link to simple, easy onboarding instructions for the device (optional).
 # Please do not use this for marketing or overly technical documents like a data sheet.
 # onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/windsensor
 
 # Commercial information
 resellerURLs:
-   - name: 'AccuWatch'
-     region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
-#       # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
-       - European Union
-     url: https://accuwatch.nl/
+  - name: 'AccuWatch'
+    region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
+      #       # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
+      - European Union
+    url: https://accuwatch.nl/
 
 # Photos
 photos:
   main: 3chbatteryvoltagesensor.png # Image needs to have a transparent background
-  other: 
+  other:
     - 3chbatteryvoltagesensor-1.png # Image needs to have a transparent background
 
 # Youtube or Vimeo Video (optional)
