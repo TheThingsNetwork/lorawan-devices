@@ -59,7 +59,9 @@ async function requireDimensions(path) {
         reject(new Error(`load image ${path}: ${err}`));
       } else if (dimensions.width > 2000 || dimensions.height > 2000) {
         reject(
-          new Error(`image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`)
+          new Error(
+            `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`,
+          ),
         );
       } else {
         resolve();
@@ -151,8 +153,8 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
             } else {
               reject(
                 `${r.fileName}:${r.routine}: output ${JSON.stringify(actual)} does not match ${JSON.stringify(
-                  expected
-                )}`
+                  expected,
+                )}`,
               );
             }
           }
@@ -220,8 +222,8 @@ const vendorsNotInIndex = vendorFolders.filter((folderName) => !vendorIds.includ
 if (vendorsNotInIndex.length > 0) {
   console.error(
     `Vendors found in the 'vendor' folder that are not listed in ${options.vendor} index:\n${vendorsNotInIndex.join(
-      ', '
-    )}`
+      ', ',
+    )}`,
   );
   process.exit(1);
 } else {
@@ -301,7 +303,7 @@ vendors.vendors.forEach((v) => {
 
       if (deviceNames[endDevice.name] && deviceNames[endDevice.name] !== endDevicePath) {
         console.error(
-          `Duplicate name "${endDevice.name}" in files: "${deviceNames[endDevice.name]}" and "${endDevicePath}".`
+          `Duplicate name "${endDevice.name}" in files: "${deviceNames[endDevice.name]}" and "${endDevicePath}".`,
         );
         process.exit(1);
       }
@@ -313,7 +315,7 @@ vendors.vendors.forEach((v) => {
 
         if (Boolean(version.hardwareVersions) != Boolean(endDevice.hardwareVersions)) {
           console.error(
-            `${key}: hardware versions are inconsistent: when used in end device, use in firmware versions (and vice-versa)`
+            `${key}: hardware versions are inconsistent: when used in end device, use in firmware versions (and vice-versa)`,
           );
           process.exit(1);
         }
@@ -345,8 +347,8 @@ vendors.vendors.forEach((v) => {
             if (!validateEndDeviceProfile(profile)) {
               console.error(
                 `${key}: profile ${vendorID}/${regionProfile.id} invalid: ${formatValidationErrors(
-                  validateEndDeviceProfile.errors
-                )}`
+                  validateEndDeviceProfile.errors,
+                )}`,
               );
               process.exit(1);
             }
@@ -359,8 +361,8 @@ vendors.vendors.forEach((v) => {
             if (!validateEndDevicePayloadCodec(codec)) {
               console.error(
                 `${key}: codec ${regionProfile.codec} invalid: ${formatValidationErrors(
-                  validateEndDevicePayloadCodec.errors
-                )}`
+                  validateEndDevicePayloadCodec.errors,
+                )}`,
               );
               process.exit(1);
             }
