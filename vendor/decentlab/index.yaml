@@ -6,6 +6,7 @@ endDevices:
   - dl-blg
   - dl-ctd10
   - dl-cws
+  - dl-cws2
   - dl-dlr2-002
   - dl-dlr2-003
   - dl-dlr2-004
@@ -20,6 +21,9 @@ endDevices:
   - dl-dws
   - dl-gmm
   - dl-iam
+  - dl-ifd
+  - dl-ilt
+  - dl-isd
   - dl-isf
   - dl-itst
   - dl-kl66
