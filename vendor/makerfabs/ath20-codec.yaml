@@ -1,0 +1,61 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: ath20.js
+  # Examples (optional)
+  examples:
+    - description: Temperature
+      input:
+        fPort: 2
+        bytes: [0x00, 0x01, 0x1F, 0x02, 0x0B, 0x01, 0x32, 0x00, 0x00, 0x00, 0x01]
+      output:
+        data: { 'Bat': 3.1, 'Humi': 52.3, 'Temp': 30.6 }
+    #   # Normalized output, uses the normalizeUplink function (optional)
+    #   normalizedOutput:
+    #     data:
+    #       - air:
+    #           location: 'indoor'
+    #           temperature: 30.6
+    #           relativeHumidity: 52.3
+    #       - air:
+    #           location: 'outdoor'
+    #           temperature: 27.81
+    #         battery: 3.062
+
+    # - description: Unknown FPort
+    #   input:
+    #     fPort: 42
+    #     bytes: [0x00, 0x01, 0x1F, 0x02, 0x0B, 0x01, 0x32, 0x00, 0x00, 0x00, 0x01]
+    #   output:
+    #     errors:
+    #       - unknown FPort
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: ath20.js
+  examples:
+    - description: Change Reporting interval
+      input:
+        data:
+          minutes: 10
+      output:
+        bytes: [0x00, 0x00, 0x02, 0x58]
+        fPort: 1
+    # - description: Invalid color
+    #   input:
+    #     data:
+    #       led: blue
+    #   output:
+    #     errors:
+    #       - invalid LED color
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: Air-Temperature-and-Humidity-Sensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green
