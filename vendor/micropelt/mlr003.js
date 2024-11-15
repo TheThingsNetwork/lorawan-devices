@@ -8,6 +8,7 @@ function decodeUplink(input) {
           Flow_Temperature: input.bytes[2]*0.5,
           Ambient_Sensor_Raw: input.bytes[3]*0.25,
           Ambient_Temperature: input.bytes[4]*0.25,
+          Temperature_Drop_Detection: input.bytes[5]>>7 & 0x01,
           Energy_Storage: input.bytes[5]>>6 & 0x01,
           Harvesting_Active: input.bytes[5]>>5 & 0x01,
           Ambient_Sensor_Failure: input.bytes[5]>>4 & 0x01,
