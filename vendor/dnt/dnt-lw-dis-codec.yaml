@@ -1,0 +1,39 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-dis.js
+  # Examples (optional)
+  examples:
+    - description: Button Message
+      input:
+        fPort: 10
+        bytes: [0x9A, 0x04, 0x00, 0x06, 0x4F]
+      output:
+        data:
+          ToF:
+            distance: 1615
+            status: 0
+          distance: 1615
+          reason: 'button'
+          voltage: 3040
+    - description: Cyclic Message
+      input:
+        fPort: 10
+        bytes: [0x9C, 0x01, 0x00, 0x06, 0x47]
+      output:
+        data:
+          ToF:
+            distance: 1607
+            status: 0
+          distance: 1607
+          reason: 'cycle'
+          voltage: 3060
+    - description: Sabotage Message
+      input:
+        fPort: 10
+        bytes: [0x9B, 0x03, 0x44]
+      output:
+        data:
+          device_orientation: 'Sideways'
+          sabotage_notification: 1
+          voltage: 3050

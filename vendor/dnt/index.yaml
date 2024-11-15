@@ -4,3 +4,5 @@ endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - dnt-lw-ats # look in dnt-lw-ats.yaml for the end device definition
   - dnt-lw-etrv
+  - dnt-lw-dis
+  - dnt-lw-etrv-c

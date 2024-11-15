@@ -2088,3 +2088,20 @@ vendors:
     social:
       facebook: https://www.facebook.com/jooby.eu
       github: jooby-dev
+
+  - id: accuwatch
+    name: Accuwatch
+    description: Accuwatch is a company that provides a range of IoT solutions for various industries.
+    logo: accuwatch.png
+    website: https://accuwatch.nl/
+
+  - id: infrafon
+    name: Infrafon
+    description: Infrafon develops iot devices for humans, bridging the gap between handheld computers and lightweight smart cards.
+    logo: infrafon_logo.png
+    website: https://www.infrafon.com/
+    social:
+      linkedin: https://de.linkedin.com/company/infrafon
+
+  - id: makerfabs
+    name: AgroSense

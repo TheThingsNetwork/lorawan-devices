@@ -12,6 +12,45 @@ uplinkDecoder:
           raw: '[02, 00, 01]'
         errors: []
         warnings: []
+      normalizedOutput:
+        data:
+          - air:
+              lightIntensity: 1
+    - description: Temperature & Humidity Uplink
+      input:
+        fPort: 10
+        bytes: [0x03, 0x67, 0x01, 0x26, 0x04, 0x68, 0x33, 0x00, 0xBA, 0x0B, 0xD1]
+      output:
+        data:
+          ambient_temperature: 29.4
+          battery_voltage: 3.025
+          port: '10'
+          raw: '[03, 67, 01, 26, 04, 68, 33, 00, BA, 0B, D1]'
+          relative_humidity: 25.5
+        errors: []
+        warnings: []
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 29.4
+              relativeHumidity: 25.5
+            battery: 3.025
+    - description: Motion Event Uplink
+      input:
+        fPort: 10
+        bytes: [0x0A, 0x00, 0xFF]
+      output:
+        data:
+          motion_event_state: 255
+          port: '10'
+          raw: '[0A, 00, FF]'
+        errors: []
+        warnings: []
+      normalizedOutput:
+        data:
+          - action:
+              motion:
+                detected: true
 
 downlinkEncoder:
   fileName: encoder_smart_room_sensor.js
