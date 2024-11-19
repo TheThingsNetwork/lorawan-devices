@@ -1,0 +1,71 @@
+name: RM200 - Digital Output Relay Module
+description: The YOBIIQ RM200 makes it possible to control digital outputs by utilizing remote automation, We have developed the iQ Digital Controller with 2 fully isolated, seperate relays. Each relay is capable of switching up to a 10A 230V AC. Using the override buttons on the device you are able to control the relay output regardless of the network connection.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: rm200-profile
+        lorawanCertified: false
+        codec: rm200-codec
+
+  # Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - humidity
+  - snr
+  - rssi
+
+# Product and data sheet URLs (optional)
+productURL: https://yobiiq.com/products/rm200/
+
+# Photos
+photos:
+  main: rm200.png # Image needs to have a transparent background
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 61326-1:2021
+    - body: IEC
+      norm: EN
+      standard: 61000-6-2:2019
+    - body: IEC
+      norm: EN
+      standard: 301489-3 V2.1.1
+    - body: IEC
+      norm: EN
+      standard: 300220-2 V3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
