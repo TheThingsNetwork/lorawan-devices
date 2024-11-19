@@ -12,7 +12,7 @@ function decodeUplink(input) {
 		}
 
 		function handleKeepalive(bytes, data){
-			var tempHex = '0' + bytes[1].toString(16) + bytes[2].toString(16);
+			var tempHex = ("0" + bytes[1].toString(16)).substr(-2) + ("0" + bytes[2].toString(16)).substr(-2);
 			var tempDec = parseInt(tempHex, 16);
 			var temperatureValue = calculateTemperature(tempDec);
 			var humidityValue = calculateHumidity(bytes[3]);
