@@ -5,3 +5,7 @@ endDevices:
   - ht-sensor
   - co2-sensor
   - wireless-thermostat
+  - co2-display
+  - co2-display-lite
+  - fan-coil-thermostat
+  - 16aspm
