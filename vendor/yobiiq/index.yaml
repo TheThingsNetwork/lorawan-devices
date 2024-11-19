@@ -7,7 +7,7 @@ endDevices:
 # It can either be a combo of device ID + hardware version + firmware version + region, or profile ID + codec ID
 # NOTE: The profileIDs is different from the vendorID.
 profileIDs:
-  '04154EB7':
+  '20151':
     endDeviceID: 'sd-1001'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
