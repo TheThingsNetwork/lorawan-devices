@@ -213,7 +213,7 @@
             "contactState": {
               "type": "string",
               "description": "State of a contact sensor",
-              "enum": ["OPEN", "CLOSED"]
+              "enum": ["open", "closed"]
             }
           },
           "additionalProperties": false
