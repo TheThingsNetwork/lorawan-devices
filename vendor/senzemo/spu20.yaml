@@ -41,11 +41,7 @@ firmwareVersions:
 # humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
 # vibration, water, wind direction and wind speed.
 sensors:
-  - co2
-  - tvoc
-  - temperature
-  - humidity
-  - pressure
+
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -87,25 +83,54 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://senspuck.com/
-dataSheetURL: https://senstick.co/downloads/Senspuck-Pure-SPU20-Datasheet.pdf
+productURL: https://senzemo.com/products/indoor-air-quality-sensor/
+dataSheetURL: https://senzemo.com/wp-content/uploads/2022/12/Senspuck-Pure-Battery-SPU10B-Datasheet.pdf
 resellerURLs:
   - name: 'Sensational Systems'
     region:
-      - European Union
+      - United Kingdom
     url: https://sensational.systems/
   - name: 'Arcsgroup'
     region:
       - Australia
     url: https://thearcsgroup.com/
-  - name: 'mydevices'
+  - name: Choovio
     region:
       - United States
-    url: https://mydevices.com/
-  - name: 'Concept13'
+    url: https://www.choovio.com/iot-online-shop/brand/senzemo-distributor/
+  - name: IrysIoT
+    region:
+      - United States
+    url: https://irysiot.com/
+  - name: IoT Shop (Alpha-Omega Gmbh.)
     region:
       - European Union
-    url: https://www.concept13.co.uk/
+    url: https://iot-shop.de/en/shop/category/brand-senzemo-945
+  - name: M2M Germany
+    region:
+      - European Union
+    url: https://www.m2mgermany.de/
+  - name: Allnet
+    region:
+      - European Union
+    url: https://www.allnet.de/
+  - name: IoT Systems
+    region: 
+      - European Union
+    url: https://www.iot-systems.at/
+  - name: AgroID
+    region:
+      - European Union
+    url: https://www.agroid.it/
+  - name: EdgeIoT
+    region:
+      - Brazil
+    url: https://www.edgeiot.com.br/
+  - name: ES Canada
+    region:
+      - Canada
+    url: https://www.es-canada.com/
+    
 
 # Photos
 photos:
