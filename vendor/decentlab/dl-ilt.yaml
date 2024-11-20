@@ -1,10 +1,9 @@
-name: DL-ZN2 - Dual Dendrometer
-description: The Decentlab DL-ZN2 comes with a linear position dendrometer that can measure the growth of plants and trees. It is suitable for use in irrigation control, smart agriculture, forestry, plantation, and ecophysiology.
+name: DL-ILT - Leaf Temperature Sensor
+description: The Decentlab DL-ILT is a leaf temperature sensor for LoRaWAN®. Suitable for applications such as outdoor remote monitoring, irrigation control, field monitoring, smart agriculture and scientific research.
 
 hardwareVersions:
   - version: '1'
     numeric: 1
-    partNumber: DL-ZN2-001
 
 firmwareVersions:
   - version: 1.5.7
@@ -15,22 +14,22 @@ firmwareVersions:
       EU863-870:
         id: profile-eu868
         lorawanCertified: true
-        codec: dl-zn2-codec
+        codec: dl-ilt-codec
       AS923:
         id: profile-as923
         lorawanCertified: false
-        codec: dl-zn2-codec
+        codec: dl-ilt-codec
       US902-928:
         id: profile-us915
         lorawanCertified: true
-        codec: dl-zn2-codec
+        codec: dl-ilt-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: false
-        codec: dl-zn2-codec
+        codec: dl-ilt-codec
 
 sensors:
-  - distance
+  - temperature
   - battery
 
 dimensions:
@@ -38,7 +37,7 @@ dimensions:
   width: 81
   height: 70
 
-weight: 600
+weight: 400
 
 battery:
   replaceable: true
@@ -58,10 +57,9 @@ keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://www.decentlab.com/products/dendrometer-for-lorawan
-dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ZN-datasheet.pdf
+productURL: https://www.decentlab.com/products/leaf-temperature-sensor-for-lorawan
 photos:
-  main: dl-znx.png
+  main: dl-ilt.png
 
 compliances:
   safety:

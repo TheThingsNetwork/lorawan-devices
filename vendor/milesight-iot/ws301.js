@@ -49,7 +49,7 @@ function normalizeUplink(input) {
     return {
         data: {
             action: {
-                contactState: input.data.door === "close" ? "CLOSED" : input.data.door === "open" ? "OPEN" : undefined
+                contactState: input.data.door === "close" ? "closed" : input.data.door === "open" ? "open" : undefined
             },
             battery: input.data.battery,
         }
