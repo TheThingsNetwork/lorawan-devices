@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "test": "node testjsfile.js"
+  },
+  "dependencies": {
+    "chai": "^4.3.6",
+    "moment": "^2.30.1"
+  }
+}
