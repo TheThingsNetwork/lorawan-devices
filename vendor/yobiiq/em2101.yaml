@@ -1,5 +1,5 @@
 name: EM2101 - 1 Phase Energy Meter
-description: The YOBIIQ iQ Electricity EM4301 is a direct connected 1 Phase Energy Meter with built-in relay for controlling output.
+description: The YOBIIQ iQ Electricity EM2101 is a direct connected 1 Phase Energy Meter with built-in relay for controlling output.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

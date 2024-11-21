@@ -420,9 +420,8 @@ function decodeEventLogging(bytes)
     }
     try
     {
-        while(index < LENGTH && security != 0)
+        while(index < LENGTH)
         {
-            security = security - 1;
             channel = bytes[index];
             index = index + 1;
             // Type of change of state

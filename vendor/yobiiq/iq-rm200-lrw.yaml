@@ -3,17 +3,17 @@ description: The YOBIIQ RM200 makes it possible to control digital outputs by ut
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
+  - version: '2.0'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
-    numeric: 1
+    version: '2.0'
+    numeric: 2
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '2.0'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -26,9 +26,9 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-        id: rm200-profile
+        id: iq-rm200-lrw-profile
         lorawanCertified: false
-        codec: rm200-codec
+        codec: iq-rm200-lrw-codec
 
   # Sensors that this device features (optional)
 # Valid values are:
@@ -43,13 +43,19 @@ sensors:
   - humidity
   - snr
   - rssi
+  - button
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
 
 # Product and data sheet URLs (optional)
 productURL: https://yobiiq.com/products/rm200/
 
 # Photos
 photos:
-  main: rm200.png # Image needs to have a transparent background
+  main: iq-rm200-lrw.png # Image needs to have a transparent background
 
 # Regulatory compliances (optional)
 compliances:

@@ -3,17 +3,17 @@ description: The YOBIIQ iQ DSMR (P1) is a member of our Smart Environment Module
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
+  - version: '2.0'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0'
-    numeric: 1
+    version: '2.0'
+    numeric: 2
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '2.0'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -48,6 +48,12 @@ sensors:
   - rssi
   - digital input
   - pulse count
+  - button
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
 
 # Product and data sheet URLs (optional)
 productURL: https://yobiiq.com/products/dsmr-smart-metering/

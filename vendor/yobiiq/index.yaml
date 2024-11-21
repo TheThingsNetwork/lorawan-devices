@@ -3,8 +3,8 @@ endDevices:
   - em2101 # look in em2101.yaml for the end device definition
   - em4301 # look in em4301.yaml for the end device definition
   - em4301-ct # look in em4301-ct.yaml for the end device definition
-  - em4302t-lrw # look in em4302t-lrw.yaml for the end device definition
-  - rm200-lrw # look in rm200-lrw.yaml for the end device definition
+  #- iq-em4302-ct-lrw # look in iq-em4302-ct-lrw.yaml for the end device definition
+  - iq-rm200-lrw # look in iq-rm200-lrw.yaml for the end device definition
   - iq-opentherm-lrw # look in iq-opentherm-lrw.yaml for the end device definition
   - iq-dsmr-lrw # look in iq-dsmr-lrw.yaml for the end device definition
 
@@ -34,15 +34,15 @@ profileIDs:
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
     region: 'EU863-870'
-  '20301':
-    endDeviceID: 'em4302t-lrw'
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
-    region: 'EU863-870'
+  # '20301':
+  #   endDeviceID: 'iq-em4302-ct-lrw'
+  #   firmwareVersion: '1.0'
+  #   hardwareVersion: '1.0'
+  #   region: 'EU863-870'
   '20081':
-    endDeviceID: 'rm200-lrw'
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
+    endDeviceID: 'iq-rm200-lrw'
+    firmwareVersion: '2.0'
+    hardwareVersion: '2.0'
     region: 'EU863-870'
   '20041':
     endDeviceID: 'iq-opentherm-lrw'
@@ -51,6 +51,6 @@ profileIDs:
     region: 'EU863-870'
   '20051':
     endDeviceID: 'iq-dsmr-lrw'
-    firmwareVersion: '1.0'
-    hardwareVersion: '1.0'
+    firmwareVersion: '2.0'
+    hardwareVersion: '2.0'
     region: 'EU863-870'
