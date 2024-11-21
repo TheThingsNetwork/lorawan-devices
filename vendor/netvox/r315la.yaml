@@ -1,0 +1,63 @@
+name: R315LA - Wireless toilet paper detection sensor
+description: R315LA is a Wireless toilet paper detection sensor.
+
+hardwareVersions:
+  - version: '21'
+    numeric: 21
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '21'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r315la-codec
+      AS923:
+        id: profile-as923
+        codec: r315la-codec
+      US902-928:
+        id: profile-us915
+        codec: r315la-codec
+      AU915-928:
+        id: profile-au915
+        codec: r315la-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r315la-codec
+      IN865-867:
+        id: profile-in865
+        codec: r315la-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r315la-codec
+
+dimensions:
+  diameter: 106
+  height: 40.6
+
+battery:
+  replaceable: true
+  type: 2 x1.5V AAA alkaline batteries
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=r315la
+dataSheetURL: http://www.netvox.com.tw/um/r315la/r315laGdatasheet.pdf
+
+photos:
+  main: photos/r315la.jpg
