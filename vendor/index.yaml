@@ -385,8 +385,8 @@ vendors:
     name: Lacuna Space Ltd.
     vendorID: 234
 
-  - id: laird
-    name: Laird Connectivity, Inc.
+  - id: ezurio
+    name: Ezurio, Inc.
     vendorID: 235
 
   - id: lapp
