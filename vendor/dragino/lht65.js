@@ -102,22 +102,30 @@ default:
 }
 
 function normalizeUplink(input) {
-  return {
-    data: [
-      {
-        air: {
-          location: "indoor",
-          temperature: input.data.TempC_SHT,
-          relativeHumidity: input.data.Hum_SHT,
-        }
-      },
-      {
-        air: {
-          location: "outdoor",
-          temperature: input.data.TempC_DS,
-        },
-        battery: input.data.BatV
+  var data = [];
+
+  if (input.data.TempC_SHT) {
+    data.push({
+      air: {
+        location: "indoor",
+        temperature: input.data.TempC_SHT,
+        relativeHumidity: input.data.Hum_SHT,
       }
-    ]
-  };
+    });
+  }
+
+  if (input.data.TempC_DS) {
+   var val = {
+    air: {
+      location: "outdoor",
+      temperature: input.data.TempC_DS
+    }
+  }
+  if (input.data.BatV) {
+    val.battery = input.data.BatV
+  }
+  data.push(val);
+  }
+
+  return { data: data };
 }
