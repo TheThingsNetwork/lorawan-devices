@@ -58,17 +58,27 @@ function Decoder(bytes, port) {
 }
 
 function normalizeUplink(input) {
-  return {
-    data: {
-      air: {
-          temperature: input.data.temperature,
-          relativeHumidity: input.data.humidity
-      },
-      battery: input.data.battery,
-    }
-  };
-}
+    var data = {};
+    var air = {};
 
+    if (input.data.temperature) {
+        air.temperature = input.data.temperature;
+    }
+
+    if (input.data.humidity) {
+        air.relativeHumidity = input.data.humidity;
+    }
+
+    if (Object.keys(air).length > 0) {
+        data.air = air;
+    }
+
+    if (input.data.battery) {
+        data.battery = input.data.battery;
+    }
+
+    return { data: data };
+}
 
 /* ******************************************
  * bytes to number
