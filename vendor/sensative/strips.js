@@ -192,12 +192,15 @@ function decodeUplink(input) {
 }
 
 function normalizeUplink(input) {
-	return {
-	  	data: {
-			air: {
-				temperature: input.data.temperature.value,
-			},
-		  	battery: input.data.battery
-		}
-	};
-  }
+    var data = {};
+
+    if (input.data && input.data.temperature && input.data.temperature.value) {
+        data.air = { temperature: input.data.temperature.value };
+    }
+
+    if (input.data && input.data.battery) {
+        data.battery = input.data.battery;
+    }
+
+    return { data: data };
+}
