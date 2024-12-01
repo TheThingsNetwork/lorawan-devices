@@ -1,0 +1,106 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: iq-opentherm-lrw.js
+  examples:
+    - description: Device basic information
+      input:
+        fPort: 50
+        bytes: [255, 5, 1, 0, 255, 4, 1, 0, 255, 3, 143, 59, 123, 0, 255, 2, 80, 49, 48, 48, 50, 48, 48, 52, 255, 1, 89, 79, 66, 73, 73, 81, 255, 17, 0, 255, 7, 0, 255, 8, 0, 255, 6, 1]
+      output:
+        data:
+          hardwareVersion: 'V1.0'
+          firmwareVersion: 'V1.0'
+          deviceSerialNumber: 2403040000
+          deviceModel: 'P1002004'
+          manufacturer: 'YOBIIQ B.V.'
+          deviceClass: 'Class A'
+          batteryPercentage: 0
+          batteryVoltage: 0
+          powerEvent: 'AC Power On'
+          codecVersion: '1.0.0'
+          genericModel: 'OTM'
+          productCode: 'P1002004'
+
+    - description: Device periodic uplink on fPort 1
+      input:
+        fPort: 1
+        bytes: [221, 0, 170, 3, 2, 221, 1, 170, 40, 0, 221, 2, 170, 0, 13, 221, 3, 170, 17, 18, 221, 4, 0, 221, 5, 170, 0, 0, 221, 6, 0, 221, 9, 0, 221, 253, 101, 204, 226, 24]
+      output:
+        data:
+          masterStatus:
+            centralHeating: 'enabled'
+            domesticHotWater: 'enabled'
+            cooling: 'disabled'
+            outsideTemperatureCompensation: 'disabled'
+            centralHeating2: 'disabled'
+          slaveStatus:
+            faultIndication: 'no fault'
+            centralHeatingMode: 'active'
+            domesticHotWaterMode: 'inactive'
+            flame: 'inactive'
+            coolingMode: 'inactive'
+            centralHeating2Mode: 'inactive'
+            diagnosticIndication: 'no diagnostics'
+          controlSetpointTemperature: 40
+          masterMemberIdCode: 13
+          slaveConfigurationFlags:
+            domesticHotWaterPresence: 'present'
+            controlType: 'modulating'
+            coolingConfig: 'not supported'
+            domesticHotWaterConfig: 'instantaneous or not-specified'
+            pumpControlFunction: 'not allowed'
+            centralHeating2Presence: 'not present'
+          slaveMemberIdCode: 18
+          remoteCommand: null
+          applicationSpecificFaultFlags:
+            serviceRequest: 'not required'
+            remoteReset: 'disabled'
+            lowWaterPressure: 'no fault'
+            gasOrFlame: 'no fault'
+            airPressure: 'no fault'
+            waterOverTemperature: 'no fault'
+          equipmentManufacturerFaultCode: 0
+          remoteParameterTransferFlags: null
+          remoteParameterReadOrWriteFlags: null
+          remoteOverrideRoomSetpoint: null
+          dataloggerTimestamp: 1707926040
+          codecVersion: '1.0.0'
+          genericModel: 'OTM'
+          productCode: 'P1002004'
+          manufacturer: 'YOBIIQ B.V.'
+
+    - description: Device periodic uplink on fPort 2
+      input:
+        fPort: 2
+        bytes:
+          [221, 16, 0, 221, 17, 0, 221, 18, 170, 13, 0, 221, 115, 170, 18, 10, 221, 24, 171, 23, 43, 221, 25, 170, 41, 0, 221, 26, 170, 35, 128, 221, 27, 0, 221, 28, 0, 221, 253, 101, 204, 226, 84]
+      output:
+        data:
+          roomSetpointTemperature: null
+          relativeModulationLevel: null
+          waterPressure: 13
+          originalEquipmentManufacturerDiagnosticCode: 4618
+          roomTemperature: 23.17
+          boilerFlowWaterTemperature: 41
+          domesticHotWaterTemperature1: 35.5
+          outsideTemperature: null
+          returnWaterTemperature: null
+          dataloggerTimestamp: 1707926100
+          codecVersion: '1.0.0'
+          genericModel: 'OTM'
+          productCode: 'P1002004'
+          manufacturer: 'YOBIIQ B.V.'
+
+    - description: Device alarms
+      input:
+        fPort: 11
+        bytes: [170, 254, 101, 204, 229, 14, 170, 0, 2]
+      output:
+        data:
+          timestamp: 1707926798
+          configurationAlarm: 'alarm triggered by Outside Temperature'
+          codecVersion: '1.0.0'
+          genericModel: 'OTM'
+          productCode: 'P1002004'
+          manufacturer: 'YOBIIQ B.V.'

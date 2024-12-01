@@ -1,0 +1,122 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: iq-dsmr-lrw.js
+  examples:
+    - description: Device basic information
+      input:
+        fPort: 50
+        bytes: [255, 5, 2, 0, 255, 4, 2, 0, 255, 3, 143, 59, 162, 16, 255, 2, 80, 49, 48, 48, 50, 48, 48, 53, 255, 1, 89, 79, 66, 73, 73, 81, 255, 17, 2, 255, 7, 0, 255, 8, 0, 255, 6, 1]
+      output:
+        data:
+          hardwareVersion: 'V2.0'
+          firmwareVersion: 'V2.0'
+          deviceSerialNumber: 2403050000
+          deviceModel: 'P1002005'
+          manufacturer: 'YOBIIQ B.V.'
+          deviceClass: 'Class C'
+          batteryPercentage: 0
+          batteryVoltage: 0
+          powerEvent: 'AC Power On'
+          codecVersion: '1.0.0'
+          genericModel: 'DSMR'
+          productCode: 'P1002005'
+
+    - description: Device periodic uplink on fPort 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            255,
+            254,
+            103,
+            41,
+            213,
+            48,
+            221,
+            2,
+            103,
+            41,
+            226,
+            244,
+            221,
+            6,
+            1,
+            235,
+            29,
+            184,
+            221,
+            8,
+            2,
+            67,
+            241,
+            254,
+            221,
+            10,
+            0,
+            0,
+            0,
+            155,
+            221,
+            12,
+            0,
+            0,
+            0,
+            0,
+            221,
+            34,
+            0,
+            0,
+            8,
+            212,
+            221,
+            38,
+            0,
+            0,
+            0,
+            3,
+          ]
+      output:
+        data:
+          deviceTimestamp: 1730794800
+          telegramTimestamp: 1730798324
+          electricityDeliveredToClientT1:
+            data: 32185784
+            unit: 'Wh'
+          electricityDeliveredToClientT2:
+            data: 38007294
+            unit: 'Wh'
+          electricityDeliveredByClientT1:
+            data: 155
+            unit: 'Wh'
+          electricityDeliveredByClientT2:
+            data: 0
+            unit: 'Wh'
+          voltageL1:
+            data: 226
+            unit: 'V'
+          currentL1:
+            data: 3
+            unit: 'A'
+          codecVersion: '1.0.0'
+          genericModel: 'DSMR'
+          productCode: 'P1002005'
+          manufacturer: 'YOBIIQ B.V.'
+
+    - description: Device periodic uplink on fPort 2
+      input:
+        fPort: 1
+        bytes: [255, 254, 103, 41, 213, 48, 221, 114, 33, 221, 113, 8, 211, 221, 129, 8, 216, 221, 130, 33, 221, 209, 0, 0, 0, 0, 221, 210, 0, 0, 0, 0]
+      output:
+        data:
+          deviceTimestamp: 1730794800
+          internalCircuitHumidity: 33
+          internalCircuitTemperature: 22.59
+          ambientTemperature: 22.64
+          ambientHumidity: 33
+          pulseCounterDryInput1: 0
+          pulseCounterDryInput2: 0
+          codecVersion: '1.0.0'
+          genericModel: 'DSMR'
+          productCode: 'P1002005'
+          manufacturer: 'YOBIIQ B.V.'
