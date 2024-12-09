@@ -17,6 +17,19 @@ uplinkDecoder:
           temp: 23.2
         errors: []
         warnings: []
+    - description: Payload 1 contains water body level in mm, amplitude, battery status and temperature
+      input:
+        fPort: 1
+        bytes: [4, 11, 8, 1, 80, 3, 11, 7, 255, 6, 2, 1, 65, 176, 204, 205, 3, 81, 1, 35]
+      output:
+        data:
+          amplitude: 255
+          battery_vol: 3.5
+          payload: '040B080150030B07FF06020141B0CCCD03510123'
+          temp: 22.1
+          water_body_level_mm: 336
+        errors: []
+        warnings: []
     - description: Payload 2 contains proximity in mm, amplitude, battery status, geo location and temperature
       input:
         fPort: 1
@@ -30,6 +43,21 @@ uplinkDecoder:
           payload: '040B0206B9030B07FF06020141B9999A0351012406500102F4006F0650020081336D'
           proxx_mm: 1721
           temp: 23.2
+        errors: []
+        warnings: []
+    - description: Payload 2 contains water body level in mm, amplitude, battery status, geo location and temperature
+      input:
+        fPort: 1
+        bytes: [4, 11, 8, 1, 80, 3, 11, 7, 255, 6, 2, 1, 65, 176, 204, 205, 3, 81, 1, 35, 6, 80, 1, 2, 244, 0, 111, 6, 80, 2, 0, 129, 51, 109]
+      output:
+        data:
+          amplitude: 255
+          battery_vol: 3.5
+          latitude: 49.545327
+          longitude: 8.467309
+          payload: '040B080150030B07FF06020141B0CCCD0351012306500102F4006F0650020081336D'
+          temp: 22.1
+          water_body_level_mm: 336
         errors: []
         warnings: []
     - description: Payload 3 contains serial number, battery status and counter of LoRa transmission, GPS position determination and ultra sonic measurments
