@@ -1,14 +1,16 @@
-name: Gate Valve Servo KFRLWE01
-description: The motor drive for angled seat valves (KFR valves) or normal straight-seated shut-off valves allows for retrofitting existing and already installed shut-off valves into wirelessly controlled intelligent devices without interrupting the water supply or cutting into the water pipe. The motor is powered by a 12V power supply and is completely waterproof and dirt-resistant up to the power supply. An optional battery pack enables autonomous operation in places where no electricity is available. Various adapter rings and a sophisticated connection system enable the use of the motor on all modern valves from DN15 to DN32. With an additional water sensor that attaches directly to the device, the motor can be used for leak protection without further configuration. The servo motor is waterproof and can be used in humid, dirty, and outdoor environments.
+name: Flood Sensor FLOLWE01
+description: The Flood Sensor detects the presence of water on its exposed sensor pins and sends an alarm message wirelessly when triggered. In addition, the device will regularly report the ambient temperature and humidity and send an alarm when the readings exceed thresholds that can be set for both humidity and temperature. The device itself is designed to sit on the floor, where 3 brass telescopic pins can detect water on both hard floors (tiles) and soft carpets. The unit comes with a mounting bracket. It can be screwed or taped to the wall or floor. When the main sensor is in the bracket, a super-flat sensor pad connected by wire to the bracket is used to detect water. When an alarm is active, the unit emits a sound and a red LED flash. The device is powered by an internal CR123 battery that lasts approximately 5 years in normal operation.
 
 hardwareVersions:
   - version: '1.0'
     numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.36'
+    version: '2.52'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -19,40 +21,38 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: kfr-profile
+        id: wwd-profile
         lorawanCertified: true
-        codec: kfr-codec
-      US902-928:
-        id: kfr-profile
-        lorawanCertified: false
-        codec: kfr-codec
+        codec: wwd-codec
 
 sensors:
   - temperature
+  - humidity
+  - water
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 70
-  length: 170
-  height: 195
+  width: 98
+  length: 51
+  height: 28
 
 # Weight in grams (optional)
-weight: 420
+weight: 56
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 60
+    min: -30
+    max: 85
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 0.97
 
 # IP rating (optional)
-ipCode: IP67
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -65,8 +65,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.aqua-scope.com/retrofittable-motors-for-shut-off-valves/motor-for-gate-valves.html
-dataSheetURL: https://www.aqua-scope.com/manuals/?sku=KFRLWE01&type=d&html=1&lang=en
+productURL: https://www.aqua-scope.com/products/watersensors/floodsensor.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=FLOLWE01&type=d&html=1&lang=en
 resellerURLs:
   - name: 'Aqua-Scope WTB'
     region:
@@ -75,10 +75,11 @@ resellerURLs:
 
 # Photos
 photos:
-  main: kfr.png
+  main: flo.jpg
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
+videos:
+  main: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
 
 # Regulatory compliances (optional)
 compliances:

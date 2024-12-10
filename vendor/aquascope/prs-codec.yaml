@@ -1,0 +1,52 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: ran.js
+  # Examples (optional)
+  examples:
+    - description: hardware version and capabilities
+      input:
+        fPort: 10
+        bytes: [0x03, 0x02, 0xff, 0xff]
+      output:
+        data:
+          hardware: 2
+          capabilities: 0xffff
+    - description: config report
+      input:
+        fPort: 10
+        bytes: [0x04, 0x02, 0x00, 0x01]
+      output:
+        data:
+          conf_heartbeat: 0x0001
+          capabilities: 0xffff
+    - description: sensor report temperature
+      input:
+        fPort: 10
+        bytes: [0x06, 0x01, 0x00, 0x32]
+      output:
+        data:
+          data.temperature: 0x0032
+    - description: sensor report rain
+      input:
+        fPort: 10
+        bytes: [0x06, 0x81, 0x00, 0x02]
+      output:
+        data:
+          data.rainlevel: 1.0
+    - description: Alarm
+      input:
+        fPort: 10
+        bytes: [0x0b, 1, 1, 29]
+      output:
+        data:
+          data.a_status: 1
+          data.a_type: 1
+          data.a_value: 2.9
+    - description: Unknown FPort
+      input:
+        fPort: 42
+        bytes: [1, 42]
+      output:
+        errors:
+          - unknown FPort

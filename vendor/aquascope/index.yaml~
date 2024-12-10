@@ -6,8 +6,6 @@ endDevices:
   - ran
   - prs
   - aqm
-  - flo
-
 profileIDs:
   '13':
     endDeviceID: 'bvs'

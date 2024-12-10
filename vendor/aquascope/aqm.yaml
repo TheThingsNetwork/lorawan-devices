@@ -1,5 +1,5 @@
-name: Gate Valve Servo KFRLWE01
-description: The motor drive for angled seat valves (KFR valves) or normal straight-seated shut-off valves allows for retrofitting existing and already installed shut-off valves into wirelessly controlled intelligent devices without interrupting the water supply or cutting into the water pipe. The motor is powered by a 12V power supply and is completely waterproof and dirt-resistant up to the power supply. An optional battery pack enables autonomous operation in places where no electricity is available. Various adapter rings and a sophisticated connection system enable the use of the motor on all modern valves from DN15 to DN32. With an additional water sensor that attaches directly to the device, the motor can be used for leak protection without further configuration. The servo motor is waterproof and can be used in humid, dirty, and outdoor environments.
+name: Ultrasonic Clamp-On Water Meter AQMLWE01
+description: The water sensor clamp measures the flow and temperature in a water pipe using a "Time of Flight" measurement method and transmits the data wirelessly. Through an internal analysis of the flow, water leaks, and other anomalies are detected, and the owner is alerted. The device is clamped onto the outside of the water pipe without the need to interrupt the water supply. Its flexible design and innovative software allow it to be used on water pipes ranging from DN15 to DN40 (diameter 15…50 mm) with all available materials in the market, such as PEX, PEX AL, copper, PE, or steel. It meets all the requirements of the European Metering Directive (MID). With a footprint of only 60 mm above the water pipe and a length of 110 mm, the device is very slim and short, making it easy to install.
 
 hardwareVersions:
   - version: '1.0'
@@ -8,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.36'
+    version: '241115'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -19,33 +19,34 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: kfr-profile
+        id: aqm-profile
         lorawanCertified: true
-        codec: kfr-codec
+        codec: aqm-codec
       US902-928:
-        id: kfr-profile
+        id: aqm-profile
         lorawanCertified: false
-        codec: kfr-codec
+        codec: aqm-codec
 
 sensors:
   - temperature
+  - water
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 70
-  length: 170
-  height: 195
+  width: 110
+  length: 60
+  height: 40
 
 # Weight in grams (optional)
-weight: 420
+weight: 310
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 60
+    min: -5
+    max: 80
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -65,8 +66,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.aqua-scope.com/retrofittable-motors-for-shut-off-valves/motor-for-gate-valves.html
-dataSheetURL: https://www.aqua-scope.com/manuals/?sku=KFRLWE01&type=d&html=1&lang=en
+productURL: https://www.aqua-scope.com/products/watersensors/aquameterclamp.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=AQMLWE01&type=d&html=0&lang=en
 resellerURLs:
   - name: 'Aqua-Scope WTB'
     region:
@@ -75,10 +76,10 @@ resellerURLs:
 
 # Photos
 photos:
-  main: kfr.png
+  main: aqm.png
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
+video: https://www.youtube.com/@aqua-scope
 
 # Regulatory compliances (optional)
 compliances:
