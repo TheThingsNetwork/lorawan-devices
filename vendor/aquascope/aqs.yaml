@@ -1,6 +1,5 @@
-name: Aqua-Scope Monitor
-description: Central Sensor for monitoring water flow and leakages
-
+name: Aqua-Scope Monitor AQSWIE02
+description: The Aqua-Scope Monitor detects water leaks and records the temperature, water pressure and with some version the water consumption. In combination with an Aqua-Scope remotely controlled shut-off valve, the system regularly searches for microleaks and shuts off the water if necessary. The user is then alerted via radio, both during such incidents and when pressure anomalies  are detected. An additional wired flood sensor can be connected directly to the device.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -66,8 +65,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.aqua-scope.com/water-usage-sensor.html
-dataSheetURL: https://www.aqua-scope.com/docs/?sku=AQSWIE01&type=m
+productURL: https://www.aqua-scope.com/products/watersensors/aqua-scope-monitor.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=AQSLWE02&type=d&html=1&lang=en
 resellerURLs:
   - name: 'Aqua-Scope WTB'
     region:
@@ -77,11 +76,9 @@ resellerURLs:
 # Photos
 photos:
   main: aqs.png
-  other:
-    - aqs2.jpg
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=Kzljl3uJafg
+video: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
 
 # Regulatory compliances (optional)
 compliances:
