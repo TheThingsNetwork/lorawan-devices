@@ -1,6 +1,6 @@
 // encoded message should be less than this size
 // to be able to send to a device
-var MAX_DATA_SEGMENT_SIZE = 50;
+const MAX_DATA_SEGMENT_SIZE = 50;
 
 
 /*
@@ -14,12 +14,7 @@ var MAX_DATA_SEGMENT_SIZE = 50;
     * bytes - byte array containing the downlink payload
 */
 function encodeDownlink ( input ) {
-    // input has the following structure:
-    // {
-    //     field: "value"
-    // }
-
-    var bytes = toBytes(input.data.commands); // FRMPayload (byte array)
+    let bytes = toBytes(input.data.commands); // FRMPayload (byte array)
 
     // send nothing if not fit in a single data segment
     if ( bytes.length > MAX_DATA_SEGMENT_SIZE ) {
@@ -48,8 +43,8 @@ function encodeDownlink ( input ) {
     * data - object representing the decoded payload
 */
 function decodeDownlink ( input ) {
-    var segment = getDataSegment(input.bytes);
-    var message = null;
+    const segment = getDataSegment(input.bytes);
+    let message = null;
 
     // just a single data segment
     if ( segment ) {
@@ -82,8 +77,8 @@ function decodeDownlink ( input ) {
     * data - object representing the decoded payload
 */
 function decodeUplink ( input ) {
-    var segment = getDataSegment(input.bytes);
-    var message = null;
+    const segment = getDataSegment(input.bytes);
+    let message = null;
 
     // just a single data segment
     if ( segment ) {
