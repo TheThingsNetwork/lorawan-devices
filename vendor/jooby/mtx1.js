@@ -14,7 +14,7 @@ const MAX_DATA_SEGMENT_SIZE = 50;
     * bytes - byte array containing the downlink payload
 */
 function encodeDownlink ( input ) {
-    let bytes = toBytes(input.data.commands); // FRMPayload (byte array)
+    let bytes = toBytes(input.data.commands);
 
     // send nothing if not fit in a single data segment
     if ( bytes.length > MAX_DATA_SEGMENT_SIZE ) {
@@ -23,46 +23,7 @@ function encodeDownlink ( input ) {
         bytes = setDataSegment(bytes);
     }
 
-    return {
-        bytes,
-        fPort: 1,
-        warnings: [], // optional
-        errors: [], // optional (if set, the encoding failed)
-    };
-}
-
-
-/*
-  Get message from bytes.
-
-  Input is an object with the following fields:
-    * bytes - byte array containing the uplink payload, e.g. [255, 230, 255, 0]
-    * fPort - downlink fPort
-
-  Output must be an object with the following fields:
-    * data - object representing the decoded payload
-*/
-function decodeDownlink ( input ) {
-    const segment = getDataSegment(input.bytes);
-    let message = null;
-
-    // just a single data segment
-    if ( segment ) {
-        message = fromBytes(segment);
-
-        // there may be a message.error (e.g. mismatched LRC)
-        // in that case message.message will contain everything parsed successfully
-        // it should be used with caution
-    }
-
-    return {
-        data: {
-            bytes: input.bytes,
-            message
-        },
-        warnings: [], // optional
-        errors: [] // optional (if set, the decoding failed)
-    };
+    return {bytes, fPort: 1};
 }
 
 
@@ -77,26 +38,42 @@ function decodeDownlink ( input ) {
     * data - object representing the decoded payload
 */
 function decodeUplink ( input ) {
+    const data = {bytes: input.bytes, message: null};
     const segment = getDataSegment(input.bytes);
-    let message = null;
+    const warnings = [];
+    const errors = [];
 
     // just a single data segment
     if ( segment ) {
-        message = fromBytes(segment);
+        const decodeResult = fromBytes(segment);
 
-        // there may be a message.error (e.g. mismatched LRC)
-        // in that case message.message will contain everything parsed successfully
-        // it should be used with caution
+        if ( decodeResult.error ) {
+            errors.push(decodeResult.error);
+            // there may be some partially decoded result
+            data.message = decodeResult.message;
+        } else {
+            data.message = decodeResult;
+        }
+    } else {
+        warnings.push('should be present one data segment');
     }
 
-    return {
-        data: {
-            bytes: input.bytes,
-            message
-        },
-        warnings: [], // optional
-        errors: [] // optional (if set, the decoding failed)
-    };
+    return {data, warnings, errors};
+}
+
+
+/*
+  Get message from bytes.
+
+  Input is an object with the following fields:
+    * bytes - byte array containing the uplink payload, e.g. [255, 230, 255, 0]
+    * fPort - downlink fPort
+
+  Output must be an object with the following fields:
+    * data - object representing the decoded payload
+*/
+function decodeDownlink ( input ) {
+    return decodeUplink(input);
 }
 
 
