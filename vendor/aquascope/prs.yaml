@@ -1,6 +1,5 @@
-name: Gate Valve Servo KFRLWE01
-description: The motor drive for angled seat valves (KFR valves) or normal straight-seated shut-off valves allows for retrofitting existing and already installed shut-off valves into wirelessly controlled intelligent devices without interrupting the water supply or cutting into the water pipe. The motor is powered by a 12V power supply and is completely waterproof and dirt-resistant up to the power supply. An optional battery pack enables autonomous operation in places where no electricity is available. Various adapter rings and a sophisticated connection system enable the use of the motor on all modern valves from DN15 to DN32. With an additional water sensor that attaches directly to the device, the motor can be used for leak protection without further configuration. The servo motor is waterproof and can be used in humid, dirty, and outdoor environments.
-
+name: Water Pressure Sensor PRSWIE02
+description: The Aqua-Scope pressure sensor records the water pressure in the drinking water distribution or in the hot water heating system. The device consists of two parts:(1) The main housing for signal processing and wireless communication with a battery compartment. (2) The external sensor head, which is connected to the water pipe. The stainless steel sensor head features a silicon sensor suspended in silicone oil for highly accurate and low-noise pressure measurements. The pressure measurement range is between 1 to 10 bar. The sensor head is installed somewhere in the building at a 1/8-inch inspection opening or with a provided T-piece under any sink at the angle valve.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -8,7 +7,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.36'
+    version: '241115'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -19,33 +18,33 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: kfr-profile
-        lorawanCertified: true
-        codec: kfr-codec
-      US902-928:
-        id: kfr-profile
+        id: aqs-profile
         lorawanCertified: false
-        codec: kfr-codec
+        codec: aqs-codec
+      US902-928:
+        id: aqs-profile
+        lorawanCertified: false
+        codec: aqs-codec
 
 sensors:
   - temperature
-
+  - pressure
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
   width: 70
-  length: 170
-  height: 195
+  length: 70
+  height: 15
 
 # Weight in grams (optional)
-weight: 420
+weight: 50
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 60
+    min: -10
+    max: 50
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -65,8 +64,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.aqua-scope.com/retrofittable-motors-for-shut-off-valves/motor-for-gate-valves.html
-dataSheetURL: https://www.aqua-scope.com/manuals/?sku=KFRLWE01&type=d&html=1&lang=en
+productURL: https://www.aqua-scope.com/products/waterpresssuresensor.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=PRELWE02&type=d&html=0&lang=en
 resellerURLs:
   - name: 'Aqua-Scope WTB'
     region:
@@ -75,10 +74,12 @@ resellerURLs:
 
 # Photos
 photos:
-  main: kfr.png
+  main: aqs.png
+  other:
+    - aqs2.jpg
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
+video: https://www.youtube.com/@aqua-scope
 
 # Regulatory compliances (optional)
 compliances:
