@@ -22,30 +22,6 @@ function decodeUplink(input) {
   }
   else if (input.bytes.length == 25)
   {
-    switch (input.bytes[24])
-    {
-      case 0x01:
-        reason="Power On Reset";
-        break;
-      case 0x02:
-        reason="Brownout 1.2V";
-        break;
-      case 0x04:
-        reason="Brownout 3.3V";
-        break;
-      case 0x10:
-        reason="External Reset";
-        break;
-      case 0x20:
-        reason="WatchDog Timer triggered";
-        break;
-      case 0x40:
-        reason="Software";
-        break;
-      case 0x80:
-        reason="Backup";
-        break;
-    }
   return {
     data: {
       RSSI: byteArrayToLong(input.bytes, 0),
@@ -60,7 +36,7 @@ function decodeUplink(input) {
       sw_rev: input.bytes[21],
       hw_rev: input.bytes[22],
       adr_state: input.bytes[23],
-      last_reset_reason: reason
+      high_brightness_mode: input.bytes[24]
     },
     warnings: [],
     errors: []
@@ -76,7 +52,7 @@ return {
       lastcolor_green: input.bytes[6],
       lastcolor_ontime: input.bytes[7],
       lastcolor_offtime: input.bytes[8],
-      last_reset_reason: input.bytes[9]
+      high_brightness_mode: input.bytes[9]
     },
     warnings: [],
     errors: []
