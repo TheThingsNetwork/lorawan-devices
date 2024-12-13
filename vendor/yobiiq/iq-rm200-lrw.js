@@ -1,467 +1,403 @@
+/**
+ *__   _____  ____ ___ ___ ___  
+ *\ \ / / _ \| __ )_ _|_ _/ _ \ 
+ * \ V / | | |  _ \| | | | | | |
+ * | || |_| | |_) | | | | |_| |
+ * |_| \___/|____/___|___\__\_\
+ *                              
+ *
+ * @brief This YOBIIQ JS payload decoder/encoder follows the LoRa Alliance Payload Codec API specs (TS013-1.0.0). 
+ * 
+ * @compatibility TTN, TTI, LORIOT, ThingPark, ChirpStack v3/v4 and any LNS that follows LoRa Alliance API specs.
+ * 
+ * @author      Fostin Kpodar <f.kpodar@yobiiq.com>
+ * @version     2.0.0
+ * @copyright   YOBIIQ B.V. | https://www.yobiiq.com
+ * 
+ * @release     2024-01-11
+ * @update      2024-12-11
+ * 
+ * @product     P1002003 iQ RM200 (iQ Digital Controller)
+ * 
+ * @firmware    RM200 firmware version >= 2.1
+ * 
+ */
 
 // Version Control
 var VERSION_CONTROL = {
-    CODEC : {VERSION: "1.0.0", NAME: "codecVersion"},
+    CODEC : {VERSION: "2.0.0", NAME: "codecVersion"},
     DEVICE: {MODEL : "RM200", NAME: "genericModel"},
     PRODUCT: {CODE : "P1002003", NAME: "productCode"},
     MANUFACTURER: {COMPANY : "YOBIIQ B.V.", NAME: "manufacturer"},
-}
-
-// Configuration constants for device basic info
-var CONFIG_INFO = {
-    FPORT    : 50,
-    CHANNEL  : parseInt("0xFF", 16),
-    TYPES    : {
-        "0x05" : {SIZE : 2, NAME : "hardwareVersion", DIGIT: false},
-        "0x04" : {SIZE : 2, NAME : "firmwareVersion", DIGIT: false},
-        "0x03" : {SIZE : 4, NAME : "deviceSerialNumber"},
-        "0x01" : {SIZE : 0, NAME : "manufacturer"}, // size to be determinated
-        "0x02" : {SIZE : 0, NAME : "deviceModel"},  // size to be determinated
-        "0x07" : {SIZE : 1, NAME : "batteryPercentage"},
-        "0x08" : {SIZE : 1, NAME : "batteryVoltage", RESOLUTION: 0.1},
-        "0x11" : {SIZE : 1, NAME : "deviceClass",
-            VALUES     : {
-                "0x00" : "Class A",
-                "0x01" : "Class B",
-                "0x02" : "Class C",
-            },
-        },
-        "0x06" : {SIZE : 1, NAME : "powerEvent",
-            VALUES     : {
-                "0x00" : "AC Power Off",
-                "0x01" : "AC Power On",
-            },
-        }
-    },
-    WARNING_NAME   : "warning",
-    ERROR_NAME     : "error",
-    INFO_NAME      : "info"
-}
-
-var RELAY = {
-    OFF: 0x00,
-    ON: 0x01,
-    RETAIN: 0x02,
-    OFF_NAME: "OFF",
-    ON_NAME: "ON",
-    RETAIN_NAME: "RETAIN",
-    CHANNEL_1_STATE_NAME: "channel1State",
-    CHANNEL_2_STATE_NAME: "channel2State",
-}
-
-var CHANNEL_STATES = {
-    "0x00" : {state:RELAY.OFF_NAME, reason:"by downlink or auto"},
-    "0x01" : {state:RELAY.ON_NAME,  reason:"by downlink or auto"},
-    "0x02" : {state:RELAY.OFF_NAME, reason:"by button"},
-    "0x03" : {state:RELAY.ON_NAME,  reason:"by button"},
 };
 
-// Configuration constants for device periodic data
- var CONFIG_PERIODIC = {
-    CHANNEL  : parseInt("0xDD", 16),
-    FPORT_MIN : 1,
-    FPORT_MAX : 5,
-    TYPES : {
-        "0xFE" : {SIZE: 4, TYPE: "U32", NAME : "timestamp"},
-        "0xFD" : {SIZE: 4, TYPE: "U32", NAME : "dataloggerTimestamp"},
-        "0x12" : {SIZE: 1, NAME: "adr", VALUES: {"0x00" : "disabled", "0x01" : "enabled",}},
-        "0x13" : {SIZE: 1, NAME: "sf", SIZE: 1, VALUES: {
-                "0x00" : "SF12BW125",
-                "0x01" : "SF11BW125",
-                "0x02" : "SF10BW125",
-                "0x03" : "SF9BW125",
-                "0x04" : "SF8BW125",
-                "0x05" : "SF7BW125",
-                "0x06" : "SF7BW250",
-            }
-        },
-        "0x14" : {SIZE: 1, NAME : "lorawanWatchdogFunction", VALUES: {"0x00" : "disabled", "0x01" : "enabled",},},
-        "0x15" : {SIZE: 2, NAME : "lorawanWatchdogTimeout",},
-        "0x16" : {SIZE: 1, NAME : "lorawanWatchdogAlarm", VALUES: {"0x00" : "normal", "0x01" : "alarm",},},
-        "0x64" : {SIZE: 1, NAME : "defaultState", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME, "0x02":RELAY.RETAIN_NAME}},
-        "0x65" : {SIZE: 1, NAME : "timeoutState", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME, "0x02":RELAY.RETAIN_NAME}},
-        "0x66" : {SIZE: 1, NAME : "buttonOverrideFunction", VALUES: {"0x00" : "disabled", "0x01" : "enabled",}},
-        "0x67" : {SIZE: 1, NAME : "deviceOperationMode", VALUES: {"0x00" : "normal", "0x01" : "override",}},
-        "0x69" : {SIZE: 1, NAME : "internalCircuitTemperatureAlarm", VALUES: {"0x00" : "normal", "0x01" : "alarm",}},
-        "0x70" : {SIZE: 4, NAME : "internalCircuitTemperatureNumberOfAlarms",},
-        "0x71" : {SIZE: 2, NAME : "internalCircuitTemperature", RESOLUTION: 0.01, SIGNED: true},
-        "0x72" : {SIZE: 1, NAME : "internalCircuitHumidity",},
-        "0x95" : {SIZE: 1, NAME : "channel1State", VALUES: CHANNEL_STATES},
-        "0x96" : {SIZE: 1, NAME : "channel1Control", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME,}},
-        "0x97" : {SIZE: 4, NAME : "channel1Counter",},
-        "0x98" : {SIZE: 1, NAME : "channel2State", VALUES: CHANNEL_STATES},
-        "0x99" : {SIZE: 1, NAME : "channel2Control", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME,}},
-        "0x9A" : {SIZE: 4, NAME : "channel2Counter",},
+var UPLINK = {
+    // generic data
+    GENERIC_DATA : {
+        CHANNEL    : 255, // 0xFF
+        FPORT_MIN  : 50,
+        FPORT_MAX  : 99,
     },
-    WARNING_NAME   : "warning",
-    ERROR_NAME     : "error",
-    INFO_NAME      : "info"
-}
-
-// Configuration constants for alarm packet
-var CONFIG_ALARM = {
-    FPORT : 11,
-    CHANNEL : parseInt("0xAA", 16),
-    TYPES : {
+    // device data
+    DEVICE_DATA : {
+        CHANNEL   : 1,   // 0x01
+        FPORT_MIN : 1,
+        FPORT_MAX : 5,
+    },
+    // alarm data
+    ALARM_DATA : {
+        CHANNEL  : 170, // 0xAA
+        FPORT    : 11,
+    },
+    // parameter data
+    PARAMTER_DATA : {
+        CHANNEL  : 255, // 0xFF
+        FPORT    : 100,
+    },
+    // general
+    MAC : {
+        FPORT : 0,
+        MSG: "MAC COMMAND RECEIVED",
+    },
+    OPTIONAL_KEYS : { // in DEVICE_GENERIC_REGISTERS or in DEVICE_SPECIFIC_REGISTERS
+        RESOLUTION: "RESOLUTION",
+        VALUES: "VALUES",
+        SIGNED: "SIGNED",
+        DIGIT: "DIGIT",
+        UNIT: "UNIT",
+    },
+    COMMON_REGISTERS: {
         "0xFE" : {SIZE: 4, NAME : "timestamp"},
-        "0x00" : {SIZE: 1, NAME : "internalTemperatureAlarm",
-            VALUES     : {
-                "0x00" : "normal",
-                "0x01" : "alarm",
-            },
-        },
-        "0x01" : {SIZE: 1, NAME : "channel1State",
-            VALUES     : CHANNEL_STATES,
-        },
-        "0x02" : {SIZE: 1, NAME : "channel2State",
-            VALUES     : CHANNEL_STATES,
-        },
-        "0x03" : {SIZE: 1, NAME : "lorawanWatchdogAlarm",
-            VALUES     : {
-                "0x00" : "normal",
-                "0x01" : "alarm",
-            },
-        },
-        "0x97" : {SIZE: 4, NAME : "channel1Counter",},
-        "0x9A" : {SIZE: 4, NAME : "channel2Counter",},
+        "0x01" : {SIZE: 4, NAME : "dataloggerTimestamp"},
+    },
+    DOWNLINK : {
+        SUCCESS : "DOWNLINK COMMAND SUCCEEDED",
+        FAILURE : "DOWNLINK COMMAND FAILED"
+    },
+    ERRORS : {
+        CHANNEL: "Unknown channel ",
+        TYPE: "Unknown type ",
+        FPORT_INCORRECT: "Incorrect fPort",
     },
     WARNING_NAME   : "warning",
     ERROR_NAME     : "error",
-    INFO_NAME      : "info"
-}
+    INFO_NAME      : "info",
+};
 
-// Configuration constants for parameters reading
-var CONFIG_PARAMETER = {
-    FPORT : 100,
-    CHANNEL : parseInt("0xFF", 16),
-    TYPES : {
-        "0x12" : {SIZE: 1, NAME: "adr", VALUES: {"0x00" : "disabled", "0x01" : "enabled",}},
-        "0x13" : {SIZE: 1, NAME: "sf", SIZE: 1, VALUES: {
-                "0x00" : "SF12BW125",
-                "0x01" : "SF11BW125",
-                "0x02" : "SF10BW125",
-                "0x03" : "SF9BW125",
-                "0x04" : "SF8BW125",
-                "0x05" : "SF7BW125",
-                "0x06" : "SF7BW250",
-            }
-        },
-        "0x14" : {SIZE: 1, NAME : "lorawanWatchdogFunction", VALUES: {"0x00" : "disabled", "0x01" : "enabled",},},
-        "0x15" : {SIZE: 2, NAME : "lorawanWatchdogTimeout",},
-        "0x16" : {SIZE: 1, NAME : "lorawanWatchdogAlarm", VALUES: {"0x00" : "normal", "0x01" : "alarm",},},
-        "0x64" : {SIZE: 1, NAME : "defaultState", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME, "0x02":RELAY.RETAIN_NAME}},
-        "0x65" : {SIZE: 1, NAME : "timeoutState", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME, "0x02":RELAY.RETAIN_NAME}},
-        "0x66" : {SIZE: 1, NAME : "buttonOverrideFunction", VALUES: {"0x00" : "disabled", "0x01" : "enabled",}},
-        "0x67" : {SIZE: 1, NAME : "deviceOperationMode", VALUES: {"0x00" : "normal", "0x01" : "override",}},
-        "0x69" : {SIZE: 1, NAME : "internalCircuitTemperatureAlarm", VALUES: {"0x00" : "normal", "0x01" : "alarm",}},
-        "0x70" : {SIZE: 4, NAME : "internalCircuitTemperatureNumberOfAlarms",},
-        "0x71" : {SIZE: 2, NAME : "internalCircuitTemperature", RESOLUTION: 0.01, SIGNED: true},
-        "0x72" : {SIZE: 1, NAME : "internalCircuitHumidity",},
-        "0x95" : {SIZE: 1, NAME : "channel1State", VALUES: CHANNEL_STATES},
-        "0x96" : {SIZE: 1, NAME : "channel1Control", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME,}},
-        "0x97" : {SIZE: 4, NAME : "channel1Counter",},
-        "0x98" : {SIZE: 1, NAME : "channel2State", VALUES: CHANNEL_STATES},
-        "0x99" : {SIZE: 1, NAME : "channel2Control", VALUES: {"0x00":RELAY.OFF_NAME, "0x01":RELAY.ON_NAME,}},
-        "0x9A" : {SIZE: 4, NAME : "channel2Counter",},
+var DEVICE_GENERIC_REGISTERS = {
+    "0x64" : {SIZE : 1, NAME : "deviceStatus",
+        VALUES : { "0x00" : "NORMAL MODE", "0x01" : "BUTTON MODE",},
     },
-    WARNING_NAME   : "warning",
-    ERROR_NAME     : "error",
-    INFO_NAME      : "info"
+    "0x65" : {SIZE : 0, NAME : "manufacturer"}, // size to be determinated
+    "0x66" : {SIZE : 0, NAME : "originalEquipmentManufacturer"},  // size to be determinated
+    "0x67" : {SIZE : 0, NAME : "deviceModel"},  // size to be determinated
+    "0x68" : {SIZE : 4, NAME : "deviceSerialNumber"},
+    "0x69" : {SIZE : 2, NAME : "firmwareVersion", DIGIT: false},
+    "0x6A" : {SIZE : 2, NAME : "hardwareVersion", DIGIT: false},
+    "0x6B" : {SIZE : 1, NAME : "externalPowerStatus",
+        VALUES : { "0x00" : "AC POWER OFF", "0x01" : "AC POWER ON",},
+    },
+    "0x6C" : {SIZE : 1, NAME : "batteryVoltage", RESOLUTION: 0.1},
+    "0x6D" : {SIZE : 1, NAME : "batteryPercentage"},
+    "0x78" : {SIZE: 1, NAME : "internalCircuitTemperatureAlarm", 
+        VALUES: {"0x00" : "NORMAL", "0x01" : "ALARM",}
+    },
+    "0x79" : {SIZE: 4, NAME : "internalCircuitTemperatureNumberOfAlarms",},
+    "0x7A" : {SIZE: 2, NAME : "internalCircuitTemperature", RESOLUTION: 0.01, SIGNED: true},
+    "0x7B" : {SIZE: 1, NAME : "internalCircuitHumidity",},
+    "0x82" : {SIZE: 2, NAME : "ambientTemperature", RESOLUTION: 0.01, SIGNED: true},
+    "0x83" : {SIZE: 1, NAME : "ambientHumidity",},
+    "0x96" : {SIZE : 1, NAME : "joinStatus",
+        VALUES : { "0x00" : "OFFLINE", "0x01" : "ONLINE",},
+    },
+    "0x9D" : {SIZE: 1, NAME : "applicationPort",},
+    "0x9E" : {SIZE: 1, NAME : "joinType",
+        VALUES : { "0x01" : "OTAA",},
+    },
+    "0x9F" : {SIZE : 1, NAME : "deviceClass",
+        VALUES : { "0x00" : "CLASS A", "0x01" : "CLASS B", "0x02" : "CLASS C",},
+    },
+    "0xA0" : {SIZE: 1, NAME: "adr", 
+        VALUES: {"0x00" : "DISABLED", "0x01" : "ENABLED",}
+    },
+    "0xA1" : {SIZE: 1, NAME: "sf", 
+        VALUES: { "0x00" : "SF12BW125", "0x01" : "SF11BW125", "0x02" : "SF10BW125",
+            "0x03" : "SF9BW125", "0x04" : "SF8BW125", "0x05" : "SF7BW125", "0x06" : "SF7BW250",}
+    },
+    "0xA3" : {SIZE: 1, NAME: "radioMode", SIZE: 1, 
+        VALUES: { "0x00" : "LoRaWAN", "0x01" : "iQ D2D", "0x02" : "LoRaWAN & iQ D2D",}
+    },
+    "0xA4" : {SIZE: 1, NAME: "numberOfJoinAttempts"},
+    "0xA5" : {SIZE: 2, NAME: "linkCheckTimeframe",},
+    "0xA6" : {SIZE: 1, NAME: "dataRetransmission", 
+        VALUES: { "0x00" : "DISABLED", "0x01" : "ENABLED",}
+    },
+    "0xA7" : {SIZE: 1, NAME: "lorawanWatchdogAlarm", 
+        VALUES: { "0x00" : "NORMAL", "0x01" : "ALARM",}
+    },
+};
 
-}
+var DEVICE_SPECIFIC_REGISTERS = {
+    "0x1A" : {SIZE: 1, NAME : "channel1State", 
+        VALUES: { "0x00": "OFF", "0x01": "ON",}
+    },
+    "0x1B" : {SIZE: 1, NAME : "channel1Control", 
+        VALUES: { "0x00": "OFF", "0x01": "ON",}
+    },
+    "0x1C" : {SIZE: 4, NAME : "channel1Counter",},
+    "0x1D" : {SIZE: 1, NAME : "channel1DefaultState",
+        VALUES: {"0x00": "OFF", "0x01": "ON", "0x02": "RETAIN"}
+    },
+    "0x1E" : {SIZE: 1, NAME : "channel1WatchdogState",
+        VALUES: {"0x00": "OFF", "0x01": "ON", "0x02": "RETAIN"}
+    },
+    "0x1F" : {SIZE: 1, NAME : "channel1ButtonOverrideFunction",
+        VALUES: {"0x00" : "DISABLED", "0x01" : "ENABLED",}
+    },
+    "0x10" : {SIZE: 1, NAME : "channel1ButtonOverrideStatus",
+        VALUES: {"0x00" : "NORMAL MODE", "0x01" : "MANUAL ON", "0x02" : "MANUAL OFF",}
+    },
+    "0x2A" : {SIZE: 1, NAME : "channel2State", 
+        VALUES: { "0x00": "OFF", "0x01": "ON",}
+    },
+    "0x2B" : {SIZE: 1, NAME : "channel2Control", 
+        VALUES: { "0x00": "OFF", "0x01": "ON",}
+    },
+    "0x2C" : {SIZE: 4, NAME : "channel2Counter",},
+    "0x2D" : {SIZE: 1, NAME : "channel2DefaultState",
+        VALUES: {"0x00": "OFF", "0x01": "ON", "0x02": "RETAIN"}
+    },
+    "0x2E" : {SIZE: 1, NAME : "channel2WatchdogState",
+        VALUES: {"0x00": "OFF", "0x01": "ON", "0x02": "RETAIN"}
+    },
+    "0x2F" : {SIZE: 1, NAME : "channel2ButtonOverrideFunction",
+        VALUES: {"0x00" : "DISABLED", "0x01" : "ENABLED",}
+    },
+    "0x20" : {SIZE: 1, NAME : "channel2ButtonOverrideStatus",
+        VALUES: {"0x00" : "NORMAL MODE", "0x01" : "MANUAL ON", "0x02" : "MANUAL OFF",}
+    },
+};
 
-function decodeBasicInformation(bytes)
+
+function decodeGenericData(bytes)
 {
-    var LENGTH = bytes.length;
     var decoded = {};
     var index = 0;
     var channel = 0;
     var type = "";
-    var size = 0;
-    if(LENGTH == 1)
+    while(index < bytes.length)
     {
-        if(bytes[0] == 0)
-        {
-            decoded[CONFIG_INFO.INFO_NAME] = "Downlink command succeeded";
-
-        } else if(bytes[0] == 1)
-        {
-            decoded[CONFIG_INFO.WARNING_NAME] = "Downlink command failed";
+        var reg = {};
+        channel = bytes[index];
+        index = index + 1;
+        // Channel checking
+        if(channel != UPLINK.GENERIC_DATA.CHANNEL){
+            channel = "0x" + byteToEvenHEX(channel);
+            index = " at index " + (index - 1);
+            decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.CHANNEL + channel + index;
+            return decoded;
         }
-        return decoded;
-    }
-    try
-    {
-        while(index < LENGTH)
-        {
-            channel = bytes[index];
-            index = index + 1;
-            // Channel checking
-            if(channel != CONFIG_INFO.CHANNEL)
-            {
-                continue;
-            }
-            // Type of basic information
-            type = "0x" + toEvenHEX(bytes[index].toString(16).toUpperCase());
-            index = index + 1;
-            var info = CONFIG_INFO.TYPES[type];
-            size = info.SIZE;
-            // Decoding
-            var value = 0;
-            if(info.DIGIT || info.DIGIT == false)
-            {
-                if(info.DIGIT == false)
-                {
-                    // Decode into "V" + DIGIT STRING + "." DIGIT STRING format
-                    value = getDigitStringArrayNoFormat(bytes, index, size);
-                    value = "V" + value[0] + "." + value[1];
-                }else
-                {
-                    // Decode into DIGIT STRING format
-                    value = getDigitStringArrayEvenFormat(bytes, index, size);
-                    value = value.toString().toUpperCase();
-                }
-
-            }
-            else if(info.VALUES)
-            {
-                // Decode into STRING (VALUES specified in CONFIG_INFO)
-                value = "0x" + toEvenHEX(bytes[index].toString(16).toUpperCase());
-                value = info.VALUES[value];
-            }else
-            {
-                if(size == 0)
-                {
-                    size = getSizeBasedOnChannel(bytes, index, channel);
-                    // Decode into STRING format
-                    value = getStringFromBytesBigEndianFormat(bytes, index, size);
-                    
-                }else
-                {
-                    // Decode into DECIMAL format
-                    value = getValueFromBytesBigEndianFormat(bytes, index, size);
-                }
-            }
-            if(info.RESOLUTION)
-            {
-                value = value * info.RESOLUTION;
-                value = parseFloat(value.toFixed(2));
-            }
-            decoded[info.NAME] = value;
-            index = index + size;
+        // Type of generic register
+        type = "0x" + byteToEvenHEX(bytes[index]);
+        index = index + 1;
+        if(!(type in DEVICE_GENERIC_REGISTERS)){
+            index = " at index " + (index - 1);
+            decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.TYPE + type + index;
+            return decoded;
         }
-    }catch(error)
-    {
-        decoded[CONFIG_INFO.ERROR_NAME] = error.message;
+        reg = DEVICE_GENERIC_REGISTERS[type];
+        // Decoding
+        reg.CHANNEL = channel;
+        reg.TYPE = type;
+        reg.INDEX = index;
+        reg = decodeRegister(bytes, reg);
+        decoded[reg.NAME] = reg.DATA;
+        index = index + reg.DATA_SIZE;
     }
-
     return decoded;
 }
 
 function decodeDeviceData(bytes)
 {
-    var LENGTH = bytes.length;
     var decoded = {};
     var index = 0;
     var channel = 0;
     var type = "";
-    var size = 0;
-    if(LENGTH == 1)
+    var reg = {};
+    while(index < bytes.length)
     {
-        if(bytes[0] == 0)
-        {
-            decoded[CONFIG_PERIODIC.INFO_NAME] = "Downlink command succeeded";
-
-        } else if(bytes[0] == 1)
-        {
-            decoded[CONFIG_PERIODIC.WARNING_NAME] = "Downlink command failed";
+        channel = bytes[index];
+        index = index + 1;
+        // Channel checking
+        if(channel != UPLINK.DEVICE_DATA.CHANNEL){
+            channel = "0x" + byteToEvenHEX(channel);
+            index = " at index " + (index - 1);
+            decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.CHANNEL + channel + index;
+            return decoded;
         }
-        return decoded;
-    }
-    try
-    {
-        while(index < LENGTH)
-        {
-            channel = bytes[index];
-            index = index + 1;
-            // Channel checking
-            if(channel != CONFIG_PERIODIC.CHANNEL)
-            {
-                continue;
+        // Type of register
+        type = "0x" + byteToEvenHEX(bytes[index]);
+        index = index + 1;
+        if(!(type in DEVICE_SPECIFIC_REGISTERS)){
+            if(!(type in DEVICE_GENERIC_REGISTERS)){
+                if(!(type in UPLINK.COMMON_REGISTERS)){
+                    index = " at index " + (index - 1);
+                    decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.TYPE + type + index;
+                    return decoded;
+                }
+                reg = UPLINK.COMMON_REGISTERS[type];
+            }else{
+                reg = DEVICE_GENERIC_REGISTERS[type];
             }
-            // Type of basic information
-            type = "0x" + toEvenHEX(bytes[index].toString(16).toUpperCase());
-            index = index + 1;
-            var info = CONFIG_PERIODIC.TYPES[type] ? CONFIG_PERIODIC.TYPES[type] : null;
-            if(info == null)
-            {
-                continue;
-            }
-            size = info.SIZE ? info.SIZE : 0;
-            if(size == 0)
-            {
-                continue;
-            }
-            var value = getValueFromBytesBigEndianFormat(bytes, index, size);
-            if(info.SIGNED)
-            {
-                value = getSignedIntegerFromInteger(value, size);
-            }
-            if(info.VALUES)
-            {
-                value = "0x" + toEvenHEX(value.toString(16).toUpperCase());
-                value = info.VALUES[value];
-            }
-            if(info.RESOLUTION)
-            {
-                value = value * info.RESOLUTION;
-                value = parseFloat(value.toFixed(2));
-            }
-            decoded[info.NAME] = value;
-            index = index + size;
+        }else{
+            reg = DEVICE_SPECIFIC_REGISTERS[type];
         }
-    }catch(error)
-    {
-        decoded[CONFIG_PERIODIC.ERROR_NAME] = error.message;
+        // Decoding
+        reg.CHANNEL = channel;
+        reg.TYPE = type;
+        reg.INDEX = index;
+        reg = decodeRegister(bytes, reg);
+        decoded[reg.NAME] = reg.DATA;
+        index = index + reg.DATA_SIZE;
     }
-
     return decoded;
 }
 
-function decodeAlarmPacket(bytes)
+function decodeAlarmData(bytes)
 {
-    var LENGTH = bytes.length;
     var decoded = {};
     var index = 0;
     var channel = 0;
     var type = "";
-    var size = 0;
-    if(LENGTH == 1)
+    var reg = {};
+    while(index < bytes.length)
     {
-        if(bytes[0] == 0)
-        {
-            decoded[CONFIG_ALARM.INFO_NAME] = "Downlink command succeeded";
-
-        } else if(bytes[0] == 1)
-        {
-            decoded[CONFIG_ALARM.WARNING_NAME] = "Downlink command failed";
+        channel = bytes[index];
+        index = index + 1;
+        // Channel checking
+        if(channel != UPLINK.ALARM_DATA.CHANNEL){
+            channel = "0x" + byteToEvenHEX(channel);
+            index = " at index " + (index - 1);
+            decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.CHANNEL + channel + index;
+            return decoded;
         }
-        return decoded;
-    }
-    try
-    {
-        while(index < LENGTH)
-        {
-            channel = bytes[index];
-            index = index + 1;
-            // Channel checking
-            if(channel != CONFIG_ALARM.CHANNEL)
-            {
-                continue;
+        // Type of register
+        type = "0x" + byteToEvenHEX(bytes[index]);
+        index = index + 1;
+        if(!(type in DEVICE_SPECIFIC_REGISTERS)){
+            if(!(type in DEVICE_GENERIC_REGISTERS)){
+                if(!(type in UPLINK.COMMON_REGISTERS)){
+                    index = " at index " + (index - 1);
+                    decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.TYPE + type + index;
+                    return decoded;
+                }
+                reg = UPLINK.COMMON_REGISTERS[type];
+            }else{
+                reg = DEVICE_GENERIC_REGISTERS[type];
             }
-            // Type of alarm
-            type = "0x" + toEvenHEX(bytes[index].toString(16).toUpperCase());
-            index = index + 1;
-            var info = CONFIG_ALARM.TYPES[type] ? CONFIG_ALARM.TYPES[type] : null;
-            if(info == null)
-            {
-                continue;
-            }
-            size = info.SIZE ? info.SIZE : 0;
-            if(size == 0)
-            {
-                continue;
-            }
-            // Decoding
-            var value = getValueFromBytesBigEndianFormat(bytes, index, size);
-            if(info.VALUES)
-            {
-                value = "0x" + toEvenHEX(value.toString(16).toUpperCase());
-                value = info.VALUES[value];
-            }
-            decoded[info.NAME] = value;
-            index = index + size;
+        }else{
+            reg = DEVICE_SPECIFIC_REGISTERS[type];
         }
-    }catch(error)
-    {
-        decoded[CONFIG_ALARM.ERROR_NAME] = error.message;
+        // Decoding
+        reg.CHANNEL = channel;
+        reg.TYPE = type;
+        reg.INDEX = index;
+        reg = decodeRegister(bytes, reg);
+        decoded[reg.NAME] = reg.DATA;
+        index = index + reg.DATA_SIZE;
     }
-
     return decoded;
 }
 
-function decodeParameters(bytes)
+function decodeParameterData(bytes)
 {
-    var LENGTH = bytes.length;
     var decoded = {};
     var index = 0;
     var channel = 0;
     var type = "";
-    var size = 0;
-    if(LENGTH == 1)
+    var reg = {};
+    while(index < bytes.length)
     {
-        if(bytes[0] == 0)
-        {
-            decoded[CONFIG_PARAMETER.INFO_NAME] = "Downlink command succeeded";
-
-        } else if(bytes[0] == 1)
-        {
-            decoded[CONFIG_PARAMETER.WARNING_NAME] = "Downlink command failed";
+        channel = bytes[index];
+        index = index + 1;
+        // Channel checking
+        if(channel != UPLINK.PARAMTER_DATA.CHANNEL){
+            channel = "0x" + byteToEvenHEX(channel);
+            index = " at index " + (index - 1);
+            decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.CHANNEL + channel + index;
+            return decoded;
         }
-        return decoded;
-    }
-    try
-    {
-        while(index < LENGTH)
-        {
-            channel = bytes[index];
-            index = index + 1;
-            // Channel checking
-            if(channel != CONFIG_PARAMETER.CHANNEL)
-            {
-                continue;
+        // Type of register
+        type = "0x" + byteToEvenHEX(bytes[index]);
+        index = index + 1;
+        if(!(type in DEVICE_SPECIFIC_REGISTERS)){
+            if(!(type in DEVICE_GENERIC_REGISTERS)){
+                index = " at index " + (index - 1);
+                decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.TYPE + type + index;
+                return decoded;
             }
-            // Type of parameter
-            type = "0x" + toEvenHEX(bytes[index].toString(16).toUpperCase());
-            index = index + 1;
-            var info = CONFIG_PARAMETER.TYPES[type] ? CONFIG_PARAMETER.TYPES[type] : null;
-            if(info == null)
-            {
-                continue;
-            }
-            size = info.SIZE ? info.SIZE : 0;
-            if(size == 0)
-            {
-                continue;
-            }
-            // Decoding
-            var value = getValueFromBytesBigEndianFormat(bytes, index, size);
-            if(info.SIGNED)
-            {
-                value = getSignedIntegerFromInteger(value, size);
-            }
-            if(info.VALUES)
-            {
-                value = "0x" + toEvenHEX(value.toString(16).toUpperCase());
-                value = info.VALUES[value];
-            }
-            if(info.RESOLUTION)
-            {
-                value = value * info.RESOLUTION;
-                value = parseFloat(value.toFixed(2));
-            }
-            decoded[info.NAME] = value;
-            index = index + size;
+            reg = DEVICE_GENERIC_REGISTERS[type];
+        }else{
+            reg = DEVICE_SPECIFIC_REGISTERS[type];
         }
-    }catch(error)
-    {
-        decoded[CONFIG_PARAMETER.ERROR_NAME] = error.message;
+        // Decoding
+        reg.CHANNEL = channel;
+        reg.TYPE = type;
+        reg.INDEX = index;
+        reg = decodeRegister(bytes, reg);
+        decoded[reg.NAME] = reg.DATA;
+        index = index + reg.DATA_SIZE;
     }
-
     return decoded;
 }
 
 /**  Helper functions  **/
+
+function decodeRegister(bytes, reg)
+{
+    var data = 0;
+    reg.DATA_SIZE = reg.SIZE;
+    if(UPLINK.OPTIONAL_KEYS.DIGIT in reg)
+    {
+        if(reg.DIGIT == false){
+            // Decode into "V" + DIGIT STRING + "." DIGIT STRING format
+            data = getDigitStringArrayNoFormat(bytes, reg.INDEX, reg.DATA_SIZE);
+            data = "V" + data[0] + "." + data[1];
+        }else{
+            // Decode into DIGIT STRING format
+            data = getDigitStringArrayEvenFormat(bytes, reg.INDEX, reg.DATA_SIZE);
+            data = data.toString().toUpperCase();
+        }
+        reg.DATA = data;
+        return reg;
+    }
+    if(reg.VALUES){
+        // Decode into HEX byte (VALUES specified in reg.VALUES)
+        data = "0x" + byteToEvenHEX(bytes[reg.INDEX]);
+        data = reg.VALUES[data];
+        reg.DATA = data;
+        return reg;
+    }
+    if(reg.DATA_SIZE == 0)
+    {
+        reg.DATA_SIZE = getSizeBasedOnChannel(bytes, reg.INDEX, reg.CHANNEL);
+        // Decode into STRING format
+        data = getStringFromBytesBigEndianFormat(bytes, reg.INDEX, reg.DATA_SIZE);
+        reg.DATA = data;
+        return reg;
+    }
+    // Decode into DECIMAL format
+    data = getValueFromBytesBigEndianFormat(bytes, reg.INDEX, reg.DATA_SIZE);
+    if(reg.SIGNED){
+        data = getSignedIntegerFromInteger(data, reg.DATA_SIZE);
+    }
+    if(reg.RESOLUTION){
+        data = data * reg.RESOLUTION;
+        data = parseFloat(data.toFixed(2));
+    }
+    reg.DATA = data;
+    return reg;
+}
 
 function getStringFromBytesBigEndianFormat(bytes, index, size)
 {
@@ -534,6 +470,11 @@ function toEvenHEX(hex)
   return hex;
 }
 
+function byteToEvenHEX(byte)
+{
+    return toEvenHEX(byte.toString(16).toUpperCase());
+}
+
 function getSizeBasedOnChannel(bytes, index, channel)
 {
     var size = 0;
@@ -567,24 +508,25 @@ function getSignedIntegerFromInteger(integer, size)
 function Decode(fPort, bytes, variables) 
 {
     var decoded = {};
-    if(fPort == 0)
-    {
-        decoded = {mac: "MAC command received", fPort: fPort};
-    }else if(fPort == CONFIG_INFO.FPORT)
-    {
-        decoded = decodeBasicInformation(bytes);
-    }else if(fPort >= CONFIG_PERIODIC.FPORT_MIN && fPort <= CONFIG_PERIODIC.FPORT_MAX)
-    {
+    if(fPort == 0){
+        decoded = {mac: UPLINK.MAC.MSG, fPort: fPort};
+    }else if(bytes.length == 1){
+        if(bytes[0] == 0){
+            decoded[UPLINK.INFO_NAME] = UPLINK.DOWNLINK.SUCCESS;
+        }else if(bytes[0] == 1){
+            decoded[UPLINK.WARNING_NAME] = UPLINK.DOWNLINK.FAILURE;
+        } 
+    }else if(fPort >= UPLINK.GENERIC_DATA.FPORT_MIN && fPort <= UPLINK.GENERIC_DATA.FPORT_MAX){
+        decoded = decodeGenericData(bytes);
+    }else if(fPort >= UPLINK.DEVICE_DATA.FPORT_MIN && fPort <= UPLINK.DEVICE_DATA.FPORT_MAX){
         decoded = decodeDeviceData(bytes);
-    }else if(fPort == CONFIG_ALARM.FPORT)
-    {
-        decoded = decodeAlarmPacket(bytes);
-    }else if(fPort == CONFIG_PARAMETER.FPORT)
-    {
-        decoded = decodeParameters(bytes);
-    }else
-    {
-        decoded = {error: "Incorrect fPort", fPort : fPort};
+    }else if(fPort == UPLINK.ALARM_DATA.FPORT){
+        decoded = decodeAlarmData(bytes);
+    }else if(fPort == UPLINK.PARAMTER_DATA.FPORT){
+        decoded = decodeParameterData(bytes);
+    }else{
+        decoded.fPort = fPort;
+        decoded[UPLINK.ERROR_NAME] = UPLINK.ERRORS.FPORT_INCORRECT;
     }
     decoded[VERSION_CONTROL.CODEC.NAME] = VERSION_CONTROL.CODEC.VERSION;
     decoded[VERSION_CONTROL.DEVICE.NAME] = VERSION_CONTROL.DEVICE.MODEL;
@@ -593,7 +535,7 @@ function Decode(fPort, bytes, variables)
     return decoded;
 }
 
-// Decode uplink function. (ChirpStack v4 , TTN)
+// Decode uplink function. (ChirpStack v4, TTN, TTI, LORIOT, ThingPark)
 //
 // Input is an object with the following fields:
 // - bytes = Byte array containing the uplink payload, e.g. [255, 230, 255, 0]
@@ -603,10 +545,124 @@ function Decode(fPort, bytes, variables)
 // Output must be an object with the following fields:
 // - data = Object representing the decoded payload.
 function decodeUplink(input) {
+    var errors = [];
+    var warnings = [];
+    var decoded = Decode(input.fPort, input.bytes, input.variables);
+    if(UPLINK.ERROR_NAME in decoded){
+        errors.push(decoded[UPLINK.ERROR_NAME]);
+    }
+    if(UPLINK.WARNING_NAME in decoded){
+        warnings.push(decoded[UPLINK.WARNING_NAME]);
+    }
     return {
-        data: Decode(input.fPort, input.bytes, input.variables)
+        data: decoded,
+        errors: errors,
+        warnings: warnings
     };
 }
+
+/*************************************************************************************************************/
+// Constants for device downlink 
+var DEVICE = {
+
+    DOWNLINK : {
+        TYPE    : "Type",
+        CONFIG  : "Config",
+        PERIODIC: "Periodic",
+        READING : "Reading"
+    },
+    CONFIG : {
+        FPORT: 50,
+        CHANNEL : 255, // 0xFF
+        REG_MIN_NUMBER : 1,  // downlink min number of registers
+        REG_MAX_NUMBER : 10, // downlink max number of registers
+    },
+    PERIODIC : {
+        FPORT_MIN: 1,
+        FPORT_MAX: 5,
+        CHANNEL : 255, // 0xFF
+        INTERVAL_TYPE : 20, // 0x14
+        MODE_TYPE : 21, // 0x15
+        STATUS_TYPE : 22, // 0x16
+        REGISTERS_TYPE : 23, // 0x17
+        REG_MIN_NUMBER : 1,  // downlink min number of registers
+        REG_MAX_NUMBER : 10, // downlink max number of registers
+    },
+    READING: {
+        FPORT: 100,
+        CHANNEL : 255, // 0xFF
+        TYPE : 204, // 0xCC
+        REG_MIN_NUMBER : 1,  // downlink min number of registers
+        REG_MAX_NUMBER : 10, // downlink max number of registers
+    },
+
+    REGISTERS : {
+        /* device registers */
+        // SIZE, MIN and MAX are required if the register is writable (RW permission is "W" or "RW")
+        // "registerName": {TYPE: <address>, RW: <"R"/"W"/"RW">, SIZE: <size>, MIN: <min>, MAX: <max> }
+
+        /* generic registers */
+        "deviceStatus": {TYPE: 100, /* 0x64 */ RW:"R",},
+        "manufacturer": {TYPE: 101, /* 0x65 */ RW:"R",},
+        "originalEquipmentManufacturer": {TYPE: 102, /* 0x66 */ RW:"R",},
+        "deviceModel": {TYPE: 103, /* 0x67 */ RW:"R",},
+        "deviceSerialNumber": {TYPE: 104, /* 0x68 */ RW:"R",},
+        "firmwareVersion": {TYPE: 105, /* 0x69 */ RW:"R",},
+        "hardwareVersion": {TYPE: 106, /* 0x6A */ RW:"R",},
+        "externalPowerStatus": {TYPE: 107, /* 0x6B */ RW:"R",},
+        "batteryVoltage": {TYPE: 108, /* 0x6C */ RW:"R",},
+        "batteryPercentage": {TYPE: 109, /* 0x6D */ RW:"R",},
+        "rebootDevice": {TYPE: 111, /* 0x6F */ SIZE: 1, MIN: 1, MAX: 1, RW:"WRITE_ONLY",},
+        "internalCircuitTemperatureAlarm": {TYPE: 120, /* 0x78 */ RW:"R",},
+        "internalCircuitTemperatureNumberOfAlarms": {TYPE: 121, /* 0x79 */ RW:"R",},
+        "internalCircuitTemperature": {TYPE: 122, /* 0x7A */ RW:"R",},
+        "internalCircuitHumidity": {TYPE: 123, /* 0x7B */ RW:"R",},
+        "ambientTemperature": {TYPE: 130, /* 0x82 */ RW:"R",},
+        "ambientHumidity": {TYPE: 131, /* 0x83 */ RW:"R",},
+        "joinStatus": {TYPE: 150, /* 0x96 */ RW:"R",},
+        "applicationPort": {TYPE: 157, /* 0x9D */ SIZE: 1, MIN: 50, MAX: 99, RW:"RW",},
+        "joinType": {TYPE: 158, /* 0x9E */ RW:"RW",},
+        "deviceClass": {TYPE: 159, /* 0x9F */ RW:"RW",},
+        "adr": {TYPE: 160, /* 0xA0 */ SIZE: 1, MIN: 0, MAX: 1, RW:"RW",},
+        "sf": {TYPE: 161, /* 0xA1 */ SIZE: 1, MIN: 0, MAX: 6, RW:"RW",},
+        "restartLoRaWAN": {TYPE: 162, /* 0xA2 */ SIZE: 1, MIN: 1, MAX: 1, RW:"W",},
+        "radioMode": {TYPE: 163, /* 0xA3 */ SIZE: 1, MIN: 0, MAX: 2, RW:"RW",},
+        "numberOfJoinAttempts": {TYPE: 164, /* 0xA4 */ SIZE: 1, MIN: 0, MAX: 255, RW:"RW",},
+        "linkCheckTimeframe": {TYPE: 164, /* 0xA5 */ SIZE: 2, MIN: 1, MAX: 65535, RW:"RW",},
+        "dataRetransmission": {TYPE: 165, /* 0xA6 */ SIZE: 1, MIN: 0, MAX: 1, RW:"RW",},
+        "lorawanWatchdogAlarm": {TYPE: 166, /* 0xA7 */ SIZE: 1, MIN: 0, MAX: 1, RW:"R",},
+
+        /* specific registers */
+        "channel1State": {TYPE: 26, /* 0x1A */ RW:"R",},
+        "channel1Control": {TYPE: 27, /* 0x1B */ SIZE: 1, MIN: 0, MAX: 1, RW:"RW",},
+        "channel1Counter": {TYPE: 28, /* 0x1C */ RW:"R",},
+        "channel1DefaultState": {TYPE: 29, /* 0x1D */ SIZE: 1, MIN: 0, MAX: 2, RW:"RW",},
+        "channel1WatchdogState": {TYPE: 30, /* 0x1E */ SIZE: 1, MIN: 0, MAX: 2, RW:"RW",},
+        "channel1ButtonOverrideFunction": {TYPE: 31, /* 0x1F */ SIZE: 1, MIN: 0, MAX: 1, RW:"RW",},
+        "channel1ButtonOverrideStatus": {TYPE: 16, /* 0x10 */ RW:"R",},
+        "channel1ButtonOverrideReset": {TYPE: 17, /* 0x11 */ SIZE: 1, MIN: 1, MAX: 1, RW:"W",},
+        "channel2State": {TYPE: 42, /* 0x2A */ RW:"R",},
+        "channel2Control": {TYPE: 43, /* 0x2B */ SIZE: 1, MIN: 0, MAX: 1, RW:"RW",},
+        "channel2Counter": {TYPE: 44, /* 0x2C */ RW:"R",},
+        "channel2DefaultState": {TYPE: 45, /* 0x2D */ SIZE: 1, MIN: 0, MAX: 2, RW:"RW",},
+        "channel2WatchdogState": {TYPE: 46, /* 0x2E */ SIZE: 1, MIN: 0, MAX: 2, RW:"RW",},
+        "channel2ButtonOverrideFunction": {TYPE: 47, /* 0x2F */ SIZE: 1, MIN: 0, MAX: 1, RW:"RW",},
+        "channel2ButtonOverrideStatus": {TYPE: 32, /* 0x20 */ RW:"R",},
+        "channel2ButtonOverrideReset": {TYPE: 33, /* 0x21 */ SIZE: 1, MIN: 1, MAX: 1, RW:"W",},
+    },
+    ERRORS : {
+        CMD_INVALID: "Invalid command",
+        CMD_REGISTER_NOT_FOUND: "Register not found in the device registers",
+        CMD_REGISTER_NOT_WRITABLE: "Register not writable",
+        CMD_REGISTER_NOT_READABLE: "Register not readable",
+        CMD_REGISTER_NUMBER_INVALID: "Invalid number of registers",
+        CMD_DATA_INVALID: "Invalid data in the command",
+        CMD_FPORT_INVALID: "Invalid fPort in the command",
+    },
+    WARNING_NAME   : "warning",
+    ERROR_NAME     : "error",
+    INFO_NAME      : "info",
+};
 
 /************************************************************************************************************/
 
@@ -616,28 +672,36 @@ function decodeUplink(input) {
 //  - variables contains the device variables e.g. {"calibration": "3.5"} (both the key / value are of type string)
 // The function must return an array of bytes, e.g. [225, 230, 255, 0]
 function Encode(fPort, obj, variables) {
-    try
-    {
-        if(obj[CONFIG_DOWNLINK.TYPE] == CONFIG_DOWNLINK.CONFIG)
-        {
-            return encodeDeviceConfiguration(obj[CONFIG_DOWNLINK.CONFIG], variables);
-        }
-        else if(obj[CONFIG_DOWNLINK.TYPE] == CONFIG_DOWNLINK.PERIODIC)
-        {
-            return encodeUplinkConfiguration(obj[CONFIG_DOWNLINK.PERIODIC], variables);
-        }
-        else if(obj[CONFIG_DOWNLINK.TYPE] == CONFIG_DOWNLINK.READING)
-        {
-            return encodeParamtersReading(obj[CONFIG_DOWNLINK.READING], variables);
-        }
-    }catch(error)
-    {
-
+    if(!(DEVICE.DOWNLINK.TYPE in obj)){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_INVALID + 
+            ": please add " + DEVICE.DOWNLINK.TYPE + " to the command";
+        return []; // error
     }
-    return [];
+    if(obj[DEVICE.DOWNLINK.TYPE] == DEVICE.DOWNLINK.CONFIG){
+        if(fPort != DEVICE.CONFIG.FPORT){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_FPORT_INVALID;
+            return []; // error
+        }
+        return encodeDeviceConfiguration(obj[DEVICE.DOWNLINK.CONFIG]);
+    }else if(obj[DEVICE.DOWNLINK.TYPE] == DEVICE.DOWNLINK.PERIODIC){
+        if(fPort < DEVICE.PERIODIC.FPORT_MIN || fPort > DEVICE.PERIODIC.FPORT_MAX){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_FPORT_INVALID;
+            return []; // error
+        }
+        return encodeUplinkConfiguration(obj[DEVICE.DOWNLINK.PERIODIC]);
+    }else if(obj[DEVICE.DOWNLINK.TYPE] == DEVICE.DOWNLINK.READING){
+        if(fPort != DEVICE.READING.FPORT){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_FPORT_INVALID;
+            return []; // error
+        }
+        return encodeParameterReading(obj[DEVICE.DOWNLINK.READING]);
+    }
+    DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_INVALID + 
+        ": please check " + obj[DEVICE.DOWNLINK.TYPE] + " in the command";
+    return []; // error
 }
 
-// Encode downlink function. (ChirpStack v4 , TTN)
+// Encode downlink function. (ChirpStack v4 , TTN, TTI, LORIOT, ThingPark)
 //
 // Input is an object with the following fields:
 // - data = Object representing the payload that must be encoded.
@@ -646,217 +710,195 @@ function Encode(fPort, obj, variables) {
 // Output must be an object with the following fields:
 // - bytes = Byte array containing the downlink payload.
 function encodeDownlink(input) {
+    var fPort = DEVICE.CONFIG.FPORT; // by default use config fPort (50)
+    if(input.data.fPort)
+    {
+        fPort = input.data.fPort;
+    }
+    var errors = [];
+    var warnings = [];
+    var encoded = Encode(fPort, input.data, input.variables);
+    if(DEVICE.ERROR_NAME in DEVICE)
+    {
+        errors.push(DEVICE[DEVICE.ERROR_NAME]);
+    }
+    if(DEVICE.WARNING_NAME in DEVICE)
+    {
+        warnings.push(DEVICE[DEVICE.WARNING_NAME]);
+    }
     return {
-        bytes: Encode(null, input.data, input.variables)
+        bytes: encoded,
+        fPort: fPort,
+        errors: errors,
+        warnings : warnings
     };
 }
 
 
 /************************************************************************************************************/
 
-// Constants for downlink type
-var CONFIG_DOWNLINK = {
-    TYPE    : "Type",
-    CONFIG  : "Config",
-    PERIODIC: "Periodic",
-    READING : "Reading"
-}
 
-// Constants for device configuration 
-var CONFIG_DEVICE = {
-    FPORT : 50,
-    REGISTER_CHANNEL : parseInt("0xFF", 16),
-    PERIODIC_CHANNEL : parseInt("0xFF", 16),
-    READING_TYPE : parseInt("0xCC", 16),
-    DATA_MAX_SIZE : 10,
-    REGISTERS : {
-        "rebootDevice": {TYPE: parseInt("0x0A", 16), SIZE: 1, MIN: 1, MAX: 1, RIGHT:"WRITE_ONLY",},
-        "restart": {TYPE: parseInt("0x0B", 16), SIZE: 1, MIN: 1, MAX: 1, RIGHT:"WRITE_ONLY",},
-        "adr": {TYPE: parseInt("0x12", 16), SIZE: 1, MIN: 0, MAX: 1,},
-        "sf": {TYPE: parseInt("0x13", 16), SIZE: 1, MIN: 0, MAX: 6,},
-        "lorawanWatchdogFunction": {TYPE: parseInt("0x14", 16), SIZE: 1, MIN: 0, MAX: 1,},
-        "lorawanWatchdogTimeout": {TYPE : parseInt("0x15", 16), SIZE: 2, MIN: 1, MAX: 65535,},
-        "lorawanWatchdogAlarm": {TYPE: parseInt("0x16", 16), RIGHT:"READ_ONLY"},
-        "defaultState": {TYPE: parseInt("0x64", 16), SIZE: 1, MIN: 0, MAX: 2,},
-        "timeoutState": {TYPE: parseInt("0x65", 16), SIZE: 1, MIN: 0, MAX: 2,},
-        "buttonOverrideFunction": {TYPE: parseInt("0x66", 16), SIZE: 1, MIN: 0, MAX: 1,},
-        "deviceOperationMode": {TYPE: parseInt("0x67", 16), RIGHT:"READ_ONLY"},
-        "buttonOverrideReset": {TYPE: parseInt("0x68", 16), SIZE: 1, MIN: 1, MAX: 1, RIGHT:"WRITE_ONLY",},
-        "internalCircuitTemperatureAlarm": {TYPE: parseInt("0x69", 16), RIGHT:"READ_ONLY"},
-        "internalCircuitTemperatureNumberOfAlarms": {TYPE: parseInt("0x70", 16), RIGHT:"READ_ONLY"},
-        "internalCircuitTemperature": {TYPE: parseInt("0x71", 16), RIGHT:"READ_ONLY"},
-        "internalCircuitHumidity": {TYPE: parseInt("0x72", 16), RIGHT:"READ_ONLY"},
-        "channel1State": {TYPE: parseInt("0x95", 16), RIGHT:"READ_ONLY",},
-        "channel1Control": {TYPE: parseInt("0x96", 16), SIZE: 1, MIN: 0, MAX: 1,},
-        "channel1Counter": {TYPE: parseInt("0x97", 16), RIGHT:"READ_ONLY",},
-        "channel2State": {TYPE: parseInt("0x98", 16), RIGHT:"READ_ONLY",},
-        "channel2Control": {TYPE: parseInt("0x99", 16), SIZE: 1, MIN: 0, MAX: 1,},
-        "channel2Counter": {TYPE: parseInt("0x9A", 16), RIGHT:"READ_ONLY",},
-    }
-}
-
-function encodeDeviceConfiguration(obj, variables)
+function encodeDeviceConfiguration(cmdArray)
 {
     var encoded = [];
-    var index = 0;
-    var config = {};
-    var param = "";
-    var value = 0;
-    try
-    {
-        for(var i=0; i<obj.length; i=i+1)
-        {
-            param = obj[i]["Param"];
-            value = obj[i]["Value"];
-            var config = CONFIG_DEVICE.REGISTERS[param];
-            if(config.RIGHT && config.RIGHT === "READ_ONLY")
-            {
-                return [];  // error
-            }        
-            if(value >= config.MIN && value <= config.MAX)
-            {
-                encoded[index] = CONFIG_DEVICE.REGISTER_CHANNEL;
-                index = index + 1;
-                encoded[index] = config.TYPE;
-                index = index + 1;
-                if(config.SIZE == 2)
-                {
-                    value = parseInt(value.toFixed(0));
-                    encoded[index] = (value >> 8) & 0xFF;
-                    index = index + 1;
-                    encoded[index] = value & 0xFF;
-                    index = index + 1;
-                }else
-                {
-                    encoded[index] = value;
-                    index = index + 1;
-                }
-            }else
-            {
-                // Error
-                return [];
-            }
-        }
-    }catch(error)
-    {
-        // Error
+    var reg = {};
+    var regName = "";
+
+    if(!(cmdArray)){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_INVALID + 
+            ": please add " + DEVICE.DOWNLINK.CONFIG + " array to the command";
+        return []; // error
+    }
+    if(cmdArray.length < DEVICE.CONFIG.REG_MIN_NUMBER ||
+        cmdArray.length > DEVICE.CONFIG.REG_MAX_NUMBER){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NUMBER_INVALID + 
+            ": please check " + DEVICE.DOWNLINK.CONFIG + " in the command";
         return [];
     }
-    return encoded;
-}
-
-function encodeUplinkConfiguration(obj, variables)
-{
-    var encoded = []
-    var index = 0;
-    var firstType = parseInt("0x14", 16);
-    var field = ["UplinkInterval", "Mode", "Status", "Registers"];
-    var fieldIndex = 0;
-    var isFieldPresent = false;
-    var value = 0;
-    var registers = [];
-    var register = "";
-    try 
+    
+    for(var i=0; i<cmdArray.length; i=i+1)
     {
-        // Encode UplinkInterval, Mode, Status
-        for(fieldIndex=0; fieldIndex<3; fieldIndex=fieldIndex+1)
-        {
-            isFieldPresent = false;
-            if(field[fieldIndex] in obj)
-            {
-                isFieldPresent = true;
-            }
-            if(!isFieldPresent)
-            {
-                return [];  // error
-            }
-            value = obj[field[fieldIndex]];
-            if((fieldIndex < 1 && value >= 1 && value <= 255) || 
-                (fieldIndex >= 1 && value >= 0 && value <= 1))
-            {
-                encoded[index] = CONFIG_DEVICE.PERIODIC_CHANNEL;
-                index = index + 1;
-                encoded[index] = firstType + fieldIndex;
-                index = index + 1;
-                encoded[index] = value;
-                index = index + 1;
-            }else
-            {
-                // Error
-                return [];
-            }
-        }
-        // Encode registers
-        isFieldPresent = false;
-        if(field[fieldIndex] in obj)
-        {
-            isFieldPresent = true;
-        }
-        if(!isFieldPresent)
-        {
-            return [];  // error
-        }
-        registers = obj[field[fieldIndex]];
-        if(registers.length < 1 || registers.length > CONFIG_DEVICE.DATA_MAX_SIZE)
-        {
-            return [];  // Error
-        }
-        encoded[index] = CONFIG_DEVICE.PERIODIC_CHANNEL;
-        index = index + 1;
-        encoded[index] = firstType + fieldIndex;
-        index = index + 1;
-        var config = {};
-        for(var i=0; i<registers.length; i=i+1)
-        {
-            register = registers[i];
-            if(register in CONFIG_DEVICE.REGISTERS)
-            {
-                config = CONFIG_DEVICE.REGISTERS[register];
-                encoded[index] =  config.TYPE;
-                index = index + 1;
-            }else{
-                return [];  // error (registers not supported)
-            }
-        }
-    }catch(error)
-    {
-        // Error
-        return [];
-    }
-    return encoded;
-}
-
-function encodeParamtersReading(obj, variables)
-{
-    var encoded = [];
-    var index = 0;
-    var config = {};
-    var param = "";
-    try
-    {
-        if(obj.length > CONFIG_DEVICE.DATA_MAX_SIZE)
-        {
+        var cmdObj = cmdArray[i];
+        if(!("Param" in cmdObj) || !("Value" in cmdObj)){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_INVALID + 
+            ": please add Param and Value to each object in the " + 
+            DEVICE.DOWNLINK.CONFIG + " array of the command";
             return []; // error
         }
-        encoded[index] = CONFIG_DEVICE.REGISTER_CHANNEL;
-        index = index + 1;
-        encoded[index] = CONFIG_DEVICE.READING_TYPE;
-        index = index + 1;
-        for(var i=0; i<obj.length; i=i+1)
-        {
-            param = obj[i];
-            var config = CONFIG_DEVICE.REGISTERS[param];
-            if(config.RIGHT && config.RIGHT === "WRITE_ONLY")
-            {
-                return [];  // error
-            }
-            encoded[index] = config.TYPE;
-            index = index + 1;
+        regName = cmdObj.Param;
+        if(!(regName in DEVICE.REGISTERS)){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NOT_FOUND + 
+                ": please check " + regName + " in the command";
+            return []; // error
         }
-    }catch(error)
+        reg = DEVICE.REGISTERS[regName];
+        if(reg.RW == "R"){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NOT_WRITABLE +
+                ": please check " + regName + " in the command";
+            return [];  // error
+        }
+        if(cmdObj.Value < reg.MIN || cmdObj.Value > reg.MAX){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_DATA_INVALID +
+                ": please check " + regName + " in the command";
+            return []; // error
+        }
+        encoded.push(DEVICE.CONFIG.CHANNEL);
+        encoded.push(reg.TYPE);
+        if(reg.SIZE == 2){
+            encoded.push((cmdObj.Value >> 8) & 255);
+            encoded.push(cmdObj.Value & 255);
+        }else{
+            encoded.push(cmdObj.Value);
+        }
+    }
+    return encoded;
+}
+
+function encodeUplinkConfiguration(cmdObj)
+{
+    var encoded = [];
+    var reg = {};
+    var regName = "";
+
+    if(!(cmdObj)){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_INVALID + 
+            ": please add " + DEVICE.DOWNLINK.PERIODIC + " object to the command";
+        return []; // error
+    }
+    if(!("UplinkInterval" in cmdObj) ||  !("Mode" in cmdObj) ||
+        !("Status" in cmdObj) || !("Registers" in cmdObj)){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_INVALID;
+        return []; // error
+    }
+    // Encode UplinkInterval, Mode, Status
+    if(cmdObj.UplinkInterval < 0 || cmdObj.UplinkInterval > 65535){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_DATA_INVALID +
+        ": please check UplinkInterval in the command";
+        return []; // error
+    }
+    encoded.push(DEVICE.PERIODIC.CHANNEL);
+    encoded.push(DEVICE.PERIODIC.INTERVAL_TYPE);
+    encoded.push((cmdObj.UplinkInterval >> 8) & 255);
+    encoded.push(cmdObj.UplinkInterval & 255);
+
+    if(cmdObj.Mode < 0 || cmdObj.Mode > 1){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_DATA_INVALID +
+            ": please check Mode in the command";
+        return []; // error
+    }
+    encoded.push(DEVICE.PERIODIC.CHANNEL);
+    encoded.push(DEVICE.PERIODIC.MODE_TYPE);
+    encoded.push(cmdObj.Mode);
+    
+    if(cmdObj.Status < 0 || cmdObj.Status > 1){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_DATA_INVALID +
+            ": please check Status in the command";
+        return []; // error
+    }
+    encoded.push(DEVICE.PERIODIC.CHANNEL);
+    encoded.push(DEVICE.PERIODIC.STATUS_TYPE);
+    encoded.push(cmdObj.Status);
+    // Encode registers
+    if(cmdObj.Registers.length < DEVICE.PERIODIC.REG_MIN_NUMBER || 
+        cmdObj.Registers.length > DEVICE.PERIODIC.REG_MAX_NUMBER){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NUMBER_INVALID +
+            ": please check Registers in the command";
+        return [];  // Error
+    }
+    encoded.push(DEVICE.PERIODIC.CHANNEL);
+    encoded.push(DEVICE.PERIODIC.REGISTERS_TYPE);
+    for(var i=0; i<cmdObj.Registers.length; i=i+1)
     {
-        // Error
-        return [];
+        regName = cmdObj.Registers[i];
+        if(!(regName in DEVICE.REGISTERS)){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NOT_FOUND + 
+                ": please check " + regName + " in the command";
+            return []; // error (registers not supported)
+        }
+        reg = DEVICE.REGISTERS[regName];
+        if(reg.RW == "W"){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NOT_READABLE +
+                ": please check " + regName + " in the command";
+            return [];  // error
+        }
+        encoded.push(reg.TYPE);
+    }
+    return encoded;
+}
+
+function encodeParameterReading(cmdArray)
+{
+    var encoded = [];
+    var reg = {};
+    var regName = "";
+    if(!(cmdArray)){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_INVALID + 
+            ": please add " + DEVICE.DOWNLINK.READING + " array to the command";
+        return []; // error
+    }
+    if(cmdArray.length < DEVICE.READING.REG_MIN_NUMBER ||
+        cmdArray.length > DEVICE.READING.REG_MAX_NUMBER){
+        DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NUMBER_INVALID +
+            ": please check " + DEVICE.DOWNLINK.READING + " in the command";
+        return []; // error
+    }
+    encoded.push(DEVICE.READING.CHANNEL);
+    encoded.push(DEVICE.READING.TYPE);
+    for(var i=0; i<cmdArray.length; i=i+1)
+    {
+        regName = cmdArray[i];
+        if(!(regName in DEVICE.REGISTERS)){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NOT_FOUND +
+                ": please check " + regName + " in the command";
+            return []; // error
+        }
+        reg = DEVICE.REGISTERS[regName];
+        if(reg.RW == "W"){
+            DEVICE[DEVICE.ERROR_NAME] = DEVICE.ERRORS.CMD_REGISTER_NOT_READABLE +
+                ": please check " + regName + " in the command";
+            return [];  // error
+        }
+        encoded.push(reg.TYPE);
     }
     return encoded;
 }

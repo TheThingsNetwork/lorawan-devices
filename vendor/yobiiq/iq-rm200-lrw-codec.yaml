@@ -3,82 +3,96 @@
 uplinkDecoder:
   fileName: iq-rm200-lrw.js
   examples:
-    - description: Device basic information
+    - description: Device generic data
       input:
         fPort: 50
-        bytes: [255, 5, 2, 0, 255, 4, 2, 0, 255, 3, 143, 60, 23, 64, 255, 2, 80, 49, 48, 48, 50, 48, 48, 51, 255, 1, 89, 79, 66, 73, 73, 81, 255, 17, 2, 255, 7, 0, 255, 8, 0, 255, 6, 1]
+        bytes:
+          [
+            255,
+            106,
+            2,
+            0,
+            255,
+            105,
+            2,
+            1,
+            255,
+            104,
+            1,
+            156,
+            121,
+            216,
+            255,
+            107,
+            1,
+            255,
+            109,
+            0,
+            255,
+            108,
+            0,
+            255,
+            103,
+            82,
+            77,
+            50,
+            48,
+            48,
+            255,
+            103,
+            82,
+            77,
+            50,
+            48,
+            48,
+            255,
+            101,
+            89,
+            79,
+            66,
+            73,
+            73,
+            81,
+            32,
+            66,
+            46,
+            86,
+            46,
+          ]
       output:
         data:
           hardwareVersion: 'V2.0'
-          firmwareVersion: 'V2.0'
-          deviceSerialNumber: 2403080000
-          deviceModel: 'P1002003'
-          manufacturer: 'YOBIIQ B.V.'
-          deviceClass: 'Class C'
+          firmwareVersion: 'V2.1'
+          deviceSerialNumber: 27032024
+          externalPowerStatus: 'AC POWER ON'
           batteryPercentage: 0
           batteryVoltage: 0
-          powerEvent: 'AC Power On'
-          codecVersion: '1.0.0'
+          deviceModel: 'RM200'
+          manufacturer: 'YOBIIQ B.V.'
+          codecVersion: '2.0.0'
           genericModel: 'RM200'
           productCode: 'P1002003'
+        errors: []
+        warnings: []
 
     - description: Device periodic uplink
       input:
         fPort: 1
-        bytes: [221, 253, 103, 53, 208, 96, 221, 149, 1, 221, 151, 0, 0, 0, 5, 221, 152, 2, 221, 154, 0, 0, 0, 4, 221, 113, 7, 83, 221, 114, 56]
+        bytes: [1, 1, 103, 91, 237, 4, 1, 26, 1, 1, 28, 0, 0, 0, 8, 1, 16, 1, 1, 42, 1, 1, 44, 0, 0, 0, 6, 1, 32, 1, 1, 122, 13, 63, 1, 123, 16]
       output:
         data:
-          dataloggerTimestamp: 1731580000
-          channel1State:
-            state: 'ON'
-            reason: 'by downlink or auto'
-          channel1Counter: 5
-          channel2State:
-            state: 'OFF'
-            reason: 'by button'
-          channel2Counter: 4
-          internalCircuitTemperature: 18.75
-          internalCircuitHumidity: 56
-          codecVersion: '1.0.0'
+          dataloggerTimestamp: 1734077700
+          channel1State: 'ON'
+          channel1Counter: 8
+          channel1ButtonOverrideStatus: 'MANUAL ON'
+          channel2State: 'ON'
+          channel2Counter: 6
+          channel2ButtonOverrideStatus: 'MANUAL ON'
+          internalCircuitTemperature: 33.91
+          internalCircuitHumidity: 16
+          codecVersion: '2.0.0'
           genericModel: 'RM200'
           productCode: 'P1002003'
           manufacturer: 'YOBIIQ B.V.'
-
-    - description: Device alarms
-      input:
-        fPort: 11
-        bytes: [170, 254, 103, 53, 216, 48, 170, 1, 1, 170, 151, 0, 0, 0, 5, 170, 2, 3, 170, 154, 0, 0, 0, 5]
-      output:
-        data:
-          timestamp: 1731582000
-          channel1State:
-            state: 'ON'
-            reason: 'by downlink or auto'
-          channel1Counter: 5
-          channel2State:
-            state: 'ON'
-            reason: 'by button'
-          channel2Counter: 5
-          codecVersion: '1.0.0'
-          genericModel: 'RM200'
-          productCode: 'P1002003'
-          manufacturer: 'YOBIIQ B.V.'
-
-    - description: Device parameters
-      input:
-        fPort: 100
-        bytes: [255, 18, 1, 255, 19, 5, 255, 20, 1, 255, 21, 2, 208, 255, 100, 2, 255, 101, 2, 255, 102, 1, 255, 103, 0]
-      output:
-        data:
-          adr: 'enabled'
-          sf: 'SF7BW125'
-          lorawanWatchdogFunction: 'enabled'
-          lorawanWatchdogTimeout: 720
-          defaultState: 'RETAIN'
-          timeoutState: 'RETAIN'
-          buttonOverrideFunction: 'enabled'
-          deviceOperationMode: 'normal'
-          codecVersion: '1.0.0'
-          genericModel: 'RM200'
-          productCode: 'P1002003'
-          manufacturer: 'YOBIIQ B.V.'
+        errors: []
+        warnings: []
