@@ -1,0 +1,57 @@
+name: flowIQ®2200 OMS over LoRaWAN # Device name can not contain the vendor name
+description: Kamstrup flowIQ®2200 OMS over LoRaWAN water meter. Configuration no 02K73A******
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID: kamstrup
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: flowiq2200-02k73a-profile
+        lorawanCertified: true
+
+# Type of device (optional)
+# Valid values are: devkit, module, cots
+deviceType: cots
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - water
+  - temperature
+
+# Battery information (optional)
+battery:
+  replaceable: false
+  type: 2xA
+
+# IP rating (optional)
+ipCode: IP68
+
+# Product and data sheet URLs (optional)
+productURL: https://www.kamstrup.com/en-en/water-solutions/meters-devices/meters/flowiq-2200
+dataSheetURL: https://documentation.kamstrup.com/docs/flowIQ_2200_EU/en-GB/Data_sheet/CONT86024E18ECB94BD6B9510C582087F03F/
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://documentation.kamstrup.com/docs/flowIQ_2200_EU/en-GB/Quick_guide/CONTB4BEEF010B1F4300BDC3C56825CF6D9D/
+
+# Photos
+photos:
+  main: flowiq2200-02k73a.png # Image needs to have a transparent background
