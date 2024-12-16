@@ -1,0 +1,12 @@
+uplinkDecoder:
+  fileName: senseclimate.js
+  # Examples (optional)
+  examples:
+    - description: 10 degrees
+      input:
+        fPort: 1
+        bytes: [10, 70]
+      output:
+        data:
+          temperature: 10
+          humidity: 70
