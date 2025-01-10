@@ -1,5 +1,5 @@
-name: Gate Valve Servo KFRLWE01
-description: The motor drive for angled seat valves (KFR valves) or normal straight-seated shut-off valves allows for retrofitting existing and already installed shut-off valves into wirelessly controlled intelligent devices without interrupting the water supply or cutting into the water pipe. The motor is powered by a 12V power supply and is completely waterproof and dirt-resistant up to the power supply. An optional battery pack enables autonomous operation in places where no electricity is available. Various adapter rings and a sophisticated connection system enable the use of the motor on all modern valves from DN15 to DN32. With an additional water sensor that attaches directly to the device, the motor can be used for leak protection without further configuration. The servo motor is waterproof and can be used in humid, dirty, and outdoor environments.
+name: LoRain Rain Gauge RANLWE01
+description: This rain sensor measures the amount of rainfall at its location using a tipping bucket mechanism, reporting the quantity within a 15-minute interval with an accuracy of 0.5 mm of water column and additionally provides the temperature. In the event of heavy rainfall exceeding 15 l/h, a heavy rain alarm is triggered promptly. Both the heavy rain threshold and the measurement interval are configurable. The sensor is powered by two AAA batteries. The supplied VARTA batteries allow for an approximate runtime of about 2 years. A low battery level is wirelessly reported, enabling the replacement of batteries before the device shuts down.
 
 hardwareVersions:
   - version: '1.0'
@@ -8,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.36'
+    version: '241115'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -19,33 +19,34 @@ firmwareVersions:
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: kfr-profile
+        id: ran-profile
         lorawanCertified: true
-        codec: kfr-codec
+        codec: ran-codec
       US902-928:
-        id: kfr-profile
+        id: ran-profile
         lorawanCertified: false
-        codec: kfr-codec
+        codec: ran-codec
 
 sensors:
   - temperature
+  - water
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 70
-  length: 170
-  height: 195
+  width: 132
+  length: 132
+  height: 139
 
 # Weight in grams (optional)
-weight: 420
+weight: 219
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -20
-    max: 60
+    max: 80
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -65,8 +66,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.aqua-scope.com/retrofittable-motors-for-shut-off-valves/motor-for-gate-valves.html
-dataSheetURL: https://www.aqua-scope.com/manuals/?sku=KFRLWE01&type=d&html=1&lang=en
+productURL: https://www.aqua-scope.com/products/rainlevelsensor.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=RANLWE01&type=d&html=0&lang=en
 resellerURLs:
   - name: 'Aqua-Scope WTB'
     region:
@@ -75,10 +76,10 @@ resellerURLs:
 
 # Photos
 photos:
-  main: kfr.png
+  main: ran.png
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
+video: https://www.youtube.com/@aqua-scope
 
 # Regulatory compliances (optional)
 compliances:
