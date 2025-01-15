@@ -132,7 +132,6 @@ function decodeBasicInformation(bytes)
     var channel = 0;
     var type = "";
     var size = 0;
-    var security = Object.keys(CONFIG_INFO.TYPES).length;
     if(LENGTH == 1)
     {
         if(bytes[0] == 0)
@@ -147,9 +146,8 @@ function decodeBasicInformation(bytes)
     }
     try
     {
-        while(index < LENGTH && security != 0)
+        while(index < LENGTH)
         {
-            security = security - 1;
             channel = bytes[index];
             index = index + 1;
             if(channel != CONFIG_INFO.CHANNEL)
@@ -209,7 +207,6 @@ function decodeDeviceData(bytes)
     var channel = "";
     var type = 0;
     var size = 0;
-    var security = Object.keys(CONFIG_DATA).length;
     if(LENGTH == 1)
     {
         if(bytes[0] == 0)
@@ -224,9 +221,8 @@ function decodeDeviceData(bytes)
     }
     try
     {
-        while(index < LENGTH && security != 0)
+        while(index < LENGTH)
         {
-            security = security - 1;
             // Channel of device data
             channel = "0x" + toEvenHEX(bytes[index].toString(16).toUpperCase());
             index = index + 1;
