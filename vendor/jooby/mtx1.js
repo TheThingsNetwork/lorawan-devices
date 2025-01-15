@@ -263,7 +263,7 @@ function decodeDownlink ( input ) {
       getInt8() {
         const result = readUint8(this.data, this.offset);
         this.offset += INT8_SIZE;
-        return result & 0x80 ? result ^ -0x100 : result;
+        return result & 0x80 ? result ^ -256 : result;
       },
       setUint8(value) {
         writeUint8(this.data, this.offset, value);
@@ -283,7 +283,7 @@ function decodeDownlink ( input ) {
         let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
         const result = readUint16(this.data, this.offset, isLittleEndian);
         this.offset += INT16_SIZE;
-        return result & 0x8000 ? result ^ -0x10000 : result;
+        return result & 0x8000 ? result ^ -65536 : result;
       },
       setUint16(value) {
         let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
@@ -305,7 +305,7 @@ function decodeDownlink ( input ) {
         let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
         const result = readUint24(this.data, this.offset, isLittleEndian);
         this.offset += INT24_SIZE;
-        return result & 0x800000 ? result ^ -0x1000000 : result;
+        return result & 0x800000 ? result ^ -16777216 : result;
       },
       setUint24(value) {
         let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
@@ -327,7 +327,7 @@ function decodeDownlink ( input ) {
         let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
         const result = readUint32(this.data, this.offset, isLittleEndian);
         this.offset += INT32_SIZE;
-        return result & 0x80000000 ? result ^ -0x100000000 : result;
+        return result & 0x80000000 ? result ^ -4294967296 : result;
       },
       setUint32(value) {
         let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
