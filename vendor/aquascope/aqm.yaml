@@ -1,0 +1,98 @@
+name: Ultrasonic Clamp-On Water Meter AQMLWE01
+description: The water sensor clamp measures the flow and temperature in a water pipe using a "Time of Flight" measurement method and transmits the data wirelessly. Through an internal analysis of the flow, water leaks, and other anomalies are detected, and the owner is alerted. The device is clamped onto the outside of the water pipe without the need to interrupt the water supply. Its flexible design and innovative software allow it to be used on water pipes ranging from DN15 to DN40 (diameter 15…50 mm) with all available materials in the market, such as PEX, PEX AL, copper, PE, or steel. It meets all the requirements of the European Metering Directive (MID). With a footprint of only 60 mm above the water pipe and a length of 110 mm, the device is very slim and short, making it easy to install.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '241115'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: aqm-profile
+        lorawanCertified: true
+        codec: aqm-codec
+      US902-928:
+        id: aqm-profile
+        lorawanCertified: false
+        codec: aqm-codec
+
+sensors:
+  - temperature
+  - water
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 110
+  length: 60
+  height: 40
+
+# Weight in grams (optional)
+weight: 310
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -5
+    max: 80
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.aqua-scope.com/products/watersensors/aquameterclamp.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=AQMLWE01&type=d&html=0&lang=en
+resellerURLs:
+  - name: 'Aqua-Scope WTB'
+    region:
+      - European Union
+    url: https://www.aqua-scope.com/buy.html
+
+# Photos
+photos:
+  main: aqm.png
+
+# Youtube or Vimeo Video (optional)
+video: https://www.youtube.com/@aqua-scope
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

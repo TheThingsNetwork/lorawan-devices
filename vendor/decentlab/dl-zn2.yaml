@@ -30,7 +30,7 @@ firmwareVersions:
         codec: dl-zn2-codec
 
 sensors:
-  - potentiometer
+  - distance
   - battery
 
 dimensions:

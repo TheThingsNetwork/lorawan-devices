@@ -2105,3 +2105,19 @@ vendors:
 
   - id: makerfabs
     name: AgroSense
+
+  - id: yobiiq
+    name: YOBIIQ B.V.
+    description: The best way to predict the future is by creating it. As an IoT Solutions Company, we develop smart solutions daily, tailored to your business and objectives. We serve as a full-service provider for Smart Environments and a distributor with in-house product development, offering comprehensive solutions for almost any requirement. Partner with us to drive your smart future forward.
+    logo: yobiiq_logo.svg
+    website: https://www.yobiiq.com
+    vendorID: 1045
+    ouis: ['FC48C9']
+    social:
+      linkedin: https://www.linkedin.com/company/yobiiq
+      facebook: https://www.facebook.com/yobiiq
+      twitter: yobiiq
+      github: Yobiiq-BV
+
+  - id: southerniot
+    name: Southern IoT

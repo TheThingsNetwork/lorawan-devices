@@ -13,7 +13,7 @@ uplinkDecoder:
       normalizedOutput:
         data:
           - action:
-              contactState: 'OPEN'
+              contactState: 'open'
             battery: 75
     - description: Magnetic Contact Switch (example 2) - Milesight IoT
       input:

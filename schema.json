@@ -117,9 +117,9 @@
                   "required": ["id", "codec"]
                 }
               ]
-            },
-            "additionalProperties": false
-          }
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -1017,6 +1017,7 @@
               "rssi",
               "sap flow",
               "salinity",
+              "size",
               "smart valve",
               "smoke",
               "snr",
