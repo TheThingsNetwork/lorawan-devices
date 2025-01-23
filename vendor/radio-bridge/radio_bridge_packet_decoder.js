@@ -478,7 +478,18 @@ function Generic_Decoder(bytes , port) {
                 default: ThermocoupleEvent = "Undefined"; break;
             }
             // decode is across 16-bits
-            Temperature = parseInt(((bytes[3] * 256) + bytes[4]) / 16);
+            negativeNumber = 0xFFFF0000;
+            Temp16bits = ((bytes[3] << 8) | bytes[4]);
+
+            if(Temp16bits & 0x8000)
+            {
+              Temperature = (negativeNumber | Temp16bits)/16;
+            }
+            else
+            {
+              Temperature = Temp16bits/16;
+            }
+
             Faults = bytes[5];
             // decode each bit in the fault byte
             FaultColdOutsideRange = (Faults >> 7) & 0x01;

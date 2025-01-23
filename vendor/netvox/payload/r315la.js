@@ -140,7 +140,7 @@ function encodeDownlink(input) {
   else if (input.data.Cmd == "SetOnDistanceThresholdRreq")
   {
 	  var onDistanceThreshold = input.data.OnDistanceThreshold;
-	  ret = ret.concat(getCmdID, devid, (onDistanceThreshold >> 8), (onDistanceThreshold & 0xFF), 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+	  ret = ret.concat(getCmdID, onDistanceThreshold, (onDistanceThreshold >> 8), (mint & 0xFF), 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
   } 
   else if ((input.data.Cmd == "ReadConfigReportReq")
   || (input.data.Cmd == "GetOnDistanceThresholdRreq")) 

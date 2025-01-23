@@ -1,0 +1,133 @@
+name: 16A Switch & Power Meter (16ASPM)
+description: The МClimate 16A Switch & Power Meter LoRaWAN (16ASPM) is a miniature device that features a wet 16A relay and an electricity meter inside. The device has 4 terminals L, N, N, Lout, connecting and disconnecting Lout from Lin. The device operates in LoRaWAN Class C, features FUOTA (Firmware Upgrades Over The Air) and has overheating protection
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.3'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.2'
+    numeric: 1
+    hardwareVersions:
+      - '1.3'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: 16aspm-profile
+        lorawanCertified: false
+        codec: 16aspm-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 36
+  length: 18
+  height: 32
+
+# Weight in grams (optional)
+weight: 24
+
+# Battery information (optional)
+battery:
+  replaceable: false
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -10
+    max: 40
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.00
+    max: 0.80
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-16a-switch-and-power-meter-lorawan-16aspm
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2F6ySZvZUpeLGiEza7qAWz%2FMClimate-16ASPM-Datasheet.pdf?alt=media&token=baf39b06-3946-4f7e-acc3-29faadc0f0e0
+# resellerURLs:
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
+
+# Photos
+photos:
+  main: 16aspm.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1:2020
+    - body: IEC
+      norm: EN
+      standard: 61010-1:2010
+  electromagneticCompatibility:
+    - body: ETSI
+      norm: EN
+      standard: 301489-1
+      version: 'latest'
+    - body: ETSI
+      norm: EN
+      standard: 301489-17
+      version: 'latest'
+    - body: CENELEC
+      norm: EN
+      standard: 55032:2015
+    - body: CENELEC
+      norm: EN
+      standard: 55035:2017
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300220-1
+    - body: ETSI
+      norm: EN
+      standard: 300220-2
+  lowVoltageDirective:
+    - body: IEC
+      norm: EN
+      standard: 2014/35/EU

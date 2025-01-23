@@ -3481,3 +3481,13 @@ function decodeUplink(input) {
     return(result);
 }
 
+function normalizeUplink(input) {
+    return {
+      data: {
+          air: {
+                temperature: input.data.temperature,
+                relativeHumidity: input.data.humidity,
+            }
+    }
+  }
+}

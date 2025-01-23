@@ -1,4 +1,6 @@
 endDevices:
+  - cubicmeter-1-1-copper
+  - cubicmeter-1-1-plastic
   - cubicmeter
 profileIDs:
   '1':

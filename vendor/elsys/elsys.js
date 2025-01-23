@@ -237,3 +237,38 @@ function decodeUplink(input) {
         "data": DecodeElsysPayload(input.bytes)
     }
 }
+
+function normalizeUplink(input) {
+    var data = {};
+    var air = {};
+    var action = {};
+    var motion = {};
+
+    if (input.data.temperature) {
+        air.temperature = input.data.temperature;
+    }
+
+    if (input.data.humidity) {
+        air.relativeHumidity = input.data.humidity;
+    }
+
+    if (input.data.light) {
+        air.lightIntensity = input.data.light;
+    }
+
+    if (input.data.motion) {
+        motion.detected = input.data.motion > 0;
+        motion.count = input.data.motion;
+        action.motion = motion;
+    }
+
+    if (Object.keys(air).length > 0) {
+        data.air = air;
+    }
+
+    if (Object.keys(action).length > 0) {
+        data.action = action;
+    }
+
+    return { data: data }; 
+}

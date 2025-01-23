@@ -1,0 +1,98 @@
+name: LoRain Rain Gauge RANLWE01
+description: This rain sensor measures the amount of rainfall at its location using a tipping bucket mechanism, reporting the quantity within a 15-minute interval with an accuracy of 0.5 mm of water column and additionally provides the temperature. In the event of heavy rainfall exceeding 15 l/h, a heavy rain alarm is triggered promptly. Both the heavy rain threshold and the measurement interval are configurable. The sensor is powered by two AAA batteries. The supplied VARTA batteries allow for an approximate runtime of about 2 years. A low battery level is wirelessly reported, enabling the replacement of batteries before the device shuts down.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '241115'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: ran-profile
+        lorawanCertified: true
+        codec: ran-codec
+      US902-928:
+        id: ran-profile
+        lorawanCertified: false
+        codec: ran-codec
+
+sensors:
+  - temperature
+  - water
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 132
+  length: 132
+  height: 139
+
+# Weight in grams (optional)
+weight: 219
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 80
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.aqua-scope.com/products/rainlevelsensor.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=RANLWE01&type=d&html=0&lang=en
+resellerURLs:
+  - name: 'Aqua-Scope WTB'
+    region:
+      - European Union
+    url: https://www.aqua-scope.com/buy.html
+
+# Photos
+photos:
+  main: ran.png
+
+# Youtube or Vimeo Video (optional)
+video: https://www.youtube.com/@aqua-scope
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
