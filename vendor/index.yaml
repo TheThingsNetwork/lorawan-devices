@@ -591,6 +591,16 @@ vendors:
     name: Parametric Engineering GmbH
     vendorID: 315
 
+  - id: pmx
+    name: PMX Systems AG
+    vendorID: 1141
+    website: https://www.pmx.systems
+    logo: pmx-logo.svg
+    description: PMX Systems AG is a Swiss company specialising in smart outdoor sensors.
+    social:
+      linkedin: https://www.linkedin.com/company/pmx-systems
+      github: pmx-systems
+
   - id: proesys
     name: ProEsys SRL
     vendorID: 323
