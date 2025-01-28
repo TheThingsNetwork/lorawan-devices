@@ -1,0 +1,11 @@
+uplinkDecoder:
+  fileName: 16ads.js
+  examples:
+    - description: Periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x01, 0x1C, 0x01]
+      output:
+        data:
+          internalTemperature: 28
+          relayState: 'ON'
