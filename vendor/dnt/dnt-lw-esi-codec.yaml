@@ -1,0 +1,48 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-esi.js
+  # Examples (optional)
+  examples:
+    - description: startup message
+      input:
+        fPort: 10
+        bytes: [0x04, 0x6F, 0xFF, 0x01, 0x00, 0x00, 0x01, 0x00, 0x03, 0x00, 0x02]
+      output:
+        data:
+          Bootloader_Version: '1.0.0'
+          Firmware_Version: '1.0.3'
+          Frame_Type: 'Device_Info'
+          Hw_Revision: 2
+          Supply_Voltage: 2.94
+          TX_Reason: 'Joined'
+    - description: cyclic energy data message (1)
+      input:
+        fPort: 10
+        bytes: [0x02, 0x6F, 0x01, 0x00, 0x01, 0x01, 0x5C, 0x12, 0x00, 0x10, 0x02, 0x93, 0x02, 0x5C, 0x00, 0x00, 0x10, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x04, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
+      output:
+        data:
+          Energy_Data:
+            Channel: ['Power', 'Energy Counter Consumption HT', 'Energy Counter Consumption NT', 'Energy Counter Delivery']
+            Type: ['Power', 'Energy Counter', 'Energy Counter', 'Energy Counter']
+            Unit: ['W', 'Wh', 'Wh', 'Wh']
+            Value: [47, 602.9971, 0, 109951162.7775]
+          Error_Msg: 'No Error'
+          Frame_Type: 'Sensor_Data'
+          Supply_Voltage: 2.94
+          TX_Reason: 'Cyclic Timer'
+    - description: cyclic energy data message (2)
+      input:
+        fPort: 10
+        bytes: [0x02, 0x6F, 0x01, 0x00, 0x01, 0x01, 0x8E, 0x12, 0x00, 0x10, 0x02, 0xBB, 0x02, 0x5C, 0x00, 0x00, 0x10, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x04, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
+      output:
+        data:
+          Energy_Data:
+            Channel: ['Power', 'Energy Counter Consumption HT', 'Energy Counter Consumption NT', 'Energy Counter Delivery']
+            Type: ['Power', 'Energy Counter', 'Energy Counter', 'Energy Counter']
+            Unit: ['W', 'Wh', 'Wh', 'Wh']
+            Value: [47.5, 603.0011, 0, 109951162.7775]
+          Error_Msg: 'No Error'
+          Frame_Type: 'Sensor_Data'
+          Supply_Voltage: 2.94
+          TX_Reason: 'Cyclic Timer'
