@@ -1,0 +1,182 @@
+uplinkDecoder:
+  fileName: vaqao-lite.js
+  examples:
+    - description: 'uplink standard report containing temperature value | payload:110A04020000290B89'
+      input:
+        bytes: [0x11, 0x0a, 0x04, 0x02, 0x00, 0x00, 0x29, 0x0b, 0x89]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:31.598957793Z'
+      output:
+        data:
+          samples:
+            - variable: temperature_1
+              value: 29.53
+              date: '2023-07-19T07:51:31.598957793Z'
+          temperature_1: 29.53
+        warnings: []
+    - description: 'uplink standard report containing humidity value | payload:110A04050000210E89'
+      input:
+        bytes: [0x11, 0x0a, 0x04, 0x05, 0x00, 0x00, 0x21, 0x0e, 0x89]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: humidity_1
+              value: 37.21
+              date: '2023-07-19T07:51:25.508306410Z'
+          humidity_1: 37.21
+        warnings: []
+    - description: 'uplink standard report containing IAQ value | payload:110A800C0000210019'
+      input:
+        bytes: [0x11, 0x0a, 0x80, 0x0c, 0x00, 0x00, 0x21, 0x00, 0x19]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: IAQ
+              value: 25
+              date: '2023-07-19T07:51:25.508306410Z'
+          IAQ: 25
+        warnings: []
+    - description: 'uplink standard report containing state the case | payload:110A000F00551001'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x00, 0x55, 0x10, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: violation_detection
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+          violation_detection: true
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
+    - description: 'uplink batch report | payload:30b200b6e7c7004d8887202fda75b914b4b28276cbf26e59bb5bd6ed96e5ddb2948076cb9200f6'
+      input:
+        bytes: [0x30, 0xb2, 0x00, 0xb6, 0xe7, 0xc7, 0x00, 0x4d, 0x88, 0x87, 0x20, 0x2f, 0xda, 0x75, 0xb9, 0x14, 0xb4, 0xb2, 0x82, 0x76, 0xcb, 0xf2, 0x6e, 0x59, 0xbb, 0x5b, 0xd6, 0xed, 0x96, 0xe5, 0xdd, 0xb2, 0x94, 0x80, 0x76, 0xcb, 0x92, 0x00, 0xf6]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: temperature_1
+              value: 22.9
+              date: '2023-07-19T07:01:25.508Z'
+            - variable: temperature_1
+              value: 22.8
+              date: '2023-07-19T07:11:25.508Z'
+            - variable: humidity_1
+              value: 53
+              date: '2023-07-19T07:51:25.508Z'
+            - variable: CO2
+              value: 410
+              date: '2023-07-19T07:01:15.508Z'
+            - variable: CO2
+              value: 420
+              date: '2023-07-19T07:11:15.508Z'
+            - variable: CO2
+              value: 440
+              date: '2023-07-19T07:21:15.508Z'
+            - variable: CO2
+              value: 420
+              date: '2023-07-19T07:31:15.508Z'
+            - variable: CO2
+              value: 430
+              date: '2023-07-19T07:41:15.508Z'
+            - variable: CO2
+              value: 420
+              date: '2023-07-19T07:51:15.508Z'
+          temperature_1: 22.8
+          humidity_1: 53
+          CO2: 420
+        warnings: []
+    - description: 'uplink batch report | payload:70060000e2760090cfc0015b028423fb03272919804c121c003ebc5bd6895f0040000b68b72c27a0ddb4dc8076db920c68b72c19605b04'
+      input:
+        bytes: [0x70, 0x06, 0x00, 0x00, 0xe2, 0x76, 0x00, 0x90, 0xcf, 0xc0, 0x01, 0x5b, 0x02, 0x84, 0x23, 0xfb, 0x03, 0x27, 0x29, 0x19, 0x80, 0x4c, 0x12, 0x1c, 0x00, 0x3e, 0xbc, 0x5b, 0xd6, 0x89, 0x5f, 0x00, 0x40, 0x00, 0x0b, 0x68, 0xb7, 0x2c, 0x27, 0xa0, 0xdd, 0xb4, 0xdc, 0x80, 0x76, 0xdb, 0x92, 0x0c, 0x68, 0xb7, 0x2c, 0x19, 0x60, 0x5b, 0x04]
+        fPort: 125
+        recvTime: '2024-12-27T18:35:54.000Z'
+      output:
+        data:
+          samples:
+            - variable: occupancy
+              value: 0
+              date: '2024-12-27T18:15:38.000Z'
+            - variable: temperature_1
+              value: 18.7
+              date: '2024-12-27T18:15:53.000Z'
+            - variable: temperature_1
+              value: 18.5
+              date: '2024-12-27T18:25:54.000Z'
+            - variable: humidity_1
+              value: 31
+              date: '2024-12-27T18:15:52.000Z'
+            - variable: CO2
+              value: 450
+              date: '2024-12-27T18:15:53.000Z'
+            - variable: CO2
+              value: 470
+              date: '2024-12-27T18:25:53.000Z'
+            - variable: IAQ
+              value: 240
+              date: '2024-12-27T18:19:20.000Z'
+            - variable: IAQ
+              value: 250
+              date: '2024-12-27T18:29:20.000Z'
+            - variable: illuminance
+              value: 50
+              date: '2024-12-27T18:17:21.000Z'
+            - variable: illuminance
+              value: 160
+              date: '2024-12-27T18:27:23.000Z'
+            - variable: pressure
+              value: 1011
+              date: '2024-12-27T18:29:20.000Z'
+          occupancy: 0
+          temperature_1: 18.5
+          humidity_1: 31
+          CO2: 470
+          IAQ: 250
+          illuminance: 160
+          pressure: 1011
+        warnings: []
