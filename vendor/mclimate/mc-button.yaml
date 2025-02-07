@@ -1,57 +1,27 @@
-name: Wireless Thermostat
-description: MClimate Wireless Thermostat is a stand-alone thermostat powered entirely by solar energy using an organic solar panel. The device features a 2.9" e-ink screen, sensor for movement (PIR), temperature and humidity sensor, LUX sensor and 3 buttons. The user can change the target temperature and see current indoor conditions.
+name: Multipurpose Button
+description: MClimate Multipurpose Button LoRaWAN is a simple device with many applications. Featuring a single button with 3 types of clicks and a temperature sensor, only your imagination limits what happens when the customer presses the button.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '2.5'
-    numeric: 1
-  - version: '3.0'
+  - version: '1.2'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.1'
+    version: '1.2'
     numeric: 1
     hardwareVersions:
-      - '2.5'
+      - '1.2'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
+        id: mc-button-profile
         lorawanCertified: false
-        codec: wireless-thermostat-codec
-  - # Firmware version
-    version: '1.4'
-    numeric: 1
-    hardwareVersions:
-      - '2.5'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
-        lorawanCertified: false
-        codec: wireless-thermostat-codec
-  - # Firmware version
-    version: '1.5'
-    numeric: 1
-    hardwareVersions:
-      - '3.0'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
-        lorawanCertified: false
-        codec: wireless-thermostat-codec
+        codec: mc-button-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -59,23 +29,21 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - temperature
-  - humidity
-  - pir
-  - light
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 115
-  length: 23
-  height: 105
+  width: 42
+  length: 18
+  height: 72
 
 # Weight in grams (optional)
-weight: 170
+weight: 26
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: ER10280
 
 # Operating conditions (optional)
 operatingConditions:
@@ -95,14 +63,15 @@ ipCode: IP30
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
+  - join server
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-wireless-thermostat
-dataSheetURL: https://3008755228-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FtAhSZWkH4nsYDx8UVIpf%2FMClimate-Wireless-Thermostat-Datasheet.pdf?alt=media&token=9a9eea05-ccb8-4f13-ad4b-14a579640965
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-multipurpose-button-lorawan
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FhlFLeNfhaNMg6I2AF6kM%2FMClimate-Button-LoRaWAN-Datasheet.pdf?alt=media&token=26e8699e-a84a-445c-9c64-80715dedd687
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:
@@ -127,7 +96,7 @@ dataSheetURL: https://3008755228-files.gitbook.io/~/files/v0/b/gitbook-x-prod.ap
 
 # Photos
 photos:
-  main: wireless-thermostat.png
+  main: mc-button.png
 
 # Regulatory compliances (optional)
 compliances:
