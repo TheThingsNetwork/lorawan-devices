@@ -1,52 +1,44 @@
-name: ioTracker 3
-description: LoRaWAN Panic Button and Multi-Sensor Tracker
+name: ioButton
+description: LoRaWAN Panic Button
 hardwareVersions:
-  - version: '3'
+  - version: '1'
     numeric: 1
 firmwareVersions:
-  - version: '1.18'
+  - version: '1.17'
     numeric: 1
     hardwareVersions:
-      - '3'
+      - '1'
     features:
       - transmission interval
     profiles:
       EU863-870:
         vendorID: iothings
-        id: iotracker3-profile
+        id: iobutton-profile
         lorawanCertified: true
-        codec: iotracker3-codec
+        codec: iobutton-codec
       US902-928:
         vendorID: iothings
-        id: iotracker3-profile
+        id: iobutton-profile
         lorawanCertified: true
-        codec: iotracker3-codec
+        codec: iobutton-codec
 sensors:
-  - temperature
-  - light
-  - accelerometer
-  - gps
-  - wifi ssid
-  - gps
-  - barometer
-  - humidity
   - button
 additionalRadios:
   - wifi
   - ble
 dimensions:
-  width: 57.4
-  length: 33.4
-  height: 18.7
-weight: 39
+  width: 78
+  length: 78
+  height: 20
+weight: 70
 battery:
   replaceable: true
-  type: ER14250
+  type: ER14500
 operatingConditions:
   temperature:
     min: -20
     max: 65
-ipCode: IP68
+ipCode: IP40
 keyProvisioning:
   - custom
 keyProgramming:
@@ -54,8 +46,8 @@ keyProgramming:
 keySecurity: read protected
 firmwareProgramming:
   - fuota other
-productURL: https://www.iotracker.nl/iotracker
-dataSheetURL: https://www.iotracker.nl/uploads/files/1/a/1ae2a37091d7cf93cabb1e81f4c4949dc1ad29fc.pdf
+productURL: https://www.iotracker.eu/products/iobutton
+dataSheetURL: https://www.iotracker.nl/uploads/files/7/a/7ab03f5852c845755ec66ae2022ffcad302a1b3f.pdf
 resellerURLs:
   - name: 'ioThings'
     region:
@@ -72,6 +64,6 @@ resellerURLs:
 msrp:
   EUR: 89
 photos:
-  main: iotracker3.png
+  main: iobutton.png
 videos:
-  main: https://www.youtube.com/watch?v=l8cpugOarHk&t=377s
+  main: https://www.youtube.com/watch?v=8AACbYotXKA

@@ -1,57 +1,27 @@
-name: Wireless Thermostat
-description: MClimate Wireless Thermostat is a stand-alone thermostat powered entirely by solar energy using an organic solar panel. The device features a 2.9" e-ink screen, sensor for movement (PIR), temperature and humidity sensor, LUX sensor and 3 buttons. The user can change the target temperature and see current indoor conditions.
+name: Open/Close Sensor
+description: MClimate Open/Close Sensor LoRaWAN® is a device detecting the event of opening or closing windows, doors, cabinets and more. It features long battery life, LED, temperature sensor and a button that triggers an uplink. The device sends an uplink for every event of opening/closing and keeps an internal counter of the total number of events.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '2.5'
-    numeric: 1
-  - version: '3.0'
+  - version: '1.3'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.1'
+    version: '1.2'
     numeric: 1
     hardwareVersions:
-      - '2.5'
+      - '1.3'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
+        id: open-close-profile
         lorawanCertified: false
-        codec: wireless-thermostat-codec
-  - # Firmware version
-    version: '1.4'
-    numeric: 1
-    hardwareVersions:
-      - '2.5'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
-        lorawanCertified: false
-        codec: wireless-thermostat-codec
-  - # Firmware version
-    version: '1.5'
-    numeric: 1
-    hardwareVersions:
-      - '3.0'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
-        lorawanCertified: false
-        codec: wireless-thermostat-codec
+        codec: open-close-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -59,23 +29,22 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - temperature
-  - humidity
-  - pir
-  - light
+  - magnetometer
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 115
-  length: 23
-  height: 105
+  width: 20
+  length: 10
+  height: 72
 
 # Weight in grams (optional)
-weight: 170
+weight: 26
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: ER14250
 
 # Operating conditions (optional)
 operatingConditions:
@@ -95,14 +64,15 @@ ipCode: IP30
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
+  - join server
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-wireless-thermostat
-dataSheetURL: https://3008755228-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FtAhSZWkH4nsYDx8UVIpf%2FMClimate-Wireless-Thermostat-Datasheet.pdf?alt=media&token=9a9eea05-ccb8-4f13-ad4b-14a579640965
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-open-close-sensor-lorawan
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2F7hmYi0hNrcCkkK0C1Faw%2FMClimate-Open-Close-Sensor-Datasheet-LoRaWAN-en.pdf?alt=media&token=311b102f-d6cd-47d3-84c2-61b280aa11d5
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:
@@ -127,7 +97,7 @@ dataSheetURL: https://3008755228-files.gitbook.io/~/files/v0/b/gitbook-x-prod.ap
 
 # Photos
 photos:
-  main: wireless-thermostat.png
+  main: open-close.png
 
 # Regulatory compliances (optional)
 compliances:

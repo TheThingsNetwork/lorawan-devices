@@ -1,57 +1,27 @@
-name: Wireless Thermostat
-description: MClimate Wireless Thermostat is a stand-alone thermostat powered entirely by solar energy using an organic solar panel. The device features a 2.9" e-ink screen, sensor for movement (PIR), temperature and humidity sensor, LUX sensor and 3 buttons. The user can change the target temperature and see current indoor conditions.
+name: 16A Dry Switch (16ADS)
+description: The МClimate 16ADS is a miniature device that features a 16A dry relay. The device is small enough to fit behind most wall switches and outlets. The device operates in LoRaWAN Class C, features FUOTA (Firmware Upgrades Over The Air) and has overheating protection
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '2.5'
-    numeric: 1
-  - version: '3.0'
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.1'
+    version: '1.0'
     numeric: 1
     hardwareVersions:
-      - '2.5'
+      - '1.0'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
+        id: 16ads-profile
         lorawanCertified: false
-        codec: wireless-thermostat-codec
-  - # Firmware version
-    version: '1.4'
-    numeric: 1
-    hardwareVersions:
-      - '2.5'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
-        lorawanCertified: false
-        codec: wireless-thermostat-codec
-  - # Firmware version
-    version: '1.5'
-    numeric: 1
-    hardwareVersions:
-      - '3.0'
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
-    profiles:
-      EU863-870:
-        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: wireless-thermostat-profile
-        lorawanCertified: false
-        codec: wireless-thermostat-codec
+        codec: 16ads-codec
 
 # Sensors that this device features (optional)
 # Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
@@ -59,30 +29,26 @@ firmwareVersions:
 # vibration, water, wind direction and wind speed.
 sensors:
   - temperature
-  - humidity
-  - pir
-  - light
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 115
-  length: 23
-  height: 105
+  width: 36
+  length: 18
+  height: 32
 
 # Weight in grams (optional)
-weight: 170
+weight: 24
 
 # Battery information (optional)
 battery:
-  replaceable: true
-  type: AA
+  replaceable: false
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 0
-    max: 50
+    min: -10
+    max: 40
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0.00
@@ -95,14 +61,15 @@ ipCode: IP30
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
   - custom
+  - manifest
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-wireless-thermostat
-dataSheetURL: https://3008755228-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FtAhSZWkH4nsYDx8UVIpf%2FMClimate-Wireless-Thermostat-Datasheet.pdf?alt=media&token=9a9eea05-ccb8-4f13-ad4b-14a579640965
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-16a-dry-switch-16ads
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2F4PSdg1EADYeBfci7DCmK%2FMClimate-16ADS-Datasheet.pdf?alt=media&token=8c95eed3-7cac-4859-855c-ba65ab3a6e5a
 # resellerURLs:
 # - name: 'Connected Things'
 #   region:
@@ -127,23 +94,40 @@ dataSheetURL: https://3008755228-files.gitbook.io/~/files/v0/b/gitbook-x-prod.ap
 
 # Photos
 photos:
-  main: wireless-thermostat.png
+  main: 16aspm.png
 
 # Regulatory compliances (optional)
 compliances:
   safety:
     - body: IEC
       norm: EN
-      standard: 62479:2010
+      standard: 62368-1:2020
+    - body: IEC
+      norm: EN
+      standard: 61010-1:2010
+  electromagneticCompatibility:
+    - body: ETSI
+      norm: EN
+      standard: 301489-1
+      version: 'latest'
+    - body: ETSI
+      norm: EN
+      standard: 301489-17
+      version: 'latest'
+    - body: CENELEC
+      norm: EN
+      standard: 55032:2015
+    - body: CENELEC
+      norm: EN
+      standard: 55035:2017
   radioEquipment:
     - body: ETSI
       norm: EN
-      standard: 60950-1
+      standard: 300220-1
     - body: ETSI
       norm: EN
-      standard: 301-489
-      version: 2.1.1
-    - body: ETSI
+      standard: 300220-2
+  lowVoltageDirective:
+    - body: IEC
       norm: EN
-      standard: 300-220
-      version: 3.1.1
+      standard: 2014/35/EU
