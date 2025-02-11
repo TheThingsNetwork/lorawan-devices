@@ -1,5 +1,5 @@
 name: LoRaWAN® energy sensor interface
-description: The dnt LoRaWAN® energy sensor intefrace (dnt-lw-esi) is a battery operated device to integrate smart meters into the LoRaWAN® network. It can collect data from electricity and gas meters with different sensors.
+description: The dnt LoRaWAN® energy sensor intefrace (dnt-lw-esi) is a battery powered device to integrate smart meters into the LoRaWAN® network. It can collect data from electricity and gas meters with different sensors.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
@@ -89,14 +89,14 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dnt.de/
+productURL: https://dnt.de/business/
 
 # Commercial information
 resellerURLs:
-  - name: 'ELVshop'
+  - name: 'dnt'
     region:
       - European Union
-    url: https://www.dnt.de/Produkte/dnt-LoRaWAN-Energiesensorinterface-dnt-LW-ESI/
+    url: https://dnt.de/dnt-lw-esi/
 msrp:
   EUR: 59.95
 

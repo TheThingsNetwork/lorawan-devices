@@ -1,5 +1,5 @@
 name: LoRaWAN® Wall Thermostat
-description: The dnt-lw-wth is a LoRaWAN wall thermostat to control the heating or air conditioning of the room. It measures the room temperature and humidity and shows it on the integrated Display. For automatic adjustment of the room temperature, the user can configure three profiles with each up to ten temperature changes a day. Other features are the window-open detection, a holiday mode, an energy-saving mode and various configuration options through LoRaWAN downlinks. Through our low power design, the device consumes only 45 uA in default mode, which results in a battery lifetime of up to 5 years.
+description: The dnt LoRaWAN® Wall Thermostat (dnt-lw-wth) controls the heating or air conditioning of the room. It measures the room temperature and humidity and shows it on the integrated Display. For automatic adjustment of the room temperature, the user can configure three profiles with each up to ten temperature changes a day. Other features are the window-open detection, a holiday mode, an energy-saving mode and various configuration options through LoRaWAN downlinks. Through our low power design, the device consumes only 45 uA in default mode, which results in a battery lifetime of up to 5 years.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -91,11 +91,11 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dnt.de/
+productURL: https://dnt.de/business/
 
 # Commercial information
 resellerURLs:
-  - name: 'ELVshop'
+  - name: 'dnt'
     region:
       - European Union
     url: https://dnt.de/dnt-lw-wth/
@@ -107,4 +107,4 @@ photos:
   main: dnt-lw-wth-front-view.png
   other:
     - dnt-lw-wth-back-view.png
-    - dnt-lw-wth-mounted.jpg
+    - dnt-lw-wth-antracite.png
