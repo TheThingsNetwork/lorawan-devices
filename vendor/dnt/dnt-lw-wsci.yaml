@@ -88,14 +88,14 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dnt.de/
+productURL: https://dnt.de/business/
 
 # Commercial information
 resellerURLs:
-  - name: 'ELVshop'
+  - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-etrv-c/
+    url: https://dnt.de/business/
 msrp:
   EUR: 59.95
 
