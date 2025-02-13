@@ -41,7 +41,7 @@ function Decoder(bytes, port)
 		}
 
 		dev_info.lorawan_downlink_count = bytes[2]&0x0f;
-		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10 + "V";
+		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10;
 	}
 	if(port == 1)
 	{
@@ -218,7 +218,7 @@ function Decoder(bytes, port)
 		dev_info.fix_type = dev_fix_type[(bytes[0]>>6)&0x01];
 
 		dev_info.lorawan_downlink_count = bytes[1]&0x0f;
-		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10 + "V";
+		dev_info.battery_voltage = (22+((bytes[2]>>4)&0x0f))/10;
 
 		var parse_len = 2;
 		lat =BytestoInt(bytes,parse_len);
@@ -237,3 +237,44 @@ function Decoder(bytes, port)
 	}
 	return dev_info;
 } 
+
+function decodeUplink(input) {
+	return {
+	  data : Decoder(input.bytes, input.fPort),
+	};
+}
+
+function normalizeUplink(input) {
+	var data = {};
+	var action = {};
+	var position = {};
+	var motion = {};
+
+	if (input.data.motion_state) {
+		motion.detected = input.data.motion_state > 0;
+        motion.count = input.data.motion_count;
+        action.motion = motion;
+	}
+
+	if (input.data.lat) {
+		position.latitude = input.data.lat;
+	}
+
+	if (input.data.lon) {
+		position.longitude = input.data.lon;
+	}
+
+	if (Object.keys(action).length > 0) {
+		data.action = action;
+	}
+
+	if (Object.keys(position).length > 0) {
+		data.position = position;
+	}
+
+	if (input.data.battery_voltage) {
+		data.battery = input.data.battery_voltage;
+	}
+
+	return { data: data };
+}

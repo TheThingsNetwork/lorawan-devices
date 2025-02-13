@@ -91,6 +91,7 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 productURL: https://dnt.de/business/
 
+
 # Commercial information
 resellerURLs:
   - name: 'dnt'

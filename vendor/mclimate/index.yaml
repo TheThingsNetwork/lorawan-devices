@@ -1,7 +1,80 @@
 endDevices:
-  - vicki
   - t-valve
   - flood-sensor
+  - vicki
   - ht-sensor
   - co2-sensor
+  - mc-button
+  - open-close
   - wireless-thermostat
+  - co2-display
+  - fan-coil-thermostat
+  - co2-display-lite
+  - 16aspm
+  - 16ads
+profileIDs:
+  '0':
+    endDeviceID: 't-valve'
+    firmwareVersion: '6.0'
+    hardwareVersion: '2.3'
+    region: 'EU863-870'
+  '1':
+    endDeviceID: 'flood-sensor'
+    firmwareVersion: '6.0'
+    hardwareVersion: '2.4'
+    region: 'EU863-870'
+  '3':
+    endDeviceID: 'vicki'
+    firmwareVersion: '4.3'
+    hardwareVersion: '2.6'
+    region: 'EU863-870'
+  '4':
+    endDeviceID: 'ht-sensor'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '5':
+    endDeviceID: 'co2-sensor'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '6':
+    endDeviceID: 'mc-button'
+    firmwareVersion: '1.2'
+    hardwareVersion: '1.2'
+    region: 'EU863-870'
+  '7':
+    endDeviceID: 'open-close'
+    firmwareVersion: '1.2'
+    hardwareVersion: '1.3'
+    region: 'EU863-870'
+  '8':
+    endDeviceID: 'wireless-thermostat'
+    firmwareVersion: '1.5'
+    hardwareVersion: '3.0'
+    region: 'EU863-870'
+  '9':
+    endDeviceID: 'co2-display'
+    firmwareVersion: '1.1'
+    hardwareVersion: '2.6'
+    region: 'EU863-870'
+  '10':
+    endDeviceID: 'fan-coil-thermostat'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.1'
+    region: 'EU863-870'
+  '11':
+    endDeviceID: 'co2-display-lite'
+    firmwareVersion: '1.1'
+    hardwareVersion: '1.2'
+    region: 'EU863-870'
+  '13':
+    endDeviceID: '16aspm'
+    firmwareVersion: '1.2'
+    hardwareVersion: '1.3'
+    region: 'EU863-870'
+  '14':
+    endDeviceID: '16ads'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

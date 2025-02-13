@@ -21,9 +21,10 @@
   },
   "homepage": "https://github.com/TheThingsNetwork/lorawan-devices#readme",
   "devDependencies": {
-    "ajv": "^6.12.6",
+    "ajv": "^8.17.1",
     "ajv-cli": "^5.0.0",
-    "prettier": "^2.6.2"
+    "ajv-formats": "^3.0.1",
+    "prettier": "^2.8.8"
   },
   "dependencies": {
     "csv-write-stream": "^2.0.0",
@@ -34,5 +35,8 @@
     "lodash.isequal": "^4.5.0",
     "read-chunk": "^3.2.0",
     "yargs": "^16.2.0"
+  },
+  "overrides": {
+    "fast-json-patch": "3.1.1"
   }
 }

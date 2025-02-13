@@ -1,0 +1,15 @@
+uplinkDecoder:
+  fileName: 16aspm.js
+  examples:
+    - description: Periodic uplink
+      input:
+        fPort: 2
+        bytes: [0x01, 0x1C, 0x03, 0x4A, 0x24, 0x18, 0x05, 0xD9, 0xE7, 0x19, 0x52, 0x01]
+      output:
+        data:
+          internalTemperature: 28
+          energy_kWh: 55190.552
+          power_W: 1497
+          acVoltage_V: 231
+          acCurrent_mA: 6482
+          relayState: 'ON'

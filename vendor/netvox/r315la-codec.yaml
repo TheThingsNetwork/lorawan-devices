@@ -1,0 +1,140 @@
+uplinkDecoder:
+  fileName: payload/r315la.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xDD, 0x00, 0x64, 0x15, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R315LA'
+          SWver: 10
+          HWver: 21
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xDD, 0x01, 0x30, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R315LA'
+          Volt: 4.8
+          VModbusID: 0
+          Status: 'On'
+          Distance: '257mm'
+          LowDistanceAlarm: 0
+          HightDistanceAlarm: 0
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xDD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R315LA'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xDD, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R315LA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          DistanceChange: '256mm'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x83, 0xDD, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetOnDistanceThresholdRrsq'
+          Device: 'R315LA'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x84, 0xDD, 0x01, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetOnDistanceThresholdRrsp'
+          Device: 'R315LA'
+          OnDistanceThreshold: '388mm'
+
+downlinkDecoder:
+  fileName: payload/r315la.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xDD, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R315LA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          DistanceChange: '17mm'
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xDD, 0x00, 0x84, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetOnDistanceThresholdRreq'
+          Device: 'R315LA'
+          OnDistanceThreshold: '132mm'
+
+downlinkEncoder:
+  fileName: payload/r315la.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R315LA'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 10
+          DistanceChange: 22
+      output:
+        fPort: 7
+        bytes: [0x01, 0xDD, 0x03, 0x84, 0x07, 0x08, 0x64, 0x00, 0x16, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R315LA'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xDD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetOnDistanceThresholdRreq'
+          Device: 'R315LA'
+          OnDistanceThreshold: 221
+      output:
+        fPort: 7
+        bytes: [0x03, 0xDD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetOnDistanceThresholdRreq'
+          Device: 'R315LA'
+      output:
+        fPort: 7
+        bytes: [0x04, 0xDD, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

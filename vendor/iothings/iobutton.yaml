@@ -1,0 +1,69 @@
+name: ioButton
+description: LoRaWAN Panic Button
+hardwareVersions:
+  - version: '1'
+    numeric: 1
+firmwareVersions:
+  - version: '1.17'
+    numeric: 1
+    hardwareVersions:
+      - '1'
+    features:
+      - transmission interval
+    profiles:
+      EU863-870:
+        vendorID: iothings
+        id: iobutton-profile
+        lorawanCertified: true
+        codec: iobutton-codec
+      US902-928:
+        vendorID: iothings
+        id: iobutton-profile
+        lorawanCertified: true
+        codec: iobutton-codec
+sensors:
+  - button
+additionalRadios:
+  - wifi
+  - ble
+dimensions:
+  width: 78
+  length: 78
+  height: 20
+weight: 70
+battery:
+  replaceable: true
+  type: ER14500
+operatingConditions:
+  temperature:
+    min: -20
+    max: 65
+ipCode: IP40
+keyProvisioning:
+  - custom
+keyProgramming:
+  - bluetooth
+keySecurity: read protected
+firmwareProgramming:
+  - fuota other
+productURL: https://www.iotracker.eu/products/iobutton
+dataSheetURL: https://www.iotracker.nl/uploads/files/7/a/7ab03f5852c845755ec66ae2022ffcad302a1b3f.pdf
+resellerURLs:
+  - name: 'ioThings'
+    region:
+      - European Union
+      - United States
+      - Canada
+    url: https://www.iotracker.eu/contact
+  - name: 'iot-shop'
+    region:
+      - European Union
+      - United States
+      - Canada
+    url: https://iot-shop.de
+msrp:
+  EUR: 89
+photos:
+  main: iobutton.png
+videos:
+  main: https://www.youtube.com/watch?v=8AACbYotXKA

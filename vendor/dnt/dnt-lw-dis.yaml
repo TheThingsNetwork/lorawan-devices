@@ -1,4 +1,5 @@
 name: LoRaWAN® distance sensor 1
+
 description: The dnt LoRaWAN® Distance Sensor 1 (dnt-lw-dis) is a robust LoRaWAN® device for measuring distances outdoors. With its measuring range of 4 to 360 cm, the easy-to-install housing and various configuration options it can be used for a wide range of applications.
 
 # Hardware versions (optional, use when you have revisions)
@@ -91,6 +92,7 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
+
 productURL: https://dnt.de/business/
 
 # Commercial information

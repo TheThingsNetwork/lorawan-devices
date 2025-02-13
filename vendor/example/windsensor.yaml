@@ -153,7 +153,7 @@ onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/wind
 resellerURLs:
   - name: 'Reseller 1'
     region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
-      # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, Other
+      # Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, United Kingdom, Other
       - European Union
     url: https://example.org/reseller1
   - name: 'Reseller 2'

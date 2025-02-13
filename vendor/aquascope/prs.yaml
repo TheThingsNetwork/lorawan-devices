@@ -1,0 +1,98 @@
+name: Water Pressure Sensor PRSWIE02
+description: The Aqua-Scope pressure sensor records the water pressure in the drinking water distribution or in the hot water heating system. The device consists of two parts:(1) The main housing for signal processing and wireless communication with a battery compartment. (2) The external sensor head, which is connected to the water pipe. The stainless steel sensor head features a silicon sensor suspended in silicone oil for highly accurate and low-noise pressure measurements. The pressure measurement range is between 1 to 10 bar. The sensor head is installed somewhere in the building at a 1/8-inch inspection opening or with a provided T-piece under any sink at the angle valve.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '241115'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: aqs-profile
+        lorawanCertified: false
+        codec: aqs-codec
+      US902-928:
+        id: aqs-profile
+        lorawanCertified: false
+        codec: aqs-codec
+
+sensors:
+  - temperature
+  - pressure
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 70
+  length: 70
+  height: 15
+
+# Weight in grams (optional)
+weight: 50
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -10
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+productURL: https://www.aqua-scope.com/products/waterpresssuresensor.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=PRELWE02&type=d&html=0&lang=en
+resellerURLs:
+  - name: 'Aqua-Scope WTB'
+    region:
+      - European Union
+    url: https://www.aqua-scope.com/buy.html
+
+# Photos
+photos:
+  main: aqs.png
+  other:
+    - aqs2.jpg
+
+# Youtube or Vimeo Video (optional)
+video: https://www.youtube.com/@aqua-scope
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
