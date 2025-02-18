@@ -29,7 +29,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: tag-s-l-profile
         lorawanCertified: true
-        #codec: tag-s-l-codec
+        codec: tag-s-l-codec
 
 # Type of device (optional)
 # Valid values are: devkit, module, cots
