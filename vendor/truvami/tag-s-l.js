@@ -72,16 +72,16 @@ function decodeUplink(input) {
 
       return {
           data: {
-              localizationIntervalMoving: `${localizationIntervalMoving} s`,
-              localizationIntervalSteady: `${localizationIntervalSteady} s`,
-              configStatusInterval: `${configStatusInterval} s`,
-              gpsTimeout: `${gpsTimeout} s`,
-              accelerometerWakeupThreshold: `${accelerometerWakeupThreshold} mg`,
-              accelerometerDelay: `${accelerometerDelay} ms`,
+              localizationIntervalMoving: localizationIntervalMoving,
+              localizationIntervalSteady: localizationIntervalSteady,
+              configStatusInterval: configStatusInterval,
+              gpsTimeout: gpsTimeout,
+              accelerometerWakeupThreshold: accelerometerWakeupThreshold,
+              accelerometerDelay: accelerometerDelay,
               deviceState: deviceState === 1 ? "moving" : deviceState === 2 ? "steady" : "unknown",
               firmwareVersion,
               hardwareVersion,
-              batteryKeepAliveInterval: `${batteryKeepAliveInterval} s`,
+              batteryKeepAliveInterval: batteryKeepAliveInterval,
               batchSize,
               bufferSize
           }
@@ -173,7 +173,7 @@ function decodeUplink(input) {
       const maxBeacons = bytes[3];
 
       // Extract Minimum RSSI Value (1 byte, int8)
-      const minRssi = bytes[4];
+      const minRssi = bytes[4] - 256;
 
       // Extract Advertising Name/Eddystone Namespace Filter (10 bytes, ASCII or uint8)
       const filter = bytes.slice(5, 15); // 10 bytes
