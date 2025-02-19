@@ -160,7 +160,7 @@ function decodeUplink(input) {
 			data.Volt = input.bytes[3]/10;
 
 		data.WarningStatus = (input.bytes[4] == 0x00) ? 'NoWarnring' : 'Warning';
-		data.ContactSwitchStatus = (input.bytes[5] == 0x00) ? 'Off' : 'On';
+		data.DCPowerFailureAlarm = (input.bytes[6] == 0x00) ? 'NoWarnring' : 'Warning';
 		break;
 		
 	case 7:

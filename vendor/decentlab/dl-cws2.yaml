@@ -1,0 +1,93 @@
+name: DL-CWS2 - High-Precision Winter Road Maintenance Sensor with Radiation Shield
+description: The Decentlab DL-CWS2 includes a high-precision infrared pyrometer, temperature, humidity and dew point sensors. It is suitable for use in road weather information systems, winter road maintenance, frost alarming, ice alerting, and smart agriculture.
+
+hardwareVersions:
+  - version: '1'
+    numeric: 1
+
+firmwareVersions:
+  - version: 1.5.7
+    numeric: 157
+    hardwareVersions:
+      - '1'
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: dl-cws2-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: false
+        codec: dl-cws2-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: dl-cws2-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: false
+        codec: dl-cws2-codec
+
+sensors:
+  - surface temperature
+  - tilt
+  - temperature
+  - humidity
+  - dew point
+  - battery
+
+dimensions:
+  length: 135
+  width: 81
+  height: 70
+
+weight: 3300
+
+battery:
+  replaceable: true
+  type: 2 C alkaline
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 50
+  relativeHumidity:
+    min: 0
+    max: 1.0
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+keySecurity: none
+
+productURL: https://www.decentlab.com/high-precision-winter-road-maintenance-sensor-with-radiation-shield-for-lorawan
+dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-CWS2-datasheet.pdf
+photos:
+  main: dl-cws.png
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010

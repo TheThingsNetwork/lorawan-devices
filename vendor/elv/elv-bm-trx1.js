@@ -902,3 +902,4 @@ function decodeDownlink(input) {
     errors: []
   }
 }
+

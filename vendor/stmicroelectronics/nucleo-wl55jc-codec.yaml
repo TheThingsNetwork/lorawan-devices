@@ -20,7 +20,7 @@ uplinkDecoder:
             value: 'ON'
           pressure:
             displayName: Barometric pressure
-            unit: Pa
+            unit: hPa
             value: 1000.0
           temperature:
             displayName: Internal temperature

@@ -1,3 +1,9 @@
+function decodeUplink(input) {
+	return {
+	  data : Decoder(input.bytes, input.fPort),
+	};
+}
+
 function Decoder(bytes, port) {
     var decoded = {};
 
@@ -51,7 +57,28 @@ function Decoder(bytes, port) {
 
 }
 
+function normalizeUplink(input) {
+    var data = {};
+    var air = {};
 
+    if (input.data.temperature) {
+        air.temperature = input.data.temperature;
+    }
+
+    if (input.data.humidity) {
+        air.relativeHumidity = input.data.humidity;
+    }
+
+    if (Object.keys(air).length > 0) {
+        data.air = air;
+    }
+
+    if (input.data.battery) {
+        data.battery = input.data.battery;
+    }
+
+    return { data: data };
+}
 
 /* ******************************************
  * bytes to number
