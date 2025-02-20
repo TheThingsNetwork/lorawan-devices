@@ -1,5 +1,5 @@
 name: LoRaWAN® Radiator Thermostat Controllable
-description: 'The dnt® LoRaWAN® Radiator thermostat Controllable enables two ways to adjust the room temperature: directly on the device with the integrated buttons or remote control via Downlinks. It features an always-on display to show the current temperature settings, three customizable heating profiles with up to ten switching times per day, a window open detection to automatically reduce temperature and the possibility to perform a dynamic adaptive adjustment of the radiator. Because of very low energy consumption, a battery life up to 3 years can be archived.'
+description: 'The dnt® LoRaWAN® Radiator thermostat Controllable (dnt-lw-eTRV-C) enables two ways to adjust the room temperature: directly on the device with the integrated buttons or remote control via Downlinks. It features an always-on e-paper display to show the current temperature settings, three customizable heating profiles with up to ten switching times per day, a window open detection to automatically reduce temperature and the possibility to perform a dynamic adaptive adjustment of the radiator. Because of very low energy consumption, a battery life up to 3 years can be archived.'
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -89,14 +89,14 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.dnt.de/
+productURL: https://dnt.de/business/
 
 # Commercial information
 resellerURLs:
-  - name: 'ELVshop'
+  - name: 'dnt'
     region:
       - European Union
-    url: https://www.dnt.de/Produkte/dnt-LoRaWAN-Heizkoerperthermostat-dnt-LW-eTRV/
+    url: https://dnt.de/dnt-lw-etrv-c/
 msrp:
   EUR: 89.95
 
