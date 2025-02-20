@@ -1,0 +1,306 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: mbusparser.js
+  # Examples (optional)
+  examples:
+    - description: Multiple profile values for volume
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x78,
+            0x44,
+            0x6D,
+            0x00,
+            0x33,
+            0x18,
+            0x37,
+            0x44,
+            0x13,
+            0x03,
+            0x00,
+            0x00,
+            0x00,
+            0x4D,
+            0x93,
+            0x13,
+            0x22,
+            0x61,
+            0x01,
+            0x00,
+            0x00,
+            0x00,
+            0x03,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+          ]
+      output:
+        data:
+          values:
+            [
+              { 'Type': 'Volume', 'Value': 0.003, 'Unit': 'm3', 'Timestamp': '2024-07-24T19:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0.003, 'Unit': 'm3', 'Timestamp': '2024-07-24T18:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0.003, 'Unit': 'm3', 'Timestamp': '2024-07-24T17:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0.003, 'Unit': 'm3', 'Timestamp': '2024-07-24T16:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T15:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T14:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T13:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T12:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T11:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T10:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T09:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T08:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T07:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T06:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T05:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T04:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T03:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T02:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T01:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-24T00:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T23:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T22:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T21:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T20:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T19:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T18:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T17:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T16:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T15:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T14:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T13:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T12:00:00.000' },
+              { 'Type': 'Volume', 'Value': 0, 'Unit': 'm3', 'Timestamp': '2024-07-23T11:00:00.000' },
+            ]
+          latestVolume: 0.003
+        errors: []
+        warnings: []
+    - description: Missing Base value
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x78,
+            0x44,
+            0x6D,
+            0x00,
+            0x33,
+            0x18,
+            0x37,
+            0x4D,
+            0x93,
+            0x13,
+            0x22,
+            0x61,
+            0x01,
+            0x00,
+            0x00,
+            0x00,
+            0x03,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+          ]
+      output:
+        data:
+          values: []
+        errors: ['Invalid uplink payload: Could not find base value for profile data']
+        warnings: []
+    - description: Data from midnight log of water meter with invalid temperatures
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x78,
+            0x44,
+            0x6D,
+            0x00,
+            0x20,
+            0xF3,
+            0x2A,
+            0x44,
+            0x13,
+            0xEC,
+            0x00,
+            0x00,
+            0x00,
+            0x52,
+            0xFF,
+            0x25,
+            0x10,
+            0x00,
+            0x42,
+            0xFF,
+            0x1C,
+            0x05,
+            0x00,
+            0x62,
+            0x3B,
+            0x00,
+            0x00,
+            0x52,
+            0x3B,
+            0x00,
+            0x00,
+            0x61,
+            0x5B,
+            0x80,
+            0x51,
+            0x5B,
+            0x80,
+          ]
+      output:
+        data:
+          values:
+            [
+              { 'Type': 'Volume', 'Value': 0.236, 'Unit': 'm3', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Dry', 'Value': false, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Reverse', 'Value': false, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Leak', 'Value': false, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Burst', 'Value': false, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Tamper', 'Value': true, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Low Battery', 'Value': false, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Low Ambient Temperature', 'Value': false, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'High Ambient Temperature', 'Value': false, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'ALD last day', 'Value': 5, 'Unit': 'NA', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Min Volume flow', 'Value': 0, 'Unit': 'm3/h', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Max Volume flow', 'Value': 0, 'Unit': 'm3/h', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Min Flow temperature', 'Value': null, 'Unit': 'Invalid', 'Timestamp': '2023-10-19T00:00:00.000' },
+              { 'Type': 'Max Flow temperature', 'Value': null, 'Unit': 'Invalid', 'Timestamp': '2023-10-19T00:00:00.000' },
+            ]
+          latestVolume: 0.236
+        errors: []
+        warnings: ['Invalid value among data', 'Invalid value among data']
+    - description: Installation frame with config number
+      input:
+        fPort: 1
+        bytes: [0x72, 0x58, 0x57, 0x88, 0x53, 0x37, 0x2c, 0x3c, 0x16, 0xd6, 0x10, 0x08, 0x00, 0x04, 0xff, 0x16, 0xbf, 0x58, 0x70, 0x00]
+      output:
+        data:
+          values: [{ 'Type': 'Module type/config number', 'Value': 7362751, 'Unit': 'NA', 'Timestamp': null }]
+        errors: []
+        warnings: []
+    - description: Multiple profile values for volume (Example from Integration Guide)
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x7A,
+            0x08,
+            0x00,
+            0x00,
+            0x00,
+            0x44,
+            0x6D,
+            0x00,
+            0x2C,
+            0xFD,
+            0x28,
+            0x44,
+            0x13,
+            0xC1,
+            0xAA,
+            0x77,
+            0x00,
+            0x4D,
+            0x93,
+            0x13,
+            0x18,
+            0x62,
+            0x01,
+            0x27,
+            0x01,
+            0x22,
+            0x01,
+            0x22,
+            0x01,
+            0x26,
+            0x01,
+            0x22,
+            0x01,
+            0x22,
+            0x01,
+            0x21,
+            0x01,
+            0x27,
+            0x01,
+            0x22,
+            0x01,
+            0x22,
+            0x01,
+            0x27,
+            0x01,
+            0x2F,
+          ]
+      output:
+        data:
+          values:
+            [
+              { 'Type': 'Volume', 'Value': 7842.497, 'Unit': 'm3', 'Timestamp': '2023-08-29T12:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7842.202, 'Unit': 'm3', 'Timestamp': '2023-08-29T11:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7841.912, 'Unit': 'm3', 'Timestamp': '2023-08-29T10:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7841.622, 'Unit': 'm3', 'Timestamp': '2023-08-29T09:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7841.328, 'Unit': 'm3', 'Timestamp': '2023-08-29T08:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7841.038, 'Unit': 'm3', 'Timestamp': '2023-08-29T07:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7840.748, 'Unit': 'm3', 'Timestamp': '2023-08-29T06:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7840.459, 'Unit': 'm3', 'Timestamp': '2023-08-29T05:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7840.164, 'Unit': 'm3', 'Timestamp': '2023-08-29T04:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7839.874, 'Unit': 'm3', 'Timestamp': '2023-08-29T03:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7839.584, 'Unit': 'm3', 'Timestamp': '2023-08-29T02:00:00.000' },
+              { 'Type': 'Volume', 'Value': 7839.289, 'Unit': 'm3', 'Timestamp': '2023-08-29T01:00:00.000' },
+            ]
+          latestVolume: 7842.497
+        errors: []
+        warnings: []
