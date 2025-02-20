@@ -13,7 +13,7 @@ uplinkDecoder:
           timestamp:
             unit: seconds
             value: 1635506100
-          Active Energy Import T1:
+          ActiveEnergyImportT1:
             unit: Wh
             value: 1810
           timeStamp: 1635506100
@@ -29,10 +29,10 @@ uplinkDecoder:
           timestamp:
             unit: seconds
             value: 1635506100
-          ActiveEnergyImport T1:
+          ActiveEnergyImportT1:
             unit: Wh
             value: 1810
-          ActiveEnergyImport T2:
+          ActiveEnergyImportT2:
             unit: Wh
             value: 128
           ActiveEnergyExportT1:
