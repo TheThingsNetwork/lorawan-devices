@@ -29,28 +29,28 @@ uplinkDecoder:
           timestamp:
             unit: seconds
             value: 1635506100
-          Active Energy Import T1:
+          ActiveEnergyImport T1:
             unit: Wh
             value: 1810
-          Active Energy Import T2:
+          ActiveEnergyImport T2:
             unit: Wh
             value: 128
-          Active Energy Export T1:
+          ActiveEnergyExportT1:
             unit: Wh
             value: 1149
-          Active Energy Export T2:
+          ActiveEnergyExportT2:
             unit: Wh
             value: 17794
-          Reactive Energy Import T1:
+          ReactiveEnergyImportT1:
             unit: varh
             value: 1864
-          Reactive Energy Import T2:
+          ReactiveEnergyImportT2:
             unit: varh
             value: 2600
-          Reactive Energy Export T1:
+          ReactiveEnergyExportT1:
             unit: varh
             value: 338
-          Reactive Energy Export T2:
+          ReactiveEnergyExportT2:
             unit: varh
             value: 9661
           timeStamp: 1635506100
@@ -67,15 +67,15 @@ uplinkDecoder:
             value: '22060126'
           meter-typ:
             value: 1
-          current-transformer primary:
+          current-transformerprimary:
             value: 5
-          current-transformer secondary:
+          current-transformersecondary:
             value: 5
-          voltage-transformer primary:
+          voltage-transformerprimary:
             value: 100
-          voltage-transformer secondary:
+          voltage-transformersecondary:
             value: 100
-          MID year:
+          MIDyear:
             value: '2022'
           timeStamp: 1644548400
           medium:
