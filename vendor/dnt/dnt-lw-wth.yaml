@@ -1,5 +1,5 @@
-name: LoRaWAN® Asset Tracker Solar
-description: The dnt LoRaWAN® Asset Tracker Solar (dnt-lw-ats) is a reliable and compact GNSS tracker with a water- and dust proof housing according to IP44. Through the built-in solar cell, self-sufficient operation is possible. The position determination can be done cyclically or motion-based. In addition, there are many configuration options through LoRaWAN® downlinks, like the motion sensitivity or the positioning interval. The average sleep mode current is below 10 µA.
+name: LoRaWAN® Wall Thermostat
+description: The dnt LoRaWAN® Wall Thermostat (dnt-lw-wth) controls the heating or air conditioning of the room. It measures the room temperature and humidity and shows it on the integrated Display. For automatic adjustment of the room temperature, the user can configure three profiles with each up to ten temperature changes a day. Other features are the window-open detection, a holiday mode, an energy-saving mode and various configuration options through LoRaWAN downlinks. Through our low power design, the device consumes only 45 uA in default mode, which results in a battery lifetime of up to 5 years.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.6'
+    version: '1.0.11'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -19,6 +19,7 @@ firmwareVersions:
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     features:
+      - remote rejoin
       - transmission interval
 
     # LoRaWAN Device Profiles per region
@@ -33,7 +34,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: dnt-profile
         lorawanCertified: true
-        codec: dnt-lw-ats-codec
+        codec: dnt-lw-wth-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -44,37 +45,36 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - accelerometer
-  - gps
+  - temperature
+  - humidity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 68
-  length: 136
-  height: 35
+  width: 85
+  length: 85
+  height: 25
 
 # Weight in grams (optional)
-weight: 158
+weight: 140
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 55
+    min: 0
+    max: 50
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 0.97
 
 # IP rating (optional)
-ipCode: IP44
+ipCode: IP20
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
-  - custom
   - join server
 
 # Key programming (optional)
@@ -88,6 +88,7 @@ keyProgramming:
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
+  - fuota other
 
 # Product and data sheet URLs (optional)
 productURL: https://dnt.de/business/
@@ -97,12 +98,13 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-ats/
+    url: https://dnt.de/dnt-lw-wth/
 msrp:
-  EUR: 199.95
+  EUR: 59.95
 
 # Photos
 photos:
-  main: dnt-lw-ats.png
+  main: dnt-lw-wth-front-view.png
   other:
-    - dnt-lw-ats-top-view.png
+    - dnt-lw-wth-back-view.png
+    - dnt-lw-wth-antracite.png
