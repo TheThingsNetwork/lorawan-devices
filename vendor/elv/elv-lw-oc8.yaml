@@ -1,5 +1,5 @@
-name: LoRaWAN® Asset Tracker Solar
-description: The dnt LoRaWAN® Asset Tracker Solar (dnt-lw-ats) is a reliable and compact GNSS tracker with a water- and dust proof housing according to IP44. Through the built-in solar cell, self-sufficient operation is possible. The position determination can be done cyclically or motion-based. In addition, there are many configuration options through LoRaWAN® downlinks, like the motion sensitivity or the positioning interval. The average sleep mode current is below 10 µA.
+name: LoRaWAN® Module Board Open Collector 8fold
+description: The ELV LoRaWAN® Module Board Open Collector 8fold (ELV-LW-OC8) is a powerful LoRaWAN® Class C actor with 8 open collector output channels. These outputs can either be controlled by the corresponding input channels or via downlink to enable various controlling options.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.6'
+    version: '1.0.1'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -19,6 +19,7 @@ firmwareVersions:
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     features:
+      - remote rejoin
       - transmission interval
 
     # LoRaWAN Device Profiles per region
@@ -30,10 +31,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
+        #vendorID: elv
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
+        id: elv-lw-oc8-profile
         lorawanCertified: true
-        codec: dnt-lw-ats-codec
+        codec: elv-lw-oc8-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -44,32 +46,28 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - accelerometer
-  - gps
+  - digital input
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 68
-  length: 136
-  height: 35
+  width: 42
+  length: 23.8
+  height: 13.5
 
 # Weight in grams (optional)
-weight: 158
+weight: 8
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
+    min: -10
     max: 55
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 0.97
-
-# IP rating (optional)
-ipCode: IP44
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -83,26 +81,31 @@ keyProvisioning:
 keyProgramming:
   - firmware
 
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
 # Firmware programming (optional)
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
+  - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://dnt.de/business/
+productURL: https://de.elv.com/
 
 # Commercial information
 resellerURLs:
-  - name: 'dnt'
+  - name: 'ELVshop'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-ats/
+    url: https://de.elv.com/p/elv-lorawan-modulplatine-open-collector#8fach-elv-lw-oc8-P161150/?itemId=161150
 msrp:
-  EUR: 199.95
+  EUR: 29.95
 
 # Photos
 photos:
-  main: dnt-lw-ats.png
+  main: elv-lw-oc8.png
   other:
-    - dnt-lw-ats-top-view.png
+    - elv-lw-oc8-top-view.png
