@@ -1,12 +1,12 @@
-name: TH
-description: The WATTECO TH sensor measures indoor ambient temperature and humidity in buildings, apartments, and houses. It transmits data over a public or private LoRaWAN® network.
+name: Intens'O - Current Meter
+description: The WATTECO Intens’O sensor measures the intensity of electric current using its clamp-on ammeter and determines the state of the equipment based on a selectable current threshold. The data is then transmitted over a public or private LoRaWAN® radio network.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '50-70-053'
-    numeric: 53
-  - version: '50-70-162'
-    numeric: 162
+  - version: '50-70-091'
+    numeric: 91
+  - version: '50-70-098'
+    numeric: 98
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -15,8 +15,8 @@ firmwareVersions:
     numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '50-70-053'
-      - '50-70-162'
+      - '50-70-091'
+      - '50-70-098'
 
     # # Firmware features (optional)
     # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -34,11 +34,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
-        vendorID: watteco
+        # vendorID: watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: th-sensor-profile
+        id: 1-generic-eu-1-0-2-class-c-profile
         lorawanCertified: true
-        codec: th-sensor-codec
+        codec: intenso-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -49,8 +49,7 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
-  - humidity
+  - current
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -64,27 +63,27 @@ sensors:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 80
-  length: 80
-  height: 25
+  width: 84
+  length: 82
+  height: 55
 
 # Weight in grams (optional)
-weight: 95
+# weight: 200
 
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AA
+  type: A
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 0
-    max: 55
+    min: -20
+    max: 60
 
 # IP rating (optional)
-ipCode: IP30
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -107,22 +106,22 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-
-productURL: https://www.watteco.com/product/indoor-temperature-humidity-sensor/
-dataSheetURL: https://www.watteco.com/download/temperature-humidity-sensor-data-sheet-lorawan/?wpdmdl=6525&refresh=60be3894e0a1f1623079060
+productURL: https://www.watteco.com/product/intenso-sensor-lorawan/
+dataSheetURL: https://www.watteco.com/download/intenso-sensor-data-sheet-lorawan/?wpdmdl=6448
+onboardingGuideURL: https://support.watteco.com/intenso/
 
 # Commercial information
 resellerURLs:
   - name: 'Watteco'
     region:
       - European Union
-    url: https://www.watteco.fr
+    url: http://www.watteco.fr
 # msrp:
 #   EUR:
 
 # Photos
 photos:
-  main: th-sensor.jpg
+  main: intenso.png
 
 # Youtube or Vimeo Video (optional)
 # videos:

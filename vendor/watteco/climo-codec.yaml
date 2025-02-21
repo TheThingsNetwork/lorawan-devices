@@ -1,0 +1,158 @@
+uplinkDecoder:
+  fileName: climo.js
+  examples:
+    - description: 'uplink standard report containing temperature value | payload:110A04020000290B89'
+      input:
+        bytes: [0x11, 0x0a, 0x04, 0x02, 0x00, 0x00, 0x29, 0x0b, 0x89]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:31.598957793Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 29.53
+              date: '2023-07-19T07:51:31.598957793Z'
+          temperature: 29.53
+        warnings: []
+    - description: 'uplink standard report containing 2 short threshold alarms on temperature value | payload:118A0402000029075590B0B1'
+      input:
+        bytes: [0x11, 0x8a, 0x04, 0x02, 0x00, 0x00, 0x29, 0x07, 0x55, 0x90, 0xb0, 0xb1]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 18.77
+              date: '2023-07-19T07:51:25.508306410Z'
+          temperature: 18.77
+        warnings:
+          - alarm triggered
+          - 'cause:{alarm:true, criterion_index: 0, mode: threshold, crossing: fall}'
+          - 'cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: fall}'
+    - description: 'uplink standard report containing 3 long threshold alarms on temperature value | payload:118a0402000029010ea0b008fc000001b10834000001b207d0000001'
+      input:
+        bytes: [0x11, 0x8a, 0x04, 0x02, 0x00, 0x00, 0x29, 0x01, 0x0e, 0xa0, 0xb0, 0x08, 0xfc, 0x00, 0x00, 0x01, 0xb1, 0x08, 0x34, 0x00, 0x00, 0x01, 0xb2, 0x07, 0xd0, 0x00, 0x00, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 2.7
+              date: '2023-07-19T07:51:25.508306410Z'
+          temperature: 2.7
+        warnings:
+          - alarm triggered
+          - 'cause:{alarm:true, criterion_index: 0, mode: threshold, crossing: fall, value: 23, gap: 0, occurences: 1}'
+          - 'cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: fall, value: 21, gap: 0, occurences: 1}'
+          - 'cause:{alarm:true, criterion_index: 2, mode: threshold, crossing: fall, value: 20, gap: 0, occurences: 1}'
+    - description: 'uplink standard report containing a long delta alarm on temperature value | payload:118A04020000290B35A0C80014'
+      input:
+        bytes: [0x11, 0x8a, 0x04, 0x02, 0x00, 0x00, 0x29, 0x0b, 0x35, 0xa0, 0xc8, 0x00, 0x14]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 28.69
+              date: '2023-07-19T07:51:25.508306410Z'
+          temperature: 28.69
+        warnings:
+          - alarm triggered
+          - 'cause:{alarm:true, criterion_index: 0, mode: delta, value: 0.2}'
+    - description: 'uplink standard report containing humidity value | payload:110A04050000210E89'
+      input:
+        bytes: [0x11, 0x0a, 0x04, 0x05, 0x00, 0x00, 0x21, 0x0e, 0x89]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: humidity
+              value: 37.21
+              date: '2023-07-19T07:51:25.508306410Z'
+          humidity: 37.21
+        warnings: []
+    - description: 'uplink standard report containing state of case | payload:110A000F00551001'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x00, 0x55, 0x10, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: violation_detection
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+          violation_detection: true
+        warnings: []
+    - description: 'uplink standard report containing number of pulse detection on input 1 | payload:110A000F04022300000000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x04, 0x02, 0x23, 0x00, 0x00, 0x00, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: index
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+          index: 0
+        warnings: []
+    - description: 'uplink standard report containing cmdID 0x07 response for temperature cluster | payload:1107040200800000'
+      input:
+        bytes: [0x11, 0x07, 0x04, 0x02, 0x00, 0x80, 0x00, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          report: standard
+          endpoint: 0
+          cmdID: '0x07'
+          clustID: '0x0402'
+          attID: '0x0000'
+          status: 0
+          report_parameters:
+            new_mode_configuration: '1'
+            cause_request: none
+            secured_if_alarm: '0'
+            secured: '0'
+            no_hearde_port: '0'
+            batch: '0'
+        warnings: []
+    - description: 'uplink of read current value on cluster 0x0402 | payload:11010402000000290992'
+      input:
+        bytes: [0x11, 0x01, 0x04, 0x02, 0x00, 0x00, 0x00, 0x29, 0x09, 0x92]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 24.5
+              date: '2023-07-19T07:51:25.508306410Z'
+          temperature: 24.5
+        warnings: []
+    - description: 'uplink containing a batch of values | payload:362100808098c31ecb824d7b07ba3d'
+      input:
+        bytes: [0x36, 0x21, 0x00, 0x80, 0x80, 0x98, 0xc3, 0x1e, 0xcb, 0x82, 0x4d, 0x7b, 0x07, 0xba, 0x3d]
+        fPort: 125
+        recvTime: '2023-07-18T12:19:53.243Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 28.7
+              date: '2023-07-18T12:19:53.243Z'
+            - variable: humidity
+              value: 37
+              date: '2023-07-18T12:19:53.243Z'
+            - variable: battery_voltage
+              value: 3.707
+              date: '2023-07-18T12:19:52.243Z'
+          temperature: 28.7
+          humidity: 37
+          battery_voltage: 3.707
+        warnings: []

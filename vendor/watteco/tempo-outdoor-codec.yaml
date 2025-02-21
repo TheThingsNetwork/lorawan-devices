@@ -1,0 +1,78 @@
+uplinkDecoder:
+  fileName: tempo-outdoor.js
+  examples:
+    - description: 'uplink standard report containing temperature value | payload:110A04020000290B89'
+      input:
+        bytes: [0x11, 0x0a, 0x04, 0x02, 0x00, 0x00, 0x29, 0x0b, 0x89]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:31.598957793Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 29.53
+              date: '2023-07-19T07:51:31.598957793Z'
+          temperature: 29.53
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
+    - description: 'uplink batch report | payload:20010000017D0585A8E9401708F07703FCD903'
+      input:
+        bytes: [0x20, 0x01, 0x00, 0x00, 0x01, 0x7d, 0x05, 0x85, 0xa8, 0xe9, 0x40, 0x17, 0x08, 0xf0, 0x77, 0x03, 0xfc, 0xd9, 0x03]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 25.7
+              date: '2023-07-19T07:50:44.508Z'
+            - variable: temperature
+              value: 25.9
+              date: '2023-07-19T07:51:14.508Z'
+            - variable: battery_voltage
+              value: 3.7
+              date: '2023-07-19T07:50:55.508Z'
+            - variable: battery_voltage
+              value: 3.7
+              date: '2023-07-19T07:51:25.508Z'
+          temperature: 25.9
+          battery_voltage: 3.7
+        warnings: []

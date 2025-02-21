@@ -1,0 +1,423 @@
+uplinkDecoder:
+  fileName: triphaso.js
+  examples:
+    - description: 'uplink standard report containing state of pin 1 | payload:110A000F00551001'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x00, 0x55, 0x10, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: pin_state
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+          pin_state: true
+        warnings: []
+    - description: 'uplink standard report containing number of pulse detection on input 1 | payload:110A000F04022300000000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x04, 0x02, 0x23, 0x00, 0x00, 0x00, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: index
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+          index: 0
+        warnings: []
+    - description: 'uplink standard report containing state value | payload:110A000600001001'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x06, 0x00, 0x00, 0x10, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: output
+              value: 'ON'
+              date: '2023-07-19T07:51:25.508306410Z'
+          output: 'ON'
+        warnings: []
+    - description: 'uplink standard report containing state value | payload:110A000600001000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x06, 0x00, 0x00, 0x10, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: output
+              value: 'OFF'
+              date: '2023-07-19T07:51:25.508306410Z'
+          output: 'OFF'
+        warnings: []
+    - description: 'uplink standard report containing energy/power value | payload:710A800A000041200003A96A00000000000092990000705000007C7F00000000000000C000000F6F'
+      input:
+        bytes: [0x71, 0x0a, 0x80, 0x0a, 0x00, 0x00, 0x41, 0x20, 0x00, 0x03, 0xa9, 0x6a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x92, 0x99, 0x00, 0x00, 0x70, 0x50, 0x00, 0x00, 0x7c, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00, 0x0f, 0x6f]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: positive_active_energy_abc
+              value: 239978
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_active_energy_abc
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: positive_reactive_energy_abc
+              value: 37529
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_reactive_energy_abc
+              value: 28752
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: positive_active_power_abc
+              value: 31871
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_active_power_abc
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: positive_reactive_power_abc
+              value: 192
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_reactive_power_abc
+              value: 3951
+              date: '2023-07-19T07:51:25.508306410Z'
+          positive_active_energy_abc: 239978
+          negative_active_energy_abc: 0
+          positive_reactive_energy_abc: 37529
+          negative_reactive_energy_abc: 28752
+          positive_active_power_abc: 31871
+          negative_active_power_abc: 0
+          positive_reactive_power_abc: 192
+          negative_reactive_power_abc: 3951
+        warnings: []
+    - description: 'uplink standard report containing energy/power long threshold alarm | payload:118A800A000041200010760A0000020400005A6E000A210D000018A20000000000000000000003A6A0B1060000000F0000000002'
+      input:
+        bytes: [0x11, 0x8a, 0x80, 0x0a, 0x00, 0x00, 0x41, 0x20, 0x00, 0x10, 0x76, 0x0a, 0x00, 0x00, 0x02, 0x04, 0x00, 0x00, 0x5a, 0x6e, 0x00, 0x0a, 0x21, 0x0d, 0x00, 0x00, 0x18, 0xa2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xa6, 0xa0, 0xb1, 0x06, 0x00, 0x00, 0x00, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x02]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: positive_active_energy_a
+              value: 1078794
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_active_energy_a
+              value: 516
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: positive_reactive_energy_a
+              value: 23150
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_reactive_energy_a
+              value: 663821
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: positive_active_power_a
+              value: 6306
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_active_power_a
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: positive_reactive_power_a
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: negative_reactive_power_a
+              value: 934
+              date: '2023-07-19T07:51:25.508306410Z'
+          positive_active_energy_a: 1078794
+          negative_active_energy_a: 516
+          positive_reactive_energy_a: 23150
+          negative_reactive_energy_a: 663821
+          positive_active_power_a: 6306
+          negative_active_power_a: 0
+          positive_reactive_power_a: 0
+          negative_reactive_power_a: 934
+        warnings:
+          - alarm triggered
+          - 'cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: fall, value: 15, gap: 0, occurences: 2, field: positive_reactive_power}'
+    - description: 'uplink standard report containing volt, amp, and phase value | payload:110A800B00004106094C030E0163'
+      input:
+        bytes: [0x11, 0x0a, 0x80, 0x0b, 0x00, 0x00, 0x41, 0x06, 0x09, 0x4c, 0x03, 0x0e, 0x01, 0x63]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: Vrms_a
+              value: 238
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_a
+              value: 78.2
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_a
+              value: 355
+              date: '2023-07-19T07:51:25.508306410Z'
+          Vrms_a: 238
+          Irms_a: 78.2
+          angle_a: 355
+        warnings: []
+    - description: 'uplink standard report containing short threshold alarm | payload:310a800b000041060973010d01629050'
+      input:
+        bytes: [0x31, 0x0a, 0x80, 0x0b, 0x00, 0x00, 0x41, 0x06, 0x09, 0x73, 0x01, 0x0d, 0x01, 0x62, 0x90, 0x50]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: Vrms_b
+              value: 241.9
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_b
+              value: 26.9
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_b
+              value: 354
+              date: '2023-07-19T07:51:25.508306410Z'
+          Vrms_b: 241.9
+          Irms_b: 26.9
+          angle_b: 354
+        warnings:
+          - 'cause:{alarm:false, criterion_index: 0, mode: threshold, crossing: exceed}'
+    - description: 'uplink standard report containing long threshold alarm | payload:118A800B00004106097801150162A0500003E8000001D1010032000001'
+      input:
+        bytes: [0x11, 0x8a, 0x80, 0x0b, 0x00, 0x00, 0x41, 0x06, 0x09, 0x78, 0x01, 0x15, 0x01, 0x62, 0xa0, 0x50, 0x00, 0x03, 0xe8, 0x00, 0x00, 0x01, 0xd1, 0x01, 0x00, 0x32, 0x00, 0x00, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: Vrms_a
+              value: 242.4
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_a
+              value: 27.7
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_a
+              value: 354
+              date: '2023-07-19T07:51:25.508306410Z'
+          Vrms_a: 242.4
+          Irms_a: 27.7
+          angle_a: 354
+        warnings:
+          - alarm triggered
+          - 'cause:{alarm:false, criterion_index: 0, mode: threshold, crossing: exceed, value: 100, gap: 0, occurences: 1, field: Vrms}'
+          - 'cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Irms}'
+    - description: 'uplink standard report containing report of the 3 phases | payload:110a8010000041200000010000000200000003000000040000000500000006000000070000000800'
+      input:
+        bytes: [0x11, 0x0a, 0x80, 0x10, 0x00, 0x00, 0x41, 0x20, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: active_energy_a
+              value: 256
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_energy_a
+              value: 512
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: active_energy_b
+              value: 768
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_energy_b
+              value: 1024
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: active_energy_c
+              value: 1280
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_energy_c
+              value: 1536
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: active_energy_abc
+              value: 1792
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_energy_abc
+              value: 2048
+              date: '2023-07-19T07:51:25.508306410Z'
+          active_energy_a: 256
+          reactive_energy_a: 512
+          active_energy_b: 768
+          reactive_energy_b: 1024
+          active_energy_c: 1280
+          reactive_energy_c: 1536
+          active_energy_abc: 1792
+          reactive_energy_abc: 2048
+        warnings: []
+    - description: 'uplink standard report containing report of the 3 phases | payload:110A80100001412000001843FFFFFC20000024CAFFFFF50F00001F35FFFFF42A00005C42FFFFE559A050000000003200000001015100000000140000000001'
+      input:
+        bytes: [0x11, 0x0a, 0x80, 0x10, 0x00, 0x01, 0x41, 0x20, 0x00, 0x00, 0x18, 0x43, 0xff, 0xff, 0xfc, 0x20, 0x00, 0x00, 0x24, 0xca, 0xff, 0xff, 0xf5, 0x0f, 0x00, 0x00, 0x1f, 0x35, 0xff, 0xff, 0xf4, 0x2a, 0x00, 0x00, 0x5c, 0x42, 0xff, 0xff, 0xe5, 0x59, 0xa0, 0x50, 0x00, 0x00, 0x00, 0x00, 0x32, 0x00, 0x00, 0x00, 0x01, 0x01, 0x51, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00, 0x00, 0x00, 0x00, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: active_power_a
+              value: 6211
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_power_a
+              value: 4294966304
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: active_power_b
+              value: 9418
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_power_b
+              value: 4294964495
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: active_power_c
+              value: 7989
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_power_c
+              value: 4294964266
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: active_power_abc
+              value: 23618
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_power_abc
+              value: 4294960473
+              date: '2023-07-19T07:51:25.508306410Z'
+          active_power_a: 6211
+          reactive_power_a: 4294966304
+          active_power_b: 9418
+          reactive_power_b: 4294964495
+          active_power_c: 7989
+          reactive_power_c: 4294964266
+          active_power_abc: 23618
+          reactive_power_abc: 4294960473
+        warnings:
+          - 'cause:{alarm:false, criterion_index: 0, mode: threshold, crossing: exceed, value: 50, gap: 1, occurences: 1, field: active_power_a}'
+          - 'cause:{alarm:false, criterion_index: 1, mode: threshold, crossing: exceed, value: 20, gap: 0, occurences: 1, field: active_power_a}'
+    - description: 'uplink standard report containing report of the 3 phases | payload:110A800D0000411208A10052000308A20042004008A300320030'
+      input:
+        bytes: [0x11, 0x0a, 0x80, 0x0d, 0x00, 0x00, 0x41, 0x12, 0x08, 0xa1, 0x00, 0x52, 0x00, 0x03, 0x08, 0xa2, 0x00, 0x42, 0x00, 0x40, 0x08, 0xa3, 0x00, 0x32, 0x00, 0x30]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: Vrms_a
+              value: 220.9
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_a
+              value: 8.2
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_a
+              value: 3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vrms_b
+              value: 221
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_b
+              value: 6.6
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_b
+              value: 64
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vrms_c
+              value: 221.1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_c
+              value: 5
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_c
+              value: 48
+              date: '2023-07-19T07:51:25.508306410Z'
+          Vrms_a: 220.9
+          Irms_a: 8.2
+          angle_a: 3
+          Vrms_b: 221
+          Irms_b: 6.6
+          angle_b: 64
+          Vrms_c: 221.1
+          Irms_c: 5
+          angle_c: 48
+        warnings: []
+    - description: 'uplink standard report containing long threshold alarm | payload:118A800D000041120975010C01610974015E0153098301610150A0D0000032000001D1010005000001B208015E000001'
+      input:
+        bytes: [0x11, 0x8a, 0x80, 0x0d, 0x00, 0x00, 0x41, 0x12, 0x09, 0x75, 0x01, 0x0c, 0x01, 0x61, 0x09, 0x74, 0x01, 0x5e, 0x01, 0x53, 0x09, 0x83, 0x01, 0x61, 0x01, 0x50, 0xa0, 0xd0, 0x00, 0x00, 0x32, 0x00, 0x00, 0x01, 0xd1, 0x01, 0x00, 0x05, 0x00, 0x00, 0x01, 0xb2, 0x08, 0x01, 0x5e, 0x00, 0x00, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: Vrms_a
+              value: 242.1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_a
+              value: 26.8
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_a
+              value: 353
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vrms_b
+              value: 242
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_b
+              value: 35
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_b
+              value: 339
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vrms_c
+              value: 243.5
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Irms_c
+              value: 35.3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: angle_c
+              value: 336
+              date: '2023-07-19T07:51:25.508306410Z'
+          Vrms_a: 242.1
+          Irms_a: 26.8
+          angle_a: 353
+          Vrms_b: 242
+          Irms_b: 35
+          angle_b: 339
+          Vrms_c: 243.5
+          Irms_c: 35.3
+          angle_c: 336
+        warnings:
+          - alarm triggered
+          - 'cause:{alarm:true, criterion_index: 0, mode: threshold, crossing: exceed, value: 5, gap: 0, occurences: 1, field: Vrms_a}'
+          - 'cause:{alarm:true, criterion_index: 1, mode: threshold, crossing: exceed, value: 0.5, gap: 0, occurences: 1, field: Irms_a}'
+          - 'cause:{alarm:true, criterion_index: 2, mode: threshold, crossing: fall, value: 350, gap: 0, occurences: 1, field: angle_c}'
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
