@@ -84,6 +84,30 @@ function decodeUplink(input) {
                             data.sendEventLater = parseInt(commands[i + 1], 16) ;
                         }
                     break;
+                    case 'a4':
+                        {
+                            command_len = 1;
+                            data.region = parseInt(commands[i + 1], 16);
+                        }
+                    break;
+                    case 'b1':
+                        {
+                            command_len = 3;
+                            data.singlePressEventCounter =(parseInt(commands[i + 1], 16) << 16) | (parseInt(commands[i + 2], 16) << 8) | parseInt(commands[i + 3], 16);
+                        }
+                    break;
+                    case 'b2':
+                        {
+                            command_len = 3;
+                            data.doublePressEventCounter =(parseInt(commands[i + 1], 16) << 16) | (parseInt(commands[i + 2], 16) << 8) | parseInt(commands[i + 3], 16);
+                        }
+                    break;
+                    case 'b3':
+                        {
+                            command_len = 3;
+                            data.triplePressEventCounter =(parseInt(commands[i + 1], 16) << 16) | (parseInt(commands[i + 2], 16) << 8) | parseInt(commands[i + 3], 16);
+                        }
+                    break;
                     default:
                         break;
                 }
