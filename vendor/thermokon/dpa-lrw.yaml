@@ -41,7 +41,7 @@ sensors:
   - pressure
 
 # Product and data sheet URLs (optional)
-productURL: https://www.thermokon.de/direct/en-gb?path=%2F1%2F2%2F20&filter_show=1&q=&limit=18&filter_articles=&sbscf%3Asbscf1%2Fattr%2F8470[]=thermokon%3A%2F%2F{r%3D0%2Cb%3D0%2Cl%3Den_UK}%2F1%2F7%2F8%2F338%2F339%2F8470%2F10570
+productURL: https://www.thermokon.de/direct/en-gb/categories/g-dpaplus-lorawan
 
 # Photos
 photos:

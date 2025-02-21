@@ -197,3 +197,35 @@ default:
 }
 }
 }
+
+function normalizeUplink(input) {
+  var data = {};
+  var air = {};
+  var action = {};
+
+  if (input.data.TempC_SHT) {
+    air.temperature = input.data.TempC_SHT;
+  }
+
+  if (input.data.Hum_SHT) {
+    air.relativeHumidity = input.data.Hum_SHT;
+  }
+
+  if (input.data.Door_status === "CLOSE" || input.data.Door_status === "OPEN") {
+    action.contactState = input.data.Door_status === "CLOSE" ? "closed" : "open";
+  }
+
+  if (Object.keys(air).length > 0) {
+    data.air = air;
+  }
+
+  if (Object.keys(action).length > 0) {
+    data.action = action;
+  }
+
+  if (input.data.BatV) {
+      data.battery = input.data.BatV;
+  }
+
+  return { data: data };
+}

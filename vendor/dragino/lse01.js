@@ -33,3 +33,39 @@ switch (input.fPort) {
  }
 }
 }
+
+function normalizeUplink(input) {
+  var data = {};
+  var air = {};
+  var soil = {};
+
+  if (input.data.TempC_DS18B20) {
+      air.temperature = Number(input.data.TempC_DS18B20);
+  }
+
+  if (input.data.temp_SOIL) {
+      soil.temperature = Number(input.data.temp_SOIL);
+  }
+
+  if (input.data.water_SOIL) {
+      soil.moisture = Number(input.data.water_SOIL);
+  }
+
+  if (input.data.conduct_SOIL) {
+      soil.ec = input.data.conduct_SOIL / 1000;
+  }
+
+  if (Object.keys(air).length > 0) {
+      data.air = air;
+  }
+
+  if (Object.keys(soil).length > 0) {
+      data.soil = soil;
+  }
+
+  if (input.data.Bat) {
+      data.battery = input.data.Bat;
+  }
+
+  return { data: data };
+}

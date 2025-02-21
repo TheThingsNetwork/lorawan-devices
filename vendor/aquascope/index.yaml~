@@ -1,0 +1,29 @@
+endDevices:
+  - bvs
+  - wwd
+  - aqs
+  - kfr
+  - ran
+  - prs
+  - aqm
+profileIDs:
+  '13':
+    endDeviceID: 'bvs'
+    firmwareVersion: '2.52'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '14':
+    endDeviceID: 'wwd'
+    firmwareVersion: '2.52'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '15':
+    endDeviceID: 'kfr'
+    firmwareVersion: '1.36'
+    hardwareVersion: '1.0'
+    region: 'US902-928'
+  '16':
+    endDeviceID: 'aqs'
+    firmwareVersion: '220110'
+    hardwareVersion: '1.0'
+    region: 'US902-928'

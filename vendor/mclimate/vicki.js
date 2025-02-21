@@ -24,14 +24,14 @@ function decodeUplink(input) {
         batteryTmp = ("0" + bytes[7].toString(16)).substr(-2)[0];
         batteryVoltageCalculated = 2 + parseInt("0x" + batteryTmp, 16) * 0.1;
 
-        decbin = function(number) {
+        let decbin = (number) => {
             if (number < 0) {
                 number = 0xFFFFFFFF + number + 1
             }
             number = number.toString(2);
             return "00000000".substr(number.length) + number;
         }
-        byte7Bin = decbin(bytes[8]);
+        byte7Bin = decbin(bytes[7]);
         openWindow = byte7Bin[4];
         highMotorConsumption = byte7Bin[5];
         lowMotorConsumption = byte7Bin[6];
@@ -67,9 +67,9 @@ function decodeUplink(input) {
         data.attachedBackplate = toBool(attachedBackplate);
         data.perceiveAsOnline = toBool(perceiveAsOnline);
         data.antiFreezeProtection = toBool(antiFreezeProtection);
-        data.motorOpenness = Math.round((1-(motorPosition/motorRange))*100);
+        data.valveOpenness = motorRange != 0 ? Math.round((1-(motorPosition/motorRange))*100) : 0;
         if(!data.hasOwnProperty('targetTemperatureFloat')){
-            data.targetTemperatureFloat =  bytes[1].toFixed(2);
+            data.targetTemperatureFloat = parseFloat(bytes[1])
         }
         return data;
     }
@@ -169,8 +169,7 @@ function decodeUplink(input) {
                     {
                         // get default keepalive if it is not available in data
                         command_len = 2;
-                        var deviceKeepAlive = 5;
-                        var wdpC = commands[i + 1] == '00' ? false : commands[i + 1] * deviceKeepAlive + 7;
+                        var wdpC = commands[i + 1] == '00' ? false : parseInt(commands[i + 1], 16);
                         var wdpUc = commands[i + 2] == '00' ? false : parseInt(commands[i + 2], 16);
                         var dataJ = { watchDogParams: { wdpC: wdpC, wdpUc: wdpUc } };
                         resultToPass = merge_obj(resultToPass, dataJ);
@@ -311,14 +310,14 @@ function decodeUplink(input) {
                 case '4d':
                     {
                         command_len = 2;
-                        var data = { maxAllowedIntegralValue : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
+                        var data = { piMaxIntegratedError : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
                         resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
                 case '50':
                     {
                         command_len = 2;
-                        var data = { valveOpennessRangeInPercentage: { min: parseInt(commands[i + 1], 16), max: parseInt(commands[i + 2], 16) } };
+                        var data = { effectiveMotorRange: { minValveOpenness: 100 - parseInt(commands[i + 2], 16), maxValveOpenness: 100 - parseInt(commands[i + 1], 16) } };
                         resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
@@ -356,4 +355,55 @@ function decodeUplink(input) {
     return {
         data: data
     };
+}
+
+function normalizeUplink(input) {
+  const warnings = [];
+
+  if (input.data.openWindow) {
+    warnings.push("openWindow: true");
+  }
+
+  if (input.data.highMotorConsumption) {
+    warnings.push("highMotorConsumption: true");
+  }
+
+  if (input.data.lowMotorConsumption) {
+    warnings.push("lowMotorConsumption: true");
+  }
+
+  if (input.data.brokenSensor) {
+    warnings.push("brokenSensor: true");
+  }
+
+  if (input.data.childLock) {
+    warnings.push("childLock: true");
+  }
+
+  if (input.data.calibrationFailed) {
+    warnings.push("calibrationFailed: true");
+  }
+
+  if (input.data.attachedBackplate) {
+    warnings.push("attachedBackplate: true");
+  }
+
+  if (input.data.perceiveAsOnline) {
+    warnings.push("perceiveAsOnline: true");
+  }
+
+  if (input.data.antiFreezeProtection) {
+    warnings.push("antiFreezeProtection: true");
+  }
+
+  return {
+    data: {
+        air: {
+            temperature: input.data.sensorTemperature,
+            relativeHumidity: input.data.relativeHumidity,
+        },
+        battery: input.data.batteryVoltage,
+    },
+    warnings: warnings
+  };
 }

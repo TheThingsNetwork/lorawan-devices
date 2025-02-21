@@ -7,6 +7,14 @@ uplinkDecoder:
         bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFC, 0x02, 0x05]
       output:
         data: { 'ADC_CH0V': 0, 'BatV': 2.9, 'Digital_IStatus': 'L', 'Door_status': 'OPEN', 'EXTI_Trigger': 'FALSE', 'Hum_SHT': 51.7, 'TempC1': 0, 'TempC_SHT': 25.2, 'Work_mode': 'IIC' }
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 25.2
+              relativeHumidity: 51.7
+            action:
+              contactState: 'open'
+            battery: 2.9
 
     - description: Unknown FPort
       input:
