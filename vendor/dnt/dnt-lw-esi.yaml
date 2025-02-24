@@ -1,6 +1,5 @@
-name: LoRaWAN® Asset Tracker Solar
-description: The dnt LoRaWAN® Asset Tracker Solar (dnt-lw-ats) is a reliable and compact GNSS tracker with a water- and dust proof housing according to IP44. Through the built-in solar cell, self-sufficient operation is possible. The position determination can be done cyclically or motion-based. In addition, there are many configuration options through LoRaWAN® downlinks, like the motion sensitivity or the positioning interval. The average sleep mode current is below 10 µA.
-
+name: LoRaWAN® energy sensor interface
+description: The dnt LoRaWAN® energy sensor intefrace (dnt-lw-esi) is a battery powered device to integrate smart meters into the LoRaWAN® network. It can collect data from electricity and gas meters with different sensors.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
   - version: '1.0'
@@ -9,7 +8,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.6'
+    version: '1.0.3'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -33,7 +32,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: dnt-profile
         lorawanCertified: true
-        codec: dnt-lw-ats-codec
+        codec: dnt-lw-esi-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -44,37 +43,36 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - accelerometer
-  - gps
+  - energy
+  - power
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 68
-  length: 136
-  height: 35
+  width: 39
+  length: 109
+  height: 29
 
 # Weight in grams (optional)
-weight: 158
+weight: 100
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -20
-    max: 55
+    min: 5
+    max: 35
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
     max: 0.97
 
 # IP rating (optional)
-ipCode: IP44
+ipCode: IP20
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
-  - custom
   - join server
 
 # Key programming (optional)
@@ -88,6 +86,7 @@ keyProgramming:
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
+  - fuota other
 
 # Product and data sheet URLs (optional)
 productURL: https://dnt.de/business/
@@ -97,12 +96,13 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-ats/
+    url: https://dnt.de/dnt-lw-esi/
 msrp:
-  EUR: 199.95
+  EUR: 59.95
 
 # Photos
 photos:
-  main: dnt-lw-ats.png
+  main: dnt-lw-esi-closed-side-view.png
   other:
-    - dnt-lw-ats-top-view.png
+    - dnt-lw-esi-top-side-view.png
+    - dnt-lw-esi-side-view-open.png
