@@ -116,7 +116,7 @@ firmwareProgramming:
 # Product and data sheet URLs (optional)
 
 productURL: https://www.watteco.fr/produit/vaqao-multi-lite/
-#dataSheetURL: 
+#dataSheetURL:
 onboardingGuideURL: https://support.watteco.com/vaqaolite/
 
 # Commercial information

@@ -1,4 +1,4 @@
-name: Tics'O - 
+name: Tics'O -
 description: Le capteur TICS’O permet le transfert de données issues de la sortie TIC des compteurs électriques électroniques d’ENEDIS vers un serveur distant en utilisant le protocole de communication LoRaWAN®. Le capteur TICS’O transforme le compteur ENEDIS en un objet connecté à Internet (IoT).
 
 # Hardware versions (optional, use when you have revisions)
