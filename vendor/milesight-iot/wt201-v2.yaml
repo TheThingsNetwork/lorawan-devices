@@ -47,7 +47,7 @@ firmwareVersions:
 
 sensors:
   - protocol version
-  - device status	
+  - device status
   - serial number
   - hardware version
   - firmware version
@@ -58,12 +58,12 @@ sensors:
   - temperature control
   - fan control
   - plan event
-  - system status	
+  - system status
   - humidity
   - wires relay status
   - plan
   - wires
-  - temperature mode support	
+  - temperature mode support
   - control permissions
   - temperature alarm
   - temperature exception
@@ -73,7 +73,6 @@ dimensions:
   width: 21
   length: 113
   height: 110
-
 
 operatingConditions:
   temperature:
