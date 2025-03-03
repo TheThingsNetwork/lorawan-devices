@@ -1,0 +1,233 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: bob-assistant.js
+  # Examples (optional)
+  # examples:
+  # - description: Time-stamped state frame
+  #   input:
+  #     fPort: 1
+  #     bytes: [0x53, 0x64, 0x7F]
+  #   output:
+  #     data:
+  #       data:
+  #         - date: "2021-07-16T07:17:31.430Z"
+  #           label: "State"
+  #           value: "Sensor start"
+  #         - date: "2021-07-16T07:17:31.430Z"
+  #           label: "BatteryPercentage"
+  #           value: 100
+  #       header:
+  #         - sensor: "KX"
+  #           type: "State"
+  #     errors: []
+  #     warnings: []
+  # - description: Time-stamped learning frame
+  #   input:
+  #     fPort: 1
+  #     bytes: [0x6C, 0x00, 0x02, 0x17, 0x50, 0x00, 0x37, 0x01, 0x7F, 0x1E, 0x14, 0x10, 0x0C, 0x0B, 0x08, 0x09, 0x06, 0x07, 0x04, 0x06, 0x05, 0x09, 0x0B, 0x06, 0x05, 0x03, 0x04, 0x03, 0x05, 0x03, 0x04, 0x03, 0x04, 0x03, 0x03, 0x03, 0x03, 0x04, 0x03, 0x02]
+  #   output:
+  #     data:
+  #       data:
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "Temperature"
+  #           value: 25
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "LearningFromScratch"
+  #           value: 1
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "LearningPercentage"
+  #           value: 0
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "VibrationLevel"
+  #           value: 0.2303828736105393
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "PeakFrequencyIndex"
+  #           value: 1
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "PeakFrequency"
+  #           value: 3.125
+  #       fft:
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft1"
+  #           value: 0.2303828736105393
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft2"
+  #           value: 0.05442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft3"
+  #           value: 0.03628076749772272
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft4"
+  #           value: 0.02902461399817818
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft5"
+  #           value: 0.021768460498633634
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft6"
+  #           value: 0.019954422123747498
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft7"
+  #           value: 0.01451230699908909
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft8"
+  #           value: 0.016326345373975225
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft9"
+  #           value: 0.010884230249316817
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft10"
+  #           value: 0.012698268624202954
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft11"
+  #           value: 0.007256153499544545
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft12"
+  #           value: 0.010884230249316817
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft13"
+  #           value: 0.00907019187443068
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft14"
+  #           value: 0.016326345373975225
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft15"
+  #           value: 0.019954422123747498
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft16"
+  #           value: 0.010884230249316817
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft17"
+  #           value: 0.00907019187443068
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft18"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft19"
+  #           value: 0.007256153499544545
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft20"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft21"
+  #           value: 0.00907019187443068
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft22"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft23"
+  #           value: 0.007256153499544545
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft24"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft25"
+  #           value: 0.007256153499544545
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft26"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft27"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft28"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft29"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft30"
+  #           value: 0.007256153499544545
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft31"
+  #           value: 0.005442115124658409
+  #         - date: "2021-07-16T07:11:57.652Z"
+  #           label: "fft32"
+  #           value: 0.0036280767497722725
+  #       header:
+  #         - sensor: "KX"
+  #           type: "Learning"
+  #     errors: []
+  #     warnings: []
+
+  # - description: Time-stamped report frame
+  #   input:
+  #     fPort: 1
+  #     bytes: [0x72, 0x01, 0x7F, 0x7C, 0x00, 0x37, 0x02, 0x00, 0x02, 0x3D, 0x1B, 0x10, 0x7F, 0x00, 0x00, 0x00, 0x00, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
+  # output:
+  #   data:
+  #     date:
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "BatteryPercentage"
+  #         value: 100
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevel"
+  #         value: 0.7874015748031497
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo20Last6Mo"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "NbAlarmReport"
+  #         value: 0
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "OperatingTime"
+  #         value: 2
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "TotalUnknown6080"
+  #         value: 0
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "TotalUnknown4060"
+  #         value: 0
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "TotalUnknown2040"
+  #         value: 0
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo80Last30D"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "VibrationLevel"
+  #         value: 0.26123507616303004
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "TotalUnknown1020"
+  #         value: 0.04724409448818889
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo80Last6Mo"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo50Last24H"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo20Last24H"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo50Last30D"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "Temperature"
+  #         value: 25
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "ReportLength"
+  #         value: 2
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo20Last30D"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "PeakFrequencyIndex"
+  #         value: 17
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "TotalUnknown80100"
+  #         value: 0
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "TotalOperatingTimeKnown"
+  #         value: 1.952755905511811
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo50Last6Mo"
+  #         value: 255
+  #       - date: "2021-07-16T07:14:55.844Z"
+  #         label: "AnomalyLevelTo80Last24H"
+  #         value: 255
+  #     header:
+  #       - sensor: "KX"
+  #         type: "Report"
+  #   errors: []
+  #   warnings: []
