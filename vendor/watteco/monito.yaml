@@ -1,24 +1,26 @@
-name: LoRaWAN® window sensor and contact interface
-description: The dnt LoRaWAN® window sensor and contact interface can detect the state of a window of a door (open/closed) via the integrated magnetometer or the contact interface. Besides an external reed contact, it is also possible to attach a glas-break sensor to the contact interface to use the device in security context.
+name: Monit'O - Analog Interface
+description: The WATTECO Monit'O offers 2 analog inputs isolated from each other allowing the measurement of voltage, 0-100mVolts and 0-70Volts. The measurements are transmitted periodically on the LoRaWAN® network. Monit'O is often used for battery monitoring.
+
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
+  - version: '50-70-141'
+    numeric: 141
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.2.0'
-    numeric: 1
+    version: '3.5.2'
+    numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '50-70-141'
 
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
-    features:
-      - transmission interval
+    # # Firmware features (optional)
+    # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # # often he device sends a message).
+    # features:
+    #   - remote rejoin
+    #   - transmission interval
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -29,10 +31,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
+        # vendorID: watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
+        id: 1-generic-eu-1-0-2-class-a-profile
         lorawanCertified: true
-        codec: dnt-lw-wsci-codec
+        codec: monito-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -43,36 +46,46 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - magnetometer
+  - analog input
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+# additionalRadios:
+#   -
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# bridgeInterfaces: none
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 26
-  length: 100
-  height: 17
+  width: 92
+  length: 92
+  height: 56
 
 # Weight in grams (optional)
-weight: 48
+weight: 200
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: A
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 5
-    max: 35
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.97
+    min: -20
+    max: 50
 
 # IP rating (optional)
-ipCode: IP20
+ipCode: IP55
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
-  - join server
+  - custom
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
@@ -80,28 +93,49 @@ keyProvisioning:
 keyProgramming:
   - firmware
 
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
 # Firmware programming (optional)
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
-  - serial
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://dnt.de/business/
-
+productURL: https://www.watteco.com/product/monito-lorawan/
+dataSheetURL: https://www.watteco.com/download/monito-lorawan-data-sheet/?wpdmdl=9381
+onboardingGuideURL: https://support.watteco.com/monito/
 # Commercial information
 resellerURLs:
-  - name: 'dnt'
+  - name: 'Watteco'
     region:
       - European Union
-    url: https://dnt.de/business/
-msrp:
-  EUR: 59.95
+    url: http://www.watteco.fr
+# msrp:
+#   EUR:
 
 # Photos
 photos:
-  main: dnt-lw-wsci.png
-  other:
-    - dnt-lw-wsci-antracite.png
-    - dnt-lw-wsci-opened.png
+  main: presso.png
+
+# Youtube or Vimeo Video (optional)
+# videos:
+#   main:
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 61000-4-2
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 2.4.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489
+      version: 1.6.1

@@ -1,0 +1,115 @@
+uplinkDecoder:
+  fileName: ventilo.js
+  examples:
+    - description: 'uplink standard report containing temperature value | payload:110A04020000290B89'
+      input:
+        bytes: [0x11, 0x0a, 0x04, 0x02, 0x00, 0x00, 0x29, 0x0b, 0x89]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:31.598957793Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 29.53
+              date: '2023-07-19T07:51:31.598957793Z'
+          temperature: 29.53
+        warnings: []
+    - description: 'uplink standard report containing state of pin 1 | payload:110A000F00551001'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x00, 0x55, 0x10, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: pin_state
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+          pin_state: true
+        warnings: []
+    - description: 'uplink standard report containing number of pulse detection on input 1 | payload:110A000F04022300000000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x04, 0x02, 0x23, 0x00, 0x00, 0x00, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: index
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+          index: 0
+        warnings: []
+    - description: 'uplink standard report containing defferential pressure value | payload:110A80080000290018'
+      input:
+        bytes: [0x11, 0x0a, 0x80, 0x08, 0x00, 0x00, 0x29, 0x00, 0x18]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: differential_pressure
+              value: 24
+              date: '2023-07-19T07:51:25.508306410Z'
+          differential_pressure: 24
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
+    - description: 'uplink batch report | payload:36600000800600000000D61B2CBA0730D803'
+      input:
+        bytes: [0x36, 0x60, 0x00, 0x00, 0x80, 0x06, 0x00, 0x00, 0x00, 0x00, 0xd6, 0x1b, 0x2c, 0xba, 0x07, 0x30, 0xd8, 0x03]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: temperature
+              value: 33.5
+              date: '2023-07-19T07:51:25.508Z'
+            - variable: differential_pressure
+              value: 6
+              date: '2023-07-19T07:51:25.508Z'
+            - variable: index
+              value: 0
+              date: '2023-07-19T07:50:25.508Z'
+          temperature: 33.5
+          differential_pressure: 6
+          index: 0
+        warnings: []

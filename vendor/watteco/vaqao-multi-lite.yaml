@@ -1,24 +1,26 @@
-name: LoRaWAN® window sensor and contact interface
-description: The dnt LoRaWAN® window sensor and contact interface can detect the state of a window of a door (open/closed) via the integrated magnetometer or the contact interface. Besides an external reed contact, it is also possible to attach a glas-break sensor to the contact interface to use the device in security context.
+name: Vaqa'O Multi Lite - Temperature, Humidity, Luminosity, Atmospheric Pressure, IAQ, CO2 & motion sensor
+description: The Watteco VAQA’O Multi Lite is a LoRaWAN® device that measures Temp/Hum/AtmP/IAQ/CO2/Lum/Motion Sensor in the ambient air of a room, in a building, an apartment, or a house. The data is transmitted via a public or private LoRaWAN® radio frequency network.
+
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
+  - version: '50-70-217'
+    numeric: 217
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.2.0'
-    numeric: 1
+    version: '3.5.2'
+    numeric: 352
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '50-70-217'
 
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
-    features:
-      - transmission interval
+    # # Firmware features (optional)
+    # # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # # often he device sends a message).
+    # features:
+    #   - remote rejoin
+    #   - transmission interval
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -29,10 +31,11 @@ firmwareVersions:
         # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
+        # vendorID: watteco
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
+        id: 1-generic-eu-1-0-2-class-a-profile
         lorawanCertified: true
-        codec: dnt-lw-wsci-codec
+        codec: vaqao-lite-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -43,28 +46,48 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - magnetometer
+  - temperature
+  - humidity
+  - iaq
+  - co2
+  - pressure
+  - light
+  - motion
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+# additionalRadios:
+#   -
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog.
+# bridgeInterfaces: none
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 26
-  length: 100
-  height: 17
+  width: 85
+  length: 85
+  height: 25
 
 # Weight in grams (optional)
-weight: 48
+weight: 130
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 5
-    max: 35
+    min: 0
+    max: 55
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
-    max: 0.97
+    max: 0.95
 
 # IP rating (optional)
 ipCode: IP20
@@ -72,7 +95,7 @@ ipCode: IP20
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
 keyProvisioning:
-  - join server
+  - custom
 
 # Key programming (optional)
 # Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
@@ -80,28 +103,51 @@ keyProvisioning:
 keyProgramming:
   - firmware
 
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
 # Firmware programming (optional)
 # Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
-  - serial
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://dnt.de/business/
+
+productURL: https://www.watteco.fr/produit/vaqao-multi-lite/
+#dataSheetURL:
+onboardingGuideURL: https://support.watteco.com/vaqaolite/
 
 # Commercial information
 resellerURLs:
-  - name: 'dnt'
+  - name: 'Watteco'
     region:
       - European Union
-    url: https://dnt.de/business/
-msrp:
-  EUR: 59.95
+    url: http://www.watteco.fr
+# msrp:
+#   EUR:
 
 # Photos
 photos:
-  main: dnt-lw-wsci.png
-  other:
-    - dnt-lw-wsci-antracite.png
-    - dnt-lw-wsci-opened.png
+  main: vaqao-multi-lite.png
+
+# Youtube or Vimeo Video (optional)
+# videos:
+#   main:
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 61000-4-2
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 2.4.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489
+      version: 1.6.1
