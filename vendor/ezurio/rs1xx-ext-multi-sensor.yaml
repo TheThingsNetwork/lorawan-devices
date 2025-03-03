@@ -1,0 +1,183 @@
+name: Sentrius RS1xx Multi Sensor
+description: The Ezurio Sentrius RS1xx Multi Sensor is a battery-powered, long-range sensor platform leveraging the benefits of LoRaWAN® and Bluetooth Low Energy (BLE) connectivity. Its small, rugged form factor contains superior RF performance and multiple sensor capabilities including Open/Closed detection alongside temperature and humidity sensors, making it a perfect fit for cold chain applications.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'rev 4'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '6.1_20_6_16'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'rev 4'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-ext-multi-sensor-codec
+      US902-928:
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-ext-multi-sensor-codec
+      AU915-928:
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-ext-multi-sensor-codec
+      AS923:
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-ext-multi-sensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+  - humidity
+  - proximity
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 91
+  length: 116
+  height: 34
+
+# Weight in grams (optional)
+weight: 185
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -25
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.lairdconnect.com/wireless-modules/lorawan-solutions/sentrius-rs1xx-lora-enabled-sensors
+dataSheetURL: https://www.lairdconnect.com/documentation/sentrius-rs1xx-ext-openclosed-and-int-temphumidity-sensor-user-guide-v11
+resellerURLs:
+  - name: 'Digi-Key (RS1XX Open/Closed sensor)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00046/11587434
+  - name: 'Digi-Key (RS1XX North America US902-928 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00040/11587435?s=N4IgTCBcDaICwFYEFoAM66pAXQL5A
+  - name: 'Digi-Key (RS1XX Europe EU863-870 version)'
+    region:
+      - European Union
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00041/11587436?s=N4IgTCBcDaICwFYEFoAM64EYQF0C%2BQA
+  - name: 'Digi-Key (RS1XX Australia AU915-928 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00074/11587439?s=N4IgTCBcDaICwFYEFoAM6DscQF0C%2BQA
+  - name: 'Digi-Key (RS1XX Australia AS923 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00075/11587430?s=N4IgTCBcDaICwFYEFoAM6DsCQF0C%2BQA
+  - name: 'Digi-Key (RS1XX New Zealand AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00072?qs=%2Fha2pyFaduibvO2WQuVQrzQ%2FYIEGr87bEluXxM57rcvZaOa639Wk6A%3D%3D
+  - name: 'Digi-Key (RS1XX Taiwan AS923 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00071/11587432?s=N4IgTCBcDaICwFYEFoAM6DsBGEBdAvkA
+  - name: 'Digi-Key (RS1XX Hong Kong AS923 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00073/11587437?s=N4IgTCBcDaICwFYEFoAM6DsBmEBdAvkA
+  - name: 'Mouser (RS1XX Open/Closed sensor)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00046?qs=GBLSl2AkiruTG6IIfppszA%3D%3D
+  - name: 'Mouser (RS1XX North America US902-928 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00040?qs=%2Fha2pyFadujcfqkV6S08jiSXCzhxbhXQdr5RSRfmbgpMHwKHbt%2FnQA%3D%3D
+  - name: 'Mouser (RS1XX Europe EU863-870 version)'
+    region:
+      - European Union
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00041?qs=%2Fha2pyFadujcfqkV6S08jqTkOgnnf%2FM2NJi0egiQj5eZMkPgU6nylQ%3D%3D
+  - name: 'Mouser (RS1XX Australia AU915-928 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00074?qs=%2Fha2pyFaduibvO2WQuVQr6L23ZY4qm36ukfMQaLZRPwDJWRJz8ISUw%3D%3D
+  - name: 'Mouser (RS1XX Australia AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00075?qs=%2Fha2pyFaduibvO2WQuVQr6FKYy23wqKDuwaQQo5owHaEMELqc2%252BOrw%3D%3D
+  - name: 'Mouser (RS1XX New Zealand AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00072?qs=%2Fha2pyFaduibvO2WQuVQrzQ%2FYIEGr87bEluXxM57rcvZaOa639Wk6A%3D%3D
+  - name: 'Mouser (RS1XX Taiwan AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00071?qs=%2Fha2pyFaduibvO2WQuVQr3nEdiR8D4MKEkVjA2fe3ayipLca8DHuOA%3D%3D
+  - name: 'Mouser (RS1XX Hong Kong AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00073?qs=%2Fha2pyFaduibvO2WQuVQr4OIloatoKlQpzurOPkkLlZxhUYQg9MWNQ%3D%3D
+  - name: 'Mouser (RS1XX Singapore AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00100?qs=%2Fha2pyFaduhXFoy1WA9XVxZatNZvadjEhfoeza7GIMO44IygCH1%252BkQ%3D%3D
+
+# Photos
+photos:
+  main: rs1xx-ext-sensor.png
+  other:
+    - rs1xx-ext-openclosed-sensor.jpg
+
+  # Youtube or Vimeo Video (optional)
+  video: https://www.youtube.com/watch?v=eZUQnqapAf8
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

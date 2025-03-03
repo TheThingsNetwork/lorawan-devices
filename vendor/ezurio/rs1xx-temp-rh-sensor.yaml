@@ -1,0 +1,164 @@
+name: Sentrius RS1xx Temp-RH Sensor
+description: The Ezurio Sentrius™ RS1xx Temp/-RH has a temperature sensor, humidity sensor, and an external open/closed detection sensor making it a perfect fit for cold chain applications. It uses LoRaWAN® and Bluetooth Low Energy (BLE) for data communication. The robust IP65 sensor enclosure allows it to be used in harsh environments.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'rev 4'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '6.1_20_6_16'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'rev 4'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-temp-rh-sensor-codec
+      US902-928:
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-temp-rh-sensor-codec
+      AU915-928:
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-temp-rh-sensor-codec
+      AS923:
+        id: rs1xx-sensor-profile
+        lorawanCertified: false
+        codec: rs1xx-temp-rh-sensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+  - humidity
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 91
+  length: 116
+  height: 34
+
+# Weight in grams (optional)
+weight: 168
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -25
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.lairdconnect.com/wireless-modules/lorawan-solutions/sentrius-rs1xx-lora-enabled-sensors
+dataSheetURL: https://www.lairdconnect.com/documentation/sentrius-rs1xx-configuration-guide-v112
+resellerURLs:
+  - name: 'Digi-Key (RS1XX North America US902-928 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-0001/8023006
+  - name: 'Digi-Key (RS1XX Europe EU863-870 version)'
+    region:
+      - European Union
+    url: https://www.digikey.co.uk/product-detail/en/laird-connectivity-inc/455-0002/455-0002-ND/8023004
+  - name: 'Digi-Key (RS1XX Australia AU915-928 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00062/10639013?s=N4IgTCBcDaICwFYEFoAM6BsEC6BfIA
+  - name: 'Digi-Key (RS1XX New Zealand AS923 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00060/10639021?s=N4IgTCBcDaICwFYEFoAM6BsqQF0C%2BQA
+  - name: 'Digi-Key (RS1XX Taiwan AS923 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00059/10639011?s=N4IgTCBcDaICwFYEFoAM6EE4QF0C%2BQA
+  - name: 'Digi-Key (RS1XX Hong Kong AS923 version)'
+    region:
+      - United States
+    url: https://www.digikey.com/en/products/detail/laird-connectivity-inc/455-00061/10639025?s=N4IgTCBcDaICwFYEFoAM6BsBGEBdAvkA
+  - name: 'Mouser (RS1XX North America US902-928 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-0001?qs=f9yNj16SXrLHWGWgPjEnvQ%3D%3D
+  - name: 'Mouser (RS1XX Europe EU863-870 version)'
+    region:
+      - European Union
+    url: https://www.mouser.co.uk/ProductDetail/Laird-Connectivity/455-0002/?qs=f9yNj16SXrIAaoVm5TkfuA%3D%3D
+  - name: 'Mouser (RS1XX Australia AU915-928 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00062?qs=%2Fha2pyFaduiVPYR7juSnK7Z5c85KXbBGXG2burRb%252Bu%2Fiv4fNSMhC1g%3D%3D
+  - name: 'Mouser (RS1XX New Zealand AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00060?qs=%2Fha2pyFaduiVPYR7juSnK4HtmUbAGQ%2FyY9G5NV4%2F5WnloWmX%2FDVRmg%3D%3D
+  - name: 'Mouser (RS1XX Taiwan AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00059?qs=%2Fha2pyFadug275OP%2F%252BIeOGqsiPUjgBUS3ujP7OCtiSiqAKHYcWnchQ%3D%3D
+  - name: 'Mouser (RS1XX Hong Kong AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00061?qs=%2Fha2pyFaduiVPYR7juSnK65B4wN7scy2iXni0py6MqHs2gndLUPjTA%3D%3D
+  - name: 'Mouser (RS1XX Singapore AS923 version)'
+    region:
+      - United States
+    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00095?qs=W%2FMpXkg%252BdQ5CxdiDQv0Dww%3D%3D
+
+# Photos
+photos:
+  main: rs1xx-temp-rh-sensor.png
+
+  # Youtube or Vimeo Video (optional)
+  video: https://www.youtube.com/watch?v=eZUQnqapAf8
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

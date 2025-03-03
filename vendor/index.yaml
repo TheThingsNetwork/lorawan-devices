@@ -2121,3 +2121,6 @@ vendors:
 
   - id: southerniot
     name: Southern IoT
+
+  - id: ezurio
+    name: Ezurio Inc.
