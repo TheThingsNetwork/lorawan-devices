@@ -1,0 +1,303 @@
+uplinkDecoder:
+  fileName: modbus.js
+  examples:
+    - description: 'uplink standard report containing master slave 1 data | payload:110a80070001412301032041AC0000419DC28F418AB8524187D70A4180147B41668F5C4123AE14411C51EC'
+      input:
+        bytes:
+          [
+            0x11,
+            0x0a,
+            0x80,
+            0x07,
+            0x00,
+            0x01,
+            0x41,
+            0x23,
+            0x01,
+            0x03,
+            0x20,
+            0x41,
+            0xac,
+            0x00,
+            0x00,
+            0x41,
+            0x9d,
+            0xc2,
+            0x8f,
+            0x41,
+            0x8a,
+            0xb8,
+            0x52,
+            0x41,
+            0x87,
+            0xd7,
+            0x0a,
+            0x41,
+            0x80,
+            0x14,
+            0x7b,
+            0x41,
+            0x66,
+            0x8f,
+            0x5c,
+            0x41,
+            0x23,
+            0xae,
+            0x14,
+            0x41,
+            0x1c,
+            0x51,
+            0xec,
+          ]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: modbus_payload_EP1
+              value: 41AC00419DC28F418AB8524187D7A4180147B41668F5C4123AE14411C51EC
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_slaveID_EP1
+              value: 1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_fnctID_EP1
+              value: 3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_datasize_EP1
+              value: 32
+              date: '2023-07-19T07:51:25.508306410Z'
+          modbus_payload_EP1: 41AC00419DC28F418AB8524187D7A4180147B41668F5C4123AE14411C51EC
+          modbus_slaveID_EP1: 1
+          modbus_fnctID_EP1: 3
+          modbus_datasize_EP1: 32
+        warnings: []
+    - description: 'uplink standard report containing speed value | payload:1101800600008822002580'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x06, 0x00, 0x00, 0x88, 0x22, 0x00, 0x25, 0x80]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: speed
+              value: 9600
+              date: '2023-07-19T07:51:25.508306410Z'
+          speed: 9600
+        warnings: []
+    - description: 'uplink standard report containing several master-slave informations | payload:110A80090000411F06000F010304FFFFFFFE01030400000004010308FFFEFFFF0005000001030C41A5999A3333429A7AE1428F'
+      input:
+        bytes:
+          [
+            0x11,
+            0x0a,
+            0x80,
+            0x09,
+            0x00,
+            0x00,
+            0x41,
+            0x1f,
+            0x06,
+            0x00,
+            0x0f,
+            0x01,
+            0x03,
+            0x04,
+            0xff,
+            0xff,
+            0xff,
+            0xfe,
+            0x01,
+            0x03,
+            0x04,
+            0x00,
+            0x00,
+            0x00,
+            0x04,
+            0x01,
+            0x03,
+            0x08,
+            0xff,
+            0xfe,
+            0xff,
+            0xff,
+            0x00,
+            0x05,
+            0x00,
+            0x00,
+            0x01,
+            0x03,
+            0x0c,
+            0x41,
+            0xa5,
+            0x99,
+            0x9a,
+            0x33,
+            0x33,
+            0x42,
+            0x9a,
+            0x7a,
+            0xe1,
+            0x42,
+            0x8f,
+          ]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: modbus_frame_series_sent
+              value: 6
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_frame_number_in_serie
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_last_frame_of_serie
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP0
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP1
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP2
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP3
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP4
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP5
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP6
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP7
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP8
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_EP9
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_slaveID_EP0
+              value: 1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_fnctID_EP0
+              value: 3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_datasize_EP0
+              value: 4
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_payload_EP0
+              value: FFFFFFFE
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_slaveID_EP1
+              value: 1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_fnctID_EP1
+              value: 3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_datasize_EP1
+              value: 4
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_payload_EP1
+              value: '00000004'
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_slaveID_EP2
+              value: 1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_fnctID_EP2
+              value: 3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_datasize_EP2
+              value: 8
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_payload_EP2
+              value: FFFEFFFF00050000
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_slaveID_EP3
+              value: 1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_fnctID_EP3
+              value: 3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_datasize_EP3
+              value: 12
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: modbus_payload_EP3
+              value: 41A5999A3333429A7AE1428F
+              date: '2023-07-19T07:51:25.508306410Z'
+          modbus_frame_series_sent: 6
+          modbus_frame_number_in_serie: 0
+          modbus_last_frame_of_serie: 0
+          modbus_EP0: true
+          modbus_EP1: true
+          modbus_EP2: true
+          modbus_EP3: true
+          modbus_EP4: false
+          modbus_EP5: false
+          modbus_EP6: false
+          modbus_EP7: false
+          modbus_EP8: false
+          modbus_EP9: false
+          modbus_slaveID_EP0: 1
+          modbus_fnctID_EP0: 3
+          modbus_datasize_EP0: 4
+          modbus_payload_EP0: FFFFFFFE
+          modbus_slaveID_EP1: 1
+          modbus_fnctID_EP1: 3
+          modbus_datasize_EP1: 4
+          modbus_payload_EP1: '00000004'
+          modbus_slaveID_EP2: 1
+          modbus_fnctID_EP2: 3
+          modbus_datasize_EP2: 8
+          modbus_payload_EP2: FFFEFFFF00050000
+          modbus_slaveID_EP3: 1
+          modbus_fnctID_EP3: 3
+          modbus_datasize_EP3: 12
+          modbus_payload_EP3: 41A5999A3333429A7AE1428F
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
