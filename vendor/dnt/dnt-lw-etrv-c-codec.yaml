@@ -7,12 +7,9 @@ uplinkDecoder:
     - description: Status Uplink
       input:
         fPort: 10
-        bytes: [0x04, 0xF4, 0xB6, 0x28, 0x28, 0x00, 0x04]
+        bytes: [0x04, 0xF4, 0xB6, 0x00, 0xB4, 0x28, 0x78]
       output:
         data:
-          battery_cover_locked:
-            unit: 'bool'
-            value: true
           battery_voltage:
             unit: 'mV'
             value: '3320'
@@ -31,12 +28,12 @@ uplinkDecoder:
                   value: false
             room_temperature:
               unit: '°C'
-              value: '20.0'
+              value: '18.0'
             set_point_temperature:
               unit: '°C'
               value: '20.0'
             valve_position:
               unit: '%'
-              value: '0.0'
+              value: '60.0'
         errors: []
         warnings: []
