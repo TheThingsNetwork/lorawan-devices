@@ -1,0 +1,63 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: wt201-v1.js
+  examples:
+    - description: 'WT201 Sample 1: Fan and temperature Status'
+      input:
+        fPort: 85
+        bytes: [0x03, 0x67, 0x02, 0x01, 0x04, 0x67, 0xA6, 0x00, 0x05, 0xE7, 0x00, 0x06, 0xE8, 0x00, 0x07, 0xBC, 0x00]
+      output:
+        fan_mode: auto
+        fan_status: standby
+        plan_event: not executed
+        temperature: 25.8
+        temperature_ctl_mode: heat
+        temperature_ctl_status: standby
+        temperature_target: 16.6
+
+    - description: 'WT201 Sample 2: Temperature alarm'
+      input:
+        fPort: 85
+        bytes: [0x83, 0x67, 0xFB, 0x00, 0x09]
+      output:
+        temperature: 25.1
+        temperature_alarm: threshold alarm
+
+    - description: 'WT201 Sample 3: OB mode and control lists'
+      input:
+        fPort: 85
+        bytes: [0xFF, 0xCB, 0x0D, 0x11, 0x01, 0xFF, 0xCA, 0x15, 0x80, 0x04]
+      output:
+        ob_mode: heat
+        temperature_ctl_mode_enable: [heat, cool, auto]
+        temperature_ctl_status_enable: [stage-1 heat, aux heat, stage-1 cool]
+        wires: [y1, gh, ob, aux]
+
+    - description: 'WT201 Sample 4: Plan schedule'
+      input:
+        fPort: 85
+        bytes: [0xFF, 0xC9, 0x00, 0x00, 0x00, 0x00, 0xB3, 0x02, 0xFF, 0xC9, 0x02, 0x01, 0x01, 0x28, 0x00, 0x00]
+      output:
+        plan_schedule:
+          - index: 1
+            plan_enable: disable
+            time: '11:31'
+            type: wake
+            week_recycle: []
+          - index: 2
+            plan_enable: enable
+            time: '0:00'
+            type: home
+            week_recycle: ['Wed.', 'Fri.']
+
+    - description: 'WT201 Sample 5: Plan settings'
+      input:
+        fPort: 85
+        bytes: [0xFF, 0xC8, 0x03, 0x03, 0x01, 0x4E, 0x36]
+      output:
+        plan_settings:
+          - fan_mode: on
+            temperature_ctl_mode: auto
+            temperature_error: 5.4
+            temperature_target: 78
+            type: sleep
