@@ -1,0 +1,98 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: iq-rm200-lrw.js
+  examples:
+    - description: Device generic data
+      input:
+        fPort: 50
+        bytes:
+          [
+            255,
+            106,
+            2,
+            0,
+            255,
+            105,
+            2,
+            1,
+            255,
+            104,
+            1,
+            156,
+            121,
+            216,
+            255,
+            107,
+            1,
+            255,
+            109,
+            0,
+            255,
+            108,
+            0,
+            255,
+            103,
+            82,
+            77,
+            50,
+            48,
+            48,
+            255,
+            103,
+            82,
+            77,
+            50,
+            48,
+            48,
+            255,
+            101,
+            89,
+            79,
+            66,
+            73,
+            73,
+            81,
+            32,
+            66,
+            46,
+            86,
+            46,
+          ]
+      output:
+        data:
+          hardwareVersion: 'V2.0'
+          firmwareVersion: 'V2.1'
+          deviceSerialNumber: 27032024
+          externalPowerStatus: 'AC POWER ON'
+          batteryPercentage: 0
+          batteryVoltage: 0
+          deviceModel: 'RM200'
+          manufacturer: 'YOBIIQ B.V.'
+          codecVersion: '2.0.0'
+          genericModel: 'RM200'
+          productCode: 'P1002003'
+        errors: []
+        warnings: []
+
+    - description: Device periodic uplink
+      input:
+        fPort: 1
+        bytes: [1, 1, 103, 91, 237, 4, 1, 26, 1, 1, 28, 0, 0, 0, 8, 1, 16, 1, 1, 42, 1, 1, 44, 0, 0, 0, 6, 1, 32, 1, 1, 122, 13, 63, 1, 123, 16]
+      output:
+        data:
+          dataloggerTimestamp: 1734077700
+          channel1State: 'ON'
+          channel1Counter: 8
+          channel1ButtonOverrideStatus: 'MANUAL ON'
+          channel2State: 'ON'
+          channel2Counter: 6
+          channel2ButtonOverrideStatus: 'MANUAL ON'
+          internalCircuitTemperature: 33.91
+          internalCircuitHumidity: 16
+          codecVersion: '2.0.0'
+          genericModel: 'RM200'
+          productCode: 'P1002003'
+          manufacturer: 'YOBIIQ B.V.'
+        errors: []
+        warnings: []
