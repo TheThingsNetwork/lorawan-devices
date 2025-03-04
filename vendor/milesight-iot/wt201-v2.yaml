@@ -1,0 +1,107 @@
+name: Milesight Smart Thermostat
+description: Milesight WT201 smart thermostat redefines HVAC control, employing LoRaWAN® technology for unparalleled convenience and energy efficiency. Unlike traditional thermostats, it offers remote control capabilities, aligning seamlessly with a green energy strategy. Elevate your living spaces with advanced heating and cooling management, prioritizing sustainability and eco-friendly practices.
+
+hardwareVersions:
+  - version: '2.x'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - '2.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: wt201-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: wt201-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: wt201-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: wt201-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: wt201-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: wt201-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: wt201-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: wt201-codec
+
+sensors:
+  - protocol version
+  - device status
+  - serial number
+  - hardware version
+  - firmware version
+  - lorawan class type
+  - tsl version
+  - ambient temperature
+  - target temperature
+  - temperature control
+  - fan control
+  - plan event
+  - system status
+  - humidity
+  - wires relay status
+  - plan
+  - wires
+  - temperature mode support
+  - control permissions
+  - temperature alarm
+  - temperature exception
+  - temperature target alarm
+
+dimensions:
+  width: 21
+  length: 113
+  height: 110
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+
+  relativeHumidity:
+    min: 0.0
+    max: 0.95
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight.com/iot/product/lorawan-sensor/wt201?utm_source=platform&utm_medium=web&utm_campaign=milesight
+dataSheetURL: https://resource.milesight.com/milesight/iot/document/wt201-user-guide-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+
+photos:
+  main: wt201-v1.png
+  other:
+    - wt201-v1.png
+
+videos:
+  main: https://youtu.be/N1b0JJb0r50
