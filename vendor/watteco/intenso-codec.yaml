@@ -1,0 +1,84 @@
+uplinkDecoder:
+  fileName: intenso.js
+  examples:
+    - description: 'uplink standard report containing intensity value | payload:110A000C00553941500000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0c, 0x00, 0x55, 0x39, 0x41, 0x50, 0x00, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: Irms
+              value: 13
+              date: '2023-07-19T07:51:25.508306410Z'
+          Irms: 13
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
+    - description: 'uplink batch report| payload:20100000C08F0344D0030000008804FCF941C08B8B15'
+      input:
+        bytes: [0x20, 0x10, 0x00, 0x00, 0xc0, 0x8f, 0x03, 0x44, 0xd0, 0x03, 0x00, 0x00, 0x00, 0x88, 0x04, 0xfc, 0xf9, 0x41, 0xc0, 0x8b, 0x8b, 0x15]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: Irms
+              value: 0
+              date: '2023-07-19T07:50:43.508Z'
+            - variable: Irms
+              value: 0
+              date: '2023-07-19T07:51:03.508Z'
+            - variable: Irms
+              value: 0
+              date: '2023-07-19T07:51:23.508Z'
+            - variable: battery_voltage
+              value: 3.6
+              date: '2023-07-19T07:49:57.508Z'
+            - variable: battery_voltage
+              value: 3.6
+              date: '2023-07-19T07:50:27.508Z'
+            - variable: battery_voltage
+              value: 3.6
+              date: '2023-07-19T07:50:57.508Z'
+          Irms: 0
+          battery_voltage: 3.6
+        warnings: []

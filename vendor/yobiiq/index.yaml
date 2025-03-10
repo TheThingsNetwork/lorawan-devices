@@ -1,5 +1,12 @@
 endDevices:
   - sd-1001 # look in sd-1000.yaml for the end device definition
+  - em2101 # look in em2101.yaml for the end device definition
+  - em4301 # look in em4301.yaml for the end device definition
+  - em4301-ct # look in em4301-ct.yaml for the end device definition
+  #- iq-em4302-ct-lrw # look in iq-em4302-ct-lrw.yaml for the end device definition
+  - iq-rm200-lrw # look in iq-rm200-lrw.yaml for the end device definition
+  - iq-opentherm-lrw # look in iq-opentherm-lrw.yaml for the end device definition
+  - iq-dsmr-lrw # look in iq-dsmr-lrw.yaml for the end device definition
 
 # The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
 # This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
@@ -7,8 +14,43 @@ endDevices:
 # It can either be a combo of device ID + hardware version + firmware version + region, or profile ID + codec ID
 # NOTE: The profileIDs is different from the vendorID.
 profileIDs:
-  '20151': # 0x4EB7
+  '20151':
     endDeviceID: 'sd-1001'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '20091':
+    endDeviceID: 'em2101'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '20111':
+    endDeviceID: 'em4301'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '20101':
+    endDeviceID: 'em4301-ct'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  # '20301':
+  #   endDeviceID: 'iq-em4302-ct-lrw'
+  #   firmwareVersion: '1.0'
+  #   hardwareVersion: '1.0'
+  #   region: 'EU863-870'
+  '20081':
+    endDeviceID: 'iq-rm200-lrw'
+    firmwareVersion: '2.0'
+    hardwareVersion: '2.0'
+    region: 'EU863-870'
+  '20041':
+    endDeviceID: 'iq-opentherm-lrw'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '20051':
+    endDeviceID: 'iq-dsmr-lrw'
+    firmwareVersion: '2.0'
+    hardwareVersion: '2.0'
     region: 'EU863-870'

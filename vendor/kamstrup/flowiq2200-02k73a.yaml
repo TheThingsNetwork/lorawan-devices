@@ -20,6 +20,7 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: flowiq2200-02k73a-profile
         lorawanCertified: true
+        codec: mbusparser
 
 # Type of device (optional)
 # Valid values are: devkit, module, cots
