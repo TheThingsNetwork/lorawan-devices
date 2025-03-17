@@ -58,7 +58,6 @@ sensors:
   - temperature_mutation
   - temperature_error
 
-
 dimensions:
   width: 25
   length: 84.7
