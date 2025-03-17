@@ -1,0 +1,96 @@
+name: Milesight Cost-Effective Temperature Sensor
+description: Milesight TS201 Temperature Sensor is rugged with IP67 rating offering real-time alerts, while complying with EN12830 Standard and HACCP Requirements. It is specially designed for various application scenarios like cold chain, pharmaceutical, food processing and more.
+
+hardwareVersions:
+  - version: '1.x'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - '1.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: ts201-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: ts201-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: ts201-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: ts201-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: ts201-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: ts201-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: ts201-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: ts201-codec
+
+sensors:
+  - ipso_version
+  - device_status
+  - sn
+  - hardware_version
+  - firmware_version
+  - tsl_version
+  - battery
+  - temperature
+  - temperature_alarm
+  - temperature_mutation
+  - temperature_error
+
+dimensions:
+  width: 25
+  length: 84.7
+  height: 58
+
+operatingConditions:
+  temperature:
+    min: -30
+    max: 55
+
+  relativeHumidity:
+    min: 0.0
+    max: 0.95
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight.com/iot/product/lorawan-sensor/ts201?utm_source=platform&utm_medium=web&utm_campaign=milesight
+dataSheetURL: https://resource.milesight.com/milesight/iot/document/ts201-user-guide-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+
+photos:
+  main: ts201.png
+  other:
+    - ts201.png
+
+videos:
+  main: https://youtu.be/h8E9-RTCCIo
