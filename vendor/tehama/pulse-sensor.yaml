@@ -1,0 +1,91 @@
+name: Pulse Sensor # Device name can not contain the vendor name
+description: Single Input Pulse Sensor
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      US902-928:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID: tehama
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: pulse-sensor-profile
+        lorawanCertified: false
+        codec: pulse-sensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - pulse count
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 34
+  length: 26
+  height: 77
+
+# Weight in grams (optional)
+weight: 350
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -30
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Product and data sheet URLs (optional)
+#productURL: https://example.org/wind-sensor
+#dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+#onboardingGuideURL: https://www.thethingsindustries.com/docs/devices/models/windsensor
+
+# Photos
+photos:
+  main: pulse-sensor.png # Image needs to have a transparent background
+

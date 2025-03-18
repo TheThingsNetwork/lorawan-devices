@@ -6,6 +6,12 @@ vendors:
     vendorID: 0
     draft: true
 
+  - id: tehama
+    name: Tehama Wireless Design Group
+    website: https://www.tehamawireless.com
+    ouis:
+      - 50C2D0
+
   - id: 1m2m
     name: 1M2M
     vendorID: 1
