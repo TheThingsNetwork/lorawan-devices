@@ -1,10 +1,10 @@
-name: DL-IAM - Indoor Ambiance Monitor including CO₂, TVOC and Motion Sensor
-description: The Decentlab DL-IAM (Indoor Ambiance Monitor) is a LoRaWAN® end device that consists of a CO2 sensor, TVOC sensor, temperature sensor, humidity sensor, barometric pressure sensor, ambient light intensity sensor, and PIR motion sensor. Suitable for building automation, activity and visitor frequency monitoring, energy and HVAC optimization, shop and workplace comfort enhancement.
+name: DL-ATM41G2 - Eleven Parameter Weather Station
+description: The Decentlab DL-ATM41G2 consists of solar radiation, precipitation, vapor pressure, barometric pressure, humidity, temperature, wind speed, wind direction, tilt, and lighting sensors. It is suitable for smart agriculture, urban heat islands, frost alarming, microclimate, and building automation.
 
 hardwareVersions:
   - version: '1'
     numeric: 1
-    partNumber: DL-IAM-001
+    partNumber: DL-ATM41G2-001
 
 firmwareVersions:
   - version: 1.5.7
@@ -15,64 +15,65 @@ firmwareVersions:
       EU863-870:
         id: profile-eu868
         lorawanCertified: true
-        codec: dl-iam-codec
+        codec: dl-atm41g2-codec
       AS923:
         id: profile-as923
         lorawanCertified: false
-        codec: dl-iam-codec
+        codec: dl-atm41g2-codec
       US902-928:
         id: profile-us915
         lorawanCertified: true
-        codec: dl-iam-codec
+        codec: dl-atm41g2-codec
       AU915-928:
         id: profile-au915
         lorawanCertified: false
-        codec: dl-iam-codec
+        codec: dl-atm41g2-codec
 
 sensors:
-  - co2
-  - tvoc
+  - solar radiation
+  - precipitation
+  - lightning
+  - wind speed
+  - wind direction
   - temperature
-  - humidity
   - barometer
-  - light
-  - pir
+  - humidity
+  - tilt
+  - vapor pressure
   - battery
 
 dimensions:
-  length: 80
-  width: 120
-  height: 25
+  length: 135
+  width: 81
+  height: 70
 
-weight: 144
+weight: 1290
 
 battery:
   replaceable: true
-  type: 2 AA alkaline
+  type: 2 C alkaline
 
 operatingConditions:
   temperature:
-    min: -10
+    min: -20
     max: 50
   relativeHumidity:
     min: 0
-    max: 0.95
+    max: 1.0
 
-ipCode: IP40
+ipCode: IP67
 
 keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://www.decentlab.com/products/indoor-ambiance-monitor-including-co2-tvoc-and-motion-sensor-for-lorawan
-dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-IAM-datasheet.pdf
+productURL: https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan
 photos:
-  main: dl-iam.png
+  main: dl-atm41g2.png
   other:
-    - dl-iam-2.jpg
-    - dl-iam-3.jpg
-    - dl-iam-4.jpg
-    - dl-iam-5.jpg
+    - dl-atm41-2.jpg
+    - dl-atm41-3.jpg
+    - dl-atm41-4.jpg
 
 compliances:
   safety:
