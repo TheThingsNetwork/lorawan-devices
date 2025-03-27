@@ -3,6 +3,7 @@ endDevices:
   - dl-alb
   - dl-atm22
   - dl-atm41
+  - dl-atm41g2
   - dl-blg
   - dl-ctd10
   - dl-cws
