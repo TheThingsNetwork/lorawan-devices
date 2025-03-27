@@ -61,3 +61,6 @@ uplinkDecoder:
             temperature_error: 5.4
             temperature_target: 78
             type: sleep
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: wt201-v2-encoder.js
