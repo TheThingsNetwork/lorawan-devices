@@ -11,7 +11,7 @@ description: Real-time power monitor for commercial and residential buildings
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.4.0'
+    version: '2.2.4'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -74,7 +74,7 @@ dimensions:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celsius)
+  # Temperature (Celcius)
   temperature:
     min: -40
     max: 80

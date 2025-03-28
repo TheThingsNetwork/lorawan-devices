@@ -1,5 +1,5 @@
 name: Model 4831 Outdoor Environmental Sensor (SHT31)
-description: The MCCI® Model 4831 Outdoor Environment Sensor (SHT31) is based on MCCI Catena 4618 which consists of temperature, humidity, and light sensors.
+description: Temperature, humidity, light sensor for outdoors (using Sensirion SHT31)
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -11,7 +11,7 @@ description: The MCCI® Model 4831 Outdoor Environment Sensor (SHT31) is based o
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.1.0'
+    version: '0.4.1'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -24,27 +24,27 @@ firmwareVersions:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
         id: model4831-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618m201
       US902-928:
         id: model4831-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618m201
       AU915-928:
         id: model4831-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618m201
       AS923:
         id: model4831-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618m201
       KR920-923:
         id: model4831-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618m201
       IN865-867:
         id: model4831-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618m201
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -75,7 +75,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celsius)
+  # Temperature (Celcius)
   temperature:
     min: -20
     max: 70
@@ -113,7 +113,7 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/model483x-datash
 
 # Photos
 photos:
-  main: model483x.png
+  main: model483x-closed.jpg
   other:
     - model483x-open.jpg
 # Youtube or Vimeo Video (optional)

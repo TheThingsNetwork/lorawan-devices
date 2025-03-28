@@ -1,0 +1,50 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: codec-animal-activity-v2.js
+  # Examples (optional)
+  examples:
+    - description: Time 1742982409 Vbat 2 Version 2 5 2 0 CO2 800 Boot 45 Env 20 60 Light 1377 Pellets 100 3 25 10 Activity [ 0.53 -1 1 -0.5 0.25 -0.3 ] .
+      input:
+        fPort: 2
+        bytes: [54, 103, 227, 205, 9, 255, 32, 0, 50, 53, 50, 48, 255, 255, 45, 20, 0, 153, 153, 0, 89, 0, 100, 3, 0, 25, 10, 124, 61, 255, 255, 127, 255, 252, 0, 116, 0, 244, 205]
+      output:
+        data:
+          {
+            'activity': [0.53, -1, 1, -.5, .25, -.3],
+            'boot': 45,
+            'CO2': 800,
+            'lux': 1377,
+            'pellets': [{ 'Delta': 3, 'Total': 100 }, { 'Delta': 10, 'Total': 25 }],
+            'rh': 60,
+            'tDewC': 11.390006900020513,
+            'tHeatIndexC': 22.83203227777776,
+            'tempC': 20,
+            'time': '2025-03-26T09:46:49.000Z',
+            'Vbat': 2,
+            'Version': 2.5.2.0,
+          }
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+## downlinkEncoder:
+##   fileName: codec.js
+##   # Examples (optional)
+##   examples:
+##     - description: Turn green
+##       input:
+##         data:
+##           led: green
+##       output:
+##         bytes: [1]
+##         fPort: 2
+## # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+## downlinkDecoder:
+##   fileName: codec.js
+##   # Examples (optional)
+##   examples:
+##     - description: Turn green
+##       input:
+##         fPort: 2
+##         bytes: [1]
+##       output:
+##         data:
+##           led: green

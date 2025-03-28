@@ -1,5 +1,5 @@
-name: Catena® 4612 Node
-description: The MCCI Catena® 4612 is a LoRaWAN® development board that consists of temperature, humidity, pressure, infrared, white light, and UV sensors. It is based on the Murata CMWX1ZZABZ-078 and designed to be compatible with the Adafruit Feather family of development boards and accessories.The Catena 4612 Node is a great platform for LoRaWAN investigation and deployment.
+name: MCCI Catena® 4612 Node
+description: General purpose LPWAN building block, open source, user-programmable single-board end-device with sensors and support
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -11,7 +11,7 @@ description: The MCCI Catena® 4612 is a LoRaWAN® development board that consis
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.2.0'
+    version: '0.5.0'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -45,8 +45,6 @@ firmwareVersions:
         id: catena4612-profile
         lorawanCertified: false
         codec: codec-catena-generic
-
-deviceType: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -82,7 +80,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celsius)
+  # Temperature (Celcius)
   temperature:
     min: -20
     max: 85
@@ -120,9 +118,9 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/971001048c__Cate
 
 # Photos
 photos:
-  main: catena4612.png
+  main: catena4612.jpg
   other:
-    - catena4612-encl.png
+    - catena4612-encl.jpg
     - catena4612_4618-pinout.png
 # Youtube or Vimeo Video (optional)
 ## videos:

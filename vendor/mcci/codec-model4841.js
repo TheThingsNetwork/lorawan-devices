@@ -1,6 +1,6 @@
 /*
 
-Name:   catena-message-port1-format-20-decoder-ttn.js
+Name:   codec-model4841.js
 
 Function:
     Decode port 0x01 format 0x20 and 0x21 messages for TTN console.

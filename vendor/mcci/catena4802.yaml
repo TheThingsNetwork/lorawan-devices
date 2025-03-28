@@ -1,5 +1,5 @@
-name: Catena® 4802 Modbus/Sensor Node
-description: The MCCI Catena® 4802 RS-485/Sensor Node for LoRaWAN® technology networks is a complete open-source single-board IoT device that can monitor and control remote Modbus, M-Bus, and other industrial devices, while also monitoring temperature and humidity with an integrated Sensirion SHT31 sensor. It also incorporates a QWICC connector for easy connection of external I2C devices.
+name: MCCI Catena® 4802 Modbus/Sensor Node
+description: General purpose LPWAN building block, open source, user-programmable single-board end-device with RS-485 Modbus interface, I2C bridge with Qwicc connector, integrated temperature and humidity sensor, and support
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -11,7 +11,7 @@ description: The MCCI Catena® 4802 RS-485/Sensor Node for LoRaWAN® technology 
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.5.0'
+    version: '0.1.0'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -24,27 +24,27 @@ firmwareVersions:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       US902-928:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       AU915-928:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       AS923:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       KR920-923:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       IN865-867:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -77,7 +77,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celsius)
+  # Temperature (Celcius)
   temperature:
     min: -20
     max: 85
@@ -115,7 +115,7 @@ productURL: https://mcci.io/buy-catena4802
 
 # Photos
 photos:
-  main: catena4802.png
+  main: catena4802.jpg
   other:
     - catena4802-terminals.jpg
     - catena4802-pinout.png

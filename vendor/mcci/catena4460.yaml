@@ -1,5 +1,5 @@
-name: Catena® 4460 Node
-description: The MCCI Catena® 4460 Node for LoRaWAN® technology is a powerful open-source IoT device that consists of temperature, humidity, pressure, lux, and volatile organic compound (VOC) sensors and also allows the connection of various external sensors. It is designed specifically for use with The Things Network. It is based on the Adafruit Feather M0. The Catena 4460 Node is a ready-to-use platform for LoRaWAN 1.0 and 1.1 wireless IoT applications.
+name: MCCI Catena® 4460 Node
+description: General purpose LPWAN building block, open source, user-programmable end-device with VOC sensor and support
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -79,7 +79,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celsius)
+  # Temperature (Celcius)
   temperature:
     min: -20
     max: 85
@@ -117,7 +117,7 @@ productURL: https://mcci.io/buy-catena4460
 
 # Photos
 photos:
-  main: catena4450.png
+  main: catena4460.jpg
 ##  other:
 ##    - windsensor-package.jpg
 

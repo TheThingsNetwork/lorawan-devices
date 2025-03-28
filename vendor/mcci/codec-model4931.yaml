@@ -1,0 +1,60 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: codec-model4931.js
+  # Examples (optional)
+  examples:
+    - description: Sdcardstatus 3 Vbat 3.7 Vbus 5 Boot 25 Env 25.5 60 Pressure 1013.25 TempOneC 22.3 TempTwoC 23.8 SoilOneData_t 30 SoilOneData_rh 50 SoilOneData_type 0 SoilTwoData_t 29 SoilTwoData_rh 45 SoilTwoData_type 0 TreepressureOne 2.5 TreepressureTwo 2.8 SapPulse 1742 48 RainPulse 394 7 Timestamp 1742982409 .
+      input:
+        fPort: 1
+        bytes: [55, 51, 253, 59, 51, 80, 0, 25, 25, 128, 153, 153, 0, 253, 22, 77, 23, 205, 0, 30, 0, 50, 0, 0, 127, 0, 29, 0, 45, 0, 0, 40, 0, 44, 205, 6, 206, 0, 48, 1, 138, 0, 7, 103, 227, 205, 9]
+      output:
+        data:
+          {
+            'boot': 25,
+            'rainCount': 394,
+            'rainPerHour': 7,
+            'rh': 60,
+            'sapCount': 1742,
+            'sapPerHour': 48,
+            'SD card working': yes,
+            'SD card written': yes,
+            'soilOneData_t': 30,
+            'soilOneData_rh': 50,
+            'soilOneData_type': 0,
+            'soilTwoData_t': 29,
+            'soilTwoData_rh': 45,
+            'soilTwoData_type': 0,
+            'tempC': 25.5,
+            'treepressureOne': 2.5,
+            'treepressureTwo': 2.8,
+            'treeTempOne': 22.3,
+            'treeTempTwo': 23.8,
+            'time': '2025-03-26T09:46:49.000Z',
+            'Vbat': 3.7,
+            'Vbus': 5.0,
+          }
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+## downlinkEncoder:
+##   fileName: codec.js
+##   # Examples (optional)
+##   examples:
+##     - description: Turn green
+##       input:
+##         data:
+##           led: green
+##       output:
+##         bytes: [1]
+##         fPort: 2
+## # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+## downlinkDecoder:
+##   fileName: codec.js
+##   # Examples (optional)
+##   examples:
+##     - description: Turn green
+##       input:
+##         fPort: 2
+##         bytes: [1]
+##       output:
+##         data:
+##           led: green

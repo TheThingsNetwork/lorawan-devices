@@ -9,13 +9,53 @@ uplinkDecoder:
         fPort: 1
         bytes: [0x19, 0x1B, 0x35, 0x34, 0x0E, 0x00, 0x00, 0x00, 0x76, 0x00, 0x00, 0x01, 0x61, 0x42, 0x92, 0x92, 0x89]
       output:
-        data: { 'ModbusError': 0, 'boot': 14, 'energySourced': 35300, 'energyUsed': 11800, 'mainDemand': 73.28620147705078, 'vBat': 3.3251953125 }
+        data:
+          {
+          'ModbusError': 0,
+          'boot': 14,
+          'energySourced': 35300,
+          'energyUsed': 11800,
+          'mainDemand': 73.28620147705078,
+          'vBat': 3.3251953125
+          }
     - description: Sensor report format 0x19, very low demand
       input:
         fPort: 1
         bytes: [0x19, 0x1B, 0x35, 0x34, 0x0E, 0x00, 0x00, 0x00, 0x76, 0x00, 0x00, 0x01, 0x61, 0x00, 0x00, 0x00, 0x01]
       output:
-        data: { 'ModbusError': 0, 'boot': 14, 'energySourced': 35300, 'energyUsed': 11800, 'mainDemand': 1.401298464324817e-45, 'vBat': 3.3251953125 }
+        data:
+          {
+          'ModbusError': 0,
+          'boot': 14,
+          'energySourced': 35300,
+          'energyUsed': 11800,
+          'mainDemand': 1.401298464324817e-45,
+          'vBat': 3.3251953125
+          }
+    - description: Sensor report format 0x19, very low demand
+      input:
+        fPort: 1
+        bytes: [0x19, 0x8B, 0x35, 0x17, 0x38, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x42, 0xEF, 0x59, 0xA5, 0x42, 0xEF, 0x50, 0x01, 0x00, 0x00, 0x00, 0x00, 0x42, 0xEF, 0x63, 0x49]
+      output:
+        data:
+          {
+          'ModbusError': 0,
+          'boot': 56,
+          'energySourced': 1800,
+          'energyUsed': 600,
+          'mainDemand': 0,
+          'quality':
+            [
+            'VoltageAB': 119.65625762939453,
+            'VoltageBC': 0,
+            'VoltageCA': 119.65625762939453,
+            'VoltageLL': 119.67508697509766,
+            'current1': 0,
+            'current2': 0,
+            'current3': 0
+            ],
+          'vBat': 3.318115234375
+          }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:
 ##   fileName: codec.js
