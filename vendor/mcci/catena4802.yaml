@@ -11,7 +11,7 @@ description: The MCCI Catena® 4802 RS-485/Sensor Node for LoRaWAN® technology 
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.5.0'
+    version: '0.1.0'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -24,27 +24,27 @@ firmwareVersions:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       US902-928:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       AU915-928:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       AS923:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       KR920-923:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
       IN865-867:
         id: catena4802-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4802
 
 # Sensors that this device features (optional)
 # Valid values are:

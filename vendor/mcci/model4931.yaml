@@ -1,5 +1,5 @@
-name: Model 4822 Indoor Environmental Sensor (SHT31)
-description: The MCCI® Model 4822 Indoor Environment Sensor (SHT31) is based on MCCI Catena 4618 which consists of temperature, humidity, and light sensors.
+name: Model 4931 Outdoor Sensor
+description: Temperature, humidity, pressure, rainfall, soil temperature and moisture, tree temperature and pressure, sap flow
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -11,7 +11,7 @@ description: The MCCI® Model 4822 Indoor Environment Sensor (SHT31) is based on
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.4.1'
+    version: '1.3.1'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -22,29 +22,29 @@ firmwareVersions:
     profiles:
       EU863-870:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
-        id: model4822-profile
+        id: model4931-profile
         lorawanCertified: false
-        codec: codec-catena4618m201
+        codec: codec-model4931
       US902-928:
-        id: model4822-profile
+        id: model4931-profile
         lorawanCertified: false
-        codec: codec-catena4618m201
+        codec: codec-model4931
       AU915-928:
-        id: model4822-profile
+        id: model4931-profile
         lorawanCertified: false
-        codec: codec-catena4618m201
+        codec: codec-model4931
       AS923:
-        id: model4822-profile
+        id: model4931-profile
         lorawanCertified: false
-        codec: codec-catena4618m201
+        codec: codec-model4931
       KR920-923:
-        id: model4822-profile
+        id: model4931-profile
         lorawanCertified: false
-        codec: codec-catena4618m201
+        codec: codec-model4931
       IN865-867:
-        id: model4822-profile
+        id: model4931-profile
         lorawanCertified: false
-        codec: codec-catena4618m201
+        codec: codec-model4931
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -55,15 +55,17 @@ firmwareVersions:
 sensors:
   - temperature
   - humidity
-  - light
+  - pressure
+  - rainfall
+  - pulse count
   - battery
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 51
-  length: 76
-  height: 32
+  width: 250
+  length: 170
+  height: 100
 
 ##  # Weight in grams (optional)
 ##  weight: 350
@@ -71,11 +73,11 @@ dimensions:
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AAA
+  type: Li-ion cylindrical (ICR18650)
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celsius)
+  # Temperature (Celcius)
   temperature:
     min: -20
     max: 70
@@ -98,8 +100,8 @@ keyProvisioning:
 keySecurity: secure element
 
 # Product and data sheet URLs (optional)
-productURL: https://mcci.io/m4821
-## dataSheetURL: https://example.org/wind-sensor/datasheet.pdf
+productURL: https://mcci.io/m4931
+dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/model483x-datasheet.pdf?v=1610937656
 ## resellerURLs:
 ##   - name: 'Reseller 1'
 ##     region:
@@ -113,25 +115,4 @@ productURL: https://mcci.io/m4821
 
 # Photos
 photos:
-  main: model482x.png
-  ## other:
-  ##   - model4841-2.jpg
-# Youtube or Vimeo Video (optional)
-## videos:
-##   main: https://youtu.be/nG8MmaR5dsA
-
-# Regulatory compliances (optional)
-## compliances:
-##   safety:
-##     - body: IEC
-##       norm: EN
-##       standard: 62368-1
-##   radioEquipment:
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-1
-##       version: 2.2.0
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-3
-##       version: 2.1.0
+  main: model4931.png

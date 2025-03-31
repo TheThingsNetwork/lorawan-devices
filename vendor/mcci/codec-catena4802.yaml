@@ -1,36 +1,22 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: codec-model4811.js
+  fileName: codec-catena4802.js
   # Examples (optional)
   examples:
-    - description: Sensor report format 0x19
+    - description: Vbat 2.5 Boot 45 Env 16 60 .
       input:
-        fPort: 1
-        bytes: [0x19, 0x1B, 0x35, 0x34, 0x0E, 0x00, 0x00, 0x00, 0x76, 0x00, 0x00, 0x01, 0x61, 0x42, 0x92, 0x92, 0x89]
+        fPort: 4
+        bytes: [13, 40, 24, 45, 16, 20, 153, 153]
       output:
         data:
           {
-          'ModbusError': 0,
-          'boot': 14,
-          'energySourced': 35300,
-          'energyUsed': 11800,
-          'mainDemand': 73.28620147705078,
-          'vBat': 3.3251953125
-          }
-    - description: Sensor report format 0x19, very low demand
-      input:
-        fPort: 1
-        bytes: [0x19, 0x1B, 0x35, 0x34, 0x0E, 0x00, 0x00, 0x00, 0x76, 0x00, 0x00, 0x01, 0x61, 0x00, 0x00, 0x00, 0x01]
-      output:
-        data:
-          {
-          'ModbusError': 0,
-          'boot': 14,
-          'energySourced': 35300,
-          'energyUsed': 11800,
-          'mainDemand': 1.401298464324817e-45,
-          'vBat': 3.3251953125
+            'Vbat': 2.505859375,
+            'boot': 45,
+            'error': "none",
+            'rh': 60,
+            'tDewC': 8.311279180431027,
+            'tempC': 16.078125,
           }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:
