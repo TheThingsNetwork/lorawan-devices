@@ -587,6 +587,12 @@ vendors:
     name: PacketWorx Inc.
     vendorID: 314
 
+  - id: pallidus
+    name: Pallidus
+    website: https://pallidus.io/
+    ouis:
+      - 0002CC
+
   - id: parametric
     name: Parametric Engineering GmbH
     vendorID: 315
