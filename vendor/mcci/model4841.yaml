@@ -1,5 +1,5 @@
 name: Indoor Air Quality Sensor
-description: PM 2.5, TVOC, temperature, humidity sensor for indoor air quality
+description: The MCCI Indoor Air Quality Sensor consists of PM1.0, PM2.5, PM10, dust concentration, total volatile organic compounds, temperature, and humidity sensors. It transmits data using LoRaWAN® networks.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -76,7 +76,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -20
     max: 70
@@ -114,7 +114,7 @@ productURL: http://mcci.io/buy-model4841
 
 # Photos
 photos:
-  main: model4841.jpg
+  main: model4841.png
   other:
     - model4841-2.jpg
 # Youtube or Vimeo Video (optional)

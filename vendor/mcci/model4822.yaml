@@ -1,5 +1,5 @@
 name: Model 4822 Indoor Environmental Sensor (SHT31)
-description: Higher-accuracy temperature, humidity, light sensor for indoor spaces (using Sensirion SHT31)
+description: The MCCI® Model 4822 Indoor Environment Sensor (SHT31) is based on MCCI Catena 4618 which consists of temperature, humidity, and light sensors.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -75,7 +75,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -20
     max: 70
@@ -113,7 +113,7 @@ productURL: https://mcci.io/m4821
 
 # Photos
 photos:
-  main: model482x.jpg
+  main: model482x.png
   ## other:
   ##   - model4841-2.jpg
 # Youtube or Vimeo Video (optional)

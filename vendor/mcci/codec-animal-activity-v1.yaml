@@ -11,6 +11,9 @@ uplinkDecoder:
       output:
         data:
           {
+            'Vbat': 2,
+            'Vbus': 4.89990234375,
+            'Vsys': 3.300048828125,
             'activity': [0.52978515625, -0.99951171875, 0.99951171875, -0.5, 0.25, -0.300048828125],
             'boot': 42,
             'irradiance': { 'White': 16773120 },
@@ -20,10 +23,7 @@ uplinkDecoder:
             'tDewC': 21.390006900020513,
             'tHeatIndexC': 32.83203227777776,
             'tempC': 30,
-            'time': '2019-10-18T23:01:30.000Z',
-            'Vbat': 2,
-            'Vbus': 4.89990234375,
-            'Vsys': 3.300048828125,
+            'time': '2019-10-18T23:01:30Z',
           }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:

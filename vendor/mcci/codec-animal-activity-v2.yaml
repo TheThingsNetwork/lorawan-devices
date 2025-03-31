@@ -7,22 +7,19 @@ uplinkDecoder:
     - description: Time 1742982409 Vbat 2 Version 2 5 2 0 CO2 800 Boot 45 Env 20 60 Light 1377 Pellets 100 3 25 10 Activity [ 0.53 -1 1 -0.5 0.25 -0.3 ] .
       input:
         fPort: 2
-        bytes: [54, 103, 227, 205, 9, 255, 32, 0, 50, 53, 50, 48, 255, 255, 45, 20, 0, 153, 153, 0, 89, 0, 100, 3, 0, 25, 10, 124, 61, 255, 255, 127, 255, 252, 0, 116, 0, 244, 205]
+        bytes: [0x36, 0x55, 0x14, 0xA6, 0xF2, 0xF9, 0x3B, 0x2C, 0x09, 0x16, 0x16, 0xAD, 0x87, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xDE, 0x4B, 0xEF, 0x05, 0xF7, 0xF5, 0xFE, 0xEF, 0xF4, 0x32]
       output:
         data:
           {
-            'activity': [0.53, -1, 1, -.5, .25, -.3],
-            'boot': 45,
-            'CO2': 800,
-            'lux': 1377,
-            'pellets': [{ 'Delta': 3, 'Total': 100 }, { 'Delta': 10, 'Total': 25 }],
-            'rh': 60,
-            'tDewC': 11.390006900020513,
-            'tHeatIndexC': 22.83203227777776,
-            'tempC': 20,
-            'time': '2025-03-26T09:46:49.000Z',
-            'Vbat': 2,
-            'Version': 2.5.2.0,
+            'Vbat': 3.6982421875,
+            'activity': [-0.049163818359375,-0.2193603515625,-0.497314453125,-0.86669921875,-0.26220703125],
+            'boot': 9,
+            'lux': 0,
+            'pellets': [{ 'Delta': 0, 'Total': 0 }, { 'Delta': 0, 'Total': 0 }],
+            'rh': 67.78515297169452,
+            'tDewC': 15.855392059081987,
+            'tempC': 22.0859375,
+            'time': '2025-03-31T00:40:01Z',
           }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:

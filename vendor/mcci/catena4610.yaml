@@ -1,5 +1,5 @@
-name: MCCI Catena® 4610 Node
-description: General purpose LPWAN building block, open source, user-programmable single-board end-device with sensors and support
+name: Catena® 4610 Node
+description: The MCCI Catena® 4610 is a LoRaWAN® development board that consists of temperature, humidity, pressure, infrared, white light, and UV sensors. It is based on the Murata CMWX1ZZABZ-078 and designed to be compatible with the Adafruit Feather family of development boards and accessories.The Catena 4610 is a great platform for LoRaWAN investigation and deployment.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -24,27 +24,29 @@ firmwareVersions:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
         id: catena4610-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4610
       US902-928:
         id: catena4610-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4610
       AU915-928:
         id: catena4610-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4610
       AS923:
         id: catena4610-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4610
       KR920-923:
         id: catena4610-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4610
       IN865-867:
         id: catena4610-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4610
+
+deviceType: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -80,7 +82,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -20
     max: 85
@@ -118,7 +120,7 @@ productURL: https://mcci.io/catena4610
 
 # Photos
 photos:
-  main: catena4610.jpg
+  main: catena4610.png
   other:
     - catena4610-pinmapping.jpg
 # Youtube or Vimeo Video (optional)

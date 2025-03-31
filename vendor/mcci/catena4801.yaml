@@ -1,4 +1,4 @@
-name: MCCI Catena® 4801 Modbus Node
+name: Catena® 4801 Modbus Node
 description: General purpose LPWAN building block, open source, user-programmable single-board end-device with RS-485 Modbus interface and support
 
 # Hardware versions (optional, used for revisions)
@@ -75,7 +75,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -20
     max: 85
@@ -113,7 +113,7 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/Catena4801-datas
 
 # Photos
 photos:
-  main: catena4801.jpg
+  main: catena4801.png
   other:
     - catena4801-breakout.png
 # Youtube or Vimeo Video (optional)

@@ -1,5 +1,5 @@
-name: MCCI Catena® 4618 Node
-description: General purpose LPWAN building block, open source, user-programmable single-board end-device with sensors and support
+name: Catena® 4618 Node
+description: The MCCI Catena® 4618 Node is a LoRaWAN® development board that consists of temperature, humidity, infrared, white light, and UV sensors. It is based on the Murata CMWX1ZZABZ-078 and designed to be compatible with the Adafruit Feather family of development boards and accessories.The Catena 4618 is a great platform for LoRaWAN investigation and deployment.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -24,27 +24,29 @@ firmwareVersions:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       US902-928:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       AU915-928:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       AS923:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       KR920-923:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       IN865-867:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
+
+deviceType: devkit
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -77,7 +79,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -40
     max: 85
@@ -115,7 +117,7 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/Catena4618-Datas
 
 # Photos
 photos:
-  main: catena4618.jpg
+  main: catena4618.png
   other:
     - catena4612_4618-pinout.png
 # Youtube or Vimeo Video (optional)

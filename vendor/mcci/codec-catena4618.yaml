@@ -1,10 +1,10 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: codec-catena4618m201.js
+  fileName: codec-catena4618.js
   # Examples (optional)
   examples:
-    - description: Sensor report for catena 4618 m201
+    - description: Sensor report for catena 4618, no pulse/power input
       input:
         fPort: 6
         bytes: [0x1D, 0x28, 0x18, 0x11, 0x19, 0x20, 0x9F, 0x97, 0x47, 0x9E, 0xD0]

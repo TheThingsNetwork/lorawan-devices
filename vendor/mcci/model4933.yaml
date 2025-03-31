@@ -73,7 +73,7 @@ dimensions:
 # Battery information (optional)
 battery:
   replaceable: true
-  type: AAA
+  type: Li-ion cylindrical (ICR18650)
 
 # Operating conditions (optional)
 operatingConditions:
@@ -115,25 +115,4 @@ dataSheetURL: https://cdn.shopify.com/s/files/1/0873/5104/files/model483x-datash
 
 # Photos
 photos:
-  main: model4933.jpg
-#  other:
-#    - model4933-open.jpg
-# Youtube or Vimeo Video (optional)
-## videos:
-##   main: https://youtu.be/nG8MmaR5dsA
-
-# Regulatory compliances (optional)
-## compliances:
-##   safety:
-##     - body: IEC
-##       norm: EN
-##       standard: 62368-1
-##   radioEquipment:
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-1
-##       version: 2.2.0
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-3
-##       version: 2.1.0
+  main: model4933.png

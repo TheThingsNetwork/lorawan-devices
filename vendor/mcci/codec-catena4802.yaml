@@ -4,19 +4,19 @@ uplinkDecoder:
   fileName: codec-catena4802.js
   # Examples (optional)
   examples:
-    - description: Vbat 2 Boot 45 Env 20 60 .
+    - description: Vbat 2.5 Boot 45 Env 16 60 .
       input:
         fPort: 4
-        bytes: [7, 24, 45, 20, 0, 153, 153]
+        bytes: [13, 40, 24, 45, 16, 20, 153, 153]
       output:
         data:
           {
+            'Vbat': 2.505859375,
             'boot': 45,
+            'error': "none",
             'rh': 60,
-            'tDewC': 11.390006900020513,
-            'tHeatIndexC': 22.83203227777776,
-            'tempC': 20,
-            'Vbat': 2,
+            'tDewC': 8.311279180431027,
+            'tempC': 16.078125,
           }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:

@@ -167,7 +167,7 @@ function Decoder(bytes, port) {
         if (vRaw & 0x8000)
             vRaw += -0x10000;
         // scale and save in decoded.
-        decoded.vBat = vRaw / 4096.0;
+        decoded.Vbat = vRaw / 4096.0;
     }
 
     if (flags & 0x2) {
@@ -175,7 +175,7 @@ function Decoder(bytes, port) {
         i += 2;
         if (VDDRaw & 0x8000)
             VDDRaw += -0x10000;
-        decoded.VDD = VDDRaw / 4096.0;
+        // decoded.VDD = VDDRaw / 4096.0;
     }
 
     if (flags & 0x4) {

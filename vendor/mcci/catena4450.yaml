@@ -1,5 +1,5 @@
-name: MCCI Catena® 4450 Node
-description: General purpose LPWAN building block, open source, user-programmable end-device with sensors and support
+name: Catena® 4450 Node
+description: The MCCI Catena® 4450 Node for LoRaWAN® technology is a powerful open-source IoT device that consists of temperature, humidity, pressure, lux sensors and also allows the connection of various external sensors. It is designed specifically for use with The Things Network. It is based on the Adafruit Feather M0. The Catena 4450 Node is a ready-to-use platform for LoRaWAN 1.0 and 1.1 wireless IoT applications.
 
 # Hardware versions (optional, used for revisions)
 # hardwareVersions:
@@ -11,7 +11,7 @@ description: General purpose LPWAN building block, open source, user-programmabl
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.0'
+    version: '0.3.0'
     numeric: 1
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
@@ -80,7 +80,7 @@ battery:
 
 # Operating conditions (optional)
 operatingConditions:
-  # Temperature (Celcius)
+  # Temperature (Celsius)
   temperature:
     min: -20
     max: 85
@@ -118,26 +118,5 @@ productURL: https://mcci.io/Catena4450
 
 # Photos
 photos:
-  main: catena4450.jpg
-##  other:
-##    - windsensor-package.jpg
-
-# Youtube or Vimeo Video (optional)
-## videos:
-##   main: https://youtu.be/nG8MmaR5dsA
-
-# Regulatory compliances (optional)
-## compliances:
-##   safety:
-##     - body: IEC
-##       norm: EN
-##       standard: 62368-1
-##   radioEquipment:
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-1
-##       version: 2.2.0
-##     - body: ETSI
-##       norm: EN
-##       standard: 301 489-3
-##       version: 2.1.0
+  main: catena4450.png
+  

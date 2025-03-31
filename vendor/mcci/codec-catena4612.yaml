@@ -1,16 +1,26 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: codec-catena4618m201.js
+  fileName: codec-catena4612.js
   # Examples (optional)
   examples:
-    - description: Sensor report for catena 4618 m201
+    - description: Sensor report at port 2 for version 1, port 4 for version 2 boards
       input:
-        fPort: 6
-        bytes: [0x1D, 0x28, 0x18, 0x11, 0x19, 0x20, 0x9F, 0x97, 0x47, 0x9E, 0xD0]
+        fPort: 2
+        bytes: [0x7D, 0x30, 0x23, 0x4F, 0x19, 0x20, 0x49, 0x82, 0x9F, 0x97, 0xAE, 0x03, 0x01, 0xC5, 0x50, 0x31, 0x24, 0xBF, 0x54, 0xC8, 0x39]
       output:
-        data: { 'Vbat': 2.505859375, 'boot': 17, 'lux': 414.8125, 'rh': 62.34073395895323, 'tDew': 17.41972264670249, 't': 25.125, 'tHeatIndexC': null }
-
+        data:
+          {
+            'boot': 79,
+            'irradiance': {"IR": 38830,"UV": 50512,"White": 769},
+            'p': 752.72,
+            'rh': 62.109375,
+            'tDewC': 17.360852159642555,
+            'tHeatIndexC': 25.314800347222217,
+            'tempC': 25.125,
+            'vBat': 3.008544921875,
+            'vBus': 3.0712890625,
+          }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:
 ##   fileName: codec.js

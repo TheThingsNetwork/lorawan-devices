@@ -10,7 +10,7 @@ Copyright and License:
     See accompanying LICENSE file at https://github.com/mcci-catena/MCCI-Catena-PMS7003/
 
 Author:
-    Terry Moore, MCCI Corporation   July 2019
+    Pranau Ravi Kumar, MCCI Corporation   February 2025
 
 */
 
