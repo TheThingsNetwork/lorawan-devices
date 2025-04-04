@@ -1,0 +1,87 @@
+name: LoRaWAN Radar Traffic Counter
+description: PMX TCR LoRaWAN Radar Traffic Counter is a real-time traffic counting sensor for smart cities, providing accurate vehicle and pedestrian statistics for optimised traffic management and urban planning.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '03'
+    numeric: 3
+  - version: '04'
+    numeric: 4
+  - version: '05'
+    numeric: 5
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.x'
+    numeric: 10
+    hardwareVersions:
+      - '03'
+      - '04'
+      - '05'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: profile-v11
+        lorawanCertified: false
+        codec: pmx-tcr-codec
+      AS923:
+        id: profile-v11
+        lorawanCertified: false
+        codec: pmx-tcr-codec
+      AU915-928:
+        id: profile-v11
+        lorawanCertified: false
+        codec: pmx-tcr-codec
+
+# Type of device (optional)
+# Valid values are: devkit, module, cots
+deviceType: cots
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - radar
+
+# IP rating (optional)
+ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://www.pmx.systems/products/tcr
+
+# Photos
+photos:
+  main: pmx-tcr.png # Image needs to have a transparent background
+  other:
+    - pmx-tcr-kit.png
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=dC293LOZnWM
