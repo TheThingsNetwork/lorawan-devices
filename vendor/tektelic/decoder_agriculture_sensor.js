@@ -1887,7 +1887,7 @@ function decodeUplink(input) {
           return 15 - (value - 2820) * 0.003974;
       }
       else if (1110 <= value && value <= 2820) {
-          return 35 - (value - 1110) * 0.001170;
+          return 35 - (value - 1110) * 0.01170;
       }
       else if (770 <= value && value <= 1110) {
           return 55 - (value - 770) * 0.05884;
