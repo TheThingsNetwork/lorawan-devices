@@ -1,7 +1,6 @@
 name: SW3L-LB
 description: The Dragino sw3l-lb/LS is a LoRaWAN Flow Sensor. It detects water flow volume and uplink to IoT server via LoRaWAN network. User can use this to monitor the water usage for buildings.
 
-The LoRa 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
