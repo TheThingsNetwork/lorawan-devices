@@ -29,5 +29,5 @@ uplinkDecoder:
               unit: '%'
               value: 28.8
             temperature:
-              unit: oc
-              value: 6550.9
+              unit: °C
+              value: -2.7

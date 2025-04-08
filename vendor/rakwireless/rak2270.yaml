@@ -27,6 +27,10 @@ firmwareVersions:
         lorawanCertified: false
         codec: rak2270-codec
 
+sensors:
+  - temperature
+  - accelerometer
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:

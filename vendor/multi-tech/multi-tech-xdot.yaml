@@ -26,6 +26,8 @@ firmwareVersions:
       KR920-923:
         id: multi-tech-xdot-profile-kr920
 
+deviceType: module
+
 # Sensors that this device features (optional)
 # Valid values are:
 # accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,

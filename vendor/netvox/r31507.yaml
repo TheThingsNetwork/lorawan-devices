@@ -34,6 +34,12 @@ firmwareVersions:
         id: profile-cn470
         codec: r315-codec
 
+sensors:
+  - pir
+  - button
+  - digital input
+  - vibration
+
 dimensions:
   width: 44
   length: 75.5

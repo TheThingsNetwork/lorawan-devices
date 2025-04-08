@@ -24,14 +24,14 @@ function decodeUplink(input) {
         batteryTmp = ("0" + bytes[7].toString(16)).substr(-2)[0];
         batteryVoltageCalculated = 2 + parseInt("0x" + batteryTmp, 16) * 0.1;
 
-        decbin = function(number) {
+        let decbin = (number) => {
             if (number < 0) {
                 number = 0xFFFFFFFF + number + 1
             }
             number = number.toString(2);
             return "00000000".substr(number.length) + number;
         }
-        byte7Bin = decbin(bytes[8]);
+        byte7Bin = decbin(bytes[7]);
         openWindow = byte7Bin[4];
         highMotorConsumption = byte7Bin[5];
         lowMotorConsumption = byte7Bin[6];
@@ -41,6 +41,7 @@ function decodeUplink(input) {
         calibrationFailed = byte8Bin[1];
         attachedBackplate = byte8Bin[2];
         perceiveAsOnline = byte8Bin[3];
+        antiFreezeProtection = byte8Bin[4];
 
         var sensorTemp = 0;
         if (Number(bytes[0].toString(16))  == 1) {
@@ -65,6 +66,11 @@ function decodeUplink(input) {
         data.calibrationFailed = toBool(calibrationFailed);
         data.attachedBackplate = toBool(attachedBackplate);
         data.perceiveAsOnline = toBool(perceiveAsOnline);
+        data.antiFreezeProtection = toBool(antiFreezeProtection);
+        data.valveOpenness = motorRange != 0 ? Math.round((1-(motorPosition/motorRange))*100) : 0;
+        if(!data.hasOwnProperty('targetTemperatureFloat')){
+            data.targetTemperatureFloat = parseFloat(bytes[1])
+        }
         return data;
     }
    
@@ -163,8 +169,7 @@ function decodeUplink(input) {
                     {
                         // get default keepalive if it is not available in data
                         command_len = 2;
-                        var deviceKeepAlive = 5;
-                        var wdpC = commands[i + 1] == '00' ? false : commands[i + 1] * deviceKeepAlive + 7;
+                        var wdpC = commands[i + 1] == '00' ? false : parseInt(commands[i + 1], 16);
                         var wdpUc = commands[i + 2] == '00' ? false : parseInt(commands[i + 2], 16);
                         var dataJ = { watchDogParams: { wdpC: wdpC, wdpUc: wdpUc } };
                         resultToPass = merge_obj(resultToPass, dataJ);
@@ -291,13 +296,44 @@ function decodeUplink(input) {
                         resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
-                case 'a0':
+                case '4a':
                     {
-                        command_len = 4;
-                        var fuota_address = parseInt(`${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}${commands[i + 4]}`, 16)
-                        var fuota_address_raw = `${commands[i + 1]}${commands[i + 2]}${commands[i + 3]}${commands[i + 4]}`
-                        var fuotaData = { fuota: { fuota_address, fuota_address_raw } };
-                        resultToPass = merge_obj(resultToPass, fuotaData);
+                        command_len = 3;
+                        var activatedTemperature = parseInt(commands[i + 1], 16)/10;
+                        var deactivatedTemperature = parseInt(commands[i + 2], 16)/10;
+                        var targetTemperature = parseInt(commands[i + 3], 16);
+
+                        var data = { antiFreezeParams: { activatedTemperature, deactivatedTemperature, targetTemperature } };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '4d':
+                    {
+                        command_len = 2;
+                        var data = { piMaxIntegratedError : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '50':
+                    {
+                        command_len = 2;
+                        var data = { effectiveMotorRange: { minValveOpenness: 100 - parseInt(commands[i + 2], 16), maxValveOpenness: 100 - parseInt(commands[i + 1], 16) } };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '52':
+                    {
+                        command_len = 2;
+                        var data = { targetTemperatureFloat : (parseInt(`${commands[i + 1]}${commands[i + 2]}`, 16))/10 };
+                        resultToPass = merge_obj(resultToPass, data);
+                    }
+                break;
+                case '54':
+                    {
+                        command_len = 1;
+                        var offset =  (parseInt(commands[i + 1], 16) - 28) * 0.176
+                        var data = { temperatureOffset : offset };
+                        resultToPass = merge_obj(resultToPass, data);
                     }
                 break;
                 default:
@@ -319,4 +355,55 @@ function decodeUplink(input) {
     return {
         data: data
     };
+}
+
+function normalizeUplink(input) {
+  const warnings = [];
+
+  if (input.data.openWindow) {
+    warnings.push("openWindow: true");
+  }
+
+  if (input.data.highMotorConsumption) {
+    warnings.push("highMotorConsumption: true");
+  }
+
+  if (input.data.lowMotorConsumption) {
+    warnings.push("lowMotorConsumption: true");
+  }
+
+  if (input.data.brokenSensor) {
+    warnings.push("brokenSensor: true");
+  }
+
+  if (input.data.childLock) {
+    warnings.push("childLock: true");
+  }
+
+  if (input.data.calibrationFailed) {
+    warnings.push("calibrationFailed: true");
+  }
+
+  if (input.data.attachedBackplate) {
+    warnings.push("attachedBackplate: true");
+  }
+
+  if (input.data.perceiveAsOnline) {
+    warnings.push("perceiveAsOnline: true");
+  }
+
+  if (input.data.antiFreezeProtection) {
+    warnings.push("antiFreezeProtection: true");
+  }
+
+  return {
+    data: {
+        air: {
+            temperature: input.data.sensorTemperature,
+            relativeHumidity: input.data.relativeHumidity,
+        },
+        battery: input.data.batteryVoltage,
+    },
+    warnings: warnings
+  };
 }

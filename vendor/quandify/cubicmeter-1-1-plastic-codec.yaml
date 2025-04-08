@@ -1,0 +1,85 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: cubicmeter-1-1-uplink.js
+
+  # Examples
+  examples:
+    - description: Normal status report
+      input:
+        fPort: 1
+        bytes: [73, 251, 223, 1, 0, 0, 222, 20, 0, 0, 0, 0, 0, 0, 70, 237, 223, 1, 6, 252, 139, 7, 2, 226, 230, 83, 84, 85]
+      output:
+        data:
+          fPort: 1
+          length: 28
+          hexBytes: '49FBDF010000DE1400000000000046EDDF0106FC8B0702E2E6535455'
+          type: 'statusReport'
+          decoded:
+            ambientTemperature: 22.5
+            batteryActive: 3608
+            batteryRecovered: 3640
+            errorCode: 0
+            isSensing: true
+            leakState: 2
+            totalVolume: 5342
+            waterTemperatureMax: 22
+            waterTemperatureMin: 21.5
+        warnings: []
+        errors: []
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 22.5
+            water:
+              temperature:
+                min: 21.5
+                max: 22
+              leak: ''
+            metering:
+              water:
+                total: 5342
+            battery: 3.64
+        warnings: []
+        errors: []
+    - description: Response from set pipe downlink
+      input:
+        fPort: 6
+        bytes: [4, 0, 2, 16, 0, 0, 22, 2, 5, 63, 1, 0, 0, 3, 0, 227, 221, 203, 177, 189, 117, 135, 50, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+      output:
+        data:
+          fPort: 6
+          length: 38
+          hexBytes: '0400021000001602053F0100000300E3DDCBB1BD758732000001000000000000010000000000'
+          type: 'response'
+          decoded:
+            fPort: 4
+            status: 'ok'
+            type: 'hardwareReport'
+            data:
+              appState: 'metering'
+              firmwareVersion: '22.0.16'
+              hardwareVersion: 2
+              pipe:
+                id: 0
+                type: 'Custom'
+        warnings: []
+        errors: []
+    - description: Response from set lorawan report interval
+      input:
+        fPort: 6
+        bytes: [19, 0, 4, 1, 192, 168, 0, 0, 88, 2, 0, 0, 0, 0, 0, 30, 0, 0, 141, 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      output:
+        data:
+          fPort: 6
+          length: 41
+          hexBytes: '13000401C0A80000580200000000001E00008D27000000000000000000000000000000000000000000'
+          type: 'response'
+          decoded:
+            fPort: 19
+            status: 'ok'
+            type: 'settingsReport'
+            data:
+              lorawanReportInterval: 600
+        warnings: []
+        errors: []

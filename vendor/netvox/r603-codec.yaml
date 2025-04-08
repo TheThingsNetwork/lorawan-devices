@@ -1,0 +1,226 @@
+uplinkDecoder:
+  fileName: payload/r603.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xDE, 0x00, 0x64, 0x15, 0x20, 0x20, 0x08, 0x11, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R603'
+          SWver: 10
+          HWver: 21
+          Datecode: '20200811'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xDE, 0x01, 0x30, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R603'
+          Volt: 4.8
+          WarningStatus: 'NoWarnring'
+          DCPowerFailureAlarm: 'Warning'
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xDE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R603'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xDE, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R603'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x85, 0xDE, 0x01, 0x03, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetPeriodSirenRsp'
+          Device: 'R603'
+          SirenNo: 'Doorbel'
+          SirenLevel: 3
+          StrobeMode: 'LedBlinkMode2 in Parallel to Warning'
+          Duration: 2049
+          PeriodTime: 0
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x86, 0xDE, 0x01, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'StopPeriodSirenRsp'
+          Device: 'R603'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x88, 0xDE, 0x03, 0x04, 0x07, 0x08, 0x01, 0x05, 0x03, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetLEDColorRsp'
+          Device: 'R603'
+          Red: 3
+          Green: 4
+          Blue: 7
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x8A, 0xDE, 0x03, 0x08, 0x01, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetContactSwitchTriggerAlarmRsp'
+          Device: 'R603'
+          SirenNo: 'FireMode'
+          SirenLevel: 8
+          StrobeMode: 'LedBlinkMode1 in Parallel to Warning'
+          Duration: 2049
+
+downlinkDecoder:
+  fileName: payload/r603.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xDE, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R603'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x03, 0xDE, 0x00, 0x84, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'StartSirenReq'
+          Device: 'R603'
+          SirenNo: 'EmergencyMode'
+          SirenLevel: 132
+          StrobeMode: 'LedBlinkMode2 in Parallel to Warning'
+          Duration: 2049
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x04, 0xDE, 0x00, 0x84, 0x01, 0x08, 0x01, 0x01, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetPeriodSirenReq'
+          Device: 'R603'
+          SirenNo: 'EmergencyMode'
+          SirenLevel: 132
+          StrobeMode: 'LedBlinkMode1 in Parallel to Warning'
+          Duration: 2049
+          PeriodTime: 256
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x07, 0xDE, 0x03, 0x18, 0x07, 0x18, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetLEDColorReq'
+          Device: 'R603'
+          Red: 3
+          Green: 24
+          Blue: 7
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x09, 0xDE, 0x03, 0x12, 0x00, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetContactSwitchTriggerAlarmReq'
+          Device: 'R603'
+          SirenNo: 'FireMode'
+          SirenLevel: 18
+          StrobeMode: 'NoLedIndication'
+          Duration: 2049
+
+downlinkEncoder:
+  fileName: payload/r603.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R603'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0xDE, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'StartSirenReq'
+          Device: 'R603'
+          SirenNo: 'EmergencyMode'
+          SirenLevel: 132
+          StrobeMode: 'LedBlinkMode2 in Parallel to Warning'
+          Duration: 2049
+      output:
+        fPort: 7
+        bytes: [0x03, 0xDE, 0x00, 0x84, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetPeriodSirenReq'
+          Device: 'R603'
+          SirenNo: 'EmergencyMode'
+          SirenLevel: 132
+          StrobeMode: 'LedBlinkMode1 in Parallel to Warning'
+          Duration: 2049
+          PeriodTime: 256
+      output:
+        fPort: 7
+        bytes: [0x04, 0xDE, 0x00, 0x84, 0x01, 0x08, 0x01, 0x01, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetLEDColorReq'
+          Device: 'R603'
+          Red: 3
+          Green: 24
+          Blue: 7
+      output:
+        fPort: 7
+        bytes: [0x07, 0xDE, 0x03, 0x18, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetContactSwitchTriggerAlarmReq'
+          Device: 'R603'
+          SirenNo: 'FireMode'
+          SirenLevel: 18
+          StrobeMode: 'NoLedIndication'
+          Duration: 2049
+      output:
+        fPort: 7
+        bytes: [0x09, 0xDE, 0x03, 0x12, 0x00, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]

@@ -40,3 +40,5 @@ uplinkDecoder:
           hdop: 1.00
           latitude: 53.2438
           longitude: 7.52430
+downlinkDecoder:
+  fileName: elv-bm-trx1.js

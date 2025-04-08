@@ -1,31 +1,43 @@
 endDevices:
   - dl-5tm
+  - dl-alb
   - dl-atm22
   - dl-atm41
+  - dl-atm41g2
   - dl-blg
   - dl-ctd10
   - dl-cws
+  - dl-cws2
   - dl-dlr2-002
   - dl-dlr2-003
   - dl-dlr2-004
   - dl-dlr2-005
   - dl-dlr2-006
   - dl-dlr2-008
+  - dl-dlr2-009
   - dl-dlr2-010
+  - dl-dlr2-011
   - dl-dlr2-012
   - dl-ds18
   - dl-dws
+  - dl-gmm
   - dl-iam
+  - dl-ifd
+  - dl-ilt
+  - dl-isd
   - dl-isf
   - dl-itst
   - dl-kl66
   - dl-lid
   - dl-lp8p
+  - dl-lpw
   - dl-lws
   - dl-mbx
+  - dl-mes5
   - dl-ntu
   - dl-optod
   - dl-par
+  - dl-pheht
   - dl-pm
   - dl-pr21
   - dl-pr26
@@ -33,6 +45,7 @@ endDevices:
   - dl-pr36ctd
   - dl-pyr
   - dl-rhc
+  - dl-sdd
   - dl-sht35-001
   - dl-sht35-002
   - dl-smtp

@@ -207,6 +207,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: lse01-codec
 
+
   - version: 'lse01 1.1.4 abp'
     numeric: 6
     profiles:

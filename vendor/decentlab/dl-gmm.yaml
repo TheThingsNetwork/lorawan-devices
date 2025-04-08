@@ -1,0 +1,94 @@
+name: DL-GMM - Greenhouse Multi Monitor
+description: The Decentlab DL-GMM includes a Photosynthetically Active Radiation (PAR), temperature, humidity, barometric pressure and CO2 sensors for LoRaWAN®. Suitable for applications such as smart agriculture, greenhouses, grow rooms, and vertical farms.
+
+hardwareVersions:
+  - version: '1'
+    numeric: 1
+
+firmwareVersions:
+  - version: 1.5.7
+    numeric: 157
+    hardwareVersions:
+      - '1'
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: dl-gmm-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: false
+        codec: dl-gmm-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: dl-gmm-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: false
+        codec: dl-gmm-codec
+
+sensors:
+  - solar radiation
+  - temperature
+  - humidity
+  - barometer
+  - vapor pressure deficit
+  - dew point
+  - co2
+  - battery
+
+dimensions:
+  length: 135
+  width: 81
+  height: 70
+
+weight: 400
+
+battery:
+  replaceable: true
+  type: 2 C alkaline
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 50
+  relativeHumidity:
+    min: 0
+    max: 1.0
+
+ipCode: IP67
+
+keyProvisioning:
+  - custom
+keySecurity: none
+
+productURL: https://www.decentlab.com/products/greenhouse-multi-monitor-for-lorawan
+photos:
+  main: dl-gmm.png
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010

@@ -1,0 +1,9 @@
+endDevices:
+  - cc1
+
+profileIDs:
+  '1':
+    endDeviceID: 'cc1'
+    firmwareVersion: 'r5'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

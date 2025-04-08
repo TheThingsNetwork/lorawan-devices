@@ -1,0 +1,27 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-wsci.js
+  # Examples (optional)
+  examples:
+    - description: Status Uplink
+      input:
+        fPort: 10
+        bytes: [0x04, 0xF0, 0x90, 0x00, 0x00, 0x00]
+      output:
+        data:
+          battery_voltage: { unit: 'mV', value: '2940' }
+          hall_sensor_state: { unit: 'string', value: 'LOW' }
+          input_clamp_state: { unit: 'string', value: 'LOW' }
+          sabotage_contact_state: { unit: 'string', value: 'IDLE' }
+        errors: []
+        warnings: []
+    - description: Window state change
+      input:
+        fPort: 10
+        bytes: [0x0E, 0x01]
+      output:
+        data:
+          hall_sensor_state: { unit: 'string', value: 'HIGH' }
+        errors: []
+        warnings: []

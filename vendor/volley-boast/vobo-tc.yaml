@@ -20,6 +20,32 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: vobo-tc-profile
         codec: vobo-codec
+  - # Firmware version 2.00.00
+    version: '2.00.00'
+    numeric: 20000
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.01'
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+      US902-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+      AU915-928:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
+      AS923:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: vobo-tc-profile
+        codec: vobo-codec
 
 # Sensors that this device features (optional)
 # Valid values are:

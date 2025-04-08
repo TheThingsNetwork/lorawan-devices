@@ -1,4 +1,4 @@
-name: IMBuildings People counter
+name: People counter
 description: Infrared based battery powered People Counter
 
 hardwareVersions:
@@ -30,6 +30,9 @@ firmwareVersions:
       AU915-928:
         id: imbuildings-profile-au915
         codec: imbuildings-codec
+
+sensors:
+  - infrared
 
 additionalRadios:
   - nfc

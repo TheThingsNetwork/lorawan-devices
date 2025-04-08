@@ -1,5 +1,5 @@
-name: sdi-12
-description: The Dragino sdi-12 consists of a temperature and humidity and sends it to the LoRaWAN® network. Suitable for wireless alarm and security systems, home and building automation, industrial monitoring and control, and much more.
+name: SDI-12 - SDI-12 to LoRaWAN Converter
+description: The Dragino SDI-12-LB/LS is a SDI-12 to LoRaWAN Converter designed for Smart Agriculture solution.
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
@@ -87,6 +87,7 @@ firmwareVersions:
         id: ru864-a-abp-profile
         lorawanCertified: true
         codec: sdi-12-codec
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -98,7 +99,7 @@ firmwareVersions:
 sensors:
   - water
 
-# Product and data sheet URLs (optional)
+
 productURL: https://www.dragino.com/products/agriculture-weather-station/item/252-sdi-12-lb.html
 dataSheetURL: https://www.dropbox.com/sh/g99v0fxcltn9r1y/AAAE_8hHxu8y2Ests4OlLB0ja/SDI-12-LB?dl=0&subfolder_nav_tracking=1
 sellerURLs:

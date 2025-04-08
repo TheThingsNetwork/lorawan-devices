@@ -33,7 +33,9 @@ firmwareVersions:
       CN470-510:
         id: profile-cn470
         codec: rp02-codec
-
+sensors:
+  - current
+  - voltage
 dimensions:
   width: 88.19
   length: 112
@@ -59,4 +61,4 @@ productURL: http://www.netvox.com.tw/product.asp?pro=RP02
 dataSheetURL: http://www.netvox.com.tw/um/RP02/RP02datasheet.pdf
 
 photos:
-  main: photos/rp02rh1pn.jpg
+  main: photos/rp02.jpg

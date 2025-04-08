@@ -1,4 +1,4 @@
-name: Tektelic Industrial Transceiver
+name: T00055xx - Industrial Transceiver
 description: LoRaWAN® Battery-Powered Radio Transmitter
 
 # Hardware versions (optional, use when you have revisions)
@@ -20,6 +20,11 @@ firmwareVersions:
         id: t00055xx-915-profile
         lorawanCertified: true
         codec: t00055xx-codec
+
+sensors:
+  - digital input
+  - temperature
+  - humidity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter

@@ -1,4 +1,4 @@
-name: Abeeway Industrial Tracker
+name: Industrial Tracker
 description: The Abeeway Industrial Tracker has embedded sensors combining GPS, Low-power GPS, Wi-Fi Sniffer, and LoRaWAN® TDoA geolocation technologies, supporting accurate outdoor and indoor geolocation. In addition to that, it has embedded sensors for measuring temperature, motion, and pressure. This tracker is an ideal solution for industry tracking and asset management needs.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:

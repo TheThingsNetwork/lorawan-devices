@@ -1,4 +1,4 @@
-name: Lansitec Badge Tracker
+name: Badge Tracker
 description: Lansitec badge tracker is designed based on GNSS, Bluetooth 5.0 and LoRaWAN technology. It supports indoor and outdoor tracking. The badge is mainly used for personnel and asset management. Its built-in 3-axis accelerator could be used for determining the motion status of the terminal. Therefore, it can help save battery and enhance user experience.
 
 # Hardware versions (optional, use when you have revisions)

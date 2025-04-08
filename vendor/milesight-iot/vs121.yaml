@@ -37,9 +37,8 @@ firmwareVersions:
         id: profile-ru864
         codec: vs121-codec
 
-#sensors:
-#  people_counter_all
-#  region_count
+sensors:
+  - occupancy
 
 dimensions:
   width: 50

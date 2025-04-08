@@ -5,4 +5,3 @@ endDevices:
   - sound-device
   - airquality-device
   - lidar-device
-  # - lidar-device

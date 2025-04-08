@@ -48,7 +48,7 @@ function bin_decode(deviceType, payload) {
             case EN302: /* TX T&H AMB  600-021*/
                 addValueField(template, {
                     temperature: {
-                        unit: "oc",
+                        unit: "°C",
                         value: hexToInt(payload.substring(12, 16), 10),
                     },
                     humidity: {
@@ -74,7 +74,7 @@ function bin_decode(deviceType, payload) {
             case EN303: /* TX T&H AMB  600-022*/
                 addValueField(template, {
                     temperature: {
-                        unit: "oc",
+                        unit: "°C",
                         value: hexToInt(payload.substring(12, 16), 10),
                     },
                     humidity: {
@@ -103,7 +103,7 @@ function bin_decode(deviceType, payload) {
             case EN304: /* TX T&H AMB  600-023*/
                 addValueField(template, {
                     temperature: {
-                        unit: "oc",
+                        unit: "°C",
                         value: hexToInt(payload.substring(12, 16), 10),
                     },
                     Humidity: {
@@ -156,12 +156,12 @@ function bin_decode(deviceType, payload) {
             case EN314: /* TX TEMP CONT2 MP 600-233 */
                 addValueField(template, {
                     temperature_1: {
-                        unit: "oC",
+                        unit: "°C",
                         value: hexToInt(payload.substring(12, 16), 10),
                     },
                     temperature_2: {
-                        unit: "oC",
-                        value: hexToUInt(payload.substring(16, 20), 10),
+                        unit: "°C",
+                        value: hexToInt(payload.substring(16, 20), 10),
                     },
                 });
 
@@ -190,7 +190,7 @@ function bin_decode(deviceType, payload) {
                 addValueField(template, {
                     current: {
                         unit: "mA",
-                        value: hexToInt(payload.substring(12, 16), 10),
+                        value: hexToInt(payload.substring(12, 16), 1000),
                     },
                 });
 
@@ -214,7 +214,7 @@ function bin_decode(deviceType, payload) {
 
                 addValueField(template, {
                     temperature_1: {
-                        unit: "oc",
+                        unit: "°C",
                         value: hexToInt(payload.substring(12, 16), 10),
                     },
                 });
@@ -240,27 +240,7 @@ function bin_decode(deviceType, payload) {
                 };
                 break;
 
-            case EN307: /*TX 4/20 mA 600-035 */
-                addValueField(template, {
-                    current: {
-                        unit: "mA",
-                        value: hexToInt(payload.substring(12, 16), 10),
-                    },
-                });
-
-                this.addAlarmStateField(template,
-                    this.alarmParser(payload.substring(16, 20), deviceType));
-
-                addStateField(template, {
-                    battery: hexToBatteryLvl(payload.substring(20, 24)),
-                    msg_type: hexToMsgType(payload.substring(20, 24))
-                });
-
-
-                return {
-                    data: template
-                };
-                break;
+         
             case EN308: /*TX PULSE 600-036*/
             case EN309: /*TX PULSE ATEX 600-037*/
             case EN310: /*TX PULSE LED 600-038*/
@@ -316,7 +296,7 @@ function bin_decode(deviceType, payload) {
             case EN311: /*TX T&H 600-034 */
                 addValueField(template, {
                     temperature: {
-                        unit: "oc",
+                        unit: "°C",
                         value: hexToInt(payload.substring(12, 16), 10),
                     },
                     humidity: {
@@ -488,14 +468,25 @@ function hexToUInt(hex, divider=1) {
     return parseInt(hex, 16) / divider;
 }
 
-function hexToInt(hex, divider) {
-    const upperHex = hex.toUpperCase();
+// function hexToInt(hex, divider) {
+//     const upperHex = hex.toUpperCase();
 
-    if (parseInt(upperHex, 16) >= "8000" && parseInt(upperHex, 16) <= "FFFF") {
-        return (parseInt(hex, 16) - INT_MAX - 1) / divider;
-    } else {
-        return parseInt(hex, 16) / divider;
+//     if (parseInt(upperHex, 16) >= "8000" && parseInt(upperHex, 16) <= "FFFF") {
+//         return (parseInt(hex, 16) - INT_MAX - 1) / divider;
+//     } else {
+//         return parseInt(hex, 16) / divider;
+//     }
+// }
+function hexToInt(hex,divider) {
+    if (hex.length % 2 != 0) {
+        hex = "0" + hex;
     }
+    var num = parseInt(hex, 16);
+    var maxVal = Math.pow(2, hex.length / 2 * 8);
+    if (num > maxVal / 2 - 1) {
+        num = num - maxVal
+    }
+    return num /divider;
 }
 
 function hexToBin(hex, numOfBytes = 2) {
@@ -510,7 +501,7 @@ function binToUInt(bin) {
 
 function hexToFwVerison(hex) {
     const binNum = hexToBin(hex);
-    return binToUInt(binNum.substring(binNum.length - 4, binNum.length))
+    return binToUInt(binNum.substring(binNum.length - 6, binNum.length))
 }
 
 function hexToStatus(hex, defs) {

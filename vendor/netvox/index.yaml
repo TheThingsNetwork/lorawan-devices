@@ -30,7 +30,9 @@ endDevices:
   - r31508
   - r31509
   - r31510
+  - r315la
   - r602a
+  - r603
   - r711
   - r711a
   - r718a
@@ -121,6 +123,7 @@ endDevices:
   - r831d
   - ra02a
   - ra02c
+  - ra02g
   - ra07w
   - ra0715
   - ra0715y

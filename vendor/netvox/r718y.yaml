@@ -35,6 +35,10 @@ firmwareVersions:
         id: profile-cn470
         codec: r718y-codec
 
+sensors:
+  - pressure
+  - temperature
+
 dimensions:
   width: 65
   length: 112
