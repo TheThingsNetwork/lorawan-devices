@@ -99,7 +99,6 @@ firmwareVersions:
 sensors:
   - water
 
-
 productURL: https://www.dragino.com/products/agriculture-weather-station/item/252-sdi-12-lb.html
 dataSheetURL: https://www.dropbox.com/sh/g99v0fxcltn9r1y/AAAE_8hHxu8y2Ests4OlLB0ja/SDI-12-LB?dl=0&subfolder_nav_tracking=1
 sellerURLs:

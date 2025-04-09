@@ -1,9 +1,6 @@
 name: AIS01-LB
 description: ais01-lb is a LoRaWAN AI Image End Node. ais01-lb has a camera and AI processor in the probe. It can take photo , analyze the photo to get digital reading and send the info to IoT server via LoRaWAN Network.ais01-lb is pre-trained to support image recognized of water meter, gas meter and power meter. It can be trained to support more image recognized for different application.
 
-
-
-
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
