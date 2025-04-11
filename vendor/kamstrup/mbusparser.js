@@ -651,7 +651,3 @@ function decodeUplink(input) {
     }
     return result;
 }
-
-function normalizeUplink(input) {
-    return input;
-}

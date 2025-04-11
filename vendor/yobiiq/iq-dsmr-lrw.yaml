@@ -1,0 +1,82 @@
+name: iQ DSMR - Dutch Smart Meter Reader
+description: The YOBIIQ iQ DSMR (P1) is a member of our Smart Environment Modules family and Smart metering device, DSMR Relay port, a secondary port is available to forward the DSMR signals to third party devices like solar converters or curtailment node. It contains 2 digital inputs for pulse readers from other energy sources and a optional digital output to control based on consumption.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.0'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '2.0'
+    numeric: 2
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '2.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        id: iq-dsmr-lrw-profile
+        lorawanCertified: false
+        codec: iq-dsmr-lrw-codec
+
+  # Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - humidity
+  - current
+  - power
+  - voltage
+  - snr
+  - rssi
+  - digital input
+  - pulse count
+  - button
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+
+# Product and data sheet URLs (optional)
+productURL: https://yobiiq.com/products/dsmr-smart-metering/
+
+# Photos
+photos:
+  main: iq-dsmr-lrw.png # Image needs to have a transparent background
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 61326-1:2021
+    - body: IEC
+      norm: EN
+      standard: 61000-6-2:2019
+    - body: IEC
+      norm: EN
+      standard: 301489-3 V2.1.1
+    - body: IEC
+      norm: EN
+      standard: 300220-2 V3.1.1
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
