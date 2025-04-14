@@ -1,5 +1,5 @@
 uplinkDecoder:
-  fileName: payload/ra02a.js
+  fileName: payload/ra02c.js
   examples:
     - description: Startup version report
       input:
@@ -66,7 +66,7 @@ uplinkDecoder:
           AlarmThreshold: 100
 
 downlinkDecoder:
-  fileName: payload/ra02a.js
+  fileName: payload/ra02c.js
   examples:
     - description: Configure report request
       input:
@@ -109,7 +109,7 @@ downlinkDecoder:
           Device: 'RA02C'
 
 downlinkEncoder:
-  fileName: payload/ra02a.js
+  fileName: payload/ra02c.js
   examples:
     - description: Configure report request
       input:

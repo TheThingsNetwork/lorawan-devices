@@ -1,0 +1,69 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: ts30x.js
+  examples:
+    - description: 'TS30x Sample: Battery, Temperature on Channel 1, Magnet Sensor on Channel 2'
+      input:
+        fPort: 3
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x67, 0xF1, 0x00, 0x04, 0x00, 0x01]
+      output:
+        battery: 100
+        temperature_chn1: 24.1
+        magnet_chn2: 'opened'
+
+    - description: 'TS30x Sample: Battery, Temperature on Channel 1 & Channel 2'
+      input:
+        fPort: 3
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x67, 0xFB, 0x00, 0x04, 0x67, 0x01, 0x01]
+      output:
+        battery: 100
+        temperature_chn1: 25.1
+        temperature_chn2: 25.7
+
+    - description: 'TS30x Sample: Battery, Magnet Sensor on Channel 1 & Channel 2'
+      input:
+        fPort: 3
+        bytes: [0x01, 0x75, 0x14, 0x03, 0x00, 0x01, 0x04, 0x00, 0x01]
+      output:
+        battery: 20
+        magnet_chn1: 'opened'
+        magnet_chn2: 'opened'
+
+    - description: 'TS30x Sample: Battery, Temperature on Channel 1 & Channel 2, with Temperature Alarm Release'
+      input:
+        fPort: 3
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x67, 0x27, 0x01, 0x83, 0x67, 0x27, 0x01, 0x00, 0x04, 0x67, 0x08, 0x01]
+      output:
+        battery: 100
+        temperature_chn1: 29.5
+        temperature_chn1_alarm: 'threshold release'
+        temperature_chn2: 26.4
+
+    - description: 'TS30x Sample: Battery, Temperature on Channel 1 & Channel 2, with Temperature Alarm'
+      input:
+        fPort: 3
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x67, 0xF1, 0x00, 0x04, 0x67, 0xF7, 0x00, 0x84, 0x67, 0xF7, 0x00, 0x01]
+      output:
+        battery: 100
+        temperature_chn1: 24.1
+        temperature_chn2: 24.7
+        temperature_chn2_alarm: 'threshold'
+
+    - description: 'TS30x Sample: Temperature on Channel 2, Temperature Change, and Mutation Alarm'
+      input:
+        fPort: 3
+        bytes: [0x94, 0xD7, 0x04, 0x01, 0x82, 0x00, 0x02]
+      output:
+        temperature_chn2: 26
+        temperature_chn2_change: 1.3
+        temperature_chn2_alarm: 'mutation'
+
+    - description: 'TS30x Sample: Historical Data for Channel 1 & 2'
+      input:
+        fPort: 3
+        bytes: [0x20, 0xCE, 0xC7, 0x9A, 0xFA, 0x64, 0x44, 0xBD, 0xFF, 0xF6, 0x00]
+      output:
+        history:
+          - timestamp: 1694145223
+            temperature_chn1: -6.7
+            temperature_chn2: 24.6

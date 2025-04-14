@@ -2121,3 +2121,18 @@ vendors:
 
   - id: southerniot
     name: Southern IoT
+
+  - id: truvami
+    description: tiny trackers - total solution
+    name: truvami
+    logo: truvami_logo.svg
+    website: https://truvami.com/
+    social:
+      linkedin: https://linkedin.com/company/truvami
+      github: truvami
+
+  - id: tehama
+    name: Tehama Wireless Design Group
+    website: https://www.tehamawireless.com
+    ouis:
+      - 50C2D0

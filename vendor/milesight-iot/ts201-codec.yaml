@@ -1,0 +1,50 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: ts201.js
+  examples:
+    - description: 'TS201 Sample: Basic Temperature Reading'
+      input:
+        fPort: 3
+        bytes: [0x03, 0x67, 0x34, 0x01]
+      output:
+        temperature: 30.8
+
+    - description: 'TS201 Sample: Temperature with Threshold Alarm Event'
+      input:
+        fPort: 3
+        bytes: [0x83, 0x67, 0x34, 0x01, 0x01]
+      output:
+        temperature: 30.8
+        event:
+          - temperature: 30.8
+            temperature_alarm: 'Threshold Alarm'
+
+    - description: 'TS201 Sample: Temperature with Mutation Alarm Event'
+      input:
+        fPort: 3
+        bytes: [0x93, 0x67, 0x34, 0x01, 0x64, 0x00, 0x02]
+      output:
+        temperature: 30.8
+        event:
+          - temperature: 30.8
+            temperature_alarm: 'Mutation Alarm'
+            temperature_mutation: 10
+
+    - description: 'TS201 Sample: Temperature Read Error'
+      input:
+        fPort: 3
+        bytes: [0xB3, 0x67, 0x00]
+      output:
+        event:
+          - temperature_error: 'Read Error'
+
+    - description: 'TS201 Sample: Historical Alarm Record'
+      input:
+        fPort: 3
+        bytes: [0x20, 0xCE, 0xC7, 0x9A, 0xFA, 0x64, 0x02, 0xBD, 0xFF]
+      output:
+        history:
+          - event_type: 'Alarm(Threshold or Mutation)'
+            read_status: 'Success'
+            temperature: -6.7
+            timestamp: 1694145223

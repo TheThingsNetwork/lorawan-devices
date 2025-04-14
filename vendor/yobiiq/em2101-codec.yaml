@@ -1,0 +1,105 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em2101.js
+  examples:
+    - description: Device basic information
+      input:
+        fPort: 50
+        bytes: [255, 9, 2, 0, 255, 10, 35, 1, 255, 22, 1, 237, 3, 51, 255, 15, 2, 255, 11, 1, 255, 0, 1, 255, 40, 69, 77, 50, 49, 48, 49]
+      output:
+        data:
+          hardwareVersion: 'V2.0'
+          firmwareVersion: 'V23.1'
+          deviceSerialNumber: 32310067
+          deviceClass: 'Class C'
+          powerEvent: 'AC Power On'
+          relayStatus: 'HIGH'
+          deviceModel: 'EM2101'
+          codecVersion: '1.0.1'
+          genericModel: 'EM2101'
+          productCode: 'P1002009'
+          manufacturer: 'YOBIIQ B.V.'
+
+    - description: Device default periodic uplink
+      input:
+        fPort: 1
+        bytes: [1, 1, 103, 60, 41, 36, 2, 3, 103, 60, 37, 220, 3, 4, 0, 0, 0, 0, 4, 5, 0, 0, 233, 208, 11, 10, 0]
+      output:
+        data:
+          timestamp: 1731995940
+          dataloggerTimestamp: 1731995100
+          activeEnergyImportL1T1:
+            data: 0
+            unit: 'Wh'
+          activeEnergyImportL1T2:
+            data: 59856
+            unit: 'Wh'
+          modbusErrorCode: 0
+          codecVersion: '1.0.1'
+          genericModel: 'EM2101'
+          productCode: 'P1002009'
+          manufacturer: 'YOBIIQ B.V.'
+
+    - description: Device change of state alarm
+      input:
+        fPort: 11
+        bytes: [1, 1, 1, 2, 2, 0]
+      output:
+        data:
+          relayStatus: 'CLOSED'
+          digitalInputStatus: 'OPEN'
+          codecVersion: '1.0.1'
+          genericModel: 'EM2101'
+          productCode: 'P1002009'
+          manufacturer: 'YOBIIQ B.V.'
+
+    - description: Device logging events
+      input:
+        fPort: 60
+        bytes: [253, 1, 1, 253, 2, 2, 253, 8, 1]
+      output:
+        data:
+          relaySwitchingOffReason: 'Due to too high current limit'
+          relayEnableReason: 'By reset from the Lora network'
+          resetAmountStatus: 'Current reset count is less than the reset amount'
+          codecVersion: '1.0.1'
+          genericModel: 'EM2101'
+          productCode: 'P1002009'
+          manufacturer: 'YOBIIQ B.V.'
+
+    - description: Device parameters
+      input:
+        fPort: 50
+        bytes: [255, 60, 0, 100, 255, 61, 0, 250, 255, 62, 14, 16, 255, 63, 0, 60, 255, 64, 0, 60, 255, 65, 0, 60, 255, 66, 0, 60, 255, 67, 2, 88, 255, 68, 3]
+      output:
+        data:
+          currentLimitFallback:
+            data: 10
+            unit: 'A'
+          voltageLimitFallback:
+            data: 250
+            unit: 'V'
+          powerLimitFallback:
+            data: 3600
+            unit: 'W'
+          deactivationDelayFallback:
+            data: 60
+            unit: 's'
+          activationDelayFallback:
+            data: 60
+            unit: 's'
+          offsetCurrentFallback:
+            data: 6
+            unit: 'A'
+          offsetDelayFallback:
+            data: 60
+            unit: 's'
+          resetTimeFallback:
+            data: 600
+            unit: 's'
+          resetAmountFallback: 3
+          codecVersion: '1.0.1'
+          genericModel: 'EM2101'
+          productCode: 'P1002009'
+          manufacturer: 'YOBIIQ B.V.'

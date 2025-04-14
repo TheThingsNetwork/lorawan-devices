@@ -3,11 +3,7 @@ function getCfgCmd(cfgcmd){
     1:   "ConfigReportReq",
     129: "ConfigReportRsp",
     2:   "ReadConfigReportReq",
-    130: "ReadConfigReportRsp",
-	3:	 "SetAlarmThresholdReq",
-	131: "SetAlarmThresholdRsp",
-	4:	 "GetAlarmThresholdReq",
-	132: "GetAlarmThresholdRsp"
+    130: "ReadConfigReportRsp"
   };
   return cfgcmdlist[cfgcmd];
 }
@@ -21,28 +17,18 @@ function getCmdToID(cmdtype){
 	  return 2;
   else if (cmdtype == "ReadConfigReportRsp")
 	  return 130;
-  else if (cmdtype == "SetAlarmThresholdReq")
-	  return 3;
-  else if (cmdtype == "SetAlarmThresholdRsp")
-	  return 131;
-  else if (cmdtype == "GetAlarmThresholdReq")
-	  return 4;
-  else if (cmdtype == "GetAlarmThresholdRsp")
-	  return 132;
 }
 
 function getDeviceName(dev){
   var deviceName = {
-	10: "RA02A",
-	17: "RA02C"
+	10: "RA02A"
   };
   return deviceName[dev];
 }
 
 function getDeviceID(devName){
   var deviceName = {
-	"RA02A": 10,
-	"RA02C": 17
+	"RA02A": 10
   };
 
   return deviceName[devName];
@@ -94,17 +80,12 @@ function decodeUplink(input) {
 			else
 				data.Temp = (input.bytes[6]<<8 | input.bytes[7])/10;
 		}
-		else if (input.bytes[1] === 0x11)
-		{	
-			data.COAlarm = (input.bytes[4] == 0x00) ? 'No Alarm' : 'Alarm';
-			data.HighTempAlarm = (input.bytes[5] == 0x00) ? 'No Alarm' : 'Alarm';
-		}
 		break;
 		
 	case 7:
 		data.Cmd = getCfgCmd(input.bytes[0]);
 		data.Device = getDeviceName(input.bytes[1]);
-		if ((input.bytes[0] === getCmdToID("ConfigReportRsp")) || (input.bytes[0] === getCmdToID("SetAlarmThresholdRsp")))
+		if (input.bytes[0] === getCmdToID("ConfigReportRsp"))
 		{
 			data.Status = (input.bytes[2] === 0x00) ? 'Success' : 'Failure';
 		}
@@ -113,10 +94,6 @@ function decodeUplink(input) {
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
-		}
-		else if (input.bytes[0] === getCmdToID("GetAlarmThresholdRsp"))
-		{
-			data.AlarmThreshold = input.bytes[2];
 		}
 
 		break;	
@@ -149,15 +126,10 @@ function encodeDownlink(input) {
 	  
 	  ret = ret.concat(getCmdID, devid, (mint >> 8), (mint & 0xFF), (maxt >> 8), (maxt & 0xFF), batteryChg, 0x00, 0x00, 0x00, 0x00);
   }
-  else if ((input.data.Cmd == "ReadConfigReportReq") || (input.data.Cmd == "GetAlarmThresholdReq"))
+  else if (input.data.Cmd == "ReadConfigReportReq")
   {
 	  ret = ret.concat(getCmdID, devid, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
   }  
-  else if (input.data.Cmd == "SetAlarmThresholdReq")
-  {
-	  var threshold = input.data.AlarmThreshold;
-	  ret = ret.concat(getCmdID, devid, threshold, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-  } 
 
   return {
     fPort: 7,
@@ -176,10 +148,6 @@ function decodeDownlink(input) {
 			data.MinTime = (input.bytes[2]<<8 | input.bytes[3]);
 			data.MaxTime = (input.bytes[4]<<8 | input.bytes[5]);
 			data.BatteryChange = input.bytes[6]/10;
-		}
-		else if (input.bytes[0] === getCmdToID("SetAlarmThresholdReq"))
-		{
-			data.AlarmThreshold = input.bytes[2];
 		}
 
 		break;
