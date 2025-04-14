@@ -1,8 +1,6 @@
 module github.com/TheThingsNetwork/lorawan-devices/tools/runscript
 
-go 1.23.0
-
-toolchain go1.24.2
+go 1.18
 
 // Use our fork of grpc-gateway.
 replace github.com/grpc-ecosystem/grpc-gateway => github.com/TheThingsIndustries/grpc-gateway v1.15.2-gogo
