@@ -1,46 +1,33 @@
-name: Geolocation Module
-description: The Abeeway Geolocation module for outdoor geolocation contains a high-performance multi-constellation GNSS receiver (GPS, GLONASS, Beidou, and Galileo) and supports a patented ultra Low-Power GPS (LP GPS) mode. Indoor positioning can be achieved by combining the Bluetooth Low Energy receiver and the ultra-low power Wi-Fi receiver.
-
+name: Smart Badge
+description: The Abeeway Smart Badge is a wearable LoRaWAN® multi-mode tracker with embedded sensors combining various location tracking technologies such as GPS, Low-power GPS, Wi-Fi Sniffer, BLE, and LoRaWAN TDoA. In addition to that, the Abeeway Smart Badge features a temperature sensor, SOS panic button, and a buzzer.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
+  - version: '1.2'
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '2.3'
-    numeric: 2
+    version: '2.6.1'
+
     hardwareVersions:
-      - '1.0'
+      - '1.2'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: abeeway-geolocation-module-profile
+        id: abeeway-smart-badge-profile-eu868
         lorawanCertified: true
+        codec: asset-tracker-2-codec
       US902-928:
-        id: abeeway-geolocation-module-profile
+        id: abeeway-smart-badge-profile-us915
         lorawanCertified: true
-      AU915-928:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
+        codec: asset-tracker-2-codec
       AS923:
-        id: abeeway-geolocation-module-profile
+        id: abeeway-smart-badge-profile-as923
         lorawanCertified: true
-      KR920-923:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
-      IN865-867:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
-      RU864-870:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
-
-deviceType: module
+        codec: asset-tracker-2-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -60,18 +47,31 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 17
-  length: 17.5
+  width: 65
+  length: 90
+  height: 11
 
 # Weight in grams (optional)
-weight: 10
+weight: 80
+
+# Battery information (optional)
+battery:
+  replaceable: false
+  type: Lithium Polymer
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -25
-    max: 85
+    min: -10
+    max: 55
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.5
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP65
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -83,18 +83,19 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
-dataSheetURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
+productURL: https://www.abeeway.com/smart-badge/
+dataSheetURL: https://www.abeeway.com/wp-content/uploads/2020/10/Abeeway_Badge-data-sheet_12_DIGITAL.pdf
+
 resellerURLs:
   - name: 'Actility'
     region:
       - Other
-    url: https://www.actility.com/
+    url: https://market.thingpark.com/catalog/product/view/id/11550/s/abeeway-smart-badge/?___store=default
 
 # Photos
 photos:
-  main: abeeway-geolocation-module.png
-# # Regulatory compliances (optional) EC, FCC, IC, TELEC, ATEX Zone II, ATEX Zone I
+  main: abeeway-smart-badge.png
+# # Regulatory compliances (optional)
 # compliances:
 #   safety:
 #     - body: IEC

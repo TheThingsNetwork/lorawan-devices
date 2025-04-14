@@ -7,7 +7,7 @@ uplinkDecoder:
     - description: GNSS uplink
       type: uplink
       input:
-        bytes: [16,  94, 12,  36, 138,  0,  0, 1, 25, 255, 63, 242, 4, 54, 69, 128, 0, 161,  0,   0,   0, 10, 23, 101]
+        bytes: [16, 94, 12, 36, 138, 0, 0, 1, 25, 255, 63, 242, 4, 54, 69, 128, 0, 161, 0, 0, 0, 10, 23, 101]
         recvTime: 2024-06-20T14:51:53.243+02:00
         fPort: 19
       output:
@@ -17,8 +17,8 @@ uplinkDecoder:
             batteryLevel: 94
             multiFrame: false
             sos: false
-            timestamp: "2024-06-20T12:51:48.000Z"
-            type: "POSITION"
+            timestamp: '2024-06-20T12:51:48.000Z'
+            type: 'POSITION'
           position:
             coordinates: [7.06656, 43.615845, 161]
             gnssFix:
@@ -29,12 +29,12 @@ uplinkDecoder:
               latitude: 43.615845
               longitude: 7.06656
               quality:
-                fixQuality: "FIX_3D"
+                fixQuality: 'FIX_3D'
                 numberSatellitesUsed: 5
             motion: 1
             motionCounter: 0
-            positionType: "GNSS"
-            status: "SUCCESS"
+            positionType: 'GNSS'
+            status: 'SUCCESS'
             triggers:
               geoTriggerGeozoning: 0
               geoTriggerInMotion: 0
@@ -46,28 +46,28 @@ uplinkDecoder:
               geoTriggerSos: 0
               geoTriggerTempHighThreshold: 0
               geoTriggerTempLowThreshold: 0
-          payload: "105e0c248a00000119ff3ff20436458000a10000000a1765"
+          payload: '105e0c248a00000119ff3ff20436458000a10000000a1765'
         errors: []
         warnings: []
     - description: Notification start motion uplink
       type: uplink
       input:
-        bytes: [ 9, 0, 127, 66, 48 ]
+        bytes: [9, 0, 127, 66, 48]
         recvTime: 2024-06-10T08:22:44.2260+02:00
         fPort: 19
       output:
         data:
           header:
             ackToken: 1
-            batteryLevel: "CHARGING"
+            batteryLevel: 'CHARGING'
             multiFrame: false
             sos: false
-            timestamp: "2024-06-09T21:02:58.000Z"
-            type: "NOTIFICATION"
+            timestamp: '2024-06-09T21:02:58.000Z'
+            type: 'NOTIFICATION'
           notification:
-            notificationClass: "ACCELEROMETER"
-            notificationType: "MOTION_START"
-          payload: "09007f4230"
+            notificationClass: 'ACCELEROMETER'
+            notificationType: 'MOTION_START'
+          payload: '09007f4230'
         errors: []
         warnings: []
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
@@ -83,7 +83,7 @@ downlinkEncoder:
           ackToken: 4
       output:
         fPort: 3
-        bytes: [12,5]
+        bytes: [12, 5]
         errors: []
         warnings: []
     - description: Encode command START SOS
@@ -99,14 +99,14 @@ downlinkEncoder:
         errors: []
         warnings: []
 
-# Downlink decoder decodes the encoded downlink message 
+# Downlink decoder decodes the encoded downlink message
 downlinkDecoder:
   fileName: asset-tracker-3.js
   examples:
     - description: downlink command position on demand request
       type: downlink-decode
       input:
-        bytes: [12,5]
+        bytes: [12, 5]
         recvTime: 2024-06-10T09:42:13.733+02:00
         fPort: 19
       output:
@@ -121,7 +121,7 @@ downlinkDecoder:
     - description: downlink command start SOS
       type: downlink-decode
       input:
-        bytes: [14,2]
+        bytes: [14, 2]
         recvTime: 2024-06-10T09:42:13.733+02:00
         fPort: 19
       output:
@@ -130,6 +130,6 @@ downlinkDecoder:
           command:
             commandType: START_SOS
           downMessageType: COMMAND
-          payload: "0e02"
+          payload: '0e02'
         errors: []
         warnings: []

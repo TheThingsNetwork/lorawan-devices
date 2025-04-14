@@ -1,46 +1,35 @@
-name: Geolocation Module
-description: The Abeeway Geolocation module for outdoor geolocation contains a high-performance multi-constellation GNSS receiver (GPS, GLONASS, Beidou, and Galileo) and supports a patented ultra Low-Power GPS (LP GPS) mode. Indoor positioning can be achieved by combining the Bluetooth Low Energy receiver and the ultra-low power Wi-Fi receiver.
-
+name: Compact Tracker
+description: The Abeeway Compact Tracker is a highly versatile multi-mode tracker for outdoor and indoor geolocation with embedded sensors combining GPS, Low-power GPS, Wi-Fi Sniffer, BLE, and LoRa TDoA geolocation technologies.
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
+  - version: '3.4'
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '2.3'
+    version: '2.6.1'
     numeric: 2
     hardwareVersions:
-      - '1.0'
+      - '3.4'
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: abeeway-geolocation-module-profile
+        id: abeeway-compact-tracker-pro-eu868
         lorawanCertified: true
+        codec: asset-tracker-2-codec
       US902-928:
-        id: abeeway-geolocation-module-profile
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: abeeway-compact-tracker-pro-us915
         lorawanCertified: true
-      AU915-928:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
+        codec: asset-tracker-2-codec
       AS923:
-        id: abeeway-geolocation-module-profile
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: abeeway-compact-tracker-pro-as923
         lorawanCertified: true
-      KR920-923:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
-      IN865-867:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
-      RU864-870:
-        id: abeeway-geolocation-module-profile
-        lorawanCertified: true
-
-deviceType: module
+        codec: asset-tracker-2-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -60,18 +49,31 @@ additionalRadios:
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 17
-  length: 17.5
+  width: 112
+  length: 66
+  height: 33
 
 # Weight in grams (optional)
-weight: 10
+weight: 190
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3x AA/3.6V Li-SOCl2
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: -25
-    max: 85
+    min: -20
+    max: 65
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.5
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP68
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -83,18 +85,18 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
-dataSheetURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
+productURL: https://www.abeeway.com/compact-tracker/
+dataSheetURL: https://www.abeeway.com/wp-content/uploads/2020/10/Abeeway_Compact-data-sheet_08.pdf
 resellerURLs:
   - name: 'Actility'
     region:
       - Other
-    url: https://www.actility.com/
+    url: https://market.thingpark.com/catalog/product/view/id/11554/s/abeeway-compact-tracker/?___store=default
 
 # Photos
 photos:
-  main: abeeway-geolocation-module.png
-# # Regulatory compliances (optional) EC, FCC, IC, TELEC, ATEX Zone II, ATEX Zone I
+  main: abeeway-compact-tracker.png
+# # Regulatory compliances (optional)
 # compliances:
 #   safety:
 #     - body: IEC
