@@ -1,6 +1,7 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - abeeway-geolocation-module-v1
-  - abeeway-compact-tracker-v1
+  - abeeway-geolocation-module
+  - abeeway-industrial-tracker
+  - abeeway-compact-tracker
   - abeeway-micro-tracker
-  - abeeway-smart-badge-v1
+  - abeeway-smart-badge
