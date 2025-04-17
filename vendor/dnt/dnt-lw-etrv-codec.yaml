@@ -40,3 +40,5 @@ uplinkDecoder:
               value: '0.0'
         errors: []
         warnings: []
+downlinkDecoder:
+  fileName: dnt-lw-etrv.js

@@ -24,3 +24,5 @@ uplinkDecoder:
           set_point_temperature: '21.5'
         errors: []
         warnings: []
+downlinkDecoder:
+  fileName: dnt-lw-wth.js
