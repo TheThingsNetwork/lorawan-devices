@@ -1,0 +1,117 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: asset-tracker-2.js
+  # Examples (optional)
+  examples:
+    - description: Uplink containing GPS_FIX position
+      type: uplink
+      input:
+        fPort: 18
+        bytes: [3, 106, 193, 137, 0, 0, 29, 40, 185, 1, 96, 55, 2]
+        recvTime: 2025-03-20T10:00:00.000+02:00
+      output:
+        data:
+          ackToken: 0
+          age: 0
+          appState: 1
+          batteryLevel: 193
+          batteryStatus: 'OPERATING'
+          deviceConfiguration:
+            mode: 'MOTION_START_END_TRACKING'
+          dynamicMotionState: 'STATIC'
+          gpsLatitude: 48.9208064
+          gpsLongitude: 2.3082752
+          horizontalAccuracy: 7.84
+          messageType: 'POSITION_MESSAGE'
+          onDemand: false
+          payload: '036ac18900001d28b901603702'
+          periodicPosition: true
+          rawPositionType: 'GPS'
+          sosFlag: 0
+          temperatureMeasure: 25.3
+          trackingMode: 'MOTION_START_END_TRACKING'
+        errors: []
+        warnings: []
+    - description: Uplink containing GEOLOC_START event
+      type: uplink
+      input:
+        fPort: 18
+        bytes: [10, 0, 249, 134, 0, 0]
+        recvTime: 2025-03-20T10:05:00.000+02:00
+      output:
+        data:
+          ackToken: 0
+          appState: 0
+          batteryLevel: 249
+          batteryStatus: 'OPERATING'
+          deviceConfiguration:
+            mode: 'STAND_BY'
+          dynamicMotionState: 'STATIC'
+          eventType: 'GEOLOC_START'
+          messageType: 'EVENT'
+          onDemand: false
+          payload: '0a00f9860000'
+          periodicPosition: false
+          sosFlag: 0
+          temperatureMeasure: 23.8
+          trackingMode: 'STAND_BY'
+        errors: []
+        warnings: []
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: asset-tracker-2.js
+  examples:
+    - description: Position on demand downlink
+      type: downlink-encode
+      input:
+        data:
+          downMessageType: POS_ON_DEMAND
+          ackToken: 10
+      output:
+        bytes: [1, 10]
+        fPort: 2
+        errors: []
+        warnings: []
+    - description: Request temperature status downlink
+      type: downlink-encode
+      input:
+        data:
+          downMessageType: REQUEST_TEMPERATURE_STATUS
+          ackToken: 1
+      output:
+        bytes: [6, 1]
+        fPort: 2
+        errors: []
+        warnings: []
+
+# Downlink decoder decodes the encoded downlink message
+downlinkDecoder:
+  fileName: asset-tracker-2.js
+  examples:
+    - description: Position on demand downlink
+      type: downlink-encode
+      input:
+        fPort: 2
+        bytes: [1, 10]
+        recvTime: 2025-03-20T10:15:00.000+02:00
+      output:
+        data:
+          ackToken: 10
+          downMessageType: POS_ON_DEMAND
+          payload: 010a
+        errors: []
+        warnings: []
+    - description: Request temperature status downlink
+      input:
+        fPort: 2
+        bytes: [6, 1]
+        recvTime: 2025-03-20T10:15:00.000+02:00
+      output:
+        data:
+          ackToken: 1
+          downMessageType: REQUEST_TEMPERATURE_STATUS
+          payload: '0601'
+        errors: []
+        warnings: []
