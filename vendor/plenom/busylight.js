@@ -111,7 +111,7 @@ else if (input.bytes.length == 6)
       blue: input.bytes[1],
       ontime: input.bytes[3],
       offtime: input.bytes[4],
-      immediate_uplink: input.byte[5]
+      immediate_uplink: input.bytes[5]
     },
     warnings: [],
     errors: []
