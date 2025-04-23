@@ -46,17 +46,8 @@ firmwareVersions:
         codec: ts201-codec
 
 sensors:
-  - ipso_version
-  - device_status
-  - sn
-  - hardware_version
-  - firmware_version
-  - tsl_version
   - battery
   - temperature
-  - temperature_alarm
-  - temperature_mutation
-  - temperature_error
 
 dimensions:
   width: 25
