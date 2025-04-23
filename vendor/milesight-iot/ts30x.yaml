@@ -47,14 +47,6 @@ firmwareVersions:
 
 sensors:
   - battery
-  - temperature_chn1
-  - magnet_chn1
-  - temperature_chn1_alarm
-  - temperature_chn1_change
-  - temperature_chn2
-  - magnet_chn2
-  - temperature_chn2_alarm
-  - temperature_chn2_change
 
 dimensions:
   width: 29
