@@ -1,5 +1,5 @@
 name: SmartPilot-Wire
-description: The WATTECO The SmartPilot Wire is a Class C LoRaWAN® actuator that monitors and controls up to 6 operating modes for any electric heater as well as any active load (ON/OFF) driven by a relay.
+description: The WATTECO The SmartPilot Wire is a Class C LoRaWANÂ® actuator that monitors and controls up to 6 operating modes for any electric heater as well as any active load (ON/OFF) driven by a relay.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
