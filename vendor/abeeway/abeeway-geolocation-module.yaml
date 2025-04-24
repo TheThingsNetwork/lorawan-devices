@@ -37,7 +37,7 @@ firmwareVersions:
         lorawanCertified: true
   - version: '1.1.0'
     hardwareVersions:
-    - '1.0'
+      - '1.0'
     profiles:
       EU863-870:
         id: abeeway-geolocation-module-pro-eu868

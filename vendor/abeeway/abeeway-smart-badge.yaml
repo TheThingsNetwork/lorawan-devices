@@ -26,7 +26,7 @@ firmwareVersions:
       AS923:
         id: abeeway-smart-badge-profile-as923
         lorawanCertified: true
-  
+
   - version: '2.6.1'
     hardwareVersions:
       - '1.2'
