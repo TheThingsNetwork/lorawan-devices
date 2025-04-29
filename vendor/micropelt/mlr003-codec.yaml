@@ -102,99 +102,99 @@ downlinkEncoder:
   examples:
     - description: FPort 1 Downlink
       input:
-        "fPort": 1
+        'fPort': 1
         data:
-            "userMode": "Ambient_Temperature"
-            "safetyMode": "Ambient_Temperature"
-            "setValue": 21
-            "roomTemperature": 20
-            "safetyValue": 19
-            "radioInterval": 5
-            "doReferenceRunNow": 0
+          'userMode': 'Ambient_Temperature'
+          'safetyMode': 'Ambient_Temperature'
+          'setValue': 21
+          'roomTemperature': 20
+          'safetyValue': 19
+          'radioInterval': 5
+          'doReferenceRunNow': 0
       output:
-        bytes: [42,80,38,24,0,0]
+        bytes: [42, 80, 38, 24, 0, 0]
         fPort: 1
     - description: FPort 3 Downlink
       input:
-        "fPort": 3
+        'fPort': 3
         data:
-          "motor_operating_range": "2.080"
+          'motor_operating_range': '2.080'
       output:
         bytes: [10]
         fPort: 3
     - description: FPort 4 Downlink
       input:
-        "fPort": 4
+        'fPort': 4
         data:
-          "spreading_factor": "SF8"
+          'spreading_factor': 'SF8'
       output:
         bytes: [1]
         fPort: 4
     - description: FPort 5 Downlink
       input:
-        "fPort": 5
+        'fPort': 5
         data:
-            "opening_point_reset": false
-            "hot_water_availability": "ON"
-            "slow_harvesting": "DO_OPD_AND_SH"
-            "max_flow_sensor_raw": 27
+          'opening_point_reset': false
+          'hot_water_availability': 'ON'
+          'slow_harvesting': 'DO_OPD_AND_SH'
+          'max_flow_sensor_raw': 27
       output:
-        bytes: [9,54]
+        bytes: [9, 54]
         fPort: 5
     - description: FPort 6 Downlink
       input:
-        "fPort": 6
+        'fPort': 6
         data:
-            "tdd_action": "Close_to_0%_for_30_minutes"
-            "tdd_beep": false
-            "tdd_period": 1
+          'tdd_action': 'Close_to_0%_for_30_minutes'
+          'tdd_beep': false
+          'tdd_period': 1
       output:
         bytes: [128]
         fPort: 6
     - description: FPort 7  Downlink
       input:
-        "fPort": 7
+        'fPort': 7
         data:
-            "kP": 20
-            "kI": 1.5
-            "kD": 21
-            "Closed_Percent": 32
-            "kD_when_closed": 14
-            "Offset_Percent": 42
+          'kP': 20
+          'kI': 1.5
+          'kD': 21
+          'Closed_Percent': 32
+          'kD_when_closed': 14
+          'Offset_Percent': 42
       output:
-        bytes: [20,75,105,128,32,70,42]
+        bytes: [20, 75, 105, 128, 32, 70, 42]
         fPort: 7
     - description: FPort 9 Downlink
       input:
-        "fPort": 9
+        'fPort': 9
         data:
-          "External_temperature_sensor_expiry_minutes": 5
+          'External_temperature_sensor_expiry_minutes': 5
       output:
         bytes: [1]
         fPort: 9
     - description: FPort 10  Downlink
       input:
-        "fPort": 10
+        'fPort': 10
         data:
-          "Room_Temperature": 22
+          'Room_Temperature': 22
       output:
         bytes: [88]
         fPort: 10
     - description: FPort 11 Downlink
       input:
-        "fPort": 11
+        'fPort': 11
         data:
-          "Beep": 3
+          'Beep': 3
       output:
         bytes: [3]
         fPort: 11
     - description: FPort 15 Downlink
       input:
-        "fPort": 15
+        'fPort': 15
         data:
-          "device_will_operate_if_6_week_reference_run_fails": true
-          "do_recalibation_now": false
-          "turn_off_device": false
+          'device_will_operate_if_6_week_reference_run_fails': true
+          'do_recalibation_now': false
+          'turn_off_device': false
       output:
         bytes: [128]
         fPort: 15
