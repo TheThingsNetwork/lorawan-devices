@@ -1,0 +1,60 @@
+name: Air Temperature and Humidity Sensor
+description: The AgroSense Air Temperature & Humidity Sensor uses the AHT20 sensor to measure temperature and humidity in the range of -40°C to 85°C and 0 to 100% RH, with an accuracy of ±0.2°C and ±0.2% RH
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: air-temperature-and-humidity-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: air-temperature-and-humidity-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: air-temperature-and-humidity-codec
+
+deviceType: cots
+
+sensors:
+  - temperature
+  - humidity
+  - battery
+
+dimensions:
+  width: 131
+  length: 27
+  height: 63
+
+battery:
+  replaceable: true
+  type: AAA
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+  - join server
+
+productURL: https://www.agrosense.cc/pd.jsp?recommendFromPid=0&id=6&fromMid=366
+
+photos:
+  main: air-temperature-and-humidity.jpg

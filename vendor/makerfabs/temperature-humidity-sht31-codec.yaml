@@ -1,0 +1,14 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: temperature-humidity-sht31.js
+  # Examples (optional)
+#  examples:
+#    - description: 32 knots from the North
+#      input:
+#        fPort: 1
+#        bytes: [0, 32]
+#      output:
+#        data:
+#          direction: 'N'
+#          speed: 32
