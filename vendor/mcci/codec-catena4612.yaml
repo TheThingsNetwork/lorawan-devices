@@ -12,7 +12,7 @@ uplinkDecoder:
         data:
           {
             'boot': 79,
-            'irradiance': {"IR": 38830,"UV": 50512,"White": 769},
+            'irradiance': { 'IR': 38830, 'UV': 50512, 'White': 769 },
             'p': 752.72,
             'rh': 62.109375,
             'tDewC': 17.360852159642555,

@@ -9,15 +9,7 @@ uplinkDecoder:
         fPort: 4
         bytes: [13, 40, 24, 45, 16, 20, 153, 153]
       output:
-        data:
-          {
-            'Vbat': 2.505859375,
-            'boot': 45,
-            'error': "none",
-            'rh': 60,
-            'tDewC': 8.311279180431027,
-            'tempC': 16.078125,
-          }
+        data: { 'Vbat': 2.505859375, 'boot': 45, 'error': 'none', 'rh': 60, 'tDewC': 8.311279180431027, 'tempC': 16.078125 }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:
 ##   fileName: codec.js
