@@ -11,8 +11,44 @@ description: The MCCI Indoor Air Quality Sensor consists of PM1.0, PM2.5, PM10, 
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.4.0'
+    version: '2.0.2'
     numeric: 1
+    #   corresponding hardware versions (optional)
+    #   hardwareVersions:
+    #     - '1.0'
+
+    # LoRaWAN device profiles per region
+    # defined regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # unique ID of the profile (lowercase, alpha with dashes, max 36)
+        id: model4841-profile
+        lorawanCertified: false
+        codec: codec-model4841
+      US902-928:
+        id: model4841-profile
+        lorawanCertified: false
+        codec: codec-model4841
+      AU915-928:
+        id: model4841-profile
+        lorawanCertified: false
+        codec: codec-model4841
+      AS923:
+        id: model4841-profile
+        lorawanCertified: false
+        codec: codec-model4841
+      KR920-923:
+        id: model4841-profile
+        lorawanCertified: false
+        codec: codec-model4841
+      IN865-867:
+        id: model4841-profile
+        lorawanCertified: false
+        codec: codec-model4841
+
+  - # Firmware version
+    version: '1.4.0'
+    numeric: 2
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
     #     - '1.0'

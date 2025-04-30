@@ -11,8 +11,44 @@ description: The MCCI® Model 4832 High-Accuracy Outdoor Environment Sensor (SHT
 # Firmware versions (at least one mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.4.1'
+    version: '0.1.0'
     numeric: 1
+    #   corresponding hardware versions (optional)
+    #   hardwareVersions:
+    #     - '1.0'
+
+    # LoRaWAN device profiles per region
+    # defined regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # unique ID of the profile (lowercase, alpha with dashes, max 36)
+        id: model4832-profile
+        lorawanCertified: false
+        codec: codec-catena-generic
+      US902-928:
+        id: model4832-profile
+        lorawanCertified: false
+        codec: codec-catena-generic
+      AU915-928:
+        id: model4832-profile
+        lorawanCertified: false
+        codec: codec-catena-generic
+      AS923:
+        id: model4832-profile
+        lorawanCertified: false
+        codec: codec-catena-generic
+      KR920-923:
+        id: model4832-profile
+        lorawanCertified: false
+        codec: codec-catena-generic
+      IN865-867:
+        id: model4832-profile
+        lorawanCertified: false
+        codec: codec-catena-generic
+
+  - # Firmware version
+    version: '0.4.1'
+    numeric: 2
     #   corresponding hardware versions (optional)
     #   hardwareVersions:
     #     - '1.0'
