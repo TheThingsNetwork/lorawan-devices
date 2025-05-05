@@ -1,0 +1,134 @@
+name: LW006 - Smart Badge
+description: LW006 is the smart badge that combines LoRaWAN network transmission with BLE, WIFI, and GPS positioning technologies.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.6'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: ac-eu868
+        codec: lw006-SB-codec
+      IN865-867:
+        id: ac-in865
+        codec: lw006-SB-codec
+      RU864-870:
+        id: ac-ru864
+        codec: lw006-SB-codec
+      US902-928:
+        id: ac-us915
+        codec: lw006-SB-codec
+      AU915-928:
+        id: ac-au915
+        codec: lw006-SB-codec
+      AS923:
+        id: ac-as923
+        codec: lw006-SB-codec
+      KR920-923:
+        id: ac-kr920
+        codec: lw006-SB-codec
+      EU433:
+        id: ac-eu433
+        codec: lw006-SB-codec
+      CN470:
+        id: ac-cn470
+        codec: lw006-SB-codec
+      AS923:
+        id: ac-as923
+        codec: lw006-SB-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - button
+  - accelerometer
+  - gps
+  - vibration
+  - temperature
+  - rssi
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 68.4
+  length: 103.3
+  height: 11.8
+
+# Weight in grams (optional)
+weight: 70
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.1
+    max: 0.95
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - bluetooth
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+  - fuota other
+
+# Product and data sheet URLs (optional)
+productURL: https://www.mokosmart.com/zh/lorawan-meter-plug-lw006-SB/
+dataSheetURL: https://www.mokolora.com/contact-us/
+
+# Photos
+photos:
+  main: lw006-SB.jpg
+
+# Youtube or Vimeo Video (optional)
+videos:
+  main: https://www.youtube.com/watch?v=aPUGWMyqk-U
+
+# Regulatory compliances (optional)
+compliances:
+  
+  FCC:
+    - standard: Part15C
