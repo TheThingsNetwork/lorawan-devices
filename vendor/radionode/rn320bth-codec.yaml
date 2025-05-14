@@ -1,0 +1,49 @@
+uplinkDecoder:
+  fileName: rn320bth.js
+  # Examples (optional)
+  examples:
+    - description: checkin upload
+      input:
+        fPort: 88
+        bytes: [0x0B, 0x1e, 0xA9, 0xF1, 0x05, 0x68, 0x2C, 0x01, 0xE8, 0xF0, 0x0D, 0x07, 0x00]
+      output:
+        data:
+          head: 11 # (0x0B)
+          ver: 20250421 # 1745220009 - 2025-04-21T16:20:09
+          interval: 300 # 5min (0x012c)
+          splrate: 300 # 5min (0x012c)
+          bat: 232 # 1~255 (0xe8)
+          volt: 3.568 # 3568 (0x0df0)
+          freqband: 7 # KR920 (0x07)
+          subband: 0 # (0x00)
+
+    - description: datain upload
+      input:
+        fPort: 88
+        bytes: [0x0C, 0x1e, 0x00, 0x2A, 0xF7, 0x06, 0x68, 0x02, 0xA8, 0xBA, 0xC6, 0x41, 0xb8, 0x1e, 0x1e, 0x42]
+      output:
+        data:
+          head: 12 # (0x0c)
+          model: 30 # bth (0x1e)
+          tsmode: 0 # Unix Epoch Timestamp  : 1970-1-1 (0x00)
+          timestamp: 1745286954 # 2025-04-22T10:55:54 GMT+09:00 (0x6806f72a)
+          splfmt: 2 # 4Byte - IEEE754 float (0x02)
+          data_size: 8
+          temperature: 24.84 # 'C (0x41c6baa8)
+          humidity: 39.53 # % (0x421e1eb8)
+
+    - description: holdin upload
+      input:
+        fPort: 88
+        bytes: [0x0D, 0x1e, 0x00, 0x2A, 0xF7, 0x06, 0x68, 0x02, 0xA8, 0xBA, 0xC6, 0x41, 0xb8, 0x1e, 0x1e, 0x42]
+      output:
+        data:
+          head: 13 # (0x0d)
+          model: 30 # bth (0x1e)
+          tsmode: 0 # Unix Epoch Timestamp  : 1970-1-1 (0x00)
+          timestamp: 1745286954 # 2025-04-22T10:55:54 GMT+09:00 (0x6806f72a)
+          splfmt: 2 # 4Byte - IEEE754 float (0x02)
+          data_size: 8
+          temperature: 24.84 # 'C (0x41c6baa8)
+          humidity: 39.53 # % (0x421e1eb8)
+
