@@ -71,7 +71,7 @@ dimensions:
   height: 70
 
 # Weight in grams (optional)
-weight: 350
+weight: 290
 
 # Battery information (optional)
 battery:
@@ -94,7 +94,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://mutelcor.com/lora-multi-function-device/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2023/09/MUTELCOR_Datasheet_LoRa_Multi-Function_Device.pdf
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2025/05/MUTELCOR_Datasheet_LoRa_Multi-Function_Device.pdf
 
 # Photos
 photos:
