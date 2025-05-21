@@ -69,7 +69,7 @@ operatingConditions:
     max: 0.7
 
 # Product and data sheet URLs (optional)
-productURL: https://www.micropelt.com/en/products/lorawan/mlr003-2
+productURL: https://micropelt.atlassian.net/wiki/spaces/MH/pages/143065107/MLRTPS1iEU-07+Title+Page
 
 # Photos
 photos:

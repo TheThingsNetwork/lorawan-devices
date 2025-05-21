@@ -25,3 +25,5 @@ uplinkDecoder:
           hall_sensor_state: { unit: 'string', value: 'HIGH' }
         errors: []
         warnings: []
+downlinkDecoder:
+  fileName: dnt-lw-wsci.js
