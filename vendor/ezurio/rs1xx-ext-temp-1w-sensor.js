@@ -1,7 +1,7 @@
 /******************************************************************************
  * Laird Protocol TTI Payload Library
  *
- * @author Greg Leach @ Laird Connectivity
+ * @author Greg Leach @ Ezurio Connectivity
  *
  * Entry point for One Wire type RS1XX sensors.
  *

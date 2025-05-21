@@ -1,7 +1,7 @@
 [![Ezurio](images/Ezurio_Logo.png)](https://www.ezurio.com/)
 # RS1XX - TTI Codec Pack
 [![TTI](images/TTI_Logo.jpg)](https://www.thethingsindustries.com/)
-[![RS1XX](images/RS1xx.jpg)](https://www.lairdconnect.com/wireless-modules/lorawan-solutions/sentrius-rs1xx-lora-enabled-sensors/)
+[![RS1XX](images/RS1xx.jpg)](https://www.ezurio.com/iot-devices/lorawan-iot-devices/sentrius-rs1xx-lora-enabled-sensors)
 
 These are the downlink decoder and encoder and uplink decoder [Payload Formatters] for the RS1xx series of LoRa Sensors.
 
@@ -924,14 +924,14 @@ One or more, other than 'None' may be used.
 | Sensor reset flag              |
 | Sensor fault flag              |
 
-[External RTD Temp Probe Product Brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-external-rtd-temp-probe/ "External RTD Temp Probe Product Brief"
-[External Temp Sensor Product Brief]: https://www.lairdconnect.com/node/11142/ "External Temp Sensor Product Brief"
-[Integrated Temp & Humidity Sensor Product Brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-integrated-temp-humidity-sensor/ "Integrated Temp & Humidity Sensor Product Brief"
-[Open/Closed Sensor and Integrated Temp/RH Product Brief]: https://www.lairdconnect.com/documentation/product-brief-sentrius-rs1xx-openclosed-sensor-and-integrated-temprh/ "Open/Closed Sensor and Integrated Temp/RH Product Brief"
-[RS1XX Configuration Guide]: https://www.lairdconnect.com/documentation/sentrius-rs1xx-configuration-guide-v112/ "RS1XX Configuration Guide"
-[RS1XX Open/Closed and Integrated Temp/RH User Guide]: https://www.lairdconnect.com/documentation/sentrius-rs1xx-ext-openclosed-and-int-temphumidity-sensor-user-guide-v11/ "RS1XX Open/Closed and Integrated Temp/RH User Guide"
-[RS1XX External Temperature Sensors User Guide]: https://www.lairdconnect.com/node/11151/ "RS1XX External Temperature Sensors User Guide"
-[RS1XX Protocol Specification]: https://www.lairdconnect.com/documentation/application-note-rs1xx-lora-protocol/ "RS1XX Protocol Specification"
+[External RTD Temp Probe Product Brief]: https://www.ezurio.com/documentation/product-brief-sentrius-rs1xx-external-rtd-temp-probe-180-c-350-f "External RTD Temp Probe Product Brief"
+[External Temp Sensor Product Brief]: https://www.ezurio.com/node/11142 "External Temp Sensor Product Brief"
+[Integrated Temp & Humidity Sensor Product Brief]: https://www.ezurio.com/documentation/product-brief-sentrius-rs1xx-integrated-temp-humidity-sensor "Integrated Temp & Humidity Sensor Product Brief"
+[Open/Closed Sensor and Integrated Temp/RH Product Brief]: https://www.ezurio.com/documentation/product-brief-sentrius-rs1xx-openclosed-sensor-and-integrated-temprh "Open/Closed Sensor and Integrated Temp/RH Product Brief"
+[RS1XX Configuration Guide]: https://www.ezurio.com/documentation/user-guide-sentrius-rs1xx-sensor-configuration "RS1XX Configuration Guide"
+[RS1XX Open/Closed and Integrated Temp/RH User Guide]: https://www.ezurio.com/documentation/user-guide-sentrius-rs1xx-ext-openclosed-int-temphumidity-sensors "RS1XX Open/Closed and Integrated Temp/RH User Guide"
+[RS1XX External Temperature Sensors User Guide]: https://www.ezurio.com/node/11151 "RS1XX External Temperature Sensors User Guide"
+[RS1XX Protocol Specification]: https://www.ezurio.com/documentation/application-note-rs1xx-lora-protocol "RS1XX Protocol Specification"
 [Payload Formatters]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/ "Payload Formatters"
 [TTI Device Repository Github Page]: https://github.com/TheThingsNetwork/lorawan-devices/ "TTI Device Repository Github Page"
 [TTI Device Repository]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/device-repo/ "TTI Device Repository"

@@ -84,8 +84,9 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.lairdconnect.com/wireless-modules/lorawan-solutions/sentrius-rs1xx-lora-enabled-sensors
-dataSheetURL: https://www.lairdconnect.com/documentation/sentrius-rs1xx-configuration-guide-v112
+productURL: https://www.ezurio.com/iot-devices/lorawan-iot-devices/sentrius-rs1xx-lora-enabled-sensors
+dataSheetURL: https://www.ezurio.com/documentation/user-guide-sentrius-rs1xx-sensor-configuration
+userGuideURL: https://www.ezurio.com/documentation/user-guide-sentrius-rs1xx-sensor-configuration
 resellerURLs:
   - name: 'Digi-Key (RS1XX North America US902-928 version)'
     region:
@@ -114,31 +115,32 @@ resellerURLs:
   - name: 'Mouser (RS1XX North America US902-928 version)'
     region:
       - United States
-    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-0001?qs=f9yNj16SXrLHWGWgPjEnvQ%3D%3D
+    url: https://www.mouser.com/ProductDetail/Ezurio/455-0001?qs=f9yNj16SXrLHWGWgPjEnvQ%3D%3D
   - name: 'Mouser (RS1XX Europe EU863-870 version)'
     region:
       - European Union
-    url: https://www.mouser.co.uk/ProductDetail/Laird-Connectivity/455-0002/?qs=f9yNj16SXrIAaoVm5TkfuA%3D%3D
+    url: https://www.mouser.co.uk/ProductDetail/Ezurio/455-0002?qs=f9yNj16SXrIAaoVm5TkfuA%3D%3D
+
   - name: 'Mouser (RS1XX Australia AU915-928 version)'
     region:
       - United States
-    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00062?qs=%2Fha2pyFaduiVPYR7juSnK7Z5c85KXbBGXG2burRb%252Bu%2Fiv4fNSMhC1g%3D%3D
+    url: https://eu.mouser.com/ProductDetail/Ezurio/455-00062?qs=BJlw7L4Cy78du3M1EmAwzw%3D%3D
   - name: 'Mouser (RS1XX New Zealand AS923 version)'
     region:
       - United States
-    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00060?qs=%2Fha2pyFaduiVPYR7juSnK4HtmUbAGQ%2FyY9G5NV4%2F5WnloWmX%2FDVRmg%3D%3D
+    url: https://www.mouser.com/ProductDetail/Ezurio/455-00060?qs=BJlw7L4Cy7%2FT%252BdiVXFi5Kg%3D%3D&_gl=1*151jknv*_ga*MTYxNjMyNDE1OS4xNzQ1ODM5NjM0*_ga_15W4STQT4T*MTc0NTgzOTYzMy4xLjEuMTc0NTgzOTY5Ny41Ni4wLjA.
   - name: 'Mouser (RS1XX Taiwan AS923 version)'
     region:
       - United States
-    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00059?qs=%2Fha2pyFadug275OP%2F%252BIeOGqsiPUjgBUS3ujP7OCtiSiqAKHYcWnchQ%3D%3D
+    url: https://www.mouser.com/ProductDetail/Ezurio/455-00059?qs=BJlw7L4Cy7%2FIckMgelKPRQ%3D%3D
   - name: 'Mouser (RS1XX Hong Kong AS923 version)'
     region:
       - United States
-    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00061?qs=%2Fha2pyFaduiVPYR7juSnK65B4wN7scy2iXni0py6MqHs2gndLUPjTA%3D%3D
+    url: https://www.mouser.com/ProductDetail/Ezurio/455-00061?qs=BJlw7L4Cy79%252BX%2FVrXk0v4A%3D%3D
   - name: 'Mouser (RS1XX Singapore AS923 version)'
     region:
       - United States
-    url: https://www.mouser.com/ProductDetail/Laird-Connectivity/455-00095?qs=W%2FMpXkg%252BdQ5CxdiDQv0Dww%3D%3D
+    url: https://www.mouser.com/ProductDetail/Ezurio/455-00095?qs=W%2FMpXkg%252BdQ5CxdiDQv0Dww%3D%3D
 
 # Photos
 photos:
