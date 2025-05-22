@@ -1,0 +1,492 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: rs1xx-ext-multi-sensor.js
+  examples:
+    - description: Send Temp RH Data Notification
+      input:
+        fPort: 1
+        bytes: [1, 0, 33, 52, 67, 98, 5, 1, 0, 0, 1]
+      output:
+        data:
+          msgType: 'Laird_Internal_TH'
+          options:
+            - 'None'
+          batteryCapacity: '80-100%'
+          temperature: 98.67
+          humidity: 52.33
+          alarmMsgCount: 256
+          backlogMsgCount: 1
+
+    - description: Send Temp and RH Aggregated Data Notification
+      input:
+        fPort: 1
+        bytes: [2, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 33, 52, 67, 98, 34, 53, 68, 99]
+      output:
+        data:
+          msgType: 'Laird_Agg_TH'
+          options:
+            - 'None'
+          batteryCapacity: '80-100%'
+          alarmMsgCount: 0
+          backlogMsgCount: 0
+          numberOfReadings: 2
+          timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }
+          readings: [{ temperature: 98.67, humidity: 52.33 }, { temperature: 99.68, humidity: 53.34 }]
+
+    - description: Send Backlog Message Notification
+      input:
+        fPort: 1
+        bytes: [3, 2, 0, 0, 0, 2, 42, 61, 76, 107]
+      output:
+        data:
+          humidity: 61.42
+          msgType: 'SendBackLogMessage'
+          options:
+            - 'Sensor configuration error'
+          temperature: 107.76
+          timestamp: { day: 1, hours: 0, minutes: 0, month: 'January', seconds: 2, year: 2015 }
+
+    - description: Send Backlog Messages Notification
+      input:
+        fPort: 1
+        bytes: [4, 1, 2, 0, 0, 0, 0, 42, 61, 76, 107, 0, 0, 0, 0, 42, 61, 76, 107]
+      output:
+        data:
+          msgType: 'SendBackLogMessages'
+          options:
+            - 'Sensor request for server time'
+          numberOfReadings: 2
+          readings:
+            [
+              { timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 107.76, humidity: 61.42 },
+              { timestamp: { year: 2015, month: 'January', day: 1, hours: 0, minutes: 0, seconds: 0 }, temperature: 107.76, humidity: 61.42 },
+            ]
+
+    - description: Send Sensor Config Simple Notification
+      input:
+        fPort: 1
+        bytes: [5, 0, 1, 1, 0, 0, 1, 0]
+      output:
+        data:
+          msgType: 'Laird_Simple_Config'
+          options:
+            - 'None'
+          batteryType: 'Alkaline'
+          sensorReadPeriod: 256
+          sensorAggregate: 0
+          tempAlarmsEnabled: 'True'
+          humidityAlarmsEnabled: 'False'
+
+    - description: Send Sensor Config Advanced Notification
+      input:
+        fPort: 1
+        bytes: [6, 0, 1, 1, 0, 1, 1, 1, 255, 80, 0, 16, 0, 10, 0, 10]
+      output:
+        data:
+          msgType: 'Laird_Advanced_Config'
+          options:
+            - 'None'
+          batteryType: 'Alkaline'
+          sensorReadPeriod: 256
+          sensorAggregate: 1
+          tempAlarmsEnabled: 'True'
+          humidityAlarmsEnabled: 'True'
+          tempAlarmLimitLow: -1
+          tempAlarmLimitHigh: 80
+          humidityAlarmLimitLow: 0
+          humidityAlarmLimitHigh: 16
+          ledBle: 10
+          ledLora: 10
+
+    - description: Send FW Version Notification
+      input:
+        fPort: 1
+        bytes: [7, 0, 20, 11, 5, 6, 1, 1, 2, 3, 4]
+      output:
+        data:
+          msgType: 'Laird_FW_Version'
+          options:
+            - 'None'
+          releaseDate: '20/11/5'
+          releaseNumber: '6.1'
+          partNumber: 16909060
+
+    - description: Send Open Closed Config Notification
+      input:
+        fPort: 1
+        bytes: [8, 1, 1, 3, 0, 10, 0, 11, 170, 187]
+      output:
+        data:
+          msgType: 'Laird_Contact_Sensor_Config'
+          options:
+            - 'Sensor request for server time'
+          operatingMode: 'Pushbutton'
+          loraNotificationOptions: ['Open', 'Closed']
+          openDwellTime: 10
+          closedDwellTime: 11
+          resendInterval: 170
+          debounceAdjust: 187
+
+    - description: Send Open Closed Status Notification
+      input:
+        fPort: 1
+        bytes: [9, 0, 0, 1, 1, 1]
+      output:
+        data:
+          msgType: 'Laird_Contact_Sensor'
+          options:
+            - 'None'
+          operatingMode: 'Door Sensor'
+          state: 'Open'
+          alertCancellation: 'True'
+          counter: 1
+
+    - description: Send Battery Voltage
+      input:
+        fPort: 1
+        bytes: [10, 0, 1, 3]
+      output:
+        data:
+          msgType: 'Laird_Battery_Voltage'
+          options:
+            - 'None'
+          voltage: 3.01
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: rs1xx-ext-multi-sensor.js
+  examples:
+    - description: Generic Data Retrieval Notification
+      input:
+        data:
+          msgType: 'genericDataRetrieval'
+          options: 'None'
+      output:
+        bytes: [1, 0]
+        fPort: 1
+
+    - description: Set UTC Notification
+      input:
+        data:
+          msgType: 'generateRTCDownlink'
+          options: 'Send Simple Config'
+          year: 2020
+          month: 'January'
+          day: 1
+          hours: 1
+          minutes: 2
+          seconds: 3
+      output:
+        bytes: [2, 1, 20, 1, 1, 1, 2, 3]
+        fPort: 1
+
+    - description: Sensor Config Notification
+      input:
+        data:
+          msgType: 'config'
+          options: 'Send Advanced Config'
+          batteryType: 'Alkaline'
+          sensorReadPeriod: 100
+          sensorAggregate: 5
+          tempAlarmsEnabled: 'True'
+          humidityAlarmsEnabled: 'False'
+          tempAlarmLimitLow: -5
+          tempAlarmLimitHigh: 69
+          humidityAlarmLimitLow: 10
+          humidityAlarmLimitHigh: 99
+          ledBle: 23
+          ledLora: 256
+      output:
+        bytes: [3, 2, 1, 0, 100, 5, 1, 0, 251, 69, 10, 99, 0, 23, 1, 0]
+        fPort: 1
+
+    - description: Heater Control Notification
+      input:
+        data:
+          msgType: 'heaterControl'
+          options: 'Send Firmware Version'
+          heaterSetting: 1
+          heaterTime: 257
+      output:
+        bytes: [4, 3, 1, 1, 1]
+        fPort: 1
+
+    - description: Backoff Notification
+      input:
+        data:
+          msgType: 'backoff'
+          options: 'Send Open Closed Config'
+          backoffPeriod: 500
+      output:
+        bytes: [5, 4, 1, 244]
+        fPort: 1
+
+    - description: FIFO Backlog Retrieval Notification
+      input:
+        data:
+          msgType: 'asRequestBacklogFIFO'
+          options: 'Send Battery Voltage'
+          backlogPullReqNum: 57
+          backlogPullReqPeriod: 500
+      output:
+        bytes: [6, 5, 0, 57, 1, 244]
+        fPort: 1
+
+    - description: Format Flash Log Notification
+      input:
+        data:
+          msgType: 'asFormatFlash'
+          options: 'Reset Sensor'
+      output:
+        bytes: [7, 6]
+        fPort: 1
+
+    - description: LIFO Backlog Retrieval Notification
+      input:
+        data:
+          msgType: 'asRequestBacklogLIFO'
+          options: 'Start Advertising'
+          backlogPullReqNum: 256
+          backlogPullReqPeriod: 812
+      output:
+        bytes: [10, 7, 1, 0, 3, 44]
+        fPort: 1
+
+    - description: Cancel Backlog Retrieval
+      input:
+        data:
+          msgType: 'asCancelBacklogRetrieval'
+          options: 'Send RTD Config'
+      output:
+        bytes: [11, 8]
+        fPort: 1
+
+    - description: Open/Closed Config Notification
+      input:
+        data:
+          msgType: 'asSetOpenClosedConfig'
+          options: 'None'
+          operatingMode: 'Pushbutton'
+          loraNotificationOptions:
+            - 'Open'
+          openDwellTime: 300
+          closedDwellTime: 10
+          resendInterval: 50
+          debounceAdjust: 100
+      output:
+        bytes: [13, 0, 1, 1, 1, 44, 0, 10, 50, 100]
+        fPort: 1
+
+    - description: FIFO Targeted Backlog Retrieval Notification
+      input:
+        data:
+          msgType: 'asRequestTargetedBacklogFIFO'
+          options: 'Send Simple Config'
+          startYear: 2020
+          startMonth: 'December'
+          startDay: 1
+          startHours: 2
+          startMinutes: 3
+          startSeconds: 4
+          endYear: 2021
+          endMonth: 'January'
+          endDay: 5
+          endHours: 6
+          endMinutes: 7
+          endSeconds: 8
+          backlogPullReqPeriod: 256
+      output:
+        bytes: [15, 1, 20, 12, 1, 2, 3, 4, 21, 1, 5, 6, 7, 8, 1, 0]
+        fPort: 1
+
+    - description: LIFO Targeted Backlog Retrieval Notification
+      input:
+        data:
+          msgType: 'asRequestTargetedBacklogLIFO'
+          options: 'Send Simple Config'
+          startYear: 2021
+          startMonth: 'February'
+          startDay: 3
+          startHours: 4
+          startMinutes: 5
+          startSeconds: 6
+          endYear: 2027
+          endMonth: 'August'
+          endDay: 9
+          endHours: 10
+          endMinutes: 11
+          endSeconds: 12
+          backlogPullReqPeriod: 13
+      output:
+        bytes: [16, 1, 21, 2, 3, 4, 5, 6, 27, 8, 9, 10, 11, 12, 0, 13]
+        fPort: 1
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: rs1xx-ext-multi-sensor.js
+  examples:
+    - description: Generic Data Retrieval Notification
+      input:
+        fPort: 1
+        bytes: [1, 0]
+      output:
+        data:
+          msgType: 'genericDataRetrieval'
+          options: 'None'
+
+    - description: Set UTC Notification
+      input:
+        fPort: 1
+        bytes: [2, 1, 20, 1, 1, 1, 2, 3]
+      output:
+        data:
+          msgType: 'generateRTCDownlink'
+          options: 'Send Simple Config'
+          year: 2020
+          month: 'January'
+          day: 1
+          hours: 1
+          minutes: 2
+          seconds: 3
+
+    - description: Sensor Config Notification
+      input:
+        fPort: 1
+        bytes: [3, 2, 1, 0, 100, 5, 1, 0, 251, 69, 10, 99, 0, 23, 1, 0]
+      output:
+        data:
+          msgType: 'config'
+          options: 'Send Advanced Config'
+          batteryType: 'Alkaline'
+          sensorReadPeriod: 100
+          sensorAggregate: 5
+          tempAlarmsEnabled: 'True'
+          humidityAlarmsEnabled: 'False'
+          tempAlarmLimitLow: -5
+          tempAlarmLimitHigh: 69
+          humidityAlarmLimitLow: 10
+          humidityAlarmLimitHigh: 99
+          ledBle: 23
+          ledLora: 256
+
+    - description: Heater Control Notification
+      input:
+        fPort: 1
+        bytes: [4, 3, 1, 1, 1]
+      output:
+        data:
+          msgType: 'heaterControl'
+          options: 'Send Firmware Version'
+          heaterSetting: 1
+          heaterTime: 257
+
+    - description: Backoff Notification
+      input:
+        fPort: 1
+        bytes: [5, 4, 1, 244]
+      output:
+        data:
+          msgType: 'backoff'
+          options: 'Send Open Closed Config'
+          backoffPeriod: 500
+
+    - description: FIFO Backlog Retrieval Notification
+      input:
+        fPort: 1
+        bytes: [6, 5, 0, 57, 1, 244]
+      output:
+        data:
+          msgType: 'asRequestBacklogFIFO'
+          options: 'Send Battery Voltage'
+          backlogPullReqNum: 57
+          backlogPullReqPeriod: 500
+
+    - description: Format Flash Log Notification
+      input:
+        fPort: 1
+        bytes: [7, 6]
+      output:
+        data:
+          msgType: 'asFormatFlash'
+          options: 'Reset Sensor'
+
+    - description: LIFO Backlog Retrieval Notification
+      input:
+        fPort: 1
+        bytes: [10, 7, 1, 0, 3, 44]
+      output:
+        data:
+          msgType: 'asRequestBacklogLIFO'
+          options: 'Start Advertising'
+          backlogPullReqNum: 256
+          backlogPullReqPeriod: 812
+
+    - description: Cancel Backlog Retrieval
+      input:
+        fPort: 1
+        bytes: [11, 8]
+      output:
+        data:
+          msgType: 'asCancelBacklogRetrieval'
+          options: 'Send RTD Config'
+
+    - description: Open/Closed Config Notification
+      input:
+        fPort: 1
+        bytes: [13, 0, 1, 1, 1, 44, 0, 10, 50, 100]
+      output:
+        data:
+          msgType: 'asSetOpenClosedConfig'
+          options: 'None'
+          operatingMode: 'Pushbutton'
+          loraNotificationOptions:
+            - 'Open'
+          openDwellTime: 300
+          closedDwellTime: 10
+          resendInterval: 50
+          debounceAdjust: 100
+
+    - description: FIFO Targeted Backlog Retrieval Notification
+      input:
+        fPort: 1
+        bytes: [15, 1, 20, 12, 1, 2, 3, 4, 21, 1, 5, 6, 7, 8, 1, 0]
+      output:
+        data:
+          msgType: 'asRequestTargetedBacklogFIFO'
+          options: 'Send Simple Config'
+          startYear: 2020
+          startMonth: 'December'
+          startDay: 1
+          startHours: 2
+          startMinutes: 3
+          startSeconds: 4
+          endYear: 2021
+          endMonth: 'January'
+          endDay: 5
+          endHours: 6
+          endMinutes: 7
+          endSeconds: 8
+          backlogPullReqPeriod: 256
+
+    - description: LIFO Targeted Backlog Retrieval Notification
+      input:
+        fPort: 1
+        bytes: [16, 1, 21, 2, 3, 4, 5, 6, 27, 8, 9, 10, 11, 12, 0, 13]
+      output:
+        data:
+          msgType: 'asRequestTargetedBacklogLIFO'
+          options: 'Send Simple Config'
+          startYear: 2021
+          startMonth: 'February'
+          startDay: 3
+          startHours: 4
+          startMinutes: 5
+          startSeconds: 6
+          endYear: 2027
+          endMonth: 'August'
+          endDay: 9
+          endHours: 10
+          endMinutes: 11
+          endSeconds: 12
+          backlogPullReqPeriod: 13
