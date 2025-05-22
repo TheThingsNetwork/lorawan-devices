@@ -1,5 +1,5 @@
-name: LoRa Manhole Sensor
-description: The Mutelcor LoRa Manhole Sensor is a LoRaWAN® Device that detects opening and closing of manholes and/or any external doors. The device notifies alerts in real time to prevent accidents and to quickly react to unauthorized opening of manholes and external doors.
+name: LoRa Wireless CO2 Sensor
+description: The Mutelcor Wireless CO2 Sensor is the batteryu powered version of our well known Smart CO2 LoRa Sensor. It measures CO2 levels along with temperature and humidity at configurable intervals, by default once every hour. With that configuration, we're able to achieve a battery life of about 2 years. Ideal for installations where regular monitoring of CO2 levels is required, but real time alerts are not critical, e.g. mushroom farming, industrial complexes and many more.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -60,23 +60,20 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - battery
+  - co2
+  - humidity
+  - temperature
   - digital input
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 104
-  length: 104
-  height: 70
+  width: 95
+  length: 95
+  height: 48
 
 # Weight in grams (optional)
-weight: 659
-
-# Battery information (optional)
-battery:
-  replaceable: true
-  type: AA
+weight: 180
 
 # Operating conditions (optional)
 operatingConditions:
@@ -85,20 +82,24 @@ operatingConditions:
     min: -18
     max: 55
 
+battery:
+  replaceable: true
+  type: AA
+
 # IP rating (optional)
-ipCode: IP67
+ipCode: IP30
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://mutelcor.com/lora-manhole-sensor/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2025/05/MUTELCOR_Datasheet_LoRa_Manhole_Sensor.pdf
+productURL: https://mutelcor.com/lora-wireless-co2-sensor/
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2025/05/MUTELCOR_Datasheet_LoRa_Wireless_CO2_Sensor.pdf
 
 # Photos
 photos:
-  main: mtc-mh01.png
+  main: mtc-co2-05.png
 
 # Regulatory compliances (optional)
 compliances:
