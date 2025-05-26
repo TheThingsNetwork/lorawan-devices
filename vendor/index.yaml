@@ -2122,6 +2122,9 @@ vendors:
   - id: southerniot
     name: Southern IoT
 
+  - id: ezurio
+    name: Ezurio Inc.
+
   - id: truvami
     description: tiny trackers - total solution
     name: truvami
