@@ -2139,3 +2139,14 @@ vendors:
     website: https://www.tehamawireless.com
     ouis:
       - 50C2D0
+
+  - id: radionode
+    name: Dekist Co., Ltd
+    description: Make it connected through Radionode Sensors
+    website: https://en.radionode365.com/kr/index.php
+    logo: radionode_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/radionode/
+      #facebook: https://www.facebook.com/radionode365
+      #instagram: radionodekorea
+      github: radionode

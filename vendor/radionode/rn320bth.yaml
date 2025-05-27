@@ -1,0 +1,183 @@
+name: RN320-BTH # Device name can not contain the vendor name
+description: LoRaWAN based Temperature & Humidity Data Logger
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+
+    profiles:
+      EU863-870:
+        id: rn320bth-profile
+        lorawanCertified: true
+        codec: rn320bth-codec
+
+      #AU915:
+      #id: rn320bth-profile
+      #lorawanCertified: true
+      #codec: rn320bth-codec
+      #KR920:
+      #id: rn320bth-profile
+      #lorawanCertified: true
+      #codec: rn320bth-codec
+      #AS923:
+      #id: rn320bth-profile
+      #lorawanCertified: true
+      #codec: rn320bth-codec
+      #RU864:
+      #id: rn320bth-profile
+      #lorawanCertified: true
+      #codec: rn320bth-codec
+      #IN865:
+      #id: rn320bth-profile
+      #lorawanCertified: true
+      #codec: rn320bth-codec
+      #CN470:
+      #id: rn320bth-profile
+      #lorawanCertified: true
+      #codec: rn320bth-codec
+
+# Type of device (optional)
+# Valid values are: devkit, module, cots (commercial off-the-shelf)
+deviceType: cots
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - humidity
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+#additionalRadios:
+#- ble
+#- cellular
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog, ethernet.
+#bridgeInterfaces:
+#- m-bus
+#- rs-485
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 40
+  length: 115
+  height: 115
+
+# Weight in grams (optional)
+weight: 352
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 2X3.6V Li-SOCL2 (17000mAh)
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 80
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.05
+    max: 0.95
+
+# IP rating (optional)
+#ipCode: IP65
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - serial
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://en.radionode365.com/kr/product/product_view.php?idx=102&part_idx=1
+dataSheetURL: https://en.radionode365.com/kr/product/product_view.php?idx=102&part_idx=1
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://en.radionode365.com/kr/product/product_view.php?idx=102&part_idx=1
+
+# Commercial information
+#resellerURLs:
+#- name: 'Reseller 1'
+#region: # valid regions are: Argentina, Australia, Brazil, Canada, China, European Union, India, Indonesia.
+# Japan, Mexico, Russia, Saudi Arabia, South Africa, South Korea, Turkey, United States, United Kingdom, Other
+#- European Union
+#url: https://example.org/reseller1
+#- name: 'Reseller 2'
+# region:
+#  - United States
+# - Canada
+#url: https://example.org/reseller2
+msrp:
+  EUR: 190
+  USD: 215
+
+# Photos
+photos:
+  main: rn320bth-main.png # Image needs to have a transparent background
+  other:
+    - rn320bth-back.png # Image needs to have a transparent background
+
+# Youtube or Vimeo Video (optional)
+#videos:
+#main: https://www.youtube.com/watch?v=JHzxcD2oEn8
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+      version: 2020+A11:2020
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+  emc:
+    - body: IEC
+      norm: EN
+      standard: 61000-6-3
+      version: 2021
+  humanExposure:
+    - body: IEC
+      norm: EN
+      standard: 62311
+      version: 2008
+  rohs:
+    - body: IEC
+      norm: EN
+      standard: 62321-8
+      version: 2017
