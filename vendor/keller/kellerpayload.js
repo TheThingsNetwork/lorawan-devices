@@ -1,4 +1,4 @@
-/* This is just a decoder for the TTN live viewer. The complete payload format protocol can be found here: https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/*/
+/* This is just a decoder for the TTN live viewer. The complete payload format protocol can be found here: https://docs.pressuresuite.com/sending-technology/lora-technology/keller-lora-payload/*/
 /* This code is from https://github.com/KELLERAGfuerDruckmesstechnik/KellerAgTheThingsNetworkPayloadDecoder */
 
 function decodeUplink(input) {
@@ -36,7 +36,7 @@ function encodeDownlink(input) {
     data: {
       bytes: input.bytes
     },
-    warnings: ["Encoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.kolibricloud.ch/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)"],
+    warnings: ["Encoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.pressuresuite.com/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)"],
     errors: []
   }
 }
@@ -46,7 +46,7 @@ function decodeDownlink(input) {
     data: {
       bytes: input.bytes
     },
-    warnings: ["Decoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.kolibricloud.ch/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)"],
+    warnings: ["Decoding of downlink is not supported by the JS decoder. Yet, it is possible to use downlink telegrams using the correct payload (https://docs.pressuresuite.com/sending-technology/ADT1%20LoRa%20data%20communication%20protocol%2002_2020.pdf)"],
     errors: []
   }
 }

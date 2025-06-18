@@ -340,8 +340,8 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER Druckmesstechnik AG
-    website: https://keller-druck.com/
+    name: KELLER Pressure
+    website: https://keller-pressure.com/
     logo: keller-logo.svg
     vendorID: 222
     description: KELLER Pressure, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
