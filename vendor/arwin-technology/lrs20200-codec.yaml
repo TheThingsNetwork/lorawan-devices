@@ -1,17 +1,18 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: lrs20310.js
+  fileName: lrs20200.js
   examples:
-    - description: water leakage level 10, battery 90 %, event "heartbeat/button"
+    - description: temperature 23 C, battery 90 %, event "heartbeat/button", uplink count 3106
       input:
         fPort: 10
-        bytes: [5, 1, 90, 10, 0, 0]
+        bytes: [2, 1, 90, 0, 230, 0, 10, 12, 34]
       output:
         data:
           event: 'heartbeat/button'
           battery: 90
-          waterLeakLevel: 10
+          temperature: 23
+          uplinkCount: 3106
     - description: firmware version 1.00.001
       input:
         fPort: 8
@@ -29,19 +30,28 @@ uplinkDecoder:
           batteryLevel: 3550
           batteryPercentage: 100
           uplinkCount: 66051
-    - description: device settings, data upload interval = 15 min, number of additional uploads = 3, time between addition uploads = 1 min
+    - description: data upload interval 15 min
       input:
         fPort: 12
-        bytes: [5, 0, 15, 0, 3, 1, 1]
+        bytes: [2, 0, 15, 0, 1]
       output:
         data:
           dataUploadInterval: 15
-          numAdditionalUploads: 3
-          additionalUploadsInterval: 1
-    - description: water leakage threshold 15
+    - description: high temperature threshold 40 C, low temperature threshold 10 C
       input:
         fPort: 13
-        bytes: [5, 15]
+        bytes: [2, 0, 40, 0, 10]
       output:
         data:
-          waterLeakAlertThreshold: 15
+          highTemperatureThreshold: 40
+          lowTemperatureThreshold: 10
+    - description: max silient time 30 min, delta temperature 0.1 C, sampling time 1 min, repeat 2
+      input:
+        fPort: 16
+        bytes: [2, 0, 30, 0, 1, 0, 1, 2]
+      output:
+        data:
+          maximumSilentTime: 30
+          deltaTemperature: 0.1
+          samplingTime: 1
+          repeat: 2
