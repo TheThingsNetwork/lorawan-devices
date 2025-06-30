@@ -16,7 +16,9 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.9.1",
     "copy-webpack-plugin": "^5.1.0",
+    "history": "^4.7.2",
     "normalize.css": "^8.0.1",
+    "postcss": "^8.1.0",
     "react": "^17.0.1",
     "react-ace": "^9.3.0",
     "react-dom": "^17.0.1",
@@ -47,9 +49,9 @@
     "stylint": "^2.0.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2",
-    "webpack-manifest-plugin": "^3.0.0"
+    "webpack": "^5.90.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4",
+    "webpack-manifest-plugin": "^4.1.1"
   }
 }
