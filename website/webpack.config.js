@@ -35,7 +35,8 @@ module.exports = (env, argv) => {
         output: {
             path: path.resolve(__dirname, 'static/'),
             filename: `js/${isProduction ? '[hash].' : ''}[name].js`,
-            publicPath: BASE_PATH
+            publicPath: BASE_PATH,
+            hashFunction: 'sha512',
         },
         resolve: {
           alias: {
