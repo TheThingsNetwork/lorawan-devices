@@ -26,6 +26,7 @@ module.exports = (env, argv) => {
     const isProduction = argv?.mode === undefined || argv?.mode === 'production'
 
     return {
+      mode: isProduction ? 'production' : development,
         devtool: isProduction ? 'source-map' : 'inline-source-map',
         entry: {
           base: path.resolve(__dirname, 'src/js/index.js'),
@@ -34,9 +35,9 @@ module.exports = (env, argv) => {
         },
         output: {
             path: path.resolve(__dirname, 'static/'),
-            filename: `js/${isProduction ? '[hash].' : ''}[name].js`,
+            filename: `js/${isProduction ? '[fullhash].' : ''}[name].js`,
             publicPath: BASE_PATH,
-            hashFunction: 'sha512',
+            hashFunction: 'xxhash64',
         },
         resolve: {
           alias: {
@@ -46,7 +47,7 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: `css/${isProduction ? '[hash].' : ''}[name].css`
+                filename: `css/${isProduction ? '[fullhash].' : ''}[name].css`
             }),
             new WebpackManifestPlugin({
                 fileName: '../data/manifest.json',
@@ -61,7 +62,9 @@ module.exports = (env, argv) => {
             ])
         ],
         devServer: {
-            contentBase: path.join(__dirname, 'src'),
+            static: {
+              directory: path.join(__dirname, 'src'),
+            },
             port: 9100,
             headers: {
               "Access-Control-Allow-Origin": "*",
