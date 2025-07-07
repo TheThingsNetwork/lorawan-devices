@@ -1,0 +1,59 @@
+name: GPS Tracker NEO_6M
+description: The AgroSense GPS Tracker NEO_6M is an ideal GPS beacon for equipment geolocation. This product uses the U-blox NEO-6M GPS module, known for its high precision and widespread use. Equipped with an onboard LIS3DHTR accelerometer, it can detect vibration and report via LoRaWAN. It is suitable for various applications, including asset tracking and farm management
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: gps-tracker-neo-6m-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: gps-tracker-neo-6m-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: gps-tracker-neo-6m-codec
+
+deviceType: cots
+
+#sensors:
+#  - co2
+#  - battery
+
+dimensions:
+  width: 131
+  length: 27
+  height: 63
+
+battery:
+  replaceable: true
+  type: AAA
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+  - join server
+
+productURL: https://www.agrosense.cc/pd.jsp?recommendFromPid=0&id=14&fromMid=366
+
+photos:
+  main: gps-tracker-neo-6m.jpg

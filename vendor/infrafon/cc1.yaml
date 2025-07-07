@@ -1,0 +1,91 @@
+name: CC1
+description: Tiny smart badge with a highres 600x400 pixel interactive e-paper screen and remote management capabilities of smartphone-like functions and user interactions with DataView tasks, while maintaining stability and efficiency by restricting users access to functional setup details.
+firmwareVersions:
+  - version: 'r5'
+    numeric: 1
+    profiles:
+      EU863-870:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      US902-928:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      EU433:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      AU915-928:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      CN470-510:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      KR920-923:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      IN865-867:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      RU864-870:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+      AS923:
+        id: cc1-profile
+        lorawanCertified: false
+        codec: cc1-codec
+
+deviceType: devkit
+
+sensors:
+  - accelerometer # Bosch BMA456
+  - vibration
+  - gps # SONY CXD5605
+
+additionalRadios:
+  - ble # Pycom L01 Module
+  - cellular # Sequans Monarch GM02S
+  - wifi # Pycom L01 Module
+  - nfc # NXP PN7150, NXP NTP5210
+
+dimensions:
+  width: 8.3
+  length: 50
+  height: 90.2
+
+weight: 51
+
+battery:
+  replaceable: false
+  type: LiPo
+
+keyProvisioning:
+  - custom
+
+keyProgramming:
+  - wifi
+
+keySecurity: secure element
+
+firmwareProgramming:
+  - serial
+
+productURL: https://www.infrafon.com/technologies
+dataSheetURL: https://assets-global.website-files.com/60b10e9934cfe86bb1c56e3e/65439a9a19e4083f0a763116_CC1%20Data%20sheet%20(%2Bcertifications).pdf
+onboardingGuideURL: https://www.infrafon.com/get-started
+
+msrp:
+  EUR: 300
+
+photos:
+  main: cc1.png
+  other:
+    - cc1-developer-kit.png
+videos:
+  main: https://www.youtube.com/watch?v=NnmGxJ9R2F0

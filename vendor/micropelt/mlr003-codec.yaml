@@ -4,106 +4,197 @@ uplinkDecoder:
   fileName: mlr003.js
   # Examples (optional)
   examples:
-    - description: REV1.1 Example 1
+    - description: FPort 1 Basic Device Data 1
       input:
         fPort: 1
-        bytes: [0x3A, 0xCA, 0xD4, 0xF3, 0xA1, 0x21, 0x8B, 0x03, 0xEB, 0x50, 0x3A]
+        bytes: [71, 94, 78, 116, 87, 32, 136, 44, 237, 82, 46, 89]
       output:
         data:
-          Current_Valve_Position: 58
-          Flow_Sensor_Raw: 101.00
-          Flow_Temperature: 106.00
-          Ambient_Sensor_Raw: 60.75
-          Ambient_Temperature: 40.25
-          Energy_Storage: 0
-          Harvesting_Active: 1
           Ambient_Sensor_Failure: 0
-          Flow_Sensor_Failure: 0
-          Radio_Communication_Error: 0
-          Received_Signal_Strength: 0
-          Motor_Error: 1
-          Storage_Voltage: 2.78
-          Average_Current_Consumed: 30
-          Average_Current_Generated: 2350
-          Reference_Completed: 1
-          Operating_Mode: 0
-          Storage_Fully_Charged: 1
-          User_Mode: 0
-          User_Value: 58
-
-    - description: REV1.1 Example 2
-      input:
-        fPort: 1
-        bytes: [0x47, 0x19, 0x1B, 0x3C, 0x3C, 0x06, 0x75, 0x7B, 0x15, 0x01, 0x25]
-      output:
-        data:
+          Ambient_Sensor_Raw: 29
+          Ambient_Temperature: 21.75
+          Average_Current_Consumed: 440
+          Average_Current_Generated: 2370
+          Calibration_OK: 1
           Current_Valve_Position: 71
-          Flow_Sensor_Raw: 12.50
-          Flow_Temperature: 13.50
-          Ambient_Sensor_Raw: 15.00
-          Ambient_Temperature: 15.00
           Energy_Storage: 0
-          Harvesting_Active: 0
-          Ambient_Sensor_Failure: 0
           Flow_Sensor_Failure: 0
-          Radio_Communication_Error: 1
-          Received_Signal_Strength: 1
-          Motor_Error: 0
-          Storage_Voltage: 2.34
-          Average_Current_Consumed: 1230
-          Average_Current_Generated: 210
-          Reference_Completed: 0
-          Operating_Mode: 0
-          Storage_Fully_Charged: 0
-          User_Mode: 1
-          User_Value: 18.5
-
-    - description: REV1.0 Example 3
-      input:
-        fPort: 1
-        bytes: [0x00, 0x3E, 0x42, 0x73, 0x60, 0x20, 0x87, 0x01, 0x02, 0x10]
-      output:
-        data:
-          Current_Valve_Position: 0
-          Flow_Sensor_Raw: 31
-          Flow_Temperature: 33
-          Ambient_Sensor_Raw: 28.75
-          Ambient_Temperature: 24
-          Energy_Storage: 0
+          Flow_Sensor_Raw: 47
+          Flow_Temperature: 39
           Harvesting_Active: 1
-          Ambient_Sensor_Failure: 0
-          Flow_Sensor_Failure: 0
+          Motor_Error: 0
+          Temperature_Drop_Detection: 0
+          Operating_Condition: 0
           Radio_Communication_Error: 0
           Received_Signal_Strength: 0
-          Motor_Error: 0
-          Storage_Voltage: 2.70
-          Average_Current_Consumed: 10
-          Average_Current_Generated: 20
-          Reference_Completed: 1
-          Operating_Mode: 0
-          Storage_Fully_Charged: 0
-
-    - description: REV1.0 Example 4
+          Storage_Fully_Charged: 1
+          Storage_Voltage: 2.72
+          Used_Temperature: 22.25
+          User_Mode: SP_Ambient_Temperature
+          User_Value: 23
+          Zero_Error: 0
+    - description: FPort 2 Device Version
       input:
-        fPort: 1
-        bytes: [0x64, 0x28, 0x2C, 0x4F, 0x4D, 0x00, 0x85, 0x01, 0x00, 0x10]
+        fPort: 2
+        bytes: [194, 49, 24, 9, 3, 0]
       output:
         data:
-          Current_Valve_Position: 100
-          Flow_Sensor_Raw: 20
-          Flow_Temperature: 22
-          Ambient_Sensor_Raw: 19.75
-          Ambient_Temperature: 19.25
-          Energy_Storage: 0
-          Harvesting_Active: 0
-          Ambient_Sensor_Failure: 0
-          Flow_Sensor_Failure: 0
-          Radio_Communication_Error: 0
-          Received_Signal_Strength: 0
-          Motor_Error: 0
-          Storage_Voltage: 2.66
-          Average_Current_Consumed: 10
-          Average_Current_Generated: 0
-          Reference_Completed: 1
-          Operating_Mode: 0
-          Storage_Fully_Charged: 0
+          REV: '2.c'
+          HW: '1.3'
+          FW: '2024.9.3.0'
+    - description: FPort 3 Motor Travel Distance
+      input:
+        fPort: 3
+        bytes: [9]
+      output:
+        data:
+          'motor_range': 1.872
+    - description: FPort 4 LoRa Spread Factor
+      input:
+        fPort: 4
+        bytes: [1]
+      output:
+        data:
+          'SpreadingFactor': 'SF8'
+    - description: FPort 5 Opening Point Detction and Slow Harvesting
+      input:
+        fPort: 5
+        bytes: [0, 2]
+      output:
+        data:
+          'Opening_Percent_Found': 0
+          'Opening_Percent_Value': 0
+          'status': 'Hot Water expected to be OFF'
+    - description: FPort 6 Temperature Drop Detection
+      input:
+        fPort: 6
+        bytes: [240]
+      output:
+        data:
+          'action': 'Close to 0% for 60 minutes and resume normal operation'
+          'beep': 'Device will beep upon resuming normal operation'
+          'drop_period': 'Two consecutive temperature drops'
+          'temperature_drop_detected': 'No Detection'
+    - description: FPort 7 PID Parameters
+      input:
+        fPort: 7
+        bytes: [20, 75, 172, 128, 16, 74, 42]
+      output:
+        data:
+          'P_Coefficient': 20
+          'I_Coefficient': 1.5
+          'D_Coefficient': 34.4
+          'Closed_Percent': 16
+          'D_Coefficient_when_closed': 14.8
+          'Offset_Percent': 42
+    - description: FPort 15 On/Off
+      input:
+        fPort: 15
+        bytes: [192]
+      output:
+        data:
+          'device_on': 'Device will stay on regardless of 6-week Reference Run results'
+          'recailbration_status': 'A Recalibration was done, based on the recent FPORT 15 Downlink'
+          'operating_status': 'Device is under normal operation'
+downlinkEncoder:
+  fileName: mlr003.js
+  # Examples (optional)
+  examples:
+    - description: FPort 1 Downlink
+      input:
+        'fPort': 1
+        data:
+          'userMode': 'Ambient_Temperature'
+          'safetyMode': 'Ambient_Temperature'
+          'setValue': 21
+          'roomTemperature': 20
+          'safetyValue': 19
+          'radioInterval': 5
+          'doReferenceRunNow': 0
+      output:
+        bytes: [42, 80, 38, 24, 0, 0]
+        fPort: 1
+    - description: FPort 3 Downlink
+      input:
+        'fPort': 3
+        data:
+          'motor_operating_range': '2.080'
+      output:
+        bytes: [10]
+        fPort: 3
+    - description: FPort 4 Downlink
+      input:
+        'fPort': 4
+        data:
+          'spreading_factor': 'SF8'
+      output:
+        bytes: [1]
+        fPort: 4
+    - description: FPort 5 Downlink
+      input:
+        'fPort': 5
+        data:
+          'opening_point_reset': false
+          'hot_water_availability': 'ON'
+          'slow_harvesting': 'DO_OPD_AND_SH'
+          'max_flow_sensor_raw': 27
+      output:
+        bytes: [9, 54]
+        fPort: 5
+    - description: FPort 6 Downlink
+      input:
+        'fPort': 6
+        data:
+          'tdd_action': 'Close_to_0%_for_30_minutes'
+          'tdd_beep': false
+          'tdd_period': 1
+      output:
+        bytes: [128]
+        fPort: 6
+    - description: FPort 7  Downlink
+      input:
+        'fPort': 7
+        data:
+          'kP': 20
+          'kI': 1.5
+          'kD': 21
+          'Closed_Percent': 32
+          'kD_when_closed': 14
+          'Offset_Percent': 42
+      output:
+        bytes: [20, 75, 105, 128, 32, 70, 42]
+        fPort: 7
+    - description: FPort 9 Downlink
+      input:
+        'fPort': 9
+        data:
+          'External_temperature_sensor_expiry_minutes': 5
+      output:
+        bytes: [1]
+        fPort: 9
+    - description: FPort 10  Downlink
+      input:
+        'fPort': 10
+        data:
+          'Room_Temperature': 22
+      output:
+        bytes: [88]
+        fPort: 10
+    - description: FPort 11 Downlink
+      input:
+        'fPort': 11
+        data:
+          'Beep': 3
+      output:
+        bytes: [3]
+        fPort: 11
+    - description: FPort 15 Downlink
+      input:
+        'fPort': 15
+        data:
+          'device_will_operate_if_6_week_reference_run_fails': true
+          'do_recalibation_now': false
+          'turn_off_device': false
+      output:
+        bytes: [128]
+        fPort: 15

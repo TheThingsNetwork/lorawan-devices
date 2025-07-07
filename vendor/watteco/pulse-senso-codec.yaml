@@ -1,0 +1,200 @@
+uplinkDecoder:
+  fileName: pulse-senso.js
+  examples:
+    - description: 'uplink standard report containing state of pin 1 | payload:110A000F00551001'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x00, 0x55, 0x10, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: pin_state_1
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+          pin_state_1: true
+        warnings: []
+    - description: 'uplink standard report containing number of pulse detection on input 1 | payload:110A000F04022300000000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0f, 0x04, 0x02, 0x23, 0x00, 0x00, 0x00, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: index_1
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+          index_1: 0
+        warnings: []
+    - description: 'uplink standard report containing 3 state values | payload:110A80050000190371'
+      input:
+        bytes: [0x11, 0x0a, 0x80, 0x05, 0x00, 0x00, 0x19, 0x03, 0x71]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: pin_state_1
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: pin_state_2
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: pin_state_3
+              value: false
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: NA
+              value: NA
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: NA
+              value: NA
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: NA
+              value: NA
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: NA
+              value: NA
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: NA
+              value: NA
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: NA
+              value: NA
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: NA
+              value: NA
+              date: '2023-07-19T07:51:25.508306410Z'
+          pin_state_1: true
+          pin_state_2: false
+          pin_state_3: false
+          NA: NA
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
+    - description: 'uplink batch report | payload:3203032cd2dc00000000117b02000080903d005000401040801d11604704d8119024912492247b'
+      input:
+        bytes:
+          [
+            0x32,
+            0x03,
+            0x03,
+            0x2c,
+            0xd2,
+            0xdc,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x11,
+            0x7b,
+            0x02,
+            0x00,
+            0x00,
+            0x80,
+            0x90,
+            0x3d,
+            0x00,
+            0x50,
+            0x00,
+            0x40,
+            0x10,
+            0x40,
+            0x80,
+            0x1d,
+            0x11,
+            0x60,
+            0x47,
+            0x04,
+            0xd8,
+            0x11,
+            0x90,
+            0x24,
+            0x91,
+            0x24,
+            0x92,
+            0x24,
+            0x7b,
+          ]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: index_1
+              value: 0
+              date: '2023-07-19T04:51:25.508Z'
+            - variable: index_1
+              value: 0
+              date: '2023-07-19T05:51:25.508Z'
+            - variable: index_1
+              value: 0
+              date: '2023-07-19T06:51:25.508Z'
+            - variable: index_1
+              value: 0
+              date: '2023-07-19T07:51:25.508Z'
+            - variable: index_2
+              value: 67108864
+              date: '2023-07-19T04:51:25.508Z'
+            - variable: index_2
+              value: 67108864
+              date: '2023-07-19T05:51:25.508Z'
+            - variable: index_2
+              value: 67108864
+              date: '2023-07-19T06:51:25.508Z'
+            - variable: index_2
+              value: 67108864
+              date: '2023-07-19T07:51:25.508Z'
+            - variable: index_3
+              value: 4194560
+              date: '2023-07-19T04:51:25.508Z'
+            - variable: index_3
+              value: 4194560
+              date: '2023-07-19T05:51:25.508Z'
+            - variable: index_3
+              value: 4194560
+              date: '2023-07-19T06:51:25.508Z'
+            - variable: index_3
+              value: 4194560
+              date: '2023-07-19T07:51:25.508Z'
+          index_1: 0
+          index_2: 67108864
+          index_3: 4194560
+        warnings: []

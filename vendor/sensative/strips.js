@@ -184,3 +184,23 @@ function Decoder(bytes, port) {
 	}
 	return decoded;
 }
+
+function decodeUplink(input) {
+	return {
+	  data : Decoder(input.bytes, input.fPort),
+	};
+}
+
+function normalizeUplink(input) {
+    var data = {};
+
+    if (input.data && input.data.temperature && input.data.temperature.value) {
+        data.air = { temperature: input.data.temperature.value };
+    }
+
+    if (input.data && input.data.battery) {
+        data.battery = input.data.battery;
+    }
+
+    return { data: data };
+}

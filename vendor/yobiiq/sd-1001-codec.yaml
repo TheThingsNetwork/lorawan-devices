@@ -1,0 +1,20 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: sd-1001.js
+  examples:
+    - description: Device basic information
+      input:
+        fPort: 8
+        bytes: [255, 9, 1, 0, 255, 10, 1, 0, 255, 22, 36, 1, 100, 0, 0, 255, 15, 0, 255, 11, 0]
+      output:
+        data:
+          hardwareVersion: 'V1.0'
+          firmwareVersion: 'V1.0'
+          deviceSerialNumber: 2401640000
+          deviceClass: 'Class A'
+          powerEvent: 'AC Power Off'
+          codecVersion: '1.1.0'
+          deviceModel: 'SD-1001'
+          productCode: '1002015'
+          manufacturer: 'YOBIIQ B.V.'
