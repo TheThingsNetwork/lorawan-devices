@@ -48,6 +48,16 @@
       "minimum": 0,
       "maximum": 100
     },
+    "rainfallIntensity": {
+      "type": "number",
+      "description": "Rainfall intensity (mm/hour)",
+      "minimum": 0
+    },
+    "cumulativeRainfall": {
+      "type": "number",
+      "description": "Cumulative rainfall (mm)",
+      "minimum": 0
+    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -144,6 +154,20 @@
             "direction": {
               "description": "Wind direction (°)",
               "$ref": "#/$defs/direction"
+            }
+          },
+          "additionalProperties": false
+        },
+        "rain": {
+          "type": "object",
+          "properties": {
+            "intensity": {
+              "description": "Rainfall intensity (mm/hour)",
+              "$ref": "#/$defs/rainfallIntensity"
+            },
+            "cumulative": {
+              "description": "Cumulative rainfall (mm)",
+              "$ref": "#/$defs/cumulativeRainfall"
             }
           },
           "additionalProperties": false
