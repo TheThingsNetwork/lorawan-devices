@@ -176,7 +176,7 @@
           "type": "object",
           "properties": {
             "leak": {
-              "type": ["boolean", "string"],
+              "type": "boolean",
               "description": "Leak detected"
             },
             "temperature": {
@@ -211,6 +211,7 @@
               "properties": {
                 "total": {
                   "type": "number",
+                  "minimum": 0,
                   "description": "Total volume (L)"
                 }
               }
@@ -229,6 +230,7 @@
                 },
                 "count": {
                   "type": "number",
+                  "minimum": 0,
                   "description": "Number of motion events (count)"
                 }
               },
@@ -247,10 +249,14 @@
           "properties": {
             "latitude": {
               "type": "number",
+              "minimum": -90,
+              "maximum": 90,
               "description": "Horizontal distance from equator (°)"
             },
             "longitude": {
               "type": "number",
+              "minimum": -180,
+              "maximum": 180,
               "description": "Vertical distance from prime meridian (°)"
             }
           },
