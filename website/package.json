@@ -51,7 +51,7 @@
     "stylus-loader": "^3.0.2",
     "webpack": "^5.90.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4",
+    "webpack-dev-server": "^5",
     "webpack-manifest-plugin": "^4.1.1"
   }
 }
