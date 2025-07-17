@@ -2103,8 +2103,11 @@ vendors:
     social:
       linkedin: https://de.linkedin.com/company/infrafon
 
-  - id: makerfabs
+  - id: agrosense
     name: AgroSense
+    description: AgroSense is a leading provider of IoT solutions for the agricultural sector, specializing in high-precision agricultural sensor products.
+    logo: agrosense_logo.png
+    website: https://www.makerfabs.com/agrosense?srsltid=AfmBOop7zQs-_zf0ywLwmhQZmbLdwhgjF_BEJaH7stZpVZPWxNEttif0
 
   - id: yobiiq
     name: YOBIIQ B.V.
