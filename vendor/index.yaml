@@ -2150,3 +2150,7 @@ vendors:
       #facebook: https://www.facebook.com/radionode365
       #instagram: radionodekorea
       github: radionode
+
+  - id: sensus
+    name: Sensus GmbH Ludwigshafen
+    vendorID: 1170
