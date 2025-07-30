@@ -1,0 +1,81 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: codec-mr1.js
+  # Examples (optional)
+  examples:
+    - description: Time 1742982409 Vbat 2 Version 2 5 2 0 CO2 800 Boot 45 Env 20 60 Light 1377 Pellets 100 3 25 10 Activity [ 0.53 -1 1 -0.5 0.25 -0.3 ] .
+      input:
+        fPort: 2
+        bytes:
+          [
+            0x36,
+            0x55,
+            0x14,
+            0xA6,
+            0xF2,
+            0xF9,
+            0x3B,
+            0x2C,
+            0x09,
+            0x16,
+            0x16,
+            0xAD,
+            0x87,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0xDE,
+            0x4B,
+            0xEF,
+            0x05,
+            0xF7,
+            0xF5,
+            0xFE,
+            0xEF,
+            0xF4,
+            0x32,
+          ]
+      output:
+        data:
+          {
+            'Vbat': 3.6982421875,
+            'activity': [-0.049163818359375, -0.2193603515625, -0.497314453125, -0.86669921875, -0.26220703125],
+            'boot': 9,
+            'lux': 0,
+            'pellets': [{ 'Delta': 0, 'Total': 0 }, { 'Delta': 0, 'Total': 0 }],
+            'rh': 67.78515297169452,
+            'tDewC': 15.855392059081987,
+            'tempC': 22.0859375,
+            'time': '2025-03-31T00:40:01Z',
+          }
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+## downlinkEncoder:
+##   fileName: codec.js
+##   # Examples (optional)
+##   examples:
+##     - description: Turn green
+##       input:
+##         data:
+##           led: green
+##       output:
+##         bytes: [1]
+##         fPort: 2
+## # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+## downlinkDecoder:
+##   fileName: codec.js
+##   # Examples (optional)
+##   examples:
+##     - description: Turn green
+##       input:
+##         fPort: 2
+##         bytes: [1]
+##       output:
+##         data:
+##           led: green

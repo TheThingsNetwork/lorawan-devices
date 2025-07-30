@@ -24,27 +24,27 @@ firmwareVersions:
         # unique ID of the profile (lowercase, alpha with dashes, max 36)
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       US902-928:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       AU915-928:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       AS923:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       KR920-923:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
       IN865-867:
         id: catena4618-profile
         lorawanCertified: false
-        codec: codec-catena-generic
+        codec: codec-catena4618
 
 deviceType: devkit
 
