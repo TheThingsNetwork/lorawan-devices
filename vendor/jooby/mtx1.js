@@ -235,8 +235,7 @@ function decodeDownlink ( input ) {
       buffer[offset + order[2]] = value >>> 16 & 0xff;
       buffer[offset + order[3]] = value >>> 24 & 0xff;
     };
-    function BinaryBuffer(dataOrLength) {
-      let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    function BinaryBuffer(dataOrLength, isLittleEndian = true) {
       if (typeof dataOrLength === 'number') {
         const bytes = new Array(dataOrLength).fill(0);
         this.data = bytes;
@@ -274,79 +273,65 @@ function decodeDownlink ( input ) {
         this.offset += INT8_SIZE;
         return result;
       },
-      setInt16(value) {
-        let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
+      setInt16(value, isLittleEndian = this.isLittleEndian) {
         writeUint16(this.data, this.offset, value < 0 ? value | 0x10000 : value, isLittleEndian);
         this.offset += INT16_SIZE;
       },
-      getInt16() {
-        let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
+      getInt16(isLittleEndian = this.isLittleEndian) {
         const result = readUint16(this.data, this.offset, isLittleEndian);
         this.offset += INT16_SIZE;
         return result & 0x8000 ? result ^ -65536 : result;
       },
-      setUint16(value) {
-        let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
+      setUint16(value, isLittleEndian = this.isLittleEndian) {
         writeUint16(this.data, this.offset, value, isLittleEndian);
         this.offset += INT16_SIZE;
       },
-      getUint16() {
-        let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
+      getUint16(isLittleEndian = this.isLittleEndian) {
         const result = readUint16(this.data, this.offset, isLittleEndian);
         this.offset += INT16_SIZE;
         return result;
       },
-      setInt24(value) {
-        let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
+      setInt24(value, isLittleEndian = this.isLittleEndian) {
         writeUint24(this.data, this.offset, value < 0 ? value | 0x1000000 : value, isLittleEndian);
         this.offset += INT24_SIZE;
       },
-      getInt24() {
-        let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
+      getInt24(isLittleEndian = this.isLittleEndian) {
         const result = readUint24(this.data, this.offset, isLittleEndian);
         this.offset += INT24_SIZE;
         return result & 0x800000 ? result ^ -16777216 : result;
       },
-      setUint24(value) {
-        let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
+      setUint24(value, isLittleEndian = this.isLittleEndian) {
         writeUint24(this.data, this.offset, value, isLittleEndian);
         this.offset += INT24_SIZE;
       },
-      getUint24() {
-        let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
+      getUint24(isLittleEndian = this.isLittleEndian) {
         const result = readUint24(this.data, this.offset, isLittleEndian);
         this.offset += INT24_SIZE;
         return result;
       },
-      setInt32(value) {
-        let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
+      setInt32(value, isLittleEndian = this.isLittleEndian) {
         writeUint32(this.data, this.offset, value < 0 ? value | 0x100000000 : value, isLittleEndian);
         this.offset += INT32_SIZE;
       },
-      getInt32() {
-        let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
+      getInt32(isLittleEndian = this.isLittleEndian) {
         const result = readUint32(this.data, this.offset, isLittleEndian);
         this.offset += INT32_SIZE;
         return result & 0x80000000 ? result ^ -4294967296 : result;
       },
-      setUint32(value) {
-        let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
+      setUint32(value, isLittleEndian = this.isLittleEndian) {
         writeUint32(this.data, this.offset, value, isLittleEndian);
         this.offset += INT32_SIZE;
       },
-      getUint32() {
-        let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
+      getUint32(isLittleEndian = this.isLittleEndian) {
         const result = readUint32(this.data, this.offset, isLittleEndian);
         this.offset += INT32_SIZE;
         return result;
       },
-      setFloat32(value) {
-        let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.isLittleEndian;
+      setFloat32(value, isLittleEndian = this.isLittleEndian) {
         writeFloat(this.data, this.offset, value, isLittleEndian, 23, 4);
         this.offset += INT32_SIZE;
       },
-      getFloat32() {
-        let isLittleEndian = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.isLittleEndian;
+      getFloat32(isLittleEndian = this.isLittleEndian) {
         const result = readFloat(this.data, this.offset, isLittleEndian, 23, 4);
         this.offset += INT32_SIZE;
         return result;
@@ -366,20 +351,17 @@ function decodeDownlink ( input ) {
         }
         return chars.join('');
       },
-      getBytesToOffset() {
-        let offset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.offset;
+      getBytesToOffset(offset = this.offset) {
         return this.data.slice(0, offset);
       },
       getBytesLeft() {
         return this.getBytes(this.bytesLeft);
       },
-      getBytes(length) {
-        let offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.offset;
+      getBytes(length, offset = this.offset) {
         this.offset = offset + length;
         return this.data.slice(offset, this.offset);
       },
-      setBytes(data) {
-        let offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.offset;
+      setBytes(data, offset = this.offset) {
         const bytes = this.data;
         bytes.splice(offset, data.length, ...data);
         this.data = bytes;
@@ -412,9 +394,7 @@ function decodeDownlink ( input ) {
       }
     });
 
-    const fromObject = function () {
-      let bitMask = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      let booleanObject = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    const fromObject = (bitMask = {}, booleanObject = {}) => {
       let result = 0;
       for (const name in booleanObject) {
         if (name in bitMask && booleanObject[name]) {
@@ -423,9 +403,7 @@ function decodeDownlink ( input ) {
       }
       return result;
     };
-    const toObject = function () {
-      let bitMask = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      let value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    const toObject = (bitMask = {}, value = 0) => {
       const result = {};
       for (const name in bitMask) {
         result[name] = (value & bitMask[name]) !== 0;
@@ -473,6 +451,30 @@ function decodeDownlink ( input ) {
     const nibbles10 = ['.', '0', '1', '2', '3', '4', '5', '6', 'P', 'R', 'L', 'E', 'G', '-', '/'];
     const nibbles11 = ['.', 'H', 'A', 'T', '0', '0', '0', '0', '0', '1', '2', '3', '4', '0', '0', '0'];
     const nibbles12 = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', 'I', 'X', 'G', 'W', 'M', '-'];
+    const mtx1DeviceTypeDescriptorMask = {
+      typeMeterG: 1 << 0,
+      downgradedToA: 1 << 4,
+      supportMeterInfo: 1 << 6
+    };
+    const mtx3DeviceTypeDescriptorMask = {
+      typeMeterTransformer: 1 << 0,
+      downgradedToR: 1 << 3,
+      typeMeterG: 1 << 4,
+      supportMeterInfo: 1 << 6,
+      reactiveByQuadrants: 1 << 7
+    };
+    const mtx3DeviceTypeDescriptorFromByte = byte => {
+      const descriptor = toObject(mtx3DeviceTypeDescriptorMask, byte);
+      return {
+        meterType: 'mtx3',
+        ...descriptor,
+        typeMeterG: !descriptor.typeMeterG
+      };
+    };
+    const mtx3DeviceTypeDescriptorToByte = descriptor => fromObject(mtx3DeviceTypeDescriptorMask, {
+      ...descriptor,
+      typeMeterG: !descriptor.typeMeterG
+    });
     const splitByte = byte => [byte >> 4, byte & 0x0F];
     const splitToNibbles = data => {
       const result = new Array(data.length * 2).fill(0);
@@ -529,8 +531,7 @@ function decodeDownlink ( input ) {
       }
       return {
         type: type.join(''),
-        revision,
-        meterType: 0
+        revision
       };
     };
     const toBytesMtx = (type, prefix, revision) => {
@@ -587,8 +588,7 @@ function decodeDownlink ( input ) {
         }
       }
       return {
-        type: type.join(''),
-        meterType: 0
+        type: type.join('')
       };
     };
     const toBytesMtx2 = type => {
@@ -626,8 +626,7 @@ function decodeDownlink ( input ) {
         }
       }
       return {
-        type: type.join(''),
-        meterType: 0
+        type: type.join('')
       };
     };
     const toBytesM = type => {
@@ -646,7 +645,7 @@ function decodeDownlink ( input ) {
       }
       return result;
     };
-    const fromBytes$23 = bytes => {
+    const fromBytes$27 = bytes => {
       if (bytes.length !== 9) {
         throw new Error('The buffer is too small');
       }
@@ -657,19 +656,23 @@ function decodeDownlink ( input ) {
       const deviceTypeNibble = nibbles[position];
       const deviceType = nibbles1[deviceTypeNibble];
       if (deviceType === '1' || deviceType === '3') {
-        result = fromBytesMtx(nibbles.slice(position));
+        result = {
+          ...fromBytesMtx(nibbles.slice(position)),
+          descriptor: deviceType === '3' ? mtx3DeviceTypeDescriptorFromByte(bytes[8]) : {
+            meterType: 'mtx1',
+            ...toObject(mtx1DeviceTypeDescriptorMask, bytes[8])
+          }
+        };
       } else {
         result = deviceType === 'M' ? fromBytesM(nibbles) : fromBytesMtx2(nibbles);
       }
-      result.meterType = bytes[8];
       return result;
     };
-    const toBytes$24 = (_ref, prefix) => {
-      let {
-        type,
-        revision,
-        meterType
-      } = _ref;
+    const toBytes$28 = ({
+      type,
+      revision,
+      descriptor
+    }, prefix) => {
       if (!type.startsWith('MTX ')) {
         throw new Error('Wrong format');
       }
@@ -681,18 +684,21 @@ function decodeDownlink ( input ) {
       } else {
         result = deviceTypeSymbol === 'M' ? toBytesM(content) : toBytesMtx2(content);
       }
-      result[8] = meterType;
+      if (descriptor?.meterType) {
+        result[8] = descriptor.meterType === 'mtx1' ? fromObject(mtx1DeviceTypeDescriptorMask, descriptor) : mtx3DeviceTypeDescriptorToByte(descriptor);
+      } else {
+        result[8] = 0;
+      }
       return result;
     };
 
-    var getHexFromBytes = (function (bytes) {
-      let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var getHexFromBytes = (bytes, options = {}) => {
       const {
         separator,
         prefix
       } = Object.assign({}, hexFormatOptions, options);
       return bytes.map(byte => `${prefix}${byte.toString(16).padStart(2, '0')}`).join(separator);
-    });
+    };
 
     const DATA_REQUEST = 0x50;
     const DATA_RESPONSE = 0x51;
@@ -734,12 +740,12 @@ function decodeDownlink ( input ) {
       return target;
     };
 
-    var frameNames = invertObject(frameTypes);
+    invertObject(frameTypes);
 
-    const ENERGY_REG_FAULT = 0x01;
+    const ENERGY_REGISTER_FAULT = 0x01;
     const VENDOR_PAR_FAULT = 0x02;
     const OP_PAR_FAULT = 0x03;
-    const ACCESS_CLOSED = 0x10;
+    const ACCESS_LOCKED = 0x10;
     const ERR_ACCESS = 0x11;
     const CASE_OPEN$1 = 0x12;
     const CASE_CLOSE = 0x13;
@@ -755,15 +761,19 @@ function decodeDownlink ( input ) {
     const CMD_RELAY_ON = 0x27;
     const CMD_RELAY_OFF = 0x28;
     const CHANGE_COR_TIME = 0x29;
-    const ENERGY_REG_OVERFLOW = 0x31;
-    const CHANGE_TARIFF_TBL = 0x32;
-    const SET_TARIFF_TBL = 0x33;
+    const ENERGY_REGISTER_OVERFLOW = 0x31;
+    const CHANGE_TARIFF_TABLE = 0x32;
+    const SET_TARIFF_TABLE = 0x33;
     const SUMMER_TIME = 0x34;
     const WINTER_TIME = 0x35;
     const RELAY_ON = 0x36;
     const RELAY_OFF = 0x37;
     const RESTART$1 = 0x38;
     const WD_RESTART = 0x39;
+    const POWER_B_ON = 0x3c;
+    const POWER_B_OFF = 0x3d;
+    const POWER_C_ON = 0x3e;
+    const POWER_C_OFF = 0x3f;
     const V_MAX_OK = 0x40;
     const V_MAX_OVER = 0x41;
     const V_MIN_OK = 0x42;
@@ -774,66 +784,69 @@ function decodeDownlink ( input ) {
     const T_MIN_OVER = 0x47;
     const F_MAX_OK = 0x48;
     const F_MAX_OVER = 0x49;
-    const F_MIN_OK = 0x4A;
-    const F_MIN_OVER = 0x4B;
-    const I_MAX_OK = 0x4C;
-    const I_MAX_OVER = 0x4D;
-    const P_MAX_OK = 0x4E;
-    const P_MAX_OVER = 0x4F;
-    const POWERSALDO_OK = 0x50;
-    const POWERSALDO_OVER = 0x51;
-    const BAT_OK = 0x52;
-    const BAT_FAULT = 0x53;
-    const CAL_OK = 0x54;
-    const CAL_FAULT = 0x55;
+    const F_MIN_OK = 0x4a;
+    const F_MIN_OVER = 0x4b;
+    const I_MAX_OK = 0x4c;
+    const I_MAX_OVER = 0x4d;
+    const P_MAX_OK = 0x4e;
+    const P_MAX_OVER = 0x4f;
+    const POWER_SALDO_OK = 0x50;
+    const POWER_SALDO_OVER = 0x51;
+    const BATTERY_OK = 0x52;
+    const BATTERY_FAULT = 0x53;
+    const CALIBRATION_OK = 0x54;
+    const CALIBRATION_FAULT = 0x55;
     const CLOCK_OK = 0x56;
     const CLOCK_FAULT = 0x57;
     const POWER_A_OFF = 0x58;
     const POWER_A_ON = 0x59;
     const CMD_RELAY_2_ON = 0x60;
     const CMD_RELAY_2_OFF = 0x61;
-    const CROSSZERO_ENT0 = 0x62;
-    const CROSSZERO_ENT1 = 0x63;
-    const CROSSZERO_ENT2 = 0x64;
-    const CROSSZERO_ENT3 = 0x65;
-    const CALFLAG_SET = 0x66;
-    const CALFLAG_RESET = 0x67;
+    const CROSS_ZERO_ENT0 = 0x62;
+    const CROSS_ZERO_ENT1 = 0x63;
+    const CROSS_ZERO_ENT2 = 0x64;
+    const CROSS_ZERO_ENT3 = 0x65;
+    const CALIBRATION_FLAG_SET = 0x66;
+    const CALIBRATION_FLAG_RESET = 0x67;
     const BAD_TEST_EEPROM = 0x68;
     const BAD_TEST_FRAM = 0x69;
     const SET_NEW_SALDO = 0x70;
     const SALDO_PARAM_BAD = 0x71;
-    const ACCPARAM_BAD = 0x72;
-    const ACCPARAM_EXT_BAD = 0x73;
+    const ACC_PARAM_BAD = 0x72;
+    const ACC_PARAM_EXT_BAD = 0x73;
     const CALC_PERIOD_BAD = 0x74;
     const BLOCK_TARIFF_BAD = 0x75;
-    const CALIBR_PARAM_BAD = 0x76;
+    const CALIBRATION_PARAM_BAD = 0x76;
     const WINTER_SUMMER_BAD = 0x77;
     const SALDO_EN_BAD = 0x78;
     const TIME_CORRECT$1 = 0x79;
-    const CASE_TERMINAL_OPEN$1 = 0x7A;
-    const CASE_TERMINAL_CLOSE = 0x7B;
-    const CASE_MODULE_OPEN$1 = 0x7C;
-    const CASE_MODULE_CLOSE = 0x7D;
+    const CASE_KLEMA_OPEN = 0x7a;
+    const CASE_KLEMA_CLOSE = 0x7b;
+    const CASE_MODULE_OPEN$1 = 0x7c;
+    const CASE_MODULE_CLOSE = 0x7d;
+    const POWER_GOOD_DIO = 0x7e;
     const RELAY_HARD_BAD_OFF = 0x90;
     const RELAY_HARD_ON = 0x91;
     const RELAY_HARD_BAD_ON = 0x93;
     const RELAY_HARD_OFF = 0x94;
-    const SET_SALDO_PARAM = 0x9C;
-    const POWER_OVER_RELAY_OFF = 0x9D;
-    const CROSSZERO_EXP_ENT0 = 0x9E;
-    const CROSSZERO_EXP_ENT1 = 0x9F;
-    const CROSSZERO_EXP_ENT2 = 0xA0;
-    const CROSSZERO_EXP_ENT3 = 0xA1;
-    const TIME_CORRECT_NEW = 0xA2;
-    const EM_MAGNETIC_ON = 0xB0;
-    const EM_MAGNETIC_OFF = 0xB1;
-    const CURRENT_UNEQUIL_FAULT = 0xB2;
-    const CURRENT_UNEQUIL_OK = 0xB3;
-    const BIPOLAR_POWER_FAULT = 0xB4;
-    const BIPOLAR_POWER_OK = 0xB5;
+    const CHANGE_TARIFF_TBL_2 = 0x98;
+    const SET_SALDO_PARAM = 0x9c;
+    const POWER_OVER_RELAY_OFF = 0x9d;
+    const CROSS_ZERO_EXPORT_ENT0 = 0x9e;
+    const CROSS_ZERO_EXPORT_ENT1 = 0x9f;
+    const CROSS_ZERO_EXPORT_ENT2 = 0xa0;
+    const CROSS_ZERO_EXPORT_ENT3 = 0xa1;
+    const TIME_CORRECT_NEW = 0xa2;
+    const EM_MAGNETIC_ON = 0xb0;
+    const EM_MAGNETIC_OFF = 0xb1;
+    const CURRENT_UNEQUAL_FAULT = 0xb2;
+    const CURRENT_UNEQUAL_OK = 0xb3;
+    const BIPOLAR_POWER_FAULT = 0xb4;
+    const BIPOLAR_POWER_OK = 0xb5;
     const RESET_EM_FLAG = 0xB6;
-    const RESET_MAGN_FLAG = 0xB7;
-    const NVRAM_FAULT = 0xD0;
+    const RESET_MAGNET_FLAG = 0xB7;
+    const CHANGE_PARAM_CANAL = 0xB9;
+    const RELAY_OFF_BAD_SALDO = 0xBA;
     const SET_DEMAND_EN_1MIN = 0xE0;
     const SET_DEMAND_EN_3MIN = 0xE1;
     const SET_DEMAND_EN_5MIN = 0xE2;
@@ -841,39 +854,43 @@ function decodeDownlink ( input ) {
     const SET_DEMAND_EN_15MIN = 0xE4;
     const SET_DEMAND_EN_30MIN = 0xE5;
     const SET_DEMAND_EN_60MIN = 0xE6;
+    const P_MAX_A_MINUS_OK = 0xE7;
+    const P_MAX_A_MINUS_OVER = 0xE8;
 
     var events = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        ACCESS_CLOSED: ACCESS_CLOSED,
-        ACCPARAM_BAD: ACCPARAM_BAD,
-        ACCPARAM_EXT_BAD: ACCPARAM_EXT_BAD,
+        ACCESS_LOCKED: ACCESS_LOCKED,
+        ACC_PARAM_BAD: ACC_PARAM_BAD,
+        ACC_PARAM_EXT_BAD: ACC_PARAM_EXT_BAD,
         BAD_TEST_EEPROM: BAD_TEST_EEPROM,
         BAD_TEST_FRAM: BAD_TEST_FRAM,
-        BAT_FAULT: BAT_FAULT,
-        BAT_OK: BAT_OK,
+        BATTERY_FAULT: BATTERY_FAULT,
+        BATTERY_OK: BATTERY_OK,
         BIPOLAR_POWER_FAULT: BIPOLAR_POWER_FAULT,
         BIPOLAR_POWER_OK: BIPOLAR_POWER_OK,
         BLOCK_TARIFF_BAD: BLOCK_TARIFF_BAD,
         CALC_PERIOD_BAD: CALC_PERIOD_BAD,
-        CALFLAG_RESET: CALFLAG_RESET,
-        CALFLAG_SET: CALFLAG_SET,
-        CALIBR_PARAM_BAD: CALIBR_PARAM_BAD,
-        CAL_FAULT: CAL_FAULT,
-        CAL_OK: CAL_OK,
+        CALIBRATION_FAULT: CALIBRATION_FAULT,
+        CALIBRATION_FLAG_RESET: CALIBRATION_FLAG_RESET,
+        CALIBRATION_FLAG_SET: CALIBRATION_FLAG_SET,
+        CALIBRATION_OK: CALIBRATION_OK,
+        CALIBRATION_PARAM_BAD: CALIBRATION_PARAM_BAD,
         CASE_CLOSE: CASE_CLOSE,
+        CASE_KLEMA_CLOSE: CASE_KLEMA_CLOSE,
+        CASE_KLEMA_OPEN: CASE_KLEMA_OPEN,
         CASE_MODULE_CLOSE: CASE_MODULE_CLOSE,
         CASE_MODULE_OPEN: CASE_MODULE_OPEN$1,
         CASE_OPEN: CASE_OPEN$1,
-        CASE_TERMINAL_CLOSE: CASE_TERMINAL_CLOSE,
-        CASE_TERMINAL_OPEN: CASE_TERMINAL_OPEN$1,
         CHANGE_ACCESS_KEY0: CHANGE_ACCESS_KEY0,
         CHANGE_ACCESS_KEY1: CHANGE_ACCESS_KEY1,
         CHANGE_ACCESS_KEY2: CHANGE_ACCESS_KEY2,
         CHANGE_ACCESS_KEY3: CHANGE_ACCESS_KEY3,
         CHANGE_COR_TIME: CHANGE_COR_TIME,
+        CHANGE_PARAM_CANAL: CHANGE_PARAM_CANAL,
         CHANGE_PAR_LOCAL: CHANGE_PAR_LOCAL,
         CHANGE_PAR_REMOTE: CHANGE_PAR_REMOTE,
-        CHANGE_TARIFF_TBL: CHANGE_TARIFF_TBL,
+        CHANGE_TARIFF_TABLE: CHANGE_TARIFF_TABLE,
+        CHANGE_TARIFF_TBL_2: CHANGE_TARIFF_TBL_2,
         CLOCK_FAULT: CLOCK_FAULT,
         CLOCK_OK: CLOCK_OK,
         CMD_CHANGE_TIME: CMD_CHANGE_TIME,
@@ -881,20 +898,20 @@ function decodeDownlink ( input ) {
         CMD_RELAY_2_ON: CMD_RELAY_2_ON,
         CMD_RELAY_OFF: CMD_RELAY_OFF,
         CMD_RELAY_ON: CMD_RELAY_ON,
-        CROSSZERO_ENT0: CROSSZERO_ENT0,
-        CROSSZERO_ENT1: CROSSZERO_ENT1,
-        CROSSZERO_ENT2: CROSSZERO_ENT2,
-        CROSSZERO_ENT3: CROSSZERO_ENT3,
-        CROSSZERO_EXP_ENT0: CROSSZERO_EXP_ENT0,
-        CROSSZERO_EXP_ENT1: CROSSZERO_EXP_ENT1,
-        CROSSZERO_EXP_ENT2: CROSSZERO_EXP_ENT2,
-        CROSSZERO_EXP_ENT3: CROSSZERO_EXP_ENT3,
-        CURRENT_UNEQUIL_FAULT: CURRENT_UNEQUIL_FAULT,
-        CURRENT_UNEQUIL_OK: CURRENT_UNEQUIL_OK,
+        CROSS_ZERO_ENT0: CROSS_ZERO_ENT0,
+        CROSS_ZERO_ENT1: CROSS_ZERO_ENT1,
+        CROSS_ZERO_ENT2: CROSS_ZERO_ENT2,
+        CROSS_ZERO_ENT3: CROSS_ZERO_ENT3,
+        CROSS_ZERO_EXPORT_ENT0: CROSS_ZERO_EXPORT_ENT0,
+        CROSS_ZERO_EXPORT_ENT1: CROSS_ZERO_EXPORT_ENT1,
+        CROSS_ZERO_EXPORT_ENT2: CROSS_ZERO_EXPORT_ENT2,
+        CROSS_ZERO_EXPORT_ENT3: CROSS_ZERO_EXPORT_ENT3,
+        CURRENT_UNEQUAL_FAULT: CURRENT_UNEQUAL_FAULT,
+        CURRENT_UNEQUAL_OK: CURRENT_UNEQUAL_OK,
         EM_MAGNETIC_OFF: EM_MAGNETIC_OFF,
         EM_MAGNETIC_ON: EM_MAGNETIC_ON,
-        ENERGY_REG_FAULT: ENERGY_REG_FAULT,
-        ENERGY_REG_OVERFLOW: ENERGY_REG_OVERFLOW,
+        ENERGY_REGISTER_FAULT: ENERGY_REGISTER_FAULT,
+        ENERGY_REGISTER_OVERFLOW: ENERGY_REGISTER_OVERFLOW,
         ERR_ACCESS: ERR_ACCESS,
         F_MAX_OK: F_MAX_OK,
         F_MAX_OVER: F_MAX_OVER,
@@ -904,13 +921,19 @@ function decodeDownlink ( input ) {
         I_MAX_OVER: I_MAX_OVER,
         MAGNETIC_OFF: MAGNETIC_OFF,
         MAGNETIC_ON: MAGNETIC_ON$1,
-        NVRAM_FAULT: NVRAM_FAULT,
         OP_PAR_FAULT: OP_PAR_FAULT,
-        POWERSALDO_OK: POWERSALDO_OK,
-        POWERSALDO_OVER: POWERSALDO_OVER,
         POWER_A_OFF: POWER_A_OFF,
         POWER_A_ON: POWER_A_ON,
+        POWER_B_OFF: POWER_B_OFF,
+        POWER_B_ON: POWER_B_ON,
+        POWER_C_OFF: POWER_C_OFF,
+        POWER_C_ON: POWER_C_ON,
+        POWER_GOOD_DIO: POWER_GOOD_DIO,
         POWER_OVER_RELAY_OFF: POWER_OVER_RELAY_OFF,
+        POWER_SALDO_OK: POWER_SALDO_OK,
+        POWER_SALDO_OVER: POWER_SALDO_OVER,
+        P_MAX_A_MINUS_OK: P_MAX_A_MINUS_OK,
+        P_MAX_A_MINUS_OVER: P_MAX_A_MINUS_OVER,
         P_MAX_OK: P_MAX_OK,
         P_MAX_OVER: P_MAX_OVER,
         RELAY_HARD_BAD_OFF: RELAY_HARD_BAD_OFF,
@@ -918,9 +941,10 @@ function decodeDownlink ( input ) {
         RELAY_HARD_OFF: RELAY_HARD_OFF,
         RELAY_HARD_ON: RELAY_HARD_ON,
         RELAY_OFF: RELAY_OFF,
+        RELAY_OFF_BAD_SALDO: RELAY_OFF_BAD_SALDO,
         RELAY_ON: RELAY_ON,
         RESET_EM_FLAG: RESET_EM_FLAG,
-        RESET_MAGN_FLAG: RESET_MAGN_FLAG,
+        RESET_MAGNET_FLAG: RESET_MAGNET_FLAG,
         RESTART: RESTART$1,
         SALDO_EN_BAD: SALDO_EN_BAD,
         SALDO_PARAM_BAD: SALDO_PARAM_BAD,
@@ -933,7 +957,7 @@ function decodeDownlink ( input ) {
         SET_DEMAND_EN_60MIN: SET_DEMAND_EN_60MIN,
         SET_NEW_SALDO: SET_NEW_SALDO,
         SET_SALDO_PARAM: SET_SALDO_PARAM,
-        SET_TARIFF_TBL: SET_TARIFF_TBL,
+        SET_TARIFF_TABLE: SET_TARIFF_TABLE,
         SUMMER_TIME: SUMMER_TIME,
         TIME_CORRECT: TIME_CORRECT$1,
         TIME_CORRECT_NEW: TIME_CORRECT_NEW,
@@ -953,11 +977,6 @@ function decodeDownlink ( input ) {
 
     var eventNames = invertObject(events);
 
-    const defaultFrameHeader = {
-      type: DATA_REQUEST,
-      destination: 0xffff,
-      source: 0xfffe
-    };
     const TARIFF_PLAN_SIZE = 11;
     const OPERATOR_PARAMETERS_SIZE = 74;
     const SEASON_PROFILE_DAYS_NUMBER = 7;
@@ -990,8 +1009,8 @@ function decodeDownlink ( input ) {
       EXPORTED_ACTIVE_ENERGY_T2: 0x00010000,
       EXPORTED_ACTIVE_ENERGY_T3: 0x00020000,
       EXPORTED_ACTIVE_ENERGY_T4: 0x00040000,
-      POWER_COEFFICIENT_PHASE_A: 0x00080000,
-      POWER_COEFFICIENT_PHASE_B: 0x00100000,
+      POWER_FACTOR_PHASE_A: 0x00080000,
+      POWER_FACTOR_PHASE_B: 0x00100000,
       BATTERY_VOLTAGE: 0x00200000,
       POWER_THRESHOLD_T1: 0x00400000,
       POWER_THRESHOLD_T2: 0x00800000,
@@ -1013,27 +1032,27 @@ function decodeDownlink ( input ) {
       RELAY_ON_Y: 0x01,
       RELAY_ON_CENTER: 0x02,
       RELAY_ON_PB: 0x04,
-      RELAY_ON_TARIFF_0: 0x08,
-      RELAY_ON_TARIFF_1: 0x10,
-      RELAY_ON_TARIFF_2: 0x20,
-      RELAY_ON_TARIFF_3: 0x40,
+      RELAY_ON_TARIFF_1: 0x08,
+      RELAY_ON_TARIFF_2: 0x10,
+      RELAY_ON_TARIFF_3: 0x20,
+      RELAY_ON_TARIFF_4: 0x40,
       RELAY_ON_V_GOOD: 0x80
     };
     const relaySet2Mask = {
       RELAY_OFF_Y: 0x01,
       RELAY_OFF_CENTER: 0x02,
-      RELAY_OFF_TARIFF_0: 0x04,
-      RELAY_OFF_TARIFF_1: 0x08,
-      RELAY_OFF_TARIFF_2: 0x10,
-      RELAY_OFF_TARIFF_3: 0x20,
+      RELAY_OFF_TARIFF_1: 0x04,
+      RELAY_OFF_TARIFF_2: 0x08,
+      RELAY_OFF_TARIFF_3: 0x10,
+      RELAY_OFF_TARIFF_4: 0x20,
       RELAY_OFF_I_LIMIT: 0x40,
       RELAY_OFF_V_BAD: 0x80
     };
     const relaySet3Mask = {
-      RELAY_OFF_LIM_TARIFF_0: 0x02,
-      RELAY_OFF_LIM_TARIFF_1: 0x04,
-      RELAY_OFF_LIM_TARIFF_2: 0x08,
-      RELAY_OFF_LIM_TARIFF_3: 0x10,
+      RELAY_OFF_LIM_TARIFF_1: 0x02,
+      RELAY_OFF_LIM_TARIFF_2: 0x04,
+      RELAY_OFF_LIM_TARIFF_3: 0x08,
+      RELAY_OFF_LIM_TARIFF_4: 0x10,
       RELAY_OFF_PF_MIN: 0x20
     };
     const relaySet4Mask = {
@@ -1083,10 +1102,12 @@ function decodeDownlink ( input ) {
     const extendedCurrentValues2RelayStatus2Mask = {
       RELAY_COSFI: 2 ** 0,
       RELAY_SALDO_OFF_FLAG: 2 ** 1,
-      RELAY_UNEQUIL_CURRENT_OFF: 2 ** 2,
+      RELAY_UNEQUAL_CURRENT_OFF: 2 ** 2,
       RELAY_BIPOLAR_POWER_OFF: 2 ** 3,
       RELAY_SALDO_OFF_ON_MAX_POWER: 2 ** 4,
-      RELAY_HARD_ST1: 2 ** 5
+      RELAY_HARD_ST1: 2 ** 5,
+      RELAY_MAGNET_OFF: 2 ** 6,
+      RELAY_P_MINUS_MAX_OFF: 2 ** 7
     };
     const extendedCurrentValues2Status1Mask = {
       MAXVA: 2 ** 0,
@@ -1105,16 +1126,16 @@ function decodeDownlink ( input ) {
       MIN_COS_FI: 2 ** 5
     };
     const extendedCurrentValues2Status3Mask = {
-      UNEQUIL_CURRENT: 2 ** 0,
+      UNEQUAL_CURRENT: 2 ** 0,
       BIPOLAR_POWER: 2 ** 1,
       POWER_A_NEGATIVE: 2 ** 6,
       POWER_B_NEGATIVE: 2 ** 7
     };
     const operatorParametersExtended3RelaySetMask = {
-      RELAY_OFF_LIMIT_P_MINUS_T1: 0x04,
-      RELAY_OFF_LIMIT_P_MINUS_T2: 0x08,
-      RELAY_OFF_LIMIT_P_MINUS_T3: 0x10,
-      RELAY_OFF_LIMIT_P_MINUS_T4: 0x20
+      RELAY_OFF_LIMIT_P_MINUS_T1: 0x08,
+      RELAY_OFF_LIMIT_P_MINUS_T2: 0x10,
+      RELAY_OFF_LIMIT_P_MINUS_T3: 0x20,
+      RELAY_OFF_LIMIT_P_MINUS_T4: 0x40
     };
     function getPackedEnergies(buffer, energyType, tariffMapByte) {
       const byte = tariffMapByte >> TARIFF_NUMBER$1;
@@ -1122,7 +1143,7 @@ function decodeDownlink ( input ) {
       energies.forEach((energy, index) => {
         const isTariffExists = !!extractBits(byte, 1, index + 1);
         if (isTariffExists) {
-          energies[index] = buffer.getUint32();
+          energies[index] = buffer.getInt32();
         } else {
           energies[index] = null;
         }
@@ -1149,117 +1170,35 @@ function decodeDownlink ( input ) {
         energy: period & 0x3fff
       };
     }
-    function setEnergyPeriod(buffer, _ref) {
-      let {
-        tariff,
-        energy
-      } = _ref;
+    function setEnergyPeriod(buffer, {
+      tariff,
+      energy
+    }) {
       if (tariff !== undefined && energy !== undefined) {
         buffer.setUint16(tariff << 14 | energy & 0x3fff);
       } else {
         buffer.setUint16(0xffff);
       }
     }
-    function CommandBinaryBuffer$1(dataOrLength) {
-      let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      BinaryBuffer.call(this, dataOrLength, isLittleEndian);
-    }
-    CommandBinaryBuffer$1.prototype = Object.create(BinaryBuffer.prototype);
-    CommandBinaryBuffer$1.prototype.constructor = CommandBinaryBuffer$1;
-    CommandBinaryBuffer$1.getDayProfileFromByte = value => ({
+    const getDayProfileFromByte = value => ({
       tariff: extractBits(value, 2, 1),
       isFirstHalfHour: !extractBits(value, 1, 3),
       hour: extractBits(value, 5, 4)
     });
-    CommandBinaryBuffer$1.getByteFromDayProfile = dayProfile => {
+    const getByteFromDayProfile = dayProfile => {
       let value = 0;
       value = fillBits(value, 2, 1, dayProfile.tariff);
       value = fillBits(value, 1, 3, +!dayProfile.isFirstHalfHour);
       value = fillBits(value, 5, 4, dayProfile.hour);
       return value;
     };
-    CommandBinaryBuffer$1.getDefaultSeasonProfile = () => ({
-      month: 1,
-      date: 1,
-      dayIndexes: [0, 0, 0, 0, 0, 0, 0]
-    });
-    CommandBinaryBuffer$1.getDefaultOperatorParameters = () => ({
-      vpThreshold: 265000,
-      vThreshold: 156000,
-      ipThreshold: 120000,
-      pmaxThreshold0: 31800,
-      pmaxThreshold1: 31800,
-      pmaxThreshold2: 31800,
-      pmaxThreshold3: 31800,
-      speedOptoPort: 0,
-      tint: 30,
-      calcPeriodDate: 1,
-      timeoutDisplay: 127,
-      timeoutScreen: 7,
-      displaySet: toObject(displaySetMask, 0x80003184),
-      relaySet4: toObject(relaySet4Mask, 0),
-      relaySet3: toObject(relaySet3Mask, 0),
-      relaySet2: toObject(relaySet2Mask, 3),
-      relaySet1: toObject(relaySet1Mask, 3),
-      displayType: 0,
-      ten: 0,
-      timeoutRefresh: 240,
-      deltaCorMin: 15,
-      timeoutMagnetOff: 5,
-      timeoutMagnetOn: 5,
-      define1: toObject(define1Mask, 0),
-      timeoutRelayOn: 1,
-      timeoutRelayKey: 0,
-      timeoutRelayAuto: 5,
-      timeoutBadVAVB: 5,
-      freqMax: 55,
-      freqMin: 45,
-      phMin: 0,
-      year: 0,
-      month: 0,
-      date: 0,
-      energyDecimalPoint: 2,
-      typeMeter: 0,
-      timeoutIMax: 5,
-      timeoutPMax: 5,
-      timeoutCos: 5,
-      pMaxDef: 1,
-      displaySetExt: toObject(displaySetExtMask, 0x8383fff),
-      timeoutUneqCurrent: 5,
-      timeoutBipolarPower: 5,
-      relaySet5: toObject(relaySet5Mask, 0),
-      timeCorrectPeriod: 24,
-      timeCorrectPassHalfhour: false
-    });
-    CommandBinaryBuffer$1.prototype.getFrameHeader = function () {
-      const type = this.getUint8();
-      const typeName = frameNames[type];
-      const destination = this.getUint16();
-      const source = this.getUint16();
-      return {
-        type,
-        typeName,
-        destination,
-        source
-      };
-    };
-    CommandBinaryBuffer$1.prototype.setFrameHeader = function (_ref2) {
-      let {
-        type = defaultFrameHeader.type,
-        destination = defaultFrameHeader.destination,
-        source = defaultFrameHeader.source
-      } = _ref2;
-      this.setUint8(type);
-      this.setUint16(destination);
-      this.setUint16(source);
-    };
-    CommandBinaryBuffer$1.prototype.getDeviceId = function () {
-      const manufacturer = getHexFromBytes(this.getBytes(3), {
+    const getDeviceId$1 = function (buffer) {
+      const manufacturer = getHexFromBytes(buffer.getBytes(3), {
         separator: ''
       });
-      const type = this.getUint8();
-      const year = this.getUint8();
-      const serial = getHexFromBytes(this.getBytes(3), {
+      const type = buffer.getUint8();
+      const year = buffer.getUint8();
+      const serial = getHexFromBytes(buffer.getBytes(3), {
         separator: ''
       });
       return {
@@ -1269,314 +1208,309 @@ function decodeDownlink ( input ) {
         serial
       };
     };
-    CommandBinaryBuffer$1.prototype.setDeviceId = function (_ref3) {
-      let {
-        manufacturer,
-        type,
-        year,
-        serial
-      } = _ref3;
-      this.setBytes(getBytesFromHex(manufacturer));
-      this.setUint8(type);
-      this.setUint8(year);
-      this.setBytes(getBytesFromHex(serial));
+    const setDeviceId = function (buffer, {
+      manufacturer,
+      type,
+      year,
+      serial
+    }) {
+      buffer.setBytes(getBytesFromHex(manufacturer));
+      buffer.setUint8(type);
+      buffer.setUint8(year);
+      buffer.setBytes(getBytesFromHex(serial));
     };
-    CommandBinaryBuffer$1.prototype.getDateTime = function () {
+    const getDateTime$1 = function (buffer) {
       return {
-        isSummerTime: !!this.getUint8(),
-        seconds: this.getUint8(),
-        minutes: this.getUint8(),
-        hours: this.getUint8(),
-        day: this.getUint8(),
-        date: this.getUint8(),
-        month: this.getUint8(),
-        year: this.getUint8()
+        isSummerTime: !!buffer.getUint8(),
+        seconds: buffer.getUint8(),
+        minutes: buffer.getUint8(),
+        hours: buffer.getUint8(),
+        day: buffer.getUint8(),
+        date: buffer.getUint8(),
+        month: buffer.getUint8(),
+        year: buffer.getUint8()
       };
     };
-    CommandBinaryBuffer$1.prototype.setDateTime = function (dateTime) {
-      this.setUint8(dateTime.isSummerTime ? 1 : 0);
-      this.setUint8(dateTime.seconds);
-      this.setUint8(dateTime.minutes);
-      this.setUint8(dateTime.hours);
-      this.setUint8(dateTime.day || 0);
-      this.setUint8(dateTime.date);
-      this.setUint8(dateTime.month);
-      this.setUint8(dateTime.year);
+    const setDateTime$1 = function (buffer, dateTime) {
+      buffer.setUint8(dateTime.isSummerTime ? 1 : 0);
+      buffer.setUint8(dateTime.seconds);
+      buffer.setUint8(dateTime.minutes);
+      buffer.setUint8(dateTime.hours);
+      buffer.setUint8(dateTime.day || 0);
+      buffer.setUint8(dateTime.date);
+      buffer.setUint8(dateTime.month);
+      buffer.setUint8(dateTime.year);
     };
-    CommandBinaryBuffer$1.prototype.getTariffPlan = function () {
+    const getTariffPlan = function (buffer) {
       return {
-        id: this.getUint32(),
-        tariffSet: this.getUint8(),
-        activateYear: this.getUint8(),
-        activateMonth: this.getUint8(),
-        activateDay: this.getUint8(),
-        specialProfilesArraySize: this.getUint8(),
-        seasonProfilesArraySize: this.getUint8(),
-        dayProfilesArraySize: this.getUint8()
+        id: buffer.getUint32(),
+        tariffSet: buffer.getUint8(),
+        activateYear: buffer.getUint8(),
+        activateMonth: buffer.getUint8(),
+        activateDay: buffer.getUint8(),
+        specialProfilesArraySize: buffer.getUint8(),
+        seasonProfilesArraySize: buffer.getUint8(),
+        dayProfilesArraySize: buffer.getUint8()
       };
     };
-    CommandBinaryBuffer$1.prototype.setTariffPlan = function (tariffPlan) {
-      this.setUint32(tariffPlan.id);
-      this.setUint8(tariffPlan.tariffSet);
-      this.setUint8(tariffPlan.activateYear);
-      this.setUint8(tariffPlan.activateMonth);
-      this.setUint8(tariffPlan.activateDay);
-      this.setUint8(tariffPlan.specialProfilesArraySize);
-      this.setUint8(tariffPlan.seasonProfilesArraySize);
-      this.setUint8(tariffPlan.dayProfilesArraySize);
+    const setTariffPlan = function (buffer, tariffPlan) {
+      buffer.setUint32(tariffPlan.id);
+      buffer.setUint8(tariffPlan.tariffSet);
+      buffer.setUint8(tariffPlan.activateYear);
+      buffer.setUint8(tariffPlan.activateMonth);
+      buffer.setUint8(tariffPlan.activateDay);
+      buffer.setUint8(tariffPlan.specialProfilesArraySize);
+      buffer.setUint8(tariffPlan.seasonProfilesArraySize);
+      buffer.setUint8(tariffPlan.dayProfilesArraySize);
     };
-    CommandBinaryBuffer$1.prototype.getTimeCorrectionParameters = function () {
+    const getTimeCorrectionParameters = function (buffer) {
       return {
-        monthTransitionSummer: this.getUint8(),
-        dateTransitionSummer: this.getUint8(),
-        hoursTransitionSummer: this.getUint8(),
-        hoursCorrectSummer: this.getUint8(),
-        monthTransitionWinter: this.getUint8(),
-        dateTransitionWinter: this.getUint8(),
-        hoursTransitionWinter: this.getUint8(),
-        hoursCorrectWinter: this.getUint8(),
-        isCorrectionNeeded: this.getUint8() === 1
+        monthTransitionSummer: buffer.getUint8(),
+        dateTransitionSummer: buffer.getUint8(),
+        hoursTransitionSummer: buffer.getUint8(),
+        hoursCorrectSummer: buffer.getUint8(),
+        monthTransitionWinter: buffer.getUint8(),
+        dateTransitionWinter: buffer.getUint8(),
+        hoursTransitionWinter: buffer.getUint8(),
+        hoursCorrectWinter: buffer.getUint8(),
+        isCorrectionNeeded: buffer.getUint8() === 1
       };
     };
-    CommandBinaryBuffer$1.prototype.setTimeCorrectionParameters = function (parameters) {
-      this.setUint8(parameters.monthTransitionSummer);
-      this.setUint8(parameters.dateTransitionSummer);
-      this.setUint8(parameters.hoursTransitionSummer);
-      this.setUint8(parameters.hoursCorrectSummer);
-      this.setUint8(parameters.monthTransitionWinter);
-      this.setUint8(parameters.dateTransitionWinter);
-      this.setUint8(parameters.hoursTransitionWinter);
-      this.setUint8(parameters.hoursCorrectWinter);
-      this.setUint8(+parameters.isCorrectionNeeded);
+    const setTimeCorrectionParameters = function (buffer, parameters) {
+      buffer.setUint8(parameters.monthTransitionSummer);
+      buffer.setUint8(parameters.dateTransitionSummer);
+      buffer.setUint8(parameters.hoursTransitionSummer);
+      buffer.setUint8(parameters.hoursCorrectSummer);
+      buffer.setUint8(parameters.monthTransitionWinter);
+      buffer.setUint8(parameters.dateTransitionWinter);
+      buffer.setUint8(parameters.hoursTransitionWinter);
+      buffer.setUint8(parameters.hoursCorrectWinter);
+      buffer.setUint8(+parameters.isCorrectionNeeded);
     };
-    CommandBinaryBuffer$1.prototype.getDayProfile = function () {
-      return CommandBinaryBuffer$1.getDayProfileFromByte(this.getUint8());
+    const setDayProfile$1 = function (buffer, dayProfile) {
+      buffer.setUint8(getByteFromDayProfile(dayProfile));
     };
-    CommandBinaryBuffer$1.prototype.setDayProfile = function (dayProfile) {
-      this.setUint8(CommandBinaryBuffer$1.getByteFromDayProfile(dayProfile));
-    };
-    CommandBinaryBuffer$1.prototype.getSeasonProfile = function () {
+    const getSeasonProfile$1 = function (buffer) {
       return {
-        month: this.getUint8(),
-        date: this.getUint8(),
-        dayIndexes: new Array(SEASON_PROFILE_DAYS_NUMBER).fill(0).map(() => this.getUint8())
+        month: buffer.getUint8(),
+        date: buffer.getUint8(),
+        dayIndexes: new Array(SEASON_PROFILE_DAYS_NUMBER).fill(0).map(() => buffer.getUint8())
       };
     };
-    CommandBinaryBuffer$1.prototype.setSeasonProfile = function (seasonProfile) {
-      this.setUint8(seasonProfile.month);
-      this.setUint8(seasonProfile.date);
-      seasonProfile.dayIndexes.forEach(value => this.setUint8(value));
+    const setSeasonProfile$1 = function (buffer, seasonProfile) {
+      buffer.setUint8(seasonProfile.month);
+      buffer.setUint8(seasonProfile.date);
+      seasonProfile.dayIndexes.forEach(value => buffer.setUint8(value));
     };
-    CommandBinaryBuffer$1.prototype.getSpecialDay = function () {
+    const getSpecialDay$1 = function (buffer) {
       return {
-        month: this.getUint8(),
-        date: this.getUint8(),
-        dayIndex: this.getUint8(),
-        isPeriodic: this.getUint8() === 0
+        month: buffer.getUint8(),
+        date: buffer.getUint8(),
+        dayIndex: buffer.getUint8(),
+        isPeriodic: buffer.getUint8() === 0
       };
     };
-    CommandBinaryBuffer$1.prototype.setSpecialDay = function (specialDay) {
-      this.setUint8(specialDay.month);
-      this.setUint8(specialDay.date);
-      this.setUint8(specialDay.dayIndex);
-      this.setUint8(+!specialDay.isPeriodic);
+    const setSpecialDay$1 = function (buffer, specialDay) {
+      buffer.setUint8(specialDay.month);
+      buffer.setUint8(specialDay.date);
+      buffer.setUint8(specialDay.dayIndex);
+      buffer.setUint8(+!specialDay.isPeriodic);
     };
-    CommandBinaryBuffer$1.prototype.getDeviceType = function () {
-      return fromBytes$23(this.getBytes(9));
+    const getDeviceType$1 = function (buffer) {
+      return fromBytes$27(buffer.getBytes(9));
     };
-    CommandBinaryBuffer$1.prototype.setDeviceType = function (deviceType) {
-      this.setBytes(toBytes$24(deviceType));
+    const setDeviceType = function (buffer, deviceType) {
+      buffer.setBytes(toBytes$28(deviceType));
     };
-    CommandBinaryBuffer$1.prototype.getOperatorParameters = function () {
+    const getOperatorParameters$1 = function (buffer) {
       const operatorParameters = {
-        vpThreshold: this.getUint32(),
-        vThreshold: this.getUint32(),
-        ipThreshold: this.getUint32(),
-        pmaxThreshold0: this.getUint32(),
-        pmaxThreshold1: this.getUint32(),
-        pmaxThreshold2: this.getUint32(),
-        pmaxThreshold3: this.getUint32(),
-        speedOptoPort: this.getUint8(),
-        tint: this.getUint8(),
-        calcPeriodDate: this.getUint8(),
-        timeoutDisplay: this.getUint8(),
-        timeoutScreen: this.getUint8(),
-        displaySet: toObject(displaySetMask, this.getUint32()),
-        relaySet4: toObject(relaySet4Mask, this.getUint8()),
-        relaySet3: toObject(relaySet3Mask, this.getUint8()),
-        relaySet2: toObject(relaySet2Mask, this.getUint8()),
-        relaySet1: toObject(relaySet1Mask, this.getUint8()),
-        displayType: this.getUint8(),
-        ten: this.getUint8(),
-        timeoutRefresh: this.getUint16(),
-        deltaCorMin: this.getUint8(),
-        timeoutMagnetOff: this.getUint8(),
-        timeoutMagnetOn: this.getUint8(),
-        define1: toObject(define1Mask, this.getUint8()),
-        timeoutRelayOn: this.getUint8(),
-        timeoutRelayKey: this.getUint8(),
-        timeoutRelayAuto: this.getUint8(),
-        timeoutBadVAVB: this.getUint8(),
-        freqMax: this.getUint8(),
-        freqMin: this.getUint8(),
-        phMin: this.getUint16(),
-        year: this.getUint8(),
-        month: this.getUint8(),
-        date: this.getUint8(),
-        energyDecimalPoint: this.getUint8(),
-        typeMeter: this.getUint8(),
-        timeoutIMax: this.getUint8(),
-        timeoutPMax: this.getUint8(),
-        timeoutCos: this.getUint8(),
-        pMaxDef: this.getUint8(),
-        displaySetExt: toObject(displaySetExtMask, this.getUint32()),
-        timeoutUneqCurrent: this.getUint8(),
-        timeoutBipolarPower: this.getUint8(),
-        relaySet5: toObject(relaySet5Mask, this.getUint8()),
+        vpThreshold: buffer.getUint32(),
+        vThreshold: buffer.getUint32(),
+        ipThreshold: buffer.getUint32(),
+        pmaxThreshold0: buffer.getUint32(),
+        pmaxThreshold1: buffer.getUint32(),
+        pmaxThreshold2: buffer.getUint32(),
+        pmaxThreshold3: buffer.getUint32(),
+        speedOptoPort: buffer.getUint8(),
+        tint: buffer.getUint8(),
+        calcPeriodDate: buffer.getUint8(),
+        timeoutDisplay: buffer.getUint8(),
+        timeoutScreen: buffer.getUint8(),
+        displaySet: toObject(displaySetMask, buffer.getUint32()),
+        relaySet4: toObject(relaySet4Mask, buffer.getUint8()),
+        relaySet3: toObject(relaySet3Mask, buffer.getUint8()),
+        relaySet2: toObject(relaySet2Mask, buffer.getUint8()),
+        relaySet1: toObject(relaySet1Mask, buffer.getUint8()),
+        displayType: buffer.getUint8(),
+        ten: buffer.getUint8(),
+        timeoutRefresh: buffer.getUint16(),
+        deltaCorMin: buffer.getUint8(),
+        timeoutMagnetOff: buffer.getUint8(),
+        timeoutMagnetOn: buffer.getUint8(),
+        define1: toObject(define1Mask, buffer.getUint8()),
+        timeoutRelayOn: buffer.getUint8(),
+        timeoutRelayKey: buffer.getUint8(),
+        timeoutRelayAuto: buffer.getUint8(),
+        timeoutBadVAVB: buffer.getUint8(),
+        freqMax: buffer.getUint8(),
+        freqMin: buffer.getUint8(),
+        phMin: buffer.getUint16(),
+        year: buffer.getUint8(),
+        month: buffer.getUint8(),
+        date: buffer.getUint8(),
+        energyDecimalPoint: buffer.getUint8(),
+        typeMeter: buffer.getUint8(),
+        timeoutIMax: buffer.getUint8(),
+        timeoutPMax: buffer.getUint8(),
+        timeoutCos: buffer.getUint8(),
+        pMaxDef: buffer.getUint8(),
+        displaySetExt: toObject(displaySetExtMask, buffer.getUint32()),
+        timeoutUneqCurrent: buffer.getUint8(),
+        timeoutBipolarPower: buffer.getUint8(),
+        relaySet5: toObject(relaySet5Mask, buffer.getUint8()),
         timeCorrectPeriod: 0,
         timeCorrectPassHalfhour: false
       };
-      const timeCorrectPeriod = this.getUint8();
+      const timeCorrectPeriod = buffer.getUint8();
       operatorParameters.timeCorrectPeriod = timeCorrectPeriod & 0x7f;
       operatorParameters.timeCorrectPassHalfhour = !!(timeCorrectPeriod & 0x80);
       return operatorParameters;
     };
-    CommandBinaryBuffer$1.prototype.setOperatorParameters = function (operatorParameters) {
+    const setOperatorParameters$1 = function (buffer, operatorParameters) {
       const timeCorrectPeriod = operatorParameters.timeCorrectPeriod | (operatorParameters.timeCorrectPassHalfhour ? 0x80 : 0);
-      this.setUint32(operatorParameters.vpThreshold);
-      this.setUint32(operatorParameters.vThreshold);
-      this.setUint32(operatorParameters.ipThreshold);
-      this.setUint32(operatorParameters.pmaxThreshold0);
-      this.setUint32(operatorParameters.pmaxThreshold1);
-      this.setUint32(operatorParameters.pmaxThreshold2);
-      this.setUint32(operatorParameters.pmaxThreshold3);
-      this.setUint8(operatorParameters.speedOptoPort);
-      this.setUint8(operatorParameters.tint);
-      this.setUint8(operatorParameters.calcPeriodDate);
-      this.setUint8(operatorParameters.timeoutDisplay);
-      this.setUint8(operatorParameters.timeoutScreen);
-      this.setUint32(fromObject(displaySetMask, operatorParameters.displaySet));
-      this.setUint8(fromObject(relaySet4Mask, operatorParameters.relaySet4));
-      this.setUint8(fromObject(relaySet3Mask, operatorParameters.relaySet3));
-      this.setUint8(fromObject(relaySet2Mask, operatorParameters.relaySet2));
-      this.setUint8(fromObject(relaySet1Mask, operatorParameters.relaySet1));
-      this.setUint8(operatorParameters.displayType);
-      this.setUint8(operatorParameters.ten);
-      this.setUint16(operatorParameters.timeoutRefresh);
-      this.setUint8(operatorParameters.deltaCorMin);
-      this.setUint8(operatorParameters.timeoutMagnetOff);
-      this.setUint8(operatorParameters.timeoutMagnetOn);
-      this.setUint8(fromObject(define1Mask, operatorParameters.define1));
-      this.setUint8(operatorParameters.timeoutRelayOn);
-      this.setUint8(operatorParameters.timeoutRelayKey);
-      this.setUint8(operatorParameters.timeoutRelayAuto);
-      this.setUint8(operatorParameters.timeoutBadVAVB);
-      this.setUint8(operatorParameters.freqMax);
-      this.setUint8(operatorParameters.freqMin);
-      this.setUint16(operatorParameters.phMin);
-      this.setUint8(operatorParameters.year);
-      this.setUint8(operatorParameters.month);
-      this.setUint8(operatorParameters.date);
-      this.setUint8(operatorParameters.energyDecimalPoint);
-      this.setUint8(operatorParameters.typeMeter);
-      this.setUint8(operatorParameters.timeoutIMax);
-      this.setUint8(operatorParameters.timeoutPMax);
-      this.setUint8(operatorParameters.timeoutCos);
-      this.setUint8(operatorParameters.pMaxDef);
-      this.setUint32(fromObject(displaySetExtMask, operatorParameters.displaySetExt));
-      this.setUint8(operatorParameters.timeoutUneqCurrent);
-      this.setUint8(operatorParameters.timeoutBipolarPower);
-      this.setUint8(fromObject(relaySet5Mask, operatorParameters.relaySet5));
-      this.setUint8(timeCorrectPeriod);
+      buffer.setUint32(operatorParameters.vpThreshold);
+      buffer.setUint32(operatorParameters.vThreshold);
+      buffer.setUint32(operatorParameters.ipThreshold);
+      buffer.setUint32(operatorParameters.pmaxThreshold0);
+      buffer.setUint32(operatorParameters.pmaxThreshold1);
+      buffer.setUint32(operatorParameters.pmaxThreshold2);
+      buffer.setUint32(operatorParameters.pmaxThreshold3);
+      buffer.setUint8(operatorParameters.speedOptoPort);
+      buffer.setUint8(operatorParameters.tint);
+      buffer.setUint8(operatorParameters.calcPeriodDate);
+      buffer.setUint8(operatorParameters.timeoutDisplay);
+      buffer.setUint8(operatorParameters.timeoutScreen);
+      buffer.setUint32(fromObject(displaySetMask, operatorParameters.displaySet));
+      buffer.setUint8(fromObject(relaySet4Mask, operatorParameters.relaySet4));
+      buffer.setUint8(fromObject(relaySet3Mask, operatorParameters.relaySet3));
+      buffer.setUint8(fromObject(relaySet2Mask, operatorParameters.relaySet2));
+      buffer.setUint8(fromObject(relaySet1Mask, operatorParameters.relaySet1));
+      buffer.setUint8(operatorParameters.displayType);
+      buffer.setUint8(operatorParameters.ten);
+      buffer.setUint16(operatorParameters.timeoutRefresh);
+      buffer.setUint8(operatorParameters.deltaCorMin);
+      buffer.setUint8(operatorParameters.timeoutMagnetOff);
+      buffer.setUint8(operatorParameters.timeoutMagnetOn);
+      buffer.setUint8(fromObject(define1Mask, operatorParameters.define1));
+      buffer.setUint8(operatorParameters.timeoutRelayOn);
+      buffer.setUint8(operatorParameters.timeoutRelayKey);
+      buffer.setUint8(operatorParameters.timeoutRelayAuto);
+      buffer.setUint8(operatorParameters.timeoutBadVAVB);
+      buffer.setUint8(operatorParameters.freqMax);
+      buffer.setUint8(operatorParameters.freqMin);
+      buffer.setUint16(operatorParameters.phMin);
+      buffer.setUint8(operatorParameters.year);
+      buffer.setUint8(operatorParameters.month);
+      buffer.setUint8(operatorParameters.date);
+      buffer.setUint8(operatorParameters.energyDecimalPoint);
+      buffer.setUint8(operatorParameters.typeMeter);
+      buffer.setUint8(operatorParameters.timeoutIMax);
+      buffer.setUint8(operatorParameters.timeoutPMax);
+      buffer.setUint8(operatorParameters.timeoutCos);
+      buffer.setUint8(operatorParameters.pMaxDef);
+      buffer.setUint32(fromObject(displaySetExtMask, operatorParameters.displaySetExt));
+      buffer.setUint8(operatorParameters.timeoutUneqCurrent);
+      buffer.setUint8(operatorParameters.timeoutBipolarPower);
+      buffer.setUint8(fromObject(relaySet5Mask, operatorParameters.relaySet5));
+      buffer.setUint8(timeCorrectPeriod);
     };
-    CommandBinaryBuffer$1.prototype.getPackedEnergyWithType = function () {
-      const byte = this.getUint8();
+    const getPackedEnergyWithType = function (buffer) {
+      const byte = buffer.getUint8();
       const energyType = extractBits(byte, TARIFF_NUMBER$1, 1);
-      const energies = getPackedEnergies(this, energyType, byte);
+      const energies = getPackedEnergies(buffer, energyType, byte);
       return {
         energyType,
         energies
       };
     };
-    CommandBinaryBuffer$1.prototype.setPackedEnergyWithType = function (_ref4) {
-      let {
-        energyType,
-        energies
-      } = _ref4;
+    const setPackedEnergyWithType = function (buffer, {
+      energyType,
+      energies
+    }) {
       if (energyType) {
-        setPackedEnergyType(this, energyType, energies);
+        setPackedEnergyType(buffer, energyType, energies);
       }
       energies.forEach(energy => {
         if (energy !== null) {
-          this.setUint32(energy);
+          buffer.setInt32(energy);
         }
       });
     };
-    CommandBinaryBuffer$1.prototype.getEnergies = function () {
-      return new Array(TARIFF_NUMBER$1).fill(0).map(() => this.getInt32());
+    const getEnergies = function (buffer) {
+      return new Array(TARIFF_NUMBER$1).fill(0).map(() => buffer.getInt32());
     };
-    CommandBinaryBuffer$1.prototype.setEnergies = function (energies) {
-      energies.forEach(value => this.setUint32(value));
+    const setEnergies = function (buffer, energies) {
+      energies.forEach(value => buffer.setInt32(value));
     };
-    CommandBinaryBuffer$1.prototype.getDate = function () {
+    const getDate$1 = function (buffer) {
       return {
-        year: this.getUint8(),
-        month: this.getUint8(),
-        date: this.getUint8()
+        year: buffer.getUint8(),
+        month: buffer.getUint8(),
+        date: buffer.getUint8()
       };
     };
-    CommandBinaryBuffer$1.prototype.setDate = function (date) {
-      this.setUint8(date.year);
-      this.setUint8(date.month);
-      this.setUint8(date.date);
+    const setDate$1 = function (buffer, date) {
+      buffer.setUint8(date.year);
+      buffer.setUint8(date.month);
+      buffer.setUint8(date.date);
     };
-    CommandBinaryBuffer$1.prototype.getSaldoParameters = function () {
+    const getSaldoParameters$1 = function (buffer) {
       return {
-        coefficients: new Array(4).fill(0).map(() => this.getUint32()),
-        decimalPointTariff: this.getUint8(),
-        indicationThreshold: this.getInt32(),
-        relayThreshold: this.getInt32(),
-        mode: this.getUint8(),
-        saldoOffTimeBegin: this.getUint8(),
-        saldoOffTimeEnd: this.getUint8(),
-        decimalPointIndication: this.getUint8(),
-        powerThreshold: this.getUint32(),
-        creditThreshold: this.getInt32()
+        coefficients: new Array(4).fill(0).map(() => buffer.getUint32()),
+        decimalPointTariff: buffer.getUint8(),
+        indicationThreshold: buffer.getInt32(),
+        relayThreshold: buffer.getInt32(),
+        mode: buffer.getUint8(),
+        saldoOffTimeBegin: buffer.getUint8(),
+        saldoOffTimeEnd: buffer.getUint8(),
+        decimalPointIndication: buffer.getUint8(),
+        powerThreshold: buffer.getUint32(),
+        creditThreshold: buffer.getInt32()
       };
     };
-    CommandBinaryBuffer$1.prototype.setSaldoParameters = function (saldoParameters) {
-      saldoParameters.coefficients.forEach(value => this.setUint32(value));
-      this.setUint8(saldoParameters.decimalPointTariff);
-      this.setInt32(saldoParameters.indicationThreshold);
-      this.setInt32(saldoParameters.relayThreshold);
-      this.setUint8(saldoParameters.mode);
-      this.setUint8(saldoParameters.saldoOffTimeBegin);
-      this.setUint8(saldoParameters.saldoOffTimeEnd);
-      this.setUint8(saldoParameters.decimalPointIndication);
-      this.setUint32(saldoParameters.powerThreshold);
-      this.setInt32(saldoParameters.creditThreshold);
+    const setSaldoParameters$1 = function (buffer, saldoParameters) {
+      saldoParameters.coefficients.forEach(value => buffer.setUint32(value));
+      buffer.setUint8(saldoParameters.decimalPointTariff);
+      buffer.setInt32(saldoParameters.indicationThreshold);
+      buffer.setInt32(saldoParameters.relayThreshold);
+      buffer.setUint8(saldoParameters.mode);
+      buffer.setUint8(saldoParameters.saldoOffTimeBegin);
+      buffer.setUint8(saldoParameters.saldoOffTimeEnd);
+      buffer.setUint8(saldoParameters.decimalPointIndication);
+      buffer.setUint32(saldoParameters.powerThreshold);
+      buffer.setInt32(saldoParameters.creditThreshold);
     };
-    CommandBinaryBuffer$1.prototype.getEnergyPeriods = function (periodsNumber) {
-      const periods = new Array(periodsNumber).fill(0).map(() => this.getUint16());
+    const getEnergyPeriods = function (buffer, periodsNumber) {
+      const periods = new Array(periodsNumber).fill(0).map(() => buffer.getUint16());
       return periods.map(period => getEnergyPeriod(period));
     };
-    CommandBinaryBuffer$1.prototype.setEnergyPeriods = function (periods) {
-      periods.forEach(period => setEnergyPeriod(this, period));
+    const setEnergyPeriods = function (buffer, periods) {
+      periods.forEach(period => setEnergyPeriod(buffer, period));
     };
-    CommandBinaryBuffer$1.prototype.getEventStatus = function () {
-      const eventStatus = this.getUint16();
+    const getEventStatus$1 = function (buffer) {
+      const eventStatus = buffer.getUint16();
       return toObject(eventStatusMask, eventStatus);
     };
-    CommandBinaryBuffer$1.prototype.setEventStatus = function (parameters) {
-      this.setUint16(fromObject(eventStatusMask, parameters));
+    const setEventStatus = function (buffer, parameters) {
+      buffer.setUint16(fromObject(eventStatusMask, parameters));
     };
-    CommandBinaryBuffer$1.prototype.getExtendedCurrentValues2 = function () {
-      const uBattery = this.getUint16();
-      const relayStatus = toObject(extendedCurrentValues2RelayStatusMask, this.getUint8());
-      const relayStatus2 = toObject(extendedCurrentValues2RelayStatus2Mask, this.getUint8());
-      const status1 = toObject(extendedCurrentValues2Status1Mask, this.getUint8());
-      const status2 = toObject(extendedCurrentValues2Status2Mask, this.getUint8());
-      const status3 = toObject(extendedCurrentValues2Status3Mask, this.getUint8());
+    const getExtendedCurrentValues2$1 = function (buffer) {
+      const uBattery = buffer.getUint16();
+      const relayStatus = toObject(extendedCurrentValues2RelayStatusMask, buffer.getUint8());
+      const relayStatus2 = toObject(extendedCurrentValues2RelayStatus2Mask, buffer.getUint8());
+      const status1 = toObject(extendedCurrentValues2Status1Mask, buffer.getUint8());
+      const status2 = toObject(extendedCurrentValues2Status2Mask, buffer.getUint8());
+      const status3 = toObject(extendedCurrentValues2Status3Mask, buffer.getUint8());
       return {
         uBattery,
         relayStatus,
@@ -1586,7 +1520,7 @@ function decodeDownlink ( input ) {
         status3
       };
     };
-    CommandBinaryBuffer$1.prototype.setExtendedCurrentValues2 = function (parameters) {
+    const setExtendedCurrentValues2 = function (buffer, parameters) {
       const {
         uBattery,
         relayStatus,
@@ -1595,116 +1529,132 @@ function decodeDownlink ( input ) {
         status2,
         status3
       } = parameters;
-      this.setUint16(uBattery);
-      this.setUint8(fromObject(extendedCurrentValues2RelayStatusMask, relayStatus));
-      this.setUint8(fromObject(extendedCurrentValues2RelayStatus2Mask, relayStatus2));
-      this.setUint8(fromObject(extendedCurrentValues2Status1Mask, status1));
-      this.setUint8(fromObject(extendedCurrentValues2Status2Mask, status2));
-      this.setUint8(fromObject(extendedCurrentValues2Status3Mask, status3));
+      buffer.setUint16(uBattery);
+      buffer.setUint8(fromObject(extendedCurrentValues2RelayStatusMask, relayStatus));
+      buffer.setUint8(fromObject(extendedCurrentValues2RelayStatus2Mask, relayStatus2));
+      buffer.setUint8(fromObject(extendedCurrentValues2Status1Mask, status1));
+      buffer.setUint8(fromObject(extendedCurrentValues2Status2Mask, status2));
+      buffer.setUint8(fromObject(extendedCurrentValues2Status3Mask, status3));
     };
-    CommandBinaryBuffer$1.prototype.getEvent = function () {
+    const getEvent = function (buffer) {
       const data = {
-        hours: this.getUint8(),
-        minutes: this.getUint8(),
-        seconds: this.getUint8(),
-        event: this.getUint8()
+        hours: buffer.getUint8(),
+        minutes: buffer.getUint8(),
+        seconds: buffer.getUint8(),
+        event: buffer.getUint8()
       };
       const {
         event
       } = data;
       const {
         bytesLeft
-      } = this;
+      } = buffer;
       data.eventName = eventNames[event];
       switch (event) {
         case POWER_OVER_RELAY_OFF:
           if (bytesLeft < 4) {
             return data;
           }
-          data.power = [this.getUint8(), this.getUint8(), this.getUint8(), this.getUint8()];
+          data.power = [buffer.getUint8(), buffer.getUint8(), buffer.getUint8(), buffer.getUint8()];
           break;
         case CMD_CHANGE_TIME:
         case TIME_CORRECT$1:
           if (bytesLeft < 8) {
             return data;
           }
-          data.newDate = this.getDateTime();
+          data.newDate = getDateTime$1(buffer);
           break;
       }
       return data;
     };
-    CommandBinaryBuffer$1.prototype.setEvent = function (event) {
-      this.setUint8(event.hours);
-      this.setUint8(event.minutes);
-      this.setUint8(event.seconds);
-      this.setUint8(event.event);
+    const setEvent = function (buffer, event) {
+      buffer.setUint8(event.hours);
+      buffer.setUint8(event.minutes);
+      buffer.setUint8(event.seconds);
+      buffer.setUint8(event.event);
       switch (event.event) {
         case POWER_OVER_RELAY_OFF:
           for (const item of event.power) {
-            this.setUint8(item);
+            buffer.setUint8(item);
           }
           break;
         case CMD_CHANGE_TIME:
         case TIME_CORRECT$1:
-          this.setDateTime(event.newDate);
+          setDateTime$1(buffer, event.newDate);
           break;
       }
     };
-    CommandBinaryBuffer$1.prototype.getDemand = function () {
-      const date0 = this.getUint8();
-      const date1 = this.getUint8();
+    const getDemand$1 = function (buffer) {
+      const date0 = buffer.getUint8();
+      const date1 = buffer.getUint8();
       return {
         date: {
           year: date0 >> 1,
           month: date0 << 3 & 0x0f | date1 >> 5,
           date: date1 & 0x1f
         },
-        energyType: this.getUint8(),
-        firstIndex: this.getUint16(),
-        count: this.getUint8(),
-        period: this.getUint8()
+        energyType: buffer.getUint8(),
+        firstIndex: buffer.getUint16(),
+        count: buffer.getUint8(),
+        period: buffer.getUint8()
       };
     };
-    CommandBinaryBuffer$1.prototype.setDemand = function (parameters) {
+    const setDemand = function (buffer, parameters) {
       const date0 = parameters.date.year << 1 | parameters.date.month >> 3 & 0x01;
       const date1 = parameters.date.month << 5 & 0xe0 | parameters.date.date & 0x1f;
-      this.setUint8(date0);
-      this.setUint8(date1);
-      this.setUint8(parameters.energyType);
-      this.setUint16(parameters.firstIndex);
-      this.setUint8(parameters.count);
-      this.setUint8(parameters.period);
+      buffer.setUint8(date0);
+      buffer.setUint8(date1);
+      buffer.setUint8(parameters.energyType);
+      buffer.setUint16(parameters.firstIndex);
+      buffer.setUint8(parameters.count);
+      buffer.setUint8(parameters.period);
     };
-    CommandBinaryBuffer$1.prototype.getDayMaxDemandResponse = function () {
-      const date = this.getDate();
+    const getDemandParameters$1 = function (buffer) {
+      const channelParam1 = buffer.getUint8();
+      const counterInterval = buffer.getUint8();
+      const channelParam2 = buffer.getUint8();
+      return {
+        channelParam1,
+        counterInterval,
+        channelParam2
+      };
+    };
+    const setDemandParameters$1 = function (buffer, parameters) {
+      buffer.setUint8(parameters.channelParam1);
+      buffer.setUint8(parameters.counterInterval);
+      buffer.setUint8(parameters.channelParam2);
+      buffer.setUint8(0);
+    };
+    const getDayMaxDemandResponse = function (buffer) {
+      const date = getDate$1(buffer);
       const power = new Array(TARIFF_NUMBER$1).fill(0).map(() => ({
-        hours: this.getUint8(),
-        minutes: this.getUint8(),
-        power: this.getUint32()
+        hours: buffer.getUint8(),
+        minutes: buffer.getUint8(),
+        power: buffer.getUint32()
       }));
       return {
         date,
         power
       };
     };
-    CommandBinaryBuffer$1.prototype.setDayMaxDemandResponse = function (parameters) {
-      this.setDate(parameters.date);
+    const setDayMaxDemandResponse = function (buffer, parameters) {
+      setDate$1(buffer, parameters.date);
       parameters.power.forEach(value => {
-        this.setUint8(value.hours);
-        this.setUint8(value.minutes);
-        this.setUint32(value.power);
+        buffer.setUint8(value.hours);
+        buffer.setUint8(value.minutes);
+        buffer.setUint32(value.power);
       });
     };
-    CommandBinaryBuffer$1.prototype.getOperatorParametersExtended3 = function () {
+    const getOperatorParametersExtended3$1 = function (buffer) {
       return {
-        pmaxMinusThreshold0: this.getUint32(),
-        pmaxMinusThreshold1: this.getUint32(),
-        pmaxMinusThreshold2: this.getUint32(),
-        pmaxMinusThreshold3: this.getUint32(),
-        relaySet: toObject(operatorParametersExtended3RelaySetMask, this.getUint8())
+        pmaxMinusThreshold0: buffer.getUint32(),
+        pmaxMinusThreshold1: buffer.getUint32(),
+        pmaxMinusThreshold2: buffer.getUint32(),
+        pmaxMinusThreshold3: buffer.getUint32(),
+        relaySet: toObject(operatorParametersExtended3RelaySetMask, buffer.getUint8())
       };
     };
-    CommandBinaryBuffer$1.prototype.setOperatorParametersExtended3 = function (parameters) {
+    const setOperatorParametersExtended3$1 = function (buffer, parameters) {
       const {
         pmaxMinusThreshold0,
         pmaxMinusThreshold1,
@@ -1712,26 +1662,26 @@ function decodeDownlink ( input ) {
         pmaxMinusThreshold3,
         relaySet
       } = parameters;
-      this.setUint32(pmaxMinusThreshold0);
-      this.setUint32(pmaxMinusThreshold1);
-      this.setUint32(pmaxMinusThreshold2);
-      this.setUint32(pmaxMinusThreshold3);
-      this.setUint8(fromObject(operatorParametersExtended3RelaySetMask, relaySet));
+      buffer.setUint32(pmaxMinusThreshold0);
+      buffer.setUint32(pmaxMinusThreshold1);
+      buffer.setUint32(pmaxMinusThreshold2);
+      buffer.setUint32(pmaxMinusThreshold3);
+      buffer.setUint8(fromObject(operatorParametersExtended3RelaySetMask, relaySet));
     };
-    CommandBinaryBuffer$1.prototype.getMonthMaxPowerByTariffs = function () {
+    const getMonthMaxPowerByTariffs = function (buffer) {
       return new Array(TARIFF_NUMBER$1).fill(0).map(() => ({
-        date: this.getUint8(),
-        hours: this.getUint8(),
-        minutes: this.getUint8(),
-        power: this.getUint32()
+        date: buffer.getUint8(),
+        hours: buffer.getUint8(),
+        minutes: buffer.getUint8(),
+        power: buffer.getUint32()
       }));
     };
-    CommandBinaryBuffer$1.prototype.setMonthMaxPowerByTariffs = function (tariffs) {
+    const setMonthMaxPowerByTariffs = function (buffer, tariffs) {
       tariffs.forEach(tariff => {
-        this.setUint8(tariff.date);
-        this.setUint8(tariff.hours);
-        this.setUint8(tariff.minutes);
-        this.setUint32(tariff.power);
+        buffer.setUint8(tariff.date);
+        buffer.setUint8(tariff.hours);
+        buffer.setUint8(tariff.minutes);
+        buffer.setUint32(tariff.power);
       });
     };
     const getPackedEnergiesWithDateSize = parameters => {
@@ -1742,10 +1692,7 @@ function decodeDownlink ( input ) {
       return DATE_SIZE$3 + ENERGY_SIZE * TARIFF_NUMBER$1;
     };
 
-    const toBytes$23 = function (commandId) {
-      let commandBytes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      return [commandId, commandBytes.length, ...commandBytes];
-    };
+    const toBytes$27 = (commandId, commandBytes = []) => [commandId, commandBytes.length, ...commandBytes];
 
     const UNENCRYPTED = 0x00;
     const READ_ONLY = 0x03;
@@ -1807,10 +1754,12 @@ function decodeDownlink ( input ) {
     const getDisplayParam = 0x5e;
     const setSpecialOperation = 0x64;
     const getMagneticFieldThreshold = 0x6d;
-    const getHalfhoursEnergies = 0x6f;
+    const getHalfHourEnergies = 0x6f;
     const getBuildVersion = 0x70;
     const getOperatorParametersExtended3 = 0x71;
     const setOperatorParametersExtended3 = 0x72;
+    const setDemandParameters = 0x74;
+    const getDemandParameters = 0x75;
     const getDemand = 0x76;
     const getMeterInfo = 0x7a;
 
@@ -1830,6 +1779,7 @@ function decodeDownlink ( input ) {
         getDayMaxDemandPrevious: getDayMaxDemandPrevious,
         getDayProfile: getDayProfile,
         getDemand: getDemand,
+        getDemandParameters: getDemandParameters,
         getDeviceId: getDeviceId,
         getDeviceType: getDeviceType,
         getDisplayParam: getDisplayParam,
@@ -1845,7 +1795,7 @@ function decodeDownlink ( input ) {
         getHalfHourDemand: getHalfHourDemand,
         getHalfHourDemandExport: getHalfHourDemandExport,
         getHalfHourDemandPrevious: getHalfHourDemandPrevious,
-        getHalfhoursEnergies: getHalfhoursEnergies,
+        getHalfHourEnergies: getHalfHourEnergies,
         getMagneticFieldThreshold: getMagneticFieldThreshold,
         getMeterInfo: getMeterInfo,
         getMonthDemand: getMonthDemand,
@@ -1869,6 +1819,7 @@ function decodeDownlink ( input ) {
         setCorrectTime: setCorrectTime,
         setDateTime: setDateTime,
         setDayProfile: setDayProfile,
+        setDemandParameters: setDemandParameters,
         setDisplayParam: setDisplayParam,
         setOperatorParameters: setOperatorParameters,
         setOperatorParametersExtended3: setOperatorParametersExtended3,
@@ -1883,44 +1834,44 @@ function decodeDownlink ( input ) {
 
     var downlinkNames = invertObject(downlinkIds);
 
-    const id$20 = activateRatePlan;
+    const id$24 = activateRatePlan;
     downlinkNames[activateRatePlan];
-    const maxSize$1C = 1 + TARIFF_PLAN_SIZE;
-    const fromBytes$22 = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const maxSize$1G = 1 + TARIFF_PLAN_SIZE;
+    const fromBytes$26 = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         tariffTable: buffer.getUint8(),
-        tariffPlan: buffer.getTariffPlan()
+        tariffPlan: getTariffPlan(buffer)
       };
     };
-    const toBytes$22 = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1C);
+    const toBytes$26 = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1G, false);
       buffer.setUint8(parameters.tariffTable);
-      buffer.setTariffPlan(parameters.tariffPlan);
-      return toBytes$23(id$20, buffer.data);
+      setTariffPlan(buffer, parameters.tariffPlan);
+      return toBytes$27(id$24, buffer.data);
     };
 
-    const id$1$ = getBuildVersion;
+    const id$23 = getBuildVersion;
     downlinkNames[getBuildVersion];
-    const maxSize$1B = 0;
-    const fromBytes$21 = bytes => {
-      if (bytes.length !== maxSize$1B) {
+    const maxSize$1F = 0;
+    const fromBytes$25 = bytes => {
+      if (bytes.length !== maxSize$1F) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$21 = () => toBytes$23(id$1$);
+    const toBytes$25 = () => toBytes$27(id$23);
 
-    const id$1_ = getCorrectTime;
+    const id$22 = getCorrectTime;
     downlinkNames[getCorrectTime];
-    const maxSize$1A = 0;
-    const fromBytes$20 = bytes => {
-      if (bytes.length !== maxSize$1A) {
+    const maxSize$1E = 0;
+    const fromBytes$24 = bytes => {
+      if (bytes.length !== maxSize$1E) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$20 = () => toBytes$23(id$1_);
+    const toBytes$24 = () => toBytes$27(id$22);
 
     const CASE_OPEN = 0;
     const MAGNETIC_ON = 1;
@@ -1959,11 +1910,11 @@ function decodeDownlink ( input ) {
 
     var criticalEventNames = invertObject(criticalEvents);
 
-    const id$1Z = getCriticalEvent;
+    const id$21 = getCriticalEvent;
     downlinkNames[getCriticalEvent];
-    const maxSize$1z = 2;
-    const fromBytes$1$ = bytes => {
-      if (bytes.length !== maxSize$1z) {
+    const maxSize$1D = 2;
+    const fromBytes$23 = bytes => {
+      if (bytes.length !== maxSize$1D) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       const [event, index] = bytes;
@@ -1973,123 +1924,190 @@ function decodeDownlink ( input ) {
         index
       };
     };
-    const toBytes$1$ = parameters => toBytes$23(id$1Z, [parameters.event, parameters.index]);
+    const toBytes$23 = parameters => toBytes$27(id$21, [parameters.event, parameters.index]);
 
-    const id$1Y = getCurrentStatusMeter;
+    const id$20 = getCurrentStatusMeter;
     downlinkNames[getCurrentStatusMeter];
-    const maxSize$1y = 0;
-    const fromBytes$1_ = bytes => {
-      if (bytes.length !== maxSize$1y) {
+    const maxSize$1C = 0;
+    const fromBytes$22 = bytes => {
+      if (bytes.length !== maxSize$1C) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$1_ = () => toBytes$23(id$1Y);
+    const toBytes$22 = () => toBytes$27(id$20);
 
-    const id$1X = getCurrentValues;
+    const id$1$ = getCurrentValues;
     downlinkNames[getCurrentValues];
-    const maxSize$1x = 0;
+    const maxSize$1B = 0;
+    const fromBytes$21 = bytes => {
+      if (bytes.length !== maxSize$1B) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$21 = () => toBytes$27(id$1$);
+
+    const id$1_ = getDateTime;
+    downlinkNames[getDateTime];
+    const maxSize$1A = 0;
+    const fromBytes$20 = bytes => {
+      if (bytes.length !== maxSize$1A) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$20 = () => toBytes$27(id$1_);
+
+    const MIN_COMMAND_SIZE$5 = 3;
+    const MAX_COMMAND_SIZE$5 = 4;
+    const id$1Z = getDayDemand;
+    downlinkNames[getDayDemand];
+    const fromBytes$1$ = bytes => {
+      const buffer = new BinaryBuffer(bytes);
+      if (bytes.length === MAX_COMMAND_SIZE$5) {
+        return {
+          date: getDate$1(buffer),
+          energyType: buffer.getUint8()
+        };
+      }
+      return {
+        date: getDate$1(buffer)
+      };
+    };
+    const toBytes$1$ = parameters => {
+      const buffer = new BinaryBuffer(parameters?.energyType ? MAX_COMMAND_SIZE$5 : MIN_COMMAND_SIZE$5);
+      setDate$1(buffer, parameters?.date);
+      if (parameters?.energyType) {
+        buffer.setUint8(parameters.energyType);
+      }
+      return toBytes$27(id$1Z, buffer.data);
+    };
+
+    const MIN_COMMAND_SIZE$4 = 3;
+    const MAX_COMMAND_SIZE$4 = 4;
+    const id$1Y = getDayDemandExport;
+    downlinkNames[getDayDemandExport];
+    const fromBytes$1_ = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      if (bytes.length === MAX_COMMAND_SIZE$4) {
+        return {
+          date: getDate$1(buffer),
+          energyType: buffer.getUint8()
+        };
+      }
+      return {
+        date: getDate$1(buffer)
+      };
+    };
+    const toBytes$1_ = parameters => {
+      const buffer = new BinaryBuffer(parameters?.energyType ? MAX_COMMAND_SIZE$4 : MIN_COMMAND_SIZE$4, false);
+      setDate$1(buffer, parameters?.date);
+      if (parameters?.energyType) {
+        buffer.setUint8(parameters.energyType);
+      }
+      return toBytes$27(id$1Y, buffer.data);
+    };
+
+    const id$1X = getDayMaxDemand;
+    downlinkNames[getDayMaxDemand];
+    const maxSize$1z = 3;
     const fromBytes$1Z = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        date: getDate$1(buffer)
+      };
+    };
+    const toBytes$1Z = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1z, false);
+      setDate$1(buffer, parameters.date);
+      return toBytes$27(id$1X, buffer.data);
+    };
+
+    const id$1W = getDayMaxDemandExport;
+    downlinkNames[getDayMaxDemandExport];
+    const maxSize$1y = 3;
+    const fromBytes$1Y = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        date: getDate$1(buffer)
+      };
+    };
+    const toBytes$1Y = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1y, false);
+      setDate$1(buffer, parameters.date);
+      return toBytes$27(id$1W, buffer.data);
+    };
+
+    const id$1V = getDayMaxDemandPrevious;
+    downlinkNames[getDayMaxDemandPrevious];
+    const maxSize$1x = 0;
+    const fromBytes$1X = bytes => {
       if (bytes.length !== maxSize$1x) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$1Z = () => toBytes$23(id$1X);
+    const toBytes$1X = () => toBytes$27(id$1V);
 
-    const id$1W = getDateTime;
-    downlinkNames[getDateTime];
-    const maxSize$1w = 0;
-    const fromBytes$1Y = bytes => {
-      if (bytes.length !== maxSize$1w) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
-      return {};
-    };
-    const toBytes$1Y = () => toBytes$23(id$1W);
-
-    const MIN_COMMAND_SIZE$5 = 3;
-    const MAX_COMMAND_SIZE$5 = 4;
-    const id$1V = getDayDemand;
-    downlinkNames[getDayDemand];
-    const fromBytes$1X = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      if (bytes.length === MAX_COMMAND_SIZE$5) {
-        return {
-          date: buffer.getDate(),
-          energyType: buffer.getUint8()
-        };
-      }
-      return {
-        date: buffer.getDate()
-      };
-    };
-    const toBytes$1X = parameters => {
-      const buffer = new CommandBinaryBuffer$1(parameters?.energyType ? MAX_COMMAND_SIZE$5 : MIN_COMMAND_SIZE$5);
-      buffer.setDate(parameters?.date);
-      if (parameters?.energyType) {
-        buffer.setUint8(parameters.energyType);
-      }
-      return toBytes$23(id$1V, buffer.data);
-    };
-
-    const MIN_COMMAND_SIZE$4 = 3;
-    const MAX_COMMAND_SIZE$4 = 4;
-    const id$1U = getDayDemandExport;
-    downlinkNames[getDayDemandExport];
-    const fromBytes$1W = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      if (bytes.length === MAX_COMMAND_SIZE$4) {
-        return {
-          date: buffer.getDate(),
-          energyType: buffer.getUint8()
-        };
-      }
-      return {
-        date: buffer.getDate()
-      };
-    };
+    const id$1U = getDayProfile;
+    downlinkNames[getDayProfile];
+    const maxSize$1w = 3;
+    const fromBytes$1W = ([tariffTable, index, isActive]) => ({
+      tariffTable,
+      index,
+      isActive: isActive === 0
+    });
     const toBytes$1W = parameters => {
-      const buffer = new CommandBinaryBuffer$1(parameters?.energyType ? MAX_COMMAND_SIZE$4 : MIN_COMMAND_SIZE$4);
-      buffer.setDate(parameters?.date);
-      if (parameters?.energyType) {
-        buffer.setUint8(parameters.energyType);
-      }
-      return toBytes$23(id$1U, buffer.data);
+      const buffer = new BinaryBuffer(maxSize$1w, false);
+      buffer.setUint8(parameters.tariffTable);
+      buffer.setUint8(parameters.index);
+      buffer.setUint8(parameters.isActive ? 0 : 1);
+      return toBytes$27(id$1U, buffer.data);
     };
 
-    const id$1T = getDayMaxDemand;
-    downlinkNames[getDayMaxDemand];
-    const maxSize$1v = 3;
+    const A_PLUS = 0x01;
+    const A_MINUS = 0x02;
+
+    const id$1T = getDemand;
+    downlinkNames[getDemand];
+    const maxSize$1v = 7;
     const fromBytes$1V = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        date: buffer.getDate()
-      };
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDemand$1(buffer);
     };
     const toBytes$1V = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1v);
-      buffer.setDate(parameters.date);
-      return toBytes$23(id$1T, buffer.data);
+      const buffer = new BinaryBuffer(maxSize$1v, false);
+      setDemand(buffer, parameters);
+      return toBytes$27(id$1T, buffer.data);
     };
 
-    const id$1S = getDayMaxDemandExport;
-    downlinkNames[getDayMaxDemandExport];
-    const maxSize$1u = 3;
+    var validateCommandPayload = (commandName, bytes, expectedLength) => {
+      if (!commandName) {
+        throw new Error('Command name is required.');
+      }
+      if (bytes && !Array.isArray(bytes)) {
+        throw new Error(`Invalid payload for ${commandName}. Expected array, got: ${typeof bytes}.`);
+      }
+      if (bytes.length !== expectedLength) {
+        const hex = getHexFromBytes(bytes, {
+          separator: ''
+        });
+        throw new Error(`Wrong buffer size for ${commandName}: ${bytes.length}. Expected: ${expectedLength}. Payload: 0x${hex}.`);
+      }
+    };
+
+    const id$1S = getDemandParameters;
+    const name$3 = downlinkNames[getDemandParameters];
+    const maxSize$1u = 0;
     const fromBytes$1U = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        date: buffer.getDate()
-      };
+      validateCommandPayload(name$3, bytes, maxSize$1u);
+      return {};
     };
-    const toBytes$1U = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1u);
-      buffer.setDate(parameters.date);
-      return toBytes$23(id$1S, buffer.data);
-    };
+    const toBytes$1U = () => toBytes$27(id$1S);
 
-    const id$1R = getDayMaxDemandPrevious;
-    downlinkNames[getDayMaxDemandPrevious];
+    const id$1R = getDeviceId;
+    downlinkNames[getDeviceId];
     const maxSize$1t = 0;
     const fromBytes$1T = bytes => {
       if (bytes.length !== maxSize$1t) {
@@ -2097,85 +2115,236 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1T = () => toBytes$23(id$1R);
+    const toBytes$1T = () => toBytes$27(id$1R);
 
-    const id$1Q = getDayProfile;
-    downlinkNames[getDayProfile];
-    const maxSize$1s = 3;
-    const fromBytes$1S = _ref => {
-      let [tariffTable, index, isActive] = _ref;
-      return {
-        tariffTable,
-        index,
-        isActive: isActive === 0
-      };
-    };
-    const toBytes$1S = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1s);
-      buffer.setUint8(parameters.tariffTable);
-      buffer.setUint8(parameters.index);
-      buffer.setUint8(parameters.isActive ? 0 : 1);
-      return toBytes$23(id$1Q, buffer.data);
-    };
-
-    const A_PLUS = 0x01;
-    const A_MINUS = 0x02;
-
-    const id$1P = getDemand;
-    downlinkNames[getDemand];
-    const maxSize$1r = 7;
-    const fromBytes$1R = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getDemand();
-    };
-    const toBytes$1R = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1r);
-      buffer.setDemand(parameters);
-      return toBytes$23(id$1P, buffer.data);
-    };
-
-    const id$1O = getDeviceId;
-    downlinkNames[getDeviceId];
-    const maxSize$1q = 0;
-    const fromBytes$1Q = bytes => {
-      if (bytes.length !== maxSize$1q) {
+    const id$1Q = getDeviceType;
+    downlinkNames[getDeviceType];
+    const maxSize$1s = 0;
+    const fromBytes$1S = bytes => {
+      if (bytes.length !== maxSize$1s) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$1Q = () => toBytes$23(id$1O);
+    const toBytes$1S = () => toBytes$27(id$1Q);
 
-    const id$1N = getDeviceType;
-    downlinkNames[getDeviceType];
-    const maxSize$1p = 0;
-    const fromBytes$1P = data => {
-      if (data.length !== maxSize$1p) {
-        throw new Error(`Wrong buffer size: ${data.length}.`);
-      }
-      return {};
-    };
-    const toBytes$1P = () => toBytes$23(id$1N);
+    const OK = 0;
+    const UNKNOWN_COMMAND = 0x80;
+    const NOT_ALIGNED_DATA = 0x81;
+    const DECRYPTION_FAILURE = 0x82;
+    const UNKNOWN_PROTOCOL = 0x83;
+    const BAD_MESSAGE = 0x84;
+    const BAD_DATA_LENGTH = 0x85;
+    const BAD_ARRAY_INDEX = 0x86;
+    const NOT_PREPARED_RATE_PLAN = 0x87;
+    const BAD_RATE_PLAN_ID = 0x88;
+    const BAD_RATE_PLAN_SIZE = 0x89;
+    const BAD_RESPONSE_LENGTH = 0x90;
+    const NO_DATA_FOR_DATE = 0x91;
+    const CALIBRATION_DISABLED = 0x92;
+    const ACCESS_DENIED = 0x93;
+    const BAD_SALDO_WRITE = 0x95;
+    const BLOCKED_METER = 0x97;
+    const UNENCRYPTED_COMMAND_DISABLED = 0x98;
+    const TIME_CORRECTION_FAILURE = 0x99;
+    const INVALID_CORRECTION_INTERVAL = 0x9a;
+    const TIME_CORRECTION_OUT_HALF_HOUR_DISABLED = 0x9b;
+    const BAD_BLOCK_NUMBER = 0x9c;
+    const OUT_OFF_RANGE = 0x9f;
+    const SET_METER_TYPE_FAILURE = 0xa0;
+    const INTERNAL = 0xf0;
 
-    const id$1M = getDisplayParam;
+    var resultCodes = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        ACCESS_DENIED: ACCESS_DENIED,
+        BAD_ARRAY_INDEX: BAD_ARRAY_INDEX,
+        BAD_BLOCK_NUMBER: BAD_BLOCK_NUMBER,
+        BAD_DATA_LENGTH: BAD_DATA_LENGTH,
+        BAD_MESSAGE: BAD_MESSAGE,
+        BAD_RATE_PLAN_ID: BAD_RATE_PLAN_ID,
+        BAD_RATE_PLAN_SIZE: BAD_RATE_PLAN_SIZE,
+        BAD_RESPONSE_LENGTH: BAD_RESPONSE_LENGTH,
+        BAD_SALDO_WRITE: BAD_SALDO_WRITE,
+        BLOCKED_METER: BLOCKED_METER,
+        CALIBRATION_DISABLED: CALIBRATION_DISABLED,
+        DECRYPTION_FAILURE: DECRYPTION_FAILURE,
+        INTERNAL: INTERNAL,
+        INVALID_CORRECTION_INTERVAL: INVALID_CORRECTION_INTERVAL,
+        NOT_ALIGNED_DATA: NOT_ALIGNED_DATA,
+        NOT_PREPARED_RATE_PLAN: NOT_PREPARED_RATE_PLAN,
+        NO_DATA_FOR_DATE: NO_DATA_FOR_DATE,
+        OK: OK,
+        OUT_OFF_RANGE: OUT_OFF_RANGE,
+        SET_METER_TYPE_FAILURE: SET_METER_TYPE_FAILURE,
+        TIME_CORRECTION_FAILURE: TIME_CORRECTION_FAILURE,
+        TIME_CORRECTION_OUT_HALF_HOUR_DISABLED: TIME_CORRECTION_OUT_HALF_HOUR_DISABLED,
+        UNENCRYPTED_COMMAND_DISABLED: UNENCRYPTED_COMMAND_DISABLED,
+        UNKNOWN_COMMAND: UNKNOWN_COMMAND,
+        UNKNOWN_PROTOCOL: UNKNOWN_PROTOCOL
+    });
+
+    var resultNames = invertObject(resultCodes);
+
+    const SET_ALL_SEGMENT_DISPLAY = 1;
+    const SOFTWARE_VERSION = 2;
+    const TOTAL_ACTIVE_ENERGY = 3;
+    const ACTIVE_ENERGY_T1 = 4;
+    const ACTIVE_ENERGY_T2 = 5;
+    const ACTIVE_ENERGY_T3 = 6;
+    const ACTIVE_ENERGY_T4 = 7;
+    const ACTIVE_POWER_PER_PHASE = 8;
+    const ACTIVE_POWER_IN_NEUTRAL = 9;
+    const CURRENT_IN_PHASE = 10;
+    const CURRENT_IN_NEUTRAL = 11;
+    const VOLTAGE = 12;
+    const HOUR_MINUTE_SECOND = 13;
+    const DATE_MONTH_YEAR = 14;
+    const TOTAL_EXPORTED_ACTIVE_ENERGY = 15;
+    const EXPORTED_ACTIVE_ENERGY_T1 = 16;
+    const EXPORTED_ACTIVE_ENERGY_T2 = 17;
+    const EXPORTED_ACTIVE_ENERGY_T3 = 18;
+    const EXPORTED_ACTIVE_ENERGY_T4 = 19;
+    const POWER_FACTOR_PHASE_A = 20;
+    const POWER_FACTOR_PHASE_B = 21;
+    const BATTERY_VOLTAGE = 22;
+    const POWER_THRESHOLD_T1 = 23;
+    const POWER_THRESHOLD_T2 = 24;
+    const POWER_THRESHOLD_T3 = 25;
+    const POWER_THRESHOLD_T4 = 26;
+    const MAGNET_INDUCTION = 28;
+    const CURRENT_BALANCE = 30;
+    const OPTOPORT_SPEED = 31;
+
+    var screenIds = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        ACTIVE_ENERGY_T1: ACTIVE_ENERGY_T1,
+        ACTIVE_ENERGY_T2: ACTIVE_ENERGY_T2,
+        ACTIVE_ENERGY_T3: ACTIVE_ENERGY_T3,
+        ACTIVE_ENERGY_T4: ACTIVE_ENERGY_T4,
+        ACTIVE_POWER_IN_NEUTRAL: ACTIVE_POWER_IN_NEUTRAL,
+        ACTIVE_POWER_PER_PHASE: ACTIVE_POWER_PER_PHASE,
+        BATTERY_VOLTAGE: BATTERY_VOLTAGE,
+        CURRENT_BALANCE: CURRENT_BALANCE,
+        CURRENT_IN_NEUTRAL: CURRENT_IN_NEUTRAL,
+        CURRENT_IN_PHASE: CURRENT_IN_PHASE,
+        DATE_MONTH_YEAR: DATE_MONTH_YEAR,
+        EXPORTED_ACTIVE_ENERGY_T1: EXPORTED_ACTIVE_ENERGY_T1,
+        EXPORTED_ACTIVE_ENERGY_T2: EXPORTED_ACTIVE_ENERGY_T2,
+        EXPORTED_ACTIVE_ENERGY_T3: EXPORTED_ACTIVE_ENERGY_T3,
+        EXPORTED_ACTIVE_ENERGY_T4: EXPORTED_ACTIVE_ENERGY_T4,
+        HOUR_MINUTE_SECOND: HOUR_MINUTE_SECOND,
+        MAGNET_INDUCTION: MAGNET_INDUCTION,
+        OPTOPORT_SPEED: OPTOPORT_SPEED,
+        POWER_FACTOR_PHASE_A: POWER_FACTOR_PHASE_A,
+        POWER_FACTOR_PHASE_B: POWER_FACTOR_PHASE_B,
+        POWER_THRESHOLD_T1: POWER_THRESHOLD_T1,
+        POWER_THRESHOLD_T2: POWER_THRESHOLD_T2,
+        POWER_THRESHOLD_T3: POWER_THRESHOLD_T3,
+        POWER_THRESHOLD_T4: POWER_THRESHOLD_T4,
+        SET_ALL_SEGMENT_DISPLAY: SET_ALL_SEGMENT_DISPLAY,
+        SOFTWARE_VERSION: SOFTWARE_VERSION,
+        TOTAL_ACTIVE_ENERGY: TOTAL_ACTIVE_ENERGY,
+        TOTAL_EXPORTED_ACTIVE_ENERGY: TOTAL_EXPORTED_ACTIVE_ENERGY,
+        VOLTAGE: VOLTAGE
+    });
+
+    invertObject(screenIds);
+
+    const getDayEnergies = 0x78;
+    const getDayMaxPower = 0x79;
+    const errorResponse = 0xfe;
+
+    var uplinkIds = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        activateRatePlan: activateRatePlan,
+        errorResponse: errorResponse,
+        getBuildVersion: getBuildVersion,
+        getCorrectTime: getCorrectTime,
+        getCriticalEvent: getCriticalEvent,
+        getCurrentStatusMeter: getCurrentStatusMeter,
+        getCurrentValues: getCurrentValues,
+        getDateTime: getDateTime,
+        getDayDemand: getDayDemand,
+        getDayDemandExport: getDayDemandExport,
+        getDayEnergies: getDayEnergies,
+        getDayMaxDemand: getDayMaxDemand,
+        getDayMaxDemandExport: getDayMaxDemandExport,
+        getDayMaxDemandPrevious: getDayMaxDemandPrevious,
+        getDayMaxPower: getDayMaxPower,
+        getDayProfile: getDayProfile,
+        getDemand: getDemand,
+        getDemandParameters: getDemandParameters,
+        getDeviceId: getDeviceId,
+        getDeviceType: getDeviceType,
+        getDisplayParam: getDisplayParam,
+        getEnergy: getEnergy,
+        getEnergyDayPrevious: getEnergyDayPrevious,
+        getEnergyExport: getEnergyExport,
+        getEnergyExportDayPrevious: getEnergyExportDayPrevious,
+        getEventStatus: getEventStatus,
+        getEvents: getEvents,
+        getEventsCounters: getEventsCounters,
+        getExtendedCurrentValues: getExtendedCurrentValues,
+        getExtendedCurrentValues2: getExtendedCurrentValues2,
+        getHalfHourDemand: getHalfHourDemand,
+        getHalfHourDemandExport: getHalfHourDemandExport,
+        getHalfHourDemandPrevious: getHalfHourDemandPrevious,
+        getHalfHourEnergies: getHalfHourEnergies,
+        getMagneticFieldThreshold: getMagneticFieldThreshold,
+        getMeterInfo: getMeterInfo,
+        getMonthDemand: getMonthDemand,
+        getMonthDemandExport: getMonthDemandExport,
+        getMonthMaxDemand: getMonthMaxDemand,
+        getMonthMaxDemandExport: getMonthMaxDemandExport,
+        getOperatorParameters: getOperatorParameters,
+        getOperatorParametersExtended3: getOperatorParametersExtended3,
+        getRatePlanInfo: getRatePlanInfo,
+        getSaldo: getSaldo,
+        getSaldoParameters: getSaldoParameters,
+        getSeasonProfile: getSeasonProfile,
+        getSpecialDay: getSpecialDay,
+        getVersion: getVersion,
+        prepareRatePlan: prepareRatePlan,
+        resetPowerMaxDay: resetPowerMaxDay,
+        resetPowerMaxMonth: resetPowerMaxMonth,
+        runTariffPlan: runTariffPlan,
+        setAccessKey: setAccessKey,
+        setCorrectDateTime: setCorrectDateTime,
+        setCorrectTime: setCorrectTime,
+        setDateTime: setDateTime,
+        setDayProfile: setDayProfile,
+        setDemandParameters: setDemandParameters,
+        setDisplayParam: setDisplayParam,
+        setOperatorParameters: setOperatorParameters,
+        setOperatorParametersExtended3: setOperatorParametersExtended3,
+        setSaldo: setSaldo,
+        setSaldoParameters: setSaldoParameters,
+        setSeasonProfile: setSeasonProfile,
+        setSpecialDay: setSpecialDay,
+        setSpecialOperation: setSpecialOperation,
+        turnRelayOff: turnRelayOff,
+        turnRelayOn: turnRelayOn
+    });
+
+    var uplinkNames = invertObject(uplinkIds);
+
+    const id$1P = getDisplayParam;
     downlinkNames[getDisplayParam];
-    const maxSize$1o = 1;
-    const fromBytes$1O = _ref => {
-      let [displayMode] = _ref;
-      return {
-        displayMode
-      };
-    };
-    const toBytes$1O = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1o);
+    const maxSize$1r = 1;
+    const fromBytes$1R = ([displayMode]) => ({
+      displayMode
+    });
+    const toBytes$1R = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1r, false);
       buffer.setUint8(parameters.displayMode);
-      return toBytes$23(id$1M, buffer.data);
+      return toBytes$27(id$1P, buffer.data);
     };
 
     const MIN_COMMAND_SIZE$3 = 0;
     const MAX_COMMAND_SIZE$3 = 1;
-    const id$1L = getEnergy;
+    const id$1O = getEnergy;
     downlinkNames[getEnergy];
-    const fromBytes$1N = bytes => {
+    const fromBytes$1Q = bytes => {
       if (bytes.length === MAX_COMMAND_SIZE$3) {
         return {
           energyType: bytes[0]
@@ -2183,20 +2352,19 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1N = function () {
-      let parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      const buffer = new CommandBinaryBuffer$1(parameters?.energyType ? MAX_COMMAND_SIZE$3 : MIN_COMMAND_SIZE$3);
+    const toBytes$1Q = (parameters = {}) => {
+      const buffer = new BinaryBuffer(parameters?.energyType ? MAX_COMMAND_SIZE$3 : MIN_COMMAND_SIZE$3, false);
       if (parameters?.energyType) {
         buffer.setUint8(parameters.energyType);
       }
-      return toBytes$23(id$1L, buffer.data);
+      return toBytes$27(id$1O, buffer.data);
     };
 
     const MIN_COMMAND_SIZE$2 = 0;
     const MAX_COMMAND_SIZE$2 = 1;
-    const id$1K = getEnergyDayPrevious;
+    const id$1N = getEnergyDayPrevious;
     downlinkNames[getEnergyDayPrevious];
-    const fromBytes$1M = bytes => {
+    const fromBytes$1P = bytes => {
       const {
         length
       } = bytes;
@@ -2210,18 +2378,18 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1M = parameters => {
+    const toBytes$1P = parameters => {
       if (parameters.energyType) {
-        return toBytes$23(id$1K, [parameters.energyType]);
+        return toBytes$27(id$1N, [parameters.energyType]);
       }
-      return toBytes$23(id$1K);
+      return toBytes$27(id$1N);
     };
 
     const MIN_COMMAND_SIZE$1 = 0;
     const MAX_COMMAND_SIZE$1 = 1;
-    const id$1J = getEnergyExport;
+    const id$1M = getEnergyExport;
     downlinkNames[getEnergyExport];
-    const fromBytes$1L = bytes => {
+    const fromBytes$1O = bytes => {
       if (bytes.length === MAX_COMMAND_SIZE$1) {
         return {
           energyType: bytes[0]
@@ -2229,20 +2397,19 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1L = function () {
-      let parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      const buffer = new CommandBinaryBuffer$1(parameters?.energyType ? MAX_COMMAND_SIZE$1 : MIN_COMMAND_SIZE$1);
+    const toBytes$1O = (parameters = {}) => {
+      const buffer = new BinaryBuffer(parameters?.energyType ? MAX_COMMAND_SIZE$1 : MIN_COMMAND_SIZE$1, false);
       if (parameters?.energyType) {
         buffer.setUint8(parameters.energyType);
       }
-      return toBytes$23(id$1J, buffer.data);
+      return toBytes$27(id$1M, buffer.data);
     };
 
     const MIN_COMMAND_SIZE = 0;
     const MAX_COMMAND_SIZE = 1;
-    const id$1I = getEnergyExportDayPrevious;
+    const id$1L = getEnergyExportDayPrevious;
     downlinkNames[getEnergyExportDayPrevious];
-    const fromBytes$1K = bytes => {
+    const fromBytes$1N = bytes => {
       const {
         length
       } = bytes;
@@ -2256,37 +2423,70 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1K = parameters => {
+    const toBytes$1N = parameters => {
       if (parameters.energyType) {
-        return toBytes$23(id$1I, [parameters.energyType]);
+        return toBytes$27(id$1L, [parameters.energyType]);
       }
-      return toBytes$23(id$1I);
+      return toBytes$27(id$1L);
     };
 
-    const id$1H = getEvents;
+    const id$1K = getEvents;
     downlinkNames[getEvents];
-    const maxSize$1n = 4;
-    const fromBytes$1J = bytes => {
-      if (bytes.length !== maxSize$1n) {
+    const maxSize$1q = 4;
+    const fromBytes$1M = bytes => {
+      if (bytes.length !== maxSize$1q) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      const date = buffer.getDate();
+      const buffer = new BinaryBuffer(bytes, false);
+      const date = getDate$1(buffer);
       const offset = buffer.getUint8();
       return {
         date,
         offset
       };
     };
-    const toBytes$1J = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1n);
-      buffer.setDate(parameters.date);
+    const toBytes$1M = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1q, false);
+      setDate$1(buffer, parameters.date);
       buffer.setUint8(parameters.offset);
-      return toBytes$23(id$1H, buffer.data);
+      return toBytes$27(id$1K, buffer.data);
     };
 
-    const id$1G = getEventsCounters;
+    const id$1J = getEventsCounters;
     downlinkNames[getEventsCounters];
+    const maxSize$1p = 0;
+    const fromBytes$1L = bytes => {
+      if (bytes.length !== maxSize$1p) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$1L = () => toBytes$27(id$1J);
+
+    const id$1I = getEventStatus;
+    downlinkNames[getEventStatus];
+    const maxSize$1o = 0;
+    const fromBytes$1K = bytes => {
+      if (bytes.length !== maxSize$1o) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$1K = () => toBytes$27(id$1I);
+
+    const id$1H = getExtendedCurrentValues;
+    downlinkNames[getExtendedCurrentValues];
+    const maxSize$1n = 0;
+    const fromBytes$1J = bytes => {
+      if (bytes.length !== maxSize$1n) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$1J = () => toBytes$27(id$1H);
+
+    const id$1G = getExtendedCurrentValues2;
+    downlinkNames[getExtendedCurrentValues2];
     const maxSize$1m = 0;
     const fromBytes$1I = bytes => {
       if (bytes.length !== maxSize$1m) {
@@ -2294,32 +2494,40 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1I = () => toBytes$23(id$1G);
+    const toBytes$1I = () => toBytes$27(id$1G);
 
-    const id$1F = getEventStatus;
-    downlinkNames[getEventStatus];
-    const maxSize$1l = 0;
+    const id$1F = getHalfHourDemand;
+    downlinkNames[getHalfHourDemand];
+    const maxSize$1l = 3;
     const fromBytes$1H = bytes => {
-      if (bytes.length !== maxSize$1l) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
-      return {};
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        date: getDate$1(buffer)
+      };
     };
-    const toBytes$1H = () => toBytes$23(id$1F);
+    const toBytes$1H = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1l, false);
+      setDate$1(buffer, parameters.date);
+      return toBytes$27(id$1F, buffer.data);
+    };
 
-    const id$1E = getExtendedCurrentValues;
-    downlinkNames[getExtendedCurrentValues];
-    const maxSize$1k = 0;
+    const id$1E = getHalfHourDemandExport;
+    downlinkNames[getHalfHourDemandExport];
+    const maxSize$1k = 3;
     const fromBytes$1G = bytes => {
-      if (bytes.length !== maxSize$1k) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
-      return {};
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        date: getDate$1(buffer)
+      };
     };
-    const toBytes$1G = () => toBytes$23(id$1E);
+    const toBytes$1G = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1k, false);
+      setDate$1(buffer, parameters.date);
+      return toBytes$27(id$1E, buffer.data);
+    };
 
-    const id$1D = getExtendedCurrentValues2;
-    downlinkNames[getExtendedCurrentValues2];
+    const id$1D = getHalfHourDemandPrevious;
+    downlinkNames[getHalfHourDemandPrevious];
     const maxSize$1j = 0;
     const fromBytes$1F = bytes => {
       if (bytes.length !== maxSize$1j) {
@@ -2327,50 +2535,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1F = () => toBytes$23(id$1D);
-
-    const id$1C = getHalfHourDemand;
-    downlinkNames[getHalfHourDemand];
-    const maxSize$1i = 3;
-    const fromBytes$1E = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        date: buffer.getDate()
-      };
-    };
-    const toBytes$1E = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1i);
-      buffer.setDate(parameters.date);
-      return toBytes$23(id$1C, buffer.data);
-    };
-
-    const id$1B = getHalfHourDemandExport;
-    downlinkNames[getHalfHourDemandExport];
-    const maxSize$1h = 3;
-    const fromBytes$1D = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        date: buffer.getDate()
-      };
-    };
-    const toBytes$1D = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1h);
-      buffer.setDate(parameters.date);
-      return toBytes$23(id$1B, buffer.data);
-    };
-
-    const id$1A = getHalfHourDemandPrevious;
-    downlinkNames[getHalfHourDemandPrevious];
-    const maxSize$1g = 0;
-    const fromBytes$1C = data => {
-      if (data.length !== maxSize$1g) {
-        throw new Error(`Wrong buffer size: ${data.length}.`);
-      }
-      return {};
-    };
-    const toBytes$1C = () => toBytes$23(id$1A);
+    const toBytes$1F = () => toBytes$27(id$1D);
 
     const TARIFF_NUMBER = 4;
+    const ENERGY_NAMES = ['A+', 'A+R+', 'A+R-', 'A-', 'A-R+', 'A-R-'];
     const UNDEFINED_ENERGY_VALUE = 0xffffffff;
     const energiesMask = {
       'A+': 0x01,
@@ -2380,7 +2548,7 @@ function decodeDownlink ( input ) {
       'A-R+': 0x10,
       'A-R-': 0x20
     };
-    const getEnergiesFlags = energies => {
+    const getEnergiesFlagsLocal = energies => {
       const booleanObject = {};
       Object.keys(energies).forEach(name => {
         booleanObject[name] = !!energies[name];
@@ -2401,416 +2569,439 @@ function decodeDownlink ( input ) {
       }
       return flag;
     };
-    function CommandBinaryBuffer(dataOrLength) {
-      let isLittleEndian = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      BinaryBuffer.call(this, dataOrLength, isLittleEndian);
-    }
-    CommandBinaryBuffer.prototype = Object.create(BinaryBuffer.prototype);
-    CommandBinaryBuffer.prototype.constructor = CommandBinaryBuffer;
-    CommandBinaryBuffer.prototype.getDate = function () {
-      const date0 = this.getUint8();
-      const date1 = this.getUint8();
+    const getDate = function (buffer) {
+      const date0 = buffer.getUint8();
+      const date1 = buffer.getUint8();
       return {
         year: date0 >> 1,
         month: date0 << 3 & 0x0f | date1 >> 5,
         date: date1 & 0x1f
       };
     };
-    CommandBinaryBuffer.prototype.setDate = function (_ref) {
-      let {
-        year,
-        month,
-        date
-      } = _ref;
+    const setDate = function (buffer, {
+      year,
+      month,
+      date
+    }) {
       const date0 = year << 1 | month >> 3 & 0x01;
       const date1 = month << 5 & 0xe0 | date & 0x1f;
-      this.setUint8(date0);
-      this.setUint8(date1);
+      buffer.setUint8(date0);
+      buffer.setUint8(date1);
     };
-    CommandBinaryBuffer.prototype.getEnergiesFlags = function () {
-      const byte = this.getUint8();
+    const getEnergiesFlags = function (buffer) {
+      const byte = buffer.getUint8();
       return toObject(energiesMask, byte);
     };
-    CommandBinaryBuffer.prototype.setEnergiesFlags = function (energies) {
-      this.setUint8(getEnergiesFlags(energies));
+    const setEnergiesFlags = function (buffer, energies) {
+      buffer.setUint8(getEnergiesFlagsLocal(energies));
     };
-    CommandBinaryBuffer.prototype.getHalfhoursEnergy = function (halfhoursNumber) {
+    const getHalfHourEnergy1 = function (buffer, halfhoursNumber) {
       const halfhours = [];
       for (let index = 0; index < halfhoursNumber; index++) {
-        const value = this.getUint16();
-        halfhours.push(value === UNDEFINED_ENERGY_VALUE ? undefined : value);
+        const value = buffer.getUint16();
+        const tariff = value >> 14 & 0b11;
+        const energy = value & 16383;
+        halfhours.push(value === UNDEFINED_ENERGY_VALUE ? undefined : {
+          tariff,
+          energy
+        });
       }
       return halfhours;
     };
-    CommandBinaryBuffer.prototype.setHalfhoursEnergy = function (halfhours) {
+    const setHalfHourEnergy1 = function (buffer, halfhours) {
       if (halfhours) {
         for (let index = 0; index < halfhours.length; index++) {
-          const value = halfhours[index];
-          this.setUint16(value === undefined ? UNDEFINED_ENERGY_VALUE : value);
+          const {
+            tariff,
+            energy
+          } = halfhours[index];
+          const value = tariff << 14 | energy;
+          buffer.setUint16(value === undefined ? UNDEFINED_ENERGY_VALUE : value);
         }
       }
     };
-    CommandBinaryBuffer.prototype.getHalfhoursEnergies = function (energiesFlags, halfhoursNumber) {
+    const getHalfHourEnergies1 = function (buffer, energiesFlags, halfhoursNumber) {
       const energies = {};
-      if (energiesFlags['A+']) {
-        energies['A+'] = this.getHalfhoursEnergy(halfhoursNumber);
-      }
-      if (energiesFlags['A+R+']) {
-        energies['A+R+'] = this.getHalfhoursEnergy(halfhoursNumber);
-      }
-      if (energiesFlags['A+R-']) {
-        energies['A+R-'] = this.getHalfhoursEnergy(halfhoursNumber);
-      }
-      if (energiesFlags['A-']) {
-        energies['A-'] = this.getHalfhoursEnergy(halfhoursNumber);
-      }
-      if (energiesFlags['A-R+']) {
-        energies['A-R+'] = this.getHalfhoursEnergy(halfhoursNumber);
-      }
-      if (energiesFlags['A-R-']) {
-        energies['A-R-'] = this.getHalfhoursEnergy(halfhoursNumber);
-      }
+      ENERGY_NAMES.forEach(energyName => {
+        if (energiesFlags[energyName]) {
+          energies[energyName] = getHalfHourEnergy1(buffer, halfhoursNumber);
+        }
+      });
       return energies;
     };
-    CommandBinaryBuffer.prototype.setHalfhoursEnergies = function (energies) {
-      this.setHalfhoursEnergy(energies['A+']);
-      this.setHalfhoursEnergy(energies['A+R+']);
-      this.setHalfhoursEnergy(energies['A+R-']);
-      this.setHalfhoursEnergy(energies['A-']);
-      this.setHalfhoursEnergy(energies['A-R+']);
-      this.setHalfhoursEnergy(energies['A-R-']);
+    const setHalfHourEnergies1 = function (buffer, energies) {
+      ENERGY_NAMES.forEach(energyName => {
+        setHalfHourEnergy1(buffer, energies[energyName]);
+      });
     };
-    CommandBinaryBuffer.prototype.getAPlusTariffEnergies = function (energyFlags) {
+    const getAPlusTariffEnergies = function (buffer, energyFlags) {
       const energies = {};
       if (energyFlags & energiesMask['A+']) {
-        energies['A+'] = this.getUint32();
+        energies['A+'] = buffer.getUint32();
       }
       if (energyFlags & energiesMask['A+R+']) {
-        energies['A+R+'] = this.getUint32();
+        energies['A+R+'] = buffer.getUint32();
       }
       if (energyFlags & energiesMask['A+R-']) {
-        energies['A+R-'] = this.getUint32();
+        energies['A+R-'] = buffer.getUint32();
       }
       return energies;
     };
-    CommandBinaryBuffer.prototype.setAPlusTariffEnergies = function (energies) {
+    const setAPlusTariffEnergies = function (buffer, energies) {
       if (energies) {
         if (energies['A+']) {
-          this.setUint32(energies['A+']);
+          buffer.setUint32(energies['A+']);
         }
         if (energies['A+R+']) {
-          this.setUint32(energies['A+R+']);
+          buffer.setUint32(energies['A+R+']);
         }
         if (energies['A+R-']) {
-          this.setUint32(energies['A+R-']);
+          buffer.setUint32(energies['A+R-']);
         }
       }
     };
-    CommandBinaryBuffer.prototype.getAMinusTariffEnergies = function (energyFlags) {
+    const getAMinusTariffEnergies = function (buffer, energyFlags) {
       const energies = {};
       if (energyFlags & energiesMask['A-']) {
-        energies['A-'] = this.getUint32();
+        energies['A-'] = buffer.getUint32();
       }
       if (energyFlags & energiesMask['A-R+']) {
-        energies['A-R+'] = this.getUint32();
+        energies['A-R+'] = buffer.getUint32();
       }
       if (energyFlags & energiesMask['A-R-']) {
-        energies['A-R-'] = this.getUint32();
+        energies['A-R-'] = buffer.getUint32();
       }
       return energies;
     };
-    CommandBinaryBuffer.prototype.setAMinusTariffEnergies = function (energies) {
+    const setAMinusTariffEnergies = function (buffer, energies) {
       if (energies) {
         if (energies['A-']) {
-          this.setUint32(energies['A-']);
+          buffer.setUint32(energies['A-']);
         }
         if (energies['A-R+']) {
-          this.setUint32(energies['A-R+']);
+          buffer.setUint32(energies['A-R+']);
         }
         if (energies['A-R-']) {
-          this.setUint32(energies['A-R-']);
+          buffer.setUint32(energies['A-R-']);
         }
       }
     };
-    CommandBinaryBuffer.prototype.getTariffsEnergies = function () {
-      const energyFlags = this.getUint8();
-      const tariffFlags = this.getUint8();
+    const getTariffsEnergies = function (buffer) {
+      const energyFlags = buffer.getUint8();
+      const tariffFlags = buffer.getUint8();
       const tariffs = new Array(TARIFF_NUMBER).fill(null);
       for (let index = 0; index < TARIFF_NUMBER; index++) {
         if (tariffFlags & getAPlusTariffBit(index)) {
-          tariffs[index] = this.getAPlusTariffEnergies(energyFlags);
+          tariffs[index] = getAPlusTariffEnergies(buffer, energyFlags);
         }
       }
       for (let index = 0; index < TARIFF_NUMBER; index++) {
         if (tariffFlags & getAMinusTariffBit(index)) {
           tariffs[index] = {
             ...tariffs[index],
-            ...this.getAMinusTariffEnergies(energyFlags)
+            ...getAMinusTariffEnergies(buffer, energyFlags)
           };
         }
       }
       return tariffs;
     };
-    CommandBinaryBuffer.prototype.setTariffsEnergies = function (tariffs) {
+    const setTariffsEnergies = function (buffer, tariffs) {
       let energiesFlags = 0;
       let tariffsFlags = 0;
       tariffs.forEach((tariff, index) => {
         if (tariff) {
-          energiesFlags |= getEnergiesFlags(tariff);
+          energiesFlags |= getEnergiesFlagsLocal(tariff);
           tariffsFlags |= getTariffEnergiesFlag(index, tariff);
         }
       });
-      this.setUint8(energiesFlags);
-      this.setUint8(tariffsFlags);
-      tariffs.forEach(tariff => this.setAPlusTariffEnergies(tariff));
-      tariffs.forEach(tariff => this.setAMinusTariffEnergies(tariff));
+      buffer.setUint8(energiesFlags);
+      buffer.setUint8(tariffsFlags);
+      tariffs.forEach(tariff => setAPlusTariffEnergies(buffer, tariff));
+      tariffs.forEach(tariff => setAMinusTariffEnergies(buffer, tariff));
     };
-    CommandBinaryBuffer.prototype.getPowerMax = function () {
+    const getPowerMax = function (buffer) {
       return {
-        hours: this.getUint8(),
-        minutes: this.getUint8(),
-        power: this.getUint32()
+        hours: buffer.getUint8(),
+        minutes: buffer.getUint8(),
+        power: buffer.getUint32()
       };
     };
-    CommandBinaryBuffer.prototype.setPowerMax = function (value) {
+    const setPowerMax = function (buffer, value) {
       if (value) {
         const {
           hours,
           minutes,
           power
         } = value;
-        this.setUint8(hours);
-        this.setUint8(minutes);
-        this.setUint32(power);
+        buffer.setUint8(hours);
+        buffer.setUint8(minutes);
+        buffer.setUint32(power);
       }
     };
-    CommandBinaryBuffer.prototype.getAPlusTariffPowerMax = function (energyFlags) {
+    const getAPlusTariffPowerMax = function (buffer, energyFlags) {
       const energies = {};
       if (energyFlags & energiesMask['A+']) {
-        energies['A+'] = this.getPowerMax();
+        energies['A+'] = getPowerMax(buffer);
       }
       if (energyFlags & energiesMask['A+R+']) {
-        energies['A+R+'] = this.getPowerMax();
+        energies['A+R+'] = getPowerMax(buffer);
       }
       if (energyFlags & energiesMask['A+R-']) {
-        energies['A+R-'] = this.getPowerMax();
+        energies['A+R-'] = getPowerMax(buffer);
       }
       return energies;
     };
-    CommandBinaryBuffer.prototype.setAPlusTariffPowerMax = function (energies) {
+    const setAPlusTariffPowerMax = function (buffer, energies) {
       if (energies) {
-        this.setPowerMax(energies['A+']);
-        this.setPowerMax(energies['A+R+']);
-        this.setPowerMax(energies['A+R+']);
+        setPowerMax(buffer, energies['A+']);
+        setPowerMax(buffer, energies['A+R+']);
+        setPowerMax(buffer, energies['A+R+']);
       }
     };
-    CommandBinaryBuffer.prototype.getAMinusTariffPowerMax = function (energyFlags) {
+    const getAMinusTariffPowerMax = function (buffer, energyFlags) {
       const energies = {};
       if (energyFlags & energiesMask['A-']) {
-        energies['A-'] = this.getPowerMax();
+        energies['A-'] = getPowerMax(buffer);
       }
       if (energyFlags & energiesMask['A-R+']) {
-        energies['A-R+'] = this.getPowerMax();
+        energies['A-R+'] = getPowerMax(buffer);
       }
       if (energyFlags & energiesMask['A-R-']) {
-        energies['A-R-'] = this.getPowerMax();
+        energies['A-R-'] = getPowerMax(buffer);
       }
       return energies;
     };
-    CommandBinaryBuffer.prototype.setAMinusTariffPowerMax = function (energies) {
+    const setAMinusTariffPowerMax = function (buffer, energies) {
       if (energies) {
-        this.setPowerMax(energies['A-']);
-        this.setPowerMax(energies['A-R+']);
-        this.setPowerMax(energies['A-R-']);
+        setPowerMax(buffer, energies['A-']);
+        setPowerMax(buffer, energies['A-R+']);
+        setPowerMax(buffer, energies['A-R-']);
       }
     };
-    CommandBinaryBuffer.prototype.getTariffsPowerMax = function () {
-      const energyFlags = this.getUint8();
-      const tariffFlags = this.getUint8();
+    const getTariffsPowerMax = function (buffer) {
+      const energyFlags = buffer.getUint8();
+      const tariffFlags = buffer.getUint8();
       const tariffs = new Array(TARIFF_NUMBER).fill(null);
       for (let index = 0; index < TARIFF_NUMBER; index++) {
         if (tariffFlags & getAPlusTariffBit(index)) {
-          tariffs[index] = this.getAPlusTariffPowerMax(energyFlags);
+          tariffs[index] = getAPlusTariffPowerMax(buffer, energyFlags);
         }
       }
       for (let index = 0; index < TARIFF_NUMBER; index++) {
         if (tariffFlags & getAMinusTariffBit(index)) {
           tariffs[index] = {
             ...tariffs[index],
-            ...this.getAMinusTariffPowerMax(energyFlags)
+            ...getAMinusTariffPowerMax(buffer, energyFlags)
           };
         }
       }
       return tariffs;
     };
-    CommandBinaryBuffer.prototype.setTariffsPowerMax = function (tariffs) {
+    const setTariffsPowerMax = function (buffer, tariffs) {
       let energiesFlags = 0;
       let tariffsFlags = 0;
       tariffs.forEach((tariff, index) => {
         if (tariff) {
-          energiesFlags |= getEnergiesFlags(tariff);
+          energiesFlags |= getEnergiesFlagsLocal(tariff);
           tariffsFlags |= getTariffEnergiesFlag(index, tariff);
         }
       });
-      this.setUint8(energiesFlags);
-      this.setUint8(tariffsFlags);
-      tariffs.forEach(tariff => this.setAPlusTariffPowerMax(tariff));
-      tariffs.forEach(tariff => this.setAMinusTariffPowerMax(tariff));
+      buffer.setUint8(energiesFlags);
+      buffer.setUint8(tariffsFlags);
+      tariffs.forEach(tariff => setAPlusTariffPowerMax(buffer, tariff));
+      tariffs.forEach(tariff => setAMinusTariffPowerMax(buffer, tariff));
     };
 
-    const id$1z = getHalfhoursEnergies;
-    downlinkNames[getHalfhoursEnergies];
-    const maxSize$1f = 5;
-    const fromBytes$1B = bytes => {
-      const buffer = new CommandBinaryBuffer(bytes);
+    const id$1C = getHalfHourEnergies;
+    downlinkNames[getHalfHourEnergies];
+    const maxSize$1i = 5;
+    const fromBytes$1E = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
-        date: buffer.getDate(),
-        energies: buffer.getEnergiesFlags(),
+        date: getDate(buffer),
+        energies: getEnergiesFlags(buffer),
         firstHalfhour: buffer.getUint8(),
         halfhoursNumber: buffer.getUint8()
       };
     };
-    const toBytes$1B = parameters => {
-      const buffer = new CommandBinaryBuffer(maxSize$1f);
-      buffer.setDate(parameters.date);
-      buffer.setEnergiesFlags(parameters.energies);
+    const toBytes$1E = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1i, false);
+      setDate(buffer, parameters.date);
+      setEnergiesFlags(buffer, parameters.energies);
       buffer.setUint8(parameters.firstHalfhour);
       buffer.setUint8(parameters.halfhoursNumber);
-      return toBytes$23(id$1z, buffer.data);
+      return toBytes$27(id$1C, buffer.data);
     };
 
-    const id$1y = getMagneticFieldThreshold;
+    const id$1B = getMagneticFieldThreshold;
     downlinkNames[getMagneticFieldThreshold];
-    const maxSize$1e = 0;
-    const fromBytes$1A = bytes => {
-      if (bytes.length !== maxSize$1e) {
+    const maxSize$1h = 0;
+    const fromBytes$1D = bytes => {
+      if (bytes.length !== maxSize$1h) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$1A = () => toBytes$23(id$1y);
+    const toBytes$1D = () => toBytes$27(id$1B);
 
-    const id$1x = getMeterInfo;
+    const id$1A = getMeterInfo;
     downlinkNames[getMeterInfo];
-    const maxSize$1d = 0;
+    const maxSize$1g = 0;
+    const fromBytes$1C = bytes => {
+      if (bytes.length !== maxSize$1g) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$1C = () => toBytes$27(id$1A);
+
+    const id$1z = getMonthDemand;
+    downlinkNames[getMonthDemand];
+    const maxSize$1f = 2;
+    const fromBytes$1B = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        year: buffer.getUint8(),
+        month: buffer.getUint8()
+      };
+    };
+    const toBytes$1B = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1f, false);
+      buffer.setUint8(parameters.year);
+      buffer.setUint8(parameters.month);
+      return toBytes$27(id$1z, buffer.data);
+    };
+
+    const id$1y = getMonthDemandExport;
+    downlinkNames[getMonthDemandExport];
+    const maxSize$1e = 2;
+    const fromBytes$1A = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        year: buffer.getUint8(),
+        month: buffer.getUint8()
+      };
+    };
+    const toBytes$1A = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1e, false);
+      buffer.setUint8(parameters.year);
+      buffer.setUint8(parameters.month);
+      return toBytes$27(id$1y, buffer.data);
+    };
+
+    const id$1x = getMonthMaxDemand;
+    downlinkNames[getMonthMaxDemand];
     const fromBytes$1z = bytes => {
+      const [year, month] = bytes;
+      return {
+        year,
+        month
+      };
+    };
+    const toBytes$1z = ({
+      year,
+      month
+    }) => toBytes$27(id$1x, [year, month]);
+
+    const id$1w = getMonthMaxDemandExport;
+    downlinkNames[getMonthMaxDemandExport];
+    const fromBytes$1y = bytes => {
+      const [year, month] = bytes;
+      return {
+        year,
+        month
+      };
+    };
+    const toBytes$1y = ({
+      year,
+      month
+    }) => toBytes$27(id$1w, [year, month]);
+
+    const id$1v = getOperatorParameters;
+    downlinkNames[getOperatorParameters];
+    const maxSize$1d = 0;
+    const fromBytes$1x = bytes => {
       if (bytes.length !== maxSize$1d) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$1z = () => toBytes$23(id$1x);
+    const toBytes$1x = () => toBytes$27(id$1v);
 
-    const id$1w = getMonthDemand;
-    downlinkNames[getMonthDemand];
-    const maxSize$1c = 2;
-    const fromBytes$1y = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        year: buffer.getUint8(),
-        month: buffer.getUint8()
-      };
-    };
-    const toBytes$1y = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1c);
-      buffer.setUint8(parameters.year);
-      buffer.setUint8(parameters.month);
-      return toBytes$23(id$1w, buffer.data);
-    };
-
-    const id$1v = getMonthDemandExport;
-    downlinkNames[getMonthDemandExport];
-    const maxSize$1b = 2;
-    const fromBytes$1x = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        year: buffer.getUint8(),
-        month: buffer.getUint8()
-      };
-    };
-    const toBytes$1x = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1b);
-      buffer.setUint8(parameters.year);
-      buffer.setUint8(parameters.month);
-      return toBytes$23(id$1v, buffer.data);
-    };
-
-    const id$1u = getMonthMaxDemand;
-    downlinkNames[getMonthMaxDemand];
-    const fromBytes$1w = bytes => {
-      const [year, month] = bytes;
-      return {
-        year,
-        month
-      };
-    };
-    const toBytes$1w = _ref => {
-      let {
-        year,
-        month
-      } = _ref;
-      return toBytes$23(id$1u, [year, month]);
-    };
-
-    const id$1t = getMonthMaxDemandExport;
-    downlinkNames[getMonthMaxDemandExport];
-    const fromBytes$1v = bytes => {
-      const [year, month] = bytes;
-      return {
-        year,
-        month
-      };
-    };
-    const toBytes$1v = _ref => {
-      let {
-        year,
-        month
-      } = _ref;
-      return toBytes$23(id$1t, [year, month]);
-    };
-
-    const id$1s = getOperatorParametersExtended3;
+    const id$1u = getOperatorParametersExtended3;
     downlinkNames[getOperatorParametersExtended3];
-    const maxSize$1a = 0;
+    const maxSize$1c = 0;
+    const fromBytes$1w = bytes => {
+      if (bytes.length !== maxSize$1c) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$1w = () => toBytes$27(id$1u);
+
+    const id$1t = getRatePlanInfo;
+    downlinkNames[getRatePlanInfo];
+    const fromBytes$1v = bytes => ({
+      tariffTable: bytes[0]
+    });
+    const toBytes$1v = parameters => toBytes$27(id$1t, [parameters.tariffTable]);
+
+    const id$1s = getSaldo;
+    downlinkNames[getSaldo];
+    const maxSize$1b = 0;
     const fromBytes$1u = bytes => {
+      if (bytes.length !== maxSize$1b) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$1u = () => toBytes$27(id$1s);
+
+    const id$1r = getSaldoParameters;
+    downlinkNames[getSaldoParameters];
+    const maxSize$1a = 0;
+    const fromBytes$1t = bytes => {
       if (bytes.length !== maxSize$1a) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$1u = () => toBytes$23(id$1s);
+    const toBytes$1t = () => toBytes$27(id$1r);
 
-    const id$1r = getOperatorParameters;
-    downlinkNames[getOperatorParameters];
-    const maxSize$19 = 0;
-    const fromBytes$1t = bytes => {
-      if (bytes.length !== maxSize$19) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
-      return {};
-    };
-    const toBytes$1t = () => toBytes$23(id$1r);
-
-    const id$1q = getRatePlanInfo;
-    downlinkNames[getRatePlanInfo];
-    const fromBytes$1s = bytes => ({
-      tariffTable: bytes[0]
+    const id$1q = getSeasonProfile;
+    downlinkNames[getSeasonProfile];
+    const maxSize$19 = 3;
+    const fromBytes$1s = ([tariffTable, index, isActive]) => ({
+      tariffTable,
+      index,
+      isActive: isActive === 0
     });
-    const toBytes$1s = parameters => toBytes$23(id$1q, [parameters.tariffTable]);
-
-    const id$1p = getSaldo;
-    downlinkNames[getSaldo];
-    const maxSize$18 = 0;
-    const fromBytes$1r = bytes => {
-      if (bytes.length !== maxSize$18) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
-      return {};
+    const toBytes$1s = parameters => {
+      const buffer = new BinaryBuffer(maxSize$19, false);
+      buffer.setUint8(parameters.tariffTable);
+      buffer.setUint8(parameters.index);
+      buffer.setUint8(parameters.isActive ? 0 : 1);
+      return toBytes$27(id$1q, buffer.data);
     };
-    const toBytes$1r = () => toBytes$23(id$1p);
 
-    const id$1o = getSaldoParameters;
-    downlinkNames[getSaldoParameters];
+    const id$1p = getSpecialDay;
+    downlinkNames[getSpecialDay];
+    const maxSize$18 = 3;
+    const fromBytes$1r = ([tariffTable, index, isActive]) => ({
+      tariffTable,
+      index,
+      isActive: isActive === 0
+    });
+    const toBytes$1r = parameters => {
+      const buffer = new BinaryBuffer(maxSize$18, false);
+      buffer.setUint8(parameters.tariffTable);
+      buffer.setUint8(parameters.index);
+      buffer.setUint8(parameters.isActive ? 0 : 1);
+      return toBytes$27(id$1p, buffer.data);
+    };
+
+    const id$1o = getVersion;
+    downlinkNames[getVersion];
     const maxSize$17 = 0;
     const fromBytes$1q = bytes => {
       if (bytes.length !== maxSize$17) {
@@ -2818,48 +3009,38 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1q = () => toBytes$23(id$1o);
+    const toBytes$1q = () => toBytes$27(id$1o);
 
-    const id$1n = getSeasonProfile;
-    downlinkNames[getSeasonProfile];
-    const maxSize$16 = 3;
-    const fromBytes$1p = _ref => {
-      let [tariffTable, index, isActive] = _ref;
+    const id$1n = prepareRatePlan;
+    downlinkNames[prepareRatePlan];
+    const maxSize$16 = 5;
+    const fromBytes$1p = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
-        tariffTable,
-        index,
-        isActive: isActive === 0
+        tariffTable: buffer.getUint8(),
+        id: buffer.getUint32()
       };
     };
     const toBytes$1p = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$16);
+      const buffer = new BinaryBuffer(maxSize$16, false);
       buffer.setUint8(parameters.tariffTable);
-      buffer.setUint8(parameters.index);
-      buffer.setUint8(parameters.isActive ? 0 : 1);
-      return toBytes$23(id$1n, buffer.data);
+      buffer.setUint32(parameters.id);
+      return toBytes$27(id$1n, buffer.data);
     };
 
-    const id$1m = getSpecialDay;
-    downlinkNames[getSpecialDay];
-    const maxSize$15 = 3;
-    const fromBytes$1o = _ref => {
-      let [tariffTable, index, isActive] = _ref;
-      return {
-        tariffTable,
-        index,
-        isActive: isActive === 0
-      };
+    const id$1m = resetPowerMaxDay;
+    downlinkNames[resetPowerMaxDay];
+    const maxSize$15 = 0;
+    const fromBytes$1o = bytes => {
+      if (bytes.length !== maxSize$15) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
     };
-    const toBytes$1o = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$15);
-      buffer.setUint8(parameters.tariffTable);
-      buffer.setUint8(parameters.index);
-      buffer.setUint8(parameters.isActive ? 0 : 1);
-      return toBytes$23(id$1m, buffer.data);
-    };
+    const toBytes$1o = () => toBytes$27(id$1m);
 
-    const id$1l = getVersion;
-    downlinkNames[getVersion];
+    const id$1l = resetPowerMaxMonth;
+    downlinkNames[resetPowerMaxMonth];
     const maxSize$14 = 0;
     const fromBytes$1n = bytes => {
       if (bytes.length !== maxSize$14) {
@@ -2867,153 +3048,128 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1n = () => toBytes$23(id$1l);
+    const toBytes$1n = () => toBytes$27(id$1l);
 
-    const id$1k = prepareRatePlan;
-    downlinkNames[prepareRatePlan];
-    const maxSize$13 = 5;
-    const fromBytes$1m = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        tariffTable: buffer.getUint8(),
-        id: buffer.getUint32()
-      };
-    };
-    const toBytes$1m = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$13);
-      buffer.setUint8(parameters.tariffTable);
-      buffer.setUint32(parameters.id);
-      return toBytes$23(id$1k, buffer.data);
-    };
-
-    const id$1j = resetPowerMaxDay;
-    downlinkNames[resetPowerMaxDay];
-    const maxSize$12 = 0;
-    const fromBytes$1l = bytes => {
-      if (bytes.length !== maxSize$12) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
-      return {};
-    };
-    const toBytes$1l = () => toBytes$23(id$1j);
-
-    const id$1i = resetPowerMaxMonth;
-    downlinkNames[resetPowerMaxMonth];
-    const maxSize$11 = 0;
-    const fromBytes$1k = bytes => {
-      if (bytes.length !== maxSize$11) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
-      return {};
-    };
-    const toBytes$1k = () => toBytes$23(id$1i);
-
-    const id$1h = runTariffPlan;
+    const id$1k = runTariffPlan;
     downlinkNames[runTariffPlan];
-    const fromBytes$1j = bytes => ({
+    const fromBytes$1m = bytes => ({
       tariffTable: bytes[0]
     });
-    const toBytes$1j = parameters => toBytes$23(id$1h, [parameters.tariffTable]);
+    const toBytes$1m = parameters => toBytes$27(id$1k, [parameters.tariffTable]);
 
     const KEY_SIZE = 16;
-    const id$1g = setAccessKey;
+    const id$1j = setAccessKey;
     downlinkNames[setAccessKey];
-    const maxSize$10 = 1 + KEY_SIZE;
-    const fromBytes$1i = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const maxSize$13 = 1 + KEY_SIZE;
+    const fromBytes$1l = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         accessLevel: buffer.getUint8(),
         key: buffer.getBytes(KEY_SIZE)
       };
     };
-    const toBytes$1i = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$10);
+    const toBytes$1l = parameters => {
+      const buffer = new BinaryBuffer(maxSize$13, false);
       buffer.setUint8(parameters.accessLevel);
       buffer.setBytes(parameters.key);
-      return toBytes$23(id$1g, buffer.data);
+      return toBytes$27(id$1j, buffer.data);
     };
 
-    const id$1f = setCorrectDateTime;
+    const id$1i = setCorrectDateTime;
     downlinkNames[setCorrectDateTime];
-    const maxSize$ = 2;
-    const fromBytes$1h = bytes => {
-      if (bytes.length !== maxSize$) {
+    const maxSize$12 = 2;
+    const fromBytes$1k = bytes => {
+      if (bytes.length !== maxSize$12) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         seconds: buffer.getInt16()
       };
     };
-    const toBytes$1h = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$);
+    const toBytes$1k = parameters => {
+      const buffer = new BinaryBuffer(maxSize$12, false);
       buffer.setInt16(parameters.seconds);
-      return toBytes$23(id$1f, buffer.data);
+      return toBytes$27(id$1i, buffer.data);
     };
 
-    const id$1e = setCorrectTime;
+    const id$1h = setCorrectTime;
     downlinkNames[setCorrectTime];
-    const maxSize$_ = 9;
-    const fromBytes$1g = bytes => {
-      if (bytes.length !== maxSize$_) {
+    const maxSize$11 = 9;
+    const fromBytes$1j = bytes => {
+      if (bytes.length !== maxSize$11) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getTimeCorrectionParameters();
+      const buffer = new BinaryBuffer(bytes, false);
+      return getTimeCorrectionParameters(buffer);
     };
-    const toBytes$1g = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$_);
-      buffer.setTimeCorrectionParameters(parameters);
-      return toBytes$23(id$1e, buffer.data);
+    const toBytes$1j = parameters => {
+      const buffer = new BinaryBuffer(maxSize$11, false);
+      setTimeCorrectionParameters(buffer, parameters);
+      return toBytes$27(id$1h, buffer.data);
     };
 
-    const id$1d = setDateTime;
+    const id$1g = setDateTime;
     downlinkNames[setDateTime];
-    const maxSize$Z = 8;
-    const fromBytes$1f = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getDateTime();
+    const maxSize$10 = 8;
+    const fromBytes$1i = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDateTime$1(buffer);
     };
-    const toBytes$1f = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$Z);
-      buffer.setDateTime(parameters);
-      return toBytes$23(id$1d, buffer.data);
+    const toBytes$1i = parameters => {
+      const buffer = new BinaryBuffer(maxSize$10, false);
+      setDateTime$1(buffer, parameters);
+      return toBytes$27(id$1g, buffer.data);
     };
 
     const MAX_PERIODS_NUMBER$1 = 8;
     const PERIODS_FINAL_BYTE$1 = 0xff;
-    const id$1c = setDayProfile;
+    const id$1f = setDayProfile;
     downlinkNames[setDayProfile];
-    const fromBytes$1e = bytes => {
+    const fromBytes$1h = bytes => {
       const finalByteIndex = bytes.indexOf(PERIODS_FINAL_BYTE$1);
       const cleanBytes = finalByteIndex === -1 ? bytes : bytes.slice(0, finalByteIndex);
-      const buffer = new CommandBinaryBuffer$1(cleanBytes);
+      const buffer = new BinaryBuffer(cleanBytes, false);
       return {
         tariffTable: buffer.getUint8(),
         index: buffer.getUint8(),
-        periods: [...cleanBytes.slice(buffer.offset)].map(CommandBinaryBuffer$1.getDayProfileFromByte)
+        periods: [...cleanBytes.slice(buffer.offset)].map(getDayProfileFromByte)
       };
     };
-    const toBytes$1e = parameters => {
+    const toBytes$1h = parameters => {
       const hasPeriodsFinalByte = parameters.periods.length < MAX_PERIODS_NUMBER$1;
       const size = 2 + parameters.periods.length + +hasPeriodsFinalByte;
-      const buffer = new CommandBinaryBuffer$1(size);
+      const buffer = new BinaryBuffer(size, false);
       buffer.setUint8(parameters.tariffTable);
       buffer.setUint8(parameters.index);
       parameters.periods.forEach(period => {
-        buffer.setDayProfile(period);
+        setDayProfile$1(buffer, period);
       });
       if (hasPeriodsFinalByte) {
         buffer.setUint8(PERIODS_FINAL_BYTE$1);
       }
-      return toBytes$23(id$1c, buffer.data);
+      return toBytes$27(id$1f, buffer.data);
     };
 
-    const id$1b = setDisplayParam;
+    const id$1e = setDemandParameters;
+    const name$2 = downlinkNames[setDemandParameters];
+    const maxSize$ = 4;
+    const fromBytes$1g = bytes => {
+      validateCommandPayload(name$2, bytes, maxSize$);
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDemandParameters$1(buffer);
+    };
+    const toBytes$1g = parameters => {
+      const buffer = new BinaryBuffer(maxSize$, false);
+      setDemandParameters$1(buffer, parameters);
+      return toBytes$27(id$1e, buffer.data);
+    };
+
+    const id$1d = setDisplayParam;
     downlinkNames[setDisplayParam];
-    const maxSize$Y = 33;
-    const fromBytes$1d = bytes => {
-      if (bytes.length < 1 || bytes.length > maxSize$Y) {
+    const maxSize$_ = 33;
+    const fromBytes$1f = bytes => {
+      if (bytes.length < 1 || bytes.length > maxSize$_) {
         throw new Error('Invalid SetDisplayParam data size.');
       }
       const [displayMode, ...order] = bytes;
@@ -3022,42 +3178,42 @@ function decodeDownlink ( input ) {
         order
       };
     };
-    const toBytes$1d = parameters => toBytes$23(id$1b, [parameters.displayMode, ...parameters.order]);
+    const toBytes$1f = parameters => toBytes$27(id$1d, [parameters.displayMode, ...parameters.order]);
 
-    const id$1a = setOperatorParametersExtended3;
-    downlinkNames[setOperatorParametersExtended3];
-    const maxSize$X = 17;
-    const fromBytes$1c = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getOperatorParametersExtended3();
-    };
-    const toBytes$1c = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$X);
-      buffer.setOperatorParametersExtended3(parameters);
-      return toBytes$23(id$1a, buffer.data);
-    };
-
-    const id$19 = setOperatorParameters;
+    const id$1c = setOperatorParameters;
     downlinkNames[setOperatorParameters];
-    const maxSize$W = OPERATOR_PARAMETERS_SIZE;
-    const fromBytes$1b = bytes => {
-      if (bytes.length !== maxSize$W) {
+    const maxSize$Z = OPERATOR_PARAMETERS_SIZE;
+    const fromBytes$1e = bytes => {
+      if (bytes.length !== maxSize$Z) {
         throw new Error('Invalid SetOpParams data size.');
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getOperatorParameters();
+      const buffer = new BinaryBuffer(bytes, false);
+      return getOperatorParameters$1(buffer);
     };
-    const toBytes$1b = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$W);
-      buffer.setOperatorParameters(parameters);
-      return toBytes$23(id$19, buffer.data);
+    const toBytes$1e = parameters => {
+      const buffer = new BinaryBuffer(maxSize$Z, false);
+      setOperatorParameters$1(buffer, parameters);
+      return toBytes$27(id$1c, buffer.data);
     };
 
-    const id$18 = setSaldo;
+    const id$1b = setOperatorParametersExtended3;
+    downlinkNames[setOperatorParametersExtended3];
+    const maxSize$Y = 17;
+    const fromBytes$1d = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getOperatorParametersExtended3$1(buffer);
+    };
+    const toBytes$1d = parameters => {
+      const buffer = new BinaryBuffer(maxSize$Y, false);
+      setOperatorParametersExtended3$1(buffer, parameters);
+      return toBytes$27(id$1b, buffer.data);
+    };
+
+    const id$1a = setSaldo;
     downlinkNames[setSaldo];
-    const maxSize$V = 12;
-    const fromBytes$1a = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const maxSize$X = 12;
+    const fromBytes$1c = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         date: {
           month: buffer.getUint8(),
@@ -3069,73 +3225,73 @@ function decodeDownlink ( input ) {
         saldoOld: buffer.getInt32()
       };
     };
-    const toBytes$1a = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$V);
+    const toBytes$1c = parameters => {
+      const buffer = new BinaryBuffer(maxSize$X, false);
       buffer.setUint8(parameters.date.month);
       buffer.setUint8(parameters.date.date);
       buffer.setUint8(parameters.date.hours);
       buffer.setUint8(parameters.date.minutes);
       buffer.setInt32(parameters.saldoNew);
       buffer.setInt32(parameters.saldoOld);
-      return toBytes$23(id$18, buffer.data);
+      return toBytes$27(id$1a, buffer.data);
     };
 
-    const id$17 = setSaldoParameters;
+    const id$19 = setSaldoParameters;
     downlinkNames[setSaldoParameters];
-    const maxSize$U = 37;
+    const maxSize$W = 37;
+    const fromBytes$1b = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getSaldoParameters$1(buffer);
+    };
+    const toBytes$1b = parameters => {
+      const buffer = new BinaryBuffer(maxSize$W, false);
+      setSaldoParameters$1(buffer, parameters);
+      return toBytes$27(id$19, buffer.data);
+    };
+
+    const id$18 = setSeasonProfile;
+    downlinkNames[setSeasonProfile];
+    const maxSize$V = SEASON_PROFILE_SIZE;
+    const fromBytes$1a = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        tariffTable: buffer.getUint8(),
+        index: buffer.getUint8(),
+        ...getSeasonProfile$1(buffer)
+      };
+    };
+    const toBytes$1a = parameters => {
+      const buffer = new BinaryBuffer(maxSize$V, false);
+      buffer.setUint8(parameters.tariffTable);
+      buffer.setUint8(parameters.index);
+      setSeasonProfile$1(buffer, parameters);
+      return toBytes$27(id$18, buffer.data);
+    };
+
+    const id$17 = setSpecialDay;
+    downlinkNames[setSpecialDay];
+    const maxSize$U = 6;
     const fromBytes$19 = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getSaldoParameters();
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        tariffTable: buffer.getUint8(),
+        index: buffer.getUint8(),
+        ...getSpecialDay$1(buffer)
+      };
     };
     const toBytes$19 = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$U);
-      buffer.setSaldoParameters(parameters);
-      return toBytes$23(id$17, buffer.data);
-    };
-
-    const id$16 = setSeasonProfile;
-    downlinkNames[setSeasonProfile];
-    const maxSize$T = SEASON_PROFILE_SIZE;
-    const fromBytes$18 = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        tariffTable: buffer.getUint8(),
-        index: buffer.getUint8(),
-        ...buffer.getSeasonProfile()
-      };
-    };
-    const toBytes$18 = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$T);
+      const buffer = new BinaryBuffer(maxSize$U, false);
       buffer.setUint8(parameters.tariffTable);
       buffer.setUint8(parameters.index);
-      buffer.setSeasonProfile(parameters);
-      return toBytes$23(id$16, buffer.data);
+      setSpecialDay$1(buffer, parameters);
+      return toBytes$27(id$17, buffer.data);
     };
 
-    const id$15 = setSpecialDay;
-    downlinkNames[setSpecialDay];
-    const maxSize$S = 6;
-    const fromBytes$17 = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        tariffTable: buffer.getUint8(),
-        index: buffer.getUint8(),
-        ...buffer.getSpecialDay()
-      };
-    };
-    const toBytes$17 = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$S);
-      buffer.setUint8(parameters.tariffTable);
-      buffer.setUint8(parameters.index);
-      buffer.setSpecialDay(parameters);
-      return toBytes$23(id$15, buffer.data);
-    };
-
-    const id$14 = setSpecialOperation;
+    const id$16 = setSpecialOperation;
     downlinkNames[setSpecialOperation];
-    const maxSize$R = 2;
-    const fromBytes$16 = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const maxSize$T = 2;
+    const fromBytes$18 = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       const type = buffer.getUint8();
       const flags = buffer.getUint8();
       const readScreensInfo = !!(flags & 0x80);
@@ -3148,8 +3304,8 @@ function decodeDownlink ( input ) {
         resetMagneticIndication
       };
     };
-    const toBytes$16 = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$R);
+    const toBytes$18 = parameters => {
+      const buffer = new BinaryBuffer(maxSize$T, false);
       let flags = 0;
       if (parameters.readScreensInfo) {
         flags |= 0x80;
@@ -3162,30 +3318,30 @@ function decodeDownlink ( input ) {
       }
       buffer.setUint8(parameters.type);
       buffer.setUint8(flags);
-      return toBytes$23(id$14, buffer.data);
+      return toBytes$27(id$16, buffer.data);
     };
 
-    const id$13 = turnRelayOff;
+    const id$15 = turnRelayOff;
     downlinkNames[turnRelayOff];
-    const maxSize$Q = 0;
-    const fromBytes$15 = bytes => {
-      if (bytes.length !== maxSize$Q) {
+    const maxSize$S = 0;
+    const fromBytes$17 = bytes => {
+      if (bytes.length !== maxSize$S) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$15 = () => toBytes$23(id$13);
+    const toBytes$17 = () => toBytes$27(id$15);
 
-    const id$12 = turnRelayOn;
+    const id$14 = turnRelayOn;
     downlinkNames[turnRelayOn];
-    const maxSize$P = 0;
-    const fromBytes$14 = bytes => {
-      if (bytes.length !== maxSize$P) {
+    const maxSize$R = 0;
+    const fromBytes$16 = bytes => {
+      if (bytes.length !== maxSize$R) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$14 = () => toBytes$23(id$12);
+    const toBytes$16 = () => toBytes$27(id$14);
 
     // this is required to shadow crypto-js implementation
     const aes = {
@@ -3193,23 +3349,20 @@ function decodeDownlink ( input ) {
       decrypt: () => {}
     };
 
-    var calculateLrc = (function (data) {
-      let initialLrc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0x55;
+    var calculateLrc = (data, initialLrc = 0x55) => {
       let lrc = initialLrc;
       data.forEach(item => {
         lrc ^= item;
       });
       return lrc;
-    });
+    };
 
     const ACCESS_LEVEL_MASK = 0x03;
     const MESSAGE_HEADER_SIZE = 2;
     const BLOCK_SIZE = 16;
     const COMMANDS_END_MARK = [0];
     const COMMAND_HEADER_SIZE = 2;
-    const getFromBytes$2 = (fromBytesMap, nameMap) => function () {
-      let bytes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-      let config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    const getFromBytes$2 = (fromBytesMap, nameMap) => (bytes = [], config = {}) => {
       const aesKey = config?.aesKey;
       const commands = [];
       const [messageId, maskedAccessLevel] = bytes;
@@ -3281,12 +3434,11 @@ function decodeDownlink ( input ) {
       }
       return message;
     };
-    const getToBytes$1 = toBytesMap => (commands, _ref) => {
-      let {
-        messageId = 1,
-        accessLevel = READ_ONLY,
-        aesKey
-      } = _ref;
+    const getToBytes$1 = toBytesMap => (commands, {
+      messageId = 1,
+      accessLevel = READ_ONLY,
+      aesKey
+    }) => {
       const commandBytes = commands.map(command => {
         if ('id' in command) {
           return toBytesMap[command.id](command.parameters || {});
@@ -3315,8 +3467,12 @@ function decodeDownlink ( input ) {
     const toBytesMap$1 = {};
     const fromBytesMap$1 = {};
     const nameMap$1 = downlinkNames;
-    const fromBytes$13 = getFromBytes$2(fromBytesMap$1, nameMap$1);
-    const toBytes$13 = getToBytes$1(toBytesMap$1);
+    const fromBytes$15 = getFromBytes$2(fromBytesMap$1, nameMap$1);
+    const toBytes$15 = getToBytes$1(toBytesMap$1);
+    toBytesMap$1[id$24] = toBytes$26;
+    toBytesMap$1[id$23] = toBytes$25;
+    toBytesMap$1[id$22] = toBytes$24;
+    toBytesMap$1[id$21] = toBytes$23;
     toBytesMap$1[id$20] = toBytes$22;
     toBytesMap$1[id$1$] = toBytes$21;
     toBytesMap$1[id$1_] = toBytes$20;
@@ -3378,8 +3534,10 @@ function decodeDownlink ( input ) {
     toBytesMap$1[id$16] = toBytes$18;
     toBytesMap$1[id$15] = toBytes$17;
     toBytesMap$1[id$14] = toBytes$16;
-    toBytesMap$1[id$13] = toBytes$15;
-    toBytesMap$1[id$12] = toBytes$14;
+    fromBytesMap$1[id$24] = fromBytes$26;
+    fromBytesMap$1[id$23] = fromBytes$25;
+    fromBytesMap$1[id$22] = fromBytes$24;
+    fromBytesMap$1[id$21] = fromBytes$23;
     fromBytesMap$1[id$20] = fromBytes$22;
     fromBytesMap$1[id$1$] = fromBytes$21;
     fromBytesMap$1[id$1_] = fromBytes$20;
@@ -3441,167 +3599,32 @@ function decodeDownlink ( input ) {
     fromBytesMap$1[id$16] = fromBytes$18;
     fromBytesMap$1[id$15] = fromBytes$17;
     fromBytesMap$1[id$14] = fromBytes$16;
-    fromBytesMap$1[id$13] = fromBytes$15;
-    fromBytesMap$1[id$12] = fromBytes$14;
 
     var downlink = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        fromBytes: fromBytes$13,
+        fromBytes: fromBytes$15,
         fromBytesMap: fromBytesMap$1,
         nameMap: nameMap$1,
-        toBytes: toBytes$13,
+        toBytes: toBytes$15,
         toBytesMap: toBytesMap$1
     });
 
-    const getDayEnergies = 0x78;
-    const getDayMaxPower = 0x79;
-    const errorResponse = 0xfe;
-
-    var uplinkIds = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        activateRatePlan: activateRatePlan,
-        errorResponse: errorResponse,
-        getBuildVersion: getBuildVersion,
-        getCorrectTime: getCorrectTime,
-        getCriticalEvent: getCriticalEvent,
-        getCurrentStatusMeter: getCurrentStatusMeter,
-        getCurrentValues: getCurrentValues,
-        getDateTime: getDateTime,
-        getDayDemand: getDayDemand,
-        getDayDemandExport: getDayDemandExport,
-        getDayEnergies: getDayEnergies,
-        getDayMaxDemand: getDayMaxDemand,
-        getDayMaxDemandExport: getDayMaxDemandExport,
-        getDayMaxDemandPrevious: getDayMaxDemandPrevious,
-        getDayMaxPower: getDayMaxPower,
-        getDayProfile: getDayProfile,
-        getDemand: getDemand,
-        getDeviceId: getDeviceId,
-        getDeviceType: getDeviceType,
-        getDisplayParam: getDisplayParam,
-        getEnergy: getEnergy,
-        getEnergyDayPrevious: getEnergyDayPrevious,
-        getEnergyExport: getEnergyExport,
-        getEnergyExportDayPrevious: getEnergyExportDayPrevious,
-        getEventStatus: getEventStatus,
-        getEvents: getEvents,
-        getEventsCounters: getEventsCounters,
-        getExtendedCurrentValues: getExtendedCurrentValues,
-        getExtendedCurrentValues2: getExtendedCurrentValues2,
-        getHalfHourDemand: getHalfHourDemand,
-        getHalfHourDemandExport: getHalfHourDemandExport,
-        getHalfHourDemandPrevious: getHalfHourDemandPrevious,
-        getHalfhoursEnergies: getHalfhoursEnergies,
-        getMagneticFieldThreshold: getMagneticFieldThreshold,
-        getMeterInfo: getMeterInfo,
-        getMonthDemand: getMonthDemand,
-        getMonthDemandExport: getMonthDemandExport,
-        getMonthMaxDemand: getMonthMaxDemand,
-        getMonthMaxDemandExport: getMonthMaxDemandExport,
-        getOperatorParameters: getOperatorParameters,
-        getOperatorParametersExtended3: getOperatorParametersExtended3,
-        getRatePlanInfo: getRatePlanInfo,
-        getSaldo: getSaldo,
-        getSaldoParameters: getSaldoParameters,
-        getSeasonProfile: getSeasonProfile,
-        getSpecialDay: getSpecialDay,
-        getVersion: getVersion,
-        prepareRatePlan: prepareRatePlan,
-        resetPowerMaxDay: resetPowerMaxDay,
-        resetPowerMaxMonth: resetPowerMaxMonth,
-        runTariffPlan: runTariffPlan,
-        setAccessKey: setAccessKey,
-        setCorrectDateTime: setCorrectDateTime,
-        setCorrectTime: setCorrectTime,
-        setDateTime: setDateTime,
-        setDayProfile: setDayProfile,
-        setDisplayParam: setDisplayParam,
-        setOperatorParameters: setOperatorParameters,
-        setOperatorParametersExtended3: setOperatorParametersExtended3,
-        setSaldo: setSaldo,
-        setSaldoParameters: setSaldoParameters,
-        setSeasonProfile: setSeasonProfile,
-        setSpecialDay: setSpecialDay,
-        setSpecialOperation: setSpecialOperation,
-        turnRelayOff: turnRelayOff,
-        turnRelayOn: turnRelayOn
-    });
-
-    var uplinkNames = invertObject(uplinkIds);
-
-    const id$11 = activateRatePlan;
+    const id$13 = activateRatePlan;
     uplinkNames[activateRatePlan];
-    const maxSize$O = 0;
-    const fromBytes$12 = bytes => {
-      if (bytes.length !== maxSize$O) {
+    const maxSize$Q = 0;
+    const fromBytes$14 = bytes => {
+      if (bytes.length !== maxSize$Q) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       return {};
     };
-    const toBytes$12 = () => toBytes$23(id$11);
+    const toBytes$14 = () => toBytes$27(id$13);
 
-    const OK = 0;
-    const UNKNOWN_COMMAND = 0x80;
-    const NOT_ALIGNED_DATA = 0x81;
-    const DECRYPTION_FAILURE = 0x82;
-    const UNKNOWN_PROTOCOL = 0x83;
-    const BAD_MESSAGE = 0x84;
-    const BAD_DATA_LENGTH = 0x85;
-    const BAD_ARRAY_INDEX = 0x86;
-    const NOT_PREPARED_RATE_PLAN = 0x87;
-    const BAD_RATE_PLAN_ID = 0x88;
-    const BAD_RATE_PLAN_SIZE = 0x89;
-    const BAD_RESPONSE_LENGTH = 0x90;
-    const NO_DATA_FOR_DATE = 0x91;
-    const CALIBRATION_DISABLED = 0x92;
-    const ACCESS_DENIED = 0x93;
-    const BAD_SALDO_WRITE = 0x95;
-    const BLOCKED_METER = 0x97;
-    const UNENCRYPTED_COMMAND_DISABLED = 0x98;
-    const TIME_CORRECTION_FAILURE = 0x99;
-    const INVALID_CORRECTION_INTERVAL = 0x9a;
-    const TIME_CORRECTION_OUT_HALF_HOUR_DISABLED = 0x9b;
-    const BAD_BLOCK_NUMBER = 0x9c;
-    const OUT_OFF_RANGE = 0x9f;
-    const SET_METER_TYPE_FAILURE = 0xa0;
-    const INTERNAL = 0xf0;
-
-    var resultCodes = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        ACCESS_DENIED: ACCESS_DENIED,
-        BAD_ARRAY_INDEX: BAD_ARRAY_INDEX,
-        BAD_BLOCK_NUMBER: BAD_BLOCK_NUMBER,
-        BAD_DATA_LENGTH: BAD_DATA_LENGTH,
-        BAD_MESSAGE: BAD_MESSAGE,
-        BAD_RATE_PLAN_ID: BAD_RATE_PLAN_ID,
-        BAD_RATE_PLAN_SIZE: BAD_RATE_PLAN_SIZE,
-        BAD_RESPONSE_LENGTH: BAD_RESPONSE_LENGTH,
-        BAD_SALDO_WRITE: BAD_SALDO_WRITE,
-        BLOCKED_METER: BLOCKED_METER,
-        CALIBRATION_DISABLED: CALIBRATION_DISABLED,
-        DECRYPTION_FAILURE: DECRYPTION_FAILURE,
-        INTERNAL: INTERNAL,
-        INVALID_CORRECTION_INTERVAL: INVALID_CORRECTION_INTERVAL,
-        NOT_ALIGNED_DATA: NOT_ALIGNED_DATA,
-        NOT_PREPARED_RATE_PLAN: NOT_PREPARED_RATE_PLAN,
-        NO_DATA_FOR_DATE: NO_DATA_FOR_DATE,
-        OK: OK,
-        OUT_OFF_RANGE: OUT_OFF_RANGE,
-        SET_METER_TYPE_FAILURE: SET_METER_TYPE_FAILURE,
-        TIME_CORRECTION_FAILURE: TIME_CORRECTION_FAILURE,
-        TIME_CORRECTION_OUT_HALF_HOUR_DISABLED: TIME_CORRECTION_OUT_HALF_HOUR_DISABLED,
-        UNENCRYPTED_COMMAND_DISABLED: UNENCRYPTED_COMMAND_DISABLED,
-        UNKNOWN_COMMAND: UNKNOWN_COMMAND,
-        UNKNOWN_PROTOCOL: UNKNOWN_PROTOCOL
-    });
-
-    var resultNames = invertObject(resultCodes);
-
-    const id$10 = errorResponse;
+    const id$12 = errorResponse;
     uplinkNames[errorResponse];
-    const maxSize$N = 2;
+    const maxSize$P = 2;
     const getFromBytes$1 = commandNamesParameter => bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       const errorCommandId = buffer.getUint8();
       const errorCode = buffer.getUint8();
       return {
@@ -3611,19 +3634,19 @@ function decodeDownlink ( input ) {
         errorName: resultNames[errorCode]
       };
     };
-    const fromBytes$11 = getFromBytes$1(uplinkNames);
-    const toBytes$11 = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$N);
+    const fromBytes$13 = getFromBytes$1(uplinkNames);
+    const toBytes$13 = parameters => {
+      const buffer = new BinaryBuffer(maxSize$P, false);
       buffer.setUint8(parameters.commandId);
       buffer.setUint8(parameters.errorCode);
-      return toBytes$23(id$10, buffer.data);
+      return toBytes$27(id$12, buffer.data);
     };
 
-    const id$ = getBuildVersion;
+    const id$11 = getBuildVersion;
     uplinkNames[getBuildVersion];
-    const maxSize$M = 6;
-    const fromBytes$10 = bytes => {
-      if (bytes.length !== maxSize$M) {
+    const maxSize$O = 6;
+    const fromBytes$12 = bytes => {
+      if (bytes.length !== maxSize$O) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       const [date, month, year, n3, n2, n1] = bytes;
@@ -3636,33 +3659,33 @@ function decodeDownlink ( input ) {
         version: `${n3}.${n2}.${n1}`
       };
     };
-    const toBytes$10 = parameters => {
+    const toBytes$12 = parameters => {
       const {
         date,
         version
       } = parameters;
       const versionParts = version.split('.').map(part => parseInt(part, 10));
-      return toBytes$23(id$, [date.date, date.month, date.year, ...versionParts]);
+      return toBytes$27(id$11, [date.date, date.month, date.year, ...versionParts]);
     };
 
-    const id$_ = getCorrectTime;
+    const id$10 = getCorrectTime;
     uplinkNames[getCorrectTime];
-    const maxSize$L = 9;
-    const fromBytes$ = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getTimeCorrectionParameters();
+    const maxSize$N = 9;
+    const fromBytes$11 = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getTimeCorrectionParameters(buffer);
     };
-    const toBytes$ = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$L);
-      buffer.setTimeCorrectionParameters(parameters);
-      return toBytes$23(id$_, buffer.data);
+    const toBytes$11 = parameters => {
+      const buffer = new BinaryBuffer(maxSize$N, false);
+      setTimeCorrectionParameters(buffer, parameters);
+      return toBytes$27(id$10, buffer.data);
     };
 
-    const id$Z = getCriticalEvent;
+    const id$ = getCriticalEvent;
     uplinkNames[getCriticalEvent];
-    const maxSize$K = 9;
-    const fromBytes$_ = bytes => {
-      if (bytes.length !== maxSize$K) {
+    const maxSize$M = 9;
+    const fromBytes$10 = bytes => {
+      if (bytes.length !== maxSize$M) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
       const [event, index, year, month, date, hours, minutes, seconds, count] = bytes;
@@ -3681,19 +3704,19 @@ function decodeDownlink ( input ) {
         count
       };
     };
-    const toBytes$_ = parameters => {
+    const toBytes$10 = parameters => {
       const {
         event,
         index,
         date,
         count
       } = parameters;
-      return toBytes$23(id$Z, [event, index, date.year, date.month, date.date, date.hours, date.minutes, date.seconds, count]);
+      return toBytes$27(id$, [event, index, date.year, date.month, date.date, date.hours, date.minutes, date.seconds, count]);
     };
 
-    const id$Y = getCurrentStatusMeter;
+    const id$_ = getCurrentStatusMeter;
     uplinkNames[getCurrentStatusMeter];
-    const maxSize$J = 31;
+    const maxSize$L = 31;
     const calibrationFlagsMask = {
       calibrationEnable: 0x01,
       hardkey: 0x02,
@@ -3704,8 +3727,8 @@ function decodeDownlink ( input ) {
       keyOpenModuleTest: 0x40,
       keyPress2Test: 0x80
     };
-    const fromBytes$Z = data => {
-      const buffer = new CommandBinaryBuffer$1(data);
+    const fromBytes$ = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       const operatingSeconds = buffer.getUint32();
       const tbadVAVB = buffer.getUint32();
       const tbadImaxAll = buffer.getUint32();
@@ -3735,8 +3758,8 @@ function decodeDownlink ( input ) {
         isSummerTime
       };
     };
-    const toBytes$Z = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$J);
+    const toBytes$ = parameters => {
+      const buffer = new BinaryBuffer(maxSize$L, false);
       const statusEventValue = fromObject(eventStatusMask, parameters.statusEvent);
       buffer.setUint32(parameters.operatingSeconds);
       buffer.setUint32(parameters.tbadVAVB);
@@ -3751,14 +3774,14 @@ function decodeDownlink ( input ) {
       buffer.setUint8(parameters.currentTariffs['A+']);
       buffer.setUint8(parameters.currentTariffs['A-']);
       buffer.setUint8(parameters.isSummerTime ? 1 : 0);
-      return toBytes$23(id$Y, buffer.data);
+      return toBytes$27(id$_, buffer.data);
     };
 
-    const id$X = getCurrentValues;
+    const id$Z = getCurrentValues;
     uplinkNames[getCurrentValues];
-    const maxSize$I = 32;
-    const fromBytes$Y = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const maxSize$K = 32;
+    const fromBytes$_ = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         powerA: buffer.getInt32(),
         iaRms: buffer.getInt32(),
@@ -3771,8 +3794,8 @@ function decodeDownlink ( input ) {
         pfB: buffer.getInt16() / 1000
       };
     };
-    const toBytes$Y = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$I);
+    const toBytes$_ = parameters => {
+      const buffer = new BinaryBuffer(maxSize$K, false);
       buffer.setInt32(parameters.powerA);
       buffer.setInt32(parameters.iaRms);
       buffer.setInt32(parameters.vavbRms);
@@ -3782,187 +3805,187 @@ function decodeDownlink ( input ) {
       buffer.setInt32(parameters.powerB);
       buffer.setInt32(parameters.varB);
       buffer.setInt16(parameters.pfB * 1000);
-      return toBytes$23(id$X, buffer.data);
+      return toBytes$27(id$Z, buffer.data);
     };
 
-    const id$W = getDateTime;
+    const id$Y = getDateTime;
     uplinkNames[getDateTime];
-    const maxSize$H = 8;
-    const fromBytes$X = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getDateTime();
+    const maxSize$J = 8;
+    const fromBytes$Z = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDateTime$1(buffer);
     };
-    const toBytes$X = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$H);
-      buffer.setDateTime(parameters);
-      return toBytes$23(id$W, buffer.data);
+    const toBytes$Z = parameters => {
+      const buffer = new BinaryBuffer(maxSize$J, false);
+      setDateTime$1(buffer, parameters);
+      return toBytes$27(id$Y, buffer.data);
     };
 
     const COMMAND_SIZE$5 = 19;
-    const id$V = getDayDemand;
+    const id$X = getDayDemand;
     uplinkNames[getDayDemand];
-    const fromBytes$W = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const fromBytes$Y = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       let parameters;
       if (bytes.length === COMMAND_SIZE$5) {
         parameters = {
-          date: buffer.getDate(),
-          energies: buffer.getEnergies()
+          date: getDate$1(buffer),
+          energies: getEnergies(buffer)
         };
       } else {
         parameters = {
-          date: buffer.getDate(),
-          ...buffer.getPackedEnergyWithType()
+          date: getDate$1(buffer),
+          ...getPackedEnergyWithType(buffer)
         };
       }
       return parameters;
     };
-    const toBytes$W = parameters => {
+    const toBytes$Y = parameters => {
       let size = COMMAND_SIZE$5;
       if (parameters?.energyType) {
         const energiesNumber = parameters.energies.filter(energy => energy !== null).length;
         size = DATE_SIZE$3 + PACKED_ENERGY_TYPE_SIZE + energiesNumber * ENERGY_SIZE;
       }
-      const buffer = new CommandBinaryBuffer$1(size);
-      buffer.setDate(parameters.date);
-      buffer.setPackedEnergyWithType(parameters);
-      return toBytes$23(id$V, buffer.data);
+      const buffer = new BinaryBuffer(size, false);
+      setDate$1(buffer, parameters.date);
+      setPackedEnergyWithType(buffer, parameters);
+      return toBytes$27(id$X, buffer.data);
     };
 
     const COMMAND_SIZE$4 = 19;
-    const id$U = getDayDemandExport;
+    const id$W = getDayDemandExport;
     uplinkNames[getDayDemandExport];
-    const fromBytes$V = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const fromBytes$X = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       let parameters;
       if (bytes.length === COMMAND_SIZE$4) {
         parameters = {
-          date: buffer.getDate(),
-          energies: buffer.getEnergies()
+          date: getDate$1(buffer),
+          energies: getEnergies(buffer)
         };
       } else {
         parameters = {
-          date: buffer.getDate(),
-          ...buffer.getPackedEnergyWithType()
+          date: getDate$1(buffer),
+          ...getPackedEnergyWithType(buffer)
         };
       }
       return parameters;
     };
-    const toBytes$V = parameters => {
+    const toBytes$X = parameters => {
       let size = COMMAND_SIZE$4;
       if (parameters?.energyType) {
         const energiesNumber = parameters.energies.filter(energy => energy !== null).length;
         size = DATE_SIZE$3 + PACKED_ENERGY_TYPE_SIZE + energiesNumber * ENERGY_SIZE;
       }
-      const buffer = new CommandBinaryBuffer$1(size);
-      buffer.setDate(parameters.date);
-      buffer.setPackedEnergyWithType(parameters);
-      return toBytes$23(id$U, buffer.data);
+      const buffer = new BinaryBuffer(size, false);
+      setDate$1(buffer, parameters.date);
+      setPackedEnergyWithType(buffer, parameters);
+      return toBytes$27(id$W, buffer.data);
     };
 
     const DATE_SIZE$2 = 2;
     const ENERGY_FLAGS_SIZE$2 = 1;
     const TARIFF_FLAGS_SIZE$1 = 1;
     const MAX_TARIFFS_ENERGIES_SIZE$1 = 6 * 4 * 4;
-    const id$T = getDayEnergies;
+    const id$V = getDayEnergies;
     uplinkNames[getDayEnergies];
-    const maxSize$G = DATE_SIZE$2 + ENERGY_FLAGS_SIZE$2 + TARIFF_FLAGS_SIZE$1 + MAX_TARIFFS_ENERGIES_SIZE$1;
-    const fromBytes$U = bytes => {
-      const buffer = new CommandBinaryBuffer(bytes);
+    const maxSize$I = DATE_SIZE$2 + ENERGY_FLAGS_SIZE$2 + TARIFF_FLAGS_SIZE$1 + MAX_TARIFFS_ENERGIES_SIZE$1;
+    const fromBytes$W = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
-        date: buffer.getDate(),
-        energies: buffer.getTariffsEnergies()
+        date: getDate(buffer),
+        energies: getTariffsEnergies(buffer)
       };
     };
-    const toBytes$U = parameters => {
-      const buffer = new CommandBinaryBuffer(maxSize$G);
-      buffer.setDate(parameters.date);
-      buffer.setTariffsEnergies(parameters.energies);
-      return toBytes$23(id$T, buffer.getBytesToOffset());
+    const toBytes$W = parameters => {
+      const buffer = new BinaryBuffer(maxSize$I, false);
+      setDate(buffer, parameters.date);
+      setTariffsEnergies(buffer, parameters.energies);
+      return toBytes$27(id$V, buffer.getBytesToOffset());
     };
 
-    const id$S = getDayMaxDemand;
+    const id$U = getDayMaxDemand;
     uplinkNames[getDayMaxDemand];
+    const maxSize$H = 27;
+    const fromBytes$V = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDayMaxDemandResponse(buffer);
+    };
+    const toBytes$V = parameters => {
+      const buffer = new BinaryBuffer(maxSize$H, false);
+      setDayMaxDemandResponse(buffer, parameters);
+      return toBytes$27(id$U, buffer.getBytesToOffset());
+    };
+
+    const id$T = getDayMaxDemandExport;
+    uplinkNames[getDayMaxDemandExport];
+    const maxSize$G = 27;
+    const fromBytes$U = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDayMaxDemandResponse(buffer);
+    };
+    const toBytes$U = parameters => {
+      const buffer = new BinaryBuffer(maxSize$G, false);
+      setDayMaxDemandResponse(buffer, parameters);
+      return toBytes$27(id$T, buffer.getBytesToOffset());
+    };
+
+    const id$S = getDayMaxDemandPrevious;
+    uplinkNames[getDayMaxDemandPrevious];
     const maxSize$F = 27;
     const fromBytes$T = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getDayMaxDemandResponse();
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDayMaxDemandResponse(buffer);
     };
     const toBytes$T = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$F);
-      buffer.setDayMaxDemandResponse(parameters);
-      return toBytes$23(id$S, buffer.getBytesToOffset());
-    };
-
-    const id$R = getDayMaxDemandExport;
-    uplinkNames[getDayMaxDemandExport];
-    const maxSize$E = 27;
-    const fromBytes$S = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getDayMaxDemandResponse();
-    };
-    const toBytes$S = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$E);
-      buffer.setDayMaxDemandResponse(parameters);
-      return toBytes$23(id$R, buffer.getBytesToOffset());
-    };
-
-    const id$Q = getDayMaxDemandPrevious;
-    uplinkNames[getDayMaxDemandPrevious];
-    const maxSize$D = 27;
-    const fromBytes$R = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getDayMaxDemandResponse();
-    };
-    const toBytes$R = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$D);
-      buffer.setDayMaxDemandResponse(parameters);
-      return toBytes$23(id$Q, buffer.getBytesToOffset());
+      const buffer = new BinaryBuffer(maxSize$F, false);
+      setDayMaxDemandResponse(buffer, parameters);
+      return toBytes$27(id$S, buffer.getBytesToOffset());
     };
 
     const DATE_SIZE$1 = 2;
     const ENERGY_FLAGS_SIZE$1 = 1;
     const TARIFF_FLAGS_SIZE = 1;
     const MAX_TARIFFS_ENERGIES_SIZE = 6 * 4 * (1 + 1 + 4);
-    const id$P = getDayMaxPower;
+    const id$R = getDayMaxPower;
     uplinkNames[getDayMaxPower];
-    const maxSize$C = DATE_SIZE$1 + ENERGY_FLAGS_SIZE$1 + TARIFF_FLAGS_SIZE + MAX_TARIFFS_ENERGIES_SIZE;
-    const fromBytes$Q = bytes => {
-      const buffer = new CommandBinaryBuffer(bytes);
+    const maxSize$E = DATE_SIZE$1 + ENERGY_FLAGS_SIZE$1 + TARIFF_FLAGS_SIZE + MAX_TARIFFS_ENERGIES_SIZE;
+    const fromBytes$S = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
-        date: buffer.getDate(),
-        tariffs: buffer.getTariffsPowerMax()
+        date: getDate(buffer),
+        tariffs: getTariffsPowerMax(buffer)
       };
     };
-    const toBytes$Q = parameters => {
-      const buffer = new CommandBinaryBuffer(maxSize$C);
-      buffer.setDate(parameters.date);
-      buffer.setTariffsPowerMax(parameters.tariffs);
-      return toBytes$23(id$P, buffer.getBytesToOffset());
+    const toBytes$S = parameters => {
+      const buffer = new BinaryBuffer(maxSize$E, false);
+      setDate(buffer, parameters.date);
+      setTariffsPowerMax(buffer, parameters.tariffs);
+      return toBytes$27(id$R, buffer.getBytesToOffset());
     };
 
     const MAX_PERIODS_NUMBER = 8;
     const PERIODS_FINAL_BYTE = 0xff;
-    const id$O = getDayProfile;
+    const id$Q = getDayProfile;
     uplinkNames[getDayProfile];
-    const fromBytes$P = bytes => {
+    const fromBytes$R = bytes => {
       const finalByteIndex = bytes.indexOf(PERIODS_FINAL_BYTE);
       const cleanData = finalByteIndex === -1 ? bytes : bytes.slice(0, finalByteIndex);
       return {
-        periods: [...cleanData].map(CommandBinaryBuffer$1.getDayProfileFromByte)
+        periods: [...cleanData].map(getDayProfileFromByte)
       };
     };
-    const toBytes$P = parameters => {
+    const toBytes$R = parameters => {
       const hasPeriodsFinalByte = parameters.periods.length < MAX_PERIODS_NUMBER;
       const size = parameters.periods.length + +hasPeriodsFinalByte;
-      const buffer = new CommandBinaryBuffer$1(size);
+      const buffer = new BinaryBuffer(size, false);
       parameters.periods.forEach(period => {
-        buffer.setDayProfile(period);
+        setDayProfile$1(buffer, period);
       });
       if (hasPeriodsFinalByte) {
         buffer.setUint8(PERIODS_FINAL_BYTE);
       }
-      return toBytes$23(id$O, buffer.data);
+      return toBytes$27(id$Q, buffer.data);
     };
 
     const ADDITIONAL_HOUR = 25;
@@ -3999,13 +4022,10 @@ function decodeDownlink ( input ) {
       }
       return tariff ? tariff << 14 | energy & 0x3fff : energy;
     };
-    const energyFromBinary = function (bytes, offset) {
-      let periodMin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 30;
-      return bytes.reduce((collector, value, index) => {
-        collector.push(energyFromWord(value, (offset ?? 0) + index, periodMin));
-        return collector;
-      }, []);
-    };
+    const energyFromBinary = (bytes, offset, periodMin = 30) => bytes.reduce((collector, value, index) => {
+      collector.push(energyFromWord(value, (offset ?? 0) + index, periodMin));
+      return collector;
+    }, []);
     const energyToBinary = energies => energies.reduce((collector, value) => {
       collector.push(energyToWord(value));
       return collector;
@@ -4021,37 +4041,33 @@ function decodeDownlink ( input ) {
         voltage: word
       };
     };
-    const voltageToWord = _ref => {
-      let {
-        voltage,
-        lastSummerHour
-      } = _ref;
+    const voltageToWord = ({
+      voltage,
+      lastSummerHour
+    }) => {
       if (lastSummerHour) {
         return lastSummerHour << 8 | 0xff;
       }
       return voltage;
     };
-    const voltageFromBinary = function (bytes, offset) {
-      let periodMin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 30;
-      return bytes.reduce((collector, value, index) => {
-        collector.push(voltageFromWord(value, (offset ?? 0) + index, periodMin));
-        return collector;
-      }, []);
-    };
+    const voltageFromBinary = (bytes, offset, periodMin = 30) => bytes.reduce((collector, value, index) => {
+      collector.push(voltageFromWord(value, (offset ?? 0) + index, periodMin));
+      return collector;
+    }, []);
     const voltageToBinary = energies => energies.reduce((collector, value) => {
       collector.push(voltageToWord(value));
       return collector;
     }, []);
 
-    const id$N = getDemand;
+    const id$P = getDemand;
     uplinkNames[getDemand];
-    const fromBytes$O = bytes => {
-      if (!bytes || bytes.length < maxSize$1r) {
+    const fromBytes$Q = bytes => {
+      if (!bytes || bytes.length < maxSize$1v) {
         throw new Error('Invalid uplink GetDemand byte length.');
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      const parameters = buffer.getDemand();
-      if (bytes.length !== maxSize$1r + 2 * parameters.count) {
+      const buffer = new BinaryBuffer(bytes, false);
+      const parameters = getDemand$1(buffer);
+      if (bytes.length !== maxSize$1v + 2 * parameters.count) {
         throw new Error('Invalid uplink GetDemand demands byte length.');
       }
       const demandsBytes = new Array(parameters.count).fill(0).map(() => buffer.getUint16());
@@ -4059,173 +4075,187 @@ function decodeDownlink ( input ) {
       parameters.demands = isEnergiesDemand ? energyFromBinary(demandsBytes, parameters.firstIndex, parameters.period) : voltageFromBinary(demandsBytes, parameters.firstIndex, parameters.period);
       return parameters;
     };
-    const toBytes$O = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$1r + parameters.count * 2);
-      buffer.setDemand(parameters);
+    const toBytes$Q = parameters => {
+      const buffer = new BinaryBuffer(maxSize$1v + parameters.count * 2, false);
+      setDemand(buffer, parameters);
       if (parameters.energyType === A_PLUS || parameters.energyType === A_MINUS) {
         energyToBinary(parameters.demands).forEach(value => buffer.setUint16(value));
       } else {
         voltageToBinary(parameters.demands).forEach(value => buffer.setUint16(value));
       }
-      return toBytes$23(id$N, buffer.data);
+      return toBytes$27(id$P, buffer.data);
     };
 
-    const id$M = getDeviceId;
+    const id$O = getDemandParameters;
+    const name$1 = uplinkNames[getDemandParameters];
+    const maxSize$D = 4;
+    const fromBytes$P = bytes => {
+      validateCommandPayload(name$1, bytes, maxSize$D);
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDemandParameters$1(buffer);
+    };
+    const toBytes$P = parameters => {
+      const buffer = new BinaryBuffer(maxSize$D, false);
+      setDemandParameters$1(buffer, parameters);
+      return toBytes$27(id$O, buffer.data);
+    };
+
+    const id$N = getDeviceId;
     uplinkNames[getDeviceId];
-    const maxSize$B = 8;
+    const maxSize$C = 8;
+    const fromBytes$O = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDeviceId$1(buffer);
+    };
+    const toBytes$O = parameters => {
+      const buffer = new BinaryBuffer(maxSize$C, false);
+      setDeviceId(buffer, parameters);
+      return toBytes$27(id$N, buffer.data);
+    };
+
+    const id$M = getDeviceType;
+    uplinkNames[getDeviceType];
+    const maxSize$B = 9;
     const fromBytes$N = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getDeviceId();
+      const buffer = new BinaryBuffer(bytes, false);
+      return getDeviceType$1(buffer);
     };
     const toBytes$N = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$B);
-      buffer.setDeviceId(parameters);
-      return toBytes$23(id$M, buffer.data);
+      const buffer = new BinaryBuffer(maxSize$B, false);
+      setDeviceType(buffer, parameters);
+      return toBytes$27(id$M, buffer.data);
     };
 
-    const id$L = getDeviceType;
-    uplinkNames[getDeviceType];
-    const maxSize$A = 9;
-    const fromBytes$M = data => {
-      const buffer = new CommandBinaryBuffer$1(data);
-      return buffer.getDeviceType();
-    };
-    const toBytes$M = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$A);
-      buffer.setDeviceType(parameters);
-      return toBytes$23(id$L, buffer.data);
-    };
-
-    const id$K = getDisplayParam;
+    const id$L = getDisplayParam;
     uplinkNames[getDisplayParam];
-    const fromBytes$L = bytes => {
+    const fromBytes$M = bytes => {
       const [displayMode, ...order] = bytes;
       return {
         displayMode,
         order
       };
     };
-    const toBytes$L = parameters => toBytes$23(id$K, [parameters.displayMode, ...parameters.order]);
+    const toBytes$M = parameters => toBytes$27(id$L, [parameters.displayMode, ...parameters.order]);
 
     const COMMAND_SIZE$3 = 16;
-    const id$J = getEnergy;
+    const id$K = getEnergy;
     uplinkNames[getEnergy];
-    const fromBytes$K = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const fromBytes$L = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       let parameters;
       if (bytes.length === COMMAND_SIZE$3) {
         parameters = {
-          energies: buffer.getEnergies()
+          energies: getEnergies(buffer)
         };
       } else {
-        parameters = buffer.getPackedEnergyWithType();
+        parameters = getPackedEnergyWithType(buffer);
       }
       return parameters;
     };
-    const toBytes$K = parameters => {
+    const toBytes$L = parameters => {
       let size = COMMAND_SIZE$3;
       if (parameters?.energyType) {
         const energiesNumber = parameters.energies.filter(energy => energy !== null).length;
         size = PACKED_ENERGY_TYPE_SIZE + energiesNumber * ENERGY_SIZE;
       }
-      const buffer = new CommandBinaryBuffer$1(size);
-      buffer.setPackedEnergyWithType(parameters);
-      return toBytes$23(id$J, buffer.data);
+      const buffer = new BinaryBuffer(size, false);
+      setPackedEnergyWithType(buffer, parameters);
+      return toBytes$27(id$K, buffer.data);
     };
 
     const COMMAND_SIZE$2 = 19;
-    const id$I = getEnergyDayPrevious;
+    const id$J = getEnergyDayPrevious;
     uplinkNames[getEnergyDayPrevious];
-    const fromBytes$J = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const fromBytes$K = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       let parameters;
       if (bytes.length === COMMAND_SIZE$2) {
         parameters = {
-          date: buffer.getDate(),
-          energies: buffer.getEnergies()
+          date: getDate$1(buffer),
+          energies: getEnergies(buffer)
         };
       } else {
         parameters = {
-          date: buffer.getDate(),
-          ...buffer.getPackedEnergyWithType()
+          date: getDate$1(buffer),
+          ...getPackedEnergyWithType(buffer)
         };
+      }
+      return parameters;
+    };
+    const toBytes$K = parameters => {
+      const buffer = new BinaryBuffer(getPackedEnergiesWithDateSize(parameters), false);
+      setDate$1(buffer, parameters.date);
+      setPackedEnergyWithType(buffer, parameters);
+      return toBytes$27(id$J, buffer.data);
+    };
+
+    const COMMAND_SIZE$1 = 16;
+    const id$I = getEnergyExport;
+    uplinkNames[getEnergyExport];
+    const fromBytes$J = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      let parameters;
+      if (bytes.length === COMMAND_SIZE$1) {
+        parameters = {
+          energies: getEnergies(buffer)
+        };
+      } else {
+        parameters = getPackedEnergyWithType(buffer);
       }
       return parameters;
     };
     const toBytes$J = parameters => {
-      const buffer = new CommandBinaryBuffer$1(getPackedEnergiesWithDateSize(parameters));
-      buffer.setDate(parameters.date);
-      buffer.setPackedEnergyWithType(parameters);
-      return toBytes$23(id$I, buffer.data);
-    };
-
-    const COMMAND_SIZE$1 = 16;
-    const id$H = getEnergyExport;
-    uplinkNames[getEnergyExport];
-    const fromBytes$I = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      let parameters;
-      if (bytes.length === COMMAND_SIZE$1) {
-        parameters = {
-          energies: buffer.getEnergies()
-        };
-      } else {
-        parameters = buffer.getPackedEnergyWithType();
-      }
-      return parameters;
-    };
-    const toBytes$I = parameters => {
       let size = COMMAND_SIZE$1;
       if (parameters?.energyType) {
         const energiesNumber = parameters.energies.filter(energy => energy !== null).length;
         size = PACKED_ENERGY_TYPE_SIZE + energiesNumber * ENERGY_SIZE;
       }
-      const buffer = new CommandBinaryBuffer$1(size);
-      buffer.setPackedEnergyWithType(parameters);
-      return toBytes$23(id$H, buffer.data);
+      const buffer = new BinaryBuffer(size, false);
+      setPackedEnergyWithType(buffer, parameters);
+      return toBytes$27(id$I, buffer.data);
     };
 
     const COMMAND_SIZE = 19;
-    const id$G = getEnergyExportDayPrevious;
+    const id$H = getEnergyExportDayPrevious;
     uplinkNames[getEnergyExportDayPrevious];
-    const fromBytes$H = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const fromBytes$I = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       let parameters;
       if (bytes.length === COMMAND_SIZE) {
         parameters = {
-          date: buffer.getDate(),
-          energies: buffer.getEnergies()
+          date: getDate$1(buffer),
+          energies: getEnergies(buffer)
         };
       } else {
         parameters = {
-          date: buffer.getDate(),
-          ...buffer.getPackedEnergyWithType()
+          date: getDate$1(buffer),
+          ...getPackedEnergyWithType(buffer)
         };
       }
       return parameters;
     };
-    const toBytes$H = parameters => {
-      const buffer = new CommandBinaryBuffer$1(getPackedEnergiesWithDateSize(parameters));
-      buffer.setDate(parameters.date);
-      buffer.setPackedEnergyWithType(parameters);
-      return toBytes$23(id$G, buffer.data);
+    const toBytes$I = parameters => {
+      const buffer = new BinaryBuffer(getPackedEnergiesWithDateSize(parameters), false);
+      setDate$1(buffer, parameters.date);
+      setPackedEnergyWithType(buffer, parameters);
+      return toBytes$27(id$H, buffer.data);
     };
 
     const BODY_WITHOUT_EVENTS_SIZE = 3 + 1;
     const EVENT_SIZE = 4;
-    const id$F = getEvents;
+    const id$G = getEvents;
     uplinkNames[getEvents];
-    const maxSize$z = BODY_WITHOUT_EVENTS_SIZE + 255 * EVENT_SIZE;
+    const maxSize$A = BODY_WITHOUT_EVENTS_SIZE + 255 * EVENT_SIZE;
     const getFromBytes = BinaryBufferConstructor => bytes => {
-      if (bytes.length > maxSize$z) {
+      if (bytes.length > maxSize$A) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
-      const buffer = new BinaryBufferConstructor(bytes);
-      const date = buffer.getDate();
+      const buffer = new BinaryBufferConstructor(bytes, false);
+      const date = getDate$1(buffer);
       const eventsNumber = buffer.getUint8();
       const events = [];
       while (!buffer.isEmpty) {
-        events.push(buffer.getEvent());
+        events.push(getEvent(buffer));
       }
       return {
         date,
@@ -4234,26 +4264,26 @@ function decodeDownlink ( input ) {
       };
     };
     const getToBytes = BinaryBufferConstructor => parameters => {
-      const buffer = new BinaryBufferConstructor(maxSize$z);
-      buffer.setDate(parameters.date);
+      const buffer = new BinaryBufferConstructor(maxSize$A, false);
+      setDate$1(buffer, parameters.date);
       buffer.setUint8(parameters.eventsNumber);
       for (const event of parameters.events) {
-        buffer.setEvent(event);
+        setEvent(buffer, event);
       }
-      return toBytes$23(id$F, buffer.getBytesToOffset());
+      return toBytes$27(id$G, buffer.getBytesToOffset());
     };
-    const fromBytes$G = getFromBytes(CommandBinaryBuffer$1);
-    const toBytes$G = getToBytes(CommandBinaryBuffer$1);
+    const fromBytes$H = getFromBytes(BinaryBuffer);
+    const toBytes$H = getToBytes(BinaryBuffer);
 
     const COMMAND_BODY_SIZE = 14;
     const OLD_COMMAND_BODY_SIZE = 20;
-    const id$E = getEventsCounters;
+    const id$F = getEventsCounters;
     uplinkNames[getEventsCounters];
-    const fromBytes$F = bytes => {
+    const fromBytes$G = bytes => {
       if (bytes.length !== COMMAND_BODY_SIZE && bytes.length !== OLD_COMMAND_BODY_SIZE) {
         throw new Error(`Wrong buffer size: ${bytes.length}.`);
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       const restart = buffer.getUint16();
       const powerOff = buffer.getUint16();
       const localParametersChange = buffer.getUint16();
@@ -4271,8 +4301,8 @@ function decodeDownlink ( input ) {
         setClock
       };
     };
-    const toBytes$F = parameters => {
-      const buffer = new CommandBinaryBuffer$1(COMMAND_BODY_SIZE);
+    const toBytes$G = parameters => {
+      const buffer = new BinaryBuffer(COMMAND_BODY_SIZE, false);
       buffer.setUint16(parameters.restart);
       buffer.setUint16(parameters.powerOff);
       buffer.setUint16(parameters.localParametersChange);
@@ -4280,59 +4310,88 @@ function decodeDownlink ( input ) {
       buffer.setUint16(parameters.accessError);
       buffer.setUint16(parameters.accessClosed);
       buffer.setUint16(parameters.setClock);
-      return toBytes$23(id$E, buffer.data);
+      return toBytes$27(id$F, buffer.data);
     };
 
-    const id$D = getEventStatus;
+    const id$E = getEventStatus;
     uplinkNames[getEventStatus];
-    const maxSize$y = 2;
-    const fromBytes$E = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes, true);
-      return buffer.getEventStatus();
+    const maxSize$z = 2;
+    const fromBytes$F = bytes => {
+      const buffer = new BinaryBuffer(bytes, true);
+      return getEventStatus$1(buffer);
     };
-    const toBytes$E = eventStatus => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$y, true);
-      buffer.setEventStatus(eventStatus);
-      return toBytes$23(id$D, buffer.data);
+    const toBytes$F = eventStatus => {
+      const buffer = new BinaryBuffer(maxSize$z, true);
+      setEventStatus(buffer, eventStatus);
+      return toBytes$27(id$E, buffer.data);
     };
 
-    const id$C = getExtendedCurrentValues;
+    const id$D = getExtendedCurrentValues;
     uplinkNames[getExtendedCurrentValues];
-    const maxSize$x = 4;
-    const fromBytes$D = data => {
-      const buffer = new CommandBinaryBuffer$1(data);
+    const maxSize$y = 4;
+    const fromBytes$E = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         temperature: buffer.getInt16(),
         frequency: buffer.getInt16()
       };
     };
-    const toBytes$D = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$x);
+    const toBytes$E = parameters => {
+      const buffer = new BinaryBuffer(maxSize$y, false);
       buffer.setInt16(parameters.temperature);
       buffer.setInt16(parameters.frequency);
-      return toBytes$23(id$C, buffer.data);
+      return toBytes$27(id$D, buffer.data);
     };
 
-    const id$B = getExtendedCurrentValues2;
+    const id$C = getExtendedCurrentValues2;
     uplinkNames[getExtendedCurrentValues2];
-    const maxSize$w = 7;
-    const fromBytes$C = data => {
-      const buffer = new CommandBinaryBuffer$1(data);
-      return buffer.getExtendedCurrentValues2();
+    const maxSize$x = 7;
+    const fromBytes$D = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getExtendedCurrentValues2$1(buffer);
+    };
+    const toBytes$D = parameters => {
+      const buffer = new BinaryBuffer(maxSize$x, false);
+      setExtendedCurrentValues2(buffer, parameters);
+      return toBytes$27(id$C, buffer.data);
+    };
+
+    const id$B = getHalfHourDemand;
+    uplinkNames[getHalfHourDemand];
+    const fromBytes$C = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      const hasDst = bytes.length > MIN_HALF_HOUR_COMMAND_SIZE;
+      const date = getDate$1(buffer);
+      const periods = getEnergyPeriods(buffer, hasDst ? MAX_HALF_HOUR_PERIODS : MIN_HALF_HOUR_PERIODS);
+      if (hasDst) {
+        return {
+          date,
+          periods,
+          dstHour: buffer.getUint8()
+        };
+      }
+      return {
+        date,
+        periods
+      };
     };
     const toBytes$C = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$w);
-      buffer.setExtendedCurrentValues2(parameters);
-      return toBytes$23(id$B, buffer.data);
+      const buffer = new BinaryBuffer(parameters.periods.length > MIN_HALF_HOUR_PERIODS ? MAX_HALF_HOUR_COMMAND_SIZE : MIN_HALF_HOUR_COMMAND_SIZE, false);
+      setDate$1(buffer, parameters.date);
+      setEnergyPeriods(buffer, parameters.periods);
+      if (parameters.dstHour) {
+        buffer.setUint8(parameters.dstHour);
+      }
+      return toBytes$27(id$B, buffer.data);
     };
 
-    const id$A = getHalfHourDemand;
-    uplinkNames[getHalfHourDemand];
+    const id$A = getHalfHourDemandExport;
+    uplinkNames[getHalfHourDemandExport];
     const fromBytes$B = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       const hasDst = bytes.length > MIN_HALF_HOUR_COMMAND_SIZE;
-      const date = buffer.getDate();
-      const periods = buffer.getEnergyPeriods(hasDst ? MAX_HALF_HOUR_PERIODS : MIN_HALF_HOUR_PERIODS);
+      const date = getDate$1(buffer);
+      const periods = getEnergyPeriods(buffer, hasDst ? MAX_HALF_HOUR_PERIODS : MIN_HALF_HOUR_PERIODS);
       if (hasDst) {
         return {
           date,
@@ -4346,22 +4405,22 @@ function decodeDownlink ( input ) {
       };
     };
     const toBytes$B = parameters => {
-      const buffer = new CommandBinaryBuffer$1(parameters.periods.length > MIN_HALF_HOUR_PERIODS ? MAX_HALF_HOUR_COMMAND_SIZE : MIN_HALF_HOUR_COMMAND_SIZE);
-      buffer.setDate(parameters.date);
-      buffer.setEnergyPeriods(parameters.periods);
+      const buffer = new BinaryBuffer(parameters.periods.length > MIN_HALF_HOUR_PERIODS ? MAX_HALF_HOUR_COMMAND_SIZE : MIN_HALF_HOUR_COMMAND_SIZE, false);
+      setDate$1(buffer, parameters.date);
+      setEnergyPeriods(buffer, parameters.periods);
       if (parameters.dstHour) {
         buffer.setUint8(parameters.dstHour);
       }
-      return toBytes$23(id$A, buffer.data);
+      return toBytes$27(id$A, buffer.data);
     };
 
-    const id$z = getHalfHourDemandExport;
-    uplinkNames[getHalfHourDemandExport];
+    const id$z = getHalfHourDemandPrevious;
+    uplinkNames[getHalfHourDemandPrevious];
     const fromBytes$A = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       const hasDst = bytes.length > MIN_HALF_HOUR_COMMAND_SIZE;
-      const date = buffer.getDate();
-      const periods = buffer.getEnergyPeriods(hasDst ? MAX_HALF_HOUR_PERIODS : MIN_HALF_HOUR_PERIODS);
+      const date = getDate$1(buffer);
+      const periods = getEnergyPeriods(buffer, hasDst ? MAX_HALF_HOUR_PERIODS : MIN_HALF_HOUR_PERIODS);
       if (hasDst) {
         return {
           date,
@@ -4375,42 +4434,13 @@ function decodeDownlink ( input ) {
       };
     };
     const toBytes$A = parameters => {
-      const buffer = new CommandBinaryBuffer$1(parameters.periods.length > MIN_HALF_HOUR_PERIODS ? MAX_HALF_HOUR_COMMAND_SIZE : MIN_HALF_HOUR_COMMAND_SIZE);
-      buffer.setDate(parameters.date);
-      buffer.setEnergyPeriods(parameters.periods);
+      const buffer = new BinaryBuffer(parameters.periods.length > MIN_HALF_HOUR_PERIODS ? MAX_HALF_HOUR_COMMAND_SIZE : MIN_HALF_HOUR_COMMAND_SIZE, false);
+      setDate$1(buffer, parameters.date);
+      setEnergyPeriods(buffer, parameters.periods);
       if (parameters.dstHour) {
         buffer.setUint8(parameters.dstHour);
       }
-      return toBytes$23(id$z, buffer.data);
-    };
-
-    const id$y = getHalfHourDemandPrevious;
-    uplinkNames[getHalfHourDemandPrevious];
-    const fromBytes$z = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      const hasDst = bytes.length > MIN_HALF_HOUR_COMMAND_SIZE;
-      const date = buffer.getDate();
-      const periods = buffer.getEnergyPeriods(hasDst ? MAX_HALF_HOUR_PERIODS : MIN_HALF_HOUR_PERIODS);
-      if (hasDst) {
-        return {
-          date,
-          periods,
-          dstHour: buffer.getUint8()
-        };
-      }
-      return {
-        date,
-        periods
-      };
-    };
-    const toBytes$z = parameters => {
-      const buffer = new CommandBinaryBuffer$1(parameters.periods.length > MIN_HALF_HOUR_PERIODS ? MAX_HALF_HOUR_COMMAND_SIZE : MIN_HALF_HOUR_COMMAND_SIZE);
-      buffer.setDate(parameters.date);
-      buffer.setEnergyPeriods(parameters.periods);
-      if (parameters.dstHour) {
-        buffer.setUint8(parameters.dstHour);
-      }
-      return toBytes$23(id$y, buffer.data);
+      return toBytes$27(id$z, buffer.data);
     };
 
     const DATE_SIZE = 2;
@@ -4418,43 +4448,43 @@ function decodeDownlink ( input ) {
     const START_HALFHOUR_SIZE = 1;
     const HALFHOURS_NUMBER_SIZE = 1;
     const MAX_HALFHOURS_ENERGY_SIZE = 247;
-    const id$x = getHalfhoursEnergies;
-    uplinkNames[getHalfhoursEnergies];
-    const maxSize$v = DATE_SIZE + ENERGY_FLAGS_SIZE + START_HALFHOUR_SIZE + HALFHOURS_NUMBER_SIZE + MAX_HALFHOURS_ENERGY_SIZE;
-    const fromBytes$y = bytes => {
-      const buffer = new CommandBinaryBuffer(bytes);
-      const date = buffer.getDate();
-      const energiesFlags = buffer.getEnergiesFlags();
+    const id$y = getHalfHourEnergies;
+    uplinkNames[getHalfHourEnergies];
+    const maxSize$w = DATE_SIZE + ENERGY_FLAGS_SIZE + START_HALFHOUR_SIZE + HALFHOURS_NUMBER_SIZE + MAX_HALFHOURS_ENERGY_SIZE;
+    const fromBytes$z = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      const date = getDate(buffer);
+      const energiesFlags = getEnergiesFlags(buffer);
       const firstHalfhour = buffer.getUint8();
       const halfhoursNumber = buffer.getUint8();
       return {
         date,
         firstHalfhour,
         halfhoursNumber,
-        energies: buffer.getHalfhoursEnergies(energiesFlags, halfhoursNumber)
+        energies: getHalfHourEnergies1(buffer, energiesFlags, halfhoursNumber)
       };
     };
-    const toBytes$y = parameters => {
-      const buffer = new CommandBinaryBuffer(maxSize$v);
+    const toBytes$z = parameters => {
+      const buffer = new BinaryBuffer(maxSize$w, false);
       const {
         date,
         firstHalfhour,
         halfhoursNumber,
         energies
       } = parameters;
-      buffer.setDate(date);
-      buffer.setEnergiesFlags(energies);
+      setDate(buffer, date);
+      setEnergiesFlags(buffer, energies);
       buffer.setUint8(firstHalfhour);
       buffer.setUint8(halfhoursNumber);
-      buffer.setHalfhoursEnergies(energies);
-      return toBytes$23(id$x, buffer.getBytesToOffset());
+      setHalfHourEnergies1(buffer, energies);
+      return toBytes$27(id$y, buffer.getBytesToOffset());
     };
 
-    const id$w = getMagneticFieldThreshold;
+    const id$x = getMagneticFieldThreshold;
     uplinkNames[getMagneticFieldThreshold];
-    const maxSize$u = 10;
-    const fromBytes$x = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const maxSize$v = 10;
+    const fromBytes$y = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         induction: buffer.getUint16(),
         threshold: buffer.getUint16(),
@@ -4462,162 +4492,156 @@ function decodeDownlink ( input ) {
         reserved: buffer.getUint32()
       };
     };
-    const toBytes$x = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$u);
+    const toBytes$y = parameters => {
+      const buffer = new BinaryBuffer(maxSize$v, false);
       buffer.setUint16(parameters.induction);
       buffer.setUint16(parameters.threshold);
       buffer.setUint16(parameters.inductionCoefficient * 100);
       buffer.setUint32(parameters.reserved);
-      return toBytes$23(id$w, buffer.data);
+      return toBytes$27(id$x, buffer.data);
     };
 
-    const id$v = getMeterInfo;
+    const id$w = getMeterInfo;
     uplinkNames[getMeterInfo];
-    const fromBytes$w = _ref => {
-      let [ten] = _ref;
-      return {
-        ten
-      };
-    };
-    const toBytes$w = _ref2 => {
-      let {
-        ten
-      } = _ref2;
-      return toBytes$23(id$v, [ten]);
-    };
+    const fromBytes$x = ([ten]) => ({
+      ten
+    });
+    const toBytes$x = ({
+      ten
+    }) => toBytes$27(id$w, [ten]);
 
-    const id$u = getMonthDemand;
+    const id$v = getMonthDemand;
     uplinkNames[getMonthDemand];
-    const maxSize$t = 18;
-    const fromBytes$v = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+    const maxSize$u = 18;
+    const fromBytes$w = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         year: buffer.getUint8(),
         month: buffer.getUint8(),
-        energies: buffer.getEnergies()
+        energies: getEnergies(buffer)
+      };
+    };
+    const toBytes$w = parameters => {
+      const buffer = new BinaryBuffer(maxSize$u, false);
+      buffer.setUint8(parameters.year);
+      buffer.setUint8(parameters.month);
+      setEnergies(buffer, parameters.energies);
+      return toBytes$27(id$v, buffer.data);
+    };
+
+    const id$u = getMonthDemandExport;
+    uplinkNames[getMonthDemandExport];
+    const maxSize$t = 18;
+    const fromBytes$v = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return {
+        year: buffer.getUint8(),
+        month: buffer.getUint8(),
+        energies: getEnergies(buffer)
       };
     };
     const toBytes$v = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$t);
+      const buffer = new BinaryBuffer(maxSize$t, false);
       buffer.setUint8(parameters.year);
       buffer.setUint8(parameters.month);
-      buffer.setEnergies(parameters.energies);
-      return toBytes$23(id$u, buffer.data);
+      setEnergies(buffer, parameters.energies);
+      return toBytes$27(id$u, buffer.data);
     };
 
-    const id$t = getMonthDemandExport;
-    uplinkNames[getMonthDemandExport];
-    const maxSize$s = 18;
+    const id$t = getMonthMaxDemand;
+    uplinkNames[getMonthMaxDemand];
+    const maxSize$s = 2 + TARIFF_NUMBER$1 * 7;
     const fromBytes$u = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         year: buffer.getUint8(),
         month: buffer.getUint8(),
-        energies: buffer.getEnergies()
+        tariffs: getMonthMaxPowerByTariffs(buffer)
       };
     };
     const toBytes$u = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$s);
+      const buffer = new BinaryBuffer(maxSize$s, false);
       buffer.setUint8(parameters.year);
       buffer.setUint8(parameters.month);
-      buffer.setEnergies(parameters.energies);
-      return toBytes$23(id$t, buffer.data);
+      setMonthMaxPowerByTariffs(buffer, parameters.tariffs);
+      return toBytes$27(id$t, buffer.data);
     };
 
-    const id$s = getMonthMaxDemand;
-    uplinkNames[getMonthMaxDemand];
+    const id$s = getMonthMaxDemandExport;
+    uplinkNames[getMonthMaxDemandExport];
     const maxSize$r = 2 + TARIFF_NUMBER$1 * 7;
     const fromBytes$t = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         year: buffer.getUint8(),
         month: buffer.getUint8(),
-        tariffs: buffer.getMonthMaxPowerByTariffs()
+        tariffs: getMonthMaxPowerByTariffs(buffer)
       };
     };
     const toBytes$t = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$r);
+      const buffer = new BinaryBuffer(maxSize$r, false);
       buffer.setUint8(parameters.year);
       buffer.setUint8(parameters.month);
-      buffer.setMonthMaxPowerByTariffs(parameters.tariffs);
-      return toBytes$23(id$s, buffer.data);
+      setMonthMaxPowerByTariffs(buffer, parameters.tariffs);
+      return toBytes$27(id$s, buffer.data);
     };
 
-    const id$r = getMonthMaxDemandExport;
-    uplinkNames[getMonthMaxDemandExport];
-    const maxSize$q = 2 + TARIFF_NUMBER$1 * 7;
+    const id$r = getOperatorParameters;
+    uplinkNames[getOperatorParameters];
+    const maxSize$q = OPERATOR_PARAMETERS_SIZE;
     const fromBytes$s = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return {
-        year: buffer.getUint8(),
-        month: buffer.getUint8(),
-        tariffs: buffer.getMonthMaxPowerByTariffs()
-      };
+      const buffer = new BinaryBuffer(bytes, false);
+      return getOperatorParameters$1(buffer);
     };
     const toBytes$s = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$q);
-      buffer.setUint8(parameters.year);
-      buffer.setUint8(parameters.month);
-      buffer.setMonthMaxPowerByTariffs(parameters.tariffs);
-      return toBytes$23(id$r, buffer.data);
+      const buffer = new BinaryBuffer(maxSize$q, false);
+      setOperatorParameters$1(buffer, parameters);
+      return toBytes$27(id$r, buffer.data);
     };
 
     const id$q = getOperatorParametersExtended3;
     uplinkNames[getOperatorParametersExtended3];
     const maxSize$p = 17;
     const fromBytes$r = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getOperatorParametersExtended3();
+      const buffer = new BinaryBuffer(bytes, false);
+      return getOperatorParametersExtended3$1(buffer);
     };
     const toBytes$r = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$p);
-      buffer.setOperatorParametersExtended3(parameters);
-      return toBytes$23(id$q, buffer.data);
+      const buffer = new BinaryBuffer(maxSize$p, false);
+      setOperatorParametersExtended3$1(buffer, parameters);
+      return toBytes$27(id$q, buffer.data);
     };
 
-    const id$p = getOperatorParameters;
-    uplinkNames[getOperatorParameters];
-    const maxSize$o = OPERATOR_PARAMETERS_SIZE;
-    const fromBytes$q = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getOperatorParameters();
-    };
-    const toBytes$q = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$o);
-      buffer.setOperatorParameters(parameters);
-      return toBytes$23(id$p, buffer.data);
-    };
-
-    const id$o = getRatePlanInfo;
+    const id$p = getRatePlanInfo;
     uplinkNames[getRatePlanInfo];
-    const maxSize$n = 1 + TARIFF_PLAN_SIZE * 2;
-    const fromBytes$p = bytes => {
-      if (bytes.length !== maxSize$n) {
+    const maxSize$o = 1 + TARIFF_PLAN_SIZE * 2;
+    const fromBytes$q = bytes => {
+      if (bytes.length !== maxSize$o) {
         throw new Error('Invalid getRatePlanInfo data size.');
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         tariffTable: buffer.getUint8(),
-        activePlan: buffer.getTariffPlan(),
-        passivePlan: buffer.getTariffPlan()
+        activePlan: getTariffPlan(buffer),
+        passivePlan: getTariffPlan(buffer)
       };
     };
-    const toBytes$p = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$n);
+    const toBytes$q = parameters => {
+      const buffer = new BinaryBuffer(maxSize$o, false);
       buffer.setUint8(parameters.tariffTable);
-      buffer.setTariffPlan(parameters.activePlan);
-      buffer.setTariffPlan(parameters.passivePlan);
-      return toBytes$23(id$o, buffer.data);
+      setTariffPlan(buffer, parameters.activePlan);
+      setTariffPlan(buffer, parameters.passivePlan);
+      return toBytes$27(id$p, buffer.data);
     };
 
-    const id$n = getSaldo;
+    const id$o = getSaldo;
     uplinkNames[getSaldo];
-    const maxSize$m = 29;
-    const fromBytes$o = bytes => {
-      if (bytes.length !== maxSize$m) {
+    const maxSize$n = 29;
+    const fromBytes$p = bytes => {
+      if (bytes.length !== maxSize$n) {
         throw new Error('Invalid getSaldo data size.');
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       return {
         currentSaldo: buffer.getInt32(),
         count: buffer.getUint8(),
@@ -4631,8 +4655,8 @@ function decodeDownlink ( input ) {
         }
       };
     };
-    const toBytes$o = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$m);
+    const toBytes$p = parameters => {
+      const buffer = new BinaryBuffer(maxSize$n, false);
       buffer.setInt32(parameters.currentSaldo);
       buffer.setUint8(parameters.count);
       parameters.energy.forEach(value => buffer.setInt32(value));
@@ -4641,63 +4665,74 @@ function decodeDownlink ( input ) {
       buffer.setUint8(parameters.date.date);
       buffer.setUint8(parameters.date.hours);
       buffer.setUint8(parameters.date.minutes);
-      return toBytes$23(id$n, buffer.data);
+      return toBytes$27(id$o, buffer.data);
     };
 
-    const id$m = getSaldoParameters;
+    const id$n = getSaldoParameters;
     uplinkNames[getSaldoParameters];
-    const maxSize$l = 37;
-    const fromBytes$n = bytes => {
-      if (bytes.length !== maxSize$l) {
+    const maxSize$m = 37;
+    const fromBytes$o = bytes => {
+      if (bytes.length !== maxSize$m) {
         throw new Error('Invalid getSaldoParameters data size.');
       }
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getSaldoParameters();
+      const buffer = new BinaryBuffer(bytes, false);
+      return getSaldoParameters$1(buffer);
+    };
+    const toBytes$o = parameters => {
+      const buffer = new BinaryBuffer(maxSize$m, false);
+      setSaldoParameters$1(buffer, parameters);
+      return toBytes$27(id$n, buffer.data);
+    };
+
+    const id$m = getSeasonProfile;
+    uplinkNames[getSeasonProfile];
+    const maxSize$l = 9;
+    const fromBytes$n = bytes => {
+      const buffer = new BinaryBuffer(bytes, false);
+      return getSeasonProfile$1(buffer);
     };
     const toBytes$n = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$l);
-      buffer.setSaldoParameters(parameters);
-      return toBytes$23(id$m, buffer.data);
+      const buffer = new BinaryBuffer(maxSize$l, false);
+      setSeasonProfile$1(buffer, parameters);
+      return toBytes$27(id$m, buffer.data);
     };
 
-    const id$l = getSeasonProfile;
-    uplinkNames[getSeasonProfile];
-    const maxSize$k = 9;
+    const id$l = getSpecialDay;
+    uplinkNames[getSpecialDay];
+    const maxSize$k = 4;
     const fromBytes$m = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getSeasonProfile();
+      const buffer = new BinaryBuffer(bytes, false);
+      return getSpecialDay$1(buffer);
     };
     const toBytes$m = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$k);
-      buffer.setSeasonProfile(parameters);
-      return toBytes$23(id$l, buffer.data);
+      const buffer = new BinaryBuffer(maxSize$k, false);
+      setSpecialDay$1(buffer, parameters);
+      return toBytes$27(id$l, buffer.data);
     };
 
-    const id$k = getSpecialDay;
-    uplinkNames[getSpecialDay];
-    const maxSize$j = 4;
-    const fromBytes$l = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
-      return buffer.getSpecialDay();
-    };
-    const toBytes$l = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$j);
-      buffer.setSpecialDay(parameters);
-      return toBytes$23(id$k, buffer.data);
-    };
-
-    const id$j = getVersion;
+    const id$k = getVersion;
     uplinkNames[getVersion];
-    const fromBytes$k = bytes => ({
+    const fromBytes$l = bytes => ({
       version: String.fromCharCode.apply(null, [...bytes])
     });
-    const toBytes$k = parameters => {
+    const toBytes$l = parameters => {
       const version = parameters.version.split('').map(char => char.charCodeAt(0));
-      return toBytes$23(id$j, version);
+      return toBytes$27(id$k, version);
     };
 
-    const id$i = prepareRatePlan;
+    const id$j = prepareRatePlan;
     uplinkNames[prepareRatePlan];
+    const maxSize$j = 0;
+    const fromBytes$k = bytes => {
+      if (bytes.length !== maxSize$j) {
+        throw new Error(`Wrong buffer size: ${bytes.length}.`);
+      }
+      return {};
+    };
+    const toBytes$k = () => toBytes$27(id$j);
+
+    const id$i = resetPowerMaxDay;
+    uplinkNames[resetPowerMaxDay];
     const maxSize$i = 0;
     const fromBytes$j = bytes => {
       if (bytes.length !== maxSize$i) {
@@ -4705,10 +4740,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$j = () => toBytes$23(id$i);
+    const toBytes$j = () => toBytes$27(id$i);
 
-    const id$h = resetPowerMaxDay;
-    uplinkNames[resetPowerMaxDay];
+    const id$h = resetPowerMaxMonth;
+    uplinkNames[resetPowerMaxMonth];
     const maxSize$h = 0;
     const fromBytes$i = bytes => {
       if (bytes.length !== maxSize$h) {
@@ -4716,10 +4751,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$i = () => toBytes$23(id$h);
+    const toBytes$i = () => toBytes$27(id$h);
 
-    const id$g = resetPowerMaxMonth;
-    uplinkNames[resetPowerMaxMonth];
+    const id$g = runTariffPlan;
+    uplinkNames[runTariffPlan];
     const maxSize$g = 0;
     const fromBytes$h = bytes => {
       if (bytes.length !== maxSize$g) {
@@ -4727,10 +4762,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$h = () => toBytes$23(id$g);
+    const toBytes$h = () => toBytes$27(id$g);
 
-    const id$f = runTariffPlan;
-    uplinkNames[runTariffPlan];
+    const id$f = setAccessKey;
+    uplinkNames[setAccessKey];
     const maxSize$f = 0;
     const fromBytes$g = bytes => {
       if (bytes.length !== maxSize$f) {
@@ -4738,10 +4773,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$g = () => toBytes$23(id$f);
+    const toBytes$g = () => toBytes$27(id$f);
 
-    const id$e = setAccessKey;
-    uplinkNames[setAccessKey];
+    const id$e = setCorrectDateTime;
+    uplinkNames[setCorrectDateTime];
     const maxSize$e = 0;
     const fromBytes$f = bytes => {
       if (bytes.length !== maxSize$e) {
@@ -4749,10 +4784,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$f = () => toBytes$23(id$e);
+    const toBytes$f = () => toBytes$27(id$e);
 
-    const id$d = setCorrectDateTime;
-    uplinkNames[setCorrectDateTime];
+    const id$d = setCorrectTime;
+    uplinkNames[setCorrectTime];
     const maxSize$d = 0;
     const fromBytes$e = bytes => {
       if (bytes.length !== maxSize$d) {
@@ -4760,10 +4795,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$e = () => toBytes$23(id$d);
+    const toBytes$e = () => toBytes$27(id$d);
 
-    const id$c = setCorrectTime;
-    uplinkNames[setCorrectTime];
+    const id$c = setDateTime;
+    uplinkNames[setDateTime];
     const maxSize$c = 0;
     const fromBytes$d = bytes => {
       if (bytes.length !== maxSize$c) {
@@ -4771,10 +4806,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$d = () => toBytes$23(id$c);
+    const toBytes$d = () => toBytes$27(id$c);
 
-    const id$b = setDateTime;
-    uplinkNames[setDateTime];
+    const id$b = setDayProfile;
+    uplinkNames[setDayProfile];
     const maxSize$b = 0;
     const fromBytes$c = bytes => {
       if (bytes.length !== maxSize$b) {
@@ -4782,18 +4817,16 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$c = () => toBytes$23(id$b);
+    const toBytes$c = () => toBytes$27(id$b);
 
-    const id$a = setDayProfile;
-    uplinkNames[setDayProfile];
+    const id$a = setDemandParameters;
+    const name = uplinkNames[setDemandParameters];
     const maxSize$a = 0;
     const fromBytes$b = bytes => {
-      if (bytes.length !== maxSize$a) {
-        throw new Error(`Wrong buffer size: ${bytes.length}.`);
-      }
+      validateCommandPayload(name, bytes, maxSize$a);
       return {};
     };
-    const toBytes$b = () => toBytes$23(id$a);
+    const toBytes$b = () => toBytes$27(id$a);
 
     const id$9 = setDisplayParam;
     uplinkNames[setDisplayParam];
@@ -4804,10 +4837,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$a = () => toBytes$23(id$9);
+    const toBytes$a = () => toBytes$27(id$9);
 
-    const id$8 = setOperatorParametersExtended3;
-    uplinkNames[setOperatorParametersExtended3];
+    const id$8 = setOperatorParameters;
+    uplinkNames[setOperatorParameters];
     const maxSize$8 = 0;
     const fromBytes$9 = bytes => {
       if (bytes.length !== maxSize$8) {
@@ -4815,10 +4848,10 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$9 = () => toBytes$23(id$8);
+    const toBytes$9 = () => toBytes$27(id$8);
 
-    const id$7 = setOperatorParameters;
-    uplinkNames[setOperatorParameters];
+    const id$7 = setOperatorParametersExtended3;
+    uplinkNames[setOperatorParametersExtended3];
     const maxSize$7 = 0;
     const fromBytes$8 = bytes => {
       if (bytes.length !== maxSize$7) {
@@ -4826,7 +4859,7 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$8 = () => toBytes$23(id$7);
+    const toBytes$8 = () => toBytes$27(id$7);
 
     const id$6 = setSaldo;
     uplinkNames[setSaldo];
@@ -4837,7 +4870,7 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$7 = () => toBytes$23(id$6);
+    const toBytes$7 = () => toBytes$27(id$6);
 
     const id$5 = setSaldoParameters;
     uplinkNames[setSaldoParameters];
@@ -4848,7 +4881,7 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$6 = () => toBytes$23(id$5);
+    const toBytes$6 = () => toBytes$27(id$5);
 
     const id$4 = setSeasonProfile;
     uplinkNames[setSeasonProfile];
@@ -4859,7 +4892,7 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$5 = () => toBytes$23(id$4);
+    const toBytes$5 = () => toBytes$27(id$4);
 
     const id$3 = setSpecialDay;
     uplinkNames[setSpecialDay];
@@ -4870,13 +4903,13 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$4 = () => toBytes$23(id$3);
+    const toBytes$4 = () => toBytes$27(id$3);
 
     const id$2 = setSpecialOperation;
     uplinkNames[setSpecialOperation];
     const maxSize$2 = 1;
     const fromBytes$3 = bytes => {
-      const buffer = new CommandBinaryBuffer$1(bytes);
+      const buffer = new BinaryBuffer(bytes, false);
       const flags = buffer.getUint8();
       const electroMagneticIndication = !!(flags & 1);
       const magneticIndication = !!(flags & 2);
@@ -4886,7 +4919,7 @@ function decodeDownlink ( input ) {
       };
     };
     const toBytes$3 = parameters => {
-      const buffer = new CommandBinaryBuffer$1(maxSize$2);
+      const buffer = new BinaryBuffer(maxSize$2, false);
       let flags = 0;
       if (parameters.electroMagneticIndication) {
         flags |= 1;
@@ -4895,7 +4928,7 @@ function decodeDownlink ( input ) {
         flags |= 2;
       }
       buffer.setUint8(flags);
-      return toBytes$23(id$2, buffer.data);
+      return toBytes$27(id$2, buffer.data);
     };
 
     const id$1 = turnRelayOff;
@@ -4907,7 +4940,7 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$2 = () => toBytes$23(id$1);
+    const toBytes$2 = () => toBytes$27(id$1);
 
     const id = turnRelayOn;
     uplinkNames[turnRelayOn];
@@ -4918,13 +4951,15 @@ function decodeDownlink ( input ) {
       }
       return {};
     };
-    const toBytes$1 = () => toBytes$23(id);
+    const toBytes$1 = () => toBytes$27(id);
 
     const toBytesMap = {};
     const fromBytesMap = {};
     const nameMap = uplinkNames;
     const fromBytes = getFromBytes$2(fromBytesMap, nameMap);
     const toBytes = getToBytes$1(toBytesMap);
+    toBytesMap[id$13] = toBytes$14;
+    toBytesMap[id$12] = toBytes$13;
     toBytesMap[id$11] = toBytes$12;
     toBytesMap[id$10] = toBytes$11;
     toBytesMap[id$] = toBytes$10;
@@ -4991,6 +5026,8 @@ function decodeDownlink ( input ) {
     toBytesMap[id$2] = toBytes$3;
     toBytesMap[id$1] = toBytes$2;
     toBytesMap[id] = toBytes$1;
+    fromBytesMap[id$13] = fromBytes$14;
+    fromBytesMap[id$12] = fromBytes$13;
     fromBytesMap[id$11] = fromBytes$12;
     fromBytesMap[id$10] = fromBytes$11;
     fromBytesMap[id$] = fromBytes$10;
