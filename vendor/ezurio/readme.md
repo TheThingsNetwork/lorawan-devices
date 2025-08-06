@@ -1,11 +1,18 @@
-[![Ezurio](images/Ezurio_Logo.png)](https://www.ezurio.com/)
-# RS1XX - TTI Codec Pack
-[![TTI](images/TTI_Logo.jpg)](https://www.thethingsindustries.com/)
-[![RS1XX](images/RS1xx.jpg)](https://www.ezurio.com/iot-devices/lorawan-iot-devices/sentrius-rs1xx-lora-enabled-sensors)
+[![Ezurio](images/ezurio_logo.png)](https://www.ezurio.com/)
+# RSxxx - TTI Codec Pack
+[![TTI](images/tti_logo.png)](https://www.thethingsindustries.com/)
+[![RS1xx](images/rs1xx.png)](https://www.ezurio.com/iot-devices/lorawan-iot-devices/sentrius-rs1xx-lora-enabled-sensors)
+[![RS26x](images/rs26x.png)](https://www.ezurio.com/iot-devices/lorawan-iot-devices/rs26x-sensor)
 
-These are the downlink decoder and encoder and uplink decoder [Payload Formatters] for the RS1xx series of LoRa Sensors.
+These are the downlink decoder and encoder and uplink decoder [Payload Formatters] for the RS1xx and RS26x series of LoRa Sensors.
 
 The content is managed by TTI and resides at the [TTI Device Repository Github Page].
+
+# Using the codecs
+
+Refer to the [TTI Device Repository] for further details of usage.
+
+# RS1xx
 
 All available models are supported, refer to the appropriate product brief as follows.
 
@@ -25,11 +32,9 @@ The codecs are intended to be used in conjunction with the [RS1XX Configuration 
 | Integrated Temp & Humidity Sensor         |[RS1XX Open/Closed and Integrated Temp/RH User Guide]|
 | Open/Closed Sensor and Integrated Temp/RH |[RS1XX Open/Closed and Integrated Temp/RH User Guide]|
 
-The [RS1XX Protocol Specification] should be referred to for details of limits applied to data values.
+The [RS1XX Protocol Specification] should be referred to for details of limits applied to data values and of the protocol implemented by the codec.
 
-# Using the codecs
-
-Refer to the [TTI Device Repository] for further details of usage.
+Example messages are available for review for [Temperature & Humidity][RS1xx Internal Temperature and Humidity example messages], [Open-Closed][RS1xx Open-Closed example messages], [One-Wire][RS1xx One-Wire example messages] and [RTD][RS1xx RTD example messages] sensor types. 
 
 # Downlink Encoding
 
@@ -924,6 +929,15 @@ One or more, other than 'None' may be used.
 | Sensor reset flag              |
 | Sensor fault flag              |
 
+# RS26x
+
+All available models are supported, refer to the [RS26x Product Brief] for further details.
+
+The [RS26x Protocol Specification] should be referred to for details of limits applied to data values and of the protocol implemented by the codec.
+
+Example messages are available for review for [Internal Temperature][RS26x Internal Temperature example messages] and
+[External Thermistor Temperature][RS26x External Thermistor Temperature example messages] sensor types.
+
 [External RTD Temp Probe Product Brief]: https://www.ezurio.com/documentation/product-brief-sentrius-rs1xx-external-rtd-temp-probe-180-c-350-f "External RTD Temp Probe Product Brief"
 [External Temp Sensor Product Brief]: https://www.ezurio.com/node/11142 "External Temp Sensor Product Brief"
 [Integrated Temp & Humidity Sensor Product Brief]: https://www.ezurio.com/documentation/product-brief-sentrius-rs1xx-integrated-temp-humidity-sensor "Integrated Temp & Humidity Sensor Product Brief"
@@ -935,3 +949,11 @@ One or more, other than 'None' may be used.
 [Payload Formatters]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/ "Payload Formatters"
 [TTI Device Repository Github Page]: https://github.com/TheThingsNetwork/lorawan-devices/ "TTI Device Repository Github Page"
 [TTI Device Repository]: https://www.thethingsindustries.com/docs/integrations/payload-formatters/device-repo/ "TTI Device Repository"
+[RS26x Product Brief]: https://www.ezurio.com/documentation/product-brief-rs26x-sensor "RS26x Product Brief"
+[RS26x Protocol Specification]: https://www.ezurio.com/documentation/application-note-lora-protocol-rs26x-series "RS26x Protocol Specification"
+[RS1xx Internal Temperature and Humidity example messages]: rs1xx-temp-rh-sensor-codec.yaml "Temperature & Humidity"
+[RS1xx Open-Closed example messages]: rs1xx-ext-multi-sensor-codec.yaml "Open-Closed"
+[RS1xx One-Wire example messages]: rs1xx-ext-temp-1w-sensor-codec.yaml "One-Wire Temperature"
+[RS1xx RTD example messages]: rs1xx-ext-temp-rtd-sensor-codec.yaml "RTD Temperature"
+[RS26x Internal Temperature example messages]: rs26x-int-temp-sensor-codec.yaml "Internal Temperature"
+[RS26x External Thermistor Temperature example messages]: rs26x-ext-therm-temp-sensor-codec.yaml "External Thermistor Temperature"
