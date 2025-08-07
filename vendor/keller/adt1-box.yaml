@@ -33,7 +33,7 @@ firmwareVersions:
 # This device can be connected with various kind of KELLER pressure sensors including Level Probes and transmitters
 # The ADT1 itself measures humidity, battery capacity (0..100%), battery voltage, temperature and barometric pressure
 # The sensors attached measure pressure, temperature and optionally conductivity
-# https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/
+# https://docs.pressuresuite.com/sending-technology/lora-technology/keller-lora-payload/
 sensors:
   - pressure
   - temperature
@@ -75,10 +75,10 @@ keyProvisioning:
 
 keySecurity: none
 
-#documentationURL: https://docs.kolibricloud.ch/sending-technology/lora-technology/
+#documentationURL: https://docs.pressuresuite.com/sending-technology/lora-technology/
 #githubURL: https://github.com/KELLERAGfuerDruckmesstechnik
-productURL: https://keller-druck.com/en/products/data-loggers/remote-transmission-units-with-data-logger/adt1-box
-dataSheetURL: https://download.keller-druck.com/api/download/q3sWTxfeyHkzDXiezeoXjj/en/2022-08.pdf
+productURL: https://keller-pressure.com/en/products/data-loggers/remote-transmission-units-with-data-logger/adt1-box
+dataSheetURL: https://download.keller-pressure.com/api/download/q3sWTxfeyHkzDXiezeoXjj/en/2025-05.pdf
 
 photos:
   main: adt1-box-open.jpg

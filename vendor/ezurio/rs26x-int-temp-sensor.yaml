@@ -1,0 +1,99 @@
+name: Sentrius RS26x Internal Temperature Sensor
+description: The Ezurio Sentrius RS26x Internal Temperature Sensor is a battery powered IP67 temperature sensor platform that delivers HACCP level temperature monitoring with real time alerting for your food safety compliance. In addition to ensuring product safety, these intelligent devices avoid inventory loss, improve facility efficiency, and save you time and money in automated day to day operations.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: 'rev 1'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.2+1748617279'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - 'rev 1'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: rs26x-sensor-profile-eu868
+        lorawanCertified: false
+        codec: rs26x-int-temp-sensor-codec
+      US902-928:
+        id: rs26x-sensor-profile-us915
+        lorawanCertified: false
+        codec: rs26x-int-temp-sensor-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 94
+  length: 52
+  height: 29
+
+# Weight in grams (optional)
+weight: 100
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: CR123A
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -25
+    max: 85
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.ezurio.com/iot-devices/lorawan-iot-devices/rs26x-sensor
+dataSheetURL: https://www.ezurio.com/documentation/product-brief-rs26x-sensor
+
+# Photos
+photos:
+  main: rs26x-int-temp-sensor.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0
