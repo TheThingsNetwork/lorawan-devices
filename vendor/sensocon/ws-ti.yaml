@@ -1,0 +1,35 @@
+name: WS-TI Temperature Sensor
+description: >-
+  Sensocon® WS-TI Temperature Sensors use high-accuracy thermistor inputs for ambient
+  or process temperature monitoring. These sensors support LoRaWAN wireless networks
+  and are ideal for HVAC, cold storage, and environmental monitoring.
+
+
+  Examples of downlink commands (hex):
+
+  - Set interval to 900 seconds: 00 02 03 84
+
+  - Apply +0.1 inWC pressure offset: 02 02 00 64
+
+  - Apply +0.1 V voltage offset: 08 02 00 64
+
+  - Apply +0.1 A current offset: 0A 02 00 64
+
+  - Apply +1°F temperature offset: 04 02 00 3E8
+
+  - Apply +1% humidity offset: 06 02 00 3E8
+
+  - Apply +0.1 PSI gauge diff pressure offset: 10 02 00 64
+hardwareVersions:
+- version: 90309-1
+firmwareVersions:
+- version: AA
+productURL: https://sensocon.com/wireless-sensor-monitoring/wireless-temperature-sensors.html
+documentation: https://sensocon.com/media/hexaattachment/products/attachments/WS-TI_Wireless_Temperature.pdf
+technicalDetails:
+  Measurement Type: Temperature (via Thermistor)
+  Temperature Range: -40°F to 185°F (-40°C to 85°C)
+  Accuracy: ±0.5°C typical
+  Wireless Protocol: LoRaWAN, US915
+  Power: Internal battery, multi-year life
+  Applications: Ambient temperature, cold storage, process tanks
