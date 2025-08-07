@@ -1,0 +1,92 @@
+uplinkDecoder:
+  fileName: payload/ra02d1.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xD6, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA02D1'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0xD6, 0x01, 0x01, 0x00, 0x01, 0x00, 0x03, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'RA02D1'
+          Volt: 0.1
+          LPGAlarm: 'noalarm'
+          HighTempAlarm: 'alarm'
+          Temp: 0.3
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0xD6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'RA02D1'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0xD6, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'RA02D1'
+          MinTime: 900
+          MaxTime: 1800
+
+downlinkDecoder:
+  fileName: payload/ra02d1.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0xD6, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA02D1'
+          MinTime: 900
+          MaxTime: 1800
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0xD6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA02D1'
+
+downlinkEncoder:
+  fileName: payload/ra02d1.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'RA02D1'
+          MinTime: 900
+          MaxTime: 1800
+      output:
+        fPort: 7
+        bytes: [0x01, 0xD6, 0x03, 0x84, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'RA02D1'
+      output:
+        fPort: 7
+        bytes: [0x02, 0xD6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
