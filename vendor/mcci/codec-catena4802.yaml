@@ -1,15 +1,15 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: codec-catena-generic.js
+  fileName: codec-catena4802.js
   # Examples (optional)
   examples:
-    - description: Sensor report format 0x14, no pulse/power input
+    - description: Vbat 2.5 Boot 45 Env 16 60 .
       input:
-        fPort: 1
-        bytes: [0x14, 0x1D, 0x43, 0x23, 0x11, 0x19, 0x52, 0x5F, 0x97, 0xAE, 0x01, 0x02]
+        fPort: 4
+        bytes: [13, 40, 24, 45, 16, 20, 153, 153]
       output:
-        data: { 'boot': 17, 'error': 'none', 'lux': 258, 'p': 978.84, 'rh': 67.96875, 'tDewC': 18.981996766825645, 'tempC': 25.3203125, 'vBat': 4.196044921875 }
+        data: { 'Vbat': 2.505859375, 'boot': 45, 'error': 'none', 'rh': 60, 'tDewC': 8.311279180431027, 'tempC': 16.078125 }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:
 ##   fileName: codec.js
