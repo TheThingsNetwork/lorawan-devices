@@ -1,0 +1,35 @@
+name: WS-AI Analog 4-20mA Current Sensor
+description: >-
+  Sensocon® WS-AI Analog 4-20mA Current Sensors enable wireless monitoring of current-loop
+  signals from industrial transmitters. They are compatible with a wide range of sensing
+  devices, supporting remote monitoring via LoRaWAN networks.
+
+
+  Examples of downlink commands (hex):
+
+  - Set interval to 900 seconds: 00 02 03 84
+
+  - Apply +0.1 inWC pressure offset: 02 02 00 64
+
+  - Apply +0.1 V voltage offset: 08 02 00 64
+
+  - Apply +0.1 A current offset: 0A 02 00 64
+
+  - Apply +1°F temperature offset: 04 02 00 3E8
+
+  - Apply +1% humidity offset: 06 02 00 3E8
+
+  - Apply +0.1 PSI gauge diff pressure offset: 10 02 00 64
+hardwareVersions:
+- version: 90309-1
+firmwareVersions:
+- version: AA
+productURL: https://sensocon.com/series-ws-wireless-current-sensor-1.html
+documentation: https://sensocon.com/media/hexaattachment/products/attachments/WS-AI_Final.pdf
+technicalDetails:
+  Measurement Type: Analog Current Input (4-20mA)
+  Input Range: 4–20mA
+  Accuracy: ±0.5% FS typical
+  Wireless Protocol: LoRaWAN, US915
+  Power: Internal battery, multi-year life
+  Applications: Industrial transmitters, sensors with 4–20mA output
