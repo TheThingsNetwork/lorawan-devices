@@ -587,6 +587,12 @@ vendors:
     name: PacketWorx Inc.
     vendorID: 314
 
+  - id: pallidus
+    name: Pallidus
+    website: https://pallidus.io/
+    ouis:
+      - 0002CC
+
   - id: parametric
     name: Parametric Engineering GmbH
     vendorID: 315
@@ -2150,3 +2156,7 @@ vendors:
       #facebook: https://www.facebook.com/radionode365
       #instagram: radionodekorea
       github: radionode
+
+  - id: sensus
+    name: Sensus GmbH Ludwigshafen
+    vendorID: 1170
