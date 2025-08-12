@@ -1,37 +1,18 @@
 name: WS-HT Humidity + Temperature Sensor
-description: >-
-  Sensocon® WS-HT Humidity + Temperature Sensors provide combined RH and temperature
-  measurements, optimized for HVAC, building automation, and agricultural climate
-  monitoring. Long-range LoRaWAN connectivity allows flexible installation with minimal
-  maintenance.
+description: Humidity + Temperature sensor provides combined RH and temperature measurements, optimized for HVAC, building automation, and agricultural climate monitoring.
 
-
-  Examples of downlink commands (hex):
-
-  - Set interval to 900 seconds: 00 02 03 84
-
-  - Apply +0.1 inWC pressure offset: 02 02 00 64
-
-  - Apply +0.1 V voltage offset: 08 02 00 64
-
-  - Apply +0.1 A current offset: 0A 02 00 64
-
-  - Apply +1°F temperature offset: 04 02 00 3E8
-
-  - Apply +1% humidity offset: 06 02 00 3E8
-
-  - Apply +0.1 PSI gauge diff pressure offset: 10 02 00 64
 hardwareVersions:
 - version: 90309-1
+  numeric: 1
+  
 firmwareVersions:
 - version: AA
-productURL: https://sensocon.com/wireless-sensor-monitoring/wireless-humidity-temperature-sensors.html
-documentation: https://sensocon.com/media/hexaattachment/products/attachments/WS-HT_Wireless_Humidity.pdf
-technicalDetails:
-  Measurement Type: Relative Humidity and Temperature
-  Humidity Range: 0–100% RH
-  Temperature Range: -40°F to 185°F (-40°C to 85°C)
-  Accuracy: ±2% RH, ±0.5°C
-  Wireless Protocol: LoRaWAN, US915
-  Power: Internal battery, multi-year life
-  Applications: Indoor air quality, greenhouses, HVAC
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-ht-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-ht.png

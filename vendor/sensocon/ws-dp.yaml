@@ -1,36 +1,18 @@
 name: WS-DP Differential Pressure Sensor
-description: >-
-  Sensocon® WS-DP Differential Pressure Sensors provide high-accuracy monitoring of
-  air and gas differential pressures, ideal for filter monitoring, cleanrooms, and
-  HVAC system performance verification. They feature long-range LoRaWAN communication
-  and multi-year battery life for remote or hard-to-reach installations.
+description: Differential Pressure Sensors provide high-accuracy monitoring of air and gas differential pressures, ideal for filter monitoring, cleanrooms, and HVAC system performance verification. 
 
-
-  Examples of downlink commands (hex):
-
-  - Set interval to 900 seconds: 00 02 03 84
-
-  - Apply +0.1 inWC pressure offset: 02 02 00 64
-
-  - Apply +0.1 V voltage offset: 08 02 00 64
-
-  - Apply +0.1 A current offset: 0A 02 00 64
-
-  - Apply +1°F temperature offset: 04 02 00 3E8
-
-  - Apply +1% humidity offset: 06 02 00 3E8
-
-  - Apply +0.1 PSI gauge diff pressure offset: 10 02 00 64
 hardwareVersions:
 - version: 90309-1
+  numeric: 1
+
 firmwareVersions:
 - version: AA
-productURL: https://sensocon.com/series-ws-dp-wireless-differential-pressure-sensors.html
-documentation: https://sensocon.com/media/hexaattachment/products/attachments/Sensocon_LoRaWAN_Differential_Pressure_Sensor_WS-DP_Datasheet_V5.pdf
-technicalDetails:
-  Measurement Type: Air/Gas Differential Pressure
-  Pressure Range: Varies by model (e.g., ±0.25"WC to ±25"WC)
-  Accuracy: ±1% FS typical
-  Wireless Protocol: LoRaWAN, US915
-  Power: Internal battery, multi-year life
-  Applications: Filter monitoring, cleanrooms, HVAC, airflow monitoring
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-dp-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-dp.png

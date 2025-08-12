@@ -3,8 +3,10 @@ regionalParametersVersion: "RP002-1.0.1"
 supportsJoin: true
 supportsClassB: false
 supportsClassC: false
+maxEIRP: 24
+supports32bitFCnt: true
 rx1Delay: 1
-rx2DataRate: 8
+rx2DataRateIndex: 8
 rx2Frequency: 923300000
 factoryPresetFrequencies:
   - 902300000
