@@ -587,6 +587,12 @@ vendors:
     name: PacketWorx Inc.
     vendorID: 314
 
+  - id: pallidus
+    name: Pallidus
+    website: https://pallidus.io/
+    ouis:
+      - 0002CC
+
   - id: parametric
     name: Parametric Engineering GmbH
     vendorID: 315
@@ -2151,6 +2157,7 @@ vendors:
       #instagram: radionodekorea
       github: radionode
 
+
   - id: sensocon
     name: Sensocon, Inc.
     description: Sensocon delivers reliable wireless sensors for pressure, temp, humidity, and more—easy to install, integrate, and scale.
@@ -2158,3 +2165,7 @@ vendors:
     logo: sensocon-logo.png
     social:
       linkedin: https://www.linkedin.com/company/sensocon/
+
+  - id: sensus
+    name: Sensus GmbH Ludwigshafen
+    vendorID: 1170
