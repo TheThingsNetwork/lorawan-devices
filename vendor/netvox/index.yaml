@@ -122,6 +122,10 @@ endDevices:
   - r831b
   - r831c
   - r831d
+  - r900nac1
+  - r900nac3
+  - r900nac6
+  - r900ndc
   - r900pb02
   - r900pb02o1
   - r900pb03
