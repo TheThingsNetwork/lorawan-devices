@@ -48,4 +48,4 @@ uplinkDecoder:
           Tilt_Angle: 0
           Water: true
 downlinkDecoder:
-  fileName: elv-bm-trx1.js
+  fileName: elv-lw-swd.js
