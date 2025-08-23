@@ -1,5 +1,5 @@
-name: LRS2M001-4P3P - Power Monitoring Sensor
-description: Power Monitoring Sensor
+name: SENSO8 LRS20LD0 - Occupancy Sensor
+description: Occupancy Sensor by Arwin Technology Ltd.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '2.2.0'
+    version: '1.0.6'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -29,15 +29,15 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: false
-        codec: lrs2m001-4xxx-codec
+        codec: lrs20ld0-codec
       US902-928:
         id: us915-profile
         lorawanCertified: false
-        codec: lrs2m001-4xxx-codec
+        codec: lrs20ld0-codec
       AS923:
         id: as923-profile
         lorawanCertified: false
-        codec: lrs2m001-4xxx-codec
+        codec: lrs20ld0-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -48,10 +48,8 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - voltage
-  - current
-  - energy
-  - power
+  - distance
+  - proximity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
@@ -61,7 +59,12 @@ dimensions:
   height: 39
 
 # Weight in grams (optional)
-weight: 116
+weight: 115
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: ER26500
 
 # Operating conditions (optional)
 operatingConditions:
@@ -69,10 +72,9 @@ operatingConditions:
   temperature:
     min: -20
     max: 70
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.95
+
+# IP rating (optional)
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -93,8 +95,8 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://www.senso8.com/senso8-lora-sensors
-dataSheetURL: https://s3.ap-northeast-1.amazonaws.com/www.senso8.com/lora/docs/DS_LRS2M001-40xx.pdf
+dataSheetURL: https://s3.ap-northeast-1.amazonaws.com/www.senso8.com/senso8_datasheet/LoRaWAN/DS_LRS20LD0-0000.pdf
 
 # Photos
 photos:
-  main: lrs2m001-4xxx.png
+  main: lrs20ld0.jpg
