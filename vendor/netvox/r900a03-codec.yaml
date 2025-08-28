@@ -1,0 +1,149 @@
+uplinkDecoder:
+  fileName: payload/r900a03.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x0b, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12]
+      output:
+        data:
+          Device: 'R900A03'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x0b, 0x01, 0x78, 0x00, 0x01]
+      output:
+        data:
+          Device: 'R900A03'
+          Volt: 12
+          WaterLeak: 'noLeak'
+          ShockTamperAlarm: 'Alarm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x81, 0x01, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R900A03'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x82, 0x01, 0x0b, 0x03, 0x88, 0x07, 0x08, 0x01, 0x50]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R900A03'
+          MinTime: 904
+          MaxTime: 1800
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x83, 0x01, 0x0b, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R900A03'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x84, 0x01, 0x0b, 0x02, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R900A03'
+          ShockSensorSensitivity: 2
+
+downlinkDecoder:
+  fileName: payload/r900a03.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x0b, 0x03, 0x84, 0x07, 0x12, 0x01, 0x01, 0x00, 0x04]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900A03'
+          MinTime: 900
+          MaxTime: 1810
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900A03'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x0b, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900A03'
+          ShockSensorSensitivity: 9
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900A03'
+
+downlinkEncoder:
+  fileName: payload/r900a03.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900A03'
+          MinTime: 900
+          MaxTime: 776
+      output:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x0b, 0x03, 0x84, 0x03, 0x08]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900A03'
+      output:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x0b]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900A03'
+          ShockSensorSensitivity: 15
+      output:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x0b, 0x0f]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900A03'
+      output:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x0b]

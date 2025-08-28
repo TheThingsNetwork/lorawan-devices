@@ -1,5 +1,5 @@
-name: R900A01 - Wireless Water leak Sensor
-description: The Netvox R900A01 Water Leak Detector comes with two water leak sensors suitable for detecting water and other liquid leaks in residential and commercial buildings. When the sensor detects a leak, an alarm message will be sent to the LoRaWAN® network.
+name: R900A02 - Wireless Water leak Sensor
+description: The Netvox R900A02 Water Leak Detector comes with two water leak sensors suitable for detecting water and other liquid leaks in residential and commercial buildings. When the sensor detects a leak, an alarm message will be sent to the LoRaWAN® network.
 
 hardwareVersions:
   - version: '11'
@@ -14,25 +14,25 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: profile-eu868
-        codec: r900a01-codec
+        codec: r900a02-codec
       AS923:
         id: profile-as923
-        codec: r900a01-codec
+        codec: r900a02-codec
       US902-928:
         id: profile-us915
-        codec: r900a01-codec
+        codec: r900a02-codec
       AU915-928:
         id: profile-au915
-        codec: r900a01-codec
+        codec: r900a02-codec
       KR920-923:
         id: profile-kr920
-        codec: r900a01-codec
+        codec: r900a02-codec
       IN865-867:
         id: profile-in865
-        codec: r900a01-codec
+        codec: r900a02-codec
       CN470-510:
         id: profile-cn470
-        codec: r900a01-codec
+        codec: r900a02-codec
 
 sensors:
   - water
@@ -62,8 +62,8 @@ keyProvisioning:
 
 keySecurity: none
 
-productURL: http://www.netvox.com.tw/product.asp?pro=R900A01
-dataSheetURL: http://www.netvox.com.tw/um/R900A01/R900A01datasheet.pdf
+productURL: http://www.netvox.com.tw/product.asp?pro=R900A02
+dataSheetURL: http://www.netvox.com.tw/um/R900A02/R900A02datasheet.pdf
 
 photos:
-  main: photos/r900a01o1.png
+  main: photos/r900a02.png
