@@ -1,0 +1,37 @@
+# vendor/sparkfun/iot-node.yaml
+
+name: IoT Node
+description: Global LoRaWAN development board with RP2350 microcontroller, Digi XBee LR module, and Qwiic I2C connectors for rapid prototyping.
+
+# Hardware versions
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions
+firmwareVersions:
+  - version: '1.1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+
+    profiles:
+      EU863-870:
+        id: sparkfun-iot-node-profile-868
+        lorawanCertified: false
+        codec: sparkfun-iot-node-codec
+      US902-928:
+        id: sparkfun-iot-node-profile-915
+        lorawanCertified: false
+        codec: sparkfun-iot-node-codec
+
+# Type of device
+deviceType: devkit
+
+# Product and docs
+productURL: https://www.sparkfun.com/products/26060
+onboardingGuideURL: https://docs.sparkfun.com/sfe-iot-node-lorawan/introduction/
+
+# Photos
+photos:
+  main: sparkfun-iot-node.png
