@@ -52,3 +52,5 @@ uplinkDecoder:
           TX_Reason: 'Cyclic_Timer'
         errors: []
         warnings: []
+downlinkDecoder:
+  fileName: dnt-lw-esi.js

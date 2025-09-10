@@ -1,0 +1,63 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: rn320pmt.js
+  # Examples (optional)
+  examples:
+    - description: checkin upload
+      input:
+        fPort: 88
+        bytes: [0x0B, 0x21, 0xAA, 0xE8, 0x0A, 0x68, 0x08, 0x07, 0xEE, 0x08, 0x0E, 0x07, 0x00]
+      output:
+        data:
+          head: 11 # checkin (0x0B)
+          #model: 33 # pmt (0x21)
+          ver: 1745545386 # 2025-04-25T10:43:06 GMT+09:00 (0x680ae8aa)
+          interval: 1800 # 30min (0x0708)
+          splrate: 1800 # 30min (0x0708)
+          bat: 238 # 1~255 (0xee)
+          volt: 3592 # 3.592V (0x0e08)
+          frequency: 7 # KR920 (0x07)
+          subband: 0 # (0x00)
+
+    - description: datain upload
+      input:
+        fPort: 88
+        bytes: [0x0C, 0x21, 0x00, 0x8D, 0xF3, 0x0A, 0x68, 0x01, 0x17, 0x00, 0x17, 0x00, 0xDB, 0x02, 0x1F, 0x00, 0x90, 0x01, 0x00, 0x00, 0x0B, 0x0A, 0xD9, 0x07]
+      output:
+        data:
+          head: 12 # datain (0x0c)
+          model: 33 # pmt (0x21)
+          tsmode: 0 # Unix Epoch Timestamp  : 1970-1-1 (0x00)
+          timestamp: 1745548173 # 2025-04-25T11:29:33 GMT+09:00 (0x680af38d)
+          splfmt: 1 # 2Byte - (U)INT16 (0x01)
+          data_size: 16
+          pm25: 23 # (0x0017)
+          pm10: 23 # (0x0017)
+          lux: 731 # (0x02db)
+          hcho: 31 # (0x001f)
+          co2: 265 # (0x0109)
+          co: 0 # (0x0000)
+          temperature: 2571 # 25.71'C (0x0a0b)
+          humidity: 2009 # 20.09% (0x07d9)
+
+    - description: holdin upload
+      input:
+        fPort: 88
+        bytes: [0x0D, 0x21, 0x00, 0x8D, 0xF3, 0x0A, 0x68, 0x01, 0x17, 0x00, 0x17, 0x00, 0xDB, 0x02, 0x1F, 0x00, 0x90, 0x01, 0x00, 0x00, 0x0B, 0x0A, 0xD9, 0x07]
+      output:
+        data:
+          head: 13 # holdin (0x0d)
+          model: 33 # pmt (0x21)
+          tsmode: 0 # Unix Epoch Timestamp  : 1970-1-1 (0x00)
+          timestamp: 1745548173 # 2025-04-25T11:29:33 GMT+09:00 (0x680af38d)
+          splfmt: 1 # 2Byte - (U)INT16 (0x01)
+          data_size: 16
+          pm25: 23 # (0x0017)
+          pm10: 23 # (0x0017)
+          lux: 731 # (0x02db)
+          hcho: 31 # (0x001f)
+          co2: 265 # (0x0109)
+          co: 0 # (0x0000)
+          temperature: 2571 # 25.71'C (0x0a0b)
+          humidity: 2009 # 20.09% (0x07d9)
