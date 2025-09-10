@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.6'
+    version: '1.6'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -27,34 +27,25 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: ac-eu868
-        codec: lw006-SB-codec
+        codec: lw006-sb-codec
       IN865-867:
         id: ac-in865
-        codec: lw006-SB-codec
+        codec: lw006-sb-codec
       RU864-870:
         id: ac-ru864
-        codec: lw006-SB-codec
+        codec: lw006-sb-codec
       US902-928:
         id: ac-us915
-        codec: lw006-SB-codec
+        codec: lw006-sb-codec
       AU915-928:
         id: ac-au915
-        codec: lw006-SB-codec
+        codec: lw006-sb-codec
       AS923:
         id: ac-as923
-        codec: lw006-SB-codec
+        codec: lw006-sb-codec
       KR920-923:
         id: ac-kr920
-        codec: lw006-SB-codec
-      EU433:
-        id: ac-eu433
-        codec: lw006-SB-codec
-      CN470:
-        id: ac-cn470
-        codec: lw006-SB-codec
-      AS923:
-        id: ac-as923
-        codec: lw006-SB-codec
+        codec: lw006-sb-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -121,7 +112,7 @@ dataSheetURL: https://www.mokolora.com/contact-us/
 
 # Photos
 photos:
-  main: lw006-SB.jpg
+  main: lw006-1.png
 
 # Youtube or Vimeo Video (optional)
 videos:
@@ -129,6 +120,5 @@ videos:
 
 # Regulatory compliances (optional)
 compliances:
-  
   FCC:
     - standard: Part15C
