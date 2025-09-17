@@ -11,7 +11,6 @@ uplinkDecoder:
         data:
           L: 1.6155023574829102
           v: 3320
-          
 
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
