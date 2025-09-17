@@ -1,0 +1,60 @@
+name: Temperature & Humidity SHT31
+description: The AgroSense Temperature & Humidity Sensor uses the SHT31 sensor to measure air temperature and humidity in the range of -40°C to 125°C and 0 to 100% RH, with an accuracy of ±0.2°C and ±2% RH
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: temperature-humidity-sht31-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: temperature-humidity-sht31-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: temperature-humidity-sht31-codec
+
+deviceType: cots
+
+sensors:
+  - temperature
+  - humidity
+  - battery
+
+dimensions:
+  width: 131
+  length: 27
+  height: 63
+
+battery:
+  replaceable: true
+  type: AAA
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+  - join server
+
+productURL: https://www.agrosense.cc/pd.jsp?recommendFromPid=0&id=9&fromMid=366
+
+photos:
+  main: temperature-humidity-sht31.jpg
