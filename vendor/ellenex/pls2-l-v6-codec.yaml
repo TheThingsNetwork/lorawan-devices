@@ -3,14 +3,14 @@
 uplinkDecoder:
   fileName: decoder-v6.js
   examples:
-    - description: payload BF614CFA3FCEC8C86176190CF8FF -> Level 1.6155023574829102 m, BatteryVoltage 3320mV
+    - description: payload BF614CFA3FCEC8C86176190CF8FF -> L 1.6155023574829102 m, v 3320mV
       input:
         fPort: 15
         bytes: [0xBF, 0x61, 0x4C, 0xFA, 0x3F, 0xCE, 0xC8, 0xC8, 0x61, 0x76, 0x19, 0x0C, 0xF8, 0xFF]
       output:
         data:
-          level: 1.6155023574829102
-          batteryVoltage: 3320
+          L: 1.6155023574829102
+          v: 3320
     - description: Unknown FPort
       input:
         fPort: 42
