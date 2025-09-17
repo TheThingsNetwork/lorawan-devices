@@ -409,6 +409,5 @@ function decodeUplink(input) {
   //  Return the decoded data
   return {
     data: data,
-    warnings: warnings
   };
 }
