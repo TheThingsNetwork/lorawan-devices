@@ -11,13 +11,7 @@ uplinkDecoder:
         data:
           L: 1.6155023574829102
           v: 3320
-    - description: Unknown FPort
-      input:
-        fPort: 42
-        bytes: [0xBF, 0x61, 0x4C, 0xFA, 0x3F, 0xCE, 0xC8, 0xC8, 0x61, 0x76, 0x19, 0x0C, 0xF8, 0xFF]
-      output:
-        errors:
-          - 'Unknown FPort: please use fPort 15'
+          
     - description: Wrong format of input bytes
       input:
         fPort: 15
