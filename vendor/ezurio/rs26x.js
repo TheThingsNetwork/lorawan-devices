@@ -965,18 +965,6 @@ function encodeDownlink(input) {
     finalOutput.fPort = input.fPort;
   }
 
-//  finalOutput.warnings.push(input);
-
-//  const sortedEntries = Object.entries(input.data).sort(([a], [b]) =>
-//    a.toLowerCase().localeCompare(b.toLowerCase()));
-//  const sortedData = {};
-//  for (const [key, value] of sortedEntries) {
-//    sortedData[key] = value;
-//  }
-//  sorted_input.data = sortedData;
-
-//  finalOutput.errors.push(sorted_input);
-
   for (var row in input.data) {
 
     if (row == "Message Type") {
