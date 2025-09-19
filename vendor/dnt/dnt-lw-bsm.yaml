@@ -1,5 +1,5 @@
-name: LoRaWAN® Radiator Thermostat Controllable
-description: 'The dnt® LoRaWAN® Radiator thermostat Controllable (dnt-lw-eTRV-C) enables two ways to adjust the room temperature: directly on the device with the integrated buttons or remote control via Downlinks. It features an always-on e-paper display to show the current temperature settings, three customizable heating profiles with up to ten switching times per day, a window open detection to automatically reduce temperature and the possibility to perform a dynamic adaptive adjustment of the radiator. Because of very low energy consumption, a battery life up to 3 years can be archived.'
+name: LoRaWAN® Switch Actuator and Meter for brand switches
+description: The dnt LoRaWAN® Switch Actuator and Meter for brand switches is the ideal solution for intelligent control of lights and other electrical loads in public buildings such as schools, industrial plants, government facilities, hotels, or offices. It can be deployed within existing infrastructure and offers remote control via downlinks or directly on the device using the mounted switch plate.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,16 +9,9 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '0.1.0'
+    version: '1.0.5'
     numeric: 1
-    profiles:
-      EU863-870:
-        id: dnt-profile
     # Corresponding hardware versions (optional)
-    hardwareVersions:
-      - '1.0'
-  - version: '1.3.0'
-    numeric: 130
     hardwareVersions:
       - '1.0'
 
@@ -26,6 +19,7 @@ firmwareVersions:
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     features:
+      - remote rejoin
       - transmission interval
 
     # LoRaWAN Device Profiles per region
@@ -38,9 +32,9 @@ firmwareVersions:
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
+        id: dnt-profile-class-c
         lorawanCertified: true
-        codec: dnt-lw-etrv-c-codec
+        codec: dnt-lw-bsm-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -51,24 +45,26 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
+  - current
+  - power
+  - voltage
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 53
-  length: 94
-  height: 53
+  width: 71
+  length: 71
+  height: 37
 
 # Weight in grams (optional)
-weight: 179
+weight: 60
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 0
-    max: 50
+    min: -5
+    max: 40
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -103,10 +99,10 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-etrv-c/
+    url: https://dnt.de/dnt-lw-bsm/
 msrp:
-  EUR: 89.95
+  EUR: 100
 
 # Photos
 photos:
-  main: dnt-lw-etrv-c.png
+  main: dnt-lw-bsm.png
