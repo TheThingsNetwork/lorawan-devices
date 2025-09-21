@@ -1,7 +1,7 @@
 # Uplink decoder decodes CBOR data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: decoder-v6.js
+  fileName: pls2-l-v6.js
   examples:
     - description: payload BF614CFA3FCEC8C86176190CF8FF -> L 1.6155023574829102 m, v 3320mV
       input:
