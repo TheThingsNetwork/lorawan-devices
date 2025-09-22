@@ -1,3 +1,4 @@
+
 function decodeUtf8(bytes) {
   let s = '';
   for (let i = 0; i < bytes.length; i++) {
@@ -150,8 +151,8 @@ function mapCbor(obj) {
 function decodeUplink(input) {
   try {
     const parsed = decodeCBOR(input.bytes);
-    return { data: mapCbor(parsed), warnings: [], errors: [] };
+    return { data: mapCbor(parsed) };
   } catch (e) {
-    return { data: {}, warnings: [], errors: [e.message] };
+    return { data: {} };
   }
 }
