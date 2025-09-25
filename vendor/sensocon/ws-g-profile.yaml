@@ -1,0 +1,25 @@
+  id: ws-g-profile
+codec: sensocon-codec
+lorawanCertified: false
+region: US902-928
+supportsClassB: false
+supportsClassC: false
+macVersion: 1.0.3
+regParamsRevision: RP002-1.0.3
+supportsJoin: true
+supports32bitFCnt: true
+maxPayloadSize: 52
+pingSlotPeriod: 128
+rx1Delay: 1
+rx1DataRateOffset: 0
+rx2DataRate: 8
+rx2Frequency: 923300000
+factoryPresetFrequencies:
+  - 903900000
+  - 904100000
+  - 904300000
+  - 904500000
+  - 904700000
+  - 904900000
+  - 905100000
+  - 905300000
