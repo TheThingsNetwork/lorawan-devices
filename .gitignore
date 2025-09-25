@@ -8,3 +8,4 @@ bin/validate-image.exe
 bin/devices.csv
 .envrc
 .idea
+.sw?
