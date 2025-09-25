@@ -2160,3 +2160,14 @@ vendors:
   - id: sensus
     name: Sensus GmbH Ludwigshafen
     vendorID: 1170
+
+  - id: pressac-communications
+    name: Pressac Communications
+    description: Sensor Suppliers & IoT Sensor Manufacturers Get the IoT data you need to power your data driven solutions and projects.
+    logo: logo.png
+    website: https://www.pressac.com/
+    social:
+      linkedin: https://www.linkedin.com/company/pressac-communications-ltd/
+
+
+
