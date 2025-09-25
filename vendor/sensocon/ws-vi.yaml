@@ -1,0 +1,36 @@
+name: WS-VI Analog Voltage Sensor
+description: >-
+  Sensocon® WS-VI Analog Voltage Sensors provide wireless measurement of 0-10VDC signals,
+  ideal for integration with transducers, VFDs, and building management systems. Designed
+  for long-range LoRaWAN networks, they are well-suited for industrial and process
+  control applications.
+
+
+  Examples of downlink commands (hex):
+
+  - Set interval to 900 seconds: 00 02 03 84
+
+  - Apply +0.1 inWC pressure offset: 02 02 00 64
+
+  - Apply +0.1 V voltage offset: 08 02 00 64
+
+  - Apply +0.1 A current offset: 0A 02 00 64
+
+  - Apply +1°F temperature offset: 04 02 00 3E8
+
+  - Apply +1% humidity offset: 06 02 00 3E8
+
+  - Apply +0.1 PSI gauge diff pressure offset: 10 02 00 64
+hardwareVersions:
+- version: 90309-1
+firmwareVersions:
+- version: AA
+productURL: https://sensocon.com/series-ws-wireless-voltage-sensor.html
+documentation: https://sensocon.com/media/hexaattachment/products/attachments/WS-VI_Wireless_Voltage.pdf
+technicalDetails:
+  Measurement Type: Analog Voltage Input (0–10VDC)
+  Input Range: 0–10VDC
+  Accuracy: ±0.5% FS typical
+  Wireless Protocol: LoRaWAN, US915
+  Power: Internal battery, multi-year life
+  Applications: VFDs, transducers, building automation
