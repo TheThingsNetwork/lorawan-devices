@@ -1,0 +1,20 @@
+macVersion: 1.0.4
+regionalParametersVersion: RP002-1.0.4
+
+supportsJoin: true
+supportsClassA: true
+supportsClassB: true
+supportsClassC: true
+
+classBTimeout: 60
+classCTimeout: 60
+pingSlotPeriod: 1
+pingSlotDataRateIndex: 0
+pingSlotFrequency: 923300000
+
+maxEIRP: 21
+supports32bitFCnt: true
+resetFCnt: false
+rx1Delay: 1
+rx1DataRateOffset: 0
+# RX2 left to NS defaults for US915
