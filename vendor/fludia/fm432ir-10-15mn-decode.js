@@ -1,22 +1,27 @@
 const PAYLOAD_TYPE = {
-  T1_E_SUM                          :  {header: 0x2e, size: 28/*in bytes*/, name: "T1_E_SUM"},
-  T1_E_POS                          :  {header: 0x2f, size: 28/*in bytes*/, name: "T1_E_POS"},
-  T1_E_NEG                          :  {header: 0x30, size: 28/*in bytes*/, name: "T1_E_NEG"},
-  T1_E_SUM_ADJUSTABLE_STEP          :  {header: 0x71, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_SUM_ADJUSTABLE_STEP"},
-  T1_E_POS_ADJUSTABLE_STEP          :  {header: 0x72, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_POS_ADJUSTABLE_STEP"},
-  T1_E_NEG_ADJUSTABLE_STEP          :  {header: 0x73, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_NEG_ADJUSTABLE_STEP"},
-  T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP :  {header: 0x74, size_min: 23/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP"},
-  T2_MME                            :  {header: 0x2a, size: 18/*in bytes*/, name: "T2_MME"},
-  T2_MME_ADJUSTABLE_STEP            :  {header: 0x3a, size: 21/*in bytes*/, name: "T2_MME_ADJUSTABLE_STEP"},
-  T1_MECA_10MN                      :  {header: 0x48, size: 21/*in bytes*/, name: "T1_MECA_10MN"},
-  T1_MECA_15MN                      :  {header: 0x49, size: 21/*in bytes*/, name: "T1_MECA_15MN"},
-  T1_MECA_1H                        :  {header: 0x4a, size: 21/*in bytes*/, name: "T1_MECA_1H"},
-  T1_MECA_ADJUSTABLE_STEP           :  {header: 0x6F, size_min: 8/*in bytes*/, size_max: 46/*in bytes*/, name: "T1_MECA_ADJUSTABLE_STEP"},
-  T2_MECA                           :  {header: 0x4b, size: 12/*in bytes*/, name: "T2_MECA"},
-  T2_MECA_ADJUSTABLE_STEP           :  {header: 0x70, size: 16/*in bytes*/, name: "T2_MECA_ADJUSTABLE_STEP"},
-  TT1_MECA                          :  {header: 0x12, size: 37/*in bytes*/, name: "TT1_MECA"},
-  TT2_MECA                          :  {header: 0x13, size: 30/*in bytes*/, name: "TT2_MECA"},
-  START                             :  {header: 0x01, size: 3/*in bytes*/,  name: "START"}
+  T1_E_SUM                              :  {header: 0x2e, size: 28/*in bytes*/, name: "T1_E_SUM"},
+  T1_E_POS                              :  {header: 0x2f, size: 28/*in bytes*/, name: "T1_E_POS"},
+  T1_E_NEG                              :  {header: 0x30, size: 28/*in bytes*/, name: "T1_E_NEG"},
+  T1_E_SUM_ADJUSTABLE_STEP              :  {header: 0x71, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_SUM_ADJUSTABLE_STEP"},
+  T1_E_POS_ADJUSTABLE_STEP              :  {header: 0x72, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_POS_ADJUSTABLE_STEP"},
+  T1_E_NEG_ADJUSTABLE_STEP              :  {header: 0x73, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_NEG_ADJUSTABLE_STEP"},
+  T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP     :  {header: 0x74, size_min: 23/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP"},
+  T1_E_SUM_ADJUSTABLE_STEP_WH           :  {header: 0x75, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_SUM_ADJUSTABLE_STEP_WH"},
+  T1_E_POS_ADJUSTABLE_STEP_WH           :  {header: 0x76, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_POS_ADJUSTABLE_STEP_WH"},
+  T1_E_NEG_ADJUSTABLE_STEP_WH           :  {header: 0x77, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_NEG_ADJUSTABLE_STEP_WH"},
+  T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH  :  {header: 0x78, size_min: 23/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH"},
+  T2_MME                                :  {header: 0x2a, size: 18/*in bytes*/, name: "T2_MME"},
+  T2_MME_ADJUSTABLE_STEP                :  {header: 0x3a, size: 21/*in bytes*/, name: "T2_MME_ADJUSTABLE_STEP"},
+  T2_MME_ADJUSTABLE_STEP_WH             :  {header: 0x3b, size: 21/*in bytes*/, name: "T2_MME_ADJUSTABLE_STEP_WH"},
+  T1_MECA_10MN                          :  {header: 0x48, size: 21/*in bytes*/, name: "T1_MECA_10MN"},
+  T1_MECA_15MN                          :  {header: 0x49, size: 21/*in bytes*/, name: "T1_MECA_15MN"},
+  T1_MECA_1H                            :  {header: 0x4a, size: 21/*in bytes*/, name: "T1_MECA_1H"},
+  T1_MECA_ADJUSTABLE_STEP               :  {header: 0x6F, size_min: 8/*in bytes*/, size_max: 46/*in bytes*/, name: "T1_MECA_ADJUSTABLE_STEP"},
+  T2_MECA                               :  {header: 0x4b, size: 12/*in bytes*/, name: "T2_MECA"},
+  T2_MECA_ADJUSTABLE_STEP               :  {header: 0x70, size: 16/*in bytes*/, name: "T2_MECA_ADJUSTABLE_STEP"},
+  TT1_MECA                              :  {header: 0x12, size: 37/*in bytes*/, name: "TT1_MECA"},
+  TT2_MECA                              :  {header: 0x13, size: 30/*in bytes*/, name: "TT2_MECA"},
+  START                                 :  {header: 0x01, size: 3/*in bytes*/,  name: "START"}
 }
 
 //Main function Decoder
@@ -66,8 +71,14 @@ function decodeUplink(input){
     decoded.data.type_of_measure = data.type_of_measure;
   }else if(decoded.data.message_type == PAYLOAD_TYPE.T1_E_SUM_ADJUSTABLE_STEP.name
     || decoded.data.message_type == PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP.name
-    || decoded.data.message_type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name){
-    var data = decode_T1_mme_adjustable_step(input.bytes,decoded.data.message_type);
+    || decoded.data.message_type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name
+    || decoded.data.message_type == PAYLOAD_TYPE.T1_E_SUM_ADJUSTABLE_STEP_WH.name
+    || decoded.data.message_type == PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP_WH.name
+    || decoded.data.message_type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP_WH.name){
+    var isWh = (decoded.data.message_type == PAYLOAD_TYPE.T1_E_SUM_ADJUSTABLE_STEP_WH.name
+      || decoded.data.message_type == PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP_WH.name
+      || decoded.data.message_type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP_WH.name) ? true : false;
+    var data = decode_T1_mme_adjustable_step(input.bytes,decoded.data.message_type, isWh);
     for(var i = 0;i<data.warnings.length;i++){
       decoded.warnings.push(data.warnings[i]);
     }
@@ -76,8 +87,10 @@ function decodeUplink(input){
     decoded.data.powers = data.powers;
     decoded.data.time_step = data.time_step;
     decoded.data.type_of_measure = data.type_of_measure;
-  }else if(decoded.data.message_type == PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.name){
-    var data = decode_T1_mme_double_mode_adjustable_step(input.bytes,decoded.data.message_type);
+  }else if(decoded.data.message_type == PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.name
+      || decoded.data.message_type == PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH.name){
+    var isWh = (decoded.data.message_type == PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH.name) ? true : false;
+    var data = decode_T1_mme_double_mode_adjustable_step(input.bytes,decoded.data.message_type, isWh);
     for(var i = 0;i<data.warnings.length;i++){
       decoded.warnings.push(data.warnings[i]);
     }
@@ -100,8 +113,10 @@ function decodeUplink(input){
     decoded.data.scaler_e_sum = data.scaler_e_sum;
     decoded.data.scaler_e_neg = data.scaler_e_neg;
     decoded.data.sensor_sensitivity = data.sensor_sensitivity;
-  }else if(decoded.data.message_type == PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP.name){
-    var data = decode_T2_mme_adjustable_step(input.bytes);
+  }else if(decoded.data.message_type == PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP.name
+      || decoded.data.message_type == PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP_WH.name){
+      var isWh = (decoded.data.message_type == PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP_WH.name) ? true : false;
+    var data = decode_T2_mme_adjustable_step(input.bytes, isWh);
     for(var i = 0;i<data.warnings.length;i++){
       decoded.warnings.push(data.warnings[i]);
     }
@@ -177,6 +192,9 @@ function find_message_type(payload){
       case PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP.header:
         if(payload.length == PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP.size) return PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP.name
         break;
+      case PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP_WH.header:
+        if(payload.length == PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP_WH.size) return PAYLOAD_TYPE.T2_MME_ADJUSTABLE_STEP_WH.name
+        break;
     }
   }else{
     switch(payload[0]){
@@ -195,6 +213,22 @@ function find_message_type(payload){
       case PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.header:
         if(payload.length >= PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.size_min && payload.length <= PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.size_max)
           return PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP.name
+        break;
+      case PAYLOAD_TYPE.T1_E_SUM_ADJUSTABLE_STEP_WH.header:
+        if(payload.length >= PAYLOAD_TYPE.T1_E_SUM_ADJUSTABLE_STEP_WH.size_min && payload.length <= PAYLOAD_TYPE.T1_E_SUM_ADJUSTABLE_STEP_WH.size_max)
+          return PAYLOAD_TYPE.T1_E_SUM_ADJUSTABLE_STEP_WH.name
+        break;
+      case PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP_WH.header:
+        if(payload.length >= PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP_WH.size_min && payload.length <= PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP_WH.size_max)
+          return PAYLOAD_TYPE.T1_E_POS_ADJUSTABLE_STEP_WH.name
+        break;
+      case PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP_WH.header:
+        if(payload.length >= PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP_WH.size_min && payload.length <= PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP_WH.size_max)
+          return PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP_WH.name
+        break;
+      case PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH.header:
+        if(payload.length >= PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH.size_min && payload.length <= PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH.size_max)
+          return PAYLOAD_TYPE.T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP_WH.name
         break;
       case PAYLOAD_TYPE.T1_MECA_10MN.header:
         if(payload.length == PAYLOAD_TYPE.T1_MECA_10MN.size) return PAYLOAD_TYPE.T1_MECA_10MN.name
@@ -271,27 +305,31 @@ function decode_T1_mme(payload, type){
   return data
 }
 
-function decode_T1_mme_adjustable_step(payload, type){
+function decode_T1_mme_adjustable_step(payload, type, isWh){
   var data = {};
   data.time_step = payload[1];
   data.powers = [];
   data.warnings = [];
   var signed = payload[2];
   if(!signed){
-    data.index = parseInt(toHexString(payload).substring(6, 22),16)/10
+    if(isWh) data.index = parseInt(toHexString(payload).substring(6, 22),16);
+    else data.index = parseInt(toHexString(payload).substring(6, 22),16)/10;
   }else{
     if(payload[3] & 0x80){
       //We have a negative number
       //For signed values we will have an issue with javascript handling only 52 bits and not 64
       if(payload[3] == 0xFF && (payload[4] >> 4) == 0xFF && (payload[5] >> 4) == 0xFF && (payload[6] >> 4) == 0xFF){
-        data.index = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
+        if(isWh) data.index = (parseInt(toHexString(payload).substring(14, 22),16) >> 0);
+        else data.index = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10;
       }else{
         var bytes = [];
         for(var i = 0;i<8;i++) bytes.push(payload[i+3])
-        data.index = toSignedInt64(bytes)/10
+        if(isWh) data.index = toSignedInt64(bytes);
+        else data.index = toSignedInt64(bytes)/10;
       }
     }else{//Positive no issue
-        data.index = parseInt(toHexString(payload).substring(6, 22),16)/10
+      if(isWh) data.index = parseInt(toHexString(payload).substring(6, 22),16)
+      else data.index = parseInt(toHexString(payload).substring(6, 22),16)/10
     }
   }
   /*if(type == PAYLOAD_TYPE.T1_E_NEG_ADJUSTABLE_STEP.name && data.index > 0){
@@ -304,8 +342,14 @@ function decode_T1_mme_adjustable_step(payload, type){
         data.powers.push(null);
     }else{
       var value = 0;
-      if(!signed) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
-      else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      if(!signed){
+        if(isWh) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2]);
+        else value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      }
+      else{
+        if(isWh) value = toSignedInt16(payload[11+i*2],payload[12+i*2]);
+        else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      }
       /*if(type == PAYLOAD_TYPE.T1_E_NEG.name && value > 0){
         value = -value;
       }*/
@@ -315,7 +359,7 @@ function decode_T1_mme_adjustable_step(payload, type){
   return data
 }
 
-function decode_T1_mme_double_mode_adjustable_step(payload, type){
+function decode_T1_mme_double_mode_adjustable_step(payload, type, isWh){
   var data = {};
   data.time_step = payload[1];
   data.powers = [[],[]];
@@ -334,24 +378,29 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
     signedPos = true;
   }
   if(!signedPos){
-    data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10
+    if(isWh) data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16);
+    else data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10;
   }else{
     if(payload[3] & 0x80){
       //We have a negative number
       //For signed values we will have an issue with javascript handling only 52 bits and not 64
       if(payload[3] == 0xFF && (payload[4] >> 4) == 0xFF && (payload[5] >> 4) == 0xFF && (payload[6] >> 4) == 0xFF){
-        data.index_solar.e_pos = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10
+        if(isWh) data.index_solar.e_pos = (parseInt(toHexString(payload).substring(14, 22),16) >> 0);
+        else data.index_solar.e_pos = (parseInt(toHexString(payload).substring(14, 22),16) >> 0)/10;
       }else{
         var bytes = [];
         for(var i = 0;i<8;i++) bytes.push(payload[i+3])
-        data.index_solar.e_pos = toSignedInt64(bytes)/10
+        if(isWh) data.index_solar.e_pos = toSignedInt64(bytes);
+        else data.index_solar.e_pos = toSignedInt64(bytes)/10;
       }
     }else{//Positive no issue
-        data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10
+      if(isWh) data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)
+      else data.index_solar.e_pos = parseInt(toHexString(payload).substring(6, 22),16)/10
     }
   }
   if(!signedNeg){
-    data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
+    if(isWh) data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16);
+    else data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10;
     //data.index_solar.e_neg = - data.index_solar.e_neg
   }else{
     if(payload[3+8+2*nb_values_in_payload] & 0x80){
@@ -359,14 +408,17 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
       //For signed values we will have an issue with javascript handling only 52 bits and not 64
       if(payload[3+8+2*nb_values_in_payload] == 0xFF && (payload[4+8+2*nb_values_in_payload] >> 4) == 0xFF
          && (payload[5+8+2*nb_values_in_payload] >> 4) == 0xFF && (payload[6+8+2*nb_values_in_payload] >> 4) == 0xFF){
-        data.index_solar.e_neg = (parseInt(toHexString(payload).substring((15+2*nb_values_in_payload)*2, (15+2*nb_values_in_payload)*2+8),16) >> 0)/10
+        if(isWh) data.index_solar.e_neg = (parseInt(toHexString(payload).substring((15+2*nb_values_in_payload)*2, (15+2*nb_values_in_payload)*2+8),16) >> 0)
+        else data.index_solar.e_neg = (parseInt(toHexString(payload).substring((15+2*nb_values_in_payload)*2, (15+2*nb_values_in_payload)*2+8),16) >> 0)/10
       }else{
         var bytes = [];
         for(var i = 0;i<8;i++) bytes.push(payload[i+(11+2*nb_values_in_payload)])
-        data.index_solar.e_neg = toSignedInt64(bytes)/10
+        if(isWh) data.index_solar.e_neg = toSignedInt64(bytes);
+        else data.index_solar.e_neg = toSignedInt64(bytes)/10;
       }
     }else{//Positive no issue
-        data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
+      if(isWh) data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)
+      else data.index_solar.e_neg = parseInt(toHexString(payload).substring(22+(4*nb_values_in_payload), 22+(4*nb_values_in_payload)+16),16)/10
     }
   }
   for(var i = 0;i<nb_values_in_payload;i++){
@@ -375,8 +427,13 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
         data.powers[0].push(null);
     }else{
       var value = 0;
-      if(!signedPos) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
-      else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      if(!signedPos){
+        if(isWh) value = toUnsignedInt16(payload[11+i*2],payload[12+i*2]);
+        else value = toUnsignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      } else{
+        if(isWh) value = toSignedInt16(payload[11+i*2],payload[12+i*2]);
+        else value = toSignedInt16(payload[11+i*2],payload[12+i*2])/10;
+      }
       data.powers[0].push(value*60/data.time_step)
     }
   }
@@ -390,10 +447,13 @@ function decode_T1_mme_double_mode_adjustable_step(payload, type){
     }else{
       var value = 0;
       if(!signedNeg){
-        value = toUnsignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
+        if(isWh) value = toUnsignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2]);
+        else value = toUnsignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
         //value = -value;
+      } else{
+        if(isWh) value = toSignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2]);
+        else value = toSignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
       }
-      else value = toSignedInt16(payload[19+nb_values_in_payload*2+i*2],payload[20+nb_values_in_payload*2+i*2])/10;
       data.powers[1].push(value*60/data.time_step)
     }
   }
@@ -524,7 +584,7 @@ function decode_T2_mme(payload){
   return data;
 }
 
-function decode_T2_mme_adjustable_step(payload){
+function decode_T2_mme_adjustable_step(payload, isWh){
   var data = {};
   data.time_step = payload[2];
   data.nb_values = payload[3];
@@ -547,22 +607,31 @@ function decode_T2_mme_adjustable_step(payload){
   data.scaler_e_neg = toSignedInt8(payload[12]);
   if(payload[12] == 0x7F) data.scaler_e_neg = null;
   else data.scaler_e_neg = Math.pow(10, data.scaler_e_neg)
-  if(data.measure == 0) data.index = parseInt(toHexString(payload).substring(26, 42),16)/10;
+  if(data.measure == 0){
+    if(isWh) data.index = parseInt(toHexString(payload).substring(26, 42),16);
+    else data.index = parseInt(toHexString(payload).substring(26, 42),16)/10;
+  }
   if(data.measure == 1){
     if(payload[13] & 0x80){
       //We have a negative number
       //For signed values we will have an issue with javascript handling only 32 bits
       if(payload[13] == 0xFF && (payload[14]) == 0xFF && (payload[15]) == 0xFF && (payload[16]) == 0xFF){
-        data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0)/10
+        if(isWh) data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0);
+        else data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0)/10;
       }else{
         for(var i = 0;i<8;i++) bytes.push(payload[i+12])
-        data.index = toSignedInt64(bytes)/10
+        if(isWh) data.index = toSignedInt64(bytes);
+        else data.index = toSignedInt64(bytes)/10;
       }
     }else{//Positive no issue
-        data.index = parseInt(toHexString(payload).substring(26, 42),16)/10
+      if(isWh) data.index = parseInt(toHexString(payload).substring(26, 42),16);
+      else data.index = parseInt(toHexString(payload).substring(26, 42),16)/10;
     }
   }
-  if(data.measure == 2) data.index = parseInt(toHexString(payload).substring(26, 42),16)/10;
+  if(data.measure == 2){
+    if(isWh) data.index = parseInt(toHexString(payload).substring(26, 42),16);
+    else data.index = parseInt(toHexString(payload).substring(26, 42),16)/10;
+  }
   return data;
 }
 
