@@ -42,6 +42,51 @@ function decodeUplink(input) {
     errors: []
   };
   }
+ else if (input.bytes.length == 19) 
+  { 
+  return { 
+    data: { 
+      messages_received: byteArrayToLong(input.bytes, 0), 
+      messages_send: byteArrayToLong(input.bytes, 4), 
+      lastcolor_red: input.bytes[8], 
+      lastcolor_blue: input.bytes[9], 
+      lastcolor_green: input.bytes[10], 
+      lastcolor_ontime: input.bytes[11], 
+      lastcolor_offtime: input.bytes[1], 
+      sw_rev: input.bytes[13], 
+      hw_rev: input.bytes[14], 
+      sound_no: input.bytes[15], 
+      sound_volume: input.bytes[16], 
+      sound_duration:input.bytes[17], 
+      high_brightness_mode: input.bytes[18] 
+    }, 
+    warnings: [], 
+    errors: [] 
+  }; 
+  } 
+else if (input.bytes.length == 20) 
+  { 
+  return { 
+    data: { 
+      messages_received: byteArrayToLong(input.bytes, 0), 
+      messages_send: byteArrayToLong(input.bytes, 4), 
+      lastcolor_red: input.bytes[8], 
+      lastcolor_blue: input.bytes[9], 
+      lastcolor_green: input.bytes[10], 
+      lastcolor_ontime: input.bytes[11], 
+      lastcolor_offtime: input.bytes[1], 
+      sw_rev: input.bytes[13], 
+      hw_rev: input.bytes[14], 
+      sound_no: input.bytes[15], 
+      sound_volume: input.bytes[16], 
+      sound_duration:input.bytes[17], 
+      high_brightness_mode: input.bytes[18],
+      controlbyte: input.bytes[19]
+    }, 
+    warnings: [], 
+    errors: [] 
+  }; 
+  } 
   else if (input.bytes.length == 10)
   {
 return {
