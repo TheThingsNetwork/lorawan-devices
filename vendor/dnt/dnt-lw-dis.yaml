@@ -100,7 +100,7 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-dis1/
+    url: https://dnt.de/produkte/dnt-lorawan-distanzsensor-dnt-lw-dis1/
 msrp:
   EUR: 164.95
 

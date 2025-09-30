@@ -99,7 +99,7 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-bsm/
+    url: https://dnt.de/produkte/dnt-lw-bsm/
 msrp:
   EUR: 100
 
