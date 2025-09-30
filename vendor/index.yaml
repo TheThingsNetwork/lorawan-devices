@@ -340,8 +340,8 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER Druckmesstechnik AG
-    website: https://keller-druck.com/
+    name: KELLER Pressure
+    website: https://keller-pressure.com/
     logo: keller-logo.svg
     vendorID: 222
     description: KELLER Pressure, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
@@ -586,6 +586,12 @@ vendors:
   - id: packetworx
     name: PacketWorx Inc.
     vendorID: 314
+
+  - id: pallidus
+    name: Pallidus
+    website: https://pallidus.io/
+    ouis:
+      - 0002CC
 
   - id: parametric
     name: Parametric Engineering GmbH
@@ -2122,6 +2128,9 @@ vendors:
   - id: southerniot
     name: Southern IoT
 
+  - id: ezurio
+    name: Ezurio Inc.
+
   - id: truvami
     description: tiny trackers - total solution
     name: truvami
@@ -2136,3 +2145,18 @@ vendors:
     website: https://www.tehamawireless.com
     ouis:
       - 50C2D0
+
+  - id: radionode
+    name: Dekist Co., Ltd
+    description: Make it connected through Radionode Sensors
+    website: https://en.radionode365.com/kr/index.php
+    logo: radionode_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/radionode/
+      #facebook: https://www.facebook.com/radionode365
+      #instagram: radionodekorea
+      github: radionode
+
+  - id: sensus
+    name: Sensus GmbH Ludwigshafen
+    vendorID: 1170

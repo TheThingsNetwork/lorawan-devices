@@ -16,8 +16,8 @@ function customDecoder(bytes, fport) {
 // DO NOT EDIT BELOW THIS POINT!!
 //===========================================================
 const DECODER_MAJOR_VERSION = 2;
-const DECODER_MINOR_VERSION = 1;
-const DECODER_PATCH_VERSION = 0;
+const DECODER_MINOR_VERSION = 2;
+const DECODER_PATCH_VERSION = 1;
 
 function decodeUplink(input) {
     const decoded = Decoder(input.bytes, input.fPort);
@@ -57,6 +57,9 @@ function Decoder(bytes, fport) {
     else if((fport >= 70) && (fport <= 79)) {
         decodedData = parseConfigurationPayload(bytes, fport);
     }
+    else if((fport >= 80) && (fport <= 89)) {
+        decodedData = parseEventLogPayload(bytes);
+    }
     else if((fport >= 100) && (fport <= 109)) {
         decodedData = parseModbusGenericPayload(bytes, fport);
     }
@@ -84,10 +87,11 @@ function addVoboMetadata(decodedData, fport)
 
     var voboType = "";
     var payloadType = "";
-    var portSecondDigit = fport % 10;
+    var portLastDigit = fport % 10;
 
-    if((portSecondDigit == 0) || ((fport >= 1) && (fport < 10))) voboType = "VoBoXX";
-    else if(portSecondDigit == 1) voboType = "VoBoTC";
+    if((portLastDigit == 0) || ((fport >= 1) && (fport < 10))) voboType = "VoBoXX";
+    else if(portLastDigit == 1) voboType = "VoBoTC";
+    else if(portLastDigit == 2) voboType = "VoBoXP";
 
     if(fport == 1) payloadType = "Standard";
     else if ((fport >= 2) && (fport <= 9))
@@ -131,8 +135,17 @@ function addVoboMetadata(decodedData, fport)
     }
     else if((fport >= 60) && (fport <= 69)) payloadType = "Event Log";
     else if((fport >= 70) && (fport <= 79)) payloadType = "Configuration";
+    else if((fport >= 80) && (fport <= 89)) payloadType = "Notification";
     else if((fport >= 100) && (fport <= 109)) payloadType = "Modbus Generic";
-    else if((fport >= 110) && (fport <= 119)) payloadType = "Analog Input Variable Length";
+    else if((fport >= 110) && (fport <= 119))
+    {
+        payloadType = "Analog Input Variable Length";
+        for (let i = 0; i < payload.data.numOfAinPayloads; i++)
+        {
+            payload.data["analogSensorString" + i] = lookupAnalogSensorName(voboType, payload.data.ainPayloads[i].sensorNum0);
+            payload.data["engUnitsString" + i] = lookupUnits(1, payload.data.ainPayloads[i].sensorUnits0);
+        }
+    }
     else if((fport >= 120) && (fport <= 129)) payloadType = "Modbus Standard Variable Length";
 
     payload.data.fport = fport;
@@ -269,7 +282,7 @@ function parseEventLogPayload(bytes)
     return decoded;
 }
 
-function parseVoboLibGeneralConfigurationPayload(bytes)
+function parseVoboLibGeneralConfigurationPayload(bytes, fport)
 {
     var decoded = {};
     decoded.subgroupID = bytes[0] & 0x0F;                                           // Sub-Group ID (4-bit)
@@ -279,7 +292,8 @@ function parseVoboLibGeneralConfigurationPayload(bytes)
     {
         decoded.transRejoin = bytes[1] & 0x0F;                                          // Transmission Rejoin (4-bit)
         decoded.ackFrequency = (bytes[1] & 0xF0) >> 4;                                  // Acknowledgement Frequency for Data (4-bit)
-        decoded.lowBattery = parseFloat(((bytes[2] & 0x0F) / 10.0 + 2.5).toFixed(1));   // Low Battery Threshold (4-bit)
+        if ((fport == 70) || (fport == 71)) decoded.lowBattery = parseFloat(((bytes[2] & 0x0F) / 10.0 + 2.5).toFixed(1)); // Low Battery Threshold (4-bit)
+        else if (fport == 72) decoded.lowVoltThreshold = parseFloat(((bytes[2] & 0x0F) / 10.0 + 2.5).toFixed(1)); // Low Voltage Threshold (4-bit)
         decoded.reserved1 = (bytes[2] & 0x10) >> 4;                                     // Reserved 1 Field (1-bit)
         decoded.heartbeatAckEnable = Boolean((bytes[2] & 0x20) >> 5);                   // Acknowledgement Enable for Heartbeat (1-bit)
         decoded.operationMode = (bytes[2] & 0x40) >> 6;                                 // Operation Mode (1-bit)
@@ -325,7 +339,8 @@ function parseVoboLibVoboSyncConfigurationPayload(bytes)
         decoded.reservedVCPDS = bytes[7] & 0x0F;                                                        // Reserved VCPDS (4-bit)
         decoded.reservedVMPDS = (bytes[7] & 0xF0) >> 4;                                                 // Reserved VMPDS (4-bit)
         decoded.reservedVUDS = bytes[8] & 0x0F;                                                         // Reserved VUDS (4-bit)
-        decoded.reserved1 = (bytes[8] & 0x70) >> 4;                                                     // Reserved 1 Field (3-bit)
+        decoded.reserved1 = (bytes[8] & 0x30) >> 4;                                                     // Reserved 1 Field (2-bit)
+        decoded.reservedVSAE = Boolean((bytes[8] & 0x40) >> 6);                                         // Reserved VSAE (1-bit)
         decoded.vbsEnable = Boolean((bytes[8] & 0x80) >> 7);                                            // VoboSync Enable (1-bit)
         decoded.reserved3 = bytes[9] & 0x3F;                                                            // Reserved 3 (6-bit)
         decoded.reserved2 = (bytes[9] & 0xC0) >> 6;                                                     // Reserved 2 Field (2-bit)
@@ -361,7 +376,8 @@ function parseVoboXXGeneralConfigurationPayload(bytes)
     decoded.adcTemperatureTransmitEnable = Boolean((bytes[4] >> 2) & 0x01); // ADC Temperature Transmit Enable (1-bit)
     decoded.mbTransmitEnable = Boolean((bytes[4] >> 3) & 0x01);             // Modbus Transmit Enable (1-bit)
     decoded.ainPayloadType = (bytes[4] >> 4) & 0x01;                        // Ain Payload Type (1-bit)
-    decoded.reserved1 = (bytes[4] >> 4) & 0x07;                             // Reserved 1 Field (2-bit)
+    decoded.reservedMAWE = Boolean((bytes[4] >> 5) & 0x01);                 // Reserved MAWE Field (1-bit) 
+    decoded.reservedMADE = Boolean((bytes[4] >> 6) & 0x01);                 // Reserved MADE Field (1-bit) 
     decoded.reservedMAME = Boolean((bytes[4] >> 7) & 0x01);                 // Reserved MAME Field (1-bit) 
 
     return decoded;
@@ -873,13 +889,119 @@ function parseVoboTCCalibrationConfigurationPayload(bytes)
     return decoded;
 }
 
+function parseVoboXPGeneralConfigurationPayload(bytes)
+{
+    var decoded = {};
+    decoded.subgroupID = bytes[0] & 0x0F;                                   // Sub-Group ID (4-bit)
+    decoded.sequenceNumber = (bytes[0] & 0xF0) >> 4;                        // Sequence Number (4-bit)
+
+    if (decoded.sequenceNumber == 0)
+    {
+        decoded.analogVoltage = parseFloat((bytes[1] / 10).toFixed(1));     // Analog Voltage (8-bit)
+        decoded.powerTime = parseFloat((bytes[2] / 10).toFixed(1));         // Analog Power Time (8-bit)
+        decoded.mbEnable = Boolean(bytes[3] & 0x01);                        // Modbus Enable (1-bit)
+        decoded.reserved1 = (bytes[3] >> 1) & 0x7F;                         // Reserved 1 Field (7-bit)
+        decoded.reserved2 = bytes[4] & 0x07;                                // Reserved 2 Field (3-bit)
+        decoded.mbTransmitEnable = Boolean((bytes[4] >> 3) & 0x01);         // Modbus Transmit Enable (1-bit)
+        decoded.ainPayloadType = (bytes[4] >> 4) & 0x01;                    // Ain Payload Type Field (1-bit)
+        decoded.reservedMAWE = Boolean((bytes[4] >> 5) & 0x01);             // Reserved MAWE Field (1-bit) 
+        decoded.reservedMADE = Boolean((bytes[4] >> 6) & 0x01);             // Reserved MADE Field (1-bit) 
+        decoded.reservedMAME = Boolean((bytes[4] >> 7) & 0x01);             // Reserved MAME Field (1-bit) 
+        decoded.reservedDTC = (bytes[6] << 8) | bytes[5];                   // Reserved DTC Field (16-bit)
+    }
+
+    if (decoded.sequenceNumber == 1)
+    {
+        decoded.stateRLY1 = bytes[1] & 0x01;                                // RLY1 Driver State (1-bit)
+        decoded.stateRLY2 = (bytes[1] >> 1) & 0x01;                         // RLY2 Driver State (1-bit)
+        decoded.stateRLY3 = (bytes[1] >> 2) & 0x01;                         // RLY3 Driver State (1-bit)
+        decoded.stateRLY4 = (bytes[1] >> 3) & 0x01;                         // RLY4 Driver State (1-bit)
+        decoded.reserved1 = (bytes[1] >> 4) & 0x0F;                         // Reserved 1 Field (4-bit)
+        decoded.lorawanClass = bytes[2] & 0x01;                             // LoRaWAN Class (1-bit)
+        decoded.contMeasEnable = Boolean((bytes[2] >> 1) & 0x01);           // Continuous Measurement Enable (1-bit)
+        decoded.reservedARDE = Boolean((bytes[2] >> 2) & 0x01);             // Reserved ARDE Field (1-bit)
+        decoded.pFailWarnEnable = Boolean((bytes[2] >> 3) & 0x01);          // Power Fail Warning Enable (1-bit)
+        decoded.pcntDin1Enable = Boolean((bytes[2] >> 4) & 0x01);           // Pulse Count DIN1 Enable (1-bit)
+        decoded.pcntDin2Enable = Boolean((bytes[2] >> 5) & 0x01);           // Pulse Count DIN2 Enable (1-bit)
+        decoded.reserved2 = (bytes[2] >> 6) & 0x03;                         // Reserved 2 Field (2-bit)
+        decoded.pcntDin1Type = bytes[3] & 0x03;                             // Pulse Count DIN1 Type (2-bit)
+        decoded.pcntDin2Type = (bytes[3] >> 2) & 0x03;                      // Pulse Count DIN2 Type (2-bit)
+        decoded.reserved3 = (bytes[3] >> 4) & 0x0F;                         // Reserved 3 Field (2-bit)
+        decoded.pcntPeriod = bytes[4] & 0x3F;                               // Pulse Count Period (6-bit)
+        decoded.reserved4 = (bytes[4] >> 6) & 0x03;                         // Reserved 4 Field (2-bit)
+        decoded.contMeasCycleTime = bytes[5] & 0x3F;                        // Continuous Measurement Cycle Time (6-bit)
+        decoded.reserved5 = (bytes[5] >> 6) & 0x03;                         // Reserved 5 Field (2-bit)
+        decoded.pFailThreshold = parseFloat((bytes[6] / 10).toFixed(1));    // Power Fail Warning Threshold Voltage (8-bit)
+        decoded.serialPHY = bytes[7] & 0x01;                                // Serial Physical Layer (1-bit)
+        decoded.reserved6 = (bytes[7] >> 1) & 0x07;                         // Reserved 6 Field (3-bit)
+        decoded.serialProtoRS485 = (bytes[7] >> 4) & 0x01;                  // Serial Protocol for RS485 (1-bit)
+        decoded.reserved7 = (bytes[7] >> 5) & 0x01;                         // Reserved 7 Field (1-bit)
+        decoded.serialProtoRS232 = (bytes[7] >> 6) & 0x01;                  // Serial Protocol for RS232 (1-bit)
+        decoded.reserved8 = (bytes[7] >> 7) & 0x01;                         // Reserved 8 Field (1-bit)
+    }
+
+    return decoded;
+}
+
+function parseVoboXPTransmitEncodingConfigurationPayload(bytes)
+{
+    var decoded = {};
+    decoded.subgroupID = bytes[0] & 0x0F;               // Sub-Group ID (4-bit)
+    decoded.sequenceNumber = (bytes[0] & 0xF0) >> 4;    // Sequence Number (4-bit)
+    decoded.txAin1 = bytes[1] & 0x0F;                   // AIN1 Transmit Encoding (4-bit)
+    decoded.txAin2 = (bytes[1] >> 4) & 0x0F;            // AIN2 Transmit Encoding (4-bit)
+    decoded.txAin3 = bytes[2] & 0x0F;                   // AIN3 Transmit Encoding (4-bit)
+    decoded.txDin1 = (bytes[2] >> 4) & 0x0F;            // DIN1 Transmit Encoding (4-bit)
+    decoded.txDin2 = bytes[3] & 0x0F;                   // DIN2 Transmit Encoding (4-bit)
+    decoded.txPcntDin1 = (bytes[3] >> 4) & 0x0F;        // DIN1 Pulse Count Transmit Encoding (4-bit)
+    decoded.txPcntDin2 = bytes[4] & 0x0F;               // DIN2 Pulse Count Transmit  Encoding (4-bit)
+    decoded.txWKUP = (bytes[4] >> 4) & 0x0F;            // WKUP Transmit Encoding (4-bit)
+    decoded.txTemp = bytes[5] & 0x0F;                   // ADC Temperature Transmit Encoding (4-bit)
+    decoded.txVoltRLY1 = (bytes[5] >> 4) & 0x0F;        // RLY1 Voltage Transmit Encoding (4-bit)
+    decoded.txVoltRLY2 = bytes[6] & 0x0F;               // RLY2 Voltage Transmit Encoding (4-bit)
+    decoded.txVoltRLY3 = (bytes[6] >> 4) & 0x0F;        // RLY3 Voltage Transmit Encoding (4-bit)
+    decoded.txVoltRLY4 = bytes[7] & 0x0F;               // RLY4 Voltage Transmit Encoding (4-bit)
+    decoded.txVoltVIN = (bytes[7] >> 4) & 0x0F;         // VIN Voltage Transmit Encoding (4-bit)
+    decoded.txVolt3V3 = bytes[8] & 0x0F;                // 3V3 Voltage Transmit Encoding (4-bit)
+    decoded.txVoltVPP = (bytes[8] >> 4) & 0x0F;         // VPP Voltage Transmit  Encoding (4-bit)
+    decoded.txContMeasPeriod = bytes[9] & 0x0F;         // Continuous Measurement Period Transmit Encoding (4-bit)
+    decoded.txContMeasCnt = (bytes[9] >> 4) & 0x01;     // Continuous Measurement Count Transmit Encoding (1-bit)
+    decoded.reserved1 = (bytes[9] >> 5) & 0x07;         // Reserved 1 Field (3-bit)
+
+    return decoded;
+}
+
+function parseVoboXPRelayPulseConfigurationPayload(bytes)
+{
+    var decoded = {};
+    decoded.subgroupID = bytes[0] & 0x0F;                       // Sub-Group ID (4-bit)
+    decoded.sequenceNumber = (bytes[0] & 0xF0) >> 4;            // Sequence Number (4-bit)
+
+    if (decoded.sequenceNumber == 0)
+    {
+        decoded.pulseDelayRLY1 = (bytes[2] << 8) | bytes[1];    // RLY1 Driver Pulse Delay (16-bit)
+        decoded.pulsePeriodRLY1 = (bytes[4] << 8) | bytes[3];   // RLY1 Driver Pulse Period (16-bit) 
+        decoded.pulseDelayRLY2 = (bytes[6] << 8) | bytes[5];    // RLY2 Driver Pulse Delay (16-bit)
+        decoded.pulsePeriodRLY2 = (bytes[8] << 8) | bytes[7];   // RLY2 Driver Pulse Period (16-bit) 
+    }
+    else if (decoded.sequenceNumber == 1)
+    {
+        decoded.pulseDelayRLY3 = (bytes[2] << 8) | bytes[1];    // RLY3 Driver Pulse Delay (16-bit)
+        decoded.pulsePeriodRLY3 = (bytes[4] << 8) | bytes[3];   // RLY3 Driver Pulse Period (16-bit) 
+        decoded.pulseDelayRLY4 = (bytes[6] << 8) | bytes[5];    // RLY4 Driver Pulse Delay (16-bit)
+        decoded.pulsePeriodRLY4 = (bytes[8] << 8) | bytes[7];   // RLY4 Driver Pulse Period (16-bit) 
+    }
+
+    return decoded;
+}
+
 function parseConfigurationPayload(bytes, fport)
 {
     var decoded = {};
     var subgroupID = bytes[0] & 0x0F;
 
     // VoBo Lib Configuration Payloads
-    if(subgroupID == 0) decoded = parseVoboLibGeneralConfigurationPayload(bytes);
+    if(subgroupID == 0) decoded = parseVoboLibGeneralConfigurationPayload(bytes, fport);
     else if(subgroupID == 1) decoded = parseVoboLibVoboSyncConfigurationPayload(bytes);
     // VoBo XX Configuration Payloads
     else if(fport == 70 && subgroupID == 4) decoded = parseVoboXXGeneralConfigurationPayload(bytes);
@@ -891,6 +1013,15 @@ function parseConfigurationPayload(bytes, fport)
     // VoBo TC Configuration Payloads
     else if(fport == 71 && subgroupID == 4) decoded = parseVoboTCGeneralConfigurationPayload(bytes);
     else if(fport == 71 && subgroupID == 5) decoded = parseVoboTCCalibrationConfigurationPayload(bytes);
+    // VoBo XP Configuration Payloads
+    else if(fport == 72 && subgroupID == 4) decoded = parseVoboXPGeneralConfigurationPayload(bytes);
+    else if(fport == 72 && subgroupID == 5) decoded = parseVoboXXModbusGeneralConfigurationPayload(bytes);
+    else if(fport == 72 && (subgroupID == 6 || subgroupID == 7)) decoded = parseVoboXXModbusGroupsEnableConfigurationPayload(bytes);
+    else if(fport == 72 && (subgroupID == 8 || subgroupID == 9 || subgroupID == 10)) decoded = parseVoboXXModbusGroupsConfigurationPayload(bytes);
+    else if(fport == 72 && subgroupID == 11) decoded = parseVoboXXModbusPayloadsSlotsConfigurationPayload(bytes);
+    else if(fport == 72 && subgroupID == 12) decoded = parseVoboXXEngineeringUnitsConfigurationPayload(bytes);
+    else if(fport == 72 && subgroupID == 13) decoded = parseVoboXPTransmitEncodingConfigurationPayload(bytes);
+    else if(fport == 72 && subgroupID == 14) decoded = parseVoboXPRelayPulseConfigurationPayload(bytes);
 
     return decoded;
 }
@@ -940,7 +1071,7 @@ function parseModbusGenericPayload(bytes, fport)
                 var registersValues = [];
                 var numOfRegisters = bytes[byteIdx] & 0x7F;
                 byteIdx++;
-                var registerOffset = bytes[byteIdx] & 0x3F;
+                var registerOffset = bytes[byteIdx] & 0x7F;
                 byteIdx++;
 
                 var numOfRegToRead = numOfRegisters - registerOffset;
@@ -1033,16 +1164,47 @@ function lookupAnalogSensorName(voboType, sensorNum) {
         {"Analog Sensor Number":"12","Analog Sensor Name":"TC12"},
         {"Analog Sensor Number":"13","Analog Sensor Name":"Cold Joint Temperature"}
     ];
-    
-    var analogSensorsTable = []; 
+
+    const analogSensorsTableXP =
+    [
+        {"Analog Sensor Number":"0","Analog Sensor Name":"3.3V Supply Voltage"},
+        {"Analog Sensor Number":"1","Analog Sensor Name":"AIN1"},
+        {"Analog Sensor Number":"2","Analog Sensor Name":"AIN2"},
+        {"Analog Sensor Number":"3","Analog Sensor Name":"AIN3"},
+        {"Analog Sensor Number":"4","Analog Sensor Name":"DIN1"},
+        {"Analog Sensor Number":"5","Analog Sensor Name":"DIN1 Pulse Count"},
+        {"Analog Sensor Number":"6","Analog Sensor Name":"DIN2"},
+        {"Analog Sensor Number":"7","Analog Sensor Name":"DIN2 Pulse Count"},     
+        {"Analog Sensor Number":"8","Analog Sensor Name":"RLY1 Voltage"},
+        {"Analog Sensor Number":"9","Analog Sensor Name":"RLY2 Voltage"},
+        {"Analog Sensor Number":"10","Analog Sensor Name":"RLY3 Voltage"},
+        {"Analog Sensor Number":"11","Analog Sensor Name":"RLY4 Voltage"},
+        {"Analog Sensor Number":"12","Analog Sensor Name":"WKUP"},
+        {"Analog Sensor Number":"13","Analog Sensor Name":"VPP Voltage"},
+        {"Analog Sensor Number":"14","Analog Sensor Name":"VIN Voltage"},
+        {"Analog Sensor Number":"15","Analog Sensor Name":"ADC Temperature"},
+        {"Analog Sensor Number":"16","Analog Sensor Name":"Cont Meas Period"},
+        {"Analog Sensor Number":"17","Analog Sensor Name":"Cont Meas Count"}   
+    ];
+
+    var analogSensorsTable = [];
+    var analogSensorNameSuffix = "";
     if(voboType == "VoBoXX") {
         analogSensorsTable = analogSensorsTableXX;
     }
     else if(voboType == "VoBoTC") {
         analogSensorsTable = analogSensorsTableTC;
     }
+    else if(voboType == "VoBoXP") {
+        analogSensorsTable = analogSensorsTableXP;
+        var sensorNumEncoding = (sensorNum & 0xC0) >> 6;
+        if(sensorNumEncoding == 0x01) analogSensorNameSuffix = " (Max)";
+        else if(sensorNumEncoding == 0x02) analogSensorNameSuffix = " (Min)";
+        else if(sensorNumEncoding == 0x03) analogSensorNameSuffix = " (Avg)";
+        sensorNum = sensorNum & 0x3F;
+    }
     else {
-        errorMsg = voboType + " -- " + "Invalid VoBo Type. Use \"VoBoXX\" or \"VoBoTC\"";
+        errorMsg = voboType + " -- " + "Invalid VoBo Type. Use \"VoBoXX\", \"VoBoTC\" or \"VoBoXP\"";
         throw new Error(errorMsg);
     }
 
@@ -1053,6 +1215,9 @@ function lookupAnalogSensorName(voboType, sensorNum) {
     }
 
     var analogSensorName = analogSensorRow["Analog Sensor Name"];
+    if(voboType == "VoBoXP") {
+        analogSensorName = analogSensorName + analogSensorNameSuffix;
+    }
     return analogSensorName;
 }
 
@@ -1070,6 +1235,13 @@ function lookupDigitalSensorName(voboType, sensorNum) {
         {"Digital Sensor Number":"0","Digital Sensor Name":"WKUP"}
     ];
 
+    const digitalSensorsTableXP =
+    [
+        {"Digital Sensor Number":"0","Digital Sensor Name":"WKUP"},
+        {"Digital Sensor Number":"1","Digital Sensor Name":"DIN1"},
+        {"Digital Sensor Number":"2","Digital Sensor Name":"DIN2"}
+    ];
+
     var digitalSensorsTable = []; 
     if(voboType == "VoBoXX") {
         digitalSensorsTable = digitalSensorsTableXX;
@@ -1077,8 +1249,11 @@ function lookupDigitalSensorName(voboType, sensorNum) {
     else if(voboType == "VoBoTC") {
         digitalSensorsTable = digitalSensorsTableTC;
     }
+    else if(voboType == "VoBoXP") {
+        digitalSensorsTable = digitalSensorsTableXP;
+    }
     else {
-        errorMsg = voboType + " -- " + "Invalid VoBo Type. Use \"VoBoXX\" or \"VoBoTC\"";
+        errorMsg = voboType + " -- " + "Invalid VoBo Type. Use \"VoBoXX\", \"VoBoTC\" or \"VoBoXP\"";
         throw new Error(errorMsg);
     }
 
@@ -1223,7 +1398,7 @@ function lookupUnits(outputType, unitCode) {
         {"Units Code":"126","Description":"foot pound force","Abbreviated Units":"ft lb force"},
         {"Units Code":"127","Description":"kilowatt","Abbreviated Units":"kW"},
         {"Units Code":"128","Description":"kilowatt hour","Abbreviated Units":"KWh"},
-        {"Units Code":"120","Description":"horsepower","Abbreviated Units":"hp"},
+        {"Units Code":"129","Description":"horsepower","Abbreviated Units":"hp"},
         {"Units Code":"130","Description":"cubic feet per hour","Abbreviated Units":"ft^3/h"},
         {"Units Code":"131","Description":"cubic meters per minute","Abbreviated Units":"m^3/min"},
         {"Units Code":"132","Description":"barrels per second","Abbreviated Units":"bbl/s"},
@@ -1260,6 +1435,12 @@ function lookupUnits(outputType, unitCode) {
         {"Units Code":"163","Description":"normal liter","Abbreviated Units":"normal L"},
         {"Units Code":"164","Description":"standard cubic feet","Abbreviated Units":"normal ft^3"},
         {"Units Code":"165","Description":"parts per billion","Abbreviated Units":"parts/billion"},
+        {"Units Code":"166","Description":"ampere","Abbreviated Units":"A"},
+        {"Units Code":"167","Description":"millimeters per meter","Abbreviated Units":"mm/m"},
+        {"Units Code":"168","Description":"seconds since epoch","Abbreviated Units":"epoch sec"},
+        {"Units Code":"169","Description":"no units","Abbreviated Units":"no units"},
+        {"Units Code":"170","Description":"percentage","Abbreviated Units":"%"},
+        {"Units Code":"171","Description":"kilohertz","Abbreviated Units":"khz"},
         {"Units Code":"235","Description":"gallons per day","Abbreviated Units":"usg/d"},
         {"Units Code":"236","Description":"hectoliters","Abbreviated Units":"hL"},
         {"Units Code":"237","Description":"megapascals","Abbreviated Units":"MPa"},
@@ -1450,14 +1631,14 @@ function printPayload(payload)
         var stringToPrint = "";
         for (let i = 0; i < payload.data.numOfAinPayloads; i++)
         {
-            analogSensorString0 = lookupAnalogSensorName(payload.data.voboType, payload.data.ainPayloads[i].sensorNum0);
-            engUnitsString0 = lookupUnits(1, payload.data.ainPayloads[i].sensorUnits0);
-            sensorData0 = payload.data.ainPayloads[i].sensorData0;
+            analogSensorString = payload.data["analogSensorString" + i];
+            engUnitsString = payload.data["engUnitsString" + i];
+            sensorData = payload.data.ainPayloads[i].sensorData0;
 
-            let fractionDigitsData0 = 1;
-            if(engUnitsString0 == "mV" || engUnitsString0 == "V" || engUnitsString0 == "mA" || engUnitsString0 == "A") fractionDigitsData0 = 3;
-            if (engUnitsString0 == "ADC code") fractionDigitsData0 = 0;
-            stringToPrint = stringToPrint + analogSensorString0 + " = " + parseFloat(sensorData0).toFixed(fractionDigitsData0) + " " + engUnitsString0 + " | ";
+            let fractionDigitsData = 1;
+            if(engUnitsString == "mV" || engUnitsString == "V" || engUnitsString == "mA" || engUnitsString == "A") fractionDigitsData = 3;
+            if(engUnitsString == "ADC code") fractionDigitsData = 0;
+            stringToPrint = stringToPrint + analogSensorString + " = " + parseFloat(sensorData).toFixed(fractionDigitsData) + " " + engUnitsString + " | ";
         }
         console.log("%s | %s | %s | %s | %s\n", payload.timestamp, payload.deveui, payload.data.voboType, payload.data.payloadType, stringToPrint);
         return;
@@ -1488,7 +1669,7 @@ function printPayload(payload)
         return;
     }
 
-    if(payload.data.payloadType == "Event Log")
+    if((payload.data.payloadType == "Event Log") || (payload.data.payloadType == "Notification"))
     {   
         let eventTimestampDateTime = new Date(payload.data.eventTimestamp * 1000).toISOString();
         let eventCodeHexString = payload.data.eventCode.toString(16).toUpperCase().padStart(4,0);
