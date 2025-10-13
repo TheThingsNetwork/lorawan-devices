@@ -2160,3 +2160,10 @@ vendors:
   - id: sensus
     name: Sensus GmbH Ludwigshafen
     vendorID: 1170
+
+  - id: fencyboy
+    name: Fencyboy GmbH
+    website: https://fencyboy.com
+    logo: fencyboy_logo.png
+    social:
+      linkedin: https://www.linkedin.com/showcase/fencyboy
