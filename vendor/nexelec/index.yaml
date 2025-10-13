@@ -1,4 +1,5 @@
 endDevices:
+  - track
   - carbon
   - sign
   - move
