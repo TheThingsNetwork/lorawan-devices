@@ -1,5 +1,5 @@
-name: LoRaWAN® Wall Thermostat
-description: The dnt LoRaWAN® Wall Thermostat (dnt-lw-wth) controls the heating or air conditioning of the room. It measures the room temperature and humidity and shows it on the integrated Display. For automatic adjustment of the room temperature, the user can configure three profiles with each up to ten temperature changes a day. Other features are the window-open detection, a holiday mode, an energy-saving mode and various configuration options through LoRaWAN downlinks. Through our low power design, the device consumes only 45 uA in default mode, which results in a battery lifetime of up to 5 years.
+name: LoRaWAN® Switch Actuator and Meter for brand switches
+description: The dnt LoRaWAN® Switch Actuator and Meter for brand switches is the ideal solution for intelligent control of lights and other electrical loads in public buildings such as schools, industrial plants, government facilities, hotels, or offices. It can be deployed within existing infrastructure and offers remote control via downlinks or directly on the device using the mounted switch plate.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -9,7 +9,7 @@ hardwareVersions:
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.0.11'
+    version: '1.0.5'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
@@ -32,9 +32,9 @@ firmwareVersions:
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
+        id: dnt-profile-class-c
         lorawanCertified: true
-        codec: dnt-lw-wth-codec
+        codec: dnt-lw-bsm-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -45,25 +45,26 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - temperature
-  - humidity
+  - current
+  - power
+  - voltage
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 85
-  length: 85
-  height: 25
+  width: 71
+  length: 71
+  height: 37
 
 # Weight in grams (optional)
-weight: 140
+weight: 60
 
 # Operating conditions (optional)
 operatingConditions:
   # Temperature (Celsius)
   temperature:
-    min: 0
-    max: 50
+    min: -5
+    max: 40
   # Relative humidity (fraction of 1)
   relativeHumidity:
     min: 0
@@ -98,13 +99,10 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/produkte/dnt-lorawan-wandthermostat-dnt-lw-wth/
+    url: https://dnt.de/produkte/dnt-lw-bsm/
 msrp:
-  EUR: 59.95
+  EUR: 100
 
 # Photos
 photos:
-  main: dnt-lw-wth-front-view.png
-  other:
-    - dnt-lw-wth-back-view.png
-    - dnt-lw-wth-antracite.png
+  main: dnt-lw-bsm.png
