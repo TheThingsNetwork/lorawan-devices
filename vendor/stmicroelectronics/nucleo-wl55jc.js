@@ -18,7 +18,7 @@ function decodeUplink(input) {
       };
       data.pressure = {
         displayName: 'Barometric pressure',
-        unit: 'Pa',
+        unit: 'hPa',
         value: ((input.bytes[1] << 8) + input.bytes[2]) / 10
       };
       data.temperature = {

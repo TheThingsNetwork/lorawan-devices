@@ -46,12 +46,17 @@ function Decoder(bytes, port) {
 
 
 function normalizeUplink(input) {
-    return {
-        data: {
-            action: {
-                contactState: input.data.door === "close" ? "CLOSED" : input.data.door === "open" ? "OPEN" : undefined
-            },
-            battery: input.data.battery,
-        }
-    };
+    var data = {};
+
+    if (input.data.door && (input.data.door === "close" || input.data.door === "open")) {
+        data.action = {
+            contactState: input.data.door === "close" ? "closed" : "open"
+        };
+    }
+
+    if (input.data.battery) {
+        data.battery = input.data.battery;
+    }
+
+    return { data: data };
 }

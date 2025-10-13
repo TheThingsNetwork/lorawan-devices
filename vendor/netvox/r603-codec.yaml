@@ -21,7 +21,7 @@ uplinkDecoder:
           Device: 'R603'
           Volt: 4.8
           WarningStatus: 'NoWarnring'
-          ContactSwitchStatus: 'On'
+          DCPowerFailureAlarm: 'Warning'
 
     - description: Configure report response
       input:

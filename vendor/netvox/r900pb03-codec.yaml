@@ -1,0 +1,332 @@
+uplinkDecoder:
+  fileName: payload/r900pb03.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x08, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12]
+      output:
+        data:
+          Device: 'R900PB03'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x08, 0x01, 0x01, 0x00, 0x03, 0x03, 0x00, 0x01, 0x01]
+      output:
+        data:
+          Device: 'R900PB03'
+          Volt: 0.1
+          Status: 'Off'
+          Distance: '771mm'
+          FillLevel: '0%'
+          LowDistanceAlarm: 1
+          HighDistanceAlarm: 0
+          LowFillLevelAlarm: 0
+          HighFillLevelAlarm: 0
+          ShockTamperAlarm: 'Alarm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x81, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R900PB03'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x82, 0x01, 0x08, 0x03, 0x84, 0x07, 0x08, 0x01, 0x50]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R900PB03'
+          MinTime: 900
+          MaxTime: 1800
+          DistanceChange: '336mm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x83, 0x01, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R900PB03'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x84, 0x01, 0x08, 0x03, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R900PB03'
+          ShockSensorSensitivity: 3
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x85, 0x01, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetOnDistanceThresholdRrsp'
+          Device: 'R900PB03'
+          Status: 'Failure'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x86, 0x01, 0x08, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetOnDistanceThresholdRrsp'
+          Device: 'R900PB03'
+          OnDistanceThreshold: '256mm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x87, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetFillMaxDistanceRsp'
+          Device: 'R900PB03'
+          Status: 'Success'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x88, 0x01, 0x08, 0x01, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetFillMaxDistanceRsp'
+          Device: 'R900PB03'
+          FillMaxDistance: '272mm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x89, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetDeadZoneDistanceRsp'
+          Device: 'R900PB03'
+          Status: 'Success'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x8a, 0x01, 0x08, 0x01, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetDeadZoneDistanceRsp'
+          Device: 'R900PB03'
+          DeadZoneDistance: '265mm'
+
+downlinkDecoder:
+  fileName: payload/r900pb03.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x08, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900PB03'
+          MinTime: 900
+          MaxTime: 1800
+          DistanceChange: '257mm'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900PB03'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x08, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900PB03'
+          ShockSensorSensitivity: 9
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900PB03'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x05, 0x01, 0x08, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetOnDistanceThresholdRreq'
+          Device: 'R900PB03'
+          OnDistanceThreshold: '512mm'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x06, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetOnDistanceThresholdRreq'
+          Device: 'R900PB03'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x07, 0x01, 0x08, 0x01, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetFillMaxDistanceReq'
+          Device: 'R900PB03'
+          FillMaxDistance: '288mm'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x08, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetFillMaxDistanceReq'
+          Device: 'R900PB03'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x09, 0x01, 0x08, 0x00, 0x25, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetDeadZoneDistanceReq'
+          Device: 'R900PB03'
+          DeadZoneDistance: '37mm'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x0a, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetDeadZoneDistanceReq'
+          Device: 'R900PB03'
+
+downlinkEncoder:
+  fileName: payload/r900pb03.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900PB03'
+          MinTime: 900
+          MaxTime: 1800
+          DistanceChange: '18'
+      output:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x08, 0x03, 0x84, 0x07, 0x08, 0x00, 0x12]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900PB03'
+      output:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x08]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900PB03'
+          ShockSensorSensitivity: 5
+      output:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x08, 0x05]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900PB03'
+      output:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x08]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetOnDistanceThresholdRreq'
+          Device: 'R900PB03'
+          OnDistanceThreshold: 801
+      output:
+        fPort: 23
+        bytes: [0x05, 0x01, 0x08, 0x03, 0x21]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetOnDistanceThresholdRreq'
+          Device: 'R900PB03'
+      output:
+        fPort: 23
+        bytes: [0x06, 0x01, 0x08]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetFillMaxDistanceReq'
+          Device: 'R900PB03'
+          FillMaxDistance: 518
+      output:
+        fPort: 23
+        bytes: [0x07, 0x01, 0x08, 0x02, 0x06]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetFillMaxDistanceReq'
+          Device: 'R900PB03'
+      output:
+        fPort: 23
+        bytes: [0x08, 0x01, 0x08]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetDeadZoneDistanceReq'
+          Device: 'R900PB03'
+          DeadZoneDistance: 5137
+      output:
+        fPort: 23
+        bytes: [0x09, 0x01, 0x08, 0x14, 0x11]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetDeadZoneDistanceReq'
+          Device: 'R900PB03'
+      output:
+        fPort: 23
+        bytes: [0x0a, 0x01, 0x08]

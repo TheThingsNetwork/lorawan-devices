@@ -1,0 +1,60 @@
+name: Leaf Moisture SN-3001
+description: The AgroSense Leaf Moisture Sensor uses the SN-3001 sensor to measure leaf moisture and temperature, providing data to the platform for analyzing leaf conditions such as watering, moisturizing, dew, and freezing. It operates within a range of -40°C to 60°C and 0% to 100% RH, with an accuracy of ±0.5°C and ±3% RH, respectively.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: leaf-moisture-sn-3001-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: leaf-moisture-sn-3001-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: leaf-moisture-sn-3001-codec
+
+deviceType: cots
+
+sensors:
+  - temperature
+  - humidity
+  - battery
+
+dimensions:
+  width: 131
+  length: 27
+  height: 63
+
+battery:
+  replaceable: true
+  type: AAA
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+  - join server
+
+productURL: https://www.agrosense.cc/pd.jsp?recommendFromPid=0&id=15&fromMid=366
+
+photos:
+  main: leaf-moisture-sn-3001.jpg

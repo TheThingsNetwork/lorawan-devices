@@ -12,6 +12,17 @@ uplinkDecoder:
           HWver: 11
           Datecode: '20200424'
 
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x0F, 0x80, 0x0A, 0x05, 0x20, 0x21, 0x08, 0x13, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R211'
+          SWver: 1
+          HWver: 05
+          Datecode: '20210813'
+
     - description: Air IR apply response
       input:
         fPort: 33

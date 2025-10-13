@@ -1,9 +1,9 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schema.thethings.network/devicerepository/1/payload/schema",
   "title": "LoRaWAN Device Repository Payload",
   "description": "Payload definitions for the LoRaWAN Device Repository",
-  "definitions": {
+  "$defs": {
     "temperature": {
       "type": "number",
       "description": "Temperature (°C)",
@@ -48,6 +48,16 @@
       "minimum": 0,
       "maximum": 100
     },
+    "rainfallIntensity": {
+      "type": "number",
+      "description": "Rainfall intensity (mm/hour)",
+      "minimum": 0
+    },
+    "cumulativeRainfall": {
+      "type": "number",
+      "description": "Cumulative rainfall (mm)",
+      "minimum": 0
+    },
     "measurement": {
       "type": "object",
       "properties": {
@@ -66,15 +76,15 @@
           "properties": {
             "depth": {
               "description": "Depth of the soil measurement (cm)",
-              "$ref": "#/definitions/depth"
+              "$ref": "#/$defs/depth"
             },
             "moisture": {
               "description": "Soil moisture (%)",
-              "$ref": "#/definitions/percentage"
+              "$ref": "#/$defs/percentage"
             },
             "temperature": {
               "description": "Soil temperature (°C)",
-              "$ref": "#/definitions/temperature"
+              "$ref": "#/$defs/temperature"
             },
             "ec": {
               "description": "Soil electrical conductivity (dS/m)",
@@ -84,19 +94,19 @@
             },
             "pH": {
               "description": "Soil pH level",
-              "$ref": "#/definitions/pH"
+              "$ref": "#/$defs/pH"
             },
             "n": {
               "description": "Concentration of Nitrogen in the soil (ppm)",
-              "$ref": "#/definitions/concentration"
+              "$ref": "#/$defs/concentration"
             },
             "p": {
               "description": "Concentration of Phosphorus in the soil (ppm)",
-              "$ref": "#/definitions/concentration"
+              "$ref": "#/$defs/concentration"
             },
             "k": {
               "description": "Concentration of Potassium in the soil (ppm)",
-              "$ref": "#/definitions/concentration"
+              "$ref": "#/$defs/concentration"
             }
           },
           "additionalProperties": false
@@ -111,11 +121,11 @@
             },
             "temperature": {
               "description": "Air temperature (°C)",
-              "$ref": "#/definitions/temperature"
+              "$ref": "#/$defs/temperature"
             },
             "relativeHumidity": {
               "description": "Relative humidity (%)",
-              "$ref": "#/definitions/percentage"
+              "$ref": "#/$defs/percentage"
             },
             "pressure": {
               "type": "number",
@@ -125,11 +135,11 @@
             },
             "co2": {
               "description": "Concentration of CO2 in the air (ppm)",
-              "$ref": "#/definitions/concentration"
+              "$ref": "#/$defs/concentration"
             },
             "lightIntensity": {
               "description": "Light intensity (lux)",
-              "$ref": "#/definitions/illuminance"
+              "$ref": "#/$defs/illuminance"
             }
           },
           "additionalProperties": false
@@ -139,11 +149,25 @@
           "properties": {
             "speed": {
               "description": "Wind speed (m/s)",
-              "$ref": "#/definitions/speed"
+              "$ref": "#/$defs/speed"
             },
             "direction": {
               "description": "Wind direction (°)",
-              "$ref": "#/definitions/direction"
+              "$ref": "#/$defs/direction"
+            }
+          },
+          "additionalProperties": false
+        },
+        "rain": {
+          "type": "object",
+          "properties": {
+            "intensity": {
+              "description": "Rainfall intensity (mm/hour)",
+              "$ref": "#/$defs/rainfallIntensity"
+            },
+            "cumulative": {
+              "description": "Cumulative rainfall (mm)",
+              "$ref": "#/$defs/cumulativeRainfall"
             }
           },
           "additionalProperties": false
@@ -152,11 +176,47 @@
           "type": "object",
           "properties": {
             "leak": {
-              "type": ["boolean", "string"],
+              "type": "boolean",
               "description": "Leak detected"
+            },
+            "temperature": {
+              "type": "object",
+              "properties": {
+                "min": {
+                  "description": "Minimum temperature (°C)",
+                  "$ref": "#/$defs/temperature"
+                },
+                "max": {
+                  "description": "Maximum temperature (°C)",
+                  "$ref": "#/$defs/temperature"
+                },
+                "avg": {
+                  "description": "Average temperature (°C)",
+                  "$ref": "#/$defs/temperature"
+                },
+                "current": {
+                  "description": "Current temperature (°C)",
+                  "$ref": "#/$defs/temperature"
+                }
+              }
             }
           },
           "additionalProperties": false
+        },
+        "metering": {
+          "type": "object",
+          "properties": {
+            "water": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Total volume (L)"
+                }
+              }
+            }
+          }
         },
         "action": {
           "type": "object",
@@ -170,6 +230,7 @@
                 },
                 "count": {
                   "type": "number",
+                  "minimum": 0,
                   "description": "Number of motion events (count)"
                 }
               },
@@ -178,7 +239,7 @@
             "contactState": {
               "type": "string",
               "description": "State of a contact sensor",
-              "enum": ["OPEN", "CLOSED"]
+              "enum": ["open", "closed"]
             }
           },
           "additionalProperties": false
@@ -188,10 +249,14 @@
           "properties": {
             "latitude": {
               "type": "number",
+              "minimum": -90,
+              "maximum": 90,
               "description": "Horizontal distance from equator (°)"
             },
             "longitude": {
               "type": "number",
+              "minimum": -180,
+              "maximum": 180,
               "description": "Vertical distance from prime meridian (°)"
             }
           },
@@ -203,13 +268,13 @@
     "uplinkPayload": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/measurement"
+        "$ref": "#/$defs/measurement"
       }
     }
   },
   "oneOf": [
     {
-      "$ref": "#/definitions/uplinkPayload"
+      "$ref": "#/$defs/uplinkPayload"
     }
   ]
 }

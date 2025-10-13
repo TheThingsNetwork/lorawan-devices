@@ -1,0 +1,67 @@
+name: omni-rm-4pu204eu
+description: Jooby OMNI RM 4PU204EU KT 304935
+
+# Hardware versions (optional)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    # Supported hardware versions (optional)
+    hardwareVersions:
+      - '1.0' # Must refer to hardwareVersions declared above
+    # LoRaWAN Device Profiles per region
+    # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        id: omni-rm-4pu204eu-profile-eu868
+        lorawanCertified: false
+        codec: omni-rm-4pu204eu-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - battery
+  - analog input
+  - pulse count
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 140
+  length: 70
+  height: 50
+
+# Weight in grams (optional)
+weight: 205
+
+# Battery information (optional)
+battery:
+  replaceable: false
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -30
+    max: 85
+
+# IP rating (optional)
+ipCode: IP65
+
+# Product and data sheet URLs (optional)
+productURL: https://jooby.eu/rdc/jooby-omni-rm-4pu-204/
+dataSheetURL: https://jooby.eu/wp-content/uploads/2023/10/EN_Datasheet_JOOBY-OMNI-RM-LoRaWAN-4PU-200_204_205-EU-1-2.pdf
+
+photos:
+  main: omni-rm-4pu204eu.png
