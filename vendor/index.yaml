@@ -2180,3 +2180,9 @@ vendors:
     ouis:
       - 0013A2
     pen: 332
+  - id: fencyboy
+    name: Fencyboy GmbH
+    website: https://fencyboy.com
+    logo: fencyboy_logo.png
+    social:
+      linkedin: https://www.linkedin.com/showcase/fencyboy
