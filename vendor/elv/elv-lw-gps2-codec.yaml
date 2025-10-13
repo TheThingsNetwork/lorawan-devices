@@ -33,4 +33,4 @@ uplinkDecoder:
           supply_voltage: 3074
           tx_reason: 'USER_BUTTON_EVENT'
 downlinkDecoder:
-  fileName: elv-bm-trx1.js
+  fileName: elv-lw-gps2.js

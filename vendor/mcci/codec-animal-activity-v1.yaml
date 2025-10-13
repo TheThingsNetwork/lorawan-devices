@@ -23,7 +23,7 @@ uplinkDecoder:
             'tDewC': 21.390006900020513,
             'tHeatIndexC': 32.83203227777776,
             'tempC': 30,
-            'time': '2019-10-18T23:01:30Z',
+            'time': '2019-10-18T23:01:30.000Z',
           }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:
