@@ -1,0 +1,3 @@
+name: Lobaro
+endDevices:
+  - ttn_onewire_test

@@ -1,0 +1,20 @@
+name: "TTN OneWire Test"
+description: "Testdevice with OneWire Sensor, EU868"
+hardwareVersions:
+  - version: "1.0"
+firmwareVersions:
+  - version: "1.0"
+    numeric: 1
+    profiles:
+      EU863-870:
+        id: onewire-eu868
+        lorawanCertified: false
+        codec: onewire
+profiles:
+  - id: onewire-eu868
+    lorawanVersion: "1.0.3"
+    regionalParametersVersion: "RP001-1.0.3-REV-A"
+    supportsJoin: true
+    macSettings:
+      rx1Delay: 5
+      supports32BitFCnt: true
