@@ -41,4 +41,4 @@ uplinkDecoder:
           latitude: 53.2438
           longitude: 7.52430
 downlinkDecoder:
-  fileName: elv-bm-trx1.js
+  fileName: elv-lw-gps1.js

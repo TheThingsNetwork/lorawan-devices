@@ -3,3 +3,6 @@ endDevices:
   - rs1xx-ext-temp-1w-sensor
   - rs1xx-ext-multi-sensor
   - rs1xx-ext-temp-rtd-sensor
+  - rs26x-int-temp-sensor
+  - rs26x-ext-rtd-temp-sensor
+  - rs26x-ext-therm-temp-sensor

@@ -25,8 +25,12 @@ var tx_reason = [
  * @param   port:   Used TTN/TTS data port 
  * @return  Decoded data from the ELV-LW-GPS2 device
  * */
-function Decoder( bytes, port )
+
+function decodeUplink( input )
 {
+  var bytes = input.bytes;
+  var port = input.fPort;
+  
   var decoded = {};   // Container with the decoded output
   var index   = 0;    // Index variable for the application data in the bytes[] array
   
@@ -111,5 +115,17 @@ function Decoder( bytes, port )
     decoded.parser_error = "Wrong Port Number";
   }
 
-  return decoded;
+
+  return {data:decoded};
+
+}
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  }
 }

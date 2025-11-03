@@ -1,4 +1,5 @@
 endDevices:
+  - at101
   - am107
   - em300-th
   - em300-mcs

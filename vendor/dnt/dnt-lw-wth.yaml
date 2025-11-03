@@ -98,7 +98,7 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-wth/
+    url: https://dnt.de/produkte/dnt-lorawan-wandthermostat-dnt-lw-wth/
 msrp:
   EUR: 59.95
 
