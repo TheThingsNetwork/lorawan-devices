@@ -1,0 +1,137 @@
+name: CO2 Display Lite
+description: MClimate CO2 Display lite LoRaWAN is a stand-alone CO2 sensor powered entirely by solar energy using an organic solar panel. The device features a 1.54" e-ink screen, temperature and humidity sensor, LUX sensor and NDIR CO2 sensor.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.2'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.2'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: co2-display-lite-profile
+        lorawanCertified: false
+        codec: co2-display-lite-codec
+  - # Firmware version
+    version: '1.1'
+    numeric: 1
+    hardwareVersions:
+      - '1.2'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: co2-display-lite-profile
+        lorawanCertified: false
+        codec: co2-display-lite-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+  - humidity
+  - light
+  - co2
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 122
+  length: 22
+  height: 58
+
+# Weight in grams (optional)
+weight: 80
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.00
+    max: 0.80
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-co2-display-lite
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FPTIV0nAWncRDDDk5l0aO%2FMClimate-CO2-Display-Lite-Datasheet.pdf?alt=media&token=24575d81-9f79-41f2-af51-628c87fa9489
+# resellerURLs:
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
+
+# Photos
+photos:
+  main: co2-display-lite.png
+
+# Regulatory compliances (optional)
+compliances:
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 50491-3
+      version: '2009'
+    - body: ETSI
+      norm: EN
+      standard: 300220-1
+      version: 'V3.1.1:2017'
+    - body: ETSI
+      norm: EN
+      standard: 300220-2
+      version: 'V3.1.1:2017'
+    - body: ETSI
+      norm: EN
+      standard: 301489-1
+      version: 'V2.1.1:2017'
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 60950-1
+      version: '2006+A11:2009+A1:2010+A12:2011+A2:2013+AC:2015'
+  generalCompliance:
+    - directive: '2014/53/EC'

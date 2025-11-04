@@ -48,3 +48,5 @@ uplinkDecoder:
           Tilt_Area_1: false
           Tilt_Area_2: true
           frame_type: 'Device_State'
+downlinkDecoder:
+  fileName: elv-lw-mob.js

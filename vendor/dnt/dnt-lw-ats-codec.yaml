@@ -32,3 +32,5 @@ uplinkDecoder:
           gps_timeouts: 0
           reason: 'Heartbeat'
           voltage: 4.06
+downlinkDecoder:
+  fileName: dnt-lw-ats.js

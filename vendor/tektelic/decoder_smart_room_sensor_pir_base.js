@@ -783,3 +783,50 @@ function decodeUplink(input) {
       data: decoded_data
     };
 }
+
+function normalizeUplink(input) {
+    var data = {};
+    var air = {};
+  	var action = {};
+    var motion = {};
+
+    if (input.data.ambient_temperature) {
+      air.temperature = input.data.ambient_temperature;
+    }
+
+    if (input.data.relative_humidity) {
+      air.relativeHumidity = input.data.relative_humidity;
+    }
+
+    if (input.data.light_detected) {
+      air.lightIntensity = input.data.light_detected;
+    }
+
+    if (input.data.motion_event_state) {
+      motion.detected = input.data.motion_event_state > 0;
+      action.motion = motion;
+    }
+
+    if (input.data.motion_event_count) {
+      motion.count = input.data.motion_event_count;
+      action.motion = motion;
+    }
+
+    if (input.data.reed_state) {
+      action.contactState = input.data.reed_state;
+    }
+  
+    if (Object.keys(air).length > 0) {
+      data.air = air;
+    }
+    
+    if (Object.keys(action).length > 0) {
+      data.action = action;
+    }
+  
+    if (input.data.battery_voltage) {
+      data.battery = input.data.battery_voltage;
+    }
+  
+    return { data: data };
+  }

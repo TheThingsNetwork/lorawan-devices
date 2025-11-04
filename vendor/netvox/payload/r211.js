@@ -131,6 +131,17 @@ function decodeUplink(input) {
 				data: data,
 			};
 		}
+		if (input.bytes[2] === 0x80)
+		{
+			data.Device = getDeviceName(input.bytes[1]);
+			data.SWver =  input.bytes[3]/10;
+			data.HWver =  input.bytes[4];
+			data.Datecode = padLeft(input.bytes[5].toString(16), 2) + padLeft(input.bytes[6].toString(16), 2) + padLeft(input.bytes[7].toString(16), 2) + padLeft(input.bytes[8].toString(16), 2);
+			
+			return {
+				data: data,
+			};
+		}
 		
 	case 0x21:
 		data.Cmd = getCmd(input.bytes[0]);

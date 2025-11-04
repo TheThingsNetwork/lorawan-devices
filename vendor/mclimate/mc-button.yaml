@@ -1,0 +1,118 @@
+name: Multipurpose Button
+description: MClimate Multipurpose Button LoRaWAN is a simple device with many applications. Featuring a single button with 3 types of clicks and a temperature sensor, only your imagination limits what happens when the customer presses the button.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.2'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.2'
+    numeric: 1
+    hardwareVersions:
+      - '1.2'
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: mc-button-profile
+        lorawanCertified: false
+        codec: mc-button-codec
+
+# Sensors that this device features (optional)
+# Valid values are: accelerometer, altitude, auxiliary, barometer, battery, button, co2, distance, dust, gps, gyroscope,
+# humidity, light, link, magnetometer, moisture, ph, pir, proximity, rssi, snr, sound, temperature, tvoc, velocity,
+# vibration, water, wind direction and wind speed.
+sensors:
+  - temperature
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 42
+  length: 18
+  height: 72
+
+# Weight in grams (optional)
+weight: 26
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: ER10280
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.00
+    max: 0.80
+
+# IP rating (optional)
+ipCode: IP30
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-multipurpose-button-lorawan
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FhlFLeNfhaNMg6I2AF6kM%2FMClimate-Button-LoRaWAN-Datasheet.pdf?alt=media&token=26e8699e-a84a-445c-9c64-80715dedd687
+# resellerURLs:
+# - name: 'Connected Things'
+#   region:
+#     - United Kingdom
+#   url: https://connectedthings.store/
+# - name: 'Concept13'
+#   region:
+#     - United Kingdom
+#   url: https://www.concept13.co.uk
+# - name: 'RG2i'
+#   region:
+#     - France
+#   url: https://connectedthings.store/
+# - name: 'Wideco'
+#   region:
+#     - Sweden
+#   url: https://wideco.se
+# - name: 'iioote'
+#   region:
+#     - Sweden
+#   url: https://iiooote.com
+
+# Photos
+photos:
+  main: mc-button.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62479:2010
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 60950-1
+    - body: ETSI
+      norm: EN
+      standard: 301-489
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300-220
+      version: 3.1.1

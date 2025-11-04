@@ -1,4 +1,4 @@
-name: Ball Valve Servo
+name: Ball Valve Servo BVSLWE01
 description: The Aqua-Scope Ball Valve Servo consists of a patented motor coupling that fits with existing ball valves and converts them into smart water control devices. It can receive commands directly from a flood sensor, aqua-scope controller, or LoRaWAN® gateways.
 
 hardwareVersions:
@@ -63,8 +63,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.aqua-scope.com/ball-valve-servo.html
-dataSheetURL: https://www.aqua-scope.com/fileadmin/docs/BVSLWE01_DataSheet.pdf
+productURL: https://www.aqua-scope.com/retrofittable-motors-for-shut-off-valves/retrofit-motor-for-ball-valves.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=BVSLWE01&type=d&html=0&lang=en
 resellerURLs:
   - name: 'Aqua-Scope WTB'
     region:
@@ -79,8 +79,7 @@ photos:
 
 # Youtube or Vimeo Video (optional)
 videos:
-  main: https://www.youtube.com/watch?v=SsR9Trlw3SU
-
+  main: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
 # Regulatory compliances (optional)
 compliances:
   safety:

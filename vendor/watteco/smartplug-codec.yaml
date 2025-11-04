@@ -1,0 +1,199 @@
+uplinkDecoder:
+  fileName: smartplug.js
+  examples:
+    - description: 'uplink standard report containing state value | payload:110A000600001001'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x06, 0x00, 0x00, 0x16, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: output
+              value: 'ON'
+              date: '2023-07-19T07:51:25.508306410Z'
+          output: 'ON'
+        warnings: []
+    - description: 'uplink standard report containing state value | payload:110A000600001000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x06, 0x00, 0x00, 0x10, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: output
+              value: 'OFF'
+              date: '2023-07-19T07:51:25.508306410Z'
+          output: 'OFF'
+        warnings: []
+    - description: 'uplink standard report containing simple metering | payload:310a00520000410c000047ffffbe0063002fffd6'
+      input:
+        bytes: [0x31, 0x0a, 0x00, 0x52, 0x00, 0x00, 0x41, 0x0c, 0x00, 0x00, 0x47, 0xff, 0xff, 0xbe, 0x00, 0x63, 0x00, 0x2f, 0xff, 0xd6]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: active_energy
+              value: 71
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_energy
+              value: -66
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: nb_samples
+              value: 99
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: active_power
+              value: 47
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: reactive_power
+              value: -42
+              date: '2023-07-19T07:51:25.508306410Z'
+          active_energy: 71
+          reactive_energy: -66
+          nb_samples: 99
+          active_power: 47
+          reactive_power: -42
+        warnings: []
+    - description: 'uplink standard report containing power quality | payload:310a80520000411822221111FFFF000100000003001100002222000100020003'
+      input:
+        bytes:
+          [
+            0x31,
+            0x0a,
+            0x80,
+            0x52,
+            0x00,
+            0x00,
+            0x41,
+            0x18,
+            0x22,
+            0x22,
+            0x11,
+            0x11,
+            0xff,
+            0xff,
+            0x00,
+            0x01,
+            0x00,
+            0x00,
+            0x00,
+            0x03,
+            0x00,
+            0x11,
+            0x00,
+            0x00,
+            0x22,
+            0x22,
+            0x00,
+            0x01,
+            0x00,
+            0x02,
+            0x00,
+            0x03,
+          ]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: frequency
+              value: 30.97
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: frequency_min
+              value: 26.601
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: frequency_max
+              value: 22.231
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vrms
+              value: 0.1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vrms_min
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vrms_max
+              value: 0.3
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vpeak
+              value: 1.7
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vpeak_min
+              value: 0
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: Vpeak_max
+              value: 873.8
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: over_voltage
+              value: 1
+              date: '2023-07-19T07:51:25.508306410Z'
+            - variable: sag_voltage
+              value: 2
+              date: '2023-07-19T07:51:25.508306410Z'
+          frequency: 30.97
+          frequency_min: 26.601
+          frequency_max: 22.231
+          Vrms: 0.1
+          Vrms_min: 0
+          Vrms_max: 0.3
+          Vpeak: 1.7
+          Vpeak_min: 0
+          Vpeak_max: 873.8
+          over_voltage: 1
+          sag_voltage: 2
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
+    - description: 'uplink batch report | payload:100180e3c61800202614b45b16bb65b15b16bb65b15b1613'
+      input:
+        bytes: [0x10, 0x01, 0x80, 0xe3, 0xc6, 0x18, 0x00, 0x20, 0x26, 0x14, 0xb4, 0x5b, 0x16, 0xbb, 0x65, 0xb1, 0x5b, 0x16, 0xbb, 0x65, 0xb1, 0x5b, 0x16, 0x13]
+        fPort: 125
+        recvTime: '2024-12-27T18:35:54.000Z'
+      output:
+        data:
+          samples:
+            - variable: ActiveEnergy
+              value: 49
+              date: '2024-12-27T17:45:50.000Z'
+            - variable: ActiveEnergy
+              value: 49
+              date: '2024-12-27T17:55:50.000Z'
+            - variable: ActiveEnergy
+              value: 49
+              date: '2024-12-27T18:05:50.000Z'
+            - variable: ActiveEnergy
+              value: 49
+              date: '2024-12-27T18:15:50.000Z'
+            - variable: ActiveEnergy
+              value: 49
+              date: '2024-12-27T18:25:50.000Z'
+            - variable: ActiveEnergy
+              value: 49
+              date: '2024-12-27T18:35:50.000Z'
+          ActiveEnergy: 49
+        warnings: []

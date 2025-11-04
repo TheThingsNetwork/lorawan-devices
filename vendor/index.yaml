@@ -340,8 +340,8 @@ vendors:
     vendorID: 220
 
   - id: keller
-    name: KELLER Druckmesstechnik AG
-    website: https://keller-druck.com/
+    name: KELLER Pressure
+    website: https://keller-pressure.com/
     logo: keller-logo.svg
     vendorID: 222
     description: KELLER Pressure, Europe's leading manufacturer of isolated pressure transducers and transmitters, was founded in 1974 by H. W. Keller, the inventor of the integrated silicon measuring cell. Piezoresitive pressure sensors have impressively high precision and pressure ranges from 5 mbar to 2000 bar. The KELLER product range includes digital manometers, level probes, data loggers and remote transmission units communicating wirelessly over LoRaWAN®, NB-IoT, LTE-M, LTE and more.
@@ -586,6 +586,12 @@ vendors:
   - id: packetworx
     name: PacketWorx Inc.
     vendorID: 314
+
+  - id: pallidus
+    name: Pallidus
+    website: https://pallidus.io/
+    ouis:
+      - 0002CC
 
   - id: parametric
     name: Parametric Engineering GmbH
@@ -1695,8 +1701,8 @@ vendors:
 
   - id: acrios
     name: ACRIOS Systems s.r.o.
-    website: https://acrios.com/?lang=en
-    logo: acrioslogo.png
+    website: https://acrios.com/
+    logo: acrios-logo.png
 
   - id: espeasy
     name: ESP Easy
@@ -2088,3 +2094,95 @@ vendors:
     social:
       facebook: https://www.facebook.com/jooby.eu
       github: jooby-dev
+
+  - id: accuwatch
+    name: Accuwatch
+    description: Accuwatch is a company that provides a range of IoT solutions for various industries.
+    logo: accuwatch.png
+    website: https://accuwatch.nl/
+
+  - id: infrafon
+    name: Infrafon
+    description: Infrafon develops iot devices for humans, bridging the gap between handheld computers and lightweight smart cards.
+    logo: infrafon_logo.png
+    website: https://www.infrafon.com/
+    social:
+      linkedin: https://de.linkedin.com/company/infrafon
+
+  - id: makerfabs
+    name: AgroSense
+
+  - id: yobiiq
+    name: YOBIIQ B.V.
+    description: The best way to predict the future is by creating it. As an IoT Solutions Company, we develop smart solutions daily, tailored to your business and objectives. We serve as a full-service provider for Smart Environments and a distributor with in-house product development, offering comprehensive solutions for almost any requirement. Partner with us to drive your smart future forward.
+    logo: yobiiq_logo.svg
+    website: https://www.yobiiq.com
+    vendorID: 1045
+    ouis: ['FC48C9']
+    social:
+      linkedin: https://www.linkedin.com/company/yobiiq
+      facebook: https://www.facebook.com/yobiiq
+      twitter: yobiiq
+      github: Yobiiq-BV
+
+  - id: southerniot
+    name: Southern IoT
+
+  - id: ezurio
+    name: Ezurio Inc.
+
+  - id: truvami
+    description: tiny trackers - total solution
+    name: truvami
+    logo: truvami_logo.svg
+    website: https://truvami.com/
+    social:
+      linkedin: https://linkedin.com/company/truvami
+      github: truvami
+
+  - id: tehama
+    name: Tehama Wireless Design Group
+    website: https://www.tehamawireless.com
+    ouis:
+      - 50C2D0
+
+  - id: radionode
+    name: Dekist Co., Ltd
+    description: Make it connected through Radionode Sensors
+    website: https://en.radionode365.com/kr/index.php
+    logo: radionode_logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/radionode/
+      #facebook: https://www.facebook.com/radionode365
+      #instagram: radionodekorea
+      github: radionode
+
+  - id: sensus
+    name: Sensus GmbH Ludwigshafen
+    vendorID: 1170
+
+  - id: sparkfun
+    name: SparkFun Electronics
+    description: SparkFun Electronics is an online retail store that sells the bits and pieces to make your electronics projects possible.
+    website: https://www.sparkfun.com
+    social:
+      facebook: https://www.facebook.com/SparkFun
+      linkedin: https://www.linkedin.com/company/sparkfun-electronics/
+
+  - id: digi-international
+    name: Digi International
+    description: Digi International Inc. provides IoT connectivity products and services, including embedded modules, gateways, and network management solutions.
+    vendorID: 114
+    website: https://www.digi.com
+    social:
+      linkedin: https://www.linkedin.com/company/digi-international/
+      facebook: https://www.facebook.com/digiinternational
+    ouis:
+      - 0013A2
+    pen: 332
+  - id: fencyboy
+    name: Fencyboy GmbH
+    website: https://fencyboy.com
+    logo: fencyboy_logo.png
+    social:
+      linkedin: https://www.linkedin.com/showcase/fencyboy

@@ -161,7 +161,7 @@ function bin_decode(deviceType, payload) {
                     },
                     temperature_2: {
                         unit: "°C",
-                        value: hexToUInt(payload.substring(16, 20), 10),
+                        value: hexToInt(payload.substring(16, 20), 10),
                     },
                 });
 

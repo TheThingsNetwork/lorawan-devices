@@ -1,0 +1,46 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-lw-oc8.js
+  # Examples (optional)
+  examples:
+    - description: cyclic event
+      input:
+        fPort: 10
+        bytes: [0x01, 0x01, 0x00, 0x01, 0x02, 0x03, 0x00, 0x07, 0x03, 0x0C, 0x04, 0x13, 0x9D, 0x07, 0x01, 0x00]
+      output:
+        data:
+          app_version: 'V1.0.1'
+          bl_version: 'V3.0.7'
+          ch1: 0
+          ch2: 0
+          ch3: 0
+          ch4: 0
+          ch5: 0
+          ch6: 0
+          ch7: 0
+          ch8: 0
+          supply_voltage: 5021
+          tx_reason: 'CYCLIC_EVENT'
+    - description: downlink ack event
+      input:
+        fPort: 10
+        bytes: [0x01, 0x01, 0x00, 0x01, 0x02, 0x03, 0x00, 0x07, 0x03, 0x0E, 0x04, 0x13, 0x60, 0x07, 0x01, 0x00, 0x08, 0x0F, 0x09, 0x00]
+      output:
+        data:
+          app_version: 'V1.0.1'
+          bl_version: 'V3.0.7'
+          ch1: 0
+          ch2: 0
+          ch3: 0
+          ch4: 0
+          ch5: 0
+          ch6: 0
+          ch7: 0
+          ch8: 0
+          contact_interface_en: 0
+          interval: 15
+          supply_voltage: 4960
+          tx_reason: 'DOWNLINK_ACK_EVENT'
+downlinkDecoder:
+  fileName: elv-lw-oc8.js

@@ -26,6 +26,7 @@ module.exports = (env, argv) => {
     const isProduction = argv?.mode === undefined || argv?.mode === 'production'
 
     return {
+      mode: isProduction ? 'production' : 'development',
         devtool: isProduction ? 'source-map' : 'inline-source-map',
         entry: {
           base: path.resolve(__dirname, 'src/js/index.js'),
@@ -34,8 +35,9 @@ module.exports = (env, argv) => {
         },
         output: {
             path: path.resolve(__dirname, 'static/'),
-            filename: `js/${isProduction ? '[hash].' : ''}[name].js`,
-            publicPath: BASE_PATH
+            filename: `js/${isProduction ? '[fullhash].' : ''}[name].js`,
+            publicPath: BASE_PATH,
+            hashFunction: 'xxhash64',
         },
         resolve: {
           alias: {
@@ -45,22 +47,27 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: `css/${isProduction ? '[hash].' : ''}[name].css`
+                filename: `css/${isProduction ? '[fullhash].' : ''}[name].css`
             }),
             new WebpackManifestPlugin({
                 fileName: '../data/manifest.json',
                 publicPath: `${isProduction ? '/' : BASE_URL + BASE_PATH}`,
                 writeToFileEmit: true
             }),
-            new CopyPlugin([
-              {
-                from: "**/*",
-                context: path.resolve(__dirname, "src", "assets/static"),
-                to: "assets/" }
-            ])
+            new CopyPlugin({
+              patterns: [
+                {
+                  from: "**/*",
+                  context: path.resolve(__dirname, "src", "assets/static"),
+                  to: "assets/"
+                }
+              ]
+            })
         ],
         devServer: {
-            contentBase: path.join(__dirname, 'src'),
+            static: {
+              directory: path.join(__dirname, 'src'),
+            },
             port: 9100,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -76,7 +83,7 @@ module.exports = (env, argv) => {
                     loader: 'babel-loader'
                 },
                 {
-                  test:  /\.(styl|css)$/,
+                  test:  /\.styl$/,
                   use: [
                     // CSS loader for moduled css/styl from javascript
                     {
@@ -84,20 +91,41 @@ module.exports = (env, argv) => {
                     },
                     {
                       loader: 'css-loader',
-                      options: { modules: true, localsConvention: 'camelCase' },
+                      options: {
+                        modules: {
+                          exportLocalsConvention: 'camelCase'
+                        }
+                      },
                     },
 
                     {
                       loader: 'stylus-loader',
                       options: {
-                        import: [path.resolve(__dirname, 'src/js/styles/include.styl')],
+                        additionalData: `@import "${path.resolve(__dirname, 'src/js/styles/include.styl')}"`,
                       },
                     },
                   ],
                   exclude: [path.resolve(__dirname,'./src/styles/')]
                 },
                 {
-                  test:  /\.(styl|css)$/,
+                  test:  /\.css$/,
+                  use: [
+                    {
+                      loader: 'style-loader',
+                    },
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        modules: {
+                          exportLocalsConvention: 'camelCase'
+                        }
+                      },
+                    },
+                  ],
+                  exclude: [path.resolve(__dirname,'./src/styles/')]
+                },
+                {
+                  test:  /\.styl$/,
                   // CSS loader for non-moduled css use for static site content
                   use: [
                     {
@@ -108,6 +136,19 @@ module.exports = (env, argv) => {
                     },
                     {
                       loader: 'stylus-loader', // Compiles stylus to css
+                    },
+                  ],
+                  include: [path.resolve(__dirname,'./src/styles/')]
+                },
+                {
+                  test:  /\.css$/,
+                  // CSS loader for non-moduled css use for static site content
+                  use: [
+                    {
+                      loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                      loader: 'css-loader',
                     },
                   ],
                   include: [path.resolve(__dirname,'./src/styles/')]

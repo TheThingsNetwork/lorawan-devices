@@ -1,10 +1,10 @@
 name: ioTracker 3
-description: multi-sensor LoRaWAN tracker
+description: LoRaWAN Panic Button and Multi-Sensor Tracker
 hardwareVersions:
   - version: '3'
     numeric: 1
 firmwareVersions:
-  - version: '1.10'
+  - version: '1.18'
     numeric: 1
     hardwareVersions:
       - '3'
@@ -57,18 +57,18 @@ firmwareProgramming:
 productURL: https://www.iotracker.nl/iotracker
 dataSheetURL: https://www.iotracker.nl/uploads/files/1/a/1ae2a37091d7cf93cabb1e81f4c4949dc1ad29fc.pdf
 resellerURLs:
-  - name: 'instaSOLUTION'
+  - name: 'ioThings'
     region:
       - European Union
-    url: https://instasolution.ch/threat-alerting/
-  - name: 'Serinus'
+      - United States
+      - Canada
+    url: https://www.iotracker.eu/contact
+  - name: 'iot-shop'
     region:
       - European Union
-    url: https://serinus.de/
-  - name: 'X-Guard'
-    region:
-      - European Union
-    url: https://x-guard.nl/
+      - United States
+      - Canada
+    url: https://iot-shop.de
 msrp:
   EUR: 89
 photos:
