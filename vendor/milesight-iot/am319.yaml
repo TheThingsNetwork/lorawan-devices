@@ -55,8 +55,6 @@ sensors:
   - light
   - pm2.5
   - pm10
-  - hcho
-  # o3
 
 dimensions:
   width: 22

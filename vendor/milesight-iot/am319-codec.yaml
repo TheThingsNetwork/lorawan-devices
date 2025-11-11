@@ -1,12 +1,13 @@
 # Uplink decoder decodes binary data uplink into a JSON object
 uplinkDecoder:
   fileName: am319.js
-  
+
   examples:
     - description: Ambience Monitoring Sensors (example 1) - Milesight IoT
       input:
         fPort: 85
-        bytes: [
+        bytes:
+          [
             0x03,
             0x67,
             0x34,
@@ -43,17 +44,17 @@ uplinkDecoder:
             0x0C,
             0x7D,
             0x30,
-            0x00
-        ]
+            0x00,
+          ]
       output:
         data:
-          temperature: 25.6
-          humidity: 47.5
-          activity: 'trigger'
+          temperature: 30.8
+          humidity: 50.5
+          pir: 'trigger'
           light_level: 2
-          co2: 699
-          tvoc: 1
-          pressure: 1020.1
-          hcho: 0.01
-          pm2.5: 31
-          pm10: 35
+          co2: 936
+          tvoc: 0.37
+          pressure: 1008.6
+          hcho: 0.04
+          pm2_5: 32
+          pm10: 48
