@@ -1,0 +1,20 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs373.js
+  examples:
+    - description: Radar Fall Detection Sensor- Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x03, 0xf8, 0x01, 0x00, 0x10, 0x00, 0x20, 0x00, 0x04, 0xf9, 0x01, 0x00, 0x01, 0x00]
+
+      output:
+        data:
+          detection_status: 'vacant'
+          target_status: 'normal'
+          use_time_now: 16
+          use_time_today: 32
+          region_1_occupancy: 'vacant'
+          region_2_occupancy: 'occupied'
+          region_3_occupancy: 'vacant'
+          region_4_occupancy: 'occupied'

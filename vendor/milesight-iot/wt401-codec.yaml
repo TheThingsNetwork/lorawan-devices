@@ -1,0 +1,28 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: wt401.js
+  examples:
+    - description: Wireless Smart Thermostat - Milesight IoT
+      input:
+        fPort: 85
+        bytes:
+          - 0x00
+          - 0x64
+          - 0x01
+          - 0x10
+          - 0x0E
+          - 0x02
+          - 0x30
+          - 0x02
+          - 0x03
+          - 0x02
+          - 0x05
+          - 0x01
+      output:
+        data:
+          battery: 100
+          temperature: 36
+          humidity: 56
+          temperature_control_mode: 'cool'
+          execution_plan: 'plan_2'

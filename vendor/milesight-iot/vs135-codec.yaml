@@ -1,0 +1,70 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs135.js
+  examples:
+    - description: AI ToF People Counting Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes:
+          [
+            0x03,
+            0xD2,
+            0x48,
+            0x00,
+            0x00,
+            0x00,
+            0x04,
+            0xD2,
+            0xC8,
+            0x00,
+            0x00,
+            0x00,
+            0x06,
+            0xD2,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x07,
+            0xD2,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x09,
+            0xD2,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x0A,
+            0xD2,
+            0x00,
+            0x00,
+            0x00,
+            0x00,
+            0x0C,
+            0xD2,
+            0xB4,
+            0x14,
+            0x00,
+            0x00,
+            0x0D,
+            0xD2,
+            0x8D,
+            0x1A,
+            0x00,
+            0x00,
+          ]
+
+      output:
+        data:
+          line_1_total_in: 72
+          line_1_total_out: 200
+          line_2_total_in: 0
+          line_2_total_out: 0
+          line_3_total_in: 0
+          line_3_total_out: 0
+          line_4_total_in: 5300
+          line_4_total_out: 6797
