@@ -68,6 +68,7 @@ keyProvisioning:
 keySecurity: none
 
 productURL: https://www.decentlab.com/products/eleven-parameter-weather-station-for-lorawan
+dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ATM41G2-datasheet.pdf
 photos:
   main: dl-atm41g2.png
   other:
