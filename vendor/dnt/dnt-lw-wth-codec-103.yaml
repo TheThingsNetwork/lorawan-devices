@@ -1,0 +1,28 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-wth-103.js
+  # Examples (optional)
+  examples:
+    - description: Status Uplink
+      input:
+        fPort: 10
+        bytes: [0x04, 0x07, 0x8A, 0x00, 0xDB, 0x37]
+      output:
+        data:
+          room_humidity: 55
+          room_temperature: 219
+          voltage: 2880
+        errors: []
+        warnings: []
+    - description: Set-Point-Temperture Change
+      input:
+        fPort: 10
+        bytes: [0x21, 0x2B]
+      output:
+        data:
+          set_point_temperature: '21.5'
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: dnt-lw-wth.js
