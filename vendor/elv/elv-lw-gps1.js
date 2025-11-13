@@ -1,7 +1,7 @@
 /*
  * ELV-LW-GPS1-Payload-Parser
  * 
- * Version: V1.0.0
+ * Version: V1.1.0
  * 
  * */
 
@@ -15,12 +15,12 @@ var tx_reason = ["Reserved", "Timer_Event", "User_Button", "GNSS_Timeout", "Hear
  * @param   port:   Used TTN/TTS data port 
  * @return  Decoded data from the ELV-LW-GPS1 device
  * */
-function decodeUplink( input )
+function decodeUplink(input)
 {
 
   var bytes = input.bytes;
   var port = input.fPort;
-  
+
   var decoded = {};               // Container with the decoded output
   var index   = bytes[0] + 1;     // Index variable for the application data in the bytes[] array
   
@@ -47,7 +47,12 @@ function decodeUplink( input )
               decoded.altitude  = Number( ( decoded.altitude / 10000 ).toFixed( 2 ) );
               decoded.hdop      = Number( parseFloat( String( bytes[++index] ) + "." + String( bytes[++index] * 4 ).padStart( 2, '0' ) ).toFixed( 2 ) );
             }
-              break;
+            break;
+            case 0x02:  // Input state
+            {
+              decoded.input  = bytes[++index];
+            }
+            break;
             default:  // There is something wrong with the data type value
             {
               // Removing all added properties from the "decoded" object with a deep clean
@@ -73,9 +78,15 @@ function decodeUplink( input )
     decoded.parser_error = "Wrong Port Number";
   }
 
-  //return decoded;
+  return {data:decoded};
+}
 
-  return{
-    data: decoded,
-  };
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  }
 }
