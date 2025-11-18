@@ -1001,6 +1001,10 @@ vendors:
     name: Boston Networks Limited
     vendorID: 598
 
+  - id: inbiot
+    name: inBiot Monitoring S.L.
+    vendorID: 600
+
   - id: milesight-iot
     name: Milesight IoT Co., Ltd
     vendorID: 601
