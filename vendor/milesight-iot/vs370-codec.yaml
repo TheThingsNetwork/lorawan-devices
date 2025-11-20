@@ -1,0 +1,15 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs370.js
+  examples:
+    - description: Radar Human Presence Sensor- Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x00, 0x01, 0x04, 0x00, 0x00]
+
+      output:
+        data:
+          battery: 100
+          occupancy: 'occupied'
+          illuminance: 'dim'
