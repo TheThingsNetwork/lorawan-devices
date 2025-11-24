@@ -34,7 +34,7 @@ uplinkDecoder:
           plan_type: 'not executed'
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 downlinkEncoder:
-  fileName: wt201v2.js
+  fileName: wt201v2-encoder.js
   examples:
     - description: Set humidity range, temperature dehumidify and collection interval
       input:
@@ -47,7 +47,6 @@ downlinkEncoder:
             temperature_tolerance: 1
           collection_interval: 30
       output:
-        fPort: 1
         bytes:
           - 0xff
           - 0x02
@@ -60,4 +59,4 @@ downlinkEncoder:
           - 0xf9
           - 0x0a
           - 0x00
-          - 0x0a
+          - 0x00

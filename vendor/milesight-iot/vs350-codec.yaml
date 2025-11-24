@@ -16,3 +16,14 @@ uplinkDecoder:
           period_in: 1000
           period_out: 1001
           period_count_alarm: 'threshold alarm'
+downlinkEncoder:
+  fileName: vs350-encoder.js
+  examples:
+    - description: set temperature calibration
+      input:
+        data:
+          temperature_calibration_settings:
+            enable: enable
+            calibration_value: 25
+      output:
+        bytes: [0xFF, 0xAB, 0x01, 0xFA, 0x00]

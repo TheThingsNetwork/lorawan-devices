@@ -18,3 +18,14 @@ uplinkDecoder:
           region_2_occupancy: 'occupied'
           region_3_occupancy: 'vacant'
           region_4_occupancy: 'occupied'
+downlinkEncoder:
+  fileName: vs373-encoder.js
+  examples:
+    - description: set detection mode and sensitivity
+      input:
+        data:
+          detection_settings:
+            mode: default
+            sensitivity: high
+      output:
+        bytes: [0xF9, 0x50, 0x00, 0x01]

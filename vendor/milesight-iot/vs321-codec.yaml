@@ -35,3 +35,12 @@ uplinkDecoder:
           region_10_enable: 'disable'
           region_10: 'vacant'
           illuminance_status: 'bright'
+downlinkEncoder:
+  fileName: vs321-encoder.js
+  examples:
+    - description: Set detection_mode
+      input:
+        data:
+          detection_mode: 'auto'
+      output:
+        bytes: [0xF9, 0x6B, 0x00]

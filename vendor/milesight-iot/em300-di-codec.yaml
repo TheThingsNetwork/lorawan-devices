@@ -13,3 +13,21 @@ uplinkDecoder:
         data:
           battery: 92
           pulse: 256
+downlinkEncoder:
+  fileName: em300-di-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds and collection interval to 60 seconds
+      input:
+        data:
+          report_interval: 300
+          collection_interval: 60
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01
+          - 0xFF
+          - 0x02
+          - 0x3C
+          - 0x00
