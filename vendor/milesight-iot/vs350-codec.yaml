@@ -1,0 +1,18 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs350.js
+  examples:
+    - description: Passage People Counter - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x84, 0xCC, 0x01, 0x11, 0x08, 0x11, 0x01, 0x85, 0xCC, 0xE8, 0x03, 0xE9, 0x03, 0x01]
+
+      output:
+        data:
+          total_in: 4353
+          total_out: 4360
+          total_count_alarm: 'threshold alarm'
+          period_in: 1000
+          period_out: 1001
+          period_count_alarm: 'threshold alarm'

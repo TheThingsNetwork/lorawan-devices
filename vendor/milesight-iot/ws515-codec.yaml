@@ -1,0 +1,18 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: ws515.js
+  examples:
+    - description: Smart Wall Socket - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x08, 0x70, 0x01, 0x05, 0x81, 0x61, 0x07, 0xc9, 0xa8, 0x00, 0x03, 0x74, 0x83, 0x08, 0x06, 0x83, 0x1d, 0x00, 0x00, 0x00, 0x04, 0x80, 0x23, 0x00, 0x00, 0x00]
+
+      output:
+        data:
+          socket_status: 'on'
+          power_factor: 97
+          current: 168
+          voltage: 217.9
+          power_consumption: 29
+          active_power: 35
