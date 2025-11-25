@@ -1,0 +1,16 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs351.js
+  examples:
+    - description: Mini AI Thermopile People Counter - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x04, 0xCC, 0x12, 0x00, 0x16, 0x00, 0x05, 0xCC, 0x13, 0x00, 0x14, 0x00]
+
+      output:
+        data:
+          total_in: 18
+          total_out: 22
+          period_in: 19
+          period_out: 20

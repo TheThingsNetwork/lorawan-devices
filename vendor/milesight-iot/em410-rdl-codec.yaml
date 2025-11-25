@@ -1,0 +1,36 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: em410-rdl.js
+
+  examples:
+    - description: Radar Distance/Level Sensor  - Milesight IoT
+      input:
+        fPort: 85
+        bytes:
+          - 0x01
+          - 0x75
+          - 0x64
+          - 0x03
+          - 0x67
+          - 0x10
+          - 0x01
+          - 0x04
+          - 0x82
+          - 0x2C
+          - 0x01
+          - 0x05
+          - 0x00
+          - 0x01
+          - 0x06
+          - 0xc7
+          - 0x20
+          - 0x03
+
+      output:
+        data:
+          battery: 100
+          temperature: 27.2
+          distance: 300
+          position: 'tilt'
+          radar_signal_rssi: 8
