@@ -27,3 +27,32 @@ uplinkDecoder:
             current_threshold_alarm_release: 'no'
             current_over_range_alarm: 'yes'
             current_over_range_alarm_release: 'no'
+downlinkEncoder:
+  fileName: ct105-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds and configure current alarm
+      input:
+        data:
+          report_interval: 300
+          current_alarm_config:
+            condition: below
+            threshold_min: 100
+            threshold_max: 200
+      output:
+        bytes:
+          - 0xFF
+          - 0x8E
+          - 0x00
+          - 0x2C
+          - 0x01
+          - 0xFF
+          - 0x06
+          - 0x09
+          - 0x64
+          - 0x00
+          - 0xC8
+          - 0x00
+          - 0x00
+          - 0x00
+          - 0x00
+          - 0x00

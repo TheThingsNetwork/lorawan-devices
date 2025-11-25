@@ -68,3 +68,14 @@ uplinkDecoder:
           line_3_total_out: 0
           line_4_total_in: 5300
           line_4_total_out: 6797
+downlinkEncoder:
+  fileName: vs135-encoder.js
+  examples:
+    - description: Set rejoin configuration
+      input:
+        data:
+          rejoin_config:
+            enable: enable
+            max_count: 10
+      output:
+        bytes: [0xF9, 0x85, 0x01, 0x0A]

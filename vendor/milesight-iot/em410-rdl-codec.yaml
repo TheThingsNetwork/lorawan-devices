@@ -34,3 +34,17 @@ uplinkDecoder:
           distance: 300
           position: 'tilt'
           radar_signal_rssi: 8
+downlinkEncoder:
+  fileName: em410-rdl-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x8E
+          - 0x00
+          - 0x2C
+          - 0x01
