@@ -15,3 +15,23 @@ uplinkDecoder:
           hardware_version: 'v1.1'
           ipso_version: 'v0.1'
           sn: '6745e27566240008'
+downlinkEncoder:
+  fileName: at101-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds and motion report interval to 20 seconds
+      input:
+        data:
+          report_interval: 300
+          motion_report_interval: 20
+      output:
+        bytes:
+          - 0xFF
+          - 0x8E
+          - 0x00
+          - 0x2C
+          - 0x01
+          - 0xFF
+          - 0x8E
+          - 0x01
+          - 0x14
+          - 0x00

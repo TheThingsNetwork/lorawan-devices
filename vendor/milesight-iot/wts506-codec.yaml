@@ -18,3 +18,12 @@ uplinkDecoder:
           wind_speed: 40.2
           rainfall_counter: 37
           rainfall_total: 50.6
+downlinkEncoder:
+  fileName: wts506-encoder.js
+  examples:
+    - description: Set report interval
+      input:
+        data:
+          report_interval: 64800
+      output:
+        bytes: [0xFF, 0x03, 0x20, 0xFD]

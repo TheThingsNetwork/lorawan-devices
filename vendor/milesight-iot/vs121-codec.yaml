@@ -11,3 +11,14 @@ uplinkDecoder:
           people_counter_all: 3
           region_count: 3
           regions: [{ 'count': 1, 'index': 0 }, { 'count': 1, 'index': 1 }, { 'count': 0, 'index': 2 }]
+downlinkEncoder:
+  fileName: vs121-encoder.js
+  examples:
+    - description: Set rejoin configuration
+      input:
+        data:
+          rejoin_config:
+            enable: enable
+            max_count: 10
+      output:
+        bytes: [0xF9, 0x85, 0x01, 0x0A]

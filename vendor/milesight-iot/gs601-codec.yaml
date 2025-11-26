@@ -43,3 +43,18 @@ uplinkDecoder:
           tvoc: 48
           tamper_status: 'normal'
           buzzer: 'normal'
+downlinkEncoder:
+  fileName: gs601-encoder.js
+  examples:
+    - description: Set reporting interval to 300 seconds
+      input:
+        data:
+          reporting_interval:
+            unit: 'second'
+            seconds_of_time: 300
+      output:
+        bytes:
+          - 0x60
+          - 0x00
+          - 0x2C
+          - 0x01

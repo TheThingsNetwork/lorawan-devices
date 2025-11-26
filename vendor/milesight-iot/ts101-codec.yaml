@@ -12,3 +12,16 @@ uplinkDecoder:
         data:
           battery: 100
           temperature: 26.3
+downlinkEncoder:
+  fileName: ts101-encoder.js
+  examples:
+    - description: Set reporting interval to 600 seconds
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x58
+          - 0x02

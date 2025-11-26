@@ -14,3 +14,15 @@ uplinkDecoder:
           total_out: 22
           period_in: 19
           period_out: 20
+downlinkEncoder:
+  fileName: vs351-encoder.js
+  examples:
+    - description: set cumulative reset config
+      input:
+        data:
+          reset_cumulative_schedule_config:
+            weekday: sunday
+            hour: 0
+            minute: 0
+      output:
+        bytes: [0xFF, 0xED, 0x01, 0x00, 0x00]

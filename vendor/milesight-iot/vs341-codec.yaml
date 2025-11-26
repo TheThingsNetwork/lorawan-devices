@@ -12,3 +12,14 @@ uplinkDecoder:
         data:
           battery: 100
           occupancy: occupied
+downlinkEncoder:
+  fileName: vs341-encoder.js
+  examples:
+    - description: Set pir collection settings
+      input:
+        data:
+          pir_collect_settings:
+            enable: enable
+            count: 5
+      output:
+        bytes: [0xFF, 0x98, 0x01, 0x05, 0x00, 0x0D, 0x00]

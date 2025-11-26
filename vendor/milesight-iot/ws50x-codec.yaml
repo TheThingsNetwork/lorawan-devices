@@ -8,9 +8,20 @@ uplinkDecoder:
         bytes: [0xFF, 0x29, 0x31]
       output:
         data:
-          switch_1: open
-          switch_2: close
-          switch_3: close
+          switch_1: on
+          switch_2: off
+          switch_3: off
           switch_1_change: yes
           switch_2_change: yes
           switch_3_change: no
+downlinkEncoder:
+  fileName: ws50x-encoder.js
+  examples:
+    - description: set child lock configuration
+      input:
+        data:
+          child_lock_config:
+            enable: enable
+            lock_time: 30
+      output:
+        bytes: [0xFF, 0x25, 0x1E, 0x80]

@@ -28,3 +28,15 @@ uplinkDecoder:
           temperature_control_status: 'heating'
           temperature_control_mode: 'cooling'
           valve_status: 'unknown'
+downlinkEncoder:
+  fileName: wt303-encoder.js
+  examples:
+    - description: Set reporting interval
+      input:
+        data:
+          reporting_interval:
+            unit: 'second'
+            seconds_of_time: 300
+
+      output:
+        bytes: [0x62, 0x00, 0x2C, 0x01]

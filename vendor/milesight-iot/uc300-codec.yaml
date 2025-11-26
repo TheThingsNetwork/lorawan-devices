@@ -14,10 +14,20 @@ uplinkDecoder:
           digital_output_1: off
           digital_output_2: on
           pulse_count_1: 22
-    - description: LoRa Controllers (example 2) - Milesgiht IoT
+    - description: LoRa Controllers (example 2) - Milesight IoT
       input:
         fPort: 85
         bytes: [0xff, 0x19, 0x07, 0x02, 0x03, 0x15, 0x00]
       output:
         data:
           modbus_channels: [{ index: 8, reading: 5379 }]
+downlinkEncoder:
+  fileName: uc300-encoder.js
+  examples:
+    - description: Control GPIO outputs
+      input:
+        data:
+          gpio_output_1: on
+          gpio_output_2: off
+      output:
+        bytes: [0x07, 0x01, 0xFF, 0x08, 0x00, 0xFF]

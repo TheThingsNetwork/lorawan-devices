@@ -13,3 +13,15 @@ uplinkDecoder:
           battery: 100
           occupancy: 'occupied'
           illuminance: 'dim'
+downlinkEncoder:
+  fileName: vs370-encoder.js
+  examples:
+    - description: set light threshold
+      input:
+        data:
+          pir_illuminance_threshold:
+            enable: enable
+            upper_limit: 800
+            lower_limit: 300
+      output:
+        bytes: [0xF9, 0x41, 0x01, 0x20, 0x03, 0x2C, 0x01]

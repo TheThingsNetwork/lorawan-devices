@@ -38,3 +38,15 @@ uplinkDecoder:
           valve_opening: 100
           motor_stroke: 0
           motor_position: 0
+downlinkEncoder:
+  fileName: wt101-encoder.js
+  examples:
+    - description: temperature calibration configuration
+      input:
+        data:
+          temperature_calibration_settings:
+            enable: enable
+            calibration_value: 2
+
+      output:
+        bytes: [0xFF, 0xAB, 0x01, 0x14, 0x00]
