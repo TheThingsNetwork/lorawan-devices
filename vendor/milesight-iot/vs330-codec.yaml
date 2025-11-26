@@ -14,3 +14,14 @@ uplinkDecoder:
           distance: 15
           occupancy: occupied
           calibration: success
+downlinkEncoder:
+  fileName: vs330-encoder.js
+  examples:
+    - description: Set back test mode
+      input:
+        data:
+          back_test_config:
+            enable: disable
+            distance: 1000
+      output:
+        bytes: [0xFF, 0x7A, 0x00, 0xE8, 0x03]

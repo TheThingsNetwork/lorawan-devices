@@ -11,7 +11,15 @@ firmwareVersions:
   - # Firmware version
     version: '0.1.0'
     numeric: 1
+    profiles:
+      EU863-870:
+        id: dnt-profile
+        codec: dnt-lw-etrv-c-codec
     # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+  - version: '1.3.0'
+    numeric: 130
     hardwareVersions:
       - '1.0'
 
@@ -96,7 +104,7 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-etrv-c/
+    url: https://dnt.de/produkte/dnt-lorawan-heizkoerperthermostat-bedienbar-dnt-lw-etrv-c/
 msrp:
   EUR: 89.95
 

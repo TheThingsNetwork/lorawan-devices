@@ -53,7 +53,7 @@ uplinkDecoder:
             'rh': 67.78515297169452,
             'tDewC': 15.855392059081987,
             'tempC': 22.0859375,
-            'time': '2025-03-31T00:40:01Z',
+            'time': '2025-03-31T00:40:01.000Z',
           }
 # Downlink encoder encodes JSON object into a binary data downlink (optional)
 ## downlinkEncoder:

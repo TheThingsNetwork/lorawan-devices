@@ -13,3 +13,12 @@ uplinkDecoder:
           battery: 100
           distance: 62
           remaining: 69
+downlinkEncoder:
+  fileName: ws201-encoder.js
+  examples:
+    - description: set report interval
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes: [0xFF, 0x03, 0x58, 0x02]

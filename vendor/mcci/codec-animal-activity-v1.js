@@ -317,7 +317,7 @@ function Decoder(bytes, port) {
     Parse.i = 1;
 
     // fetch time; convert to database time (which is UTC-like ignoring leap seconds)
-    decoded.time = new Date((DecodeU32(Parse) + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000);
+    decoded.time = new Date((DecodeU32(Parse) + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000).toISOString();
 
     // fetch the bitmap.
     var flags = bytes[Parse.i++];

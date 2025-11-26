@@ -8,19 +8,20 @@ hardwareVersions:
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
-  - # Firmware version
-    version: '1.0.11'
+  - version: '1.0.11'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: dnt-profile
+        lorawanCertified: true
+        codec: dnt-lw-wth-codec
+  - version: '1.1.0'
+    numeric: 100
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
-
-    # Firmware features (optional)
-    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
-    # often he device sends a message).
-    features:
-      - remote rejoin
-      - transmission interval
 
     # LoRaWAN Device Profiles per region
     # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
@@ -34,7 +35,14 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: dnt-profile
         lorawanCertified: true
-        codec: dnt-lw-wth-codec
+        codec: dnt-lw-wth-codec-103
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -98,7 +106,7 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/dnt-lw-wth/
+    url: https://dnt.de/produkte/dnt-lorawan-wandthermostat-dnt-lw-wth/
 msrp:
   EUR: 59.95
 
