@@ -58,3 +58,14 @@ uplinkDecoder:
             total_out: 0
             period_in: 0
             period_out: 0
+downlinkEncoder:
+  fileName: vs133-encoder.js
+  examples:
+    - description: Set rejoin configuration
+      input:
+        data:
+          rejoin_config:
+            enable: enable
+            max_count: 10
+      output:
+        bytes: [0xF9, 0x85, 0x01, 0x0A]
