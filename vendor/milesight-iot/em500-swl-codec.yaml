@@ -11,3 +11,16 @@ uplinkDecoder:
         data:
           battery: 92
           distance: 2
+downlinkEncoder:
+  fileName: em500-swl-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01

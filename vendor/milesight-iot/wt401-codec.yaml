@@ -26,3 +26,15 @@ uplinkDecoder:
           humidity: 56
           temperature_control_mode: 'cool'
           execution_plan: 'plan_2'
+downlinkEncoder:
+  fileName: wt401-encoder.js
+  examples:
+    - description: Set collection interval
+      input:
+        data:
+          collection_interval:
+            unit: 'second'
+            seconds_of_time: 300
+
+      output:
+        bytes: [0x60, 0x00, 0x2C, 0x01]

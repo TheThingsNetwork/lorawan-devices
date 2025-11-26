@@ -16,3 +16,12 @@ uplinkDecoder:
       output:
         data:
           light: dark
+downlinkEncoder:
+  fileName: ws202-encoder.js
+  examples:
+    - description: set report interval
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes: [0xFF, 0x03, 0x58, 0x02]

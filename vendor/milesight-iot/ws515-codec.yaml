@@ -16,3 +16,14 @@ uplinkDecoder:
           voltage: 217.9
           power_consumption: 29
           active_power: 35
+downlinkEncoder:
+  fileName: ws515-encoder.js
+  examples:
+    - description: set current threshold
+      input:
+        data:
+          current_threshold:
+            enable: enable
+            threshold: 10
+      output:
+        bytes: [0xFF, 0x24, 0x01, 0x0A]

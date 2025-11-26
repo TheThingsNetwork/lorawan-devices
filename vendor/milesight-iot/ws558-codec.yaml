@@ -17,3 +17,14 @@ uplinkDecoder:
       output:
         data:
           power_consumption: 1110
+downlinkEncoder:
+  fileName: ws558-encoder.js
+  examples:
+    - description: Control switch
+      input:
+        data:
+          switch_1: on
+          switch_2: off
+          switch_3: off
+      output:
+        bytes: [0x08, 0x07, 0x01]
