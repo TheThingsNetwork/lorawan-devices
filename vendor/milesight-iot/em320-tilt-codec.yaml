@@ -18,3 +18,16 @@ uplinkDecoder:
           threshold_x: normal
           threshold_y: trigger
           threshold_z: normal
+downlinkEncoder:
+  fileName: em320-tilt-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01

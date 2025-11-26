@@ -1,0 +1,46 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs321.js
+  examples:
+    - description: Wireless AI Occupancy Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x03, 0x67, 0x10, 0x01, 0x04, 0x68, 0x0a, 0x05, 0xfd, 0x2c, 0x01, 0x06, 0xfe, 0x03, 0x00, 0x03, 0x00, 0x07, 0xff, 0x01]
+
+      output:
+        data:
+          battery: 100
+          temperature: 27.2
+          humidity: 5
+          people_total_counts: 300
+          region_1_enable: 'enable'
+          region_1: 'occupied'
+          region_2_enable: 'enable'
+          region_2: 'occupied'
+          region_3_enable: 'disable'
+          region_3: 'vacant'
+          region_4_enable: 'disable'
+          region_4: 'vacant'
+          region_5_enable: 'disable'
+          region_5: 'vacant'
+          region_6_enable: 'disable'
+          region_6: 'vacant'
+          region_7_enable: 'disable'
+          region_7: 'vacant'
+          region_8_enable: 'disable'
+          region_8: 'vacant'
+          region_9_enable: 'disable'
+          region_9: 'vacant'
+          region_10_enable: 'disable'
+          region_10: 'vacant'
+          illuminance_status: 'bright'
+downlinkEncoder:
+  fileName: vs321-encoder.js
+  examples:
+    - description: Set detection_mode
+      input:
+        data:
+          detection_mode: 'auto'
+      output:
+        bytes: [0xF9, 0x6B, 0x00]
