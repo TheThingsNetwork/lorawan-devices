@@ -1,3 +1,36 @@
 # Uplink decoder decodes binary data uplink into a JSON object
 uplinkDecoder:
   fileName: ts201.js
+  examples:
+    - description: TS201 Temperature Sensor Data with Alarm
+      input:
+        fPort: 85
+        bytes:
+          - 0x93
+          - 0x67
+          - 0x34
+          - 0x01
+          - 0x64
+          - 0x00
+          - 0x02
+      output:
+        data:
+          temperature: 30.8
+          event:
+            - temperature: 30.8
+              temperature_mutation: 10
+              temperature_alarm: mutation alarm
+downlinkEncoder:
+  fileName: ts201-encoder.js
+  examples:
+    - description: Set report interval to 600 minutes
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes:
+          - 0xFF
+          - 0x8E
+          - 0x00
+          - 0x58
+          - 0x02
