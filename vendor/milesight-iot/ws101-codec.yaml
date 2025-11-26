@@ -9,3 +9,12 @@ uplinkDecoder:
       output:
         data:
           button: short
+downlinkEncoder:
+  fileName: ws101-encoder.js
+  examples:
+    - description: set current alarm configuration
+      input:
+        data:
+          double_click_enable: enable
+      output:
+        bytes: [0xFF, 0x74, 0x01]

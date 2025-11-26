@@ -14,3 +14,12 @@ uplinkDecoder:
           humidity: 50.5
           occupancy: vacant
           temperature: 30.8
+downlinkEncoder:
+  fileName: ws203-encoder.js
+  examples:
+    - description: set report interval
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes: [0xFF, 0x8E, 0x00, 0x58, 0x02]

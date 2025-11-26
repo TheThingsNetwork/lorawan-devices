@@ -2,3 +2,16 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: gs101.js
+downlinkEncoder:
+  fileName: gs101-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01
