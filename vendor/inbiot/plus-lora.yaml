@@ -1,0 +1,166 @@
+name: MICA Plus - Indoor Air Quality Sensor
+description: MICA Plus is a compact LoRaWAN Indoor Air Quality Sensor that monitors temperature, humidity, CO2, PMs, Formaldehyde and Noise.
+
+hardwareVersions:
+  - version: '1.8'
+    numeric: 1
+  - version: '1.0-rev-A'
+    numeric: 2
+
+firmwareVersions:
+  - version: '2.1'
+    numeric: 1
+
+    hardwareVersions:
+      - '1.8'
+
+    profiles:
+      EU863-870:
+        id: mica-868-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      US902-928:
+        id: mica-915-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      AU915-928:
+        id: mica-915-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      AS923:
+        id: mica-915-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      KR920-923:
+        id: mica-868-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+
+deviceType: cots
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - temperature
+  - humidity
+  - co2
+  - tvoc
+  - pm2.5
+  - pm10
+  - sound
+
+additionalRadios:
+  - ble
+  - wifi
+
+bridgeInterfaces:
+  - m-bus
+  - rs-485
+
+dimensions:
+  width: 62
+  length: 110
+  height: 110
+
+weight: 250
+
+operatingConditions:
+  temperature:
+    min: -10
+    max: 50
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+keyProvisioning:
+  - custom
+  - join server
+
+keyProgramming:
+  - bluetooth
+
+firmwareProgramming:
+  - fuota other
+
+productURL: https://www.inbiot.es/products/mica-devices/mica-plus
+dataSheetURL: https://cdn.prod.website-files.com/62cd3926b5783244d0a104e3/6790df481c3f4e1844296a75_d9b3951f5907bfa4c7b3cc41c3211500_PLUS_EN.pdf
+onboardingGuideURL: https://cdn.prod.website-files.com/62cd3926b5783244d0a104e3/662b648f55ec7acd2696b922_3ed4a58768dcc3088bfc93cb03ed2b71_APP_EN.pdf
+
+resellerURLs:
+  - name: 'Aire Limpio'
+    region:
+      - European Union
+    url: https://www.airelimpio.com
+
+  - name: 'Pando2'
+    region:
+      - European Union
+    url: https://www.pando2.com
+
+  - name: 'EFECONTROL'
+    region:
+      - European Union
+    url: https://efecontrol.com
+
+  - name: 'Ultra Protect'
+    region:
+      - United Kingdom
+    url: https://www.ultra-protect.co.uk
+
+  - name: 'Industrial Hygiene Hub'
+    region:
+      - Other
+    url: https://smartradiationgroup.co.za
+
+  - name: 'Habitech'
+    region:
+      - European Union
+    url: https://habitech.it
+
+  - name: 'Urecsys'
+    region:
+      - Other
+    url: https://urecsys.com/
+
+  - name: 'Airscan'
+    region:
+      - European Union
+      - Indonesia
+      - South Africa
+    url: https://airscan.org/
+
+  - name: 'WSS Tech'
+    region:
+      - European Union
+    url: https://wsstech.com
+
+  - name: 'Cirkuit'
+    region:
+      - Canada
+    url: https://cirkuit.io
+
+  - name: 'ITG'
+    region:
+      - European Union
+    url: https://itg.es
+
+  - name: 'Hightech'
+    region:
+      - Other
+    url: https://hteltda.com
+
+  - name: 'inBiot Monitoring'
+    region:
+      - European Union
+    url: https://inbiot.es
+
+photos:
+  main: plus-lora.png
+
+videos:
+  main: https://www.youtube.com/watch?v=Ljl4-Zh9TM8
