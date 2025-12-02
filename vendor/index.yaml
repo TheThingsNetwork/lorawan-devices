@@ -2186,3 +2186,6 @@ vendors:
     logo: fencyboy_logo.png
     social:
       linkedin: https://www.linkedin.com/showcase/fencyboy
+
+  - id: ttc-vendor
+    name: The Things Conference
