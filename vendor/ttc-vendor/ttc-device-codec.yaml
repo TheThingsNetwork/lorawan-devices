@@ -1,0 +1,52 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: ttc-device.js
+  # Examples (optional)
+  examples:
+    - description: 10 degrees
+      input:
+        fPort: 1
+        bytes: [10]
+      output:
+        data:
+          temperature: 10
+
+    - description: light on
+      input:
+        fPort: 2
+        bytes: [1]
+      output:
+        data:
+          light: 1
+
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: ttc-device.js
+  examples:
+    - description: Turn green
+      input:
+        data:
+          led: green
+      output:
+        bytes: [1]
+        fPort: 2
+    - description: Invalid color
+      input:
+        data:
+          led: blue
+      output:
+        errors:
+          - invalid LED color
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: ttc-device.js
+  examples:
+    - description: Turn green
+      input:
+        fPort: 2
+        bytes: [1]
+      output:
+        data:
+          led: green
