@@ -1,0 +1,134 @@
+uplinkDecoder:
+  fileName: inclino.js
+  examples:
+    - description: 'uplink standard report containing angle value | payload:110A000C00553941500000'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x0c, 0x00, 0x55, 0x39, 0x41, 0x50, 0x00, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: angle
+              value: 13
+              date: '2023-07-19T07:51:25.508306410Z'
+          angle: 13
+        warnings: []
+    - description: 'uplink standard report containing occupancy value | payload:110A040600001801'
+      input:
+        bytes: [0x11, 0x0a, 0x04, 0x06, 0x00, 0x00, 0x18, 0x01]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: occupancy
+              value: true
+              date: '2023-07-19T07:51:25.508306410Z'
+          occupancy: true
+        warnings: []
+    - description: 'uplink standard report containing firmware version | payload:110100000002000D0305020015E2'
+      input:
+        bytes: [0x11, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x0d, 0x03, 0x05, 0x02, 0x00, 0x15, 0xe2]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: firmware
+              value: 3.5.2.5602
+              date: '2023-07-19T07:51:25.508306410Z'
+          firmware: 3.5.2.5602
+        warnings: []
+    - description: 'uplink standard report  containing battery charge | payload:110A00500006410503040E6804'
+      input:
+        bytes: [0x11, 0x0a, 0x00, 0x50, 0x00, 0x06, 0x41, 0x05, 0x03, 0x04, 0x0e, 0x68, 0x04]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: disposable_battery_voltage
+              value: 3.688
+              date: '2023-07-19T07:51:25.508306410Z'
+          disposable_battery_voltage: 3.688
+        warnings: []
+    - description: 'uplink standard report containing dataup info | payload:110180040000000800'
+      input:
+        bytes: [0x11, 0x01, 0x80, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: message_type
+              value: unconfirmed
+              date: '2023-07-19T07:51:25.508306410Z'
+          message_type: unconfirmed
+        warnings: []
+    - description: 'uplink batch report | payload:1002000080ad837582816e33c01db3ea91ed581ae21d31398b1d29f0f10eb11d10'
+      input:
+        bytes:
+          [
+            0x10,
+            0x02,
+            0x00,
+            0x00,
+            0x80,
+            0xad,
+            0x83,
+            0x75,
+            0x82,
+            0x81,
+            0x6e,
+            0x33,
+            0xc0,
+            0x1d,
+            0xb3,
+            0xea,
+            0x91,
+            0xed,
+            0x58,
+            0x1a,
+            0xe2,
+            0x1d,
+            0x31,
+            0x39,
+            0x8b,
+            0x1d,
+            0x29,
+            0xf0,
+            0xf1,
+            0x0e,
+            0xb1,
+            0x1d,
+            0x10,
+          ]
+        fPort: 125
+        recvTime: '2023-07-19T07:51:25.508306410Z'
+      output:
+        data:
+          samples:
+            - variable: ACCmg
+              value: 2027
+              date: '2023-07-19T07:48:33.508Z'
+            - variable: ACCmg
+              value: 1778
+              date: '2023-07-19T07:48:43.508Z'
+            - variable: ACCmg
+              value: 13276
+              date: '2023-07-19T07:48:48.508Z'
+            - variable: ACCmg
+              value: 1568
+              date: '2023-07-19T07:49:31.508Z'
+            - variable: ACCmg
+              value: 19662
+              date: '2023-07-19T07:49:37.508Z'
+            - variable: ACCmg
+              value: 2684
+              date: '2023-07-19T07:49:44.508Z'
+            - variable: ACCmg
+              value: 7273
+              date: '2023-07-19T07:49:50.508Z'
+          ACCmg: 7273
+        warnings: []

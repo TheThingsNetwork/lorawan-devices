@@ -9,3 +9,15 @@ function decodeUplink(input) {
     data: data,
   };
 }
+
+function normalizeUplink(input) {
+  return {
+    data: {
+      air: {
+          temperature: input.data.temperature,
+          relativeHumidity: input.data.humidity,
+      },
+      battery: input.data.batt_volt,
+    },
+  };
+}

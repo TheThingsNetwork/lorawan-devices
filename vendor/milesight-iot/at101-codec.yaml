@@ -1,0 +1,37 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: at101.js
+
+  examples:
+    - description: Initial Connection - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0xFF, 0x0B, 0xFF, 0xFF, 0x01, 0x01, 0xFF, 0x16, 0x67, 0x45, 0xE2, 0x75, 0x66, 0x24, 0x00, 0x08, 0xFF, 0x09, 0x01, 0x10, 0xFF, 0x0A, 0x01, 0x02]
+      output:
+        data:
+          device_status: 'on'
+          firmware_version: 'v1.2'
+          hardware_version: 'v1.1'
+          ipso_version: 'v0.1'
+          sn: '6745e27566240008'
+downlinkEncoder:
+  fileName: at101-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds and motion report interval to 20 seconds
+      input:
+        data:
+          report_interval: 300
+          motion_report_interval: 20
+      output:
+        bytes:
+          - 0xFF
+          - 0x8E
+          - 0x00
+          - 0x2C
+          - 0x01
+          - 0xFF
+          - 0x8E
+          - 0x01
+          - 0x14
+          - 0x00

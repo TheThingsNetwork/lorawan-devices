@@ -3,6 +3,11 @@ endDevices:
   - wwd
   - aqs
   - kfr
+  - ran
+  - prs
+  - aqm
+  - flo
+
 profileIDs:
   '13':
     endDeviceID: 'bvs'

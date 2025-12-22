@@ -1,0 +1,96 @@
+name: Smart Fan Coil Thermostat -WT304
+description: WT303&WT304 is an advanced room thermostat specifically developedtooversee fan and valve operations in air conditioner applicationswhere2-pipeor4-pipe fan coil unit (FCU) with 3-speed fan or ECMfan is adopted
+
+hardwareVersions:
+  - version: 'V1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: 'wt304.1.0.x'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.0'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868-class-ac
+        codec: wt304-codec
+      US902-928:
+        id: profile-us915-class-ac
+        codec: wt304-codec
+      AU915-928:
+        id: profile-au915-class-ac
+        codec: wt304-codec
+      AS923:
+        id: profile-as923-class-ac
+        codec: wt304-codec
+      CN470-510:
+        id: profile-cn470-class-ac
+        codec: wt304-codec
+      KR920-923:
+        id: profile-kr920-class-ac
+        codec: wt304-codec
+      IN865-867:
+        id: profile-in865-class-ac
+        codec: wt304-codec
+      RU864-870:
+        id: profile-ru864-class-ac
+        codec: wt304-codec
+
+sensors:
+  - smart valve
+
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+
+dimensions:
+  width: 42
+  length: 86
+  height: 86
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP20
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight.com/iot/product/lorawan-sensor/wt303-wt304
+dataSheetURL: https://resource.milesight.com/milesight/iot/document/wt303-wt304-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: wt304.png
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

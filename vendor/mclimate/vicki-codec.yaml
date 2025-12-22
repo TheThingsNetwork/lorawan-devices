@@ -23,5 +23,13 @@ uplinkDecoder:
           calibrationFailed: false
           perceiveAsOnline: false
           antiFreezeProtection: false
-          motorOpenness: 17
-          targetTemperatureFloat: '29.00'
+          valveOpenness: 17
+          targetTemperatureFloat: 29
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 18.01
+              relativeHumidity: 46.88
+            battery: 3.5
+        warnings:
+          - 'childLock: true'

@@ -1,0 +1,69 @@
+uplinkDecoder:
+  fileName: dl-ilt.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes: [0x02, 0x56, 0xd2, 0x00, 0x03, 0x8a, 0x8c, 0x0c, 0x9d]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.229
+          device_id: 22226
+          leaf_temperature:
+            displayName: Leaf temperature
+            unit: "\xB0C"
+            value: 27
+          protocol_version: 2
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x56, 0xd2, 0x00, 0x02, 0x0c, 0x9d]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 3.229
+          device_id: 22226
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

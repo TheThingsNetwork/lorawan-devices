@@ -1,0 +1,80 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: wilsen.js
+  # Examples (optional)
+  examples:
+    - description: Payload 1 contains sensor status, battery status and temperature
+      input:
+        fPort: 1
+        bytes: [3, 12, 4, 0, 6, 2, 1, 65, 174, 102, 102, 3, 81, 1, 36]
+      output:
+        data:
+          battery_vol: 3.6
+          payload: '030C040006020141AE666603510124'
+          sensor_1_status: 'No target detected'
+          sensor_2_status: 'No target detected'
+          sensor_status: 0
+          temp: 21.8
+        errors: []
+        warnings: []
+    - description: Payload 2 contains proximity in mm, amplitude, battery status, geo location and temperature
+      input:
+        fPort: 1
+        bytes: [3, 12, 4, 0, 6, 2, 1, 65, 174, 102, 102, 3, 81, 1, 36, 6, 80, 1, 2, 241, 198, 8, 6, 80, 2, 0, 125, 33, 179]
+      output:
+        data:
+          battery_vol: 3.6
+          latitude: 49.399304
+          longitude: 8.200627
+          payload: '030C040006020141AE66660351012406500102F1C608065002007D21B3'
+          sensor_1_status: 'No target detected'
+          sensor_2_status: 'No target detected'
+          sensor_status: 0
+          temp: 21.8
+        errors: []
+        warnings: []
+    - description: Payload 3 contains serial number, battery status and counter of LoRa transmission, GPS position determination and sensor measurments
+      input:
+        fPort: 1
+        bytes: [16, 42, 37, 52, 56, 48, 48, 48, 48, 48, 48, 54, 51, 57, 57, 57, 57, 4, 49, 1, 0, 158, 4, 49, 2, 0, 2, 6, 49, 4, 0, 0, 13, 47, 3, 81, 1, 36]
+      output:
+        data:
+          battery_vol: 3.6
+          gps_count: 2
+          lora_count: 158
+          payload: '102A253438303030303030363339393939043101009E043102000206310400000D2F03510124'
+          sensing_count: 3375
+          serial_nr: '48000000639999'
+        errors: []
+        warnings: []
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: wilsen.js
+#   examples:
+#     - description: Turn off BLE advertising
+#       input:
+#         data:
+#           led: green
+#       output:
+#         bytes: [1]
+#         fPort: 2
+#     - description: Invalid color
+#       input:
+#         data:
+#           led: blue
+#       output:
+#         errors:
+#           - invalid LED color
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: wilsen.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green

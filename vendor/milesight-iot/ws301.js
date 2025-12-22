@@ -43,3 +43,20 @@ function Decoder(bytes, port) {
 
     return decoded;
 }
+
+
+function normalizeUplink(input) {
+    var data = {};
+
+    if (input.data.door && (input.data.door === "close" || input.data.door === "open")) {
+        data.action = {
+            contactState: input.data.door === "close" ? "closed" : "open"
+        };
+    }
+
+    if (input.data.battery) {
+        data.battery = input.data.battery;
+    }
+
+    return { data: data };
+}

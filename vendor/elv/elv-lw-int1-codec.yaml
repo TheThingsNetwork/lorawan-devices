@@ -61,3 +61,5 @@ uplinkDecoder:
           Frame_Type: 'Device-Info'
           Hardware: 'C'
           Supply_Voltage: '2.86'
+downlinkDecoder:
+  fileName: elv-lw-int1.js

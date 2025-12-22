@@ -1,0 +1,34 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: 3chbatteryvoltagesensor.js
+#  # Downlink encoder encodes JSON object into a binary data downlink (optional)
+# downlinkEncoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         data:
+#           led: green
+#       output:
+#         bytes: [1]
+#         fPort: 2
+#     - description: Invalid color
+#       input:
+#         data:
+#           led: blue
+#       output:
+#         errors:
+#           - invalid LED color
+
+# # Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+# downlinkDecoder:
+#   fileName: windsensor.js
+#   examples:
+#     - description: Turn green
+#       input:
+#         fPort: 2
+#         bytes: [1]
+#       output:
+#         data:
+#           led: green

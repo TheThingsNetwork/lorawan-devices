@@ -1,2 +1,7 @@
 endDevices:
+  - ephir-rms-gmel10
+  - ephir-rms-gmme10
+  - ephir-rms-gmsg10
   - mtx1
+  - mtx3
+  - omni-rm-4pu204eu

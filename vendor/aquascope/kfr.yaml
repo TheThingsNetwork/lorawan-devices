@@ -1,5 +1,5 @@
-name: Gate Valve Servo
-description: Retrofittable Motor Actuator to operate (Angled Seat) Gate Valves
+name: Gate Valve Servo KFRLWE01
+description: The motor drive for angled seat valves (KFR valves) or normal straight-seated shut-off valves allows for retrofitting existing and already installed shut-off valves into wirelessly controlled intelligent devices without interrupting the water supply or cutting into the water pipe. The motor is powered by a 12V power supply and is completely waterproof and dirt-resistant up to the power supply. An optional battery pack enables autonomous operation in places where no electricity is available. Various adapter rings and a sophisticated connection system enable the use of the motor on all modern valves from DN15 to DN32. With an additional water sensor that attaches directly to the device, the motor can be used for leak protection without further configuration. The servo motor is waterproof and can be used in humid, dirty, and outdoor environments.
 
 hardwareVersions:
   - version: '1.0'
@@ -65,8 +65,8 @@ keyProvisioning:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.aqua-scope.com/ballgate-valve-servo.html
-dataSheetURL: https://www.aqua-scope.com/fileadmin/docs/KFRLWE01_DataSheet.pdf
+productURL: https://www.aqua-scope.com/retrofittable-motors-for-shut-off-valves/motor-for-gate-valves.html
+dataSheetURL: https://www.aqua-scope.com/manuals/?sku=KFRLWE01&type=d&html=1&lang=en
 resellerURLs:
   - name: 'Aqua-Scope WTB'
     region:
@@ -78,7 +78,7 @@ photos:
   main: kfr.png
 
 # Youtube or Vimeo Video (optional)
-video: https://www.youtube.com/watch?v=Kzljl3uJafg
+video: https://www.youtube.com/watch?v=w1TH8ad44-o&t=8s
 
 # Regulatory compliances (optional)
 compliances:

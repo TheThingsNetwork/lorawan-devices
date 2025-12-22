@@ -1,0 +1,103 @@
+name: GS601 - LoRaWAN Vape Detector
+description: GS601 is a LoRaWAN® vape detector designed to identify vapingandsmoking events and send alerts. Equipped with a suite of powerful embedded sensors, GS601 simultaneously measures temperature, humidity, TVOC, and PM parameters
+
+hardwareVersions:
+  - version: 'V1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.01'
+    numeric: 1
+    hardwareVersions:
+      - 'V1.0'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: gs601-codec
+      US902-928:
+        id: profile-us915
+        codec: gs601-codec
+      AU915-928:
+        id: profile-au915
+        codec: gs601-codec
+      AS923:
+        id: profile-as923
+        codec: gs601-codec
+      CN470-510:
+        id: profile-cn470
+        codec: gs601-codec
+      KR920-923:
+        id: profile-kr920
+        codec: gs601-codec
+      IN865-867:
+        id: profile-in865
+        codec: gs601-codec
+      RU864-870:
+        id: profile-ru864
+        codec: gs601-codec
+
+sensors:
+  - battery
+  - iaq
+  - pm10
+  - pm2.5
+  - temperature
+  - tvoc
+  - humidity
+  - radar
+
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, smart valve, snr, so2,
+# solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
+# vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+
+dimensions:
+  width: 40
+  length: 40
+  height: 128
+
+operatingConditions:
+  temperature:
+    min: -5
+    max: 45
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight-iot.com/products/lorawan-sensor/gs601/
+dataSheetURL: https://resource.milesight.com/milesight/iot/document/gs601-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+
+photos:
+  main: gs601.png
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.0
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.0

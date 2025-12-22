@@ -1,61 +1,90 @@
 endDevices:
-  - am107
-  - em300-th
-  - em300-mcs
-  - em500-co2
-  - em500-udl
+  - am102
+  - am102l
   - am103
   - am103l
   - am104
+  - am107
   - am307
+  - am307l
+  - am308
+  - am308l
   - am319
+  - am319l
+  - at101
+  - at101-fh
+  - ct101
+  - ct103
+  - ct105
+  - ct303
+  - ct305
+  - ct310
+  - em300-di
+  - em300-mcs
+  - em300-mld
   - em300-sld
+  - em300-th
   - em300-zld
+  - em310-tilt
   - em310-udl
+  - em320-th
+  - em320-tilt
+  - em400-mud
+  - em400-tld
+  - em400-udl
+  - em410-rdl
+  - em500-co2
   - em500-lgt
   - em500-pp
   - em500-pt100
   - em500-smt
   - em500-smtc
   - em500-swl
+  - em500-udl
+  - gs101
+  - gs301
+  - gs601
+  - ts101
+  - ts201
+  - ts30x
+  - uc100
   - uc1114
   - uc1122
   - uc1152
-  - uc100
   - uc300
   - uc50x
   - uc51x
   - vs121
-  - ws50x
-  - ws52x
+  - vs133
+  - vs135
+  - vs321
+  - vs330
+  - vs340
+  - vs341
+  - vs350
+  - vs351
+  - vs360
+  - vs370
+  - vs373
   - ws101
   - ws136
   - ws156
-  - ws202
-  - ws301
-  - ws558
-  - am307l
-  - am308
-  - am308l
-  - am319l
-  - em300-di
-  - em300-mld
-  - em310-tilt
-  - em320-th
-  - em320-tilt
-  - em400-mud
-  - em400-tld
-  - em400-udl
-  - gs101
-  - gs301
-  - ts101
-  - vs133
-  - vs330
-  - vs340
   - ws201
+  - ws202
   - ws203
+  - ws301
   - ws302
   - ws303
+  - ws50x
+  - ws515
+  - ws52x
+  - ws558
+  - wt101
+  - wt201v1
+  - wt201v2
+  - wt303
+  - wt304
+  - wt401
   - wts305
   - wts505
   - wts506

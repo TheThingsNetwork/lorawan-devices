@@ -53,4 +53,4 @@ uplinkDecoder:
           Supply_Voltage: 3042
           TX_Reason: 'Timer_Event'
 downlinkDecoder:
-  fileName: elv-bm-trx1.js
+  fileName: elv-lw-esi.js
