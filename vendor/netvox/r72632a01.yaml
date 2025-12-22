@@ -1,16 +1,14 @@
 name: R72632A01 - Wireless Outdoor Nitrogen/Phosphorus/Potassium Sensor with Solar Panel
-description: The R72632A01 is equipped with a temperature and humidity sensor that detects and transmits ambient temperature and humidity data. It is a wireless communication method that uses the SX1276 wireless communication module.
-
+description: >
+  The R72632A01 is equipped with a temperature and humidity sensor that detects and transmits ambient temperature and humidity data. It is a wireless communication method that uses the SX1276 wireless communication module.
 hardwareVersions:
   - version: '4'
     numeric: 4
-
 firmwareVersions:
   - version: '13'
     numeric: 13
     hardwareVersions:
       - '4'
-
     profiles:
       EU863-870:
         id: profile-eu868
@@ -33,11 +31,9 @@ firmwareVersions:
       CN470-510:
         id: profile-cn470
         codec: r72632a01-codec
-
 dimensions:
   diameter: 220
   height: 340
-
 operatingConditions:
   temperature:
     min: -20
@@ -45,15 +41,11 @@ operatingConditions:
   relativeHumidity:
     min: 0
     max: 0.9
-
 keyProvisioning:
   - custom
   - join server
-
 keySecurity: none
-
 productURL: http://www.netvox.com.tw/product.asp?pro=R72632A01
 dataSheetURL: http://www.netvox.com.tw/um/R72616/R72632A01datasheet.pdf
-
 photos:
   main: photos/r72616.jpg
