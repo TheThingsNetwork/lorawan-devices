@@ -92,72 +92,15 @@ dataSheetURL: https://cdn.prod.website-files.com/62cd3926b5783244d0a104e3/6790df
 onboardingGuideURL: https://cdn.prod.website-files.com/62cd3926b5783244d0a104e3/662b648f55ec7acd2696b922_3ed4a58768dcc3088bfc93cb03ed2b71_APP_EN.pdf
 
 resellerURLs:
-  - name: 'Aire Limpio'
-    region:
-      - European Union
-    url: https://www.airelimpio.com
-
-  - name: 'Pando2'
-    region:
-      - European Union
-    url: https://www.pando2.com
-
-  - name: 'EFECONTROL'
-    region:
-      - European Union
-    url: https://efecontrol.com
-
-  - name: 'Ultra Protect'
-    region:
-      - United Kingdom
-    url: https://www.ultra-protect.co.uk
-
-  - name: 'Industrial Hygiene Hub'
-    region:
-      - Other
-    url: https://smartradiationgroup.co.za
-
-  - name: 'Habitech'
-    region:
-      - European Union
-    url: https://habitech.it
-
-  - name: 'Urecsys'
-    region:
-      - Other
-    url: https://urecsys.com/
-
-  - name: 'Airscan'
+  - name: 'inBiot Monitoring'
     region:
       - European Union
       - Indonesia
       - South Africa
-    url: https://airscan.org/
-
-  - name: 'WSS Tech'
-    region:
-      - European Union
-    url: https://wsstech.com
-
-  - name: 'Cirkuit'
-    region:
       - Canada
-    url: https://cirkuit.io
-
-  - name: 'ITG'
-    region:
-      - European Union
-    url: https://itg.es
-
-  - name: 'Hightech'
-    region:
+      - United Kingdom
       - Other
-    url: https://hteltda.com
-
-  - name: 'inBiot Monitoring'
-    region:
-      - European Union
-    url: https://inbiot.es
+    url: https://www.inbiot.es/contact
 
 photos:
   main: plus-lora.png
