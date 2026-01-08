@@ -1,5 +1,5 @@
 name: MICA Plus - Indoor Air Quality Sensor
-description: MICA Plus is a compact LoRaWAN Indoor Air Quality Sensor that monitors temperature, humidity, CO2, PMs, Formaldehyde and Noise.
+description: MICA Plus is an advanced indoor air quality monitor with LoRaWAN, Wi-Fi, NB-IoT/LTE-M and Sigfox connectivity, measuring temperature, relative humidity, CO₂, TVOC, PM1.0, PM2.5, PM4.0, PM10 and formaldehyde, and providing thermohygrometric comfort, ventilation efficiency, resistance to mold growth, virus spread resistance and indoor air quality indicators, with optional noise monitoring and seamless integration with BMS systems through Modbus and BACnet.
 
 hardwareVersions:
   - version: '1.8'

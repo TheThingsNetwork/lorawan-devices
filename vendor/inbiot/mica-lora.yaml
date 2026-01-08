@@ -1,5 +1,5 @@
 name: MICA - Indoor Air Quality Sensor
-description: MICA is a compact LoRaWAN Indoor Air Quality Sensor that monitors temperature, humidity, CO2, PMs and Noise.
+description: MICA is a smart indoor air quality monitor supporting LoRaWAN, Wi-Fi, NB-IoT/LTE-M and Sigfox connectivity that measures temperature, relative humidity, CO₂, TVOC, PM2.5 and PM10, and delivers advanced virtual indicators including thermohygrometric comfort, ventilation efficiency, resistance to mold growth, virus spread resistance and overall indoor air quality, with optional noise monitoring and native BMS integration via Modbus and BACnet.
 
 hardwareVersions:
   - version: '1.8'

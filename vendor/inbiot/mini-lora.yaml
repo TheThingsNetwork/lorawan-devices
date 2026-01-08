@@ -1,5 +1,5 @@
-name: MICA MINI - Indoor Air Quality Sensor
-description: MICA MINI is a compact LoRaWAN Indoor Air Quality Sensor that monitors temperature, humidity and CO2.
+name: MICA Mini - Indoor Air Quality Sensor
+description: MICA Mini is a compact indoor air quality sensor with LoRaWAN, Wi-Fi, NB-IoT/LTE-M and Sigfox connectivity, measuring temperature, relative humidity and CO₂, and providing thermohygrometric comfort, ventilation efficiency and resistance to mold growth indicators, with optional noise monitoring and integration with building management systems via Modbus and BACnet.
 
 hardwareVersions:
   - version: '1.8'
