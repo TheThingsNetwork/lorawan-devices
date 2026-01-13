@@ -2165,6 +2165,14 @@ vendors:
     name: Sensus GmbH Ludwigshafen
     vendorID: 1170
 
+  - id: pressac-communications
+    name: Pressac Communications
+    description: Sensor Suppliers & IoT Sensor Manufacturers Get the IoT data you need to power your data driven solutions and projects.
+    logo: logo.png
+    website: https://www.pressac.com/
+    social:
+      linkedin: https://www.linkedin.com/company/pressac-communications-ltd/
+
   - id: sparkfun
     name: SparkFun Electronics
     description: SparkFun Electronics is an online retail store that sells the bits and pieces to make your electronics projects possible.
