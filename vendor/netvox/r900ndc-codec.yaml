@@ -1,0 +1,157 @@
+uplinkDecoder:
+  fileName: payload/r900ndc.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x03, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12]
+      output:
+        data:
+          Device: 'R900NDC'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x03, 0x01, 0x78, 0x00, 0x00, 0x1d, 0x00, 0x00, 0x0e, 0x02, 0x00]
+      output:
+        data:
+          Device: 'R900NDC'
+          Volt: 12
+          Current1: '29mA'
+          Current2: '14mA'
+          LowCurrent1Alarm: 0
+          HighCurrent1Alarm: 1
+          LowCurrent2Alarm: 0
+          HighCurrent2Alarm: 0
+          ShockTamperAlarm: 'NoAlarm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x81, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R900NDC'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x82, 0x01, 0x03, 0x03, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R900NDC'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: '336mA'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x83, 0x01, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R900NDC'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x84, 0x01, 0x03, 0x08, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R900NDC'
+          ShockSensorSensitivity: 8
+
+downlinkDecoder:
+  fileName: payload/r900ndc.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x03, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01, 0x00, 0x04, 0x02, 0x10]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900NDC'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: '257mA'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900NDC'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x03, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900NDC'
+          ShockSensorSensitivity: 6
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900NDC'
+
+downlinkEncoder:
+  fileName: payload/r900ndc.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900NDC'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 257
+      output:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x03, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900NDC'
+      output:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x03]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900NDC'
+          ShockSensorSensitivity: 5
+      output:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x03, 0x05]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900NDC'
+      output:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x03]
