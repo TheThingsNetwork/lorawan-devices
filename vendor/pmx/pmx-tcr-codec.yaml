@@ -1,0 +1,81 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: pmx-tcr.js
+  examples:
+    - description: device id uplink
+      input:
+        fPort: 190
+        bytes: [210, 10, 2, 2, 17, 0, 66, 0]
+      output:
+        data:
+          typestr: TCR-DLI
+          fu_level: PRO
+          speedclass: HS
+          fw_version: 1.1.0
+          sbx_version: 4.2.0
+
+    - description: Unfiltered detections counter (UDC) uplink (port 13)
+      input:
+        fPort: 13
+        bytes: [162, 20, 10, 3, 232, 50, 4, 76, 52, 51]
+      output:
+        data:
+          time: 2010
+          udc_ltr_cnt: 1000
+          udc_ltr_spd: 50
+          udc_rtl_cnt: 1100
+          udc_rtl_spd: 52
+          volts: 5.1
+
+    - description: cat 1 counter uplink (port 14)
+      input:
+        fPort: 14
+        bytes: [162, 20, 10, 3, 232, 50, 4, 76, 52, 51]
+      output:
+        data:
+          time: 2010
+          cat1_ltr_cnt: 1000
+          cat1_ltr_spd: 50
+          cat1_rtl_cnt: 1100
+          cat1_rtl_spd: 52
+          volts: 5.1
+
+    - description: cat 2 counter uplink (port 15)
+      input:
+        fPort: 15
+        bytes: [162, 20, 10, 3, 232, 50, 4, 76, 52, 51]
+      output:
+        data:
+          time: 2010
+          cat2_ltr_cnt: 1000
+          cat2_ltr_spd: 50
+          cat2_rtl_cnt: 1100
+          cat2_rtl_spd: 52
+          volts: 5.1
+
+    - description: cat 3 counter uplink (port 16)
+      input:
+        fPort: 16
+        bytes: [162, 20, 10, 3, 232, 50, 4, 76, 52, 51]
+      output:
+        data:
+          time: 2010
+          cat3_ltr_cnt: 1000
+          cat3_ltr_spd: 50
+          cat3_rtl_cnt: 1100
+          cat3_rtl_spd: 52
+          volts: 5.1
+
+    - description: cat 4 counter uplink (port 17)
+      input:
+        fPort: 17
+        bytes: [162, 20, 10, 3, 232, 50, 4, 76, 52, 51]
+      output:
+        data:
+          time: 2010
+          cat4_ltr_cnt: 1000
+          cat4_ltr_spd: 50
+          cat4_rtl_cnt: 1100
+          cat4_rtl_spd: 52
+          volts: 5.1
