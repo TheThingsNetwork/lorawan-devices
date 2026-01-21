@@ -73,10 +73,10 @@ weight: 180
 battery:
   replaceable: true
   type: T2000-A/B Disposable Li/SOCl2 battery， 8000mAh;
-        T2000-C Rechargeble ternary lithium battery, 4000mAh
+    T2000-C Rechargeble ternary lithium battery, 4000mAh
 
 # Operating conditions (optional)
-operatingConditions:
+# operatingConditions:
 
 # IP rating (optional)
 ipCode: IP67
@@ -104,11 +104,11 @@ resellerURLs:
 
 # Photos
 photos:
-  main: sesnecapt2000-tracker-ab.png
+  main: sensecapt2000-tracker-ab.png
   other:
-    - sesnecapt2000-tracker-c.png
+    - sensecapt2000-tracker-c.png
 
-video: 
+video: https://www.youtube.com/watch?v=ROjXT6D8xtA&t=153s
 
 # Regulatory compliances (optional)
 compliances:
