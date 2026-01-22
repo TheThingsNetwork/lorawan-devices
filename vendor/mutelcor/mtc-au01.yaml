@@ -1,19 +1,19 @@
-name: LoRa Alarm Unit
-description: The Mutelcor LoRa Alarm Unit is a unique device that can be used either independently or with our other products like LoRa Panic Button with Confirmation or Smart CO2 LoRa Sensor to siren Alarms and Alerts. Up to 4 different Alarm-Types can be configured on the device with customizable LED Color Buzzer behavior per Alarm-Type. A Battery operated version is also available on request.
+name: LoRa Alarm Unit - Class C
+description: The Mutelcor LoRa Alarm Unit is a unique power connected LoRa Class C device that can be used either independently or with our other products like LoRa Panic Button with Confirmation or Smart CO2 LoRa Sensor to siren Alarms and Alerts. Up to 4 different Alarm-Types can be configured on the device with customizable LED Color Buzzer behavior per Alarm-Type.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.4'
-    numeric: 1
+  - version: '2.0'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.4.7'
+    version: '1.6.3'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.4'
+      - '2.0'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -27,27 +27,27 @@ firmwareVersions:
     # RU864-870
     profiles:
       EU863-870:
-        id: mutelcor-profile
+        id: mutelcor-classc
         lorawanCertified: false
         codec: mutelcor-codec
       US902-928:
-        id: mutelcor-profile
+        id: mutelcor-classc
         lorawanCertified: false
         codec: mutelcor-codec
       IN865-867:
-        id: mutelcor-profile
+        id: mutelcor-classc
         lorawanCertified: false
         codec: mutelcor-codec
       AU915-928:
-        id: mutelcor-profile
+        id: mutelcor-classc
         lorawanCertified: false
         codec: mutelcor-codec
       AS923:
-        id: mutelcor-profile
+        id: mutelcor-classc
         lorawanCertified: false
         codec: mutelcor-codec
       KR920-923:
-        id: mutelcor-profile
+        id: mutelcor-classc
         lorawanCertified: false
         codec: mutelcor-codec
 
@@ -89,7 +89,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://mutelcor.com/lora-alarm-unit/
-dataSheetURL: https://mutelcor.com/wp-content/uploads/2025/05/MUTELCOR_Datasheet_LoRa_Alarm_Unit.pdf
+dataSheetURL: https://mutelcor.com/wp-content/uploads/2025/12/MUTELCOR_Datasheet_LoRa_Alarm_Unit-Class_C.pdf
 
 # Photos
 photos:
