@@ -41,6 +41,12 @@ endDevices:
   - r718ad
   - r718b
   - r718b2
+  - r718ce
+  - r718ce2
+  - r718ce4
+  - r718cj
+  - r718cj2
+  - r718cj4
   - r718ck
   - r718ck2
   - r718cn
@@ -68,6 +74,7 @@ endDevices:
   - r718j2
   - r718ka
   - r718ka2
+  - r718kb
   - r718lb
   - r718lb2
   - r718ma
@@ -86,6 +93,7 @@ endDevices:
   - r718pe
   - r718pb
   - r718pb15a
+  - r718pc
   - r718q
   - r718qa
   - r718t2
