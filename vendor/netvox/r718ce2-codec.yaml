@@ -1,0 +1,168 @@
+﻿uplinkDecoder:
+  fileName: payload/r718ce2.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x19, 0x00, 0x64, 0x02, 0x20, 0x20, 0x07, 0x29, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718CE2'
+          SWver: 10
+          HWver: 2
+          Datecode: '20200729'
+
+    - description: Status report
+      input:
+        fPort: 6
+        bytes: [0x01, 0x19, 0x01, 0x24, 0x00, 0xFD, 0x01, 0x6D, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718CE2'
+          Volt: 3.6
+          Temp1: 25.3
+          Temp2: 36.5
+          ThresholdAlarm: 0
+
+    - description: Status report with low battery
+      input:
+        fPort: 6
+        bytes: [0x01, 0x19, 0x01, 0xA4, 0x00, 0x64, 0x00, 0xC8, 0x01, 0x00, 0x00]
+      output:
+        data:
+          Device: 'R718CE2'
+          Volt: '3.6(low battery)'
+          Temp1: 10.0
+          Temp2: 20.0
+          ThresholdAlarm: 1
+
+    - description: Configure report response
+      input:
+        fPort: 7
+        bytes: [0x81, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R718CE2'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 7
+        bytes: [0x82, 0x19, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x05, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R718CE2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+
+    - description: Set thermocouple type response
+      input:
+        fPort: 7
+        bytes: [0x83, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetThermocoupleTypeRsp'
+          Device: 'R718CE2'
+          Status: 'Success'
+
+    - description: Get thermocouple type response
+      input:
+        fPort: 7
+        bytes: [0x84, 0x19, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetThermocoupleTypeRsp'
+          Device: 'R718CE2'
+          ThermocoupleType: 1
+
+downlinkDecoder:
+  fileName: payload/r718ce2.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 7
+        bytes: [0x01, 0x19, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x05, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718CE2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+
+    - description: Read configure report request
+      input:
+        fPort: 7
+        bytes: [0x02, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718CE2'
+
+    - description: Set thermocouple type request
+      input:
+        fPort: 7
+        bytes: [0x03, 0x19, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetThermocoupleTypeReq'
+          Device: 'R718CE2'
+          ThermocoupleType: 1
+
+    - description: Get thermocouple type request
+      input:
+        fPort: 7
+        bytes: [0x04, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetThermocoupleTypeReq'
+          Device: 'R718CE2'
+
+downlinkEncoder:
+  fileName: payload/r718ce2.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R718CE2'
+          MinTime: 900
+          MaxTime: 1800
+          BatteryChange: 0.1
+          TempChange: 0.5
+      output:
+        fPort: 7
+        bytes: [0x01, 0x19, 0x03, 0x84, 0x07, 0x08, 0x01, 0x00, 0x05, 0x00, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R718CE2'
+      output:
+        fPort: 7
+        bytes: [0x02, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Set thermocouple type request
+      input:
+        data:
+          Cmd: 'SetThermocoupleTypeReq'
+          Device: 'R718CE2'
+          ThermocoupleType: 1
+      output:
+        fPort: 7
+        bytes: [0x03, 0x19, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    - description: Get thermocouple type request
+      input:
+        data:
+          Cmd: 'GetThermocoupleTypeReq'
+          Device: 'R718CE2'
+      output:
+        fPort: 7
+        bytes: [0x04, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

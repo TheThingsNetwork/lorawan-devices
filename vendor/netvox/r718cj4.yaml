@@ -1,0 +1,69 @@
+﻿name: R718CJ4 - Wireless 4-Gang Thermocouple Sensor
+description: This equipment is used to detect temperature of the object and medium which thermocouple is contacted. It can be connected to four thermocouples for testing. It uses SX1276 wireless communication module. R718CX4 can be connected according to requirements [type J (R718CJ4), type K (R718CK4), type T thermocouple (R718CT4), type R thermocouple (R718CR4), type N thermocouple (R718CN4). The collected data is displayed in the gateway.]
+
+hardwareVersions:
+  - version: '4'
+    numeric: 4
+
+firmwareVersions:
+  - version: '10'
+    numeric: 10
+    hardwareVersions:
+      - '4'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        codec: r718cj4-codec
+      AS923:
+        id: profile-as923
+        codec: r718cj4-codec
+      US902-928:
+        id: profile-us915
+        codec: r718cj4-codec
+      AU915-928:
+        id: profile-au915
+        codec: r718cj4-codec
+      KR920-923:
+        id: profile-kr920
+        codec: r718cj4-codec
+      IN865-867:
+        id: profile-in865
+        codec: r718cj4-codec
+      CN470-510:
+        id: profile-cn470
+        codec: r718cj4-codec
+
+sensors:
+  - temperature
+
+dimensions:
+  width: 88.19
+  length: 112
+  height: 32
+
+battery:
+  replaceable: true
+  type: 2 x 3.6V ER14505 AA lithium battery
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 55
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+ipCode: IP65
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: http://www.netvox.com.tw/product.asp?pro=R718CJ4
+dataSheetURL: http://www.netvox.com.tw/um/R718CJ4/R718CJ4datasheet.pdf
+
+photos:
+  main: photos/r718cj4.jpg
