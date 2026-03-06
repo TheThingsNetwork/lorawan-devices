@@ -2161,6 +2161,15 @@ vendors:
       #instagram: radionodekorea
       github: radionode
 
+
+  - id: sensocon
+    name: Sensocon, Inc.
+    description: Sensocon delivers reliable wireless sensors for pressure, temp, humidity, and more—easy to install, integrate, and scale.
+    website: https://sensocon.com/wireless-sensors.html
+    logo: sensocon-logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/sensocon/
+
   - id: sensus
     name: Sensus GmbH Ludwigshafen
     vendorID: 1170
