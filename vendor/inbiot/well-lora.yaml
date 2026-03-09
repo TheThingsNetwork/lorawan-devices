@@ -8,7 +8,7 @@ hardwareVersions:
     numeric: 2
 
 firmwareVersions:
-  - version: '2.1'
+  - version: '2.X'
     numeric: 1
 
     hardwareVersions:
