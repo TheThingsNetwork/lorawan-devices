@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tti/design": "https://ttui.thethingsindustries.com/release/ttui-1.7.4.tar.gz",
-    "axios": "^1.12.2",
+    "axios": "^1.13.5",
     "brace": "^0.11.1",
     "classnames": "^2.5.1",
     "connected-react-router": "^6.9.3",
@@ -49,7 +49,7 @@
     "stylint": "^2.0.0",
     "stylus": "^0.64.0",
     "stylus-loader": "^8.1.2",
-    "webpack": "^5.102.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "5.2.2",
     "webpack-manifest-plugin": "^5.0.1"
