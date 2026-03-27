@@ -1,0 +1,154 @@
+uplinkDecoder:
+  fileName: payload/r900nac1.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x00, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12]
+      output:
+        data:
+          Device: 'R900NAC1'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x00, 0x01, 0x01, 0x00, 0x03, 0x03, 0x00, 0x01, 0x01, 0x01, 0x01]
+      output:
+        data:
+          Device: 'R900NAC1'
+          Volt: 0.1
+          Current1: '771mA'
+          LowCurrent1Alarm: 0
+          HighCurrent1Alarm: 0
+          ShockTamperAlarm: 'Alarm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x81, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R900NAC1'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x82, 0x01, 0x00, 0x03, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R900NAC1'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: '336mA'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x83, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R900NAC1'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x84, 0x01, 0x00, 0x08, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R900NAC1'
+          ShockSensorSensitivity: 8
+
+downlinkDecoder:
+  fileName: payload/r900nac1.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x00, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01, 0x00, 0x04, 0x02, 0x10]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900NAC1'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: '257mA'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900NAC1'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900NAC1'
+          ShockSensorSensitivity: 6
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900NAC1'
+
+downlinkEncoder:
+  fileName: payload/r900nac1.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900NAC1'
+          MinTime: 900
+          MaxTime: 1800
+          CurrentChange: 257
+      output:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x00, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900NAC1'
+      output:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900NAC1'
+          ShockSensorSensitivity: 5
+      output:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x00, 0x05]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900NAC1'
+      output:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x00]
