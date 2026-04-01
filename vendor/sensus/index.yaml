@@ -1,0 +1,9 @@
+endDevices:
+  - iperl
+
+profileIDs:
+  '1':
+    endDeviceID: 'iperl'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
