@@ -2190,3 +2190,8 @@ vendors:
     logo: fencyboy_logo.png
     social:
       linkedin: https://www.linkedin.com/showcase/fencyboy
+
+  - id: mikrotik
+    name: SIA Mikrotīkls
+    vendorID: 980
+    website: https://mikrotik.com
