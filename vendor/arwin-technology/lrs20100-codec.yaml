@@ -3,16 +3,17 @@
 uplinkDecoder:
   fileName: lrs20100.js
   examples:
-    - description: 23 C, 58% RH, battery 90%, heartbeat
+    - description: 23 C, 58% RH, battery 90%, heartbeat/button, uplink count 3106
       input:
         fPort: 10
-        bytes: [1, 1, 90, 0, 230, 2, 68, 0, 0]
+        bytes: [1, 1, 90, 0, 230, 2, 68, 0, 0, 12, 34]
       output:
         data:
-          event: heartbeat
+          event: 'heartbeat/button'
           battery: 90
-          temperature: 23.0
-          humidity: 58.0
+          temperature: 23
+          humidity: 58
+          uplinkCount: 3106
     - description: Firmware version 1.00.001
       input:
         fPort: 8
@@ -20,6 +21,16 @@ uplinkDecoder:
       output:
         data:
           firmwareVersion: '1.00.001'
+    - description: firmware version 1.00.001, battery voltage 3.55 v, battery percentage 100 %, uplink count 66051
+      input:
+        fPort: 9
+        bytes: [1, 0, 0, 1, 13, 222, 100, 0, 1, 2, 3]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+          batteryLevel: 3550
+          batteryPercentage: 100
+          uplinkCount: 66051
     - description: Device settings, data upload interval = 15 min
       input:
         fPort: 12
@@ -37,3 +48,13 @@ uplinkDecoder:
           lowTemperatureThreshold: 10
           highHumidityThreshold: 95
           lowHumidityThreshold: 35
+    - description: max silient time 30 min, delta temperature 0.1 C, delta humidity 0.5%, repeat 2
+      input:
+        fPort: 16
+        bytes: [1, 0, 30, 0, 1, 0, 5, 2]
+      output:
+        data:
+          maximumSilentTime: 30
+          deltaTemperature: 0.1
+          deltaHumidity: 0.5
+          repeat: 2
