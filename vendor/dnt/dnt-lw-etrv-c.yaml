@@ -14,6 +14,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: dnt-profile
+        codec: dnt-lw-etrv-c-codec
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'

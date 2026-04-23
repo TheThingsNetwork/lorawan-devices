@@ -1,0 +1,30 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: vs360.js
+  examples:
+    - description: People Counter - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x64, 0x02, 0x75, 0x64, 0x04, 0xCC, 0x12, 0x00, 0x16, 0x00, 0x05, 0xCC, 0x13, 0x00, 0x14, 0x00]
+
+      output:
+        data:
+          battery_main: 100
+          battery_node: 100
+          total_in: 18
+          total_out: 22
+          period_in: 19
+          period_out: 20
+downlinkEncoder:
+  fileName: vs360-encoder.js
+  examples:
+    - description: set cumulative reset config
+      input:
+        data:
+          reset_cumulative_schedule_config:
+            weekday: sunday
+            hour: 0
+            minute: 0
+      output:
+        bytes: [0xFF, 0xED, 0x01, 0x00, 0x00]

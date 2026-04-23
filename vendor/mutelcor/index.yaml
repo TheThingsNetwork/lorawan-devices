@@ -7,10 +7,12 @@ endDevices:
   - mtc-mh01 #Manhole Sensor
   - mtc-cf01 #3 Button Customer Feedback
   - mtc-scb01 #3 Button Service Call
-  - mtc-au01 #LoRa Alarm Unit
+  - mtc-au01 #LoRa Alarm Unit Class C
+  - mtc-au02 #LoRa Alarm Unit Class A
   - mtc-aq01 #Air Quality Sensor
   - mtc-nfc02 #NFC RFID - LoRa Button
   - mtc-aqb01 #Air Quality Button
   - mtc-mf01 #Multi-Function Device
   - mtc-co2-05 #CO2 Wireless
   - mtc-pm01 #PM2.5 Sensor
+  - mtc-su01 #LoRa Siren Unit

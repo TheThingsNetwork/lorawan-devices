@@ -2,3 +2,27 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: em300-mcs.js
+  examples:
+    - description: LoRaWAN® Multi-Channel Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes: [0x01, 0x75, 0x5C, 0x03, 0x67, 0x34, 0x01, 0x04, 0x68, 0x65, 0x06, 0x00, 0x01]
+      output:
+        data:
+          battery: 92
+          temperature: 30.8
+          humidity: 50.5
+          magnet_status: open
+downlinkEncoder:
+  fileName: em300-mcs-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01

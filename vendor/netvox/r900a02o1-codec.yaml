@@ -1,0 +1,258 @@
+uplinkDecoder:
+  fileName: payload/r900a02o1.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x12, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12]
+      output:
+        data:
+          Device: 'R900A02O1'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x12, 0x01, 0x78, 0x07, 0x08, 0x04, 0x01]
+      output:
+        data:
+          Device: 'R900A02O1'
+          Volt: 12
+          Temperature: '18℃'
+          LowTemperatureAlarm: 0
+          HighTemperatureAlarm: 0
+          ShockTamperAlarm: 'Alarm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x81, 0x01, 0x12, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R900A02O1'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x82, 0x01, 0x12, 0x03, 0x84, 0x07, 0x08, 0x01, 0x50]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R900A02O1'
+          MinTime: 900
+          MaxTime: 1800
+          TemperatureChange: '3.36℃'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x83, 0x01, 0x12, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R900A02O1'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x84, 0x01, 0x12, 0x03, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R900A02O1'
+          ShockSensorSensitivity: 3
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x85, 0x01, 0x12, 0x00, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'ConfigDigitalOutPutRsp'
+          Device: 'R900A02O1'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x86, 0x01, 0x12, 0x00, 0x84, 0x07, 0x01]
+      output:
+        data:
+          Cmd: 'ReadConfigDigitalOutPutRsp'
+          Device: 'R900A02O1'
+          DigitalOutPutType: 'NormallyLowLevel'
+          OutPulseTime: '132s'
+          LowTemperatureAlarm: 1
+          HighTemperatureAlarm: 1
+          Channel: 'Channel2'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x87, 0x01, 0x12, 0x00, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01]
+      output:
+        data:
+          Cmd: 'TriggerDigitalOutPutRsp'
+          Device: 'R900A02O1'
+          Status: 'Success'
+
+downlinkDecoder:
+  fileName: payload/r900a02o1.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x12, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01, 0x00, 0x04]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900A02O1'
+          MinTime: 900
+          MaxTime: 1800
+          TemperatureChange: '2.57℃'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900A02O1'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x12, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900A02O1'
+          ShockSensorSensitivity: 3
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900A02O1'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x05, 0x01, 0x12, 0x03, 0x84, 0x07, 0x01]
+      output:
+        data:
+          Cmd: 'ConfigDigitalOutPutReq'
+          Device: 'R900A02O1'
+          DigitalOutPutType: 3
+          OutPulseTime: '132s'
+          LowTemperatureAlarm: 1
+          HighTemperatureAlarm: 1
+          Channel: 'Channel2'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x06, 0x01, 0x12, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigDigitalOutPutReq'
+          Device: 'R900A02O1'
+          Channel: 'Channel2'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x07, 0x01, 0x12, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'TriggerDigitalOutPutReq'
+          Device: 'R900A02O1'
+          OutPulseTime: 7
+          Channel: 'Channel1'
+
+downlinkEncoder:
+  fileName: payload/r900a02o1.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900A02O1'
+          MinTime: 900
+          MaxTime: 1800
+          TemperatureChange: 2.57
+      output:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x12, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900A02O1'
+      output:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x12]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900A02O1'
+          ShockSensorSensitivity: 9
+      output:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x12, 0x09]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900A02O1'
+      output:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x12]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ConfigDigitalOutPutReq'
+          Device: 'R900A02O1'
+          DigitalOutPutType: 3
+          OutPulseTime: 132
+          LowTemperatureAlarm: 1
+          HighTemperatureAlarm: 1
+          Channel: 'Channel2'
+      output:
+        fPort: 23
+        bytes: [0x05, 0x01, 0x12, 0x03, 0x84, 0x03, 0x01]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigDigitalOutPutReq'
+          Device: 'R900A02O1'
+          Channel: 'Channel2'
+      output:
+        fPort: 23
+        bytes: [0x06, 0x01, 0x12, 0x01]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'TriggerDigitalOutPutReq'
+          Device: 'R900A02O1'
+          OutPulseTime: 9
+          Channel: 'Channel1'
+      output:
+        fPort: 23
+        bytes: [0x07, 0x01, 0x12, 0x09, 0x00]

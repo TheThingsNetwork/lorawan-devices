@@ -59,6 +59,7 @@ keyProvisioning:
 keySecurity: none
 
 productURL: https://www.decentlab.com/products/ph-orp-and-temperature-sensor-for-lorawan
+dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-PHEHT-datasheet.pdf
 photos:
   main: dl-pheht.png
 
