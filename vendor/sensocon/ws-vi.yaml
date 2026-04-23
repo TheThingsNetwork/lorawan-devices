@@ -1,0 +1,18 @@
+name: WS-VI Analog Voltage Sensor
+description: Analog Voltage Sensors provide wireless measurement of 0-10VDC signals, ideal for integration with transducers, VFDs, and building management systems. 
+
+hardwareVersions:
+- version: 90309-1
+  numeric: 1
+
+firmwareVersions:
+- version: AA
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-vi-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-vi.png
