@@ -1,0 +1,10 @@
+endDevices:
+  - tg-lr82
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+
+profileIDs:
+  '0':
+    endDeviceID: 'tg-lr82'
+    firmwareVersion: '2.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

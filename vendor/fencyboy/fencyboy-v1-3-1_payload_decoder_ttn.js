@@ -1,6 +1,9 @@
 /**
  * Fencyboy v1.3.1 Payload Decoder TTN
- *
+ *  
+ * Updated 27 Jan 2026: Add CONFIGURATION_BATTERY_FULL_CAPACITY_MAH to settings payload (backwards compatible)
+ * 
+ * Copyright 2026 Fencyboy GmbH - https://fencyboy.com
  */
 
 function decodeNormalPayload(bytes) {
@@ -83,26 +86,38 @@ function decodeNormalPayload(bytes) {
 
 function decodeSettingsPayload(bytes) {
   
-  // Unexpected length of bytes: " + bytes.length + ". Expected lenght 12.
-  if (bytes.length != 12) {
+  // Support both old (12 bytes) and new (14 bytes) config payloads
+  if (bytes.length != 12 && bytes.length != 14) {
     
     return {
       data: { },
-      warnings: ["Invalid length of Settings payload: " + bytes.length],
+      warnings: ["Invalid length of Settings payload: " + bytes.length + ". Expected 12 or 14."],
       errors: []
     }
   }
   
+  var idx = 0;
+  var data = {
+    CONFIGURATION_VERSION: bytes[idx++],
+    CONFIGURATION_SENDINTERVAL: bytes[idx++],
+    CONFIGURATION_STATUSLED_ON: Boolean(bytes[idx++]),
+    CONFIGURATION_SMARTSLEEP_ON: Boolean(bytes[idx++]),
+    CONFIGURATION_EXPECTED_MS_BETWEEN_IMPULSES: readUInt16BG(bytes.slice(idx, idx + 2)),
+  };
+  idx += 2;
+  data.CONFIGURATION_PERIODIC_RESTART_TIME_MINUTES = readUInt16BG(bytes.slice(idx, idx + 2));
+  idx += 2;
+  
+  // New in version 0x06: batteryFullCapacity_mAh (2 bytes)
+  if (bytes.length >= 14) {
+    data.CONFIGURATION_BATTERY_FULL_CAPACITY_MAH = readUInt16BG(bytes.slice(idx, idx + 2));
+    idx += 2;
+  }
+  
+  data.CONFIGURATION_VOLTAGE_DIVIDER_MULTIPLIER = bytesToFloat(bytes.slice(idx, idx + 4));
+  
   return {
-    data: {
-      CONFIGURATION_VERSION: bytes[0],
-      CONFIGURATION_SENDINTERVAL: bytes[1],
-      CONFIGURATION_STATUSLED_ON: Boolean(bytes[2]),
-      CONFIGURATION_SMARTSLEEP_ON: Boolean(bytes[3]),
-      CONFIGURATION_EXPECTED_MS_BETWEEN_IMPULSES: readUInt16BG(bytes.slice(4, 6)),
-      CONFIGURATION_PERIODIC_RESTART_TIME_MINUTES: readUInt16BG(bytes.slice(6, 8)),
-      CONFIGURATION_VOLTAGE_DIVIDER_MULTIPLIER: bytesToFloat(bytes.slice(8, 12)),
-    },
+    data: data,
     warnings: [],
     errors: []
   };
