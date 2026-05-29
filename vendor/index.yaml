@@ -2195,3 +2195,7 @@ vendors:
     name: SIA Mikrotīkls
     vendorID: 980
     website: https://mikrotik.com
+
+  - id: advangrid
+    name: AdvanGrid
+    website: https://advangrid.com
