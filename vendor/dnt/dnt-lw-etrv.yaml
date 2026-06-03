@@ -95,7 +95,7 @@ keyProgramming:
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
-  - fuota other
+  - fuota lorawan
 
 # Product and data sheet URLs (optional)
 productURL: https://dnt.de/business/
