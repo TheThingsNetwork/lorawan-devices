@@ -26,4 +26,4 @@ uplinkDecoder:
         errors: []
         warnings: []
 downlinkDecoder:
-  fileName: dnt-lw-wsci.js
+  fileName: dnt-lw-wsci-2-1-1.js
