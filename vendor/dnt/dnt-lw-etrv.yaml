@@ -34,7 +34,7 @@ firmwareVersions:
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
+        id: dnt-profile-1-0-4
         lorawanCertified: true
         codec: dnt-lw-etrv-codec-1-3-1
 
