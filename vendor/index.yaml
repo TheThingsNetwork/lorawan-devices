@@ -1295,6 +1295,8 @@ vendors:
   - id: kamstrup
     name: Kamstrup A/S
     vendorID: 748
+    ouis:
+      - 0013EA
 
   - id: adafruit
     name: Adafruit Industries
