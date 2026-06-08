@@ -140,6 +140,11 @@ var PriVifTable = {
 
 // Manufacture specific VIFE
 var ManuVifeTable = {
+    0x04: { type: "Coefficient of power", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x05: { type: "V1xT3", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
+    0x06: { type: "V2xT3", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
+    0x07: { type: "V1xTF", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
+    0x08: { type: "V1xTR", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
     0x25: { type: "Infocode", unit: "NA", resolution: 1, ConversionType: "D" },
     0x1C: { type: "ALD last day", unit: "NA", resolution: 1, ConversionType: "C" },
     0x16: { type: "Module type/config number", unit: "NA", resolution: 1, ConversionType: "C" },
