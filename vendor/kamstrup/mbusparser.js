@@ -138,21 +138,48 @@ var PriVifTable = {
     0x7F: { type: "Manufacturer specific", unit: "NA", resolution: 1, ConversionType: "B" },
 };
 
+// Second VIFE table according to Table 12 in 13757-3:2025. Not all values included.
+var SecondVifeTable = {
+    0x09: { type: "Device type", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x0A: { type: "Manufacturer", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x0B: { type: "Parameter set identification", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x0C: { type: "Model/Version", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x0D: { type: "Hardware version number", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x0E: { type: "Metrodology (firmware) version number", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x0F: { type: "Other software version number", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x10: { type: "Customer location", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x11: { type: "Customer", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x24: { type: "Storage Interval Second(s)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x25: { type: "Storage Interval Minute(s)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x26: { type: "Storage Interval Hour(s)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x27: { type: "Storage Interval Day(s)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x28: { type: "Storage Interval Month(s)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x29: { type: "Storage Interval Year(s)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x74: { type: "Remaining battery life time (days)", unit: "NA", resolution: 1, ConversionType: "C" },
+};
+
 // Manufacture specific VIFE
 var ManuVifeTable = {
     0x04: { type: "Coefficient of power", unit: "NA", resolution: 1, ConversionType: "B" },
-    0x05: { type: "V1xT3", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
-    0x06: { type: "V2xT3", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
-    0x07: { type: "V1xTF", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
-    0x08: { type: "V1xTR", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
-    0x25: { type: "Infocode", unit: "NA", resolution: 1, ConversionType: "D" },
-    0x1C: { type: "ALD last day", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x05: { type: "E10 (V1xT3)", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
+    0x06: { type: "E11 (V2xT3)", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
+    0x07: { type: "E8 (V1xTF)", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
+    0x08: { type: "E9 (V1xTR)", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
+    0x0F: { type: "Meter No 1 (low 8 digit)+ Meter No 2 (high 8 digit)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x10: { type: "Program no. ABCCCCCC / ABCCC (PROG NO)", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x11: { type: "Config No 1", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x12: { type: "Config No 2", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x15: { type: "Module type", unit: "NA", resolution: 1, ConversionType: "B" },
     0x16: { type: "Module type/config number", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x17: { type: "Module firmware number and version", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x1A: { type: "Meter type", unit: "NA", resolution: 1, ConversionType: "B" },
     0x1B: { type: "ALD", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x1C: { type: "ALD last day", unit: "NA", resolution: 1, ConversionType: "C" },
     0x22: { type: "Infocode MC Type 4", unit: "NA", resolution: 1, ConversionType: "D" },
+    0x25: { type: "Infocode", unit: "NA", resolution: 1, ConversionType: "D" },
 };
 
-// Orthogonal VIFE table according to Table 15 in 13757-3:2018
+// Orthogonal VIFE table according to Table 16 in 13757-3:2018
 var OrthoVifeTable = {
     0x12: "Averaged value",
     0x13: "Inverse Compact Profile",
@@ -264,6 +291,38 @@ var OrthoVifeTable = {
     0x7F: "Next VIFEs and data of this block are manufacturer specific",
 };
 
+// Orthogonal Manufacture specific VIFE table
+var ManuOrthoVifeTable = {
+    0x01: "Control (E2)",
+    0x02: "Cooling Energy (E3)",
+    0x03: "Inlet Energy (E4)",
+    0x04: "Outlet Energy (E5)",
+    0x05: "Tapped Energy (E6)",
+    0x06: "Heat Energy 2 (E7)",
+    0x09: "Volume 2 (V2)",
+    0x0A: "Mass 2 (M2)",
+    0x0B: "Temperature 3 (T3)",
+    0x0C: "Temperature 4 (T4)",
+    0x0D: "Flow 2",
+    0x0F: "Average",
+    0x11: "Flow timepoint",
+    0x12: "Power timepoint",
+    0x1E: "Analogue module input 1",
+    0x1F: "Analogue module input 2",
+    0x24: "Energy E12",
+    0x25: "Energy E13",
+    0x26: "Energy E14",
+    0x27: "Energy E15",
+    0x28: "Energy E16",
+    0x29: "Mass M3",
+    0x2A: "Mass M4",
+    0x2B: "t1 timepoint",
+    0x2C: "t2 timepoint",
+    0x2D: "Power 2",
+    0x2E: "Extra digit",
+    0x2F: "High res",
+};
+
 var InfocodeTableWater = {
     0: "Dry",
     1: "Reverse",
@@ -326,12 +385,42 @@ function parseVIB(VIBArray) {
         } else {
             return null;
         }
+    } else if (VIBArray[0] == 0xFB) {
+        // First extension of VIF codes is not supported
+        return null;
+    } else if (VIBArray[0] == 0x7C || VIBArray[0] == 0xFC) {
+        // VIF in string is not supported
+        return null;
+    } else if (VIBArray[0] == 0xFD) {
+        // Second extension of VIF codes
+        if (VIBArray[1] in SecondVifeTable) {
+            var tempObj = SecondVifeTable[VIBArray[1]];
+            VIBObj = { type: tempObj.type, unit: tempObj.unit,
+                resolution: tempObj.resolution, ConversionType: tempObj.ConversionType }; // Copy instead of reference
+            VIBObj.OrthoVife = "NA";
+        } else {
+            return null;
+        }
+    } else if (VIBArray[0] == 0xEF) {
+        // Third extension of VIF codes is not supported
+        return null;
+    } else if (VIBArray[0] == 0x7E || VIBArray[0] == 0xFE) {
+        // "Any VIF" is not supported
+        return null;
     } else if ((VIBArray[0] & 0x7F) in PriVifTable) {
         var tempObj = PriVifTable[VIBArray[0] & 0x7F];
         VIBObj = { type: tempObj.type, unit: tempObj.unit,
             resolution: tempObj.resolution, ConversionType: tempObj.ConversionType }; // Copy instead of reference
         if ((VIBArray[0] & 0x80) != 0) {
-            if (VIBArray[1] in OrthoVifeTable) {
+            if (VIBArray[1] == 0xFF) {
+                // Manufacturer specific orthogonal VIFE
+                if (VIBArray[2] in ManuOrthoVifeTable) {
+                    VIBObj.OrthoVife = ManuOrthoVifeTable[VIBArray[2]];
+                }
+                else {
+                    return null;
+                }
+            } else if (VIBArray[1] in OrthoVifeTable) {
                 VIBObj.OrthoVife = OrthoVifeTable[VIBArray[1]];
             } else {
                 return null;
@@ -466,6 +555,9 @@ function TypeF(buffer, idx, size) {
     years += ((data >> 28) & 0x0000000f) << 3;
     var hYears = (data >> 13) & 0x00000003;
     years += 1900 + (hYears * 100);
+    if (days < 1 || days > 31 || months < 1 || months > 12 || hours > 23 || minutes > 59 ) {
+        return undefined;
+    }
     return new Date(Date.UTC(years, months - 1, days, hours, minutes));
 }
 
@@ -485,6 +577,9 @@ function TypeG(buffer, idx, size) {
     var months = (data >> 8) & 0x000f;
     var years = 2000 + ((data >> 5) & 0x0007);
     years += ((data >> 12) & 0x000f) << 3;
+    if (days < 1 || days > 31 || months < 1 || months > 12 ) {
+        return undefined;
+    }
     return new Date(Date.UTC(years, months - 1, days));
 }
 
@@ -507,6 +602,9 @@ function TypeG(buffer, idx, size) {
     var years = (buffer[idx + 3] >> 5) & 0x7;
     years += ((buffer[idx + 4] >> 4) & 0xf) << 3;
     years += 2000;
+    if (days < 1 || days > 31 || months < 1 || months > 12 || hours > 23 || minutes > 59 || seconds > 59 ) {
+        return undefined;
+    }
     return new Date(Date.UTC(years, months - 1, days, hours, minutes, seconds));
 }
 
@@ -847,7 +945,12 @@ function decodeUplink(input) {
             }
             // Normalize and add data if it is not undefined
             if (currentRecord.data !== undefined) {
+                // If timepoint, handle special
+                if (currentRecord.vib.type.includes("timepoint")) {
+                    value = currentRecord.data.toISOString().replace("Z","");
+                } else {
                 value = normalize(currentRecord.data, currentRecord.vib.resolution);
+                }
             } else {
                 unit = "Invalid";
                 result.warnings.push("Invalid value among data");
