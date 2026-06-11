@@ -764,7 +764,7 @@ function decodeUplink(input) {
                 i++;
                 record.dib.storagenumber += ((temp & 0xF) << snBitShift);
                 snBitShift += 4;
-                record.dib.subunit += ((temp & 0x40) << suBitShift);
+                record.dib.subunit += (((temp & 0x40) >> 6 ) << suBitShift);
                 suBitShift += 1;
             }
             // VIB
@@ -874,7 +874,7 @@ function decodeUplink(input) {
         }
     }
 
-    // Append functionfield and orthogonal VIFE to type
+    // Append functionfield, subunit and orthogonal VIFE to type
     for (var l = 0; l < mbusRecords.length; l++) {
         var functionFieldText = "";
         var subunitFieldText = "";
