@@ -165,14 +165,14 @@ var ManuVifeTable = {
     0x06: { type: "E11 (V2xT3)", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
     0x07: { type: "E8 (V1xTF)", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
     0x08: { type: "E9 (V1xTR)", unit: "m^3x°C", resolution: 1, ConversionType: "B" },
-    0x0F: { type: "Meter No 1 (low 8 digit)+ Meter No 2 (high 8 digit)", unit: "NA", resolution: 1, ConversionType: "B" },
-    0x10: { type: "Program no. ABCCCCCC / ABCCC (PROG NO)", unit: "NA", resolution: 1, ConversionType: "B" },
-    0x11: { type: "Config No 1", unit: "NA", resolution: 1, ConversionType: "B" },
-    0x12: { type: "Config No 2", unit: "NA", resolution: 1, ConversionType: "B" },
-    0x15: { type: "Module type", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x0F: { type: "Meter No 1 (low 8 digit)+ Meter No 2 (high 8 digit)", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x10: { type: "Program no. ABCCCCCC / ABCCC (PROG NO)", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x11: { type: "Config No 1", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x12: { type: "Config No 2", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x15: { type: "Module type", unit: "NA", resolution: 1, ConversionType: "C" },
     0x16: { type: "Module type/config number", unit: "NA", resolution: 1, ConversionType: "C" },
-    0x17: { type: "Module firmware number and version", unit: "NA", resolution: 1, ConversionType: "B" },
-    0x1A: { type: "Meter type", unit: "NA", resolution: 1, ConversionType: "B" },
+    0x17: { type: "Module firmware number and version", unit: "NA", resolution: 1, ConversionType: "C" },
+    0x1A: { type: "Meter type", unit: "NA", resolution: 1, ConversionType: "C" },
     0x1B: { type: "ALD", unit: "NA", resolution: 1, ConversionType: "C" },
     0x1C: { type: "ALD last day", unit: "NA", resolution: 1, ConversionType: "C" },
     0x22: { type: "Infocode MC Type 4", unit: "NA", resolution: 1, ConversionType: "D" },
@@ -756,12 +756,16 @@ function decodeUplink(input) {
             record.dib.datafield = temp & 0xF;
             record.dib.functionfield = (temp & 0x30) >> 4;
             record.dib.storagenumber = (temp & 0x40) >> 6;
+            record.dib.subunit = 0;
             var snBitShift = 1;
+            var suBitShift = 0;
             while ((temp & 0x80) != 0 && i < raw.length) { // Extension
                 temp = raw[i];
                 i++;
                 record.dib.storagenumber += ((temp & 0xF) << snBitShift);
                 snBitShift += 4;
+                record.dib.subunit += ((temp & 0x40) << suBitShift);
+                suBitShift += 1;
             }
             // VIB
             temp = raw[i];
@@ -873,6 +877,7 @@ function decodeUplink(input) {
     // Append functionfield and orthogonal VIFE to type
     for (var l = 0; l < mbusRecords.length; l++) {
         var functionFieldText = "";
+        var subunitFieldText = "";
         if (mbusRecords[l].vib.OrthoVife != "NA" && mbusRecords[l].vib.OrthoVife != "Inverse Compact Profile") {
             // Append orthogonal VIFE in beginning of type, e.g., "Reverse "flow.
             mbusRecords[l].vib.type = mbusRecords[l].vib.OrthoVife + " " + mbusRecords[l].vib.type;
@@ -891,8 +896,25 @@ function decodeUplink(input) {
                 functionFieldText = "Error state "; // Instantaneous value is left untouched
                 break;
         }
+        switch (mbusRecords[l].dib.subunit) {
+            case 0x0:
+                subunitFieldText = ""; // No subunit
+                break;
+            case 0x1:
+                subunitFieldText = "Pulse Input A1 ";
+                break;
+            case 0x2:
+                subunitFieldText = "Pulse Input B1 ";
+                break;
+            case 0x3:
+                subunitFieldText = "Pulse Input A2 ";
+                break;
+            case 0x4:
+                subunitFieldText = "Pulse Input B2 ";
+                break;
+        }
         // Append functionfield in beginning of type, e.g., "Max "flow.
-        mbusRecords[l].vib.type = functionFieldText + mbusRecords[l].vib.type;
+        mbusRecords[l].vib.type = subunitFieldText + functionFieldText + mbusRecords[l].vib.type;
     }
 
     // Retrieve timestamps
