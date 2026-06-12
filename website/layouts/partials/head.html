@@ -1,8 +1,11 @@
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  {{ if .Site.Params.noindex }}
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="googlebot" content="noindex,nofollow" />
+  {{ else }}
   <meta name="robots" content="index,follow" />
   <meta name="googlebot" content="index,follow" />
 
@@ -13,6 +16,7 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-PP5G5BT');</script>
   <!-- End Google Tag Manager -->
+  {{ end }}
 
   <link rel="shortcut icon" href="{{ .Site.BaseURL }}/assets/favicon.ico" />
   <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ .Site.BaseURL }}/assets/favicon.ico" />
@@ -45,13 +49,16 @@
   <meta name="twitter:site" content="{{ .Site.Params.twitter }}">
   <meta name="twitter:creator" content="{{ .Site.Params.twitter }}" />
 
-  {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
+  {{ $image := "" }}
+  {{ with .Params.photos }}{{ with .main }}
+    {{ $image = $.Resources.GetMatch (printf "images/%s" .) }}
+  {{ end }}{{ end }}
 
   {{ with $image }}
-    <meta itemprop="image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
-    <meta property="og:image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
-    <meta name="twitter:image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
-    <meta name="twitter:image:src" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
+    <meta itemprop="image" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
+    <meta property="og:image" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
+    <meta name="twitter:image" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
+    <meta name="twitter:image:src" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
   {{ else }}
     <meta itemprop="image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
     <meta property="og:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
@@ -59,7 +66,32 @@
     <meta name="twitter:image:src" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
   {{ end }}
 
-  <link rel="stylesheet" href="{{- (index .Site.Data.manifest `style.css`) | relURL -}}">
+  {{ if and (eq .Section "devices") .Params.modelid }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ .Params.name | jsonify }},
+    "description": {{ .Params.description | jsonify }},
+    {{ with $image }}"image": {{ ((.Resize `400x`).RelPermalink | absURL) | jsonify }},{{ end }}
+    "brand": { "@type": "Brand", "name": {{ .Params.vendor.name | jsonify }} },
+    "url": {{ .Permalink | jsonify }}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Devices", "item": {{ .Site.BaseURL | jsonify }} },
+      { "@type": "ListItem", "position": 2, "name": {{ .Params.vendor.name | jsonify }}, "item": {{ (printf "%s/devices/%s/" .Site.BaseURL .Params.vendor.id) | jsonify }} },
+      { "@type": "ListItem", "position": 3, "name": {{ .Params.name | jsonify }}, "item": {{ .Permalink | jsonify }} }
+    ]
+  }
+  </script>
+  {{ end }}
+
+  <link rel="stylesheet" href="{{- index .Site.Data.manifest `style.css` | strings.TrimPrefix `/` | relURL -}}">
 
   {{ if eq .Permalink (print .Site.BaseURL "devices/") }}
     <meta http-equiv="refresh" content="0; url={{ .Site.BaseURL }}"/>

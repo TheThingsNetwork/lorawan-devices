@@ -1,0 +1,19 @@
+{{ define "main" }}
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Tags</h1>
+      <p class="lede">Browse devices by sensor type, enclosure rating and frequency plan.</p>
+    </div>
+  </section>
+  <div class="container">
+    <div style="padding: 32px 0 80px;">
+      <div class="filter-pills" style="gap: 8px;">
+        {{ range .Pages.ByTitle }}
+        <a class="filter-pill" style="padding: 6px 14px; font-size: 13px; text-decoration: none;" href="{{ .Permalink }}">{{ .Title }} <span style="opacity: .55;">{{ len .Pages }}</span></a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</main>
+{{ end }}

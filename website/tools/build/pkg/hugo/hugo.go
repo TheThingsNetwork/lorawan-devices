@@ -73,6 +73,15 @@ func copyImage(sourceFile string, destinationFile string, e *devicerepository.En
 	return nil
 }
 
+func copyFile(sourceFile string, destinationFile string) error {
+	input, err := ioutil.ReadFile(sourceFile)
+	if err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile(destinationFile, input, 0o644)
+}
+
 func createFileFromTemplate(templatePath string, output string, tp *TemplateData) error {
 	tmpl, err := template.ParseFiles(templatePath)
 	if err != nil {
@@ -145,6 +154,19 @@ func CreateContentSingleDevice(dir config.Dir, drs devicerepository.Store) error
 				}
 			}
 
+			// Copy codec scripts into the page bundle so the decoder
+			// playground can fetch them at /devices/{vendor}/{device}/codecs/.
+			if len(endDeviceModel.CodecFiles) > 0 {
+				_ = os.Mkdir(dir.Hugo.Devices+vendor.ID+"/"+endDevice+"/codecs", 0o700)
+				for _, f := range endDeviceModel.CodecFiles {
+					src := dir.DeviceRepo.Vendor + vendor.ID + "/" + f
+					dst := dir.Hugo.Devices + vendor.ID + "/" + endDevice + "/codecs/" + filepath.Base(f)
+					if err := copyFile(src, dst); err != nil {
+						log.Printf("codec %s/%s: %v", vendor.ID, f, err)
+					}
+				}
+			}
+
 			d, err := yaml.Marshal(&endDeviceModel)
 			if err != nil {
 				return err
@@ -172,6 +194,18 @@ func createContentDevicesVendor(dir config.Dir, vendor devicerepository.Vendor) 
 	_ = os.Mkdir(dir.Hugo.Devices+vendor.ID, 0o700)
 
 	vendor.Title = vendor.Name
+
+	// Copy the vendor logo into the branch bundle for the vendors directory page.
+	if vendor.Logo != "" {
+		src := dir.DeviceRepo.Vendor + vendor.ID + "/" + vendor.Logo
+		dst := dir.Hugo.Devices + vendor.ID + "/" + filepath.Base(vendor.Logo)
+		if err := copyFile(src, dst); err != nil {
+			log.Printf("logo %s: %v", vendor.ID, err)
+			vendor.Logo = ""
+		} else {
+			vendor.Logo = filepath.Base(vendor.Logo)
+		}
+	}
 
 	v, err := yaml.Marshal(vendor)
 	if err != nil {

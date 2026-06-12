@@ -1,0 +1,4 @@
+enableRobotsTXT = false
+
+[params]
+  noindex = true

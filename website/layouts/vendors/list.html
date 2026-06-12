@@ -1,0 +1,68 @@
+{{ define "main" }}
+{{ $vendors := where (site.GetPage "/devices").Pages "Kind" "section" }}
+{{ $deviceCount := len (where site.RegularPages "Section" "devices") }}
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Vendors</h1>
+      <p class="lede">{{ len $vendors }} manufacturers contribute {{ $deviceCount }} devices to the repository. Every device profile and payload codec is reviewed before it is published.</p>
+      <div class="search-bar" style="max-width: 520px;">
+        <div class="search-input">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input placeholder="Search vendors…" data-vendor-search aria-label="Search vendors" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="vendors-layout">
+      <div class="empty" data-vendor-empty hidden>
+        <h3>No vendors found</h3>
+        <p>Try a different name.</p>
+      </div>
+      <div class="vendor-grid" data-vendor-grid>
+        {{ range $vendors.ByTitle }}
+        {{ $count := len .RegularPages }}
+        {{ if gt $count 0 }}
+        {{ $certified := len (where .RegularPages ".Params.certified" true) }}
+        {{ $name := .Params.name | default .Title }}
+        <a class="vendor-card" href="{{ .Permalink }}" data-vendor-name="{{ lower $name }}">
+          <div class="vc-head">
+            {{ $logo := "" }}
+            {{ with .Params.logo }}{{ $logo = . }}{{ end }}
+            {{ $page := . }}
+            {{ with $logo }}{{ with $page.Resources.GetMatch . }}
+            <div class="vc-logo has-img"><img src="{{ .RelPermalink }}" alt="{{ $name }} logo" loading="lazy" /></div>
+            {{ else }}
+            <div class="vc-logo">{{ substr $name 0 1 | upper }}</div>
+            {{ end }}{{ else }}
+            <div class="vc-logo">{{ substr $name 0 1 | upper }}</div>
+            {{ end }}
+            <div class="vc-id">
+              <h3>{{ $name }}</h3>
+              {{ with .Params.website }}<div class="vc-site">{{ . | replaceRE `^https?://(www\.)?` "" | strings.TrimSuffix "/" }}</div>{{ end }}
+            </div>
+          </div>
+          <div class="vc-stats">
+            <div class="vc-stat"><span class="n">{{ $count }}</span><span class="l">Device{{ if ne $count 1 }}s{{ end }}</span></div>
+            <div class="vc-stat"><span class="n">{{ $certified }}</span><span class="l">Certified</span></div>
+          </div>
+          <div class="vc-foot">
+            <span>View devices</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </a>
+        {{ end }}
+        {{ end }}
+      </div>
+      <div class="vendor-cta">
+        <div>
+          <h3>Are you a device maker?</h3>
+          <p>Submit your device profiles and payload codecs to reach thousands of LoRaWAN network operators, with one-click onboarding in The Things Stack.</p>
+        </div>
+        <a class="btn btn-primary" href="{{ .Site.BaseURL }}/submit/">Submit a device</a>
+      </div>
+    </div>
+  </div>
+</main>
+{{ end }}

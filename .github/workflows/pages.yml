@@ -1,0 +1,75 @@
+name: Deploy staging site to GitHub Pages
+
+on:
+  push:
+    branches: [redesign]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache-dependency-path: website/tools/build/go.sum
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.159.2'
+          extended: true
+
+      - name: Generate Hugo content from vendor YAML
+        working-directory: website/tools/build
+        run: |
+          go mod download
+          go build .
+          ./build
+
+      - name: Build frontend assets
+        working-directory: website
+        env:
+          BASE_PATH: /lorawan-devices
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+
+      - name: Cache processed images
+        uses: actions/cache@v4
+        with:
+          path: website/resources/_gen
+          key: hugo-images-${{ hashFiles('vendor/index.yaml') }}
+          restore-keys: hugo-images-
+
+      - name: Build site (staging — noindex)
+        working-directory: website
+        run: hugo --minify --environment staging --baseURL https://wienke.github.io/lorawan-devices
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
