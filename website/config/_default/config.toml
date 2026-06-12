@@ -8,6 +8,8 @@ title = "Device Repository for LoRaWAN"
 [params]
   author = "The Things Network"
   github = "https://github.com/TheThingsNetwork/lorawan-devices"
+  githubRepo = "TheThingsNetwork/lorawan-devices"
+  githubBranch = "master"
   facebook = "https://www.facebook.com/thethingsnetwork"
   og_image = "assets/ttn_profile_picture_white_bg.png"
   sitename = "The Things Network"

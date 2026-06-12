@@ -1,0 +1,194 @@
+{{ define "main" }}
+{{ $vendors := where (site.GetPage "/devices").Pages "Kind" "section" }}
+<main>
+  <section class="page-hero" style="padding-bottom: 24px;">
+    <div class="container">
+      <h1>Update a device</h1>
+      <p class="lede">Change an existing entry in the repository — new firmware versions, frequency plans, codec fixes, photos or corrected specs. The wizard loads the current files straight from GitHub, patches only what you change, and shows the exact diff your pull request will carry.</p>
+      <p class="lede" style="font-size: 14px;">Adding a device that isn't listed yet? Use the <a href="{{ .Site.BaseURL }}/submit/">submit wizard</a> instead.</p>
+    </div>
+  </section>
+
+  <div class="container" data-update-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}">
+
+    <div class="upd-pick" data-upd-picker>
+      <h2>Which device are you updating?</h2>
+      <div class="s-grid">
+        <div class="s-field"><label>Vendor</label><select data-upd-vendor></select></div>
+        <div class="s-field"><label>Device</label><select data-upd-device></select></div>
+        <div class="s-field span2">
+          <button class="btn btn-primary" data-upd-load>Load device</button>
+        </div>
+      </div>
+      <p class="upd-load-error" data-upd-error hidden></p>
+      <p class="s-hint" style="margin-top: 14px;">The current definition is fetched from <code>{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}@{{ .Site.Params.githubBranch | default `master` }}</code> — the repository stays the source of truth.</p>
+    </div>
+
+    <div class="submit-layout" data-upd-wizard hidden>
+      <aside class="submit-steps" data-steps>
+        <button class="sstep active" data-step-btn="0"><span class="sstep-num">1</span> Device info</button>
+        <button class="sstep" data-step-btn="1" disabled><span class="sstep-num">2</span> LoRaWAN & versions</button>
+        <button class="sstep" data-step-btn="2" disabled><span class="sstep-num">3</span> Hardware</button>
+        <button class="sstep" data-step-btn="3" disabled><span class="sstep-num">4</span> Payload codec</button>
+        <button class="sstep" data-step-btn="4" disabled><span class="sstep-num">5</span> Photo</button>
+        <button class="sstep" data-step-btn="5" disabled><span class="sstep-num">6</span> Review diff</button>
+      </aside>
+
+      <div class="submit-panel">
+        <div data-step-panel="0">
+          <h2 data-upd-title>Device</h2>
+          <div class="upd-meta">
+            <span class="upd-badge">updating</span>
+            <span>by <span data-upd-vendor-name></span></span>
+            <code data-upd-path></code>
+          </div>
+          <div class="s-grid">
+            <div class="s-field span2"><label>Device name</label><input data-f="name" /></div>
+            <div class="s-field span2">
+              <label>Description</label>
+              <textarea rows="3" data-f="desc"></textarea>
+              <span class="s-hint">Shown on the device card, the detail page and in search engines.</span>
+            </div>
+            <div class="s-field span2">
+              <label>Sensors / capabilities</label>
+              <div class="filter-pills" data-pills="sensors">
+                {{ range slice "temperature" "humidity" "co2" "motion" "gps" "pressure" "light" "moisture" "distance" "water" "vibration" "voltage" "current" "button" "magnetometer" "accelerometer" "sound" "tvoc" "pm2.5" "wind speed" }}
+                <button class="filter-pill" value="{{ . }}">{{ . }}</button>
+                {{ end }}
+              </div>
+            </div>
+            <div class="s-field span2"><label>Product URL</label><input data-f="productUrl" /></div>
+            <div class="s-field span2"><label>Datasheet URL</label><input data-f="datasheetUrl" /></div>
+          </div>
+        </div>
+
+        <div data-step-panel="1" hidden>
+          <h2>LoRaWAN & versions</h2>
+          <div class="s-field" style="margin-bottom: 10px;">
+            <label>Firmware versions & frequency plans</label>
+            <span class="s-hint">Remove a plan with ×, or add plans to a firmware version. New plans reference one of the device's existing profile files.</span>
+          </div>
+          <div class="fw-list" data-fw-list></div>
+          <div class="plan-add" style="margin-bottom: 22px;">
+            <input data-fw-version placeholder="1.7" style="max-width: 120px;" />
+            <button class="btn btn-secondary btn-sm" data-fw-add>+ Add firmware version</button>
+            <span class="s-hint">Copies the plans of the latest version.</span>
+          </div>
+          <div class="s-field" style="margin-bottom: 10px;">
+            <label>LoRaWAN profiles</label>
+            <span class="s-hint">These are the device's profile files; changes apply to every firmware version that references them.</span>
+          </div>
+          <div data-prof-list></div>
+        </div>
+
+        <div data-step-panel="2" hidden>
+          <h2>Hardware specifications</h2>
+          <div class="s-grid">
+            <div class="s-field"><label>Width (mm)</label><input data-f="width" type="number" step="0.1" /></div>
+            <div class="s-field"><label>Height (mm)</label><input data-f="height" type="number" step="0.1" /></div>
+            <div class="s-field"><label>Length (mm)</label><input data-f="length" type="number" step="0.1" /></div>
+            <div class="s-field"><label>Diameter (mm)</label><input data-f="diameter" type="number" step="0.1" /></div>
+            <div class="s-field"><label>Weight (g)</label><input data-f="weight" type="number" step="0.1" /></div>
+            <div class="s-field">
+              <label>IP rating</label>
+              <select data-f="ip">
+                <option value="">—</option>
+                {{ range slice "IP20" "IP30" "IP54" "IP65" "IP66" "IP67" "IP68" }}<option>{{ . }}</option>{{ end }}
+              </select>
+            </div>
+            <div class="s-field">
+              <label>Power source</label>
+              <select data-f="power">
+                <option value="battery">Battery</option><option value="mains">Mains</option>
+              </select>
+            </div>
+            <div class="s-field" data-battery-fields><label>Battery type</label><input data-f="batteryType" /></div>
+            <div class="s-field" data-battery-fields2>
+              <label>Battery replaceable</label>
+              <div class="filter-pills" data-pills-single="batteryReplaceable">
+                <button class="filter-pill active" value="true">Yes</button>
+                <button class="filter-pill" value="false">No</button>
+              </div>
+            </div>
+            <div class="s-field"><label>Operating temp. min (°C)</label><input data-f="tempMin" type="number" /></div>
+            <div class="s-field"><label>Operating temp. max (°C)</label><input data-f="tempMax" type="number" /></div>
+          </div>
+        </div>
+
+        <div data-step-panel="3" hidden>
+          <h2>Payload codec</h2>
+          <p class="s-hint" data-codec-none hidden style="font-size: 13px;">This device has no payload codec yet. Codec files can be added in a separate pull request — or ping the vendor; codecs earn the one-click onboarding badge.</p>
+          <div data-codec-body>
+            <div class="s-field" style="margin-bottom: 14px;" hidden>
+              <label>Codec file</label>
+              <select data-codec-select></select>
+            </div>
+            {{ partial "wizard/codec-step.html" . }}
+          </div>
+        </div>
+
+        <div data-step-panel="4" hidden>
+          <h2>Product photo</h2>
+          <div class="upd-meta" data-photo-current hidden>
+            <div class="photo-previews" style="margin: 0;">
+              <div class="pp pp-light"><img alt="Current product photo" /><span>current</span></div>
+            </div>
+            <code></code>
+          </div>
+          {{ partial "wizard/photo-step.html" . }}
+          <div class="s-callout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>To replace the photo, validate the new file here and upload it under the same file name in the pull request.</span>
+          </div>
+        </div>
+
+        <div data-step-panel="5" hidden>
+          <h2>Review your changes</h2>
+          <div class="empty" data-diff-empty hidden>
+            <h3>No changes yet</h3>
+            <p>Everything still matches the repository. Step back and edit something first.</p>
+          </div>
+          <div class="diff-list" data-diff-list></div>
+          <div class="val-list" data-validation></div>
+          <div class="s-callout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Only the lines you changed are touched — comments and formatting in the vendor files are preserved, so reviewers see a minimal diff.</span>
+          </div>
+        </div>
+
+        <div class="submit-nav">
+          <button class="btn btn-secondary" data-prev disabled>Back</button>
+          <button class="btn btn-primary" data-next>Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-success" data-success hidden>
+      <div class="ss-icon">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h1>Your update is ready</h1>
+      <p>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong> — GitHub forks the repository for you, no local tools needed. Maintainers review every change before it is published.</p>
+      <div class="cl-list" data-checklist></div>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-secondary" data-download>⬇ Download changed files</button>
+        <button class="btn btn-secondary" data-restart>Back to the wizard</button>
+      </div>
+    </div>
+  </div>
+
+  {{ $catalog := slice }}
+  {{ range $vendors.ByTitle }}
+    {{ $devices := slice }}
+    {{ range .RegularPages.ByTitle }}
+      {{ $devices = $devices | append (dict "id" (path.Base .File.Dir) "name" (.Params.name | default .Title)) }}
+    {{ end }}
+    {{ $catalog = $catalog | append (dict "id" (path.Base .File.Dir) "name" (.Params.name | default .Title) "devices" $devices) }}
+  {{ end }}
+  <script>
+    window.updateCatalog = JSON.parse({{ $catalog | jsonify }})
+  </script>
+</main>
+
+<script src="{{- index .Site.Data.manifest `update.js` | strings.TrimPrefix `/` | relURL -}}"></script>
+{{ end }}

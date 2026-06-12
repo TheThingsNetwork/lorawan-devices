@@ -1,0 +1,24 @@
+<div data-codec-tester>
+  <div class="s-field" style="margin-bottom: 16px;">
+    <label>Decoder source — JavaScript</label>
+    <textarea data-codec-editor class="codec-editor" rows="13" spellcheck="false" autocomplete="off"></textarea>
+    <span class="s-hint">The Things Stack codec API: <code>decodeUplink({ bytes, fPort })</code> returning <code>{ data }</code>. The legacy <code>Decoder(bytes, port)</code> convention also works. The code runs sandboxed in your browser.</span>
+  </div>
+  <div class="ex-head">
+    <label>Example payloads</label>
+    <div class="ex-head-actions">
+      <button class="btn btn-secondary btn-sm" data-ex-add>+ Add example</button>
+      <button class="btn btn-secondary btn-sm" data-ex-run>▶ Run examples</button>
+      <span class="ex-status" data-ex-status></span>
+    </div>
+  </div>
+  <div class="ex-wrap">
+    <table class="ex-table">
+      <thead>
+        <tr><th>Description</th><th style="width:64px;">FPort</th><th style="width:20%;">Payload (hex)</th><th style="width:34%;">Expected output (JSON)</th><th style="width:120px;"></th></tr>
+      </thead>
+      <tbody data-ex-rows></tbody>
+    </table>
+  </div>
+  <span class="s-hint">CI runs exactly these examples against the decoder and the output must match — “Use actual” adopts the decoder’s output as the expected value.</span>
+</div>

@@ -5,18 +5,20 @@
     <div class="container">
       <h1>Submit a device</h1>
       <p class="lede">Add your device to the open-source repository. A complete profile — with payload codec — gets your device one-click onboarding in The Things Stack and visibility to thousands of network operators. This wizard generates the YAML files for your pull request.</p>
+      <p class="lede" style="font-size: 14px;">Changing a device that is already listed? Use the <a href="{{ .Site.BaseURL }}/update/">update wizard</a> instead.</p>
     </div>
   </section>
 
-  <div class="container" data-submit-wizard>
+  <div class="container" data-submit-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}">
     <div class="submit-layout">
       <aside class="submit-steps" data-steps>
         <button class="sstep active" data-step-btn="0"><span class="sstep-num">1</span> Vendor</button>
         <button class="sstep" data-step-btn="1" disabled><span class="sstep-num">2</span> Device info</button>
         <button class="sstep" data-step-btn="2" disabled><span class="sstep-num">3</span> LoRaWAN profile</button>
         <button class="sstep" data-step-btn="3" disabled><span class="sstep-num">4</span> Hardware</button>
-        <button class="sstep" data-step-btn="4" disabled><span class="sstep-num">5</span> Assets & codec</button>
-        <button class="sstep" data-step-btn="5" disabled><span class="sstep-num">6</span> Review</button>
+        <button class="sstep" data-step-btn="4" disabled><span class="sstep-num">5</span> Payload codec</button>
+        <button class="sstep" data-step-btn="5" disabled><span class="sstep-num">6</span> Photo</button>
+        <button class="sstep" data-step-btn="6" disabled><span class="sstep-num">7</span> Review</button>
       </aside>
 
       <div class="submit-panel">
@@ -153,37 +155,41 @@
         </div>
 
         <div data-step-panel="4" hidden>
-          <h2>Assets & payload codec</h2>
-          <div class="s-grid">
-            <div class="s-field span2">
-              <label>Payload codec</label>
-              <div class="s-choice-row" style="margin-bottom: 0;">
-                <button class="s-choice active" data-codec-mode="yes">
-                  <strong>I'll include a codec</strong>
-                  <span>decodeUplink in JavaScript — earns the one-click onboarding badge</span>
-                </button>
-                <button class="s-choice" data-codec-mode="no">
-                  <strong>No codec yet</strong>
-                  <span>The device can still be listed; codecs can be added later</span>
-                </button>
-              </div>
-            </div>
+          <h2>Payload codec</h2>
+          <div class="s-choice-row">
+            <button class="s-choice active" data-codec-mode="yes">
+              <strong>I'll include a codec</strong>
+              <span>decodeUplink in JavaScript — earns the one-click onboarding badge</span>
+            </button>
+            <button class="s-choice" data-codec-mode="no">
+              <strong>No codec yet</strong>
+              <span>The device can still be listed; codecs can be added later</span>
+            </button>
           </div>
-          <div class="s-callout">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <span>Your pull request should also include: a <strong>product photo</strong> (PNG, transparent background, ≥ 800 px, named <code>&lt;model&gt;.png</code> in the vendor folder), and example payloads for the codec. Codecs are validated in CI against your examples — a passing codec earns the <strong>one-click onboarding</strong> badge.</span>
+          <div data-codec-body>
+            {{ partial "wizard/codec-step.html" . }}
           </div>
         </div>
 
         <div data-step-panel="5" hidden>
+          <h2>Product photo</h2>
+          {{ partial "wizard/photo-step.html" . }}
+          <div class="s-callout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>The photo travels with your pull request as <code>vendor/&lt;vendor&gt;/&lt;model&gt;.png</code> — this step only checks it against the repository rules so the reviewers don't have to bounce it back.</span>
+          </div>
+        </div>
+
+        <div data-step-panel="6" hidden>
           <h2>Review & generate</h2>
           <div class="card-block" style="margin-bottom: 16px;">
             <table class="spec-table" data-review-table>
             </table>
           </div>
+          <div class="val-list" data-validation></div>
           <div class="s-callout">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <span>Generating creates the YAML files for <strong>vendor/&lt;your-vendor&gt;/</strong>, ready to commit on a fork of <strong>TheThingsNetwork/lorawan-devices</strong>. Submissions are reviewed by the maintainers — most are merged within a few working days.</span>
+            <span>The files are validated against the same <strong>schema.json</strong> the repository CI uses. Generating shows a step-by-step GitHub checklist — submissions are reviewed by the maintainers, most are merged within a few working days.</span>
           </div>
         </div>
 
@@ -199,7 +205,8 @@
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <h1>Your submission files are ready</h1>
-      <p>Download the generated YAML below, add your product photo{{ "" }} and codec, then open a pull request to <strong>TheThingsNetwork/lorawan-devices</strong>. The community reviews every submission before it is published.</p>
+      <p>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong> — GitHub forks the repository for you, no local tools needed. The community reviews every submission before it is published.</p>
+      <div class="cl-list" data-checklist></div>
       <pre class="code" data-yaml-preview></pre>
       <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
         <button class="btn btn-secondary" data-download>⬇ Download YAML files</button>
@@ -209,4 +216,6 @@
     </div>
   </div>
 </main>
+
+<script src="{{- index .Site.Data.manifest `submit.js` | strings.TrimPrefix `/` | relURL -}}"></script>
 {{ end }}

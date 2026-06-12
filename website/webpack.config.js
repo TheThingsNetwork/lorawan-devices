@@ -30,6 +30,8 @@ module.exports = (env, argv) => {
       base: path.resolve(__dirname, 'src/js/index.js'),
       style: path.resolve(__dirname, 'src/styles/index.js'),
       device_single: path.resolve(__dirname, 'src/js/device.js'),
+      submit: path.resolve(__dirname, 'src/js/submit.js'),
+      update: path.resolve(__dirname, 'src/js/update.js'),
     },
     output: {
       path: path.resolve(__dirname, 'static/'),

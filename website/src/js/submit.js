@@ -1,71 +1,26 @@
-// Submit-a-device wizard: six steps that end in generated, schema-shaped
-// YAML files for a pull request to TheThingsNetwork/lorawan-devices.
+// Submit-a-device wizard: guided steps that end in schema-validated YAML
+// files plus a GitHub submission checklist for a pull request to
+// TheThingsNetwork/lorawan-devices. Loaded only on /submit/.
 
-const slugify = (s) =>
-  (s || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
+import { initSteps, pillGroups, fields, slugify, yamlStr } from './wizard/core'
+import { createCodecTester } from './wizard/codec-tester'
+import { createPhotoCheck } from './wizard/photo-check'
+import { codecYAML, codecJSStub, validateYAMLText } from './wizard/yaml-gen'
+import { renderChecklist } from './wizard/checklist'
+import { ghConfig } from './lib/gh'
 
-const yamlStr = (s) => "'" + String(s).replace(/'/g, "''") + "'"
-
-export const initSubmit = (root) => {
-  const panels = Array.from(root.querySelectorAll('[data-step-panel]'))
-  const stepBtns = Array.from(root.querySelectorAll('[data-step-btn]'))
-  const prevBtn = root.querySelector('[data-prev]')
-  const nextBtn = root.querySelector('[data-next]')
+const initSubmit = (root) => {
+  const f = fields(root)
+  const pills = pillGroups(root)
   const success = root.querySelector('[data-success]')
   const wizard = root.querySelector('.submit-layout')
+  const cfg = ghConfig(root)
 
-  let step = 0
   let vendorMode = 'existing'
   let codecMode = 'yes'
-  const pills = { sensors: [], classes: ['A'], plans: ['EU863-870'] }
-  const single = { join: 'otaa', batteryReplaceable: 'true' }
 
-  const f = (name) => {
-    const el = root.querySelector(`[data-f="${name}"]`)
-    return el ? el.value.trim() : ''
-  }
-
-  /* ------------------------------ Steps ------------------------------ */
-
-  const validate = () => {
-    if (step === 0) return vendorMode === 'existing' ? !!f('vendor') : !!(f('vendorName') && slugify(f('vendorSlug') || f('vendorName')))
-    if (step === 1) return !!(f('name') && f('desc') && slugify(f('model') || f('name')))
-    if (step === 2) return pills.plans.length > 0
-    return true
-  }
-
-  const show = (i) => {
-    step = i
-    panels.forEach((p) => (p.hidden = +p.dataset.stepPanel !== i))
-    stepBtns.forEach((b) => {
-      const n = +b.dataset.stepBtn
-      b.classList.toggle('active', n === i)
-      b.classList.toggle('done', n < i)
-      b.disabled = n > i
-    })
-    prevBtn.disabled = i === 0
-    nextBtn.textContent = i === panels.length - 1 ? '⚡ Generate submission' : 'Continue'
-    if (i === panels.length - 1) renderReview()
-  }
-
-  stepBtns.forEach((b) =>
-    b.addEventListener('click', () => {
-      const n = +b.dataset.stepBtn
-      if (n <= step) show(n)
-    }),
-  )
-  prevBtn.addEventListener('click', () => show(Math.max(0, step - 1)))
-  nextBtn.addEventListener('click', () => {
-    if (!validate()) return
-    if (step === panels.length - 1) {
-      finish()
-    } else {
-      show(step + 1)
-    }
-  })
+  const model = () => slugify(f.get('model') || f.get('name'))
+  const vendorSlug = () => (vendorMode === 'existing' ? f.get('vendor') : slugify(f.get('vendorSlug') || f.get('vendorName')))
 
   /* ----------------------------- Choices ----------------------------- */
 
@@ -82,32 +37,9 @@ export const initSubmit = (root) => {
     b.addEventListener('click', () => {
       codecMode = b.dataset.codecMode
       root.querySelectorAll('[data-codec-mode]').forEach((x) => x.classList.toggle('active', x === b))
+      root.querySelector('[data-codec-body]').hidden = codecMode !== 'yes'
     }),
   )
-
-  root.querySelectorAll('[data-pills]').forEach((group) => {
-    const key = group.dataset.pills
-    group.querySelectorAll('.filter-pill').forEach((pill) =>
-      pill.addEventListener('click', () => {
-        if (pill.disabled) return
-        const v = pill.getAttribute('value')
-        const set = new Set(pills[key] || [])
-        set.has(v) ? set.delete(v) : set.add(v)
-        pills[key] = [...set]
-        pill.classList.toggle('active')
-      }),
-    )
-  })
-
-  root.querySelectorAll('[data-pills-single]').forEach((group) => {
-    const key = group.dataset.pillsSingle
-    group.querySelectorAll('.filter-pill').forEach((pill) =>
-      pill.addEventListener('click', () => {
-        single[key] = pill.getAttribute('value')
-        group.querySelectorAll('.filter-pill').forEach((x) => x.classList.toggle('active', x === pill))
-      }),
-    )
-  })
 
   const powerSel = root.querySelector('[data-f="power"]')
   if (powerSel) {
@@ -117,16 +49,23 @@ export const initSubmit = (root) => {
     })
   }
 
-  /* ------------------------- YAML generation ------------------------- */
+  /* --------------------------- Codec & photo ------------------------- */
 
-  const model = () => slugify(f('model') || f('name'))
-  const vendorSlug = () => (vendorMode === 'existing' ? f('vendor') : slugify(f('vendorSlug') || f('vendorName')))
+  const tester = createCodecTester(root.querySelector('[data-codec-tester]'))
+  tester.setSource(codecJSStub())
+  tester.setExamples([])
+
+  const photo = createPhotoCheck(root.querySelector('[data-photo]'), {
+    targetName: () => `${model()}.png`,
+  })
+
+  /* ------------------------- YAML generation ------------------------- */
 
   const deviceYAML = () => {
     const m = model()
     const lines = []
-    lines.push(`name: ${yamlStr(f('name'))}`)
-    lines.push(`description: ${yamlStr(f('desc'))}`)
+    lines.push(`name: ${yamlStr(f.get('name'))}`)
+    lines.push(`description: ${yamlStr(f.get('desc'))}`)
     lines.push('hardwareVersions:')
     lines.push("  - version: '1.0'")
     lines.push('    numeric: 1')
@@ -136,99 +75,68 @@ export const initSubmit = (root) => {
     lines.push('    hardwareVersions:')
     lines.push("      - '1.0'")
     lines.push('    profiles:')
-    pills.plans.forEach((plan) => {
+    pills.multi.plans.forEach((plan) => {
       lines.push(`      ${plan}:`)
       lines.push(`        id: ${m}-profile`)
       lines.push('        lorawanCertified: false')
       if (codecMode === 'yes') lines.push(`        codec: ${m}-codec`)
     })
-    if (pills.sensors.length) {
+    if (pills.multi.sensors.length) {
       lines.push('sensors:')
-      pills.sensors.forEach((s) => lines.push(`  - ${s}`))
+      pills.multi.sensors.forEach((s) => lines.push(`  - ${s}`))
     }
-    if (f('width') || f('height') || f('length')) {
+    if (f.get('width') || f.get('height') || f.get('length')) {
       lines.push('dimensions:')
-      if (f('width')) lines.push(`  width: ${f('width')}`)
-      if (f('length')) lines.push(`  length: ${f('length')}`)
-      if (f('height')) lines.push(`  height: ${f('height')}`)
+      if (f.get('width')) lines.push(`  width: ${f.get('width')}`)
+      if (f.get('length')) lines.push(`  length: ${f.get('length')}`)
+      if (f.get('height')) lines.push(`  height: ${f.get('height')}`)
     }
-    if (f('weight')) lines.push(`weight: ${f('weight')}`)
-    if (powerSel && powerSel.value === 'battery' && (f('batteryType') || single.batteryReplaceable)) {
+    if (f.get('weight')) lines.push(`weight: ${f.get('weight')}`)
+    if (powerSel && powerSel.value === 'battery' && (f.get('batteryType') || pills.single.batteryReplaceable)) {
       lines.push('battery:')
-      lines.push(`  replaceable: ${single.batteryReplaceable}`)
-      if (f('batteryType')) lines.push(`  type: ${yamlStr(f('batteryType'))}`)
+      lines.push(`  replaceable: ${pills.single.batteryReplaceable}`)
+      if (f.get('batteryType')) lines.push(`  type: ${yamlStr(f.get('batteryType'))}`)
     }
-    if (f('tempMin') && f('tempMax')) {
+    if (f.get('tempMin') && f.get('tempMax')) {
       lines.push('operatingConditions:')
       lines.push('  temperature:')
-      lines.push(`    min: ${f('tempMin')}`)
-      lines.push(`    max: ${f('tempMax')}`)
+      lines.push(`    min: ${f.get('tempMin')}`)
+      lines.push(`    max: ${f.get('tempMax')}`)
     }
-    if (f('ip')) lines.push(`ipCode: ${f('ip')}`)
+    if (f.get('ip')) lines.push(`ipCode: ${f.get('ip')}`)
     lines.push('photos:')
     lines.push(`  main: ${m}.png`)
-    if (f('productUrl')) lines.push(`productURL: ${f('productUrl')}`)
-    if (f('datasheetUrl')) lines.push(`dataSheetURL: ${f('datasheetUrl')}`)
+    if (f.get('productUrl')) lines.push(`productURL: ${f.get('productUrl')}`)
+    if (f.get('datasheetUrl')) lines.push(`dataSheetURL: ${f.get('datasheetUrl')}`)
     return lines.join('\n') + '\n'
   }
 
   const profileYAML = () => {
     const lines = []
-    lines.push(`macVersion: ${yamlStr(f('mac'))}`)
-    lines.push(`regionalParametersVersion: ${f('regParams')}`)
-    lines.push(`supportsJoin: ${single.join === 'otaa'}`)
-    if (single.join === 'abp') {
+    lines.push(`macVersion: ${yamlStr(f.get('mac'))}`)
+    lines.push(`regionalParametersVersion: ${f.get('regParams')}`)
+    lines.push(`supportsJoin: ${pills.single.join === 'otaa'}`)
+    if (pills.single.join === 'abp') {
       lines.push('# ABP devices must also define rx1Delay, rx2DataRateIndex, rx2Frequency,')
       lines.push('# and factoryPresetFrequencies — see the schema for details.')
     }
-    lines.push(`maxEIRP: ${f('maxEirp') || 16}`)
+    lines.push(`maxEIRP: ${f.get('maxEirp') || 16}`)
     lines.push('supports32bitFCnt: true')
-    lines.push(`supportsClassB: ${pills.classes.includes('B')}`)
-    lines.push(`supportsClassC: ${pills.classes.includes('C')}`)
+    lines.push(`supportsClassB: ${pills.multi.classes.includes('B')}`)
+    lines.push(`supportsClassC: ${pills.multi.classes.includes('C')}`)
     return lines.join('\n') + '\n'
   }
 
-  const codecYAML = () => {
-    const m = model()
-    return [
-      'uplinkDecoder:',
-      `  fileName: ${m}.js`,
-      '  examples:',
-      '    - description: Example uplink',
-      '      input:',
-      '        fPort: 1',
-      '        bytes: [0x01, 0x02, 0x03]',
-      '      output:',
-      '        data: {}  # fill in the decoded fields for these bytes',
-      '',
-    ].join('\n')
-  }
-
-  const codecJS = () =>
-    [
-      'function decodeUplink(input) {',
-      '  // input.bytes  — uplink payload byte array',
-      '  // input.fPort  — LoRaWAN FPort',
-      '  var data = {};',
-      '  // TODO: decode input.bytes into data',
-      '  return { data: data };',
-      '}',
-      '',
-    ].join('\n')
-
-  const indexYAML = () => {
-    const m = model()
-    return `endDevices:\n  - ${m}\n`
-  }
+  const indexYAML = () => `endDevices:\n  - ${model()}\n`
 
   const vendorIndexSnippet = () =>
     [
       '# Add to vendor/index.yaml (vendorID is assigned by the LoRa Alliance TR005 registry):',
       `  - id: ${vendorSlug()}`,
-      `    name: ${yamlStr(f('vendorName'))}`,
+      `    name: ${yamlStr(f.get('vendorName'))}`,
       '    vendorID: 0  # request via the LoRa Alliance',
-      ...(f('vendorSite') ? [`    website: ${f('vendorSite')}`] : []),
-      ...(f('vendorEmail') ? [`    email: ${f('vendorEmail')}`] : []),
+      ...(f.get('vendorSite') ? [`    website: ${f.get('vendorSite')}`] : []),
+      ...(f.get('vendorEmail') ? [`    email: ${f.get('vendorEmail')}`] : []),
       '',
     ].join('\n')
 
@@ -236,32 +144,63 @@ export const initSubmit = (root) => {
     const m = model()
     const v = vendorSlug()
     const files = []
-    if (vendorMode === 'new') files.push({ name: `vendor/index.yaml (snippet)`, body: vendorIndexSnippet() })
-    files.push({ name: `vendor/${v}/index.yaml`, body: indexYAML() })
-    files.push({ name: `vendor/${v}/${m}.yaml`, body: deviceYAML() })
-    files.push({ name: `vendor/${v}/${m}-profile.yaml`, body: profileYAML() })
+    if (vendorMode === 'new')
+      files.push({ path: 'vendor/index.yaml', body: vendorIndexSnippet(), kind: 'edit', note: 'append your vendor entry to the alphabetical list' })
+    files.push({ path: `vendor/${v}/index.yaml`, body: indexYAML(), kind: vendorMode === 'new' ? 'new' : 'edit', note: vendorMode === 'new' ? undefined : `add “- ${m}” to the endDevices list` })
+    files.push({ path: `vendor/${v}/${m}.yaml`, body: deviceYAML(), kind: 'new' })
+    files.push({ path: `vendor/${v}/${m}-profile.yaml`, body: profileYAML(), kind: 'new' })
     if (codecMode === 'yes') {
-      files.push({ name: `vendor/${v}/${m}-codec.yaml`, body: codecYAML() })
-      files.push({ name: `vendor/${v}/${m}.js`, body: codecJS() })
+      files.push({ path: `vendor/${v}/${m}-codec.yaml`, body: codecYAML(m, tester.getExamples()), kind: 'new' })
+      files.push({ path: `vendor/${v}/${m}.js`, body: tester.getSource() + (tester.getSource().endsWith('\n') ? '' : '\n'), kind: 'new' })
     }
+    files.push({
+      path: `vendor/${v}/${m}.png`,
+      body: null,
+      kind: 'binary',
+      note: photo.hasFile() ? `upload the photo you validated (${photo.fileName()})` : 'product photo — PNG, transparent background, max 2000 × 2000 px',
+    })
     return files
   }
 
   /* ----------------------------- Review ------------------------------ */
 
+  const renderValidation = () => {
+    const box = root.querySelector('[data-validation]')
+    if (!box) return
+    const m = model()
+    const results = [
+      [`${m}.yaml`, validateYAMLText('device', deviceYAML())],
+      [`${m}-profile.yaml`, validateYAMLText('profile', profileYAML())],
+    ]
+    if (codecMode === 'yes') results.push([`${m}-codec.yaml`, validateYAMLText('codec', codecYAML(m, tester.getExamples()))])
+    box.innerHTML = ''
+    results.forEach(([name, problems]) => {
+      const div = document.createElement('div')
+      div.className = 'val-row ' + (problems.length ? 'fail' : 'pass')
+      div.innerHTML = `<span class="val-ico">${problems.length ? '✕' : '✓'}</span><code></code><span class="val-msg"></span>`
+      div.querySelector('code').textContent = name
+      div.querySelector('.val-msg').textContent = problems.length ? problems.join(' · ') : 'valid against the repository schema'
+      box.appendChild(div)
+    })
+    return results.every(([, p]) => !p.length)
+  }
+
   const renderReview = () => {
     const table = root.querySelector('[data-review-table]')
     if (!table) return
-    const vendorName = vendorMode === 'existing'
-      ? (root.querySelector(`[data-f="vendor"] option[value="${f('vendor')}"]`) || {}).textContent || f('vendor')
-      : f('vendorName')
+    const vendorName =
+      vendorMode === 'existing'
+        ? (root.querySelector(`[data-f="vendor"] option[value="${f.get('vendor')}"]`) || {}).textContent || f.get('vendor')
+        : f.get('vendorName')
+    const examples = tester.getExamples()
     const rows = [
       ['Vendor', vendorName + (vendorMode === 'new' ? ' (new)' : '')],
-      ['Device', `${f('name')} · ${model()}`],
-      ['LoRaWAN', `MAC v${f('mac')} · Class ${pills.classes.join('/')} · ${single.join.toUpperCase()}`],
-      ['Frequency plans', pills.plans.join(', ')],
-      ['Sensors', pills.sensors.join(', ') || '—'],
-      ['Codec', codecMode === 'yes' ? 'JavaScript decodeUplink stub included' : 'none'],
+      ['Device', `${f.get('name')} · ${model()}`],
+      ['LoRaWAN', `MAC v${f.get('mac')} · Class ${pills.multi.classes.join('/')} · ${pills.single.join.toUpperCase()}`],
+      ['Frequency plans', pills.multi.plans.join(', ')],
+      ['Sensors', pills.multi.sensors.join(', ') || '—'],
+      ['Codec', codecMode === 'yes' ? `JavaScript decodeUplink with ${examples.length} example${examples.length === 1 ? '' : 's'}` : 'none'],
+      ['Photo', photo.hasFile() ? `${photo.fileName()} checked locally` : 'not checked — required in the pull request'],
     ]
     table.innerHTML = ''
     rows.forEach(([k, v]) => {
@@ -273,37 +212,83 @@ export const initSubmit = (root) => {
       tr.append(td1, td2)
       table.appendChild(tr)
     })
+    renderValidation()
   }
+
+  /* ------------------------------ Steps ------------------------------ */
+
+  const validate = (step) => {
+    if (step === 0) return vendorMode === 'existing' ? !!f.get('vendor') : !!(f.get('vendorName') && slugify(f.get('vendorSlug') || f.get('vendorName')))
+    if (step === 1) return !!(f.get('name') && f.get('desc') && model())
+    if (step === 2) return pills.multi.plans.length > 0
+    return true
+  }
+
+  const panelsCount = root.querySelectorAll('[data-step-panel]').length
+  const steps = initSteps({
+    root,
+    validate,
+    finishLabel: '⚡ Generate submission',
+    onShow: (i) => {
+      if (i === panelsCount - 1) renderReview()
+    },
+    onFinish: () => finish(),
+  })
 
   /* ----------------------------- Finish ------------------------------ */
 
   const finish = () => {
     const files = allFiles()
-    const preview = files
-      .map((file) => `# ──── ${file.name} ────\n${file.body}`)
-      .join('\n')
-    root.querySelector('[data-yaml-preview]').textContent = preview
+    const textFiles = files.filter((file) => file.body != null)
+    root.querySelector('[data-yaml-preview]').textContent = textFiles.map((file) => `# ──── ${file.path} ────\n${file.body}`).join('\n')
+
+    const m = model()
+    const v = vendorSlug()
+    renderChecklist(root.querySelector('[data-checklist]'), cfg, files, {
+      prTitle: `Add ${vendorName()} ${f.get('name')}`,
+      prBody: [
+        `Adds \`${v}/${m}\` to the Device Repository, generated with the submit wizard on the website.`,
+        '',
+        codecMode === 'yes' ? `- payload codec with ${tester.getExamples().length} example(s), tested in the browser runner` : '- no payload codec yet',
+        '- [ ] product photo included',
+      ].join('\n'),
+    })
+
     wizard.hidden = true
     success.hidden = false
     window.scrollTo(0, 0)
 
     root.querySelector('[data-download]').onclick = () => {
-      files.forEach((file) => {
+      textFiles.forEach((file) => {
         const blob = new Blob([file.body], { type: 'text/yaml' })
         const a = document.createElement('a')
         a.href = URL.createObjectURL(blob)
-        a.download = file.name.split('/').pop().replace(' (snippet)', '.snippet.yaml')
+        a.download = file.path.split('/').pop()
         a.click()
         URL.revokeObjectURL(a.href)
       })
     }
   }
 
+  const vendorName = () =>
+    vendorMode === 'existing'
+      ? ((root.querySelector(`[data-f="vendor"] option[value="${f.get('vendor')}"]`) || {}).textContent || f.get('vendor')).trim()
+      : f.get('vendorName')
+
   root.querySelector('[data-restart]').addEventListener('click', () => {
     wizard.hidden = false
     success.hidden = true
-    show(0)
+    steps.show(0)
   })
+}
 
-  show(0)
+const init = () => {
+  const root = document.querySelector('[data-submit-wizard]')
+  if (root) initSubmit(root)
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init)
+} else {
+  init()
 }

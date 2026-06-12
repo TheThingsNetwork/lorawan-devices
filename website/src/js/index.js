@@ -16,14 +16,10 @@
 // on pages that render a device grid (home, vendor pages, tag pages).
 
 import { initBrowse } from './browse'
-import { initSubmit } from './submit'
 
 const init = () => {
   const browseRoot = document.querySelector('[data-browse]')
   const browse = browseRoot ? initBrowse(browseRoot) : null
-
-  const submitRoot = document.querySelector('[data-submit-wizard]')
-  if (submitRoot) initSubmit(submitRoot)
 
   // Vendors directory: simple client-side name filter.
   const vendorSearch = document.querySelector('[data-vendor-search]')
