@@ -971,7 +971,7 @@ function decodeUplink(input) {
                 if (currentRecord.vib.type.includes("timepoint")) {
                     value = currentRecord.data.toISOString().replace("Z","");
                 } else {
-                value = normalize(currentRecord.data, currentRecord.vib.resolution);
+                    value = normalize(currentRecord.data, currentRecord.vib.resolution);
                 }
             } else {
                 unit = "Invalid";
