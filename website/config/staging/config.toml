@@ -1,4 +1,5 @@
 enableRobotsTXT = false
+disableKinds = ["sitemap", "rss"]
 
 [params]
   noindex = true
