@@ -166,3 +166,13 @@ var byteToString = function( value )
   }
   return hex;
 }
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  }
+}

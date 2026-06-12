@@ -1,3 +1,38 @@
 # Uplink decoder decodes binary data uplink into a JSON object
 uplinkDecoder:
   fileName: ts30x.js
+  examples:
+    - description: TS30x Temperature Sensor Data
+      input:
+        fPort: 85
+        bytes:
+          - 0x01
+          - 0x75
+          - 0x64
+          - 0x03
+          - 0x67
+          - 0xFB
+          - 0x00
+          - 0x04
+          - 0x67
+          - 0x01
+          - 0x01
+      output:
+        data:
+          battery: 100
+          temperature_chn1: 25.1
+          temperature_chn2: 25.7
+downlinkEncoder:
+  fileName: ts30x-encoder.js
+  examples:
+    - description: Set report interval to 600 minutes
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes:
+          - 0xFF
+          - 0x8E
+          - 0x00
+          - 0x58
+          - 0x02

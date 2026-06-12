@@ -935,8 +935,7 @@ All available models are supported, refer to the [RS26x Product Brief] for furth
 
 The [RS26x Protocol Specification] should be referred to for details of limits applied to data values and of the protocol implemented by the codec.
 
-Example messages are available for review for [Internal Temperature][RS26x Internal Temperature example messages] and
-[External Thermistor Temperature][RS26x External Thermistor Temperature example messages] sensor types.
+Example messages are available for review for [Internal Temperature][RS26x Internal Temperature example messages], [External RTD Temperature][RS26x External RTD Temperature example messages] and [External Thermistor Temperature][RS26x External Thermistor Temperature example messages] sensor types.
 
 [External RTD Temp Probe Product Brief]: https://www.ezurio.com/documentation/product-brief-sentrius-rs1xx-external-rtd-temp-probe-180-c-350-f "External RTD Temp Probe Product Brief"
 [External Temp Sensor Product Brief]: https://www.ezurio.com/node/11142 "External Temp Sensor Product Brief"
@@ -956,4 +955,5 @@ Example messages are available for review for [Internal Temperature][RS26x Inter
 [RS1xx One-Wire example messages]: rs1xx-ext-temp-1w-sensor-codec.yaml "One-Wire Temperature"
 [RS1xx RTD example messages]: rs1xx-ext-temp-rtd-sensor-codec.yaml "RTD Temperature"
 [RS26x Internal Temperature example messages]: rs26x-int-temp-sensor-codec.yaml "Internal Temperature"
+[RS26x External RTD Temperature example messages]: rs26x-ext-rtd-temp-sensor-codec.yaml "External RTD Temperature"
 [RS26x External Thermistor Temperature example messages]: rs26x-ext-therm-temp-sensor-codec.yaml "External Thermistor Temperature"

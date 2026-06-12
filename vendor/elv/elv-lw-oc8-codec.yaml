@@ -43,4 +43,4 @@ uplinkDecoder:
           supply_voltage: 4960
           tx_reason: 'DOWNLINK_ACK_EVENT'
 downlinkDecoder:
-  fileName: elv-bm-trx1.js
+  fileName: elv-lw-oc8.js

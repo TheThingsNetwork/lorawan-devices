@@ -22,3 +22,12 @@ uplinkDecoder:
       output:
         data:
           install: no
+downlinkEncoder:
+  fileName: ws301-encoder.js
+  examples:
+    - description: set report interval
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes: [0xFF, 0x03, 0x58, 0x02]

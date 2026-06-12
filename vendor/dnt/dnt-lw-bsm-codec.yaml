@@ -1,0 +1,48 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-bsm.js
+  # Examples (optional)
+  examples:
+    - description: Heartbeat Message
+      input:
+        fPort: 10
+        bytes: [0x04, 0xc0, 0x00, 0x00, 0x00]
+      output:
+        data:
+          active_power:
+            unit: 'W'
+            value: '0.00'
+          switch_fault:
+            unit: 'string'
+            value: 'NO_FAULT'
+          switch_rocker_pressed:
+            unit: 'string'
+            value: 'NO_ROCKER_PRESSED'
+          switch_state:
+            unit: 'string'
+            value: 'SWITCH_DISABLED'
+        warnings: []
+        errors: []
+    - description: Rocker B Pressed
+      input:
+        fPort: 10
+        bytes: [0x04, 0xc0, 0x90, 0x00, 0x11]
+      output:
+        data:
+          switch_state:
+            value: 'SWITCH_ENABLED'
+            unit: 'string'
+          switch_rocker_pressed:
+            unit: 'string'
+            value: 'ROCKER_B_PRESSED'
+          switch_fault:
+            unit: 'string'
+            value: 'NO_FAULT'
+          active_power:
+            unit: 'W'
+            value: '1.70'
+        warnings: []
+        errors: []
+downlinkDecoder:
+  fileName: dnt-lw-bsm.js

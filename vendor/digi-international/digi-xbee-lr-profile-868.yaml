@@ -1,0 +1,25 @@
+macVersion: 1.0.4
+regionalParametersVersion: RP002-1.0.4
+
+supportsJoin: true
+supportsClassA: true
+supportsClassB: true
+supportsClassC: true
+
+classBTimeout: 60
+classCTimeout: 60
+pingSlotPeriod: 1
+pingSlotDataRateIndex: 0
+pingSlotFrequency: 869525000
+
+factoryPresetFrequencies:
+  - 868100000
+  - 868300000
+  - 868500000
+maxEIRP: 14
+supports32bitFCnt: true
+resetFCnt: false
+rx1Delay: 1
+rx1DataRateOffset: 0
+rx2DataRateIndex: 0
+rx2Frequency: 869525000

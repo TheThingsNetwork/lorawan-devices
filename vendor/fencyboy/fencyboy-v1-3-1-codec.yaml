@@ -1,0 +1,46 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: fencyboy-v1-3-1_payload_decoder_ttn.js
+  # Examples (optional)
+  examples:
+    - description: Normal operation but 0 V on electric fence
+      input:
+        fPort: 1
+        bytes: [28, 14, 4, 0, 0, 14, 16, 70, 60, 253, 139, 12, 97]
+      output:
+        data:
+          ACTIVE_MODE: false
+          IMPULSES: 0
+          FENCEVOLTAGE: 0
+          FENCE_VOLTAGE_STD: 0
+          FENCEVOLTAGEMIN: 0
+          FENCEVOLTAGEMAX: 0
+          BATTERYVOLTAGE: 3.6
+          REMAINING_CAPACITY: 12095.3857421875
+          TEMPERATURE: 31.69
+          DEBUG:
+            ADC_LAST_READ_OKAY: true
+            ADC_VERIFY: true
+        errors: []
+        warnings: []
+    - description: Normal operation with 10860 V on electric fence
+      input:
+        fPort: 1
+        bytes: [29, 13, 254, 1, 217, 42, 108, 4, 115, 41, 108, 43, 83, 14, 9, 70, 61, 2, 56, 13, 75]
+      output:
+        data:
+          ACTIVE_MODE: true
+          IMPULSES: 473
+          FENCEVOLTAGE: 10860
+          FENCE_VOLTAGE_STD: 113.9
+          FENCEVOLTAGEMIN: 10604
+          FENCEVOLTAGEMAX: 11091
+          BATTERYVOLTAGE: 3.593
+          REMAINING_CAPACITY: 12096.5546875
+          TEMPERATURE: 34.03
+          DEBUG:
+            ADC_LAST_READ_OKAY: true
+            ADC_VERIFY: true
+        errors: []
+        warnings: []

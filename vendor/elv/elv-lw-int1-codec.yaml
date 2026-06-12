@@ -62,4 +62,4 @@ uplinkDecoder:
           Hardware: 'C'
           Supply_Voltage: '2.86'
 downlinkDecoder:
-  fileName: elv-bm-trx1.js
+  fileName: elv-lw-int1.js

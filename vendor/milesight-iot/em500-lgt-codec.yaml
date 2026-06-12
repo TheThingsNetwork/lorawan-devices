@@ -19,3 +19,16 @@ uplinkDecoder:
         data:
           battery: 100
           light: 80
+downlinkEncoder:
+  fileName: em500-lgt-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01

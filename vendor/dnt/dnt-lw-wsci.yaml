@@ -95,7 +95,7 @@ resellerURLs:
   - name: 'dnt'
     region:
       - European Union
-    url: https://dnt.de/business/
+    url: https://dnt.de/produkte/dnt-lorawan-fenstersensor-dnt-lw-wsci/
 msrp:
   EUR: 59.95
 

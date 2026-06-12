@@ -1,0 +1,58 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: ct101.js
+  examples:
+    - description: Smart Current Transformer - Milesight IoT
+      input:
+        fPort: 85
+        bytes:
+          - 0x84
+          - 0x98
+          - 0xB8
+          - 0x0B
+          - 0xD0
+          - 0x07
+          - 0xC4
+          - 0x09
+          - 0x05
+
+      output:
+        data:
+          current_max: 30
+          current_min: 20
+          current: 25
+          current_alarm:
+            current_threshold_alarm: 'yes'
+            current_threshold_alarm_release: 'no'
+            current_over_range_alarm: 'yes'
+            current_over_range_alarm_release: 'no'
+downlinkEncoder:
+  fileName: ct101-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds and configure current alarm
+      input:
+        data:
+          report_interval: 300
+          current_alarm_config:
+            condition: below
+            threshold_min: 100
+            threshold_max: 200
+      output:
+        bytes:
+          - 0xFF
+          - 0x8E
+          - 0x00
+          - 0x2C
+          - 0x01
+          - 0xFF
+          - 0x06
+          - 0x09
+          - 0x64
+          - 0x00
+          - 0xC8
+          - 0x00
+          - 0x00
+          - 0x00
+          - 0x00
+          - 0x00

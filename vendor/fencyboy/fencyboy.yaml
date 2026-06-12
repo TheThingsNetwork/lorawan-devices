@@ -1,0 +1,138 @@
+name: Fency boy - Electric Fence Sensor # Device name can not contain the vendor name (why???)
+description: The Fencyboy electric fence sensor monitors the voltage on agricultural livestock electric fences up to 15 kV. It can be powered by single-use batteries or with a solar panel and rechargeable battery.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.3.1-solar-AA'
+    numeric: 1
+  - version: '1.3.1-single-use-D'
+    numeric: 2
+  - version: '1.3.1-single-use-AA'
+    numeric: 3
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.3.1'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.3.1-solar-AA'
+      - '1.3.1-single-use-D'
+      - '1.3.1-single-use-AA'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID: fencyboy
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: fencyboy-v1-3-1-profile-eu868
+        lorawanCertified: false
+        codec: fencyboy-v1-3-1-codec
+
+# Type of device (optional)
+# Valid values are: devkit, module, cots
+deviceType: cots
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - voltage
+  - pulse count
+  - battery
+  - solar radiation
+  - temperature
+  - rssi
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+# additionalRadios:
+#   - ble
+#   - cellular
+
+# Bridge interfaces (optional)
+# Valid values are: modbus, m-bus, can bus, rs-485, sdi-12, analog, ethernet.
+# bridgeInterfaces:
+#   - m-bus
+#   - rs-485
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 82
+  length: 190
+  height: 55
+
+# Weight in grams (optional)
+weight: 368
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 60
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.97
+
+# IP rating (optional)
+ipCode: IP67
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Key programming (optional)
+# Valid values are: bluetooth, nfc, wifi, ethernet (via a webpage), serial (when the user has a serial interface to set the keys)
+# and firmware (when the user should change the firmware to set the keys).
+keyProgramming:
+  - firmware
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: none
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - serial
+
+# Product and data sheet URLs (optional)
+productURL: https://fencyboy.com/products/fencyboy-v1-3-1
+dataSheetURL: https://fencyboy.com/products/fencyboy-v1-3-1/datasheet-fencyboy-v1-3-1.pdf
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://docs.fencyboy.com/getting-started
+
+# Photos
+photos:
+  main: fencyboy-v1-3-1_solar_photobox_alpha_large.png # Image needs to have a transparent background
+

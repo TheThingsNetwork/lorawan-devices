@@ -1,0 +1,49 @@
+uplinkDecoder:
+  fileName: sparkfun-iot-node.js
+  examples:
+    - description: temperature + battery on FPort 1
+      input:
+        fPort: 1
+        # 0x0A = temperature_c (float), 0x19 = battery_voltage (float)
+        # 25.5°C -> 0x41CC0000, 3.8V -> 0x40733333 (big-endian)
+        bytes: [0x0A, 0x41, 0xCC, 0x00, 0x00, 0x19, 0x40, 0x73, 0x33, 0x33]
+      output:
+        data:
+          battery_voltage: 3.8
+          temperature_c: 25.5
+        errors: []
+        warnings: []
+
+    - description: unknown FPort
+      input:
+        fPort: 42
+        bytes: [0x01]
+      output:
+        data: {}
+        errors:
+          - unknown FPort
+        warnings: []
+
+downlinkEncoder:
+  fileName: sparkfun-iot-node.js
+  examples:
+    - description: no downlink fields
+      input:
+        data: {}
+      output:
+        errors:
+          - no valid downlink fields
+        warnings: []
+        data: {}
+
+downlinkDecoder:
+  fileName: sparkfun-iot-node.js
+  examples:
+    - description: passthrough
+      input:
+        fPort: 1
+        bytes: [0x00]
+      output:
+        data: {}
+        errors: []
+        warnings: []

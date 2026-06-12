@@ -2,3 +2,12 @@
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: ws302.js
+downlinkEncoder:
+  fileName: ws302-encoder.js
+  examples:
+    - description: set led indicator enable
+      input:
+        data:
+          led_indicator_enable: enable
+      output:
+        bytes: [0xFF, 0x2D, 0x01]

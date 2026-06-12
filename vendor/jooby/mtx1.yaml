@@ -41,8 +41,22 @@ sensors:
 # Use width, height, length and/or diameter
 dimensions:
   width: 125
-  length: 160
-  height: 57
+  length: 161
+  height: 58
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -40
+    max: 70
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.9
+
+# IP rating (optional)
+ipCode: IP54
 
 # Product and data sheet URLs (optional)
 productURL: https://jooby.eu/rdc/jooby-electra-mtx1/
