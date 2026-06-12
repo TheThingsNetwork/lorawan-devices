@@ -10,6 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  # Node 24 becomes the runner default on 2026-06-16; opt in now so the
+  # deprecation warnings stop and any breakage surfaces while it's optional.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 concurrency:
   group: pages
   cancel-in-progress: true
