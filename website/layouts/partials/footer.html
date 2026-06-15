@@ -2,7 +2,7 @@
   <div class="inner">
     <div>
       <div class="f-brand">
-        <img src="{{ .Site.BaseURL }}/assets/ttn-horizontal.svg" alt="The Things Network" />
+        <img src="{{ "assets/ttn-horizontal.svg" | absURL }}" alt="The Things Network" />
       </div>
       <p class="f-note">The LoRaWAN® Device Repository is an open-source catalog of end devices, payload codecs and vendor profiles, maintained by The Things Network community and The Things Industries.</p>
     </div>
@@ -10,8 +10,8 @@
       <a href="https://www.thethingsnetwork.org">The Things Network</a>
       <a href="https://www.thethingsindustries.com/docs/">The Things Stack docs</a>
       <a href="{{ .Site.Params.github }}">GitHub</a>
-      <a href="{{ .Site.BaseURL }}/submit/">Submit a device</a>
-      <a href="{{ .Site.BaseURL }}/update/">Update a device</a>
+      <a href="{{ "submit/" | absURL }}">Submit a device</a>
+      <a href="{{ "update/" | absURL }}">Update a device</a>
     </div>
   </div>
 </footer>

@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $siteUrl := .Site.BaseURL }}
+{{ $siteUrl := "" | absURL }}
 {{ $p := .Params }}
 {{ $image := "" }}
 {{ with $p.photos }}{{ with .main }}{{ $image = $.Resources.GetMatch (printf "images/%s" .) }}{{ end }}{{ end }}
@@ -11,7 +11,7 @@
     <div class="crumbs">
       <a href="{{ $siteUrl }}">Devices</a>
       <span class="sep">/</span>
-      <a href="{{ $siteUrl }}/devices/{{ $p.vendor.id }}/">{{ $p.vendor.name }}</a>
+      <a href="{{ printf "devices/%s/" $p.vendor.id | absURL }}">{{ $p.vendor.name }}</a>
       <span class="sep">/</span>
       <span class="current">{{ $p.name }}</span>
     </div>
@@ -25,7 +25,7 @@
         {{ end }}
       </div>
       <div class="ds-info">
-        <div class="ds-vendor">By <a href="{{ $siteUrl }}/devices/{{ $p.vendor.id }}/">{{ $p.vendor.name }}</a></div>
+        <div class="ds-vendor">By <a href="{{ printf "devices/%s/" $p.vendor.id | absURL }}">{{ $p.vendor.name }}</a></div>
         <h1>{{ $p.name }}</h1>
         <p class="ds-desc">{{ $p.description }}</p>
         <div class="ds-quickfacts">
@@ -50,7 +50,7 @@
           {{ end }}
         {{ end }}
         <a class="btn btn-secondary" id="partner-toggle" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Contact partner</a>
-        <a class="btn btn-secondary" href="{{ $siteUrl }}/update/?vendor={{ $p.vendor.id }}&model={{ $p.modelid }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Suggest an edit</a>
+        <a class="btn btn-secondary" href="{{ "update/" | absURL }}?vendor={{ $p.vendor.id }}&model={{ $p.modelid }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Suggest an edit</a>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@
                   <div style="font-size: 13px; color: var(--text-3);">{{ len .Parent.RegularPages }} device{{ if ne (len .Parent.RegularPages) 1 }}s{{ end }} in the repository</div>
                 </div>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                  <a class="btn btn-secondary btn-sm" href="{{ $siteUrl }}/devices/{{ $p.vendor.id }}/">Vendor page</a>
+                  <a class="btn btn-secondary btn-sm" href="{{ printf "devices/%s/" $p.vendor.id | absURL }}">Vendor page</a>
                   {{ with $p.producturl }}<a class="btn btn-secondary btn-sm" href="{{ . }}" rel="noopener">Partner webpage ↗</a>{{ end }}
                   <a class="btn btn-secondary btn-sm" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener">Contact partner</a>
                 </div>
