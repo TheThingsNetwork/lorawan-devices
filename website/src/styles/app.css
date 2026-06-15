@@ -118,6 +118,30 @@ html, body {
   background: var(--surface-page); border: 1px solid var(--border-color);
   padding: 1px 6px; border-radius: 4px; color: var(--text-4);
 }
+@media (max-width: 700px) {
+  /* Header scrolls away on small screens; brand + search share the first
+     row, nav links move to a second swipeable row. */
+  .site-header { position: static; height: auto; }
+  .site-header .inner {
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    row-gap: 10px;
+    column-gap: 12px;
+  }
+  .brand-mark { font-size: 14px; gap: 8px; flex: 1 1 auto; min-width: 0; }
+  .brand-mark img { height: 22px; flex-shrink: 0; }
+  .brand-mark .repo { overflow: hidden; text-overflow: ellipsis; }
+  .nav {
+    order: 3;
+    flex: 1 1 100%;
+    gap: 18px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .hdr-right { flex: 0 1 200px; }
+}
 
 /* ============ BUTTONS ============ */
 .btn {
@@ -465,6 +489,8 @@ html, body {
   position: sticky; top: 72px;
   background: var(--surface-page); z-index: 20;
 }
+/* The header is not sticky below 700px, so the tab bar pins to the viewport top. */
+@media (max-width: 700px) { .tabs-nav-wrap { top: 0; } }
 .tabs-nav {
   display: flex; gap: 4px;
   overflow-x: auto;
