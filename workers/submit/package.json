@@ -1,0 +1,14 @@
+{
+  "name": "lorawan-devices-submit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker that opens lorawan-devices pull requests on a contributor's behalf via a GitHub App (no contributor login).",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}
