@@ -57,5 +57,8 @@ export const createPhotoCheck = (root, { targetName } = {}) => {
     hasFile: () => !!state.file,
     isOK: () => state.ok,
     fileName: () => (state.file ? state.file.name : null),
+    // The raw, client-validated File — needed by the backend submit path to
+    // send the PNG bytes; the no-backend checklist never reads it.
+    getFile: () => state.file,
   }
 }

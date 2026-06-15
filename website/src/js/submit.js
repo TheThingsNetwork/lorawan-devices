@@ -7,7 +7,10 @@ import { createCodecTester } from './wizard/codec-tester'
 import { createPhotoCheck } from './wizard/photo-check'
 import { codecYAML, codecJSStub, validateYAMLText } from './wizard/yaml-gen'
 import { renderChecklist } from './wizard/checklist'
-import { ghConfig } from './lib/gh'
+import { submitViaBackend } from './wizard/submit-backend'
+import { ghConfig, fetchRaw } from './lib/gh'
+import { backendBase } from './lib/backend'
+import { createPatcher } from './lib/yaml-splice'
 
 const initSubmit = (root) => {
   const f = fields(root)
@@ -162,6 +165,48 @@ const initSubmit = (root) => {
     return files
   }
 
+  /* ----------------------- Backend (one-click) files ----------------------- */
+  // The manual checklist sends the index entries as append-fragments with a
+  // "add this line" note for the human editor. The one-click backend commits
+  // each body verbatim, so a fragment would OVERWRITE the real index file
+  // (data loss). For that path only, fetch the live index from GitHub and
+  // splice the new entry in, comment-preserving, into a full-file body.
+
+  const mergeVendorIndex = async () => {
+    const text = await fetchRaw(cfg, 'vendor/index.yaml')
+    const p = createPatcher(text)
+    const seq = p.doc.getIn(['vendors'], true)
+    const at = (seq && seq.items && seq.items.length) || 0
+    const entry = { id: vendorSlug(), name: f.get('vendorName'), vendorID: 0 }
+    if (f.get('vendorSite')) entry.website = f.get('vendorSite')
+    if (f.get('vendorEmail')) entry.email = f.get('vendorEmail')
+    p.set(['vendors', at], entry)
+    const r = p.apply()
+    return { path: 'vendor/index.yaml', kind: 'edit', oldText: text, body: r.text, reformatted: r.reformatted, validateKind: 'vendorIndex' }
+  }
+
+  const mergeDeviceIndex = async () => {
+    const path = `vendor/${vendorSlug()}/index.yaml`
+    const text = await fetchRaw(cfg, path)
+    const p = createPatcher(text)
+    const seq = p.doc.getIn(['endDevices'], true)
+    const at = (seq && seq.items && seq.items.length) || 0
+    p.set(['endDevices', at], model())
+    const r = p.apply()
+    return { path, kind: 'edit', oldText: text, body: r.text, reformatted: r.reformatted }
+  }
+
+  const backendReadyFiles = async () => {
+    const v = vendorSlug()
+    const out = []
+    for (const file of allFiles()) {
+      if (file.kind === 'edit' && file.path === 'vendor/index.yaml') out.push(await mergeVendorIndex())
+      else if (file.kind === 'edit' && file.path === `vendor/${v}/index.yaml`) out.push(await mergeDeviceIndex())
+      else out.push(file)
+    }
+    return out
+  }
+
   /* ----------------------------- Review ------------------------------ */
 
   const renderValidation = () => {
@@ -244,7 +289,7 @@ const initSubmit = (root) => {
 
     const m = model()
     const v = vendorSlug()
-    renderChecklist(root.querySelector('[data-checklist]'), cfg, files, {
+    const meta = {
       prTitle: `Add ${vendorName()} ${f.get('name')}`,
       prBody: [
         `Adds \`${v}/${m}\` to the Device Repository, generated with the submit wizard on the website.`,
@@ -252,7 +297,27 @@ const initSubmit = (root) => {
         codecMode === 'yes' ? `- payload codec with ${tester.getExamples().length} example(s), tested in the browser runner` : '- no payload codec yet',
         '- [ ] product photo included',
       ].join('\n'),
-    })
+    }
+    const checklistRoot = root.querySelector('[data-checklist]')
+    const renderFallback = () => renderChecklist(checklistRoot, cfg, files, meta)
+
+    const apiBase = backendBase(root)
+    if (apiBase) {
+      submitViaBackend({
+        root,
+        apiBase,
+        cfg,
+        meta,
+        photoFile: photo.getFile(),
+        vendorId: v,
+        modelId: m,
+        wizardKind: 'submit',
+        buildFiles: backendReadyFiles,
+        fallback: renderFallback,
+      })
+    } else {
+      renderFallback()
+    }
 
     wizard.hidden = true
     success.hidden = false

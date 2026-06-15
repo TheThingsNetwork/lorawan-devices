@@ -9,9 +9,11 @@ import { createCodecTester } from './wizard/codec-tester'
 import { createPhotoCheck } from './wizard/photo-check'
 import { examplesYAMLLines, validateYAMLText } from './wizard/yaml-gen'
 import { renderChecklist } from './wizard/checklist'
+import { submitViaBackend } from './wizard/submit-backend'
 import { createPatcher } from './lib/yaml-splice'
 import { diffLines, toHunks } from './lib/diff'
 import { ghConfig, fetchRaw, rawURL } from './lib/gh'
+import { backendBase } from './lib/backend'
 import { deepEqual } from './lib/deep-equal'
 
 const ALL_PLANS = ['EU863-870', 'US902-928', 'AU915-928', 'AS923', 'AS923-2', 'AS923-3', 'AS923-4', 'KR920-923', 'IN865-867', 'RU864-870', 'CN470-510', 'CN779-787', 'EU433']
@@ -726,10 +728,31 @@ export const initUpdate = (root) => {
     const result = lastBuild || build()
     if (!result.files.length) return
     const vendorName = (catalog.find((x) => x.id === state.vendorId) || {}).name || state.vendorId
-    renderChecklist(root.querySelector('[data-checklist]'), cfg, result.files, {
+    const meta = {
       prTitle: `Update ${vendorName} ${f.get('name') || state.modelId}`,
       prBody: ['Updates `' + state.vendorId + '/' + state.modelId + '`, edited with the update wizard on the website:', '', ...result.changes.map((c) => `- ${c}`)].join('\n'),
-    })
+    }
+    const checklistRoot = root.querySelector('[data-checklist]')
+    const renderFallback = () => renderChecklist(checklistRoot, cfg, result.files, meta)
+
+    const apiBase = backendBase(root)
+    if (apiBase) {
+      submitViaBackend({
+        root,
+        apiBase,
+        cfg,
+        meta,
+        photoFile: photo.getFile(),
+        vendorId: state.vendorId,
+        modelId: state.modelId,
+        wizardKind: 'update',
+        buildFiles: async () => result.files,
+        fallback: renderFallback,
+      })
+    } else {
+      renderFallback()
+    }
+
     wizard.hidden = true
     success.hidden = false
     window.scrollTo(0, 0)
