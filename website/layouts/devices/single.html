@@ -48,7 +48,7 @@
           <a class="btn btn-secondary" href="{{ . }}" rel="noopener">Partner webpage ↗</a>
           {{ end }}
         {{ end }}
-        <a class="btn btn-secondary" id="partner-toggle" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Contact partner</a>
+        <a class="btn btn-secondary" id="partner-toggle" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Talk to an expert</a>
       </div>
     </div>
   </div>
@@ -100,7 +100,7 @@
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                   <a class="btn btn-secondary btn-sm" href="{{ printf "devices/%s/" $p.vendor.id | absURL }}">Vendor page</a>
                   {{ with $p.producturl }}<a class="btn btn-secondary btn-sm" href="{{ . }}" rel="noopener">Partner webpage ↗</a>{{ end }}
-                  <a class="btn btn-secondary btn-sm" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener">Contact partner</a>
+                  <a class="btn btn-secondary btn-sm" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener">Talk to an expert</a>
                 </div>
               </div>
             </div>
