@@ -218,9 +218,6 @@ const initEmulator = () => {
   const endpoint = $('[data-em-endpoint]', modal)
   const intervalSel = $('[data-em-interval]', modal)
   const payloadSel = $('[data-em-payload]', modal)
-  const log = $('[data-em-log]', modal)
-  const statusEl = $('[data-em-status]', modal)
-  const startBtn = $('[data-em-start]', modal)
 
   // Offer every example of the first codec-carrying plan as payload source.
   const plan = plansWithCodec[0]
@@ -231,57 +228,6 @@ const initEmulator = () => {
     o.textContent = (ex.description || 'Example ' + (i + 1)) + ' (rotating metadata)'
     payloadSel.appendChild(o)
   })
-
-  let timer = null
-  let fCnt = Math.floor(Math.random() * 400)
-  let corsHintShown = false
-
-  const line = (t, msg, ok) => {
-    const empty = $('.em-log-empty', log)
-    if (empty) empty.remove()
-    const el = document.createElement('div')
-    el.className = 'em-log-line'
-    el.innerHTML = `<span class="em-log-t">${t}</span><span class="em-log-msg"></span><span class="${ok ? 'em-log-ok' : 'em-log-err'}"></span>`
-    el.children[1].textContent = msg
-    el.children[2].textContent = ok ? ok : 'ERR'
-    log.appendChild(el)
-    while (log.children.length > 60) log.removeChild(log.firstChild)
-    log.scrollTop = log.scrollHeight
-  }
-
-  const tick = async () => {
-    const i = payloadSel.value ? parseInt(payloadSel.value, 10) : 0
-    const ex = examples[i] || examples[0]
-    if (!ex) return
-    fCnt++
-    const bytes = ex.input.bytes
-    const env = buildEnvelope({
-      modelID: device.modelid,
-      bytes,
-      fPort: ex.input.fPort != null ? ex.input.fPort : 1,
-      decoded: ex.output && ex.output.data,
-      plan,
-      fCnt,
-      rssi: -(88 + Math.floor(Math.random() * 22)),
-      snr: Math.round((4 + Math.random() * 6) * 100) / 100,
-    })
-    const t = new Date().toLocaleTimeString('en-GB')
-    const msg = `POST /up · f_cnt ${fCnt} · ${bytes.length} bytes · ${ex.description || 'uplink'}`
-    try {
-      const res = await fetch(endpoint.value, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(env),
-      })
-      line(t, msg, String(res.status))
-    } catch (err) {
-      line(t, msg, null)
-      if (!corsHintShown) {
-        corsHintShown = true
-        line(t, 'Request blocked — the endpoint must be reachable and allow CORS (Access-Control-Allow-Origin).', null)
-      }
-    }
-  }
 
   /* ---- Terminal script (curl) — runs on the user's machine, no CORS ---- */
 
@@ -376,41 +322,8 @@ const initEmulator = () => {
   if (copyCurlBtn) copyCurlBtn.addEventListener('click', () => copyText(curlScript(), copyCurlBtn))
   if (copyScriptBtn) copyScriptBtn.addEventListener('click', () => copyText(loopScript(), copyScriptBtn))
 
-  const setRunning = (on) => {
-    endpoint.disabled = on
-    intervalSel.disabled = on
-    payloadSel.disabled = on
-    statusEl.className = 'em-status' + (on ? ' on' : '')
-    statusEl.innerHTML = on ? '<span class="em-dot"></span> Running' : 'Idle'
-    startBtn.textContent = on ? 'Stop emulator' : 'Start emulator'
-    startBtn.classList.toggle('btn-danger', on)
-    startBtn.style.background = on ? 'var(--error-500)' : ''
-    startBtn.style.borderColor = on ? 'var(--error-500)' : ''
-  }
-
-  startBtn.addEventListener('click', () => {
-    if (timer) {
-      clearInterval(timer)
-      timer = null
-      setRunning(false)
-      return
-    }
-    if (!/^https?:\/\/.+/.test(endpoint.value)) {
-      endpoint.focus()
-      return
-    }
-    setRunning(true)
-    tick()
-    timer = setInterval(tick, Math.max(5, parseInt(intervalSel.value, 10)) * 1000)
-  })
-
   const close = () => {
     modal.hidden = true
-    if (timer) {
-      clearInterval(timer)
-      timer = null
-      setRunning(false)
-    }
   }
 
   openBtn.addEventListener('click', () => (modal.hidden = false))

@@ -39,7 +39,7 @@
       <div class="ds-actions">
         <a class="btn btn-primary" href="https://console.cloud.thethings.network/" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Add to The Things Stack</a>
         {{ if $hasCodec }}
-        <button class="btn btn-secondary" data-emulator-open><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg> Start device emulator</button>
+        <button class="btn btn-secondary" data-emulator-open><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg> Emulate this device</button>
         {{ end }}
         {{ with $p.datasheeturl }}
         <a class="btn btn-secondary" href="{{ . }}" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Datasheet</a>
@@ -401,15 +401,15 @@
       <div class="modal-head">
         <div>
           <h3>Device emulator</h3>
-          <p>Send realistic {{ $p.name }} uplinks to your endpoint — the same JSON envelope The Things Stack delivers, built from the codec's real example payloads.</p>
+          <p>Generate a script that sends realistic {{ $p.name }} uplinks — the exact JSON envelope The Things Stack delivers, built from the codec's real example payloads. Run it from your terminal against any endpoint.</p>
         </div>
         <button class="modal-x" data-em-close aria-label="Close">✕</button>
       </div>
       <div class="modal-body">
         <div class="em-field">
-          <label>Webhook endpoint</label>
-          <input type="text" data-em-endpoint placeholder="https://example.com/uplinks" spellcheck="false" value="https://" />
-          <span class="em-hint">POST · Content-Type: application/json · same schema as a live The Things Stack webhook</span>
+          <label>Your endpoint</label>
+          <input type="text" data-em-endpoint placeholder="https://example.com/uplinks" spellcheck="false" />
+          <span class="em-hint">Prefilled into the script below — your app server, a tunnel (ngrok / cloudflared), or The Things Stack. You can also edit it in the script.</span>
         </div>
         <div class="em-row">
           <div class="em-field">
@@ -426,24 +426,15 @@
             <select data-em-payload></select>
           </div>
         </div>
-        <div class="em-log-wrap">
-          <div class="em-log-head">
-            <span>Activity</span>
-            <span class="em-status" data-em-status>Idle</span>
-          </div>
-          <div class="em-log" data-em-log>
-            <div class="em-log-empty">No uplinks sent yet. Start the emulator to see activity here.</div>
-          </div>
-        </div>
         <div class="em-script-wrap">
           <div class="em-script-head">
-            <span>Or run it from your terminal — works with any endpoint, no CORS</span>
+            <span>Your emulator script</span>
             <div class="em-script-btns">
               <button class="btn btn-secondary btn-sm" data-em-copy-curl>Copy one curl</button>
               <button class="btn btn-secondary btn-sm" data-em-copy-script>Copy loop script</button>
             </div>
           </div>
-          <p class="em-script-note">Run from your own machine and the browser's CORS rules don't apply, so this reaches <em>any</em> endpoint — your app server, a local tunnel (ngrok / cloudflared), or The Things Stack. The loop sends one uplink every <strong data-em-script-interval>10</strong>s with an incrementing frame counter.</p>
+          <p class="em-script-note">Runs from your machine, so it reaches <em>any</em> endpoint with no browser/CORS limits. The loop sends one uplink every <strong data-em-script-interval>10</strong>s with an incrementing frame counter.</p>
           <pre class="code em-script" data-em-script></pre>
           <ol class="em-script-steps">
             <li>Edit the <code>ENDPOINT</code> line at the top if needed — it's prefilled from the field above.</li>
@@ -453,10 +444,9 @@
         </div>
       </div>
       <div class="modal-foot">
-        <span class="em-note">Uplinks are sent as real HTTP POSTs from your browser — the endpoint must be reachable and allow CORS.</span>
+        <span class="em-note">Nothing is sent from this page — copy the script and run it in your terminal.</span>
         <div style="display: flex; gap: 8px;">
-          <button class="btn btn-secondary" data-em-cancel>Close</button>
-          <button class="btn btn-primary" data-em-start>Start emulator</button>
+          <button class="btn btn-primary" data-em-cancel>Close</button>
         </div>
       </div>
     </div>

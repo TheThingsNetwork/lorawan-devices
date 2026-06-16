@@ -9,7 +9,7 @@
     </div>
   </section>
 
-  <div class="container" data-submit-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}" data-submit-api="{{ .Site.Params.submitApi }}" data-turnstile-key="{{ .Site.Params.turnstileKey }}">
+  <div class="container" data-submit-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}" data-submit-api="{{ .Site.Params.submitApi }}" data-submit-email="{{ .Site.Params.submitEmail }}" data-turnstile-key="{{ .Site.Params.turnstileKey }}">
     <div class="submit-layout">
       <aside class="submit-steps" data-steps>
         <button class="sstep active" data-step-btn="0"><span class="sstep-num">1</span> Vendor</button>
@@ -206,6 +206,7 @@
       </div>
       <h1 data-manual-only>Your submission files are ready</h1>
       <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong> — GitHub forks the repository for you, no local tools needed. The community reviews every submission before it is published.</p>
+      <div class="cl-list" data-cli-panel hidden></div>
       <div class="cl-list" data-backend-panel hidden></div>
       <div class="cl-list" data-checklist data-manual-only></div>
       <pre class="code" data-yaml-preview data-manual-only></pre>

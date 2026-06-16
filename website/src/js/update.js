@@ -10,6 +10,7 @@ import { createPhotoCheck } from './wizard/photo-check'
 import { examplesYAMLLines, validateYAMLText } from './wizard/yaml-gen'
 import { renderChecklist } from './wizard/checklist'
 import { submitViaBackend } from './wizard/submit-backend'
+import { renderCliPanel } from './wizard/cli-script'
 import { createPatcher } from './lib/yaml-splice'
 import { diffLines, toHunks } from './lib/diff'
 import { ghConfig, fetchRaw, rawURL } from './lib/gh'
@@ -750,7 +751,19 @@ export const initUpdate = (root) => {
         fallback: renderFallback,
       })
     } else {
-      renderFallback()
+      // Launch path: copy-paste CLI script (run it yourself or email it to us).
+      renderCliPanel({
+        root,
+        cfg,
+        files: result.files,
+        meta,
+        photoFile: photo.getFile(),
+        vendorId: state.vendorId,
+        modelId: state.modelId,
+        wizardKind: 'update',
+        submitEmail: (root.dataset.submitEmail || '').trim(),
+        fallback: renderFallback,
+      })
     }
 
     wizard.hidden = true

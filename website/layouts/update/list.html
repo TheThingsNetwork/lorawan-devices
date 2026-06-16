@@ -9,7 +9,7 @@
     </div>
   </section>
 
-  <div class="container" data-update-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}" data-submit-api="{{ .Site.Params.submitApi }}" data-turnstile-key="{{ .Site.Params.turnstileKey }}">
+  <div class="container" data-update-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}" data-submit-api="{{ .Site.Params.submitApi }}" data-submit-email="{{ .Site.Params.submitEmail }}" data-turnstile-key="{{ .Site.Params.turnstileKey }}">
 
     <div class="upd-pick" data-upd-picker>
       <h2>Which device are you updating?</h2>
@@ -169,6 +169,7 @@
       </div>
       <h1 data-manual-only>Your update is ready</h1>
       <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong> — GitHub forks the repository for you, no local tools needed. Maintainers review every change before it is published.</p>
+      <div class="cl-list" data-cli-panel hidden></div>
       <div class="cl-list" data-backend-panel hidden></div>
       <div class="cl-list" data-checklist data-manual-only></div>
       <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">

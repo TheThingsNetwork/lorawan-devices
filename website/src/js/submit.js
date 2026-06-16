@@ -8,6 +8,7 @@ import { createPhotoCheck } from './wizard/photo-check'
 import { codecYAML, codecJSStub, validateYAMLText } from './wizard/yaml-gen'
 import { renderChecklist } from './wizard/checklist'
 import { submitViaBackend } from './wizard/submit-backend'
+import { renderCliPanel } from './wizard/cli-script'
 import { ghConfig, fetchRaw } from './lib/gh'
 import { backendBase } from './lib/backend'
 import { createPatcher } from './lib/yaml-splice'
@@ -316,7 +317,25 @@ const initSubmit = (root) => {
         fallback: renderFallback,
       })
     } else {
-      renderFallback()
+      // Launch path: copy-paste CLI script (run it yourself or email it to us).
+      // Use the full merged index files — the manual checklist's append
+      // fragments would corrupt the index if committed verbatim.
+      backendReadyFiles()
+        .then((full) =>
+          renderCliPanel({
+            root,
+            cfg,
+            files: full,
+            meta,
+            photoFile: photo.getFile(),
+            vendorId: v,
+            modelId: m,
+            wizardKind: 'submit',
+            submitEmail: (root.dataset.submitEmail || '').trim(),
+            fallback: renderFallback,
+          }),
+        )
+        .catch(() => renderFallback())
     }
 
     wizard.hidden = true

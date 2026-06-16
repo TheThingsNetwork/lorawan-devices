@@ -14,3 +14,5 @@ title = "Device Repository for LoRaWAN"
   og_image = "assets/ttn_profile_picture_white_bg.png"
   sitename = "The Things Network"
   twitter = "@thethingsntwrk"
+  # Recipient for the wizard's "Email it to us" submission path.
+  submitEmail = "jaime@thethingsindustries.com"
