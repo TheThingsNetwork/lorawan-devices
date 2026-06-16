@@ -8,8 +8,6 @@
     <nav class="nav">
       <a {{ if or .IsHome (eq .Section "devices") (eq .Section "tags") }}class="active"{{ end }} href="{{ "" | absURL }}">Devices</a>
       <a {{ if eq .Section "vendors" }}class="active"{{ end }} href="{{ "vendors/" | absURL }}">Vendors</a>
-      <a {{ if eq .Section "submit" }}class="active"{{ end }} href="{{ "submit/" | absURL }}">Submit a device</a>
-      <a {{ if eq .Section "update" }}class="active"{{ end }} href="{{ "update/" | absURL }}">Update a device</a>
     </nav>
     <div class="hdr-right">
       <label class="search-mini">
