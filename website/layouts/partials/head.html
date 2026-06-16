@@ -2,7 +2,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  {{ if .Site.Params.noindex }}
+  {{ if or .Site.Params.noindex (eq .Section "submit") (eq .Section "update") }}
   <meta name="robots" content="noindex,nofollow" />
   <meta name="googlebot" content="noindex,nofollow" />
   {{ else }}
