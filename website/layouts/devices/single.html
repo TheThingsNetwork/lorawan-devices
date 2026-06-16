@@ -3,7 +3,6 @@
 {{ $p := .Params }}
 {{ $image := "" }}
 {{ with $p.photos }}{{ with .main }}{{ $image = $.Resources.GetMatch (printf "images/%s" .) }}{{ end }}{{ end }}
-{{ $hasBattery := $p.battery }}
 {{ $hasCodec := $p.hascodec }}
 
 <main>
@@ -61,7 +60,6 @@
         <a href="#specifications">Specifications</a>
         <a href="#lorawan">LoRaWAN</a>
         {{ if $hasCodec }}<a href="#payload-codec">Payload codec</a>{{ end }}
-        {{ if $hasBattery }}<a href="#battery">Battery calculator</a>{{ end }}
         <a href="#onboarding">Onboarding</a>
       </nav>
     </div>
@@ -349,43 +347,6 @@
       </section>
       {{ end }}
 
-      {{ if $hasBattery }}
-      <section class="tab-panel" id="battery" hidden>
-        <div class="section">
-          <h2>Battery life estimator</h2>
-          <p class="section-note">A first-order estimate from LoRa airtime math — tune the assumptions to your deployment. Real-world results depend on firmware, sensors and temperature.</p>
-          <div class="card-block" data-calc data-battery-type="{{ with $p.battery }}{{ .type }}{{ end }}">
-            <div class="calc-grid">
-              <div class="calc-controls">
-                <div class="ctrl">
-                  <label>Reporting interval <span class="v" data-c-interval-v>15 min</span></label>
-                  <input type="range" min="1" max="240" value="15" data-c-interval />
-                </div>
-                <div class="ctrl">
-                  <label>Payload size <span class="v" data-c-payload-v>12 bytes</span></label>
-                  <input type="range" min="1" max="51" value="12" data-c-payload />
-                </div>
-                <div class="ctrl">
-                  <label>Spreading factor <span class="v" data-c-sf-v>SF9</span></label>
-                  <input type="range" min="7" max="12" value="9" data-c-sf />
-                </div>
-                <div class="ctrl">
-                  <label>Battery capacity (mAh){{ with $p.battery }}{{ with .type }} — {{ . }}{{ end }}{{ end }}</label>
-                  <input type="number" class="fport-input" style="width: 110px;" data-c-capacity value="2400" />
-                </div>
-              </div>
-              <div class="calc-result">
-                <div class="lab-top">Estimated battery life</div>
-                <div class="big" data-c-result>—</div>
-                <div class="unit">years</div>
-                <div class="sub" data-c-sub></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {{ end }}
-
       <section class="tab-panel" id="onboarding" hidden>
         <div class="section">
           <h2>Add to The Things Stack</h2>
@@ -473,6 +434,22 @@
           <div class="em-log" data-em-log>
             <div class="em-log-empty">No uplinks sent yet. Start the emulator to see activity here.</div>
           </div>
+        </div>
+        <div class="em-script-wrap">
+          <div class="em-script-head">
+            <span>Or run it from your terminal — works with any endpoint, no CORS</span>
+            <div class="em-script-btns">
+              <button class="btn btn-secondary btn-sm" data-em-copy-curl>Copy one curl</button>
+              <button class="btn btn-secondary btn-sm" data-em-copy-script>Copy loop script</button>
+            </div>
+          </div>
+          <p class="em-script-note">Run from your own machine and the browser's CORS rules don't apply, so this reaches <em>any</em> endpoint — your app server, a local tunnel (ngrok / cloudflared), or The Things Stack. The loop sends one uplink every <strong data-em-script-interval>10</strong>s with an incrementing frame counter.</p>
+          <pre class="code em-script" data-em-script></pre>
+          <ol class="em-script-steps">
+            <li>Edit the <code>ENDPOINT</code> line at the top if needed — it's prefilled from the field above.</li>
+            <li>Save it as <code>emulate.sh</code> and run <code>bash emulate.sh</code>, or paste the whole thing into a terminal (bash or zsh).</li>
+            <li>Each line prints the HTTP status the endpoint returned. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop.</li>
+          </ol>
         </div>
       </div>
       <div class="modal-foot">

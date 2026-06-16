@@ -19,7 +19,6 @@
 import { runDecoder, parseHex, toHex } from './lib/codec-runner'
 import { colorize } from './lib/colorize'
 import { buildEnvelope, topicFor } from './lib/tts-envelope'
-import { estimateBatteryYears } from './lib/airtime'
 
 const device = (window.config || {}).device || {}
 
@@ -284,6 +283,99 @@ const initEmulator = () => {
     }
   }
 
+  /* ---- Terminal script (curl) — runs on the user's machine, no CORS ---- */
+
+  const scriptEl = $('[data-em-script]', modal)
+  const intervalLabel = $('[data-em-script-interval]', modal)
+
+  const copyText = async (text, btn) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      const old = btn.textContent
+      btn.textContent = 'Copied ✓'
+      setTimeout(() => (btn.textContent = old), 1500)
+    } catch (e) {
+      window.prompt('Copy the script:', text)
+    }
+  }
+
+  const scriptEndpoint = () => {
+    const v = (endpoint.value || '').trim()
+    return /^https?:\/\/.+/.test(v) ? v : 'https://your-endpoint.example/uplink'
+  }
+
+  const scriptEnvelope = () => {
+    const i = payloadSel.value ? parseInt(payloadSel.value, 10) : 0
+    const ex = examples[i] || examples[0]
+    if (!ex) return null
+    return buildEnvelope({
+      modelID: device.modelid,
+      bytes: ex.input.bytes,
+      fPort: ex.input.fPort != null ? ex.input.fPort : 1,
+      decoded: ex.output && ex.output.data,
+      plan,
+    })
+  }
+
+  const curlScript = () => {
+    const env = scriptEnvelope()
+    if (!env) return '# This device has no codec examples to emulate.'
+    return [
+      "curl -sS -X POST '" + scriptEndpoint() + "' \\",
+      "  -H 'Content-Type: application/json' \\",
+      "  --data @- <<'UPLINK_JSON'",
+      JSON.stringify(env, null, 2),
+      'UPLINK_JSON',
+    ].join('\n')
+  }
+
+  const loopScript = () => {
+    const env = scriptEnvelope()
+    if (!env) return '# This device has no codec examples to emulate.'
+    const json = JSON.stringify(env, null, 2).replace(/("f_cnt":\s*)\d+/, '$1__FCNT__')
+    const secs = Math.max(5, parseInt(intervalSel.value, 10) || 10)
+    return [
+      '#!/usr/bin/env bash',
+      '# Emulate ' + (device.name || device.modelid) + ' — sends one uplink every ' + secs + 's.',
+      '# Runs on your machine, so it reaches ANY endpoint with no browser/CORS limits.',
+      '# Stop with Ctrl-C.',
+      'set -u',
+      '',
+      "ENDPOINT='" + scriptEndpoint() + "'",
+      '',
+      "BODY=$(cat <<'UPLINK_JSON'",
+      json,
+      'UPLINK_JSON',
+      ')',
+      '',
+      'f_cnt=$((RANDOM % 400))',
+      'while true; do',
+      '  printf \'%s\' "${BODY//__FCNT__/$f_cnt}" \\',
+      '    | curl -sS -X POST "$ENDPOINT" \\',
+      "        -H 'Content-Type: application/json' \\",
+      '        --data @- \\',
+      '        -o /dev/null -w "$(date +%H:%M:%S)  HTTP %{http_code}  (f_cnt=$f_cnt)\\n" \\',
+      '    || echo "$(date +%H:%M:%S)  request failed — is the endpoint reachable?"',
+      '  f_cnt=$((f_cnt + 1))',
+      '  sleep ' + secs,
+      'done',
+    ].join('\n')
+  }
+
+  const updateScript = () => {
+    if (scriptEl) scriptEl.textContent = loopScript()
+    if (intervalLabel) intervalLabel.textContent = String(Math.max(5, parseInt(intervalSel.value, 10) || 10))
+  }
+  endpoint.addEventListener('input', updateScript)
+  intervalSel.addEventListener('change', updateScript)
+  payloadSel.addEventListener('change', updateScript)
+  updateScript()
+
+  const copyCurlBtn = $('[data-em-copy-curl]', modal)
+  const copyScriptBtn = $('[data-em-copy-script]', modal)
+  if (copyCurlBtn) copyCurlBtn.addEventListener('click', () => copyText(curlScript(), copyCurlBtn))
+  if (copyScriptBtn) copyScriptBtn.addEventListener('click', () => copyText(loopScript(), copyScriptBtn))
+
   const setRunning = (on) => {
     endpoint.disabled = on
     intervalSel.disabled = on
@@ -332,64 +424,6 @@ const initEmulator = () => {
   })
 }
 
-/* ------------------------ Battery estimator -------------------------- */
-
-const guessCapacity = (type) => {
-  const t = (type || '').toUpperCase()
-  const cells = [
-    [/ER34615|\bD\b/, 19000],
-    [/ER26500|\bC\b/, 8500],
-    [/ER18505/, 3800],
-    [/ER14505|\bAA\b/, 2600],
-    [/\bAAA\b/, 1100],
-    [/CR2477/, 1000],
-    [/CR2450/, 620],
-    [/CR2032/, 230],
-    [/CR123/, 1500],
-    [/18650/, 3400],
-  ]
-  let base = 2400
-  for (const [re, cap] of cells) {
-    if (re.test(t)) {
-      base = cap
-      break
-    }
-  }
-  const mult = t.match(/(\d+)\s*[X×]/)
-  return base * (mult ? parseInt(mult[1], 10) : 1)
-}
-
-const initCalc = () => {
-  const root = $('[data-calc]')
-  if (!root) return
-
-  const interval = $('[data-c-interval]', root)
-  const payload = $('[data-c-payload]', root)
-  const sf = $('[data-c-sf]', root)
-  const capacity = $('[data-c-capacity]', root)
-  const result = $('[data-c-result]', root)
-  const sub = $('[data-c-sub]', root)
-
-  capacity.value = guessCapacity(root.dataset.batteryType)
-
-  const update = () => {
-    $('[data-c-interval-v]', root).textContent = interval.value + ' min'
-    $('[data-c-payload-v]', root).textContent = payload.value + ' bytes'
-    $('[data-c-sf-v]', root).textContent = 'SF' + sf.value
-    const years = estimateBatteryYears({
-      capacitymAh: parseFloat(capacity.value) || 2400,
-      intervalMinutes: parseInt(interval.value, 10),
-      payloadBytes: parseInt(payload.value, 10),
-      sf: parseInt(sf.value, 10),
-    })
-    result.textContent = years >= 100 ? '99+' : years.toFixed(1)
-    sub.textContent = `@ ${interval.value}-min reports, SF${sf.value}, ${payload.value}-byte payload, unconfirmed uplinks`
-  }
-
-  ;[interval, payload, sf, capacity].forEach((el) => el.addEventListener('input', update))
-  update()
-}
-
 /* ------------------------------ Boot -------------------------------- */
 
 const init = () => {
@@ -397,7 +431,6 @@ const init = () => {
   initDecoder()
   initCodecSource()
   initEmulator()
-  initCalc()
 }
 
 if (document.readyState === 'loading') {
