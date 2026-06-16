@@ -3,8 +3,8 @@
 // When a submit endpoint is configured (data-submit-api on the wizard root,
 // set by the Hugo template from the `submitApi` site param), the wizard can
 // POST the generated files and have a bot open the pull request. When it is
-// absent or empty — e.g. the noindex staging build, or any deployment that
-// has not wired a backend — every wizard falls back to the manual GitHub
+// absent or empty, e.g. the noindex staging build, or any deployment that
+// has not wired a backend, every wizard falls back to the manual GitHub
 // checklist with zero behavioural change.
 
 export const backendBase = (root) => {

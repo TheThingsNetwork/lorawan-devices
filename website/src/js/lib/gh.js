@@ -11,7 +11,7 @@ export const rawURL = (cfg, path) => `https://raw.githubusercontent.com/${cfg.re
 
 export const editURL = (cfg, path) => `https://github.com/${cfg.repo}/edit/${cfg.branch}/${path}`
 
-// /new supports prefilling the editor through ?filename=&value= — but only
+// /new supports prefilling the editor through ?filename=&value=, but only
 // within sane URL limits, so large files fall back to filename-only.
 export const newFileURL = (cfg, path, value) => {
   const base = `https://github.com/${cfg.repo}/new/${cfg.branch}/${path.split('/').slice(0, -1).join('/')}?filename=${encodeURIComponent(path.split('/').pop())}`

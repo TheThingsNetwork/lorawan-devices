@@ -1,13 +1,13 @@
 ---
 title: "LoRaWAN Humidity Sensors"
 linkTitle: "Humidity"
-description: "Browse LoRaWAN humidity sensors in the Device Repository — compare relative humidity range, accuracy, battery life, and frequency plans."
+description: "Browse LoRaWAN humidity sensors in the Device Repository, compare relative humidity range, accuracy, battery life, and frequency plans."
 lede: "LoRaWAN humidity sensors measure the moisture in the air and report relative humidity wirelessly over long-range, low-power networks."
 category: "sensor"
 related: ["temperature", "dew-point", "barometer", "co2", "moisture", "vapor-pressure-deficit"]
 faq:
   - q: "What does a LoRaWAN humidity sensor measure?"
-    a: "It measures relative humidity (%RH) — the amount of water vapor in the air relative to saturation at the current temperature. Most units pair the humidity element with a temperature sensor, and many derive dew point from both readings."
+    a: "It measures relative humidity (%RH), the amount of water vapor in the air relative to saturation at the current temperature. Most units pair the humidity element with a temperature sensor, and many derive dew point from both readings."
   - q: "How long does a LoRaWAN humidity sensor's battery last?"
     a: "Because LoRaWAN is low-power and devices transmit only periodic readings, battery life often spans several years on a single cell. Actual longevity depends on reporting interval, spreading factor, and operating temperature."
   - q: "Which LoRaWAN frequency plans do humidity sensors support?"

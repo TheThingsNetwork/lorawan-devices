@@ -13,7 +13,7 @@ faq:
   - q: "How do I choose a LoRaWAN conductivity sensor?"
     a: "Compare measurement range and accuracy, probe type and temperature compensation, ingress protection (IP rating) for submersion, battery life, supported regional frequency plans, and whether a payload codec is provided for your network server."
 ---
-Conductivity sensing measures **electrical conductivity (EC)** — how readily a liquid or soil conducts an electric current. Because conductivity rises as dissolved ions increase, it serves as a fast proxy for salinity, fertiliser concentration, and total dissolved solids, usually expressed in µS/cm or mS/cm and often paired with temperature compensation for accurate readings.
+Conductivity sensing measures **electrical conductivity (EC)**, how readily a liquid or soil conducts an electric current. Because conductivity rises as dissolved ions increase, it serves as a fast proxy for salinity, fertiliser concentration, and total dissolved solids, usually expressed in µS/cm or mS/cm and often paired with temperature compensation for accurate readings.
 
 LoRaWAN conductivity devices place an EC probe in water or soil, sample on a set interval, and transmit the value in a compact payload over long-range, low-power radio. This lets a single gateway collect EC data from probes spread across fields, reservoirs, tanks, or remote outfalls without wiring or cellular coverage.
 

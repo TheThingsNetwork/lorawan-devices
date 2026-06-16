@@ -4,7 +4,7 @@
   <section class="page-hero" style="padding-bottom: 24px;">
     <div class="container">
       <h1>Update a device</h1>
-      <p class="lede">Change an existing entry in the repository — new firmware versions, frequency plans, codec fixes, photos or corrected specs. The wizard loads the current files straight from GitHub, patches only what you change, and shows the exact diff your pull request will carry.</p>
+      <p class="lede">Change an existing entry in the repository, new firmware versions, frequency plans, codec fixes, photos or corrected specs. The wizard loads the current files straight from GitHub, patches only what you change, and shows the exact diff your pull request will carry.</p>
       <p class="lede" style="font-size: 14px;">Adding a device that isn't listed yet? Use the <a href="{{ "submit/" | absURL }}">submit wizard</a> instead.</p>
     </div>
   </section>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <p class="upd-load-error" data-upd-error hidden></p>
-      <p class="s-hint" style="margin-top: 14px;">The current definition is fetched from <code>{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}@{{ .Site.Params.githubBranch | default `master` }}</code> — the repository stays the source of truth.</p>
+      <p class="s-hint" style="margin-top: 14px;">The current definition is fetched from <code>{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}@{{ .Site.Params.githubBranch | default `master` }}</code>, the repository stays the source of truth.</p>
     </div>
 
     <div class="submit-layout" data-upd-wizard hidden>
@@ -117,7 +117,7 @@
 
         <div data-step-panel="3" hidden>
           <h2>Payload codec</h2>
-          <p class="s-hint" data-codec-none hidden style="font-size: 13px;">This device has no payload codec yet. Codec files can be added in a separate pull request — or ping the vendor; codecs earn the one-click onboarding badge.</p>
+          <p class="s-hint" data-codec-none hidden style="font-size: 13px;">This device has no payload codec yet. Codec files can be added in a separate pull request, or ping the vendor; codecs earn the one-click onboarding badge.</p>
           <div data-codec-body>
             <div class="s-field" style="margin-bottom: 14px;" hidden>
               <label>Codec file</label>
@@ -152,7 +152,7 @@
           <div class="val-list" data-validation></div>
           <div class="s-callout">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <span>Only the lines you changed are touched — comments and formatting in the vendor files are preserved, so reviewers see a minimal diff.</span>
+            <span>Only the lines you changed are touched, comments and formatting in the vendor files are preserved, so reviewers see a minimal diff.</span>
           </div>
         </div>
 
@@ -168,7 +168,7 @@
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <h1 data-manual-only>Your update is ready</h1>
-      <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong> — GitHub forks the repository for you, no local tools needed. Maintainers review every change before it is published.</p>
+      <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong>, GitHub forks the repository for you, no local tools needed. Maintainers review every change before it is published.</p>
       <div class="cl-list" data-cli-panel hidden></div>
       <div class="cl-list" data-backend-panel hidden></div>
       <div class="cl-list" data-checklist data-manual-only></div>

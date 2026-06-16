@@ -13,7 +13,7 @@ faq:
   - q: "Do NO2 sensors need calibration?"
     a: "Yes. Electrochemical NO2 sensing elements drift over time and are sensitive to temperature and humidity, so periodic calibration or factory recalibration is recommended to maintain measurement accuracy."
 ---
-Nitrogen dioxide (NO2) is a gaseous pollutant produced mainly by vehicle exhaust, combustion, and industrial processes. LoRaWAN NO2 sensors detect this gas — usually with an electrochemical cell — and transmit concentration readings over long-range, low-power radio. Because LoRaWAN reaches long distances on small batteries, these sensors suit dense outdoor deployments where wired power and cellular coverage are impractical.
+Nitrogen dioxide (NO2) is a gaseous pollutant produced mainly by vehicle exhaust, combustion, and industrial processes. LoRaWAN NO2 sensors detect this gas, usually with an electrochemical cell, and transmit concentration readings over long-range, low-power radio. Because LoRaWAN reaches long distances on small batteries, these sensors suit dense outdoor deployments where wired power and cellular coverage are impractical.
 
 A typical device samples NO2 on a set schedule, encodes the value into a compact uplink payload, and sends it through a LoRaWAN gateway to a network server. Many units bundle temperature and humidity readings, since both affect electrochemical accuracy.
 

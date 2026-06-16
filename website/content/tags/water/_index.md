@@ -13,7 +13,7 @@ faq:
   - q: "Where are LoRaWAN water sensors used?"
     a: "Common uses include leak detection in buildings, server rooms, basements, and utility cabinets, plus water presence monitoring in pipes, tanks, and pump rooms. They are widely deployed in facilities management, insurance risk reduction, and smart-building projects."
 ---
-Water sensing covers the detection of liquid water presence — most commonly leaks, flooding, or unexpected moisture. LoRaWAN water sensors typically use conductive contacts, capacitive pads, or a flexible sensing cable that triggers when water is present, then send an uplink to your network server over a long-range, low-power radio link.
+Water sensing covers the detection of liquid water presence, most commonly leaks, flooding, or unexpected moisture. LoRaWAN water sensors typically use conductive contacts, capacitive pads, or a flexible sensing cable that triggers when water is present, then send an uplink to your network server over a long-range, low-power radio link.
 
 Reported data usually arrives as a simple wet/dry state plus event timestamps, with periodic heartbeat messages confirming the device is online. Some products combine water detection with temperature or humidity to give richer environmental context.
 

@@ -2,7 +2,7 @@
 title: "LoRaWAN Vapor Pressure Sensors"
 linkTitle: "Vapor Pressure"
 description: "Browse LoRaWAN vapor pressure sensors in The Things Network Device Repository, with frequency plans, payload codecs and accuracy specs."
-lede: "LoRaWAN sensors that report vapor pressure — the partial pressure of water vapor in air — for agriculture, HVAC and environmental monitoring."
+lede: "LoRaWAN sensors that report vapor pressure, the partial pressure of water vapor in air, for agriculture, HVAC and environmental monitoring."
 category: "sensor"
 related: ["humidity", "temperature", "dew-point", "vapor-pressure-deficit", "barometer", "leaf-wetness"]
 faq:

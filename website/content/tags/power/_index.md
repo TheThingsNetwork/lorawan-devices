@@ -15,7 +15,7 @@ faq:
 ---
 Power sensing measures the instantaneous rate at which electrical energy is consumed or supplied, usually as active power in watts (W) or kilowatts (kW). Many devices also derive reactive power (VAR), apparent power (VA), and power factor by combining measured current and voltage.
 
-A LoRaWAN power sensor samples current — often through clamp-on current transformers (CTs) — alongside a voltage reference, computes power values on-device, and transmits compact readings over long-range, low-power radio at scheduled intervals. This makes panel-level and circuit-level monitoring practical without continuous wiring back to a gateway.
+A LoRaWAN power sensor samples current, often through clamp-on current transformers (CTs), alongside a voltage reference, computes power values on-device, and transmits compact readings over long-range, low-power radio at scheduled intervals. This makes panel-level and circuit-level monitoring practical without continuous wiring back to a gateway.
 
 Typical uses include building sub-metering, machine load monitoring, solar and renewable feed measurement, demand management, and spotting abnormal draw before faults occur.
 

@@ -7,7 +7,7 @@ category: "sensor"
 related: ["pulse-frequency", "digital-input", "reed-switch", "hall-effect", "energy", "water"]
 faq:
   - q: "What does a LoRaWAN pulse count sensor measure?"
-    a: "It counts discrete electrical pulses on a digital input — typically dry-contact, open-collector, or S0 outputs from meters. Each pulse represents a fixed unit of consumption, so the accumulated count maps to volume, energy, or events over time."
+    a: "It counts discrete electrical pulses on a digital input, typically dry-contact, open-collector, or S0 outputs from meters. Each pulse represents a fixed unit of consumption, so the accumulated count maps to volume, energy, or events over time."
   - q: "Can I read existing water, gas, or electricity meters with a pulse counter?"
     a: "Yes, if the meter exposes a pulse output (reed switch, S0, or open-collector). The sensor totals pulses and reports the count over LoRaWAN, letting you retrofit legacy meters for remote reading without replacing them."
   - q: "How is pulse count reported and how often?"

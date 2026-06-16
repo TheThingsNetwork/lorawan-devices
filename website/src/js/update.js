@@ -139,7 +139,7 @@ export const initUpdate = (root) => {
             }
           }
         } catch (e) {
-          /* codec yaml missing — skip */
+          /* codec yaml missing, skip */
         }
       }
 
@@ -152,7 +152,7 @@ export const initUpdate = (root) => {
       history.replaceState(null, '', `${location.pathname}?${q}`)
       window.scrollTo(0, 0)
     } catch (e) {
-      setLoading(false, `Could not load ${vendorId}/${modelId} from ${cfg.repo}@${cfg.branch}: ${e.message || e}. New devices that are not on ${cfg.branch} yet can't be updated here — use the submit wizard instead.`)
+      setLoading(false, `Could not load ${vendorId}/${modelId} from ${cfg.repo}@${cfg.branch}: ${e.message || e}. New devices that are not on ${cfg.branch} yet can't be updated here, use the submit wizard instead.`)
       return
     }
     setLoading(false)
@@ -338,7 +338,7 @@ export const initUpdate = (root) => {
       card.className = 'prof-card'
       card.dataset.profileId = id
       if (prof.missing) {
-        card.innerHTML = `<div class="prof-head">${esc(id)}.yaml</div><p class="s-hint">Could not load this profile from GitHub — it stays unchanged.</p>`
+        card.innerHTML = `<div class="prof-head">${esc(id)}.yaml</div><p class="s-hint">Could not load this profile from GitHub, it stays unchanged.</p>`
         profList.appendChild(card)
         return
       }
@@ -676,7 +676,7 @@ export const initUpdate = (root) => {
       box.innerHTML = `
         <div class="diff-head">
           <code></code>
-          ${file.reformatted ? '<span class="diff-note">file was reformatted — review the whole diff</span>' : ''}
+          ${file.reformatted ? '<span class="diff-note">file was reformatted, review the whole diff</span>' : ''}
           <span class="diff-stat"><span class="plus">+${adds}</span><span class="minus">−${dels}</span></span>
         </div>
         <div class="diff-body"></div>`

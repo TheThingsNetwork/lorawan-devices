@@ -4,7 +4,7 @@
   <section class="page-hero" style="padding-bottom: 24px;">
     <div class="container">
       <h1>Submit a device</h1>
-      <p class="lede">Add your device to the open-source repository. A complete profile — with payload codec — gets your device one-click onboarding in The Things Stack and visibility to thousands of network operators. This wizard generates the YAML files for your pull request.</p>
+      <p class="lede">Add your device to the open-source repository. A complete profile, with payload codec, gets your device one-click onboarding in The Things Stack and visibility to thousands of network operators. This wizard generates the YAML files for your pull request.</p>
       <p class="lede" style="font-size: 14px;">Changing a device that is already listed? Use the <a href="{{ "update/" | absURL }}">update wizard</a> instead.</p>
     </div>
   </section>
@@ -49,7 +49,7 @@
             <div class="s-field"><label>Vendor ID (slug)</label><input data-f="vendorSlug" placeholder="acme-sensors" /><span class="s-hint">Lowercase, hyphenated. Becomes the folder name under <code>vendor/</code>.</span></div>
             <div class="s-field"><label>Website</label><input data-f="vendorSite" placeholder="https://acme.example" /></div>
             <div class="s-field"><label>Technical contact</label><input data-f="vendorEmail" placeholder="iot@acme.example" /><span class="s-hint">Used for review questions.</span></div>
-            <div class="s-field span2"><span class="s-hint">New vendors also need a LoRa Alliance VendorID — request one via the <a href="https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915" rel="noopener">LoRa Alliance TR005 registry</a>, or leave it to the reviewers.</span></div>
+            <div class="s-field span2"><span class="s-hint">New vendors also need a LoRa Alliance VendorID, request one via the <a href="https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915" rel="noopener">LoRa Alliance TR005 registry</a>, or leave it to the reviewers.</span></div>
           </div>
         </div>
 
@@ -159,7 +159,7 @@
           <div class="s-choice-row">
             <button class="s-choice active" data-codec-mode="yes">
               <strong>I'll include a codec</strong>
-              <span>decodeUplink in JavaScript — earns the one-click onboarding badge</span>
+              <span>decodeUplink in JavaScript, earns the one-click onboarding badge</span>
             </button>
             <button class="s-choice" data-codec-mode="no">
               <strong>No codec yet</strong>
@@ -176,7 +176,7 @@
           {{ partial "wizard/photo-step.html" . }}
           <div class="s-callout">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <span>The photo travels with your pull request as <code>vendor/&lt;vendor&gt;/&lt;model&gt;.png</code> — this step only checks it against the repository rules so the reviewers don't have to bounce it back.</span>
+            <span>The photo travels with your pull request as <code>vendor/&lt;vendor&gt;/&lt;model&gt;.png</code>, this step only checks it against the repository rules so the reviewers don't have to bounce it back.</span>
           </div>
         </div>
 
@@ -189,7 +189,7 @@
           <div class="val-list" data-validation></div>
           <div class="s-callout">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <span>The files are validated against the same <strong>schema.json</strong> the repository CI uses. Generating shows a step-by-step GitHub checklist — submissions are reviewed by the maintainers, most are merged within a few working days.</span>
+            <span>The files are validated against the same <strong>schema.json</strong> the repository CI uses. Generating shows a step-by-step GitHub checklist, submissions are reviewed by the maintainers, most are merged within a few working days.</span>
           </div>
         </div>
 
@@ -205,7 +205,7 @@
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <h1 data-manual-only>Your submission files are ready</h1>
-      <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong> — GitHub forks the repository for you, no local tools needed. The community reviews every submission before it is published.</p>
+      <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong>, GitHub forks the repository for you, no local tools needed. The community reviews every submission before it is published.</p>
       <div class="cl-list" data-cli-panel hidden></div>
       <div class="cl-list" data-backend-panel hidden></div>
       <div class="cl-list" data-checklist data-manual-only></div>

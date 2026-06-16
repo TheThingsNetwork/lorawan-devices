@@ -2,7 +2,7 @@
 // which opens a pull request on the contributor's behalf (GitHub App, no
 // contributor login). Renders its own UI into [data-backend-panel] and, on
 // any failure or user opt-out, calls fallback() to drop into the manual
-// GitHub checklist — so GitHub stays the single source of truth and a
+// GitHub checklist, so GitHub stays the single source of truth and a
 // no-backend deployment behaves exactly as before.
 //
 // MVP scope: collects name + email + CLA consent (and a Turnstile token when
@@ -45,15 +45,15 @@ export const submitViaBackend = (opts) => {
     const tsKey = turnstileKey(root)
     panel.innerHTML = `
       <div class="be-consent">
-        <p class="be-lede">We open the pull request on <strong>${cfg.repo}</strong> for you — no GitHub account needed. Confirm who's contributing:</p>
+        <p class="be-lede">We open the pull request on <strong>${cfg.repo}</strong> for you, no GitHub account needed. Confirm who's contributing:</p>
         <div class="s-grid">
           <div class="s-field"><label>Your name</label><input data-be="name" placeholder="Jane Engineer" autocomplete="name" /></div>
-          <div class="s-field"><label>Email</label><input data-be="email" type="email" placeholder="jane@acme.example" autocomplete="email" /><span class="s-hint">Recorded as the contribution author — it appears publicly and permanently in the commit, as is standard for open-source contributions.</span></div>
+          <div class="s-field"><label>Email</label><input data-be="email" type="email" placeholder="jane@acme.example" autocomplete="email" /><span class="s-hint">Recorded as the contribution author, it appears publicly and permanently in the commit, as is standard for open-source contributions.</span></div>
         </div>
         <label class="be-cla"><input type="checkbox" data-be="cla" /><span>I have read and agree to the <a href="${CLA_URL}" target="_blank" rel="noopener">Contributor License Agreement</a>, and I'm authorized to license this device data, codec and image under Apache-2.0.</span></label>
         ${tsKey ? `<div class="cf-turnstile" data-sitekey="${tsKey}"></div>` : ''}
         <div class="be-actions">
-          <button class="btn btn-primary" data-be-submit disabled>⚡ Submit — we open the PR for you</button>
+          <button class="btn btn-primary" data-be-submit disabled>⚡ Submit, we open the PR for you</button>
         </div>
         <p class="s-hint">Prefer to do it on GitHub yourself? <a href="#" data-be-manual>Use the manual checklist</a> instead.</p>
         <p class="be-error" data-be-error hidden></p>
@@ -148,14 +148,14 @@ export const submitViaBackend = (opts) => {
       renderSuccess(data.pr)
     } catch (e) {
       clearTimeout(timer)
-      renderError(e.name === 'AbortError' ? 'The submit service timed out — please try again.' : `Could not reach the submit service (${e.message || e}).`)
+      renderError(e.name === 'AbortError' ? 'The submit service timed out, please try again.' : `Could not reach the submit service (${e.message || e}).`)
     }
   }
 
   function renderSuccess(pr) {
     panel.innerHTML = `
       <div class="be-done">
-        <p class="be-done-title">✓ Done — your changes are in pull request #${pr.number}.</p>
+        <p class="be-done-title">✓ Done, your changes are in pull request #${pr.number}.</p>
         <p class="s-hint">A maintainer (the <code>/vendor</code> code owner) reviews and merges it; nothing is published until they do.</p>
         <a class="btn btn-primary" href="${pr.url}" target="_blank" rel="noopener">View pull request ↗</a>
       </div>`

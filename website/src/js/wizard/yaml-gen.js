@@ -36,8 +36,8 @@ export const codecYAML = (model, examples) => {
 export const codecJSStub = () =>
   [
     'function decodeUplink(input) {',
-    '  // input.bytes  — uplink payload byte array',
-    '  // input.fPort  — LoRaWAN FPort',
+    '  // input.bytes, uplink payload byte array',
+    '  // input.fPort, LoRaWAN FPort',
     '  var data = {};',
     '  // TODO: decode input.bytes into data',
     '  return { data: data };',

@@ -84,8 +84,8 @@
               <h2>Key features</h2>
               <ul style="font-size: 14px; color: var(--text-2); line-height: 1.8; padding-left: 20px;">
                 {{ with $p.sensors }}<li>Sensors: {{ delimit . ", " }}.</li>{{ end }}
-                {{ if $p.certified }}<li>LoRa Alliance certified — verified interoperability with The Things Stack and other LoRaWAN network servers.</li>{{ end }}
-                {{ if $hasCodec }}<li>Payload codec included — uplink decoder ready for one-click activation.</li>{{ end }}
+                {{ if $p.certified }}<li>LoRa Alliance certified, verified interoperability with The Things Stack and other LoRaWAN network servers.</li>{{ end }}
+                {{ if $hasCodec }}<li>Payload codec included, uplink decoder ready for one-click activation.</li>{{ end }}
                 {{ with $p.frequencyplans }}<li>{{ len . }} frequency plan{{ if ne (len .) 1 }}s{{ end }} supported: {{ delimit . ", " }}.</li>{{ end }}
                 {{ with $p.battery }}<li>Battery powered{{ with .type }} ({{ . }}){{ end }}{{ if .replaceable }}, user replaceable{{ end }}.</li>{{ end }}
               </ul>
@@ -301,7 +301,7 @@
       <section class="tab-panel" id="payload-codec" hidden>
         <div class="section" data-decoder>
           <h2>Live decoder playground</h2>
-          <p class="section-note">Decode any hex payload client-side with the device's published codec — the exact code The Things Stack runs.</p>
+          <p class="section-note">Decode any hex payload client-side with the device's published codec, the exact code The Things Stack runs.</p>
           <div class="card-block">
             <div class="decoder-grid">
               <div class="decoder-panel">
@@ -324,7 +324,7 @@
 
         <div class="section">
           <h2>Example uplink from The Things Stack</h2>
-          <p class="section-note">The full JSON message your application receives via MQTT or webhook when this device sends the payload above — raw bytes, decoded fields and radio metadata included.</p>
+          <p class="section-note">The full JSON message your application receives via MQTT or webhook when this device sends the payload above, raw bytes, decoded fields and radio metadata included.</p>
           <div class="card-block flush">
             <div class="code-head">
               <span class="path" data-topic></span>
@@ -401,7 +401,7 @@
       <div class="modal-head">
         <div>
           <h3>Device emulator</h3>
-          <p>Generate a script that sends realistic {{ $p.name }} uplinks — the exact JSON envelope The Things Stack delivers, built from the codec's real example payloads. Run it from your terminal against any endpoint.</p>
+          <p>Generate a script that sends realistic {{ $p.name }} uplinks, the exact JSON envelope The Things Stack delivers, built from the codec's real example payloads. Run it from your terminal against any endpoint.</p>
         </div>
         <button class="modal-x" data-em-close aria-label="Close">✕</button>
       </div>
@@ -409,7 +409,7 @@
         <div class="em-field">
           <label>Your endpoint</label>
           <input type="text" data-em-endpoint placeholder="https://example.com/uplinks" spellcheck="false" />
-          <span class="em-hint">Prefilled into the script below — your app server, a tunnel (ngrok / cloudflared), or The Things Stack. You can also edit it in the script.</span>
+          <span class="em-hint">Prefilled into the script below, your app server, a tunnel (ngrok / cloudflared), or The Things Stack. You can also edit it in the script.</span>
         </div>
         <div class="em-row">
           <div class="em-field">
@@ -437,14 +437,14 @@
           <p class="em-script-note">Runs from your machine, so it reaches <em>any</em> endpoint with no browser/CORS limits. The loop sends one uplink every <strong data-em-script-interval>10</strong>s with an incrementing frame counter.</p>
           <pre class="code em-script" data-em-script></pre>
           <ol class="em-script-steps">
-            <li>Edit the <code>ENDPOINT</code> line at the top if needed — it's prefilled from the field above.</li>
+            <li>Edit the <code>ENDPOINT</code> line at the top if needed, it's prefilled from the field above.</li>
             <li>Save it as <code>emulate.sh</code> and run <code>bash emulate.sh</code>, or paste the whole thing into a terminal (bash or zsh).</li>
             <li>Each line prints the HTTP status the endpoint returned. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop.</li>
           </ol>
         </div>
       </div>
       <div class="modal-foot">
-        <span class="em-note">Nothing is sent from this page — copy the script and run it in your terminal.</span>
+        <span class="em-note">Nothing is sent from this page, copy the script and run it in your terminal.</span>
         <div style="display: flex; gap: 8px;">
           <button class="btn btn-primary" data-em-cancel>Close</button>
         </div>

@@ -1,13 +1,13 @@
 ---
 title: "LoRaWAN Link Quality Devices"
 linkTitle: "Link Quality"
-description: "Browse LoRaWAN devices that report link quality — RSSI, SNR, data rate and link margin — for coverage testing and network diagnostics."
+description: "Browse LoRaWAN devices that report link quality, RSSI, SNR, data rate and link margin, for coverage testing and network diagnostics."
 lede: "LoRaWAN devices that surface radio link quality so you can verify coverage, gauge signal margin, and troubleshoot connectivity in the field."
 category: "sensor"
 related: ["rssi", "snr", "gps", "battery", "altitude", "wifi-ssid"]
 faq:
   - q: "What does \"link\" mean for a LoRaWAN device?"
-    a: "It refers to radio link quality — the metrics describing the connection between an end device and the network, such as received signal strength (RSSI), signal-to-noise ratio (SNR), data rate, and link margin. These are diagnostics, not an environmental measurement."
+    a: "It refers to radio link quality, the metrics describing the connection between an end device and the network, such as received signal strength (RSSI), signal-to-noise ratio (SNR), data rate, and link margin. These are diagnostics, not an environmental measurement."
   - q: "How does a LoRaWAN device report link quality?"
     a: "Devices can request a Link Check via LoRaWAN MAC commands, where the network responds with the demodulation margin and number of receiving gateways. Many devices also expose RSSI, SNR, and current data rate in their uplink payload or device-status reports."
   - q: "What are link quality readings used for?"

@@ -15,8 +15,8 @@ faq:
 ---
 IP52 is an ingress-protection rating defined by IEC 60529. Reading the two digits separately tells you exactly what the enclosure withstands:
 
-- **First digit (5) — solids/dust:** Dust-protected. Some dust may enter, but not in a quantity that interferes with operation. Contact with hazardous parts is also prevented.
-- **Second digit (2) — liquids:** Protected against vertically dripping water when the enclosure is tilted up to 15 degrees from its normal position.
+- **First digit (5), solids/dust:** Dust-protected. Some dust may enter, but not in a quantity that interferes with operation. Contact with hazardous parts is also prevented.
+- **Second digit (2), liquids:** Protected against vertically dripping water when the enclosure is tilted up to 15 degrees from its normal position.
 
 This makes IP52 a light indoor rating. It handles settling dust, condensation, and the occasional drip from above, so it fits offices, utility rooms, and enclosed cabinets. It is not built for dusty industrial floors, direct spray, washdown, driving rain, or any submersion.
 

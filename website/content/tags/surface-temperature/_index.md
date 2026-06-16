@@ -13,7 +13,7 @@ faq:
   - q: "What should I compare when choosing a LoRaWAN surface temperature sensor?"
     a: "Compare measurement range and accuracy, probe or sensing type, reporting interval and battery life, enclosure rating, supported regional frequency plans, and whether a ready-made payload decoder is provided."
 ---
-Surface temperature sensing measures the temperature of a specific object or contact point — a pipe, motor housing, wall, road surface, or stored product — rather than the surrounding air. LoRaWAN devices in this category use a contact probe, thermocouple, embedded element, or non-contact infrared sensor to capture the reading, then transmit it over a long-range, low-power link to a network gateway.
+Surface temperature sensing measures the temperature of a specific object or contact point, a pipe, motor housing, wall, road surface, or stored product, rather than the surrounding air. LoRaWAN devices in this category use a contact probe, thermocouple, embedded element, or non-contact infrared sensor to capture the reading, then transmit it over a long-range, low-power link to a network gateway.
 
 Most devices wake on a fixed schedule or on threshold crossings, send a compact payload, and return to sleep to conserve battery. Typical deployments include:
 

@@ -13,9 +13,9 @@ faq:
   - q: "Where are IP4X devices suitable?"
     a: "IP4X suits dry indoor or sheltered settings where stray wires, fingers or small debris must be kept out of the enclosure but liquid exposure is not a concern."
 ---
-The **IP4X** rating comes from IEC 60529. The first digit, **4**, certifies that the enclosure blocks solid foreign objects of **1.0 mm and greater** — wires, screws, fasteners and small tools cannot reach the internals. The second character is **X**, meaning the liquid-ingress characteristic was not specified or tested, so no waterproofing claim is made.
+The **IP4X** rating comes from IEC 60529. The first digit, **4**, certifies that the enclosure blocks solid foreign objects of **1.0 mm and greater**, wires, screws, fasteners and small tools cannot reach the internals. The second character is **X**, meaning the liquid-ingress characteristic was not specified or tested, so no waterproofing claim is made.
 
-This makes IP4X a good fit for dry indoor or sheltered deployments — control cabinets, equipment rooms or panel mounts — where the priority is keeping debris and probing objects out, not resisting water.
+This makes IP4X a good fit for dry indoor or sheltered deployments, control cabinets, equipment rooms or panel mounts, where the priority is keeping debris and probing objects out, not resisting water.
 
 When choosing a LoRaWAN device, match the enclosure rating to the environment:
 

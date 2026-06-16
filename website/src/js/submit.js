@@ -122,7 +122,7 @@ const initSubmit = (root) => {
     lines.push(`supportsJoin: ${pills.single.join === 'otaa'}`)
     if (pills.single.join === 'abp') {
       lines.push('# ABP devices must also define rx1Delay, rx2DataRateIndex, rx2Frequency,')
-      lines.push('# and factoryPresetFrequencies — see the schema for details.')
+      lines.push('# and factoryPresetFrequencies, see the schema for details.')
     }
     lines.push(`maxEIRP: ${f.get('maxEirp') || 16}`)
     lines.push('supports32bitFCnt: true')
@@ -161,7 +161,7 @@ const initSubmit = (root) => {
       path: `vendor/${v}/${m}.png`,
       body: null,
       kind: 'binary',
-      note: photo.hasFile() ? `upload the photo you validated (${photo.fileName()})` : 'product photo — PNG, transparent background, max 2000 × 2000 px',
+      note: photo.hasFile() ? `upload the photo you validated (${photo.fileName()})` : 'product photo, PNG, transparent background, max 2000 × 2000 px',
     })
     return files
   }
@@ -246,7 +246,7 @@ const initSubmit = (root) => {
       ['Frequency plans', pills.multi.plans.join(', ')],
       ['Sensors', pills.multi.sensors.join(', ') || '—'],
       ['Codec', codecMode === 'yes' ? `JavaScript decodeUplink with ${examples.length} example${examples.length === 1 ? '' : 's'}` : 'none'],
-      ['Photo', photo.hasFile() ? `${photo.fileName()} checked locally` : 'not checked — required in the pull request'],
+      ['Photo', photo.hasFile() ? `${photo.fileName()} checked locally` : 'not checked, required in the pull request'],
     ]
     table.innerHTML = ''
     rows.forEach(([k, v]) => {
@@ -318,7 +318,7 @@ const initSubmit = (root) => {
       })
     } else {
       // Launch path: copy-paste CLI script (run it yourself or email it to us).
-      // Use the full merged index files — the manual checklist's append
+      // Use the full merged index files, the manual checklist's append
       // fragments would corrupt the index if committed verbatim.
       backendReadyFiles()
         .then((full) =>

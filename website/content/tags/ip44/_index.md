@@ -1,7 +1,7 @@
 ---
 title: "IP44-Rated LoRaWAN Devices"
 linkTitle: "IP44"
-description: "Browse LoRaWAN devices rated IP44 — protected against solids over 1 mm and water splashing from all directions."
+description: "Browse LoRaWAN devices rated IP44, protected against solids over 1 mm and water splashing from all directions."
 lede: "IP44 LoRaWAN devices resist solid objects larger than 1 mm and water splashed from every direction, making them suited to sheltered indoor and outdoor use."
 category: "enclosure"
 related: ["ip43", "ip42", "ip54", "ip55", "ip65", "ip40"]

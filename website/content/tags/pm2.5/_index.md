@@ -13,7 +13,7 @@ faq:
   - q: "Can PM2.5 sensors be used outdoors?"
     a: "Yes, many are built for outdoor deployment, but check the enclosure IP rating and whether the unit manages humidity or condensation, since high moisture can affect optical particle readings."
 ---
-PM2.5 refers to fine particulate matter with a diameter of 2.5 micrometers or less — fine enough to penetrate deep into the lungs. LoRaWAN PM2.5 sensors quantify the concentration of these particles, usually in micrograms per cubic meter (µg/m³), giving a direct read on air quality from sources like combustion, traffic exhaust, wildfire smoke, and industrial dust.
+PM2.5 refers to fine particulate matter with a diameter of 2.5 micrometers or less, fine enough to penetrate deep into the lungs. LoRaWAN PM2.5 sensors quantify the concentration of these particles, usually in micrograms per cubic meter (µg/m³), giving a direct read on air quality from sources like combustion, traffic exhaust, wildfire smoke, and industrial dust.
 
 These devices typically use an optical laser-scattering particle counter to size and count airborne particles, then report readings over LoRaWAN at scheduled intervals. The long range and low power draw of LoRaWAN suit distributed monitoring where wiring and cellular coverage are impractical. Common deployments include smart-city air-quality networks, indoor and workplace monitoring, schools, and construction sites.
 

@@ -1,12 +1,12 @@
 // Generates a self-contained shell script that opens the contributor's pull
-// request via the GitHub CLI (`gh`) — no backend, no repo clone. It forks the
+// request via the GitHub CLI (`gh`), no backend, no repo clone. It forks the
 // repo, builds one commit through the Git Data API (text files + the base64
 // PNG), and opens the PR. Two ways to use the same artifact:
 //   1. run it yourself (engineers), or
 //   2. email it to the maintainers, who run it for you (non-technical users).
 //
 // All contributor data (file bodies, title, PR body) is fed through
-// single-quoted heredocs, so it can never break the shell — even with
+// single-quoted heredocs, so it can never break the shell, even with
 // apostrophes, $ or backticks in a payload. Only computed git SHAs are
 // interpolated at runtime.
 
@@ -40,7 +40,7 @@ export const buildScript = ({ cfg, files, meta, identity = {}, photoBase64 = nul
   const L = []
   L.push('#!/usr/bin/env bash')
   L.push('#')
-  L.push(`# ${wizardKind === 'update' ? 'Update' : 'Add'} a device on ${upstream} — opens a pull request for you.`)
+  L.push(`# ${wizardKind === 'update' ? 'Update' : 'Add'} a device on ${upstream}, opens a pull request for you.`)
   L.push('# REVIEW BEFORE RUNNING. This script only:')
   L.push(`#   • forks ${upstream} to your GitHub account,`)
   L.push('#   • commits the files below (under vendor/ only), and')
@@ -109,7 +109,7 @@ export const buildScript = ({ cfg, files, meta, identity = {}, photoBase64 = nul
   L.push('gh pr create --repo "$UPSTREAM" --base "$BASE" --head "$ME:$BRANCH" --title "$TITLE" --body "$PR_BODY"')
   if (binFile && !photoBase64) {
     L.push('')
-    L.push(`echo "⚠ No product photo was embedded — please add ${binFile.path} to the pull request."`)
+    L.push(`echo "⚠ No product photo was embedded, please add ${binFile.path} to the pull request."`)
   }
   return L.join('\n') + '\n'
 }
@@ -166,7 +166,7 @@ export const renderCliPanel = async (opts) => {
 
   panel.innerHTML = `
     <div class="cli-block">
-      <p class="cli-lede">Your files are validated and ready. Open the pull request one of two ways — both use the script below.</p>
+      <p class="cli-lede">Your files are validated and ready. Open the pull request one of two ways, both use the script below.</p>
       <div class="s-grid">
         <div class="s-field"><label>Your name <span class="s-hint" style="font-weight:400">(for commit credit, optional)</span></label><input data-cli-name placeholder="Jane Engineer" /></div>
         <div class="s-field"><label>Email <span class="s-hint" style="font-weight:400">(optional)</span></label><input data-cli-email type="email" placeholder="jane@acme.example" /></div>
@@ -174,13 +174,13 @@ export const renderCliPanel = async (opts) => {
       <div class="cli-ways">
         <div class="cli-way">
           <h4>① Run it yourself</h4>
-          <p>You have <a href="https://cli.github.com" target="_blank" rel="noopener">GitHub CLI</a>? Paste the script into a terminal (run <code>gh auth login</code> once first). It forks, commits and opens the PR — about ten seconds, no repo download.</p>
+          <p>You have <a href="https://cli.github.com" target="_blank" rel="noopener">GitHub CLI</a>? Paste the script into a terminal (run <code>gh auth login</code> once first). It forks, commits and opens the PR, about ten seconds, no repo download.</p>
           <button class="btn btn-primary" data-cli-copy>Copy script</button>
           <button class="btn btn-secondary" data-cli-download>Download .sh</button>
         </div>
         <div class="cli-way">
           <h4>② Email it to us</h4>
-          <p>Not comfortable with the terminal? Download the script and email it to the maintainers — we'll run it and open the PR for you.</p>
+          <p>Not comfortable with the terminal? Download the script and email it to the maintainers, we'll run it and open the PR for you.</p>
           <button class="btn btn-secondary" data-cli-email-btn>Email it to us</button>
         </div>
       </div>
@@ -206,7 +206,7 @@ export const renderCliPanel = async (opts) => {
     const to = submitEmail || ''
     const subject = encodeURIComponent(meta.prTitle || 'Device repository submission')
     const body = encodeURIComponent(
-      `Hi,\n\nPlease open this pull request for me — the script "${filename}" is attached (just downloaded; attach it to this email before sending).\n\n${meta.prTitle || ''}\n`,
+      `Hi,\n\nPlease open this pull request for me, the script "${filename}" is attached (just downloaded; attach it to this email before sending).\n\n${meta.prTitle || ''}\n`,
     )
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
   })

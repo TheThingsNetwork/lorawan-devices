@@ -4,7 +4,7 @@
 // (about a third of the vendor files round-trip noisily), which would bury
 // a one-line change in a wall of diff. Instead we splice replacement text
 // into the original source using the parser's node ranges, so untouched
-// lines — including comments — stay byte-identical.
+// lines, including comments, stay byte-identical.
 //
 // Every patcher records its operations; apply() splices them, re-parses the
 // result and compares it against the same operations replayed on the parsed

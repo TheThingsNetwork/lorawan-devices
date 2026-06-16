@@ -110,7 +110,7 @@ export const createCodecTester = (root) => {
       tr._actual = res.result
       if (expected === undefined) {
         markRow(tr, 'fail', 'NO EXPECTED')
-        tr.querySelector('[data-ex-result]').title = 'expected output is not valid JSON — click “Use actual” to adopt the decoder output'
+        tr.querySelector('[data-ex-result]').title = 'expected output is not valid JSON, click “Use actual” to adopt the decoder output'
         allPass = false
       } else if (deepEqual(res.result, expected)) {
         markRow(tr, 'pass', 'PASS')

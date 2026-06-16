@@ -15,8 +15,8 @@ faq:
 ---
 IP53 is an ingress-protection rating defined by IEC 60529. The two digits describe two different hazards, so decode them separately.
 
-- **First digit, 5 — solids/dust:** the enclosure is dust-protected. Dust may enter but only in amounts that do not interfere with operation; it is not fully dust-tight (that would be 6).
-- **Second digit, 3 — liquids:** protection against water sprayed at any angle up to 60 degrees from vertical. It does not cover stronger jets, all-angle splashing, or immersion.
+- **First digit, 5, solids/dust:** the enclosure is dust-protected. Dust may enter but only in amounts that do not interfere with operation; it is not fully dust-tight (that would be 6).
+- **Second digit, 3, liquids:** protection against water sprayed at any angle up to 60 degrees from vertical. It does not cover stronger jets, all-angle splashing, or immersion.
 
 In practice, IP53 suits dusty yet sheltered indoor areas and lightly exposed outdoor positions, such as under an overhang or inside a cabinet. It is not rated for washdown, hose-down cleaning, driving rain from all directions, or submersion.
 

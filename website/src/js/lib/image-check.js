@@ -1,4 +1,4 @@
-// Client-side device photo validation. Nothing is uploaded anywhere — the
+// Client-side device photo validation. Nothing is uploaded anywhere, the
 // file is inspected locally and the verdicts mirror the repository rules
 // (PNG, at most 2000×2000) plus the submission guidelines (transparent
 // background, reasonable resolution).
@@ -59,7 +59,7 @@ export const checkPhoto = async (file) => {
 
   const magic = await readMagic(file)
   const isPng = magic && PNG_MAGIC.every((b, i) => magic[i] === b)
-  add(isPng ? 'pass' : 'fail', 'PNG format', isPng ? 'valid PNG signature' : 'file is not a PNG — repository images must be PNG')
+  add(isPng ? 'pass' : 'fail', 'PNG format', isPng ? 'valid PNG signature' : 'file is not a PNG, repository images must be PNG')
 
   let url = null
   let width = 0
@@ -77,7 +77,7 @@ export const checkPhoto = async (file) => {
       add(
         Math.min(width, height) >= 600 ? 'pass' : 'warn',
         'Resolution',
-        Math.min(width, height) >= 600 ? `${width} × ${height} px` : `${width} × ${height} px — at least ~800 px recommended for crisp listings`,
+        Math.min(width, height) >= 600 ? `${width} × ${height} px` : `${width} × ${height} px, at least ~800 px recommended for crisp listings`,
       )
       const alpha = alphaStats(img)
       if (!alpha) {
@@ -85,9 +85,9 @@ export const checkPhoto = async (file) => {
       } else if (alpha.edgeRatio > 0.55) {
         add('pass', 'Transparent background', 'image edges are transparent')
       } else if (alpha.anyTransparent) {
-        add('warn', 'Transparent background', 'has transparency, but the edges look filled — make sure the background is removed')
+        add('warn', 'Transparent background', 'has transparency, but the edges look filled, make sure the background is removed')
       } else {
-        add('fail', 'Transparent background', 'no transparent pixels found — submissions must have a transparent background')
+        add('fail', 'Transparent background', 'no transparent pixels found, submissions must have a transparent background')
       }
     }
   }

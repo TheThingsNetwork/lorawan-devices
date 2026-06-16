@@ -1,4 +1,4 @@
-// Structural equality for JSON-shaped data — mirrors how CI compares codec
+// Structural equality for JSON-shaped data, mirrors how CI compares codec
 // example output (lodash.isequal on parsed YAML/JSON values).
 
 export const deepEqual = (a, b) => {

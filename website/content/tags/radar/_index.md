@@ -13,7 +13,7 @@ faq:
   - q: "What should I compare when choosing a LoRaWAN radar sensor?"
     a: "Check measurement range and accuracy, detection beam angle, the radar band used, battery life or power source, IP enclosure rating, supported regional frequency plans (EU868, US915, AS923 and others) and whether a ready-made payload codec is provided for your network server."
 ---
-Radar sensing uses reflected radio waves — typically microwave or millimeter-wave (mmWave) signals — to detect objects and measure their distance, level, presence or motion without physical contact. By timing or analyzing the frequency shift of the returned signal, a radar sensor can report fill levels in tanks, distances to surfaces, room occupancy, or the speed and direction of moving objects.
+Radar sensing uses reflected radio waves, typically microwave or millimeter-wave (mmWave) signals, to detect objects and measure their distance, level, presence or motion without physical contact. By timing or analyzing the frequency shift of the returned signal, a radar sensor can report fill levels in tanks, distances to surfaces, room occupancy, or the speed and direction of moving objects.
 
 LoRaWAN radar devices take a reading, encode it into a compact payload, and transmit it over long range at low power to a nearby gateway. Most run on batteries for years thanks to infrequent uplinks, and many tolerate dust, fog, steam and weather that defeat optical or ultrasonic alternatives.
 

@@ -15,8 +15,8 @@ faq:
 ---
 IP63 is an IEC 60529 ingress-protection rating. The two digits describe two different things, so read them in order.
 
-- **First digit 6** — the enclosure is fully dust-tight, the highest solid-particle rating, allowing no dust ingress at all.
-- **Second digit 3** — the enclosure is protected against water sprayed at angles up to 60 degrees from vertical.
+- **First digit 6**, the enclosure is fully dust-tight, the highest solid-particle rating, allowing no dust ingress at all.
+- **Second digit 3**, the enclosure is protected against water sprayed at angles up to 60 degrees from vertical.
 
 This makes IP63 a good fit for dusty indoor environments and sheltered outdoor placements, such as under eaves or inside ventilated cabinets, where light spray is possible but direct hose jets, driving rain from every direction, and immersion are not. It is not rated for washdown or submersion.
 

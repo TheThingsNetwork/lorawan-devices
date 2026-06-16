@@ -13,7 +13,7 @@ faq:
   - q: "Where are VPD sensors used?"
     a: "They are common in greenhouses, vertical farms, cannabis cultivation, mushroom growing, and crop monitoring, where keeping VPD in an optimal range improves transpiration, reduces disease pressure, and supports healthy growth."
 ---
-Vapor pressure deficit (VPD) describes how "thirsty" the air is — the gap between the moisture air could hold at saturation and what it currently holds. Most LoRaWAN devices do not sense VPD directly. Instead, they measure air temperature and relative humidity, then compute VPD (typically in kilopascals) either on the device or in the application layer.
+Vapor pressure deficit (VPD) describes how "thirsty" the air is, the gap between the moisture air could hold at saturation and what it currently holds. Most LoRaWAN devices do not sense VPD directly. Instead, they measure air temperature and relative humidity, then compute VPD (typically in kilopascals) either on the device or in the application layer.
 
 These sensors sample on a fixed schedule and send a small uplink over LoRaWAN, where a payload codec decodes temperature, humidity, and often the derived VPD value. Long range and low power let them run for years on batteries while covering greenhouse rows or open fields.
 

@@ -13,7 +13,7 @@ faq:
   - q: "Where are PM10 sensors used?"
     a: "Common uses include outdoor air-quality networks, smart cities, construction and industrial dust monitoring, roadside pollution tracking, and indoor environmental monitoring."
 ---
-PM10 measures the mass concentration of inhalable particles up to 10 micrometers across — coarse dust, pollen, mold spores, and combustion by-products that affect respiratory health and visibility. A reading is usually expressed in micrograms per cubic meter (µg/m³).
+PM10 measures the mass concentration of inhalable particles up to 10 micrometers across, coarse dust, pollen, mold spores, and combustion by-products that affect respiratory health and visibility. A reading is usually expressed in micrograms per cubic meter (µg/m³).
 
 LoRaWAN PM10 devices draw a sample past an optical particle counter, size and count the particles, then send the computed concentration in a small uplink. Because LoRaWAN is low-power and long-range, these sensors can run on batteries for extended periods while covering wide outdoor areas or hard-to-wire indoor spaces. Typical deployments include:
 

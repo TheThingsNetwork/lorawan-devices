@@ -13,7 +13,7 @@ faq:
   - q: "What should I compare when choosing one?"
     a: "Look at the pressure range and accuracy, battery life and reporting interval, enclosure rating for outdoor use, the supported regional frequency plans, and whether a payload decoder is provided."
 ---
-Barometer sensing measures **barometric (atmospheric) pressure** — the weight of the air column above the sensor — usually expressed in hectopascals (hPa) or millibars. Because pressure changes track weather systems and altitude, this reading is a core input for forecasting, environmental monitoring, and elevation estimates.
+Barometer sensing measures **barometric (atmospheric) pressure**, the weight of the air column above the sensor, usually expressed in hectopascals (hPa) or millibars. Because pressure changes track weather systems and altitude, this reading is a core input for forecasting, environmental monitoring, and elevation estimates.
 
 A LoRaWAN barometer device samples its pressure element on a schedule, packs the value into a compact payload, and transmits it over a long-range, low-power radio link to a gateway and network server. A payload codec then decodes the bytes into usable readings, often alongside temperature and battery status. The low duty cycle lets battery units run for years.
 

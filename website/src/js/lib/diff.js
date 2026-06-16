@@ -100,7 +100,7 @@ export const diffLines = (oldText, newText) => {
 }
 
 // Collapse unchanged runs to ±context lines, producing display rows including
-// {type:'skip', count} separators — the familiar unified-diff shape.
+// {type:'skip', count} separators, the familiar unified-diff shape.
 export const toHunks = (ops, context = 3) => {
   const rows = []
   let i = 0

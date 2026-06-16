@@ -15,7 +15,7 @@ faq:
 ---
 Sound sensing measures the level of ambient acoustic energy in an environment, usually expressed as sound pressure level in decibels (dB). Many LoRaWAN devices apply A-weighting (dBA) to reflect how loud noise seems to people, and some report minimum, maximum, and average values across each interval rather than a single instantaneous figure.
 
-A LoRaWAN sound sensor captures audio with an onboard microphone, computes a level locally, and transmits only the resulting numeric readings — not raw audio — to a gateway and network server. This keeps payloads small, preserves privacy, and lets battery-powered units operate for long periods at long range.
+A LoRaWAN sound sensor captures audio with an onboard microphone, computes a level locally, and transmits only the resulting numeric readings, not raw audio, to a gateway and network server. This keeps payloads small, preserves privacy, and lets battery-powered units operate for long periods at long range.
 
 Common uses include smart-city noise monitoring, workplace and occupational safety, construction-site compliance, hospitality, and tenant comfort in offices and apartments. When comparing devices, weigh:
 

@@ -229,7 +229,7 @@ const initEmulator = () => {
     payloadSel.appendChild(o)
   })
 
-  /* ---- Terminal script (curl) — runs on the user's machine, no CORS ---- */
+  /* ---- Terminal script (curl), runs on the user's machine, no CORS ---- */
 
   const scriptEl = $('[data-em-script]', modal)
   const intervalLabel = $('[data-em-script-interval]', modal)
@@ -282,7 +282,7 @@ const initEmulator = () => {
     const secs = Math.max(5, parseInt(intervalSel.value, 10) || 10)
     return [
       '#!/usr/bin/env bash',
-      '# Emulate ' + (device.name || device.modelid) + ' — sends one uplink every ' + secs + 's.',
+      '# Emulate ' + (device.name || device.modelid) + ', sends one uplink every ' + secs + 's.',
       '# Runs on your machine, so it reaches ANY endpoint with no browser/CORS limits.',
       '# Stop with Ctrl-C.',
       'set -u',
@@ -301,7 +301,7 @@ const initEmulator = () => {
       "        -H 'Content-Type: application/json' \\",
       '        --data @- \\',
       '        -o /dev/null -w "$(date +%H:%M:%S)  HTTP %{http_code}  (f_cnt=$f_cnt)\\n" \\',
-      '    || echo "$(date +%H:%M:%S)  request failed — is the endpoint reachable?"',
+      '    || echo "$(date +%H:%M:%S)  request failed, is the endpoint reachable?"',
       '  f_cnt=$((f_cnt + 1))',
       '  sleep ' + secs,
       'done',

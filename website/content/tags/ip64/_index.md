@@ -22,4 +22,4 @@ What IP64 does *not* cover:
 - Pressurised water jets (that is IP65 or IP66)
 - Temporary or continuous immersion (IP67 or IP68)
 
-Enclosure rating matters because a LoRaWAN sensor often runs for years in one spot. Choosing a rating that matches the real conditions — dust, splashes, jets, or submersion — protects the electronics and avoids premature failure. The devices below carry an IP64 rating; compare neighbouring ratings if your site is wetter or harsher.
+Enclosure rating matters because a LoRaWAN sensor often runs for years in one spot. Choosing a rating that matches the real conditions, dust, splashes, jets, or submersion, protects the electronics and avoids premature failure. The devices below carry an IP64 rating; compare neighbouring ratings if your site is wetter or harsher.

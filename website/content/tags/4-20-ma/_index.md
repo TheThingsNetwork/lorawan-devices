@@ -7,7 +7,7 @@ category: "sensor"
 related: ["analog-input", "current", "voltage", "pulse-count", "digital-input", "level"]
 faq:
   - q: "What is a LoRaWAN 4-20 mA sensor used for?"
-    a: "It interfaces with industrial transmitters that output a 4-20 mA current-loop signal — such as pressure, level, flow, or temperature transmitters — and converts that analog reading into a LoRaWAN uplink. This lets existing 4-20 mA instrumentation report wirelessly without wired SCADA cabling."
+    a: "It interfaces with industrial transmitters that output a 4-20 mA current-loop signal, such as pressure, level, flow, or temperature transmitters, and converts that analog reading into a LoRaWAN uplink. This lets existing 4-20 mA instrumentation report wirelessly without wired SCADA cabling."
   - q: "How is the 4-20 mA value sent over LoRaWAN?"
     a: "The device samples the loop current, scales it against its configured range, and transmits the value in an uplink payload on a schedule or threshold. A payload codec on the network server decodes the bytes back into the engineering units you configured."
   - q: "Can these devices power the 4-20 mA loop?"

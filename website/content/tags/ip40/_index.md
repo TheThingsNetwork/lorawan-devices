@@ -13,7 +13,7 @@ faq:
   - q: "Where should I use an IP40 device?"
     a: "IP40 suits clean, dry, indoor environments like offices, living spaces, and equipment cabinets where there is no exposure to water or heavy dust."
 ---
-IP40 is an IEC 60529 ingress-protection rating, and its two digits describe two separate things. The first digit, **4**, means the enclosure protects against solid foreign objects 1 mm in diameter and larger — including most wires, screws, and small tools — though it is not rated as fully dust-tight. The second digit, **0**, means there is no protection against water of any kind.
+IP40 is an IEC 60529 ingress-protection rating, and its two digits describe two separate things. The first digit, **4**, means the enclosure protects against solid foreign objects 1 mm in diameter and larger, including most wires, screws, and small tools, though it is not rated as fully dust-tight. The second digit, **0**, means there is no protection against water of any kind.
 
 In practice, IP40 LoRaWAN devices are built for clean, dry indoor settings. They suit:
 
