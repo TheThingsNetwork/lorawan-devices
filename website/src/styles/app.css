@@ -1180,3 +1180,29 @@ html, body {
 .dline.skip { color: var(--text-4); font-style: italic; user-select: none; }
 [data-theme="dark"] .dline.add { background: rgba(39, 205, 65, .12); color: #7BE38B; }
 [data-theme="dark"] .dline.del { background: rgba(255, 59, 48, .12); color: #FF8A80; }
+
+/* ============ TAG LANDING PAGES ============ */
+.tag-prose { max-width: 760px; padding: 28px 0 4px; color: var(--text-2); font-size: 16px; line-height: 1.7; }
+.tag-prose > :first-child { margin-top: 0; }
+.tag-prose p { margin: 0 0 16px; }
+.tag-prose h2 { font-size: 20px; font-weight: 700; color: var(--text-1); margin: 28px 0 12px; letter-spacing: -.01em; }
+.tag-prose h3 { font-size: 16px; font-weight: 600; color: var(--text-1); margin: 22px 0 8px; }
+.tag-prose ul, .tag-prose ol { margin: 0 0 16px; padding-left: 22px; }
+.tag-prose li { margin: 0 0 6px; }
+.tag-prose a { color: var(--brand); text-decoration: none; }
+.tag-prose a:hover { text-decoration: underline; }
+
+.tag-extra { padding: 8px 0 80px; }
+.tag-section { border-top: 1px solid var(--border-color); padding-top: 28px; }
+
+.faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 820px; margin-top: 14px; }
+.faq-item { border: 1px solid var(--border-color); border-radius: 10px; background: var(--surface-card); }
+.faq-item summary {
+  cursor: pointer; list-style: none; padding: 14px 18px;
+  font-size: 15px; font-weight: 600; color: var(--text-1);
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; color: var(--text-3); font-weight: 400; font-size: 20px; line-height: 1; }
+.faq-item[open] summary::after { content: "\2212"; }
+.faq-item p { margin: 0; padding: 0 18px 16px; color: var(--text-2); font-size: 14.5px; line-height: 1.65; }

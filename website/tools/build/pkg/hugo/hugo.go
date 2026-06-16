@@ -40,16 +40,26 @@ type Photo struct {
 }
 
 func generateTags(e *devicerepository.EndDevice) []string {
-	var t []string
+	var raw []string
 
-	t = append(t, e.Sensors...)
-	t = append(t, e.IPCode)
+	raw = append(raw, e.Sensors...)
+	raw = append(raw, e.IPCode)
 
 	// add frequency plans
 	for _, versions := range e.FirmwareVersions {
 		for p := range versions.Profiles {
-			t = append(t, p)
+			raw = append(raw, p)
 		}
+	}
+
+	// Drop empty values (e.g. a missing IP code) and stray "false" so we
+	// don't generate junk taxonomy pages like /tags// or /tags/false/.
+	t := make([]string, 0, len(raw))
+	for _, tag := range raw {
+		if tag == "" || tag == "false" {
+			continue
+		}
+		t = append(t, tag)
 	}
 
 	return t

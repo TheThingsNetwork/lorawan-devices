@@ -89,6 +89,35 @@
   <script type="application/ld+json">{{ $breadcrumbs | jsonify (dict "indent" "  ") | safeJS }}</script>
   {{ end }}
 
+  {{ if eq .Kind "term" }}
+  {{ $collection := dict
+    "@context" "https://schema.org"
+    "@type" "CollectionPage"
+    "name" (printf "%s | %s" .Title .Site.Title)
+    "description" .Params.description
+    "url" .Permalink
+  }}
+  <script type="application/ld+json">{{ $collection | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ $crumbs := dict
+    "@context" "https://schema.org"
+    "@type" "BreadcrumbList"
+    "itemListElement" (slice
+      (dict "@type" "ListItem" "position" 1 "name" "Devices" "item" ("" | absURL))
+      (dict "@type" "ListItem" "position" 2 "name" "Tags" "item" .Parent.Permalink)
+      (dict "@type" "ListItem" "position" 3 "name" .LinkTitle "item" .Permalink)
+    )
+  }}
+  <script type="application/ld+json">{{ $crumbs | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ with .Params.faq }}
+  {{ $entities := slice }}
+  {{ range . }}
+  {{ $entities = $entities | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}
+  {{ end }}
+  {{ $faq := dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $entities }}
+  <script type="application/ld+json">{{ $faq | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ end }}
+  {{ end }}
+
   <link rel="stylesheet" href="{{- index .Site.Data.manifest `style.css` | strings.TrimPrefix `/` | relURL -}}">
 
   {{ if eq .Permalink (print .Site.BaseURL "devices/") }}
