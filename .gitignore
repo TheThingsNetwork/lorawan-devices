@@ -11,3 +11,7 @@ bin/devices.csv
 
 # Claude Code local config
 .claude/
+
+# AI-generated drafts / scratch — keep out of commits and PRs
+*-draft.md
+doc/issue-1018-technical-proposal-draft.md
