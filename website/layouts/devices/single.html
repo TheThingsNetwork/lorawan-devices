@@ -202,7 +202,7 @@
               <div class="card-block">
                 {{ with $p.sensors }}
                 <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                  {{ range . }}<span class="fact">{{ humanize . }}</span>{{ end }}
+                  {{ range . }}{{ $tag := $.Site.GetPage (printf "/tags/%s" (urlize .)) }}{{ if $tag }}<a class="fact" href="{{ $tag.Permalink }}">{{ $tag.LinkTitle }}</a>{{ else }}<span class="fact">{{ humanize . }}</span>{{ end }}{{ end }}
                 </div>
                 {{ else }}
                 <p style="color: var(--text-3); margin: 0;">No sensors listed for this device.</p>

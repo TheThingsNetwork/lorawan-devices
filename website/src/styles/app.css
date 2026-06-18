@@ -478,6 +478,8 @@ html, body {
 }
 .fact .lab { color: var(--text-4); font-weight: 500; }
 .fact.cert { background: var(--success-050); color: var(--success-700); }
+a.fact { text-decoration: none; transition: background .12s, color .12s; }
+a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 
 .ds-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; min-width: 180px; }
 .ds-actions .btn { width: 100%; justify-content: center; }
