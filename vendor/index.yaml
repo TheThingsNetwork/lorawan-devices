@@ -2192,6 +2192,6 @@ vendors:
       linkedin: https://www.linkedin.com/showcase/fencyboy
 
   - id: mikrotik
-    name: SIA Mikrotīkls
+    name: MikroTik
     vendorID: 980
     website: https://mikrotik.com
