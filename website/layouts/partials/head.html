@@ -67,16 +67,10 @@
   {{ end }}
 
   {{ if and (eq .Section "devices") .Params.modelid }}
-  {{ $product := dict
-    "@context" "https://schema.org"
-    "@type" "Product"
-    "name" .Params.name
-    "description" .Params.description
-    "brand" (dict "@type" "Brand" "name" .Params.vendor.name)
-    "url" .Permalink
-  }}
-  {{ with $image }}{{ $product = merge $product (dict "image" ((.Resize `400x`).RelPermalink | absURL)) }}{{ end }}
-  <script type="application/ld+json">{{ $product | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{/* No Product JSON-LD: Google requires one of offers/review/aggregateRating for a valid
+       Product rich result, and the repository has no price/review/rating data to provide.
+       Emitting Product without them makes every device page an "invalid" item in Search
+       Console, so we output only the BreadcrumbList, which is valid on its own. */}}
   {{ $breadcrumbs := dict
     "@context" "https://schema.org"
     "@type" "BreadcrumbList"
