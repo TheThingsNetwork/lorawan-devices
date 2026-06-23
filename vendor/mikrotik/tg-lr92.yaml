@@ -1,4 +1,4 @@
-name: tg-lr82
+name: tg-lr92
 description: Programmable temperature, humidity, orientation, motion and magnetic switch sensor.
 
 # Hardware versions (optional)
@@ -17,12 +17,20 @@ firmwareVersions:
     # LoRaWAN Device Profiles per region
     # Supported regions: EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
     profiles:
-      EU863-870:
-        id: tg-lr82-profile-eu868
+      US902-928:
+        id: tg-lr92-profile-us902-928
         lorawanCertified: true
         codec: tg-lrx2-codec
-      IN865-867:
-        id: tg-lr82-profile-in865
+      AU915-928:
+        id: tg-lr92-profile-au915-928
+        lorawanCertified: false
+        codec: tg-lrx2-codec
+      AS923:
+        id: tg-lr92-profile-as923
+        lorawanCertified: false
+        codec: tg-lrx2-codec
+      KR920-923:
+        id: tg-lr92-profile-kr920-923
         lorawanCertified: false
         codec: tg-lrx2-codec
 
@@ -106,7 +114,7 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: 'https://mikrotik.com/product/tg_lr82'
+productURL: 'https://mikrotik.com/product/tg_lr92'
 dataSheetURL: 'https://help.mikrotik.com/docs/spaces/UM/pages/181338171/TG-LR'
 
 # Photos (MAKE SURE THE IMAGE HAS A TRANSPARENT BACKGROUND)
