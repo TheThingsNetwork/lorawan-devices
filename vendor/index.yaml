@@ -1299,6 +1299,8 @@ vendors:
   - id: kamstrup
     name: Kamstrup A/S
     vendorID: 748
+    ouis:
+      - 0013EA
 
   - id: adafruit
     name: Adafruit Industries
@@ -2192,6 +2194,6 @@ vendors:
       linkedin: https://www.linkedin.com/showcase/fencyboy
 
   - id: mikrotik
-    name: SIA Mikrotīkls
+    name: MikroTik
     vendorID: 980
     website: https://mikrotik.com
