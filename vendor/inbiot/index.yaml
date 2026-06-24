@@ -3,13 +3,9 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - 'mini-lora'
-  - 'mini-lora-mdb'
   - 'mica-lora'
-  - 'mica-lora-mdb'
   - 'plus-lora'
-  - 'plus-lora-mdb'
   - 'well-lora'
-  - 'well-lora-mdb'
 # # The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
 # # This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
 # # https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
