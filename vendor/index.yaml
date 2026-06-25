@@ -2197,3 +2197,7 @@ vendors:
     name: MikroTik
     vendorID: 980
     website: https://mikrotik.com
+
+  - id: aqualinks
+    name: Aqualinks
+    website: https://aqualinks.es
