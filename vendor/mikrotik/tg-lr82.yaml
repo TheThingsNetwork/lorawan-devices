@@ -20,11 +20,11 @@ firmwareVersions:
       EU863-870:
         id: tg-lr82-profile-eu868
         lorawanCertified: true
-        codec: tg-lr82-codec
+        codec: tg-lrx2-codec
       IN865-867:
         id: tg-lr82-profile-in865
         lorawanCertified: false
-        codec: tg-lr82-codec
+        codec: tg-lrx2-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -111,7 +111,7 @@ dataSheetURL: 'https://help.mikrotik.com/docs/spaces/UM/pages/181338171/TG-LR'
 
 # Photos (MAKE SURE THE IMAGE HAS A TRANSPARENT BACKGROUND)
 photos:
-  main: tg-lr82.png
+  main: tg-lrx2.png
 
 # Youtube or Vimeo Video (optional)
 

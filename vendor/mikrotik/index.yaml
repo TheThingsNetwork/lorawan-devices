@@ -1,5 +1,6 @@
 endDevices:
   - tg-lr82
+  - tg-lr92
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
 
 profileIDs:
@@ -8,3 +9,8 @@ profileIDs:
     firmwareVersion: '2.0'
     hardwareVersion: '1.0'
     region: 'EU863-870'
+  '1':
+    endDeviceID: 'tg-lr92'
+    firmwareVersion: '2.0'
+    hardwareVersion: '1.0'
+    region: 'US902-928'
