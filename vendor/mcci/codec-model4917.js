@@ -1,17 +1,15 @@
 /*
-
-Name:   codec-model4931.js
+Name:   model4917-decoder-ttn.js
 
 Function:
-    This function decodes the record (port 1, port4, format 0x37) sent by the
-    MCCI Model 4931 Maple Sugarbush Monitor application.
+    This function decodes the record (port 1, format 0x35) sent by the
+    MCCI Model 4917 multigas and environment sensor application.
 
 Copyright and License:
     See accompanying LICENSE file
 
 Author:
-    Pranau R, MCCI Corporation   October 2024-2026
-
+    Dhinesh Kumar Pitchai, MCCI Corporation   November 2022
 */
 
 // calculate dewpoint (degrees C) given temperature (C) and relative humidity (0..100)
@@ -140,26 +138,6 @@ function DecodeV(Parse) {
   return DecodeI16(Parse) / 4096.0;
 }
 
-/*
-
-Name:   DecodeDownlinkResponse(bytes)
-
-Function:
-        Decode the downlink response transmitted by device.
-
-Definition:
-        DecodeDownlinkResponse(
-                bytes
-                );
-
-Description:
-        A function to decode the port 3 uplink data in a human readable way.
-
-Return:
-        Returns decoded data
-
-*/
-
 function DecodeDownlinkResponse(bytes) {
   // Decode an uplink message from a buffer
   // (array) of bytes to an object of fields.
@@ -176,19 +154,16 @@ function DecodeDownlinkResponse(bytes) {
 
   if (command === 0x01) {
     // Reset device operating mode.
-    decoded.ResponseType = 'Device Heater';
+    decoded.ResponseType = 'Device Mode';
 
     var responseError = bytes[Parse.i++];
     if (responseError === 0) decoded.Response = 'Success';
     else if (responseError === 1) decoded.Response = 'Invalid Length';
     else if (responseError === 2) decoded.Response = 'Failure';
 
-    if (responseError === 0) {
-      var heaterState = bytes[Parse.i++];
-      if (heaterState === 0) decoded.heaterState = 'Heater OFF';
-      else if (heaterState === 1) decoded.heaterState = 'Heater ON';
-      else if (heaterState === 2) decoded.heaterState = 'Battery low, Heater OFF';
-    }
+    var deviceMode = bytes[Parse.i++];
+    if (deviceMode === 0) decoded.DeviceMode = 'Test';
+    else if (deviceMode === 1) decoded.DeviceMode = 'Normal';
   } else if (command === 0x02) {
     // Reset do not send a reply back.
   } else if (command === 0x03) {
@@ -212,8 +187,9 @@ function DecodeDownlinkResponse(bytes) {
       decoded.Model = Model;
       if (Rev === 0) decoded.Rev = 'A';
       else if (Rev === 1) decoded.Rev = 'B';
+      else if (Rev === 2) decoded.Rev = 'C';
     } else if (Model === 0) {
-      decoded.Model = 4931;
+      decoded.Model = 4917;
       decoded.Rev = 'Not Found';
     }
   } else if (command === 0x04) {
@@ -251,66 +227,34 @@ function DecodeDownlinkResponse(bytes) {
 
     decoded.UplinkInterval = DecodeU32(Parse);
   } else if (command === 0x08) {
-    // Data limit mode.
-    decoded.ResponseType = 'Low Data Rate Interval';
+    // Recoverable messages stored in FRAM.
+    decoded.ResponseType = 'Recoverable Uplink';
 
     var responseError = bytes[Parse.i++];
     if (responseError === 0) decoded.Response = 'Success';
     else if (responseError === 1) decoded.Response = 'Invalid Length';
-    else if (responseError === 2) decoded.Response = 'Failure';
-  } else if (command === 0x09) {
-    // Battery threshold for heater.
-    decoded.ResponseType = 'Low Battery Threshold for Heater';
+    else if (responseError === 2) {
+      decoded.Response = 'Failure';
+      decoded.sequenceNumber = DecodeU16(Parse);
+      return decoded;
+    }
 
-    var responseError = bytes[Parse.i++];
-    if (responseError === 0) decoded.Response = 'Success';
-    else if (responseError === 1) decoded.Response = 'Invalid Length';
-    else if (responseError === 2) decoded.Response = 'Failure';
-  } else if (command === 0x0a) {
-    // Battery threshold for uplink interval.
-    decoded.ResponseType = 'Low Battery Threshold for Uplink';
+    decoded.sequenceNumber = DecodeU16(Parse);
+    var timestamp = DecodeU32(Parse);
+    if (timestamp & 1) decoded.timeType = 'network time';
+    else decoded.timeType = 'boot time';
 
-    var responseError = bytes[Parse.i++];
-    if (responseError === 0) decoded.Response = 'Success';
-    else if (responseError === 1) decoded.Response = 'Invalid Length';
-    else if (responseError === 2) decoded.Response = 'Failure';
-  } else if (command === 0x0b) {
-    // Battery threshold for uplink interval.
-    decoded.ResponseType = 'Reset Sap Total Count';
-
-    var responseError = bytes[Parse.i++];
-    if (responseError === 0) decoded.Response = 'Success';
-  } else if (command === 0x0c) {
-    // Battery threshold for uplink interval.
-    decoded.ResponseType = 'Reset Rain Total Count';
-
-    var responseError = bytes[Parse.i++];
-    if (responseError === 0) decoded.Response = 'Success';
+    timestamp = (timestamp >> 1) * 2;
+    decoded.timestamp = new Date((timestamp + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000);
+    var iBoot = bytes[Parse.i++];
+    decoded.boot = iBoot;
+    decoded.tProbeBottom = DecodeI16(Parse) / 256;
+    decoded.tProbeMiddle = DecodeI16(Parse) / 256;
+    decoded.rhFlex = DecodeU16(Parse);
   }
 
   return decoded;
 }
-
-/*
-
-Name:   Decoder(bytes, port)
-
-Function:
-        Decode the transmitted uplink data.
-
-Definition:
-        Decoder(
-                bytes,
-                port
-                );
-
-Description:
-        A function to decode the uplink data in a  human readable way.
-
-Return:
-        Returns decoded data
-
-*/
 
 function Decoder(bytes, port) {
   // Decode an uplink message from a buffer
@@ -322,132 +266,26 @@ function Decoder(bytes, port) {
     return decoded;
   }
 
-  if (!(port === 1) && !(port === 3) && !(port === 4)) return null;
+  if (!(port === 1) && !(port === 2) && !(port === 3)) return null;
 
   var uFormat = bytes[0];
-  if (!(uFormat === 0x37)) return null;
+  if (!(uFormat === 0x35)) return null;
 
   // an object to help us parse.
   var Parse = {};
   Parse.bytes = bytes;
-  // i is used as the index into the message.
+  // i is used as the index into the message. Start with the flag byte.
   Parse.i = 1;
-
-  var sdCardStatus = bytes[Parse.i++];
-  if (sdCardStatus === 0) {
-    decoded.sdCardPresence = 'SD card not detected';
-    decoded.sdCardWorking = 'SD card write failed';
-  } else if (sdCardStatus === 1) {
-    decoded.sdCardPresence = 'SD card is present';
-    decoded.sdCardWorking = 'SD card write failed';
-  } else if (sdCardStatus === 2) {
-    decoded.sdCardPresence = 'SD card not detected';
-    decoded.sdCardWorking = 'SD card write success';
-  } else if (sdCardStatus === 3) {
-    decoded.sdCardPresence = 'SD card is present';
-    decoded.sdCardWorking = 'SD card write success';
-  } else {
-    // do nothing
-  }
 
   // fetch the bitmap.
   var flags = bytes[Parse.i++];
 
   if (flags & 0x1) {
-    decoded.vBat = DecodeV(Parse);
+    // sequence number
+    decoded.sequenceNumber = DecodeU16(Parse);
   }
 
   if (flags & 0x2) {
-    decoded.vBus = DecodeV(Parse);
-  }
-
-  if (flags & 0x4) {
-    var iBoot = bytes[Parse.i++];
-    decoded.boot = iBoot;
-  }
-
-  if (flags & 0x8) {
-    // we have temp, RH
-    decoded.t = DecodeI16(Parse) / 256;
-    decoded.rh = (DecodeU16(Parse) * 100) / 65535.0;
-    decoded.tDew = dewpoint(decoded.t, decoded.rh);
-    decoded.tHeatIndexC = CalculateHeatIndexCelsius(decoded.t, decoded.rh);
-  }
-
-  if (flags & 0x10) {
-    decoded.p = (DecodeU16(Parse) * 4) / 100.0;
-  }
-
-  if (flags & 0x20) {
-    // onewire temperature
-    decoded.tProbeOne = DecodeI16(Parse) / 256;
-  }
-
-  if (flags & 0x40) {
-    // onewire temperature
-    decoded.tProbeTwo = DecodeI16(Parse) / 256;
-  }
-
-  if (flags & 0x80) {
-    decoded.soil_1_TempC = DecodeI16(Parse) / 100.0;
-    decoded.soil_1_VMC = DecodeU16(Parse) / 100.0;
-    var sType = DecodeU16(Parse);
-    decoded.soil_1_Type = sType;
-  }
-
-  // fetch the bitmap.
-  var flags2 = bytes[Parse.i++];
-
-  if (flags2 & 0x1) {
-    decoded.soil_2_TempC = DecodeI16(Parse) / 100.0;
-    decoded.soil_2_VMC = DecodeU16(Parse) / 100.0;
-    var sType = DecodeU16(Parse);
-    decoded.soil_2_Type = sType;
-  }
-
-  if (flags2 & 0x2) {
-    decoded.p_1_mV = DecodeV(Parse);
-    decoded.p_1 = 750 * decoded.p_1_mV - 1375;
-  }
-
-  if (flags2 & 0x4) {
-    decoded.p_2_mV = DecodeV(Parse);
-    decoded.p_2 = 750 * decoded.p_2_mV - 1375;
-  }
-
-  if (flags2 & 0x8) {
-    // we have sap flow liters
-    var pulse_1 = (bytes[Parse.i] << 8) + bytes[Parse.i + 1];
-    Parse.i += 2;
-    decoded.sap_1_GallonsPerTap = pulse_1;
-
-    // normalize floating pulses per hour
-    var flowRateRaw_1 = (bytes[Parse.i] << 8) + bytes[Parse.i + 1];
-    Parse.i += 2;
-
-    var exp1 = flowRateRaw_1 >> 12;
-    var mant1 = (flowRateRaw_1 & 0xfff) / 4096.0;
-    var pulsePerHour_1 = mant1 * Math.pow(2, exp1 - 15) * 60 * 60 * 4;
-    decoded.sap_1_GallonsPerTapPerHour = pulsePerHour_1;
-  }
-
-  if (flags2 & 0x10) {
-    // we have rain flow liters
-    var pulse_1 = (bytes[Parse.i] << 8) + bytes[Parse.i + 1];
-    Parse.i += 2;
-    decoded.rainCount = pulse_1;
-
-    // normalize floating pulses per hour
-    var flowRateRaw_1 = (bytes[Parse.i] << 8) + bytes[Parse.i + 1];
-    Parse.i += 2;
-
-    var exp1 = flowRateRaw_1 >> 12;
-    var mant1 = (flowRateRaw_1 & 0xfff) / 4096.0;
-    var pulsePerHour_1 = mant1 * Math.pow(2, exp1 - 15) * 60 * 60 * 4;
-    decoded.rainPerHour = pulsePerHour_1;
-  }
-
-  if (flags2 & 0x20) {
     // network timestamp
     var timestamp = DecodeU32(Parse);
     if (timestamp & 1) decoded.timeType = 'network time';
@@ -457,9 +295,35 @@ function Decoder(bytes, port) {
     decoded.timestamp = new Date((timestamp + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000);
   }
 
-  var iState = bytes[Parse.i] !== undefined ? bytes[Parse.i++] : 255;
-  decoded.state = iState;
-  // at this point, decoded has the real values.
+  if (flags & 0x4) {
+    // scale and save in decoded.
+    decoded.vBat = DecodeV(Parse);
+  }
+
+  if (flags & 0x8) {
+    var iBoot = bytes[Parse.i++];
+    decoded.boot = iBoot;
+  }
+
+  if (flags & 0x10) {
+    // onewire temperature
+    decoded.tProbeBottom = DecodeI16(Parse) / 256;
+  }
+
+  if (flags & 0x20) {
+    // onewire temperature
+    decoded.tProbeMiddle = DecodeI16(Parse) / 256;
+  }
+
+  if (flags & 0x40) {
+    // we have temp, RH
+    decoded.tFlex = DecodeI16(Parse) / 256;
+    decoded.rhFlex = (DecodeU16(Parse) * 100) / 65535.0;
+  }
+
+  if (port === 1) decoded.OpMode = 'Normal';
+  if (port === 2) decoded.OpMode = 'Test';
+
   return decoded;
 }
 
