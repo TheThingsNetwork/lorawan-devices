@@ -1,0 +1,44 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: codec-model4917.js
+  # Examples (optional)
+  examples:
+    - description: SeqNum 42 Timestamp 2025-01-01T00:00:01Z(boot) Vbat 3.0V Boot 5 ProbeBottom 22C ProbeMiddle 20C FlexTemp 24C FlexRH 55%
+      input:
+        fPort: 1
+        bytes: [53, 127, 0, 42, 84, 159, 72, 18, 48, 0, 5, 22, 0, 20, 0, 24, 0, 140, 204]
+      output:
+        data:
+          {
+            'boot': 5,
+            'OpMode': 'Normal',
+            'rhFlex': 54.99961852445258,
+            'sequenceNumber': 42,
+            'tFlex': 24,
+            'timeType': 'boot time',
+            'timestamp': '2025-01-01T00:00:01Z',
+            'tProbeBottom': 22,
+            'tProbeMiddle': 20,
+            'vBat': 3,
+          }
+## downlinkEncoder:
+##   fileName: codec-model4917.js
+##   examples:
+##     - description: Turn green
+##       input:
+##         data:
+##           led: green
+##       output:
+##         bytes: [1]
+##         fPort: 2
+## downlinkDecoder:
+##   fileName: codec-model4917.js
+##   examples:
+##     - description: Turn green
+##       input:
+##         fPort: 2
+##         bytes: [1]
+##       output:
+##         data:
+##           led: green
