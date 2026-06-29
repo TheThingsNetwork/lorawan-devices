@@ -35,7 +35,7 @@ uplinkDecoder:
             'tDew': 16.69766352121289,
             'tHeatIndexC': null,
             'timeType': 'boot time',
-            'timestamp': '2025-01-01T00:00:01Z',
+            'timestamp': '2025-01-01T00:00:01.000Z',
             'tProbeOne': 20,
             'tProbeTwo': 21,
             'vBat': 3.699951171875,
