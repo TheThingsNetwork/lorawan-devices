@@ -17,7 +17,7 @@ uplinkDecoder:
             'sequenceNumber': 42,
             'tFlex': 24,
             'timeType': 'boot time',
-            'timestamp': '2025-01-01T00:00:01Z',
+            'timestamp': '2025-01-01T00:00:01.000Z',
             'tProbeBottom': 22,
             'tProbeMiddle': 20,
             'vBat': 3,
