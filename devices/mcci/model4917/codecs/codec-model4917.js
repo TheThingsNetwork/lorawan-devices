@@ -245,7 +245,7 @@ function DecodeDownlinkResponse(bytes) {
     else decoded.timeType = 'boot time';
 
     timestamp = (timestamp >> 1) * 2;
-    decoded.timestamp = new Date((timestamp + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000);
+    decoded.timestamp = new Date((timestamp + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000).toISOString();
     var iBoot = bytes[Parse.i++];
     decoded.boot = iBoot;
     decoded.tProbeBottom = DecodeI16(Parse) / 256;
@@ -292,7 +292,7 @@ function Decoder(bytes, port) {
     else decoded.timeType = 'boot time';
 
     timestamp = (timestamp >> 1) * 2;
-    decoded.timestamp = new Date((timestamp + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000);
+    decoded.timestamp = new Date((timestamp + /* gps epoch to posix */ 315964800 - /* leap seconds */ 17) * 1000).toISOString();
   }
 
   if (flags & 0x4) {
