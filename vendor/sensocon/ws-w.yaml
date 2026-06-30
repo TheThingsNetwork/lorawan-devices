@@ -1,0 +1,18 @@
+name: WS-W Wet/Wet Differential Pressure Sensor
+description: Wet/Wet Differential Pressure Sensors are designed for accurate measurement of liquid differential pressures in hydronic, water, or glycol systems. Their rugged construction and LoRaWAN support make them suitable for demanding industries.
+
+hardwareVersions:
+- version: 90309-1
+  numeric: 1
+
+firmwareVersions:
+- version: AA
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-w-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-w.png
