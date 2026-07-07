@@ -1,0 +1,59 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: wt201v1.js
+  examples:
+    - description: Smart Thermostat - WT201 - Milesight IoT
+      input:
+        fPort: 1
+        bytes:
+          - 0x03
+          - 0x67
+          - 0x02
+          - 0x01
+          - 0x04
+          - 0x67
+          - 0xA6
+          - 0x00
+          - 0x05
+          - 0xE7
+          - 0x00
+          - 0x06
+          - 0xE8
+          - 0x00
+          - 0x07
+          - 0xBC
+          - 0x00
+      output:
+        data:
+          temperature: 25.8
+          target_temperature: 16.6
+          temperature_control_mode: 'heat'
+          temperature_control_status: 'standby'
+          fan_mode: 'auto'
+          fan_status: 'standby'
+          plan_type: 'not executed'
+downlinkEncoder:
+  fileName: wt201v1-encoder.js
+  examples:
+    - description: Set temperature alarm configuration
+      input:
+        data:
+          temperature_alarm_config:
+            alarm_type: 'temperature threshold'
+            condition: 'below'
+            threshold_min: 10
+            threshold_max: 20
+            continue_time: 10
+      output:
+        bytes:
+          - 0xFF
+          - 0x06
+          - 0x01
+          - 0x64
+          - 0x00
+          - 0xC8
+          - 0x00
+          - 0x00
+          - 0x00
+          - 0x0A
+          - 0x00

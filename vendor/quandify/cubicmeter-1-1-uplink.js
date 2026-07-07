@@ -263,7 +263,7 @@ var normalizeUplink = function (input) {
           min: input.data.decoded.waterTemperatureMin, // °C
           max: input.data.decoded.waterTemperatureMax, // °C
         },
-        leak: leakStates[input.data.decoded.leak_state] ? leakStates[input.data.decoded.leak_state] : '', // String
+        leak: input.data.decoded.leakState in leakStates, // Boolean
       },
       metering: {
         water: {

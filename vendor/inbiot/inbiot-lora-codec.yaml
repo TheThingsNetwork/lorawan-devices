@@ -1,0 +1,328 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: decoder.js
+  examples:
+    - description: Device Information Message
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x02,
+            0x00,
+            0x41,
+            0x57,
+            0x45,
+            0x4c,
+            0x4c,
+            0x5f,
+            0x4c,
+            0x4f,
+            0x52,
+            0x41,
+            0x5f,
+            0x30,
+            0x30,
+            0x30,
+            0x5f,
+            0x56,
+            0x41,
+            0x43,
+            0x4d,
+            0x49,
+            0x43,
+            0x41,
+            0x5f,
+            0x57,
+            0x45,
+            0x4c,
+            0x4c,
+            0x30,
+            0xc9,
+            0x22,
+            0x60,
+            0x1f,
+            0xf8,
+            0x01,
+            0x00,
+            0x00,
+            0x00,
+            0x25,
+            0x80,
+            0x01,
+          ]
+      output:
+        data:
+          fwVersion: '2.65'
+          model: WELL_LORA_000_VAC
+          micaType: MICA_WELL
+          mac: 30:C9:22:60:1F:F8
+          resetReason: '1 Reset due to power-on event'
+          modbusAddress: 1
+          modbusParity: 0
+          modbusBaudRate: 9600
+    - description: Device Configuration Message
+      input:
+        fPort: 1
+        bytes: [00, 01, 01, 01, 00, 05, 0xFF, 00, 01]
+      output:
+        data:
+          timeToSend: 1
+          ventilation: 1
+          ledStatus: true
+          useWifi: false
+          lorawanRegion: 'EU868'
+          lorawanChannelMask: 255
+          ledConfiguration: 0
+          touchEnable: true
+    - description: Device Sensor Message For MINI devices
+      input:
+        fPort: 1
+        bytes: [01, 00, 0xFA, 02, 07, 03, 0x2F, 00, 02, 00, 00, 00, 01, 00, 01, 00, 01, 00, 01, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 00, 02, 0x4D, 0x49, 0x4E, 0x49, 00, 52, 64, 49, 0x4F, 0xFF, 0xFF]
+      output:
+        data:
+          type: 'MINI'
+          temperature: 25
+          humidity: 51.9
+          co2: 815
+          vIndex: 52
+          tIndex: 64
+          virusIndex: 49
+          iaqIndex: 79
+          moldIndex: 'Calculating'
+          dB: 'Preheating'
+          counter: 2
+    - description: Device Sensor Message For MICA devices
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x1,
+            0x0,
+            0xde,
+            0x2,
+            0x7,
+            0x3,
+            0x2f,
+            0x0,
+            0x2,
+            0x0,
+            0x0,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0x0,
+            0x2,
+            0x4d,
+            0x49,
+            0x43,
+            0x41,
+            0x0,
+            52,
+            64,
+            49,
+            0x4f,
+            0xff,
+            0xff,
+          ]
+      output:
+        data:
+          type: 'MICA'
+          temperature: 22.2
+          humidity: 51.9
+          co2: 815
+          tvoc: 0
+          pm2_5: 1
+          pm10: 1
+          vIndex: 52
+          tIndex: 64
+          virusIndex: 49
+          iaqIndex: 79
+          moldIndex: 'Calculating'
+          dB: 'Preheating'
+          counter: 2
+    - description: Device Sensor Message For PLUS devices
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x1,
+            0x0,
+            0xe9,
+            0x2,
+            0x7,
+            0x3,
+            0x2f,
+            0x0,
+            0x2,
+            0x0,
+            0x0,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0x0,
+            0x2,
+            0x50,
+            0x4c,
+            0x55,
+            0x53,
+            0x0,
+            52,
+            64,
+            49,
+            0x4f,
+            0xff,
+            0xff,
+          ]
+      output:
+        data:
+          type: 'PLUS'
+          temperature: 23.3
+          humidity: 51.9
+          co2: 815
+          tvoc: 0
+          pm2_5: 1
+          pm10: 1
+          ch2o: 2
+          pm1_0: 1
+          pm4: 1
+          vIndex: 52
+          tIndex: 64
+          virusIndex: 49
+          iaqIndex: 79
+          moldIndex: 'Calculating'
+          dB: 'Preheating'
+          counter: 2
+    - description: Device Sensor Message For WELL devices
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x1,
+            0x0,
+            0xd8,
+            0x2,
+            0x7,
+            0x3,
+            0x2f,
+            0x0,
+            0x2,
+            0x0,
+            0x0,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0x0,
+            0x1,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0xff,
+            0x0,
+            0x2,
+            0x57,
+            0x45,
+            0x4c,
+            0x4c,
+            0x0,
+            52,
+            64,
+            49,
+            0x4f,
+            0xff,
+            0xff,
+          ]
+      output:
+        data:
+          type: 'WELL'
+          temperature: 21.6
+          humidity: 51.9
+          co2: 815
+          tvoc: 0
+          pm2_5: 1
+          pm10: 1
+          ch2o: 2
+          pm1_0: 1
+          pm4: 1
+          o3: 'Preheating'
+          no2: 'Preheating'
+          co: 'Preheating'
+          vIndex: 52
+          tIndex: 64
+          virusIndex: 49
+          iaqIndex: 79
+          moldIndex: 'Calculating'
+          dB: 'Preheating'
+          counter: 2
+
+downlinkEncoder:
+  fileName: encoder.js
+  examples:
+    - description: Turn LED on
+      input:
+        data:
+          ledStatus: true
+      output:
+        bytes: [1, 1, 1]
+        fPort: 1
+    - description: Set send period to 10 min and turn LED off
+      input:
+        data:
+          ledStatus: false
+          timeToSend: 10
+      output:
+        bytes: [1, 1, 0, 2, 1, 10]
+        fPort: 1
+    - description: Reset device
+      input:
+        data:
+          resetDevice: true
+      output:
+        bytes: [15, 1, 1]
+        fPort: 1
+    - description: Set all posible parameters
+      input:
+        data:
+          ledStatus: true
+          timeToSend: 0
+          ventilation: 1
+          ledConfiguration: 0
+          touchEnable: true
+          ADREnable: true
+          DR: 0
+          sendRetransmissions: 5
+          TXPower: 5
+          confirmationEnable: true
+          dutyCycleEnable: true
+          resetDevice: false
+      output:
+        bytes: [1, 1, 1, 2, 1, 15, 3, 1, 1, 4, 1, 0, 5, 1, 1, 9, 1, 1, 10, 1, 0, 11, 1, 5, 12, 1, 5, 13, 1, 1, 15, 1, 0]
+        fPort: 1

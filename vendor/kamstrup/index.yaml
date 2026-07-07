@@ -1,6 +1,7 @@
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
   - flowiq2200-02k73a
+  - hc-003-55-multical
 
 # The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
 # This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
@@ -10,6 +11,11 @@ endDevices:
 profileIDs:
   '73':
     endDeviceID: 'flowiq2200-02k73a'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '55':
+    endDeviceID: 'hc-003-55-multical'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
     region: 'EU863-870'

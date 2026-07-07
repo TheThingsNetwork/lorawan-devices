@@ -8,4 +8,19 @@ uplinkDecoder:
         bytes: [0x03, 0x01, 0x01]
       output:
         data:
-          valve_1: on
+          valve_1: open
+downlinkEncoder:
+  fileName: uc51x-encoder.js
+  examples:
+    - description: Set valve 1 task with time and pulse rules
+      input:
+        data:
+          valve_1_task:
+            time_rule_enable: enable
+            pulse_rule_enable: enable
+            sequence_id: 0
+            valve_status: close
+            duration: 100
+            pulse: 100
+      output:
+        bytes: [0xFF, 0x1D, 0xC0, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]

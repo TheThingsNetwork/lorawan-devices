@@ -1,0 +1,100 @@
+name: tag L # Device name can not contain the vendor name
+description: robust, high-precision indoor / outdoor tracker
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '3.2.3'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: tag-s-l-profile
+        lorawanCertified: true
+        codec: tag-s-l-codec
+
+# Type of device (optional)
+# Valid values are: devkit, module, cots
+deviceType: cots
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - battery
+  - hall effect
+  - gps
+
+# Additional radios that this device has (optional)
+# Valid values are: ble, nfc, wifi, cellular.
+additionalRadios:
+  - ble
+  - wifi
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 80
+  length: 54
+  height: 23
+
+# Weight in grams (optional)
+weight: 103
+
+# Battery information (optional)
+battery:
+  replaceable: false
+  type: LiPo
+
+# Firmware programming (optional)
+# Valid values are: serial (when the user has a serial interface to update the firmware), ethernet, fuota lorawan (when the device
+# supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
+firmwareProgramming:
+  - fuota other
+
+# Product and data sheet URLs (optional)
+productURL: https://truvami.com/tag-l/
+dataSheetURL: https://truvami.com/wp-content/uploads/2023/11/factsheet_truvami_tagL.pdf
+# Link to simple, easy onboarding instructions for the device (optional).
+# Please do not use this for marketing or overly technical documents like a data sheet.
+onboardingGuideURL: https://docs.truvami.com/docs/getting-started/tag-L/
+
+# Commercial information
+resellerURLs:
+  - name: 'iot-shop'
+    region:
+      - European Union
+      - United States
+      - Canada
+    url: https://iot-shop.de
+
+msrp:
+  EUR: 160
+
+# Photos
+photos:
+  main: tag-l-side.png # Image needs to have a transparent background

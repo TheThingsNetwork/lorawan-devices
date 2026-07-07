@@ -8,11 +8,22 @@ uplinkDecoder:
         bytes: [0x04, 0x01, 0x01]
       output:
         data:
-          gpio_2: on
-    - description: LoRa Controllers (example 2) - Milesgiht IoT
+          gpio_output_2: on
+    - description: LoRa Controllers (example 2) - Milesight IoT
       input:
         fPort: 85
         bytes: [0xFF, 0x0E, 0x19, 0x13, 0x04, 0x00]
       output:
         data:
-          modbus_channels: [{ index: 19, reading: 4 }]
+          modbus_chn_19: 4
+downlinkEncoder:
+  fileName: uc50x-encoder.js
+  examples:
+    - description: Set report interval and control GPIOs
+      input:
+        data:
+          report_interval: 600
+          gpio_output_1: on
+          gpio_output_2: off
+      output:
+        bytes: [0xFF, 0x03, 0x58, 0x02, 0x03, 0x01, 0xFF, 0xFF, 0x04, 0x00, 0xFF, 0xFF]

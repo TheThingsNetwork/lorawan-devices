@@ -1,0 +1,36 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: elv-lw-gps2.js
+  # Examples (optional)
+  examples:
+    - description: cyclic gps position
+      input:
+        fPort: 10
+        bytes: [0x01, 0x01, 0x00, 0x01, 0x02, 0x02, 0x03, 0x07, 0x03, 0x01, 0x04, 0x0B, 0xFC, 0x0A, 0xE8, 0x55, 0x2A, 0x03, 0x2F, 0xC4, 0x7D, 0x00, 0xB0, 0xAD, 0x01, 0x00, 0x01, 0x0B]
+      output:
+        data:
+          altitude: 11
+          app_version: 'V1.0.1'
+          bl_version: 'V2.3.7'
+          hdop: 1.44
+          latitude: 53.106152
+          longitude: 8.242223
+          supply_voltage: 3068
+          tx_reason: 'TIMER_EVENT'
+    - description: user button gps position
+      input:
+        fPort: 10
+        bytes: [0x01, 0x01, 0x00, 0x01, 0x02, 0x02, 0x03, 0x07, 0x03, 0x02, 0x04, 0x0C, 0x02, 0x0A, 0xF8, 0x55, 0x2A, 0x03, 0x4C, 0xC4, 0x7D, 0x00, 0xB0, 0xAD, 0x01, 0x00, 0x01, 0x0B]
+      output:
+        data:
+          altitude: 11
+          app_version: 'V1.0.1'
+          bl_version: 'V2.3.7'
+          hdop: 1.44
+          latitude: 53.106168
+          longitude: 8.242252
+          supply_voltage: 3074
+          tx_reason: 'USER_BUTTON_EVENT'
+downlinkDecoder:
+  fileName: elv-lw-gps2.js

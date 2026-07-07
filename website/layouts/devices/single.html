@@ -1,78 +1,463 @@
 {{ define "main" }}
+{{ $siteUrl := "" | absURL }}
+{{ $p := .Params }}
+{{ $image := "" }}
+{{ with $p.photos }}{{ with .main }}{{ $image = $.Resources.GetMatch (printf "images/%s" .) }}{{ end }}{{ end }}
+{{ $hasCodec := $p.hascodec }}
 
-{{ $siteUrl := .Site.BaseURL }}
+<main>
+  <div class="container">
+    <div class="crumbs">
+      <a href="{{ $siteUrl }}">Devices</a>
+      <span class="sep">/</span>
+      <a href="{{ printf "devices/%s/" $p.vendor.id | absURL }}">{{ $p.vendor.name }}</a>
+      <span class="sep">/</span>
+      <span class="current">{{ $p.name }}</span>
+    </div>
 
-<section class="device-single">
-  <div class="grid">
-    <div class="item-6 item-start-4 item-xs-12 item-start-xs-1">
-      {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
-      {{with $image}}
-      {{ $img := $image.Resize "800x" }}
-      <img src="{{ $img.RelPermalink }}" class="device-single__img" />
-      {{ end }}
-    </div>
-    <div class="item-12">
-      <h1 class="device-single__title">{{ .Params.name }}</h1>
-      <span>By <a href="{{ $siteUrl }}/devices/{{.Params.Vendor.ID}}">{{.Params.Vendor.Name}}</a></span>
-    </div>
-    <div class="item-6 item-start-4">
-      <p class="device-single__description">{{ .Params.description }}</p>
-    </div>
-    <div class="item-12">
-      <div class="device-single__cta">
-        {{ with (index .Params.resellerURLs 0) }}
-        <a href="{{ .url }}" class="ttui-btn ttui-btn--primary">Buy Device</a>
+    <div class="detail-summary">
+      <div class="ds-thumb">
+        {{ with $image }}
+        <img src="{{ (.Resize "800x").RelPermalink }}" alt="{{ $p.name }}" />
+        {{ else }}
+        <div class="thumb-glyph"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg></div>
         {{ end }}
-        {{with .Params.producturl}}
-        <a href="{{ . }}" class="ttui-btn ttui-btn--primary">Partner Webpage</a>
+      </div>
+      <div class="ds-info">
+        <div class="ds-vendor">By <a href="{{ printf "devices/%s/" $p.vendor.id | absURL }}">{{ $p.vendor.name }}</a></div>
+        <h1>{{ $p.name }}</h1>
+        <p class="ds-desc">{{ $p.description }}</p>
+        <div class="ds-quickfacts">
+          {{ if $p.certified }}<span class="fact cert"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> LoRa Alliance Certified</span>{{ end }}
+          {{ with $p.classes }}<span class="fact"><span class="lab">Class</span> {{ delimit . "/" }}</span>{{ end }}
+          {{ with $p.macversions }}<span class="fact"><span class="lab">MAC</span> v{{ delimit . ", v" }}</span>{{ end }}
+          {{ with $p.ipcode }}<span class="fact"><span class="lab">IP</span> {{ . }}</span>{{ end }}
+          {{ with $p.battery }}<span class="fact"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg> {{ with .type }}{{ . }}{{ else }}Battery{{ end }}{{ if .replaceable }} · replaceable{{ end }}</span>{{ end }}
+          {{ with $p.frequencyplans }}<span class="fact"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg> {{ len . }} frequency plan{{ if ne (len .) 1 }}s{{ end }}</span>{{ end }}
+        </div>
+      </div>
+      <div class="ds-actions">
+        <a class="btn btn-primary" href="https://console.cloud.thethings.network/" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Add to The Things Stack</a>
+        {{ if $hasCodec }}
+        <button class="btn btn-secondary" data-emulator-open><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg> Emulate this device</button>
         {{ end }}
-        <a href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{.Params.name}}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{.Params.Vendor.Name}}."
-          class="ttui-btn ttui-btn--primary" id="partner-toggle">Contact Partner</a>
+        {{ with $p.datasheeturl }}
+        <a class="btn btn-secondary" href="{{ . }}" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Datasheet</a>
+        {{ else }}
+          {{ with $p.producturl }}
+          <a class="btn btn-secondary" href="{{ . }}" rel="noopener">Partner webpage ↗</a>
+          {{ end }}
+        {{ end }}
+        <a class="btn btn-secondary" id="partner-toggle" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Talk to an expert</a>
       </div>
     </div>
-    <div class="item-12">
-      <div class="device-single__specs">
-        <div class="grid">
-          <div class="item-12">
-            <h3>Specification</h3>
+  </div>
+
+  <div class="tabs-nav-wrap">
+    <div class="container">
+      <nav class="tabs-nav" data-tabs>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#specifications">Specifications</a>
+        <a href="#lorawan">LoRaWAN</a>
+        {{ if $hasCodec }}<a href="#payload-codec">Payload codec</a>{{ end }}
+        <a href="#onboarding">Onboarding</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tab-content">
+
+      <section class="tab-panel" id="overview">
+        <div class="detail-grid">
+          <div>
+            <div class="section">
+              <h2>About this device</h2>
+              <p style="font-size: 15px; line-height: 1.65; color: var(--text-2);">{{ $p.description }}</p>
+              <p style="font-size: 15px; line-height: 1.65; color: var(--text-2);">
+                The {{ $p.name }} supports {{ len ($p.frequencyplans | default slice) }} regional frequency plan{{ if ne (len ($p.frequencyplans | default slice)) 1 }}s{{ end }}
+                and operates as a Class {{ delimit ($p.classes | default (slice "A")) "/" }} LoRaWAN device.
+                {{ if $hasCodec }}A payload codec is published in the repository, so uplinks are decoded automatically when you onboard it to The Things Stack.{{ end }}
+              </p>
+            </div>
+            <div class="section">
+              <h2>Key features</h2>
+              <ul style="font-size: 14px; color: var(--text-2); line-height: 1.8; padding-left: 20px;">
+                {{ with $p.sensors }}<li>Sensors: {{ delimit . ", " }}.</li>{{ end }}
+                {{ if $p.certified }}<li>LoRa Alliance certified, verified interoperability with The Things Stack and other LoRaWAN network servers.</li>{{ end }}
+                {{ if $hasCodec }}<li>Payload codec included, uplink decoder ready for one-click activation.</li>{{ end }}
+                {{ with $p.frequencyplans }}<li>{{ len . }} frequency plan{{ if ne (len .) 1 }}s{{ end }} supported: {{ delimit . ", " }}.</li>{{ end }}
+                {{ with $p.battery }}<li>Battery powered{{ with .type }} ({{ . }}){{ end }}{{ if .replaceable }}, user replaceable{{ end }}.</li>{{ end }}
+              </ul>
+            </div>
+            <div class="section">
+              <h2>Vendor</h2>
+              <div class="card-block" style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                  <div style="font-weight: 700; font-size: 16px;">{{ $p.vendor.name }}</div>
+                  <div style="font-size: 13px; color: var(--text-3);">{{ len .Parent.RegularPages }} device{{ if ne (len .Parent.RegularPages) 1 }}s{{ end }} in the repository</div>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <a class="btn btn-secondary btn-sm" href="{{ printf "devices/%s/" $p.vendor.id | absURL }}">Vendor page</a>
+                  {{ with $p.producturl }}<a class="btn btn-secondary btn-sm" href="{{ . }}" rel="noopener">Partner webpage ↗</a>{{ end }}
+                  <a class="btn btn-secondary btn-sm" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $p.name }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $p.vendor.name }}." rel="noopener">Talk to an expert</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="item-6 item-xs-12">
-            <ul>
-              {{with .Params.sensors}} <li><b>Sensors:</b> {{ range . }} <a
-                  href="{{ $siteUrl }}/tags/{{  lower . | replaceRE ` ` `-` }}">{{ . }}</a> {{ end }}</li>{{ end }}
-              {{with .Params.ipcode}}<li><b>Enclosure:</b> <a href="{{ $siteUrl }}/tags/{{ lower . }}">{{ . }}</a></li>
+          <div>
+            <div class="aside-card">
+              <h4>At a glance</h4>
+              <div class="aside-row"><span class="k">Model ID</span><span class="v" style="font-family: var(--font-mono); font-size: 12px;">{{ $p.modelid }}</span></div>
+              {{ with $p.classes }}<div class="aside-row"><span class="k">LoRaWAN class</span><span class="v">{{ delimit . " / " }}</span></div>{{ end }}
+              {{ with $p.macversions }}<div class="aside-row"><span class="k">MAC version</span><span class="v">{{ delimit . ", " }}</span></div>{{ end }}
+              {{ with $p.ipcode }}<div class="aside-row"><span class="k">IP rating</span><span class="v">{{ . }}</span></div>{{ end }}
+              {{ with $p.battery }}<div class="aside-row"><span class="k">Battery</span><span class="v">{{ with .type }}{{ . }}{{ else }}Yes{{ end }}{{ if .replaceable }} (replaceable){{ end }}</span></div>{{ end }}
+              {{ with $p.dimensions }}
+              <div class="aside-row"><span class="k">Dimensions</span><span class="v" style="font-size: 12px;">
+                {{ if .diameter }}⌀ {{ .diameter }} mm{{ if .height }} × {{ .height }} mm{{ end }}{{ else }}{{ .length }} × {{ .width }} × {{ .height }} mm{{ end }}
+              </span></div>
               {{ end }}
-              {{with .Params.dimensions}}
-              <li>
-                <b>Dimensions:</b> {{ .length }} x {{ .width }} x {{ .height }} mm
-              </li>{{ end }}
-              {{with .Params.dimensions.diameter}}<li><b>Diameter:</b> {{ . }}</li>{{ end }}
-              {{with .Params.operatingconditions.temperature}}<li><b>Temperature:</b> {{ .min }}&#176;C to {{ .max
-                }}&#176;C</li>{{ end }}
-            </ul>
+              {{ with $p.deviceweight }}<div class="aside-row"><span class="k">Weight</span><span class="v">{{ . }} g</span></div>{{ end }}
+              {{ with $p.operatingconditions }}{{ with .temperature }}
+              <div class="aside-row"><span class="k">Operating temp.</span><span class="v">{{ .min }} °C to {{ .max }} °C</span></div>
+              {{ end }}{{ end }}
+            </div>
+            <div class="aside-card">
+              <h4>Downloads & links</h4>
+              <div class="downloads">
+                {{ with $p.datasheeturl }}
+                <a class="download-row" href="{{ . }}" rel="noopener">
+                  <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+                  <div class="meta"><strong>Datasheet</strong><span>Vendor documentation</span></div>
+                </a>
+                {{ end }}
+                {{ range $p.codecfiles }}
+                <a class="download-row" href="codecs/{{ . }}" download>
+                  <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+                  <div class="meta"><strong>{{ . }}</strong><span>Payload codec · JavaScript</span></div>
+                </a>
+                {{ end }}
+                <a class="download-row" href="{{ $.Site.Params.github }}/tree/master/vendor/{{ $p.vendor.id }}" rel="noopener">
+                  <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></span>
+                  <div class="meta"><strong>Source YAML</strong><span>vendor/{{ $p.vendor.id }}/ on GitHub</span></div>
+                </a>
+                {{ range first 3 $p.resellerurls }}
+                <a class="download-row" href="{{ .url }}" rel="noopener">
+                  <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+                  <div class="meta"><strong>Buy{{ with .name }} — {{ . }}{{ end }}</strong><span>{{ with .region }}{{ delimit . ", " }}{{ else }}Reseller{{ end }}</span></div>
+                </a>
+                {{ end }}
+              </div>
+            </div>
+            {{ $related := first 3 (where .Parent.RegularPages "Permalink" "ne" .Permalink) }}
+            {{ with $related }}
+            <div class="aside-card">
+              <h4>More from {{ $p.vendor.name }}</h4>
+              {{ range . }}
+              <a class="related-mini" href="{{ .Permalink }}">
+                <div class="rm-thumb">
+                  {{ $rp := . }}
+                  {{ with .Params.photos }}{{ with .main }}{{ with $rp.Resources.GetMatch (printf "images/%s" .) }}
+                  <img src="{{ (.Resize "200x").RelPermalink }}" alt="" loading="lazy" />
+                  {{ end }}{{ end }}{{ end }}
+                </div>
+                <div><h5>{{ .Params.name }}</h5><div class="v">{{ $p.vendor.name }}</div></div>
+              </a>
+              {{ end }}
+            </div>
+            {{ end }}
           </div>
-          <div class="item-6 item-xs-12">
-            <ul>
-              {{with .Params.deviceweight}}<li><b>Weight:</b> {{ . }} grams</li>{{ end }}
-              {{with .Params.codecs}}<li><b>Frequency plans: </b>{{ range $key, $value := . }}<a
-                  href="{{ $siteUrl }}/tags/{{ lower $key }}">{{ $key }}</a> {{ end }}</li>{{ end }}
-            </ul>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="specifications" hidden>
+        <div class="detail-grid">
+          <div>
+            <div class="section">
+              <h2>Hardware specifications</h2>
+              <div class="card-block">
+                <table class="spec-table">
+                  <tbody>
+                    <tr><td>Model ID</td><td style="font-family: var(--font-mono); font-size: 13px;">{{ $p.modelid }}</td></tr>
+                    {{ with $p.dimensions }}
+                    <tr><td>Dimensions</td><td>{{ if .diameter }}⌀ {{ .diameter }} mm{{ if .height }} × {{ .height }} mm high{{ end }}{{ else }}{{ .length }} × {{ .width }} × {{ .height }} mm{{ end }}</td></tr>
+                    {{ end }}
+                    {{ with $p.deviceweight }}<tr><td>Weight</td><td>{{ . }} g</td></tr>{{ end }}
+                    {{ with $p.ipcode }}<tr><td>IP rating</td><td>{{ . }}</td></tr>{{ end }}
+                    {{ with $p.operatingconditions }}
+                      {{ with .temperature }}<tr><td>Operating temperature</td><td>{{ .min }} °C to {{ .max }} °C</td></tr>{{ end }}
+                      {{ with .relativehumidity }}<tr><td>Relative humidity</td><td>{{ .min }}% to {{ .max }}%</td></tr>{{ end }}
+                    {{ end }}
+                    {{ with $p.battery }}
+                    <tr><td>Power</td><td>Battery{{ with .type }} — {{ . }}{{ end }}{{ if .replaceable }}, replaceable{{ end }}</td></tr>
+                    {{ end }}
+                    {{ with $p.additionalradios }}<tr><td>Additional radios</td><td>{{ delimit . ", " }}</td></tr>{{ end }}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="section">
+              <h2>Sensors & capabilities</h2>
+              <div class="card-block">
+                {{ with $p.sensors }}
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                  {{ range . }}{{ $tag := $.Site.GetPage (printf "/tags/%s" (urlize .)) }}{{ if $tag }}<a class="fact" href="{{ $tag.Permalink }}">{{ $tag.LinkTitle }}</a>{{ else }}<span class="fact">{{ humanize . }}</span>{{ end }}{{ end }}
+                </div>
+                {{ else }}
+                <p style="color: var(--text-3); margin: 0;">No sensors listed for this device.</p>
+                {{ end }}
+              </div>
+            </div>
+            <div class="section">
+              <h2>Certifications & compliance</h2>
+              <div class="card-block">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: {{ if $p.compliances }}14px{{ else }}0{{ end }};">
+                  {{ if $p.certified }}<span class="fact cert"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> LoRa Alliance Certified</span>{{ else }}<span class="fact">Not LoRa Alliance certified</span>{{ end }}
+                </div>
+                {{ with $p.compliances }}
+                <table class="spec-table">
+                  <tbody>
+                    {{ with .safety }}{{ range . }}
+                    <tr><td>Safety</td><td>{{ .standard }}{{ with .version }} ({{ . }}){{ end }}{{ with .body }} — {{ . }}{{ end }}</td></tr>
+                    {{ end }}{{ end }}
+                    {{ with .radioequipment }}{{ range . }}
+                    <tr><td>Radio equipment</td><td>{{ .standard }}{{ with .version }} ({{ . }}){{ end }}{{ with .body }} — {{ . }}{{ end }}</td></tr>
+                    {{ end }}{{ end }}
+                  </tbody>
+                </table>
+                {{ end }}
+              </div>
+            </div>
           </div>
+          <div>
+            <div class="aside-card">
+              <h4>Standards</h4>
+              <div style="font-size: 12px; color: var(--text-2); line-height: 1.7;">
+                Designed for LoRaWAN {{ with $p.macversions }}{{ delimit . ", " }}{{ else }}—{{ end }}
+                {{ with $p.regionalparametersversions }} with regional parameters {{ delimit . ", " }}{{ end }}.
+                Profiles in this repository are loaded automatically by The Things Stack.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="lorawan" hidden>
+        <div class="section">
+          <h2>Network profiles</h2>
+          <p class="section-note">Capabilities are defined per firmware version and frequency plan, exactly as published in the repository.</p>
+          {{ range $fw := $p.firmwareversions }}
+          <div class="card-block" style="margin-bottom: 16px; overflow-x: auto;">
+            <h3 style="margin: 0 0 12px;">Firmware {{ $fw.version }}</h3>
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <td>Frequency plan</td><td>MAC</td><td>Reg. params</td><td>Class</td><td>Join</td><td>Max EIRP</td><td>Certified</td>
+                </tr>
+              </thead>
+              <tbody>
+                {{ range $region, $prof := $fw.profiles }}
+                {{ $detail := index $.Params.profiles (lower $prof.id) }}
+                <tr>
+                  <td style="color: var(--text-1); font-weight: 600;">{{ $region }}</td>
+                  {{ with $detail }}
+                  <td>{{ .macversion }}</td>
+                  <td style="font-size: 12px;">{{ .regionalparametersversion }}</td>
+                  <td>{{ if .supportsclassc }}A / C{{ else if .supportsclassb }}A / B{{ else }}A{{ end }}</td>
+                  <td>{{ if .supportsjoin }}OTAA{{ else }}ABP{{ end }}</td>
+                  <td>{{ with .maxeirp }}{{ . }} dBm{{ else }}—{{ end }}</td>
+                  {{ else }}
+                  <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+                  {{ end }}
+                  <td>{{ if $prof.lorawanCertified }}<span class="yes">✓ Yes</span>{{ else }}—{{ end }}</td>
+                </tr>
+                {{ end }}
+              </tbody>
+            </table>
+          </div>
+          {{ end }}
+        </div>
+        <div class="section">
+          <h2>Frequency plan coverage</h2>
+          {{ $supported := $p.frequencyplans | default slice }}
+          <div class="region-grid">
+            {{ range $plan := slice "EU863-870" "US902-928" "AU915-928" "AS923" "AS923-2" "AS923-3" "KR920-923" "IN865-867" "RU864-870" "CN470-510" "EU433" "AS923-4" }}
+            {{ $on := in $supported $plan }}
+            <div class="region-tile {{ if $on }}on{{ else }}off{{ end }}">
+              <div class="name">{{ $plan }}</div>
+            </div>
+            {{ end }}
+          </div>
+          {{ $extra := slice }}
+          {{ range $supported }}{{ if not (in (slice "EU863-870" "US902-928" "AU915-928" "AS923" "AS923-2" "AS923-3" "KR920-923" "IN865-867" "RU864-870" "CN470-510" "EU433" "AS923-4") .) }}{{ $extra = $extra | append . }}{{ end }}{{ end }}
+          {{ with $extra }}
+          <p class="section-note" style="margin-top: 10px;">Also supported: {{ delimit . ", " }}</p>
+          {{ end }}
+        </div>
+      </section>
+
+      {{ if $hasCodec }}
+      <section class="tab-panel" id="payload-codec" hidden>
+        <div class="section" data-decoder>
+          <h2>Live decoder playground</h2>
+          <p class="section-note">Decode any hex payload client-side with the device's published codec, the exact code The Things Stack runs.</p>
+          <div class="card-block">
+            <div class="decoder-grid">
+              <div class="decoder-panel">
+                <div class="lab"><span>Uplink (hex)</span><span class="pill">FPort <input class="fport-input" style="width: 48px; padding: 1px 6px; margin-left: 4px;" data-fport value="1" /></span></div>
+                <textarea data-hex spellcheck="false"></textarea>
+                <div class="decoder-controls">
+                  <button class="btn btn-primary btn-sm" data-decode>Decode</button>
+                  <button class="btn btn-secondary btn-sm" data-random>Random example</button>
+                  <select data-plan aria-label="Frequency plan"></select>
+                  <select data-example aria-label="Example payload"></select>
+                </div>
+              </div>
+              <div class="decoder-panel">
+                <div class="lab"><span>Decoded output</span><span data-status class="status-valid"></span></div>
+                <pre class="code" data-output>// pick an example or paste a payload, then Decode</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Example uplink from The Things Stack</h2>
+          <p class="section-note">The full JSON message your application receives via MQTT or webhook when this device sends the payload above, raw bytes, decoded fields and radio metadata included.</p>
+          <div class="card-block flush">
+            <div class="code-head">
+              <span class="path" data-topic></span>
+              <span class="tag brand">MQTT · Webhook</span>
+            </div>
+            <pre class="code flush" data-envelope style="max-height: 420px; overflow: auto;">// decode a payload above to see the full envelope</pre>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Codec source</h2>
+          <div class="card-block flush">
+            <div class="code-head">
+              <span class="path">vendor/{{ $p.vendor.id }}/{{ index $p.codecfiles 0 }}</span>
+              <a class="btn btn-tertiary btn-sm" href="codecs/{{ index $p.codecfiles 0 }}" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</a>
+            </div>
+            <pre class="code flush" data-codec-source="{{ index $p.codecfiles 0 }}" style="max-height: 480px; overflow: auto;">// loading codec…</pre>
+          </div>
+        </div>
+      </section>
+      {{ end }}
+
+      <section class="tab-panel" id="onboarding" hidden>
+        <div class="section">
+          <h2>Add to The Things Stack</h2>
+          <div class="onboard-banner">
+            <div>
+              <div class="ob-eyebrow">Repository onboarding</div>
+              <div class="ob-title">Add this device to your application</div>
+              <div class="ob-sub">The device profile{{ if $hasCodec }} and payload codec{{ end }} are loaded automatically from this repository.</div>
+            </div>
+            <a class="btn" href="https://console.cloud.thethings.network/" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Open The Things Stack</a>
+          </div>
+          <div class="card-block" style="margin-top: 16px;">
+            <h3 style="margin: 0 0 6px;">Manual setup</h3>
+            <div class="wizard-step">
+              <div class="num">1</div>
+              <div class="body">
+                <h5>Create an application</h5>
+                <p>In The Things Stack console, go to <strong>Applications → Create application</strong> and pick a unique application ID.</p>
+              </div>
+            </div>
+            <div class="wizard-step">
+              <div class="num">2</div>
+              <div class="body">
+                <h5>Register an end device</h5>
+                <p>Choose <strong>From the LoRaWAN Device Repository</strong> and search for “{{ $p.name }}”. Select your firmware version and frequency plan.</p>
+              </div>
+            </div>
+            <div class="wizard-step">
+              <div class="num">3</div>
+              <div class="body">
+                <h5>Enter device credentials</h5>
+                <p>Provide the <strong>DevEUI</strong>, <strong>JoinEUI</strong> and <strong>AppKey</strong> printed on the device label or QR code.</p>
+              </div>
+            </div>
+            <div class="wizard-step">
+              <div class="num">4</div>
+              <div class="body">
+                <h5>Power on & verify uplinks</h5>
+                <p>Within a few minutes you'll see the join request and {{ if $hasCodec }}decoded {{ end }}uplinks in the <strong>Live data</strong> tab.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  {{ if $hasCodec }}
+  <div class="modal-overlay" data-emulator hidden>
+    <div class="modal" role="dialog" aria-label="Device emulator">
+      <div class="modal-head">
+        <div>
+          <h3>Device emulator</h3>
+          <p>Generate a script that sends realistic {{ $p.name }} uplinks, the exact JSON envelope The Things Stack delivers, built from the codec's real example payloads. Run it from your terminal against any endpoint.</p>
+        </div>
+        <button class="modal-x" data-em-close aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="em-field">
+          <label>Your endpoint</label>
+          <input type="text" data-em-endpoint placeholder="https://example.com/uplinks" spellcheck="false" />
+          <span class="em-hint">Prefilled into the script below, your app server, a tunnel (ngrok / cloudflared), or The Things Stack. You can also edit it in the script.</span>
+        </div>
+        <div class="em-row">
+          <div class="em-field">
+            <label>Uplink interval</label>
+            <select data-em-interval>
+              <option value="10">Every 10 seconds</option>
+              <option value="30" selected>Every 30 seconds</option>
+              <option value="60">Every minute</option>
+              <option value="900">Every 15 minutes</option>
+            </select>
+          </div>
+          <div class="em-field">
+            <label>Payload</label>
+            <select data-em-payload></select>
+          </div>
+        </div>
+        <div class="em-script-wrap">
+          <div class="em-script-head">
+            <span>Your emulator script</span>
+            <div class="em-script-btns">
+              <button class="btn btn-secondary btn-sm" data-em-copy-curl>Copy one curl</button>
+              <button class="btn btn-secondary btn-sm" data-em-copy-script>Copy loop script</button>
+            </div>
+          </div>
+          <p class="em-script-note">Runs from your machine, so it reaches <em>any</em> endpoint with no browser/CORS limits. The loop sends one uplink every <strong data-em-script-interval>10</strong>s with an incrementing frame counter.</p>
+          <pre class="code em-script" data-em-script></pre>
+          <ol class="em-script-steps">
+            <li>Edit the <code>ENDPOINT</code> line at the top if needed, it's prefilled from the field above.</li>
+            <li>Save it as <code>emulate.sh</code> and run <code>bash emulate.sh</code>, or paste the whole thing into a terminal (bash or zsh).</li>
+            <li>Each line prints the HTTP status the endpoint returned. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <span class="em-note">Nothing is sent from this page, copy the script and run it in your terminal.</span>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary" data-em-cancel>Close</button>
         </div>
       </div>
     </div>
-    <div class="item-12">
-      <div id="device-events"></div>
-    </div>
   </div>
-</section>
+  {{ end }}
+</main>
 
 <script>
   var config = {
     device: JSON.parse("{{ .Params | jsonify }}")
   }
 </script>
-
-<script src="{{- (index .Site.Data.manifest `device_single.js`) | relURL -}}"></script>
-
+<script src="{{- index .Site.Data.manifest `device_single.js` | strings.TrimPrefix `/` | relURL -}}"></script>
 {{ end }}

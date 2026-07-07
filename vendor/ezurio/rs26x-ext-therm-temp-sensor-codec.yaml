@@ -1,0 +1,104 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: rs26x.js
+  # External thermistor sensors support 8-bit width temperatures
+  examples:
+    # The following are specific to the external thermistor for calibration
+    # purposes.
+    - description: Decode Read Thermistor 560 Cal Actual
+      input:
+        bytes: [1, 192, 33, 66, 246, 230, 102, 194, 246, 230, 102]
+        fPort: 1
+      output:
+        data:
+          Battery Status: 'Good'
+          Device Status:
+            Backlog Wraparound: 'No'
+            Backlogs Available: 'No'
+            Bandwidth Limitation: 'No'
+            Sensor Fault: 'No'
+            Unsupported API Version: 'No'
+          Thermistor 560 Cal Actual:
+            Value 1: 123.44999694824219
+            Value 2: -123.44999694824219
+
+    - description: Decode Read Thermistor S-H Coefficient A
+      input:
+        bytes: [1, 192, 48, 196, 137, 121, 154]
+        fPort: 1
+      output:
+        data:
+          Battery Status: 'Good'
+          Device Status:
+            Backlog Wraparound: 'No'
+            Backlogs Available: 'No'
+            Bandwidth Limitation: 'No'
+            Sensor Fault: 'No'
+            Unsupported API Version: 'No'
+          Thermistor S-H Coefficient A: -1099.800048828125
+
+    # Group all read responses into a single response.
+    - description: Decode Read Group External Thermistor
+      input:
+        bytes: [1, 192, 33, 66, 246, 230, 102, 194, 246, 230, 102, 48, 196, 137, 121, 154]
+        fPort: 1
+      output:
+        data:
+          Battery Status: 'Good'
+          Device Status:
+            Backlog Wraparound: 'No'
+            Backlogs Available: 'No'
+            Bandwidth Limitation: 'No'
+            Sensor Fault: 'No'
+            Unsupported API Version: 'No'
+          Thermistor 560 Cal Actual:
+            Value 1: 123.44999694824219
+            Value 2: -123.44999694824219
+          Thermistor S-H Coefficient A: -1099.800048828125
+
+downlinkEncoder:
+  fileName: rs26x.js
+  examples:
+    - description: Encode Write Thermistor S-H Coefficient A
+      input:
+        data:
+          Message Type: 'Configuration Set'
+          Thermistor S-H Coefficient A: -1099.800048828125
+      output:
+        bytes: [1, 48, 196, 137, 121, 154]
+        errors: []
+        fPort: 1
+        warnings: []
+
+    - description: Encode Write Group External Thermistor
+      input:
+        data:
+          Message Type: 'Configuration Set'
+          AU Region: 'AU923'
+          Clear Backlog: 0
+          Confirmed Packets Retries: 5
+          Friendly Name: 'Sentrius RS26x'
+          Read Period: 300
+          RTC Time: 'Mon, 21 Jul 2025 16:46:00 GMT'
+          Thermistor S-H Coefficient A: -1099.800048828125
+      output:
+        bytes: [1, 5, 1, 22, 7, 5, 0, 83, 101, 110, 116, 114, 105, 117, 115, 32, 82, 83, 50, 54, 120, 0, 2, 1, 44, 31, 104, 126, 110, 200, 48, 196, 137, 121, 154]
+        errors: []
+        fPort: 1
+        warnings: []
+
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: rs26x.js
+  examples:
+    - description: Decode Write Thermistor S-H Coefficient A
+      input:
+        bytes: [1, 48, 196, 137, 121, 154]
+        fPort: 1
+      output:
+        data:
+          Message Type: 'Configuration Set'
+          Thermistor S-H Coefficient A: -1099.800048828125
+        errors: []
+        warnings: []

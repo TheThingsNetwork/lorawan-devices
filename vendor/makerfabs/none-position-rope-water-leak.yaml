@@ -1,0 +1,58 @@
+name: None-Position Rope Type Water Leak
+description: The AgroSense Non-Position Rope Type Water Leak Sensor detects water or oil leakage along the entire length of the sensor cable. It is highly sensitive, detecting water drops at any point along the cable. Upon detecting a leak, it immediately indicates and reports the event via LoRaWAN®, making it suitable for applications such as garage or kitchen water leakage detection.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: none-position-rope-water-leak-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: none-position-rope-water-leak-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: none-position-rope-water-leak-codec
+
+deviceType: cots
+
+sensors:
+  - battery
+
+dimensions:
+  width: 131
+  length: 27
+  height: 63
+
+battery:
+  replaceable: true
+  type: AAA
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+  - join server
+
+productURL: https://www.agrosense.cc/pd.jsp?recommendFromPid=0&id=12&fromMid=366
+
+photos:
+  main: none-position-rope-water-leak.jpg

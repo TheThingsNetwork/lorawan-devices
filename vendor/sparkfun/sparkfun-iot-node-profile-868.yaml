@@ -1,0 +1,27 @@
+# vendor/sparkfun/sparkfun-iot-node-profile-868.yaml
+
+# LoRaWAN MAC version
+macVersion: '1.0.4'
+
+# LoRaWAN Regional Parameters version
+regionalParametersVersion: 'RP002-1.0.1'
+
+# Device supports OTAA join
+supportsJoin: true
+
+# Maximum EIRP
+maxEIRP: 16
+
+# Supports 32-bit frame counters
+supports32bitFCnt: true
+
+# Class support
+supportsClassA: true
+supportsClassB: true
+supportsClassC: true
+
+classBTimeout: 60
+classCTimeout: 60
+pingSlotPeriod: 1
+pingSlotDataRateIndex: 0
+pingSlotFrequency: 869525000

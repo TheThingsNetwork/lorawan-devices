@@ -1,0 +1,172 @@
+uplinkDecoder:
+  fileName: dl-atm41g2.js
+  examples:
+    - description: Example 1
+      input:
+        fPort: 1
+        bytes:
+          [
+            0x02,
+            0x5e,
+            0xf8,
+            0x00,
+            0x03,
+            0x80,
+            0x5c,
+            0x00,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x00,
+            0x80,
+            0x34,
+            0x84,
+            0xb3,
+            0x80,
+            0x36,
+            0x80,
+            0xe7,
+            0x80,
+            0x86,
+            0xa6,
+            0x01,
+            0x81,
+            0xd6,
+            0x80,
+            0xed,
+            0x81,
+            0xc9,
+            0x80,
+            0x9f,
+            0x80,
+            0x00,
+            0x11,
+            0x70,
+            0x00,
+            0x01,
+            0x0a,
+            0xdc,
+          ]
+      output:
+        data:
+          air_temperature:
+            displayName: Air temperature
+            unit: "\xB0C"
+            value: 23.1
+          barometric_pressure:
+            displayName: Barometric pressure
+            unit: kPa
+            value: 97.29
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.78
+          cumulative_precipitation:
+            displayName: Cumulative precipitation
+            unit: mm
+            value: 70
+          device_id: 24312
+          internal_temperature:
+            displayName: Internal temperature
+            unit: "\xB0C"
+            value: 23.7
+          lightning_average_distance:
+            displayName: Lightning average distance
+            unit: km
+            value: 0
+          lightning_strike_count:
+            displayName: Lightning strike count
+            unit: None
+            value: 0
+          maximum_wind_speed:
+            displayName: Maximum wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.54
+          precipitation:
+            displayName: Precipitation
+            unit: mm
+            value: 0
+          precipitation_electrical_conductivity:
+            displayName: Precipitation electrical conductivity
+            unit: "\xB5S\u22C5cm\u207B\xB9"
+            value: 0
+          protocol_version: 2
+          relative_humidity:
+            displayName: Relative humidity
+            unit: '%'
+            value: 47
+          solar_radiation:
+            displayName: Solar radiation
+            unit: "W\u22C5m\u207B\xB2"
+            value: 9.2
+          tilt_angle_x_orientation:
+            displayName: Tilt angle, X orientation
+            unit: "\xB0"
+            value: 45.7
+          tilt_angle_y_orientation:
+            displayName: Tilt angle, Y orientation
+            unit: "\xB0"
+            value: 15.9
+          vapor_pressure:
+            displayName: Vapor pressure
+            unit: kPa
+            value: 1.34
+          wind_direction:
+            displayName: Wind direction
+            unit: "\xB0"
+            value: 120.3
+          wind_speed:
+            displayName: Wind speed
+            unit: "m\u22C5s\u207B\xB9"
+            value: 0.52
+    - description: Example 2
+      input:
+        fPort: 1
+        bytes: [0x02, 0x5e, 0xf8, 0x00, 0x02, 0x0a, 0xdc]
+      output:
+        data:
+          battery_voltage:
+            displayName: Battery voltage
+            unit: V
+            value: 2.78
+          device_id: 24312
+          protocol_version: 2
+
+downlinkEncoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 3600 seconds and save
+      input:
+        data:
+          command: set period + save
+          parameter: 3600
+      output:
+        bytes: [0, 2, 14, 16, 72, 164]
+        fPort: 1
+    - description: Set ADR off
+      input:
+        data:
+          command: set adr off
+      output:
+        bytes: [0, 7, 0, 0, 229, 177]
+        fPort: 1
+
+downlinkDecoder:
+  fileName: dl-downlink-codec.js
+  examples:
+    - description: Set period 600 seconds
+      input:
+        fPort: 1
+        bytes: [0x00, 0x01, 0x02, 0x58, 0x7E, 0x51]
+      output:
+        data:
+          command: set period
+          parameter: 600
+    - description: Reset
+      input:
+        fPort: 1
+        bytes: [0xFE, 0xFE, 0x00, 0x00, 0x3C, 0x50]
+      output:
+        data:
+          command: reset

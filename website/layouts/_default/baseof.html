@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="light">
 {{ partial "head.html" . }}
-<body class="theme-ttn">
+<body>
+<div class="app">
 {{ partial "header.html" . }}
-<section class="content section">
-    {{- block "main" . }}{{- end }}
-    {{ partial "footer.html" . }}
-</section>
-<script src="{{- (index .Site.Data.manifest `base.js`) | relURL -}}"></script>
+{{- block "main" . }}{{- end }}
+{{ partial "footer.html" . }}
+</div>
+<script src="{{- index .Site.Data.manifest `base.js` | strings.TrimPrefix `/` | relURL -}}"></script>
 </body>
 </html>

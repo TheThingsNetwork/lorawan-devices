@@ -1,0 +1,113 @@
+name: Milesight 2-in-1 IAQ Sensor - AM102
+description: AM102(L) is a compact indoor ambience monitoringsensor formeasurement of temperature and humidity. These data will beshownon the E-ink screen in real-time, which allow to quantify theindoorenvironment and comfort
+
+hardwareVersions:
+  - version: '1.x'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.x'
+    numeric: 1
+    hardwareVersions:
+      - '1.x'
+
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: am102-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: am102-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: am102-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: am102-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: am102-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: am102-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: am102-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: am102-codec
+
+sensors:
+  - temperature
+  - humidity
+
+dimensions:
+  width: 20.5
+  length: 68
+  height: 65
+
+battery:
+  replaceable: true
+  type: ER14505
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+  - join server
+keySecurity: none
+productURL: https://www.milesight.com/iot/product/lorawan-sensor/am102
+dataSheetURL: https://resource.milesight.com/milesight/iot/document/am102-and-am102l-datasheet-en.pdf
+resellerURLs:
+  - name: 'iot.sales@milesight.com'
+    region:
+      - United States
+      - European Union
+      - Canada
+    url: https://www.milesight-iot.com/contact-us/
+photos:
+  main: am102.png
+
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 2.2.1
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 330
+      version: 2.1.1

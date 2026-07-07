@@ -49,4 +49,4 @@ uplinkDecoder:
           Tilt_Area_2: true
           frame_type: 'Device_State'
 downlinkDecoder:
-  fileName: elv-bm-trx1.js
+  fileName: elv-lw-mob.js

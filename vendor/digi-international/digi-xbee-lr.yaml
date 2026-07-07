@@ -1,0 +1,46 @@
+name: XBee-LR
+description: Digi XBee LR LoRaWAN module (MMT with U.FL antenna connector). Software-defined radio with multi-region support and X-ON zero-touch provisioning. Use XBee Studio for configuring your lorawan settings.
+partNumber: XBLR-XM-001
+
+hardwareVersions:
+  - version: '5E0A'
+    numeric: 1
+
+firmwareVersions:
+  - version: 'A5013'
+    numeric: 1
+    hardwareVersions:
+      - '5E0A'
+    profiles:
+      EU863-870:
+        id: digi-xbee-lr-profile-868
+        lorawanCertified: false
+      US902-928:
+        id: digi-xbee-lr-profile-915
+        lorawanCertified: false
+
+  - version: 'A5012'
+    numeric: 1
+    hardwareVersions:
+      - '5E0A'
+    profiles:
+      EU863-870:
+        id: digi-xbee-lr-profile-868
+        lorawanCertified: false
+      US902-928:
+        id: digi-xbee-lr-profile-915
+        lorawanCertified: false
+
+deviceType: module
+
+# Radios (LoRa only)
+additionalRadios: []
+
+# Power/Battery (module is host-powered)
+battery: {}
+
+productURL: https://www.digi.com/products/embedded-systems/digi-x-on/digi-xbee-lr-for-lorawan
+onboardingGuideURL: https://docs.digi.com//resources/documentation/digidocs/90002591/
+
+photos:
+  main: digi-xbee-lr.png

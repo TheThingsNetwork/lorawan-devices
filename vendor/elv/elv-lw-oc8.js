@@ -142,3 +142,13 @@ return {
     data:decoded
 };
 }
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  }
+}

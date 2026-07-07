@@ -57,6 +57,7 @@ keyProvisioning:
 keySecurity: none
 
 productURL: https://www.decentlab.com/products/sapflow-sensor-for-lorawan
+dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-ISF-datasheet.pdf
 photos:
   main: dl-isf.png
 

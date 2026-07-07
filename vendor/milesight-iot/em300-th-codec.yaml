@@ -18,3 +18,16 @@ uplinkDecoder:
               temperature: 20.0
               relativeHumidity: 30.0
             battery: 50
+downlinkEncoder:
+  fileName: em300-th-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01

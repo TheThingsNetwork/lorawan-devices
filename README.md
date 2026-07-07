@@ -28,10 +28,10 @@ One of the operating systems:
 
 Development dependencies:
 
-- Node.js version 16.x 
+- Node.js version 22.x 
   - (This is recommended, as newer versions may give errors)
-- npm version 8.x
-- Go version 1.18.x
+- npm version 10.x
+- Go version 1.24.x
 
 To check your Node.js, npm and Go versions:
 

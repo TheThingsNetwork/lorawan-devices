@@ -1,0 +1,60 @@
+name: Pipe Pressure
+description: The AgroSense Pressure Sensor detects water or air pressure in pipes, allowing it to identify blockages or freezing conditions. When the LoRaWAN connection is temporarily unavailable. The stored data is automatically sent once the connection is restored.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: pipe-pressure-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: pipe-pressure-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: pipe-pressure-codec
+
+deviceType: cots
+
+sensors:
+  - pressure
+  - time
+  - battery
+
+dimensions:
+  width: 131
+  length: 27
+  height: 63
+
+battery:
+  replaceable: true
+  type: AAA
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+
+ipCode: IP68
+
+keyProvisioning:
+  - custom
+  - join server
+
+productURL: https://www.agrosense.cc/pd.jsp?recommendFromPid=0&id=16&fromMid=366
+
+photos:
+  main: pipe-pressure.jpg

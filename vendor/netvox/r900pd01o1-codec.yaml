@@ -1,0 +1,302 @@
+uplinkDecoder:
+  fileName: payload/r900pd01.js
+  examples:
+    - description: Startup version report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x0e, 0x00, 0x64, 0x0B, 0x20, 0x19, 0x11, 0x12]
+      output:
+        data:
+          Device: 'R900PD01O1'
+          SWver: 10
+          HWver: 11
+          Datecode: '20191112'
+
+    - description: Status report
+      input:
+        fPort: 22
+        bytes: [0x03, 0x01, 0x0e, 0x01, 0x01, 0x03, 0x03, 0x03, 0x00, 0x09, 0x01, 0x01, 0x01, 0x12, 0x00, 0x02, 0x01]
+      output:
+        data:
+          Device: 'R900PD01O1'
+          PH: '2.59pH'
+          TemperaturewithPH: '7.71℃'
+          NTU: '0.9ntu'
+          TemperaturewithNTU: '2.57℃'
+          Residual: '2.74mg/L'
+          LowPHAlarm: 0
+          HighPHAlarm: 1
+          LowNTUAlarm: 0
+          HighNTUAlarm: 0
+          LowResidualChlorineAlarm: 0
+          HighResidualChlorineAlarm: 0
+          LowTempWithPHAlarm: 0
+          HighTempWithPHAlarm: 0
+          LowTempWithNTUAlarm: 0
+          HighTempWithNTUAlarm: 0
+          ShockTamperAlarm: 'Alarm'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x81, 0x01, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigReportRsp'
+          Device: 'R900PD01O1'
+          Status: 'Success'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x82, 0x01, 0x0e, 0x03, 0x84, 0x07, 0x08, 0x01, 0x50, 0x06, 0x01, 0x02, 0x01, 0x00, 0x08]
+      output:
+        data:
+          Cmd: 'ReadConfigReportRsp'
+          Device: 'R900PD01O1'
+          MinTime: 900
+          MaxTime: 1800
+          PHChange: '3.36pH'
+          NTUChange: '153.7ntu'
+          ResidualChlorineChange: '5.13mg/L'
+          TemperatureChange: '0.08℃'
+
+    - description: Configure report response
+      input:
+        fPort: 23
+        bytes: [0x83, 0x01, 0x0e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityRsp'
+          Device: 'R900PD01O1'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x84, 0x01, 0x0e, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityRsp'
+          Device: 'R900PD01O1'
+          ShockSensorSensitivity: 3
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x85, 0x01, 0x0e, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigDryContactPointOutRsp'
+          Device: 'R900PD01O1'
+          Status: 'Failure'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x86, 0x01, 0x0e, 0x00, 0x03, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigDryContactPointOutRsp'
+          Device: 'R900PD01O1'
+          DryContactPointOutType: 'NormallyLowLevel'
+          OutPluseTime: '3s'
+          LowPHAlarm: 1
+          HighPHAlarm: 1
+          LowNTUAlarm: 0
+          HighNTUAlarm: 0
+          LowResidualChlorineAlarm: 0
+          HighResidualChlorineAlarm: 0
+          LowTempWithPHAlarm: 0
+          HighTempWithPHAlarm: 0
+          LowTempWithNTUAlarm: 0
+          HighTempWithNTUAlarm: 0
+          Channel: 'Channel1'
+
+    - description: Read configure report response
+      input:
+        fPort: 23
+        bytes: [0x87, 0x01, 0x0e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'TriggerDryContactPointOutRsp'
+          Device: 'R900PD01O1'
+          Status: 'Failure'
+
+downlinkDecoder:
+  fileName: payload/r900pd01.js
+  examples:
+    - description: Configure report request
+      input:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x0e, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01, 0x00, 0x04, 0x02, 0x10, 0x10, 0x10]
+      output:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900PD01O1'
+          MinTime: 900
+          MaxTime: 1800
+          PHChange: '2.57pH'
+          NTUChange: '0.4ntu'
+          ResidualChlorineChange: '5.28mg/L'
+          TemperatureChange: '41.12℃'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900PD01O1'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x0e, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900PD01O1'
+          ShockSensorSensitivity: 9
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900PD01O1'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x05, 0x01, 0x0e, 0x00, 0x0a, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ConfigDryContactPointOutReq'
+          Device: 'R900PD01O1'
+          DryContactPointOutType: 'NormallyLowLevel'
+          OutPluseTime: '10s'
+          LowPHAlarm: 0
+          HighPHAlarm: 0
+          LowNTUAlarm: 1
+          HighNTUAlarm: 0
+          LowResidualChlorineAlarm: 0
+          HighResidualChlorineAlarm: 0
+          LowTempWithPHAlarm: 0
+          HighTempWithPHAlarm: 0
+          LowTempWithNTUAlarm: 0
+          HighTempWithNTUAlarm: 0
+          Channel: 'Channel1'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x06, 0x01, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'ReadConfigDryContactPointOutReq'
+          Device: 'R900PD01O1'
+          Channel: 'Channel1'
+
+    - description: Read configure report request
+      input:
+        fPort: 23
+        bytes: [0x07, 0x01, 0x0e, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Cmd: 'TriggerDryContactPointOutReq'
+          Device: 'R900PD01O1'
+          OutPluseTime: 2
+          Channel: 'Channel2'
+
+downlinkEncoder:
+  fileName: payload/r900pd01.js
+  examples:
+    - description: Configure report request
+      input:
+        data:
+          Cmd: 'ConfigReportReq'
+          Device: 'R900PD01O1'
+          MinTime: 900
+          MaxTime: 1800
+          PHChange: 2.57
+          NTUChange: 0.4
+          ResidualChlorineChange: 5.28
+          TemperatureChange: 41.12
+      output:
+        fPort: 23
+        bytes: [0x01, 0x01, 0x0e, 0x03, 0x84, 0x07, 0x08, 0x01, 0x01, 0x00, 0x04, 0x02, 0x10, 0x10, 0x10]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigReportReq'
+          Device: 'R900PD01O1'
+      output:
+        fPort: 23
+        bytes: [0x02, 0x01, 0x0e]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'SetShockSensorSensitivityReq'
+          Device: 'R900PD01O1'
+          ShockSensorSensitivity: 5
+      output:
+        fPort: 23
+        bytes: [0x03, 0x01, 0x0e, 0x05]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'GetShockSensorSensitivityReq'
+          Device: 'R900PD01O1'
+      output:
+        fPort: 23
+        bytes: [0x04, 0x01, 0x0e]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ConfigDryContactPointOutReq'
+          Device: 'R900PD01O1'
+          DryContactPointOutType: 'NormallyLowLevel'
+          OutPluseTime: 10
+          LowPHAlarm: 0
+          HighPHAlarm: 0
+          LowNTUAlarm: 0
+          HighNTUAlarm: 1
+          LowResidualChlorineAlarm: 0
+          HighResidualChlorineAlarm: 0
+          LowTempWithPHAlarm: 0
+          HighTempWithPHAlarm: 0
+          LowTempWithNTUAlarm: 0
+          HighTempWithNTUAlarm: 0
+          Channel: 'Channel1'
+      output:
+        fPort: 23
+        bytes: [0x05, 0x01, 0x0e, 0x00, 0x0a, 0x00, 0x08, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'ReadConfigDryContactPointOutReq'
+          Device: 'R900PD01O1'
+          Channel: 'Channel1'
+      output:
+        fPort: 23
+        bytes: [0x06, 0x01, 0x0e, 0x00]
+
+    - description: Read configure report request
+      input:
+        data:
+          Cmd: 'TriggerDryContactPointOutReq'
+          Device: 'R900PD01O1'
+          OutPluseTime: 17
+          Channel: 'Channel2'
+      output:
+        fPort: 23
+        bytes: [0x07, 0x01, 0x0e, 0x11, 0x01]

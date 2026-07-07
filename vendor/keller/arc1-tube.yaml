@@ -17,7 +17,7 @@ firmwareVersions:
 # This device can be connected with various kind of KELLER pressure sensors including Level Probes and transmitters
 # The ARC1 itself measures humidity, battery capacity (0..100%), battery voltage, temperature and barometric pressure
 # The sensors attached measure pressure, temperature and optionally conductivity
-# https://docs.kolibricloud.ch/sending-technology/lora-technology/keller-lora-payload/
+# https://docs.pressuresuite.com/sending-technology/lora-technology/keller-lora-payload/
 sensors:
   - pressure
   - temperature
@@ -58,11 +58,10 @@ keyProvisioning:
 
 keySecurity: none
 
-#documentationURL: https://docs.kolibricloud.ch/sending-technology/lora-technology/
+#documentationURL: https://docs.pressuresuite.com/sending-technology/lora-technology/
 #githubURL: https://github.com/KELLERAGfuerDruckmesstechnik
-#manualURL: https://download.keller-druck.com/api/download/6qEUnTrFjvSfezrFnzxGmb/en/2018-08.pdf
-productURL: https://keller-druck.com/en/products/wireless-solutions/remote-transmission-units/arc1-tube
-dataSheetURL: https://download.keller-druck.com/api/download/VyyiKwTWpeTxLdpb9sSSK4/en/2021-01.pdf
+productURL: https://keller-pressure.com/en/products/wireless-solutions/remote-transmission-units/arc1-tube
+dataSheetURL: https://download.keller-pressure.com/api/download/VyyiKwTWpeTxLdpb9sSSK4/en/2025-05.pdf
 
 photos:
   main: arc1-tube.jpg

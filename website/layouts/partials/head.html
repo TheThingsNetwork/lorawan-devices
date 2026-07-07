@@ -1,8 +1,11 @@
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  {{ if or .Site.Params.noindex (eq .Section "submit") (eq .Section "update") }}
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="googlebot" content="noindex,nofollow" />
+  {{ else }}
   <meta name="robots" content="index,follow" />
   <meta name="googlebot" content="index,follow" />
 
@@ -13,16 +16,17 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-PP5G5BT');</script>
   <!-- End Google Tag Manager -->
+  {{ end }}
 
-  <link rel="shortcut icon" href="{{ .Site.BaseURL }}/assets/favicon.ico" />
-  <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ .Site.BaseURL }}/assets/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="152x152" href="{{ .Site.BaseURL }}/assets/favicon-152.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="{{ .Site.BaseURL }}/assets/favicon-144.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="{{ .Site.BaseURL }}/assets/favicon-120.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ .Site.BaseURL }}/assets/favicon-180.png" />
-  <link rel="apple-touch-icon" href="{{ .Site.BaseURL }}/assets/favicon-57.png" />
-  <link rel="icon" href="{{ .Site.BaseURL }}/assets/favicon-32.png" sizes="32x32" />
-  <link rel="icon" sizes="196x196" href="{{ .Site.BaseURL }}/assets/favicon-196.png" />
+  <link rel="shortcut icon" href="{{ "assets/favicon.ico" | absURL }}" />
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ "assets/favicon.ico" | absURL }}" />
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ "assets/favicon-152.png" | absURL }}" />
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ "assets/favicon-144.png" | absURL }}" />
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ "assets/favicon-120.png" | absURL }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ "assets/favicon-180.png" | absURL }}" />
+  <link rel="apple-touch-icon" href="{{ "assets/favicon-57.png" | absURL }}" />
+  <link rel="icon" href="{{ "assets/favicon-32.png" | absURL }}" sizes="32x32" />
+  <link rel="icon" sizes="196x196" href="{{ "assets/favicon-196.png" | absURL }}" />
 
   <title itemprop="name">{{ .Title }} | {{ .Site.Title }}</title>
   <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}" />
@@ -45,21 +49,76 @@
   <meta name="twitter:site" content="{{ .Site.Params.twitter }}">
   <meta name="twitter:creator" content="{{ .Site.Params.twitter }}" />
 
-  {{ $image := .Resources.GetMatch (printf "images/%s" .Params.photos.main) }}
+  {{ $image := "" }}
+  {{ with .Params.photos }}{{ with .main }}
+    {{ $image = $.Resources.GetMatch (printf "images/%s" .) }}
+  {{ end }}{{ end }}
 
   {{ with $image }}
-    <meta itemprop="image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
-    <meta property="og:image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
-    <meta name="twitter:image" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
-    <meta name="twitter:image:src" content="{{ ($image.Resize `400x`).RelPermalink | absURL }}" />
+    <meta itemprop="image" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
+    <meta property="og:image" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
+    <meta name="twitter:image" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
+    <meta name="twitter:image:src" content="{{ (.Resize `400x`).RelPermalink | absURL }}" />
   {{ else }}
-    <meta itemprop="image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
-    <meta property="og:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
-    <meta name="twitter:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
-    <meta name="twitter:image:src" content="{{ .Site.BaseURL }}/{{ .Site.Params.og_image }}" />
+    <meta itemprop="image" content="{{ .Site.Params.og_image | absURL }}" />
+    <meta property="og:image" content="{{ .Site.Params.og_image | absURL }}" />
+    <meta name="twitter:image" content="{{ .Site.Params.og_image | absURL }}" />
+    <meta name="twitter:image:src" content="{{ .Site.Params.og_image | absURL }}" />
   {{ end }}
 
-  <link rel="stylesheet" href="{{- (index .Site.Data.manifest `style.css`) | relURL -}}">
+  {{ if and (eq .Section "devices") .Params.modelid }}
+  {{ $product := dict
+    "@context" "https://schema.org"
+    "@type" "Product"
+    "name" .Params.name
+    "description" .Params.description
+    "brand" (dict "@type" "Brand" "name" .Params.vendor.name)
+    "url" .Permalink
+  }}
+  {{ with $image }}{{ $product = merge $product (dict "image" ((.Resize `400x`).RelPermalink | absURL)) }}{{ end }}
+  <script type="application/ld+json">{{ $product | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ $breadcrumbs := dict
+    "@context" "https://schema.org"
+    "@type" "BreadcrumbList"
+    "itemListElement" (slice
+      (dict "@type" "ListItem" "position" 1 "name" "Devices" "item" ("" | absURL))
+      (dict "@type" "ListItem" "position" 2 "name" .Params.vendor.name "item" (printf "devices/%s/" .Params.vendor.id | absURL))
+      (dict "@type" "ListItem" "position" 3 "name" .Params.name "item" .Permalink)
+    )
+  }}
+  <script type="application/ld+json">{{ $breadcrumbs | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ end }}
+
+  {{ if eq .Kind "term" }}
+  {{ $collection := dict
+    "@context" "https://schema.org"
+    "@type" "CollectionPage"
+    "name" (printf "%s | %s" .Title .Site.Title)
+    "description" .Params.description
+    "url" .Permalink
+  }}
+  <script type="application/ld+json">{{ $collection | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ $crumbs := dict
+    "@context" "https://schema.org"
+    "@type" "BreadcrumbList"
+    "itemListElement" (slice
+      (dict "@type" "ListItem" "position" 1 "name" "Devices" "item" ("" | absURL))
+      (dict "@type" "ListItem" "position" 2 "name" "Tags" "item" .Parent.Permalink)
+      (dict "@type" "ListItem" "position" 3 "name" .LinkTitle "item" .Permalink)
+    )
+  }}
+  <script type="application/ld+json">{{ $crumbs | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ with .Params.faq }}
+  {{ $entities := slice }}
+  {{ range . }}
+  {{ $entities = $entities | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}
+  {{ end }}
+  {{ $faq := dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $entities }}
+  <script type="application/ld+json">{{ $faq | jsonify (dict "indent" "  ") | safeJS }}</script>
+  {{ end }}
+  {{ end }}
+
+  <link rel="stylesheet" href="{{- index .Site.Data.manifest `style.css` | strings.TrimPrefix `/` | relURL -}}">
 
   {{ if eq .Permalink (print .Site.BaseURL "devices/") }}
     <meta http-equiv="refresh" content="0; url={{ .Site.BaseURL }}"/>

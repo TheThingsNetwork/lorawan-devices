@@ -1,40 +1,52 @@
-# Device Repository for LoRaWAN Website
+# Device Repository for LoRaWAN — Website
 
-An hugo static site generated from the lorawan-devices repository.
+A Hugo static site generated from the lorawan-devices repository, redesigned with the TTI design system.
 
-## Setup localhost
+The live production site is served at `https://www.thethingsnetwork.org/device-repository/`. A staging build (with `noindex`) deploys to GitHub Pages via `.github/workflows/pages.yml`.
 
-Run the steps below to run the site at `http://localhost:1313/device-repository/`
+## Architecture
 
-Requirements are `nodejs`, `yarn` and `hugo` and `go` , install these yourself.
+1. **Content generation (Go)** — `tools/build` reads `vendor/index.yaml`, every vendor's device YAML, profile YAML and codec YAML, and writes Hugo page bundles to `content/devices/{vendor}/{device}/` (front matter + product photo + codec `.js` files). URL structure is derived from this layout — **do not change output paths without an SEO migration plan**.
+2. **Frontend assets (webpack)** — `src/js` (vanilla ES modules) and `src/styles` (design tokens + app CSS) build to `static/`, with a manifest in `data/manifest.json` that the Hugo templates read. No React/TTUI dependencies.
+3. **Hugo** — `layouts/` renders the browse page (client-side filtering over server-rendered cards), device detail pages (tabs, live codec decoder, device emulator, battery estimator), vendor pages, tag pages, the vendors directory and the submit wizard.
 
-### Generate content files
+## SEO invariants
 
-`make go.deps`
-`make go.build`
+- All 1,369 historical URLs (`/`, `/devices/{vendor}/{model}/`, `/devices/{vendor}/`, `/tags/{tag}/`) must keep resolving.
+- `head.html` preserves the title pattern `{name} | Device Repository for LoRaWAN`, meta description, canonical + `<base>`, OG/Twitter tags, and adds JSON-LD (`Product`, `BreadcrumbList`).
+- Staging builds use `--environment staging` (see `config/staging/config.toml`), which sets `noindex,nofollow` and removes Google Tag Manager. Production builds keep `index,follow` + GTM.
 
-### Install frontend dependencies
+## Local development
 
-`yarn install`
+Requirements: `node` + `yarn`, `go`, `hugo` (extended).
 
-### Run development environment
+```sh
+# 1. Generate content from the vendor YAML files
+make go.deps && make go.build
 
-#### Run webpack-dev-server for frontend assets
+# 2. Build frontend assets (creates static/ and data/manifest.json)
+yarn install && yarn build
 
-`yarn start`
+# 3. Serve
+make run     # hugo server at http://localhost:1313/device-repository/
+```
 
-#### Run hugo server
+For asset watch mode use `yarn start` (webpack-dev-server) alongside `make run`.
 
-`make run`
+## Production build
 
-### How lorawan-devices becomes markdown for hugo
+```sh
+cd website
+make go.deps && make go.build
+yarn install && yarn build
+hugo --minify --baseURL https://www.thethingsnetwork.org/device-repository
+```
 
-The build scripts are written in go and are located in `tools/build`
+## Staging build (GitHub Pages)
 
-`tools/build/templates` contains `.tmpl` files for generated hugo files, edit these if you want to add content to all pages. This folder should mimic the folder structure of the hugo `content` folder.
-
-### Frontend
-
-Editable files for the front end are stored in `src` directory and are outputted by webpack to the `static` directory.
-
-Highly interactive elements are being generated using react
+```sh
+cd website
+make go.deps && make go.build
+yarn install && BASE_PATH=/lorawan-devices yarn build
+hugo --minify --environment staging --baseURL https://<user>.github.io/lorawan-devices
+```

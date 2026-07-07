@@ -16,7 +16,7 @@ uplinkDecoder:
         bytes: [0x06, 0x83, 0x56, 0x04, 0x00, 0x00]
       output:
         data:
-          energy: 1110
+          power_consumption: 1110
 
     - description: Portable Socket (example 3) - Milesight IoT
       input:
@@ -24,4 +24,15 @@ uplinkDecoder:
         bytes: [0x08, 0x70, 0x01]
       output:
         data:
-          button: open
+          socket_status: on
+downlinkEncoder:
+  fileName: ws52x-encoder.js
+  examples:
+    - description: set current alarm configuration
+      input:
+        data:
+          current_alarm_config:
+            enable: enable
+            threshold: 10
+      output:
+        bytes: [0xFF, 0x24, 0x01, 0x0A]

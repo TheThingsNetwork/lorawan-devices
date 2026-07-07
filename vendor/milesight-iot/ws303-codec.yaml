@@ -12,3 +12,12 @@ uplinkDecoder:
         data:
           battery: 100
           leak_status: leak
+downlinkEncoder:
+  fileName: ws303-encoder.js
+  examples:
+    - description: set report interval
+      input:
+        data:
+          report_interval: 600
+      output:
+        bytes: [0xFF, 0x03, 0x58, 0x02]

@@ -1,1 +1,20 @@
-<ttn-header root-url="https://www.thethingsnetwork.org"></ttn-header>
+<header class="site-header">
+  <div class="inner">
+    <a class="brand-mark" href="{{ "" | absURL }}">
+      <img src="{{ "assets/ttn-horizontal.svg" | absURL }}" alt="The Things Network" />
+      <span class="pipe">/</span>
+      <span class="repo">Device Repository for LoRaWAN<sup>®</sup></span>
+    </a>
+    <nav class="nav">
+      <a {{ if or .IsHome (eq .Section "devices") (eq .Section "tags") }}class="active"{{ end }} href="{{ "" | absURL }}">Devices</a>
+      <a {{ if eq .Section "vendors" }}class="active"{{ end }} href="{{ "vendors/" | absURL }}">Vendors</a>
+    </nav>
+    <div class="hdr-right">
+      <label class="search-mini">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Quick search…" data-quick-search data-home="{{ "" | absURL }}" aria-label="Search devices" />
+        <kbd>⌘K</kbd>
+      </label>
+    </div>
+  </div>
+</header>

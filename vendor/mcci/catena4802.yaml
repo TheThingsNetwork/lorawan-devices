@@ -46,6 +46,42 @@ firmwareVersions:
         lorawanCertified: false
         codec: codec-catena-generic
 
+  - # Firmware version
+    version: '0.1.0'
+    numeric: 2
+    #   corresponding hardware versions (optional)
+    #   hardwareVersions:
+    #     - '1.0'
+
+    # LoRaWAN device profiles per region
+    # defined regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867, RU864-870
+    profiles:
+      EU863-870:
+        # unique ID of the profile (lowercase, alpha with dashes, max 36)
+        id: catena4802-profile
+        lorawanCertified: false
+        codec: codec-catena4802
+      US902-928:
+        id: catena4802-profile
+        lorawanCertified: false
+        codec: codec-catena4802
+      AU915-928:
+        id: catena4802-profile
+        lorawanCertified: false
+        codec: codec-catena4802
+      AS923:
+        id: catena4802-profile
+        lorawanCertified: false
+        codec: codec-catena4802
+      KR920-923:
+        id: catena4802-profile
+        lorawanCertified: false
+        codec: codec-catena4802
+      IN865-867:
+        id: catena4802-profile
+        lorawanCertified: false
+        codec: codec-catena4802
+
 # Sensors that this device features (optional)
 # Valid values are:
 # accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,

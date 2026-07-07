@@ -299,3 +299,13 @@ function read_device_config(bytes){
   
   return config_tmp;
 }
+
+function decodeDownlink(input) {
+  return {
+    data: {
+      bytes: input.bytes
+    },
+    warnings: [],
+    errors: []
+  }
+}

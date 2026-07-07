@@ -1,0 +1,60 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: gs601.js
+  examples:
+    - description: LoRaWAN Vape Detector- Milesight IoT
+      input:
+        fPort: 85
+        bytes:
+          - 0x01
+          - 0x00
+          - 0x03
+          - 0x02
+          - 0x00
+          - 0x05
+          - 0x02
+          - 0x00
+          - 0x07
+          - 0x02
+          - 0x00
+          - 0x0A
+          - 0x02
+          - 0x0B
+          - 0x43
+          - 0x02
+          - 0x0D
+          - 0x30
+          - 0x00
+          - 0x0F
+          - 0x00
+          - 0x11
+          - 0x00
+
+      output:
+        data:
+          vaping_index: 0
+          pm1_0: 2
+          pm2_5: 2
+          pm10: 2
+          temperature_alarm:
+            type: 'over range error'
+          humidity: 57.9
+          tvoc: 48
+          tamper_status: 'normal'
+          buzzer: 'normal'
+downlinkEncoder:
+  fileName: gs601-encoder.js
+  examples:
+    - description: Set reporting interval to 300 seconds
+      input:
+        data:
+          reporting_interval:
+            unit: 'second'
+            seconds_of_time: 300
+      output:
+        bytes:
+          - 0x60
+          - 0x00
+          - 0x2C
+          - 0x01

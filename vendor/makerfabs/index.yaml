@@ -1,2 +1,17 @@
 endDevices:
   - ath20
+  - rtd-pt1000-temperature
+  - light-intensity
+  - barometric-pressure
+  - co2
+  - soil-moisture
+  - air-temperature-and-humidity
+  - temperature-humidity-sht31
+  - positioning-water-leak
+  - none-position-rope-water-leak
+  - gps-tracker-pa1010d
+  - gps-tracker-neo-6m
+  - leaf-moisture-sn-3001
+  - pipe-pressure
+  - 4-channel-adc
+  - soil-monitor

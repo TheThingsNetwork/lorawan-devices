@@ -35,7 +35,7 @@ uplinkDecoder:
               temperature:
                 min: 21.5
                 max: 22
-              leak: ''
+              leak: false
             metering:
               water:
                 total: 5342

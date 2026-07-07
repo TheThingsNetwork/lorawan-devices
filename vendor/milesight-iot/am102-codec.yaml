@@ -1,0 +1,37 @@
+# Uplink decoder decodes binary data uplink into a JSON object
+uplinkDecoder:
+  fileName: am102.js
+  examples:
+    - description: Milesight 2-in-1 IAQ Sensor - Milesight IoT
+      input:
+        fPort: 85
+        bytes:
+          - 0x01
+          - 0x75
+          - 0x64
+          - 0x03
+          - 0x67
+          - 0x18
+          - 0x01
+          - 0x04
+          - 0x68
+          - 0x6D
+
+      output:
+        data:
+          battery: 100
+          temperature: 28
+          humidity: 54.5
+downlinkEncoder:
+  fileName: am102-encoder.js
+  examples:
+    - description: Set report interval to 300 seconds
+      input:
+        data:
+          report_interval: 300
+      output:
+        bytes:
+          - 0xFF
+          - 0x03
+          - 0x2C
+          - 0x01

@@ -1,0 +1,38 @@
+{{- $d := . -}}
+{{- $sensors := slice }}{{ range $d.Params.sensors }}{{ $sensors = $sensors | append (lower .) }}{{ end -}}
+{{- $plans := $d.Params.frequencyplans | default slice -}}
+{{- $classes := $d.Params.classes | default slice -}}
+{{- $ip := "" }}{{ with $d.Params.ipcode }}{{ $ip = upper (index (split . " ") 0) }}{{ end -}}
+<a class="device-card" href="{{ $d.Permalink }}"
+   data-name="{{ lower $d.Params.name }}"
+   data-vendor="{{ lower $d.Params.vendor.name }}"
+   data-sensors="{{ delimit $sensors `|` }}"
+   data-plans="{{ delimit $plans `|` }}"
+   data-classes="{{ delimit $classes `|` }}"
+   data-ip="{{ $ip }}"
+   data-cert="{{ if $d.Params.certified }}1{{ else }}0{{ end }}"
+   data-codec="{{ if $d.Params.hascodec }}1{{ else }}0{{ end }}">
+  <div class="d-thumb">
+    {{ $image := "" }}
+    {{ with $d.Params.photos }}{{ with .main }}{{ $image = $d.Resources.GetMatch (printf "images/%s" .) }}{{ end }}{{ end }}
+    {{ with $image }}
+    {{ $img := .Resize "400x" }}
+    <img src="{{ $img.RelPermalink }}" alt="{{ $d.Params.name }}" loading="lazy" decoding="async" />
+    {{ else }}
+    <div class="thumb-glyph">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+    </div>
+    {{ end }}
+    {{ if $d.Params.certified }}<span class="cert-badge">✓ CERT</span>{{ end }}
+  </div>
+  <div>
+    <div class="d-vendor">{{ $d.Params.vendor.name }}</div>
+    <h3>{{ $d.Params.name }}</h3>
+  </div>
+  <p>{{ $d.Params.description | truncate 110 }}</p>
+  <div class="d-tags">
+    {{ range $classes }}<span class="tag brand">Class {{ . }}</span>{{ end }}
+    {{ range first 2 $plans }}<span class="tag">{{ . }}</span>{{ end }}
+    {{ if gt (len $plans) 2 }}<span class="tag">+{{ sub (len $plans) 2 }}</span>{{ end }}
+  </div>
+</a>
