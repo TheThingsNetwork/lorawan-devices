@@ -12,7 +12,8 @@ firmwareVersions:
     version: '1.2'
     numeric: 1
     # Corresponding hardware versions (optional)
-    hardwareVersions: 1
+    hardwareVersions:
+      - 'HW001'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -94,16 +95,14 @@ resellerURLs:
 # Photos
 photos:
   main: flow.png
-
 # Regulatory compliances (optional)
-compliances:
-  safety:
-    - body:
-      norm:
-      standard:
-
-  radioEquipment:
-    - body:
-      norm:
-      standard:
-      version:
+#compliances:
+#  safety:
+#    - body:
+#      norm:
+#      standard:
+#  radioEquipment:
+#    - body:
+#      norm:
+#      standard:
+#      version:
