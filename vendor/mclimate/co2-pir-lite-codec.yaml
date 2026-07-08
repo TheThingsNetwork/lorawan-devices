@@ -1,0 +1,40 @@
+uplinkDecoder:
+  fileName: co2-pir-lite.js
+  examples:
+    - description: Periodic keepalive
+      input:
+        fPort: 2
+        bytes: [0x81, 0x06, 0x79, 0x7E, 0xDA, 0x47, 0x18, 0xF1]
+      output:
+        data:
+          occupied: true
+          sensorTemperature: 23.3
+          relativeHumidity: 49.22
+          batteryVoltage: 3.48
+          CO2: 839
+          pirTriggerCount: 241
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 23.3
+              relativeHumidity: 49.22
+              co2: 839
+            battery: 3.48
+            action:
+              motion:
+                detected: true
+                count: 241
+    - description: Response to occupancy timeout and keepalive period commands, with appended keepalive
+      input:
+        fPort: 2
+        bytes: [0x39, 0x00, 0x3C, 0x12, 0x0A, 0x81, 0x02, 0x79, 0x7B, 0xD9, 0x5A, 0x18, 0x00]
+      output:
+        data:
+          occupancyTimeout: 60
+          keepAliveTime: 10
+          occupied: false
+          sensorTemperature: 23.3
+          relativeHumidity: 48.05
+          batteryVoltage: 3.47
+          CO2: 858
+          pirTriggerCount: 0
