@@ -9,9 +9,9 @@ hardwareVersions:
 firmwareVersions:
   - # Firmware version
     version: '1.2'
-    numeric: 1.2
+    numeric: 1
     # Corresponding hardware versions (optional)
-    hardwareVersions:
+    hardwareVersions: 1
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
