@@ -2,7 +2,7 @@ name: FLOW CORE
 description: FLOW CORE is a LoRaWAN thermostatic radiator valve designed to regulate heating room by room, reduce energy consumption and simplify building heating control. It combines local regulation, NFC configuration, remote supervision and up to 10 years of battery life depending on usage.
 
 hardwareVersions:
-  - version: 'HW001'
+  - version: '1.0'
     numeric: 1
 
 # Firmware versions (at least one is mandatory)
@@ -12,7 +12,7 @@ firmwareVersions:
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - 'HW001' # Must refer to hardwareVersions declared above
+      - '1.0' # Must refer to hardwareVersions declared above
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
