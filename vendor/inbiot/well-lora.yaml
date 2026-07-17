@@ -8,8 +8,36 @@ hardwareVersions:
     numeric: 2
 
 firmwareVersions:
-  - version: '2.X'
+  - version: '2.1'
     numeric: 1
+
+    hardwareVersions:
+      - '1.8'
+
+    profiles:
+      EU863-870:
+        id: mica-868-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      US902-928:
+        id: mica-915-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      AU915-928:
+        id: mica-915-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      AS923:
+        id: mica-915-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+      KR920-923:
+        id: mica-868-profile
+        lorawanCertified: true
+        codec: inbiot-lora-codec
+
+  - version: '2.X'
+    numeric: 2
 
     hardwareVersions:
       - '1.8'
