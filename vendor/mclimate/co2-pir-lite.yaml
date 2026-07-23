@@ -1,0 +1,98 @@
+name: CO2 + PIR Lite
+description: The MClimate CO2 + PIR Lite is a stand-alone LoRaWAN sensor measuring CO2 (NDIR sensor, 400-5000 ppm), temperature, relative humidity and occupancy (PIR sensor with 100x90 degrees field of view). Powered by 2xAA batteries lasting up to 15 years with the default configuration, it is designed for building management systems and demand-based ventilation control.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.1'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.1'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.1'
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: co2-pir-lite-profile
+        lorawanCertified: false
+        codec: co2-pir-lite-codec
+
+# Sensors that this device features (optional)
+sensors:
+  - co2
+  - temperature
+  - humidity
+  - pir
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 122
+  length: 22
+  height: 58
+
+# Weight in grams (optional)
+weight: 75
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 50
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.00
+    max: 0.80
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-co2-+-pir-lite
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FfIB9BNmF8U8iJbnSrNNb%2FMClimate-CO2%2BPIR-lite-Datasheet.pdf?alt=media&token=80d3dbd4-1302-49b7-a793-fd201c4efbca
+
+# Photos
+photos:
+  main: co2-pir-lite.png
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: '62368'
+    - body: CENELEC
+      norm: EN
+      standard: '63044'
+  electromagneticCompatibility:
+    - body: CENELEC
+      norm: EN
+      standard: '55032'
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300220-1
+    - body: ETSI
+      norm: EN
+      standard: 300220-2
+  generalCompliance:
+    - directive: '2014/53/EU'

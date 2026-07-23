@@ -94,7 +94,7 @@ dataSheetURL: http://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-
 
 # Photos
 photos:
-  main: co2-display.png
+  main: fan-coil-thermostat.png
 
 # Regulatory compliances (optional)
 compliances:
