@@ -1,7 +1,5 @@
 
-var lrs20600_events = ['heartbeat/button', 'rsvd', 'rsvd', 'rsvd', 'rsvd', 'rsvd', 'rsvd', 'rsvd'];
-var trigger_mode = ['unknown', 'NC, falling edge trigger',        'NO, rising edge trigger',
-                               'NC, rising/falling edge trigger', 'NO, rising/falling edge trigger'];
+var lrs20200_events = ['heartbeat/button', 'rsvd', 'temperature_high', 'temperature_low', 'rsvd', 'rsvd', 'rsvd', 'rsvd'];
 
 function hex2dec(hex) {
   var dec = hex&0xFFFF;
@@ -14,34 +12,31 @@ function decodeUplink(input) {
   switch (input.fPort) {
     case 10: // sensor data
       switch (input.bytes[0]) {
-        case 4:
-          var evt= "";
+        case 2: // LRS20200
+          var evt="";
           for (var i=0; i<8; i++) {
-            if ((0x01<<i)&input.bytes[1])
-              if (evt==="")
-                evt=lrs20600_events[i];
-              else
-                evt=evt+","+lrs20600_events[i];
+          if ((0x01<<i)&input.bytes[1])
+            if (evt==="")
+              evt=lrs20200_events[i];
+            else
+              evt=evt+","+lrs20200_events[i];
           }
-          if (input.bytes.length > 6) {
-            var reading = ( input.bytes[6] << 24 | input.bytes[7] << 16 | input.bytes[8] << 8 | input.bytes[9] ) +
-                          ( input.bytes[4] << 8  | input.bytes[5] ) / Math.pow( 10, input.bytes[10] );
+          if (input.bytes.length >= 9) { // adaptive reporting mode
             return {
               data: {
                 event: evt,
                 battery: input.bytes[2],
-                inputStatus: input.bytes[3] ? "close" : "open",
-                meterReading: reading
+                temperature: hex2dec(input.bytes[3]<<8|input.bytes[4])/10,
+                uplinkCount: hex2dec(input.bytes[7]<<8|input.bytes[8])
               }
             };
           }
-          else {
+          else { // periodic reporting mode
             return {
               data: {
                 event: evt,
                 battery: input.bytes[2],
-                inputStatus: input.bytes[3] ? "close" : "open",
-                eventCount: input.bytes[4]<<8|input.bytes[5]
+                temperature: hex2dec(input.bytes[3]<<8|input.bytes[4])/10
               }
             };
           }
@@ -70,12 +65,10 @@ function decodeUplink(input) {
       };
     case 12: // device settings
       switch (input.bytes[0]) {
-        case 4:
+        case 2:
           return {
             data: {
-              dataUploadInterval: hex2dec(input.bytes[1]<<8|input.bytes[2]),
-              triggerMode: (input.bytes[3] < 5) ? trigger_mode[input.bytes[3]] : trigger_mode[0],
-              triggerDeafTime: hex2dec(input.bytes[4]<<8|input.bytes[5])
+              dataUploadInterval: hex2dec(input.bytes[1]<<8|input.bytes[2])
             }
           };
         default:
@@ -84,13 +77,13 @@ function decodeUplink(input) {
           };
       }
       break;
-    case 13: // dry contact settings
+    case 13: // threshold settings
       switch (input.bytes[0]) {
-        case 4:
-          var state = input.bytes[1] ? 'enable': 'disable';
+        case 2:
           return {
             data: {
-              inputEnabled: state
+              highTemperatureThreshold: hex2dec(input.bytes[1]<<8|input.bytes[2]),
+              lowTemperatureThreshold:  hex2dec(input.bytes[3]<<8|input.bytes[4])
             }
           };
         default:
@@ -99,16 +92,15 @@ function decodeUplink(input) {
           };
       }
       break;
-    case 16: // pulse counter mode settings
+    case 16: // delta mode settings
       switch (input.bytes[0]) {
-        case 4:
+        case 2:
           return {
             data: {
-              pulseCountMode: input.bytes[1] ? 'enable' : 'disable',
-              maxDigit: input.bytes[2],
-              resolution: input.bytes[3],
-              initialReadingInteger: input.bytes[4] << 24 | input.bytes[5] << 16 | input.bytes[6] << 8 | input.bytes[7],
-              initialReadingDecimal: input.bytes[8] << 8 | input.bytes[9]
+              maximumSilentTime: input.bytes[1]<<8|input.bytes[2],
+              deltaTemperature:  (input.bytes[3]<<8|input.bytes[4])/10,
+              samplingTime:      input.bytes[5]<<8|input.bytes[6],
+              repeat:            input.bytes[7]
             }
           };
         default:
