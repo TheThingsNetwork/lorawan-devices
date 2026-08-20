@@ -1,0 +1,77 @@
+# The website is a downstream consumer of the device data in this repository,
+# not a gate on it: vendors contribute device YAML, codecs and images, and it
+# is not their responsibility to keep the Hugo site building. This workflow is
+# therefore scoped to the files the website build actually reads, so a pull
+# request that only touches vendor/ never triggers it -- an internal website
+# problem can never show up as a failure on a vendor's device submission.
+#
+# Vendor data reaching the site is still covered: the generator consumes
+# vendor/ during Release Device Repository on every push to master, which is
+# where such a break surfaces today.
+name: Build website
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'website/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'schema.json'
+      - 'lib/**'
+      - '.github/workflows/build-website.yml'
+  pull_request:
+    paths:
+      - 'website/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'schema.json'
+      - 'lib/**'
+      - '.github/workflows/build-website.yml'
+
+jobs:
+  build-website:
+    name: Build website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '~1.24'
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.159.2'
+          extended: true
+      - name: Download Go dependencies
+        run: |
+          cd website/
+          make go.deps
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: Build content
+        run: |
+          cd website/
+          make go.build
+      - name: Build assets
+        run: |
+          cd website/
+          yarn install
+          yarn build
+        env:
+          BASE_URL: https://www.thethingsnetwork.org
+          BASE_PATH: /device-repository
+      - name: Build Hugo
+        run: |
+          cd website/
+          make hugo.build.public
+        env:
+          BASE_URL: https://www.thethingsnetwork.org
+          BASE_PATH: /device-repository
