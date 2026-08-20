@@ -26,6 +26,9 @@ on:
       - 'lib/**'
       - '.github/workflows/build-website.yml'
 
+permissions:
+  contents: read
+
 jobs:
   build-website:
     name: Build website
