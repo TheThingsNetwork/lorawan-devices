@@ -2197,3 +2197,15 @@ vendors:
     name: MikroTik
     vendorID: 980
     website: https://mikrotik.com
+
+  - id: advangrid
+    name: AdvanGrid
+    website: https://advangrid.com
+
+  - id: aqualinks
+    name: Aqualinks
+    website: https://aqualinks.es
+
+  - id: safora
+    name: Safora Technologies
+    website: https://www.safora-tech.com

@@ -1,0 +1,57 @@
+# Dependabot configuration.
+#
+# Security updates are enabled at the repository level and need no config; the
+# entries below exist to GROUP those security PRs per ecosystem, so a batch of
+# advisories lands as one reviewable PR instead of one PR per package.
+#
+# `open-pull-requests-limit: 0` disables scheduled *version* updates. Only
+# security updates are opened, and the `applies-to: security-updates` groups
+# below collapse them. Raise the limit if routine version bumps are wanted.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    groups:
+      root-npm-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
+
+  - package-ecosystem: npm
+    directory: /website
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    groups:
+      website-npm-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
+
+  - package-ecosystem: gomod
+    directories:
+      - /tools/runscript
+      - /tools/validate-image
+      - /website/tools/build
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    groups:
+      go-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+    groups:
+      actions-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
