@@ -16,7 +16,7 @@ uplinkDecoder:
     - description: User Registration
       input:
         fPort: 10
-        bytes: [0xD1, 0x1F, 0x34, 0x56, 0x78]
+        bytes: [0xD1, 0x20, 0x1F, 0x34, 0x56, 0x78]
       output:
         data:
           type: user_registration
@@ -24,6 +24,7 @@ uplinkDecoder:
           previous_state_duration: 160
           previous_state_duration_error: 4
           previous_state_duration_overflow: false
+          tag_battery_voltage: 3.2
           tag_id: '1F345678'
 
     - description: Heartbeat
