@@ -3,4 +3,7 @@ endDevices:
   - lrs20310
   - lrs20600
   - lrs10701
-  - lrs2m001-4xxx
+  - lrs2m001-4p3p
+  - lrs20ld0
+  - lrs20u00
+  - lrs20ud0

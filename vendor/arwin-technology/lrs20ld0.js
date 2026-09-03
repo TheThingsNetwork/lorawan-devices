@@ -1,31 +1,25 @@
 
-var lrs20310_events = ['heartbeat/button', 'rsvd', 'water_leak_alert', 'cable_break_alert', 'rsvd', 'rsvd', 'rsvd', 'rsvd'];
-
-function hex2dec(hex) {
-  var dec = hex&0xFFFF;
-  if (dec & 0x8000)
-    dec = -(0x10000-dec);
-  return dec;
-}
+var lrs20ld0_events = ['heartbeat/button', 'rsvd', 'state_alert', 'rsvd', 'rsvd', 'rsvd', 'rsvd', 'rsvd'];
 
 function decodeUplink(input) {
   switch (input.fPort) {
     case 10: // sensor data
       switch (input.bytes[0]) {
-        case 5:
+        case 11:
           var evt="";
           for (var i=0; i<8; i++) {
             if ((0x01<<i)&input.bytes[1])
               if (evt==="")
-                evt=lrs20310_events[i];
+                evt=lrs20ld0_events[i];
               else
-                evt=evt+","+lrs20310_events[i];
+                evt=evt+","+lrs20ld0_events[i];
           }
           return {
             data: {
               event: evt,
               battery: input.bytes[2],
-              waterLeakLevel: input.bytes[3]
+              distance: (input.bytes[3]<<8 | input.bytes[4])/10,
+              state: input.bytes[5]
             }
           };
         default:
@@ -53,12 +47,10 @@ function decodeUplink(input) {
       };
     case 12: // device settings
       switch (input.bytes[0]) {
-        case 5:
+        case 11:
           return {
             data: {
-              dataUploadInterval: hex2dec(input.bytes[1]<<8|input.bytes[2]),
-              numAdditionalUploads: input.bytes[4],
-              additionalUploadsInterval: input.bytes[5]
+              dataUploadInterval: input.bytes[1]<<8|input.bytes[2]
             }
           };
         default:
@@ -69,10 +61,12 @@ function decodeUplink(input) {
       break;
     case 13: // threshold settings
       switch (input.bytes[0]) {
-        case 5:
+        case 11:
           return {
             data: {
-              waterLeakAlertThreshold: input.bytes[1]
+              distanceThreshold: (input.bytes[1]<<8 | input.bytes[2])/10,
+              negativeDelta: (input.bytes[3]<<8 | input.bytes[4])/10,
+              positiveDelta: (input.bytes[5]<<8 | input.bytes[6])/10
             }
           };
         default:

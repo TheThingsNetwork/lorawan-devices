@@ -1,19 +1,19 @@
-name: SENSO8 LRS10701 - Indoor Air Quality (IAQ) Sensor
-description: Indoor Air Quality (IAQ) Sensor by Arwin Technology Ltd.
+name: SENSO8 LRS20UD0 - Ultrasonic Sensor
+description: Ultrasonic Sensor by Arwin Technology Ltd.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
-  - version: '1.0'
-    numeric: 1
+  - version: '2.0'
+    numeric: 2
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.7.0'
+    version: '1.0.6'
     numeric: 1
     # Corresponding hardware versions (optional)
     hardwareVersions:
-      - '1.0'
+      - '2.0'
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
@@ -29,15 +29,15 @@ firmwareVersions:
         # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
         id: eu868-profile
         lorawanCertified: false
-        codec: lrs10701-codec
+        codec: lrs20uxx-codec
       US902-928:
         id: us915-profile
         lorawanCertified: false
-        codec: lrs10701-codec
+        codec: lrs20uxx-codec
       AS923:
         id: as923-profile
         lorawanCertified: false
-        codec: lrs10701-codec
+        codec: lrs20uxx-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -48,26 +48,18 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - iaq
-  - temperature
-  - humidity
-  - co2
-  - tvoc
-  - particulate matter
-  - h2s
-  - co
-  - no2
-  - tvoc
+  - distance
+  - proximity
 
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
-  width: 119
-  length: 119
-  height: 37.5
+  width: 70
+  length: 112
+  height: 39
 
 # Weight in grams (optional)
-weight: 175
+weight: 115
 
 # Battery information (optional)
 battery:
@@ -79,11 +71,10 @@ operatingConditions:
   # Temperature (Celsius)
   temperature:
     min: -20
-    max: 50
-  # Relative humidity (fraction of 1)
-  relativeHumidity:
-    min: 0
-    max: 0.95
+    max: 70
+
+# IP rating (optional)
+ipCode: IP67
 
 # Key provisioning (optional)
 # Valid values are: custom (user can configure keys), join server and manifest.
@@ -103,35 +94,9 @@ keyProgramming:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.senso8.com/senso8-indoor-air-quality-sensors
-dataSheetURL: https://s3.ap-northeast-1.amazonaws.com/www.senso8.com/senso8_datasheet/IAQ/DS_LRS10701.pdf
+productURL: https://www.senso8.com/senso8-lora-sensors
+dataSheetURL: https://s3.ap-northeast-1.amazonaws.com/www.senso8.com/senso8_datasheet/LoRaWAN/DS_LRS20UD0-0000.pdf
 
 # Photos
 photos:
-  main: lrs10701.png
-
-compliances:
-  safety:
-    - body: IEC
-      norm: EN
-      standard: 62368-1
-  radioEquipment:
-    - body: ETSI
-      norm: EN
-      standard: 300 220-1
-      version: 3.1.1
-    - body: ETSI
-      norm: EN
-      standard: 300 220-2
-      version: 3.2.1
-    - body: ETSI
-      norm: EN
-      standard: 301 489-1
-      version: 2.2.3
-    - body: ETSI
-      norm: EN
-      standard: 301 489-3
-      version: 2.3.2
-    - body: ETSI
-      norm: EN
-      standard: 62479:2010
+  main: lrs20ud0.jpg
