@@ -61,8 +61,8 @@ uplinkDecoder:
           payload_format: AXIOMA_W1_ENHANCED_24H
           frame_version: 1
           payload_bytes: 51
-          timestamp_unix: 1788386478
-          timestamp_utc: '2026-09-02T23:21:18.000Z'
+          timestamp_unix: 1788390574
+          timestamp_utc: '2026-09-02T23:09:34.000Z'
           status: 0
           low_battery: false
           permanent_error: false
