@@ -1,0 +1,18 @@
+name: WS-G Gauge Pressure Sensor
+description: Gauge Pressure Sensors deliver precise monitoring of system pressures in liquids or gases, suited for water systems, air compressors, and industrial process monitoring. 
+
+hardwareVersions:
+- version: 90309-1
+  numeric: 1
+
+firmwareVersions:
+- version: AA
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-g-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-g.png

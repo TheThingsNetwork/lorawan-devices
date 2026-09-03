@@ -1,0 +1,18 @@
+name: WS-DP Differential Pressure Sensor
+description: Differential Pressure Sensors provide high-accuracy monitoring of air and gas differential pressures, ideal for filter monitoring, cleanrooms, and HVAC system performance verification. 
+
+hardwareVersions:
+- version: 90309-1
+  numeric: 1
+
+firmwareVersions:
+- version: AA
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-dp-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-dp.png
