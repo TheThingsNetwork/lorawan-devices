@@ -1,5 +1,5 @@
-name: Single Pulse Sensor # Device name can not contain the vendor name
-description: Tehama Single Pulse Sensor
+name: Single Meter Sensor # Device name can not contain the vendor name
+description: Tehama Single Meter Sensor
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -34,9 +34,9 @@ firmwareVersions:
         # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
         # which is verbose.
         # vendorID: example
-        id: tehama-pulse-mdt-profile
+        id: tehama-meter-mdt-profile
         lorawanCertified: true
-        codec: tehama-pulse-mdt-codec
+        codec: tehama-meter-mdt-codec
 
 # Type of device (optional)
 # Valid values are: devkit, module, cots
@@ -101,9 +101,8 @@ operatingConditions:
 
 # Photos
 photos:
-  main: tehama-pulse-mdt.png # Image needs to have a transparent background
+  main: tehama-meter-mdt.png # Image needs to have a transparent background
 
 # Youtube or Vimeo Video (optional)
 #videos:
 #  main: https://www.youtube.com/watch?v=JHzxcD2oEn8
-
