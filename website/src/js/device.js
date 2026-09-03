@@ -63,8 +63,13 @@ const plansWithCodec = Object.keys(codecs).filter((p) => uplinkDecoderOf(p))
 const codecSources = {}
 const fetchCodecSource = async (fileName) => {
   if (codecSources[fileName] !== undefined) return codecSources[fileName]
+  const safeFileName = fileName.split('/').pop()
+  if (!/^[\w.-]+\.js$/i.test(safeFileName)) {
+    codecSources[fileName] = null
+    return null
+  }
   try {
-    const res = await fetch('codecs/' + fileName.split('/').pop())
+    const res = await fetch('codecs/' + safeFileName)
     codecSources[fileName] = res.ok ? await res.text() : null
   } catch (e) {
     codecSources[fileName] = null
