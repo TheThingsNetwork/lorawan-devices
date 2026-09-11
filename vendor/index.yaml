@@ -2209,3 +2209,8 @@ vendors:
   - id: safora
     name: Safora Technologies
     website: https://www.safora-tech.com
+
+  - id: sensocon
+    name: Sensocon
+    vendorID: 1202
+    website: https://sensocon.com
