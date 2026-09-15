@@ -53,15 +53,16 @@ function requireFile(path) {
 
 async function requireDimensions(path) {
   await requireFile(path);
+  let dimensions;
   try {
-    const dimensions = await imageSizeFromFile(path);
-    if (dimensions.width > 2000 || dimensions.height > 2000) {
-      throw new Error(
-        `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`
-      );
-    }
+    dimensions = await imageSizeFromFile(path);
   } catch (err) {
     throw new Error(`load image ${path}: ${err}`);
+  }
+  if (dimensions.width > 2000 || dimensions.height > 2000) {
+    throw new Error(
+      `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`
+    );
   }
 }
 

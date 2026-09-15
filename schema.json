@@ -66,7 +66,8 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/vendor"
-          }
+          },
+          "uniqueItems": true
         }
       },
       "additionalProperties": false
@@ -78,7 +79,8 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/identifier"
-          }
+          },
+          "uniqueItems": true
         },
         "profileIDs": {
           "type": "object",
@@ -178,7 +180,8 @@
           "items": {
             "type": "string",
             "pattern": "[0-9A-F]{6}"
-          }
+          },
+          "uniqueItems": true
         },
         "vendorID": {
           "type": "integer",
@@ -931,7 +934,8 @@
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "uniqueItems": true
               },
               "features": {
                 "type": "array",
@@ -1045,13 +1049,15 @@
               "wind direction",
               "wind speed"
             ]
-          }
+          },
+          "uniqueItems": true
         },
         "additionalRadios": {
           "type": "array",
           "items": {
             "enum": ["ble", "nfc", "wifi", "cellular"]
-          }
+          },
+          "uniqueItems": true
         },
         "bridgeInterfaces": {
           "type": "array",
@@ -1216,7 +1222,8 @@
                     "United Kingdom",
                     "Other"
                   ]
-                }
+                },
+                "uniqueItems": true
               },
               "url": {
                 "type": "string",

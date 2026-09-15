@@ -1,38 +1,35 @@
 endDevices:
-  - rs485-ln
-  - rs485-bl
-  - lsn50v2-s31
-  - lsn50v2-d20
-  - ldds20
-  - ldds75
-  - lbt1
-  - lse01
-  - lwl02
-  - lds02
-  - lwl01
-  - lds01
-  - lgt92
-  - lt22222-l
-  - lt33222-l
-  - lht65
-  - llms01
-  - llds12
+  - cpl01
   - laq4
+  - lbt1
+  - ldds04
+  - ldds20
+  - ldds45
+  - ldds75
+  - lds01
+  - lds02
+  - lds03a
+  - lgt92
+  - lht52
+  - lht65
+  - llds12
+  - llms01
+  - lmds200
+  - lse01
   - lsn50-v2
+  - lsn50v2-d20
+  - lsn50v2-d20-d22-d23
+  - lsn50v2-s31
   - lsnpk01
   - lsph01
+  - lt22222-l
+  - lt33222-l
   - ltc2
-  - ldds04
-  - ldds45
-  - lsn50v2-d20-d22-d23
-  - lds01
   - lwl01
-  - lsn50-v2
-  - lds03a
-  - cpl01
-  - lmds200
-  - wsc1-l
-  - sw3l
-  - lht52
-  - trackerd
+  - lwl02
   - lwl03a
+  - rs485-bl
+  - rs485-ln
+  - sw3l
+  - trackerd
+  - wsc1-l
