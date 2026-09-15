@@ -47,7 +47,6 @@ firmwareVersions:
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - surface temperature
-  - surface temperature
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.

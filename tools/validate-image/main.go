@@ -18,7 +18,7 @@ import (
 	"bytes"
 	"image/jpeg"
 	"image/png"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -26,43 +26,33 @@ import (
 )
 
 func testPNG(path string) bool {
-	// Read image
 	finput, err := os.Open(path)
 	if err != nil {
 		panic(err)
 	}
-	input, err := ioutil.ReadAll(finput)
+	defer func() { _ = finput.Close() }()
+	input, err := io.ReadAll(finput)
 	if err != nil {
 		panic(err)
 	}
 	in := bytes.NewReader(input)
 	_, err = png.Decode(in)
-	finput.Close()
-	if err != nil {
-		return false
-	}
-
-	return true
+	return err == nil
 }
 
 func testJPEG(path string) bool {
-	// Read image
 	finput, err := os.Open(path)
 	if err != nil {
 		panic(err)
 	}
-	input, err := ioutil.ReadAll(finput)
+	defer func() { _ = finput.Close() }()
+	input, err := io.ReadAll(finput)
 	if err != nil {
 		panic(err)
 	}
 	in := bytes.NewReader(input)
 	_, err = jpeg.Decode(in)
-	finput.Close()
-	if err != nil {
-		return false
-	}
-
-	return true
+	return err == nil
 }
 
 func main() {
