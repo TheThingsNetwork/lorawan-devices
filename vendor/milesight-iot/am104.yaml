@@ -47,7 +47,7 @@ firmwareVersions:
         lorawanCertified: true
         codec: am104-codec
 
-  - version: '1.x'
+  - version: '2.x'
     numeric: 2
     hardwareVersions:
       - '2.x'
