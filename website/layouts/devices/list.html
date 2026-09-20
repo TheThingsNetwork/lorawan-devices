@@ -1,6 +1,25 @@
 {{ define "main" }}
-  <main>
-    {{ partial "banner.html" (dict "title" .Title "description" .Description) }}
-    {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
-  </main>
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <div class="crumbs" style="padding-top: 0;">
+        <a href="{{ "" | absURL }}">Devices</a>
+        <span class="sep">/</span>
+        <span class="current">{{ .Params.name | default .Title }}</span>
+      </div>
+      <h1>{{ .Params.name | default .Title }}</h1>
+      <p class="lede">
+        {{ with .Params.description }}{{ . }}{{ else }}{{ len .RegularPages }} device{{ if ne (len .RegularPages) 1 }}s{{ end }} by {{ .Params.name | default .Title }} in the Device Repository for LoRaWAN®.{{ end }}
+      </p>
+      {{ $vendorName := .Params.name | default .Title }}
+      <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <a class="btn btn-secondary btn-sm" id="partner-toggle" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $vendorName }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $vendorName }}." rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Talk to an expert</a>
+        {{ with .Params.website }}
+        <a class="btn btn-secondary btn-sm" href="{{ . }}" rel="noopener">Vendor website ↗</a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ partial "device-browse-lite.html" (dict "devices" .RegularPages) }}
+</main>
 {{ end }}

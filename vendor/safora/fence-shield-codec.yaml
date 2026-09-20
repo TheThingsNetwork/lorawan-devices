@@ -1,0 +1,85 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: fence-shield.js
+  examples:
+    - description: High-priority heartbeat with fence and battery voltage
+      input:
+        fPort: 11
+        bytes: [16, 12, 128]
+      output:
+        data:
+          type: heartbeat_high
+          positive: 1144
+          fence: 1144
+          batterymV: 3200
+          batterySoC: 20
+          version: v1.3
+        warnings: []
+        errors: []
+    - description: Motion / tamper alert
+      input:
+        fPort: 15
+        bytes: [0]
+      output:
+        data:
+          type: motion
+          version: v1.3
+        warnings: []
+        errors: []
+    - description: Parameter report
+      input:
+        fPort: 16
+        bytes: [8, 1, 9, 5, 100, 1, 3, 0]
+      output:
+        data:
+          type: parameter_report
+          motion_enabled: true
+          fence_pulse_ms: 500
+          firmware_version: V1.3.0
+        warnings: []
+        errors: []
+# Downlink decoder decodes the encoded downlink message (optional, must be symmetric with downlinkEncoder)
+downlinkDecoder:
+  fileName: fence-shield.js
+  examples:
+    - description: Hard reset
+      input:
+        fPort: 19
+        bytes: [18, 52]
+      output:
+        data:
+          reset: 4660
+        warnings: []
+        errors: []
+    - description: Parameter update
+      input:
+        fPort: 17
+        bytes: [1, 30, 9, 5]
+      output:
+        data:
+          params:
+            measure_interval_ds: 30
+            fence_pulse_ms: 500
+        warnings: []
+        errors: []
+# Downlink encoder encodes JSON object into a binary data downlink (optional)
+downlinkEncoder:
+  fileName: fence-shield.js
+  examples:
+    - description: Hard reset
+      input:
+        data:
+          reset: 4660
+      output:
+        fPort: 19
+        bytes: [18, 52]
+    - description: Parameter update
+      input:
+        data:
+          params:
+            measure_interval_ds: 30
+            fence_pulse_ms: 500
+      output:
+        fPort: 17
+        bytes: [1, 30, 9, 5]

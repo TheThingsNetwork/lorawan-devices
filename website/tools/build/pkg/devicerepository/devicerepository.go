@@ -16,9 +16,9 @@ package devicerepository
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
+	"sort"
 
 	"github.com/ghodss/yaml"
 
@@ -39,8 +39,22 @@ type Vendor struct {
 	Website     string `yaml:"website"`
 	Email       string `yaml:"email"`
 	Description string `yaml:"description"`
+	Logo        string `yaml:"logo"`
 	Draft       bool   `yaml:"draft,omitempty"`
 	EndDevices  []string
+}
+
+// ProfileDetail mirrors the fields of a vendor profile YAML file.
+type ProfileDetail struct {
+	ID                        string  `yaml:"-"`
+	MACVersion                string  `yaml:"macVersion"`
+	RegionalParametersVersion string  `yaml:"regionalParametersVersion"`
+	SupportsJoin              bool    `yaml:"supportsJoin"`
+	MaxEIRP                   float32 `yaml:"maxEIRP"`
+	Supports32BitFCnt         bool    `yaml:"supports32bitFCnt"`
+	SupportsClassB            bool    `yaml:"supportsClassB"`
+	SupportsClassC            bool    `yaml:"supportsClassC"`
+	LoRaWANCertified          bool    `yaml:"-"`
 }
 
 // EndDevice contains the required items from a device
@@ -122,6 +136,16 @@ type EndDevice struct {
 	} `yaml:"compliances"`
 	AdditionalRadios []string `yaml:"additionalRadios"`
 	Codecs           map[string]interface{}
+
+	// Enriched fields derived from profile and codec YAMLs.
+	Profiles                   map[string]ProfileDetail
+	Classes                    []string
+	MACVersions                []string
+	RegionalParametersVersions []string
+	FrequencyPlans             []string
+	Certified                  bool
+	HasCodec                   bool
+	CodecFiles                 []string
 }
 
 // NewStore initialize a new device repository store
@@ -193,8 +217,6 @@ func (drs *Store) SetVendorEndDevices(dir config.Dir) error {
 
 // Device returns end device yaml file as a string, and a striped down endDevice struct
 func (drs *Store) Device(vendorID string, endDevice string, dir config.Dir) (*EndDevice, error) {
-	fmt.Printf(dir.DeviceRepo.Vendor)
-
 	yamlFile, err := ioutil.ReadFile(dir.DeviceRepo.Vendor + vendorID + "/" + endDevice + ".yaml")
 	if err != nil {
 		return nil, err
@@ -208,6 +230,9 @@ func (drs *Store) Device(vendorID string, endDevice string, dir config.Dir) (*En
 	}
 
 	dc := make(map[string]interface{})
+	profiles := make(map[string]ProfileDetail)
+	codecFiles := make(map[string]bool)
+	frequencyPlans := make(map[string]bool)
 
 	for _, versions := range rawEndDevice.FirmwareVersions {
 		for p, profile := range versions.Profiles {
@@ -229,11 +254,85 @@ func (drs *Store) Device(vendorID string, endDevice string, dir config.Dir) (*En
 				}
 
 				dc[p] = rawEndDeviceCodec
+
+				for _, section := range rawEndDeviceCodec {
+					if m, ok := section.(map[string]interface{}); ok {
+						if f, ok := m["fileName"].(string); ok && f != "" {
+							codecFiles[f] = true
+						}
+					}
+				}
+			}
+
+			frequencyPlans[p] = true
+
+			if existing, ok := profiles[profile.ID]; ok {
+				existing.LoRaWANCertified = existing.LoRaWANCertified || profile.LoRaWANCertified
+				profiles[profile.ID] = existing
+			} else {
+				detail, err := loadProfile(dir, vendorID, profile.ID)
+				if err != nil {
+					log.Printf("profile %s/%s: %v", vendorID, profile.ID, err)
+					continue
+				}
+				detail.LoRaWANCertified = profile.LoRaWANCertified
+				profiles[profile.ID] = detail
+			}
+
+			if profile.LoRaWANCertified {
+				rawEndDevice.Certified = true
 			}
 		}
 	}
 
 	rawEndDevice.Codecs = dc
+	rawEndDevice.Profiles = profiles
+	rawEndDevice.HasCodec = len(dc) > 0
+	rawEndDevice.CodecFiles = sortedKeys(codecFiles)
+	rawEndDevice.FrequencyPlans = sortedKeys(frequencyPlans)
+
+	classes := map[string]bool{"A": true}
+	macVersions := make(map[string]bool)
+	regParams := make(map[string]bool)
+	for _, d := range profiles {
+		if d.SupportsClassB {
+			classes["B"] = true
+		}
+		if d.SupportsClassC {
+			classes["C"] = true
+		}
+		if d.MACVersion != "" {
+			macVersions[d.MACVersion] = true
+		}
+		if d.RegionalParametersVersion != "" {
+			regParams[d.RegionalParametersVersion] = true
+		}
+	}
+	rawEndDevice.Classes = sortedKeys(classes)
+	rawEndDevice.MACVersions = sortedKeys(macVersions)
+	rawEndDevice.RegionalParametersVersions = sortedKeys(regParams)
 
 	return rawEndDevice, nil
 }
+
+func loadProfile(dir config.Dir, vendorID, profileID string) (ProfileDetail, error) {
+	detail := ProfileDetail{ID: profileID}
+
+	b, err := ioutil.ReadFile(dir.DeviceRepo.Vendor + vendorID + "/" + profileID + ".yaml")
+	if err != nil {
+		return detail, err
+	}
+
+	err = yaml.Unmarshal(b, &detail)
+	return detail, err
+}
+
+func sortedKeys(m map[string]bool) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+

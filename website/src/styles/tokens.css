@@ -1,0 +1,304 @@
+/* ============================================================
+   The Things Industries — Foundations
+   Colors, typography and core tokens.
+   Ported from the Claude Design handoff (Device Repository).
+   ============================================================ */
+
+/* -----------------------------  FONTS  ----------------------------- */
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/Poppins-Bold.woff2') format('woff2');
+}
+
+/* -----------------------------  TOKENS  ----------------------------- */
+
+:root {
+  /* ===== TTI BRAND BLUE (primary scale, 2024 palette) ===== */
+  --tti-025: #F8FCFF;
+  --tti-050: #F0F7FF;
+  --tti-075: #E8F1FF;
+  --tti-100: #D8E7FF;
+  --tti-200: #99BEFF;
+  --tti-300: #6699FF;
+  --tti-400: #3F7AFF;
+  --tti-500: #0047FF;  /* primary */
+  --tti-600: #0036DB;
+  --tti-700: #0028B7;
+  --tti-800: #001C93;
+  --tti-900: #00147A;
+  --tti-1000: #00095C;
+  --tti-1025: #00064B;
+  --tti-1050: #000338;
+  --tti-1075: #000321;
+
+  /* ===== NEUTRALS (grey scale) ===== */
+  --grey-025: #FBFCFD;
+  --grey-050: #F3F5F8;
+  --grey-075: #EBEEF3;
+  --grey-100: #DEE3EA;
+  --grey-200: #D2D7E0;
+  --grey-300: #C3C9D4;
+  --grey-400: #B2BAC8;
+  --grey-500: #98A4B6;
+  --grey-600: #7887A1;
+  --grey-700: #536482;
+  --grey-800: #354661;
+  --grey-900: #1C293F;
+  --grey-1000: #0C1525;
+  --grey-1025: #09101B;
+  --grey-1050: #080D15;
+  --grey-1075: #06090D;
+
+  /* ===== SEMANTIC — success / info / warning / error ===== */
+  --success-025: #F7FFF7;
+  --success-050: #EAFFEA;
+  --success-100: #CFFFC2;
+  --success-500: #27CD41;
+  --success-600: #1CB041;
+  --success-700: #13933F;
+  --success-900: #00572E;
+
+  --info-025: #F7FCFF;
+  --info-050: #EFFAFF;
+  --info-100: #CCEEFF;
+  --info-500: #007AFF;
+  --info-600: #005EDB;
+  --info-700: #0046B7;
+
+  --warning-025: #FFFCF3;
+  --warning-050: #FFF9E6;
+  --warning-100: #FFEEBC;
+  --warning-500: #FF9500;
+  --warning-600: #DB7600;
+  --warning-700: #B75B00;
+
+  --error-025: #FFFAFA;
+  --error-050: #FFF5F5;
+  --error-100: #FFE2DE;
+  --error-500: #FF3B30;
+  --error-600: #DB2328;
+  --error-700: #B7182A;
+
+  /* ===== SIBLING BRANDS ===== */
+  --ttn-primary:   #26A0FF;   /* The Things Network */
+  --ttn-primary-600: #008DF9;
+  --ttn-primary-dark: #001859;
+  --tts-primary:   #1E5DFF;   /* The Things Stack */
+  --tts-primary-600: #194FDA;
+  --ttc-primary:   #0001FF;   /* The Things Conference */
+  --gn-primary:    #6514FF;   /* Generic Node */
+
+  --bone: #F7F6F1;
+
+  /* ===== SEMANTIC TOKENS (TTI brand defaults) ===== */
+  --c-text-heavy:     var(--grey-900);
+  --c-text-semilight: var(--grey-700);
+  --c-text-light:     var(--grey-600);
+  --c-text-extralight: var(--grey-400);
+  --c-text-invert:    #ffffff;
+  --c-text-brand:     var(--tti-500);
+  --c-text-brand-hover: var(--tti-600);
+  --c-text-brand-active: var(--tti-700);
+  --c-text-success:   var(--success-700);
+  --c-text-warning:   var(--warning-700);
+  --c-text-error:     var(--error-600);
+  --c-text-info:      var(--info-600);
+
+  --c-bg-page:         #ffffff;
+  --c-bg-subtle:       var(--grey-025);
+  --c-bg-neutral-light: var(--grey-050);
+  --c-bg-neutral-semilight: var(--grey-075);
+  --c-bg-brand-extralight: var(--tti-025);
+  --c-bg-brand-light:  var(--tti-050);
+  --c-bg-brand-semilight: var(--tti-075);
+  --c-bg-brand:        var(--tti-500);
+  --c-bg-brand-hover:  var(--tti-600);
+  --c-bg-brand-dark:   var(--tti-1050);
+  --c-bg-inverse:      var(--grey-1000);
+
+  --c-border-extralight: var(--grey-050);
+  --c-border-light:      var(--grey-100);
+  --c-border-normal:     var(--grey-200);
+  --c-border-semibold:   var(--grey-500);
+  --c-border-bold:       var(--grey-700);
+  --c-border-brand:      var(--tti-500);
+
+  /* ===== TYPOGRAPHY ===== */
+  --font-display: 'Poppins', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  /* Font scale (rem-based, base 15px) */
+  --fs-xxs: 0.5rem;
+  --fs-xs:  0.75rem;
+  --fs-s:   0.875rem;
+  --fs-m:   1rem;
+  --fs-l:   1.25rem;
+  --fs-xl:  1.563rem;
+  --fs-xxl: 1.875rem;
+  --fs-xl3: 2.5rem;
+  --fs-xl4: 3rem;
+  --fs-xl5: 4rem;
+  --fs-xl6: 5rem;
+
+  /* Line-heights */
+  --lh-xxs: 1.1;
+  --lh-xs:  1.2;
+  --lh-s:   1.5;
+  --lh-m:   1.687;
+  --lh-l:   1.875;
+  --lh-xl:  2;
+
+  /* Font weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 600;
+  --fw-bolder: 700;
+
+  /* Letter spacing */
+  --lsp-s: -0.03em;
+  --lsp-m: -0.02em;
+  --lsp-l: 0em;
+
+  /* ===== SPACING ===== */
+  --cs-xxs: 0.25rem;
+  --cs-xs:  0.5rem;
+  --cs-s:   0.75rem;
+  --cs-m:   1rem;
+  --cs-l:   1.25rem;
+  --cs-xl:  1.5rem;
+  --cs-xxl: 2rem;
+  --cs-xl3: 3rem;
+
+  --ls-xxs: 1rem;
+  --ls-xs:  1.25rem;
+  --ls-s:   2rem;
+  --ls-m:   3rem;
+  --ls-l:   5rem;
+  --ls-xl:  6.25rem;
+  --ls-xxl: 10rem;
+  --ls-xl3: 12.5rem;
+
+  /* ===== RADII ===== */
+  --br-s: 0.3rem;
+  --br-m: 0.6rem;
+  --br-l: 0.9rem;
+  --br-xl: 1.25rem;
+  --br-xxl: 3rem;
+  --br-full: 999rem;
+
+  /* ===== SHADOWS ===== */
+  --bs-s: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.05);
+  --bs-m: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+  --bs-l: 0 0 2.5rem 0 rgba(0, 0, 0, 0.1);
+  --bs-xl: 0 0 5rem 0 rgba(0, 0, 0, 0.1);
+
+  /* ===== MOTION ===== */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --dur-instant: 80ms;
+  --dur-fast: 140ms;
+  --dur-base: 220ms;
+  --dur-slow: 400ms;
+}
+
+/* -----------------------------  BASE RULES  ----------------------------- */
+
+html {
+  font-size: 15px;
+}
+@media (max-width: 700px) { html { font-size: 14px; } }
+
+body {
+  font-family: var(--font-body);
+  color: var(--c-text-heavy);
+  background: var(--c-bg-page);
+  line-height: var(--lh-m);
+  font-size: var(--fs-m);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* -----------------------------  TYPE UTILITIES  ----------------------------- */
+
+.t-display-xl,
+.t-display-l,
+.t-display-m,
+.t-display-s,
+h1.display,
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--lsp-s);
+  line-height: var(--lh-xxs);
+  color: var(--grey-900);
+}
+.t-display-xl { font-size: var(--fs-xl6); }
+.t-display-l  { font-size: var(--fs-xl5); }
+.t-display-m  { font-size: var(--fs-xl4); }
+.t-display-s  { font-size: var(--fs-xl3); }
+
+h2 { font-family: var(--font-body); font-size: var(--fs-xxl); font-weight: 700; line-height: var(--lh-xs); letter-spacing: var(--lsp-m); color: var(--grey-900); }
+h3 { font-family: var(--font-body); font-size: var(--fs-xl); font-weight: 700; line-height: var(--lh-xs); letter-spacing: var(--lsp-m); color: var(--grey-900); }
+h4 { font-family: var(--font-body); font-size: var(--fs-l); font-weight: 600; line-height: var(--lh-s); color: var(--grey-900); }
+h5 { font-family: var(--font-body); font-size: var(--fs-m); font-weight: 600; line-height: var(--lh-s); color: var(--grey-900); }
+
+p { font-size: var(--fs-m); line-height: var(--lh-m); color: var(--c-text-heavy); margin: 0 0 var(--cs-m); }
+small, .t-small { font-size: var(--fs-s); line-height: var(--lh-s); }
+.t-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-s);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-brand);
+}
+
+code, pre, .t-mono { font-family: var(--font-mono); font-size: 0.9em; }
+
+a { color: var(--c-text-brand); text-decoration: none; }
+a:hover { color: var(--c-text-brand-hover); text-decoration: underline; }

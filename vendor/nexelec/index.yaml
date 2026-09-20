@@ -9,6 +9,8 @@ endDevices:
   - origin
   - guard-plus
   - guard
+  - flow-pro
+  - flow-core
 profileIDs:
   '420':
     endDeviceID: 'carbon'

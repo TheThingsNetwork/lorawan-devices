@@ -17,17 +17,15 @@ function dewpoint(t, rh) {
   var c1 = 243.04;
   var c2 = 17.625;
   var h = rh / 100;
-  if (h <= 0.01)
-    h = 0.01;
-  else if (h > 1.0)
-    h = 1.0;
+  if (h <= 0.01) h = 0.01;
+  else if (h > 1.0) h = 1.0;
 
   var lnh = Math.log(h);
   var tpc1 = t + c1;
   var txc2 = t * c2;
   var txc2_tpc1 = txc2 / tpc1;
 
-  var tdew = c1 * (lnh + txc2_tpc1) / (c2 - lnh - txc2_tpc1);
+  var tdew = (c1 * (lnh + txc2_tpc1)) / (c2 - lnh - txc2_tpc1);
   return tdew;
 }
 
@@ -66,8 +64,7 @@ function Decoder(bytes, port) {
         var vRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         // interpret uint16 as an int16 instead.
-        if (vRaw & 0x8000)
-          vRaw += -0x10000;
+        if (vRaw & 0x8000) vRaw += -0x10000;
         // scale and save in decoded.
         decoded.vBat = vRaw / 4096.0;
       }
@@ -75,8 +72,7 @@ function Decoder(bytes, port) {
       if (flags & 0x2) {
         var vRawBus = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
-        if (vRawBus & 0x8000)
-          vRawBus += -0x10000;
+        if (vRawBus & 0x8000) vRawBus += -0x10000;
         decoded.vBus = vRawBus / 4096.0;
       }
 
@@ -89,17 +85,16 @@ function Decoder(bytes, port) {
       if (flags & 0x8) {
         // we have temp, pressure, RH
         var tRaw = (bytes[i] << 8) + bytes[i + 1];
-        if (tRaw & 0x8000)
-          tRaw = -0x10000 + tRaw;
+        if (tRaw & 0x8000) tRaw = -0x10000 + tRaw;
         i += 2;
         var pRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         var hRaw = bytes[i++];
 
         decoded.tempC = tRaw / 256;
-        decoded.error = "none";
-        decoded.p = pRaw * 4 / 100.0;
-        decoded.rh = hRaw / 256 * 100;
+        decoded.error = 'none';
+        decoded.p = (pRaw * 4) / 100.0;
+        decoded.rh = (hRaw / 256) * 100;
         decoded.tDewC = dewpoint(decoded.tempC, decoded.rh);
       }
 
@@ -129,8 +124,8 @@ function Decoder(bytes, port) {
 
         var exp1 = floatIn >> 12;
         var exp2 = floatOut >> 12;
-        var mant1 = (floatIn & 0xFFF) / 4096.0;
-        var mant2 = (floatOut & 0xFFF) / 4096.0;
+        var mant1 = (floatIn & 0xfff) / 4096.0;
+        var mant2 = (floatOut & 0xfff) / 4096.0;
         var powerPerHourIn = mant1 * Math.pow(2, exp1 - 15) * 60 * 60 * 4;
         var powerPerHourOut = mant2 * Math.pow(2, exp2 - 15) * 60 * 60 * 4;
         decoded.powerUsedPerHour = powerPerHourIn;
@@ -199,8 +194,7 @@ function Decoder(bytes, port) {
         var vRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         // interpret uint16 as an int16 instead.
-        if (vRaw & 0x8000)
-          vRaw += -0x10000;
+        if (vRaw & 0x8000) vRaw += -0x10000;
         // scale and save in decoded.
         decoded.vBat = vRaw / 4096.0;
       }
@@ -208,8 +202,7 @@ function Decoder(bytes, port) {
       if (flags & 0x2) {
         var vRawBus = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
-        if (vRawBus & 0x8000)
-          vRawBus += -0x10000;
+        if (vRawBus & 0x8000) vRawBus += -0x10000;
         decoded.vBus = vRawBus / 4096.0;
       }
 
@@ -222,17 +215,16 @@ function Decoder(bytes, port) {
       if (flags & 0x8) {
         // we have temp, pressure, RH
         var tRaw = (bytes[i] << 8) + bytes[i + 1];
-        if (tRaw & 0x8000)
-          tRaw = -0x10000 + tRaw;
+        if (tRaw & 0x8000) tRaw = -0x10000 + tRaw;
         i += 2;
         var pRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         var hRaw = bytes[i++];
 
         decoded.tempC = tRaw / 256;
-        decoded.error = "none";
-        decoded.p = pRaw * 4 / 100.0;
-        decoded.rh = hRaw / 256 * 100;
+        decoded.error = 'none';
+        decoded.p = (pRaw * 4) / 100.0;
+        decoded.rh = (hRaw / 256) * 100;
         decoded.tDewC = dewpoint(decoded.tempC, decoded.rh);
       }
 
@@ -247,8 +239,7 @@ function Decoder(bytes, port) {
         // onewire temperature
         var tempRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
-        if (tempRaw & 0x8000)
-          tempRaw = -0x10000 + tempRaw;
+        if (tempRaw & 0x8000) tempRaw = -0x10000 + tempRaw;
         decoded.tWater = tempRaw / 256;
       }
 
@@ -256,12 +247,11 @@ function Decoder(bytes, port) {
         // temperature followed by RH
         var tempRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
-        if (tempRaw & 0x8000)
-          tempRaw = -0x10000 + tempRaw;
+        if (tempRaw & 0x8000) tempRaw = -0x10000 + tempRaw;
         var tempRH = bytes[i];
         i += 1;
         decoded.tSoil = tempRaw / 256;
-        decoded.rhSoil = tempRH / 256 * 100;
+        decoded.rhSoil = (tempRH / 256) * 100;
         decoded.tSoilDew = dewpoint(decoded.tSoil, decoded.rhSoil);
       }
     } else if (cmd == 0x11) {
@@ -309,8 +299,7 @@ function Decoder(bytes, port) {
         var vRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         // interpret uint16 as an int16 instead.
-        if (vRaw & 0x8000)
-          vRaw += -0x10000;
+        if (vRaw & 0x8000) vRaw += -0x10000;
         // scale and save in decoded.
         decoded.vBat = vRaw / 4096.0;
       }
@@ -318,25 +307,23 @@ function Decoder(bytes, port) {
       if (flags & 0x2) {
         var vRawBus = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
-        if (vRawBus & 0x8000)
-          vRawBus += -0x10000;
+        if (vRawBus & 0x8000) vRawBus += -0x10000;
         decoded.vBus = vRawBus / 4096.0;
       }
 
       if (flags & 0x4) {
         // we have temp, pressure, RH
         var tRaw = (bytes[i] << 8) + bytes[i + 1];
-        if (tRaw & 0x8000)
-          tRaw = -0x10000 + tRaw;
+        if (tRaw & 0x8000) tRaw = -0x10000 + tRaw;
         i += 2;
         var pRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         var hRaw = bytes[i++];
 
         decoded.tempC = tRaw / 256;
-        decoded.error = "none";
-        decoded.p = pRaw * 4 / 100.0;
-        decoded.rh = hRaw / 256 * 100;
+        decoded.error = 'none';
+        decoded.p = (pRaw * 4) / 100.0;
+        decoded.rh = (hRaw / 256) * 100;
         decoded.tDewC = dewpoint(decoded.tempC, decoded.rh);
       }
 
@@ -361,11 +348,10 @@ function Decoder(bytes, port) {
         var tempRH = bytes[i];
         i += 1;
         decoded.tSoil = tempRaw / 256;
-        decoded.rhSoil = tempRH / 256 * 100;
+        decoded.rhSoil = (tempRH / 256) * 100;
         decoded.tSoilDew = dewpoint(decoded.tSoil, decoded.rhSoil);
       }
     } else if (cmd == 0x16) {
-
       // decode Catena 4450 Water Level data
 
       // test vectors:
@@ -396,8 +382,7 @@ function Decoder(bytes, port) {
         var vRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         // interpret uint16 as an int16 instead.
-        if (vRaw & 0x8000)
-          vRaw += -0x10000;
+        if (vRaw & 0x8000) vRaw += -0x10000;
         // scale and save.
         decoded.vBat = vRaw / 4096.0;
       }
@@ -405,8 +390,7 @@ function Decoder(bytes, port) {
       if (flags & 0x2) {
         var vRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
-        if (vRaw & 0x8000)
-          vRaw += -0x10000;
+        if (vRaw & 0x8000) vRaw += -0x10000;
         decoded.vBus = vRaw / 4096.0;
       }
 
@@ -419,16 +403,15 @@ function Decoder(bytes, port) {
       if (flags & 0x8) {
         // we have temp, pressure, RH
         var tRaw = (bytes[i] << 8) + bytes[i + 1];
-        if (tRaw & 0x8000)
-          tRaw = -0x10000 + tRaw;
+        if (tRaw & 0x8000) tRaw = -0x10000 + tRaw;
         i += 2;
         var pRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         var hRaw = bytes[i++];
 
         decoded.t = tRaw / 256;
-        decoded.p = pRaw * 4 / 100.0;
-        decoded.rh = hRaw / 256 * 100;
+        decoded.p = (pRaw * 4) / 100.0;
+        decoded.rh = (hRaw / 256) * 100;
       }
 
       if (flags & 0x10) {
@@ -438,17 +421,15 @@ function Decoder(bytes, port) {
         decoded.lux = luxRaw;
       }
 
-
       if (flags & 0x20) {
         //Decode Rayco Sensor Data.
         var wpRaw;
         wpRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         //Convert pressure from hPa to kPa. And display payload.
-        decoded.wPressure = (wpRaw * 4 / 100.0) / 10;
+        decoded.wPressure = (wpRaw * 4) / 100.0 / 10;
         decoded.wLevel = waterlevel(decoded.wPressure);
       }
-
     } else if (cmd == 0x17) {
       // decode Catena 4460 AQI data
 
@@ -507,8 +488,7 @@ function Decoder(bytes, port) {
         var vRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         // interpret uint16 as an int16 instead.
-        if (vRaw & 0x8000)
-          vRaw += -0x10000;
+        if (vRaw & 0x8000) vRaw += -0x10000;
         // scale and save in decoded.
         decoded.vBat = vRaw / 4096.0;
       }
@@ -516,8 +496,7 @@ function Decoder(bytes, port) {
       if (flags & 0x2) {
         var vRawBus = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
-        if (vRawBus & 0x8000)
-          vRawBus += -0x10000;
+        if (vRawBus & 0x8000) vRawBus += -0x10000;
         decoded.vBus = vRawBus / 4096.0;
       }
 
@@ -530,17 +509,16 @@ function Decoder(bytes, port) {
       if (flags & 0x8) {
         // we have temp, pressure, RH
         var tRaw = (bytes[i] << 8) + bytes[i + 1];
-        if (tRaw & 0x8000)
-          tRaw = -0x10000 + tRaw;
+        if (tRaw & 0x8000) tRaw = -0x10000 + tRaw;
         i += 2;
         var pRaw = (bytes[i] << 8) + bytes[i + 1];
         i += 2;
         var hRaw = bytes[i++];
 
         decoded.tempC = tRaw / 256;
-        decoded.error = "none";
-        decoded.p = pRaw * 4 / 100.0;
-        decoded.rh = hRaw / 256 * 100;
+        decoded.error = 'none';
+        decoded.p = (pRaw * 4) / 100.0;
+        decoded.rh = (hRaw / 256) * 100;
         decoded.tDewC = dewpoint(decoded.tempC, decoded.rh);
       }
 
@@ -556,7 +534,7 @@ function Decoder(bytes, port) {
         i += 2;
 
         var exp1 = rawUflt16 >> 12;
-        var mant1 = (rawUflt16 & 0xFFF) / 4096.0;
+        var mant1 = (rawUflt16 & 0xfff) / 4096.0;
         var f_unscaled = mant1 * Math.pow(2, exp1 - 15);
         var aqi = f_unscaled * 512;
 
@@ -568,7 +546,7 @@ function Decoder(bytes, port) {
         i += 2;
 
         var exp1 = rawUflt16 >> 12;
-        var mant1 = (rawUflt16 & 0xFFF) / 4096.0;
+        var mant1 = (rawUflt16 & 0xfff) / 4096.0;
         var f_unscaled = mant1 * Math.pow(2, exp1 - 15);
 
         var logGasR = f_unscaled * 16;
@@ -577,7 +555,8 @@ function Decoder(bytes, port) {
         decoded.r_gas = gasR;
       }
 
-      if (flags & 0x80) {  // get the miscellaneous flags
+      if (flags & 0x80) {
+        // get the miscellaneous flags
         var rawFlags = bytes[i];
         i += 1;
 
@@ -585,7 +564,6 @@ function Decoder(bytes, port) {
 
         decoded.iaqQuality = iaqQuality;
       }
-
     } else {
       // cmd value not recognized.
     }
@@ -602,8 +580,7 @@ function Decoder(bytes, port) {
       var vRaw = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
       // interpret uint16 as an int16 instead.
-      if (vRaw & 0x8000)
-        vRaw += -0x10000;
+      if (vRaw & 0x8000) vRaw += -0x10000;
       // scale and save in decoded.
       decoded.vBat = vRaw / 4096.0;
     }
@@ -611,8 +588,7 @@ function Decoder(bytes, port) {
     if (flags & 0x2) {
       var VDDRaw = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
-      if (VDDRaw & 0x8000)
-        VDDRaw += -0x10000;
+      if (VDDRaw & 0x8000) VDDRaw += -0x10000;
       decoded.VDD = VDDRaw / 4096.0;
     }
 
@@ -625,22 +601,21 @@ function Decoder(bytes, port) {
     if (flags & 0x8) {
       // we have temp, pressure, RH
       var tRaw = (bytes[i] << 8) + bytes[i + 1];
-      if (tRaw & 0x8000)
-        tRaw = -0x10000 + tRaw;
+      if (tRaw & 0x8000) tRaw = -0x10000 + tRaw;
       i += 2;
       var pRaw = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
       var hRaw = bytes[i++];
 
       decoded.tempC = tRaw / 256;
-      decoded.error = "none";
-      decoded.p = pRaw * 4 / 100.0;
-      decoded.rh = hRaw / 256 * 100;
+      decoded.error = 'none';
+      decoded.p = (pRaw * 4) / 100.0;
+      decoded.rh = (hRaw / 256) * 100;
       decoded.tDewC = dewpoint(decoded.tempC, decoded.rh);
     }
 
     if (flags & 0x10) {
-      // we have IR, White, UV -- units are C * W/m2, 
+      // we have IR, White, UV -- units are C * W/m2,
       // where C is a calibration constant.
       var irradiance = {};
       decoded.irradiance = irradiance;
@@ -658,8 +633,7 @@ function Decoder(bytes, port) {
     if (flags & 0x20) {
       var vRawBus = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
-      if (vRawBus & 0x8000)
-        vRawBus += -0x10000;
+      if (vRawBus & 0x8000) vRawBus += -0x10000;
       decoded.vBus = vRawBus / 4096.0;
     }
   } else if (port === 3) {
@@ -675,8 +649,7 @@ function Decoder(bytes, port) {
       var vRaw = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
       // interpret uint16 as an int16 instead.
-      if (vRaw & 0x8000)
-        vRaw += -0x10000;
+      if (vRaw & 0x8000) vRaw += -0x10000;
       // scale and save in decoded.
       decoded.vBat = vRaw / 4096.0;
     }
@@ -684,8 +657,7 @@ function Decoder(bytes, port) {
     if (flags & 0x2) {
       var VDDRaw = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
-      if (VDDRaw & 0x8000)
-        VDDRaw += -0x10000;
+      if (VDDRaw & 0x8000) VDDRaw += -0x10000;
       decoded.VDD = VDDRaw / 4096.0;
     }
 
@@ -698,20 +670,19 @@ function Decoder(bytes, port) {
     if (flags & 0x8) {
       // we have temp, RH (as u2)
       var tRaw = (bytes[i] << 8) + bytes[i + 1];
-      if (tRaw & 0x8000)
-        tRaw = -0x10000 + tRaw;
+      if (tRaw & 0x8000) tRaw = -0x10000 + tRaw;
       i += 2;
       var rhRaw = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
 
       decoded.tempC = tRaw / 256;
-      decoded.error = "none";
-      decoded.rh = rhRaw / 65535 * 100;
+      decoded.error = 'none';
+      decoded.rh = (rhRaw / 65535) * 100;
       decoded.tDewC = dewpoint(decoded.tempC, decoded.rh);
     }
 
     if (flags & 0x10) {
-      // we have IR, White, UV -- units are C * W/m2, 
+      // we have IR, White, UV -- units are C * W/m2,
       // where C is a calibration constant.
       var irradiance = {};
       decoded.irradiance = irradiance;
@@ -729,8 +700,7 @@ function Decoder(bytes, port) {
     if (flags & 0x20) {
       var vRawBus = (bytes[i] << 8) + bytes[i + 1];
       i += 2;
-      if (vRawBus & 0x8000)
-        vRawBus += -0x10000;
+      if (vRawBus & 0x8000) vRawBus += -0x10000;
       decoded.vBus = vRawBus / 4096.0;
     }
   }

@@ -15,157 +15,88 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-const { CONTEXT = '.' } = process.env
-const context = path.resolve(CONTEXT)
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin')
 
-const BASE_URL = process.env.BASE_URL ? process.env.BASE_URL : "http://localhost:9100"
-const BASE_PATH = process.env.BASE_PATH ? process.env.BASE_PATH : "/device-repository"
+const BASE_URL = process.env.BASE_URL ? process.env.BASE_URL : 'http://localhost:9100'
+const BASE_PATH = process.env.BASE_PATH ? process.env.BASE_PATH : '/device-repository'
 
 module.exports = (env, argv) => {
-    const isProduction = argv?.mode === undefined || argv?.mode === 'production'
+  const isProduction = argv?.mode === undefined || argv?.mode === 'production'
 
-    return {
-      mode: isProduction ? 'production' : 'development',
-        devtool: isProduction ? 'source-map' : 'inline-source-map',
-        entry: {
-          base: path.resolve(__dirname, 'src/js/index.js'),
-          style: path.resolve(__dirname, 'src/styles/index.js'),
-          device_single: path.resolve(__dirname, 'src/js/partials/device-single.js'),
-        },
-        output: {
-            path: path.resolve(__dirname, 'static/'),
-            filename: `js/${isProduction ? '[fullhash].' : ''}[name].js`,
-            publicPath: BASE_PATH,
-            hashFunction: 'xxhash64',
-        },
-        resolve: {
-          alias: {
-            '@wof-webui': path.resolve(context, 'src/js/'),
-            '@wof-assets': path.resolve(context, 'src/assets/'),
+  return {
+    mode: isProduction ? 'production' : 'development',
+    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    entry: {
+      base: path.resolve(__dirname, 'src/js/index.js'),
+      style: path.resolve(__dirname, 'src/styles/index.js'),
+      device_single: path.resolve(__dirname, 'src/js/device.js'),
+      submit: path.resolve(__dirname, 'src/js/submit.js'),
+      update: path.resolve(__dirname, 'src/js/update.js'),
+    },
+    output: {
+      path: path.resolve(__dirname, 'static/'),
+      filename: `js/${isProduction ? '[fullhash].' : ''}[name].js`,
+      publicPath: BASE_PATH,
+      hashFunction: 'xxhash64',
+      clean: true,
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: `css/${isProduction ? '[fullhash].' : ''}[name].css`,
+      }),
+      new WebpackManifestPlugin({
+        fileName: '../data/manifest.json',
+        publicPath: `${isProduction ? '/' : BASE_URL + BASE_PATH}`,
+        writeToFileEmit: true,
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: '**/*',
+            context: path.resolve(__dirname, 'src', 'assets/static'),
+            to: 'assets/',
+          },
+        ],
+      }),
+    ],
+    devServer: {
+      static: {
+        directory: path.join(__dirname, 'src'),
+      },
+      port: 9100,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+      },
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
           },
         },
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: `css/${isProduction ? '[fullhash].' : ''}[name].css`
-            }),
-            new WebpackManifestPlugin({
-                fileName: '../data/manifest.json',
-                publicPath: `${isProduction ? '/' : BASE_URL + BASE_PATH}`,
-                writeToFileEmit: true
-            }),
-            new CopyPlugin({
-              patterns: [
-                {
-                  from: "**/*",
-                  context: path.resolve(__dirname, "src", "assets/static"),
-                  to: "assets/"
-                }
-              ]
-            })
-        ],
-        devServer: {
-            static: {
-              directory: path.join(__dirname, 'src'),
-            },
-            port: 9100,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-              "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-            }
+        {
+          test: /\.css$/,
+          use: [{ loader: MiniCssExtractPlugin.loader }, { loader: 'css-loader' }],
         },
-        module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: 'babel-loader'
-                },
-                {
-                  test:  /\.styl$/,
-                  use: [
-                    // CSS loader for moduled css/styl from javascript
-                    {
-                      loader: 'style-loader', // Creates style nodes from JS strings
-                    },
-                    {
-                      loader: 'css-loader',
-                      options: {
-                        modules: {
-                          exportLocalsConvention: 'camelCase'
-                        }
-                      },
-                    },
-
-                    {
-                      loader: 'stylus-loader',
-                      options: {
-                        additionalData: `@import "${path.resolve(__dirname, 'src/js/styles/include.styl')}"`,
-                      },
-                    },
-                  ],
-                  exclude: [path.resolve(__dirname,'./src/styles/')]
-                },
-                {
-                  test:  /\.css$/,
-                  use: [
-                    {
-                      loader: 'style-loader',
-                    },
-                    {
-                      loader: 'css-loader',
-                      options: {
-                        modules: {
-                          exportLocalsConvention: 'camelCase'
-                        }
-                      },
-                    },
-                  ],
-                  exclude: [path.resolve(__dirname,'./src/styles/')]
-                },
-                {
-                  test:  /\.styl$/,
-                  // CSS loader for non-moduled css use for static site content
-                  use: [
-                    {
-                      loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                      loader: 'css-loader',
-                    },
-                    {
-                      loader: 'stylus-loader', // Compiles stylus to css
-                    },
-                  ],
-                  include: [path.resolve(__dirname,'./src/styles/')]
-                },
-                {
-                  test:  /\.css$/,
-                  // CSS loader for non-moduled css use for static site content
-                  use: [
-                    {
-                      loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                      loader: 'css-loader',
-                    },
-                  ],
-                  include: [path.resolve(__dirname,'./src/styles/')]
-                },
-                {
-                  test: /\.(png|woff|woff2|eot|ttf|svg|otf)$/,
-                  use: [
-                    {
-                      loader: 'file-loader',
-                      options: {
-                        name: `assets/[name]${isProduction ? '.[contenthash]' : ''}.[ext]`,
-                        publicPath: `${isProduction ? BASE_PATH : BASE_URL + BASE_PATH}`
-                      },
-                    },
-                  ],
-                },
-            ]
-        }
-    }
+        {
+          test: /\.(png|woff|woff2|eot|ttf|svg|otf)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: `assets/[name]${isProduction ? '.[contenthash]' : ''}.[ext]`,
+                publicPath: `${isProduction ? BASE_PATH : BASE_URL + BASE_PATH}`,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  }
 }

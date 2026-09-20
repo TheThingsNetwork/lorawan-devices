@@ -8,3 +8,10 @@ bin/validate-image.exe
 bin/devices.csv
 .envrc
 .idea
+
+# Claude Code local config
+.claude/
+
+# AI-generated drafts / scratch — keep out of commits and PRs
+*-draft.md
+doc/issue-1018-technical-proposal-draft.md

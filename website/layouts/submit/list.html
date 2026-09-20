@@ -1,0 +1,223 @@
+{{ define "main" }}
+{{ $vendors := where (site.GetPage "/devices").Pages "Kind" "section" }}
+<main>
+  <section class="page-hero" style="padding-bottom: 24px;">
+    <div class="container">
+      <h1>Submit a device</h1>
+      <p class="lede">Add your device to the open-source repository. A complete profile, with payload codec, gets your device one-click onboarding in The Things Stack and visibility to thousands of network operators. This wizard generates the YAML files for your pull request.</p>
+      <p class="lede" style="font-size: 14px;">Changing a device that is already listed? Use the <a href="{{ "update/" | absURL }}">update wizard</a> instead.</p>
+    </div>
+  </section>
+
+  <div class="container" data-submit-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}" data-submit-api="{{ .Site.Params.submitApi }}" data-submit-email="{{ .Site.Params.submitEmail }}" data-turnstile-key="{{ .Site.Params.turnstileKey }}">
+    <div class="submit-layout">
+      <aside class="submit-steps" data-steps>
+        <button class="sstep active" data-step-btn="0"><span class="sstep-num">1</span> Vendor</button>
+        <button class="sstep" data-step-btn="1" disabled><span class="sstep-num">2</span> Device info</button>
+        <button class="sstep" data-step-btn="2" disabled><span class="sstep-num">3</span> LoRaWAN profile</button>
+        <button class="sstep" data-step-btn="3" disabled><span class="sstep-num">4</span> Hardware</button>
+        <button class="sstep" data-step-btn="4" disabled><span class="sstep-num">5</span> Payload codec</button>
+        <button class="sstep" data-step-btn="5" disabled><span class="sstep-num">6</span> Photo</button>
+        <button class="sstep" data-step-btn="6" disabled><span class="sstep-num">7</span> Review</button>
+      </aside>
+
+      <div class="submit-panel">
+        <div data-step-panel="0">
+          <h2>Who makes this device?</h2>
+          <div class="s-choice-row">
+            <button class="s-choice active" data-vendor-mode="existing">
+              <strong>Existing vendor</strong>
+              <span>The manufacturer is already in the repository</span>
+            </button>
+            <button class="s-choice" data-vendor-mode="new">
+              <strong>New vendor</strong>
+              <span>Register a manufacturer for the first time</span>
+            </button>
+          </div>
+          <div class="s-grid" data-vendor-existing>
+            <div class="s-field span2">
+              <label>Vendor</label>
+              <select data-f="vendor">
+                {{ range $vendors.ByTitle }}
+                <option value="{{ path.Base .File.Dir }}">{{ .Params.name | default .Title }}</option>
+                {{ end }}
+              </select>
+            </div>
+          </div>
+          <div class="s-grid" data-vendor-new hidden>
+            <div class="s-field"><label>Vendor name</label><input data-f="vendorName" placeholder="Acme Sensors B.V." /></div>
+            <div class="s-field"><label>Vendor ID (slug)</label><input data-f="vendorSlug" placeholder="acme-sensors" /><span class="s-hint">Lowercase, hyphenated. Becomes the folder name under <code>vendor/</code>.</span></div>
+            <div class="s-field"><label>Website</label><input data-f="vendorSite" placeholder="https://acme.example" /></div>
+            <div class="s-field"><label>Technical contact</label><input data-f="vendorEmail" placeholder="iot@acme.example" /><span class="s-hint">Used for review questions.</span></div>
+            <div class="s-field span2"><span class="s-hint">New vendors also need a LoRa Alliance VendorID, request one via the <a href="https://resources.lora-alliance.org/document/lora-alliance-vendor-id-20230915" rel="noopener">LoRa Alliance TR005 registry</a>, or leave it to the reviewers.</span></div>
+          </div>
+        </div>
+
+        <div data-step-panel="1" hidden>
+          <h2>Device information</h2>
+          <div class="s-grid">
+            <div class="s-field"><label>Device name</label><input data-f="name" placeholder="16A Dry Switch" /></div>
+            <div class="s-field"><label>Model ID (slug)</label><input data-f="model" placeholder="16ads" /><span class="s-hint">Lowercase, hyphenated. Becomes the YAML file name.</span></div>
+            <div class="s-field span2">
+              <label>Description</label>
+              <textarea rows="3" data-f="desc" placeholder="A miniature device that features a 16A dry relay…"></textarea>
+              <span class="s-hint">One or two sentences. Shown on the device card, the detail page and in search engines.</span>
+            </div>
+            <div class="s-field span2">
+              <label>Sensors / capabilities</label>
+              <div class="filter-pills" data-pills="sensors">
+                {{ range slice "temperature" "humidity" "co2" "motion" "gps" "pressure" "light" "moisture" "distance" "water" "vibration" "voltage" "current" "button" "magnetometer" "accelerometer" "sound" "tvoc" "pm2.5" "wind speed" }}
+                <button class="filter-pill" value="{{ . }}">{{ . }}</button>
+                {{ end }}
+              </div>
+            </div>
+            <div class="s-field span2"><label>Product URL</label><input data-f="productUrl" placeholder="https://acme.example/products/device" /></div>
+            <div class="s-field span2"><label>Datasheet URL</label><input data-f="datasheetUrl" placeholder="https://acme.example/datasheet.pdf" /></div>
+          </div>
+        </div>
+
+        <div data-step-panel="2" hidden>
+          <h2>LoRaWAN profile</h2>
+          <div class="s-grid">
+            <div class="s-field">
+              <label>MAC version</label>
+              <select data-f="mac">
+                <option>1.0.2</option><option selected>1.0.3</option><option>1.0.4</option><option>1.1</option>
+              </select>
+            </div>
+            <div class="s-field">
+              <label>Regional parameters</label>
+              <select data-f="regParams">
+                <option>RP001-1.0.2-RevB</option><option selected>RP001-1.0.3-RevA</option><option>RP002-1.0.1</option><option>RP002-1.0.4</option>
+              </select>
+            </div>
+            <div class="s-field">
+              <label>Activation</label>
+              <div class="filter-pills" data-pills-single="join">
+                <button class="filter-pill active" value="otaa">OTAA</button>
+                <button class="filter-pill" value="abp">ABP</button>
+              </div>
+            </div>
+            <div class="s-field">
+              <label>Device classes</label>
+              <div class="filter-pills" data-pills="classes">
+                <button class="filter-pill active" value="A" disabled>Class A</button>
+                <button class="filter-pill" value="B">Class B</button>
+                <button class="filter-pill" value="C">Class C</button>
+              </div>
+            </div>
+            <div class="s-field span2">
+              <label>Supported frequency plans</label>
+              <div class="filter-pills" data-pills="plans">
+                {{ range slice "EU863-870" "US902-928" "AU915-928" "AS923" "AS923-2" "AS923-3" "KR920-923" "IN865-867" "RU864-870" "CN470-510" "EU433" }}
+                <button class="filter-pill{{ if eq . "EU863-870" }} active{{ end }}" value="{{ . }}">{{ . }}</button>
+                {{ end }}
+              </div>
+            </div>
+            <div class="s-field">
+              <label>Max EIRP (dBm)</label>
+              <input data-f="maxEirp" type="number" value="16" />
+            </div>
+          </div>
+        </div>
+
+        <div data-step-panel="3" hidden>
+          <h2>Hardware specifications</h2>
+          <div class="s-grid">
+            <div class="s-field"><label>Width (mm)</label><input data-f="width" type="number" step="0.1" placeholder="36" /></div>
+            <div class="s-field"><label>Height (mm)</label><input data-f="height" type="number" step="0.1" placeholder="32" /></div>
+            <div class="s-field"><label>Length (mm)</label><input data-f="length" type="number" step="0.1" placeholder="18" /></div>
+            <div class="s-field"><label>Weight (g)</label><input data-f="weight" type="number" step="0.1" placeholder="24" /></div>
+            <div class="s-field">
+              <label>IP rating</label>
+              <select data-f="ip">
+                <option value="">—</option>
+                {{ range slice "IP20" "IP30" "IP54" "IP65" "IP66" "IP67" "IP68" }}<option>{{ . }}</option>{{ end }}
+              </select>
+            </div>
+            <div class="s-field">
+              <label>Power source</label>
+              <select data-f="power">
+                <option value="battery">Battery</option><option value="mains">Mains</option>
+              </select>
+            </div>
+            <div class="s-field" data-battery-fields><label>Battery type</label><input data-f="batteryType" placeholder="2 × AA" /></div>
+            <div class="s-field" data-battery-fields2>
+              <label>Battery replaceable</label>
+              <div class="filter-pills" data-pills-single="batteryReplaceable">
+                <button class="filter-pill active" value="true">Yes</button>
+                <button class="filter-pill" value="false">No</button>
+              </div>
+            </div>
+            <div class="s-field"><label>Operating temp. min (°C)</label><input data-f="tempMin" type="number" placeholder="-10" /></div>
+            <div class="s-field"><label>Operating temp. max (°C)</label><input data-f="tempMax" type="number" placeholder="40" /></div>
+          </div>
+        </div>
+
+        <div data-step-panel="4" hidden>
+          <h2>Payload codec</h2>
+          <div class="s-choice-row">
+            <button class="s-choice active" data-codec-mode="yes">
+              <strong>I'll include a codec</strong>
+              <span>decodeUplink in JavaScript, earns the one-click onboarding badge</span>
+            </button>
+            <button class="s-choice" data-codec-mode="no">
+              <strong>No codec yet</strong>
+              <span>The device can still be listed; codecs can be added later</span>
+            </button>
+          </div>
+          <div data-codec-body>
+            {{ partial "wizard/codec-step.html" . }}
+          </div>
+        </div>
+
+        <div data-step-panel="5" hidden>
+          <h2>Product photo</h2>
+          {{ partial "wizard/photo-step.html" . }}
+          <div class="s-callout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>The photo travels with your pull request as <code>vendor/&lt;vendor&gt;/&lt;model&gt;.png</code>, this step only checks it against the repository rules so the reviewers don't have to bounce it back.</span>
+          </div>
+        </div>
+
+        <div data-step-panel="6" hidden>
+          <h2>Review & generate</h2>
+          <div class="card-block" style="margin-bottom: 16px;">
+            <table class="spec-table" data-review-table>
+            </table>
+          </div>
+          <div class="val-list" data-validation></div>
+          <div class="s-callout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>The files are validated against the same <strong>schema.json</strong> the repository CI uses. Generating shows a step-by-step GitHub checklist, submissions are reviewed by the maintainers, most are merged within a few working days.</span>
+          </div>
+        </div>
+
+        <div class="submit-nav">
+          <button class="btn btn-secondary" data-prev disabled>Back</button>
+          <button class="btn btn-primary" data-next>Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-success" data-success hidden>
+      <div class="ss-icon" data-manual-only>
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h1 data-manual-only>Your submission files are ready</h1>
+      <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong>, GitHub forks the repository for you, no local tools needed. The community reviews every submission before it is published.</p>
+      <div class="cl-list" data-cli-panel hidden></div>
+      <div class="cl-list" data-backend-panel hidden></div>
+      <div class="cl-list" data-checklist data-manual-only></div>
+      <pre class="code" data-yaml-preview data-manual-only></pre>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-secondary" data-download>⬇ Download YAML files</button>
+        <a class="btn btn-primary" href="https://github.com/TheThingsNetwork/lorawan-devices/fork" rel="noopener" data-manual-only>Fork the repository on GitHub</a>
+        <button class="btn btn-secondary" data-restart>Start over</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="{{- index .Site.Data.manifest `submit.js` | strings.TrimPrefix `/` | relURL -}}"></script>
+{{ end }}

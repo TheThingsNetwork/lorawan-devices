@@ -15,16 +15,16 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-          go-version: '~1.24'
+          go-version: '~1.27'
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.83.1'
-          # extended: true
+          hugo-version: '0.159.2'
+          extended: true
       - name: Download Go dependencies
         run: |
           cd website/

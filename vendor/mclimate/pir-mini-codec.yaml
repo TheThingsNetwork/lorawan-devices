@@ -1,0 +1,55 @@
+uplinkDecoder:
+  fileName: pir-mini.js
+  examples:
+    - description: Periodic keepalive
+      input:
+        fPort: 2
+        bytes: [0x01, 0x02, 0x88, 0x80, 0x02, 0xF1, 0xC8, 0x01, 0x01, 0xAF]
+      output:
+        data:
+          sensorTemperature: 24.8
+          relativeHumidity: 50
+          lux: 753
+          luxStatus: ok
+          batteryVoltage: 3.33
+          occupied: true
+          pirTriggerCount: 431
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 24.8
+              relativeHumidity: 50
+              lightIntensity: 753
+            battery: 3.33
+            action:
+              motion:
+                detected: true
+                count: 431
+    - description: Response to keepalive period command, with appended keepalive
+      input:
+        fPort: 2
+        bytes: [0x12, 0x0A, 0x01, 0x02, 0x80, 0x99, 0x03, 0xE1, 0xCC, 0x01, 0x00, 0x12]
+      output:
+        data:
+          keepAliveTime: 10
+          sensorTemperature: 24
+          relativeHumidity: 59.77
+          lux: 993
+          luxStatus: ok
+          batteryVoltage: 3.36
+          occupied: true
+          pirTriggerCount: 18
+    - description: Room occupied event, with appended keepalive
+      input:
+        fPort: 2
+        bytes: [0x3A, 0x01, 0x02, 0x80, 0x99, 0x03, 0xE1, 0xCC, 0x01, 0x00, 0x12]
+      output:
+        data:
+          event: occupied
+          sensorTemperature: 24
+          relativeHumidity: 59.77
+          lux: 993
+          luxStatus: ok
+          batteryVoltage: 3.36
+          occupied: true
+          pirTriggerCount: 18

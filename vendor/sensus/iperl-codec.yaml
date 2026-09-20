@@ -2,3 +2,164 @@
 # For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
 uplinkDecoder:
   fileName: iperl-oms.js
+  examples:
+    - description: SND-ALARM
+      input:
+        fPort: 20
+        bytes:
+          [
+            0x7A,
+            0x06,
+            0x04,
+            0x00,
+            0x00,
+            0x84,
+            0x04,
+            0x13,
+            0x3A,
+            0x1C,
+            0x7E,
+            0x01,
+            0x84,
+            0x04,
+            0x6D,
+            0x2A,
+            0x2D,
+            0x13,
+            0x36,
+            0x8D,
+            0x04,
+            0x93,
+            0x13,
+            0x18,
+            0xD2,
+            0x3C,
+            0x34,
+            0x00,
+            0x2E,
+            0x00,
+            0x34,
+            0x00,
+            0x2E,
+            0x00,
+            0x39,
+            0x00,
+            0x2E,
+            0x00,
+            0x34,
+            0x00,
+            0x2E,
+            0x00,
+            0x34,
+            0x00,
+            0x33,
+            0x00,
+            0x34,
+            0x00,
+          ]
+      output:
+        data:
+          accessNo: 6
+          alarms:
+            - LOW_BATTERY
+          config: 0
+          device:
+          identificationNo:
+          manufacturer:
+          manufacturerCode:
+          records:
+            - dif: 1156
+              exponent: -3
+              function: 0
+              isCompactProfile:
+              scaledValue: 25041.978
+              storage: 8
+              strValue:
+              subUnit: 0
+              symbol: m^3
+              tariff: 0
+              unit: M3
+              value: 25041978
+              values:
+              vif: 19
+              vifType: VOLUME
+            - dif: 1156
+              exponent: 0
+              function: 0
+              isCompactProfile:
+              scaledValue:
+              storage: 8
+              strValue: '2024-06-19 13:42:00'
+              subUnit: 0
+              symbol:
+              tariff: 0
+              unit: DATETIME
+              value: 1718804520
+              values:
+              vif: 109
+              vifType: TIME_POINT
+            - dif: 1165
+              exponent: -3
+              function: 0
+              isCompactProfile: true
+              scaledValue:
+              storage: 8
+              strValue:
+              subUnit: 0
+              symbol: m^3
+              tariff: 0
+              unit: M3
+              value:
+              values:
+                - scaledValue: 25041.426
+                  storage: 19
+                  timestamp: 1718764920
+                  value: 25041426
+                - scaledValue: 25041.478
+                  storage: 18
+                  timestamp: 1718768520
+                  value: 25041478
+                - scaledValue: 25041.529000000002
+                  storage: 17
+                  timestamp: 1718772120
+                  value: 25041529
+                - scaledValue: 25041.581000000002
+                  storage: 16
+                  timestamp: 1718775720
+                  value: 25041581
+                - scaledValue: 25041.627
+                  storage: 15
+                  timestamp: 1718779320
+                  value: 25041627
+                - scaledValue: 25041.679
+                  storage: 14
+                  timestamp: 1718782920
+                  value: 25041679
+                - scaledValue: 25041.725000000002
+                  storage: 13
+                  timestamp: 1718786520
+                  value: 25041725
+                - scaledValue: 25041.782
+                  storage: 12
+                  timestamp: 1718790120
+                  value: 25041782
+                - scaledValue: 25041.828
+                  storage: 11
+                  timestamp: 1718793720
+                  value: 25041828
+                - scaledValue: 25041.88
+                  storage: 10
+                  timestamp: 1718797320
+                  value: 25041880
+                - scaledValue: 25041.926
+                  storage: 9
+                  timestamp: 1718800920
+                  value: 25041926
+                - scaledValue: 25041.978
+                  storage: 8
+                  timestamp: 1718804520
+                  value: 25041978
+              vif: 19
+              vifType: VOLUME
+          status: 4
+          version:

@@ -23,6 +23,14 @@ function decodeUplink(input) {
   };
 }
 
+// Chirpstack v3
+function Decode(fPort, bytes, variables) {
+  // Decode an uplink message from a buffer (array) of bytes to an object of fields.
+  var decoded = MutelcorLoRaButtonDecode(bytes, fPort);
+  if (!keywords) decoded = Descriptions(decoded);
+  return decoded;
+}
+
 var translation = {
   port: "[01] Port",
   version: "[02] Payload Version",
@@ -278,6 +286,17 @@ var translation = {
   fmtitv: "[73] LoRaButton Feedback/threshold $ Max. heartbeat/measurement/reminder interval when feedback or threshold active [sec]",
   jndrmin: "[74] LoRaWAN OTAA Join Minimum Datarate for EU686, IN865, AS923 and KR920",
   jndrmax: "[75] LoRaWAN OTAA Join Maximum Datarate for EU686, IN865, AS923 and KR920",
+  pmresult: "[76] LoRabutton Sensor Particulate Matter results",
+  pmresult_val: {
+    0: "Standard",
+    1: "Atmospheric environment",
+  },
+  hibmask: "[77] LoRaWAN Hibernate",
+  hibmask_val: {
+      1: "On Join Failure",
+      2: "On Link Check Failure",
+  },
+  hibmask_noval: "Unknown Hibernation value (@)",
   result: "[30] Update Result",
   result_val: {
     0: "Success",
@@ -378,6 +397,25 @@ var translation = {
   hex: "[99] Complete payload [hex]",
 };
 
+function ValueDescription(labels, value) {
+  var value_descriptions = translation[labels[0] + "_val"];
+  if (value_descriptions !== undefined && value_descriptions !== null) {
+    var value_description = value_descriptions[value];
+    if (value_description === undefined) {
+      var value_nodescription = translation[labels[0] + "_noval"];
+      if (typeof value_nodescription === "string") value = value_nodescription.replace("@", value);
+    } else {
+      value = value_description;
+    }
+  }
+  if (typeof value === "string") {
+    for (var label_v = 1; label_v < labels.length; label_v += 1) {
+      value = value.replace("$", labels[label_v]);
+    }
+  }
+  return value;
+}
+
 function Descriptions(decode) {
   if (decode === null || typeof decode !== "object" || Array.isArray(decode)) return decode;
   var descriptions = {};
@@ -392,22 +430,14 @@ function Descriptions(decode) {
       }
       key = description;
     }
-    var value_descriptions = translation[labels[0] + "_val"];
-    if (value_descriptions !== undefined && value_descriptions !== null) {
-      var value_description = value_descriptions[value];
-      if (value_description === undefined) {
-        var value_nodescription = translation[labels[0] + "_noval"];
-        if (typeof value_nodescription === "string") value = value_nodescription.replace("@", value);
-      } else {
-        value = value_description;
+    if (Array.isArray(value)) {
+      descriptions[key] = [];
+      for (var i = 0; i < value.length; i += 1) {
+        descriptions[key][i] = ValueDescription(labels, value[i]);
       }
+    } else {
+      descriptions[key] = ValueDescription(labels, value);
     }
-    if (typeof value === "string") {
-      for (var label_v = 1; label_v < labels.length; label_v += 1) {
-        value = value.replace("$", labels[label_v]);
-      }
-    }
-    descriptions[key] = value;
   }
   return descriptions;
 }
@@ -552,7 +582,7 @@ function MutelcorLoRaButtonDecode(bytes, port) {
       decoded.meas.dist = bytes[pos++] * 256 + bytes[pos++];
     }
     if (measurements & 128) {
-      if (bytes.length < pos + 2) {
+      if (bytes.length < pos + 1) {
         decoded.error = 144;
         return addPayloadLeft(decoded, bytes, pos);
       }
@@ -964,6 +994,13 @@ function MutelcorLoRaButtonDecode(bytes, port) {
             break;
           case 199:
             field = "jndrmax";
+            break;
+          case 200:
+            field = "pmresult";
+            break;
+          case 201:
+            field = "hibmask";
+            value = [1, 2].filter(bitmaskFilter, value);
             break;
         }
         if (field !== null) decoded.config[field] = value;

@@ -1001,6 +1001,10 @@ vendors:
     name: Boston Networks Limited
     vendorID: 598
 
+  - id: inbiot
+    name: inBiot Monitoring S.L.
+    vendorID: 600
+
   - id: milesight-iot
     name: Milesight IoT Co., Ltd
     vendorID: 601
@@ -1295,6 +1299,8 @@ vendors:
   - id: kamstrup
     name: Kamstrup A/S
     vendorID: 748
+    ouis:
+      - 0013EA
 
   - id: adafruit
     name: Adafruit Industries
@@ -2186,3 +2192,20 @@ vendors:
     logo: fencyboy_logo.png
     social:
       linkedin: https://www.linkedin.com/showcase/fencyboy
+
+  - id: mikrotik
+    name: MikroTik
+    vendorID: 980
+    website: https://mikrotik.com
+
+  - id: advangrid
+    name: AdvanGrid
+    website: https://advangrid.com
+
+  - id: aqualinks
+    name: Aqualinks
+    website: https://aqualinks.es
+
+  - id: safora
+    name: Safora Technologies
+    website: https://www.safora-tech.com
