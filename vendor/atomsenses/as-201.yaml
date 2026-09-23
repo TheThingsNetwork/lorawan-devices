@@ -1,5 +1,5 @@
-name: AS201 LoRaWAN Indoor Ambient Environment Sensor # Device name can not contain the vendor name
-description: 3-in-1 Temp / Humidity / CO2 Sensor
+name: AS201 CO2 Sensor for Ventilation Control
+description: CO2, temperature, humidity. CO2 Sensor for Ventilation Control.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -130,7 +130,7 @@ firmwareProgramming:
   - fuota lorawan
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atomsenses.com/product/lorawan-3-in-1-co2-sensor/
+productURL: https://www.atomsenses.com/products/AS-201
 dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-201.pdf
 
 # Photos
