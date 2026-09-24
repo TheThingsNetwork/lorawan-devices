@@ -1,19 +1,18 @@
-
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
+	else if(typeof exports === 'object')
+		exports["driver"] = factory();
+	else
+		root["driver"] = factory();
 })(this, () => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 44:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 44
+(module, __unused_webpack_exports, __webpack_require__) {
 
 let abeewayUplinkPayloadClass = __webpack_require__(962);
 let abeewayDownlinkPayloadClass = __webpack_require__(522);
@@ -33,12 +32,22 @@ const DOWNLINK_PORT_NUMBER = 3;
 const removeEmpty = (obj) => {
     Object.keys(obj).forEach(k =>
       (obj[k] && typeof obj[k] === 'object') && removeEmpty(obj[k]) ||
-      (!obj[k] && (obj[k] === null || obj[k] === undefined)) && delete obj[k] 
+      (!obj[k] && (obj[k] === null || obj[k] === undefined || Number.isNaN(obj[k]))) && delete obj[k] 
     );
     return obj;
   };
 
-
+function isContextUsedInPayload(input) {
+    const payload = input.payload || util.convertBytesToString(input.bytes);
+    const byteString = payload.slice(0, 2);
+    if(typeof byteString !== undefined) {
+        const byte0 = parseInt(byteString, 16);
+        const payloadType = (byte0 & 0b00111000) >> 3;
+        const isTelemetry = payloadType === 5;
+        return isTelemetry;
+    }
+    return false;
+}
 
 function decodeUplink(input) {
     let result = {
@@ -53,13 +62,20 @@ function decodeUplink(input) {
 
         //header decoding
         decodedData.header = basicHeadeClass.determineHeader(payload,receivedTime);
-
+        decodedData.payload = util.convertBytesToString(payload);
+        // NOTE: due to buffering, the header size is increased to 2 more bytes at the index 4 and 5 for timestamp.
+		// to simplify the decoding for other parts, we will exclude those bytes
+        
+        if (decodedData.header.buffering){
+            if (payload.length < 6) 
+                throw new Error("the payload is not valid to determine header with buffering")
+            payload.splice(4, 2);
+        }
         //if multiframe is true
         var multiFrame = !!(payload[0]>>7 & 0x01);
         if (multiFrame){
             decodedData.extendedHeader = extendedHeaderClass.determineExtendedHeader(payload);
         }
-        decodedData.payload = util.convertBytesToString(payload);
         switch (decodedData.header.type){
             case abeewayUplinkPayloadClass.messageType.NOTIFICATION:
                 decodedData.notification = notificationClass.determineNotification(payload);
@@ -74,7 +90,7 @@ function decodeUplink(input) {
                 decodedData.response = responseClass.determineResponse(payload, multiFrame);
                 break;
             case abeewayUplinkPayloadClass.messageType.TELEMETRY:
-                decodedData.telemetry = telemetryClass.decodeTelemetry(payload);
+                decodedData.telemetry = telemetryClass.decodeTelemetry(payload,decodedData.header.timestamp);
                 break;
         }
         decodedData = removeEmpty(decodedData);
@@ -105,7 +121,7 @@ function decodeDownlink(input){
                 decodedData.request = requestClass.decodeRequest(payload)
                 break;
             case abeewayDownlinkPayloadClass.MessageType.ANSWER:
-                decodedData.response = responseClass.determineResponse(payload, multiFrame);
+                decodedData.answerType = abeewayDownlinkPayloadClass.determineAnswerType(payload);
                 break;
         }
         decodedData = removeEmpty(decodedData);
@@ -167,165 +183,1461 @@ function encodeDownlink(input){
 module.exports = {
     decodeUplink: decodeUplink,
     decodeDownlink: decodeDownlink,
-    encodeDownlink: encodeDownlink
+    encodeDownlink: encodeDownlink,
+    isContextUsedInPayload: isContextUsedInPayload
 }
 
-//console.log(decodeUplink({recvTime: "2025-03-01T13:04:27.000+02:00", bytes: "2864871d80010000003c050091010384003c050ea2010000003c050e", "fPort":3}));
+/***/ },
 
-/***/ }),
+/***/ 522
+(module) {
 
-/***/ 69:
-/***/ ((module) => {
+const MessageType = Object.freeze({
+    COMMAND: "COMMAND",
+    REQUEST: "REQUEST",
+    ANSWER: "ANSWER"
+});
 
-function BssidInfo(mac,
-    rssi
-){
-    this.mac = mac;
-    this.rssi = rssi;
+const AnswerType = Object.freeze({
+    AIDING_POSITION: "AIDING_POSITION",
+    ECHO_REPLY: "ECHO_REPLY",
+    UPDATE_GPS_ALMANAC: "UPDATE_GPS_ALMANAC",
+    UPDATE_BEIDOU_ALMANAC: "UPDATE_BEIDOU_ALMANAC"
+});
+
+function AbeewayDownlinkPayload(downMessageType, 
+        ackToken,
+        command,
+        request,
+        payload) {
+        this.downMessageType = downMessageType;
+        this.ackToken = ackToken;
+        this.command = command;
+        this.request = request;
+        this.payload = payload;
+}
+
+function determineDownlinkHeader(payload){
+    if (payload.length < 1)
+        throw new Error("The payload is not valid to determine header");
+    var ackToken = payload[0] & 0x07;
+    var type = determineMessageType(payload);
+    return new AbeewayDownlinkPayload(type, ackToken)
+}
+
+function determineMessageType(payload){
+    var messageType = payload[0]>>3 & 0x07;
+
+    switch (messageType){
+        case 1:
+            return MessageType.COMMAND;
+        case 2:
+            return MessageType.REQUEST;
+        case 3:
+            return MessageType.ANSWER;
+    }
+}
+
+function determineAnswerType(payload){
+    if (payload.length < 2)
+        throw new Error("The payload is not valid to determine answer type");
+    switch (payload[1]){
+        case 0:
+            return AnswerType.AIDING_POSITION;
+        case 1:
+            return AnswerType.ECHO_REPLY;
+        case 2:
+            return AnswerType.UPDATE_GPS_ALMANAC;
+        case 3:
+            return AnswerType.UPDATE_BEIDOU_ALMANAC;
+        default:
+            throw new Error("Unknown answer type");
+    }
 }
 
 module.exports = {
-    BssidInfo: BssidInfo, 	
+    AbeewayDownlinkPayload: AbeewayDownlinkPayload,
+    MessageType: MessageType,
+    AnswerType: AnswerType,
+    determineDownlinkHeader: determineDownlinkHeader,
+    determineAnswerType: determineAnswerType
 }
 
-/***/ }),
+/***/ },
 
-/***/ 94:
-/***/ ((module) => {
+/***/ 851
+(module) {
 
-function convertToByteArray(payload){
-    var bytes = [];
-    var length = payload.length/2;
-    for(var i = 0; i < payload.length; i+=2){
-        bytes[i/2] = parseInt(payload.substring(i, i+2),16)&0xFF;
+const SystemEventClass = Object.freeze({
+    BUTTON_1: "BUTTON_1",
+    BUTTON_2: "BUTTON_2",
+    BUZZER: "BUZZER",
+    ACCELEROMETER: "ACCELEROMETER",
+    POWER: "POWER",
+    TEMPERATURE: "TEMPERATURE",
+    GEOLOCATION: "GEOLOCATION",
+    CONFIGURATION: "CONFIGURATION",
+    NETWORK: "NETWORK",
+    CORE: "CORE",
+    BLE: "BLE",
+    USER: "USER",
+    FUOTA: "FUOTA"
+});
+const CommandType = Object.freeze({
+    CLEAR_AND_RESET: "CLEAR_AND_RESET",
+    RESET: "RESET",
+    START_SOS: "START_SOS",
+    STOP_SOS: "STOP_SOS",
+    SYSTEM_STATUS_REQUEST: "SYSTEM_STATUS_REQUEST",
+    POSITION_ON_DEMAND: "POSITION_ON_DEMAND",
+    SET_GPS_ALMANAC: "SET_GPS_ALMANAC",
+    SET_BEIDOU_ALMANAC: "SET_BEIDOU_ALMANAC",
+    START_BLE_CONNECTIVITY: "START_BLE_CONNECTIVITY",
+    STOP_BLE_CONNECTIVITY: "STOP_BLE_CONNECTIVITY",
+    SYSTEM_EVENT: "SYSTEM_EVENT",
+    CLEAR_MOTION_PERCENTAGE: "CLEAR_MOTION_PERCENTAGE",
+    GET_DATA_BUFFERING_ENTRIES: "GET_DATA_BUFFERING_ENTRIES",
+    CLEAR_ALL_DATA_BUFFERING: "CLEAR_ALL_DATA_BUFFERING",
+    CLEAR_BLE_BOND_DATA: "CLEAR_BLE_BOND_DATA"
+
+
+});
+function Command(command, classId, eventType, beginUtcTime, duration, bufferedDataType) {
+    this.commandType = command;
+    this.classId = classId;
+    this.eventType = eventType;
+    this.beginUtcTime = beginUtcTime;
+    this.duration = duration;
+    this.bufferedDataType = bufferedDataType;
+}
+function determineCommand(value) {
+    const commands = [
+        CommandType.CLEAR_AND_RESET,
+        CommandType.RESET,
+        CommandType.START_SOS,
+        CommandType.STOP_SOS,
+        CommandType.SYSTEM_STATUS_REQUEST,
+        CommandType.POSITION_ON_DEMAND,
+        CommandType.SET_GPS_ALMANAC,
+        CommandType.SET_BEIDOU_ALMANAC,
+        CommandType.START_BLE_CONNECTIVITY,
+        CommandType.STOP_BLE_CONNECTIVITY,
+        CommandType.SYSTEM_EVENT,
+        CommandType.CLEAR_MOTION_PERCENTAGE,
+        CommandType.GET_DATA_BUFFERING_ENTRIES,
+        CommandType.CLEAR_ALL_DATA_BUFFERING,
+        CommandType.CLEAR_BLE_BOND_DATA
+    ];
+    return commands[value] || null; // Returns null if the command is unknown
+}
+
+function encodeCommand(data) {
+    let encode = [];
+    encode[0] = (0x01 << 3) | data.ackToken;
+
+    let command = Object.values(CommandType).indexOf(data.commandType);
+    if (command === -1) {
+        throw new Error("Command unknown");
     }
+
+    encode[1] = command;
+
+    if (command === 10) { // SYSTEM_EVENT
+        let classId = getClassId(data.classId);
+        encode[2] = classId;
+        encode[3] = data.eventType;
+    }
+    if (command === 12) { // GET_DATA_BUFFERING_ENTRIES
+
+           // Support either beginDate (number) or beginUtcTime (string)
+        let begin;
+
+        if (data.beginUtcTime) {
+            const date = new Date(data.beginUtcTime);
+            if (isNaN(date.getTime())) {
+                throw new Error("Invalid beginUtcTime format");
+            }
+            begin = Math.floor(date.getTime() / 1000); // convert to Unix timestamp (seconds)
+        } else {
+            throw new Error("Missing beginUtcTime");
+        }
+        //const begin = data.beginDate >>> 0;
+        encode[2] = (begin >>> 24) & 0xff;
+        encode[3] = (begin >>> 16) & 0xff;
+        encode[4] = (begin >>> 8) & 0xff;
+        encode[5] = begin & 0xff;
+
+        const dur = data.duration & 0xffff;
+        encode[6] = (dur >>> 8) & 0xff;
+        encode[7] = dur & 0xff;
     
-    return bytes;
-}
-function isValueInRange(value, min, max) {
-    return value >= min && value <= max;
+        encode[8] = encodeBufferedDataType(data.bufferedDataType);
+    }
+
+
+    return encode;
 }
 
-function camelToSnake(string) {
-       return string.replace(/[\w]([A-Z1-9])/g, function(m) {
-           return m[0] + "_" + m[1];
-       }).toUpperCase();
-   }
+function decodeCommand(bytes) {
+    let decoded = new Command();
+    let command = determineCommand(bytes[0]);
 
-function twoComplement(num) {
-    if (num > 0x7FFFFFFF) {
-        num -= 0x100000000;
+    if (!command) {
+        throw new Error("Unknown command received");
     }
-    return num
-}
-function convertBytesToString(bytes){
-    var payload = "";
-    var hex;
-    for(var i = 0; i < bytes.length; i++){
-        hex = convertByteToString(bytes[i]);
-        payload += hex;
-    }
-    return payload;
-}
 
-function convertByteToString(byte){
-    let hex = byte.toString(16);
-    if (hex.length < 2){
-        hex = "0" + hex;
-    }
-    return hex;
-}
-
-function decodeCondensed(value, lo, hi, nbits, nresv) {
-    return ((value - nresv / 2) / ( (((1 << nbits) - 1) - nresv) / (hi - lo)) + lo);
-}
-
-function convertNegativeInt(value, length) {
-    if (value > (0x7F << 8*(length-1))){
-        value -= 0x01<< 8*length;
-	}
-	return value;
-}
-
-function hexStringToInt(hexString) {
-    if (hexString.startsWith("0x")) {
-        hexString = hexString.slice(2);
-    }
-    return parseInt(hexString, 16);
-}
-// It allows to check the range validity of the parameter value 
-function checkParamValueRange (givenValue, minimum, maximum, exclusiveMinimum, exclusiveMaximum, additionalValues, additionalRanges) {
-	if (additionalValues != undefined)
-	{
-		if (additionalValues.includes(givenValue))
-			return true;
-	}
-    if (additionalRanges != undefined && additionalRanges.length >0)
-    {
-        for (let additionalRange of additionalRanges)
-        {
-			if (givenValue>= additionalRange.minimum && givenValue <= additionalRange.maximum)
-    			return true;
-    	}
-    }
-    if (maximum== undefined && minimum== undefined){
-        return true
-    }
-    if (((minimum == undefined || (exclusiveMinimum!=undefined && exclusiveMinimum == true && givenValue > minimum) ||
-    givenValue>=minimum)) && (maximum == undefined || (exclusiveMaximum!=undefined && exclusiveMaximum == true && givenValue < maximum || (givenValue <=maximum))))
-	    return true;
-    return false;
-}
-function hasNegativeNumber(additionalValues) {
-	if (additionalValues == undefined) 
-        return false;
-	for (let el of additionalValues){
-        if (typeof(el)=="number"){
-            if (el < 0)
-			    return true;
+    decoded.commandType = command
+    if (command === CommandType.SYSTEM_EVENT) {
+        if (bytes.length < 3) {
+            throw new Error("Invalid SYSTEM_EVENT byte array length");
         }
-        else if (typeof(el)=="object"){
-            if (el.minimum < 0)
-                return true;
-        }
-	}
-	return false;
+        decoded.classId = getClassName(bytes[1]);
+        decoded.eventType = bytes[2];
+    }
+    if (command === CommandType.GET_DATA_BUFFERING_ENTRIES) {
+        if (bytes.length < 7) throw new Error("Invalid DATA_BUFFERING_ENTRIES byte array length");
+
+        const begin =
+            (bytes[1] << 24) |
+            (bytes[2] << 16) |
+            (bytes[3] << 8) |
+            bytes[4];
+        const beginSeconds = begin >>> 0;
+        decoded.beginUtcTime = new Date(beginSeconds * 1000).toISOString();
+        const duration = (bytes[5] << 8) | bytes[6];
+        decoded.duration = duration;
+
+        decoded.bufferedDataType = decodeBufferedDataType(bytes[7]);
+    }
+   
+   
+    return decoded;
 }
-function lengthToHex(length){  
-    let hex =0;
-	for (let i  =0; i<length; i++)
-	{
-		hex = hex + Math.pow(2,i)
-	}
-	//return parseInt(hex,16)
-    return hex
+
+// Convert classId to integer
+function getClassId(className) {
+    const classes = {
+        [SystemEventClass.BUTTON_1]: 0,
+        [SystemEventClass.BUTTON_2]: 1,
+        [SystemEventClass.BUZZER]: 2,
+        [SystemEventClass.ACCELEROMETER]: 3,
+        [SystemEventClass.POWER]: 4,
+        [SystemEventClass.TEMPERATURE]: 5,
+        [SystemEventClass.GEOLOCATION]: 6,
+        [SystemEventClass.CONFIGURATION]: 7,
+        [SystemEventClass.NETWORK]: 8,
+        [SystemEventClass.CORE]: 9,
+        [SystemEventClass.BLE]: 10,
+        [SystemEventClass.USER]: 11,
+        [SystemEventClass.FUOTA]: 12
+    };
+    if (className in classes) {
+        return classes[className];
+    }
+    throw new Error("Unknown class id");
 }
+
+//  Convert classId integer to class name
+function getClassName(classId) {
+    const classMap = {
+        0: SystemEventClass.BUTTON_1,
+        1: SystemEventClass.BUTTON_2,
+        2: SystemEventClass.BUZZER,
+        3: SystemEventClass.ACCELEROMETER,
+        4: SystemEventClass.POWER,
+        5: SystemEventClass.TEMPERATURE,
+        6: SystemEventClass.GEOLOCATION,
+        7: SystemEventClass.CONFIGURATION,
+        8: SystemEventClass.NETWORK,
+        9: SystemEventClass.CORE,
+        10: SystemEventClass.BLE,
+        11: SystemEventClass.USER,
+        12: SystemEventClass.FUOTA
+    };
+    return classMap[classId] || "UNKNOWN_CLASS";
+}
+
+function encodeBufferedDataType(flags) {
+    let mask = 0;
+    if (flags.position)      mask |= 0x01; // bit 0
+    if (flags.notification)  mask |= 0x02; // bit 1
+    if (flags.telemetry)      mask |= 0x04; // bit 2
+    return mask;
+}
+function decodeBufferedDataType(mask) {
+    return {
+        position:     (mask & 0x01) !== 0, // bit 0
+        notification: (mask & 0x02) !== 0, // bit 1
+        telemetry:    (mask & 0x04) !== 0  // bit 2
+    };
+}
+
 module.exports = {
-    convertToByteArray: convertToByteArray,
-    camelToSnake: camelToSnake,
-    convertBytesToString: convertBytesToString,
-    convertByteToString: convertByteToString,
-    decodeCondensed: decodeCondensed,
-    convertNegativeInt: convertNegativeInt,
-    twoComplement: twoComplement,
-    isValueInRange: isValueInRange,
-    hexStringToInt: hexStringToInt,
-    checkParamValueRange: checkParamValueRange,
-    hasNegativeNumber: hasNegativeNumber,
-    lengthToHex: lengthToHex
+    Command: Command,
+    decodeCommand: decodeCommand,
+    encodeCommand: encodeCommand
+}
 
+/***/ },
+
+/***/ 788
+(module, __unused_webpack_exports, __webpack_require__) {
+
+let responseClass = __webpack_require__(289);
+let util = __webpack_require__(94);
+
+let RequestType = responseClass.ResponseType
+const SENSOR_TYPES = {
+   "DO_NOT_USE" :0,
+    "ACCELEROMETER": 1
+};
+const FUOTA_BINARY_TYPES ={
+    "APPLICATION" : 0,
+    "BLE_STACK": 1,
+    "MT3333": 2,
+    "LR11XX": 3
+}
+function Request(requestType,
+    genericConfigurationSet,
+    parameterClassConfigurationSet,
+    genericConfigurationGet,
+    parameterClassConfigurationGet,
+    bleStatusConnectivity,
+    crc,
+    sensorIds,
+    fuotaBinaryType,
+    filePath,
+    debugInfoType,
+    k0Key,
+    k1Key,
+    rootKeyIndex,
+    ){
+        this.requestType = requestType;
+        this.genericConfigurationSet = genericConfigurationSet;
+        this.parameterClassConfigurationSet = parameterClassConfigurationSet;
+        this.genericConfigurationGet = genericConfigurationGet;
+        this.parameterClassConfigurationGet = parameterClassConfigurationGet;
+        this.bleStatusConnectivity = bleStatusConnectivity;
+        this.crc = crc;
+        this.sensorIds = sensorIds;
+        this.fuotaBinaryType = fuotaBinaryType;
+        this.filePath = filePath;
+        this.debugInfoType = debugInfoType;
+        this.k0Key = k0Key;
+        this.k1Key = k1Key;
+        this.rootKeyIndex = rootKeyIndex;
+}
+function ParameterClassConfigurationGet(group, parameters){
+    this.group = group
+    this.parameters = parameters
+}
+function encodeRequest(data){
+    let encData = [] 
+    // encode type and ackToken
+    encData[0] = (0x02 <<3) | data.ackToken
+    let requestType = encodeRequestType(data.requestType)
+    encData[1] = requestType
+    switch (requestType){
+        case 0:
+            encData = encodeRequestGenericConfigurationSet(data.setGenericParameters, encData)
+            break;
+        case 1:
+            encData = encodeRequestParameterClassConfigurationSet(data.setParameterClass, encData)
+            break;
+        case 2:
+            encData = encodeRequestGenericConfigurationGet(data.getGenericParameters, encData)
+            break;
+        case 3:
+            encData = encodeRequestParameterClassConfigurationGet(data.getParameterClass, encData)
+            break;
+        case 4:
+            // no data
+            break;
+        case 5:
+            encData = encodeCrc(data.crc, encData)
+            break;
+        case 6:
+            encData = encodeSensorRequest(data.sensorIds, encData)
+            break;
+        case 7:
+            encData = encodeDebugInfoRequest(data.debugInfoType, encData)
+            break;
+        case 8:
+            encData = encodeFuotaRequest(data.fuotaBinaryType, data.filePath, encData)
+            break;
+        case 9:
+            encData = encodeRecoveryBeaconKeyUpdateRequest(data.k0Key, data.k1Key, data.rootKeyIndex, encData)
+            break;
+        case 10:
+            // no data
+            break;
+        default:
+            throw new Error("Unknown request type")
+
+    }
+    return encData
+}
+function encodeDebugInfoRequest(type,encData){
+    encData[2]= type
+    return encData
+}
+function encodeRequestType(value){
+    switch (value){
+        case "GENERIC_CONFIGURATION_SET":
+            return 0;
+        case "PARAM_CLASS_CONFIGURATION_SET":
+            return 1;
+        case "GENERIC_CONFIGURATION_GET":
+            return 2;
+        case "PARAM_CLASS_CONFIGURATION_GET":
+            return 3;
+        case "BLE_STATUS_CONNECTIVITY":
+            return 4;
+        case "CRC_CONFIGURATION_REQUEST":
+            return 5;
+        case "SENSOR_REQUEST":
+            return 6;
+        case "DEBUG_INFO_REQUEST":
+            return 7;
+        case "FUOTA_REQUEST":
+            return 8;
+        case "RECOVERY_BEACON_KEY_UPDATE":
+            return 9;
+        case "RECOVERY_BEACON_ROOT_KEY_INDEX_GET":
+            return 10;
+        default:
+            throw new Error("Unknown request type")
+    }
+}
+function encodeFuotaBinaryType(value){
+    switch (value){
+        case "APPLICATION":
+            return 0;
+        case "BLE_STACK":
+            return 1;
+        case "MT3333":
+            return 2;
+        case "LR11XX":
+            return 3
+         default:
+            throw new Error("Unknown FUOTA binary type")
+
+}}
+function  encodeFuotaRequest(binaryType, filePath, encData){
+    encData[2] = encodeFuotaBinaryType(binaryType)
+    encData = encodeFuotaFilePath(filePath,encData,3)
+    return encData;
+}
+function decodeRequest(payload){
+    let request = new Request();
+
+    let typeValue  = payload[1]
+    switch (typeValue){
+        case 0:
+            request.requestType = RequestType.GENERIC_CONFIGURATION_SET
+            request.genericConfigurationSet = determineRequestGenericConfigurationSet(payload.slice(2))
+            break;
+        case 1:
+            request.requestType = RequestType.PARAM_CLASS_CONFIGURATION_SET
+            request.parameterClassConfigurationSet = determineRequestParameterClassConfigurationSet(payload.slice(2))
+            break;
+        case 2:
+            request.requestType = RequestType.GENERIC_CONFIGURATION_GET
+            request.genericConfigurationGet = determineRequestGenericConfigurationGet(payload.slice(2))
+            break;
+        case 3:
+            request.requestType = RequestType.PARAM_CLASS_CONFIGURATION_GET
+            request.parameterClassConfigurationGet = determineRequestParameterClassConfigurationGet(payload.slice(2))
+            break;
+        case 4:
+            request.requestType = RequestType.BLE_STATUS_CONNECTIVITY
+            //TO BE defined
+            break;
+        case 5:
+            request.requestType = RequestType.CRC_CONFIGURATION_REQUEST
+            request.crc = decodeCrc(payload.slice(2))
+            break;
+        case 6:
+            request.requestType = RequestType.SENSOR_REQUEST
+            request.sensorIds = decodeSensorRequest(payload.slice(2))
+           break;
+        case 7:
+            request.requestType = RequestType.DEBUG_INFO_REQUEST
+            request.debugInfoType = util.convertNegativeInt(payload[2],8)
+            break;
+        case 8:
+            request.requestType = RequestType.FUOTA_REQUEST
+            request.fuotaBinaryType = decodeBinaryFuotaType(payload[2])
+            request.filePath = decodeAsciiString(payload.slice(3))
+            break;
+        case 9:
+            request.requestType = RequestType.RECOVERY_BEACON_KEY_UPDATE
+            request.k0Key = decodeKeyBytes(payload.slice(2, 18))
+            request.k1Key = decodeKeyBytes(payload.slice(18, 34))
+            request.rootKeyIndex = payload[34]
+            break;
+        case 10:
+            request.requestType = RequestType.RECOVERY_BEACON_ROOT_KEY_INDEX_GET
+            break;
+        default:
+            throw new Error("Request Type Unknown");
+    }
+    return request
+
+}
+
+
+function determineRequestGenericConfigurationSet(payload){
+    let i = 0;
+    let request = []
+    while (payload.length > i) {
+        let groupId = payload[i]
+        let localId = payload[1+i]
+        let size = payload[2+i]>>3 & 0x1F;
+        let dataType = payload[2+i] & 0x07;
+        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, localId)
+        switch(dataType){
+            case 0: 
+                determineDeprecatedRequest(request, parameter,groupId)
+                break;
+            case 1:
+                responseClass.determineConfiguration(request, parameter,  parseInt(util.convertBytesToString(payload.slice(3+i,3+i+size)),16), groupId, size)
+                break;
+            case 2:
+                //we don't have a float parameter now
+                break;
+            case 3:
+                responseClass.determineConfiguration(request, parameter,  payload.slice(3+i,3+i+size), groupId, size)
+                break;
+            case 4:
+                responseClass.determineConfiguration(request, parameter,  payload.slice(3+i,3+i+size), groupId, size)
+                break; 
+            default:
+                throw new Error("Unknown parameter type");
+            
+        }
+        i = i + size + 3 
+    }
+    return request
+}
+function encodeCrc(groupNames, encData) {
+    // Ensure groupNames is an array and not empty
+    if (!Array.isArray(groupNames) || groupNames.length === 0) {
+        throw new Error("Group names array is required and cannot be empty");
+    }
+
+    let bitmap = 0;
+
+    // Loop through all group names and set the corresponding bit if the group is selected
+    groupNames.forEach(group => {
+        // Find the index of the group name in the GroupType object
+        let index = Object.values(responseClass.GroupType).indexOf(group);
+        
+        // If the group is valid, set the corresponding bit in the bitmap
+        if (index !== -1) {
+            bitmap |= (1 << index);
+        } else {
+            console.warn(`Group name "${group}" not found in GroupType. Skipping.`);
+        }
+    });
+
+    // Convert the bitmap into a 2-byte array (high byte and low byte)
+    // Add the result to encData
+    encData.push(bitmap >> 8, bitmap & 0xFF);
+
+    return encData;
+}
+
+// Convert bitmap back to group names
+function decodeCrc(bitmapArray) {
+    // Check if the bitmapArray is [0, 0], meaning all groups are requested
+    if (bitmapArray[0] === 0 && bitmapArray[1] === 0) {
+        return Object.values(responseClass.GroupType);  // Return all groups if crc is empty
+    }
+    if (bitmapArray.length < 2) return []; // Avoid out-of-bounds errors
+
+    // Convert 2-byte array into an integer
+    let bitmap = (bitmapArray[0] << 8) | bitmapArray[1];
+
+    let result = [];
+    Object.keys(responseClass.GroupType).forEach((key, index) => {
+        if ((bitmap & (1 << index)) !== 0) {  // Corrected bitwise check
+            result.push(responseClass.GroupType[key]);
+        }
+    });
+    return result;
+}
+function decodeSensorRequest(buffer) {
+    return Array.from(buffer).map(id => {
+        // Find the type corresponding to the numeric id
+        let type = Object.keys(SENSOR_TYPES).find(key => SENSOR_TYPES[key] === id);
+        return {
+            id,
+            type: type || "Unknown"  // If no match, set it to "Unknown"
+        };
+    });
+}
+
+// Encode: Convert sensor objects to binary format and fill encData
+function encodeSensorRequest(sensorIds, encData) {
+
+    if (!Array.isArray(sensorIds)) {
+        throw new Error("sensorIds must be an array.");
+    }
+    if (!Array.isArray(encData)) {
+        throw new Error("encData must be an array.");
+    }
+
+    sensorIds.forEach((sensor, index) => {
+        if (!(sensor.type in SENSOR_TYPES)) {
+            throw new Error(`Unknown sensor type: ${sensor.type}`);
+        }
+        let encodedValue = SENSOR_TYPES[sensor.type];
+        encData.push(encodedValue);
+    });
+    return encData;
+}
+
+function determineRequestParameterClassConfigurationSet(payload){
+    let groupId = payload[0]
+    let i = 1;
+    let request = []
+    while (payload.length > i) {
+        let localId = payload[i]
+        let size = payload[1+i]>>3 & 0x1F;
+        let dataType = payload[1+i] & 0x07;
+        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, localId)
+        if (payload.slice(i).length < size){
+            throw new Error(parameter.driverParameterName + " has a wrong type")
+        } 
+        switch(dataType){
+            case 0: 
+                determineDeprecatedRequest(request, parameter,groupId)
+                break;
+            case 1:
+                responseClass.determineConfiguration(request, parameter,  parseInt(util.convertBytesToString(payload.slice(2+i,2+i+size)),16), groupId)
+                break;
+            case 2:
+                //TO be complted
+                break;
+            case 3:
+                responseClass.determineConfiguration(request, parameter,  payload.slice(2+i,2+i+size), groupId, size)
+                break; 
+            case 4:
+                responseClass.determineConfiguration(request, parameter,  payload.slice(2+i,2+i+size), groupId, size)
+                break; 
+            default:
+                throw new Error("Unknown parameter type");
+
+        }
+        i = i + size + 2
+        }
+        return request
+}
+
+function determineDeprecatedRequest(request, parameter, groupId) {
+    let group = responseClass.determineGroupType(groupId)
+    let paramName = parameter.driverParameterName
+    // Find the group in the request object or create a new one if it doesn't exist
+    let groupObject = request.find(g => g.group === group);
+    if (!groupObject) {
+        groupObject = { group: group, parameters: [] };
+        request.push(groupObject);
+    }
+
+    // Add the parameter to the group's parameters array
+    groupObject.parameters.push({
+        parameterName: paramName,
+        parameterValue: "DEPRECATED"
+    });
+}
+
+function determineRequestGenericConfigurationGet(payload){
+    let i = 0;
+    const step = 2;
+    if (payload % 2 === 0){
+        throw new Error("Invalid payload")
+    }
+    let request = []
+    while (payload.length >= step * (i + 1)) {
+        let groupId = payload[i*step]
+        let localId = payload[1+i*step]
+        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, localId)
+        let group = responseClass.determineGroupType(groupId)
+        // Find the group in the response object or create a new one if it doesn't exist
+        let groupObject = request.find(g => g.group === group);
+        if (!groupObject) {
+            groupObject = { group: group, parameters: [] };
+            request.push(groupObject);
+        }
+
+        // Add the parameter to the group's parameters array
+        groupObject.parameters.push(
+            parameter.driverParameterName
+        );
+
+    i++;
+    }
+    return request
+}
+
+function determineRequestParameterClassConfigurationGet(payload){
+    if (payload.length < 2){
+        throw new Error("The payload must contain at least one local identifier");
+    }
+    let groupId = payload[0]
+    payload = payload.slice(1)
+    let i = 0;
+    const step = 1;
+    let parameters = [];
+    while (payload.length >= step * (i + 1)) {
+        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, payload[i*step])
+        parameters.push(parameter.driverParameterName)
+        i++;
+    }
+    return new ParameterClassConfigurationGet(responseClass.determineGroupType(groupId), parameters)
+}
+function encodeRequestGenericConfigurationSet (setGenericParameters, encData){
+    var i = 2
+    for (let [index, entry] of setGenericParameters.entries()) {
+        let groupId = determineValueFromGroupType(entry.group)
+        for (let param of entry.parameters) {
+            let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param.parameterName)
+            encData[i] = groupId
+            encData[i+1] = parseInt(parameter.localId, 16);
+            i = encodeSetParameter(parameter, param.parameterValue, encData, i+2)
+        }
+    }
+    return encData
+}
+function encodeRequestParameterClassConfigurationSet (setParameterClass, encData){
+    let groupId = determineValueFromGroupType(setParameterClass.group);
+    encData[2] = groupId;
+    var i = 3
+    for (let param of setParameterClass.parameters) {
+        let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param.parameterName);
+        encData[i] = parseInt(parameter.localId, 16);
+        i = encodeSetParameter(parameter, param.parameterValue, encData, i + 1);
+    }
+    return encData;
+}
+function encodeRequestGenericConfigurationGet(getGenericParameters, encData){
+    var i = 2
+    for (let [index,entry] of getGenericParameters.entries()) {
+        let groupId = determineValueFromGroupType(entry.group)
+        for (let param of entry.parameters) {
+            let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param)
+            encData[i] = groupId
+            encData[i+1] = parseInt(parameter.localId, 16);
+            i = i + 2
+        }
+    }
+    return encData
+}
+function encodeRequestParameterClassConfigurationGet (getParameterClass, encData){
+    let groupId = determineValueFromGroupType(getParameterClass.group);
+    encData[2] = groupId;
+    var i = 3
+    for (let param of getParameterClass.parameters) {
+        let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param);
+        encData[i] = parseInt(parameter.localId, 16);
+        i++
+     }
+    return encData;
+}
+
+// Function encode size and type for a parameter
+
+function encodeSetParameter(parameter, paramValue, encData, i) {
+    const paramType = parameter.parameterType.type;
+
+    switch (paramType) {
+        case "ParameterTypeNumber":
+            return encodeNumberParameter(parameter, paramValue, encData, i);
+        case "ParameterTypeString":
+            return encodeStringParameter(parameter, paramValue, encData, i);
+        case "ParameterTypeBitMask":
+            return encodeBitMaskParameter(parameter, paramValue, encData, i);
+        case "ParameterTypeAsciiString":
+            return encodeAsciiStringParameter(parameter, paramValue, encData, i);
+        case "ParameterTypeByteArray":
+            return encodeByteArrayParameter(parameter, paramValue, encData, i);
+        default:
+            throw new Error("Parameter type is unknown");
+    }
+}
+
+// Helper Functions
+
+/**
+ * Encodes a number parameter.
+ */
+function encodeNumberParameter(parameter, paramValue, encData, startIndex) {
+    const size = 4;
+    encData[startIndex] = encodeSizeAndType(size, 1);
+
+    const range = parameter.parameterType.range;
+    const multiply = parameter.parameterType.multiply;
+    const additionalValues = parameter.parameterType.additionalValues;
+    const additionalRanges = parameter.parameterType.additionalRanges;
+
+    if (!util.checkParamValueRange(paramValue, range.minimum, range.maximum, range.exclusiveMinimum, range.exclusiveMaximum, additionalValues, additionalRanges)) {
+        throw new Error(`${parameter.driverParameterName} parameter value is out of range`);
+    }
+
+    let value = paramValue;
+    if (multiply !== undefined) {
+        value /= multiply;
+    }
+    if (value < 0) {
+        value += 0x100000000;
+    }
+
+    encData[startIndex + 1] = (value >> 24) & 0xFF;
+    encData[startIndex + 2] = (value >> 16) & 0xFF;
+    encData[startIndex + 3] = (value >> 8) & 0xFF;
+    encData[startIndex + 4] = value & 0xFF;
+
+    return startIndex + size + 1;
+}
+
+/**
+ * Encodes a string parameter.
+ */
+function encodeStringParameter(parameter, paramValue, encData, startIndex) {
+    const size = 4;
+    encData[startIndex] = encodeSizeAndType(size, 1);
+
+    const possibleValues = parameter.parameterType.possibleValues;
+    const firmwareValues = parameter.parameterType.firmwareValues;
+
+    const index = possibleValues.indexOf(paramValue);
+    if (index === -1) {
+        throw new Error(`${parameter.driverParameterName} parameter value is unknown`);
+    }
+
+    encData[startIndex + 1] = 0;
+    encData[startIndex + 2] = 0;
+    encData[startIndex + 3] = 0;
+    encData[startIndex + 4] = firmwareValues[index];
+
+    return startIndex + size + 1;
+}
+
+/**
+ * Encodes a bitmask parameter.
+ */
+function encodeBitMaskParameter(parameter, paramValue, encData, startIndex) {
+    const size = 4;
+    encData[startIndex] = encodeSizeAndType(size, 1);
+
+    const properties = parameter.parameterType.properties;
+    const bitMap = parameter.parameterType.bitMask;
+
+    let flags = 0;
+    for (let bit of bitMap) {
+        const flagName = bit.valueFor;
+        const flagValue = paramValue[flagName];
+
+        if (flagValue === undefined) {
+            throw new Error(`Bit ${flagName} is missing`);
+        }
+
+        const property = properties.find(el => el.name === flagName);
+        if (!property) {
+            throw new Error(`Property ${flagName} not found`);
+        }
+
+        flags = encodeProperty(property, bit, flagValue, flags);
+    }
+
+    encData[startIndex + 1] = (flags >> 24) & 0xFF;
+    encData[startIndex + 2] = (flags >> 16) & 0xFF;
+    encData[startIndex + 3] = (flags >> 8) & 0xFF;
+    encData[startIndex + 4] = flags & 0xFF;
+
+    return startIndex + size + 1;
+}
+/** encode file path */
+function encodeFuotaFilePath(filePath, encData, startIndex) {
+    const size = filePath.length;
+    if (size >46){
+       throw new Error(`File path length exceeds the maximum allowed size of 46 bytes.`);
+    }
+
+    for (let j = 0; j < filePath.length; j++) {
+        encData[startIndex + j] = filePath.charCodeAt(j) & 0xFF;
+    }
+    return encData;
+}
+
+
+/**
+ * Encodes an ASCII string parameter.
+ */
+function encodeAsciiStringParameter(parameter, paramValue, encData, startIndex) {
+    const size = paramValue.length;
+    encData[startIndex] = encodeSizeAndType(size, 3);
+
+    for (let j = 0; j < paramValue.length; j++) {
+        encData[startIndex + j + 1] = paramValue.charCodeAt(j) & 0xFF;
+    }
+
+    return startIndex + size + 1;
+}
+
+/**
+ * Encodes a byte array parameter.
+ */
+function encodeByteArrayParameter(parameter, paramValue, encData, startIndex) {
+    const size = parameter.parameterType.size;
+    encData[startIndex] = encodeSizeAndType(size, 4);
+
+    if (!parameter.parameterType.properties) {
+        encodeRawByteArray(paramValue, size, encData, startIndex);
+    } else {
+        encodeByteArrayWithProperties(parameter, paramValue, size, encData, startIndex);
+    }
+
+    return startIndex + size + 1;
+}
+
+/**
+ * Encodes a raw byte array (no properties).
+ */
+function encodeRawByteArray(paramValue, size, encData, startIndex) {
+    const paramValueHex = paramValue.toString().replace(/[{}]/g, '').replace(/,/g, ''); // Remove braces and commas
+    for (let j = 0; j < size; j++) {
+        encData[startIndex + j + 1] = parseInt(paramValueHex.slice(j * 2, j * 2 + 2), 16);
+    }
+}
+
+/**
+ * Encodes a byte array with properties.
+ */
+function encodeByteArrayWithProperties(parameter, paramValue, size, encData, startIndex) {
+    const arrayProperties = parameter.parameterType.properties;
+    const byteMask = parameter.parameterType.byteMask;
+    const distinctValues = parameter.parameterType.distinctValues === true;
+    for (let j = 0; j < size; j++) {
+        let flags = 0;
+        
+ if (distinctValues) {
+    const currentParamValue = paramValue[j];
+
+    if (!currentParamValue || typeof currentParamValue !== 'object') {
+        throw new Error(`Invalid parameter value at index ${j}, expected an object but got ${currentParamValue}`);
+    }
+
+    const propertyName = Object.keys(currentParamValue)[0]; // e.g. "systemClass"
+    const propertyValue = currentParamValue[propertyName];
+
+    const bitMapping = byteMask.find(el => el.valueFor === propertyName);
+    const propertyDef = arrayProperties.find(el => el.name === propertyName);
+
+    if (!bitMapping || !propertyDef) {
+        throw new Error(`Property ${propertyName} not found in byteMask or properties`);
+    }
+
+    flags = encodeProperty(propertyDef, bitMapping, propertyValue, flags);
+} else {
+            // Standard encoding (no distinctValues)
+            flags = encodeProperties(arrayProperties, byteMask, paramValue[j], flags);
+        }
+        encData[startIndex + j + 1] = flags & 0xFF;
+    }
+}
+
+/**
+ * Encodes properties for a single byte in the byte array.
+ */
+function encodeProperties(arrayProperties, byteMask, paramValue, flags) {
+    for (let bit of byteMask) {
+        const flagName = bit.valueFor;
+        const flagValue = paramValue[flagName];
+
+        if (flagValue === undefined) {
+            throw new Error(`Byte ${flagName} is missing`);
+        }
+
+        const property = arrayProperties.find(el => el.name === flagName);
+        if (!property) {
+            throw new Error(`Property ${flagName} not found`);
+        }
+
+        flags = encodeProperty(property, bit, flagValue, flags);
+    }
+    return flags;
+}
+
+/**
+ * Encodes a single property based on its type.
+ */
+function encodeProperty(property, bit, flagValue, flags) {
+    switch (property.type) {
+        case "PropertyBoolean":
+            return encodeBooleanProperty(bit, flagValue, flags);
+        case "PropertyString":
+            return encodeStringProperty(property, bit, flagValue, flags);
+        case "PropertyNumber":
+            return encodeNumberProperty(property, bit, flagValue, flags);
+        case "PropertyObject":
+            return encodeObjectProperty(bit, flagValue, flags);
+        default:
+            throw new Error(`Unknown property type: ${property.type}`);
+    }
+}
+
+/**
+ * Encodes a boolean property.
+ */
+function encodeBooleanProperty(bit, flagValue, flags) {
+    let value = flagValue;
+    if (bit.inverted) {
+        value = !value;
+    }
+    return flags | (Number(value) << bit.bitShift);
+}
+
+/**
+ * Encodes a string property.
+ */
+function encodeStringProperty(property, bit, flagValue, flags) {
+    const index = property.possibleValues.indexOf(flagValue);
+    if (index === -1) {
+        throw new Error(`${property.name} value is not among possible values`);
+    }
+    return flags | (property.firmwareValues[index] << bit.bitShift);
+}
+
+/**
+ * Encodes a number property.
+ */
+function encodeNumberProperty(property, bit, flagValue, flags) {
+    if (property.range) {
+        if (!util.checkParamValueRange(flagValue, property.range.minimum, property.range.maximum, property.range.exclusiveMinimum, property.range.exclusiveMaximum, property.additionalValues, property.additionalRanges)) {
+            throw new Error(`Value out of range for ${property.name}`);
+        }
+    }
+    return flags | (flagValue << bit.bitShift);
+}
+
+/**
+ * Encodes an object property.
+ */
+function encodeObjectProperty(bit, flagValue, flags) {
+    for (let b of bit.values) {
+        const fValue = flagValue[b.valueFor];
+        if (fValue === undefined) {
+            throw new Error(`Bit ${bit.valueFor}.${b.valueFor} is missing`);
+        }
+        let value = fValue;
+        if (b.inverted) {
+            value = !value;
+        }
+        flags |= Number(value) << b.bitShift;
+    }
+    return flags;
+}
+function encodeSizeAndType(size, type){
+    return ((size << 0x03)| type)
+
+}
+
+function encodeRecoveryBeaconKeyUpdateRequest(k0Key, k1Key, rootKeyIndex, encData) {
+    if (rootKeyIndex < 0 || rootKeyIndex > 7) {
+        throw new Error("rootKeyIndex must be between 0 and 7");
+    }
+    encodeHexKey(k0Key, 16, encData);
+    encodeHexKey(k1Key, 16, encData);
+    encData.push(rootKeyIndex & 0xFF);
+    return encData;
+}
+
+function encodeHexKey(hexStr, expectedBytes, encData) {
+    const cleaned = hexStr.replace(/\s/g, '');
+    if (cleaned.length !== expectedBytes * 2) {
+        throw new Error(`Key must be ${expectedBytes} bytes (${expectedBytes * 2} hex chars), got ${cleaned.length / 2}`);
+    }
+    for (let i = 0; i < expectedBytes; i++) {
+        encData.push(parseInt(cleaned.slice(i * 2, i * 2 + 2), 16));
+    }
+}
+
+function decodeKeyBytes(bytes) {
+    return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/** Reverse mapping from numeric value to string */
+function decodeBinaryFuotaType(value) {
+    switch (value) {
+        case 0: return "APPLICATION";
+        case 1: return "BLE_STACK";
+        case 2: return "MT3333";
+        case 3: return "LR11XX";
+        default:
+            throw new Error("Unknown binary fuota type: " + value);
+    }
+}
+
+/** Decode ASCII string from byte array */
+function decodeAsciiString(bytes) {
+    let result = "";
+
+    for (let i = 0; i < bytes.length; i++) {
+        const b = bytes[i];
+        if (b === 0) continue; // ignore padding
+        result += String.fromCharCode(b);
+    }
+
+    return result;
+}
+// Function to get parameters by groupId and driverParameterName
+function getParametersByGroupIdAndDriverParameterName(parameters, groupId, driverParameterName) {
+    // Check if the parameters object contains the groupId
+    if (parameters[groupId]) {
+        // Iterate over each localId within the groupId
+        for (let localId in parameters[groupId]) {
+            // Check if the current parameter's driverParameterName matches the provided name
+            if (parameters[groupId][localId].driverParameterName === driverParameterName) {
+                return parameters[groupId][localId];
+            }
+        }
+    }
+
+    // Return null if no matching parameter is found
+    return null;
+}
+// give the group as string 
+function determineValueFromGroupType(groupType) {
+    switch(groupType) {
+        case responseClass.GroupType.INTERNAL:
+            return 0;
+        case responseClass.GroupType.SYSTEM_CORE:
+            return 1;
+        case responseClass.GroupType.GEOLOC:
+            return 2;
+        case responseClass.GroupType.GNSS:
+            return 3;
+        case responseClass.GroupType.LR11xx:
+            return 4;
+        case responseClass.GroupType.BLE_SCAN1:
+            return 5;
+        case responseClass.GroupType.BLE_SCAN2:
+            return 6;
+        case responseClass.GroupType.ACCELEROMETER:
+            return 7;
+        case responseClass.GroupType.NETWORK:
+            return 8;
+        case responseClass.GroupType.LORAWAN:
+            return 9;
+        case responseClass.GroupType.CELLULAR:
+            return 10;
+        case responseClass.GroupType.BLE:
+            return 11;
+        default:
+            throw new Error("Unknown group type");
+    }
+}
+
+module.exports = {
+    RequestType: RequestType,
+    encodeRequest: encodeRequest,
+    decodeRequest: decodeRequest
+}
+
+/***/ },
+
+/***/ 962
+(module) {
+
+const messageType = Object.freeze({
+    NOTIFICATION: "NOTIFICATION",
+    POSITION: "POSITION",
+    QUERY: "QUERY",
+    RESPONSE: "RESPONSE",
+    TELEMETRY: "TELEMETRY",
+    UNKNOWN: "UNKNOWN"
+});
+
+function AbeewayUplinkPayload(header,
+    extendedHeader,
+    notification,
+    position,
+    query,
+    response,
+    telemetry,
+    payload
+    ) {
+    this.header = header;
+    this.extendedHeader = extendedHeader;
+    this.notification = notification;
+    this.position = position;
+    this.query = query;
+    this.response = response;
+    this.telemetry = telemetry;
+    this.telemetry = telemetry;
+    this.payload = payload
+}
+
+module.exports = {
+    AbeewayUplinkPayload: AbeewayUplinkPayload,
+    messageType: messageType
+}
+
+/***/ },
+
+/***/ 592
+(module, __unused_webpack_exports, __webpack_require__) {
+
+let abeewayUplinkPayloadClass = __webpack_require__(962);
+const batteryStatus = Object.freeze({
+    CHARGING: "CHARGING",
+    OPERATING: "OPERATING",
+    UNKNOWN: "UNKNOWN"
+});
+
+function Header(sos, type, ackToken, multiFrame, batteryLevel, timestamp, buffering) {
+    this.sos = sos;
+    this.type = type;
+    this.ackToken = ackToken;
+    this.multiFrame = multiFrame;
+    this.batteryLevel = batteryLevel;
+    this.timestamp = timestamp
+    this.buffering = buffering;
+}
+
+function determineHeader(payload, receivedTime) {
+    var  bufferingFlag 
+    var timestamp
+    if (payload.length < 3)
+        throw new Error("The payload is not valid to determine header");
+    var sos = !!(payload[0] >> 6 & 0x01);
+    var ackToken = payload[0] & 0x07;
+    var type = determineMessageType(payload);
+    var multiFrame = !!(payload[0] >> 7 & 0x01);
+    var batteryLevel = determineBatteryLevel(payload);
+    var buffering = (payload[1] >> 7) & 0x01; 
+    if (buffering == 0) {
+        timestamp = rebuildTime(receivedTime, ((payload[2] << 8) + payload[3]));
+    }else{
+        if (payload.length < 6) 
+            throw new Error("the payload is not valid to determine header with buffering")
+		bufferingFlag = true
+		var bufferingTimestamp = (payload[2] << 24) | (payload[3] << 16) | (payload[4] << 8) | payload[5];
+        timestamp = new Date(bufferingTimestamp * 1000).toISOString();
+        
+    }
+
+    return new Header(sos, type, ackToken, multiFrame, batteryLevel, timestamp, bufferingFlag);
+}
+
+function rebuildTime(receivedTime, seconds) {
+    // Parse the timestamp using native Date object
+    const timestamp = new Date(receivedTime);
+
+    // In the case where the tracker hasn't had time yet...
+    if (seconds === 65535) {
+        return timestamp.toISOString();
+    }
+
+    // Create a Date object set to the start of the UTC day
+    const utcDate = new Date(Date.UTC(timestamp.getUTCFullYear(), timestamp.getUTCMonth(), timestamp.getUTCDate(), 0, 0, 0));
+
+    // Calculate the total seconds since the start of the day for the received time
+    const referenceTotalSeconds = (timestamp.getUTCHours() * 3600) + (timestamp.getUTCMinutes() * 60) + timestamp.getUTCSeconds();
+
+    // Determine if the reference time is closer to midnight or noon
+    let referenceTime;
+    if (referenceTotalSeconds < 43200) { // 43200 seconds is 12 hours
+        referenceTime = utcDate; // Midnight
+    } else {
+        referenceTime = new Date(utcDate.getTime() + 43200 * 1000); // Noon
+    }
+
+    // Add the given number of seconds to the reference time
+    let exactTime = new Date(referenceTime.getTime() + seconds * 1000);
+    // --- Apply 30s tolerance BEFORE rollover handling ---
+    const timeDiff = Math.abs(exactTime.getTime() - timestamp.getTime());
+    const toleranceMs = 3600 * 1000; // 3600 seconds tolerance
+    if (timeDiff <= toleranceMs) {
+        // Within tolerance → use received time as reliable
+        return exactTime.toISOString();
+    }
+    // Check if the rebuilt time is after the original timestamp (rollover)
+    if (exactTime > timestamp) {
+        // Rebuilt time is after the received time, so subtract 43200 seconds (12 hours)
+        exactTime = new Date(exactTime.getTime() - 43200 * 1000);
+    }
+
+    return exactTime.toISOString(); // Return the exact time in ISO 8601 format
+}
+function determineMessageType(payload){
+    if (payload.length < 4)
+        throw new Error("The payload is not valid to determine Message Type");
+    var messageType = payload[0]>>3 & 0x07
+    switch (messageType){
+        case 1:
+            return abeewayUplinkPayloadClass.messageType.NOTIFICATION;
+        case 2:
+            return abeewayUplinkPayloadClass.messageType.POSITION;
+        case 3:
+            return abeewayUplinkPayloadClass.messageType.QUERY;
+        case 4:
+            return abeewayUplinkPayloadClass.messageType.RESPONSE;
+        case 5:
+            return abeewayUplinkPayloadClass.messageType.TELEMETRY;
+        default:
+            return abeewayUplinkPayloadClass.messageType.UNKNOWN;
+    }
+}
+
+function determineBatteryLevel(payload){
+    if (payload.length < 4)
+        throw new Error("The payload is not valid to determine Battery Level");
+    var value = payload[1] & 0x7F;
+    if (value == 0)
+        return batteryStatus.CHARGING;
+    else if (value == 127)
+        return batteryStatus.UNKNOWN; 
+    return value;
+}
+
+module.exports = {
+    Header: Header,
+    determineHeader: determineHeader
+}
+
+/***/ },
+
+/***/ 271
+(module) {
+
+function ExtendedHeader(groupId,
+    last,
+    frameNumber){
+    this.groupId = groupId;
+    this.last = last;
+    this.frameNumber = frameNumber;
+}
+
+function determineExtendedHeader(payload){
+    if (payload.length < 5)
+        throw new Error("The payload is not valid to determine multi frame header");
+    let extendedHeader = new ExtendedHeader(payload[4]>>5 & 0x07,
+        payload[4]>>4 & 0x01,
+        payload[4] & 0x0F);
+    return extendedHeader;
     
 }
 
-/***/ }),
+module.exports = {
+    ExtendedHeader: ExtendedHeader,
+    determineExtendedHeader: determineExtendedHeader
+}
 
-/***/ 142:
-/***/ ((module) => {
+/***/ },
 
-function Network(activeNetwork, mainNetwork, backupNetwork){
+/***/ 925
+(module, __unused_webpack_exports, __webpack_require__) {
+
+
+let util = __webpack_require__(94);
+
+function Accelerometer (accelerationVector, motionPercent, gaddIndex, numberShocks){
+
+    this.accelerationVector = accelerationVector;
+    this.motionPercent = motionPercent;
+    this.gaddIndex = gaddIndex;
+    this.numberShocks = numberShocks;
+}
+function determineAxis(payload, byteNumber){
+    if (payload.length < (byteNumber + 2)){
+        throw new Error("The payload is not valid to determine axis value");
+    }
+    let value = (payload[byteNumber]<<8)+payload[byteNumber+1];
+    value = util.convertNegativeInt(value, 2)
+    return value
+}
+
+function determineAccelerationVector(payload, xOffset, yOffset, zOffset){
+    let x = determineAxis(payload, xOffset);
+    let y = determineAxis(payload, yOffset);
+    let z = determineAxis(payload, zOffset);
+    return [x,y,z];
+}
+function determineGaddIndex(payload){
+    if (payload.length >= 16) {
+        // fw v1.6+: 4-byte GADD index at offset 11-14
+        return ((payload[11] << 24) | (payload[12] << 16) | (payload[13] << 8) | payload[14]) >>> 0;
+    } else if (payload.length >= 13) {
+        // fw v1.5: 1-byte GADD index at offset 11
+        return payload[11];
+    }
+    throw new Error("The payload is not valid to determine GADD index");
+}
+function determineMotion(payload){
+    if (payload.length < 11){
+        throw new Error("The payload is not valid to determine Motion");
+    }
+return payload[11]
+}
+function determineNumberShocks(payload){
+    if (payload.length >= 16) {
+        // fw v1.6+: number of shocks at offset 15
+        return payload[15];
+    } else if (payload.length >= 13) {
+        // fw v1.5: number of shocks at offset 12
+        return payload[12];
+    }
+    throw new Error("The payload is not valid to determine number of shocks");
+}
+
+const AcceleroType = Object.freeze({
+    MOTION_START: "MOTION_START",
+    MOTION_END: "MOTION_END",
+    SHOCK: "SHOCK"
+})
+
+module.exports = {
+    Accelerometer: Accelerometer,
+    determineAccelerationVector: determineAccelerationVector,
+    determineGaddIndex : determineGaddIndex,
+    determineNumberShocks : determineNumberShocks,
+    determineMotion: determineMotion,
+    AcceleroType: AcceleroType,
+}
+
+
+/***/ },
+
+/***/ 548
+(module) {
+
+
+const GeozoningType = Object.freeze({
+    ENTRY: "ENTRY",
+    EXIT: "EXIT",
+    IN_HAZARD: "IN_HAZARD",
+    OUT_HAZARD: "OUT_HAZARD",
+    MEETING_POINT: "MEETING_POINT"
+})
+
+module.exports = {
+    GeozoningType: GeozoningType
+}
+
+/***/ },
+
+/***/ 142
+(module) {
+
+function Network(activeNetwork, mainNetwork, backupNetwork, psmActiveTime, psmTAU){
     this.activeNetwork = activeNetwork;
     this.mainNetwork = mainNetwork;
     this.backupNetwork = backupNetwork;
+    this.psmActiveTime = psmActiveTime;
+    this.psmTAU = psmTAU;
 }
 const NetworkType = Object.freeze({
     MAIN_UP: "MAIN_UP",
@@ -356,10 +1668,16 @@ function determineNetwork(value){
 
 }
 function determineNetworkInfo(payload){
+    let psmActiveTime
+    let psmTAU
     let activeNetwork = determineNetwork(payload[5])
     let mainNetwork =  determineNetwork(payload[6])
     let backupNetwork = determineNetwork(payload[7])
-    return new Network(activeNetwork, mainNetwork, backupNetwork);
+    if (payload.length > 7){
+        psmActiveTime = (payload[8] << 8) + payload[9];
+        psmTAU = (payload[10] << 24) + (payload[11] << 16) + (payload[12] << 8) + payload[13];
+    }
+    return new Network(activeNetwork, mainNetwork, backupNetwork, psmActiveTime, psmTAU);
 }
 
 module.exports = {
@@ -368,27 +1686,258 @@ module.exports = {
     NetworkType: NetworkType
 }
 
-/***/ }),
+/***/ },
 
-/***/ 187:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 977
+(module, __unused_webpack_exports, __webpack_require__) {
+
+let systemClass = __webpack_require__(187);
+let temperatureClass = __webpack_require__ (406)
+let accelerometerClass = __webpack_require__(925)
+let networkClass = __webpack_require__(142)
+let geozoningClass = __webpack_require__(548)
+let telemetryClass = __webpack_require__(343)
+
+const Class = Object.freeze({
+    SYSTEM: "SYSTEM",
+    SOS: "SOS",
+    TEMPERATURE: "TEMPERATURE",
+    ACCELEROMETER: "ACCELEROMETER",
+    NETWORK: "NETWORK",
+    GEOZONING: "GEOZONING",
+    TELEMETRY: "TELEMETRY"
+})
+
+const SosType = Object.freeze({
+    SOS_ON: "SOS_ON",
+    SOS_OFF: "SOS_OFF"
+})
+
+
+
+function Notification(notificationClass,
+    notificationType,
+    system,
+    sos,
+    temperature,
+    accelerometer,
+    network,
+    geozoning,
+    telemetryMeasurements){
+    this.notificationClass = notificationClass;
+    this.notificationType = notificationType;
+    this.system = system;
+    this.sos = sos;
+    this.temperature = temperature;
+    this.accelerometer = accelerometer;
+    this.network = network;
+    this.geozoning = geozoning;
+    this.telemetryMeasurements = telemetryMeasurements;
+}
+
+function decodeCrc(payload) {
+    // Ensure the payload has enough bytes for the CRC
+    if (payload.length < startingByte + byteNumber) {
+        throw new Error("Payload is too short to contain a valid CRC.");
+    }
+
+    // Extract the n bytes of the CRC (big-endian)
+    const crcBytes = payload.slice(startingByte, startingByte + byteNumber);
+    // Convert each byte to a 2-digit hexadecimal string and concatenate
+    const crc = crcBytes.map(b => b.toString(16).padStart(2, "0")).join("");
+    return crc;
+}
+function determineNotification(payload){
+    if (payload.length < 5)
+        throw new Error("The payload is not valid to determine notification message");
+    let notificationMessage = new Notification();
+    let classValue = payload[4]>>4 & 0x0F;
+    let typeValue = payload[4] & 0x0F;
+    switch(classValue){
+        case 0:
+            notificationMessage.notificationClass = Class.SYSTEM;
+            switch (typeValue){
+                case 0:
+                    notificationMessage.notificationType = systemClass.SystemType.STATUS
+                    notificationMessage.system = new systemClass.System(systemClass.determineStatus(payload),null, null, null, null, null, null, null);
+                    break;
+                case 1:
+                    notificationMessage.notificationType = systemClass.SystemType.LOW_BATTERY
+                    notificationMessage.system = new systemClass.System( null, systemClass.determineLowBattery(payload), null, null, null, null, null);
+                    break;
+                case 2:
+                    notificationMessage.notificationType = systemClass.SystemType.BLE_STATUS;
+                    notificationMessage.system = new systemClass.System( null, null, systemClass.determineBleStatus(payload), null, null, null, null, null);
+                    break;
+                case 3:
+                    notificationMessage.notificationType = systemClass.SystemType.TAMPER_DETECTION;
+                    notificationMessage.system = new systemClass.System( null, null, null, systemClass.determineTamperDetection(payload),null, null, null, null);
+                    break;
+                case 4:
+                    notificationMessage.notificationType = systemClass.SystemType.HEARTBEAT;
+                    notificationMessage.system = new systemClass.System(null, null, null, null, systemClass.determineHeartbeat(payload), null, null, null)
+                    break;
+                case 5:
+                    notificationMessage.notificationType = systemClass.SystemType.SHUTDOWN;
+                    notificationMessage.system = new systemClass.System(null, null, null, null, null, systemClass.determineShutdownCause(payload), null, null)
+                    break;
+                case 6:
+                    notificationMessage.notificationType = systemClass.SystemType.DATA_BUFFERING_STATUS;
+                    notificationMessage.system = new systemClass.System(null, null, null, null, null, null, systemClass.determineDataBuffering(payload), null)
+                    break;
+                case 7:
+                    notificationMessage.notificationType = systemClass.SystemType.FUOTA;
+                    notificationMessage.system = new systemClass.System(null, null, null, null, null, null, null, systemClass.determineFuota(payload))
+                    break;
+                default:
+                    throw new Error("System Notification Type Unknown");
+            }
+            break;
+        case 1:
+            notificationMessage.notificationClass = Class.SOS
+            switch (typeValue){
+                case 0:
+                    notificationMessage.notificationType = SosType.SOS_ON
+                    break;
+                case 1:
+                    notificationMessage.notificationType = SosType.SOS_OFF
+                    break;
+                default:
+                    throw new Error("SOS Notification Type Unknown");
+            }
+            break;
+        case 2:
+            notificationMessage.notificationClass = Class.TEMPERATURE
+            switch (typeValue){
+                case 0:
+                    notificationMessage.notificationType = temperatureClass.TempType.TEMP_HIGH
+                    notificationMessage.temperature = temperatureClass.determineTemperature(payload);
+                    break;
+                case 1:
+                    notificationMessage.notificationType = temperatureClass.TempType.TEMP_LOW
+                    notificationMessage.temperature = temperatureClass.determineTemperature(payload);
+                    break;
+                case 2:
+                    notificationMessage.notificationType = temperatureClass.TempType.TEMP_NORMAL
+                    notificationMessage.temperature = temperatureClass.determineTemperature(payload);
+                    break;
+                default:
+                    throw new Error("Temperature Notification Type Unknown");
+            }
+            break;
+        case 3:
+            notificationMessage.notificationClass = Class.ACCELEROMETER
+            switch (typeValue){
+                case 0: 
+                    notificationMessage.notificationType = accelerometerClass.AcceleroType.MOTION_START
+                    break;
+                case 1:
+                    notificationMessage.notificationType = accelerometerClass.AcceleroType.MOTION_END
+                    notificationMessage.accelerometer = new accelerometerClass.Accelerometer(accelerometerClass.determineAccelerationVector(payload,5, 7, 9), accelerometerClass.determineMotion(payload), null, null)
+                    break;
+                case 2:
+                    notificationMessage.notificationType = accelerometerClass.AcceleroType.SHOCK
+                    notificationMessage.accelerometer = new accelerometerClass.Accelerometer(accelerometerClass.determineAccelerationVector(payload, 5, 7, 9), null, accelerometerClass.determineGaddIndex(payload), accelerometerClass.determineNumberShocks(payload))
+                    break;
+                default:
+                    throw new Error("Accelerometer Notification Type Unknown");
+            }
+            break;
+        case 4:
+            notificationMessage.notificationClass = Class.NETWORK
+            switch (typeValue){
+                case 0: 
+                    notificationMessage.notificationType = networkClass.NetworkType.MAIN_UP
+                    notificationMessage.network = networkClass.determineNetworkInfo(payload)
+                    break;
+                case 1:
+                    notificationMessage.notificationType = networkClass.NetworkType.BACKUP_UP
+                    notificationMessage.network = networkClass.determineNetworkInfo(payload)
+                    break;
+                default:
+                    throw new Error("Network Notification Type Unknown");
+            }
+            break;
+        case 5:
+            notificationMessage.notificationClass = Class.GEOZONING
+            switch (typeValue){
+                case 0: 
+                    notificationMessage.notificationType = geozoningClass.GeozoningType.ENTRY;
+                    break;
+                case 1:
+                    notificationMessage.notificationType = geozoningClass.GeozoningType.EXIT;
+                    break;
+                case 2:
+                    notificationMessage.notificationType = geozoningClass.GeozoningType.IN_HAZARD;
+                    break;
+                case 3:
+                    notificationMessage.notificationType = geozoningClass.GeozoningType.OUT_HAZARD;
+                    break;
+                case 4:
+                    notificationMessage.notificationType = geozoningClass.GeozoningType.MEETING_POINT;
+                    break;
+                default:
+                    throw new Error("Geozoning Notification Type Unknown");
+            }
+
+            break;
+        case 6:
+            notificationMessage.notificationClass = Class.TELEMETRY
+            switch (typeValue){
+                case 0: 
+                    notificationMessage.notificationType = telemetryClass.TelemetryType.TELEMETRY;
+                    notificationMessage.telemetryMeasurements = telemetryClass.determineTelemetryMeasurements(payload.slice(5));
+                    break;
+                case 1:
+                    notificationMessage.notificationType = telemetryClass.TelemetryType.TELEMETRY_MODE_BATCH;
+                    break;
+                default:
+                    throw new Error("Telemetry Notification Type Unknown");
+            }
+
+            break;
+        default:
+            throw new Error("Notification Class Unknown");
+    }
+    return notificationMessage;
+
+
+}
+
+
+module.exports = {
+    Notification: Notification,
+    determineNotification: determineNotification,
+    Class : Class
+}
+
+/***/ },
+
+/***/ 187
+(module, __unused_webpack_exports, __webpack_require__) {
 
 let util = __webpack_require__(94);
 
 function System(status,
-    lowBattery, bleStatus, tamperDetection, heartbeat){
+    lowBattery, bleStatus, tamperDetection, heartbeat, shutdown, dataBufferingStatus, fuota){
     this.status = status;
     this.lowBattery = lowBattery;
     this.bleStatus = bleStatus;
     this.tamperDetection = tamperDetection;
     this.heartbeat = heartbeat;
+    this.shutdown = shutdown;
+    this.dataBufferingStatus = dataBufferingStatus;
+    this.fuota = fuota;
 }
 const SystemType = Object.freeze({
     STATUS: "STATUS",
     LOW_BATTERY: "LOW_BATTERY",
     BLE_STATUS: "BLE_STATUS",
     TAMPER_DETECTION: "TAMPER_DETECTION",
-    HEARTBEAT : "HEARTBEAT"
+    HEARTBEAT : "HEARTBEAT",
+    SHUTDOWN : "SHUTDOWN",
+    DATA_BUFFERING_STATUS : "DATA_BUFFERING_STATUS",
+    FUOTA : "FUOTA"
 })
 const ResetCause = Object.freeze({
     AOS_ERROR_NONE: "AOS_ERROR_NONE",
@@ -399,6 +1948,7 @@ const ResetCause = Object.freeze({
     AOS_ERROR_HW_USAGE: "AOS_ERROR_HW_USAGE",
     AOS_ERROR_HW_IRQ: "AOS_ERROR_HW_IRQ",
     AOS_ERROR_HW_WDOG: "AOS_ERROR_HW_WDOG",
+    AOS_ERROR_HW_SWDOG: "AOS_ERROR_HW_SWDOG",
     AOS_ERROR_HW_BOR: "AOS_ERROR_HW_BOR",
     AOS_ERROR_SW_ST_HAL_ERROR: "AOS_ERROR_SW_ST_HAL_ERROR",
     AOS_ERROR_SW_FREERTOS_ASSERT: "AOS_ERROR_SW_FREERTOS_ASSERT",
@@ -409,6 +1959,43 @@ const ResetCause = Object.freeze({
     AOS_ERROR_SW_DEBUG: "AOS_ERROR_SW_DEBUG",
     AOS_ERROR_SW_APP_START: "AOS_ERROR_SW_APP_START",
 })
+
+const ShutdownCause = Object.freeze({
+    SHUTDOWN_CAUSE_NONE: "SHUTDOWN_CAUSE_NONE",
+    SHUTDOWN_CAUSE_USER_ACTION: "SHUTDOWN_CAUSE_USER_ACTION",
+    SHUTDOWN_CAUSE_LOW_BATTERY: "SHUTDOWN_CAUSE_LOW_BATTERY",
+})
+
+const DataBufferingStatus =Object.freeze({
+    SUCCESS :"SUCCESS",
+    TIMEOUT : "TIMEOUT",
+    NO_DATA_FOUND : "NO_DATA_FOUND"
+})
+const Binary = Object.freeze({
+    APPLICATION: "APPLICATION",
+    BLE_STACK: "BLE_STACK",
+    MT3333: "MT3333",
+    LR11XX: "LR11XX"
+});
+const Source = Object.freeze({
+    XMODEM: "XMODEM",
+    BLE: "BLE",
+    CELLULAR: "CELLULAR",
+    LORA: "LORA"
+});
+const Raison = Object.freeze({
+    NONE: "NONE",
+    NETWORK_ISSUE: "NETWORK_ISSUE",
+    DOWNLOAD_TIMEOUT: "DOWNLOAD_TIMEOUT",
+    MODEM_FAILURE: "MODEM_FAILURE",
+    FILE_NOT_FOUND: "FILE_NOT_FOUND",
+    PLATFORM_ERROR: "PLATFORM_ERROR",
+    PARSING_ERROR: "PARSING_ERROR",
+    FLASH_ERROR: "FLASH_ERROR",
+    LENGTH_ERROR: "LENGTH_ERROR",
+    SIGNATURE_ERROR: "SIGNATURE_ERROR",
+    AUTHENTICATION_ERROR: "AUTHENTICATION_ERROR"
+});
 
 function Status(currentTemperature, resetCause, pageId, AT3Version,
     configurationVersion,
@@ -502,6 +2089,26 @@ function Heartbeat(currentTemperature, resetCause, globalCrc){
     this.resetCause = resetCause;
     this.globalCrc = globalCrc;
 }
+function Shutdown(shutdownCause){
+    this.shutdownCause = shutdownCause;
+}
+function DataBuffering(status, oldestTimestamp, latestTimestamp){
+    this.status = status
+    this.oldestTimestamp = oldestTimestamp
+    this.latestTimestamp = latestTimestamp 
+}
+function Fuota(binary,source, raison){
+    this.binary = binary
+    this.source = source
+    this.raison = raison
+}
+function determineFuota(payload){
+    var binaryValue = determineFuotaBinary(payload[5]>>6 & 0x03)
+    var source = determineFuotaSource(payload[5]>>4 & 0X03)
+    var raison = determineFuotaRaison(payload[5] & 0X0F)
+return new Fuota(binaryValue, source, raison)
+
+}
 
 function determineHeartbeat(payload) {
     var currentTemperature = util.convertNegativeInt(payload[5],1);
@@ -560,6 +2167,35 @@ function determineTamperDetection(payload){
 
     }
 }
+function determineShutdownCause(payload){
+    switch (payload[5]){
+        case 0:
+            //unknown cause 
+            return new Shutdown(ShutdownCause.SHUTDOWN_CAUSE_NONE)
+        case 1:
+            return new Shutdown(ShutdownCause.SHUTDOWN_CAUSE_USER_ACTION)
+        case 2:
+            return new Shutdown(ShutdownCause.SHUTDOWN_CAUSE_LOW_BATTERY)
+    }
+}
+function determineDataBufferingStatus(payload){
+    switch (payload[5]){
+        case 0:
+            //unknown cause 
+            return DataBufferingStatus.SUCCESS
+        case 1:
+            return DataBufferingStatus.TIMEOUT
+        case 2:
+            return DataBufferingStatus.NO_DATA_FOUND
+    }
+}
+function determineDataBuffering(payload){
+    var dataBufferingStatus =  determineDataBufferingStatus(payload)
+    var oldestTimestamp = new Date(((payload[6] << 24) | (payload[7] << 16) | (payload[8] << 8) | payload[9]) * 1000).toISOString();
+    var latestTimestamp = new Date(((payload[10] << 24) | (payload[11] << 16) | (payload[12] << 8) | payload[13]) * 1000).toISOString();
+    return new DataBuffering(dataBufferingStatus, oldestTimestamp, latestTimestamp)
+
+}
 function determinePage0(payload, decodedStatus){
     decodedStatus.AT3Version = payload[7].toString()+"."+payload[8].toString()+"."+payload[9].toString();
     decodedStatus.configurationVersion = payload[10].toString()+"."+payload[11].toString()+"."+payload[12].toString()+"."+payload[13].toString();
@@ -610,8 +2246,8 @@ function determinePage1(payload, decodedStatus){
 }
 function determinePage2(payload, decodedStatus){
     decodedStatus.cellVersion = {"branch": payload[7].toString(),"mode": payload[8].toString(), "image":payload[9].toString(), "delivery": payload[10].toString(), "release": parseInt(util.convertBytesToString(payload.slice(11,13)),16).toString() }
-    decodedStatus.ICCID = buildAscciString(payload.slice(13,33))
-    decodedStatus.IMSI = buildAscciString(payload.slice(33))
+    decodedStatus.ICCID = buildAscciString(payload.slice(13,34))
+    decodedStatus.IMSI = buildAscciString(payload.slice(34))
 }
 function determinePage3(payload, decodedStatus){
     decodedStatus.EUICCID = buildAscciString(payload.slice(7,40))
@@ -658,28 +2294,82 @@ function determineResetCause(value){
         case 7:
             return ResetCause.AOS_ERROR_HW_WDOG;
         case 8:
-            return ResetCause.AOS_ERROR_HW_BOR;
+            return ResetCause.AOS_ERROR_HW_SWDOG;
         case 9:
-            return ResetCause.AOS_ERROR_SW_ST_HAL_ERROR;
+            return ResetCause.AOS_ERROR_HW_BOR;
         case 10:
-            return ResetCause.AOS_ERROR_SW_FREERTOS_ASSERT;
+            return ResetCause.AOS_ERROR_SW_ST_HAL_ERROR;
         case 11:
-            return ResetCause.AOS_ERROR_SW_FREERTOS_TASK_OVF;
+            return ResetCause.AOS_ERROR_SW_FREERTOS_ASSERT;
         case 12:
-            return ResetCause.AOS_ERROR_SW_BLE_ASSERT;
+            return ResetCause.AOS_ERROR_SW_FREERTOS_TASK_OVF;
         case 13:
-            return ResetCause.AOS_ERROR_SW_RTC_FAIL;
+            return ResetCause.AOS_ERROR_SW_BLE_ASSERT;
         case 14:
-            return ResetCause.AOS_ERROR_SW_LORA_FAIL;
+            return ResetCause.AOS_ERROR_SW_RTC_FAIL;
         case 15:
-            return ResetCause.AOS_ERROR_SW_DEBUG;
+            return ResetCause.AOS_ERROR_SW_LORA_FAIL;
         case 16:
+            return ResetCause.AOS_ERROR_SW_DEBUG;
+        case 17:
             return ResetCause.AOS_ERROR_SW_APP_START;
         default:
             throw new Error("Unknown Reset Cause");
     }
 }
-    
+function determineFuotaBinary(bin){
+    switch (bin){
+	    case 0:
+	        return Binary.APPLICATION;
+        case 1:
+            return Binary.BLE_STACK;
+        case 2:
+            return Binary.MT3333;
+        case 3:
+            return Binary.LR11XX;
+        default:
+            throw new Error("The fuota binary is unknown" )
+}}
+function determineFuotaSource(source){
+    switch (source){
+	    case 0:
+	        return Source.XMODEM;
+        case 1:
+            return Source.BLE;
+        case 2:
+            return Source.CELLULAR;
+        case 3:
+            return Source.LORA;
+        default:
+            throw new Error("The fuota source is unknown" )
+}}
+function determineFuotaRaison(raison){
+    switch (raison){
+	    case 0:
+	        return Raison.NONE
+        case 1:
+            return Raison.NETWORK_ISSUE
+        case 2:
+            return Raison.DOWNLOAD_TIMEOUT
+        case 3:
+            return Raison.MODEM_FAILURE
+        case 4:
+            return Raison.FILE_NOT_FOUND
+        case 5:
+            return Raison.PLATFORM_ERROR
+        case 6:
+            return Raison.PARSING_ERROR
+        case 7:
+            return Raison.FLASH_ERROR
+        case 8:
+            return Raison.LENGTH_ERROR
+        case 9:
+            return Raison.SIGNATURE_ERROR
+        case 10:
+            return Raison.AUTHENTICATION_ERROR
+        default:
+            throw new Error("The fuota raison failure is unknown" )
+}}
 function getBit(value, position) {
     return (value >> position) & 1;
 }
@@ -711,13 +2401,723 @@ module.exports = {
     determineBleStatus: determineBleStatus,
     determineTamperDetection: determineTamperDetection,
     determineHeartbeat : determineHeartbeat,
+    determineShutdownCause : determineShutdownCause,
+    determineDataBuffering: determineDataBuffering,
+    determineFuota: determineFuota,
     SystemType: SystemType
 }
 
-/***/ }),
+/***/ },
 
-/***/ 220:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 343
+(module, __unused_webpack_exports, __webpack_require__) {
+
+let util = __webpack_require__(94);
+
+const TelemetryType = Object.freeze({
+    TELEMETRY: "TELEMETRY",
+    TELEMETRY_MODE_BATCH: "TELEMETRY_MODE_BATCH"
+})
+// for more details to telemetry refer to https://github.com/actility/device-catalog/blob/main/template/sample-vendor/drivers/ONTOLOGY.md
+const OntologyConstants = Object.freeze({
+    RESISTANCE: {
+        id: 1,
+        ontology: "resistance",
+        type: "int16",
+        unit: "Ohm"
+    },
+    TEMPERATURE: {
+        id: 2,
+        ontology: "temperature",
+        type: "float",
+        unit: "Cel"
+    },
+    HUMIDITY: {
+        id: 3,
+        ontology: "humidity",
+        type: "int16",
+        unit: "%RH", 
+        factor: 10
+    }
+});
+
+// Construct counters based on OntologyConstants
+const counters = Object.keys(OntologyConstants).reduce((acc, key) => {
+    const ontology = OntologyConstants[key];
+    acc[ontology.ontology] = 0;
+    return acc;
+}, {});
+
+function floatFromBytes(bytes) {
+    const buffer = new ArrayBuffer(4);
+    const view = new DataView(buffer);
+    for (let i = 0; i < 4; i++) {
+        view.setUint8(i, bytes[i]);
+    }
+    return view.getFloat32(0, false); // true for little-endian
+}
+function formatFloat(float, decimals = 2) {
+    return Number(float.toFixed(decimals));
+}
+
+function determineTelemetryMeasurements(data) {
+    let index = 0;
+    const ontologies = {};
+    const dataLength = data.length;
+    while (index < dataLength) {
+        if (index >= dataLength) {
+            throw new Error("Unexpected end of data.");
+        }
+        let ontology = determineOntology(data[index] & 0x7F);
+        let valueSize = (data[index] >> 7) & 0x01;
+        let value;
+        if (ontology.type === 'float') {
+            if (valueSize === 1) {
+                if (index + 4 >= dataLength) {
+                    throw new Error("Not enough data for a 4-byte float.");
+                }
+                value = floatFromBytes(data.slice(index + 1, index + 5));
+                value = formatFloat(value);
+                index += 5; // Move to the next data element
+            } else {
+                throw new Error("Unexpected value size for float.");
+            }
+            
+        } else {
+            if (valueSize === 1) {
+                throw new Error("Unexpected value size for int.");
+            }
+            if (index + 2 >= dataLength) {
+                throw new Error("Not enough data for a 2-byte value.");
+            }
+            value = util.convertNegativeInt((data[index + 1] << 8) + data[index + 2],2);
+            index += 3; // Move to the next data element
+        }
+
+        const ontologyName = ontology.ontology;
+        const unit = ontology.unit;
+        const counter = counters[ontologyName];
+        const key = `${ontologyName}:${counter}`;
+
+        // Add the telemetry measurement to the result
+        ontologies[key] = { unitId: unit, record: value };
+
+        // Update the counter
+        counters[ontologyName]++;
+    }
+    Object.keys(ontologies).forEach(key => {
+        const baseKey = key.split(':')[0];
+        if (counters[baseKey] === 1) {
+            const value = ontologies[key];
+            delete ontologies[key];
+            ontologies[baseKey] = value;
+        }
+    });
+    return ontologies;
+}
+
+function determineOntology(value) {
+    const ontology = Object.values(OntologyConstants).find(o => o.id === value);
+    if (ontology) {
+        return ontology;
+    } else {
+        throw new Error("Ontology Unknown");
+    }
+}
+
+
+module.exports = {
+    TelemetryType: TelemetryType,
+    determineTelemetryMeasurements: determineTelemetryMeasurements
+}
+
+
+/***/ },
+
+/***/ 406
+(module, __unused_webpack_exports, __webpack_require__) {
+
+let util = __webpack_require__(94);
+
+const TempType = Object.freeze({
+    TEMP_HIGH: "TEMP_HIGH",
+    TEMP_LOW: "TEMP_LOW",
+    TEMP_NORMAL: "TEMP_NORMAL"
+})
+
+
+function determineTemperature(payload){
+    return util.convertNegativeInt(payload[5],1)
+}
+module.exports = {
+    determineTemperature: determineTemperature,
+    TempType: TempType
+}
+
+/***/ },
+
+/***/ 320
+(module) {
+
+function BeaconIdInfo(id,
+    rssi
+){
+    this.id = id;
+    this.rssi = rssi;
+}
+function BeaconMacInfo(mac,
+    rssi
+){
+    this.mac = mac;
+    this.rssi = rssi;
+}
+
+
+
+module.exports = {
+    BeaconIdInfo: BeaconIdInfo, 	
+    BeaconMacInfo: BeaconMacInfo
+}
+
+/***/ },
+
+/***/ 504
+(module, __unused_webpack_exports, __webpack_require__) {
+
+
+let util = __webpack_require__(94);
+let BeaconInfoClass = __webpack_require__(320);
+
+function determineBleIdShortPositionMessage(payload) {
+    return extractBeaconInfos(payload, 3, (payload, index) => {
+        let key = `${util.convertByteToString(payload[index * 3])}-${util.convertByteToString(payload[1 + index * 3])}`;
+        let value = util.convertNegativeInt(payload[2 + index * 3], 1);
+        return new BeaconInfoClass.BeaconIdInfo(key, value);
+    });
+}
+
+function determineBleIdLongPositionMessage(payload) {
+    return extractBeaconInfos(payload, 17, (payload, index) => {
+        let key = Array.from({ length: 16 }, (_, i) => util.convertByteToString(payload[i + index * 17])).join('-');
+        let value = util.convertNegativeInt(payload[16 + index * 17], 1);
+        return new BeaconInfoClass.BeaconIdInfo(key, value);
+    });
+}
+
+function determineBleMacPositionMessage(payload) {
+    return extractBeaconInfos(payload, 7, (payload, index) => {
+        let key = Array.from({ length: 6 }, (_, i) => util.convertByteToString(payload[i + index * 7])).join(':');
+        let value = util.convertNegativeInt(payload[6 + index * 7], 1);
+        return new BeaconInfoClass.BeaconMacInfo(key, value);
+    });
+}
+
+function extractBeaconInfos(payload, chunkSize, createBeaconInfo) {
+    const beaconInfos = [];
+    const count = Math.floor(payload.length / chunkSize);
+    for (let i = 0; i < count; i++) {
+        beaconInfos.push(createBeaconInfo(payload, i));
+    }
+    return beaconInfos;
+}
+
+module.exports = {
+    determineBleMacPositionMessage,
+    determineBleIdShortPositionMessage,
+    determineBleIdLongPositionMessage
+};
+
+/***/ },
+
+/***/ 541
+(module) {
+
+function GnssFailure(timeoutCause,
+    satelliteSeen){
+    this.timeoutCause = timeoutCause;
+    this.satellitesSeen = satelliteSeen
+}
+const timeOutCause = Object.freeze({
+    T0_TIMEOUT: "T0_TIMEOUT",
+    T1_TIMEOUT: "T1_TIMEOUT",
+    ACQUISITION_TIMEOUT: "ACQUISITION_TIMEOUT"
+});
+const constellation = Object.freeze({
+    GPS: "GPS",
+    GLONASS: "GLONASS",
+    BEIDOU: "BEIDOU",
+    GALILEO: "GALILEO"
+});
+function determineTimeoutCause(timeoutCause){
+    switch (timeoutCause){
+	    case 0:
+	        return timeOutCause.T0_TIMEOUT;
+	    case 1:
+	        return timeOutCause.T1_TIMEOUT;
+	    case 2:
+	    	return timeOutCause.ACQUISITION_TIMEOUT;
+	    default:
+	    	throw new Error("The timeout cause is unknown");
+    }
+}
+function determineConstellation(cons){
+
+    switch (cons){
+	    case 0:
+	        return constellation.GPS;
+        case 1:
+            return constellation.GLONASS;
+        case 2:
+            return constellation.BEIDOU;
+        case 3:
+            return constellation.GALILEO;
+        default:
+            throw new Error("The constellation is unknown" )
+}}
+
+function determineGnssFailure(payload){
+
+    let timeoutCause = determineTimeoutCause(payload[0]>>5 & 0x07)
+    let nbSatSeen = payload[0] & 0x1F
+    payload = payload.slice(1)
+    let satelliteSeen = []
+    for (let i = 0; i < nbSatSeen*2; i += 2) {
+        let svId = payload[i]
+        let constellation = determineConstellation(payload[i+1]>>6 & 0x03)
+        let CN = payload[i+1] & 0x3F
+        satelliteSeen.push({svId, constellation, CN})
+    } 
+    return new GnssFailure(timeoutCause, satelliteSeen)
+}
+
+module.exports = {
+    GnssFailure: GnssFailure,
+    determineGnssFailure: determineGnssFailure
+}
+
+
+/***/ },
+
+/***/ 792
+(module, __unused_webpack_exports, __webpack_require__) {
+
+
+let util = __webpack_require__(94);
+
+function GnssFix(latitude,
+    longitude,
+    altitude,
+    COG,
+    SOG,
+    EHPE,
+    quality){
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.altitude = altitude;
+    this.COG = COG;
+    this.SOG = SOG;
+    this.EHPE = EHPE;
+    this.quality = quality;
+}
+
+const fixQuality = Object.freeze({
+    INVALID: "INVALID",
+    VALID: "VALID",
+    FIX_2D: "FIX_2D",
+    FIX_3D: "FIX_3D",
+});
+
+function QualityInfo(fixQuality,
+    numberSatelliteUsed
+){
+    this.fixQuality = fixQuality;
+    this.numberSatelliteUsed = numberSatelliteUsed;
+}
+
+/****** decoded MT3333 GPS position *******/
+/*****************************************/
+function determineGnssFix (payload){
+    let mt3333GnssFixInfo = new GnssFix();
+    mt3333GnssFixInfo.latitude = util.twoComplement(parseInt(util.convertBytesToString(payload.slice(0,4)),16)) /  Math.pow(10, 7) 
+    mt3333GnssFixInfo.longitude = util.twoComplement(parseInt(util.convertBytesToString(payload.slice(4,8)),16)) /  Math.pow(10, 7)
+    mt3333GnssFixInfo.altitude = determineAltitude(payload)
+    mt3333GnssFixInfo.COG = determineCourseOverGround(payload)
+    mt3333GnssFixInfo.SOG = determineSpeedOverGround(payload)
+    mt3333GnssFixInfo.EHPE = determineEstimatedHorizontalPositionError(payload)
+    mt3333GnssFixInfo.quality = determineFixQuality(payload)
+ return mt3333GnssFixInfo
+
+}
+function determineAltitude(payload){
+    if (payload.length < 10)
+        throw new Error("The payload is not valid to determine GPS altitude");
+    return util.convertNegativeInt(((payload[8]<<8)+payload[9]),2);
+}
+function determineCourseOverGround(payload){
+    if (payload.length < 12)
+        throw new Error("The payload is not valid to determine GPS course over ground");
+    // expressed in 1/100 degree
+    return ((payload[10]<<8)+payload[11]);
+}
+
+function determineSpeedOverGround(payload){
+    if (payload.length < 14)
+        throw new Error("The payload is not valid to determine GPS speed over ground");
+    // expressed in cm/s
+    return ((payload[12]<<8)+payload[13]);
+}
+function determineEstimatedHorizontalPositionError(payload){
+        if (payload.length < 15)
+            throw new Error("The payload is not valid to determine horizontal accuracy");
+        var ehpeValue = payload[14]
+        if (ehpeValue > 250){
+            switch (ehpeValue){
+                case 251:
+                    ehpeValue = "(250,500]"
+                    break
+                case 252:
+                    ehpeValue = "(500,1000]"
+                    break
+                case 253:
+                    ehpeValue = "(1000,2000]"
+                    break;
+                case 254:
+                    ehpeValue = "(2000,4000]"
+                    break;
+                case 255:
+                    ehpeValue = ">4000"
+                    break;
+            }
+        }
+       
+        return ehpeValue;
+    }	
+    
+function determineFixQuality(payload){
+    let quality = payload[15]>>5 & 0x07
+    let qualityInfo = new QualityInfo()
+    
+    switch(quality){
+        case 0:
+            qualityInfo.fixQuality = fixQuality.INVALID
+            break
+        case 1:
+            qualityInfo.fixQuality = fixQuality.VALID
+            break
+        case 2:
+            qualityInfo.fixQuality = fixQuality.FIX_2D
+            break
+        case 3:
+            qualityInfo.fixQuality = fixQuality.FIX_3D
+            break
+    }
+    qualityInfo.numberSatellitesUsed = payload[15] & 0x1F
+    return qualityInfo
+    
+
+}
+
+module.exports = {
+    GnssFix: GnssFix,
+    determineGnssFix: determineGnssFix
+}
+
+/***/ },
+
+/***/ 457
+(module, __unused_webpack_exports, __webpack_require__) {
+
+let TriggerBitMapClass = __webpack_require__(483);
+let bleClass = __webpack_require__(504);
+let util = __webpack_require__(94);
+let gnssFixClass = __webpack_require__(792)
+let gnssFailureClass = __webpack_require__(541)
+let wifiClass = __webpack_require__(508);
+const gnssFailure = __webpack_require__(541);
+//let bssidInfoClass = require("./wifi/bssidInfo")
+
+const PositionStatus = Object.freeze({
+    SUCCESS: "SUCCESS",
+    TIMEOUT: "TIMEOUT",
+    FAILURE: "FAILURE",
+    NOT_SOLVABLE : "NOT_SOLVABLE"
+})
+
+const PositionType = Object.freeze({
+    LR11xx_A_GNSS: "LR11xx_A_GNSS",
+    LR11xx_GNSS_NAV1: "LR11xx_GNSS_NAV1",
+    LR11xx_GNSS_NAV2: "LR11xx_GNSS_NAV2",
+    WIFI: "WIFI",
+    BLE_SCAN1_MAC: "BLE_SCAN1_MAC",
+    BLE_SCAN1_SHORT: "BLE_SCAN1_SHORT",
+    BLE_SCAN1_LONG: "BLE_SCAN1_LONG",
+    BLE_SCAN2_MAC: "BLE_SCAN2_MAC",
+    BLE_SCAN2_SHORT: "BLE_SCAN2_SHORT",
+    BLE_SCAN2_LONG: "BLE_SCAN2_LONG",
+    GNSS: "GNSS",
+    AIDED_GNSS: "AIDED_GNSS"
+})
+
+function Position(motion, motionCounter,
+    status,
+    positionType,
+    triggers,
+    lr11xxAGnss,
+    lr11xxGnssNav1, 
+    lr11xxGnssNav2, 
+    wifiBssids, 
+    bleBeaconMacs,
+    bleBeaconIds,
+    gnssFix,
+    gnssFailure,
+    aidedGnss,
+    coordinates){
+        this.motion = motion;
+        this.motionCounter = motionCounter;
+        this.status = status;
+        this.positionType = positionType;
+        this.triggers = triggers;
+        this.lr11xxAGnss = lr11xxAGnss;
+        this.lr11xxGnssNav1 = lr11xxGnssNav1;
+        this.lr11xxGnssNav2 = lr11xxGnssNav2;
+        this.wifiBssids = wifiBssids;
+        this.bleBeaconMacs =bleBeaconMacs;
+        this.bleBeaconIds = bleBeaconIds;
+        this.gnssFix = gnssFix;
+        this.gnssFailure = gnssFailure;
+        this.aidedGnss = aidedGnss;
+        this.coordinates = coordinates;
+}
+
+/************************ Header position decodage *************************/
+/********************************************************************/
+function determinePositionHeader(payload, startingByte){
+    let positionMessage = new Position();
+    positionMessage.motion = payload[startingByte]>>7 & 0x01;
+    var statusValue = payload[startingByte]>>5 & 0x03;
+    switch (statusValue){
+        case 0:
+            positionMessage.status = PositionStatus.SUCCESS;
+            break;
+        case 1:
+            positionMessage.status = PositionStatus.TIMEOUT;
+            break;
+        case 2:
+            positionMessage.status = PositionStatus.FAILURE;
+            break;
+        case 3:
+            positionMessage.status = PositionStatus.NOT_SOLVABLE;
+            break;
+    }
+
+    var typeValue = payload[startingByte] & 0x1F;
+    switch (typeValue){
+        case 0:
+            positionMessage.positionType = PositionType.LR11xx_A_GNSS;
+            break;
+        case 1:
+            positionMessage.positionType = PositionType.LR11xx_GNSS_NAV1;
+            break;
+        case 2:
+            positionMessage.positionType = PositionType.LR11xx_GNSS_NAV2;
+            break;
+        case 3:
+            positionMessage.positionType = PositionType.WIFI;
+            break;
+        case 4:
+            positionMessage.positionType = PositionType.BLE_SCAN1_MAC;
+            break;
+        case 5:
+            positionMessage.positionType = PositionType.BLE_SCAN1_SHORT;
+            break;
+        case 6:
+            positionMessage.positionType = PositionType.BLE_SCAN1_LONG;
+            break;
+        case 7:
+            positionMessage.positionType = PositionType.BLE_SCAN2_MAC;
+            break;
+        case 8:
+            positionMessage.positionType = PositionType.BLE_SCAN2_SHORT;
+            break;
+        case 9:
+            positionMessage.positionType = PositionType.BLE_SCAN2_LONG;
+            break;
+        case 10:
+            positionMessage.positionType = PositionType.GNSS;
+            break;
+        case 11:
+            positionMessage.positionType = PositionType.AIDED_GNSS;
+            break;
+    }
+    positionMessage.motionCounter =  payload[startingByte+1]&0x0F;
+    positionMessage.triggers = new TriggerBitMapClass.TriggerBitMap(payload[startingByte+3] & 0x01,
+        payload[startingByte+3]>>1 & 0x01,
+        payload[startingByte+3]>>2 & 0x01,
+        payload[startingByte+3]>>3 & 0x01,
+        payload[startingByte+3]>>4 & 0x01,
+        payload[startingByte+3]>>5 & 0x01,
+        payload[startingByte+3]>>6 & 0x01,
+        payload[startingByte+3]>>7 & 0x01,
+        payload[startingByte+2] & 0x01,
+        payload[startingByte+2]>>1 & 0x01
+    )
+   
+    return positionMessage;
+}
+
+
+
+
+/************************ Position decodage *************************/
+/********************************************************************/
+function determinePosition(payload, multiFrame){
+
+    var startingByte = 4;
+    if (multiFrame){
+        startingByte = 5;
+    }
+    let positionMessage = determinePositionHeader(payload, startingByte);
+    // position status success
+    if (positionMessage.status == PositionStatus.SUCCESS || positionMessage.status == PositionStatus.NOT_SOLVABLE){
+        switch (positionMessage.positionType){
+            case PositionType.LR11xx_A_GNSS:
+                positionMessage.lr11xxAGnss = util.convertBytesToString(payload.slice(startingByte+4));
+                break;
+            case PositionType.LR11xx_GNSS_NAV1:
+                positionMessage.lr11xxGnssNav1 = util.convertBytesToString(payload.slice(startingByte+4));
+                break;
+            case PositionType.LR11xx_GNSS_NAV2:
+                positionMessage.lr11xxGnssNav2 = util.convertBytesToString(payload.slice(startingByte+4));
+                break;
+            case PositionType.WIFI:
+                positionMessage.wifiBssids = wifiClass.determineWifiPositionMessage(payload.slice(startingByte+4));
+                break;
+            case PositionType.BLE_SCAN1_MAC:
+                positionMessage.bleBeaconMacs = bleClass.determineBleMacPositionMessage(payload.slice(startingByte+4));
+                break;
+            case PositionType.BLE_SCAN1_SHORT:
+                positionMessage.bleBeaconIds = bleClass.determineBleIdShortPositionMessage(payload.slice(startingByte+4));
+                break;
+            case PositionType.BLE_SCAN1_LONG:
+                positionMessage.bleBeaconIds = bleClass.determineBleIdLongPositionMessage(payload.slice(startingByte+4));
+                break;
+            case PositionType.BLE_SCAN2_MAC:
+                positionMessage.bleBeaconMacs = bleClass.determineBleMacPositionMessage(payload.slice(startingByte+4));
+                break;
+            case PositionType.BLE_SCAN2_SHORT:
+                positionMessage.bleBeaconIds = bleClass.determineBleIdShortPositionMessage(payload.slice(startingByte+4));
+                break;
+            case PositionType.BLE_SCAN2_LONG:
+                positionMessage.bleBeaconIds = bleClass.determineBleIdLongPositionMessage(payload.slice(startingByte+4));
+                break;
+            case PositionType.GNSS:
+                positionMessage.gnssFix = gnssFixClass.determineGnssFix(payload.slice(startingByte+4));
+                positionMessage.coordinates = [positionMessage.gnssFix.longitude, positionMessage.gnssFix.latitude, positionMessage.gnssFix.altitude]
+                break;
+            case PositionType.AIDED_GNSS:
+                break;    
+        }       
+    }else if ((positionMessage.status == PositionStatus.TIMEOUT)||(positionMessage.status == PositionStatus.FAILURE)){
+        //only for GNSS
+        if (positionMessage.positionType == PositionType.GNSS){
+            positionMessage.gnssFailure = gnssFailureClass.determineGnssFailure(payload.slice(startingByte+4))
+        }
+    }
+    return positionMessage;
+
+}
+
+module.exports = {
+    Position: Position,
+    determinePosition: determinePosition
+ 	
+}
+
+
+/***/ },
+
+/***/ 483
+(module) {
+
+function TriggerBitMap(geoTriggerPod,
+    geoTriggerSos,
+    geoTriggerMotionStart,
+    geoTriggerMotionStop,
+    geoTriggerInMotion,
+    geoTriggerInStatic,
+    geoTriggerShock,
+    geoTriggerTempHighThreshold,
+    geoTriggerTempLowThreshold,
+    geoTriggerGeozoning
+){
+    this.geoTriggerPod = geoTriggerPod;
+    this.geoTriggerSos = geoTriggerSos;
+    this.geoTriggerMotionStart = geoTriggerMotionStart;
+    this.geoTriggerMotionStop = geoTriggerMotionStop;
+    this.geoTriggerInMotion = geoTriggerInMotion;
+    this.geoTriggerInStatic = geoTriggerInStatic;
+    this.geoTriggerShock = geoTriggerShock;
+    this.geoTriggerTempHighThreshold = geoTriggerTempHighThreshold;
+    this.geoTriggerTempLowThreshold = geoTriggerTempLowThreshold;
+    this.geoTriggerGeozoning = geoTriggerGeozoning;
+}
+
+module.exports = {
+    TriggerBitMap: TriggerBitMap, 	
+}
+
+/***/ },
+
+/***/ 69
+(module) {
+
+function BssidInfo(mac,
+    rssi
+){
+    this.mac = mac;
+    this.rssi = rssi;
+}
+
+module.exports = {
+    BssidInfo: BssidInfo, 	
+}
+
+/***/ },
+
+/***/ 508
+(module, __unused_webpack_exports, __webpack_require__) {
+
+let BssidInfoClass = __webpack_require__(69);
+let util = __webpack_require__(94);
+
+function determineWifiPositionMessage(payload){
+  
+    const wifiBssids = [];
+    var i = 0;
+    while (payload.length >= 7*(i+1)){
+        let key = util.convertByteToString(payload[i*7]) + ":" 
+                    + util.convertByteToString(payload[1+i*7]) + ":"
+                    + util.convertByteToString(payload[2+i*7]) + ":"
+                    + util.convertByteToString(payload[3+i*7]) + ":"
+                    + util.convertByteToString(payload[4+i*7]) + ":"
+                    + util.convertByteToString(payload[5+i*7]);
+        let value = util.convertNegativeInt(payload[6+i*7],1);
+        
+        wifiBssids.push(new BssidInfoClass.BssidInfo(key, value));
+        i++;
+    }
+
+    return wifiBssids;
+}
+
+module.exports = {
+    determineWifiPositionMessage : determineWifiPositionMessage	
+}
+
+/***/ },
+
+/***/ 220
+(module, __unused_webpack_exports, __webpack_require__) {
 
 let util = __webpack_require__(94);
 const QueryType = Object.freeze({
@@ -774,38 +3174,10 @@ module.exports = {
     determineQuery: determineQuery
 }
 
-/***/ }),
+/***/ },
 
-/***/ 271:
-/***/ ((module) => {
-
-function ExtendedHeader(groupId,
-    last,
-    frameNumber){
-    this.groupId = groupId;
-    this.last = last;
-    this.frameNumber = frameNumber;
-}
-
-function determineExtendedHeader(payload){
-    if (payload.length < 5)
-        throw new Error("The payload is not valid to determine multi frame header");
-    let extendedHeader = new ExtendedHeader(payload[4]>>5 & 0x07, 
-        payload[4]>>4 & 0x01, 
-        payload[4] & 0x07);
-    return extendedHeader;
-    
-}
-
-module.exports = {
-    ExtendedHeader: ExtendedHeader,
-    determineExtendedHeader: determineExtendedHeader
-}
-
-/***/ }),
-
-/***/ 289:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 289
+(module, __unused_webpack_exports, __webpack_require__) {
 
 /* let requestClass = require("../../downlink/requests/request");
 //response type is the same as request type
@@ -822,8 +3194,11 @@ const ResponseType = Object.freeze({
     PARAM_CLASS_CONFIGURATION_GET: "PARAM_CLASS_CONFIGURATION_GET",
     BLE_STATUS_CONNECTIVITY: "BLE_STATUS_CONNECTIVITY",
     CRC_CONFIGURATION_REQUEST : "CRC_CONFIGURATION_REQUEST",
-    SENSOR_REQUEST: "SENSOR_REQUEST"
-   
+    SENSOR_REQUEST: "SENSOR_REQUEST",
+    DEBUG_INFO_REQUEST: "DEBUG_INFO_REQUEST",
+    FUOTA_REQUEST: "FUOTA_REQUEST",
+    RECOVERY_BEACON_KEY_UPDATE: "RECOVERY_BEACON_KEY_UPDATE",
+    RECOVERY_BEACON_ROOT_KEY_INDEX_GET: "RECOVERY_BEACON_ROOT_KEY_INDEX_GET"
 })
 const StatusType = Object.freeze({
    SUCCESS: "SUCCESS",
@@ -848,7 +3223,8 @@ const GroupType = Object.freeze({
     NETWORK: "NETWORK",
     LORAWAN: "LORAWAN",
     CELLULAR: "CELLULAR",
-    BLE : "BLE"
+    BLE : "BLE",
+    TELEMETRY: "TELEMETRY"
  })
 const ParameterType = Object.freeze({
     DEPREACTED: "DEPREACTED",
@@ -866,7 +3242,10 @@ function Response(responseType,
     configurationCrcRequest,
     sensorRequest,
     globalCrc,
-    localCrc
+    localCrc,
+    fuotaStatus,
+    recoveryBeaconKeyUpdateStatus,
+    recoveryBeaconRootKeyIndex,
     ){
         this.responseType = responseType;
         this.genericConfigurationSet = genericConfigurationSet;
@@ -878,6 +3257,9 @@ function Response(responseType,
         this.sensorRequest = sensorRequest;
         this.globalCrc = globalCrc;
         this.localCrc = localCrc;
+        this.fuotaStatus = fuotaStatus;
+        this.recoveryBeaconKeyUpdateStatus = recoveryBeaconKeyUpdateStatus;
+        this.recoveryBeaconRootKeyIndex = recoveryBeaconRootKeyIndex;
 }
 function ParameterClassConfigurationSet(group, parameters){
     this.group = group
@@ -921,6 +3303,22 @@ function determineResponse(payload, multiFrame){
         case 6:
             response.responseType = ResponseType.SENSOR_REQUEST
             response.sensors = decodeSensorResponse(payload.slice(startingByte+1))
+            break;
+        case 7:
+            response.responseType = ResponseType.DEBUG_INFO_REQUEST
+            // response debug info is detailed in the documentation
+            break;
+        case 8:
+            response.responseType = ResponseType.FUOTA_REQUEST
+            response.fuotaStatus = decodeFuotaStatus(payload.slice(startingByte+1))
+            break;
+        case 9:
+            response.responseType = ResponseType.RECOVERY_BEACON_KEY_UPDATE
+            response.recoveryBeaconKeyUpdateStatus = decodeRecoveryBeaconKeyUpdateStatus(payload[startingByte+1])
+            break;
+        case 10:
+            response.responseType = ResponseType.RECOVERY_BEACON_ROOT_KEY_INDEX_GET
+            response.recoveryBeaconRootKeyIndex = payload[startingByte+1]
             break;
         default:
             throw new Error("Response Type Unknown");
@@ -994,6 +3392,7 @@ function decodeBitmapAndCRC(bitmap, crcBytes) {
             case 9: return "LORAWAN";
             case 10: return "CELLULAR";
             case 11: return "BLE";
+            case 12: return "TELEMETRY";
             default: throw new Error("Unknown group identifier");
         }
     }
@@ -1588,6 +3987,8 @@ function determineStatusType(value){
             return StatusType.TYPE_MISMATCH
         case 6:
             return StatusType.OPERATION_ERROR
+        case 7:
+            return StatusType.READ_ONLY
         default:
           throw new Error("Status Type Unknown");
     }
@@ -1620,8 +4021,38 @@ function determineGroupType(value)
             return GroupType.CELLULAR
         case 11:
             return GroupType.BLE
+        case 12:
+            return GroupType.TELEMETRY
         default:
             throw new Error("Unknown group")
+    }
+}
+
+function decodeRecoveryBeaconKeyUpdateStatus(value) {
+    switch (Number(value)) {
+        case 0: return "SUCCESS";
+        case 1: return "FAILED_INVALID_ROOT_INDEX";
+        case 2: return "FAILED_WRITING_ERROR";
+        case 3: return "FAILED_SAVING_ERROR";
+        default: throw new Error("Unknown recovery beacon key update status: " + value);
+    }
+}
+
+function decodeFuotaStatus(value) {
+    const v = Number(value)
+    switch (v) {
+        case 0:  return "START_ASAP";                       // FUOTA supported and will start ASAP
+        case 1:  return "SCHEDULED";                        // FUOTA supported and scheduled
+        case 2:  return "DENIED_OPERATION_NOT_SUPPORTED";   // No LTE module or external flash missing
+        case 3:  return "DENIED_CELLULAR_NOT_CONFIGURED";   // Missing IP/URL or port
+        case 4:  return "DENIED_SERVER_NOT_CONFIGURED";     // No FUOTA server configured
+        case 5:  return "DENIED_TEMPORARILY_NOT_ALLOWED";   // Example: SOS active
+        case 6:  return "DENIED_LOW_BATTERY";
+        case 7:  return "DENIED_LOW_TEMPERATURE";
+        case 8:  return "DENIED_HIGH_TEMPERATURE";
+        case 9:  return "DENIED_INCORRECT_USER_REQUEST";
+        default:
+            throw new Error("Unknown FUOTA status value: " + v);
     }
 }
 // Function to create the nested data structure
@@ -1685,719 +4116,10 @@ module.exports = {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ 320:
-/***/ ((module) => {
-
-function BeaconIdInfo(id,
-    rssi
-){
-    this.id = id;
-    this.rssi = rssi;
-}
-function BeaconMacInfo(mac,
-    rssi
-){
-    this.mac = mac;
-    this.rssi = rssi;
-}
-
-
-
-module.exports = {
-    BeaconIdInfo: BeaconIdInfo, 	
-    BeaconMacInfo: BeaconMacInfo
-}
-
-/***/ }),
-
-/***/ 343:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-let util = __webpack_require__(94);
-
-const TelemetryType = Object.freeze({
-    TELEMETRY: "TELEMETRY",
-    TELEMETRY_MODE_BATCH: "TELEMETRY_MODE_BATCH"
-})
-// for more details to telemetry refer to https://github.com/actility/device-catalog/blob/main/template/sample-vendor/drivers/ONTOLOGY.md
-const OntologyConstants = Object.freeze({
-    RESISTANCE: {
-        id: 1,
-        ontology: "resistance",
-        type: "int16",
-        unit: "Ohm"
-    },
-    TEMPERATURE: {
-        id: 2,
-        ontology: "temperature",
-        type: "float",
-        unit: "Cel"
-    },
-    HUMIDITY: {
-        id: 3,
-        ontology: "humidity",
-        type: "int16",
-        unit: "%RH", 
-        factor: 10
-    }
-});
-
-// Construct counters based on OntologyConstants
-const counters = Object.keys(OntologyConstants).reduce((acc, key) => {
-    const ontology = OntologyConstants[key];
-    acc[ontology.ontology] = 0;
-    return acc;
-}, {});
-
-function floatFromBytes(bytes) {
-    const buffer = new ArrayBuffer(4);
-    const view = new DataView(buffer);
-    for (let i = 0; i < 4; i++) {
-        view.setUint8(i, bytes[i]);
-    }
-    return view.getFloat32(0, false); // true for little-endian
-}
-function formatFloat(float, decimals = 2) {
-    return Number(float.toFixed(decimals));
-}
-
-function determineTelemetryMeasurements(data) {
-    let index = 0;
-    const ontologies = {};
-    const dataLength = data.length;
-    while (index < dataLength) {
-        if (index >= dataLength) {
-            throw new Error("Unexpected end of data.");
-        }
-        let ontology = determineOntology(data[index] & 0x7F);
-        let valueSize = (data[index] >> 7) & 0x01;
-        let value;
-        if (ontology.type === 'float') {
-            if (valueSize === 1) {
-                if (index + 4 >= dataLength) {
-                    throw new Error("Not enough data for a 4-byte float.");
-                }
-                value = floatFromBytes(data.slice(index + 1, index + 5));
-                value = formatFloat(value);
-                index += 5; // Move to the next data element
-            } else {
-                throw new Error("Unexpected value size for float.");
-            }
-            
-        } else {
-            if (valueSize === 1) {
-                throw new Error("Unexpected value size for int.");
-            }
-            if (index + 2 >= dataLength) {
-                throw new Error("Not enough data for a 2-byte value.");
-            }
-            value = util.convertNegativeInt((data[index + 1] << 8) + data[index + 2],2);
-            index += 3; // Move to the next data element
-        }
-
-        const ontologyName = ontology.ontology;
-        const unit = ontology.unit;
-        const counter = counters[ontologyName];
-        const key = `${ontologyName}:${counter}`;
-
-        // Add the telemetry measurement to the result
-        ontologies[key] = { unitId: unit, record: value };
-
-        // Update the counter
-        counters[ontologyName]++;
-    }
-    Object.keys(ontologies).forEach(key => {
-        const baseKey = key.split(':')[0];
-        if (counters[baseKey] === 1) {
-            const value = ontologies[key];
-            delete ontologies[key];
-            ontologies[baseKey] = value;
-        }
-    });
-    return ontologies;
-}
-
-function determineOntology(value) {
-    const ontology = Object.values(OntologyConstants).find(o => o.id === value);
-    if (ontology) {
-        return ontology;
-    } else {
-        throw new Error("Ontology Unknown");
-    }
-}
-
-
-module.exports = {
-    TelemetryType: TelemetryType,
-    determineTelemetryMeasurements: determineTelemetryMeasurements
-}
-
-
-/***/ }),
-
-/***/ 351:
-/***/ ((module) => {
-
-const Constellation = Object.freeze({
-    GPS: "GPS",
-    BEIDOU: "BEIDOU"
-})
-
-const CN = Object.freeze({
-    0: ">45dB",
-    1: "[41..45]dB",
-    2: "[37..41]dB",
-    3: "<37dB"
-})
-
-function SatelliteInfo(constellation,
-    id,
-    cn,
-    pseudoRangeValue
-){
-    this.constellation = constellation;
-    this.id = id;
-    this.cn = cn;
-    this.pseudoRangeValue = pseudoRangeValue;
-}
-
-module.exports = {
-    SatelliteInfo: SatelliteInfo, 
-    Constellation: Constellation,
-    CN: CN	
-}
-
-/***/ }),
-
-/***/ 406:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-let util = __webpack_require__(94);
-
-const TempType = Object.freeze({
-    TEMP_HIGH: "TEMP_HIGH",
-    TEMP_LOW: "TEMP_LOW",
-    TEMP_NORMAL: "TEMP_NORMAL"
-})
-
-
-function determineTemperature(payload){
-    return util.convertNegativeInt(payload[5],1)
-}
-module.exports = {
-    determineTemperature: determineTemperature,
-    TempType: TempType
-}
-
-/***/ }),
-
-/***/ 457:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-let TriggerBitMapClass = __webpack_require__(483);
-let bleClass = __webpack_require__(504);
-let util = __webpack_require__(94);
-let SatelliteInfoClass = __webpack_require__(351);
-let gnssFixClass = __webpack_require__(792)
-let gnssFailureClass = __webpack_require__(541)
-let wifiClass = __webpack_require__(508);
-const gnssFailure = __webpack_require__(541);
-//let bssidInfoClass = require("./wifi/bssidInfo")
-
-const PositionStatus = Object.freeze({
-    SUCCESS: "SUCCESS",
-    TIMEOUT: "TIMEOUT",
-    FAILURE: "FAILURE",
-    NOT_SOLVABLE : "NOT_SOLVABLE"
-})
-
-const PositionType = Object.freeze({
-    LR11xx_A_GNSS: "LR11xx_A_GNSS",
-    LR11xx_GNSS_NAV1: "LR11xx_GNSS_NAV1",
-    LR11xx_GNSS_NAV2: "LR11xx_GNSS_NAV2",
-    WIFI: "WIFI",
-    BLE_SCAN1_MAC: "BLE_SCAN1_MAC",
-    BLE_SCAN1_SHORT: "BLE_SCAN1_SHORT",
-    BLE_SCAN1_LONG: "BLE_SCAN1_LONG",
-    BLE_SCAN2_MAC: "BLE_SCAN2_MAC",
-    BLE_SCAN2_SHORT: "BLE_SCAN12_SHORT",
-    BLE_SCAN2_LONG: "BLE_SCAN2_LONG",
-    GNSS: "GNSS",
-    AIDED_GNSS: "AIDED_GNSS"
-})
-
-function Position(motion, motionCounter,
-    status,
-    positionType,
-    triggers,
-    lr11xxAGnss,
-    lr11xxGnssNav1, 
-    lr11xxGnssNav2, 
-    wifiBssids, 
-    bleBeaconMacs,
-    bleBeaconIds,
-    gnssFix,
-    gnssFailure,
-    aidedGnss,
-    coordinates){
-        this.motion = motion;
-        this.motionCounter = motionCounter;
-        this.status = status;
-        this.positionType = positionType;
-        this.triggers = triggers;
-        this.lr11xxAGnss = lr11xxAGnss;
-        this.lr11xxGnssNav1 = lr11xxGnssNav1;
-        this.lr11xxGnssNav2 = lr11xxGnssNav2;
-        this.wifiBssids = wifiBssids;
-        this.bleBeaconMacs =bleBeaconMacs;
-        this.bleBeaconIds = bleBeaconIds;
-        this.gnssFix = gnssFix;
-        this.gnssFailure = gnssFailure;
-        this.aidedGnss = aidedGnss;
-        this.coordinates = coordinates;
-}
-
-/************************ Header position decodage *************************/
-/********************************************************************/
-function determinePositionHeader(payload, startingByte){
-    let positionMessage = new Position();
-    positionMessage.motion = payload[startingByte]>>7 & 0x01;
-    var statusValue = payload[startingByte]>>5 & 0x03;
-    switch (statusValue){
-        case 0:
-            positionMessage.status = PositionStatus.SUCCESS;
-            break;
-        case 1:
-            positionMessage.status = PositionStatus.TIMEOUT;
-            break;
-        case 2:
-            positionMessage.status = PositionStatus.FAILURE;
-            break;
-        case 3:
-            positionMessage.status = PositionStatus.NOT_SOLVABLE;
-            break;
-    }
-
-    var typeValue = payload[startingByte] & 0x0F;
-    switch (typeValue){
-        case 0:
-            positionMessage.positionType = PositionType.LR11xx_A_GNSS;
-            break;
-        case 1:
-            positionMessage.positionType = PositionType.LR11xx_GNSS_NAV1;
-            break;
-        case 2:
-            positionMessage.positionType = PositionType.LR11xx_GNSS_NAV2;
-            break;
-        case 3:
-            positionMessage.positionType = PositionType.WIFI;
-            break;
-        case 4:
-            positionMessage.positionType = PositionType.BLE_SCAN1_MAC;
-            break;
-        case 5:
-            positionMessage.positionType = PositionType.BLE_SCAN1_SHORT;
-            break;
-        case 6:
-            positionMessage.positionType = PositionType.BLE_SCAN1_LONG;
-            break;
-        case 7:
-            positionMessage.positionType = PositionType.BLE_SCAN2_MAC;
-            break;
-        case 8:
-            positionMessage.positionType = PositionType.BLE_SCAN2_SHORT;
-            break;
-        case 9:
-            positionMessage.positionType = PositionType.BLE_SCAN2_LONG;
-            break;
-        case 10:
-            positionMessage.positionType = PositionType.GNSS;
-            break;
-        case 11:
-            positionMessage.positionType = PositionType.AIDED_GNSS;
-            break;
-    }
-    positionMessage.motionCounter =  payload[startingByte+1]&0x0F;
-    positionMessage.triggers = new TriggerBitMapClass.TriggerBitMap(payload[startingByte+3] & 0x01,
-        payload[startingByte+3]>>1 & 0x01,
-        payload[startingByte+3]>>2 & 0x01,
-        payload[startingByte+3]>>3 & 0x01,
-        payload[startingByte+3]>>4 & 0x01,
-        payload[startingByte+3]>>5 & 0x01,
-        payload[startingByte+3]>>6 & 0x01,
-        payload[startingByte+3]>>7 & 0x01,
-        payload[startingByte+2] & 0x01,
-        payload[startingByte+2]>>1 & 0x01
-    )
-   
-    return positionMessage;
-}
-
-
-
-function determineLR1110GnssPositionMessage(payload){
-    let lr1110gnss = {};
-    lr1110gnss.time = (payload[0] << 8 + payload[1]) * 16;
-    var i = 0;
-    let satelliteInfos = [];
-    while (payload.length >= 2+4*(i+1)){
-        var satelliteInfo = new SatelliteInfoClass.SatelliteInfo();
-        var c = payload[2+4*i]>>6 & 0x03;
-        switch (c){
-            case 0:
-                satelliteInfo.constellation = SatelliteInfoClass.Constellation.GPS;
-                break;
-            case 1:
-                satelliteInfo.constellation = SatelliteInfoClass.Constellation.BEIDOU;
-                break;
-        }
-        var id = payload[2+4*i] & 0x3F;
-        var cnValue = payload[3+4*i]>>6 & 0x03;
-        switch (cnValue){
-            case 0:
-                satelliteInfo.cn = SatelliteInfoClass.CN[0];
-                break;
-            case 1:
-                satelliteInfo.cn = SatelliteInfoClass.CN[1];
-                break;
-            case 2:
-                satelliteInfo.cn = SatelliteInfoClass.CN[2];
-                break;
-            case 3:
-                satelliteInfo.cn = SatelliteInfoClass.CN[3];
-                break;
-        }
-        satelliteInfo.pseudoRangeValue = (payload[3+4*i] & 0x07) << 16 + payload[4+4*i] << 8 + payload[5+4*i];
-        
-        satelliteInfos.push(satelliteInfo);
-        i++;
-    }
-    lr1110gnss.satelliteInfos = satelliteInfos;
-    return lr1110gnss;
-}
-/************************ Position decodage *************************/
-/********************************************************************/
-function determinePosition(payload, multiFrame){
-
-    var startingByte = 4;
-    if (multiFrame){
-        startingByte = 5;
-    }
-    let positionMessage = determinePositionHeader(payload, startingByte);
-    // position status success
-    if (positionMessage.status == PositionStatus.SUCCESS || positionMessage.status == PositionStatus.NOT_SOLVABLE){
-        switch (positionMessage.positionType){
-            case PositionType.LR11xx_A_GNSS:
-                positionMessage.lr11xxAGnss = determineLR1110GnssPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.LR11xx_GNSS_NAV1:
-                positionMessage.lr11xxGnssNav1 = util.convertBytesToString(payload.slice(startingByte+4));
-                break;
-            case PositionType.LR11xx_GNSS_NAV2:
-                positionMessage.lr11xxGnssNav2 = util.convertBytesToString(payload.slice(startingByte+4));
-                break;
-            case PositionType.WIFI:
-                positionMessage.wifiBssids = wifiClass.determineWifiPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.BLE_SCAN1_MAC:
-                positionMessage.bleBeaconMacs = bleClass.determineBleMacPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.BLE_SCAN1_SHORT:
-                positionMessage.bleBeaconIds = bleClass.determineBleIdShortPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.BLE_SCAN1_LONG:
-                positionMessage.bleBeaconIds = bleClass.determineBleIdLongPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.BLE_SCAN2_MAC:
-                positionMessage.bleBeaconMacs = bleClass.determineBleMacPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.BLE_SCAN2_SHORT:
-                positionMessage.bleBeaconIds = bleClass.determineBleIdShortPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.BLE_SCAN2_LONG:
-                positionMessage.bleBeaconIds = bleClass.determineBleIdLongPositionMessage(payload.slice(startingByte+4));
-                break;
-            case PositionType.GNSS:
-                positionMessage.gnssFix = gnssFixClass.determineGnssFix(payload.slice(startingByte+4));
-                positionMessage.coordinates = [positionMessage.gnssFix.longitude, positionMessage.gnssFix.latitude, positionMessage.gnssFix.altitude]
-                break;
-            case PositionType.AIDED_GNSS:
-                break;    
-        }       
-    }else if ((positionMessage.status == PositionStatus.TIMEOUT)||(positionMessage.status == PositionStatus.FAILURE)){
-        //only for GNSS
-        if (positionMessage.positionType == PositionType.GNSS){
-            positionMessage.gnssFailure = gnssFailureClass.determineGnssFailure(payload.slice(startingByte+4))
-        }
-    }
-    return positionMessage;
-
-}
-
-module.exports = {
-    Position: Position,
-    determinePosition: determinePosition
- 	
-}
-
-
-/***/ }),
-
-/***/ 483:
-/***/ ((module) => {
-
-function TriggerBitMap(geoTriggerPod,
-    geoTriggerSos,
-    geoTriggerMotionStart,
-    geoTriggerMotionStop,
-    geoTriggerInMotion,
-    geoTriggerInStatic,
-    geoTriggerShock,
-    geoTriggerTempHighThreshold,
-    geoTriggerTempLowThreshold,
-    geoTriggerGeozoning
-){
-    this.geoTriggerPod = geoTriggerPod;
-    this.geoTriggerSos = geoTriggerSos;
-    this.geoTriggerMotionStart = geoTriggerMotionStart;
-    this.geoTriggerMotionStop = geoTriggerMotionStop;
-    this.geoTriggerInMotion = geoTriggerInMotion;
-    this.geoTriggerInStatic = geoTriggerInStatic;
-    this.geoTriggerShock = geoTriggerShock;
-    this.geoTriggerTempHighThreshold = geoTriggerTempHighThreshold;
-    this.geoTriggerTempLowThreshold = geoTriggerTempLowThreshold;
-    this.geoTriggerGeozoning = geoTriggerGeozoning;
-}
-
-module.exports = {
-    TriggerBitMap: TriggerBitMap, 	
-}
-
-/***/ }),
-
-/***/ 504:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-let util = __webpack_require__(94);
-let BeaconInfoClass = __webpack_require__(320);
-
-function determineBleIdShortPositionMessage(payload) {
-    return extractBeaconInfos(payload, 3, (payload, index) => {
-        let key = `${util.convertByteToString(payload[index * 3])}-${util.convertByteToString(payload[1 + index * 3])}`;
-        let value = util.convertNegativeInt(payload[2 + index * 3], 1);
-        return new BeaconInfoClass.BeaconIdInfo(key, value);
-    });
-}
-
-function determineBleIdLongPositionMessage(payload) {
-    return extractBeaconInfos(payload, 17, (payload, index) => {
-        let key = Array.from({ length: 16 }, (_, i) => util.convertByteToString(payload[i + index * 17])).join('-');
-        let value = util.convertNegativeInt(payload[16 + index * 17], 1);
-        return new BeaconInfoClass.BeaconIdInfo(key, value);
-    });
-}
-
-function determineBleMacPositionMessage(payload) {
-    return extractBeaconInfos(payload, 7, (payload, index) => {
-        let key = Array.from({ length: 6 }, (_, i) => util.convertByteToString(payload[i + index * 7])).join(':');
-        let value = util.convertNegativeInt(payload[6 + index * 7], 1);
-        return new BeaconInfoClass.BeaconMacInfo(key, value);
-    });
-}
-
-function extractBeaconInfos(payload, chunkSize, createBeaconInfo) {
-    const beaconInfos = [];
-    const count = Math.floor(payload.length / chunkSize);
-    for (let i = 0; i < count; i++) {
-        beaconInfos.push(createBeaconInfo(payload, i));
-    }
-    return beaconInfos;
-}
-
-module.exports = {
-    determineBleMacPositionMessage,
-    determineBleIdShortPositionMessage,
-    determineBleIdLongPositionMessage
-};
-
-/***/ }),
-
-/***/ 508:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-let BssidInfoClass = __webpack_require__(69);
-let util = __webpack_require__(94);
-
-function determineWifiPositionMessage(payload){
-  
-    const wifiBssids = [];
-    var i = 0;
-    while (payload.length >= 7*(i+1)){
-        let key = util.convertByteToString(payload[i*7]) + ":" 
-                    + util.convertByteToString(payload[1+i*7]) + ":"
-                    + util.convertByteToString(payload[2+i*7]) + ":"
-                    + util.convertByteToString(payload[3+i*7]) + ":"
-                    + util.convertByteToString(payload[4+i*7]) + ":"
-                    + util.convertByteToString(payload[5+i*7]);
-        let value = util.convertNegativeInt(payload[6+i*7],1);
-        
-        wifiBssids.push(new BssidInfoClass.BssidInfo(key, value));
-        i++;
-    }
-
-    return wifiBssids;
-}
-
-module.exports = {
-    determineWifiPositionMessage : determineWifiPositionMessage	
-}
-
-/***/ }),
-
-/***/ 522:
-/***/ ((module) => {
-
-const MessageType = Object.freeze({
-    COMMAND: "COMMAND",
-    REQUEST: "REQUEST",
-    ANSWER: "ANSWER"
-});
-
-function AbeewayDownlinkPayload(downMessageType, 
-        ackToken,
-        command,
-        request,
-        payload) {
-        this.downMessageType = downMessageType;
-        this.ackToken = ackToken;
-        this.command = command;
-        this.request = request;
-        this.payload = payload;
-}
-
-function determineDownlinkHeader(payload){
-    if (payload.length < 1)
-        throw new Error("The payload is not valid to determine header");
-    var ackToken = payload[0] & 0x07;
-    var type = determineMessageType(payload);
-    return new AbeewayDownlinkPayload(type, ackToken)
-}
-
-function determineMessageType(payload){
-    var messageType = payload[0]>>3 & 0x07;
-    
-    switch (messageType){
-        case 1:
-            return MessageType.COMMAND;
-        case 2:
-            return MessageType.REQUEST;
-        case 3:
-            return MessageType.ANSWER;
-    }
-}
-
-module.exports = {
-    AbeewayDownlinkPayload: AbeewayDownlinkPayload,
-    MessageType: MessageType,
-    determineDownlinkHeader: determineDownlinkHeader
-}
-
-/***/ }),
-
-/***/ 541:
-/***/ ((module) => {
-
-function GnssFailure(timeoutCause,
-    satelliteSeen){
-    this.timeoutCause = timeoutCause;
-    this.satellitesSeen = satelliteSeen
-}
-const timeoutCause = Object.freeze({
-    T0_TIMEOUT: "T0_TIMEOUT",
-    T1_TIMEOUT: "T1_TIMEOUT",
-    ACQUISITION_TIMEOUT: "ACQUISITION_TIMEOUT"
-});
-const constellation = Object.freeze({
-    GPS: "GPS",
-    GLONASS: "GLONASS",
-    BEIDOU: "BEIDOU",
-    GALILEO: "GALILEO"
-});
-function determineTimeoutCause(timeoutCause){
-    switch (timeoutCause){
-	    case 0:
-	        return timeoutCause.T0_TIMEOUT;
-	    case 1:
-	        return timeoutCause.T1_TIMEOUT;
-	    case 2:
-	    	return timeoutCause.ACQUISITION_TIMEOUT;
-	    default:
-	    	throw new Error("The timeout cause is unknown");
-    }
-}
-function determineConstellation(cons){
-
-    switch (cons){
-	    case 0:
-	        return constellation.GPS;
-        case 1:
-            return constellation.GLONASS;
-        case 2:
-            return constellation.BEIDOU;
-        case 3:
-            return constellation.GALILEO;
-        default:
-            throw new Error("The constellation is unknown" )
-}}
-
-function determineGnssFailure(payload){
-    let timeoutCause = determineTimeoutCause(payload[0]>>5 & 0x07)
-    let nbSatSeen = payload[0] & 0x0F
-    payload = payload.slice(1)
-    let satelliteSeen = []
-    for (let i = 0; i < nbSatSeen*2; i += 2) {
-        let svId = payload[i]
-        let constellation = determineConstellation(payload[i]+1>>6 & 0x03)
-        let CN = payload[i+1] & 0x3F
-        satelliteSeen.push({svId, constellation, CN})
-    } 
-   
-    return new GnssFailure(timeoutCause, satelliteSeen)
-}
-
-module.exports = {
-    GnssFailure: GnssFailure,
-    determineGnssFailure: determineGnssFailure
-}
-
-
-/***/ }),
-
-/***/ 548:
-/***/ ((module) => {
-
-
-const GeozoningType = Object.freeze({
-    ENTRY: "ENTRY",
-    EXIT: "EXIT",
-    IN_HAZARD: "IN_HAZARD",
-    OUT_HAZARD: "OUT_HAZARD",
-    MEETING_POINT: "MEETING_POINT"
-})
-
-module.exports = {
-    GeozoningType: GeozoningType
-}
-
-/***/ }),
-
-/***/ 560:
-/***/ ((module) => {
-
-let telemetryMetadataStore = {};
+/***/ 560
+(module) {
 
 const CodingPolicy = Object.freeze({
     NO_COMPRESSION: "NO_COMPRESSION",
@@ -2421,8 +4143,8 @@ function convert3BitToSigned(val) {
     return (val & 0x04) ? val - 8 : val;
 }
 
-function decodeMetadataPayload(telemetryPayload) {
-    const errors = [];
+function decodeMetadataPayload(telemetryPayload, timestamp) {
+    let telemetryMetadataStore = {};
     let offset = 0;
     while (offset + 8 <= telemetryPayload.length) {
         const block = telemetryPayload.slice(offset, offset + 8);
@@ -2449,13 +4171,19 @@ function decodeMetadataPayload(telemetryPayload) {
             telemetryIDMaxInterval,
             measurementNMaxInterval,
             measurementConfig: measurementConfig,
+            timestamp,
         };
         offset += 8;
     }
+    if (typeof context === 'undefined' || !context) {
+        throw new Error("Context doesn't exist");
+    }
 
-    if(errors.length > 0) return { errors: errors, warnings: [] };
+    // Clear context
+    context.length = 0;
     context.push(telemetryMetadataStore);
-    return { context: context, data: telemetryMetadataStore, errors: errors, warnings: [] };
+
+    return { data: telemetryMetadataStore, errors: [], warnings: [] };
 }
 
 function decodeMeasurementConfigBytes(byte1, byte2) {
@@ -2518,12 +4246,9 @@ function decodeMeasurementConfigBytes(byte1, byte2) {
     };
 }
 
-function decodeTimeseriesPayload(telemetryPayload) {
-    const errors = [];
-
+function decodeTimeseriesPayload(telemetryPayload, timestamp) {
     if (telemetryPayload.length < 4) {
-        errors.push("Telemetry payload too short for timeseries decoding");
-        return { errors };
+        throw new Error("Telemetry payload too short for timeseries decoding");
     }
 
     const byte0 = telemetryPayload[0];
@@ -2531,55 +4256,86 @@ function decodeTimeseriesPayload(telemetryPayload) {
     const alarmTrigger = (byte0 & 0x01) === 1;
 
     const byte1 = telemetryPayload[1];
-    const cyclicVersion = (byte1 >> 4) & 0x0F;
-    const cyclicCounter = byte1 & 0x0F;
+    const cyclicVersion = (byte1 >> 5) & 0x07;
+    const cyclicCounter = byte1 & 0x1F;
 
-    const metadataHistory = context.shift();
+    if (typeof context === 'undefined' || !context || context.length === 0) {
+        throw new Error("Context is empty, cannot retrieve metadata history");
+    }
+
+    const metadataHistory = context[context.length - 1];
+
+    if (!metadataHistory || Object.keys(metadataHistory).length === 0) {
+        throw new Error("Metadata history is empty, cannot retrieve telemetry metadata");
+    }
+
     let metadata = Object.values(metadataHistory).find(t => t.telemetryId === telemetryId);
 
     if (!metadata || metadata.cyclicVersion !== cyclicVersion) {
-        errors.push(`Missing or mismatched metadata for TelemetryID=${telemetryId}, CyclicVersion=${cyclicVersion}`);
-        return { errors };
+        throw new Error(`Missing or mismatched metadata for TelemetryID=${telemetryId}, CyclicVersion=${cyclicVersion}̀̀`);
     }
 
+
+    const measurementNMaxInterval = metadata.measurementNMaxInterval;
     const { codingPolicy, dataType, scalingFactor } = metadata.measurementConfig;
     const measurementData = telemetryPayload.slice(2);
     let measurements = [];
 
-        if (codingPolicy === CodingPolicy.DELTA_COMPRESSION && dataType === DataTypes._16_BIT_SIGNED) {
-            const buffer = Buffer.from(measurementData);
-            let i = buffer.length - 1;
-            let result = [];
-            let currentValue = 0;
+    if (codingPolicy === CodingPolicy.DELTA_COMPRESSION && dataType === DataTypes._16_BIT_SIGNED) {
+        const buffer = Buffer.from(measurementData);
+        let i = buffer.length - 1;
+        let result = [];
+        let currentValue = 0;
 
-            while (i >= 0) {
-                const byte = buffer[i];
-                const isDelta = (byte >> 7 & 0x01) !== 0;
+        while (i >= 0) {
+            const byte = buffer[i];
+            const isDelta = ((byte >> 7) & 0x01) !== 0;
 
-                if (!isDelta) {
-                    currentValue = buffer[i - 1];
-                    result.push(currentValue);
-                    i -= 2;
-                } else {
-                    const signBit = byte >> 6 & 0x11;
-                    const num = byte & 0x3F;
+            if (!isDelta) {
+                // Read a raw 16-bit signed value from two bytes (little endian)
+                if (i < 1) {
+                    throw new Error("Invalid buffer: not enough bytes for 16-bit value");
+                    // removed by dead control flow
 
-                    let delta = (signBit) ? (64 - num) * -1 : num ;
-                    currentValue += delta;
-                    result.push(currentValue);
                 }
-                i--
+                const lsb = buffer[i - 1]; // least significant byte
+                const msb = buffer[i]; /// most significant byte
+                const raw = (msb << 8) | lsb;
+
+                // Convert raw 16-bit to signed integer
+                currentValue = raw >= 0x8000 ? raw - 0x10000 : raw;
+                result.push(currentValue);
+
+                i -= 2;  // consumed 2 bytes for the raw value
+            } else {
+                // Decode a compressed delta value in a single byte
+                const signBit = (byte >> 6) & 0x01;
+                const num = byte & 0x3F;
+
+                // Compute signed delta: negative if signBit=1
+                const delta = signBit ? (num - 64) : num;
+
+                currentValue += delta;
+                result.push(currentValue);
+
+                i -= 1; // On a consommé 1 octet delta
             }
-            measurements = result;
-        } else {
-            errors.push("Unsupported coding policy or data type for delta decoding");
         }
 
-    const scaledMeasurements = measurements.map(m => parseFloat((m * scalingFactor).toFixed(2)));
-
-    if (errors.length > 0) {
-        return { errors: errors, warnings: [] };
+        // Le résultat est construit à l’envers, on inverse pour ordre chronologique
+        measurements = result.reverse();
+    } else {
+        throw new Error("Unsupported coding policy or data type for delta decoding");
     }
+
+    const baseTime = new Date(timestamp);
+    const scaledMeasurements = measurements.map((m, index) => {
+        const secondsAgo = index * measurementNMaxInterval;
+        return {
+            timestamp: new Date(baseTime.getTime() - secondsAgo * 1000).toISOString(),
+            value: parseFloat((m * scalingFactor).toFixed(2))
+        };
+    });
 
     return {
         type: "timeseries",
@@ -2590,9 +4346,12 @@ function decodeTimeseriesPayload(telemetryPayload) {
         measurements: scaledMeasurements,
         measurementConfig: metadata.measurementConfig,
     };
+
+
 }
 
-function decodeTelemetry(payload) {
+
+function decodeTelemetry(payload, timestamp) {
     if (!(payload instanceof Buffer)) {
         try {
             payload = Buffer.from(payload, typeof payload === "string" ? "hex" : undefined);
@@ -2614,7 +4373,7 @@ function decodeTelemetry(payload) {
     const payloadTypeByte = telemetryPayload[0];
     const isMetadata = (payloadTypeByte & 0x80) !== 0;
     if (isMetadata) {
-        const result = decodeMetadataPayload(telemetryPayload);
+        const result = decodeMetadataPayload(telemetryPayload, timestamp);
         if (result.data === undefined) {
             return {
                 errors: result.errors,
@@ -2623,11 +4382,10 @@ function decodeTelemetry(payload) {
         }
         return {
             type: "metadata",
-            TelemetryIDs: [result.data],
-            context: result.context
+            TelemetryIDs: result.data
         };
     } else {
-        const telemetryResult = decodeTimeseriesPayload(telemetryPayload);
+        const telemetryResult = decodeTimeseriesPayload(telemetryPayload, timestamp);
         if (telemetryResult.measurementConfig === undefined) {
             return {
                 errors: telemetryResult.errors,
@@ -2643,1600 +4401,144 @@ module.exports = {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ 592:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 94
+(module) {
 
-let abeewayUplinkPayloadClass = __webpack_require__(962);
-const batteryStatus = Object.freeze({
-    CHARGING: "CHARGING",
-    OPERATING: "OPERATING",
-    UNKNOWN: "UNKNOWN"
-});
-
-function Header(sos, type, ackToken, multiFrame, batteryLevel, timestamp) {
-    this.sos = sos;
-    this.type = type;
-    this.ackToken = ackToken;
-    this.multiFrame = multiFrame;
-    this.batteryLevel = batteryLevel;
-    this.timestamp = timestamp;
-}
-
-function determineHeader(payload, receivedTime) {
-    if (payload.length < 3)
-        throw new Error("The payload is not valid to determine header");
-    var sos = !!(payload[0] >> 6 & 0x01);
-    var ackToken = payload[0] & 0x07;
-    var type = determineMessageType(payload);
-    var multiFrame = !!(payload[0] >> 7 & 0x01);
-    var batteryLevel = determineBatteryLevel(payload);
-    var timestamp = rebuildTime(receivedTime, ((payload[2] << 8) + payload[3]));
-    return new Header(sos, type, ackToken, multiFrame, batteryLevel, timestamp);
-}
-
-function rebuildTime(receivedTime, seconds) {
-    // Parse the timestamp using native Date object
-    const timestamp = new Date(receivedTime);
-
-    // In the case where the tracker hasn't had time yet...
-    if (seconds === 65535) {
-        return timestamp.toISOString();
+function convertToByteArray(payload){
+    var bytes = [];
+    var length = payload.length/2;
+    for(var i = 0; i < payload.length; i+=2){
+        bytes[i/2] = parseInt(payload.substring(i, i+2),16)&0xFF;
     }
-
-    // Create a Date object set to the start of the UTC day
-    const utcDate = new Date(Date.UTC(timestamp.getFullYear(), timestamp.getMonth(), timestamp.getDate(), 0, 0, 0));
-
-    // Calculate the total seconds since the start of the day for the received time
-    const referenceTotalSeconds = (timestamp.getUTCHours() * 3600) + (timestamp.getUTCMinutes() * 60) + timestamp.getUTCSeconds();
-
-    // Determine if the reference time is closer to midnight or noon
-    let referenceTime;
-    if (referenceTotalSeconds < 43200) { // 43200 seconds is 12 hours
-        referenceTime = utcDate; // Midnight
-    } else {
-        referenceTime = new Date(utcDate.getTime() + 43200 * 1000); // Noon
-    }
-
-    // Add the given number of seconds to the reference time
-    let exactTime = new Date(referenceTime.getTime() + seconds * 1000);
-
-    // Check if the rebuilt time is after the original timestamp (rollover)
-    if (exactTime > timestamp) {
-        // Rebuilt time is after the received time, so subtract 43200 seconds (12 hours)
-        exactTime = new Date(exactTime.getTime() - 43200 * 1000);
-    }
-
-    return exactTime.toISOString(); // Return the exact time in ISO 8601 format
+    
+    return bytes;
 }
-function determineMessageType(payload){
-    if (payload.length < 4)
-        throw new Error("The payload is not valid to determine Message Type");
-    var messageType = payload[0]>>3 & 0x07
-    switch (messageType){
-        case 1:
-            return abeewayUplinkPayloadClass.messageType.NOTIFICATION;
-        case 2:
-            return abeewayUplinkPayloadClass.messageType.POSITION;
-        case 3:
-            return abeewayUplinkPayloadClass.messageType.QUERY;
-        case 4:
-            return abeewayUplinkPayloadClass.messageType.RESPONSE;
-        case 5:
-            return abeewayUplinkPayloadClass.messageType.TELEMETRY;
-        default:
-            return abeewayUplinkPayloadClass.messageType.UNKNOWN;
-    }
+function isValueInRange(value, min, max) {
+    return value >= min && value <= max;
 }
 
-function determineBatteryLevel(payload){
-    if (payload.length < 4)
-        throw new Error("The payload is not valid to determine Battery Level");
-    var value = payload[1] & 0x7F;
-    if (value == 0)
-        return batteryStatus.CHARGING;
-    else if (value == 127)
-        return batteryStatus.UNKNOWN; 
-    return value;
+function camelToSnake(string) {
+       return string.replace(/[\w]([A-Z1-9])/g, function(m) {
+           return m[0] + "_" + m[1];
+       }).toUpperCase();
+   }
+
+function twoComplement(num) {
+    if (num > 0x7FFFFFFF) {
+        num -= 0x100000000;
+    }
+    return num
+}
+function convertBytesToString(bytes){
+    var payload = "";
+    var hex;
+    for(var i = 0; i < bytes.length; i++){
+        hex = convertByteToString(bytes[i]);
+        payload += hex;
+    }
+    return payload;
 }
 
+function convertByteToString(byte){
+    let hex = byte.toString(16);
+    if (hex.length < 2){
+        hex = "0" + hex;
+    }
+    return hex;
+}
+
+function decodeCondensed(value, lo, hi, nbits, nresv) {
+    return ((value - nresv / 2) / ( (((1 << nbits) - 1) - nresv) / (hi - lo)) + lo);
+}
+
+function convertNegativeInt(value, length) {
+    if (value > (0x7F << 8*(length-1))){
+        value -= 0x01<< 8*length;
+	}
+	return value;
+}
+
+function hexStringToInt(hexString) {
+    if (hexString.startsWith("0x")) {
+        hexString = hexString.slice(2);
+    }
+    return parseInt(hexString, 16);
+}
+// It allows to check the range validity of the parameter value 
+function checkParamValueRange (givenValue, minimum, maximum, exclusiveMinimum, exclusiveMaximum, additionalValues, additionalRanges) {
+	if (additionalValues != undefined)
+	{
+		if (additionalValues.includes(givenValue))
+			return true;
+	}
+    if (additionalRanges != undefined && additionalRanges.length >0)
+    {
+        for (let additionalRange of additionalRanges)
+        {
+			if (givenValue>= additionalRange.minimum && givenValue <= additionalRange.maximum)
+    			return true;
+    	}
+    }
+    if (maximum== undefined && minimum== undefined){
+        return true
+    }
+    if (((minimum == undefined || (exclusiveMinimum!=undefined && exclusiveMinimum == true && givenValue > minimum) ||
+    givenValue>=minimum)) && (maximum == undefined || (exclusiveMaximum!=undefined && exclusiveMaximum == true && givenValue < maximum || (givenValue <=maximum))))
+	    return true;
+    return false;
+}
+function hasNegativeNumber(additionalValues) {
+	if (additionalValues == undefined) 
+        return false;
+	for (let el of additionalValues){
+        if (typeof(el)=="number"){
+            if (el < 0)
+			    return true;
+        }
+        else if (typeof(el)=="object"){
+            if (el.minimum < 0)
+                return true;
+        }
+	}
+	return false;
+}
+function lengthToHex(length){  
+    let hex =0;
+	for (let i  =0; i<length; i++)
+	{
+		hex = hex + Math.pow(2,i)
+	}
+	//return parseInt(hex,16)
+    return hex
+}
 module.exports = {
-    Header: Header,
-    determineHeader: determineHeader
+    convertToByteArray: convertToByteArray,
+    camelToSnake: camelToSnake,
+    convertBytesToString: convertBytesToString,
+    convertByteToString: convertByteToString,
+    decodeCondensed: decodeCondensed,
+    convertNegativeInt: convertNegativeInt,
+    twoComplement: twoComplement,
+    isValueInRange: isValueInRange,
+    hexStringToInt: hexStringToInt,
+    checkParamValueRange: checkParamValueRange,
+    hasNegativeNumber: hasNegativeNumber,
+    lengthToHex: lengthToHex
+
+    
 }
 
-/***/ }),
+/***/ },
 
-/***/ 635:
-/***/ ((module) => {
+/***/ 635
+(module) {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('[{"firmwareVersion":"3.0","uplinkPort":"19","firmwareParameters":[{"driverParameterName":"sysHighestTemperature","groupId":"0x00","localId":"0x00","defaultValue":0,"unit":"Cel","description":"Highest temperature reached","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sysLowestTemperature","groupId":"0x00","localId":"0x01","defaultValue":0,"unit":"Cel","description":"Lowest temperature reached","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sysPowerConsumption","groupId":"0x00","localId":"0x02","defaultValue":0,"unit":"mAH","description":"Total power consumed","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreMonitoringPeriod","groupId":"0x01","localId":"0x00","defaultValue":300,"unit":"s","description":"Device monitoring period","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreStatusPeriod","groupId":"0x01","localId":"0x01","defaultValue":3600,"unit":"s","description":"Status monitoring period","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreNotifEnable","groupId":"0x01","localId":"0x02","defaultValue":"{0B,00,00,00,00,00}","description":"Enables core notifications for various events.","parameterType":{"type":"ParameterTypeByteArray","size":6,"distinctValues":true,"properties":[{"name":"systemClass","type":"PropertyObject","properties":[{"name":"status","type":"PropertyBoolean","description":"System status Versions, temperature, reset cause."},{"name":"lowBattery","type":"PropertyBoolean","description":"Low battery alert."},{"name":"bleStatus","type":"PropertyBoolean","description":"Bluetooth Low Energy status"},{"name":"tamperDetection","type":"PropertyBoolean","description":"Tamper detection alert."},{"name":"heartbeat","type":"PropertyBoolean","description":"Heartbeat message."}]},{"name":"sosClass","type":"PropertyObject","properties":[{"name":"sosOn","type":"PropertyBoolean","description":"SOS activated."},{"name":"sosOff","type":"PropertyBoolean","description":"SOS deactivated."}]},{"name":"temperatureClass","type":"PropertyObject","properties":[{"name":"tempHigh","type":"PropertyBoolean","description":"Critical high temperature reached"},{"name":"tempLow","type":"PropertyBoolean","description":"Critical low temperature reached"},{"name":"tempNormal","type":"PropertyBoolean","description":"Temperature back to normal"}]},{"name":"accelerometerClass","type":"PropertyObject","properties":[{"name":"motionStart","type":"PropertyBoolean","description":"Motion start detected."},{"name":"motionEnd","type":"PropertyBoolean","description":"Motion end detected."},{"name":"shock","type":"PropertyBoolean","description":"Shock detected."}]},{"name":"networkingClass","type":"PropertyObject","properties":[{"name":"mainUp","type":"PropertyBoolean","description":"Main network is up."},{"name":"backupUp","type":"PropertyBoolean","description":"Main network down. Backup is up."}]},{"name":"geozoningClass","type":"PropertyObject","properties":[{"name":"geozoningOn","type":"PropertyBoolean","description":"Geozoning is on."}]}],"byteMask":[{"valueFor":"systemClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"status","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"lowBattery","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"bleStatus","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"tamperDetection","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"heartbeat","bitShift":4,"length":1}]},{"valueFor":"sosClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"sosOn","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"sosOff","bitShift":1,"length":1}]},{"valueFor":"temperatureClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"tempHigh","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"tempLow","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"tempNormal","bitShift":2,"length":1}]},{"valueFor":"accelerometerClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"motionStart","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"motionEnd","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"shock","bitShift":2,"length":1}]},{"valueFor":"networkingClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"mainUp","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"backupUp","bitShift":1,"length":1}]},{"valueFor":"geozoningClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"geozoningOn","bitShift":0,"length":1}]}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreTempHighThreshold","groupId":"0x01","localId":"0x03","defaultValue":60,"unit":"Cel","description":"Highest temperature detection threshold","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreTempLowThreshold","groupId":"0x01","localId":"0x04","defaultValue":0,"unit":"Cel","description":"Lowest temperature detection threshold","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreTempHysteresis","groupId":"0x01","localId":"0x05","defaultValue":5,"unit":"Cel","description":"Temperature hysteresis","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreButton1Map","groupId":"0x01","localId":"0x06","description":"Button 1 mapping","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"buttonPress","type":"PropertyString","description":"Event to execute with a button press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonLongPress","type":"PropertyString","description":"Event generated on a button long press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonSingleClick","type":"PropertyString","description":"Event generated on a button single click.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonDoubleClicks","type":"PropertyString","description":"Event generated on a button double clicks.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonTripleClicksOrAbove","type":"PropertyString","description":"Event generated on a button triple clicks or above.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonSimpleSequence","type":"PropertyString","description":"Event generated on a button simple sequence.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]}],"bitMask":[{"type":"BitMaskValue","valueFor":"buttonPress","bitShift":0,"length":4},{"type":"BitMaskValue","valueFor":"buttonLongPress","bitShift":4,"length":4},{"type":"BitMaskValue","valueFor":"buttonSingleClick","bitShift":8,"length":4},{"type":"BitMaskValue","valueFor":"buttonDoubleClicks","bitShift":12,"length":4},{"type":"BitMaskValue","valueFor":"buttonTripleClicksOrAbove","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"buttonSimpleSequence","bitShift":20,"length":4}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreButton2Map","groupId":"0x01","localId":"0x07","description":"Button 2 mapping","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"buttonPress","type":"PropertyString","description":"Event to execute with a button press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonLongPress","type":"PropertyString","description":"Event generated on a button long press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonSingleClick","type":"PropertyString","description":"Event generated on a button single click.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonDoubleClicks","type":"PropertyString","description":"Event generated on a button double clicks.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonTripleClicksOrAbove","type":"PropertyString","description":"Event generated on a button triple clicks or above.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]},{"name":"buttonSimpleSequence","type":"PropertyString","description":"Event generated on a button simple sequence.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY"],"firmwareValues":[0,1,2,3,4,5,6,7,8]}],"bitMask":[{"type":"BitMaskValue","valueFor":"buttonPress","bitShift":0,"length":4},{"type":"BitMaskValue","valueFor":"buttonLongPress","bitShift":4,"length":4},{"type":"BitMaskValue","valueFor":"buttonSingleClick","bitShift":8,"length":4},{"type":"BitMaskValue","valueFor":"buttonDoubleClicks","bitShift":12,"length":4},{"type":"BitMaskValue","valueFor":"buttonTripleClicksOrAbove","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"buttonSimpleSequence","bitShift":20,"length":4}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreButtonsTiming","groupId":"0x01","localId":"0x08","description":"Define the buttons timing parameters.","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"durationButtonPress","type":"PropertyNumber","description":"Duration of the button press in seconds."},{"name":"durationButtonLongPress","type":"PropertyNumber","description":"Duration of the button long press in seconds."},{"name":"debounceDurationOnButton1","type":"PropertyNumber","description":"Debounce duration on button 1 in milliseconds."},{"name":"debounceDurationOnButton2","type":"PropertyNumber","description":"Debounce duration on button 2 in milliseconds."}],"bitMask":[{"type":"BitMaskValue","valueFor":"durationButtonPress","bitShift":0,"length":4},{"type":"BitMaskValue","valueFor":"durationButtonLongPress","bitShift":4,"length":4},{"type":"BitMaskValue","valueFor":"debounceDurationOnButton1","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"debounceDurationOnButton2","bitShift":16,"length":8}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreLed0Map","groupId":"0x01","localId":"0x09","defaultValue":"{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00}","description":"Defines LED patterns for system events. Configurable as 10 slices of 3 bytes each.","parameterType":{"type":"ParameterTypeByteArray","size":30,"distinctValues":false,"properties":[{"name":"slice","type":"PropertByteArray","size":3,"distinctValues":true,"properties":[{"name":"systemEventClass","type":"PropertyString","description":"System event class.","possibleValues":["BUTTON1","BUTTON2","BUZZER","ACCELEROMETER","POWER","TEMPERATURE","GEOLOCATION","CONFIGURATION","NETWORK","CORE","BLE_CONNECTIVITY","USER"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11]},{"name":"patternLoopExtension","type":"PropertyNumber","description":"Pattern loop extension."},{"name":"patternInversion","type":"PropertyBoolean","description":"Indicates whether the pattern is inverted."},{"name":"type","type":"PropertyNumber","description":"System event type."},{"name":"patternIdentifier","type":"PropertyString","description":"Defines the LED behavior.","possibleValues":["NOT_CONFIGURED","LED_OFF","LED_ON","FADE_IN","FADE_OUT","BLINK_SLOW","BLINK_MEDIUM","BLINK_FAST","FLASH_SLOW","FLASH_FAST","HEART_ON"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10]},{"name":"patternLoop","type":"PropertyNumber","description":"Number of times the pattern is displayed."}],"bitMask":[{"type":"BitMaskValue","valueFor":"systemEventClass","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"patternLoopExtension","bitShift":5,"length":2},{"type":"BitMaskValue","valueFor":"patternInversion","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"type","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"patternIdentifier","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"patternLoop","bitShift":20,"length":4}]}],"byteMask":[{"type":"BitMaskValue","valueFor":"slice","bitShift":0,"length":24}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreLed1Map","groupId":"0x01","localId":"0x0A","defaultValue":"{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00}","description":"Defines LED patterns for system events. Configurable as 10 slices of 3 bytes each.","parameterType":{"type":"ParameterTypeByteArray","size":30,"distinctValues":false,"properties":[{"name":"slice","type":"PropertByteArray","size":3,"distinctValues":true,"properties":[{"name":"systemEventClass","type":"PropertyString","description":"System event class.","possibleValues":["BUTTON1","BUTTON2","BUZZER","ACCELEROMETER","POWER","TEMPERATURE","GEOLOCATION","CONFIGURATION","NETWORK","CORE","BLE_CONNECTIVITY","USER"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11]},{"name":"patternLoopExtension","type":"PropertyNumber","description":"Pattern loop extension."},{"name":"patternInversion","type":"PropertyBoolean","description":"Indicates whether the pattern is inverted."},{"name":"type","type":"PropertyNumber","description":"System event type."},{"name":"patternIdentifier","type":"PropertyString","description":"Defines the LED behavior.","possibleValues":["NOT_CONFIGURED","LED_OFF","LED_ON","FADE_IN","FADE_OUT","BLINK_SLOW","BLINK_MEDIUM","BLINK_FAST","FLASH_SLOW","FLASH_FAST","HEART_ON"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10]},{"name":"patternLoop","type":"PropertyNumber","description":"Number of times the pattern is displayed."}],"bitMask":[{"type":"BitMaskValue","valueFor":"systemEventClass","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"patternLoopExtension","bitShift":5,"length":2},{"type":"BitMaskValue","valueFor":"patternInversion","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"type","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"patternIdentifier","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"patternLoop","bitShift":20,"length":4}]}],"byteMask":[{"type":"BitMaskValue","valueFor":"slice","bitShift":0,"length":24}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreBuzzerMap","groupId":"0x01","localId":"0x0B","defaultValue":"{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00}","description":"Defines LED patterns for system events. Configurable as 10 slices of 3 bytes each.","parameterType":{"type":"ParameterTypeByteArray","size":30,"distinctValues":false,"properties":[{"name":"slice","type":"PropertByteArray","size":3,"distinctValues":true,"properties":[{"name":"systemEventClass","type":"PropertyString","description":"System event class.","possibleValues":["BUTTON1","BUTTON2","BUZZER","ACCELEROMETER","POWER","TEMPERATURE","GEOLOCATION","CONFIGURATION","NETWORK","CORE","BLE_CONNECTIVITY","USER"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11]},{"name":"melodyCountExtension","type":"PropertyNumber","description":"Melody count extension"},{"name":"type","type":"PropertyNumber","description":"System event type."},{"name":"melodyIdentifier","type":"PropertyString","description":"Defines the LED behavior.","possibleValues":["NOT_CONFIGURED","OFF","MELODY_1","MELODY_2","MELODY_3"],"firmwareValues":[0,1,2,3,4]},{"name":"melodyCount","type":"PropertyNumber","description":"Number of times the melody is displayed."}],"bitMask":[{"type":"BitMaskValue","valueFor":"systemEventClass","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"melodyCountExtension","bitShift":5,"length":3},{"type":"BitMaskValue","valueFor":"type","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"melodyIdentifier","bitShift":16,"length":5},{"type":"BitMaskValue","valueFor":"patternLoop","bitShift":21,"length":3}]}],"byteMask":[{"type":"BitMaskValue","valueFor":"slice","bitShift":0,"length":24}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreBuzzerMap","groupId":"0x01","localId":"0x0B","defaultValue":"{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00}","description":"Defines LED patterns for system events. Configurable as 10 slices of 3 bytes each.","parameterType":{"type":"ParameterTypeByteArray","size":30,"distinctValues":false,"properties":[{"name":"slice","type":"PropertByteArray","size":3,"distinctValues":true,"properties":[{"name":"systemEventClass","type":"PropertyString","description":"System event class.","possibleValues":["BUTTON1","BUTTON2","BUZZER","ACCELEROMETER","POWER","TEMPERATURE","GEOLOCATION","CONFIGURATION","NETWORK","CORE","BLE_CONNECTIVITY","USER"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11]},{"name":"melodyCountExtension","type":"PropertyNumber","description":"Melody count extension"},{"name":"type","type":"PropertyNumber","description":"System event type."},{"name":"melodyIdentifier","type":"PropertyString","description":"Defines the LED behavior.","possibleValues":["NOT_CONFIGURED","OFF","MELODY_2","MELODY_3","MELODY_4","MELODY_5","MELODY_6","MELODY_7","MELODY_8","MELODY_9","MELODY_10","MELODY_11","MELODY_12","MELODY_13","MELODY_14","MELODY_15","MELODY_16","MELODY_17","MELODY_18","MELODY_19","MELODY_20","MELODY_21"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]},{"name":"melodyCount","type":"PropertyNumber","description":"Number of times the melody is displayed."}],"bitMask":[{"type":"BitMaskValue","valueFor":"systemEventClass","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"melodyCountExtension","bitShift":5,"length":3},{"type":"BitMaskValue","valueFor":"type","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"melodyIdentifier","bitShift":16,"length":5},{"type":"BitMaskValue","valueFor":"patternLoop","bitShift":21,"length":3}]}],"byteMask":[{"type":"BitMaskValue","valueFor":"slice","bitShift":0,"length":24}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreAlmanacValidity","groupId":"0x01","localId":"0x0C","defaultValue":120,"unit":"days","description":"Number of days for which the GNSS almanac is considered as valid.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":7,"maximum":365}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreAlmanacOutdatedRatio","groupId":"0x01","localId":"0x0D","defaultValue":100,"unit":"%","description":"Percentage of outdated GNSS almanac entries which will trigger network update requests. A value of 100% disable the network requests. Applicable for both GNSS devices","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreCliPassword","groupId":"0x01","localId":"0x0E","defaultValue":123,"description":"User cli password","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocMotionPeriod","groupId":"0x02","localId":"0x00","defaultValue":300,"unit":"s","description":"Position acquisition period while in motion","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocStaticPeriod","groupId":"0x02","localId":"0x01","defaultValue":3600,"unit":"s","description":"Position acquisition period while static","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocSosPeriod","groupId":"0x02","localId":"0x02","defaultValue":60,"unit":"s","description":"Position acquisition period while in sos","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocMotionNbStart","groupId":"0x02","localId":"0x03","defaultValue":1,"description":"Number of acquisitions on motion start event","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocMotionNbStop","groupId":"0x02","localId":"0x04","defaultValue":1,"description":"Number of acquisitions on motion stop event","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocStartStopPeriod","groupId":"0x02","localId":"0x05","defaultValue":120,"unit":"s","description":"Position acquisition period while acquiring consecutive positions on motion start or stop","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGnssHoldOnMode","groupId":"0x02","localId":"0x06","description":"Select the GNSS hold on mode. Possible Values are:\\n0: Disabled\\n1: Always. Hold-on mode always set. Only controlled by the timer.\\n2: techno: If the gnss is actually used (meaning GNSS techno not skipped).\\n3: moving: Hold-mode set while moving.\\n4: techno and moving: if the gnss is actually used (meaning GNSS techno not skipped) and tracker is moving.","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLED","ALWAYS","TECHNO","MOVING","STATIC","TECHNO_AND_MOVING"],"firmwareValues":[0,1,2,3,4,5]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGnssHoldOnTimeout","groupId":"0x02","localId":"0x07","defaultValue":0,"unit":"s","description":"GNSS hold on mode timeout.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocProfile0Triggers","groupId":"0x02","localId":"0x08","description":"Geolocation event triggers 0","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"geoTriggerPod","type":"PropertyBoolean","description":"Geoloc triggered on Position-on-demand via downlink or via button."},{"name":"geoTriggerSos","type":"PropertyBoolean","description":"SOS started"},{"name":"geoTriggerMotionStart","type":"PropertyBoolean","description":"Geoloc triggered on motion start event"},{"name":"geoTriggerMotionStop","type":"PropertyBoolean","description":"Geoloc triggered on motion stop event"},{"name":"geoTriggerInMotion","type":"PropertyBoolean","description":"Periodic geoloc while the tracker is in motion"},{"name":"geoTriggerInStatic","type":"PropertyBoolean","description":"Periodic geoloc running while the tracker is static"},{"name":"geoTriggerShock","type":"PropertyBoolean","description":"Geoloc triggered on shock action"},{"name":"geoTriggerTempHighThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerTempLowThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerGeozoning","type":"PropertyBoolean","description":"Geoloc triggered on geoTriggerGeozoning"}],"bitMask":[{"type":"BitMaskValue","valueFor":"geoTriggerPod","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerSos","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStart","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStop","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInMotion","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInStatic","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerShock","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempHighThreshold","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempLowThreshold","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerGeozoning","bitShift":9,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocProfile1Triggers","groupId":"0x02","localId":"0x09","description":"Geolocation event triggers 1","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"geoTriggerPod","type":"PropertyBoolean","description":"Geoloc triggered on Position-on-demand via downlink or via button."},{"name":"geoTriggerSos","type":"PropertyBoolean","description":"SOS started"},{"name":"geoTriggerMotionStart","type":"PropertyBoolean","description":"Geoloc triggered on motion start event"},{"name":"geoTriggerMotionStop","type":"PropertyBoolean","description":"Geoloc triggered on motion stop event"},{"name":"geoTriggerInMotion","type":"PropertyBoolean","description":"Periodic geoloc while the tracker is in motion"},{"name":"geoTriggerInStatic","type":"PropertyBoolean","description":"Periodic geoloc running while the tracker is static"},{"name":"geoTriggerShock","type":"PropertyBoolean","description":"Geoloc triggered on shock action"},{"name":"geoTriggerTempHighThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerTempLowThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerGeozoning","type":"PropertyBoolean","description":"Geoloc triggered on temperature low."}],"bitMask":[{"type":"BitMaskValue","valueFor":"geoTriggerPod","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerSos","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStart","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStop","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInMotion","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInStatic","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerShock","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempHighThreshold","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempLowThreshold","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerGeozoning","bitShift":9,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocProfile2Triggers","groupId":"0x02","localId":"0x0A","description":"Geolocation event triggers 2","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"geoTriggerPod","type":"PropertyBoolean","description":"Geoloc triggered on Position-on-demand via downlink or via button."},{"name":"geoTriggerSos","type":"PropertyBoolean","description":"SOS started"},{"name":"geoTriggerMotionStart","type":"PropertyBoolean","description":"Geoloc triggered on motion start event"},{"name":"geoTriggerMotionStop","type":"PropertyBoolean","description":"Geoloc triggered on motion stop event"},{"name":"geoTriggerInMotion","type":"PropertyBoolean","description":"Periodic geoloc while the tracker is in motion"},{"name":"geoTriggerInStatic","type":"PropertyBoolean","description":"Periodic geoloc running while the tracker is static"},{"name":"geoTriggerShock","type":"PropertyBoolean","description":"Geoloc triggered on shock action"},{"name":"geoTriggerTempHighThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerTempLowThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerGeozoning","type":"PropertyBoolean","description":"Geoloc triggered on temperature low."}],"bitMask":[{"type":"BitMaskValue","valueFor":"geoTriggerPod","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerSos","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStart","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStop","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInMotion","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInStatic","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerShock","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempHighThreshold","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempLowThreshold","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerGeozoning","bitShift":9,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGbeProfile0Techno","groupId":"0x02","localId":"0x0B","description":"Technologies to schedule using the basic engine for events in triggers 0","parameterType":{"type":"ParameterTypeByteArray","size":6,"properties":[{"name":"Action","type":"PropertyString","possibleValues":["SKIP_ON_SUCCESS","ALWAYS_DONE"],"firmwareValues":[0,1]},{"name":"Technology","type":"PropertyString","possibleValues":["NONE","LR11xx_A_GNSS","WIFI","BLE_SCAN1","BLE_SCAN2","AIDED_GNSS","GNSS"],"firmwareValues":[0,1,2,3,4,5,6]}],"byteMask":[{"type":"BitMaskValue","valueFor":"Technology","bitShift":0,"length":7},{"type":"BitMaskValue","valueFor":"Action","bitShift":7,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGbeProfile1Techno","groupId":"0x02","localId":"0x0C","description":"Technologies to schedule using the basic engine for events in triggers 1","parameterType":{"type":"ParameterTypeByteArray","size":6,"properties":[{"name":"Action","type":"PropertyString","possibleValues":["SKIP_ON_SUCCESS","ALWAYS_DONE"],"firmwareValues":[0,1]},{"name":"Technology","type":"PropertyString","possibleValues":["NONE","LR11xx_A_GNSS","WIFI","BLE_SCAN1","BLE_SCAN2","AIDED_GNSS","GNSS"],"firmwareValues":[0,1,2,3,4,5,6]}],"byteMask":[{"type":"BitMaskValue","valueFor":"Technology","bitShift":0,"length":7},{"type":"BitMaskValue","valueFor":"Action","bitShift":7,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGbeProfile2Techno","groupId":"0x02","localId":"0x0D","description":"Technologies to schedule using the basic engine for events in triggers 2","parameterType":{"type":"ParameterTypeByteArray","size":6,"properties":[{"name":"Action","type":"PropertyString","possibleValues":["SKIP_ON_SUCCESS","ALWAYS_DONE"],"firmwareValues":[0,1]},{"name":"Technology","type":"PropertyString","possibleValues":["NONE","LR11xx_A_GNSS","WIFI","BLE_SCAN1","BLE_SCAN2","AIDED_GNSS","GNSS"],"firmwareValues":[0,1,2,3,4,5,6]}],"byteMask":[{"type":"BitMaskValue","valueFor":"Technology","bitShift":0,"length":7},{"type":"BitMaskValue","valueFor":"Action","bitShift":7,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssConstellation","groupId":"0x03","localId":"0x00","defaultValue":2,"description":"GNSS constellations to be used","parameterType":{"type":"ParameterTypeString","possibleValues":["GPS_ONLY","GLONASS_ONLY","GPS_GLONASS","GPS_GALILEO","GPS_GLONASS_GALILEO","BEIDOU_ONLY","BEIDOU_GPS"],"firmwareValues":[0,1,2,3,4,5,6]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssMaxTime","groupId":"0x03","localId":"0x01","defaultValue":300,"unit":"s","description":"GNSS max acquisition time.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":30,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssT0TimeoutStatic","groupId":"0x03","localId":"0x02","defaultValue":30,"unit":"s","description":"Max time to acquire at least one satellite when tracker is static","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssEhpeStatic","groupId":"0x03","localId":"0x03","defaultValue":30,"unit":"m","description":"Expected estimated horizontal position error when the tracker is static","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssConvergenceStatic","groupId":"0x03","localId":"0x04","defaultValue":20,"unit":"s","description":"Extra-time after a first fix to refine the fix","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssT0TimeoutMotion","groupId":"0x03","localId":"0x05","defaultValue":30,"unit":"s","description":"Max time to acquire at least one satellite when tracker is moving","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssEhpeMotion","groupId":"0x03","localId":"0x06","defaultValue":30,"unit":"m","description":"Expected estimated horizontal position error when the tracker is moving","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssConvergenceMotion","groupId":"0x03","localId":"0x07","defaultValue":20,"unit":"s","description":"Extra-time after a first fix to refine the fix when the tracker is moving","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssStandby","groupId":"0x03","localId":"0x08","defaultValue":604800,"unit":"s","description":"Max time to let the device in standby mode.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssAgnssMaxTime","groupId":"0x03","localId":"0x09","defaultValue":45,"unit":"s","description":"Aided GNSS max acquisition time.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":15,"maximum":240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssT1Timeout","groupId":"0x03","localId":"0x0A","defaultValue":0,"unit":"s","description":"Extra time let in Aided GNSS mode to try doing a fix.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrConstellation","groupId":"0x04","localId":"0x00","description":"GNSS constellations to be used","parameterType":{"type":"ParameterTypeString","possibleValues":["GPS_ONLY","BEIDOU_ONLY","BEIDOU_GPS"],"firmwareValues":[0,5,6]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrScanMode","groupId":"0x04","localId":"0x01","description":"Scan mode (NAV1 / NAV2)","parameterType":{"type":"ParameterTypeString","possibleValues":["NAV1_SCAN","NAV2_SCAN"],"firmwareValues":[1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrNbScans","groupId":"0x04","localId":"0x02","defaultValue":2,"description":"Number of scans for one position acquisition","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":4}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrInterScanTime","groupId":"0x04","localId":"0x03","defaultValue":5,"unit":"s","description":"Time to wait between the scans for a position","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiReportNbBssid","groupId":"0x04","localId":"0x04","defaultValue":4,"description":"Max number of WIFI BSSID per scan","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":32}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiMinNbBssid","groupId":"0x04","localId":"0x05","defaultValue":3,"description":"Minimum number of BSSID to consider the scan as success (solvable)","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiMinRssi","groupId":"0x04","localId":"0x06","defaultValue":3,"description":"Minimum number of BSSID to consider the scan as success (solvable)","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiBssidMacType","groupId":"0x04","localId":"0x07","defaultValue":1,"description":"MAC administration type of the BSSID to report.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanDuration","groupId":"0x05","localId":"0x00","defaultValue":3000,"unit":"ms","description":"Total time for a BLE scan","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":50,"maximum":61440}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanWindow","groupId":"0x05","localId":"0x01","defaultValue":120,"unit":"ms","description":"Scan window","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":3,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanInterval","groupId":"0x05","localId":"0x02","defaultValue":130,"unit":"ms","description":"Scan interval","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanType","groupId":"0x05","localId":"0x03","defaultValue":0,"description":"Type of beacons to scan","parameterType":{"type":"ParameterTypeString","possibleValues":["ALL_BEACONS","EDDYSTONE_UUID","EDDYSTONE_URL","ALL_EDDYSTONE","IBEACON_ONLY","ALTBEACON_ONLY","CUSTOM","EXPOSURE_ADVERTISEMENT"],"firmwareValues":[0,1,2,3,4,5,6,7]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinRssi","groupId":"0x05","localId":"0x04","defaultValue":-80,"unit":"dB","description":"Min RSSI to consider the beacon","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-120,"maximum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinNbBeacons","groupId":"0x05","localId":"0x05","defaultValue":1,"description":"Min number of beacons to consider the scan as success (solvable).","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Mask","groupId":"0x05","localId":"0x06","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Value","groupId":"0x05","localId":"0x07","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter1","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Offset","groupId":"0x05","localId":"0x08","defaultValue":0,"description":"Offset in the ADV from which we apply the filter1","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Mask","groupId":"0x05","localId":"0x09","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Value","groupId":"0x05","localId":"0x0A","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter2","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Offset","groupId":"0x05","localId":"0x0B","defaultValue":0,"description":"Offset in the ADV from which we apply the filter2","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanNbBeacons","groupId":"0x05","localId":"0x0C","defaultValue":4,"description":"Number of beacons to report","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportType","groupId":"0x05","localId":"0x0D","defaultValue":0,"description":"Scan report type","parameterType":{"type":"ParameterTypeString","possibleValues":["MAC_ADDRESS","SHORT_IDENTIFIER","LONG_IDENTIFIER"],"firmwareValues":[0,1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportIdOfs","groupId":"0x05","localId":"0x0E","defaultValue":4,"description":"Offset in ADV to extract the beacon identifier","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanDuration","groupId":"0x06","localId":"0x00","defaultValue":3000,"unit":"ms","description":"Total time for a BLE scan","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":50,"maximum":61440}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanWindow","groupId":"0x06","localId":"0x01","defaultValue":120,"unit":"ms","description":"Scan window","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":3,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanInterval","groupId":"0x06","localId":"0x02","defaultValue":130,"unit":"ms","description":"Scan interval","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanType","groupId":"0x06","localId":"0x03","defaultValue":0,"description":"Type of beacons to scan","parameterType":{"type":"ParameterTypeString","possibleValues":["ALL_BEACONS","EDDYSTONE_UUID","EDDYSTONE_URL","ALL_EDDYSTONE","IBEACON_ONLY","ALTBEACON_ONLY","CUSTOM","EXPOSURE_ADVERTISEMENT"],"firmwareValues":[0,1,2,3,4,5,6,7]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinRssi","groupId":"0x06","localId":"0x04","defaultValue":-100,"unit":"dB","description":"Min RSSI to consider the beacon","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-120,"maximum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinNbBeacons","groupId":"0x06","localId":"0x05","defaultValue":1,"description":"Min number of beacons to consider the scan as success (solvable).","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Mask","groupId":"0x06","localId":"0x06","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Value","groupId":"0x06","localId":"0x07","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter1","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Offset","groupId":"0x06","localId":"0x08","defaultValue":0,"description":"Offset in the ADV from which we apply the filter1","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Mask","groupId":"0x06","localId":"0x09","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Value","groupId":"0x06","localId":"0x0A","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter2","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Offset","groupId":"0x06","localId":"0x0B","defaultValue":0,"description":"Offset in the ADV from which we apply the filter2","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanNbBeacons","groupId":"0x06","localId":"0x0C","defaultValue":4,"description":"Number of beacons to report","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportType","groupId":"0x06","localId":"0x0D","defaultValue":0,"description":"Scan report type","parameterType":{"type":"ParameterTypeString","possibleValues":["MAC_ADDRESS","SHORT_IDENTIFIER","LONG_IDENTIFIER"],"firmwareValues":[0,1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportIdOfs","groupId":"0x06","localId":"0x0E","defaultValue":4,"description":"Offset in ADV to extract the beacon identifier","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroMotionSensi","groupId":"0x07","localId":"0x00","defaultValue":1,"unit":"mg","description":"Motion sensitivity. Step 31 mg.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":96},"multiply":31},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroMotionDuration","groupId":"0x07","localId":"0x01","defaultValue":120,"unit":"s","description":"Motion duration","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":3600}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroFullScale","groupId":"0x07","localId":"0x02","defaultValue":3,"description":"Scale use (2,4,8,16 g).","parameterType":{"type":"ParameterTypeString","possibleValues":["2_G","4_G","8_G","16_G"],"firmwareValues":[0,1,2,3]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroOutputDataRate","groupId":"0x07","localId":"0x03","defaultValue":0,"description":"Output data rate (12.5, 25, 50, 100, 200 Hz).","parameterType":{"type":"ParameterTypeString","possibleValues":["12_5_HZ","25_HZ","50_HZ","100_HZ","200_HZ"],"firmwareValues":[0,1,2,3,4]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroShockThreshold","groupId":"0x07","localId":"0x04","defaultValue":0,"description":"Shock threshold. Step 63 mg","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":128},"multiply":63},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netSelection","groupId":"0x08","localId":"0x00","defaultValue":0,"description":"Define the networking type","parameterType":{"type":"ParameterTypeString","possibleValues":["LORA_ONLY","CELLULAR_ONLY","LORA_FALLBACK_CELLULAR","CELLULAR_FALLBACK_LORA"],"firmwareValues":[0,1,2,3]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netReconnectionSpacing","groupId":"0x08","localId":"0x01","defaultValue":600,"description":"Time to wait before retrying to connect the main network","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netMainProbeTimeout","groupId":"0x08","localId":"0x02","defaultValue":600,"description":"Duration between each attempts reconnect the main network.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanCnxTimeout","groupId":"0x09","localId":"0x00","defaultValue":0,"description":"Max time to wait for joining the network. The value 0 disables the timer.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanDlTriggerPeriod","groupId":"0x09","localId":"0x01","defaultValue":3600,"unit":"s","description":"Period at which an empty uplink is sent to trigger a downlink. 0 disable the function.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanProbeMaxAttempts","groupId":"0x09","localId":"0x02","defaultValue":4,"description":"Number of link-check sent declaring the network as lost","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanProbePeriod","groupId":"0x09","localId":"0x03","defaultValue":43200,"description":"Time between link-check requests","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanConfirmNotifMap","groupId":"0x09","localId":"0x04","defaultValue":"{00}","description":"Map enabling the LoRaWAN confirmed message for notifications.","parameterType":{"type":"ParameterTypeByteArray","size":6,"distinctValues":true,"properties":[{"name":"systemClass","type":"PropertyObject","properties":[{"name":"status","type":"PropertyBoolean","description":"System status Versions, temperature, reset cause."},{"name":"lowBattery","type":"PropertyBoolean","description":"Low battery alert."},{"name":"bleStatus","type":"PropertyBoolean","description":"Bluetooth Low Energy status"},{"name":"tamperDetection","type":"PropertyBoolean","description":"Tamper detection alert."}]},{"name":"sosClass","type":"PropertyObject","properties":[{"name":"sosOn","type":"PropertyBoolean","description":"SOS activated."},{"name":"sosOff","type":"PropertyBoolean","description":"SOS deactivated."}]},{"name":"temperatureClass","type":"PropertyObject","properties":[{"name":"tempHigh","type":"PropertyBoolean","description":"Critical high temperature reached"},{"name":"tempLow","type":"PropertyBoolean","description":"Critical low temperature reached"},{"name":"tempNormal","type":"PropertyBoolean","description":"Temperature back to normal"}]},{"name":"accelerometerClass","type":"PropertyObject","properties":[{"name":"motionStart","type":"PropertyBoolean","description":"Motion start detected."},{"name":"motionEnd","type":"PropertyBoolean","description":"Motion end detected."},{"name":"shock","type":"PropertyBoolean","description":"Shock detected."}]},{"name":"networkingClass","type":"PropertyObject","properties":[{"name":"mainUp","type":"PropertyBoolean","description":"Main network is up."},{"name":"backupUp","type":"PropertyBoolean","description":"Main network down. Backup is up."}]},{"name":"geozoningClass","type":"PropertyObject","properties":[{"name":"geozoningOn","type":"PropertyBoolean","description":"Geozoning is on."}]}],"byteMask":[{"valueFor":"systemClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"status","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"lowBattery","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"bleStatus","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"tamperDetection","bitShift":3,"length":1}]},{"valueFor":"sosClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"sosOn","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"sosOff","bitShift":1,"length":1}]},{"valueFor":"temperatureClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"tempHigh","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"tempLow","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"tempNormal","bitShift":2,"length":1}]},{"valueFor":"accelerometerClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"motionStart","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"motionEnd","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"shock","bitShift":2,"length":1}]},{"valueFor":"networkingClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"mainUp","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"backupUp","bitShift":1,"length":1}]},{"valueFor":"geozoningClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"geozoningOn","bitShift":0,"length":1}]}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanConfirmNotifRetry","groupId":"0x09","localId":"0x05","defaultValue":0,"description":"Time between link-check requests","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanS1TxStrategy","groupId":"0x09","localId":"0x06","defaultValue":473102,"description":"Socket 1. Transmission strategy","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"ADREnabled","type":"PropertyBoolean","description":"true: to enable the LoRa network ADR if the tracker is static. false: to disable the network ADR regardless the motion state of the tracker"},{"name":"dualTransmissionInStaticEnabled","type":"PropertyBoolean","description":"Control the dual transmission when the tracker is static. true: to enable the dual transmission in static state. false: to disable it"},{"name":"dualTransmissionInMotionEnabled","type":"PropertyBoolean","description":"Control the dual transmission when the tracker is in motion. true: to enable the dual transmission in motion state. false: to disable it in motion state."},{"name":"dataRateModification","type":"PropertyBoolean","description":"Control the DR (Datarate) modification for over-sized messages. true: to allow AOS to adapt the DR for messages not fitting the allowed size for a given datarate.false: to prevent sending of over-sized messages"},{"name":"firstTransmissionDatarate","type":"PropertyObject","properties":[{"name":"dr0","type":"PropertyBoolean","description":"false: dr0 is disabled. true: dr0 is enabled."},{"name":"dr1","type":"PropertyBoolean","description":"false: dr1 is disabled. true: dr1 is enabled."},{"name":"dr2","type":"PropertyBoolean","description":"false: dr2 is disabled. true: dr2 is enabled."},{"name":"dr3","type":"PropertyBoolean","description":"false: dr3 is disabled. true: dr3 is enabled."},{"name":"dr4","type":"PropertyBoolean","description":"false: dr4 is disabled. true: dr4 is enabled."},{"name":"dr5","type":"PropertyBoolean","description":"false: dr5 is disabled. true: dr5 is enabled."},{"name":"dr6","type":"PropertyBoolean","description":"false: dr6 is disabled. true: dr6 is enabled."},{"name":"dr7","type":"PropertyBoolean","description":"false: dr7 is disabled. true: dr7 is enabled."}]},{"name":"secondTransmissionDatarate","type":"PropertyObject","properties":[{"name":"dr0","type":"PropertyBoolean","description":"false: dr0 is disabled. true: dr0 is enabled."},{"name":"dr1","type":"PropertyBoolean","description":"false: dr1 is disabled. true: dr1 is enabled."},{"name":"dr2","type":"PropertyBoolean","description":"false: dr2 is disabled. true: dr2 is enabled."},{"name":"dr3","type":"PropertyBoolean","description":"false: dr3 is disabled. true: dr3 is enabled."},{"name":"dr4","type":"PropertyBoolean","description":"false: dr4 is disabled. true: dr4 is enabled."},{"name":"dr5","type":"PropertyBoolean","description":"false: dr5 is disabled. true: dr5 is enabled."},{"name":"dr6","type":"PropertyBoolean","description":"false: dr6 is disabled. true: dr6 is enabled."},{"name":"dr7","type":"PropertyBoolean","description":"false: dr7 is disabled. true: dr7 is enabled."}]}],"bitMask":[{"type":"BitMaskValue","valueFor":"ADREnabled","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"dualTransmissionInStaticEnabled","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"dualTransmissionInMotionEnabled","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"dataRateModification","bitShift":3,"length":1},{"valueFor":"firstTransmissionDatarate","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"dr0","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"dr1","bitShift":9,"length":1},{"type":"BitMaskValue","valueFor":"dr2","bitShift":10,"length":1},{"type":"BitMaskValue","valueFor":"dr3","bitShift":11,"length":1},{"type":"BitMaskValue","valueFor":"dr4","bitShift":12,"length":1},{"type":"BitMaskValue","valueFor":"dr5","bitShift":13,"length":1},{"type":"BitMaskValue","valueFor":"dr6","bitShift":14,"length":1},{"type":"BitMaskValue","valueFor":"dr7","bitShift":15,"length":1}]},{"valueFor":"secondTransmissionDatarate","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"dr0","bitShift":16,"length":1},{"type":"BitMaskValue","valueFor":"dr1","bitShift":17,"length":1},{"type":"BitMaskValue","valueFor":"dr2","bitShift":18,"length":1},{"type":"BitMaskValue","valueFor":"dr3","bitShift":19,"length":1},{"type":"BitMaskValue","valueFor":"dr4","bitShift":20,"length":1},{"type":"BitMaskValue","valueFor":"dr5","bitShift":21,"length":1},{"type":"BitMaskValue","valueFor":"dr6","bitShift":22,"length":1},{"type":"BitMaskValue","valueFor":"dr7","bitShift":23,"length":1}]}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanS1UlPort","groupId":"0x09","localId":"0x07","defaultValue":19,"description":"Socket 1. Uplink port","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":252}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanS1DlPort","groupId":"0x09","localId":"0x08","defaultValue":3,"description":"Socket 1. Downlink port","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":252}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellSimInterface","groupId":"0x0A","localId":"0x00","description":"Sim interface.","defaultValue":"","parameterType":{"type":"ParameterTypeString","possibleValues":["SIM0","E_SIM"],"firmwareValues":[0,1]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellNetworkType","groupId":"0x0A","localId":"0x01","description":"Network type","defaultValue":"","parameterType":{"type":"ParameterTypeString","possibleValues":["CELLULAR_NOT_USED","LTE_M","NB_IOT"],"firmwareValues":[0,1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellSearchBands","groupId":"0x0A","localId":"0x02","defaultValue":"{00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00}","description":"Radio frequency bands scanned to search a cell.","parameterType":{"type":"ParameterTypeByteArray","size":19},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxTimeoutStatic","groupId":"0x0A","localId":"0x03","defaultValue":180,"unit":"s","description":"Duration during which the modem searches for a cellular network. Applicable when the tracker is static.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":180,"maximum":900}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxTimeoutMotion","groupId":"0x0A","localId":"0x04","defaultValue":300,"unit":"s","description":"Duration during which the modem searches for a cellular network. Applicable when the tracker is motion.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":180,"maximum":900}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxNwLostTimeout","groupId":"0x0A","localId":"0x05","defaultValue":60,"unit":"s","description":"Duration let to the modem to automatically recover the network after a network lost.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":900}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxMaxAttempts","groupId":"0x0A","localId":"0x06","defaultValue":3,"description":"Number of times the network search is repeated before shutting down the modem.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellAccessPointName","groupId":"0x0A","localId":"0x07","description":"String providing the service access point name. If not provided, this information is retrieve from the SIM.","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellOperatorSimSlot0","groupId":"0x0A","localId":"0x08","description":"Cellular operator name when using the SIM0","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellOperatorSimSlot1","groupId":"0x0A","localId":"0x09","description":"Cellular operator name when using the SIM1 (E.SIM).","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellLowPowerMode","groupId":"0x0A","localId":"0x0A","description":"Low power mode","defaultValue":"","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLED","PSM","EDRX","PSM_EDRX"],"firmwareValues":[0,1,2,3]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellPsmTauPeriod","groupId":"0x0A","localId":"0x0B","description":"Bit-field giving the requested TAU period.","defaultValue":254,"parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"timerValue","type":"PropertyNumber"},{"name":"timerValueUnit","type":"PropertyString","possibleValues":["VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_10_MINUTES","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_1_HOUR","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_10_HOURS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_2_SECONDS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_30_SECONDS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_1_MINUTE","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_320_HOURS","THE_TIMER_IS_DEACTIVATED"],"firmwareValues":[0,1,2,3,4,5,6,7]}],"bitMask":[{"type":"BitMaskValue","valueFor":"timerValue","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"timerValueUnit","bitShift":5,"length":3}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellPsmActiveTime","groupId":"0x0A","localId":"0x0C","description":"Bit-field giving the requested active time.","defaultValue":2,"parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"timerValue","type":"PropertyNumber"},{"name":"timerValueUnit","type":"PropertyString","possibleValues":["VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_2_SECONDS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_1_MINUTE","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_DECI_HOURS","THE_TIMER_IS_DEACTIVATED"],"firmwareValues":[0,1,2,7]}],"bitMask":[{"type":"BitMaskValue","valueFor":"timerValue","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"timerValueUnit","bitShift":5,"length":3}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellEdrxPcl","groupId":"0x0A","localId":"0x0D","description":"Requested paging cycle length","defaultValue":15,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellEdrxPtw","groupId":"0x0A","localId":"0x0E","description":"Requested paging time window","defaultValue":3,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellRaiTimeout","groupId":"0x0A","localId":"0x0F","description":"RAI (Release Assistance Indication) timeout. A null value disables the feature. Use only with UDP protocol.","defaultValue":500,"unit":"ms","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10000}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellProbeMaxAttempts","groupId":"0x0A","localId":"0x10","description":"Number of echo-request sent before declaring the network as lost. Set 0 to disable the feature.","defaultValue":0,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellProbePeriod","groupId":"0x0A","localId":"0x11","description":"Time between echo-request, or since the last downlink activity.","defaultValue":120,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1TransportProto","groupId":"0x0A","localId":"0x12","description":"Socket 1 transport protocol","defaultValue":1,"parameterType":{"type":"ParameterTypeString","possibleValues":["TCP","UDP"],"firmwareValues":[0,1]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1IpUrlAddr","groupId":"0x0A","localId":"0x13","description":"Socket 1 remote IP address or URL in string format (max 32 bytes)","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1DstIpPort","groupId":"0x0A","localId":"0x14","description":"Socket 1 destination UDP/TCP port","defaultValue":0,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":65535}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1SrcIpPort","groupId":"0x0A","localId":"0x15","description":"Socket 1 local UDP/TCP port number. Value 0 means that the modem will choose one.","defaultValue":0,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":65535}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1TxAggrTime","groupId":"0x0A","localId":"0x16","description":"Duration in second for which the messages are hold in the socket 1 transmit queue before being transmitted","defaultValue":120,"unit":"s","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":3600}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleCnxTxPower","groupId":"0x0B","localId":"0x00","defaultValue":19,"description":"BLE Tx power level.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":31}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleCnxAdvDuration","groupId":"0x0B","localId":"0x01","defaultValue":60,"description":"Time to wait before stopping advertising or switching to slow advertising","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":30}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleCnxBehavior","groupId":"0x0B","localId":"0x02","defaultValue":1,"description":"The connectivity configuration.","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLE","ENABLE_NO_PASSKEY","ENABLE_PASSKEY","ENABLE_NO_PASSKEY_NO_SLOW_ADV","ENABLE_PASSKEY_NO_SLOW_ADV"],"firmwareValues":[0,1,2,3,4]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconTxPower","groupId":"0x0B","localId":"0x03","defaultValue":19,"description":"Time to wait before stopping advertising or switching to slow advertising","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":31}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconType","groupId":"0x0B","localId":"0x04","defaultValue":1,"description":"The connectivity configuration.","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLE","EDDYSTONE_UID","IBEACON","ALTBEACON","QUUPPA","EXPOSURE_ADVERTISEMENT"],"firmwareValues":[0,1,2,3,4,5,6,7]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconIdentifier","groupId":"0x0B","localId":"0x05","description":"BLE beaconing ID parameter","parameterType":{"type":"ParameterTypeByteArray"},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconFastAdvInterval","groupId":"0x0B","localId":"0x06","defaultValue":333,"description":"BLE beacon fast advertising interval.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":20,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconFastSlowInterval","groupId":"0x0B","localId":"0x07","defaultValue":1000,"description":"BLE beacon slow advertising interval.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":20,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]}]}]');
+module.exports = /*#__PURE__*/JSON.parse('[{"firmwareVersion":"3.0","uplinkPort":"19","firmwareParameters":[{"driverParameterName":"sysHighestTemperature","groupId":"0x00","localId":"0x00","defaultValue":0,"unit":"Cel","description":"Highest temperature reached","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sysLowestTemperature","groupId":"0x00","localId":"0x01","defaultValue":0,"unit":"Cel","description":"Lowest temperature reached","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sysPowerConsumption","groupId":"0x00","localId":"0x02","defaultValue":0,"unit":"mAH","description":"Total power consumed","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"groupId":"0x00","localId":"0x03","name":"sysCellJoinNonce","driverParameterName":"sysCellJoinNonce","type":"ParameterTypeNumber","min":0,"max":4294967295,"default":0,"description":"Cellular join nonce used in ASLP"},{"driverParameterName":"coreMonitoringPeriod","groupId":"0x01","localId":"0x00","defaultValue":300,"unit":"s","description":"Device monitoring period","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreStatusPeriod","groupId":"0x01","localId":"0x01","defaultValue":3600,"unit":"s","description":"Status monitoring period","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreNotifEnable","groupId":"0x01","localId":"0x02","defaultValue":"{0B,00,00,00,00,00}","description":"Enables core notifications for various events.","parameterType":{"type":"ParameterTypeByteArray","size":6,"distinctValues":true,"properties":[{"name":"systemClass","type":"PropertyObject","properties":[{"name":"status","type":"PropertyBoolean","description":"System status Versions, temperature, reset cause."},{"name":"lowBattery","type":"PropertyBoolean","description":"Low battery alert."},{"name":"bleStatus","type":"PropertyBoolean","description":"Bluetooth Low Energy status"},{"name":"tamperDetection","type":"PropertyBoolean","description":"Tamper detection alert."},{"name":"heartbeat","type":"PropertyBoolean","description":"Heartbeat message."},{"name":"shutdown","type":"PropertyBoolean","description":"Shutdown message."},{"name":"dataBuffering","type":"PropertyBoolean","description":"Data buffering status"},{"name":"fuota","type":"PropertyBoolean","description":"Firmware Update Over The Air"}]},{"name":"sosClass","type":"PropertyObject","properties":[{"name":"sosOn","type":"PropertyBoolean","description":"SOS activated."},{"name":"sosOff","type":"PropertyBoolean","description":"SOS deactivated."}]},{"name":"temperatureClass","type":"PropertyObject","properties":[{"name":"tempHigh","type":"PropertyBoolean","description":"Critical high temperature reached"},{"name":"tempLow","type":"PropertyBoolean","description":"Critical low temperature reached"},{"name":"tempNormal","type":"PropertyBoolean","description":"Temperature back to normal"}]},{"name":"accelerometerClass","type":"PropertyObject","properties":[{"name":"motionStart","type":"PropertyBoolean","description":"Motion start detected."},{"name":"motionEnd","type":"PropertyBoolean","description":"Motion end detected."},{"name":"shock","type":"PropertyBoolean","description":"Shock detected."}]},{"name":"networkingClass","type":"PropertyObject","properties":[{"name":"mainUp","type":"PropertyBoolean","description":"Main network is up."},{"name":"backupUp","type":"PropertyBoolean","description":"Main network down. Backup is up."}]},{"name":"geozoningClass","type":"PropertyObject","properties":[{"name":"geozoningOn","type":"PropertyBoolean","description":"Geozoning is on."}]}],"byteMask":[{"valueFor":"systemClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"status","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"lowBattery","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"bleStatus","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"tamperDetection","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"heartbeat","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"shutdown","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"dataBuffering","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"fuota","bitShift":7,"length":1}]},{"valueFor":"sosClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"sosOn","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"sosOff","bitShift":1,"length":1}]},{"valueFor":"temperatureClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"tempHigh","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"tempLow","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"tempNormal","bitShift":2,"length":1}]},{"valueFor":"accelerometerClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"motionStart","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"motionEnd","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"shock","bitShift":2,"length":1}]},{"valueFor":"networkingClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"mainUp","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"backupUp","bitShift":1,"length":1}]},{"valueFor":"geozoningClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"geozoningOn","bitShift":0,"length":1}]}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreTempHighThreshold","groupId":"0x01","localId":"0x03","defaultValue":60,"unit":"Cel","description":"Highest temperature detection threshold","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreTempLowThreshold","groupId":"0x01","localId":"0x04","defaultValue":0,"unit":"Cel","description":"Lowest temperature detection threshold","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreTempHysteresis","groupId":"0x01","localId":"0x05","defaultValue":5,"unit":"Cel","description":"Temperature hysteresis","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreButton1Map","groupId":"0x01","localId":"0x06","description":"Button 1 mapping","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"buttonPress","type":"PropertyString","description":"Event to execute with a button press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonLongPress","type":"PropertyString","description":"Event generated on a button long press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonSingleClick","type":"PropertyString","description":"Event generated on a button single click.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonDoubleClicks","type":"PropertyString","description":"Event generated on a button double clicks.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonTripleClicksOrAbove","type":"PropertyString","description":"Event generated on a button triple clicks or above.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonSimpleSequence","type":"PropertyString","description":"Event generated on a button simple sequence.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]}],"bitMask":[{"type":"BitMaskValue","valueFor":"buttonPress","bitShift":0,"length":4},{"type":"BitMaskValue","valueFor":"buttonLongPress","bitShift":4,"length":4},{"type":"BitMaskValue","valueFor":"buttonSingleClick","bitShift":8,"length":4},{"type":"BitMaskValue","valueFor":"buttonDoubleClicks","bitShift":12,"length":4},{"type":"BitMaskValue","valueFor":"buttonTripleClicksOrAbove","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"buttonSimpleSequence","bitShift":20,"length":4}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreButton2Map","groupId":"0x01","localId":"0x07","description":"Button 2 mapping","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"buttonPress","type":"PropertyString","description":"Event to execute with a button press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonLongPress","type":"PropertyString","description":"Event generated on a button long press.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonSingleClick","type":"PropertyString","description":"Event generated on a button single click.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonDoubleClicks","type":"PropertyString","description":"Event generated on a button double clicks.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonTripleClicksOrAbove","type":"PropertyString","description":"Event generated on a button triple clicks or above.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]},{"name":"buttonSimpleSequence","type":"PropertyString","description":"Event generated on a button simple sequence.","possibleValues":["NO_ACTION","DISPLAY_BATTERY_LEVEL_ON_THE_LED","START_STOP_SOS","REQUEST_A_POSITION_ON_DEMAND","FORCE_AN_UPLINK_SYSTEM_STATUS_NOTIFICATION_TRANSMISSION","START_DEVICE","STOP_DEVICE","START_ONLY_SOS","START_BLE_ADVERTISING_FOR_CONNECTIVITY","RESET_DEVICE"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9]}],"bitMask":[{"type":"BitMaskValue","valueFor":"buttonPress","bitShift":0,"length":4},{"type":"BitMaskValue","valueFor":"buttonLongPress","bitShift":4,"length":4},{"type":"BitMaskValue","valueFor":"buttonSingleClick","bitShift":8,"length":4},{"type":"BitMaskValue","valueFor":"buttonDoubleClicks","bitShift":12,"length":4},{"type":"BitMaskValue","valueFor":"buttonTripleClicksOrAbove","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"buttonSimpleSequence","bitShift":20,"length":4}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreButtonsTiming","groupId":"0x01","localId":"0x08","description":"Define the buttons timing parameters.","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"durationButtonPress","type":"PropertyNumber","description":"Duration of the button press in seconds."},{"name":"durationButtonLongPress","type":"PropertyNumber","description":"Duration of the button long press in seconds."},{"name":"debounceDurationOnButton1","type":"PropertyNumber","description":"Debounce duration on button 1 in milliseconds."},{"name":"debounceDurationOnButton2","type":"PropertyNumber","description":"Debounce duration on button 2 in milliseconds."}],"bitMask":[{"type":"BitMaskValue","valueFor":"durationButtonPress","bitShift":0,"length":4},{"type":"BitMaskValue","valueFor":"durationButtonLongPress","bitShift":4,"length":4},{"type":"BitMaskValue","valueFor":"debounceDurationOnButton1","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"debounceDurationOnButton2","bitShift":16,"length":8}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreLed0Map","groupId":"0x01","localId":"0x09","defaultValue":"{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00}","description":"Defines LED patterns for system events. Configurable as 10 slices of 3 bytes each.","parameterType":{"type":"ParameterTypeByteArray","size":30,"distinctValues":false,"properties":[{"name":"slice","type":"PropertByteArray","size":3,"distinctValues":true,"properties":[{"name":"systemEventClass","type":"PropertyString","description":"System event class.","possibleValues":["BUTTON1","BUTTON2","BUZZER","ACCELEROMETER","POWER","TEMPERATURE","GEOLOCATION","CONFIGURATION","NETWORK","CORE","BLE_CONNECTIVITY","USER"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11]},{"name":"patternLoopExtension","type":"PropertyNumber","description":"Pattern loop extension."},{"name":"patternInversion","type":"PropertyBoolean","description":"Indicates whether the pattern is inverted."},{"name":"type","type":"PropertyNumber","description":"System event type."},{"name":"patternIdentifier","type":"PropertyString","description":"Defines the LED behavior.","possibleValues":["NOT_CONFIGURED","LED_OFF","LED_ON","FADE_IN","FADE_OUT","BLINK_SLOW","BLINK_MEDIUM","BLINK_FAST","FLASH_SLOW","FLASH_FAST","HEART_ON"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10]},{"name":"patternLoop","type":"PropertyNumber","description":"Number of times the pattern is displayed."}],"bitMask":[{"type":"BitMaskValue","valueFor":"systemEventClass","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"patternLoopExtension","bitShift":5,"length":2},{"type":"BitMaskValue","valueFor":"patternInversion","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"type","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"patternIdentifier","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"patternLoop","bitShift":20,"length":4}]}],"byteMask":[{"type":"BitMaskValue","valueFor":"slice","bitShift":0,"length":24}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreLed1Map","groupId":"0x01","localId":"0x0A","defaultValue":"{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00}","description":"Defines LED patterns for system events. Configurable as 10 slices of 3 bytes each.","parameterType":{"type":"ParameterTypeByteArray","size":30,"distinctValues":false,"properties":[{"name":"slice","type":"PropertByteArray","size":3,"distinctValues":true,"properties":[{"name":"systemEventClass","type":"PropertyString","description":"System event class.","possibleValues":["BUTTON1","BUTTON2","BUZZER","ACCELEROMETER","POWER","TEMPERATURE","GEOLOCATION","CONFIGURATION","NETWORK","CORE","BLE_CONNECTIVITY","USER"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11]},{"name":"patternLoopExtension","type":"PropertyNumber","description":"Pattern loop extension."},{"name":"patternInversion","type":"PropertyBoolean","description":"Indicates whether the pattern is inverted."},{"name":"type","type":"PropertyNumber","description":"System event type."},{"name":"patternIdentifier","type":"PropertyString","description":"Defines the LED behavior.","possibleValues":["NOT_CONFIGURED","LED_OFF","LED_ON","FADE_IN","FADE_OUT","BLINK_SLOW","BLINK_MEDIUM","BLINK_FAST","FLASH_SLOW","FLASH_FAST","HEART_ON"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10]},{"name":"patternLoop","type":"PropertyNumber","description":"Number of times the pattern is displayed."}],"bitMask":[{"type":"BitMaskValue","valueFor":"systemEventClass","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"patternLoopExtension","bitShift":5,"length":2},{"type":"BitMaskValue","valueFor":"patternInversion","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"type","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"patternIdentifier","bitShift":16,"length":4},{"type":"BitMaskValue","valueFor":"patternLoop","bitShift":20,"length":4}]}],"byteMask":[{"type":"BitMaskValue","valueFor":"slice","bitShift":0,"length":24}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreBuzzerMap","groupId":"0x01","localId":"0x0B","defaultValue":"{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00}","description":"Defines LED patterns for system events. Configurable as 10 slices of 3 bytes each.","parameterType":{"type":"ParameterTypeByteArray","size":30,"distinctValues":false,"properties":[{"name":"slice","type":"PropertByteArray","size":3,"distinctValues":true,"properties":[{"name":"systemEventClass","type":"PropertyString","description":"System event class.","possibleValues":["BUTTON1","BUTTON2","BUZZER","ACCELEROMETER","POWER","TEMPERATURE","GEOLOCATION","CONFIGURATION","NETWORK","CORE","BLE_CONNECTIVITY","USER"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11]},{"name":"melodyCountExtension","type":"PropertyNumber","description":"Melody count extension"},{"name":"type","type":"PropertyNumber","description":"System event type."},{"name":"melodyIdentifier","type":"PropertyString","description":"Defines the LED behavior.","possibleValues":["NOT_CONFIGURED","OFF","MELODY_2","MELODY_3","MELODY_4","MELODY_5","MELODY_6","MELODY_7","MELODY_8","MELODY_9","MELODY_10","MELODY_11","MELODY_12","MELODY_13","MELODY_14","MELODY_15","MELODY_16","MELODY_17","MELODY_18","MELODY_19","MELODY_20","MELODY_21"],"firmwareValues":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]},{"name":"melodyCount","type":"PropertyNumber","description":"Number of times the melody is displayed."}],"bitMask":[{"type":"BitMaskValue","valueFor":"systemEventClass","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"melodyCountExtension","bitShift":5,"length":3},{"type":"BitMaskValue","valueFor":"type","bitShift":8,"length":8},{"type":"BitMaskValue","valueFor":"melodyIdentifier","bitShift":16,"length":5},{"type":"BitMaskValue","valueFor":"patternLoop","bitShift":21,"length":3}]}],"byteMask":[{"type":"BitMaskValue","valueFor":"slice","bitShift":0,"length":24}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreAlmanacValidity","groupId":"0x01","localId":"0x0C","defaultValue":120,"unit":"days","description":"Number of days for which the GNSS almanac is considered as valid.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":7,"maximum":365}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreAlmanacOutdatedRatio","groupId":"0x01","localId":"0x0D","defaultValue":100,"unit":"%","description":"Percentage of outdated GNSS almanac entries which will trigger network update requests. A value of 100% disable the network requests. Applicable for both GNSS devices","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreCliPassword","groupId":"0x01","localId":"0x0E","defaultValue":123,"description":"User cli password","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"coreDBTypeMask","groupId":"0x01","localId":"0x0F","description":"Data buffering type mask.","parameterType":{"type":"ParameterTypeByteArray","size":7,"distinctValues":true,"properties":[{"name":"dataBufferingType","type":"PropertyObject","properties":[{"name":"position","type":"PropertyBoolean","description":"If set, the positions are stored in the history."}]},{"name":"systemClass","type":"PropertyObject","properties":[{"name":"status","type":"PropertyBoolean","description":"System status Versions, temperature, reset cause."},{"name":"lowBattery","type":"PropertyBoolean","description":"Low battery alert."},{"name":"bleStatus","type":"PropertyBoolean","description":"Bluetooth Low Energy status"},{"name":"tamperDetection","type":"PropertyBoolean","description":"Tamper detection alert."},{"name":"heartbeat","type":"PropertyBoolean","description":"Heartbeat message."},{"name":"shutdown","type":"PropertyBoolean","description":"Shutdown message."},{"name":"dataBuffering","type":"PropertyBoolean","description":"Data buffering status"},{"name":"fuota","type":"PropertyBoolean","description":"Firmware Update Over The Air"}]},{"name":"sosClass","type":"PropertyObject","properties":[{"name":"sosOn","type":"PropertyBoolean","description":"SOS activated."},{"name":"sosOff","type":"PropertyBoolean","description":"SOS deactivated."}]},{"name":"temperatureClass","type":"PropertyObject","properties":[{"name":"tempHigh","type":"PropertyBoolean","description":"Critical high temperature reached"},{"name":"tempLow","type":"PropertyBoolean","description":"Critical low temperature reached"},{"name":"tempNormal","type":"PropertyBoolean","description":"Temperature back to normal"}]},{"name":"accelerometerClass","type":"PropertyObject","properties":[{"name":"motionStart","type":"PropertyBoolean","description":"Motion start detected."},{"name":"motionEnd","type":"PropertyBoolean","description":"Motion end detected."},{"name":"shock","type":"PropertyBoolean","description":"Shock detected."}]},{"name":"networkingClass","type":"PropertyObject","properties":[{"name":"mainUp","type":"PropertyBoolean","description":"Main network is up."},{"name":"backupUp","type":"PropertyBoolean","description":"Main network down. Backup is up."}]},{"name":"geozoningClass","type":"PropertyObject","properties":[{"name":"geozoningOn","type":"PropertyBoolean","description":"Geozoning is on."}]}],"byteMask":[{"valueFor":"dataBufferingType","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"position","bitShift":0,"length":1}]},{"valueFor":"systemClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"status","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"lowBattery","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"bleStatus","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"tamperDetection","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"heartbeat","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"shutdown","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"dataBuffering","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"fuota","bitShift":7,"length":1}]},{"valueFor":"sosClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"sosOn","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"sosOff","bitShift":1,"length":1}]},{"valueFor":"temperatureClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"tempHigh","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"tempLow","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"tempNormal","bitShift":2,"length":1}]},{"valueFor":"accelerometerClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"motionStart","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"motionEnd","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"shock","bitShift":2,"length":1}]},{"valueFor":"networkingClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"mainUp","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"backupUp","bitShift":1,"length":1}]},{"valueFor":"geozoningClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"geozoningOn","bitShift":0,"length":1}]}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocMotionPeriod","groupId":"0x02","localId":"0x00","defaultValue":300,"unit":"s","description":"Position acquisition period while in motion","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocStaticPeriod","groupId":"0x02","localId":"0x01","defaultValue":3600,"unit":"s","description":"Position acquisition period while static","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocSosPeriod","groupId":"0x02","localId":"0x02","defaultValue":60,"unit":"s","description":"Position acquisition period while in sos","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocMotionNbStart","groupId":"0x02","localId":"0x03","defaultValue":1,"description":"Number of acquisitions on motion start event","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocMotionNbStop","groupId":"0x02","localId":"0x04","defaultValue":1,"description":"Number of acquisitions on motion stop event","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocStartStopPeriod","groupId":"0x02","localId":"0x05","defaultValue":120,"unit":"s","description":"Position acquisition period while acquiring consecutive positions on motion start or stop","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGnssHoldOnMode","groupId":"0x02","localId":"0x06","description":"Select the GNSS hold on mode. Possible Values are:\\n0: Disabled\\n1: Always. Hold-on mode always set. Only controlled by the timer.\\n2: techno: If the gnss is actually used (meaning GNSS techno not skipped).\\n3: moving: Hold-mode set while moving.\\n4: techno and moving: if the gnss is actually used (meaning GNSS techno not skipped) and tracker is moving.","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLED","ALWAYS","TECHNO","MOVING","STATIC","TECHNO_AND_MOVING"],"firmwareValues":[0,1,2,3,4,5]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGnssHoldOnTimeout","groupId":"0x02","localId":"0x07","defaultValue":0,"unit":"s","description":"GNSS hold on mode timeout.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocProfile0Triggers","groupId":"0x02","localId":"0x08","description":"Geolocation event triggers 0","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"geoTriggerPod","type":"PropertyBoolean","description":"Geoloc triggered on Position-on-demand via downlink or via button."},{"name":"geoTriggerSos","type":"PropertyBoolean","description":"SOS started"},{"name":"geoTriggerMotionStart","type":"PropertyBoolean","description":"Geoloc triggered on motion start event"},{"name":"geoTriggerMotionStop","type":"PropertyBoolean","description":"Geoloc triggered on motion stop event"},{"name":"geoTriggerInMotion","type":"PropertyBoolean","description":"Periodic geoloc while the tracker is in motion"},{"name":"geoTriggerInStatic","type":"PropertyBoolean","description":"Periodic geoloc running while the tracker is static"},{"name":"geoTriggerShock","type":"PropertyBoolean","description":"Geoloc triggered on shock action"},{"name":"geoTriggerTempHighThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerTempLowThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerGeozoning","type":"PropertyBoolean","description":"Geoloc triggered on geoTriggerGeozoning"}],"bitMask":[{"type":"BitMaskValue","valueFor":"geoTriggerPod","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerSos","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStart","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStop","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInMotion","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInStatic","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerShock","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempHighThreshold","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempLowThreshold","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerGeozoning","bitShift":9,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocProfile1Triggers","groupId":"0x02","localId":"0x09","description":"Geolocation event triggers 1","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"geoTriggerPod","type":"PropertyBoolean","description":"Geoloc triggered on Position-on-demand via downlink or via button."},{"name":"geoTriggerSos","type":"PropertyBoolean","description":"SOS started"},{"name":"geoTriggerMotionStart","type":"PropertyBoolean","description":"Geoloc triggered on motion start event"},{"name":"geoTriggerMotionStop","type":"PropertyBoolean","description":"Geoloc triggered on motion stop event"},{"name":"geoTriggerInMotion","type":"PropertyBoolean","description":"Periodic geoloc while the tracker is in motion"},{"name":"geoTriggerInStatic","type":"PropertyBoolean","description":"Periodic geoloc running while the tracker is static"},{"name":"geoTriggerShock","type":"PropertyBoolean","description":"Geoloc triggered on shock action"},{"name":"geoTriggerTempHighThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerTempLowThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerGeozoning","type":"PropertyBoolean","description":"Geoloc triggered on temperature low."}],"bitMask":[{"type":"BitMaskValue","valueFor":"geoTriggerPod","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerSos","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStart","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStop","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInMotion","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInStatic","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerShock","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempHighThreshold","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempLowThreshold","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerGeozoning","bitShift":9,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocProfile2Triggers","groupId":"0x02","localId":"0x0A","description":"Geolocation event triggers 2","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"geoTriggerPod","type":"PropertyBoolean","description":"Geoloc triggered on Position-on-demand via downlink or via button."},{"name":"geoTriggerSos","type":"PropertyBoolean","description":"SOS started"},{"name":"geoTriggerMotionStart","type":"PropertyBoolean","description":"Geoloc triggered on motion start event"},{"name":"geoTriggerMotionStop","type":"PropertyBoolean","description":"Geoloc triggered on motion stop event"},{"name":"geoTriggerInMotion","type":"PropertyBoolean","description":"Periodic geoloc while the tracker is in motion"},{"name":"geoTriggerInStatic","type":"PropertyBoolean","description":"Periodic geoloc running while the tracker is static"},{"name":"geoTriggerShock","type":"PropertyBoolean","description":"Geoloc triggered on shock action"},{"name":"geoTriggerTempHighThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerTempLowThreshold","type":"PropertyBoolean","description":"Geoloc triggered on temperature high."},{"name":"geoTriggerGeozoning","type":"PropertyBoolean","description":"Geoloc triggered on temperature low."}],"bitMask":[{"type":"BitMaskValue","valueFor":"geoTriggerPod","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerSos","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStart","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerMotionStop","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInMotion","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerInStatic","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerShock","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempHighThreshold","bitShift":7,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerTempLowThreshold","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"geoTriggerGeozoning","bitShift":9,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGbeProfile0Techno","groupId":"0x02","localId":"0x0B","description":"Technologies to schedule using the basic engine for events in triggers 0","parameterType":{"type":"ParameterTypeByteArray","size":6,"properties":[{"name":"Action","type":"PropertyString","possibleValues":["SKIP_ON_SUCCESS","ALWAYS_DONE"],"firmwareValues":[0,1]},{"name":"Technology","type":"PropertyString","possibleValues":["NONE","LR11xx_A_GNSS","WIFI","BLE_SCAN1","BLE_SCAN2","AIDED_GNSS","GNSS"],"firmwareValues":[0,1,2,3,4,5,6]}],"byteMask":[{"type":"BitMaskValue","valueFor":"Technology","bitShift":0,"length":7},{"type":"BitMaskValue","valueFor":"Action","bitShift":7,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGbeProfile1Techno","groupId":"0x02","localId":"0x0C","description":"Technologies to schedule using the basic engine for events in triggers 1","parameterType":{"type":"ParameterTypeByteArray","size":6,"properties":[{"name":"Action","type":"PropertyString","possibleValues":["SKIP_ON_SUCCESS","ALWAYS_DONE"],"firmwareValues":[0,1]},{"name":"Technology","type":"PropertyString","possibleValues":["NONE","LR11xx_A_GNSS","WIFI","BLE_SCAN1","BLE_SCAN2","AIDED_GNSS","GNSS"],"firmwareValues":[0,1,2,3,4,5,6]}],"byteMask":[{"type":"BitMaskValue","valueFor":"Technology","bitShift":0,"length":7},{"type":"BitMaskValue","valueFor":"Action","bitShift":7,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"geolocGbeProfile2Techno","groupId":"0x02","localId":"0x0D","description":"Technologies to schedule using the basic engine for events in triggers 2","parameterType":{"type":"ParameterTypeByteArray","size":6,"properties":[{"name":"Action","type":"PropertyString","possibleValues":["SKIP_ON_SUCCESS","ALWAYS_DONE"],"firmwareValues":[0,1]},{"name":"Technology","type":"PropertyString","possibleValues":["NONE","LR11xx_A_GNSS","WIFI","BLE_SCAN1","BLE_SCAN2","AIDED_GNSS","GNSS"],"firmwareValues":[0,1,2,3,4,5,6]}],"byteMask":[{"type":"BitMaskValue","valueFor":"Technology","bitShift":0,"length":7},{"type":"BitMaskValue","valueFor":"Action","bitShift":7,"length":1}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssConstellation","groupId":"0x03","localId":"0x00","defaultValue":2,"description":"GNSS constellations to be used","parameterType":{"type":"ParameterTypeString","possibleValues":["GPS_ONLY","GLONASS_ONLY","GPS_GLONASS","GPS_GALILEO","GPS_GLONASS_GALILEO","BEIDOU_ONLY","BEIDOU_GPS"],"firmwareValues":[0,1,2,3,4,5,6]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssMaxTime","groupId":"0x03","localId":"0x01","defaultValue":300,"unit":"s","description":"GNSS max acquisition time.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":30,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssT0TimeoutStatic","groupId":"0x03","localId":"0x02","defaultValue":30,"unit":"s","description":"Max time to acquire at least one satellite when tracker is static","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssEhpeStatic","groupId":"0x03","localId":"0x03","defaultValue":30,"unit":"m","description":"Expected estimated horizontal position error when the tracker is static","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssConvergenceStatic","groupId":"0x03","localId":"0x04","defaultValue":20,"unit":"s","description":"Extra-time after a first fix to refine the fix","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssT0TimeoutMotion","groupId":"0x03","localId":"0x05","defaultValue":30,"unit":"s","description":"Max time to acquire at least one satellite when tracker is moving","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssEhpeMotion","groupId":"0x03","localId":"0x06","defaultValue":30,"unit":"m","description":"Expected estimated horizontal position error when the tracker is moving","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssConvergenceMotion","groupId":"0x03","localId":"0x07","defaultValue":20,"unit":"s","description":"Extra-time after a first fix to refine the fix when the tracker is moving","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssStandby","groupId":"0x03","localId":"0x08","defaultValue":604800,"unit":"s","description":"Max time to let the device in standby mode.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssAgnssMaxTime","groupId":"0x03","localId":"0x09","defaultValue":45,"unit":"s","description":"Aided GNSS max acquisition time.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":15,"maximum":240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"gnssT1Timeout","groupId":"0x03","localId":"0x0A","defaultValue":0,"unit":"s","description":"Extra time let in Aided GNSS mode to try doing a fix.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrConstellation","groupId":"0x04","localId":"0x00","description":"GNSS constellations to be used","parameterType":{"type":"ParameterTypeString","possibleValues":["GPS_ONLY","BEIDOU_ONLY","BEIDOU_GPS"],"firmwareValues":[0,5,6]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrScanMode","groupId":"0x04","localId":"0x01","description":"Scan mode (NAV1 / NAV2)","parameterType":{"type":"ParameterTypeString","possibleValues":["NAV1_SCAN","NAV2_SCAN"],"firmwareValues":[1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrNbScans","groupId":"0x04","localId":"0x02","defaultValue":2,"description":"Number of scans for one position acquisition","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":4}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrInterScanTime","groupId":"0x04","localId":"0x03","defaultValue":5,"unit":"s","description":"Time to wait between the scans for a position","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiReportNbBssid","groupId":"0x04","localId":"0x04","defaultValue":4,"description":"Max number of WIFI BSSID per scan","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":32}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiMinNbBssid","groupId":"0x04","localId":"0x05","defaultValue":3,"description":"Minimum number of BSSID to consider the scan as success (solvable)","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiMinRssi","groupId":"0x04","localId":"0x06","defaultValue":3,"description":"Minimum number of BSSID to consider the scan as success (solvable)","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-100,"maximum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrWifiBssidMacType","groupId":"0x04","localId":"0x07","defaultValue":1,"description":"MAC administration type of the BSSID to report.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrRbeaconType","groupId":"0x04","localId":"0x08","defaultValue":2,"description":"Recovery beacon type.","parameterType":{"type":"ParameterTypeString","possibleValues":["SHORT_ID","LONG_ID"],"firmwareValues":[1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrRbeaconSosPeriod","groupId":"0x04","localId":"0x09","defaultValue":0,"unit":"s","description":"Recovery beacon period in SOS.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":63}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrRbeaconMotionPeriod","groupId":"0x04","localId":"0x0A","defaultValue":0,"unit":"s","description":"Recovery beacon period in motion.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":63}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrRbeaconStaticPeriod","groupId":"0x04","localId":"0x0B","defaultValue":0,"unit":"s","description":"Recovery beacon period in static.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":63}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lrRbeaconRangingTimeout","groupId":"0x04","localId":"0x0C","defaultValue":120,"unit":"s","description":"Maximum timeout to exit the ranging mode.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120,"maximum":300}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanDuration","groupId":"0x05","localId":"0x00","defaultValue":3000,"unit":"ms","description":"Total time for a BLE scan","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":50,"maximum":61440}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanWindow","groupId":"0x05","localId":"0x01","defaultValue":120,"unit":"ms","description":"Scan window","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":3,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanInterval","groupId":"0x05","localId":"0x02","defaultValue":130,"unit":"ms","description":"Scan interval","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanType","groupId":"0x05","localId":"0x03","defaultValue":0,"description":"Type of beacons to scan","parameterType":{"type":"ParameterTypeString","possibleValues":["ALL_BEACONS","EDDYSTONE_UUID","EDDYSTONE_URL","ALL_EDDYSTONE","IBEACON_ONLY","ALTBEACON_ONLY","CUSTOM","EXPOSURE_ADVERTISEMENT"],"firmwareValues":[0,1,2,3,4,5,6,7]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinRssi","groupId":"0x05","localId":"0x04","defaultValue":-80,"unit":"dB","description":"Min RSSI to consider the beacon","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-120,"maximum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinNbBeacons","groupId":"0x05","localId":"0x05","defaultValue":1,"description":"Min number of beacons to consider the scan as success (solvable).","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Mask","groupId":"0x05","localId":"0x06","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Value","groupId":"0x05","localId":"0x07","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter1","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Offset","groupId":"0x05","localId":"0x08","defaultValue":0,"description":"Offset in the ADV from which we apply the filter1","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Mask","groupId":"0x05","localId":"0x09","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Value","groupId":"0x05","localId":"0x0A","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter2","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Offset","groupId":"0x05","localId":"0x0B","defaultValue":0,"description":"Offset in the ADV from which we apply the filter2","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanNbBeacons","groupId":"0x05","localId":"0x0C","defaultValue":4,"description":"Number of beacons to report","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportType","groupId":"0x05","localId":"0x0D","defaultValue":0,"description":"Scan report type","parameterType":{"type":"ParameterTypeString","possibleValues":["MAC_ADDRESS","SHORT_IDENTIFIER","LONG_IDENTIFIER"],"firmwareValues":[0,1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportIdOfs","groupId":"0x05","localId":"0x0E","defaultValue":4,"description":"Offset in ADV to extract the beacon identifier","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanDuration","groupId":"0x06","localId":"0x00","defaultValue":3000,"unit":"ms","description":"Total time for a BLE scan","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":50,"maximum":61440}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanWindow","groupId":"0x06","localId":"0x01","defaultValue":120,"unit":"ms","description":"Scan window","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":3,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanInterval","groupId":"0x06","localId":"0x02","defaultValue":130,"unit":"ms","description":"Scan interval","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanType","groupId":"0x06","localId":"0x03","defaultValue":0,"description":"Type of beacons to scan","parameterType":{"type":"ParameterTypeString","possibleValues":["ALL_BEACONS","EDDYSTONE_UUID","EDDYSTONE_URL","ALL_EDDYSTONE","IBEACON_ONLY","ALTBEACON_ONLY","CUSTOM","EXPOSURE_ADVERTISEMENT"],"firmwareValues":[0,1,2,3,4,5,6,7]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinRssi","groupId":"0x06","localId":"0x04","defaultValue":-100,"unit":"dB","description":"Min RSSI to consider the beacon","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-120,"maximum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanMinNbBeacons","groupId":"0x06","localId":"0x05","defaultValue":1,"description":"Min number of beacons to consider the scan as success (solvable).","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Mask","groupId":"0x06","localId":"0x06","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Value","groupId":"0x06","localId":"0x07","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter1","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter1Offset","groupId":"0x06","localId":"0x08","defaultValue":0,"description":"Offset in the ADV from which we apply the filter1","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Mask","groupId":"0x06","localId":"0x09","defaultValue":[0],"description":"Mask (10 bytes) to be applied to the ADV frame.","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Value","groupId":"0x06","localId":"0x0A","defaultValue":[0],"description":"Comparison value (10 bytes) belonging to filter2","parameterType":{"type":"ParameterTypeByteArray","size":10},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanFilter2Offset","groupId":"0x06","localId":"0x0B","defaultValue":0,"description":"Offset in the ADV from which we apply the filter2","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanNbBeacons","groupId":"0x06","localId":"0x0C","defaultValue":4,"description":"Number of beacons to report","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":100}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportType","groupId":"0x06","localId":"0x0D","defaultValue":0,"description":"Scan report type","parameterType":{"type":"ParameterTypeString","possibleValues":["MAC_ADDRESS","SHORT_IDENTIFIER","LONG_IDENTIFIER"],"firmwareValues":[0,1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanReportIdOfs","groupId":"0x06","localId":"0x0E","defaultValue":4,"description":"Offset in ADV to extract the beacon identifier","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":256}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroMotionSensi","groupId":"0x07","localId":"0x00","defaultValue":1,"unit":"mg","description":"Motion sensitivity. Step 31 mg.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":96},"multiply":31},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroMotionDuration","groupId":"0x07","localId":"0x01","defaultValue":120,"unit":"s","description":"Motion duration","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":10,"maximum":3600}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroFullScale","groupId":"0x07","localId":"0x02","defaultValue":3,"description":"Scale use (2,4,8,16 g).","parameterType":{"type":"ParameterTypeString","possibleValues":["2_G","4_G","8_G","16_G"],"firmwareValues":[0,1,2,3]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroOutputDataRate","groupId":"0x07","localId":"0x03","defaultValue":0,"description":"Output data rate (12.5, 25, 50, 100, 200 Hz).","parameterType":{"type":"ParameterTypeString","possibleValues":["12_5_HZ","25_HZ","50_HZ","100_HZ","200_HZ"],"firmwareValues":[0,1,2,3,4]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"acceleroShockThreshold","groupId":"0x07","localId":"0x04","defaultValue":0,"description":"Shock threshold. Step 63 mg","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":128},"multiply":63},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netSelection","groupId":"0x08","localId":"0x00","defaultValue":0,"description":"Define the networking type","parameterType":{"type":"ParameterTypeString","possibleValues":["LORA_ONLY","CELLULAR_ONLY","LORA_FALLBACK_CELLULAR","CELLULAR_FALLBACK_LORA"],"firmwareValues":[0,1,2,3]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netReconnectionSpacingStatic","groupId":"0x08","localId":"0x01","defaultValue":600,"description":"Time to wait before retrying to connect the main network. Applicable when the tracker is static.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netMainProbeTimeoutStatic","groupId":"0x08","localId":"0x02","defaultValue":600,"description":"Duration between each attempts reconnect the main network. Applicable when the tracker is static.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netReconnectionSpacingMotion","groupId":"0x08","localId":"0x03","defaultValue":600,"description":"Time to wait before retrying to connect the main network. Applicable when the tracker is moving.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"netMainProbeTimeoutMotion","groupId":"0x08","localId":"0x04","defaultValue":600,"description":"Duration between each attempts reconnect the main network. Applicable when the tracker is moving.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanCnxTimeout","groupId":"0x09","localId":"0x00","defaultValue":0,"description":"Max time to wait for joining the network. The value 0 disables the timer.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanHeartbeatPeriod","groupId":"0x09","localId":"0x01","defaultValue":3600,"unit":"s","description":"Period at which an heartbeat notification is sent to trigger a Rx window for downlinks (if no uplink has been sent within this period). 0 disable the function.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanProbeMaxAttemptsStatic","groupId":"0x09","localId":"0x02","defaultValue":4,"description":"Number of link-check sent declaring the network as lost. Applicable when the tracker is static. 0 disable the function.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanProbePeriodStatic","groupId":"0x09","localId":"0x03","defaultValue":43200,"description":"Time between link-check requests. Applicable when the tracker is static.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanConfirmNotifMap","groupId":"0x09","localId":"0x04","defaultValue":"{00}","description":"Map enabling the LoRaWAN confirmed message for notifications.","parameterType":{"type":"ParameterTypeByteArray","size":6,"distinctValues":true,"properties":[{"name":"systemClass","type":"PropertyObject","properties":[{"name":"status","type":"PropertyBoolean","description":"System status Versions, temperature, reset cause."},{"name":"lowBattery","type":"PropertyBoolean","description":"Low battery alert."},{"name":"bleStatus","type":"PropertyBoolean","description":"Bluetooth Low Energy status"},{"name":"tamperDetection","type":"PropertyBoolean","description":"Tamper detection alert."},{"name":"heartbeat","type":"PropertyBoolean","description":"Heartbeat message."},{"name":"shutdown","type":"PropertyBoolean","description":"Shutdown message."},{"name":"dataBuffering","type":"PropertyBoolean","description":"Data buffering status"},{"name":"fuota","type":"PropertyBoolean","description":"Firmware Update Over The Air"}]},{"name":"sosClass","type":"PropertyObject","properties":[{"name":"sosOn","type":"PropertyBoolean","description":"SOS activated."},{"name":"sosOff","type":"PropertyBoolean","description":"SOS deactivated."}]},{"name":"temperatureClass","type":"PropertyObject","properties":[{"name":"tempHigh","type":"PropertyBoolean","description":"Critical high temperature reached"},{"name":"tempLow","type":"PropertyBoolean","description":"Critical low temperature reached"},{"name":"tempNormal","type":"PropertyBoolean","description":"Temperature back to normal"}]},{"name":"accelerometerClass","type":"PropertyObject","properties":[{"name":"motionStart","type":"PropertyBoolean","description":"Motion start detected."},{"name":"motionEnd","type":"PropertyBoolean","description":"Motion end detected."},{"name":"shock","type":"PropertyBoolean","description":"Shock detected."}]},{"name":"networkingClass","type":"PropertyObject","properties":[{"name":"mainUp","type":"PropertyBoolean","description":"Main network is up."},{"name":"backupUp","type":"PropertyBoolean","description":"Main network down. Backup is up."}]},{"name":"geozoningClass","type":"PropertyObject","properties":[{"name":"geozoningOn","type":"PropertyBoolean","description":"Geozoning is on."}]}],"byteMask":[{"valueFor":"systemClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"status","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"lowBattery","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"bleStatus","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"tamperDetection","bitShift":3,"length":1},{"type":"BitMaskValue","valueFor":"heartbeat","bitShift":4,"length":1},{"type":"BitMaskValue","valueFor":"shutdown","bitShift":5,"length":1},{"type":"BitMaskValue","valueFor":"dataBuffering","bitShift":6,"length":1},{"type":"BitMaskValue","valueFor":"fuota","bitShift":7,"length":1}]},{"valueFor":"sosClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"sosOn","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"sosOff","bitShift":1,"length":1}]},{"valueFor":"temperatureClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"tempHigh","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"tempLow","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"tempNormal","bitShift":2,"length":1}]},{"valueFor":"accelerometerClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"motionStart","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"motionEnd","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"shock","bitShift":2,"length":1}]},{"valueFor":"networkingClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"mainUp","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"backupUp","bitShift":1,"length":1}]},{"valueFor":"geozoningClass","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"geozoningOn","bitShift":0,"length":1}]}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanConfirmNotifRetry","groupId":"0x09","localId":"0x05","defaultValue":0,"description":"Time between link-check requests","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanS1TxStrategy","groupId":"0x09","localId":"0x06","defaultValue":473102,"description":"Socket 1. Transmission strategy","parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"ADREnabled","type":"PropertyBoolean","description":"true: to enable the LoRa network ADR if the tracker is static. false: to disable the network ADR regardless the motion state of the tracker"},{"name":"dualTransmissionInStaticEnabled","type":"PropertyBoolean","description":"Control the dual transmission when the tracker is static. true: to enable the dual transmission in static state. false: to disable it"},{"name":"dualTransmissionInMotionEnabled","type":"PropertyBoolean","description":"Control the dual transmission when the tracker is in motion. true: to enable the dual transmission in motion state. false: to disable it in motion state."},{"name":"dataRateModification","type":"PropertyBoolean","description":"Control the DR (Datarate) modification for over-sized messages. true: to allow AOS to adapt the DR for messages not fitting the allowed size for a given datarate.false: to prevent sending of over-sized messages"},{"name":"firstTransmissionDatarate","type":"PropertyObject","properties":[{"name":"dr0","type":"PropertyBoolean","description":"false: dr0 is disabled. true: dr0 is enabled."},{"name":"dr1","type":"PropertyBoolean","description":"false: dr1 is disabled. true: dr1 is enabled."},{"name":"dr2","type":"PropertyBoolean","description":"false: dr2 is disabled. true: dr2 is enabled."},{"name":"dr3","type":"PropertyBoolean","description":"false: dr3 is disabled. true: dr3 is enabled."},{"name":"dr4","type":"PropertyBoolean","description":"false: dr4 is disabled. true: dr4 is enabled."},{"name":"dr5","type":"PropertyBoolean","description":"false: dr5 is disabled. true: dr5 is enabled."},{"name":"dr6","type":"PropertyBoolean","description":"false: dr6 is disabled. true: dr6 is enabled."},{"name":"dr7","type":"PropertyBoolean","description":"false: dr7 is disabled. true: dr7 is enabled."}]},{"name":"secondTransmissionDatarate","type":"PropertyObject","properties":[{"name":"dr0","type":"PropertyBoolean","description":"false: dr0 is disabled. true: dr0 is enabled."},{"name":"dr1","type":"PropertyBoolean","description":"false: dr1 is disabled. true: dr1 is enabled."},{"name":"dr2","type":"PropertyBoolean","description":"false: dr2 is disabled. true: dr2 is enabled."},{"name":"dr3","type":"PropertyBoolean","description":"false: dr3 is disabled. true: dr3 is enabled."},{"name":"dr4","type":"PropertyBoolean","description":"false: dr4 is disabled. true: dr4 is enabled."},{"name":"dr5","type":"PropertyBoolean","description":"false: dr5 is disabled. true: dr5 is enabled."},{"name":"dr6","type":"PropertyBoolean","description":"false: dr6 is disabled. true: dr6 is enabled."},{"name":"dr7","type":"PropertyBoolean","description":"false: dr7 is disabled. true: dr7 is enabled."}]}],"bitMask":[{"type":"BitMaskValue","valueFor":"ADREnabled","bitShift":0,"length":1},{"type":"BitMaskValue","valueFor":"dualTransmissionInStaticEnabled","bitShift":1,"length":1},{"type":"BitMaskValue","valueFor":"dualTransmissionInMotionEnabled","bitShift":2,"length":1},{"type":"BitMaskValue","valueFor":"dataRateModification","bitShift":3,"length":1},{"valueFor":"firstTransmissionDatarate","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"dr0","bitShift":8,"length":1},{"type":"BitMaskValue","valueFor":"dr1","bitShift":9,"length":1},{"type":"BitMaskValue","valueFor":"dr2","bitShift":10,"length":1},{"type":"BitMaskValue","valueFor":"dr3","bitShift":11,"length":1},{"type":"BitMaskValue","valueFor":"dr4","bitShift":12,"length":1},{"type":"BitMaskValue","valueFor":"dr5","bitShift":13,"length":1},{"type":"BitMaskValue","valueFor":"dr6","bitShift":14,"length":1},{"type":"BitMaskValue","valueFor":"dr7","bitShift":15,"length":1}]},{"valueFor":"secondTransmissionDatarate","type":"BitMaskObject","values":[{"type":"BitMaskValue","valueFor":"dr0","bitShift":16,"length":1},{"type":"BitMaskValue","valueFor":"dr1","bitShift":17,"length":1},{"type":"BitMaskValue","valueFor":"dr2","bitShift":18,"length":1},{"type":"BitMaskValue","valueFor":"dr3","bitShift":19,"length":1},{"type":"BitMaskValue","valueFor":"dr4","bitShift":20,"length":1},{"type":"BitMaskValue","valueFor":"dr5","bitShift":21,"length":1},{"type":"BitMaskValue","valueFor":"dr6","bitShift":22,"length":1},{"type":"BitMaskValue","valueFor":"dr7","bitShift":23,"length":1}]}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanS1UlPort","groupId":"0x09","localId":"0x07","defaultValue":19,"description":"Socket 1. Uplink port","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":252}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanS1DlPort","groupId":"0x09","localId":"0x08","defaultValue":3,"description":"Socket 1. Downlink port","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":252}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanProbePeriodMotion","groupId":"0x09","localId":"0x09","defaultValue":43200,"description":"Time between link-check requests. Applicable when the tracker is moving.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120,"maximum":2147483647}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"lorawanProbeMaxAttemptsMotion","groupId":"0x09","localId":"0x0a","defaultValue":4,"description":"Number of link-check sent declaring the network as lost. Applicable when the tracker is moving.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":20}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellSimInterface","groupId":"0x0A","localId":"0x00","description":"Sim interface.","defaultValue":"","parameterType":{"type":"ParameterTypeString","possibleValues":["SIM0","E_SIM"],"firmwareValues":[0,1]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellNetworkType","groupId":"0x0A","localId":"0x01","description":"Network type","defaultValue":"","parameterType":{"type":"ParameterTypeString","possibleValues":["CELLULAR_NOT_USED","LTE_M","NB_IOT"],"firmwareValues":[0,1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellSearchBands","groupId":"0x0A","localId":"0x02","defaultValue":"{00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00}","description":"Radio frequency bands scanned to search a cell.","parameterType":{"type":"ParameterTypeByteArray","size":19},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxTimeoutStatic","groupId":"0x0A","localId":"0x03","defaultValue":180,"unit":"s","description":"Duration during which the modem searches for a cellular network. Applicable when the tracker is static.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":180,"maximum":900}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxTimeoutMotion","groupId":"0x0A","localId":"0x04","defaultValue":300,"unit":"s","description":"Duration during which the modem searches for a cellular network. Applicable when the tracker is motion.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":180,"maximum":900}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxNwReconnectTimeout","groupId":"0x0A","localId":"0x05","defaultValue":60,"unit":"s","description":"Duration let to the modem to automatically recover the network after a network lost.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":900}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellCnxMaxAttempts","groupId":"0x0A","localId":"0x06","defaultValue":3,"description":"Number of times the network search is repeated before shutting down the modem.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":1,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellAccessPointName","groupId":"0x0A","localId":"0x07","description":"String providing the service access point name. If not provided, this information is retrieve from the SIM.","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellOperatorSimSlot0","groupId":"0x0A","localId":"0x08","description":"Cellular operator name when using the SIM0","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellOperatorSimSlot1","groupId":"0x0A","localId":"0x09","description":"Cellular operator name when using the SIM1 (E.SIM).","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellLowPowerMode","groupId":"0x0A","localId":"0x0A","description":"Low power mode","defaultValue":"","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLED","PSM","EDRX","PSM_EDRX"],"firmwareValues":[0,1,2,3]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellPsmTauPeriod","groupId":"0x0A","localId":"0x0B","description":"Bit-field giving the requested TAU period.","defaultValue":254,"parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"timerValue","type":"PropertyNumber"},{"name":"timerValueUnit","type":"PropertyString","possibleValues":["VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_10_MINUTES","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_1_HOUR","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_10_HOURS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_2_SECONDS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_30_SECONDS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_1_MINUTE","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_320_HOURS","THE_TIMER_IS_DEACTIVATED"],"firmwareValues":[0,1,2,3,4,5,6,7]}],"bitMask":[{"type":"BitMaskValue","valueFor":"timerValue","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"timerValueUnit","bitShift":5,"length":3}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellPsmActiveTime","groupId":"0x0A","localId":"0x0C","description":"Bit-field giving the requested active time.","defaultValue":2,"parameterType":{"type":"ParameterTypeBitMask","properties":[{"name":"timerValue","type":"PropertyNumber"},{"name":"timerValueUnit","type":"PropertyString","possibleValues":["VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_2_SECONDS","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_1_MINUTE","VALUE_IS_INCREMENTED_IN_MULTIPLES_OF_DECI_HOURS","THE_TIMER_IS_DEACTIVATED"],"firmwareValues":[0,1,2,7]}],"bitMask":[{"type":"BitMaskValue","valueFor":"timerValue","bitShift":0,"length":5},{"type":"BitMaskValue","valueFor":"timerValueUnit","bitShift":5,"length":3}]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellEdrxPcl","groupId":"0x0A","localId":"0x0D","description":"Requested paging cycle length","defaultValue":15,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellEdrxPtw","groupId":"0x0A","localId":"0x0E","description":"Requested paging time window","defaultValue":3,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":15}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellRaiTimeout","groupId":"0x0A","localId":"0x0F","description":"RAI (Release Assistance Indication) timeout. A null value disables the feature. Use only with UDP protocol.","defaultValue":500,"unit":"ms","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10000}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellProbeMaxAttempts","groupId":"0x0A","localId":"0x10","description":"Number of echo-request sent before declaring the network as lost. Set 0 to disable the feature.","defaultValue":0,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":10}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellProbePeriod","groupId":"0x0A","localId":"0x11","description":"Time between echo-request, or since the last downlink activity.","defaultValue":120,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":120}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1TransportProto","groupId":"0x0A","localId":"0x12","description":"Socket 1 transport protocol","defaultValue":1,"parameterType":{"type":"ParameterTypeString","possibleValues":["TCP","UDP","SECURE_TCP","SECURE_UDP"],"firmwareValues":[0,1,2,3]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1IpUrlAddr","groupId":"0x0A","localId":"0x13","description":"Socket 1 remote IP address or URL in string format (max 32 bytes)","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1DstIpPort","groupId":"0x0A","localId":"0x14","description":"Socket 1 destination UDP/TCP port","defaultValue":0,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":65535}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1SrcIpPort","groupId":"0x0A","localId":"0x15","description":"Socket 1 local UDP/TCP port number. Value 0 means that the modem will choose one.","defaultValue":0,"parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":65535}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellS1TxAggrTime","groupId":"0x0A","localId":"0x16","description":"Duration in second for which the messages are hold in the socket 1 transmit queue before being transmitted","defaultValue":120,"unit":"s","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":3600}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellApnUserId","groupId":"0x0A","localId":"0x17","description":"String specifying the user identifier for private APN","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellApnUserPwd","groupId":"0x0A","localId":"0x18","description":"String specifying the user password for private APN","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellApnAuthProtocol","groupId":"0x0A","localId":"0x19","description":"Authentication protocol used for private APN connection.","defaultValue":"","parameterType":{"type":"ParameterTypeString","possibleValues":["PAP","CHAP"],"firmwareValues":[1,2]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellFuotaServerIpUrlAddr","groupId":"0x0A","localId":"0x1A","description":"FUOTA server IP/URL in string format","defaultValue":"","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellRestrictedPlmns","groupId":"0x0A","localId":"0x1B","defaultValue":"","description":"List of restricted Public Land Mobile Networks (PLMNs)","parameterType":{"type":"ParameterTypeAsciiString","maxSize":32},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"cellLpmRecoveryTimeout","groupId":"0x0A","localId":"0x1C","defaultValue":0,"description":"Low Power Mode (LPM) recovery timeout in seconds","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleCnxTxPower","groupId":"0x0B","localId":"0x00","defaultValue":19,"description":"BLE Tx power level.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":31}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleCnxAdvDuration","groupId":"0x0B","localId":"0x01","defaultValue":60,"description":"Time to wait before stopping advertising or switching to slow advertising","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":30}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleCnxBehavior","groupId":"0x0B","localId":"0x02","defaultValue":1,"description":"The connectivity configuration.","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLE","ENABLE_NO_PASSKEY","ENABLE_PASSKEY","ENABLE_NO_PASSKEY_NO_SLOW_ADV","ENABLE_PASSKEY_NO_SLOW_ADV"],"firmwareValues":[0,1,2,3,4]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconTxPower","groupId":"0x0B","localId":"0x03","defaultValue":19,"description":"Time to wait before stopping advertising or switching to slow advertising","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":31}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconType","groupId":"0x0B","localId":"0x04","defaultValue":1,"description":"The connectivity configuration.","parameterType":{"type":"ParameterTypeString","possibleValues":["DISABLE","EDDYSTONE_UID","IBEACON","ALTBEACON","QUUPPA","EXPOSURE_ADVERTISEMENT"],"firmwareValues":[0,1,2,3,4,5]},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconIdentifier","groupId":"0x0B","localId":"0x05","description":"BLE beaconing ID parameter","parameterType":{"type":"ParameterTypeByteArray"},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconFastAdvInterval","groupId":"0x0B","localId":"0x06","defaultValue":333,"description":"BLE beacon fast advertising interval.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":40,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleBeaconSlowAdvInterval","groupId":"0x0B","localId":"0x07","defaultValue":1000,"description":"BLE beacon slow advertising interval.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":40,"maximum":10240}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanPresencePeriod","groupId":"0x0B","localId":"0x08","defaultValue":0,"description":"BLE presence scanning period in seconds. 0 disables the feature.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"bleScanPresenceMaxTime","groupId":"0x0B","localId":"0x09","defaultValue":0,"description":"Max time in seconds for an entry to remain in the BLE presence database.","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0,"maximum":86400}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"nmetaDataperiod","groupId":"0x0C","localId":"0x00","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor0MeasNsampling","groupId":"0x0C","localId":"0x01","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor0HighThreshold","groupId":"0x0C","localId":"0x02","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor0LowThreshold","groupId":"0x0C","localId":"0x03","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor0Hysteresis","groupId":"0x0C","localId":"0x04","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor0MeasNmaxinterval","groupId":"0x0C","localId":"0x05","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor0TelemNmaxinterval","groupId":"0x0C","localId":"0x06","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor0CyclicVersion","groupId":"0x0C","localId":"0x07","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor1MeasNsampling","groupId":"0x0C","localId":"0x08","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor1HighThreshold","groupId":"0x0C","localId":"0x09","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-254,"maximum":256},"multiply":0.1},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor1LowThreshold","groupId":"0x0C","localId":"0x0a","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-254,"maximum":256},"multiply":0.1},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor1Hysteresis","groupId":"0x0C","localId":"0x0b","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":-254,"maximum":256},"multiply":0.1},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor1MeasNmaxinterval","groupId":"0x0C","localId":"0x0c","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor1TelemNmaxinterval","groupId":"0x0C","localId":"0x0d","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor1CyclicVersion","groupId":"0x0C","localId":"0x0e","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor2MeasNsampling","groupId":"0x0C","localId":"0x0f","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor2HighThreshold","groupId":"0x0C","localId":"0x10","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor2LowThreshold","groupId":"0x0C","localId":"0x11","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor2Hysteresis","groupId":"0x0C","localId":"0x12","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor2MeasNmaxinterval","groupId":"0x0C","localId":"0x13","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor2TelemNmaxinterval","groupId":"0x0C","localId":"0x14","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor2CyclicVersion","groupId":"0x0C","localId":"0x15","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor3MeasNsampling","groupId":"0x0C","localId":"0x16","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor3HighThreshold","groupId":"0x0C","localId":"0x17","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor3LowThreshold","groupId":"0x0C","localId":"0x18","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor3Hysteresis","groupId":"0x0C","localId":"0x19","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor3MeasNmaxinterval","groupId":"0x0C","localId":"0x1a","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor3TelemNmaxinterval","groupId":"0x0C","localId":"0x1b","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]},{"driverParameterName":"sensor3CyclicVersion","groupId":"0x0C","localId":"0x1c","parameterType":{"type":"ParameterTypeNumber","range":{"minimum":0}},"compatibleTrackerModels":[{"producerId":"abeeway","moduleId":"compact-tracker","version":"2.0"},{"producerId":"abeeway","moduleId":"combo-compact-tracker","version":"1.0"}]}]}]');
 
-/***/ }),
-
-/***/ 788:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-let responseClass = __webpack_require__(289);
-let util = __webpack_require__(94);
-
-let RequestType = responseClass.ResponseType
-const SENSOR_TYPES = {
-   "DO_NOT_USE" :0,
-    "ACCELEROMETER": 1
-};
-function Request(requestType,
-    genericConfigurationSet,
-    parameterClassConfigurationSet,
-    genericConfigurationGet,
-    parameterClassConfigurationGet,
-    bleStatusConnectivity,
-    crc,
-    sensorIds
-    ){
-        this.requestType = requestType;
-        this.genericConfigurationSet = genericConfigurationSet;
-        this.parameterClassConfigurationSet = parameterClassConfigurationSet;
-        this.genericConfigurationGet = genericConfigurationGet;
-        this.parameterClassConfigurationGet = parameterClassConfigurationGet;
-        this.bleStatusConnectivity = bleStatusConnectivity;
-        this.crc = crc;
-        this.sensorIds = sensorIds;
-}
-function ParameterClassConfigurationGet(group, parameters){
-    this.group = group
-    this.parameters = parameters
-}
-function encodeRequest(data){
-    let encData = [] 
-    // encode type and ackToken
-    encData[0] = (0x02 <<3) | data.ackToken
-    let requestType = encodeRequestType(data.requestType)
-    encData[1] = requestType
-    switch (requestType){
-        case 0:
-            encData = encodeRequestGenericConfigurationSet(data.setGenericParameters, encData)
-            break;
-        case 1:
-            encData = encodeRequestParameterClassConfigurationSet(data.setParameterClass, encData)
-            break;
-        case 2:
-            encData = encodeRequestGenericConfigurationGet(data.getGenericParameters, encData)
-            break;
-        case 3:
-            encData = encodeRequestParameterClassConfigurationGet(data.getParameterClass, encData)
-            break;
-        case 5:
-            encData = encodeCrc(data.crc, encData)
-            break;
-        case 6:
-            encData = encodeSensorRequest(data.sensorIds, encData)
-            break;
-        default:
-            throw new Error("Unknown request type")
-
-    }
-    return encData
-}
-function encodeRequestType(value){
-    switch (value){
-        case "GENERIC_CONFIGURATION_SET":
-            return 0;
-        case "PARAM_CLASS_CONFIGURATION_SET":
-            return 1;
-        case "GENERIC_CONFIGURATION_GET":
-            return 2;
-        case "PARAM_CLASS_CONFIGURATION_GET":
-            return 3;
-        case "BLE_STATUS_CONNECTIVITY":
-            return 4;
-        case "CRC_CONFIGURATION_REQUEST":
-            return 5;
-        case "SENSOR_REQUEST":
-            return 6;
-        default:
-            throw new Error("Unknown request type")
-
-    }
-}
-function decodeRequest(payload){
-    let request = new Request();
-
-    let typeValue  = payload[1]
-    switch (typeValue){
-        case 0:
-            request.requestType = RequestType.GENERIC_CONFIGURATION_SET
-            request.genericConfigurationSet = determineRequestGenericConfigurationSet(payload.slice(2))
-            break;
-        case 1:
-            request.requestType = RequestType.PARAM_CLASS_CONFIGURATION_SET
-            request.parameterClassConfigurationSet = determineRequestParameterClassConfigurationSet(payload.slice(2))
-            break;
-        case 2:
-            request.requestType = RequestType.GENERIC_CONFIGURATION_GET
-            request.genericConfigurationGet = determineRequestGenericConfigurationGet(payload.slice(2))
-            break;
-        case 3:
-            request.requestType = RequestType.PARAM_CLASS_CONFIGURATION_GET
-            request.parameterClassConfigurationGet = determineRequestParameterClassConfigurationGet(payload.slice(2))
-            break;
-        case 4:
-            request.requestType = RequestType.BLE_STATUS_CONNECTIVITY
-            //TO BE defined
-            break;
-        case 5:
-            request.requestType = RequestType.CRC_CONFIGURATION_REQUEST
-            request.crc = decodeCrc(payload.slice(2))
-            break;
-        case 6:
-            request.requestType = RequestType.SENSOR_REQUEST
-            request.sensorIds = decodeSensorRequest(payload.slice(2))
-           break;
-        default:
-            throw new Error("Request Type Unknown");
-    }
-    return request
-
-}
-
-function determineRequestGenericConfigurationSet(payload){
-    let i = 0;
-    let request = []
-    while (payload.length > i) {
-        let groupId = payload[i]
-        let localId = payload[1+i]
-        let size = payload[2+i]>>3 & 0x1F;
-        let dataType = payload[2+i] & 0x07;
-        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, localId)
-        switch(dataType){
-            case 0: 
-                determineDeprecatedRequest(request, parameter,groupId)
-                break;
-            case 1:
-                responseClass.determineConfiguration(request, parameter,  parseInt(util.convertBytesToString(payload.slice(3+i,3+i+size)),16), groupId, size)
-                break;
-            case 2:
-                //we don't have a float parameter now
-                break;
-            case 3:
-                responseClass.determineConfiguration(request, parameter,  payload.slice(3+i,3+i+size), groupId, size)
-                break;
-            case 4:
-                responseClass.determineConfiguration(request, parameter,  payload.slice(3+i,3+i+size), groupId, size)
-                break; 
-            default:
-                throw new Error("Unknown parameter type");
-            
-        }
-        i = i + size + 3 
-    }
-    return request
-}
-function encodeCrc(groupNames, encData) {
-    // Ensure groupNames is an array and not empty
-    if (!Array.isArray(groupNames) || groupNames.length === 0) {
-        throw new Error("Group names array is required and cannot be empty");
-    }
-
-    let bitmap = 0;
-
-    // Loop through all group names and set the corresponding bit if the group is selected
-    groupNames.forEach(group => {
-        // Find the index of the group name in the GroupType object
-        let index = Object.values(responseClass.GroupType).indexOf(group);
-        
-        // If the group is valid, set the corresponding bit in the bitmap
-        if (index !== -1) {
-            bitmap |= (1 << index);
-        } else {
-            console.warn(`Group name "${group}" not found in GroupType. Skipping.`);
-        }
-    });
-
-    // Convert the bitmap into a 2-byte array (high byte and low byte)
-    // Add the result to encData
-    encData.push(bitmap >> 8, bitmap & 0xFF);
-
-    return encData;
-}
-
-// Convert bitmap back to group names
-function decodeCrc(bitmapArray) {
-    // Check if the bitmapArray is [0, 0], meaning all groups are requested
-    if (bitmapArray[0] === 0 && bitmapArray[1] === 0) {
-        return Object.values(responseClass.GroupType);  // Return all groups if crc is empty
-    }
-    if (bitmapArray.length < 2) return []; // Avoid out-of-bounds errors
-
-    // Convert 2-byte array into an integer
-    let bitmap = (bitmapArray[0] << 8) | bitmapArray[1];
-
-    let result = [];
-    Object.keys(responseClass.GroupType).forEach((key, index) => {
-        if ((bitmap & (1 << index)) !== 0) {  // Corrected bitwise check
-            result.push(responseClass.GroupType[key]);
-        }
-    });
-    return result;
-}
-function decodeSensorRequest(buffer) {
-    return Array.from(buffer).map(id => {
-        // Find the type corresponding to the numeric id
-        let type = Object.keys(SENSOR_TYPES).find(key => SENSOR_TYPES[key] === id);
-        return {
-            id,
-            type: type || "Unknown"  // If no match, set it to "Unknown"
-        };
-    });
-}
-
-// Encode: Convert sensor objects to binary format and fill encData
-function encodeSensorRequest(sensorIds, encData) {
-
-    if (!Array.isArray(sensorIds)) {
-        throw new Error("sensorIds must be an array.");
-    }
-    if (!Array.isArray(encData)) {
-        throw new Error("encData must be an array.");
-    }
-
-    sensorIds.forEach((sensor, index) => {
-        if (!(sensor.type in SENSOR_TYPES)) {
-            throw new Error(`Unknown sensor type: ${sensor.type}`);
-        }
-        let encodedValue = SENSOR_TYPES[sensor.type];
-        encData.push(encodedValue);
-    });
-    return encData;
-}
-
-
-function determineRequestParameterClassConfigurationSet(payload){
-    let groupId = payload[0]
-    let i = 1;
-    let request = []
-    while (payload.length > i) {
-        let localId = payload[i]
-        let size = payload[1+i]>>3 & 0x1F;
-        let dataType = payload[1+i] & 0x07;
-        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, localId)
-        if (payload.slice(i).length < size){
-            throw new Error(parameter.driverParameterName + " has a wrong type")
-        } 
-        switch(dataType){
-            case 0: 
-                determineDeprecatedRequest(request, parameter,groupId)
-                break;
-            case 1:
-                responseClass.determineConfiguration(request, parameter,  parseInt(util.convertBytesToString(payload.slice(2+i,2+i+size)),16), groupId)
-                break;
-            case 2:
-                //TO be complted
-                break;
-            case 3:
-                responseClass.determineConfiguration(request, parameter,  payload.slice(2+i,2+i+size), groupId, size)
-                break; 
-            case 4:
-                responseClass.determineConfiguration(request, parameter,  payload.slice(2+i,2+i+size), groupId, size)
-                break; 
-            default:
-                throw new Error("Unknown parameter type");
-
-        }
-        i = i + size + 2
-        }
-        return request
-}
-
-function determineDeprecatedRequest(request, parameter, groupId) {
-    let group = responseClass.determineGroupType(groupId)
-    let paramName = parameter.driverParameterName
-    // Find the group in the request object or create a new one if it doesn't exist
-    let groupObject = request.find(g => g.group === group);
-    if (!groupObject) {
-        groupObject = { group: group, parameters: [] };
-        request.push(groupObject);
-    }
-
-    // Add the parameter to the group's parameters array
-    groupObject.parameters.push({
-        parameterName: paramName,
-        parameterValue: "DEPRECATED"
-    });
-}
-
-function determineRequestGenericConfigurationGet(payload){
-    let i = 0;
-    const step = 2;
-    if (payload % 2 === 0){
-        throw new Error("Invalid payload")
-    }
-    let request = []
-    while (payload.length >= step * (i + 1)) {
-        let groupId = payload[i*step]
-        let localId = payload[1+i*step]
-        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, localId)
-        let group = responseClass.determineGroupType(groupId)
-        // Find the group in the response object or create a new one if it doesn't exist
-        let groupObject = request.find(g => g.group === group);
-        if (!groupObject) {
-            groupObject = { group: group, parameters: [] };
-            request.push(groupObject);
-        }
-
-        // Add the parameter to the group's parameters array
-        groupObject.parameters.push(
-            parameter.driverParameterName
-        );
-
-    i++;
-    }
-    return request
-}
-
-function determineRequestParameterClassConfigurationGet(payload){
-    if (payload.length < 2){
-        throw new Error("The payload must contain at least one local identifier");
-    }
-    let groupId = payload[0]
-    payload = payload.slice(1)
-    let i = 0;
-    const step = 1;
-    let parameters = [];
-    while (payload.length >= step * (i + 1)) {
-        let parameter = responseClass.getParameterByGroupIdAndLocalId(responseClass.parametersByGroupIdAndLocalId, groupId, payload[i*step])
-        parameters.push(parameter.driverParameterName)
-        i++;
-    }
-    return new ParameterClassConfigurationGet(responseClass.determineGroupType(groupId), parameters)
-}
-function encodeRequestGenericConfigurationSet (setGenericParameters, encData){
-    var i = 2
-    for (let [index, entry] of setGenericParameters.entries()) {
-        let groupId = determineValueFromGroupType(entry.group)
-        for (let param of entry.parameters) {
-            let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param.parameterName)
-            encData[i] = groupId
-            encData[i+1] = parseInt(parameter.localId, 16);
-            i = encodeSetParameter(parameter, param.parameterValue, encData, i+2)
-        }
-    }
-    return encData
-}
-function encodeRequestParameterClassConfigurationSet (setParameterClass, encData){
-    let groupId = determineValueFromGroupType(setParameterClass.group);
-    encData[2] = groupId;
-    var i = 3
-    for (let param of setParameterClass.parameters) {
-        let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param.parameterName);
-        encData[i] = parseInt(parameter.localId, 16);
-        i = encodeSetParameter(parameter, param.parameterValue, encData, i + 1);
-    }
-    return encData;
-}
-function encodeRequestGenericConfigurationGet(getGenericParameters, encData){
-    var i = 2
-    for (let [index,entry] of getGenericParameters.entries()) {
-        let groupId = determineValueFromGroupType(entry.group)
-        for (let param of entry.parameters) {
-            let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param)
-            encData[i] = groupId
-            encData[i+1] = parseInt(parameter.localId, 16);
-            i = i + 2
-        }
-    }
-    return encData
-}
-function encodeRequestParameterClassConfigurationGet (getParameterClass, encData){
-    let groupId = determineValueFromGroupType(getParameterClass.group);
-    encData[2] = groupId;
-    var i = 3
-    for (let param of getParameterClass.parameters) {
-        let parameter = getParametersByGroupIdAndDriverParameterName(responseClass.parametersByGroupIdAndLocalId, groupId, param);
-        encData[i] = parseInt(parameter.localId, 16);
-        i++
-     }
-    return encData;
-}
-
-/* function encodeSetParameter( parameter, paramValue, encData , i){
-    let size
-    let paramType = parameter.parameterType.type
-    switch (paramType){ 
-
-    case "ParameterTypeNumber":
-        size = 4
-        encData[i] = encodeSizeAndType(size, 1)
-        let range = parameter.parameterType.range
-        let multiply = parameter.parameterType.multiply
-        let additionalValues = parameter.parameterType.additionalValues
-        let additionalRanges = parameter.parameterType.additionalRanges
-        // negative number
-    
-        if (util.checkParamValueRange(paramValue, range.minimum, range.maximum, range.exclusiveMinimum, range.exclusiveMaximum, additionalValues, additionalRanges)){
-            if (multiply != undefined){
-                paramValue = paramValue/multiply
-            }
-            if (paramValue < 0) {
-                paramValue += 0x100000000;
-            }
-            encData[i+1] = (paramValue >> 24) & 0xFF;
-            encData[i+2] = (paramValue >> 16) & 0xFF;
-            encData[i+3] = (paramValue >> 8) & 0xFF;
-            encData[i+4] = paramValue & 0xFF;
-            return i + size + 1
-        }
-        else{
-
-                throw new Error(parameter.driverParameterName +" parameter value is out of range");
-        }
-    case "ParameterTypeString":
-        size = 4
-        encData[i] = encodeSizeAndType(size, 1)
-        if (((parameter.parameterType.possibleValues).indexOf(paramValue)) != -1)
-            {
-                encData[i+1] = 0;
-                encData[i+2] = 0;
-                encData[i+3] = 0;
-                encData[i+4]  = (parameter.parameterType.firmwareValues[((parameter.parameterType.possibleValues).indexOf(paramValue))])
-                return i + size + 1
-            }
-        else{
-            
-            throw new Error(parameter.driverParameterName+" parameter value is unknown");
-        }
-    case "ParameterTypeBitMask":
-        size = 4
-        encData[i] = encodeSizeAndType(size, 1)
-        let flags =0 
-        let properties = parameter.parameterType.properties
-        let bitMap = parameter.parameterType.bitMask
-        for (let bit of bitMap){
-            let flagName = bit.valueFor
-            let flagValue = paramValue[flagName]
-            if (flagValue == undefined){
-                throw new Error("Bit "+ flagName +" is missing");
-            }
-            let  property = (properties.find(el => el.name === flagName))
-            let propertyType = property.type
-            switch (propertyType)
-            {
-                case "PropertyBoolean":
-                    if ((bit.inverted != undefined) && (bit.inverted)){
-                        flagValue =! flagValue;
-                    } 
-                    flags |= Number(flagValue) << bit.bitShift
-                    break;
-                case "PropertyString":
-                    if (property.possibleValues.indexOf(flagValue) != -1){
-                        flags |= (property.firmwareValues[property.possibleValues.indexOf(flagValue)]) << bit.bitShift
-                    }
-                    else {
-                        throw new Error(property.name+ " parameter value is not among possible values");
-                    }
-                    
-                    break;
-                case "PropertyNumber":
-                    if (property.range){ 
-                        if (util.checkParamValueRange(flagValue, property.range.minimum, property.range.maximum, property.range.exclusiveMinimum, property.range.exclusiveMaximum, property.additionalValues, property.additionalRanges)){
-                            flags |= flagValue << bit.bitShift    
-                        }
-                        else {
-                            throw new Error("Value out of range for "+ parameter.driverParameterName+"."+flagName);
-                        }
-                    }
-                    else{
-                        flags |= flagValue << bit.bitShift  
-                    }
-                    break;
-                case "PropertyObject":
-                    let bitValues = Object.entries(flagValue)
-                    for (let b of bit.values){
-                        let fValue = flagValue[b.valueFor]
-                        if (fValue == undefined){
-                            throw new Error("Bit "+ flagName +"."+ b.valueFor+" is missing");
-                        }
-                        if ((b.inverted != undefined) && (b.inverted)){
-                            fValue =! fValue;
-                        }
-                        flags |= Number(fValue) <<  b.bitShift 
-
-                    }
-                    break;
-                default:
-                    throw new Error("Property type is unknown");
-            }
-        }
-        
-        encData[i+1] = (flags >> 24) & 0xFF;
-        encData[i+2] = (flags >> 16) & 0xFF;
-        encData[i+3] = (flags >> 8) & 0xFF;
-        encData[i+4] = flags & 0xFF;
-        return i + size + 1 ;
-        
-    case "ParameterTypeAsciiString":
-        size = paramValue.length
-        encData[i] = encodeSizeAndType(size, 3)
-        for (let j = 0; j < paramValue.length; j++)
-            encData[i + j + 1] =paramValue.charCodeAt(j) & 0xFF;
-
-        return i + size + 1 ;
-    case "ParameterTypeByteArray":
-        size = parameter.parameterType.size
-        encData[i] = encodeSizeAndType(size, 4)
-        if  (parameter.parameterType.properties == undefined){
-            let paramValueHex = paramValue.toString().replace(/[{}]/g, '').replace(/,/g, ''); // Remove braces and commas
-            for (let j = 0; j < size; j++) {
-                encData[i + j + 1] = parseInt(paramValueHex.slice(j * 2, j * 2 + 2), 16);
-            }
-            return i + size + 1;
-        }else{
-            let arrayProperties = parameter.parameterType.properties
-            let byteMask = parameter.parameterType.byteMask
-            for (let j = 0; j < size; j++) {
-                let flags =0 
-
-                for (let bit of byteMask){
-                    let flagName = bit.valueFor
-                    let flagValue = paramValue[j][flagName]
-                    if (flagValue == undefined){
-                        throw new Error("byte "+ flagName +" is missing");
-                    }
-                    let  property = (arrayProperties.find(el => el.name === flagName))
-                    let propertyType = property.type
-                    switch (propertyType)
-                    {
-                        case "PropertyBoolean":
-                            if ((bit.inverted != undefined) && (bit.inverted)){
-                                flagValue =! flagValue;
-                            } 
-                            flags |= Number(flagValue) << bit.bitShift
-                            break;
-                        case "PropertyString":
-                            if (property.possibleValues.indexOf(flagValue) != -1){
-                                flags |= (property.firmwareValues[property.possibleValues.indexOf(flagValue)]) << bit.bitShift
-                            }
-                            else {
-                                throw new Error(property.name+ " parameter value is not among possible values");
-                            }
-                            
-                            break;
-                        case "PropertyNumber":
-                            if (property.range){ 
-                                if (util.checkParamValueRange(flagValue, property.range.minimum, property.range.maximum, property.range.exclusiveMinimum, property.range.exclusiveMaximum, property.additionalValues, property.additionalRanges)){
-                                    flags |= flagValue << bit.bitShift    
-                                }
-                                else {
-                                    throw new Error("Value out of range for "+ parameter.driverParameterName+"."+flagName);
-                                }
-                            }
-                            else{
-                                flags |= flagValue << bit.bitShift  
-                            }
-                            break;
-                        case "PropertyObject":
-                            for (let b of bit.values){
-                                let fValue = flagValue[b.valueFor]
-                                if (fValue == undefined){
-                                    throw new Error("Bit "+ flagName +"."+ b.valueFor+" is missing");
-                                }
-                                if ((b.inverted != undefined) && (b.inverted)){
-                                    fValue =! fValue;
-                                }
-                                flags |= Number(fValue) <<  b.bitShift 
-
-                            }
-                            break;
-                        default:
-                            throw new Error("Property type is unknown");
-                    }
-                }
-        
-                encData[i + j + 1] = flags & 0xFF
-        
-        }
-        return i + size + 1 ;
-    }
-    case "ParameterTypeByteArray":
-        size = parameter.parameterType.size;
-        encData[i] = encodeSizeAndType(size, 4);
-    
-        if (!parameter.parameterType.properties) {
-            // Handle raw byte array (no properties)
-            encodeRawByteArray(paramValue, size, encData, i);
-            return i + size + 1;
-        } else {
-            // Handle byte array with properties
-            encodeByteArrayWithProperties(parameter, paramValue, size, encData, i);
-            return i + size + 1;
-        }
-            
-    default:
-        throw new Error("Parameter type is unknown");
-        
-    }
-} */
-// Function encode size and type for a parameter
-
-function encodeSetParameter(parameter, paramValue, encData, i) {
-    const paramType = parameter.parameterType.type;
-
-    switch (paramType) {
-        case "ParameterTypeNumber":
-            return encodeNumberParameter(parameter, paramValue, encData, i);
-        case "ParameterTypeString":
-            return encodeStringParameter(parameter, paramValue, encData, i);
-        case "ParameterTypeBitMask":
-            return encodeBitMaskParameter(parameter, paramValue, encData, i);
-        case "ParameterTypeAsciiString":
-            return encodeAsciiStringParameter(parameter, paramValue, encData, i);
-        case "ParameterTypeByteArray":
-            return encodeByteArrayParameter(parameter, paramValue, encData, i);
-        default:
-            throw new Error("Parameter type is unknown");
-    }
-}
-
-// Helper Functions
-
-/**
- * Encodes a number parameter.
- */
-function encodeNumberParameter(parameter, paramValue, encData, startIndex) {
-    const size = 4;
-    encData[startIndex] = encodeSizeAndType(size, 1);
-
-    const range = parameter.parameterType.range;
-    const multiply = parameter.parameterType.multiply;
-    const additionalValues = parameter.parameterType.additionalValues;
-    const additionalRanges = parameter.parameterType.additionalRanges;
-
-    if (!util.checkParamValueRange(paramValue, range.minimum, range.maximum, range.exclusiveMinimum, range.exclusiveMaximum, additionalValues, additionalRanges)) {
-        throw new Error(`${parameter.driverParameterName} parameter value is out of range`);
-    }
-
-    let value = paramValue;
-    if (multiply !== undefined) {
-        value /= multiply;
-    }
-    if (value < 0) {
-        value += 0x100000000;
-    }
-
-    encData[startIndex + 1] = (value >> 24) & 0xFF;
-    encData[startIndex + 2] = (value >> 16) & 0xFF;
-    encData[startIndex + 3] = (value >> 8) & 0xFF;
-    encData[startIndex + 4] = value & 0xFF;
-
-    return startIndex + size + 1;
-}
-
-/**
- * Encodes a string parameter.
- */
-function encodeStringParameter(parameter, paramValue, encData, startIndex) {
-    const size = 4;
-    encData[startIndex] = encodeSizeAndType(size, 1);
-
-    const possibleValues = parameter.parameterType.possibleValues;
-    const firmwareValues = parameter.parameterType.firmwareValues;
-
-    const index = possibleValues.indexOf(paramValue);
-    if (index === -1) {
-        throw new Error(`${parameter.driverParameterName} parameter value is unknown`);
-    }
-
-    encData[startIndex + 1] = 0;
-    encData[startIndex + 2] = 0;
-    encData[startIndex + 3] = 0;
-    encData[startIndex + 4] = firmwareValues[index];
-
-    return startIndex + size + 1;
-}
-
-/**
- * Encodes a bitmask parameter.
- */
-function encodeBitMaskParameter(parameter, paramValue, encData, startIndex) {
-    const size = 4;
-    encData[startIndex] = encodeSizeAndType(size, 1);
-
-    const properties = parameter.parameterType.properties;
-    const bitMap = parameter.parameterType.bitMask;
-
-    let flags = 0;
-    for (let bit of bitMap) {
-        const flagName = bit.valueFor;
-        const flagValue = paramValue[flagName];
-
-        if (flagValue === undefined) {
-            throw new Error(`Bit ${flagName} is missing`);
-        }
-
-        const property = properties.find(el => el.name === flagName);
-        if (!property) {
-            throw new Error(`Property ${flagName} not found`);
-        }
-
-        flags = encodeProperty(property, bit, flagValue, flags);
-    }
-
-    encData[startIndex + 1] = (flags >> 24) & 0xFF;
-    encData[startIndex + 2] = (flags >> 16) & 0xFF;
-    encData[startIndex + 3] = (flags >> 8) & 0xFF;
-    encData[startIndex + 4] = flags & 0xFF;
-
-    return startIndex + size + 1;
-}
-
-/**
- * Encodes an ASCII string parameter.
- */
-function encodeAsciiStringParameter(parameter, paramValue, encData, startIndex) {
-    const size = paramValue.length;
-    encData[startIndex] = encodeSizeAndType(size, 3);
-
-    for (let j = 0; j < paramValue.length; j++) {
-        encData[startIndex + j + 1] = paramValue.charCodeAt(j) & 0xFF;
-    }
-
-    return startIndex + size + 1;
-}
-
-/**
- * Encodes a byte array parameter.
- */
-function encodeByteArrayParameter(parameter, paramValue, encData, startIndex) {
-    const size = parameter.parameterType.size;
-    encData[startIndex] = encodeSizeAndType(size, 4);
-
-    if (!parameter.parameterType.properties) {
-        encodeRawByteArray(paramValue, size, encData, startIndex);
-    } else {
-        encodeByteArrayWithProperties(parameter, paramValue, size, encData, startIndex);
-    }
-
-    return startIndex + size + 1;
-}
-
-/**
- * Encodes a raw byte array (no properties).
- */
-function encodeRawByteArray(paramValue, size, encData, startIndex) {
-    const paramValueHex = paramValue.toString().replace(/[{}]/g, '').replace(/,/g, ''); // Remove braces and commas
-    for (let j = 0; j < size; j++) {
-        encData[startIndex + j + 1] = parseInt(paramValueHex.slice(j * 2, j * 2 + 2), 16);
-    }
-}
-
-/**
- * Encodes a byte array with properties.
- */
-function encodeByteArrayWithProperties(parameter, paramValue, size, encData, startIndex) {
-    const arrayProperties = parameter.parameterType.properties;
-    const byteMask = parameter.parameterType.byteMask;
-
-    for (let j = 0; j < size; j++) {
-        let flags = 0;
-        flags = encodeProperties(arrayProperties, byteMask, paramValue[j], flags);
-        encData[startIndex + j + 1] = flags & 0xFF;
-    }
-}
-
-/**
- * Encodes properties for a single byte in the byte array.
- */
-function encodeProperties(arrayProperties, byteMask, paramValue, flags) {
-    for (let bit of byteMask) {
-        const flagName = bit.valueFor;
-        const flagValue = paramValue[flagName];
-
-        if (flagValue === undefined) {
-            throw new Error(`Byte ${flagName} is missing`);
-        }
-
-        const property = arrayProperties.find(el => el.name === flagName);
-        if (!property) {
-            throw new Error(`Property ${flagName} not found`);
-        }
-
-        flags = encodeProperty(property, bit, flagValue, flags);
-    }
-    return flags;
-}
-
-/**
- * Encodes a single property based on its type.
- */
-function encodeProperty(property, bit, flagValue, flags) {
-    switch (property.type) {
-        case "PropertyBoolean":
-            return encodeBooleanProperty(bit, flagValue, flags);
-        case "PropertyString":
-            return encodeStringProperty(property, bit, flagValue, flags);
-        case "PropertyNumber":
-            return encodeNumberProperty(property, bit, flagValue, flags);
-        case "PropertyObject":
-            return encodeObjectProperty(bit, flagValue, flags);
-        default:
-            throw new Error(`Unknown property type: ${property.type}`);
-    }
-}
-
-/**
- * Encodes a boolean property.
- */
-function encodeBooleanProperty(bit, flagValue, flags) {
-    let value = flagValue;
-    if (bit.inverted) {
-        value = !value;
-    }
-    return flags | (Number(value) << bit.bitShift);
-}
-
-/**
- * Encodes a string property.
- */
-function encodeStringProperty(property, bit, flagValue, flags) {
-    const index = property.possibleValues.indexOf(flagValue);
-    if (index === -1) {
-        throw new Error(`${property.name} value is not among possible values`);
-    }
-    return flags | (property.firmwareValues[index] << bit.bitShift);
-}
-
-/**
- * Encodes a number property.
- */
-function encodeNumberProperty(property, bit, flagValue, flags) {
-    if (property.range) {
-        if (!util.checkParamValueRange(flagValue, property.range.minimum, property.range.maximum, property.range.exclusiveMinimum, property.range.exclusiveMaximum, property.additionalValues, property.additionalRanges)) {
-            throw new Error(`Value out of range for ${property.name}`);
-        }
-    }
-    return flags | (flagValue << bit.bitShift);
-}
-
-/**
- * Encodes an object property.
- */
-function encodeObjectProperty(bit, flagValue, flags) {
-    for (let b of bit.values) {
-        const fValue = flagValue[b.valueFor];
-        if (fValue === undefined) {
-            throw new Error(`Bit ${bit.valueFor}.${b.valueFor} is missing`);
-        }
-        let value = fValue;
-        if (b.inverted) {
-            value = !value;
-        }
-        flags |= Number(value) << b.bitShift;
-    }
-    return flags;
-}
-function encodeSizeAndType(size, type){
-    return ((size << 0x03)| type)
-
-}
-// Function to get parameters by groupId and driverParameterName
-function getParametersByGroupIdAndDriverParameterName(parameters, groupId, driverParameterName) {
-    // Check if the parameters object contains the groupId
-    if (parameters[groupId]) {
-        // Iterate over each localId within the groupId
-        for (let localId in parameters[groupId]) {
-            // Check if the current parameter's driverParameterName matches the provided name
-            if (parameters[groupId][localId].driverParameterName === driverParameterName) {
-                return parameters[groupId][localId];
-            }
-        }
-    }
-
-    // Return null if no matching parameter is found
-    return null;
-}
-// give the group as string 
-function determineValueFromGroupType(groupType) {
-    switch(groupType) {
-        case responseClass.GroupType.INTERNAL:
-            return 0;
-        case responseClass.GroupType.SYSTEM_CORE:
-            return 1;
-        case responseClass.GroupType.GEOLOC:
-            return 2;
-        case responseClass.GroupType.GNSS:
-            return 3;
-        case responseClass.GroupType.LR11xx:
-            return 4;
-        case responseClass.GroupType.BLE_SCAN1:
-            return 5;
-        case responseClass.GroupType.BLE_SCAN2:
-            return 6;
-        case responseClass.GroupType.ACCELEROMETER:
-            return 7;
-        case responseClass.GroupType.NETWORK:
-            return 8;
-        case responseClass.GroupType.LORAWAN:
-            return 9;
-        case responseClass.GroupType.CELLULAR:
-            return 10;
-        case responseClass.GroupType.BLE:
-            return 11;
-        default:
-            throw new Error("Unknown group type");
-    }
-}
-
-module.exports = {
-    RequestType: RequestType,
-    encodeRequest: encodeRequest,
-    decodeRequest: decodeRequest
-}
-
-/***/ }),
-
-/***/ 792:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-let util = __webpack_require__(94);
-
-function GnssFix(latitude,
-    longitude,
-    altitude,
-    COG,
-    SOG,
-    EHPE,
-    quality){
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.altitude = altitude;
-    this.COG = COG;
-    this.SOG = SOG;
-    this.EHPE = EHPE;
-    this.quality = quality;
-}
-
-const fixQuality = Object.freeze({
-    INVALID: "INVALID",
-    VALID: "VALID",
-    FIX_2D: "FIX_2D",
-    FIX_3D: "FIX_3D",
-});
-
-function QualityInfo(fixQuality,
-    numberSatelliteUsed
-){
-    this.fixQuality = fixQuality;
-    this.numberSatelliteUsed = numberSatelliteUsed;
-}
-
-/****** decoded MT3333 GPS position *******/
-/*****************************************/
-function determineGnssFix (payload){
-    let mt3333GnssFixInfo = new GnssFix();
-    mt3333GnssFixInfo.latitude = util.twoComplement(parseInt(util.convertBytesToString(payload.slice(0,4)),16)) /  Math.pow(10, 7) 
-    mt3333GnssFixInfo.longitude = util.twoComplement(parseInt(util.convertBytesToString(payload.slice(4,8)),16)) /  Math.pow(10, 7)
-    mt3333GnssFixInfo.altitude = determineAltitude(payload)
-    mt3333GnssFixInfo.COG = determineCourseOverGround(payload)
-    mt3333GnssFixInfo.SOG = determineSpeedOverGround(payload)
-    mt3333GnssFixInfo.EHPE = determineEstimatedHorizontalPositionError(payload)
-    mt3333GnssFixInfo.quality = determineFixQuality(payload)
- return mt3333GnssFixInfo
-
-}
-function determineAltitude(payload){
-    if (payload.length < 10)
-        throw new Error("The payload is not valid to determine GPS altitude");
-    return (payload[8]<<8)+payload[9];
-}
-function determineCourseOverGround(payload){
-    if (payload.length < 12)
-        throw new Error("The payload is not valid to determine GPS course over ground");
-    // expressed in 1/100 degree
-    return ((payload[10]<<8)+payload[11]);
-}
-
-function determineSpeedOverGround(payload){
-    if (payload.length < 14)
-        throw new Error("The payload is not valid to determine GPS speed over ground");
-    // expressed in cm/s
-    return ((payload[12]<<8)+payload[13]);
-}
-function determineEstimatedHorizontalPositionError(payload){
-        if (payload.length < 15)
-            throw new Error("The payload is not valid to determine horizontal accuracy");
-        var ehpeValue = payload[14]
-        if (ehpeValue > 250){
-            switch (ehpeValue){
-                case 251:
-                    ehpeValue = "(250,500]"
-                    break
-                case 252:
-                    ehpeValue = "(500,1000]"
-                    break
-                case 253:
-                    ehpeValue = "(1000,2000]"
-                    break;
-                case 254:
-                    ehpeValue = "(2000,4000]"
-                    break;
-                case 255:
-                    ehpeValue = ">4000"
-                    break;
-            }
-        }
-       
-        return ehpeValue;
-    }	
-    
-function determineFixQuality(payload){
-    let quality = payload[15]>>5 & 0x07
-    let qualityInfo = new QualityInfo()
-    
-    switch(quality){
-        case 0:
-            qualityInfo.fixQuality = fixQuality.INVALID
-            break
-        case 1:
-            qualityInfo.fixQuality = fixQuality.VALID
-            break
-        case 2:
-            qualityInfo.fixQuality = fixQuality.FIX_2D
-            break
-        case 3:
-            qualityInfo.fixQuality = fixQuality.FIX_3D
-            break
-    }
-    qualityInfo.numberSatellitesUsed = payload[15] & 0x0F
-    return qualityInfo
-    
-
-}
-
-module.exports = {
-    GnssFix: GnssFix,
-    determineGnssFix: determineGnssFix
-}
-
-/***/ }),
-
-/***/ 851:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-let eventClass = __webpack_require__(977)
-const CommandType = Object.freeze({
-    CLEAR_AND_RESET: "CLEAR_AND_RESET",
-    RESET: "RESET",
-    START_SOS: "START_SOS",
-    STOP_SOS: "STOP_SOS",
-    SYSTEM_STATUS_REQUEST: "SYSTEM_STATUS_REQUEST",
-    POSITION_ON_DEMAND: "POSITION_ON_DEMAND",
-    SET_GPS_ALMANAC: "SET_GPS_ALMANAC",
-    SET_BEIDOU_ALMANAC: "SET_BEIDOU_ALMANAC",
-    START_BLE_CONNECTIVITY: "START_BLE_CONNECTIVITY",
-    STOP_BLE_CONNECTIVITY: "STOP_BLE_CONNECTIVITY",
-    SYSTEM_EVENT: "SYSTEM_EVENT",
-    CLEAR_MOTION_PERCENTAGE: "CLEAR_MOTION_PERCENTAGE"
-
-});
-function Command(command,classId,eventType){
-    this.commandType = command;
-    this.classId = classId;
-    this.eventType = eventType;
-}
-function determineCommand(value) {
-    const commands = [
-        CommandType.CLEAR_AND_RESET,
-        CommandType.RESET,
-        CommandType.START_SOS,
-        CommandType.STOP_SOS,
-        CommandType.SYSTEM_STATUS_REQUEST,
-        CommandType.POSITION_ON_DEMAND,
-        CommandType.SET_GPS_ALMANAC,
-        CommandType.SET_BEIDOU_ALMANAC,
-        CommandType.START_BLE_CONNECTIVITY,
-        CommandType.STOP_BLE_CONNECTIVITY,
-        CommandType.SYSTEM_EVENT,
-        CommandType.CLEAR_MOTION_PERCENTAGE
-    ];
-    return commands[value] || null; // Returns null if the command is unknown
-}
-
-function encodeCommand(data) {
-    let encode = [];
-    encode[0] = (0x01 << 3) | data.ackToken;
-
-    let command = Object.values(CommandType).indexOf(data.commandType);
-    if (command === -1) {
-        throw new Error("Unknown command");
-    }
-
-    encode[1] = command;
-
-    if (command === 10) { // SYSTEM_EVENT
-        let classId = getClassId(data.classId);
-        encode[2] = classId;
-        encode[3] = data.eventType;
-    }
-
-    return encode;
-}
-
-function decodeCommand(bytes) {
-    let decoded = new Command();
-    let command = determineCommand(bytes[0]);
-
-    if (!command) {
-        throw new Error("Unknown command received");
-    }
-
-    decoded.commandType = command
-    if (command === Command.SYSTEM_EVENT) {
-        if (bytes.length < 4) {
-            throw new Error("Invalid SYSTEM_EVENT byte array length");
-        }
-        decoded.classId = getClassName(bytes[1]);
-        decoded.eventType = bytes[2];
-    }
-   
-    return decoded;
-}
-
-// Convert classId to integer
-function getClassId(className) {
-    const classes = {
-        [eventClass.Class.SYSTEM]: 0,
-        [eventClass.Class.SOS]: 1,
-        [eventClass.Class.TEMPERATURE]: 2,
-        [eventClass.Class.ACCELEROMETER]: 3,
-        [eventClass.Class.NETWORK]: 4,
-        [eventClass.Class.GEOZONING]: 5
-    };
-    if (className in classes) {
-        return classes[className];
-    }
-    throw new Error("Unknown class id");
-}
-
-//  Convert classId integer to class name
-function getClassName(classId) {
-    const classMap = {
-        0: eventClass.Class.SYSTEM,
-        1: eventClass.Class.SOS,
-        2: eventClass.Class.TEMPERATURE,
-        3: eventClass.Class.ACCELEROMETER,
-        4: eventClass.Class.NETWORK,
-        5: eventClass.Class.GEOZONING
-    };
-    return classMap[classId] || "UNKNOWN_CLASS";
-}
-
-
-module.exports = {
-    Command: Command,
-    decodeCommand: decodeCommand,
-    encodeCommand: encodeCommand
-}
-
-/***/ }),
-
-/***/ 925:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-let util = __webpack_require__(94);
-
-function Accelerometer (accelerationVector, motionPercent, gaddIndex, numberShocks){
-
-    this.accelerationVector = accelerationVector;
-    this.motionPercent = motionPercent;
-    this.gaddIndex = gaddIndex;
-    this.numberShocks = numberShocks;
-}
-function determineAxis(payload, byteNumber){
-    if (payload.length < (byteNumber + 2)){
-        throw new Error("The payload is not valid to determine axis value");
-    }
-    let value = (payload[byteNumber]<<8)+payload[byteNumber+1];
-    value = util.convertNegativeInt(value, 2)
-    return value
-}
-
-function determineAccelerationVector(payload, xOffset, yOffset, zOffset){
-    let x = determineAxis(payload, xOffset);
-    let y = determineAxis(payload, yOffset);
-    let z = determineAxis(payload, zOffset);
-    return [x,y,z];
-}
-function determineGaddIndex(payload){
-    if (payload.length < 11){
-        throw new Error("The payload is not valid to determine GADD index");
-    }
-return payload[11]
-}  
-function determineMotion(payload){
-    if (payload.length < 11){
-        throw new Error("The payload is not valid to determine Motion");
-    }
-return payload[11]
-}  
-function determineNumberShocks(payload){
-    if (payload.length < 12){
-        throw new Error("The payload is not valid to determine number of shocks");
-    }
-return payload[12]
-}   
-
-const AcceleroType = Object.freeze({
-    MOTION_START: "MOTION_START",
-    MOTION_END: "MOTION_END",
-    SHOCK: "SHOCK"
-})
-
-module.exports = {
-    Accelerometer: Accelerometer,
-    determineAccelerationVector: determineAccelerationVector,
-    determineGaddIndex : determineGaddIndex,
-    determineNumberShocks : determineNumberShocks,
-    determineMotion: determineMotion, 
-    AcceleroType: AcceleroType,
-}
-
-/***/ }),
-
-/***/ 962:
-/***/ ((module) => {
-
-const messageType = Object.freeze({
-    NOTIFICATION: "NOTIFICATION",
-    POSITION: "POSITION",
-    QUERY: "QUERY",
-    RESPONSE: "RESPONSE",
-    TELEMETRY: "TELEMETRY",
-    UNKNOWN: "UNKNOWN"
-});
-
-function AbeewayUplinkPayload(header,
-    extendedHeader,
-    notification,
-    position,
-    query,
-    response,
-    telemetry,
-    payload
-    ) {
-    this.header = header;
-    this.extendedHeader = extendedHeader;
-    this.notification = notification;
-    this.position = position;
-    this.query = query;
-    this.response = response;
-    this.telemetry = telemetry;
-    this.telemetry = telemetry;
-    this.payload = payload
-}
-
-module.exports = {
-    AbeewayUplinkPayload: AbeewayUplinkPayload,
-    messageType: messageType
-}
-
-/***/ }),
-
-/***/ 977:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-let systemClass = __webpack_require__(187);
-let temperatureClass = __webpack_require__ (406)
-let accelerometerClass = __webpack_require__(925)
-let networkClass = __webpack_require__(142)
-let geozoningClass = __webpack_require__(548)
-let telemetryClass = __webpack_require__(343)
-
-const Class = Object.freeze({
-    SYSTEM: "SYSTEM",
-    SOS: "SOS",
-    TEMPERATURE: "TEMPERATURE",
-    ACCELEROMETER: "ACCELEROMETER",
-    NETWORK: "NETWORK",
-    GEOZONING: "GEOZONING",
-    TELEMETRY: "TELEMETRY"
-})
-
-const SosType = Object.freeze({
-    SOS_ON: "SOS_ON",
-    SOS_OFF: "SOS_OFF"
-})
-
-
-
-function Notification(notificationClass,
-    notificationType,
-    system,
-    sos,
-    temperature,
-    accelerometer,
-    network,
-    geozoning,
-    telemetryMeasurements){
-    this.notificationClass = notificationClass;
-    this.notificationType = notificationType;
-    this.system = system;
-    this.sos = sos;
-    this.temperature = temperature;
-    this.accelerometer = accelerometer;
-    this.network = network;
-    this.geozoning = geozoning;
-    this.telemetryMeasurements = telemetryMeasurements;
-}
-
-function decodeCrc(payload) {
-    // Ensure the payload has enough bytes for the CRC
-    if (payload.length < startingByte + byteNumber) {
-        throw new Error("Payload is too short to contain a valid CRC.");
-    }
-
-    // Extract the n bytes of the CRC (big-endian)
-    const crcBytes = payload.slice(startingByte, startingByte + byteNumber);
-    // Convert each byte to a 2-digit hexadecimal string and concatenate
-    const crc = crcBytes.map(b => b.toString(16).padStart(2, "0")).join("");
-    return crc;
-}
-function determineNotification(payload){
-    if (payload.length < 5)
-        throw new Error("The payload is not valid to determine notification message");
-    let notificationMessage = new Notification();
-    let classValue = payload[4]>>4 & 0x0F;
-    let typeValue = payload[4] & 0x0F;
-    switch(classValue){
-        case 0:
-            notificationMessage.notificationClass = Class.SYSTEM;
-            switch (typeValue){
-                case 0:
-                    notificationMessage.notificationType = systemClass.SystemType.STATUS
-                    notificationMessage.system = new systemClass.System(systemClass.determineStatus(payload),null, null, null, null);
-                    break;
-                case 1:
-                    notificationMessage.notificationType = systemClass.SystemType.LOW_BATTERY
-                    notificationMessage.system = new systemClass.System( null, systemClass.determineLowBattery(payload), null, null);
-                    break;
-                case 2:
-                    notificationMessage.notificationType = systemClass.SystemType.BLE_STATUS;
-                    notificationMessage.system = new systemClass.System( null, null, systemClass.determineBleStatus(payload), null, null);
-                    break;
-                case 3:
-                    notificationMessage.notificationType = systemClass.SystemType.TAMPER_DETECTION;
-                    notificationMessage.system = new systemClass.System( null, null, null, systemClass.determineTamperDetection(payload),null);
-                    break;
-                case 4:
-                    notificationMessage.notificationType = systemClass.SystemType.HEARTBEAT;
-                    notificationMessage.system = new systemClass.System(null, null, null, null, systemClass.determineHeartbeat(payload))
-                    break;
-                default:
-                    throw new Error("System Notification Type Unknown");
-            }
-            break;
-        case 1:
-            notificationMessage.notificationClass = Class.SOS
-            switch (typeValue){
-                case 0:
-                    notificationMessage.notificationType = SosType.SOS_ON
-                    break;
-                case 1:
-                    notificationMessage.notificationType = SosType.SOS_OFF
-                    break;
-                default:
-                    throw new Error("SOS Notification Type Unknown");
-            }
-            break;
-        case 2:
-            notificationMessage.notificationClass = Class.TEMPERATURE
-            switch (typeValue){
-                case 0:
-                    notificationMessage.notificationType = temperatureClass.TempType.TEMP_HIGH
-                    notificationMessage.temperature = temperatureClass.determineTemperature(payload);
-                    break;
-                case 1:
-                    notificationMessage.notificationType = temperatureClass.TempType.TEMP_LOW
-                    notificationMessage.temperature = temperatureClass.determineTemperature(payload);
-                    break;
-                case 2:
-                    notificationMessage.notificationType = temperatureClass.TempType.TEMP_NORMAL
-                    notificationMessage.temperature = temperatureClass.determineTemperature(payload);
-                    break;
-                default:
-                    throw new Error("Temperature Notification Type Unknown");
-            }
-            break;
-        case 3:
-            notificationMessage.notificationClass = Class.ACCELEROMETER
-            switch (typeValue){
-                case 0: 
-                    notificationMessage.notificationType = accelerometerClass.AcceleroType.MOTION_START
-                    break;
-                case 1:
-                    notificationMessage.notificationType = accelerometerClass.AcceleroType.MOTION_END
-                    notificationMessage.accelerometer = new accelerometerClass.Accelerometer(accelerometerClass.determineAccelerationVector(payload,5, 7, 9), accelerometerClass.determineMotion(payload), null, null)
-                    break;
-                case 2:
-                    notificationMessage.notificationType = accelerometerClass.AcceleroType.SHOCK
-                    notificationMessage.accelerometer = new accelerometerClass.Accelerometer(accelerometerClass.determineAccelerationVector(payload, 5, 7, 9), null, accelerometerClass.determineGaddIndex(payload), accelerometerClass.determineNumberShocks(payload))
-                    break;
-                default:
-                    throw new Error("Accelerometer Notification Type Unknown");
-            }
-            break;
-        case 4:
-            notificationMessage.notificationClass = Class.NETWORK
-            switch (typeValue){
-                case 0: 
-                    notificationMessage.notificationType = networkClass.NetworkType.MAIN_UP
-                    notificationMessage.network = networkClass.determineNetworkInfo(payload)
-                    break;
-                case 1:
-                    notificationMessage.notificationType = networkClass.NetworkType.BACKUP_UP
-                    notificationMessage.network = networkClass.determineNetworkInfo(payload)
-                    break;
-                default:
-                    throw new Error("Network Notification Type Unknown");
-            }
-            break;
-        case 5:
-            notificationMessage.notificationClass = Class.GEOZONING
-            switch (typeValue){
-                case 0: 
-                    notificationMessage.notificationType = geozoningClass.GeozoningType.ENTRY;
-                    break;
-                case 1:
-                    notificationMessage.notificationType = geozoningClass.GeozoningType.EXIT;
-                    break;
-                case 2:
-                    notificationMessage.notificationType = geozoningClass.GeozoningType.IN_HAZARD;
-                    break;
-                case 3:
-                    notificationMessage.notificationType = geozoningClass.GeozoningType.OUT_HAZARD;
-                    break;
-                case 4:
-                    notificationMessage.notificationType = geozoningClass.GeozoningType.MEETING_POINT;
-                    break;
-                default:
-                    throw new Error("Geozoning Notification Type Unknown");
-            }
-
-            break;
-        case 6:
-            notificationMessage.notificationClass = Class.TELEMETRY
-            switch (typeValue){
-                case 0: 
-                    notificationMessage.notificationType = telemetryClass.TelemetryType.TELEMETRY;
-                    notificationMessage.telemetryMeasurements = telemetryClass.determineTelemetryMeasurements(payload.slice(5));
-                    break;
-                case 1:
-                    notificationMessage.notificationType = telemetryClass.TelemetryType.TELEMETRY_MODE_BATCH;
-                    break;
-                default:
-                    throw new Error("Telemetry Notification Type Unknown");
-            }
-
-            break;
-        default:
-            throw new Error("Notification Class Unknown");
-    }
-    return notificationMessage;
-
-
-}
-
-
-module.exports = {
-    Notification: Notification,
-    determineNotification: determineNotification,
-    Class : Class
-}
-
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
