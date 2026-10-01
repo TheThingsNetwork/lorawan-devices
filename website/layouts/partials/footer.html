@@ -1,15 +1,39 @@
-<footer class="site-footer">
+{{- /* Repository note + the global The Things Network footer (data/site_nav.json, generated). */ -}}
+{{- $nav := site.Data.site_nav -}}
+{{- $icons := site.Data.ttn_icons -}}
+{{- $origin := site.Params.ttnOrigin | default $nav.origin -}}
+<div class="site-footer dr-repo-note">
   <div class="inner">
-    <div>
-      <div class="f-brand">
-        <img src="{{ "assets/ttn-horizontal.svg" | absURL }}" alt="The Things Network" />
-      </div>
-      <p class="f-note">The LoRaWAN® Device Repository is an open-source catalog of end devices, payload codecs and vendor profiles, maintained by The Things Network community and The Things Industries.</p>
-    </div>
+    <p class="f-note">The LoRaWAN® Device Repository is an open-source catalog of end devices, payload codecs and vendor profiles, maintained by The Things Network community and The Things Industries.</p>
     <div class="f-links">
-      <a href="https://www.thethingsnetwork.org">The Things Network</a>
+      <a href="{{ .Site.Params.github }}">Contribute on GitHub</a>
       <a href="https://www.thethingsindustries.com/docs/">The Things Stack docs</a>
-      <a href="{{ .Site.Params.github }}">GitHub</a>
+    </div>
+  </div>
+</div>
+<footer class="ttn-chrome tn-footer">
+  <div class="tn-wrap tn-footer__inner">
+    <div class="tn-footer__grid">
+      <div class="tn-footer__brand">
+        <img src="{{ "assets/ttn-horizontal-white.svg" | absURL }}" alt="The Things Network" width="150" height="34">
+        <p>{{ $nav.tagline }}</p>
+      </div>
+      {{- range $nav.footer }}
+      <div class="tn-footer__col">
+        <div class="tn-footer__title">{{ .title }}</div>
+        {{- range .links }}
+        <a href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </div>
+    <div class="tn-footer__base">
+      <span>{{ $nav.lorawanNotice }}</span>
+      <div class="tn-footer__social">
+        {{- range $nav.social }}
+        <a href="{{ .href }}" rel="noopener" aria-label="{{ .label }}"><svg class="tn-ico" viewBox="0 0 24 24" aria-hidden="true">{{ index $icons .icon | safeHTML }}</svg></a>
+        {{- end }}
+      </div>
     </div>
   </div>
 </footer>

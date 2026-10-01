@@ -112,6 +112,8 @@
   {{ end }}
   {{ end }}
 
+  {{- /* Global TTN header/footer styles — generated from the platform (scripts/export-site-nav.mjs). */}}
+  <link rel="stylesheet" href="{{ "assets/ttn-chrome.css" | relURL }}">
   <link rel="stylesheet" href="{{- index .Site.Data.manifest `style.css` | strings.TrimPrefix `/` | relURL -}}">
 
   {{ if eq .Permalink (print .Site.BaseURL "devices/") }}
