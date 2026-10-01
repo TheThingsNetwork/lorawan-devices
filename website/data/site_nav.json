@@ -56,8 +56,8 @@
     }
   ],
   "auth": {
-    "login": "/login/",
-    "signup": "/login/",
+    "login": "/get-started?login",
+    "signup": "/get-started",
     "console": "https://console.cloud.thethings.network/"
   },
   "footer": [
