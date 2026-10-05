@@ -1,0 +1,37 @@
+endDevices:
+  - cloudgate-probe-modbus
+  - cloudgate-probe-mbus
+  - cloudgate-probe-p1
+  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
+
+profileIDs:
+  '1':
+    endDeviceID: 'cloudgate-probe-modbus'
+    firmwareVersion: '2.0.6'
+    hardwareVersion: '5.0'
+    region: 'EU863-870'
+  '2':
+    endDeviceID: 'cloudgate-probe-modbus'
+    firmwareVersion: '2.0.6'
+    hardwareVersion: '5.0'
+    region: 'US902-928'
+  '3':
+    endDeviceID: 'cloudgate-probe-mbus'
+    firmwareVersion: '2.0.6'
+    hardwareVersion: '5.0'
+    region: 'EU863-870'
+  '4':
+    endDeviceID: 'cloudgate-probe-mbus'
+    firmwareVersion: '2.0.6'
+    hardwareVersion: '5.0'
+    region: 'US902-928'
+  '5':
+    endDeviceID: 'cloudgate-probe-p1'
+    firmwareVersion: '2.0.6'
+    hardwareVersion: '5.0'
+    region: 'EU863-870'
+  '6':
+    endDeviceID: 'cloudgate-probe-p1'
+    firmwareVersion: '2.0.6'
+    hardwareVersion: '5.0'
+    region: 'US902-928'

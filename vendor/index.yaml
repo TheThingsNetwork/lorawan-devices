@@ -2209,3 +2209,7 @@ vendors:
   - id: safora
     name: Safora Technologies
     website: https://www.safora-tech.com
+
+  - id: option
+    name: Option NV
+    website: https://www.option.com
