@@ -6,7 +6,7 @@ const addFormats = require('ajv-formats');
 const yargs = require('yargs');
 const fs = require('fs');
 const yaml = require('js-yaml');
-const sizeOf = require('image-size');
+const { imageSizeFromFile } = require('image-size/fromFile');
 const { spawn } = require('child_process');
 const isEqual = require('lodash.isequal');
 const readChunk = require('read-chunk');
@@ -53,19 +53,17 @@ function requireFile(path) {
 
 async function requireDimensions(path) {
   await requireFile(path);
-  return await new Promise((resolve, reject) => {
-    sizeOf(path, (err, dimensions) => {
-      if (err) {
-        reject(new Error(`load image ${path}: ${err}`));
-      } else if (dimensions.width > 2000 || dimensions.height > 2000) {
-        reject(
-          new Error(`image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`)
-        );
-      } else {
-        resolve();
-      }
-    });
-  });
+  let dimensions;
+  try {
+    dimensions = await imageSizeFromFile(path);
+  } catch (err) {
+    throw new Error(`load image ${path}: ${err}`);
+  }
+  if (dimensions.width > 2000 || dimensions.height > 2000) {
+    throw new Error(
+      `image ${path} too large: maximum is 2000x2000 but loaded ${dimensions.width}x${dimensions.height}`
+    );
+  }
 }
 
 async function validatePayloadCodecs(vendorId, payloadEncoding) {

@@ -1,0 +1,83 @@
+name: ES106 8-IN-1 Air Quality Monitor with CO2 and Formaldehyde
+description: CO2, temperature, humidity, TVOC, particulates, formaldehyde. 8-IN-1 Air Quality Monitor with CO2 and Formaldehyde.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: true
+        codec: as-es-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: true
+        codec: as-es-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: true
+        codec: as-es-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: true
+        codec: as-es-codec
+      CN470-510:
+        id: profile-cn470
+        lorawanCertified: true
+        codec: as-es-codec
+      KR920-923:
+        id: profile-kr920
+        lorawanCertified: true
+        codec: as-es-codec
+      IN865-867:
+        id: profile-in865
+        lorawanCertified: true
+        codec: as-es-codec
+      RU864-870:
+        id: profile-ru864
+        lorawanCertified: true
+        codec: as-es-codec
+
+deviceType: cots
+sensors:
+  - co2
+  - temperature
+  - humidity
+  - tvoc
+  - pm2.5
+  - pm10
+
+dimensions:
+  width: 98
+  length: 98
+  height: 30
+
+battery:
+  replaceable: true
+  type: ER14505
+
+operatingConditions:
+  temperature:
+    min: -20
+    max: 60
+  relativeHumidity:
+    min: 0.1
+    max: 0.9
+
+ipCode: IP30
+
+keyProvisioning:
+  - custom
+keyProgramming:
+  - serial
+
+productURL: https://www.atomsenses.com/products/ES-106
+
+photos:
+  main: es-106.png
