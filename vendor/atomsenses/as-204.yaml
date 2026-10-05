@@ -1,5 +1,5 @@
-name: AS204 LoRaWAN Smart Toilet Odour Sensor # Device name can not contain the vendor name
-description: 5-in-1 Sensor – Temp / Humidity / CO2 / NH3 / H2S
+name: AS204 Smart Washroom Odor Sensor (NH3 + H2S)
+description: ammonia, hydrogen sulfide, temperature, humidity. Smart Washroom Odor Sensor (NH3 + H2S).
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -74,7 +74,6 @@ deviceType: cots
 # sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
 # tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - co2
   - temperature
   - humidity
   #  - nh3
@@ -146,7 +145,7 @@ firmwareProgramming:
   - fuota lorawan
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atomsenses.com/product/as-204/
+productURL: https://www.atomsenses.com/products/AS-204
 dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-204.pdf
 
 # Photos
