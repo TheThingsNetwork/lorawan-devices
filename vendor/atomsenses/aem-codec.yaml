@@ -7,5 +7,5 @@ uplinkDecoder:
         bytes: [1, 0, 0, 0, 1, 2, 65, 204, 0, 0]
       output:
         data:
-          LeakStatus: "1"
+          LeakStatus: '1'
           Temperature: 25.5
