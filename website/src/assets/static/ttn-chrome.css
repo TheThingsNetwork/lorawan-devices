@@ -687,6 +687,35 @@ a.tn-notifs__item:hover {
   font-size: 13px;
 }
 
+.tn-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+}
+
+/* "Cookie settings": hidden until /consent.js runs and injects the rule that reveals every
+   [data-ttn-consent-settings] — so it never shows as a dead button when analytics is off or blocked. */
+.tn-footer__consent {
+  display: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--tn-muted-invert);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tn-footer__consent:hover {
+  color: #fff;
+}
+
+.tn-footer__consent:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
 .tn-footer__social {
   display: flex;
   gap: 20px;

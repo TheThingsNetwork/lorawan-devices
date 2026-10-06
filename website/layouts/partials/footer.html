@@ -28,7 +28,11 @@
       {{- end }}
     </div>
     <div class="tn-footer__base">
-      <span>{{ $nav.lorawanNotice }}</span>
+      <div class="tn-footer__legal">
+        <span>{{ $nav.lorawanNotice }}</span>
+        {{- /* Reopens the cookie banner; hidden by ttn-chrome.css until /consent.js has run. */}}
+        <button type="button" class="tn-footer__consent" data-ttn-consent-settings>Cookie settings</button>
+      </div>
       <div class="tn-footer__social">
         {{- range $nav.social }}
         <a href="{{ .href }}" rel="noopener" aria-label="{{ .label }}"><svg class="tn-ico" viewBox="0 0 24 24" aria-hidden="true">{{ index $icons .icon | safeHTML }}</svg></a>

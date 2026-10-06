@@ -125,6 +125,11 @@
           "external": false
         },
         {
+          "label": "Help & user guide",
+          "href": "/help",
+          "external": false
+        },
+        {
           "label": "The Things Stack",
           "href": "https://www.thethingsindustries.com/stack/",
           "external": true
