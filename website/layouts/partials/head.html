@@ -17,6 +17,12 @@
   <script src="/consent.js" defer></script>
   {{ end }}
 
+  {{- /* Signed-in member in the global header (avatar + account menu instead of Log in / Sign up), served
+       by the www platform (platform/app/site-session.js in TheThingsIndustries/thethingsnetwork-v2). It
+       asks www's /api/session, so it is root-relative and only works behind the www front door; anywhere
+       else the static Log in / Sign up stay. Every page. */}}
+  <script src="/site-session.js" defer></script>
+
   <link rel="shortcut icon" href="{{ "assets/favicon.ico" | absURL }}" />
   <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{{ "assets/favicon.ico" | absURL }}" />
   <link rel="apple-touch-icon" sizes="152x152" href="{{ "assets/favicon-152.png" | absURL }}" />
