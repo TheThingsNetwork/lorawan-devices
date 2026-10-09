@@ -215,7 +215,7 @@
 
 .ttn-chrome *, .ttn-chrome *::before, .ttn-chrome *::after { box-sizing: border-box; }
 
-.ttn-chrome a { text-decoration: none; }
+.ttn-chrome a, .ttn-chrome a:hover, .ttn-chrome a:focus { text-decoration: none; }
 
 .tn-wrap { max-width: 1200px; margin-inline: auto; padding-inline: 24px; }
 
