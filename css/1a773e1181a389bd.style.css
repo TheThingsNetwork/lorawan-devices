@@ -372,7 +372,7 @@ html, body {
   backdrop-filter: blur(8px);
 }
 .site-header .inner {
-  width: 100%; max-width: 1280px; margin: 0 auto;
+  width: 100%; max-width: var(--ttn-grid); margin: 0 auto;
   padding: 0 24px;
   display: flex; align-items: center; gap: clamp(14px, 2.5vw, 32px);
 }
@@ -469,7 +469,10 @@ html, body {
 .btn:disabled { opacity: .45; cursor: not-allowed; }
 
 /* ============ LAYOUT ============ */
-.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+/* Same outer grid as the global The Things Network header/footer (www `.tn-wrap` / `.tn-header__bar`:
+   1200px + 24px side padding), so logo, section bar, content and footer share one left/right edge. */
+:root { --ttn-grid: 1200px; }
+.container { max-width: var(--ttn-grid); margin: 0 auto; padding: 0 24px; }
 
 .page-hero {
   padding: 56px 0 32px;
@@ -1258,7 +1261,7 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
   margin-top: auto;
 }
 .site-footer .inner {
-  max-width: 1280px; margin: 0 auto; padding: 32px 24px;
+  max-width: var(--ttn-grid); margin: 0 auto; padding: 32px 24px;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   flex-wrap: wrap;
 }
@@ -1532,4 +1535,4 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 }
 
 
-/*# sourceMappingURL=8eb80b44b546e9c0.style.css.map*/
+/*# sourceMappingURL=1a773e1181a389bd.style.css.map*/
