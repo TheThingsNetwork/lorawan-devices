@@ -1,13 +1,75 @@
-<header class="site-header">
+{{- /* Global The Things Network header — the same header as www.thethingsnetwork.org. Links come
+     from data/site_nav.json and styles from static/css/ttn-chrome.css, both GENERATED from the
+     platform's one nav source (thethingsnetwork-v2: platform/app/lib/site-nav.ts, exported with
+     scripts/export-site-nav.mjs). Never hardcode a global nav link here. */ -}}
+{{- $nav := site.Data.site_nav -}}
+{{- $icons := site.Data.ttn_icons -}}
+{{- $origin := site.Params.ttnOrigin | default $nav.origin -}}
+<header class="ttn-chrome tn-header" data-ttn-header>
+  <div class="tn-header__bar">
+    <a href="{{ $origin }}/" class="tn-header__logo" aria-label="The Things Network home">
+      <img src="{{ "assets/ttn-horizontal.svg" | absURL }}" alt="The Things Network" width="150" height="34">
+    </a>
+
+    <button type="button" class="tn-header__toggle" aria-expanded="false" aria-controls="ttn-header-panel" data-ttn-toggle>
+      <svg class="tn-ico" viewBox="0 0 24 24" aria-hidden="true" data-ttn-open>{{ index $icons "menu-2" | safeHTML }}</svg>
+      <svg class="tn-ico" viewBox="0 0 24 24" aria-hidden="true" data-ttn-close hidden>{{ index $icons "x" | safeHTML }}</svg>
+      <span class="tn-sr">Menu</span>
+    </button>
+
+    <div class="tn-header__panel" id="ttn-header-panel">
+      <nav class="tn-header__nav" aria-label="Main">
+        {{- range $nav.header }}
+          {{- if .children }}
+          <details class="tn-drop">
+            <summary class="tn-header__link"{{ if eq .key "hardware" }} aria-current="page"{{ end }}>
+              {{ .label }} <svg class="tn-ico tn-drop__chev" viewBox="0 0 24 24" aria-hidden="true">{{ index $icons "chevron-down" | safeHTML }}</svg>
+            </summary>
+            <div class="tn-drop__menu">
+              {{- range .children }}
+              <a class="tn-drop__item" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+              {{- end }}
+            </div>
+          </details>
+          {{- else }}
+          <a class="tn-header__link" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+          {{- end }}
+        {{- end }}
+      </nav>
+      <div class="tn-header__auth">
+        <a href="{{ print $origin $nav.auth.login }}" class="tn-header__login">Log in</a>
+        <a href="{{ print $origin $nav.auth.signup }}" class="tn-btn tn-btn--sm">Sign up</a>
+      </div>
+    </div>
+  </div>
+</header>
+<script>
+  (function () {
+    var h = document.querySelector("[data-ttn-header]");
+    var b = h && h.querySelector("[data-ttn-toggle]");
+    if (!b) return;
+    b.addEventListener("click", function () {
+      var open = !h.hasAttribute("data-open");
+      if (open) h.setAttribute("data-open", ""); else h.removeAttribute("data-open");
+      b.setAttribute("aria-expanded", String(open));
+      b.querySelector("[data-ttn-open]").hidden = open;
+      b.querySelector("[data-ttn-close]").hidden = !open;
+    });
+    document.addEventListener("click", function (e) {
+      h.querySelectorAll("details[open]").forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute("open"); });
+    });
+  })();
+</script>
+
+{{- /* The Device Repository's own section bar, below the global header. */}}
+<div class="site-header dr-subbar">
   <div class="inner">
     <a class="brand-mark" href="{{ "" | absURL }}">
-      <img src="{{ "assets/ttn-horizontal.svg" | absURL }}" alt="The Things Network" />
-      <span class="pipe">/</span>
       <span class="repo">Device Repository for LoRaWAN<sup>®</sup></span>
     </a>
-    <nav class="nav">
-      <a {{ if or .IsHome (eq .Section "devices") (eq .Section "tags") }}class="active"{{ end }} href="{{ "" | absURL }}">Devices</a>
-      <a {{ if eq .Section "vendors" }}class="active"{{ end }} href="{{ "vendors/" | absURL }}">Vendors</a>
+    <nav class="nav" aria-label="Device Repository">
+      <a {{ if or .IsHome (eq .Section "devices") (eq .Section "tags") }}class="active" aria-current="page"{{ end }} href="{{ "" | absURL }}">Devices</a>
+      <a {{ if eq .Section "vendors" }}class="active" aria-current="page"{{ end }} href="{{ "vendors/" | absURL }}">Vendors</a>
     </nav>
     <div class="hdr-right">
       <label class="search-mini">
@@ -17,4 +79,4 @@
       </label>
     </div>
   </div>
-</header>
+</div>

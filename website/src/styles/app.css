@@ -1208,3 +1208,20 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 .faq-item summary::after { content: "+"; color: var(--text-3); font-weight: 400; font-size: 20px; line-height: 1; }
 .faq-item[open] summary::after { content: "\2212"; }
 .faq-item p { margin: 0; padding: 0 18px 16px; color: var(--text-2); font-size: 14.5px; line-height: 1.65; }
+
+/* ---------- Global TTN header on top (layouts/partials/header.html) ----------
+   The global header (.tn-header, 72px, sticky) comes from ttn-chrome.css; the repository's own
+   section bar now sits directly under it. */
+.site-header.dr-subbar {
+  top: 72px;
+  z-index: 30;
+  height: 56px;
+  background: var(--surface-page);
+}
+.site-header.dr-subbar .brand-mark { font-size: 15px; }
+.dr-repo-note { border-top: 1px solid var(--border-color); }
+.dr-repo-note .inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 32px; }
+.dr-repo-note .f-note { max-width: 640px; margin: 0; }
+@media (max-width: 960px) {
+  .site-header.dr-subbar { position: static; height: auto; }
+}
