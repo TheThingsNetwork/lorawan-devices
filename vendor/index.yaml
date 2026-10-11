@@ -2213,3 +2213,9 @@ vendors:
   - id: option
     name: Option NV
     website: https://www.option.com
+
+  - id: iotci
+    name: IoT CI
+    description: IoT CI designs, builds and runs LoRaWAN networks, sensors and data platforms from Jersey in the Channel Islands, and makes its own wireless LoRaWAN radon monitor.
+    website: https://iotci.co.uk
+    logo: iotci-logo.png
