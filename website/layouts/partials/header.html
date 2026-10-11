@@ -36,6 +36,9 @@
           {{- end }}
         {{- end }}
       </nav>
+      {{- with $nav.supportCta }}
+      <a class="tn-header__cta" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+      {{- end }}
       <div class="tn-header__auth">
         <a href="{{ print $origin $nav.auth.login }}" class="tn-header__login">Log in</a>
         <a href="{{ print $origin $nav.auth.signup }}" class="tn-btn tn-btn--sm">Sign up</a>
