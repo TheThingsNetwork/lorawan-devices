@@ -373,7 +373,7 @@
   background: #cce8ff;
 }
 
-/* "Need professional support?" — rendered only by the forum/docs exporters (site-nav.ts SUPPORT_CTA). */
+/* "Need professional support?" (site-nav.ts SUPPORT_CTA) — on this site, the forum and the docs. */
 .tn-header__cta {
   display: inline-flex;
   align-items: center;
@@ -586,7 +586,8 @@ a.tn-notifs__item:hover {
   color: var(--grey-900);
 }
 
-@media (max-width: 960px) {
+/* 1200px, not 960: with the support button the full nav no longer fits below that (same as the docs). */
+@media (max-width: 1200px) {
   .tn-header__bar {
     gap: 16px;
   }
