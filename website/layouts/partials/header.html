@@ -32,7 +32,7 @@
             </div>
           </details>
           {{- else }}
-          <a class="tn-header__link" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+          <a class="tn-header__link{{ if .highlight }} tn-header__link--highlight{{ end }}" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
           {{- end }}
         {{- end }}
       </nav>

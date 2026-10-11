@@ -6,6 +6,7 @@
       "href": "/docs/",
       "external": false,
       "key": "learn",
+      "highlight": false,
       "children": []
     },
     {
@@ -13,6 +14,7 @@
       "href": "/device-repository/",
       "external": false,
       "key": "hardware",
+      "highlight": false,
       "children": [
         {
           "label": "Device Repository",
@@ -31,6 +33,7 @@
       "href": "/forum",
       "external": false,
       "key": "forum",
+      "highlight": false,
       "children": []
     },
     {
@@ -38,6 +41,7 @@
       "href": "/community",
       "external": false,
       "key": "community",
+      "highlight": false,
       "children": []
     },
     {
@@ -45,6 +49,7 @@
       "href": "https://www.thethingsconference.com/",
       "external": true,
       "key": "conference",
+      "highlight": false,
       "children": []
     },
     {
@@ -52,9 +57,15 @@
       "href": "https://www.thethingsindustries.com/",
       "external": true,
       "key": "enterprise",
+      "highlight": true,
       "children": []
     }
   ],
+  "supportCta": {
+    "label": "Need professional support?",
+    "href": "https://www.thethingsindustries.com/",
+    "external": true
+  },
   "auth": {
     "login": "/get-started?login",
     "signup": "/get-started",

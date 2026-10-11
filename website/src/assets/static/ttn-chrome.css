@@ -362,6 +362,36 @@
   font-weight: 600;
 }
 
+.tn-header__link--highlight,
+.tn-header__link--highlight:hover {
+  background: var(--tn-tint);
+  color: var(--tn-blue-700);
+  font-weight: 600;
+}
+
+.tn-header__link--highlight:hover {
+  background: #cce8ff;
+}
+
+/* "Need professional support?" — rendered only by the forum/docs exporters (site-nav.ts SUPPORT_CTA). */
+.tn-header__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: var(--br-xxl);
+  background: var(--tn-navy);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tn-header__cta:hover {
+  background: var(--tn-navy-900);
+  color: #fff;
+}
+
 .tn-header__auth {
   display: flex;
   align-items: center;
