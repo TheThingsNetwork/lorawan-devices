@@ -275,17 +275,17 @@ h1 {
   font-weight: 700;
   letter-spacing: var(--lsp-s);
   line-height: var(--lh-xxs);
-  color: var(--grey-900);
+  color: var(--heading, var(--grey-900));
 }
 .t-display-xl { font-size: var(--fs-xl6); }
 .t-display-l  { font-size: var(--fs-xl5); }
 .t-display-m  { font-size: var(--fs-xl4); }
 .t-display-s  { font-size: var(--fs-xl3); }
 
-h2 { font-family: var(--font-body); font-size: var(--fs-xxl); font-weight: 700; line-height: var(--lh-xs); letter-spacing: var(--lsp-m); color: var(--grey-900); }
-h3 { font-family: var(--font-body); font-size: var(--fs-xl); font-weight: 700; line-height: var(--lh-xs); letter-spacing: var(--lsp-m); color: var(--grey-900); }
-h4 { font-family: var(--font-body); font-size: var(--fs-l); font-weight: 600; line-height: var(--lh-s); color: var(--grey-900); }
-h5 { font-family: var(--font-body); font-size: var(--fs-m); font-weight: 600; line-height: var(--lh-s); color: var(--grey-900); }
+h2 { font-family: var(--font-body); font-size: var(--fs-xxl); font-weight: 700; line-height: var(--lh-xs); letter-spacing: var(--lsp-m); color: var(--heading, var(--grey-900)); }
+h3 { font-family: var(--font-body); font-size: var(--fs-xl); font-weight: 700; line-height: var(--lh-xs); letter-spacing: var(--lsp-m); color: var(--heading, var(--grey-900)); }
+h4 { font-family: var(--font-body); font-size: var(--fs-l); font-weight: 600; line-height: var(--lh-s); color: var(--heading, var(--grey-900)); }
+h5 { font-family: var(--font-body); font-size: var(--fs-m); font-weight: 600; line-height: var(--lh-s); color: var(--heading, var(--grey-900)); }
 
 p { font-size: var(--fs-m); line-height: var(--lh-m); color: var(--c-text-heavy); margin: 0 0 var(--cs-m); }
 small, .t-small { font-size: var(--fs-s); line-height: var(--lh-s); }
@@ -301,4 +301,6 @@ small, .t-small { font-size: var(--fs-s); line-height: var(--lh-s); }
 code, pre, .t-mono { font-family: var(--font-mono); font-size: 0.9em; }
 
 a { color: var(--c-text-brand); text-decoration: none; }
-a:hover { color: var(--c-text-brand-hover); text-decoration: underline; }
+/* As on www: links don't underline on hover by default (the colour change is the affordance);
+   prose links opt in (e.g. .tag-prose a:hover). */
+a:hover { color: var(--c-text-brand-hover); }
