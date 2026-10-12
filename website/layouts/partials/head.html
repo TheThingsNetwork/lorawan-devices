@@ -40,10 +40,13 @@
   <meta name="application-name" content="{{ .Title }} | {{ .Site.Title }}" />
   <meta property="og:site_name" content="{{ .Site.Params.sitename }}" />
 
-  <meta name="description" content="{{ .Params.description }}" />
-  <meta itemprop="description" content="{{ .Params.description }}" />
-  <meta property="og:description" content="{{ .Params.description }}" />
-  <meta name="twitter:description" content="{{ .Params.description }}" />
+  {{- $description := partial "meta-description.html" . }}
+  {{- with $description }}
+  <meta name="description" content="{{ . }}" />
+  <meta itemprop="description" content="{{ . }}" />
+  <meta property="og:description" content="{{ . }}" />
+  <meta name="twitter:description" content="{{ . }}" />
+  {{- end }}
 
   <base href="{{ .Permalink }}">
   <link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
