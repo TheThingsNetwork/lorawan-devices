@@ -109,6 +109,9 @@
             <div class="aside-card">
               <h4>At a glance</h4>
               <div class="aside-row"><span class="k">Model ID</span><span class="v" style="font-family: var(--font-mono); font-size: 12px;">{{ $p.modelid }}</span></div>
+              {{ with index site.Data.wall_of_fame.devices $p.vendor.id }}{{ with index . $p.modelid }}
+              <div class="aside-row" data-wall-of-fame="{{ delimit . " " }}"><span class="k">Wall of Fame</span><span class="v">{{ range $i, $e := . }}{{ if $i }}, {{ end }}{{ with index site.Data.wall_of_fame.events $e }}<span title="Shown on the device wall at {{ .name }}">{{ .short }}</span>{{ end }}{{ end }}</span></div>
+              {{ end }}{{ end }}
               {{ with $p.classes }}<div class="aside-row"><span class="k">LoRaWAN class</span><span class="v">{{ delimit . " / " }}</span></div>{{ end }}
               {{ with $p.macversions }}<div class="aside-row"><span class="k">MAC version</span><span class="v">{{ delimit . ", " }}</span></div>{{ end }}
               {{ with $p.ipcode }}<div class="aside-row"><span class="k">IP rating</span><span class="v">{{ . }}</span></div>{{ end }}
