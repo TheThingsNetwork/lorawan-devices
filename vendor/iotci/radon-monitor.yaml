@@ -1,0 +1,63 @@
+name: Wireless LoRaWAN Radon Monitor
+description: A truly wireless, battery-powered LoRaWAN radon monitor that runs for five years and more on its battery. Air diffuses into a passive measuring chamber where alpha particles from radon decay are detected, so there is no pump, no power cable and no data cable. It reports the radon concentration in Bq/m³ around the clock, for homes, rented property, workplaces and schools. A keyhole slot on the back hangs it on a single screw.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        id: radon-monitor-profile
+        lorawanCertified: false
+        codec: radon-monitor-codec
+
+# Commercial off-the-shelf device
+deviceType: cots
+
+# Sensors that this device features
+sensors:
+  - radon
+
+# Dimensions in mm
+dimensions:
+  width: 101
+  length: 101
+  height: 38.7
+
+# Weight in grams, including the battery
+weight: 210
+
+# Battery information
+battery:
+  type: 2 x 3.6 V lithium (ER14505)
+
+# Operating conditions
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: 0
+    max: 40
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 0.95
+
+# Product URL
+productURL: https://iotci.co.uk/devices/radon-monitor
+
+# Photos
+photos:
+  main: radon-monitor.jpg
+  other:
+    - radon-monitor-angle.jpg
+    - radon-monitor-back.jpg
