@@ -1,0 +1,13 @@
+id: ws-w015
+name: WS-W015
+description: "Wet/wet differential pressure sensor, 0–15 PSI range, 22.5 PSI maximum pressure, ±0.5% FS accuracy"
+photos:
+  main: ws-w.png
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec
