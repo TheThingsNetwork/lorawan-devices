@@ -1,0 +1,68 @@
+name: KOU20 - Senzemo sensor
+description: Senzemo KOU20 is a cost-effective compost temperature sensor.
+
+hardwareVersions:
+  - version: '2.0'
+    numeric: 20
+    partNumber: KOU20
+
+firmwareVersions:
+  - version: '1.0'
+    numeric: 10
+    hardwareVersions:
+      - '2.0'
+    profiles:
+      EU863-870:
+        id: profile-eu868
+        lorawanCertified: false
+        codec: kou20-codec
+      AS923:
+        id: profile-as923
+        lorawanCertified: false
+        codec: kou20-codec
+      US902-928:
+        id: profile-us915
+        lorawanCertified: false
+        codec: kou20-codec
+      AU915-928:
+        id: profile-au915
+        lorawanCertified: false
+        codec: kou20-codec
+
+sensors:
+  - temperature
+  - battery
+  - accelerometer
+
+dimensions:
+  width: 40
+  length: 1450
+  height: 24
+
+weight: 3000
+
+battery:
+  replaceable: true
+  type: AA
+
+operatingConditions:
+  temperature:
+    min: -40
+    max: 85
+  relativeHumidity:
+    min: 0
+    max: 1
+
+ipCode: IP64
+
+keyProvisioning:
+  - custom
+  - join server
+
+keySecurity: none
+
+productURL: https://senzemo.com/
+dataSheetURL: https://senzemo.com/wp-content/uploads/2026/09/KOU20_Datasheet_1v2.pdf
+
+photos:
+  main: kou20.jpg
