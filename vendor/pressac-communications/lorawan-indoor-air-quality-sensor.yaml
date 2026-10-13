@@ -1,0 +1,82 @@
+name: LoRaWAN Indoor Air Quality Sensor
+description: Indoor air quality sensor accurately measures the environmental conditions providing essential data for IoT platforms for healthier, more efficient buildings.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.0.0.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.0.0.0'
+    numeric: 1
+
+    hardwareVersions:
+      - '1.0.0.0'
+
+    # Firmware features (optional)
+    # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
+    # often he device sends a message).
+    features:
+      - remote rejoin
+      - transmission interval
+
+    # LoRaWAN Device Profiles per region
+    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
+    # RU864-870
+    profiles:
+      EU863-870:
+        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
+        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
+        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
+        # which is verbose.
+        vendorID: pressac-communications
+        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: iaq-sensor-profile
+        lorawanCertified: false
+        codec: iaq-sensor-codec
+
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity, current, digital input,
+# digital output, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, hall effect, humidity, iaq, infrared, leaf wetness, level,
+# light, lightning, link, magnetometer, moisture, motion, nfc, no, no2, o3, occupancy, optical meter, particulate matter, ph, pir,
+# pm2.5, pm10, potentiometer, power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, reed switch, rssi,
+# sap flow, smart valve, smoke, snr, so2, solar radiation, sound, strain, surface temperature, switch, temperature, tilt, time, turbidity,
+# tvoc, uv, vapor pressure, velocity, vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - co2
+  - temperature
+  - humidity
+  - tvoc
+  - pm2.5
+  - pm10
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 42
+  length: 110
+  height: 100
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -10
+    max: 55
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - join server
+
+# Product and data sheet URLs (optional)
+productURL: https://www.pressac.com/environment-sensors/lorawan-indoor-air-quality-sensors/
+dataSheetURL: https://support.pressac.com/hubfs/Datasheets%202024/Datasheet%20-%20LoRaWAN%20Indoor%20Air%20Quality%20Sensor.pdf
+
+# Photos
+photos:
+  main: iaq-sensor.jpg # Image needs to have a transparent background
