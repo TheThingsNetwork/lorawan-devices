@@ -25,6 +25,7 @@ html, body {
   --text-2: var(--grey-700);
   --text-3: var(--grey-600);
   --text-4: var(--grey-500);
+  --text-label: var(--grey-700); /* 13px labels (filters, quick facts, side cards): 6:1 on white; --text-3 is 3.6:1 */
   /* The Things Network design language — the --tn-* tokens (TTN blue for buttons, fills, active
      controls and card hover borders; navy for headings) come from ttn-tokens.css (the www platform's
      export). Text links use --link (tti-500, tokens.css `a`), never these. */
@@ -38,6 +39,7 @@ html, body {
 }
 
 [data-theme="dark"] {
+  --focus-ring: var(--focus-ring-on-dark);
   --surface-page: #0A1020;
   --surface-card: #131B30;
   --surface-subtle: #0F1628;
@@ -49,6 +51,7 @@ html, body {
   --text-2: #B6C2D8;
   --text-3: #8A98B5;
   --text-4: #6A7896;
+  --text-label: var(--text-2);
   --tn-blue: #4DB4FF;
   --heading: var(--text-1);
   --brand: #4DB4FF;
@@ -78,6 +81,8 @@ html, body {
   background: transparent; border: 0; outline: 0;
   font: inherit; color: var(--text-1); flex: 1;
 }
+/* The input has no outline of its own: the field shows the shared focus ring (ttn-tokens.css). */
+.search-mini:focus-within { border-color: var(--brand); box-shadow: var(--focus-ring); }
 .search-mini kbd {
   font-family: var(--font-mono); font-size: 11px;
   background: var(--surface-page); border: 1px solid var(--border-color);
@@ -100,6 +105,11 @@ html, body {
   text-decoration: none;
 }
 .btn:hover { text-decoration: none; }
+.btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+/* Page header actions: the shared button spec (brand-page-header.md, tn-ph__actions = the website's
+   .tn-btn--lg): 48px, 14px 26px, Inter 15/600; primary = the ttn-500 fill, secondary = white. */
+.tn-ph__actions .btn { padding: 14px 26px; font-size: 15px; line-height: 18px; }
+.tn-ph__actions .btn-secondary { background: #fff; }
 .btn-primary { background: var(--tn-blue); border-color: var(--tn-blue); color: #fff; }
 .btn-primary:hover { background: var(--brand); border-color: var(--brand); color: #fff; }
 .btn-secondary { background: transparent; border-color: var(--border-color-strong); color: var(--text-1); }
@@ -150,7 +160,7 @@ html, body {
   border-radius: var(--radius); padding: 14px 18px;
   font-size: 15px;
 }
-.search-input:focus-within { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-tint); }
+.search-input:focus-within { border-color: var(--brand); box-shadow: var(--focus-ring); }
 .search-input input { flex: 1; border: 0; outline: 0; background: transparent; font: inherit; color: var(--text-1); }
 .search-input .ico { color: var(--text-3); }
 
@@ -175,12 +185,16 @@ html, body {
 .filter-sidebar::-webkit-scrollbar { width: 6px; }
 .filter-sidebar::-webkit-scrollbar-thumb { background: var(--border-color-strong); border-radius: var(--radius-full); }
 
-.filter-block { padding: 18px 0; border-bottom: 1px solid var(--border-color); }
+.filter-block { min-width: 0; margin: 0; padding: 18px 0; border: 0; border-bottom: 1px solid var(--border-color); }
 .filter-block:first-child { padding-top: 0; }
-.filter-block h3 {
+/* A filter group's label: a <legend> (the group is a <fieldset>), not a heading. Label / Small 13/16 600;
+   --text-label (grey-700, 6:1 on white). Floated so its margin works like a block's. */
+.filter-label {
+  float: left; width: 100%; padding: 0;
   font-family: var(--font-body); font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0;
-  color: var(--text-3); margin: 0 0 12px;
+  color: var(--text-label); margin: 0 0 12px;
 }
+.filter-label + * { clear: both; }
 .filter-list { display: flex; flex-direction: column; gap: 6px; }
 .filter-list label {
   display: flex; align-items: center; justify-content: space-between;
@@ -294,7 +308,7 @@ html, body {
   background: var(--surface-muted); border-radius: var(--radius-full);
   color: var(--text-2); font-weight: 500;
 }
-.tag.cert { background: var(--success-050); color: var(--success-700); }
+.tag.cert { background: var(--success-050); color: var(--success-800); }
 .tag.brand { background: var(--brand-tint); color: var(--brand); }
 
 /* ============ DEVICE LIST VIEW ============ */
@@ -380,8 +394,8 @@ html, body {
   background: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-full);
   color: var(--text-2);
 }
-.fact .lab { color: var(--text-3); font-weight: 500; }
-.fact.cert { background: var(--success-050); border-color: var(--success-100); color: var(--success-700); }
+.fact .lab { color: var(--text-label); font-weight: 500; }
+.fact.cert { background: var(--success-050); border-color: var(--success-100); color: var(--success-800); }
 a.fact { text-decoration: none; }
 a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 
@@ -415,8 +429,8 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 .tab-content { padding: 28px 0 80px; }
 .tab-panel[hidden] { display: none; }
 
-.detail-grid { display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start; }
-@media (max-width: 1000px) { .detail-grid { grid-template-columns: 1fr; } }
+.detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
+@media (max-width: 1000px) { .detail-grid { grid-template-columns: minmax(0, 1fr); } }
 
 .section { margin-bottom: 36px; }
 /* In-page section headings: Poppins SemiBold, H5 21/29; their subheadings H6 16/21 (typography.md). */
@@ -449,7 +463,7 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 .spec-table td, .spec-table th { padding: 12px 0; font-size: 14px; color: var(--text-1); vertical-align: top; text-align: left; }
 .spec-table td:first-child { color: var(--text-3); font-weight: 500; width: 40%; }
 .spec-table td:last-child { font-weight: 500; }
-.spec-table .yes { color: var(--success-700); font-weight: 600; }
+.spec-table .yes { display: inline-flex; align-items: center; gap: 4px; color: var(--success-800); font-weight: 600; }
 
 /* Sidebar info card */
 .aside-card {
@@ -459,10 +473,10 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
   padding: 20px;
   margin-bottom: 16px;
 }
-.aside-card h3 { font-family: var(--font-body); font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0; color: var(--text-3); margin: 0 0 14px; }
+.aside-label { font-family: var(--font-body); font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0; color: var(--text-label); margin: 0 0 14px; }
 .aside-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-color); font-size: 13px; line-height: 20px; }
 .aside-row:last-child { border-bottom: 0; }
-.aside-row .k { color: var(--text-3); flex-shrink: 0; }
+.aside-row .k { color: var(--text-label); flex-shrink: 0; }
 .aside-row .v { color: var(--text-1); font-weight: 500; text-align: right; overflow-wrap: anywhere; }
 
 /* Code blocks */
@@ -574,7 +588,7 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 .onboard-banner .btn:hover { background: var(--tn-tint); }
 
 /* Downloads */
-.downloads { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.downloads { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
 .download-row {
   display: flex; align-items: center; gap: 14px;
   padding: 14px; background: var(--surface-card);
@@ -711,7 +725,7 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
   font: inherit; font-size: 13.5px; outline: none;
 }
 .em-field input { font-family: var(--font-mono); font-size: 12.5px; }
-.em-field input:focus, .em-field select:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint); }
+.em-field input:focus, .em-field select:focus { border-color: var(--brand); box-shadow: var(--focus-ring); }
 .em-field input:disabled, .em-field select:disabled { opacity: .55; cursor: not-allowed; }
 .em-hint { font-size: 11px; color: var(--text-4); }
 .em-row { display: flex; gap: 14px; }
@@ -783,7 +797,7 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
   resize: vertical;
 }
 .s-field input:focus, .s-field select:focus, .s-field textarea:focus {
-  border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint);
+  border-color: var(--brand); box-shadow: var(--focus-ring);
 }
 .s-hint { font-size: 11px; color: var(--text-4); }
 
@@ -994,9 +1008,10 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
 .be-cla { display: flex; gap: 9px; align-items: flex-start; font-size: 13px; color: var(--text-2); line-height: 1.5; }
 .be-cla input { margin-top: 3px; flex-shrink: 0; }
 .be-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.be-error { color: var(--danger, #d23); font-size: 13px; margin: 0; }
+.be-error { color: var(--error-700); font-size: 13px; margin: 0; }
 .be-progress, .be-done, .be-error-state { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 18px 0; }
-.be-done-title { font-size: 16px; font-weight: 600; color: var(--heading); margin: 0; }
+.be-done-title { display: inline-flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 600; color: var(--heading); margin: 0; }
+.be-done-title .ico { color: var(--success-700); }
 .be-spinner {
   width: 28px; height: 28px; border-radius: 50%;
   border: 3px solid var(--border-color); border-top-color: var(--brand);

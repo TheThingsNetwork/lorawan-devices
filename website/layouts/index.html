@@ -31,7 +31,7 @@
       <div class="tn-ph__body">
         <div class="tn-ph__main">
           <p class="tn-eyebrow tn-ph__eyebrow">Hardware</p>
-          <h1 class="tn-ph__title">Device Repository for <em>LoRaWAN®</em></h1>
+          <h1 class="tn-ph__title">Device Repository for <em>LoRaWAN<sup>®</sup></em></h1>
           <p class="tn-ph__lede">Browse {{ lang.FormatNumber 0 $deviceCount }} LoRaWAN end devices from {{ lang.FormatNumber 0 $vendorCount }} vendors. Filter by sensor, frequency plan, device class or certification, and onboard directly to The Things Stack.</p>
         </div>
       </div>
@@ -66,8 +66,8 @@
         </button>
         <aside class="filter-sidebar" aria-labelledby="filters-heading">
           <h2 class="visually-hidden" id="filters-heading">Filters</h2>
-          <div class="filter-block">
-            <h3>Sensor type</h3>
+          <fieldset class="filter-block">
+            <legend class="filter-label">Sensor type</legend>
             <div class="filter-list scrollable">
               {{ range $s := $sensorValues }}
               <label>
@@ -79,37 +79,37 @@
               </label>
               {{ end }}
             </div>
-          </div>
+          </fieldset>
 
-          <div class="filter-block">
-            <h3>Frequency plan</h3>
+          <fieldset class="filter-block">
+            <legend class="filter-label">Frequency plan</legend>
             <div class="filter-pills">
               {{ range $planValues }}
               <button class="filter-pill" data-facet="plans" value="{{ . }}">{{ . }}</button>
               {{ end }}
             </div>
-          </div>
+          </fieldset>
 
-          <div class="filter-block">
-            <h3>LoRaWAN class</h3>
+          <fieldset class="filter-block">
+            <legend class="filter-label">LoRaWAN class</legend>
             <div class="filter-pills">
               {{ range $c := slice "A" "B" "C" }}
               <button class="filter-pill" data-facet="classes" value="{{ $c }}">Class {{ $c }}</button>
               {{ end }}
             </div>
-          </div>
+          </fieldset>
 
-          <div class="filter-block">
-            <h3>IP rating</h3>
+          <fieldset class="filter-block">
+            <legend class="filter-label">IP rating</legend>
             <div class="filter-pills">
               {{ range $ip, $n := $ipCounts }}
               <button class="filter-pill" data-facet="ip" value="{{ $ip }}">{{ $ip }}</button>
               {{ end }}
             </div>
-          </div>
+          </fieldset>
 
-          <div class="filter-block">
-            <h3>Other</h3>
+          <fieldset class="filter-block">
+            <legend class="filter-label">Other</legend>
             <div class="filter-list">
               <label>
                 <span class="lname">
@@ -126,7 +126,7 @@
                 <span class="count">{{ $codecCount }}</span>
               </label>
             </div>
-          </div>
+          </fieldset>
         </aside>
       </div>
 

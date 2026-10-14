@@ -200,7 +200,8 @@
      Values unchanged. ===== */
   --tn-blue: var(--ttn-primary);          /* buttons, fills, card hover borders */
   --tn-blue-600: var(--ttn-primary-600);  /* button hover */
-  --tn-blue-700: #0071c7;                 /* eyebrow, badge and tile text on tints (4.65:1 on --tti-050) */
+  --tn-blue-700: #0071c7;                 /* eyebrow, badge and tile text on the --tti-050 band (4.65:1);
+                                             only 4.48:1 on --tn-tint, so not for small text there */
   --tn-navy: var(--ttn-primary-dark);     /* headings, dark chapters */
   --tn-navy-900: #00103f;
   --tn-ink: #000e36;                      /* footer */
@@ -220,6 +221,13 @@
   --link-hover: var(--tti-600);           /* 8.2:1 on white */
   --link-on-dark: var(--tti-300);
   --link-on-dark-hover: var(--tti-200);   /* 8.8:1 on --tn-navy */
+
+  /* ===== FOCUS (owner 2026-10-14: one ring everywhere, exported to the docs and device repository) =====
+     A 2px white gap + a 2px tti-500 ring: 5.8:1 on the --tti-050 band, 6.3:1 on white, and the white gap
+     keeps it visible next to a --tn-blue fill (tti-500 alone is 2.3:1 there). WCAG 1.4.11 needs 3:1.
+     On dark surfaces (navy, ink): the surface-coloured gap + a tti-300 ring (5.9:1 on --tn-navy). */
+  --focus-ring: 0 0 0 2px #fff, 0 0 0 4px var(--tti-500);
+  --focus-ring-on-dark: 0 0 0 2px var(--tn-navy), 0 0 0 4px var(--tti-300);
 
   /* ===== SEMANTIC TOKENS (TTI brand defaults) ===== */
   /* Text */
@@ -622,6 +630,14 @@
   font-style: normal;
 }
 
+/* A trademark sign (LoRaWAN®) in a title: small and raised, never at Display size, and without
+   stretching the line box. */
+.tn-ph__title sup {
+  font-size: 0.4em;
+  line-height: 0;
+  vertical-align: 0.9em;
+}
+
 /* Body / XL 18/25 Regular. */
 .tn-ph__lede {
   max-width: 60ch;
@@ -630,6 +646,18 @@
   font-weight: 400;
   line-height: var(--type-body-xl-lh);
   text-wrap: pretty;
+}
+
+/* A link inside the lede is underlined (WCAG 1.4.1: never colour alone), also on hover. */
+.tn-ph__lede a,
+.tn-ph__lede a:hover {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.tn-ph__lede a:hover {
+  color: var(--link-hover);
 }
 
 /* Badges, tags or quick facts. */
@@ -753,7 +781,7 @@
 }
 
 .tn-ph__stat:has(a:focus-visible) {
-  box-shadow: 0 0 0 3px #cce8ff;
+  box-shadow: var(--focus-ring);
 }
 
 /* ---------- Tabs (sections of the same page family, e.g. a hub's Overview / Posts) ---------- */
@@ -902,14 +930,25 @@
     font-size: var(--type-h4-size);
   }
 
+  /* Phones: title, tabs and tools wrap onto their own rows, with room between them; the tab text lines
+     up with the title and each tab stays a 40px target. */
   .tn-ph-subnav__bar {
     flex-wrap: wrap;
-    gap: 0 16px;
+    gap: 4px 16px;
+    padding-block: 12px 0;
+  }
+
+  .tn-ph-subnav__nav {
+    margin-inline-start: -8px;
+  }
+
+  .tn-ph-subnav__link {
+    min-height: 40px;
   }
 
   .tn-ph-subnav__tools {
     flex-basis: 100%;
     margin-left: 0;
-    padding-bottom: 8px;
+    padding-block: 8px 12px;
   }
 }

@@ -160,7 +160,8 @@
      Values unchanged. ===== */
   --tn-blue: var(--ttn-primary);          /* buttons, fills, card hover borders */
   --tn-blue-600: var(--ttn-primary-600);  /* button hover */
-  --tn-blue-700: #0071c7;                 /* eyebrow, badge and tile text on tints (4.65:1 on --tti-050) */
+  --tn-blue-700: #0071c7;                 /* eyebrow, badge and tile text on the --tti-050 band (4.65:1);
+                                             only 4.48:1 on --tn-tint, so not for small text there */
   --tn-navy: var(--ttn-primary-dark);     /* headings, dark chapters */
   --tn-navy-900: #00103f;
   --tn-ink: #000e36;                      /* footer */
@@ -180,6 +181,13 @@
   --link-hover: var(--tti-600);           /* 8.2:1 on white */
   --link-on-dark: var(--tti-300);
   --link-on-dark-hover: var(--tti-200);   /* 8.8:1 on --tn-navy */
+
+  /* ===== FOCUS (owner 2026-10-14: one ring everywhere, exported to the docs and device repository) =====
+     A 2px white gap + a 2px tti-500 ring: 5.8:1 on the --tti-050 band, 6.3:1 on white, and the white gap
+     keeps it visible next to a --tn-blue fill (tti-500 alone is 2.3:1 there). WCAG 1.4.11 needs 3:1.
+     On dark surfaces (navy, ink): the surface-coloured gap + a tti-300 ring (5.9:1 on --tn-navy). */
+  --focus-ring: 0 0 0 2px #fff, 0 0 0 4px var(--tti-500);
+  --focus-ring-on-dark: 0 0 0 2px var(--tn-navy), 0 0 0 4px var(--tti-300);
 
   /* ===== SEMANTIC TOKENS (TTI brand defaults) ===== */
   /* Text */
@@ -442,7 +450,13 @@
 .tn-header__link:focus-visible,
 .tn-header__toggle:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px #cce8ff;
+  box-shadow: var(--focus-ring);
+}
+
+/* The buttons made for dark sections take the dark-surface ring. */
+.tn-btn--white:focus-visible,
+.tn-btn--ghost-invert:focus-visible {
+  box-shadow: var(--focus-ring-on-dark);
 }
 
 /* ---------- Header ---------- */
@@ -520,7 +534,7 @@
 .tn-header__link--highlight,
 .tn-header__link--highlight:hover {
   background: var(--tn-tint);
-  color: var(--tn-blue-700);
+  color: var(--ttn-700); /* 5.7:1 on --tn-tint, 5.1:1 on the hover fill (WCAG AA for 14px text) */
   font-weight: 600;
 }
 

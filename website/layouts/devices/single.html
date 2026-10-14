@@ -106,7 +106,7 @@
           </div>
           <div>
             <div class="aside-card">
-              <h3>At a glance</h3>
+              <p class="aside-label">At a glance</p>
               <div class="aside-row"><span class="k">Model ID</span><span class="v" style="font-family: var(--font-mono); font-size: 12px;">{{ $p.modelid }}</span></div>
               {{ with $p.classes }}<div class="aside-row"><span class="k">LoRaWAN class</span><span class="v">{{ delimit . " / " }}</span></div>{{ end }}
               {{ with $p.macversions }}<div class="aside-row"><span class="k">MAC version</span><span class="v">{{ delimit . ", " }}</span></div>{{ end }}
@@ -123,7 +123,7 @@
               {{ end }}{{ end }}
             </div>
             <div class="aside-card">
-              <h3>Downloads & links</h3>
+              <p class="aside-label">Downloads & links</p>
               <div class="downloads">
                 {{ with $p.datasheeturl }}
                 <a class="download-row" href="{{ . }}" rel="noopener">
@@ -152,7 +152,7 @@
             {{ $related := first 3 (where .Parent.RegularPages "Permalink" "ne" .Permalink) }}
             {{ with $related }}
             <div class="aside-card">
-              <h3>More from {{ $p.vendor.name }}</h3>
+              <p class="aside-label">More from {{ $p.vendor.name }}</p>
               {{ range . }}
               <a class="related-mini" href="{{ .Permalink }}">
                 <div class="rm-thumb">
@@ -231,7 +231,7 @@
           </div>
           <div>
             <div class="aside-card">
-              <h3>Standards</h3>
+              <p class="aside-label">Standards</p>
               <div style="font-size: 13px; color: var(--text-2); line-height: 20px;">
                 Designed for LoRaWAN {{ with $p.macversions }}{{ delimit . ", " }}{{ else }}—{{ end }}
                 {{ with $p.regionalparametersversions }} with regional parameters {{ delimit . ", " }}{{ end }}.
@@ -269,7 +269,7 @@
                   {{ else }}
                   <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
                   {{ end }}
-                  <td>{{ if $prof.lorawanCertified }}<span class="yes">✓ Yes</span>{{ else }}—{{ end }}</td>
+                  <td>{{ if $prof.lorawanCertified }}<span class="yes">{{ partial "icon.html" (dict "name" "check") }}Yes</span>{{ else }}—{{ end }}</td>
                 </tr>
                 {{ end }}
               </tbody>
