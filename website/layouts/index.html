@@ -58,7 +58,7 @@
         </button>
         <aside class="filter-sidebar">
           <div class="filter-block">
-            <h4>Sensor type</h4>
+            <h2>Sensor type</h2>
             <div class="filter-list scrollable">
               {{ range $s := $sensorValues }}
               <label>
@@ -73,7 +73,7 @@
           </div>
 
           <div class="filter-block">
-            <h4>Frequency plan</h4>
+            <h2>Frequency plan</h2>
             <div class="filter-pills">
               {{ range $planValues }}
               <button class="filter-pill" data-facet="plans" value="{{ . }}">{{ . }}</button>
@@ -82,7 +82,7 @@
           </div>
 
           <div class="filter-block">
-            <h4>LoRaWAN class</h4>
+            <h2>LoRaWAN class</h2>
             <div class="filter-pills">
               {{ range $c := slice "A" "B" "C" }}
               <button class="filter-pill" data-facet="classes" value="{{ $c }}">Class {{ $c }}</button>
@@ -91,7 +91,7 @@
           </div>
 
           <div class="filter-block">
-            <h4>IP rating</h4>
+            <h2>IP rating</h2>
             <div class="filter-pills">
               {{ range $ip, $n := $ipCounts }}
               <button class="filter-pill" data-facet="ip" value="{{ $ip }}">{{ $ip }}</button>
@@ -100,7 +100,7 @@
           </div>
 
           <div class="filter-block">
-            <h4>Other</h4>
+            <h2>Other</h2>
             <div class="filter-list">
               <label>
                 <span class="lname">

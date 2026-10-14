@@ -82,7 +82,7 @@
             </div>
             <div class="section">
               <h2>Key features</h2>
-              <ul style="font-size: 14px; color: var(--text-2); line-height: 1.8; padding-left: 20px;">
+              <ul style="font-size: 14px; color: var(--text-2); line-height: 1.5; padding-left: 20px;">
                 {{ with $p.sensors }}<li>Sensors: {{ delimit . ", " }}.</li>{{ end }}
                 {{ if $p.certified }}<li>LoRa Alliance certified, verified interoperability with The Things Stack and other LoRaWAN network servers.</li>{{ end }}
                 {{ if $hasCodec }}<li>Payload codec included, uplink decoder ready for one-click activation.</li>{{ end }}
@@ -107,7 +107,7 @@
           </div>
           <div>
             <div class="aside-card">
-              <h4>At a glance</h4>
+              <h3>At a glance</h3>
               <div class="aside-row"><span class="k">Model ID</span><span class="v" style="font-family: var(--font-mono); font-size: 12px;">{{ $p.modelid }}</span></div>
               {{ with $p.classes }}<div class="aside-row"><span class="k">LoRaWAN class</span><span class="v">{{ delimit . " / " }}</span></div>{{ end }}
               {{ with $p.macversions }}<div class="aside-row"><span class="k">MAC version</span><span class="v">{{ delimit . ", " }}</span></div>{{ end }}
@@ -124,7 +124,7 @@
               {{ end }}{{ end }}
             </div>
             <div class="aside-card">
-              <h4>Downloads & links</h4>
+              <h3>Downloads & links</h3>
               <div class="downloads">
                 {{ with $p.datasheeturl }}
                 <a class="download-row" href="{{ . }}" rel="noopener">
@@ -153,7 +153,7 @@
             {{ $related := first 3 (where .Parent.RegularPages "Permalink" "ne" .Permalink) }}
             {{ with $related }}
             <div class="aside-card">
-              <h4>More from {{ $p.vendor.name }}</h4>
+              <h3>More from {{ $p.vendor.name }}</h3>
               {{ range . }}
               <a class="related-mini" href="{{ .Permalink }}">
                 <div class="rm-thumb">
@@ -162,7 +162,7 @@
                   <img src="{{ (.Resize "200x").RelPermalink }}" alt="" loading="lazy" />
                   {{ end }}{{ end }}{{ end }}
                 </div>
-                <div><h5>{{ .Params.name }}</h5><div class="v">{{ $p.vendor.name }}</div></div>
+                <div><h4>{{ .Params.name }}</h4><div class="v">{{ $p.vendor.name }}</div></div>
               </a>
               {{ end }}
             </div>
@@ -232,8 +232,8 @@
           </div>
           <div>
             <div class="aside-card">
-              <h4>Standards</h4>
-              <div style="font-size: 12px; color: var(--text-2); line-height: 1.7;">
+              <h3>Standards</h3>
+              <div style="font-size: 13px; color: var(--text-2); line-height: 20px;">
                 Designed for LoRaWAN {{ with $p.macversions }}{{ delimit . ", " }}{{ else }}—{{ end }}
                 {{ with $p.regionalparametersversions }} with regional parameters {{ delimit . ", " }}{{ end }}.
                 Profiles in this repository are loaded automatically by The Things Stack.
@@ -363,28 +363,28 @@
             <div class="wizard-step">
               <div class="num">1</div>
               <div class="body">
-                <h5>Create an application</h5>
+                <h4>Create an application</h4>
                 <p>In The Things Stack console, go to <strong>Applications → Create application</strong> and pick a unique application ID.</p>
               </div>
             </div>
             <div class="wizard-step">
               <div class="num">2</div>
               <div class="body">
-                <h5>Register an end device</h5>
+                <h4>Register an end device</h4>
                 <p>Choose <strong>From the LoRaWAN Device Repository</strong> and search for “{{ $p.name }}”. Select your firmware version and frequency plan.</p>
               </div>
             </div>
             <div class="wizard-step">
               <div class="num">3</div>
               <div class="body">
-                <h5>Enter device credentials</h5>
+                <h4>Enter device credentials</h4>
                 <p>Provide the <strong>DevEUI</strong>, <strong>JoinEUI</strong> and <strong>AppKey</strong> printed on the device label or QR code.</p>
               </div>
             </div>
             <div class="wizard-step">
               <div class="num">4</div>
               <div class="body">
-                <h5>Power on & verify uplinks</h5>
+                <h4>Power on & verify uplinks</h4>
                 <p>Within a few minutes you'll see the join request and {{ if $hasCodec }}decoded {{ end }}uplinks in the <strong>Live data</strong> tab.</p>
               </div>
             </div>
