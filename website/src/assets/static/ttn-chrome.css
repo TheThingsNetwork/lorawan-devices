@@ -141,13 +141,14 @@
   --fs-display-lg: clamp(3rem, 8vw, 6rem);        /* flagship hero (Community front door) */
   --fs-lede:       clamp(1.05rem, 1.6vw, 1.3rem); /* hero sub-headline */
 
-  /* Line-heights */
-  --lh-xxs: 1.1;
-  --lh-xs:  1.2;
-  --lh-s:   1.5;
-  --lh-m:   1.687;
-  --lh-l:   1.875;
-  --lh-xl:  2;
+  /* Line-heights: typography.md (brand 2026-10). No element inherits more than 1.5; only
+     deliberate long-form copy (article and help bodies) sets its own looser value. */
+  --lh-xxs: 1.1;   /* display, H1 */
+  --lh-xs:  1.2;   /* labels, buttons, card titles; Label / Small is 13/16 */
+  --lh-s:   1.5;   /* Body / Small 14/21 */
+  --lh-m:   1.4;   /* Body / Default 15/21 (was 1.687) */
+  --lh-l:   1.4;   /* Body / Large 17/24, Body / XL 18/25 (was 1.875) */
+  --lh-xl:  1.5;   /* Body / XS 13/20, capped at 1.5 (was 2) */
 
   /* Font weights */
   --fw-light: 300;
@@ -180,13 +181,17 @@
   --ls-xxl: 10rem;
   --ls-xl3: 12.5rem;
 
-  /* ===== RADII ===== */
-  --br-s: 0.3rem;      /* 4.5px  — inputs, small chips */
-  --br-m: 0.6rem;      /* 9px    — buttons, cards (default) */
-  --br-l: 0.9rem;      /* 13.5px — larger cards */
-  --br-xl: 1.25rem;    /* 18.75px — hero cards */
-  --br-xxl: 3rem;      /* 45px   — CTA pill */
-  --br-full: 999rem;   /* circle / pill */
+  /* ===== RADII ===== brand guidelines §11, on the 8px grid. In px on purpose: the root
+     font-size is 15px (14px on phones), so rem values would fall off the grid.
+     8px is the default for buttons, inputs, cards and controls; 16px only for large panels,
+     banners and dialogs. Buttons are never pill-shaped. --br-full ONLY for badges, tags,
+     status dots, avatars, progress bars and scrollbar thumbs. */
+  --br-s: 8px;         /* small controls, icon tiles, menu items (was 4.5px) */
+  --br-m: 8px;         /* buttons, inputs, segmented controls (was 9px) */
+  --br-l: 8px;         /* cards (was 13.5px) */
+  --br-xl: 16px;       /* large panels, banners, dialogs (was 18.75px) */
+  --br-xxl: 16px;      /* large panels, banners (was the 45px CTA pill) */
+  --br-full: 999px;    /* badges, tags, status dots, avatars, progress bars, scrollbar thumbs */
 
   /* ===== SHADOWS ===== */
   --bs-s: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.05);
@@ -230,7 +235,7 @@
   gap: 8px;
   padding: 12px 22px;
   border: 1px solid transparent;
-  border-radius: var(--br-xxl);
+  border-radius: var(--br-m);
   background: var(--tn-blue);
   color: #fff;
   font: inherit;
@@ -239,7 +244,7 @@
   line-height: 1.2;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.1s, border-color 0.1s, color 0.1s;
+  transition: background-color var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
 }
 
 .tn-btn:hover {
@@ -313,9 +318,10 @@
   gap: 32px;
 }
 
+/* The supplied logo files (01 Logos) are cropped tight: 28px high renders the lockup at 150 × 28. */
 .tn-header__logo img {
   display: block;
-  height: 34px;
+  height: 28px;
   width: auto;
 }
 
@@ -349,6 +355,7 @@
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
+  line-height: 1.2;
 }
 
 .tn-header__link:hover,
@@ -379,12 +386,13 @@
   align-items: center;
   justify-content: center;
   padding: 8px 14px;
-  border-radius: var(--br-xxl);
+  border-radius: var(--br-m);
   background: var(--tn-navy);
   color: #fff;
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .tn-header__cta:hover {
@@ -403,6 +411,7 @@
   color: var(--grey-800);
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .tn-header__login:hover {
@@ -415,13 +424,14 @@
   gap: 8px;
   padding: 4px 8px 4px 4px;
   border: 1px solid var(--grey-100);
-  border-radius: var(--br-full);
+  border-radius: var(--br-m);
   background: #fff;
   color: var(--grey-900);
   font: inherit;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  line-height: 1.2;
 }
 
 .tn-header__account img {
@@ -436,7 +446,7 @@
   display: inline-flex;
   padding: 8px;
   border: 0;
-  border-radius: var(--br-full);
+  border-radius: var(--br-m);
   background: none;
   color: var(--grey-800);
   font-size: 20px;
@@ -475,6 +485,7 @@
   color: var(--grey-900);
   font-size: 13px;
   font-weight: 600;
+  line-height: 16px;
 }
 
 .tn-notifs__empty {
@@ -504,16 +515,19 @@ a.tn-notifs__item:hover {
 .tn-notifs__title {
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .tn-notifs__body {
   color: var(--grey-700);
   font-size: 13px;
+  line-height: 1.4;
 }
 
 .tn-notifs__time {
   color: var(--grey-600);
   font-size: 12px;
+  line-height: 1.2;
 }
 
 .tn-header__toggle {
@@ -535,7 +549,7 @@ a.tn-notifs__item:hover {
 
 .tn-drop__chev {
   font-size: 14px;
-  transition: transform 0.1s;
+  transition: transform var(--dur-base) var(--ease-standard);
 }
 
 .tn-drop[data-open] .tn-drop__chev {
@@ -579,6 +593,7 @@ a.tn-notifs__item:hover {
   font-weight: 500;
   text-align: left;
   cursor: pointer;
+  line-height: 1.2;
 }
 
 .tn-drop__item:hover {
@@ -673,7 +688,7 @@ a.tn-notifs__item:hover {
 }
 
 .tn-footer__brand img {
-  height: 34px;
+  height: 28px;
   width: auto;
   align-self: flex-start;
 }
@@ -681,7 +696,7 @@ a.tn-notifs__item:hover {
 .tn-footer__brand p {
   margin: 0;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--tn-muted-invert);
 }
 
@@ -696,11 +711,13 @@ a.tn-notifs__item:hover {
   color: #fff;
   font-size: 13px;
   font-weight: 600;
+  line-height: 16px;
 }
 
 .tn-footer a {
   color: var(--tn-muted-invert);
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .tn-footer a:hover {
@@ -716,6 +733,7 @@ a.tn-notifs__item:hover {
   padding-top: 24px;
   border-top: 1px solid rgb(255 255 255 / 12%);
   font-size: 13px;
+  line-height: 1.4;
 }
 
 .tn-footer__legal {
