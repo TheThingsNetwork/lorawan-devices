@@ -66,34 +66,6 @@ html, body {
 [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5 { color: var(--text-1); }
 [data-theme="dark"] p { color: var(--text-2); }
 
-/* ============ SUB-NAVIGATION TOOL: QUICK SEARCH ============ */
-/* The bar itself is the shared .tn-ph-subnav (ttn-tokens.css, layouts/partials/header.html). */
-.search-mini {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--surface-muted);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius); padding: 7px 12px;
-  width: 280px; min-width: 0;
-  color: var(--text-3); font-size: 13px; line-height: 16px;
-}
-.search-mini input {
-  min-width: 0;
-  background: transparent; border: 0; outline: 0;
-  font: inherit; color: var(--text-1); flex: 1;
-}
-/* The input has no outline of its own: the field shows the shared focus ring (ttn-tokens.css). */
-.search-mini:focus-within { border-color: var(--brand); box-shadow: var(--focus-ring); }
-.search-mini kbd {
-  font-family: var(--font-mono); font-size: 11px;
-  background: var(--surface-page); border: 1px solid var(--border-color);
-  padding: 1px 6px; border-radius: 4px; color: var(--text-4);
-}
-@media (max-width: 1080px) { .search-mini kbd { display: none; } }
-@media (max-width: 700px) {
-  /* The tools row takes the full width under the title and links (page-header.css). */
-  .search-mini { width: 100%; }
-}
-
 /* ============ BUTTONS ============ */
 .btn {
   display: inline-flex; align-items: center; gap: 6px;
@@ -1136,7 +1108,7 @@ a.fact:hover { background: var(--brand-tint); color: var(--brand); }
    Never `transition: all`; no bounce/spring; hover lift stays ≤ 1px, never a scale above 1.04.
    Tabs use --dur-base (set on .tabs-nav above); everything else is a hover/press/focus → --dur-fast. */
 a, button, summary, input, select, textarea,
-.btn, .search-mini, .search-input, .sort-select, .filter-pill, .active-chip, .view-toggle button,
+.btn, .search-input, .sort-select, .filter-pill, .active-chip, .view-toggle button,
 .device-card, .device-row, .device-row .dr-chev, .fact, .tabs-nav a, .tabs-nav button,
 .related-mini, .download-row, .vendor-card, .vc-foot, .modal-x, .sstep, .s-choice,
 .ex-remove, .plan-chip button, .faq-item, .faq-item summary, .cl-item {
