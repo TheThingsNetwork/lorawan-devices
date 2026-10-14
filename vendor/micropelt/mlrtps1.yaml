@@ -8,9 +8,19 @@ hardwareVersions:
 
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
+  - # Legacy firmware version, kept for devices registered before REV labels were used
+    version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: mlrtps1-profile
+        lorawanCertified: true
+        codec: mlrtps1-codec
   - # Firmware version
     version: '1.2'
-    numeric: 1
+    numeric: 2
     # Corresponding hardware versions (optional)
     hardwareVersions:
       - '1.0'
