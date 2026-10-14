@@ -64,19 +64,20 @@
   })();
 </script>
 
-{{- /* The Device Repository's own section bar, below the global header. */}}
-<div class="site-header dr-subbar">
-  <div class="inner">
-    <a class="brand-mark" href="{{ "" | absURL }}">
-      <span class="repo">Device Repository for LoRaWAN<sup>®</sup></span>
-    </a>
-    <nav class="nav" aria-label="Device Repository">
-      <a {{ if or .IsHome (eq .Section "devices") (eq .Section "tags") }}class="active" aria-current="page"{{ end }} href="{{ "" | absURL }}">Devices</a>
-      <a {{ if eq .Section "vendors" }}class="active" aria-current="page"{{ end }} href="{{ "vendors/" | absURL }}">Vendors</a>
+{{- /* The Device Repository's own section bar, below the global header: the shared sub-navigation bar
+     (tn-ph-subnav, docs/brand-page-header.md "With a sub-navigation bar above"). Its links are
+     navigation (neutral; current = navy + underline); the quick search is its tool. */}}
+{{- $devicesCurrent := or .IsHome (eq .Section "devices") (eq .Section "tags") }}
+<div class="tn-ph-subnav">
+  <div class="tn-wrap tn-ph-subnav__bar">
+    <a class="tn-ph-subnav__title" href="{{ "" | absURL }}">Device Repository for LoRaWAN<sup>®</sup></a>
+    <nav class="tn-ph-subnav__nav" aria-label="Device Repository">
+      <a class="tn-ph-subnav__link" href="{{ "" | absURL }}"{{ if $devicesCurrent }} aria-current="page"{{ end }}>Devices</a>
+      <a class="tn-ph-subnav__link" href="{{ "vendors/" | absURL }}"{{ if eq .Section "vendors" }} aria-current="page"{{ end }}>Vendors</a>
     </nav>
-    <div class="hdr-right">
+    <div class="tn-ph-subnav__tools">
       <label class="search-mini">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        {{ partial "icon.html" (dict "name" "search") }}
         <input placeholder="Quick search…" data-quick-search data-home="{{ "" | absURL }}" aria-label="Search devices" />
         <kbd>⌘K</kbd>
       </label>

@@ -2,23 +2,27 @@
 {{ $vendors := where (site.GetPage "/devices").Pages "Kind" "section" }}
 {{ $deviceCount := len (where site.RegularPages "Section" "devices") }}
 <main>
-  <section class="page-hero">
-    <div class="container">
-      <p class="eyebrow">Device Repository</p>
-      <h1>Vendors</h1>
-      <p class="lede">{{ len $vendors }} manufacturers contribute {{ $deviceCount }} devices to the repository. Every device profile and payload codec is reviewed before it is published.</p>
-      <div class="search-bar" style="max-width: 520px;">
-        <div class="search-input">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input placeholder="Search vendors…" data-vendor-search aria-label="Search vendors" />
+  <header class="tn-ph">
+    <div class="tn-wrap tn-ph__inner">
+      <div class="tn-ph__body">
+        <div class="tn-ph__main">
+          <p class="tn-eyebrow tn-ph__eyebrow">Device Repository</p>
+          <h1 class="tn-ph__title">Vendors</h1>
+          <p class="tn-ph__lede">{{ lang.FormatNumber 0 (len $vendors) }} manufacturers contribute {{ lang.FormatNumber 0 $deviceCount }} devices to the repository. Every device profile and payload codec is reviewed before it is published.</p>
+          <div class="tn-ph__actions">
+            <div class="search-input dr-ph-search">
+              {{ partial "icon.html" (dict "name" "search" "size" 24) }}
+              <input placeholder="Search vendors…" data-vendor-search aria-label="Search vendors" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </header>
   <div class="container">
     <div class="vendors-layout">
       <div class="empty" data-vendor-empty hidden>
-        <h3>No vendors found</h3>
+        <h2>No vendors found</h2>
         <p>Try a different name.</p>
       </div>
       <div class="vendor-grid" data-vendor-grid>
@@ -40,7 +44,7 @@
             <div class="vc-logo">{{ substr $name 0 1 | upper }}</div>
             {{ end }}
             <div class="vc-id">
-              <h3>{{ $name }}</h3>
+              <h2>{{ $name }}</h2>
               {{ with .Params.website }}<div class="vc-site">{{ . | replaceRE `^https?://(www\.)?` "" | strings.TrimSuffix "/" }}</div>{{ end }}
             </div>
           </div>
@@ -50,7 +54,7 @@
           </div>
           <div class="vc-foot">
             <span>View devices</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            {{ partial "icon.html" (dict "name" "chevron-right") }}
           </div>
         </a>
         {{ end }}
