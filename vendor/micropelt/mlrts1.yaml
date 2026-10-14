@@ -1,5 +1,5 @@
-name: MLRTS1 - Thermostat
-description: MLRTS1 is a wall mount thermostat with temperature set point. It is an 868MHz LoRaWAN® Class A device.
+name: MLRTS1 - Room Temperature Sensor with Temperature Set Point
+description: The Micropelt MLRTS product series is a wall mounted room temperature sensor with a temperature set point dial, designed for use as a room thermostat. Installation of the MLRTS is simple and only takes a few minutes. Compared to conventional systems, the LoRaWAN MLRTS enables significant cost savings in labor and material costs for cabling, network infrastructure and building structure changes. LoRaWAN enables heating control over long distances, even within buildings.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -46,7 +46,7 @@ sensors:
 dimensions:
   width: 85
   length: 85
-  height: 25
+  height: 34
 
 # Weight in grams (optional)
 weight: 110
