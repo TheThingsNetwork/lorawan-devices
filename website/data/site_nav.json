@@ -54,7 +54,7 @@
     },
     {
       "label": "Enterprise",
-      "href": "https://www.thethingsindustries.com/",
+      "href": "https://www.thethingsindustries.com/?utm_source=thethingsnetwork.org&utm_medium=referral&utm_campaign=ttn-website&utm_content=header-enterprise",
       "external": true,
       "key": "enterprise",
       "highlight": true,
@@ -63,7 +63,7 @@
   ],
   "supportCta": {
     "label": "Need professional support?",
-    "href": "https://www.thethingsindustries.com/",
+    "href": "https://www.thethingsindustries.com/?utm_source=thethingsnetwork.org&utm_medium=referral&utm_campaign=ttn-website&utm_content=header-support",
     "external": true
   },
   "auth": {
@@ -142,7 +142,7 @@
         },
         {
           "label": "The Things Stack",
-          "href": "https://www.thethingsindustries.com/stack/",
+          "href": "https://www.thethingsindustries.com/stack/?utm_source=thethingsnetwork.org&utm_medium=referral&utm_campaign=ttn-website&utm_content=footer-the-things-stack",
           "external": true
         },
         {
@@ -175,6 +175,6 @@
       "icon": "brand-x"
     }
   ],
-  "tagline": "A global collaborative Internet of Things ecosystem, initiated by The Things Industries.",
+  "tagline": "A global community of Internet of Things developers, initiated by The Things Industries.",
   "lorawanNotice": "LoRaWAN® is a mark used under license from the LoRa Alliance®."
 }

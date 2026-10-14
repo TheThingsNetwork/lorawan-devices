@@ -16,8 +16,28 @@
   --tti-900: #00147A;
   --tti-1000: #00095C;
   --tti-1025: #00064B;
-  --tti-1050: #000338;
+  --tti-1050: #000536;  /* colors.md 2026-10-14: the midpoint of 1025 and 1075 (was #000338) */
   --tti-1075: #000321;
+
+  /* ===== THE THINGS NETWORK — ttn scale (colors.md). The site's own TTN tokens below
+     (--ttn-primary*, --tn-*) predate the scale and keep their values; new work picks steps from
+     here. --ttn-500 = --ttn-primary. ===== */
+  --ttn-025: #F7FDFF;
+  --ttn-050: #EAFAFF;
+  --ttn-075: #DEF8FF;
+  --ttn-100: #CBF3FF;
+  --ttn-200: #A8E7FF;
+  --ttn-300: #7CD4FF;
+  --ttn-400: #5CC0FF;
+  --ttn-500: #26A0FF;  /* primary */
+  --ttn-600: #1B7CDB;
+  --ttn-700: #135DB7;
+  --ttn-800: #0C4193;
+  --ttn-900: #012B6B;
+  --ttn-1000: #011B4D;
+  --ttn-1025: #00123D;
+  --ttn-1050: #020D2D;
+  --ttn-1075: #00091A;
 
   /* ===== NEUTRALS (grey scale) ===== */
   --grey-025: #FBFCFD;
@@ -37,35 +57,92 @@
   --grey-1050: #080D15;
   --grey-1075: #06090D;
 
-  /* ===== SEMANTIC — success / info / warning / error ===== */
-  --success-025: #F7FFF7;
-  --success-050: #EAFFEA;
-  --success-100: #CFFFC2;
-  --success-500: #27CD41;
-  --success-600: #1CB041;
-  --success-700: #13933F;
-  --success-900: #00572E;
-
+  /* ===== SEMANTIC — info / success / error / warning / caution (colors.md, full scales).
+     025–100 surfaces, 500 fills and icons, 700–900 text on a light surface. ===== */
   --info-025: #F7FCFF;
   --info-050: #EFFAFF;
+  --info-075: #E3F6FF;
   --info-100: #CCEEFF;
+  --info-200: #99D8FF;
+  --info-300: #66BDFF;
+  --info-400: #3FA4FF;
   --info-500: #007AFF;
   --info-600: #005EDB;
   --info-700: #0046B7;
+  --info-800: #003193;
+  --info-900: #002074;
+  --info-1000: #000F4F;
+  --info-1025: #000B3A;
+  --info-1050: #00082A;
+  --info-1075: #00051F;
 
-  --warning-025: #FFFCF3;
-  --warning-050: #FFF9E6;
-  --warning-100: #FFEEBC;
-  --warning-500: #FF9500;
-  --warning-600: #DB7600;
-  --warning-700: #B75B00;
+  --success-025: #F7FFF7;
+  --success-050: #EAFFEA;
+  --success-075: #DEFFD4;
+  --success-100: #CFFFC2;
+  --success-200: #B3FAA9;
+  --success-300: #7EF07B;
+  --success-400: #58E160;
+  --success-500: #27CD41;
+  --success-600: #1CB041;
+  --success-700: #13933F;
+  --success-800: #0C763B;
+  --success-900: #00572E;
+  --success-1000: #002C17;
+  --success-1025: #001C0E;
+  --success-1050: #00130A;
+  --success-1075: #000D07;
 
   --error-025: #FFFAFA;
   --error-050: #FFF5F5;
+  --error-075: #FFEEEE;
   --error-100: #FFE2DE;
+  --error-200: #FFD1CA;
+  --error-300: #FFA497;
+  --error-400: #FF6C63;
   --error-500: #FF3B30;
   --error-600: #DB2328;
   --error-700: #B7182A;
+  --error-800: #930F29;
+  --error-900: #6E071B;
+  --error-1000: #45030F;
+  --error-1025: #2D0109;
+  --error-1050: #1D0003;
+  --error-1075: #110002;
+
+  --warning-025: #FFFCF3;
+  --warning-050: #FFF9E6;
+  --warning-075: #FFF4D4;
+  --warning-100: #FFEEBC;
+  --warning-200: #FFE096;
+  --warning-300: #FFCC66;
+  --warning-400: #FFB73F;
+  --warning-500: #FF9500;
+  --warning-600: #DB7600;
+  --warning-700: #B75B00;
+  --warning-800: #934300;
+  --warning-900: #6E2D00;
+  --warning-1000: #391700;
+  --warning-1025: #210D00;
+  --warning-1050: #160900;
+  --warning-1075: #0D0500;
+
+  --caution-025: #FFFDEC;
+  --caution-050: #FFFAD9;
+  --caution-075: #FFF5B7;
+  --caution-100: #FFF09C;
+  --caution-200: #FFEC7D;
+  --caution-300: #FFE666;
+  --caution-400: #FFDC3F;
+  --caution-500: #FFCC00;  /* fill only: caution-300…500 never carry text */
+  --caution-600: #DBAA00;
+  --caution-700: #B78B00;
+  --caution-800: #936D00;
+  --caution-900: #755400;
+  --caution-1000: #3B2A00;
+  --caution-1025: #281D00;
+  --caution-1050: #161100;
+  --caution-1075: #0E0C00;
 
   /* ===== SIBLING BRANDS ===== */
   --ttn-primary:   #26A0FF;   /* The Things Network */
@@ -77,6 +154,40 @@
   --gn-primary:    #6514FF;   /* Generic Node */
 
   --bone: #F7F6F1; /* 'secret' off-white from the brand palette */
+
+  /* ===== TTN SURFACE ALIASES (were scoped to .tn-site in site.css; on :root since the brand
+     harmonization so page-header.css and the exported ttn-tokens.css need no .tn-site scope).
+     Values unchanged. ===== */
+  --tn-blue: var(--ttn-primary);          /* buttons, fills, card hover borders */
+  --tn-blue-600: var(--ttn-primary-600);  /* button hover */
+  --tn-blue-700: #0071c7;                 /* eyebrow, badge and tile text on the --tti-050 band (4.65:1);
+                                             only 4.48:1 on --tn-tint, so not for small text there */
+  --tn-navy: var(--ttn-primary-dark);     /* headings, dark chapters */
+  --tn-navy-900: #00103f;
+  --tn-ink: #000e36;                      /* footer */
+  --tn-tint: #e6f4ff;
+  --tn-muted-invert: #aebbd3;             /* secondary text on navy/ink */
+  /* The one highlighted word of a display title on a light surface (page header <em>). --ttn-500 is
+     2.6:1 on the --tti-050 band and fails WCAG AA even for large text; --ttn-600 is 3.9:1 (AA large
+     text needs 3:1; the title is 32px+ SemiBold). */
+  --tn-highlight: var(--ttn-600);
+
+  /* ===== LINKS (colors.md "Usage rules", owner 2026-10-14) =====
+     Text links only: tti-500 on light surfaces (6.3:1 on white, 5.8:1 on --tti-050, 5.8:1 on
+     --grey-050), tti-300 on dark ones (5.9:1 on --tn-navy, 6.8:1 on --tn-ink). Buttons and fills keep
+     the ttn palette; navigation (header, footer columns, tabs, breadcrumbs) is not a text link and
+     stays neutral. */
+  --link: var(--tti-500);
+  --link-hover: var(--tti-600);           /* 8.2:1 on white */
+  --link-on-dark: var(--tti-300);
+  --link-on-dark-hover: var(--tti-200);   /* 8.8:1 on --tn-navy */
+
+  /* ===== FOCUS (owner 2026-10-14: one ring everywhere, exported to the docs and device repository) =====
+     A 2px white gap + a 2px tti-500 ring: 5.8:1 on the --tti-050 band, 6.3:1 on white, and the white gap
+     keeps it visible next to a --tn-blue fill (tti-500 alone is 2.3:1 there). WCAG 1.4.11 needs 3:1.
+     On dark surfaces (navy, ink): the surface-coloured gap + a tti-300 ring (5.9:1 on --tn-navy). */
+  --focus-ring: 0 0 0 2px #fff, 0 0 0 4px var(--tti-500);
+  --focus-ring-on-dark: 0 0 0 2px var(--tn-navy), 0 0 0 4px var(--tti-300);
 
   /* ===== SEMANTIC TOKENS (TTI brand defaults) ===== */
   /* Text */
@@ -141,20 +252,64 @@
   --fs-display-lg: clamp(3rem, 8vw, 6rem);        /* flagship hero (Community front door) */
   --fs-lede:       clamp(1.05rem, 1.6vw, 1.3rem); /* hero sub-headline */
 
-  /* Line-heights */
-  --lh-xxs: 1.1;
-  --lh-xs:  1.2;
-  --lh-s:   1.5;
-  --lh-m:   1.687;
-  --lh-l:   1.875;
-  --lh-xl:  2;
+  /* Line-heights: typography.md (brand 2026-10). No element inherits more than 1.5; only
+     deliberate long-form copy (article and help bodies) sets its own looser value. */
+  --lh-xxs: 1.1;   /* display, H1 */
+  --lh-xs:  1.2;   /* labels, buttons; Label / Small 13/16, Label / Medium 14/17. Card titles use
+                      H4 24/34 or H5 21/29, not this token */
+  --lh-s:   1.5;   /* Body / Small 14/21 */
+  --lh-m:   1.4;   /* Body / Default 15/21 (was 1.687) */
+  --lh-l:   1.4;   /* Body / Large 17/24, Body / XL 18/25 (was 1.875) */
+  --lh-xl:  1.5;   /* Body / XS 13/20, capped at 1.5 (was 2) */
 
-  /* Font weights */
+  /* Font weights. 600 is the heaviest weight in the system (typography.md): headings are Poppins
+     SemiBold 600, inline emphasis Inter SemiBold 600. There is no 700. */
   --fw-light: 300;
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-bold: 600;
-  --fw-bolder: 700;
+  --fw-heading: 600;
+
+  /* Type styles (typography.md, brand 2026-10), in px: the root font-size is 15px (14px on phones), so
+     rem would fall off the scale. Display and H2 step down at the tablet (≤ 1200px) and mobile
+     (≤ 700px) breakpoints in the @media blocks after this :root. Display = the page's h1 (hero, page
+     header); headings are Poppins 600, body and labels Inter, tracking 0 on everything in Inter. */
+  --type-display-size: 68px;
+  --type-display-lh: 68px;
+  --type-display-track: -0.03em;
+  --type-h2-size: 48px;
+  --type-h2-lh: 58px;
+  --type-h2-track: -0.02em;
+  --type-h3-size: 30px;
+  --type-h3-lh: 36px;
+  --type-h3-track: -0.02em;
+  --type-h4-size: 24px;      /* card titles */
+  --type-h4-lh: 34px;
+  --type-h4-track: -0.05em;
+  --type-h5-size: 21px;      /* card titles */
+  --type-h5-lh: 29px;
+  --type-h5-track: 0em;
+  --type-h6-size: 16px;
+  --type-h6-lh: 21px;
+  --type-h6-track: 0em;
+  --type-body-xl-size: 18px; /* ledes */
+  --type-body-xl-lh: 25px;
+  --type-body-l-size: 17px;
+  --type-body-l-lh: 24px;
+  --type-body-m-size: 16px;
+  --type-body-m-lh: 22px;
+  --type-body-size: 15px;    /* Body / Default, Medium 500 */
+  --type-body-lh: 21px;
+  --type-body-s-size: 14px;
+  --type-body-s-lh: 21px;
+  --type-body-xs-size: 13px;
+  --type-body-xs-lh: 20px;
+  --type-label-l-size: 15px; /* buttons */
+  --type-label-l-lh: 21px;
+  --type-label-m-size: 14px; /* nav, tabs */
+  --type-label-m-lh: 17px;
+  --type-label-s-size: 13px; /* eyebrows, tags, stat labels, breadcrumbs */
+  --type-label-s-lh: 16px;
 
   /* Letter spacing */
   --lsp-s: -0.03em;
@@ -180,13 +335,17 @@
   --ls-xxl: 10rem;
   --ls-xl3: 12.5rem;
 
-  /* ===== RADII ===== */
-  --br-s: 0.3rem;      /* 4.5px  — inputs, small chips */
-  --br-m: 0.6rem;      /* 9px    — buttons, cards (default) */
-  --br-l: 0.9rem;      /* 13.5px — larger cards */
-  --br-xl: 1.25rem;    /* 18.75px — hero cards */
-  --br-xxl: 3rem;      /* 45px   — CTA pill */
-  --br-full: 999rem;   /* circle / pill */
+  /* ===== RADII ===== brand guidelines §11, on the 8px grid. In px on purpose: the root
+     font-size is 15px (14px on phones), so rem values would fall off the grid.
+     8px is the default for buttons, inputs, cards and controls; 16px only for large panels,
+     banners and dialogs. Buttons are never pill-shaped. --br-full ONLY for badges, tags,
+     status dots, avatars, progress bars and scrollbar thumbs. */
+  --br-s: 8px;         /* small controls, icon tiles, menu items (was 4.5px) */
+  --br-m: 8px;         /* buttons, inputs, segmented controls (was 9px) */
+  --br-l: 8px;         /* cards (was 13.5px) */
+  --br-xl: 16px;       /* large panels, banners, dialogs (was 18.75px) */
+  --br-xxl: 16px;      /* large panels, banners (was the 45px CTA pill) */
+  --br-full: 999px;    /* badges, tags, status dots, avatars, progress bars, scrollbar thumbs */
 
   /* ===== SHADOWS ===== */
   --bs-s: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.05);
@@ -201,14 +360,6 @@
   --dur-fast: 140ms;
   --dur-base: 220ms;
   --dur-slow: 400ms;
-  --tn-blue: var(--ttn-primary);
-  --tn-blue-600: var(--ttn-primary-600);
-  --tn-blue-700: #0071c7;
-  --tn-navy: var(--ttn-primary-dark);
-  --tn-navy-900: #00103f;
-  --tn-ink: #000e36;
-  --tn-tint: #e6f4ff;
-  --tn-muted-invert: #aebbd3;
   --z-chrome: 40;
   font-family: var(--font-body);
 }
@@ -223,6 +374,12 @@
 
 .tn-ico { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
 
+.ttn-chrome :where(a, button, summary, [role="button"]) {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: var(--dur-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
 /* ---------- Buttons ---------- */
 .tn-btn {
   display: inline-flex;
@@ -230,7 +387,7 @@
   gap: 8px;
   padding: 12px 22px;
   border: 1px solid transparent;
-  border-radius: var(--br-xxl);
+  border-radius: var(--br-m);
   background: var(--tn-blue);
   color: #fff;
   font: inherit;
@@ -239,7 +396,11 @@
   line-height: 1.2;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.1s, border-color 0.1s, color 0.1s;
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard);
 }
 
 .tn-btn:hover {
@@ -289,7 +450,13 @@
 .tn-header__link:focus-visible,
 .tn-header__toggle:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px #cce8ff;
+  box-shadow: var(--focus-ring);
+}
+
+/* The buttons made for dark sections take the dark-surface ring. */
+.tn-btn--white:focus-visible,
+.tn-btn--ghost-invert:focus-visible {
+  box-shadow: var(--focus-ring-on-dark);
 }
 
 /* ---------- Header ---------- */
@@ -313,9 +480,10 @@
   gap: 32px;
 }
 
+/* The supplied logo files (01 Logos) are cropped tight: 28px high renders the lockup at 150 × 28. */
 .tn-header__logo img {
   display: block;
-  height: 34px;
+  height: 28px;
   width: auto;
 }
 
@@ -349,6 +517,7 @@
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
+  line-height: 1.2;
 }
 
 .tn-header__link:hover,
@@ -365,7 +534,7 @@
 .tn-header__link--highlight,
 .tn-header__link--highlight:hover {
   background: var(--tn-tint);
-  color: var(--tn-blue-700);
+  color: var(--ttn-700); /* 5.7:1 on --tn-tint, 5.1:1 on the hover fill (WCAG AA for 14px text) */
   font-weight: 600;
 }
 
@@ -379,12 +548,13 @@
   align-items: center;
   justify-content: center;
   padding: 8px 14px;
-  border-radius: var(--br-xxl);
+  border-radius: var(--br-m);
   background: var(--tn-navy);
   color: #fff;
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .tn-header__cta:hover {
@@ -403,6 +573,7 @@
   color: var(--grey-800);
   font-size: 14px;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .tn-header__login:hover {
@@ -415,13 +586,14 @@
   gap: 8px;
   padding: 4px 8px 4px 4px;
   border: 1px solid var(--grey-100);
-  border-radius: var(--br-full);
+  border-radius: var(--br-m);
   background: #fff;
   color: var(--grey-900);
   font: inherit;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  line-height: 1.2;
 }
 
 .tn-header__account img {
@@ -436,7 +608,7 @@
   display: inline-flex;
   padding: 8px;
   border: 0;
-  border-radius: var(--br-full);
+  border-radius: var(--br-m);
   background: none;
   color: var(--grey-800);
   font-size: 20px;
@@ -459,7 +631,7 @@
   background: var(--error-500);
   color: #fff;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 17px;
   text-align: center;
 }
@@ -475,6 +647,7 @@
   color: var(--grey-900);
   font-size: 13px;
   font-weight: 600;
+  line-height: 16px;
 }
 
 .tn-notifs__empty {
@@ -504,16 +677,19 @@ a.tn-notifs__item:hover {
 .tn-notifs__title {
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .tn-notifs__body {
   color: var(--grey-700);
   font-size: 13px;
+  line-height: 1.4;
 }
 
 .tn-notifs__time {
   color: var(--grey-600);
   font-size: 12px;
+  line-height: 1.2;
 }
 
 .tn-header__toggle {
@@ -535,13 +711,19 @@ a.tn-notifs__item:hover {
 
 .tn-drop__chev {
   font-size: 14px;
-  transition: transform 0.1s;
+  transition: transform var(--dur-base) var(--ease-standard);
 }
 
 .tn-drop[data-open] .tn-drop__chev {
   transform: rotate(180deg);
 }
 
+/* Dropdowns and the mobile panel fade in over --dur-base (§12: small components opening or closing),
+   with a 4px drop that is not a layout property. `display` stays the open/closed switch, so a closed
+   menu is out of the tab order and the accessibility tree exactly as before; `allow-discrete` keeps it
+   visible while it fades out. Reduced motion keeps only the fade (the prefers-reduced-motion block in
+   colors_and_type.css; the exported chrome carries a scoped copy). Browsers without @starting-style
+   toggle instantly, as before. */
 .tn-drop__menu {
   display: none;
   position: absolute;
@@ -553,6 +735,12 @@ a.tn-notifs__item:hover {
   border-radius: var(--br-l);
   background: #fff;
   box-shadow: var(--bs-m);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--dur-base) var(--ease-standard),
+    transform var(--dur-base) var(--ease-standard),
+    display var(--dur-base) allow-discrete;
 }
 
 .tn-drop--end .tn-drop__menu {
@@ -562,6 +750,15 @@ a.tn-notifs__item:hover {
 
 .tn-drop[data-open] .tn-drop__menu {
   display: block;
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .tn-drop[data-open] .tn-drop__menu {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
 }
 
 .tn-drop__item {
@@ -579,6 +776,7 @@ a.tn-notifs__item:hover {
   font-weight: 500;
   text-align: left;
   cursor: pointer;
+  line-height: 1.2;
 }
 
 .tn-drop__item:hover {
@@ -609,10 +807,25 @@ a.tn-notifs__item:hover {
     border-bottom: 1px solid var(--grey-100);
     background: #fff;
     box-shadow: var(--bs-s);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition:
+      opacity var(--dur-base) var(--ease-standard),
+      transform var(--dur-base) var(--ease-standard),
+      display var(--dur-base) allow-discrete;
   }
 
   .tn-header[data-open] .tn-header__panel {
     display: flex;
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    .tn-header[data-open] .tn-header__panel {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
   }
 
   .tn-header__nav {
@@ -626,11 +839,14 @@ a.tn-notifs__item:hover {
     font-size: 15px;
   }
 
-  .tn-drop__menu {
+  /* In the panel the menus open in place: a fade only, no drop. */
+  .tn-drop__menu,
+  .tn-drop[data-open] .tn-drop__menu {
     position: static;
     box-shadow: none;
     border: 0;
     padding: 0 0 0 12px;
+    transform: none;
   }
 
   .tn-header__auth {
@@ -673,7 +889,7 @@ a.tn-notifs__item:hover {
 }
 
 .tn-footer__brand img {
-  height: 34px;
+  height: 28px;
   width: auto;
   align-self: flex-start;
 }
@@ -681,7 +897,7 @@ a.tn-notifs__item:hover {
 .tn-footer__brand p {
   margin: 0;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--tn-muted-invert);
 }
 
@@ -696,11 +912,15 @@ a.tn-notifs__item:hover {
   color: #fff;
   font-size: 13px;
   font-weight: 600;
+  line-height: 16px;
 }
 
+/* Footer columns are navigation, not text links: muted on ink, white on hover (the header's nav is
+   neutral the same way). A text link inside running copy on a dark surface uses --link-on-dark. */
 .tn-footer a {
   color: var(--tn-muted-invert);
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .tn-footer a:hover {
@@ -716,6 +936,7 @@ a.tn-notifs__item:hover {
   padding-top: 24px;
   border-top: 1px solid rgb(255 255 255 / 12%);
   font-size: 13px;
+  line-height: 1.4;
 }
 
 .tn-footer__legal {
@@ -763,9 +984,17 @@ a.tn-notifs__item:hover {
   }
 }
 
-
 .tn-drop > summary { list-style: none; }
 .tn-drop > summary::-webkit-details-marker { display: none; }
-.tn-drop[open] > .tn-drop__menu { display: block; }
+.tn-drop[open] > .tn-drop__menu { display: block; opacity: 1; transform: none; }
+@starting-style { .tn-drop[open] > .tn-drop__menu { opacity: 0; transform: translateY(-4px); } }
+@media (max-width: 1200px) { .tn-drop[open] > .tn-drop__menu { transform: none; } }
 .tn-drop[open] > .tn-header__link { background: var(--grey-050); color: var(--grey-900); }
 .tn-drop[open] .tn-drop__chev { transform: rotate(180deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ttn-chrome *, .ttn-chrome *::before, .ttn-chrome *::after {
+    animation: none !important;
+    transition-property: color, background-color, border-color, box-shadow, opacity !important;
+  }
+}
