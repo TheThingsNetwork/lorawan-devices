@@ -1,21 +1,163 @@
-# This example contains just one end device: windsensor. It is referenced here in the index.
-
 endDevices:
-  # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - as-201 # look in AS105.yaml for the end device definition
+  - as-201
   - as-202
   - as-203
   - as-204
   - es-108
+  - am201
+  - am301
+  - am302
+  - am303
+  - am308
+  - am310
+  - am500
+  - as-101
+  - as-102
+  - as-103
+  - as-104
+  - as-105
+  - as-106
+  - as-107
+  - as-108
+  - as-109
+  - as-110
+  - as-304
+  - asn-503a
+  - es-100
+  - es-104
+  - es-106
+  - es-109
+  - es-112
+  - es-501
 
-# The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
-# This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
-# https://lora-alliance.org/wp-content/uploads/2020/11/TR005_LoRaWAN_Device_Identification_QR_Codes.pdf#page=8
-# It can either be a combo of device ID + hardware version + firmware version + region, or profile ID + codec ID
-# NOTE: The profileIDs is different from the vendorID.
 profileIDs:
   '1':
     endDeviceID: 'as-201'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
     region: 'AS923'
+  '2':
+    endDeviceID: 'am201'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '3':
+    endDeviceID: 'am301'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '4':
+    endDeviceID: 'am302'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '5':
+    endDeviceID: 'am303'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '6':
+    endDeviceID: 'am308'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '7':
+    endDeviceID: 'am310'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '8':
+    endDeviceID: 'am500'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '9':
+    endDeviceID: 'as-101'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '10':
+    endDeviceID: 'as-102'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '11':
+    endDeviceID: 'as-103'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '12':
+    endDeviceID: 'as-104'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '13':
+    endDeviceID: 'as-105'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '14':
+    endDeviceID: 'as-106'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '15':
+    endDeviceID: 'as-107'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '16':
+    endDeviceID: 'as-108'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '17':
+    endDeviceID: 'as-109'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '18':
+    endDeviceID: 'as-110'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '19':
+    endDeviceID: 'as-304'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '21':
+    endDeviceID: 'asn-503a'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '28':
+    endDeviceID: 'es-100'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '29':
+    endDeviceID: 'es-104'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '30':
+    endDeviceID: 'es-106'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '31':
+    endDeviceID: 'es-109'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '32':
+    endDeviceID: 'es-112'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '33':
+    endDeviceID: 'es-501'
+    firmwareVersion: '1.0'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

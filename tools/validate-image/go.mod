@@ -1,3 +1,3 @@
 module github.com/TheThingsNetwork/lorawan-devices/tools/validate-image
 
-go 1.24.1
+go 1.27.0

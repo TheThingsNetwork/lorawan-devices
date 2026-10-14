@@ -1,5 +1,5 @@
-name: AS203 LoRaWAN Indoor Air Quality GAS Sensor # Device name can not contain the vendor name
-description: 5-in-1 Temp / Humidity / CO2 / TVOC / HCHO
+name: AS203 Workplace Air Quality Monitor
+description: particulates, CO2, TVOC, temperature. Workplace Air Quality Monitor.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -78,7 +78,8 @@ sensors:
   - temperature
   - humidity
   - tvoc
-#  - hcho
+  - pm2.5
+  - pm10
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -146,7 +147,7 @@ firmwareProgramming:
   - fuota lorawan
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atomsenses.com/product/as-203/
+productURL: https://www.atomsenses.com/products/AS-203
 dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-203.pdf
 
 # Photos

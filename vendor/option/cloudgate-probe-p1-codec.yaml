@@ -1,0 +1,85 @@
+uplinkDecoder:
+  fileName: cloudgate-probe-p1.js
+  examples:
+    - description: Analog input voltage
+      input:
+        fPort: 1
+        bytes: [0, 2, 210, 4]
+      output:
+        data:
+          measurements:
+            - type: analogInput
+              voltage_mV: 1234
+
+    - description: Modbus register value
+      input:
+        fPort: 1
+        bytes: [2, 8, 1, 129, 26, 6, 50, 0, 4, 0]
+      output:
+        data:
+          measurements:
+            - type: modbusValue
+              slaveId: 1
+              registerNumber: 400001
+              rawData: [50, 0, 4, 0]
+
+    - description: Firmware version report
+      input:
+        fPort: 1
+        bytes: [10, 14, 2, 0, 4, 5, 84, 76, 49, 76, 84, 51, 53, 48, 53, 53]
+      output:
+        data:
+          measurements:
+            - type: firmwareVersion
+              firmwareVersion: '2.0.4'
+              hardwareVersion: 5
+              serial: TL1LT35055
+
+downlinkEncoder:
+  fileName: cloudgate-probe-p1.js
+  examples:
+    - description: Reboot the device
+      input:
+        data:
+          command: reboot
+      output:
+        bytes: [1, 0]
+        fPort: 2
+
+    - description: Set the basic configuration
+      input:
+        data:
+          command: setBasicConfiguration
+          mainInterval: 120
+          debounceTime: 100
+          analogInMode: 1
+          digitalInMode: 2
+          digitalOut1Mode: 0
+          digitalOut2Mode: 0
+          reportOutputPinsState: true
+      output:
+        bytes: [7, 9, 120, 0, 100, 0, 1, 2, 0, 0, 1]
+        fPort: 2
+
+    - description: Write value 1234 to holding register 400020 on Modbus slave 1
+      input:
+        data:
+          command: writeModbusRegister
+          deviceId: 1
+          registerNumber: 400020
+          numRegisters: 1
+          data: [4, 210]
+      output:
+        bytes: [5, 7, 1, 148, 26, 6, 1, 4, 210]
+        fPort: 2
+
+downlinkDecoder:
+  fileName: cloudgate-probe-p1.js
+  examples:
+    - description: Reboot the device
+      input:
+        fPort: 2
+        bytes: [1, 0]
+      output:
+        data:
+          command: reboot

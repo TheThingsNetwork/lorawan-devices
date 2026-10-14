@@ -39,7 +39,7 @@ firmwareVersions:
         id: profile-ru864
         codec: em300-sld-codec
 
-  - version: '1.x'
+  - version: '2.x'
     numeric: 2
     hardwareVersions:
       - '3.x'
