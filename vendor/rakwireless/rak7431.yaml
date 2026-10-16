@@ -47,8 +47,8 @@ operatingConditions:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://docs.rakwireless.com/Product-Categories/WisNode/RAK7431/
-dataSheetURL: https://docs.rakwireless.com/Product-Categories/WisNode/RAK7431/Datasheet/
+productURL: https://docs.rakwireless.com/product-categories/wisnode/rak7431/overview/
+dataSheetURL: https://docs.rakwireless.com/product-categories/wisnode/rak7431/datasheet/
 
 # Photos
 photos:

@@ -72,7 +72,7 @@ firmwareProgramming:
   - serial
   - fuota lorawan
 
-productURL: https://www.acrios.com/converters/m-bus-lorawan
+productURL: https://acrios.com/converters/wired-m-bus-to-lorawan
 # dataSheetURL: https://wiking.acrios.com/datasheets/ACR-CV-101L-M-EAC.pdf
 # onboardingGuideURL: https://wiking.acrios.com/manuals/category/acr-cv-101l-m-x/
 
