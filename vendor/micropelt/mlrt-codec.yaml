@@ -1,0 +1,61 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: mlrt.js
+  # Examples (optional)
+  examples:
+    - description: MLRT Example 1
+      input:
+        fPort: 1
+        bytes: [0x58, 0x00, 0xB5]
+      output:
+        data:
+          Ambient_Temperature: 22
+          Ambient_Temperature_Failure: 0
+          Energy_Storage_Low: 0
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 0
+          Storage_Voltage: 3.62
+
+    - description: MLRT Example 2
+      input:
+        fPort: 1
+        bytes: [0x4D, 0x14, 0x84]
+      output:
+        data:
+          Ambient_Temperature: 19.25
+          Ambient_Temperature_Failure: 0
+          Energy_Storage_Low: 1
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 1
+          Storage_Voltage: 2.64
+
+    - description: FPort 4 Data Rate
+      input:
+        fPort: 4
+        bytes: [0x02]
+      output:
+        data:
+          SpreadingFactor: 'SF9'
+
+downlinkEncoder:
+  fileName: mlrt.js
+  # Examples (optional)
+  examples:
+    - description: FPort 1 Radio Communication Interval
+      input:
+        fPort: 1
+        data:
+          radioInterval: 60
+      output:
+        bytes: [5]
+        fPort: 1
+
+    - description: FPort 4 Data Rate
+      input:
+        fPort: 4
+        data:
+          spreading_factor: 'SF9'
+      output:
+        bytes: [2]
+        fPort: 4

@@ -1,0 +1,98 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: mlrt-e.js
+  # Examples (optional)
+  examples:
+    - description: MLRT-E Example 1
+      input:
+        fPort: 1
+        bytes: [0x8C, 0x8B, 0x6E, 0x6D, 0x58, 0x00, 0xB5]
+      output:
+        data:
+          NTC1_Raw_Temperature: 70
+          NTC1_Temperature: 69.5
+          NTC2_Raw_Temperature: 55
+          NTC2_Temperature: 54.5
+          Ambient_Temperature: 22
+          Ambient_Temperature_Failure: 0
+          Energy_Storage_Low: 0
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 0
+          NTC2_Failure: 0
+          NTC1_Failure: 0
+          Storage_Voltage: 3.62
+
+    - description: MLRT-E Example 2 (NTC2 error, weak battery)
+      input:
+        fPort: 1
+        bytes: [0x78, 0x78, 0x00, 0x00, 0x4D, 0x12, 0x84]
+      output:
+        data:
+          NTC1_Raw_Temperature: 60
+          NTC1_Temperature: 60
+          NTC2_Raw_Temperature: 0
+          NTC2_Temperature: 0
+          Ambient_Temperature: 19.25
+          Ambient_Temperature_Failure: 0
+          Energy_Storage_Low: 1
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 0
+          NTC2_Failure: 1
+          NTC1_Failure: 0
+          Storage_Voltage: 2.64
+
+    - description: FPort 8 Temperature Estimate (default coefficients)
+      input:
+        fPort: 8
+        bytes: [0x44, 0x5D, 0x7B]
+      output:
+        data:
+          p0: 0.68
+          p1: 0.93
+          p2: 0.00123
+
+    - description: FPort 8 Temperature Estimate (negative p0)
+      input:
+        fPort: 8
+        bytes: [0xF6, 0x64, 0x00]
+      output:
+        data:
+          p0: -0.1
+          p1: 1
+          p2: 0
+
+downlinkEncoder:
+  fileName: mlrt-e.js
+  # Examples (optional)
+  examples:
+    - description: FPort 1 Radio Communication Interval
+      input:
+        fPort: 1
+        data:
+          radioInterval: 15
+      output:
+        bytes: [2]
+        fPort: 1
+
+    - description: FPort 8 Temperature Estimate (default coefficients)
+      input:
+        fPort: 8
+        data:
+          p0: 0.68
+          p1: 0.93
+          p2: 0.00123
+      output:
+        bytes: [68, 93, 123]
+        fPort: 8
+
+    - description: FPort 8 Temperature Estimate (negative p0)
+      input:
+        fPort: 8
+        data:
+          p0: -0.1
+          p1: 1
+          p2: 0
+      output:
+        bytes: [246, 100, 0]
+        fPort: 8

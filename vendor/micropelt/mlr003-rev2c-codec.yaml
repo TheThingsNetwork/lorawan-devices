@@ -1,7 +1,7 @@
 # Uplink decoder decodes binary data uplink into a JSON object (optional)
 # For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
 uplinkDecoder:
-  fileName: mlr003.js
+  fileName: mlr003-rev2c.js
   # Examples (optional)
   examples:
     - description: FPort 1 Basic Device Data 1
@@ -97,7 +97,7 @@ uplinkDecoder:
           'recailbration_status': 'A Recalibration was done, based on the recent FPORT 15 Downlink'
           'operating_status': 'Device is under normal operation'
 downlinkEncoder:
-  fileName: mlr003.js
+  fileName: mlr003-rev2c.js
   # Examples (optional)
   examples:
     - description: FPort 1 Downlink
