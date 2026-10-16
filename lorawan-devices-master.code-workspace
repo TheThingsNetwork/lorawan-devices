@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "lorawan-devices-master"
+		}
+	],
+	"settings": {
+		"yaml.schemas": {
+			"https://schema.thethings.network/devicerepository/1/schema": "vendor/**/*.yaml"
+		}
+	}
+}
