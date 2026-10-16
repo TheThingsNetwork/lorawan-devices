@@ -38,36 +38,6 @@ const init = () => {
     })
   }
 
-  // Header quick search: filters in place on browse pages, otherwise
-  // jumps to the homepage with the query applied.
-  const mini = document.querySelector('[data-quick-search]')
-  if (mini) {
-    const homeURL = mini.dataset.home || '/'
-    const submit = () => {
-      const q = mini.value.trim()
-      if (browse) {
-        browse.setQuery(q)
-      } else if (q) {
-        location.href = `${homeURL}?q=${encodeURIComponent(q)}`
-      }
-    }
-    let t
-    mini.addEventListener('input', () => {
-      if (!browse) return
-      clearTimeout(t)
-      t = setTimeout(submit, 150)
-    })
-    mini.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') submit()
-    })
-    document.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault()
-        mini.focus()
-        mini.select()
-      }
-    })
-  }
 }
 
 if (document.readyState === 'loading') {
