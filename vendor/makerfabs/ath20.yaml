@@ -88,7 +88,7 @@ operatingConditions:
 
 # Product and data sheet URLs (optional)
 productURL: https://www.agrosense.cc/pd.jsp?recommendFromPid=0&id=6&fromMid=366
-dataSheetURL: https://github.com/Makerfabs/Agrosense-Decoder/blob/main/AgroSense%20LoRaWAN%40%20Sensor%20Catalogue_V1.0.pdf
+dataSheetURL: https://github.com/Makerfabs/Agrosense-Decoder/blob/main/AgroSense%20LoRaWAN%40%20Sensor%20Catalogue/AgroSense%20LoRaWAN%40%20Sensor%20Catalogue_V1.0.pdf
 
 # Commercial information
 sellerURLs:
