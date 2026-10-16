@@ -70,8 +70,8 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/leak-detection-sensor-lora/
-dataSheetURL: https://enless-wireless.com/wp-content/uploads/2024/01/EN-600-039-LEAK-CABLE.pdf
+productURL: https://enless-wireless.com/en/product/lorawan-cable-leak-detection-sensor/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2026/04/TX-CONTACT-600-039-LEAK-CABLE-V2.2-EN.pdf
 
 # Photos
 photos:

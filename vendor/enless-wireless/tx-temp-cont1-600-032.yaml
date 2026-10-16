@@ -70,8 +70,8 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/temperature-sensor-external-probe-pt1000-lora/
-dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/06/EN-600-032.pdf
+productURL: https://enless-wireless.com/en/product/lorawan-temperature-sensor-with-pt1000-probe/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2026/04/TX-TEMP-CONT1-600-032-V2.2-EN.pdf
 
 # Photos
 photos:
