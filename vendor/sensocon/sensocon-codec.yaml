@@ -1,0 +1,15 @@
+# Shared payload codec for Sensocon Series WS / WM
+# Examples use rounded floats so validator passes
+uplinkDecoder:
+  fileName: sensocon-codec.js
+  examples:
+    - description: pressure + humidity + battery
+      input:
+        bytes: [1, 1, 0, 0, 0, 63, 2, 205, 204, 52, 66, 4, 51, 51, 67, 64]
+      output:
+        data:
+          differentialPressure: 0.5
+          humidity: 45.2
+          batteryVoltage: 3.05
+downlinkEncoder:
+  fileName: sensocon-codec.js

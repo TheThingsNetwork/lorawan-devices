@@ -1,0 +1,9 @@
+# Shared LoRaWAN profile for Sensocon Series WS / WM
+specs:
+  lorawan: '1.0.3'
+  region: US902-928
+  class: A
+  supportsClassB: false
+  supportsClassC: false
+  maxEirp: 30
+  macVersion: '1.0.3'

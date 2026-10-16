@@ -1,0 +1,13 @@
+id: ws-ti01
+name: WS-TI01
+description: "Temperature sensor with 10K thermistor and TPE sheath, −40 to 221°F, ±1% accuracy"
+photos:
+  main: ws-ti.jpg
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec

@@ -1,0 +1,13 @@
+id: ws-g100
+name: WS-G100
+description: "Gauge pressure sensor, 0–100 PSI range, 250 PSI maximum pressure, ±0.5% FS accuracy"
+photos:
+  main: ws-g.png
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec

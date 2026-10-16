@@ -1,0 +1,13 @@
+id: wm-dp10-w050-ai01
+name: WM-DP10-W050-AI01
+description: "Multivariable wireless sensor configuration"
+photos:
+  main: wm.jpg
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec
