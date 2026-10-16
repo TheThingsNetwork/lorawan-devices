@@ -70,8 +70,8 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/pulse-meter-sensor-atex-approved-gas-lora/
-dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-037.pdf
+productURL: https://enless-wireless.com/en/product/lorawan-atex-pulse-sensor/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2026/04/TX-PULSE-ATEX-600-037-V2.2-EN.pdf
 
 # Photos
 photos:

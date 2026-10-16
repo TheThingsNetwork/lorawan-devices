@@ -70,8 +70,8 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/analog-sensor-4-20ma-lora/
-dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-035.pdf
+productURL: https://enless-wireless.com/en/product/4-20-ma-lorawan-sensor/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2026/04/TX-420mA-600-035-V2.2-EN.pdf
 
 # Photos
 photos:
