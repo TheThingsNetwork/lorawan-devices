@@ -109,7 +109,6 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/celso-sensor/
 dataSheetURL: https://www.nke-watteco.com/download/celso-sensor-data-sheet-lorawan/?wpdmdl=6442&refresh=60d48a18efa6d1624541720
 
 # Commercial information

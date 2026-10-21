@@ -109,7 +109,6 @@ firmwareProgramming:
 
 # Product and data sheet URLs (optional)
 
-productURL: https://www.watteco.com/product/indoor-temperature-humidity-sensor/
 dataSheetURL: https://www.watteco.com/download/temperature-humidity-sensor-data-sheet-lorawan/?wpdmdl=6525
 onboardingGuideURL: https://support.watteco.com/indoor_th/
 

@@ -106,7 +106,7 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.mokosmart.com/zh/lorawan-meter-plug-lw005-mp/
+productURL: https://www.mokosmart.com/lorawan-meter-plug-lw005-mp/
 dataSheetURL: https://www.mokolora.com/contact-us/
 
 # Photos

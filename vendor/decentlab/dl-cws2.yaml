@@ -61,7 +61,7 @@ keyProvisioning:
   - custom
 keySecurity: none
 
-productURL: https://www.decentlab.com/high-precision-winter-road-maintenance-sensor-with-radiation-shield-for-lorawan
+productURL: https://www.decentlab.com/products/high-precision-winter-road-maintenance-sensor-with-radiation-shield-for-lorawan
 dataSheetURL: https://cdn.decentlab.com/download/datasheets/Decentlab-DL-CWS2-datasheet.pdf
 photos:
   main: dl-cws.png
