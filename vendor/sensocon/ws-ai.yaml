@@ -1,0 +1,18 @@
+name: WS-AI Analog 4-20mA Current Sensor
+description: Analog 4-20mA Current Sensors enable wireless monitoring of current-loop signals from industrial transmitters. They are compatible with a wide range of sensing devices, supporting remote monitoring via LoRaWAN networks.
+
+hardwareVersions:
+- version: 90309-1
+  numeric: 1
+
+firmwareVersions:
+- version: AA
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-ai-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-ai.png

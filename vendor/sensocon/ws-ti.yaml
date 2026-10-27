@@ -1,0 +1,18 @@
+name: WS-TI Temperature Sensor
+description: Temperature Sensors use high-accuracy thermistor input for ambient or process temperature monitoring. These sensors support LoRaWAN wireless networks and are ideal for HVAC, cold storage, and environmental monitoring.
+
+hardwareVersions:
+- version: 90309-1
+  numeric: 1
+
+firmwareVersions:
+- version: AA
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-ti-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-ti.png

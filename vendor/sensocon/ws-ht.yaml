@@ -1,0 +1,18 @@
+name: WS-HT Humidity + Temperature Sensor
+description: Humidity + Temperature sensor provides combined RH and temperature measurements, optimized for HVAC, building automation, and agricultural climate monitoring.
+
+hardwareVersions:
+- version: 90309-1
+  numeric: 1
+  
+firmwareVersions:
+- version: AA
+  hardwareVersions:
+  - 90309-1
+  profiles:
+    US902-928:
+      id: ws-ht-profile
+      codec: sensocon-codec
+
+photos:
+   main: ws-ht.png
