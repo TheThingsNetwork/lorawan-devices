@@ -1,0 +1,60 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: evrlast-device-codec.js
+  # Examples (optional)
+  examples:
+    - description: Board temperature, battery and solar voltage, charge state and status
+      input:
+        fPort: 1
+        bytes: [0x2d, 0x0a, 0x04, 0x08, 0x27, 0x10, 0x00, 0x0a, 0x04, 0x08, 0x28, 0x10, 0x00, 0x0a, 0x05, 0x08, 0x03, 0x10, 0x96, 0x03, 0x0a, 0x05, 0x08, 0x07, 0x10, 0xbe, 0x03, 0x0a, 0x04, 0x08, 0x20, 0x10, 0x64, 0x0a, 0x05, 0x08, 0x06, 0x10, 0xb5, 0x13, 0x0a, 0x04, 0x08, 0x26, 0x10, 0x64]
+      output:
+        data:
+          measurementValues:
+            - identifier: 39
+              value: 0
+            - identifier: 40
+              value: 0
+            - identifier: 3
+              value: 406
+            - identifier: 7
+              value: 446
+            - identifier: 32
+              value: 100
+            - identifier: 6
+              value: 2485
+            - identifier: 38
+              value: 100
+      # Normalized output, uses the normalizeUplink function (optional)
+      normalizedOutput:
+        data:
+          - battery: 4.06
+    - description: Negative air temperature, humidity, pressure, soil moisture on port 1 and soil temperature on port 2
+      input:
+        fPort: 1
+        bytes: [49, 10, 13, 8, 0, 16, 243, 251, 255, 255, 255, 255, 255, 255, 255, 1, 10, 5, 8, 4, 16, 174, 43, 10, 7, 8, 5, 16, 148, 184, 234, 4, 10, 7, 8, 11, 16, 249, 25, 24, 1, 10, 7, 8, 17, 16, 251, 9, 24, 2]
+      output:
+        data:
+          measurementValues:
+            - identifier: 0
+              value: -525
+            - identifier: 4
+              value: 5550
+            - identifier: 5
+              value: 10132500
+            - identifier: 11
+              value: 3321
+              port: 1
+            - identifier: 17
+              value: 1275
+              port: 2
+      # Normalized output, uses the normalizeUplink function (optional)
+      normalizedOutput:
+        data:
+          - air:
+              temperature: -5.25
+              relativeHumidity: 55.5
+              pressure: 1013.25
+          - soil:
+              moisture: 33.21
+              temperature: 12.75

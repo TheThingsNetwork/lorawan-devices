@@ -2219,3 +2219,12 @@ vendors:
     description: IoT CI designs, builds and runs LoRaWAN networks, sensors and data platforms from Jersey in the Channel Islands, and makes its own wireless LoRaWAN radon monitor.
     website: https://iotci.co.uk
     logo: iotci-logo.png
+    
+  - id: evrlast
+    name: Tagback GmbH & Co. KG
+    website: https://tagback.de/evrlast/
+    logo: app_icon_no_text_transparent.svg
+    description: evrlast is a cloud-based IoT platform that connects both LoRaWAN and NB-IoT stations. evrlast offers a wide range of features, including MQTT and HTTP data forwarding. Because evrlast stations and the platform can work with practically any kind of sensor, the application areas are very broad.
+    social:
+      linkedin: https://de.linkedin.com/company/tagback
+      instagram: evrlast_de
