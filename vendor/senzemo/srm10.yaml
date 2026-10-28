@@ -1,4 +1,4 @@
-name: SRM10 - Senzemo sensor
+name: SRM10 - Rain Meter
 description: Senzemo SRM10 sensor made to accurately measure consumption of rainfall. It is designed to operate autonomously for several years. It is suitable for wide variety of applications where accurate data readings are needed.
 
 hardwareVersions:

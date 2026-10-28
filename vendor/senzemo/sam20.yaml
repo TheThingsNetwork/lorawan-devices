@@ -1,4 +1,4 @@
-name: SAM20 - Senzemo sensor
+name: SAM20 - Ambient Sensor
 description: Senzemo SAM20 is a discreet LoRaWAN ambient sensor for rapid deployment and reliable monitoring of temperature, relative humidity, and air pressure.
 
 hardwareVersions:

@@ -1,4 +1,4 @@
-name: STP40 - Senzemo sensor
+name: STP40 - Temperature Probe Sensor
 description: Senzemo STP40 sensor is a cost-effective temperature probe sensor.
 
 hardwareVersions:

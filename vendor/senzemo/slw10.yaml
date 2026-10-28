@@ -1,4 +1,4 @@
-name: SLW10 - Senzemo sensor
+name: SLW10 - Leaf Wetness Sensor
 description: Senzemo SLW10 made to accurately measure leaf wetness.
 
 hardwareVersions:

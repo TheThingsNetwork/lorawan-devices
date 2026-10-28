@@ -1,5 +1,5 @@
-name: STF40 - Senzemo sensor
-description: Senzemo STF40 sensor is suitable for wide variety of applications where reliable andcase specific solution is needed. STF40 is a cost-effective food  temperature sensor
+name: STF40 - Food Temperature Sensor
+description: Senzemo STF40 sensor is suitable for wide variety of applications where reliable and case specific solution is needed. STF40 is a cost-effective food temperature sensor
 
 hardwareVersions:
   - version: '1.0'

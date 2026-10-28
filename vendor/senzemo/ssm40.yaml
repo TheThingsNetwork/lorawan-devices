@@ -1,4 +1,4 @@
-name: SSM40 - Senzemo sensor
+name: SSM40 - Soil Moisture Sensor
 description: Senzemo SSM40 is a cost-effective soil moisture sensor.
 
 hardwareVersions:

@@ -1,5 +1,5 @@
-name: STB10 - Senzemo sensor
-description: Senzemo STB10 sensor simultaneously monitors ambient and buffertemperatures (via a glass-bead filled thermal buffer) to better reflect real-world conditions, and includes onboard data logging.
+name: STB10 - Buffered Temperature Sensor
+description: Senzemo STB10 sensor simultaneously monitors ambient and buffer temperatures (via a glass-bead filled thermal buffer) to better reflect real-world conditions, and includes onboard data logging.
 
 
 hardwareVersions:

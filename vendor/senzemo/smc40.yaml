@@ -1,4 +1,4 @@
-name: SMC40 - Senzemo sensor
+name: SMC40 - Microclimate Sensor
 description: Senzemo SMC40 combines measurements of temperature, humidity and air pressure.
 
 hardwareVersions:
