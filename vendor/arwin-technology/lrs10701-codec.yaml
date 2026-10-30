@@ -9,7 +9,7 @@ uplinkDecoder:
         bytes: [1, 17, 8, 170, 15, 125, 58, 152, 9, 41, 90]
       output:
         data:
-          event: heartbeat/button
+          event: 'heartbeat/button'
           aqi: 34
           co2: 554
           temperature: 22.7
@@ -24,8 +24,8 @@ uplinkDecoder:
       output:
         data:
           tvoc: 270
-          pm1.0: 6.3
-          pm2.5: 7.2
+          'pm1.0': 6.3
+          'pm2.5': 7.2
           pm10: 8.1
     - description: Firmware version 1.07.000
       input:
@@ -34,18 +34,28 @@ uplinkDecoder:
       output:
         data:
           firmwareVersion: '1.07.000'
-    - description: data upload interval 15 min, AQI led on, active sensor T/H, CO2, PMx, Gas 1, Gas 1 type NH3
+    - description: firmware version 1.07.000, battery voltage 3.55 v, battery percentage 100 %, uplink count 66051
+      input:
+        fPort: 9
+        bytes: [1, 7, 0, 7, 13, 222, 100, 0, 1, 2, 3]
+      output:
+        data:
+          firmwareVersion: '1.07.007'
+          batteryLevel: 3550
+          batteryPercentage: 100
+          uplinkCount: 66051
+    - description: data upload interval 15 min, AQI led on, active sensor T/H, CO2, PMx, Gas 1, Gas 1 type NH3, Gas 2, Gas 2 type H2S, Gas sensor resulution 0
       input:
         fPort: 12
-        bytes: [0, 15, 1, 29, 29, 1, 0, 1]
+        bytes: [0, 15, 1, 63, 63, 1, 2, 1]
       output:
         data:
           dataUploadInterval: 15
-          statusLED: on
-          sensorType: 'T/H,CO2,PMx,Gas1'
-          sensorStatus: 'T/H,CO2,PMx,Gas1'
+          statusLED: 'on'
+          sensorType: 'T/H,TVOC,CO2,PMx,Gas1,Gas2'
+          sensorStatus: 'T/H,TVOC,CO2,PMx,Gas1,Gas2,gasResolution=0'
           gas1Type: 'NH3'
-          gas2Type: 'None'
+          gas2Type: 'H2S'
     - description: High temperature threshold 40C, Low temperature threshold 10C, High humidity threshold 95%, Low humidity threshold 35%
       input:
         fPort: 13
@@ -125,6 +135,7 @@ downlinkEncoder:
       input:
         data:
           cmd: setGasesThresholds
+          ec_res: 0
           co2Threshold: 800
           tvocThreshold: 1200
           gas1Threshold: 10

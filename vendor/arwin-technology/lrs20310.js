@@ -1,9 +1,10 @@
-var lrs20310_events = ['heartbeat', 'rsvd', 'water_leak_alert', 'cable_break_alert'];
+
+var lrs20310_events = ['heartbeat/button', 'rsvd', 'water_leak_alert', 'cable_break_alert', 'rsvd', 'rsvd', 'rsvd', 'rsvd'];
 
 function hex2dec(hex) {
   var dec = hex&0xFFFF;
   if (dec & 0x8000)
-    dec = -(0x10000-dec)
+    dec = -(0x10000-dec);
   return dec;
 }
 
@@ -13,8 +14,8 @@ function decodeUplink(input) {
       switch (input.bytes[0]) {
         case 5:
           var evt="";
-          for (let i=0; i<8; i++) {
-            if ((0x01<<i)&input.bytes[1]) 
+          for (var i=0; i<8; i++) {
+            if ((0x01<<i)&input.bytes[1])
               if (evt==="")
                 evt=lrs20310_events[i];
               else
@@ -24,8 +25,8 @@ function decodeUplink(input) {
             data: {
               event: evt,
               battery: input.bytes[2],
-              waterLeakLevel: input.bytes[3],
-            },
+              waterLeakLevel: input.bytes[3]
+            }
           };
         default:
           return {
@@ -34,10 +35,20 @@ function decodeUplink(input) {
       }
       break;
     case 8: // version
-      var ver = input.bytes[0]+"."+("00"+input.bytes[1]).slice(-2)+"."+("000"+(input.bytes[2]<<8|input.bytes[3])).slice(-3);    
+      var ver = input.bytes[0]+"."+("00"+input.bytes[1]).slice(-2)+"."+("000"+(input.bytes[2]<<8|input.bytes[3])).slice(-3);
+      return {
+        data: {
+          firmwareVersion: ver
+        }
+      };
+    case 9: // version, battery & uplink count
+      var ver = input.bytes[0]+"."+("00"+input.bytes[1]).slice(-2)+"."+("000"+(input.bytes[2]<<8|input.bytes[3])).slice(-3);
       return {
         data: {
           firmwareVersion: ver,
+          batteryLevel: input.bytes[4]<<8|input.bytes[5],
+          batteryPercentage: input.bytes[6],
+          uplinkCount: input.bytes[7]<<24|input.bytes[8]<<16|input.bytes[9]<<8|input.bytes[10]
         }
       };
     case 12: // device settings
@@ -47,30 +58,33 @@ function decodeUplink(input) {
             data: {
               dataUploadInterval: hex2dec(input.bytes[1]<<8|input.bytes[2]),
               numAdditionalUploads: input.bytes[4],
-              additionalUploadsInterval: input.bytes[5],
+              additionalUploadsInterval: input.bytes[5]
             }
           };
         default:
           return {
             errors: ['unknown sensor type']
-          }
+          };
       }
-      case 13: // threshold settings
+      break;
+    case 13: // threshold settings
       switch (input.bytes[0]) {
         case 5:
           return {
             data: {
-              waterLeakAlertThreshold: input.bytes[1],
+              waterLeakAlertThreshold: input.bytes[1]
             }
-          }
+          };
         default:
           return {
             errors: ['unknown sensor type']
-          }
+          };
       }
+      break;
     default:
       return {
-        errors: ['unknown FPort'],
+        errors: ['unknown FPort']
       };
   }
 }
+

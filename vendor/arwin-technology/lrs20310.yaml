@@ -1,5 +1,5 @@
-name: LRS20310 - Water Leak Sensor
-description: Water Leak Sensor
+name: SENSO8 LRS20310 - Water Leak Sensor
+description: Water Leak Sensor by Arwin Technology Ltd.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -97,7 +97,7 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 productURL: https://www.senso8.com/senso8-lora-sensors
-dataSheetURL: https://s3.ap-northeast-1.amazonaws.com/www.senso8.com/lora/docs/DS+LRS20100-0000_V1.pdf
+dataSheetURL: https://s3.ap-northeast-1.amazonaws.com/www.senso8.com/senso8_datasheet/LoRaWAN/DS_LRS20310-0000.pdf
 
 # Photos
 photos:

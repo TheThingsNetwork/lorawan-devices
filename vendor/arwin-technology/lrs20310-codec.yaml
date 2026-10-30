@@ -3,35 +3,45 @@
 uplinkDecoder:
   fileName: lrs20310.js
   examples:
-    - description: water leak level 70, water leak
+    - description: water leakage level 10, battery 90 %, event "heartbeat/button"
       input:
         fPort: 10
-        bytes: [5, 4, 80, 70, 0, 0]
+        bytes: [5, 1, 90, 10, 0, 0]
       output:
         data:
-          event: 'water_leak_alert'
-          battery: 80
-          waterLeakLevel: 70
-    - description: Firmware version 1.00.001
+          event: 'heartbeat/button'
+          battery: 90
+          waterLeakLevel: 10
+    - description: firmware version 1.00.001
       input:
         fPort: 8
         bytes: [1, 0, 0, 1]
       output:
         data:
           firmwareVersion: '1.00.001'
+    - description: firmware version 1.00.001, battery level 3.55 v, battery percentage 100 %, uplink count 66051
+      input:
+        fPort: 9
+        bytes: [1, 0, 0, 1, 13, 222, 100, 0, 1, 2, 3]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+          batteryLevel: 3550
+          batteryPercentage: 100
+          uplinkCount: 66051
     - description: device settings, data upload interval = 15 min, number of additional uploads = 3, time between addition uploads = 1 min
       input:
         fPort: 12
-        bytes: [5, 0, 10, 0, 3, 1, 1]
+        bytes: [5, 0, 15, 0, 3, 1, 1]
       output:
         data:
-          dataUploadInterval: 10
+          dataUploadInterval: 15
           numAdditionalUploads: 3
           additionalUploadsInterval: 1
-    - description: water leak  alert threshold = 30
+    - description: water leakage threshold 15
       input:
         fPort: 13
-        bytes: [5, 30]
+        bytes: [5, 15]
       output:
         data:
-          waterLeakAlertThreshold: 30
+          waterLeakAlertThreshold: 15
