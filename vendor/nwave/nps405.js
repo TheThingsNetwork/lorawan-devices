@@ -110,8 +110,8 @@ function decodeUplink(input) {
         data.previous_state_duration_error = null;
         data.previous_state_duration_overflow = null;
       }
-
-      data.tag_id = (bytes[1] << 24 | bytes[2] << 16 | bytes[3] << 8 | bytes[4]).toString(16).toUpperCase();
+      data.tag_battery_voltage = bytes[1] * 0.1;
+      data.tag_id = (bytes[2] << 24 | bytes[3] << 16 | bytes[4] << 8 | bytes[5]).toString(16).toUpperCase();
 
       break;
   }
