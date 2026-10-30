@@ -2032,6 +2032,10 @@ vendors:
       linkedin: https://www.linkedin.com/company/lualtek/
       twitter: lualtek
 
+  - id: loptimizer
+    name: Loptimizer
+    website: https://www.loptimizer.com
+
   - id: n-fuse
     name: n-fuse GmbH
     description: n-fuse is a digitization focusd company providing cutting-edge end-to-end solutions including LoRaWAN devices like environment sensors, IoT bbuttons, gateways and bridges.

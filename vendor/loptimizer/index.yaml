@@ -1,0 +1,9 @@
+endDevices:
+  - loptimizer
+
+profileIDs:
+  '1':
+    endDeviceID: 'loptimizer'
+    firmwareVersion: '1.0.4'
+    hardwareVersion: '1.0'
+    region: 'EU863-870'

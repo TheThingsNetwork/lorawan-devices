@@ -1,0 +1,56 @@
+name: Pocket Tester
+description: LoRaWAN field tester for on-site link validation and battery optimization.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '1.0.4'
+    numeric: 10004
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: loptimizer-profile
+        lorawanCertified: false
+      US902-928:
+        id: loptimizer-profile
+        lorawanCertified: false
+      AU915-928:
+        id: loptimizer-profile
+        lorawanCertified: false
+      AS923:
+        id: loptimizer-profile
+        lorawanCertified: false
+      AS923-2:
+        id: loptimizer-profile
+        lorawanCertified: false
+      AS923-3:
+        id: loptimizer-profile
+        lorawanCertified: false
+      AS923-4:
+        id: loptimizer-profile
+        lorawanCertified: false
+      KR920-923:
+        id: loptimizer-profile
+        lorawanCertified: false
+      IN865-867:
+        id: loptimizer-profile
+        lorawanCertified: false
+      RU864-870:
+        id: loptimizer-profile
+        lorawanCertified: false
+
+deviceType: cots
+sensors:
+  - rssi
+  - snr
+  - link
+additionalRadios:
+  - ble
+
+productURL: https://www.loptimizer.com
+
+photos:
+  main: loptimizerpicture.png
