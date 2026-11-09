@@ -1,0 +1,83 @@
+name: PIR Mini
+description: The MClimate PIR Mini is a compact battery-powered LoRaWAN occupancy sensor combining PIR motion detection (8 m range, 120 degrees field of view) with temperature, relative humidity and light (lux) sensing. Powered by 2xAA batteries, it supports multiple PIR operation modes (occupancy, triggered occupancy, trigger and count) for building automation and workspace utilization monitoring.
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '1.2'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # Firmware version
+    version: '1.4'
+    numeric: 1
+    # Corresponding hardware versions (optional)
+    hardwareVersions:
+      - '1.2'
+
+    # LoRaWAN Device Profiles per region
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: pir-mini-profile
+        lorawanCertified: false
+        codec: pir-mini-codec
+
+# Sensors that this device features (optional)
+sensors:
+  - pir
+  - temperature
+  - humidity
+  - light
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 57.5
+  height: 57.5
+  length: 21.7
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: AA
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - manifest
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.mclimate.eu/mclimate-lorawan-devices/devices/mclimate-pir-mini
+dataSheetURL: https://3940008670-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-McDr-jr9h3qA888r1Yp%2Fuploads%2FwGaQtYw6iDw14wjgD2bL%2FMClimate-PIR-mini-Datasheet.pdf?alt=media&token=cb01e36b-f69c-414b-b011-3efed43410dc
+# Photos
+photos:
+  main: pir-mini.jpg
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: '62368'
+    - body: CENELEC
+      norm: EN
+      standard: '63044'
+  electromagneticCompatibility:
+    - body: CENELEC
+      norm: EN
+      standard: '55032'
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 300220-1
+    - body: ETSI
+      norm: EN
+      standard: 300220-2
+  generalCompliance:
+    - directive: '2014/53/EU'

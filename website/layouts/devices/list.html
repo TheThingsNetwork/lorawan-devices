@@ -1,6 +1,37 @@
 {{ define "main" }}
-  <main>
-    {{ partial "banner.html" (dict "title" .Title "description" .Description) }}
-    {{ partial "device-list.html" (dict "devices" ( .Pages ) ) }}
-  </main>
+{{ $vendorName := .Params.name | default .Title }}
+{{ $count := len .RegularPages }}
+{{ $logo := "" }}
+{{ with .Params.logo }}{{ $logo = $.Resources.GetMatch . }}{{ end }}
+<main>
+  {{- /* Page header: the shared tn-ph band (docs/brand-page-header.md, "vendor page"). */}}
+  <header class="tn-ph">
+    <div class="tn-wrap tn-ph__inner">
+      <nav class="tn-ph__crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ "" | absURL }}">Devices</a></li>
+          <li aria-current="page">{{ $vendorName }}</li>
+        </ol>
+      </nav>
+      <div class="tn-ph__body">
+        <div class="tn-ph__main">
+          {{ with $logo }}
+          <div class="tn-ph__media"><img class="dr-ph-logo" src="{{ .RelPermalink }}" alt="{{ $vendorName }}"></div>
+          {{ end }}
+          <h1 class="tn-ph__title">{{ $vendorName }}</h1>
+          <p class="tn-ph__lede">
+            {{- with .Params.description }}{{ . }}{{ else }}{{ lang.FormatNumber 0 $count }} device{{ if ne $count 1 }}s{{ end }} by {{ $vendorName }} in the Device Repository for LoRaWAN®.{{ end -}}
+          </p>
+          <div class="tn-ph__actions">
+            <a class="btn btn-secondary" id="partner-toggle" href="https://thethingsindustries.com/contact/?message=Hi%2C%0D%0A%0D%0AI+found+{{ urlquery $vendorName }}+on+the+LoRaWAN+device+repository+and+I%27m+interested+in+contacting+{{ urlquery $vendorName }}." rel="noopener">{{ partial "icon.html" (dict "name" "mail") }} Talk to an expert</a>
+            {{ with .Params.website }}
+            <a class="btn btn-secondary" href="{{ . }}" rel="noopener">{{ partial "icon.html" (dict "name" "external-link") }} Vendor website</a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  {{ partial "device-browse-lite.html" (dict "devices" .RegularPages) }}
+</main>
 {{ end }}

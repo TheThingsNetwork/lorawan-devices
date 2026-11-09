@@ -40,16 +40,26 @@ type Photo struct {
 }
 
 func generateTags(e *devicerepository.EndDevice) []string {
-	var t []string
+	var raw []string
 
-	t = append(t, e.Sensors...)
-	t = append(t, e.IPCode)
+	raw = append(raw, e.Sensors...)
+	raw = append(raw, e.IPCode)
 
 	// add frequency plans
 	for _, versions := range e.FirmwareVersions {
 		for p := range versions.Profiles {
-			t = append(t, p)
+			raw = append(raw, p)
 		}
+	}
+
+	// Drop empty values (e.g. a missing IP code) and stray "false" so we
+	// don't generate junk taxonomy pages like /tags// or /tags/false/.
+	t := make([]string, 0, len(raw))
+	for _, tag := range raw {
+		if tag == "" || tag == "false" {
+			continue
+		}
+		t = append(t, tag)
 	}
 
 	return t
@@ -71,6 +81,15 @@ func copyImage(sourceFile string, destinationFile string, e *devicerepository.En
 	}
 
 	return nil
+}
+
+func copyFile(sourceFile string, destinationFile string) error {
+	input, err := ioutil.ReadFile(sourceFile)
+	if err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile(destinationFile, input, 0o644)
 }
 
 func createFileFromTemplate(templatePath string, output string, tp *TemplateData) error {
@@ -145,6 +164,19 @@ func CreateContentSingleDevice(dir config.Dir, drs devicerepository.Store) error
 				}
 			}
 
+			// Copy codec scripts into the page bundle so the decoder
+			// playground can fetch them at /devices/{vendor}/{device}/codecs/.
+			if len(endDeviceModel.CodecFiles) > 0 {
+				_ = os.Mkdir(dir.Hugo.Devices+vendor.ID+"/"+endDevice+"/codecs", 0o700)
+				for _, f := range endDeviceModel.CodecFiles {
+					src := dir.DeviceRepo.Vendor + vendor.ID + "/" + f
+					dst := dir.Hugo.Devices + vendor.ID + "/" + endDevice + "/codecs/" + filepath.Base(f)
+					if err := copyFile(src, dst); err != nil {
+						log.Printf("codec %s/%s: %v", vendor.ID, f, err)
+					}
+				}
+			}
+
 			d, err := yaml.Marshal(&endDeviceModel)
 			if err != nil {
 				return err
@@ -172,6 +204,18 @@ func createContentDevicesVendor(dir config.Dir, vendor devicerepository.Vendor) 
 	_ = os.Mkdir(dir.Hugo.Devices+vendor.ID, 0o700)
 
 	vendor.Title = vendor.Name
+
+	// Copy the vendor logo into the branch bundle for the vendors directory page.
+	if vendor.Logo != "" {
+		src := dir.DeviceRepo.Vendor + vendor.ID + "/" + vendor.Logo
+		dst := dir.Hugo.Devices + vendor.ID + "/" + filepath.Base(vendor.Logo)
+		if err := copyFile(src, dst); err != nil {
+			log.Printf("logo %s: %v", vendor.ID, err)
+			vendor.Logo = ""
+		} else {
+			vendor.Logo = filepath.Base(vendor.Logo)
+		}
+	}
 
 	v, err := yaml.Marshal(vendor)
 	if err != nil {

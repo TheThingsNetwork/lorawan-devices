@@ -67,6 +67,9 @@ function InbiotDeviceDecode(bytes) {
         if (["PLUS", "WELL", "NULL"].indexOf(decoded.type) > -1) {
           // CH2O
           decoded.ch2o = getUint16(bytes, 7, 8);
+          if (decoded.ch2o === 0xffff) {
+            decoded.ch2o = "Preheating";
+          }
           // PM1.0
           decoded.pm1_0 = getUint16(bytes, 11, 12);
           // PM4

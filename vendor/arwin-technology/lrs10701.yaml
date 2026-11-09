@@ -48,15 +48,14 @@ firmwareVersions:
 # solar radiation, sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity,
 # vibration, voltage, water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - iaq
-  - temperature
-  - humidity
-  - co2
-  - tvoc
-  - particulate matter
-  - h2s
   - co
+  - co2
+  - h2s
+  - humidity
+  - iaq
   - no2
+  - particulate matter
+  - temperature
   - tvoc
 
 # Dimensions in mm (optional)

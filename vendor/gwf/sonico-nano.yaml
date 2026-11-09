@@ -1,0 +1,37 @@
+name: Sonico Nano Water Meter
+description: A highly accurate Ultrasonic Water meter with embedded Lora Connectivity GWF AG
+hardwareVersions:
+  - version: '2.0'
+firmwareVersions:
+  - version: '3.0'
+    hardwareVersions:
+      - '2.0'
+    profiles:
+      EU863-870:
+        id: sonico-nano-868
+        lorawanCertified: true
+        codec: sonico-nano-codec
+      US902-928:
+        id: sonico-nano-915
+        lorawanCertified: false
+        codec: sonico-nano-codec
+      AU915-928:
+        id: sonico-nano-915
+        lorawanCertified: false
+        codec: sonico-nano-codec
+      AS923:
+        id: sonico-nano-915
+        lorawanCertified: false
+        codec: sonico-nano-codec
+Sensing Technology:
+  - Ultrasonic R1000
+battery:
+  replaceable: false
+  type: 3.6V LiSoCl2
+ipCode: IP68
+keyProvisioning:
+  - custom
+productURL: https://productfinder.gwf.ch/en/sonico-nano/
+dataSheetURL: https://productfinder.gwf.ch/uploads_productfinder/downloads/Sonico_Brochure_2024.pdf
+photos:
+  main: sonico-nano.png

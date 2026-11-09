@@ -11,37 +11,37 @@ firmwareVersions:
   - # Firmware version
     version: '0.1.0'
     numeric: 1
+    hardwareVersions:
+      - '1.0'
     profiles:
       EU863-870:
         id: dnt-profile
         codec: dnt-lw-etrv-c-codec
     # Corresponding hardware versions (optional)
-    hardwareVersions:
-      - '1.0'
   - version: '1.3.0'
     numeric: 130
     hardwareVersions:
       - '1.0'
+    profiles:
+      EU863-870:
+        id: dnt-profile
+        lorawanCertified: true
+        codec: dnt-lw-etrv-c-codec
+  - version: '1.4.4'
+    numeric: 144
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: dnt-profile-1-0-4
+        lorawanCertified: true
+        codec: dnt-lw-etrv-c-codec-1-5-2
 
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
     features:
       - transmission interval
-
-    # LoRaWAN Device Profiles per region
-    # Supported regions are EU863-870, US902-928, AU915-928, AS923, CN779-787, EU433, CN470-510, KR920-923, IN865-867,
-    # RU864-870
-    profiles:
-      EU863-870:
-        # Optional identifier of the vendor of the profile. When you specify the vendorID, the profile is loaded from
-        # the vendorID's folder. This allows you to reuse profiles from module or LoRaWAN end device stack vendors.
-        # If vendorID is empty, the current vendor ID is used. In this example, the vendorID is the current vendor ID,
-        # which is verbose.
-        # Identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: dnt-profile
-        lorawanCertified: true
-        codec: dnt-lw-etrv-c-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -94,7 +94,7 @@ keyProgramming:
 # supports LoRaWAN FUOTA via standard interfaces) and fuota other (other wireless update mechanism).
 firmwareProgramming:
   - serial
-  - fuota other
+  - fuota lorawan
 
 # Product and data sheet URLs (optional)
 productURL: https://dnt.de/business/

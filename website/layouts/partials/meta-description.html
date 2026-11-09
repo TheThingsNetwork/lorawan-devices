@@ -1,0 +1,51 @@
+{{- /* The page's meta description (also og:/twitter:/itemprop description).
+
+  Most vendor-supplied device descriptions are a short product category ("Air Monitoring Sensor"),
+  and most vendor pages have none. Both are extended
+  with facts the repository itself holds, so every device and vendor page gets a specific snippet:
+  - device:  a description of 110+ characters as it is; a shorter one becomes "<description>. <Name>
+             by <Vendor>: LoRaWAN Class A device for EU863-870, with a payload codec." (+ " Specifications
+             and onboarding to The Things Stack." while that stays within 160 characters)
+  - vendor:  the vendor's own description, else "<N> LoRaWAN devices by <Vendor>: …"
+  Everything else keeps its own `description` front matter. */ -}}
+{{- $d := "" -}}
+{{- if and (eq .Section "devices") .Params.modelid -}}
+  {{- $own := trim (.Params.description | default "") " " -}}
+  {{- $name := .Params.name | default .Title -}}
+  {{- $vendor := .Params.vendor.name | default "" -}}
+  {{- $classes := .Params.classes | default slice -}}
+  {{- $plans := .Params.frequencyplans | default slice -}}
+
+  {{- $facts := "LoRaWAN" -}}
+  {{- with $classes }}{{ $facts = printf "%s Class %s" $facts (delimit . "/") }}{{ end -}}
+  {{- $facts = printf "%s device" $facts -}}
+  {{- $n := len $plans -}}
+  {{- if and (gt $n 0) (le $n 3) }}{{ $facts = printf "%s for %s" $facts (delimit $plans ", ") }}
+  {{- else if gt $n 3 }}{{ $facts = printf "%s for %d frequency plans" $facts $n }}{{ end -}}
+  {{- if .Params.hascodec }}{{ $facts = printf "%s, with a payload codec" $facts }}{{ end -}}
+  {{- if .Params.certified }}{{ $facts = printf "%s, LoRaWAN certified" $facts }}{{ end -}}
+
+  {{- $who := $name -}}
+  {{- with $vendor }}{{ $who = printf "%s by %s" $name . }}{{ end -}}
+  {{- $lead := "" -}}
+  {{- with $own }}{{ $lead = printf "%s. " (strings.TrimRight ". " .) }}{{ end -}}
+  {{- if ge (len $own) 110 -}}
+    {{- $d = $own -}}{{- /* already a real description: keep it as it is */ -}}
+  {{- else -}}
+    {{- $d = printf "%s%s: %s." $lead $who $facts -}}
+    {{- $more := " Specifications and onboarding to The Things Stack." -}}
+    {{- if le (add (len $d) (len $more)) 160 }}{{ $d = printf "%s%s" $d $more }}{{ end -}}
+  {{- end -}}
+{{- else if and (eq .Section "devices") (eq .Kind "section") .Params.id -}}
+  {{- $own := trim (.Params.description | default "") " " -}}
+  {{- $name := .Params.name | default .Title -}}
+  {{- $count := len .RegularPages -}}
+  {{- if $own -}}
+    {{- $d = $own -}}
+  {{- else -}}
+    {{- $d = printf "%d LoRaWAN %s by %s in the Device Repository for LoRaWAN: specifications, payload codecs and onboarding to The Things Stack." $count (cond (eq $count 1) "device" "devices") $name -}}
+  {{- end -}}
+{{- else -}}
+  {{- $d = .Params.description | default "" -}}
+{{- end -}}
+{{- return (plainify $d) -}}

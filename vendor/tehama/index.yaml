@@ -1,8 +1,8 @@
-# This contains just one end device: tehama-pulse-mdt. It is referenced here in the index.
+# This contains just one end device: tehama-meter-mdt. It is referenced here in the index.
 
 endDevices:
   # Unique identifier of the end device (lowercase, alphanumeric with dashes, max 36 characters)
-  - tehama-pulse-mdt # look in tehama.yaml for the end device definition
+  - tehama-meter-mdt # look in tehama.yaml for the end device definition
 
 # The profileIDs is a distinct value for every unique profile listed in the vendor's folder.
 # This value can be freely issued by the vendor and is also used on the QR code for LoRaWAN devices, see
@@ -11,7 +11,7 @@ endDevices:
 # NOTE: The profileIDs is different from the vendorID.
 profileIDs:
   '1':
-    endDeviceID: 'tehama-pulse-mdt'
+    endDeviceID: 'tehama-meter-mdt'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
     region: 'US902-928'

@@ -1,0 +1,26 @@
+uplinkDecoder:
+  fileName: radon-monitor.js
+  examples:
+    - description: Periodic radon reading (164 Bq/m³)
+      input:
+        fPort: 2
+        bytes: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA4, 0x00, 0x00, 0x00]
+      output:
+        data:
+          radon: 164
+          flags: 0
+    - description: Periodic radon reading (37 Bq/m³)
+      input:
+        fPort: 2
+        bytes: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25, 0x00, 0x00, 0x00]
+      output:
+        data:
+          radon: 37
+          flags: 0
+    - description: Uplink on an unknown port
+      input:
+        fPort: 1
+        bytes: [0x00]
+      output:
+        errors:
+          - unknown fPort 1

@@ -1,0 +1,149 @@
+{{ define "main" }}
+{{ if eq .Kind "term" }}
+{{/* ============ PER-TAG LANDING PAGE ============ */}}
+{{ $site := .Site }}
+{{ $count := len .Pages }}
+{{ $linkTitle := .LinkTitle }}
+<main>
+  {{- /* Page header: the shared tn-ph band (docs/brand-page-header.md, "taxonomy"). */}}
+  <header class="tn-ph">
+    <div class="tn-wrap tn-ph__inner">
+      <nav class="tn-ph__crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ "" | absURL }}">Devices</a></li>
+          <li><a href="{{ .Parent.Permalink }}">Tags</a></li>
+          <li aria-current="page">{{ .LinkTitle }}</li>
+        </ol>
+      </nav>
+      <div class="tn-ph__body">
+        <div class="tn-ph__main">
+          <h1 class="tn-ph__title">{{ .Title }}</h1>
+          <p class="tn-ph__lede">
+            {{- with .Params.lede }}{{ . }}
+            {{- else }}{{ lang.FormatNumber 0 $count }} device{{ if ne $count 1 }}s{{ end }} tagged “{{ .LinkTitle }}” in the Device Repository for LoRaWAN®.
+            {{- end -}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{ with .Content }}
+  <div class="container">
+    <div class="tag-prose">{{ . }}</div>
+  </div>
+  {{ end }}
+
+  {{ partial "device-browse-lite.html" (dict "devices" .Pages) }}
+
+  <div class="container">
+    <div class="tag-extra">
+      {{/* Top vendors offering this tag, ranked by device count */}}
+      {{ $rows := slice }}
+      {{ range .Pages.GroupByParam "vendor.name" }}
+        {{ $first := index .Pages 0 }}
+        {{ $rows = $rows | append (dict "name" .Key "count" (len .Pages) "id" $first.Params.vendor.id) }}
+      {{ end }}
+      {{ with where (sort $rows "count" "desc") "name" "ne" "" }}
+      <section class="section tag-section">
+        <h2>Top vendors</h2>
+        <p class="section-note">Manufacturers with the most {{ lower $linkTitle }} devices in the catalog.</p>
+        <div class="filter-pills tag-links">
+          {{ range first 10 . }}
+          <a class="filter-pill tag-link" href="{{ printf "devices/%s/" .id | absURL }}">{{ .name }} <span class="tag-link__n">{{ .count }}</span></a>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+
+      {{/* Related tags */}}
+      {{ with .Params.related }}
+      <section class="section tag-section">
+        <h2>Related</h2>
+        <div class="filter-pills tag-links">
+          {{ range . }}
+          {{ with $site.GetPage (printf "/tags/%s" .) }}
+          <a class="filter-pill tag-link" href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+
+      {{/* FAQ */}}
+      {{ with .Params.faq }}
+      <section class="section tag-section">
+        <h2>Frequently asked questions</h2>
+        <div class="faq-list">
+          {{ range . }}
+          <details class="faq-item">
+            <summary>{{ .q }}</summary>
+            <p>{{ .a | markdownify }}</p>
+          </details>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+    </div>
+  </div>
+</main>
+
+{{ else }}
+{{/* ============ /tags/ HUB ============ */}}
+<main>
+  <header class="tn-ph">
+    <div class="tn-wrap tn-ph__inner">
+      <nav class="tn-ph__crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ "" | absURL }}">Devices</a></li>
+          <li aria-current="page">Tags</li>
+        </ol>
+      </nav>
+      <div class="tn-ph__body">
+        <div class="tn-ph__main">
+          <h1 class="tn-ph__title">Browse by tag</h1>
+          <p class="tn-ph__lede">Find LoRaWAN devices by sensor type, frequency plan and enclosure rating.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="tag-hub">
+      {{ $pages := .Pages }}
+      {{ $groups := slice
+        (dict "key" "sensor" "title" "Sensors & measurements" "note" "Devices grouped by what they measure or detect.")
+        (dict "key" "frequency" "title" "Frequency plans" "note" "Regional LoRaWAN frequency plans (regional parameters).")
+        (dict "key" "enclosure" "title" "Enclosure ratings" "note" "IEC 60529 ingress-protection (IP) ratings.")
+      }}
+      {{ range $groups }}
+        {{ $g := . }}
+        {{ with where $pages "Params.category" $g.key }}
+        <section class="section tag-section">
+          <h2>{{ $g.title }}</h2>
+          <p class="section-note">{{ $g.note }}</p>
+          <div class="filter-pills tag-links">
+            {{ range .ByTitle }}
+            <a class="filter-pill tag-link" href="{{ .Permalink }}">{{ .LinkTitle }} <span class="tag-link__n">{{ len .Pages }}</span></a>
+            {{ end }}
+          </div>
+        </section>
+        {{ end }}
+      {{ end }}
+
+      {{/* Any uncategorised terms (e.g. tags added before a landing page exists) */}}
+      {{ $known := slice "sensor" "frequency" "enclosure" }}
+      {{ with where $pages "Params.category" "not in" $known }}
+      <section class="section tag-section">
+        <h2>Other</h2>
+        <div class="filter-pills tag-links">
+          {{ range .ByTitle }}
+          <a class="filter-pill tag-link" href="{{ .Permalink }}">{{ .LinkTitle }} <span class="tag-link__n">{{ len .Pages }}</span></a>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+    </div>
+  </div>
+</main>
+{{ end }}
+{{ end }}

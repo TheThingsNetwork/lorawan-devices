@@ -1,0 +1,43 @@
+{{ $devices := .devices }}
+<div class="container" data-browse>
+  <h2 class="visually-hidden">Devices</h2>
+  <div class="browse-search">
+    <div class="search-bar">
+      <div class="search-input">
+        {{ partial "icon.html" (dict "name" "search" "size" 24) }}
+        <input placeholder="Search these devices…" data-search aria-label="Search devices" />
+      </div>
+      <select class="sort-select" data-sort aria-label="Sort devices">
+        <option value="name">Name (A–Z)</option>
+        <option value="vendor">Vendor (A–Z)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="browse-lite-results">
+    <div class="active-filters" data-chips hidden></div>
+    <div class="results-meta">
+      <span data-count><strong>{{ len $devices }}</strong> devices</span>
+      <div class="view-toggle">
+        <button data-view="grid" class="active" title="Tile view" aria-label="Tile view">
+          {{ partial "icon.html" (dict "name" "layout-grid") }}
+        </button>
+        <button data-view="list" title="List view" aria-label="List view">
+          {{ partial "icon.html" (dict "name" "list") }}
+        </button>
+      </div>
+    </div>
+
+    <div class="empty" data-empty hidden>
+      <h3>No devices match</h3>
+      <p>Try broadening your search.</p>
+    </div>
+
+    <div class="device-grid" data-grid>
+      {{ range $devices.ByTitle }}
+      {{ partial "device-card.html" . }}
+      {{ end }}
+    </div>
+    <div class="device-list" data-list hidden></div>
+  </div>
+</div>

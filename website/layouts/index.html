@@ -1,6 +1,162 @@
 {{ define "main" }}
-    <main aria-role="main">
-      {{ partial "banner.html" (dict "title" "Device Repository for LoRaWAN®" "description" .Description) }}
-      {{ partial "device-list.html" (dict "devices" ( where site.RegularPages "Section" "devices" ) ) }}
-    </main>
+{{ $devices := (where site.RegularPages "Section" "devices").ByTitle }}
+
+{{/* Collect facet values across all devices */}}
+{{ $allSensors := slice }}
+{{ $allPlans := slice }}
+{{ $ipCounts := dict }}
+{{ range $devices }}
+  {{ range .Params.sensors }}{{ $allSensors = $allSensors | append (lower .) }}{{ end }}
+  {{ range .Params.frequencyplans }}{{ $allPlans = $allPlans | append . }}{{ end }}
+  {{ with .Params.ipcode }}
+    {{ $ip := upper (index (split (string .) " ") 0) }}
+    {{ if and (hasPrefix $ip "IP") (le (len $ip) 5) }}
+      {{ $ipCounts = merge $ipCounts (dict $ip (add (index $ipCounts $ip | default 0) 1)) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $sensorValues := sort (uniq $allSensors) }}
+{{ $planValues := sort (uniq $allPlans) }}
+{{ $vendorCount := len (where (site.GetPage "/devices").Pages "Kind" "section") }}
+{{ $certCount := len (where $devices ".Params.certified" true) }}
+{{ $codecCount := len (where $devices ".Params.hascodec" true) }}
+
+{{ $deviceCount := len $devices }}
+
+<main>
+  {{- /* Page header: the shared tn-ph band (docs/brand-page-header.md, "/device-repository/ (devices)").
+       Every number below is counted from the repository at build time. */}}
+  <header class="tn-ph">
+    <div class="tn-wrap tn-ph__inner">
+      <div class="tn-ph__body">
+        <div class="tn-ph__main">
+          <h1 class="tn-ph__title">Device Repository for <em>LoRaWAN<sup>®</sup></em></h1>
+          <p class="tn-ph__lede">Browse {{ lang.FormatNumber 0 $deviceCount }} LoRaWAN end devices from {{ lang.FormatNumber 0 $vendorCount }} vendors. Filter by sensor, frequency plan, device class or certification, and onboard directly to The Things Stack.</p>
+        </div>
+      </div>
+      <dl class="tn-ph__stats">
+        <div class="tn-ph__stat"><dt>Devices</dt><dd>{{ lang.FormatNumber 0 $deviceCount }}</dd></div>
+        <div class="tn-ph__stat"><dt>Vendors</dt><dd><a href="{{ "vendors/" | absURL }}" aria-label="{{ lang.FormatNumber 0 $vendorCount }} Vendors">{{ lang.FormatNumber 0 $vendorCount }}</a></dd></div>
+        <div class="tn-ph__stat"><dt>Frequency plans</dt><dd>{{ lang.FormatNumber 0 (len $planValues) }}</dd></div>
+        <div class="tn-ph__stat"><dt>With payload codec</dt><dd>{{ lang.FormatNumber 0 $codecCount }}</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <div class="container" data-browse>
+    <div class="browse-search">
+      <div class="search-bar">
+        <div class="search-input">
+          {{ partial "icon.html" (dict "name" "search" "size" 24) }}
+          <input placeholder="Search by device name, vendor or sensor type…" data-search aria-label="Search devices" />
+        </div>
+        <select class="sort-select" data-sort aria-label="Sort devices">
+          <option value="name">Name (A–Z)</option>
+          <option value="vendor">Vendor (A–Z)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="browse-layout">
+      <div>
+        <button class="btn btn-secondary btn-sm filter-toggle" data-filter-toggle>
+          {{ partial "icon.html" (dict "name" "filter") }}
+          Filters
+        </button>
+        <aside class="filter-sidebar" aria-labelledby="filters-heading">
+          <h2 class="visually-hidden" id="filters-heading">Filters</h2>
+          <fieldset class="filter-block">
+            <legend class="filter-label">Sensor type</legend>
+            <div class="filter-list scrollable">
+              {{ range $s := $sensorValues }}
+              <label>
+                <span class="lname">
+                  <input type="checkbox" data-facet="sensors" value="{{ $s }}" />
+                  {{ humanize $s }}
+                </span>
+                <span class="count">{{ len (where $devices ".Params.sensors" "intersect" (slice $s)) }}</span>
+              </label>
+              {{ end }}
+            </div>
+          </fieldset>
+
+          <fieldset class="filter-block">
+            <legend class="filter-label">Frequency plan</legend>
+            <div class="filter-pills">
+              {{ range $planValues }}
+              <button class="filter-pill" data-facet="plans" value="{{ . }}">{{ . }}</button>
+              {{ end }}
+            </div>
+          </fieldset>
+
+          <fieldset class="filter-block">
+            <legend class="filter-label">LoRaWAN class</legend>
+            <div class="filter-pills">
+              {{ range $c := slice "A" "B" "C" }}
+              <button class="filter-pill" data-facet="classes" value="{{ $c }}">Class {{ $c }}</button>
+              {{ end }}
+            </div>
+          </fieldset>
+
+          <fieldset class="filter-block">
+            <legend class="filter-label">IP rating</legend>
+            <div class="filter-pills">
+              {{ range $ip, $n := $ipCounts }}
+              <button class="filter-pill" data-facet="ip" value="{{ $ip }}">{{ $ip }}</button>
+              {{ end }}
+            </div>
+          </fieldset>
+
+          <fieldset class="filter-block">
+            <legend class="filter-label">Other</legend>
+            <div class="filter-list">
+              <label>
+                <span class="lname">
+                  <input type="checkbox" data-facet="flags" value="certified" />
+                  LoRa Alliance certified
+                </span>
+                <span class="count">{{ $certCount }}</span>
+              </label>
+              <label>
+                <span class="lname">
+                  <input type="checkbox" data-facet="flags" value="codec" />
+                  Payload codec available
+                </span>
+                <span class="count">{{ $codecCount }}</span>
+              </label>
+            </div>
+          </fieldset>
+        </aside>
+      </div>
+
+      <div class="browse-results">
+        <h2 class="visually-hidden">Devices</h2>
+        <div class="active-filters" data-chips hidden></div>
+        <div class="results-meta">
+          <span data-count><strong>{{ len $devices }}</strong> devices</span>
+          <div class="view-toggle">
+            <button data-view="grid" class="active" title="Tile view" aria-label="Tile view">
+              {{ partial "icon.html" (dict "name" "layout-grid") }}
+            </button>
+            <button data-view="list" title="List view" aria-label="List view">
+              {{ partial "icon.html" (dict "name" "list") }}
+            </button>
+          </div>
+        </div>
+
+        <div class="empty" data-empty hidden>
+          <h3>No devices match these filters</h3>
+          <p>Try clearing some filters or broadening your search.</p>
+        </div>
+
+        <div class="device-grid" data-grid>
+          {{ range $devices }}
+          {{ partial "device-card.html" . }}
+          {{ end }}
+        </div>
+        <div class="device-list" data-list hidden></div>
+      </div>
+    </div>
+  </div>
+</main>
 {{ end }}

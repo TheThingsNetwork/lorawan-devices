@@ -1,0 +1,37 @@
+uplinkDecoder:
+  fileName: ht-pir-lite.js
+  examples:
+    - description: Periodic keepalive
+      input:
+        fPort: 2
+        bytes: [0x81, 0x02, 0x79, 0x7D, 0xE2, 0x01]
+      output:
+        data:
+          occupied: false
+          sensorTemperature: 23.3
+          relativeHumidity: 48.83
+          batteryVoltage: 3.55
+          pirTriggerCount: 1
+      normalizedOutput:
+        data:
+          - air:
+              temperature: 23.3
+              relativeHumidity: 48.83
+            battery: 3.55
+            action:
+              motion:
+                detected: false
+                count: 1
+    - description: Response to occupancy timeout and keepalive period commands, with appended keepalive
+      input:
+        fPort: 2
+        bytes: [0x39, 0x00, 0x3C, 0x12, 0x0A, 0x81, 0x02, 0x79, 0x7D, 0xE2, 0x01]
+      output:
+        data:
+          occupancyTimeout: 60
+          keepAliveTime: 10
+          occupied: false
+          sensorTemperature: 23.3
+          relativeHumidity: 48.83
+          batteryVoltage: 3.55
+          pirTriggerCount: 1

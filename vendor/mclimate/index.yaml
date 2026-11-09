@@ -12,6 +12,9 @@ endDevices:
   - co2-display-lite
   - 16aspm
   - 16ads
+  - co2-pir-lite
+  - ht-pir-lite
+  - pir-mini
 profileIDs:
   '0':
     endDeviceID: 't-valve'
@@ -77,4 +80,19 @@ profileIDs:
     endDeviceID: '16ads'
     firmwareVersion: '1.0'
     hardwareVersion: '1.0'
+    region: 'EU863-870'
+  '15':
+    endDeviceID: 'co2-pir-lite'
+    firmwareVersion: '1.1'
+    hardwareVersion: '1.1'
+    region: 'EU863-870'
+  '16':
+    endDeviceID: 'ht-pir-lite'
+    firmwareVersion: '1.1'
+    hardwareVersion: '1.1'
+    region: 'EU863-870'
+  '17':
+    endDeviceID: 'pir-mini'
+    firmwareVersion: '1.4'
+    hardwareVersion: '1.2'
     region: 'EU863-870'

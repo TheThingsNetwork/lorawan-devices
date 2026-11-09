@@ -1299,6 +1299,8 @@ vendors:
   - id: kamstrup
     name: Kamstrup A/S
     vendorID: 748
+    ouis:
+      - 0013EA
 
   - id: adafruit
     name: Adafruit Industries
@@ -2082,7 +2084,7 @@ vendors:
 
   - id: atomsenses
     name: Atomsenses
-    description: Atomsenses is a specialist IoT solution provider focusing on Lorawan sensors for indoor air quality monitoring, our vision is to transform how we manage and maintain healthy indoor environments.
+    description: Atomsenses builds LoRaWAN sensors for indoor air quality, workplace safety, and environmental monitoring.
     logo: atomsenses.png
     website: https://www.atomsenses.com/
     social:
@@ -2190,3 +2192,30 @@ vendors:
     logo: fencyboy_logo.png
     social:
       linkedin: https://www.linkedin.com/showcase/fencyboy
+
+  - id: mikrotik
+    name: MikroTik
+    vendorID: 980
+    website: https://mikrotik.com
+
+  - id: advangrid
+    name: AdvanGrid
+    website: https://advangrid.com
+
+  - id: aqualinks
+    name: Aqualinks
+    website: https://aqualinks.es
+
+  - id: safora
+    name: Safora Technologies
+    website: https://www.safora-tech.com
+
+  - id: option
+    name: Option NV
+    website: https://www.option.com
+
+  - id: iotci
+    name: IoT CI
+    description: IoT CI designs, builds and runs LoRaWAN networks, sensors and data platforms from Jersey in the Channel Islands, and makes its own wireless LoRaWAN radon monitor.
+    website: https://iotci.co.uk
+    logo: iotci-logo.png

@@ -1,0 +1,66 @@
+{{ define "main" }}
+{{ $vendors := where (site.GetPage "/devices").Pages "Kind" "section" }}
+{{ $deviceCount := len (where site.RegularPages "Section" "devices") }}
+<main>
+  <header class="tn-ph">
+    <div class="tn-wrap tn-ph__inner">
+      <div class="tn-ph__body">
+        <div class="tn-ph__main">
+          <p class="tn-eyebrow tn-ph__eyebrow">Device Repository</p>
+          <h1 class="tn-ph__title">Vendors</h1>
+          <p class="tn-ph__lede">{{ lang.FormatNumber 0 (len $vendors) }} manufacturers contribute {{ lang.FormatNumber 0 $deviceCount }} devices to the repository. Every device profile and payload codec is reviewed before it is published.</p>
+          <div class="tn-ph__actions">
+            <div class="search-input dr-ph-search">
+              {{ partial "icon.html" (dict "name" "search" "size" 24) }}
+              <input placeholder="Search vendors…" data-vendor-search aria-label="Search vendors" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="vendors-layout">
+      <div class="empty" data-vendor-empty hidden>
+        <h2>No vendors found</h2>
+        <p>Try a different name.</p>
+      </div>
+      <div class="vendor-grid" data-vendor-grid>
+        {{ range $vendors.ByTitle }}
+        {{ $count := len .RegularPages }}
+        {{ if gt $count 0 }}
+        {{ $certified := len (where .RegularPages ".Params.certified" true) }}
+        {{ $name := .Params.name | default .Title }}
+        <a class="vendor-card" href="{{ .Permalink }}" data-vendor-name="{{ lower $name }}">
+          <div class="vc-head">
+            {{ $logo := "" }}
+            {{ with .Params.logo }}{{ $logo = . }}{{ end }}
+            {{ $page := . }}
+            {{ with $logo }}{{ with $page.Resources.GetMatch . }}
+            <div class="vc-logo has-img"><img src="{{ .RelPermalink }}" alt="{{ $name }} logo" loading="lazy" /></div>
+            {{ else }}
+            <div class="vc-logo">{{ substr $name 0 1 | upper }}</div>
+            {{ end }}{{ else }}
+            <div class="vc-logo">{{ substr $name 0 1 | upper }}</div>
+            {{ end }}
+            <div class="vc-id">
+              <h2>{{ $name }}</h2>
+              {{ with .Params.website }}<div class="vc-site">{{ . | replaceRE `^https?://(www\.)?` "" | strings.TrimSuffix "/" }}</div>{{ end }}
+            </div>
+          </div>
+          <div class="vc-stats">
+            <div class="vc-stat"><span class="n">{{ $count }}</span><span class="l">Device{{ if ne $count 1 }}s{{ end }}</span></div>
+            <div class="vc-stat"><span class="n">{{ $certified }}</span><span class="l">Certified</span></div>
+          </div>
+          <div class="vc-foot">
+            <span>View devices</span>
+            {{ partial "icon.html" (dict "name" "chevron-right") }}
+          </div>
+        </a>
+        {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</main>
+{{ end }}
