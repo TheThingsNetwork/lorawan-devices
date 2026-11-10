@@ -681,6 +681,7 @@ function decode_T2_mme_adjustable_step(payload, isWh){
         if(isWh) data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0);
         else data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0)/10;
       }else{
+        var bytes = [];
         for(var i = 0;i<8;i++) bytes.push(payload[i+12])
         if(isWh) data.index = toSignedInt64(bytes);
         else data.index = toSignedInt64(bytes)/10;
