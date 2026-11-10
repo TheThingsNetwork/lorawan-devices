@@ -1,0 +1,8 @@
+{{- /* A Tabler outline icon (24px grid, 2px stroke) from data/tabler_icons.json (tools/export-tabler-icons.mjs).
+     Usage: {{ partial "icon.html" (dict "name" "search") }}            → 16px
+            {{ partial "icon.html" (dict "name" "search" "size" 24) }}  → 24px (the only other size)
+     Decorative: the text next to it carries the meaning, so it is aria-hidden. */ -}}
+{{- $body := index site.Data.tabler_icons .name -}}
+{{- if not $body }}{{ errorf "icon.html: unknown icon %q — add it to tools/export-tabler-icons.mjs" .name }}{{ end -}}
+{{- $size := .size | default 16 -}}
+<svg class="ico{{ with .class }} {{ . }}{{ end }}" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{{ $body | safeHTML }}</svg>

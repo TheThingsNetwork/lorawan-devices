@@ -25,10 +25,10 @@ export const renderChecklist = (root, cfg, files, { prTitle, prBody } = {}) => {
     item.className = 'cl-item'
     const action =
       file.kind === 'binary'
-        ? `<a class="btn btn-secondary btn-sm" target="_blank" rel="noopener" href="${uploadURL(cfg, file.path.split('/').slice(0, -1).join('/'))}">Upload on GitHub ↗</a>`
+        ? `<a class="btn btn-secondary btn-sm" target="_blank" rel="noopener" href="${uploadURL(cfg, file.path.split('/').slice(0, -1).join('/'))}">Upload on GitHub<svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6m-7 1l9-9m-5 0h5v5"/></svg></a>`
         : file.kind === 'edit'
-          ? `<a class="btn btn-secondary btn-sm" target="_blank" rel="noopener" href="${editURL(cfg, file.path)}">Open current file ↗</a>`
-          : `<a class="btn btn-secondary btn-sm" target="_blank" rel="noopener" href="${newFileURL(cfg, file.path, file.body)}">Create on GitHub ↗</a>`
+          ? `<a class="btn btn-secondary btn-sm" target="_blank" rel="noopener" href="${editURL(cfg, file.path)}">Open current file<svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6m-7 1l9-9m-5 0h5v5"/></svg></a>`
+          : `<a class="btn btn-secondary btn-sm" target="_blank" rel="noopener" href="${newFileURL(cfg, file.path, file.body)}">Create on GitHub<svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6m-7 1l9-9m-5 0h5v5"/></svg></a>`
     item.innerHTML = `
       <span class="cl-num">${i + 1}</span>
       <div class="cl-main">

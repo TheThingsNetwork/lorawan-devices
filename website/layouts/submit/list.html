@@ -1,14 +1,24 @@
 {{ define "main" }}
 {{ $vendors := where (site.GetPage "/devices").Pages "Kind" "section" }}
 <main>
-  <section class="page-hero" style="padding-bottom: 24px;">
-    <div class="container">
-      <p class="eyebrow">Device Repository</p>
-      <h1>Submit a device</h1>
-      <p class="lede">Add your device to the open-source repository. A complete profile, with payload codec, gets your device one-click onboarding in The Things Stack and visibility to thousands of network operators. This wizard generates the YAML files for your pull request.</p>
-      <p class="lede" style="font-size: 14px;">Changing a device that is already listed? Use the <a href="{{ "update/" | absURL }}">update wizard</a> instead.</p>
+  {{- /* Page header: the shared tn-ph band (docs/brand-page-header.md, "taxonomy, submit, update"). */}}
+  <header class="tn-ph">
+    <div class="tn-wrap tn-ph__inner">
+      <nav class="tn-ph__crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ "" | absURL }}">Devices</a></li>
+          <li aria-current="page">Submit a device</li>
+        </ol>
+      </nav>
+      <div class="tn-ph__body">
+        <div class="tn-ph__main">
+          <h1 class="tn-ph__title">Submit a device</h1>
+          <p class="tn-ph__lede">Add your device to the open-source repository. A complete profile, with payload codec, gets your device one-click onboarding in The Things Stack and visibility to thousands of network operators. This wizard generates the YAML files for your pull request.</p>
+          <p class="tn-ph__note">Changing a device that is already listed? Use the <a href="{{ "update/" | absURL }}">update wizard</a> instead.</p>
+        </div>
+      </div>
     </div>
-  </section>
+  </header>
 
   <div class="container" data-submit-wizard data-gh-repo="{{ .Site.Params.githubRepo | default `TheThingsNetwork/lorawan-devices` }}" data-gh-branch="{{ .Site.Params.githubBranch | default `master` }}" data-submit-api="{{ .Site.Params.submitApi }}" data-submit-email="{{ .Site.Params.submitEmail }}" data-turnstile-key="{{ .Site.Params.turnstileKey }}">
     <div class="submit-layout">
@@ -176,7 +186,7 @@
           <h2>Product photo</h2>
           {{ partial "wizard/photo-step.html" . }}
           <div class="s-callout">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            {{ partial "icon.html" (dict "name" "info-circle") }}
             <span>The photo travels with your pull request as <code>vendor/&lt;vendor&gt;/&lt;model&gt;.png</code>, this step only checks it against the repository rules so the reviewers don't have to bounce it back.</span>
           </div>
         </div>
@@ -189,7 +199,7 @@
           </div>
           <div class="val-list" data-validation></div>
           <div class="s-callout">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            {{ partial "icon.html" (dict "name" "info-circle") }}
             <span>The files are validated against the same <strong>schema.json</strong> the repository CI uses. Generating shows a step-by-step GitHub checklist, submissions are reviewed by the maintainers, most are merged within a few working days.</span>
           </div>
         </div>
@@ -203,16 +213,16 @@
 
     <div class="submit-success" data-success hidden>
       <div class="ss-icon" data-manual-only>
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        {{ partial "icon.html" (dict "name" "check" "size" 24) }}
       </div>
-      <h1 data-manual-only>Your submission files are ready</h1>
+      <h2 data-manual-only>Your submission files are ready</h2>
       <p data-manual-only>Follow the checklist to open one pull request on <strong>TheThingsNetwork/lorawan-devices</strong>, GitHub forks the repository for you, no local tools needed. The community reviews every submission before it is published.</p>
       <div class="cl-list" data-cli-panel hidden></div>
       <div class="cl-list" data-backend-panel hidden></div>
       <div class="cl-list" data-checklist data-manual-only></div>
       <pre class="code" data-yaml-preview data-manual-only></pre>
       <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-        <button class="btn btn-secondary" data-download>⬇ Download YAML files</button>
+        <button class="btn btn-secondary" data-download>{{ partial "icon.html" (dict "name" "download") }} Download YAML files</button>
         <a class="btn btn-primary" href="https://github.com/TheThingsNetwork/lorawan-devices/fork" rel="noopener" data-manual-only>Fork the repository on GitHub</a>
         <button class="btn btn-secondary" data-restart>Start over</button>
       </div>

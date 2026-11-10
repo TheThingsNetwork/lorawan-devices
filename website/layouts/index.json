@@ -1,0 +1,18 @@
+{{- /* Search index for the site-wide search on www.thethingsnetwork.org (/search): one entry per device.
+     t = name, u = page URL, v = vendor name, d = short description, k = sensors. Keep it small. */ -}}
+{{- $out := slice -}}
+{{- range where site.RegularPages "Section" "devices" -}}
+  {{- if .Params.modelid -}}
+    {{- $e := dict "t" (.Params.name | default .Title) "u" .RelPermalink -}}
+    {{- with .Params.vendor -}}{{- with .name -}}{{- $e = merge $e (dict "v" .) -}}{{- end -}}{{- end -}}
+    {{- /* Not `truncate`: it returns HTML, so "&" would come out as "&amp;". */ -}}
+    {{- with .Params.description | plainify | htmlUnescape | strings.TrimSpace -}}
+      {{- $d := . -}}
+      {{- if gt (len (split . "")) 140 -}}{{- $d = printf "%s …" (replaceRE `\s+\S*$` "" (substr . 0 140)) -}}{{- end -}}
+      {{- $e = merge $e (dict "d" $d) -}}
+    {{- end -}}
+    {{- with .Params.sensors -}}{{- $e = merge $e (dict "k" (delimit . " ")) -}}{{- end -}}
+    {{- $out = $out | append $e -}}
+  {{- end -}}
+{{- end -}}
+{{- $out | jsonify -}}
