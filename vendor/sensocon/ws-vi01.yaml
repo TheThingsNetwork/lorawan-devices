@@ -1,0 +1,13 @@
+id: ws-vi01
+name: WS-VI01
+description: "Analog voltage input sensor, 0–10 VDC, ±0.5% accuracy"
+photos:
+  main: ws-vi.jpg
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec

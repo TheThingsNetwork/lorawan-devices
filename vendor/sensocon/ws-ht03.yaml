@@ -1,0 +1,13 @@
+id: ws-ht03
+name: WS-HT03
+description: "Remote-probe relative humidity and temperature sensor, 1 m lead"
+photos:
+  main: ws-ht.jpg
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec
