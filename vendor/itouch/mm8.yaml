@@ -1,0 +1,30 @@
+name: MeterMon (MM8)
+description: >
+  MeterMon (MM8) supports the connection of up to eight utility meters, including water, gas and electricity meters. It features a built-in LED display showing the pulse count for each of its eight inputs, allowing users to check meter readings locally. The device operates on a 9–18V DC power supply. Multiple MeterMon units can be linked using an RS485 cable, with one unit acting as the Master and relaying data from the connected Slave units. With a Modbus adaptor fitted, the same MeterMon can also communicate with and collect readings from up to 32 Modbus devices, providing greater flexibility and scalability for energy monitoring applications.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '6.0'
+    numeric: 6
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: metering-eu868
+        lorawanCertified: false
+        codec: metering-codec
+
+deviceType: cots
+
+sensors:
+  - pulse count
+  - analog input
+  - voltage
+
+productURL: https://itouchsmarttech.com/take-a-peek-inside-a-smart-building-solution/
+
+photos:
+  main: mm8-ce.jpg

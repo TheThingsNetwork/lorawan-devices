@@ -1,0 +1,15 @@
+endDevices:
+  - mm8
+  - dmm
+
+profileIDs:
+  '1':
+    endDeviceID: mm8
+    firmwareVersion: '6.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
+  '2':
+    endDeviceID: dmm
+    firmwareVersion: '5.0'
+    hardwareVersion: '1.0'
+    region: EU863-870
