@@ -1,0 +1,32 @@
+name: DarkMeterMon (DMM)
+description: >
+  Battery-powered Dark MeterMon (DMM) supports the connection of up to two utility meters, including water, gas and electricity meters. Designed for monitoring meters located in basements, underground pits and other hard-to-access areas that are rarely visited, providing reliable remote meter monitoring without the need for regular site visits.
+
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+
+firmwareVersions:
+  - version: '5.0'
+    numeric: 5
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: metering-eu868
+        lorawanCertified: false
+        codec: metering-codec
+
+deviceType: cots
+
+sensors:
+  - pulse count
+  - battery
+  - voltage
+
+ipCode: IP66
+
+productURL: https://itouchsmarttech.com/take-a-peek-inside-a-smart-building-solution/
+
+photos:
+  main: dmm-ce.jpg
