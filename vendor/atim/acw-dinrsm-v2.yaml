@@ -1,0 +1,31 @@
+name: ACW-DINRSM-V2 - Modbus Master Gateway
+description: Modbus master gateway on an RS-485 serial link. It polls Modbus slaves periodically and transmits their registers over LoRaWAN. The codec decodes heartbeat frames, periodic Modbus data (returned as raw hex) and Modbus error frames.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-dinrsm-v2-profile
+        lorawanCertified: false
+        codec: acw-dinrsm-v2-codec
+bridgeInterfaces:
+  - modbus
+  - rs-485
+keySecurity: none
+productURL: https://www.atim.com/produits/gateway-modbus-maitre-liaison-serie-rs485/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-DINRSM/ENGLISH/ATIM_ACW-DINRSM_V2_DS_EN.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/gateway-modbus-maitre-liaison-serie-rs485/
+photos:
+  main: acw-dinrsm-v2.png

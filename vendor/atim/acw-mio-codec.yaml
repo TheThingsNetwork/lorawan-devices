@@ -1,0 +1,408 @@
+# ACW-MIO – 4-20 mA / 0-10 V analog inputs and digital inputs
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-mio-codec.js
+  examples:
+    - description: 4-20 mA current on input 1
+      input:
+        fPort: 1
+        bytes: [160, 11, 5, 120]
+      output:
+        data:
+          frame_type: Measurement frame
+          current0: 14
+        errors: []
+        warnings: []
+    - description: Historised current and voltage, 2 samples
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 11, 3, 232, 4, 176, 26, 9, 96, 9, 116]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          current0:
+            - 10
+            - 12
+          voltage1:
+            - 2.4
+            - 2.42
+        errors: []
+        warnings: []
+    - description: Internal sensor temperature and humidity
+      input:
+        fPort: 1
+        bytes: [160, 11, 5, 120, 8, 10, 18, 9, 14, 48]
+      output:
+        data:
+          frame_type: Measurement frame
+          current0: 14
+          temperature0: 25.78
+          humidity0: 36.32
+        errors: []
+        warnings: []
+    - description: Digital inputs and counter of input 1
+      input:
+        fPort: 1
+        bytes: [160, 1, 1, 4, 0, 0, 0, 82]
+      output:
+        data:
+          frame_type: Measurement frame
+          counter0: 82
+          input_state0: 1
+          input_state1: 0
+          input_state2: 0
+          input_state3: 0
+        errors: []
+        warnings: []
+    - description: Input 1 change of state
+      input:
+        fPort: 1
+        bytes: [160, 1, 17]
+      output:
+        data:
+          frame_type: Measurement frame
+          input_state0: switched high
+          input_state1: low
+          input_state2: low
+          input_state3: low
+        errors: []
+        warnings: []
+    - description: Percentage on input 1
+      input:
+        fPort: 1
+        bytes: [160, 12, 19, 136]
+      output:
+        data:
+          frame_type: Measurement frame
+          rate0: 50
+        errors: []
+        warnings: []
+    - description: Extended measurement frame (LTE-M / NB-IoT)
+      input:
+        fPort: 1
+        bytes: [137, 0, 0, 0, 1, 1, 0, 1, 0, 60, 10, 19, 136]
+      output:
+        data:
+          frame_type: Extended measurement frame
+          frame_index: 1
+          period: 60
+          voltage0: 5
+        errors: []
+        warnings: []
+    - description: Timestamped extended measurement frame, history of 2 samples
+      input:
+        fPort: 1
+        bytes: [201, 106, 128, 59, 166, 0, 0, 0, 1, 2, 0, 2, 0, 60, 10, 19, 136, 20, 130, 21, 28, 21, 124, 26, 11, 184, 12, 28, 12, 128, 12, 228]
+      output:
+        data:
+          frame_type: Extended measurement frame
+          frame_index: 1
+          period: 60
+          voltage0:
+            - 5
+            - 5.25
+            - 5.404
+            - 5.5
+          voltage1:
+            - 3
+            - 3.1
+            - 3.2
+            - 3.3
+          timestamp: '2026-08-15T10:12:54.000Z'
+        errors: []
+        warnings: []
+    - description: 'Alert: high threshold exceeded, current of input 1'
+      input:
+        fPort: 1
+        bytes: [141, 75, 3, 232]
+      output:
+        data:
+          frame_type: Alert frame
+          current0: 10
+          alert: High threshold exceeded on current channel 0
+        errors: []
+        warnings: []
+    - description: 'End of alert: voltage of input 2 back within the thresholds'
+      input:
+        fPort: 1
+        bytes: [141, 26, 17, 148]
+      output:
+        data:
+          frame_type: Alert frame
+          voltage1: 4.5
+          alert: Back within thresholds on voltage channel 1
+        errors: []
+        warnings: []
+    - description: 'WLK: detection cable voltage, temperature and humidity'
+      input:
+        fPort: 1
+        bytes: [160, 10, 0, 16, 8, 10, 18, 9, 14, 48]
+      output:
+        data:
+          frame_type: Measurement frame
+          voltage0: 0.016
+          temperature0: 25.78
+          humidity0: 36.32
+        errors: []
+        warnings: []
+    - description: 'WLK: leak detected (cable voltage above the high threshold)'
+      input:
+        fPort: 1
+        bytes: [141, 74, 2, 201]
+      output:
+        data:
+          frame_type: Alert frame
+          voltage0: 0.713
+          alert: High threshold exceeded on voltage channel 0
+        errors: []
+        warnings: []
+    - description: 'WLK: end of leak alert'
+      input:
+        fPort: 1
+        bytes: [141, 10, 0, 16]
+      output:
+        data:
+          frame_type: Alert frame
+          voltage0: 0.016
+          alert: Back within thresholds on voltage channel 0
+        errors: []
+        warnings: []
+    - description: Cable cut detected
+      input:
+        fPort: 1
+        bytes: [143, 28, 32]
+      output:
+        data:
+          frame_type: Specific frame
+          cable_cut: 1
+        errors: []
+        warnings: []
+    - description: Cable restored
+      input:
+        fPort: 1
+        bytes: [143, 28, 1]
+      output:
+        data:
+          frame_type: Specific frame
+          cable_cut: 0
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 13, 36, 12, 104]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.176
+          voltagev: 3.364
+        errors: []
+        warnings: []
+    - description: Keep alive frame with GPS position (LTE-M / NB-IoT)
+      input:
+        fPort: 1
+        bytes: [129, 13, 36, 12, 104, 3, 41, 62, 233, 5, 19, 198]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.176
+          voltagev: 3.364
+          gps_status: Position found
+          latitude: 45.05135
+          longitude: 5.5457
+        errors: []
+        warnings: []
+    - description: Configuration accepted
+      input:
+        fPort: 1
+        bytes: [134, 0]
+      output:
+        data:
+          frame_type: Response to a configuration frame
+          configuration_accepted: 1
+          rejected_parameters: []
+        errors: []
+        warnings: []
+    - description: Input configuration read-back
+      input:
+        fPort: 1
+        bytes: [135, 4, 26, 22, 27, 81, 33, 38, 34, 0]
+      output:
+        data:
+          frame_type: Response to a command frame
+          command: 4
+          config_input1: Analog input, 4-20 mA
+          config_input2: Digital input, pull-up, rising edge
+          config_input3: Analog input, 0-10 V
+          config_input4: Disabled
+        errors: []
+        warnings: []
+    - description: 'Downlink error: unknown parameter'
+      input:
+        fPort: 1
+        bytes: [136, 3]
+      output:
+        data:
+          frame_type: Response to an invalid frame
+          downlink_error: Unknown parameter
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-mio-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set input 1 to 4-20 mA
+      input:
+        data:
+          setInput1Config:
+            mode: analog
+            analogType: 4-20mA
+      output:
+        bytes: [26, 22]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set input 3 to 0-10 V
+      input:
+        data:
+          setInput3Config:
+            mode: analog
+            analogType: 0-10V
+      output:
+        bytes: [33, 38]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set input 2 to digital input, pull-up, rising and falling edges
+      input:
+        data:
+          setInput2Config:
+            mode: edge
+            pull: up
+            trigger: both
+      output:
+        bytes: [27, 209]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set input 2 to counter
+      input:
+        data:
+          setInput2Config:
+            mode: counter
+      output:
+        bytes: [27, 67]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Disable input 4
+      input:
+        data:
+          setInput4Config:
+            mode: disabled
+      output:
+        bytes: [34, 0]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Analog input 1 threshold: 4-10 mA, 0.5 mA hysteresis'
+      input:
+        data:
+          setAnalog1Threshold:
+            analogType: 4-20mA
+            high: 10
+            low: 4
+            hysteresis: 0.5
+            duration: 1
+      output:
+        bytes: [213, 9, 0, 232, 3, 144, 1, 50, 0, 1, 0]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Analog input 2 threshold: 0-5 V, transmission every 5 min during an alert'
+      input:
+        data:
+          setAnalog2Threshold:
+            analogType: 0-10V
+            high: 5
+            low: 0
+            hysteresis: 1.5
+            duration: 1
+            fastTxPeriod: 5
+      output:
+        bytes: [228, 9, 0, 136, 19, 0, 0, 220, 5, 1, 5]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Analog input 1 calibration: 0.1 mA offset, coefficient 1'
+      input:
+        data:
+          setAnalog1Calibration:
+            analogType: 4-20mA
+            offset: 0.1
+            coefficient: 1
+      output:
+        bytes: [216, 5, 0, 10, 0, 232, 3]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Internal temperature sensor calibration: 0.40 °C offset'
+      input:
+        data:
+          setTemperatureCalibration:
+            offset: 0.4
+            coefficient: 1
+      output:
+        bytes: [217, 5, 0, 40, 0, 232, 3]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set counter 2 to 3728
+      input:
+        data:
+          setCounter2: 3728
+      output:
+        bytes: [193, 6, 17, 2, 144, 14, 0, 0]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Read the configuration back
+      input:
+        data:
+          getConfiguration: true
+      output:
+        bytes: [193, 8, 4, 3, 11, 20, 26, 27, 33, 34]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-mio-codec.js

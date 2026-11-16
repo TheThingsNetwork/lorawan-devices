@@ -1,0 +1,122 @@
+# ACW-THX – Temperature & humidity sensor
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-thx-codec.js
+  examples:
+    - description: Temperature and humidity
+      input:
+        fPort: 1
+        bytes: [160, 8, 8, 133, 9, 23, 222]
+      output:
+        data:
+          frame_type: Measurement frame
+          temperature0: 21.81
+          humidity0: 61.1
+        errors: []
+        warnings: []
+    - description: Historised temperature and humidity
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 8, 8, 164, 8, 133, 9, 23, 162, 23, 222]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          temperature0:
+            - 22.12
+            - 21.81
+          humidity0:
+            - 60.5
+            - 61.1
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 14, 16, 13, 172]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.5
+          voltagev: 3.6
+        errors: []
+        warnings: []
+    - description: Extended measurement frame (LTE-M / NB-IoT)
+      input:
+        fPort: 1
+        bytes: [137, 0, 0, 0, 1, 1, 0, 1, 0, 60, 8, 8, 133, 9, 23, 222]
+      output:
+        data:
+          frame_type: Extended measurement frame
+          frame_index: 1
+          period: 60
+          temperature0: 21.81
+          humidity0: 61.1
+        errors: []
+        warnings: []
+    - description: Timestamped extended measurement frame, 2 samples
+      input:
+        fPort: 1
+        bytes: [201, 106, 128, 59, 166, 0, 0, 0, 2, 1, 0, 2, 0, 60, 8, 8, 133, 8, 252, 9, 23, 222, 19, 136]
+      output:
+        data:
+          frame_type: Extended measurement frame
+          frame_index: 2
+          period: 60
+          temperature0:
+            - 21.81
+            - 23
+          humidity0:
+            - 61.1
+            - 50
+          timestamp: '2026-08-15T10:12:54.000Z'
+        errors: []
+        warnings: []
+    - description: Keep alive frame with GPS position (LTE-M / NB-IoT)
+      input:
+        fPort: 1
+        bytes: [129, 13, 36, 12, 104, 3, 41, 62, 233, 5, 19, 198]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.176
+          voltagev: 3.364
+          gps_status: Position found
+          latitude: 45.05135
+          longitude: 5.5457
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-thx-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-thx-codec.js

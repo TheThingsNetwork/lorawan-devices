@@ -1,0 +1,31 @@
+name: ACW-MR4-OPTO - Optical Meter Reader
+description: Optical index reading for meters fitted with a pulse LED, based on the ACW-MR4. Measurements are transmitted regularly over LoRaWAN and the device is configured with the tools of the ATIM suite.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-mr4-opto-profile
+        lorawanCertified: false
+        codec: acw-mr4-opto-codec
+sensors:
+  - optical meter
+  - pulse count
+keySecurity: none
+productURL: https://www.atim.com/produits/releve-de-compteurs-optiques/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-OPTO/ATIM_ACW-MR4-OPTO_DS_FR.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/releve-de-compteurs-optiques/
+photos:
+  main: acw-mr4-opto.png

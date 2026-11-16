@@ -1,0 +1,33 @@
+name: ACW-MIO-2M8 - Analog & Digital Input Module
+description: 'Input module of the MIO range with 2 analog inputs and 2 digital inputs on two M8 connectors: 4-20 mA, 0-10 V or 0-100 % analog inputs, and digital inputs (change of state or pulse counting). Measurements are transmitted regularly over LoRaWAN and the device is configured with the tools of the ATIM suite.'
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-mio-2m8-profile
+        lorawanCertified: false
+        codec: acw-mio-codec
+sensors:
+  - 4-20 ma
+  - analog input
+  - digital input
+  - pulse count
+keySecurity: none
+productURL: https://www.atim.com/produits/gamme-multi-technos-smart-metering/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-MIO/FRANCAIS/ATIM_ACW-MIO_DS_FR.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/gamme-multi-technos-smart-metering/
+photos:
+  main: acw-mio-2m8.png

@@ -1,0 +1,30 @@
+name: ACW-GAUG - Connected Tank Level Gauge
+description: Connected tank level gauge, compatible with Rochester-type mechanical gauges. Measurements are transmitted regularly over LoRaWAN and the device is configured with the tools of the ATIM suite.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-gaug-profile
+        lorawanCertified: false
+        codec: acw-gaug-codec
+sensors:
+  - level
+keySecurity: none
+productURL: https://www.atim.com/produits/jauge-de-niveau-de-reservoir-connectee/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-CEL-GAUG/Anglais/ATIM_ACW-GAUG_DS_EN.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/jauge-de-niveau-de-reservoir-connectee/
+photos:
+  main: acw-gaug.png

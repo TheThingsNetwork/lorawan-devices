@@ -1,0 +1,32 @@
+name: ACW-MIO-WLK - Leak Detector
+description: Water or fuel oil leak detection with a sensing cable, with an internal temperature and humidity sensor. Measurements are transmitted regularly over LoRaWAN and the device is configured with the tools of the ATIM suite.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-mio-wlk-profile
+        lorawanCertified: false
+        codec: acw-mio-codec
+sensors:
+  - water
+  - temperature
+  - humidity
+keySecurity: none
+productURL: https://www.atim.com/produits/capteur-de-detection-fuites-de-liquides/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-WLK/FRANCAIS/ATIM_ACW-WLK_DS_FR.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/capteur-de-detection-fuites-de-liquides/
+photos:
+  main: acw-mio-wlk.png

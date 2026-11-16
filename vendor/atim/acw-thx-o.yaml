@@ -1,0 +1,31 @@
+name: ACW-THX-O - Outdoor Temperature & Humidity Sensor
+description: Outdoor temperature and humidity sensor used to monitor comfort, energy efficiency and storage conditions. Measurements are transmitted regularly over LoRaWAN and the device is configured with the tools of the ATIM suite.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-thx-o-profile
+        lorawanCertified: false
+        codec: acw-thx-codec
+sensors:
+  - temperature
+  - humidity
+keySecurity: none
+productURL: https://www.atim.com/produits/capteur-de-temperature-humidite-exterieur/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX-O-V2/ANGLAIS/ATIM_ACW-THX-O_DS_EN.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/capteur-de-temperature-humidite-exterieur/
+photos:
+  main: acw-thx-o.png
