@@ -21,6 +21,7 @@ sensors:
   - humidity
 keySecurity: none
 productURL: https://www.atim.com/produits/acw-thx-v3temperature-humiditeinterieurelpwan/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-THX/ENGLISH/ATIM_ACW-THX-V3_DS_EN.pdf
 resellerURLs:
   - name: ATIM
     region:
