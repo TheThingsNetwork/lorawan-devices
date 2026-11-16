@@ -14,7 +14,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: acw-mio-mt1-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: acw-mio-codec
 sensors:
   - digital input

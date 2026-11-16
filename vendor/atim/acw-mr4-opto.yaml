@@ -14,7 +14,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: acw-mr4-opto-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: acw-mr4-opto-codec
 sensors:
   - optical meter

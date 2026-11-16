@@ -1,5 +1,5 @@
-name: ACW-WL-O - Outdoor Liquid Monitoring
-description: The WL facilitates the monitoring of sites at risk of flooding thanks to its liquid presence detection options. Alerts are transmitted on LoRaWAN networks and its configuration is configurable from the ATIM suite tools.
+name: ACW-WL-O - Outdoor Liquid Monitoring (former generation)
+description: Former generation of the ATIM leak detector, replaced by the ACW-WLK. Water leak detection with a cable (CAB-WL, CAB-WLL with leak location, CAB-WLL-OIL for fuel oil) or with electrodes, with two optional temperature probes. The outdoor WL-O version is IP66. Alerts are transmitted over LoRaWAN and the device is configured with the tools of the ATIM suite.
 hardwareVersions:
   - version: '1.0'
     numeric: 1
@@ -37,12 +37,6 @@ keySecurity: none
 firmwareProgramming:
   - serial
   - fuota other
-productURL: https://www.atim.com/produits/capteur-de-detection-fuites-de-liquides/
 dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-WLL/FRANCAIS/ATIM_ACW-WLL_DS_FR.pdf
-resellerURLs:
-  - name: ATIM
-    region:
-      - European Union
-    url: https://www.atim.com/produits/capteur-de-detection-fuites-de-liquides/
 photos:
   main: acw-wl-o.png

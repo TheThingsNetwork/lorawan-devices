@@ -14,7 +14,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: acw-pw-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: acw-pw-codec
 sensors:
   - temperature

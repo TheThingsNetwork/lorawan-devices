@@ -14,7 +14,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: acw-ptm0p-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: acw-ptmxp-codec
 sensors:
   - pressure

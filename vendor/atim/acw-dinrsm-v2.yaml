@@ -14,7 +14,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: acw-dinrsm-v2-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: acw-dinrsm-v2-codec
 bridgeInterfaces:
   - modbus

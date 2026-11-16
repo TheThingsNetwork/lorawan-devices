@@ -1,0 +1,30 @@
+name: ACW-THX V3 - Indoor Temperature & Humidity Sensor
+description: Third generation of the ATIM indoor temperature and humidity sensor, used to monitor comfort, energy efficiency and storage conditions in rooms and buildings. Measurements are transmitted regularly over LoRaWAN and the device is configured with the tools of the ATIM suite.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-thx-v3-profile
+        lorawanCertified: true
+        codec: acw-thx-codec
+sensors:
+  - temperature
+  - humidity
+keySecurity: none
+productURL: https://www.atim.com/produits/acw-thx-v3temperature-humiditeinterieurelpwan/
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/acw-thx-v3temperature-humiditeinterieurelpwan/
+photos:
+  main: acw-thx-v3.png

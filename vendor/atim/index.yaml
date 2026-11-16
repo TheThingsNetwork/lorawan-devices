@@ -25,6 +25,7 @@ endDevices:
   - acw-wl-o
   - acw-tst
   - e-green-sensor
+  - acw-thx-v3
   - acw-thx-o
   - acw-ptm0p
   - acw-ptm1p
@@ -38,5 +39,5 @@ endDevices:
   - acw-mio-1m8
   - acw-mio-2m8
   - acw-mio-mt1
-  - acw-mio-wlk
+  - acw-wlk
   - acw-mt1

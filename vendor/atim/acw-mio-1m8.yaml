@@ -14,7 +14,7 @@ firmwareVersions:
     profiles:
       EU863-870:
         id: acw-mio-1m8-profile
-        lorawanCertified: false
+        lorawanCertified: true
         codec: acw-mio-codec
 sensors:
   - 4-20 ma

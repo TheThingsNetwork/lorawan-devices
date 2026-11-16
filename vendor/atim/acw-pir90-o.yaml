@@ -26,7 +26,7 @@ keySecurity: none
 firmwareProgramming:
   - serial
 productURL: https://www.atim.com/produits/acw-pir90-odetection-de-mouvementpresencelpwan-copie/
-dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-PIR/ENGLISH/ATIM_ACW-PIR_UG_EN.pdf
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-PIR/ENGLISH/ATIM_ACW-PIR_DS_EN.pdf
 resellerURLs:
   - name: ATIM
     region:
