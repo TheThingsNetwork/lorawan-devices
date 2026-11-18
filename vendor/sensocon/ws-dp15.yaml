@@ -1,8 +1,14 @@
-id: ws-dp15
-name: WS-DP15
-description: "Differential pressure sensor, 0–1.0 PSI range, 12 PSI maximum pressure, ±1% FS accuracy"
+name: WS-DP15 Wireless Differential Pressure Sensor
+description: Differential pressure sensor, 0–1.0 PSI range, 12 PSI maximum pressure, ±1% FS accuracy
+sensors:
+  - battery
+  - pressure
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: ws-dp.png
+  main: ws.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

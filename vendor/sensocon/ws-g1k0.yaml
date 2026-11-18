@@ -1,8 +1,14 @@
-id: ws-g1k0
-name: WS-G1K0
-description: "Gauge pressure sensor, 0–1000 PSI range, 2500 PSI maximum pressure, ±0.5% FS accuracy"
+name: WS-G1K0 Wireless Gauge Pressure Sensor
+description: Gauge pressure sensor, 0–1000 PSI range, 2500 PSI maximum pressure, ±0.5% FS accuracy
+sensors:
+  - battery
+  - pressure
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: ws-g.png
+  main: ws.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

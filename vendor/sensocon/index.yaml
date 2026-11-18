@@ -18,6 +18,7 @@ endDevices:
   - ws-ti02
   - ws-vi01
   - ws-ai01
+  - ws-ci01
   - ws-w005
   - ws-w015
   - ws-w030
@@ -558,13 +559,3 @@ endDevices:
   - wm-dp15-w100-ti01
   - wm-dp15-w100-ti02
   - wm-dp15-w100-vi01
-  - wm-dp15-g1k0-ti01
-  - wm-dp15-g1k0-ti02
-  - wm-dp15-g1k0-ai01
-  - wm-dp15-g1k0-vi01
-
-# Shared profile and codec for all Series WS/WM devices
-profileIDs:
-  '1':
-    id: sensocon-profile
-    codec: sensocon-codec

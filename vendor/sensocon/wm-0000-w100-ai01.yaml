@@ -1,8 +1,15 @@
-id: wm-0000-w100-ai01
-name: WM-0000-W100-AI01
-description: "Multivariable wireless sensor configuration"
+name: WM-0000-W100-AI01 Wireless Multi-Variable Sensor
+description: Multi-variable sensor with wet/wet differential pressure 0–100 PSI and 4–20 mA current input
+sensors:
+  - 4-20 ma
+  - battery
+  - pressure
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: wm.jpg
+  main: wm.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

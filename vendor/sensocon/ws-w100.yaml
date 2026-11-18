@@ -1,8 +1,14 @@
-id: ws-w100
-name: WS-W100
-description: "Wet/wet differential pressure sensor, 0–100 PSI range, 150 PSI maximum pressure, ±0.5% FS accuracy"
+name: WS-W100 Wireless Wet/Wet Differential Pressure Sensor
+description: Wet/wet differential pressure sensor, 0–100 PSI range, 150 PSI maximum pressure, ±0.5% FS accuracy
+sensors:
+  - battery
+  - pressure
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: ws-w.png
+  main: ws.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

@@ -1,8 +1,14 @@
-id: ws-g100
-name: WS-G100
-description: "Gauge pressure sensor, 0–100 PSI range, 250 PSI maximum pressure, ±0.5% FS accuracy"
+name: WS-G100 Wireless Gauge Pressure Sensor
+description: Gauge pressure sensor, 0–100 PSI range, 250 PSI maximum pressure, ±0.5% FS accuracy
+sensors:
+  - battery
+  - pressure
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: ws-g.png
+  main: ws.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

@@ -1,8 +1,15 @@
-id: wm-0000-g015-vi01
-name: WM-0000-G015-VI01
-description: "Multivariable wireless sensor configuration"
+name: WM-0000-G015-VI01 Wireless Multi-Variable Sensor
+description: Multi-variable sensor with gauge pressure 0–15 PSI and 0–10 VDC voltage input
+sensors:
+  - battery
+  - pressure
+  - voltage
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: wm.jpg
+  main: wm.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

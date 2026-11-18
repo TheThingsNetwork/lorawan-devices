@@ -1,8 +1,15 @@
-id: ws-ht03
-name: WS-HT03
-description: "Remote-probe relative humidity and temperature sensor, 1 m lead"
+name: WS-HT03 Wireless Humidity and Temperature Sensor
+description: Remote-probe relative humidity and temperature sensor, 1 m lead
+sensors:
+  - battery
+  - humidity
+  - temperature
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: ws-ht.jpg
+  main: ws.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

@@ -1,8 +1,15 @@
-id: wm-dp04-w005-ai01
-name: WM-DP04-W005-AI01
-description: "Multivariable wireless sensor configuration"
+name: WM-DP04-W005-AI01 Wireless Multi-Variable Sensor
+description: Multi-variable sensor with differential pressure 0–5"wc, wet/wet differential pressure 0–5 PSI and 4–20 mA current input
+sensors:
+  - 4-20 ma
+  - battery
+  - pressure
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: wm.jpg
+  main: wm.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

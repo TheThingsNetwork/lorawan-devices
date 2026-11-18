@@ -2214,6 +2214,8 @@ vendors:
     name: Sensocon
     vendorID: 1202
     website: https://sensocon.com
+    logo: logo.png
+
   - id: option
     name: Option NV
     website: https://www.option.com

@@ -1,8 +1,15 @@
-id: ws-ht02
-name: WS-HT02
-description: "Relative humidity and temperature sensor"
+name: WS-HT02 Wireless Humidity and Temperature Sensor
+description: Relative humidity and temperature sensor
+sensors:
+  - battery
+  - humidity
+  - temperature
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: ws-ht.jpg
+  main: ws.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1

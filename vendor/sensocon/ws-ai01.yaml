@@ -1,8 +1,14 @@
-id: ws-ai01
-name: WS-AI01
-description: "Analog current input sensor, 4–20 mA"
+name: WS-AI01 Wireless Analog Current Sensor
+description: Analog current input sensor, 4–20 mA
+sensors:
+  - 4-20 ma
+  - battery
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
 photos:
-  main: ws-ai.jpg
+  main: ws.png
 firmwareVersions:
   - version: '1.1'
     numeric: 1
