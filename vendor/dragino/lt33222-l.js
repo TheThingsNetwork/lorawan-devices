@@ -1,5 +1,4 @@
 function decodeUplink(input) {
-  var port = input.fPort;
   var bytes = input.bytes;
   var hardware = (bytes[10] & 0xc0) >> 6;
   var mode0 = bytes[10] & 0xff;
@@ -55,7 +54,7 @@ function decodeUplink(input) {
         data.ACI1_mA = parseFloat(((((bytes[4] << 24) >> 16) | bytes[5]) / 1000).toFixed(3));
         data.Count1_times = (bytes[6] << 8) | bytes[7];
       } else if (mode == '6') {
-        data.Work_mode = 'Exit mode';
+        data.Work_mode = 'Trigger mode';
         data.Mode_status = bytes[9] ? 'True' : 'False';
         data.AV1L_flag = bytes[0] & 0x80 ? 'True' : 'False';
         data.AV1H_flag = bytes[0] & 0x40 ? 'True' : 'False';
@@ -84,6 +83,42 @@ function decodeUplink(input) {
           data: data,
         };
       }
+      return {
+        errors: ['invalid payload length'],
+      };
+
+    case 5: {
+      var freq_band;
+      if (bytes[0] == 0x01) freq_band = 'EU868';
+      else if (bytes[0] == 0x02) freq_band = 'US915';
+      else if (bytes[0] == 0x03) freq_band = 'IN865';
+      else if (bytes[0] == 0x04) freq_band = 'AU915';
+      else if (bytes[0] == 0x05) freq_band = 'KZ865';
+      else if (bytes[0] == 0x06) freq_band = 'RU864';
+      else if (bytes[0] == 0x07) freq_band = 'AS923';
+      else if (bytes[0] == 0x08) freq_band = 'AS923_1';
+      else if (bytes[0] == 0x09) freq_band = 'AS923_2';
+      else if (bytes[0] == 0x0a) freq_band = 'AS923_3';
+      else if (bytes[0] == 0x0f) freq_band = 'AS923_4';
+      else if (bytes[0] == 0x0b) freq_band = 'CN470';
+      else if (bytes[0] == 0x0c) freq_band = 'EU433';
+      else if (bytes[0] == 0x0d) freq_band = 'KR920';
+      else if (bytes[0] == 0x0e) freq_band = 'MA869';
+
+      var sub_band = bytes[1] == 0xff ? 'NULL' : bytes[1];
+      var firm_ver = (bytes[2] & 0x0f) + '.' + ((bytes[3] >> 4) & 0x0f) + '.' + (bytes[3] & 0x0f);
+      var tdc_time = (bytes[4] << 16) | (bytes[5] << 8) | bytes[6];
+
+      return {
+        data: {
+          FIRMWARE_VERSION: firm_ver,
+          FREQUENCY_BAND: freq_band,
+          SUB_BAND: sub_band,
+          TDC_sec: tdc_time,
+        },
+      };
+    }
+
     default:
       return {
         errors: ['unknown FPort'],

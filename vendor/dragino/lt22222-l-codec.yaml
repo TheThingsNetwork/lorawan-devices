@@ -4,7 +4,7 @@ uplinkDecoder:
     - description: IO controller
       input:
         fPort: 2
-        bytes: [0x04, 0xAB, 0x04, 0xAC, 0x13, 0x10, 0x13, 0x00, 0xAA, 0xFF, 0x01]
+        bytes: [0x04, 0xAB, 0x04, 0xAC, 0x13, 0x10, 0x13, 0x00, 0xAA, 0xFF, 0x41]
       output:
         data:
           {
@@ -14,11 +14,9 @@ uplinkDecoder:
             'AVI2_V': 1.196,
             'DI1_status': 'H',
             'DI2_status': 'L',
-            'DI3_status': 'H',
             'DO1_status': 'H',
             'DO2_status': 'L',
-            'DO3_status': 'H',
-            'Hardware_mode': 'LT33222',
+            'Hardware_mode': 'LT22222',
             'RO1_status': 'ON',
             'RO2_status': 'OFF',
             'Work_mode': '2ACI+2AVI',
@@ -31,3 +29,14 @@ uplinkDecoder:
       output:
         errors:
           - unknown FPort
+
+    - description: Device information
+      input:
+        fPort: 5
+        bytes: [0x0D, 0x00, 0x01, 0x02, 0x00, 0x00, 0x0A]
+      output:
+        data:
+          FIRMWARE_VERSION: '1.0.2'
+          FREQUENCY_BAND: 'KR920'
+          SUB_BAND: 0
+          TDC_sec: 10
