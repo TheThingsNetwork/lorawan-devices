@@ -18,7 +18,6 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
-	"io/ioutil"
 	"log"
 	"os"
 	"time"
@@ -92,7 +91,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	script, err := ioutil.ReadFile(*codecPath)
+	script, err := os.ReadFile(*codecPath)
 	if err != nil {
 		log.Fatalf("Read %q: %v", *codecPath, err)
 	}

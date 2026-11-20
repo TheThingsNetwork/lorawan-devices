@@ -87,7 +87,9 @@ const buildRow = (m) => {
   if (m.flags.includes('certified')) {
     const cert = document.createElement('span')
     cert.className = 'tag cert'
-    cert.textContent = '✓ Certified'
+    // Tabler "check" (data/tabler_icons.json), as on the device card.
+    cert.innerHTML =
+      '<svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12l5 5L20 7"/></svg>Certified'
     title.appendChild(cert)
   }
   const h3 = document.createElement('h3')
@@ -114,8 +116,9 @@ const buildRow = (m) => {
 
   const chev = document.createElement('div')
   chev.className = 'dr-chev'
+  // Tabler "chevron-right" (data/tabler_icons.json), 16px outline, 2px stroke.
   chev.innerHTML =
-    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
+    '<svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 6l6 6l-6 6"/></svg>'
 
   row.append(
     thumb,

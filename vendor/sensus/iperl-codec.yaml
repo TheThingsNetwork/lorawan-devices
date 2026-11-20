@@ -113,50 +113,62 @@ uplinkDecoder:
               values:
                 - scaledValue: 25041.426
                   storage: 19
+                  strTimestamp: '2024-06-19 02:42:00'
                   timestamp: 1718764920
                   value: 25041426
                 - scaledValue: 25041.478
                   storage: 18
+                  strTimestamp: '2024-06-19 03:42:00'
                   timestamp: 1718768520
                   value: 25041478
                 - scaledValue: 25041.529000000002
                   storage: 17
+                  strTimestamp: '2024-06-19 04:42:00'
                   timestamp: 1718772120
                   value: 25041529
                 - scaledValue: 25041.581000000002
                   storage: 16
+                  strTimestamp: '2024-06-19 05:42:00'
                   timestamp: 1718775720
                   value: 25041581
                 - scaledValue: 25041.627
                   storage: 15
+                  strTimestamp: '2024-06-19 06:42:00'
                   timestamp: 1718779320
                   value: 25041627
                 - scaledValue: 25041.679
                   storage: 14
+                  strTimestamp: '2024-06-19 07:42:00'
                   timestamp: 1718782920
                   value: 25041679
                 - scaledValue: 25041.725000000002
                   storage: 13
+                  strTimestamp: '2024-06-19 08:42:00'
                   timestamp: 1718786520
                   value: 25041725
                 - scaledValue: 25041.782
                   storage: 12
+                  strTimestamp: '2024-06-19 09:42:00'
                   timestamp: 1718790120
                   value: 25041782
                 - scaledValue: 25041.828
                   storage: 11
+                  strTimestamp: '2024-06-19 10:42:00'
                   timestamp: 1718793720
                   value: 25041828
                 - scaledValue: 25041.88
                   storage: 10
+                  strTimestamp: '2024-06-19 11:42:00'
                   timestamp: 1718797320
                   value: 25041880
                 - scaledValue: 25041.926
                   storage: 9
+                  strTimestamp: '2024-06-19 12:42:00'
                   timestamp: 1718800920
                   value: 25041926
                 - scaledValue: 25041.978
                   storage: 8
+                  strTimestamp: '2024-06-19 13:42:00'
                   timestamp: 1718804520
                   value: 25041978
               vif: 19

@@ -1,5 +1,5 @@
-name: ES108 LoRaWAN Indoor Air Quality Modular Combo # Device name can not contain the vendor name
-description: Temp / Humidity / CO2 / PM1.0 / PM2.5 / PM10 / TVOC / NO2 / HCHO / NH3 / H2S
+name: ES108 10-IN-1 Environmental Monitor
+description: CO2, temperature, humidity, TVOC, particulates, light, noise, CO. 10-IN-1 Environmental Monitor.
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -78,13 +78,11 @@ sensors:
   - temperature
   - humidity
   - tvoc
-  #  - hcho
-  - no2
-  #  - pm1.0
   - pm2.5
   - pm10
-  #  - nh3
-  - h2s
+  - light
+  - sound
+  - co
 
 # Additional radios that this device has (optional)
 # Valid values are: ble, nfc, wifi, cellular.
@@ -152,7 +150,7 @@ firmwareProgramming:
   - fuota lorawan
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atomsenses.com/product/lorawan-11-in-1-integrated-sensor/
+productURL: https://www.atomsenses.com/products/ES-108
 dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/es-108.pdf
 
 # Photos

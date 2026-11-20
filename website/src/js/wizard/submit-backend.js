@@ -155,9 +155,9 @@ export const submitViaBackend = (opts) => {
   function renderSuccess(pr) {
     panel.innerHTML = `
       <div class="be-done">
-        <p class="be-done-title">✓ Done, your changes are in pull request #${pr.number}.</p>
+        <p class="be-done-title"><svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12l5 5L20 7"/></svg>Done, your changes are in pull request #${pr.number}.</p>
         <p class="s-hint">A maintainer (the <code>/vendor</code> code owner) reviews and merges it; nothing is published until they do.</p>
-        <a class="btn btn-primary" href="${pr.url}" target="_blank" rel="noopener">View pull request ↗</a>
+        <a class="btn btn-primary" href="${pr.url}" target="_blank" rel="noopener">View pull request<svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6m-7 1l9-9m-5 0h5v5"/></svg></a>
       </div>`
   }
 

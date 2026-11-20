@@ -22,15 +22,14 @@ firmwareVersions:
         lorawanCertified: true
         codec: iotracker3-codec
 sensors:
-  - temperature
-  - light
   - accelerometer
-  - gps
-  - wifi ssid
-  - gps
   - barometer
-  - humidity
   - button
+  - gps
+  - humidity
+  - light
+  - temperature
+  - wifi ssid
 additionalRadios:
   - wifi
   - ble

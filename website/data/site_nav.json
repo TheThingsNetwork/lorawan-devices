@@ -1,0 +1,180 @@
+{
+  "origin": "https://www.thethingsnetwork.org",
+  "header": [
+    {
+      "label": "Learn",
+      "href": "/docs/",
+      "external": false,
+      "key": "learn",
+      "highlight": false,
+      "children": []
+    },
+    {
+      "label": "Hardware",
+      "href": "/device-repository/",
+      "external": false,
+      "key": "hardware",
+      "highlight": false,
+      "children": [
+        {
+          "label": "Device Repository",
+          "href": "/device-repository/",
+          "external": false
+        },
+        {
+          "label": "The Things Shop",
+          "href": "https://www.thethingsshop.com/",
+          "external": true
+        }
+      ]
+    },
+    {
+      "label": "Forum",
+      "href": "/forum",
+      "external": false,
+      "key": "forum",
+      "highlight": false,
+      "children": []
+    },
+    {
+      "label": "Community",
+      "href": "/community",
+      "external": false,
+      "key": "community",
+      "highlight": false,
+      "children": []
+    },
+    {
+      "label": "Conference",
+      "href": "https://www.thethingsconference.com/",
+      "external": true,
+      "key": "conference",
+      "highlight": false,
+      "children": []
+    },
+    {
+      "label": "Enterprise",
+      "href": "https://www.thethingsindustries.com/?utm_source=thethingsnetwork.org&utm_medium=referral&utm_campaign=ttn-website&utm_content=header-enterprise",
+      "external": true,
+      "key": "enterprise",
+      "highlight": true,
+      "children": []
+    }
+  ],
+  "supportCta": {
+    "label": "Need professional support?",
+    "href": "https://www.thethingsindustries.com/?utm_source=thethingsnetwork.org&utm_medium=referral&utm_campaign=ttn-website&utm_content=header-support",
+    "external": true
+  },
+  "auth": {
+    "login": "/get-started?login",
+    "signup": "/get-started",
+    "console": "https://console.cloud.thethings.network/"
+  },
+  "footer": [
+    {
+      "title": "Learn",
+      "links": [
+        {
+          "label": "Get started",
+          "href": "/docs/network/",
+          "external": false
+        },
+        {
+          "label": "LoRaWAN® fundamentals",
+          "href": "/docs/lorawan/",
+          "external": false
+        },
+        {
+          "label": "Certification",
+          "href": "/achievements",
+          "external": false
+        },
+        {
+          "label": "The Things Academy",
+          "href": "/achievements/a/the-things-academy/",
+          "external": false
+        }
+      ]
+    },
+    {
+      "title": "Community",
+      "links": [
+        {
+          "label": "Communities",
+          "href": "/community",
+          "external": false
+        },
+        {
+          "label": "Forum",
+          "href": "/forum",
+          "external": false
+        },
+        {
+          "label": "Start a community",
+          "href": "/start-a-community",
+          "external": false
+        },
+        {
+          "label": "Conference",
+          "href": "https://www.thethingsconference.com/",
+          "external": true
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "links": [
+        {
+          "label": "Documentation",
+          "href": "/docs/",
+          "external": false
+        },
+        {
+          "label": "Device Repository",
+          "href": "/device-repository/",
+          "external": false
+        },
+        {
+          "label": "Help & user guide",
+          "href": "/help",
+          "external": false
+        },
+        {
+          "label": "The Things Stack",
+          "href": "https://www.thethingsindustries.com/stack/?utm_source=thethingsnetwork.org&utm_medium=referral&utm_campaign=ttn-website&utm_content=footer-the-things-stack",
+          "external": true
+        },
+        {
+          "label": "Open source",
+          "href": "https://github.com/TheThingsNetwork/lorawan-stack",
+          "external": true
+        }
+      ]
+    }
+  ],
+  "social": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/TheThingsNetwork",
+      "icon": "brand-github"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/company/the-things-network/",
+      "icon": "brand-linkedin"
+    },
+    {
+      "label": "YouTube",
+      "href": "https://www.youtube.com/c/TheThingsNetworkCommunity",
+      "icon": "brand-youtube"
+    },
+    {
+      "label": "X",
+      "href": "https://twitter.com/thethingsntwrk",
+      "icon": "brand-x"
+    }
+  ],
+  "tagline": "A global community of Internet of Things developers, initiated by The Things Industries.",
+  "lorawanNotice": "LoRaWAN® is a mark used under license from the LoRa Alliance®."
+}

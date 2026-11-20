@@ -1,5 +1,5 @@
-name: AS202 LoRaWAN Car Park Air Quality # Device name can not contain the vendor name
-description: 4-in-1 Temp / Humidity / CO / NO2 Sensor
+name: AS202 Car Park Air Quality Sensor (CO + NO2)
+description: CO, nitrogen dioxide. Car Park Air Quality Sensor (CO + NO2).
 
 # Hardware versions (optional, use when you have revisions)
 hardwareVersions:
@@ -145,7 +145,7 @@ firmwareProgramming:
   - fuota lorawan
 
 # Product and data sheet URLs (optional)
-productURL: https://www.atomsenses.com/product/lorawan-4-in-1-car-park-sensor/
+productURL: https://www.atomsenses.com/products/AS-202
 dataSheetURL: https://www.atomsenses.com/wp-content/uploads/2024/07/AS-202.pdf
 
 # Photos

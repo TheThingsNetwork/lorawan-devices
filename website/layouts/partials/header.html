@@ -1,20 +1,68 @@
-<header class="site-header">
-  <div class="inner">
-    <a class="brand-mark" href="{{ "" | absURL }}">
-      <img src="{{ "assets/ttn-horizontal.svg" | absURL }}" alt="The Things Network" />
-      <span class="pipe">/</span>
-      <span class="repo">Device Repository for LoRaWAN<sup>®</sup></span>
+{{- /* Global The Things Network header — the same header as www.thethingsnetwork.org. Links come
+     from data/site_nav.json and styles from static/css/ttn-chrome.css, both GENERATED from the
+     platform's one nav source (thethingsnetwork-v2: platform/app/lib/site-nav.ts, exported with
+     scripts/export-site-nav.mjs). Never hardcode a global nav link here. */ -}}
+{{- $nav := site.Data.site_nav -}}
+{{- $icons := site.Data.ttn_icons -}}
+{{- $origin := site.Params.ttnOrigin | default $nav.origin -}}
+<header class="ttn-chrome tn-header" data-ttn-header>
+  <div class="tn-header__bar">
+    <a href="{{ $origin }}/" class="tn-header__logo" aria-label="The Things Network home">
+      <img src="{{ "assets/ttn-horizontal.svg" | absURL }}" alt="The Things Network" width="150" height="28">
     </a>
-    <nav class="nav">
-      <a {{ if or .IsHome (eq .Section "devices") (eq .Section "tags") }}class="active"{{ end }} href="{{ "" | absURL }}">Devices</a>
-      <a {{ if eq .Section "vendors" }}class="active"{{ end }} href="{{ "vendors/" | absURL }}">Vendors</a>
-    </nav>
-    <div class="hdr-right">
-      <label class="search-mini">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input placeholder="Quick search…" data-quick-search data-home="{{ "" | absURL }}" aria-label="Search devices" />
-        <kbd>⌘K</kbd>
-      </label>
+
+    <button type="button" class="tn-header__toggle" aria-expanded="false" aria-controls="ttn-header-panel" data-ttn-toggle>
+      <svg class="tn-ico" viewBox="0 0 24 24" aria-hidden="true" data-ttn-open>{{ index $icons "menu-2" | safeHTML }}</svg>
+      <svg class="tn-ico" viewBox="0 0 24 24" aria-hidden="true" data-ttn-close hidden>{{ index $icons "x" | safeHTML }}</svg>
+      <span class="tn-sr">Menu</span>
+    </button>
+
+    <div class="tn-header__panel" id="ttn-header-panel">
+      <nav class="tn-header__nav" aria-label="Main">
+        {{- range $nav.header }}
+          {{- if .children }}
+          <details class="tn-drop">
+            <summary class="tn-header__link"{{ if eq .key "hardware" }} aria-current="page"{{ end }}>
+              {{ .label }} <svg class="tn-ico tn-drop__chev" viewBox="0 0 24 24" aria-hidden="true">{{ index $icons "chevron-down" | safeHTML }}</svg>
+            </summary>
+            <div class="tn-drop__menu">
+              {{- range .children }}
+              <a class="tn-drop__item" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+              {{- end }}
+            </div>
+          </details>
+          {{- else }}
+          <a class="tn-header__link{{ if .highlight }} tn-header__link--highlight{{ end }}" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+          {{- end }}
+        {{- end }}
+      </nav>
+      {{- with $nav.supportCta }}
+      <a class="tn-header__cta" href="{{ cond (hasPrefix .href "/") (print $origin .href) .href }}"{{ if .external }} rel="noopener"{{ end }}>{{ .label }}</a>
+      {{- end }}
+      <div class="tn-header__auth">
+        <a href="{{ print $origin $nav.auth.login }}" class="tn-header__login">Log in</a>
+        <a href="{{ print $origin $nav.auth.signup }}" class="tn-btn tn-btn--sm">Sign up</a>
+      </div>
     </div>
   </div>
 </header>
+<script>
+  (function () {
+    var h = document.querySelector("[data-ttn-header]");
+    var b = h && h.querySelector("[data-ttn-toggle]");
+    if (!b) return;
+    b.addEventListener("click", function () {
+      var open = !h.hasAttribute("data-open");
+      if (open) h.setAttribute("data-open", ""); else h.removeAttribute("data-open");
+      b.setAttribute("aria-expanded", String(open));
+      b.querySelector("[data-ttn-open]").hidden = open;
+      b.querySelector("[data-ttn-close]").hidden = !open;
+    });
+    document.addEventListener("click", function (e) {
+      h.querySelectorAll("details[open]").forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute("open"); });
+    });
+  })();
+</script>
+
+{{- /* No section bar below the global header (owner, 2026-10-14): the page header carries the
+     title, the browse page has its own search, and vendors are linked from the stats and breadcrumbs. */}}
