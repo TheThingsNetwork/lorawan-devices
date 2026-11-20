@@ -1,0 +1,120 @@
+# Payload codec for Sensocon DataSling Series WS and WM wireless sensors (SD-0178 format)
+uplinkDecoder:
+  fileName: sensocon-codec.js
+  examples:
+    - description: 'WM with RH/temperature sensor and thermistor probe: battery, room temperature, humidity and probe temperature (field uplink)'
+      input:
+        fPort: 1
+        bytes: [170, 3, 154, 153, 65, 64, 1, 212, 117, 161, 66, 2, 56, 55, 181, 66, 8, 154, 153, 39, 66]
+      output:
+        data:
+          humidity: 90.61
+          temperature: 27.07
+          temperatureF: 80.73
+          probeTemperature: 5.5
+          probeTemperatureF: 41.9
+          batteryVoltage: 3.03
+          payloadVersion: 170
+    - description: 'WS-DP: differential pressure and battery'
+      input:
+        fPort: 1
+        bytes: [170, 0, 55, 137, 129, 62, 3, 51, 51, 67, 64]
+      output:
+        data:
+          pressure: 0.25
+          batteryVoltage: 3.05
+          payloadVersion: 170
+    - description: 'WS-G / WS-W: gauge or wet/wet differential pressure and battery'
+      input:
+        fPort: 1
+        bytes: [170, 19, 31, 133, 71, 65, 3, 20, 174, 71, 64]
+      output:
+        data:
+          gaugeDiffPressure: 12.47
+          batteryVoltage: 3.12
+          payloadVersion: 170
+    - description: 'WS-AI01: 4-20 mA current input and battery'
+      input:
+        fPort: 1
+        bytes: [170, 7, 164, 112, 69, 65, 3, 184, 30, 69, 64]
+      output:
+        data:
+          current: 12.34
+          batteryVoltage: 3.08
+          payloadVersion: 170
+    - description: 'WS-VI01: 0-10 V voltage input and battery'
+      input:
+        fPort: 1
+        bytes: [170, 6, 133, 235, 145, 64, 3, 184, 30, 69, 64]
+      output:
+        data:
+          voltage: 4.56
+          batteryVoltage: 3.08
+          payloadVersion: 170
+    - description: 'WS-CI01: dry contact closed and battery'
+      input:
+        fPort: 1
+        bytes: [170, 4, 0, 0, 128, 63, 3, 102, 102, 70, 64]
+      output:
+        data:
+          contact: CLOSED
+          batteryVoltage: 3.1
+          payloadVersion: 170
+    - description: 'WM-DP02-HT02-TI02: differential pressure, humidity, room temperature, probe temperature and battery'
+      input:
+        fPort: 1
+        bytes: [170, 0, 111, 18, 3, 63, 2, 205, 204, 52, 66, 1, 51, 51, 143, 66, 8, 51, 51, 25, 66, 3, 92, 143, 66, 64]
+      output:
+        data:
+          pressure: 0.51
+          humidity: 45.2
+          temperature: 22
+          temperatureF: 71.6
+          probeTemperature: 3.5
+          probeTemperatureF: 38.3
+          batteryVoltage: 3.04
+          payloadVersion: 170
+    - description: Unknown sensor type is ignored with a warning
+      input:
+        fPort: 1
+        bytes: [170, 9, 0, 0, 192, 63, 3, 0, 0, 64, 64]
+      output:
+        data:
+          batteryVoltage: 3
+          payloadVersion: 170
+        warnings:
+          - unknown sensor type 9 ignored
+downlinkEncoder:
+  fileName: sensocon-codec.js
+  examples:
+    - description: Set reporting interval to 15 minutes
+      input:
+        data:
+          setInterval: 900
+      output:
+        bytes: [0, 2, 3, 132]
+        fPort: 1
+    - description: Set probe temperature offset to -1.5 degrees F
+      input:
+        data:
+          temperatureOffset: -1.5
+      output:
+        bytes: [4, 2, 250, 36]
+        fPort: 1
+downlinkDecoder:
+  fileName: sensocon-codec.js
+  examples:
+    - description: Set reporting interval to 15 minutes
+      input:
+        fPort: 1
+        bytes: [0, 2, 3, 132]
+      output:
+        data:
+          setInterval: 900
+    - description: Set probe temperature offset to -1.5 degrees F
+      input:
+        fPort: 1
+        bytes: [4, 2, 250, 36]
+      output:
+        data:
+          temperatureOffset: -1.5
