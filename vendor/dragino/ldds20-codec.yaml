@@ -4,14 +4,40 @@ uplinkDecoder:
     - description: Liquid height
       input:
         fPort: 2
+        bytes: [0x0E, 0x1C, 0x0B, 0x05, 0x00]
+      output:
+        data:
+          Node_type: 'LDDS20'
+          Bat: 3.612
+          Distance: 2821
+          Interrupt_status: 0
+
+    - description: No sensor connected
+      input:
+        fPort: 2
         bytes: [0x0E, 0x1C, 0x0B, 0x05]
       output:
-        data: { 'distance': 'No Sensor' }
+        data:
+          Node_type: 'LDDS20'
+          Bat: 3.612
+          Distance: 'No Sensor'
+          Interrupt_status: 5
 
-    - description: Unknown FPort
+    - description: Invalid reading
+      input:
+        fPort: 2
+        bytes: [0x0E, 0x1C, 0x00, 0x0A, 0x00]
+      output:
+        data:
+          Node_type: 'LDDS20'
+          Bat: 3.612
+          Distance: 'Invalid Reading'
+          Interrupt_status: 0
+
+    - description: Unsupported fPort
       input:
         fPort: 42
-        bytes: [0x0E, 0x1C, 0x0B, 0x05]
+        bytes: [0x0E, 0x1C, 0x0B, 0x05, 0x00]
       output:
         errors:
-          - unknown FPort
+          - 'Unsupported fPort: 42'
