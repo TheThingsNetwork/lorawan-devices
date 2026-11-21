@@ -1,0 +1,85 @@
+# ACW-TCR – Temperature & humidity probe with inertia
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-tcr-codec.js
+  examples:
+    - description: Physical and inertial temperature and humidity
+      input:
+        fPort: 1
+        bytes: [160, 8, 8, 133, 9, 23, 222, 24, 8, 112, 25, 23, 148]
+      output:
+        data:
+          frame_type: Measurement frame
+          temperature_physical: 21.81
+          temperature_inertial: 21.6
+          humidity_physical: 61.1
+          humidity_inertial: 60.36
+        errors: []
+        warnings: []
+    - description: Historised physical and inertial temperature and humidity
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 8, 8, 164, 8, 133, 9, 23, 162, 23, 222, 24, 8, 172, 8, 152, 25, 23, 132, 23, 192]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          temperature_physical:
+            - 22.12
+            - 21.81
+          temperature_inertial:
+            - 22.2
+            - 22
+          humidity_physical:
+            - 60.5
+            - 61.1
+          humidity_inertial:
+            - 60.2
+            - 60.8
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 14, 16, 13, 172]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.5
+          voltagev: 3.6
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-tcr-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-tcr-codec.js

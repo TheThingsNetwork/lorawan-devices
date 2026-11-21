@@ -1,0 +1,109 @@
+# ACW-WLL – Leak detector
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-wll-codec.js
+  examples:
+    - description: Detection cable voltage and two temperatures
+      input:
+        fPort: 1
+        bytes: [160, 10, 0, 12, 8, 9, 52, 24, 7, 218]
+      output:
+        data:
+          frame_type: Measurement frame
+          voltage: 0.012
+          temperature0: 23.56
+          temperature1: 20.1
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 14, 16, 13, 172]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.5
+          voltagev: 3.6
+        errors: []
+        warnings: []
+    - description: Historised detection cable voltage
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 10, 0, 12, 0, 11]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          voltage:
+            - 0.012
+            - 0.011
+        errors: []
+        warnings: []
+    - description: Test frame at start-up, dry cable
+      input:
+        fPort: 1
+        bytes: [133, 10, 0, 0, 8, 9, 52, 24, 7, 218]
+      output:
+        data:
+          frame_type: Test frame
+          voltage: 0
+          temperature0: 23.56
+          temperature1: 20.1
+        errors: []
+        warnings: []
+    - description: Leak detected (high threshold exceeded)
+      input:
+        fPort: 1
+        bytes: [141, 74, 2, 201]
+      output:
+        data:
+          frame_type: Alert frame
+          voltage: 0.713
+          alert: High threshold exceeded on voltage
+        errors: []
+        warnings: []
+    - description: End of leak alert
+      input:
+        fPort: 1
+        bytes: [141, 10, 0, 16]
+      output:
+        data:
+          frame_type: Alert frame
+          voltage: 0.016
+          alert: Back within thresholds on voltage
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-wll-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-wll-codec.js

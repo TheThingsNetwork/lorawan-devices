@@ -1,0 +1,31 @@
+name: ACW-MIO-MT1 - Digital or Counting Input
+description: 'Single-input module of the MIO range: change of state detection (digital input) or pulse counting. Measurements are transmitted regularly over LoRaWAN and the device is configured with the tools of the ATIM suite.'
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-mio-mt1-profile
+        lorawanCertified: true
+        codec: acw-mio-codec
+sensors:
+  - digital input
+  - pulse count
+keySecurity: none
+productURL: https://www.atim.com/produits/capteur-smart-metering-a-impulsions/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-MIO/FRANCAIS/ATIM_ACW-MIO_DS_FR.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/capteur-smart-metering-a-impulsions/
+photos:
+  main: acw-mio-mt1.png
