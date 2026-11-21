@@ -100,7 +100,7 @@ firmwareProgramming:
   - fuota other
 
 # Product and data sheet URLs (optional)
-productURL: https://www.watteco.com/product/climo-sensor-lorawan/
+productURL: https://www.watteco.fr/produit/climo-lorawan/
 dataSheetURL: https://www.watteco.com/download/temperature-humidity-sensor-data-sheet-lorawan/?wpdmdl=6525
 onboardingGuideURL: https://support.watteco.com/climo/
 

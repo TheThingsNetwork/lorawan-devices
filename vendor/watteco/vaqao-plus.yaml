@@ -115,7 +115,6 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.watteco.com/product/vaqao-plus-sensor-lorawan/
 dataSheetURL: https://www.watteco.com/download/vaqao-sensor-data-sheet-lorawan-2/?wpdmdl=6531
 onboardingGuideURL: https://support.watteco.com/vaqao/
 

@@ -110,7 +110,6 @@ keySecurity: none
 
 # Product and data sheet URLs (optional)
 
-productURL: https://www.watteco.com/product/indoor-moveo-sensor/
 dataSheetURL: https://www.watteco.com/download/moveo-data-sheet-lorawan-50-70-220/?wpdmdl=11801
 onboardingGuideURL: https://support.watteco.com/moveo-old/
 

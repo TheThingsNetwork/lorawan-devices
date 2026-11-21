@@ -98,7 +98,7 @@ keyProgramming:
 keySecurity: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.senso8.com/senso8-lora-sensors
+productURL: https://senso8.com/product/lrs20100/
 dataSheetURL: https://s3.ap-northeast-1.amazonaws.com/www.senso8.com/lora/docs/DS+LRS20100-0000_V1.pdf
 
 # Photos
