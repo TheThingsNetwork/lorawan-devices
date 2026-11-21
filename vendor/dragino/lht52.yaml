@@ -50,7 +50,7 @@ firmwareVersions:
 
   - # Firmware version
     version: 'lht52 abp'
-    numeric: 3
+    numeric: 2
     profiles:
       EU863-870:
         id: eu868-a-abp-profile
@@ -97,7 +97,8 @@ firmwareVersions:
 # sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - water
+  - temperature
+  - humidity
 
 # Product and data sheet URLs (optional)
 productURL: https://www.dragino.com/products/temperature-humidity-sensor/item/199-lht52.html
