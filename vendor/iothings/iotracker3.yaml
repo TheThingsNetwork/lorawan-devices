@@ -54,7 +54,7 @@ keySecurity: read protected
 firmwareProgramming:
   - fuota other
 productURL: https://www.iotracker.nl/iotracker
-dataSheetURL: https://www.iotracker.nl/uploads/files/1/a/1ae2a37091d7cf93cabb1e81f4c4949dc1ad29fc.pdf
+dataSheetURL: https://docs.iotracker.eu/files/ioThings_ioTracker_3_LoRaWAN_Datasheet.pdf
 resellerURLs:
   - name: 'ioThings'
     region:
