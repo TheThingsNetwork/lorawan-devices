@@ -2210,6 +2210,12 @@ vendors:
     name: Safora Technologies
     website: https://www.safora-tech.com
 
+  - id: sensocon
+    name: Sensocon
+    vendorID: 1202
+    website: https://sensocon.com
+    logo: logo.png
+
   - id: option
     name: Option NV
     website: https://www.option.com
