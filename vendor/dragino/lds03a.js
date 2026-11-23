@@ -3,7 +3,7 @@ function datalog(i, bytes) {
   var bb = bytes[0 + i] & 0x01 ? 'OPEN' : 'CLOSE';
   var cc = ((bytes[1 + i] << 16) | (bytes[2 + i] << 8) | bytes[3 + i]).toString(10);
   var dd = ((bytes[4 + i] << 16) | (bytes[5 + i] << 8) | bytes[6 + i]).toString(10);
-  var ee = getMyDate(((bytes[7 + i] << 24) | (bytes[8 + i] << 16) | (bytes[9 + i] << 8) | bytes[10 + i]).toString(10));
+  var ee = getMyDate((((bytes[7 + i] << 24) | (bytes[8 + i] << 16) | (bytes[9 + i] << 8) | bytes[10 + i]) >>> 0).toString(10));
   var string = '[' + aa + ',' + bb + ',' + cc + ',' + dd + ',' + ee + ']' + ',';
 
   return string;
@@ -34,79 +34,68 @@ function getMyDate(str) {
 function decodeUplink(input) {
   var port = input.fPort;
   var bytes = input.bytes;
-  var data = {};
-  switch (input.fPort) {
-    case 2:
-      {
-        data.ALARM = bytes[0] & 0x02 ? 'TRUE' : 'FALSE';
-        data.DOOR_OPEN_STATUS = bytes[0] & 0x01 ? 'OPEN' : 'CLOSE';
-        data.DOOR_OPEN_TIMES = (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
-        data.LAST_DOOR_OPEN_DURATION = (bytes[4] << 16) | (bytes[5] << 8) | bytes[6];
-        data.TIME = getMyDate(((bytes[7] << 24) | (bytes[8] << 16) | (bytes[9] << 8) | bytes[10]).toString(10));
+  var decode = {};
+
+  switch (port) {
+    case 2: {
+      if (bytes.length != 11) {
+        return { errors: ['Invalid Payload Length: ' + bytes.length] };
       }
-      return {
-        data: data,
-      };
-      break;
 
-    case 3:
-      {
-        for (var i = 0; i < bytes.length; i = i + 11) {
-          var da = datalog(i, bytes);
-          if (i == '0') data.DATALOG = da;
-          else data.DATALOG += da;
-        }
+      decode.Node_type = 'LDS03A';
+      decode.ALARM = bytes[0] & 0x02 ? 'TRUE' : 'FALSE';
+      decode.DOOR_OPEN_STATUS = bytes[0] & 0x01 ? 'OPEN' : 'CLOSE';
+      decode.DOOR_OPEN_TIMES = (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+      decode.LAST_DOOR_OPEN_DURATION = (bytes[4] << 16) | (bytes[5] << 8) | bytes[6];
+      decode.TIME = getMyDate(((bytes[7] << 24) | (bytes[8] << 16) | (bytes[9] << 8) | bytes[10]).toString(10));
+      return { data: decode };
+    }
+
+    case 3: {
+      decode.Node_type = 'LDS03A';
+      for (var i = 0; i < bytes.length; i = i + 11) {
+        var da = datalog(i, bytes);
+        if (i == '0') decode.DATALOG = da;
+        else decode.DATALOG += da;
       }
-      return {
-        data: data,
-      };
-      break;
+      return { data: decode };
+    }
 
-    case 4:
-      {
-        data.TDC = (bytes[0] << 16) | (bytes[1] << 8) | bytes[2];
-        data.DISALARM = bytes[3] & 0x01;
-        data.KEEP_STATUS = bytes[4] & 0x01;
-        data.KEEP_TIME = (bytes[5] << 8) | bytes[6];
-      }
-      return {
-        data: data,
-      };
-      break;
+    case 4: {
+      decode.TDC = (bytes[0] << 16) | (bytes[1] << 8) | bytes[2];
+      decode.DISALARM = bytes[3] & 0x01;
+      decode.KEEP_STATUS = bytes[4] & 0x01;
+      decode.KEEP_TIME = (bytes[5] << 8) | bytes[6];
+      return { data: decode };
+    }
 
-    case 5:
-      {
-        if (bytes[0] == 0x0a) data.SENSOR_MODEL = 'LDS03A';
+    case 5: {
+      if (bytes[0] == 0x0a) decode.SENSOR_MODEL = 'LDS03A';
 
-        if (bytes[4] == 0xff) data.SUB_BAND = 'NULL';
-        else data.SUB_BAND = bytes[4];
+      if (bytes[4] == 0xff) decode.SUB_BAND = 'NULL';
+      else decode.SUB_BAND = bytes[4];
 
-        if (bytes[3] == 0x01) data.FREQUENCY_BAND = 'EU868';
-        else if (bytes[3] == 0x02) data.FREQUENCY_BAND = 'US915';
-        else if (bytes[3] == 0x03) data.FREQUENCY_BAND = 'IN865';
-        else if (bytes[3] == 0x04) data.FREQUENCY_BAND = 'AU915';
-        else if (bytes[3] == 0x05) data.FREQUENCY_BAND = 'KZ865';
-        else if (bytes[3] == 0x06) data.FREQUENCY_BAND = 'RU864';
-        else if (bytes[3] == 0x07) data.FREQUENCY_BAND = 'AS923';
-        else if (bytes[3] == 0x08) data.FREQUENCY_BAND = 'AS923_1';
-        else if (bytes[3] == 0x09) data.FREQUENCY_BAND = 'AS923_2';
-        else if (bytes[3] == 0x0a) data.FREQUENCY_BAND = 'AS923_3';
-        else if (bytes[3] == 0x0b) data.FREQUENCY_BAND = 'CN470';
-        else if (bytes[3] == 0x0c) data.FREQUENCY_BAND = 'EU433';
-        else if (bytes[3] == 0x0d) data.FREQUENCY_BAND = 'KR920';
-        else if (bytes[3] == 0x0e) data.FREQUENCY_BAND = 'MA869';
+      if (bytes[3] == 0x01) decode.FREQUENCY_BAND = 'EU868';
+      else if (bytes[3] == 0x02) decode.FREQUENCY_BAND = 'US915';
+      else if (bytes[3] == 0x03) decode.FREQUENCY_BAND = 'IN865';
+      else if (bytes[3] == 0x04) decode.FREQUENCY_BAND = 'AU915';
+      else if (bytes[3] == 0x05) decode.FREQUENCY_BAND = 'KZ865';
+      else if (bytes[3] == 0x06) decode.FREQUENCY_BAND = 'RU864';
+      else if (bytes[3] == 0x07) decode.FREQUENCY_BAND = 'AS923';
+      else if (bytes[3] == 0x08) decode.FREQUENCY_BAND = 'AS923_1';
+      else if (bytes[3] == 0x09) decode.FREQUENCY_BAND = 'AS923_2';
+      else if (bytes[3] == 0x0a) decode.FREQUENCY_BAND = 'AS923_3';
+      else if (bytes[3] == 0x0b) decode.FREQUENCY_BAND = 'CN470';
+      else if (bytes[3] == 0x0c) decode.FREQUENCY_BAND = 'EU433';
+      else if (bytes[3] == 0x0d) decode.FREQUENCY_BAND = 'KR920';
+      else if (bytes[3] == 0x0e) decode.FREQUENCY_BAND = 'MA869';
 
-        data.FIRMWARE_VERSION = (bytes[1] & 0x0f) + '.' + ((bytes[2] >> 4) & 0x0f) + '.' + (bytes[2] & 0x0f);
-        data.BAT = ((bytes[5] << 8) | bytes[6]) / 1000;
-      }
-      return {
-        data: data,
-      };
-      break;
+      decode.FIRMWARE_VERSION = (bytes[1] & 0x0f) + '.' + ((bytes[2] >> 4) & 0x0f) + '.' + (bytes[2] & 0x0f);
+      decode.BAT = ((bytes[5] << 8) | bytes[6]) / 1000;
+      return { data: decode };
+    }
 
     default:
-      return {
-        errors: ['unknown FPort'],
-      };
+      return { errors: ['Unsupported fPort: ' + port] };
   }
 }
