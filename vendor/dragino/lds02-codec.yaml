@@ -1,17 +1,69 @@
 uplinkDecoder:
   fileName: lds02.js
   examples:
-    - description: Distance Detection
+    - description: Door open event
+      input:
+        fPort: 10
+        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01, 0x00, 0x00, 0x00]
+      output:
+        data:
+          Node_type: 'LDS02'
+          BAT_V: 2.952
+          MOD: 1
+          DOOR_OPEN_STATUS: 0
+          DOOR_OPEN_TIMES: 9472
+          LAST_DOOR_OPEN_DURATION: 65536
+          ALARM: 0
+
+    - description: Water leak event
+      input:
+        fPort: 10
+        bytes: [0x4B, 0x88, 0x02, 0x00, 0x25, 0x00, 0x01, 0x00, 0x00, 0x01]
+      output:
+        data:
+          Node_type: 'LDS02'
+          BAT_V: 2.952
+          MOD: 2
+          WATER_LEAK_STATUS: 1
+          WATER_LEAK_TIMES: 9472
+          LAST_WATER_LEAK_DURATION: 65536
+          ALARM: 1
+
+    - description: Door and water leak status
+      input:
+        fPort: 10
+        bytes: [0x4B, 0x88, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]
+      output:
+        data:
+          Node_type: 'LDS02'
+          BAT_V: 2.952
+          MOD: 3
+          DOOR_OPEN_STATUS: 0
+          WATER_LEAK_STATUS: 1
+          ALARM: 1
+
+    - description: Unknown work mode
+      input:
+        fPort: 10
+        bytes: [0x0B, 0x88, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]
+      output:
+        data:
+          Node_type: 'LDS02'
+          BAT_V: 2.952
+          MOD: 0
+
+    - description: Invalid payload length
       input:
         fPort: 10
         bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
       output:
-        data: { 'ALARM': 0, 'BAT_V': 2.952, 'DOOR_OPEN_STATUS': 0, 'DOOR_OPEN_TIMES': 9472, 'LAST_DOOR_OPEN_DURATION': 65536, 'MOD': 1 }
+        errors:
+          - 'Invalid Payload Length: 7'
 
-    - description: Unknown FPort
+    - description: Unsupported fPort
       input:
         fPort: 42
-        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
+        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01, 0x00, 0x00, 0x00]
       output:
         errors:
-          - unknown FPort
+          - 'Unsupported fPort: 42'
