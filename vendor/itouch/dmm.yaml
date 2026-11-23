@@ -7,8 +7,8 @@ hardwareVersions:
     numeric: 1
 
 firmwareVersions:
-  - version: '5.0'
-    numeric: 5
+  - version: '6.0'
+    numeric: 6
     hardwareVersions:
       - '1.0'
     profiles:
