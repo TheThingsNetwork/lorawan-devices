@@ -51,11 +51,12 @@ function decodeUplink(input) {
 
             i = i + 2 + len;
           }
+          return { data: dic };
+        }
+        else{
+          return { errors: ['unsupported frame type: 0x' + bytes[0].toString(16)] };
         }
       }
-      return {
-        data: dic,
-      };
       break;
 
     case 5:
