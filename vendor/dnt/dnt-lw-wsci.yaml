@@ -37,7 +37,15 @@ firmwareVersions:
         id: dnt-profile-1-0-4
         lorawanCertified: true
         codec: dnt-lw-wsci-codec-2-1-1
-
+  - version: '1.5.7'
+    numeric: 3
+    hardwareVersions:
+      - '1.0'
+    profiles:
+      EU863-870:
+        id: dnt-profile-1-0-4
+        lorawanCertified: true
+        codec: dnt-lw-wsci-codec-2-1-2
     # Firmware features (optional)
     # Valid values are: remote rejoin (trigger a join from the application layer), transmission interval (configure how
     # often he device sends a message).
