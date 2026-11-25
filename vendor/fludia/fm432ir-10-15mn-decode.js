@@ -5,6 +5,7 @@ const PAYLOAD_TYPE = {
   T1_E_SUM_ADJUSTABLE_STEP              :  {header: 0x71, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_SUM_ADJUSTABLE_STEP"},
   T1_E_POS_ADJUSTABLE_STEP              :  {header: 0x72, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_POS_ADJUSTABLE_STEP"},
   T1_E_NEG_ADJUSTABLE_STEP              :  {header: 0x73, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_NEG_ADJUSTABLE_STEP"},
+  T1_IR_DOUBLE_MODE                     :  {header: 0x35, size: 52/*in bytes*/, name: "T1_IR_DOUBLE_MODE"},
   T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP     :  {header: 0x74, size_min: 23/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_IR_DOUBLE_MODE_ADJUSTABLE_STEP"},
   T1_E_SUM_ADJUSTABLE_STEP_WH           :  {header: 0x76, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_SUM_ADJUSTABLE_STEP_WH"},
   T1_E_POS_ADJUSTABLE_STEP_WH           :  {header: 0x77, size_min: 13/*in bytes*/, size_max: 51/*in bytes*/, name: "T1_E_POS_ADJUSTABLE_STEP_WH"},
@@ -84,6 +85,16 @@ function decodeUplink(input){
     }
     decoded.data.meter_type = "mME (Position B)";
     decoded.data.index = data.index;
+    decoded.data.powers = data.powers;
+    decoded.data.time_step = data.time_step;
+    decoded.data.type_of_measure = data.type_of_measure;
+  }else if(decoded.data.message_type == PAYLOAD_TYPE.T1_IR_DOUBLE_MODE.name){
+    var data = decode_T1_mme_double_mode(input.bytes);
+    for(var i = 0;i<data.warnings.length;i++){
+      decoded.warnings.push(data.warnings[i]);
+    }
+    decoded.data.meter_type = "mME (Position B)";
+    decoded.data.index_solar = data.index_solar;
     decoded.data.powers = data.powers;
     decoded.data.time_step = data.time_step;
     decoded.data.type_of_measure = data.type_of_measure;
@@ -185,6 +196,9 @@ function find_message_type(payload){
         break;
       case PAYLOAD_TYPE.T1_E_NEG.header:
         if(payload.length == PAYLOAD_TYPE.T1_E_NEG.size) return PAYLOAD_TYPE.T1_E_NEG.name
+        break;
+      case PAYLOAD_TYPE.T1_IR_DOUBLE_MODE.header:
+        if(payload.length == PAYLOAD_TYPE.T1_IR_DOUBLE_MODE.size) return PAYLOAD_TYPE.T1_IR_DOUBLE_MODE.name
         break;
       case PAYLOAD_TYPE.T2_MME.header:
         if(payload.length == PAYLOAD_TYPE.T2_MME.size) return PAYLOAD_TYPE.T2_MME.name
@@ -303,6 +317,53 @@ function decode_T1_mme(payload, type){
     }
   }
   return data
+}
+
+function decode_T1_mme_double_mode(payload){
+  //Firmware 20 : F0 35 / time step (1B) / signed (1B) / E-POS index (8B) / 8 values (16B) / E-NEG index (8B) / 8 values (16B)
+  var data = {};
+  data.time_step = payload[2];
+  data.powers = [[],[]];
+  data.warnings = [];
+  data.type_of_measure = "E-POS values (OBIS code 1.8.0) & E-NEG values (OBIS code 2.8.0)";
+  var nb_values_in_payload = 8;
+  var signedPos = (payload[3] == 1 || payload[3] == 3);
+  var signedNeg = (payload[3] == 2 || payload[3] == 3);
+  var idx_neg = 4+8+2*nb_values_in_payload;
+  data.index_solar = {
+    e_pos: decode_index_double_mode(payload, 4, signedPos),
+    e_neg: decode_index_double_mode(payload, idx_neg, signedNeg)
+  }
+  for(var i = 0;i<nb_values_in_payload;i++){
+    data.powers[0].push(decode_power_double_mode(payload, 12+i*2, signedPos, data.time_step));
+    data.powers[1].push(decode_power_double_mode(payload, idx_neg+8+i*2, signedNeg, data.time_step));
+  }
+  return data
+}
+
+//Index on 8 bytes starting at start - null if all the bytes are 0xFF (value not read by the sensor)
+function decode_index_double_mode(payload, start, signed){
+  var bytes = [];
+  var allFF = true;
+  for(var i = 0;i<8;i++){
+    bytes.push(payload[start+i]);
+    if(payload[start+i] != 0xFF) allFF = false;
+  }
+  if(allFF) return null;
+  if(signed) return toSignedInt64(bytes)/10;
+  return parseInt(toHexString(bytes),16)/10;
+}
+
+//Value on 2 bytes starting at start - null if the sensor sent an error code (0xFFFB to 0xFFFF)
+function decode_power_double_mode(payload, start, signed, time_step){
+  if(payload[start] == 0xFF
+    && (payload[start+1] == 0xFF || payload[start+1] == 0xFE || payload[start+1] == 0xFD || payload[start+1] == 0xFC || payload[start+1] == 0xFB)){
+    return null;
+  }
+  var value = 0;
+  if(!signed) value = toUnsignedInt16(payload[start],payload[start+1])/10;
+  else value = toSignedInt16(payload[start],payload[start+1])/10;
+  return value*60/time_step;
 }
 
 function decode_T1_mme_adjustable_step(payload, type, isWh){
@@ -553,6 +614,7 @@ function decode_T2_mme(payload){
   if(data.measure == 0) data.type_of_measure = "E-POS values (OBIS code 1.8.0)";
   if(data.measure == 1) data.type_of_measure = "E-SUM values (OBIS code 16.8.0)";
   if(data.measure == 2) data.type_of_measure = "E-NEG values (OBIS code 2.8.0)";
+  if(data.measure == 3) data.type_of_measure = "E-POS values (OBIS code 1.8.0) & E-NEG values (OBIS code 2.8.0)";
   data.firmware_version = payload[5];
   data.sensor_sensitivity = payload[6];
   data.scaler_e_pos = toSignedInt8(payload[7]);
@@ -619,6 +681,7 @@ function decode_T2_mme_adjustable_step(payload, isWh){
         if(isWh) data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0);
         else data.index = (parseInt(toHexString(payload).substring(34, 42),16) >> 0)/10;
       }else{
+        var bytes = [];
         for(var i = 0;i<8;i++) bytes.push(payload[i+12])
         if(isWh) data.index = toSignedInt64(bytes);
         else data.index = toSignedInt64(bytes)/10;
