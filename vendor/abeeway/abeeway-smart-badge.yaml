@@ -102,14 +102,14 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://www.abeeway.com/smart-badge/
-dataSheetURL: https://www.abeeway.com/wp-content/uploads/2020/10/Abeeway_Badge-data-sheet_12_DIGITAL.pdf
+productURL: https://docs.abeeway.io/products/smart-badge/
+dataSheetURL: https://docs.abeeway.io/products/product-resources#data-sheets
 
 resellerURLs:
-  - name: 'Actility'
+  - name: 'Abeeway'
     region:
       - Other
-    url: https://market.thingpark.com/catalog/product/view/id/11550/s/abeeway-smart-badge/?___store=default
+    url: https://docs.abeeway.io/products/
 
 # Photos
 photos:

@@ -1,0 +1,20 @@
+name: WM-DP02-W005-AI01 Wireless Multi-Variable Sensor
+description: Multi-variable sensor with differential pressure 0–1"wc, wet/wet differential pressure 0–5 PSI and 4–20 mA current input
+sensors:
+  - 4-20 ma
+  - battery
+  - pressure
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
+photos:
+  main: wm.png
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec
