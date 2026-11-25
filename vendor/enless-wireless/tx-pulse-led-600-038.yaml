@@ -71,8 +71,8 @@ keyProvisioning:
   - join server
 
 # Product and data sheet URLs (optional)
-productURL: https://enless-wireless.com/en/products/pulse-sensor-led-optical-reader-lora/
-dataSheetURL: https://enless-wireless.com/wp-content/uploads/2022/07/EN-600-038.pdf
+productURL: https://enless-wireless.com/en/product/lorawan-sensor-for-led-flashes-on-electric-meters/
+dataSheetURL: https://enless-wireless.com/wp-content/uploads/2026/04/TX-PULSE-LED-600-038-V2.2-EN.pdf
 
 # Photos
 photos:

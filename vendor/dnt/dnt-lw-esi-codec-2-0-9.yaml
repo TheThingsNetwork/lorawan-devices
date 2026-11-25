@@ -1,0 +1,45 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: dnt-lw-esi-2-0-5.js
+  # Examples (optional)
+  examples:
+    - description: startup message (gas sensor)
+      input:
+        fPort: 10
+        bytes: [0x0F, 0x08, 0x7F, 0x00, 0x02, 0x12, 0x02, 0x00, 0x09, 0x03, 0x03, 0x03, 0x02, 0x01, 0x00, 0x04]
+      output:
+        data:
+          Meter_Type: 8
+          device_info:
+            bl_version: '3.3.3'
+            device_type: 530
+            fw_version: '2.0.9'
+            hw_version: 2
+            lrwan_version: '1.0.4'
+    - description: cyclic energy data message (1)
+      input:
+        fPort: 10
+        bytes: [0x04, 0x03, 0x80, 0x02, 0x11, 0x38, 0x2b, 0x1a, 0x34, 0x78, 0xcb, 0x90, 0x08, 0x00]
+      output:
+        data:
+          Energy_Data:
+            Channel: []
+            Type: ['Power', 'Consumption']
+            Unit: ['W', 'Wh']
+            Value: [17150, 14370700]
+          voltage: 2780
+    - description: cyclic energy data message (2)
+      input:
+        fPort: 10
+        bytes: [0x04, 0x03, 0x80, 0x02, 0x11, 0xb0, 0x35, 0x15, 0x34, 0xb8, 0x67, 0x91, 0x08, 0x00]
+      output:
+        data:
+          Energy_Data:
+            Channel: []
+            Type: ['Power', 'Consumption']
+            Unit: ['W', 'Wh']
+            Value: [13900, 14374700]
+          voltage: 2780
+downlinkDecoder:
+  fileName: dnt-lw-esi-2-0-5.js

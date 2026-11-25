@@ -1,0 +1,216 @@
+# ACW-MT1 – Digital or counting input
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-mt1-codec.js
+  examples:
+    - description: Input counter
+      input:
+        fPort: 1
+        bytes: [160, 4, 0, 0, 8, 133]
+      output:
+        data:
+          frame_type: Measurement frame
+          counter0: 2181
+        errors: []
+        warnings: []
+    - description: Historised counter, 2 samples
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 4, 0, 0, 8, 164, 0, 0, 8, 133]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          counter0:
+            - 2212
+            - 2181
+        errors: []
+        warnings: []
+    - description: Input state and counter
+      input:
+        fPort: 1
+        bytes: [160, 1, 1, 4, 0, 0, 8, 133]
+      output:
+        data:
+          frame_type: Measurement frame
+          counter0: 2181
+          input_state0: 1
+        errors: []
+        warnings: []
+    - description: Input change of state
+      input:
+        fPort: 1
+        bytes: [160, 1, 17]
+      output:
+        data:
+          frame_type: Measurement frame
+          input_state0: switched high
+        errors: []
+        warnings: []
+    - description: Extended measurement frame (LTE-M / NB-IoT)
+      input:
+        fPort: 1
+        bytes: [137, 0, 0, 1, 0, 1, 0, 2, 0, 60, 4, 0, 0, 0, 62, 0, 0, 0, 60]
+      output:
+        data:
+          frame_type: Extended measurement frame
+          frame_index: 256
+          period: 60
+          counter0:
+            - 62
+            - 60
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 13, 36, 12, 104]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.176
+          voltagev: 3.364
+        errors: []
+        warnings: []
+    - description: Keep alive frame with GPS position (LTE-M / NB-IoT)
+      input:
+        fPort: 1
+        bytes: [129, 13, 36, 12, 104, 3, 41, 62, 233, 5, 19, 198]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.176
+          voltagev: 3.364
+          gps_status: Position found
+          latitude: 45.05135
+          longitude: 5.5457
+        errors: []
+        warnings: []
+    - description: Movement detected by the accelerometer
+      input:
+        fPort: 1
+        bytes: [142, 1, 158]
+      output:
+        data:
+          frame_type: Error frame
+          error: Movement or theft detected on the product
+        errors: []
+        warnings: []
+    - description: Configuration accepted
+      input:
+        fPort: 1
+        bytes: [134, 0]
+      output:
+        data:
+          frame_type: Response to a configuration frame
+          configuration_accepted: 1
+          rejected_parameters: []
+        errors: []
+        warnings: []
+    - description: Input configuration read-back (single input)
+      input:
+        fPort: 1
+        bytes: [135, 4, 30, 82]
+      output:
+        data:
+          frame_type: Response to a command frame
+          command: 4
+          config_input1: Counter, pull-up, rising edge
+        errors: []
+        warnings: []
+    - description: 'Downlink error: unknown parameter'
+      input:
+        fPort: 1
+        bytes: [136, 3]
+      output:
+        data:
+          frame_type: Response to an invalid frame
+          downlink_error: Unknown parameter
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-mt1-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the input to counter, pull-up, rising edge (factory setting)
+      input:
+        data:
+          setInput1Config:
+            mode: counter
+            pull: up
+            trigger: rising
+      output:
+        bytes: [30, 82]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the input to digital input, pull-up, rising and falling edges
+      input:
+        data:
+          setInput1Config:
+            mode: edge
+            pull: up
+            trigger: both
+      output:
+        bytes: [30, 209]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Disable the input
+      input:
+        data:
+          setInput1Config:
+            mode: disabled
+      output:
+        bytes: [30, 0]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the counter to 1000
+      input:
+        data:
+          setCounter1: 1000
+      output:
+        bytes: [193, 6, 17, 1, 232, 3, 0, 0]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Read the configuration back
+      input:
+        data:
+          getConfiguration: true
+      output:
+        bytes: [193, 5, 4, 3, 11, 20, 30]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-mt1-codec.js
