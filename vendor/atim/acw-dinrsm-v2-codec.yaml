@@ -1,0 +1,48 @@
+# ACW-DINRSM-V2 – Modbus master gateway
+# Codec 1.0.1 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-dinrsm-v2-codec.js
+  examples:
+    - description: Example 0x01
+      input:
+        fPort: 1
+        bytes: [1, 14, 16, 13, 172, 100]
+      output:
+        data:
+          frameType: HEART_BEAT
+          radioIdleVoltage: 3600
+          radioTransmitVoltage: 3500
+        errors: []
+        warnings: []
+    - description: Example 0x03
+      input:
+        fPort: 1
+        bytes: [3, 64, 1, 2, 3]
+      output:
+        data:
+          frameType: PERIODIC_DATA
+          header: 64
+          payload: '010203'
+        errors: []
+        warnings: []
+    - description: Example 0x83
+      input:
+        fPort: 1
+        bytes: [131, 1, 16, 250, 33, 50, 25, 83, 5]
+      output:
+        data:
+          errorCode: 250
+          errorSource: DEVICE
+          errorType: TIMEOUT
+          frameType: ERROR
+          functionCode: 50
+          parameter: 1
+          radioHeader: 16
+          register_lsb: 83
+          register_msb: 25
+          register_nbr: 5
+          slave: 33
+        errors: []
+        warnings: []
