@@ -1,0 +1,99 @@
+# ACW-TMxP – PT1000 temperature probes
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-tmxp-codec.js
+  examples:
+    - description: Two temperature probes
+      input:
+        fPort: 1
+        bytes: [160, 8, 8, 133, 24, 8, 80]
+      output:
+        data:
+          frame_type: Measurement frame
+          temperature0: 21.81
+          temperature1: 21.28
+        errors: []
+        warnings: []
+    - description: Historised temperature probes
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 8, 8, 133, 8, 164, 24, 8, 35, 8, 200]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          temperature0:
+            - 21.81
+            - 22.12
+          temperature1:
+            - 20.83
+            - 22.48
+        errors: []
+        warnings: []
+    - description: Counter and two temperature probes
+      input:
+        fPort: 1
+        bytes: [160, 4, 0, 0, 0, 20, 8, 8, 133, 24, 8, 80]
+      output:
+        data:
+          frame_type: Measurement frame
+          temperature0: 21.81
+          temperature1: 21.28
+          counter0: 20
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 14, 16, 13, 172]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.5
+          voltagev: 3.6
+        errors: []
+        warnings: []
+    - description: Digital input change of state
+      input:
+        fPort: 1
+        bytes: [160, 1, 16]
+      output:
+        data:
+          frame_type: Measurement frame
+          input_state0: switched low
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-tmxp-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-tmxp-codec.js

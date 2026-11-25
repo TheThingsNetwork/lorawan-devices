@@ -1,0 +1,249 @@
+# ACW-PW – Pilot wire heating control
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-pw-codec.js
+  examples:
+    - description: Temperature and humidity
+      input:
+        fPort: 1
+        bytes: [160, 8, 8, 133, 9, 23, 222]
+      output:
+        data:
+          frame_type: Measurement frame
+          temperature0: 21.81
+          humidity0: 61.1
+        errors: []
+        warnings: []
+    - description: Historised temperature and humidity
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 8, 8, 164, 8, 133, 9, 23, 162, 23, 222]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          temperature0:
+            - 22.12
+            - 21.81
+          humidity0:
+            - 60.5
+            - 61.1
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 13, 36, 12, 104]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.176
+          voltagev: 3.364
+        errors: []
+        warnings: []
+    - description: Threshold alert
+      input:
+        fPort: 1
+        bytes: [141, 72, 10, 40]
+      output:
+        data:
+          frame_type: Alert frame
+          alert: High threshold exceeded on temperature channel 0
+          temperature0: 26
+        errors: []
+        warnings: []
+    - description: Configuration accepted
+      input:
+        fPort: 1
+        bytes: [134, 0]
+      output:
+        data:
+          frame_type: Response to a configuration frame
+          configuration_accepted: 1
+          rejected_parameters: []
+        errors: []
+        warnings: []
+    - description: Configuration rejected for parameters 1 and 3
+      input:
+        fPort: 1
+        bytes: [134, 5]
+      output:
+        data:
+          frame_type: Response to a configuration frame
+          configuration_accepted: 0
+          rejected_parameters:
+            - 1
+            - 3
+        errors: []
+        warnings: []
+    - description: Pilot wire modes read-back
+      input:
+        fPort: 1
+        bytes: [135, 4, 37, 0, 38, 3]
+      output:
+        data:
+          frame_type: Response to a command frame
+          command: 4
+          pilot_wire_mode: 0
+          pilot_wire_mode_label: Calendar
+          calendar_default_mode: 3
+          calendar_default_mode_label: Frost protection
+        errors: []
+        warnings: []
+    - description: Program 1 read-back
+      input:
+        fPort: 1
+        bytes: [135, 4, 222, 7, 0, 30, 4, 56, 127, 1, 3]
+      output:
+        data:
+          frame_type: Response to a command frame
+          command: 4
+          program1: 08:00-18:00;127;1
+          program1_label: Mon, Tue, Wed, Thu, Fri, Sat, Sun · 08:00-18:00 UTC · Comfort
+        errors: []
+        warnings: []
+    - description: Program 2 read-back (disabled)
+      input:
+        fPort: 1
+        bytes: [135, 4, 223, 7, 0, 30, 4, 56, 0, 3, 3]
+      output:
+        data:
+          frame_type: Response to a command frame
+          command: 4
+          program2: 08:00-18:00;0;3
+          program2_label: Program disabled
+        errors: []
+        warnings: []
+    - description: Timestamped command response
+      input:
+        fPort: 1
+        bytes: [199, 101, 60, 26, 0, 4, 37, 1]
+      output:
+        data:
+          frame_type: Response to a command frame
+          timestamp: '2023-10-27T20:13:52.000Z'
+          command: 4
+          pilot_wire_mode: 1
+          pilot_wire_mode_label: Comfort
+        errors: []
+        warnings: []
+    - description: 'Downlink error: unknown parameter'
+      input:
+        fPort: 1
+        bytes: [136, 3]
+      output:
+        data:
+          frame_type: Response to an invalid frame
+          downlink_error: Unknown parameter
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-pw-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Pilot wire mode: comfort'
+      input:
+        data:
+          setPilotWireMode: 1
+      output:
+        bytes: [37, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Pilot wire mode: calendar'
+      input:
+        data:
+          setPilotWireMode: 0
+      output:
+        bytes: [37, 0]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Calendar default mode: frost protection'
+      input:
+        data:
+          setPilotWireCalendarDefaultMode: 3
+      output:
+        bytes: [38, 3]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Program 1: every day, 08:00-18:00 UTC, comfort'
+      input:
+        data:
+          setProgram1: 08:00-18:00;127;1
+      output:
+        bytes: [222, 7, 0, 30, 4, 56, 127, 1, 3]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: 'Program 1: every day, 09:15-20:00 UTC, comfort'
+      input:
+        data:
+          setProgram1: 09:15-20:00;127;1
+      output:
+        bytes: [222, 7, 0, 34, 180, 176, 127, 1, 3]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Program 2 disabled
+      input:
+        data:
+          setProgram2: 08:00-18:00;0;3
+      output:
+        bytes: [223, 7, 0, 30, 4, 56, 0, 3, 3]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Program 1 as an object, 08:01-18:00 UTC
+      input:
+        data:
+          setProgram1:
+            start: '08:01'
+            end: '18:00'
+            days: 127
+            mode: 1
+      output:
+        bytes: [222, 7, 0, 30, 20, 56, 127, 1, 3]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Read the pilot wire configuration
+      input:
+        data:
+          getPilotWireConfiguration: true
+      output:
+        bytes: [193, 10, 4, 37, 38, 30, 31, 32, 33, 34, 35, 36]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-pw-codec.js

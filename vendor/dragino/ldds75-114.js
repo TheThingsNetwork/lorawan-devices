@@ -1,9 +1,9 @@
 function decodeUplink(input) {
   var data = {};
-  var len = input.bytes.length;
   var value = ((input.bytes[0] << 8) | input.bytes[1]) & 0x3fff;
   switch (input.fPort) {
     case 2:
+      data.Node_type = 'LDDS75';
       data.Bat = value / 1000;
       value = (input.bytes[2] << 8) | input.bytes[3];
       data.Distance = value + ' mm';

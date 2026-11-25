@@ -43,8 +43,9 @@ function decodeUplink(input) {
         data.PIN_STATUS = bytes[0] & 0x01 ? 'DISCONNECT' : 'CONNECT';
         data.CALCULATE_FLAG = (bytes[0] & 0xfc) >> 2;
         data.TOTAL_PULSE = (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
-        data.DISCONNECT_DURATION = (bytes[4] << 16) | (bytes[5] << 8) | bytes[6];
+        data.LAST_OPEN_DURATION = (bytes[4] << 16) | (bytes[5] << 8) | bytes[6];
         data.TIME = getMyDate(((bytes[7] << 24) | (bytes[8] << 16) | (bytes[9] << 8) | bytes[10]).toString(10));
+        data.Node_type = 'CPL01';
       }
       return {
         data: data,
@@ -71,6 +72,7 @@ function decodeUplink(input) {
         data.KEEP_STATUS = bytes[4] & 0x01;
         data.KEEP_TIME = (bytes[5] << 8) | bytes[6];
         data.TRIGGER_MODE = bytes[7] & 0x01;
+        data.Node_type = 'CPL01';
       }
       return {
         data: data,

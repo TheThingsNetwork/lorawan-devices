@@ -3,5 +3,7 @@ endDevices:
   - abeeway-geolocation-module
   - abeeway-industrial-tracker
   - abeeway-compact-tracker
+  - abeeway-compact-tracker-v2
+  - abeeway-combo-compact-tracker
   - abeeway-micro-tracker
   - abeeway-smart-badge

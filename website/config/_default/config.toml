@@ -16,3 +16,7 @@ title = "Device Repository for LoRaWAN"
   twitter = "@thethingsntwrk"
   # Recipient for the wizard's "Email it to us" submission path.
   submitEmail = "jaime@thethingsindustries.com"
+
+[outputs]
+  # JSON = the search index read by the site-wide search on www.thethingsnetwork.org (layouts/index.json).
+  home = ["HTML", "JSON"]

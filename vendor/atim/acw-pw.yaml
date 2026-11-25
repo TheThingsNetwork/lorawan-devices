@@ -1,0 +1,31 @@
+name: ACW-PW - Pilot Wire Heating Controller
+description: LoRaWAN module controlling electric heaters through the pilot wire. It applies a fixed mode or a calendar of 7 weekly programs, and reports the room temperature and humidity. The device is configured over LoRaWAN downlinks or with the tools of the ATIM suite.
+hardwareVersions:
+  - version: '1.0'
+    numeric: 1
+firmwareVersions:
+  - version: '1.0'
+    numeric: 1
+    hardwareVersions:
+      - '1.0'
+    features:
+      - remote rejoin
+      - transmission interval
+    profiles:
+      EU863-870:
+        id: acw-pw-profile
+        lorawanCertified: true
+        codec: acw-pw-codec
+sensors:
+  - temperature
+  - humidity
+keySecurity: none
+productURL: https://www.atim.com/produits/acw-pw-fil-pilote-pilotage-des-chauffages-electriques/
+dataSheetURL: https://www.atim.com/wp-content/uploads/documentation/ACW/ACW-PW/ATIM_ACW-PW_DS_FR.pdf
+resellerURLs:
+  - name: ATIM
+    region:
+      - European Union
+    url: https://www.atim.com/produits/acw-pw-fil-pilote-pilotage-des-chauffages-electriques/
+photos:
+  main: acw-pw.png
