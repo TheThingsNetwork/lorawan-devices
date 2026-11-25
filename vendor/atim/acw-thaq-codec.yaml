@@ -1,0 +1,101 @@
+# ACW-THAQ – Indoor air quality sensor
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-thaq-codec.js
+  examples:
+    - description: Temperature and humidity
+      input:
+        fPort: 1
+        bytes: [160, 8, 8, 133, 9, 23, 222]
+      output:
+        data:
+          frame_type: Measurement frame
+          temperature0: 21.81
+          humidity0: 61.1
+        errors: []
+        warnings: []
+    - description: Temperature, humidity and VOC
+      input:
+        fPort: 1
+        bytes: [160, 8, 8, 133, 9, 23, 222, 12, 0, 160]
+      output:
+        data:
+          frame_type: Measurement frame
+          temperature0: 21.81
+          humidity0: 61.1
+          VOC: 160
+        errors: []
+        warnings: []
+    - description: Historised temperature and humidity
+      input:
+        fPort: 1
+        bytes: [161, 0, 60, 8, 8, 164, 8, 133, 9, 23, 162, 23, 222]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          temperature0:
+            - 22.12
+            - 21.81
+          humidity0:
+            - 60.5
+            - 61.1
+        errors: []
+        warnings: []
+    - description: Test frame with timestamp, CO2, VOC, humidity and temperature
+      input:
+        fPort: 1
+        bytes: [197, 100, 98, 57, 220, 8, 9, 8, 9, 5, 4, 12, 1, 2, 13, 15, 8]
+      output:
+        data:
+          frame_type: Test frame
+          temperature0: 23.12
+          humidity0: 12.84
+          VOC: 258
+          CO2: 3848
+          timestamp: '2023-05-15T13:55:40.000Z'
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 14, 16, 13, 172]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.5
+          voltagev: 3.6
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-thaq-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
