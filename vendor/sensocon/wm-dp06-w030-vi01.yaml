@@ -1,0 +1,20 @@
+name: WM-DP06-W030-VI01 Wireless Multi-Variable Sensor
+description: Multi-variable sensor with differential pressure 0–8"wc, wet/wet differential pressure 0–30 PSI and 0–10 VDC voltage input
+sensors:
+  - battery
+  - pressure
+  - voltage
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
+photos:
+  main: wm.png
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec

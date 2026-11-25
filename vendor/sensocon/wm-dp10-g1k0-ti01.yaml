@@ -1,0 +1,20 @@
+name: WM-DP10-G1K0-TI01 Wireless Multi-Variable Sensor
+description: Multi-variable sensor with differential pressure 0–20"wc, gauge pressure 0–1000 PSI and 10K thermistor probe input (TPE sheath, −40 to 221°F)
+sensors:
+  - battery
+  - pressure
+  - temperature
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
+photos:
+  main: wm.png
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec

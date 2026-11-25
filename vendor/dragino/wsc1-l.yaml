@@ -87,6 +87,47 @@ firmwareVersions:
         id: ru864-a-abp-profile
         lorawanCertified: true
         codec: wsc1-l-codec
+
+  - version: '1.3.1'
+    numeric: 3
+    profiles:
+      EU863-870:
+        id: eu868-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      EU433:
+        id: eu433-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      US902-928:
+        id: us915-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      KR920-923:
+        id: kr920-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      AU915-928:
+        id: au915-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      RU864-870:
+        id: ru864-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      IN865-867:
+        id: in865-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      CN470-510:
+        id: cn470-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+      AS923:
+        id: as923-profile
+        lorawanCertified: true
+        codec: wsc1-l-131-codec
+
 # Sensors that this device features (optional)
 # Valid values are:
 # 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
@@ -96,7 +137,16 @@ firmwareVersions:
 # sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
-  - water
+  - temperature
+  - humidity
+  - wind speed
+  - wind direction
+  - rainfall
+  - light
+  - pressure
+  - co2
+  - pm2.5
+  - pm10
 
 # Product and data sheet URLs (optional)
 productURL: https://www.dragino.com/products/agriculture-weather-station/item/206-wsc1-l.html
