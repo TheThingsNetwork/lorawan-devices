@@ -1,22 +1,28 @@
 uplinkDecoder:
   fileName: lht52.js
   examples:
-    - description: LHT52 indoor LoRaWAN Temperature & Humidity Sensor
+    - description: Device information
       input:
         fPort: 5
-        bytes: [0x0B, 0x88, 0x01, 0x00, 0x25, 0x00, 0x01]
+        bytes: [0x09, 0x01, 0x00, 0x01, 0x00, 0x0B, 0x3A]
       output:
-        data: { 'Bat_mV': 1, 'Firmware_Version': '8801', 'Freq_Band': 0, 'Sensor_Model': 11, 'Sub_Band': 37 }
+        data:
+          Node_type: 'LHT52'
+          Sensor_Model: 9
+          Firmware_Version: '100'
+          Freq_Band: 1
+          Sub_Band: 0
+          Bat_mV: 2874
       normalizedOutput:
         data:
-          - battery: 1
+          - battery: 2874
 
     - description: Temperature & Humidity
       input:
         fPort: 2
         bytes: [0x08, 0xCD, 0x02, 0x20, 0x7F, 0xFF, 0x01, 0x61, 0xCD, 0x4E, 0xDD]
       output:
-        data: { 'Ext': 1, 'Hum_SHT': 54.4, 'Systimestamp': 1640845021, 'TempC_DS': 327.67, 'TempC_SHT': 22.53 }
+        data: { 'Node_type': 'LHT52', 'Ext': 1, 'Hum_SHT': 54.4, 'Systimestamp': 1640845021, 'TempC_DS': 327.67, 'TempC_SHT': 22.53 }
       normalizedOutput:
         data:
           - air:

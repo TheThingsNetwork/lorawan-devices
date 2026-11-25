@@ -1,0 +1,193 @@
+name: Compact Tracker V2
+description: The Abeeway Compact Tracker V2 is a multi-mode tracker in a rugged waterproof casing, running the Abeeway Asset Tracker 3 (AT3) firmware, combining GPS, Low-power GPS, Wi-Fi Sniffer, BLE, and LoRaWAN for outdoor and indoor geolocation, powered by three replaceable AA-format batteries.
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.x'
+    numeric: 2
+
+# Firmware versions (at least one is mandatory)
+# Asset Tracker 3 (AT3) firmware, decoded with the AT3 codec
+firmwareVersions:
+  - version: '1.3.0'
+    numeric: 3
+    hardwareVersions:
+      - '2.x'
+    profiles:
+      EU863-870:
+        id: abeeway-geolocation-module-pro-eu868
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      US902-928:
+        id: abeeway-geolocation-module-pro-us915
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      AS923:
+        id: abeeway-geolocation-module-pro-as923
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+  - version: '1.4.0'
+    numeric: 3
+    hardwareVersions:
+      - '2.x'
+    profiles:
+      EU863-870:
+        id: abeeway-geolocation-module-pro-eu868
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      US902-928:
+        id: abeeway-geolocation-module-pro-us915
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      AS923:
+        id: abeeway-geolocation-module-pro-as923
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+  - version: '1.4.1'
+    numeric: 3
+    hardwareVersions:
+      - '2.x'
+    profiles:
+      EU863-870:
+        id: abeeway-geolocation-module-pro-eu868
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      US902-928:
+        id: abeeway-geolocation-module-pro-us915
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      AS923:
+        id: abeeway-geolocation-module-pro-as923
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+  - version: '1.5.0'
+    numeric: 3
+    hardwareVersions:
+      - '2.x'
+    profiles:
+      EU863-870:
+        id: abeeway-geolocation-module-pro-eu868
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      US902-928:
+        id: abeeway-geolocation-module-pro-us915
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      AS923:
+        id: abeeway-geolocation-module-pro-as923
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+  - version: '1.6.0'
+    numeric: 3
+    hardwareVersions:
+      - '2.x'
+    profiles:
+      EU863-870:
+        id: abeeway-geolocation-module-pro-eu868
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      US902-928:
+        id: abeeway-geolocation-module-pro-us915
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      AS923:
+        id: abeeway-geolocation-module-pro-as923
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+  - version: '1.6.1'
+    numeric: 3
+    hardwareVersions:
+      - '2.x'
+    profiles:
+      EU863-870:
+        id: abeeway-geolocation-module-pro-eu868
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      US902-928:
+        id: abeeway-geolocation-module-pro-us915
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+      AS923:
+        id: abeeway-geolocation-module-pro-as923
+        lorawanCertified: true
+        codec: asset-tracker-3-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co2, current, digital input,
+# distance, dust, energy, gps, gyroscope, humidity, light, link, magnetometer, moisture, ph, pir, power, pressure,
+# proximity, pulse count, pulse frequency, rainfall, rssi, snr, solar radiation, sound, temperature, time, tvoc, uv,
+# velocity, vibration, voltage, water, wifi ssid, wind direction, wind speed.
+sensors:
+  - accelerometer
+  - gps
+  - temperature
+
+additionalRadios:
+  - wifi
+  - ble
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  width: 112
+  length: 66
+  height: 33
+
+# Weight in grams (optional)
+weight: 175
+
+# Battery information (optional)
+battery:
+  replaceable: true
+  type: 3x AA/3.6V Li-SOCl2
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celsius)
+  temperature:
+    min: -20
+    max: 65
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0.5
+    max: 0.95
+
+# IP rating (optional)
+ipCode: IP68
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://docs.abeeway.io/products/compact-tracker/
+dataSheetURL: https://docs.abeeway.io/products/product-resources#data-sheets
+resellerURLs:
+  - name: 'Abeeway'
+    region:
+      - Other
+    url: https://docs.abeeway.io/products/
+
+# Photos
+photos:
+  main: abeeway-compact-tracker.png
+# # Regulatory compliances (optional)
+# compliances:
+#   safety:
+#     - body: IEC
+#       norm: EN
+#       standard: 62368-1
+#   radioEquipment:
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-1
+#       version: 2.2.0
+#     - body: ETSI
+#       norm: EN
+#       standard: 301 489-3
+#       version: 2.1.0

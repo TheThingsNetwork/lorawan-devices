@@ -1,0 +1,102 @@
+# ACW-MR2-EX – ATEX pulse counter
+# Codec 2.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-mr2-ex-codec.js
+  examples:
+    - description: Digital input change of state
+      input:
+        fPort: 1
+        bytes: [9, 0, 3]
+      output:
+        data:
+          frame_type: Change of state detection frame (digital)
+          wirecut: 0
+          logic_level1: 1
+          logic_level0: 1
+        errors: []
+        warnings: []
+    - description: ECO counter frame (LoRaWAN, six 32-bit indexes)
+      input:
+        fPort: 1
+        bytes: [48, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0, 3, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0]
+      output:
+        data:
+          frame_type: ECO mode counter frame (counter 1, six 32-bit indexes, LoRaWAN)
+          index0: 0
+          index1: 1
+          index2: 2
+          index3: 3
+          index4: 4
+          index5: 5
+        errors: []
+        warnings: []
+    - description: ECO counter frame (Sigfox, five 12-bit deltas)
+      input:
+        fPort: 1
+        bytes: [59, 0, 62, 128, 5, 0, 64, 3, 0, 32, 1]
+      output:
+        data:
+          frame_type: Frame 3B ECO mode counter (counter 1 20 bits and five concatenated 12-bit deltas, Sigfox)
+          counter_init: 1000
+          delta1: 5
+          delta2: 4
+          delta3: 3
+          delta4: 2
+          delta5: 1
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 14, 16, 13, 172]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.5
+          voltagev: 3.6
+        errors: []
+        warnings: []
+    - description: Historised measurement frame
+      input:
+        fPort: 1
+        bytes: [161, 0, 60]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-mr2-ex-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-mr2-ex-codec.js

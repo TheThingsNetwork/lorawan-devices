@@ -1,0 +1,78 @@
+# ACW-GAUG – Tank level gauge
+# Codec 1.0.0 from the ATIM codecs repository (English output).
+# The same file also runs on ChirpStack v3/v4 and Node.js.
+
+uplinkDecoder:
+  fileName: acw-gaug-codec.js
+  examples:
+    - description: Tank level and temperature
+      input:
+        fPort: 1
+        bytes: [160, 12, 0, 86, 8, 9, 52]
+      output:
+        data:
+          frame_type: Measurement frame
+          rate: 86
+          temperature0: 23.56
+        errors: []
+        warnings: []
+    - description: Historised tank level
+      input:
+        fPort: 1
+        bytes: [165, 0, 60, 12, 0, 50, 0, 49, 0, 48, 0, 47, 0, 46, 0, 45]
+      output:
+        data:
+          frame_type: Measurement frame
+          period: 60
+          rate:
+            - 50
+            - 49
+            - 48
+            - 47
+            - 46
+            - 45
+        errors: []
+        warnings: []
+    - description: Keep alive frame
+      input:
+        fPort: 1
+        bytes: [129, 14, 16, 13, 172]
+      output:
+        data:
+          frame_type: Keep alive frame
+          voltagec: 3.5
+          voltagev: 3.6
+        errors: []
+        warnings: []
+downlinkEncoder:
+  fileName: acw-gaug-codec.js
+  examples:
+    - description: Set the keep alive period to once a day
+      input:
+        data:
+          setKeepAlivePeriod: Once every day
+      output:
+        bytes: [3, 6]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Set the datalogging period to 300 minutes
+      input:
+        data:
+          setDataloggingPeriod: 300
+      output:
+        bytes: [212, 3, 1, 44, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+    - description: Enable the timestamp in uplinks
+      input:
+        data:
+          setTimestamp: 1
+      output:
+        bytes: [11, 1]
+        fPort: 1
+        errors: []
+        warnings: []
+downlinkDecoder:
+  fileName: acw-gaug-codec.js
