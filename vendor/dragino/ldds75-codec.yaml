@@ -1,17 +1,17 @@
 uplinkDecoder:
   fileName: ldds75.js
   examples:
-    - description: Distance Detection
+    - description: Distance
       input:
         fPort: 2
-        bytes: [0x0E, 0x1C, 0x0B, 0x05]
+        bytes: [0x0D, 0x3B, 0x0A, 0xEF, 0x00]
       output:
-        data: { 'distance': 'No Sensor' }
+        data: { 'Node_type': 'LDDS75', 'Bat': 3.387, 'Distance': 2799, 'Interrupt_status': 0 }
 
     - description: Unknown FPort
       input:
         fPort: 42
-        bytes: [0x0E, 0x1C, 0x0B, 0x05]
+        bytes: [0x0D, 0x3B, 0x0A, 0xEF, 0x00]
       output:
         errors:
           - unknown FPort
