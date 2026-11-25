@@ -66,6 +66,25 @@ async function requireDimensions(path) {
   }
 }
 
+// requireExactFile checks that the file exists with exactly this name. The check is per path segment
+// because case-insensitive file systems (macOS, Windows) would otherwise accept a case mismatch that
+// fails on the case-sensitive storage The Things Stack fetches codecs from.
+function requireExactFile(path) {
+  const segments = path.split('/');
+  for (let i = 1; i < segments.length; i++) {
+    const dir = segments.slice(0, i).join('/') || '.';
+    let entries;
+    try {
+      entries = fs.readdirSync(dir);
+    } catch (err) {
+      throw new Error(`read directory ${dir}: ${err.code}`);
+    }
+    if (!entries.includes(segments[i])) {
+      throw new Error(`${path} not found (file names are case-sensitive)`);
+    }
+  }
+}
+
 async function validatePayloadCodecs(vendorId, payloadEncoding) {
   const runs = [];
 
@@ -77,6 +96,7 @@ async function validatePayloadCodecs(vendorId, payloadEncoding) {
     if (d.def) {
       const { routine } = d;
       const fileName = `${vendorId}/${d.def.fileName}`;
+      requireExactFile(fileName);
       if (d.def.examples) {
         d.def.examples.forEach((e) => {
           const { input, output, description, normalizedOutput } = e;
