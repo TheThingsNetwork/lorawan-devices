@@ -4,7 +4,7 @@ description: The Dragino LDDS20 consists of an ultrasonic liquid level sensor fo
 # Firmware versions (at least one is mandatory)
 firmwareVersions:
   - # Firmware version
-    version: '1.1.1'
+    version: '1.1'
     numeric: 1
 
     # LoRaWAN Device Profiles per region
