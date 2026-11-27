@@ -1,0 +1,242 @@
+# Wall of Fame: devices shown on the device wall at The Things Conference.
+#
+# Maintained by The Things Industries, not by device makers, so vendor files
+# and schema.json stay untouched. Source: the per-edition Airtable bases of
+# The Things Conference ("Wall Devices/Solutions" and the earlier "Devices
+# Wall of Fame" tables), matched by hand to repository device IDs. Every
+# device entry in those tables counts (records marked "Not participating"
+# are left out); only entries that clearly correspond to a repository
+# device are listed.
+#
+# To add an edition: add it under `events`, then append its id to each device
+# under `devices.<vendorID>.<deviceID>` (oldest first).
+
+events:
+  ttc-2022:
+    name: The Things Conference 2022
+    short: TTC 2022
+    year: 2022
+  ttc-us-2023:
+    name: The Things Conference US 2023
+    short: TTC US 2023
+    year: 2023
+  ttc-2023:
+    name: The Things Conference 2023
+    short: TTC 2023
+    year: 2023
+  ttc-2024:
+    name: The Things Conference 2024
+    short: TTC 2024
+    year: 2024
+  ttc-2025:
+    name: The Things Conference 2025
+    short: TTC 2025
+    year: 2025
+  ttc-2026:
+    name: The Things Conference 2026
+    short: TTC 2026
+    year: 2026
+
+devices:
+  abeeway:
+    abeeway-compact-tracker: [ttc-2025]
+    abeeway-smart-badge: [ttc-2025]
+  acrios:
+    acr-cv-101l-m-d: [ttc-us-2023, ttc-2024]
+    acr-cv-101l-m-eac: [ttc-us-2023, ttc-2024]
+    acr-cv-101ni-w-d2: [ttc-2024]
+  alpha-omega-technology:
+    klax: [ttc-us-2023, ttc-2023]
+  ambitlocker:
+    ambitlocker: [ttc-2022, ttc-2024]
+  aquascope:
+    bvs: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2026]
+  arduino:
+    lora-vision-shield: [ttc-2022, ttc-us-2023]
+    mkr-wan-1310: [ttc-2022, ttc-us-2023, ttc-2023]
+  arwin-technology:
+    lrs10701: [ttc-2023]
+  axioma:
+    qalcosonic-w1: [ttc-2023, ttc-2024]
+  browan:
+    cd10: [ttc-2023]
+  cicicom:
+    s-lg-i3: [ttc-2026]
+  cital:
+    lorasoil: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2024]
+  decentlab:
+    dl-iam: [ttc-2022, ttc-us-2023]
+  dezem:
+    harvy-lr-36: [ttc-2022]
+    harvy-lr-360: [ttc-2022]
+  digital-matter:
+    yabby-edge: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2024]
+  dingtek:
+    df703: [ttc-2023]
+  dnt:
+    dnt-lw-etrv-c: [ttc-2024, ttc-2025]
+  elspina:
+    em-elst01: [ttc-2023]
+  elsys:
+    ems-desk: [ttc-2023, ttc-2025]
+  enginko:
+    egk-lw20w00: [ttc-2022]
+    egk-lw22plg: [ttc-2023]
+    mcf-lw13mio: [ttc-2022, ttc-us-2023]
+    mcf-lwws00: [ttc-us-2023]
+    mcf-lwws01: [ttc-us-2023]
+  ewattch:
+    squidpro: [ttc-2024]
+    tyness: [ttc-2022, ttc-us-2023]
+    tynode: [ttc-2022, ttc-us-2023]
+  ezurio:
+    rs1xx-ext-temp-rtd-sensor: [ttc-2022]
+    rs26x-ext-rtd-temp-sensor: [ttc-2025, ttc-2026]
+    rs26x-ext-therm-temp-sensor: [ttc-2025, ttc-2026]
+    rs26x-int-temp-sensor: [ttc-2025, ttc-2026]
+  fencyboy:
+    fencyboy: [ttc-2025, ttc-2026]
+  hbi:
+    hbi-mla20-3l0606c: [ttc-2022, ttc-us-2023, ttc-2023]
+  ht-micron:
+    htlrbl32l: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2024]
+  imbuildings:
+    imbuildings-people-counter: [ttc-2023]
+  imst:
+    ioke868: [ttc-2023, ttc-2025]
+    range-extender: [ttc-2022, ttc-us-2023]
+  iothings:
+    iobutton: [ttc-2025]
+    iotracker3: [ttc-2022, ttc-us-2023, ttc-2023]
+  izinto:
+    izi-io-4840: [ttc-2022, ttc-us-2023]
+    izi-io-4840-grid: [ttc-2022, ttc-us-2023]
+    izi-io-4840-heat: [ttc-2022, ttc-us-2023]
+  laird:
+    rs1xx-ext-temp-rtd-sensor: [ttc-2022]
+  lansitec:
+    solar-bluetooth-gateway: [ttc-2025]
+  makerfabs:
+    none-position-rope-water-leak: [ttc-2025]
+    soil-moisture: [ttc-2025]
+  mcci:
+    model4811: [ttc-2024]
+  mcf88:
+    mcf-lw13mio: [ttc-2022, ttc-us-2023]
+    mcf-lwws00: [ttc-us-2023]
+    mcf-lwws01: [ttc-us-2023]
+  mclimate:
+    16ads: [ttc-2024]
+    16aspm: [ttc-2024]
+    co2-display: [ttc-2023]
+    co2-display-lite: [ttc-2024]
+    flood-sensor: [ttc-2023]
+    ht-pir-lite: [ttc-2025]
+    pir-mini: [ttc-2026]
+    t-valve: [ttc-2022, ttc-2023]
+    vicki: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2024, ttc-2025, ttc-2026]
+  micropelt:
+    mlr003: [ttc-2025]
+    mlrtps1: [ttc-2025]
+  mikrotik:
+    tg-lr82: [ttc-2022, ttc-us-2023, ttc-2024, ttc-2025]
+    tg-lr92: [ttc-2022, ttc-us-2023, ttc-2024]
+  milesight-iot:
+    am103l: [ttc-2023]
+    am307: [ttc-2022, ttc-us-2023, ttc-2024]
+    ct101: [ttc-2024]
+    uc50x: [ttc-2022]
+    vs121: [ttc-2022]
+    vs133: [ttc-2023, ttc-2024]
+    wt101: [ttc-2023]
+  moko:
+    lw001-bgpro: [ttc-2022, ttc-us-2023, ttc-2024, ttc-2025]
+    lw004: [ttc-2022, ttc-2024]
+    lw005-mp: [ttc-2022]
+  mutelcor:
+    mtc-nfc02: [ttc-2023]
+  netvox:
+    r809a: [ttc-2022, ttc-us-2023, ttc-2024]
+  nexelec:
+    flow-pro: [ttc-2026]
+    origin-plus: [ttc-2024]
+    sign: [ttc-2023]
+    track: [ttc-2025]
+  nke-watteco:
+    bob-assistant: [ttc-us-2023, ttc-2024]
+    ino-sensor: [ttc-us-2023]
+    pulse-senso-atex-zone-1-sensor: [ttc-2025]
+    torano-atex-zone-1-sensor: [ttc-us-2023]
+    triphaso-sensor: [ttc-us-2023, ttc-2023]
+  parametric:
+    pcr2: [ttc-2022, ttc-us-2023]
+  pepperl-fuchs:
+    wilsen-sonic-level: [ttc-us-2023, ttc-2023, ttc-2024]
+    wilsen-valve: [ttc-2023, ttc-2024]
+  plenom:
+    busylight: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2024, ttc-2025, ttc-2026]
+  quandify:
+    cubicmeter: [ttc-2024]
+    cubicmeter-1-1-copper: [ttc-2024]
+    cubicmeter-1-1-plastic: [ttc-2024]
+  radionode:
+    rn320bth: [ttc-2025]
+    rn320pmt: [ttc-2025]
+  rakwireless:
+    rak2270: [ttc-2023, ttc-2024]
+    rak2560: [ttc-us-2023, ttc-2023]
+  restotracker:
+    scd18: [ttc-2022, ttc-us-2023]
+  saninudge:
+    sanisensor2: [ttc-2022, ttc-us-2023]
+  seeed:
+    sensecap-indicator: [ttc-2023, ttc-2024]
+  sensecap:
+    sensecaps2103-co2-temp-humid: [ttc-2022, ttc-us-2023]
+    sensecaps2105-soll-moisture-temp-ec: [ttc-2022, ttc-us-2023]
+    sensecaps2120-8-in-1: [ttc-2022, ttc-us-2023, ttc-2023]
+    sensecapt1000-tracker-ab: [ttc-2025]
+    sensecapt2000-tracker-abc: [ttc-2026]
+  senzemo:
+    smc30: [ttc-2024]
+    spu20: [ttc-2022, ttc-us-2023]
+    spu20b: [ttc-2022, ttc-us-2023]
+  sezo:
+    sezoal: [ttc-2022]
+    sezocl: [ttc-2022]
+  sparkfun:
+    sparkfun-iot-node: [ttc-2025]
+  stmicroelectronics:
+    nucleo-wl55jc1: [ttc-2022, ttc-us-2023]
+    nucleo-wl55jc2: [ttc-2022, ttc-us-2023]
+    steval-astra1b: [ttc-2022, ttc-us-2023]
+  te-connectivity:
+    8911ex: [ttc-2023, ttc-2024]
+    8931ex: [ttc-2023, ttc-2024]
+  tektelic:
+    t0006377-tempo: [ttc-2022, ttc-us-2023]
+    t0006923-edoctor: [ttc-2022, ttc-us-2023]
+    t0007705-seal: [ttc-2022]
+    t00078xx-smart-room-sensor-co2: [ttc-2022]
+  teneo-iot:
+    co2-stoplicht: [ttc-2022, ttc-us-2023]
+    filling-degree-sensor: [ttc-2022, ttc-us-2023]
+    soil-moisture-sensor: [ttc-2022]
+  the-things-industries:
+    generic-node-sensor-edition: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2024, ttc-2025]
+  thermokon:
+    dpa-lrw: [ttc-2022]
+    ls02-lrw: [ttc-2022, ttc-2023]
+    mcs-lrw: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2025]
+    novos-3-lrw: [ttc-us-2023, ttc-2023, ttc-2024, ttc-2025]
+    thanos-evo-lrw: [ttc-2022, ttc-us-2023]
+  truvami:
+    tag-s: [ttc-2024]
+  twtg:
+    ds-vb-01-xx: [ttc-2022, ttc-us-2023, ttc-2023, ttc-2024]
+  watteco:
+    bob-assistant: [ttc-us-2023, ttc-2024]
+    ino: [ttc-us-2023]
+    pulse-senso-atex: [ttc-2025]
+    torano-atex: [ttc-us-2023]
+    triphaso: [ttc-us-2023, ttc-2023]
