@@ -106,7 +106,6 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/indoor-temperature-sensor-lorawan/
 dataSheetURL: https://www.nke-watteco.fr/download/fiche-technique-capteur-temperature-humidite-lorawan/?wpdmdl=3433&refresh=60ba06f6c7c681622804214
 
 # Commercial information

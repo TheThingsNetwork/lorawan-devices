@@ -104,7 +104,6 @@ keySecurity: none
 # firmwareProgramming: none
 
 # Product and data sheet URLs (optional)
-productURL: https://www.nke-watteco.com/product/skydome-sensor-lorawan/
 dataSheetURL: https://www.nke-watteco.com/download/skydome-sensor-data-sheet-lorawan/?wpdmdl=7604&refresh=60d5858e16a6e1624606094
 
 # Commercial information
