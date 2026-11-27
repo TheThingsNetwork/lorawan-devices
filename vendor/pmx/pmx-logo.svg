@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1312 860" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-624.391,-690.933)">
+        <rect x="624.391" y="690.933" width="1311.22" height="573.264" style="fill:rgb(224,0,77);"/>
+    </g>
+    <g>
+        <g transform="matrix(1,0,0,1,236.807,412.414)">
+            <path d="M0,-251.578L178.871,-251.578C217.214,-251.578 245.175,-215.284 235.392,-178.209L217.974,-112.182C207.518,-72.544 166.909,-40.412 127.271,-40.412L48.954,-40.412L67.82,-111.927L113.654,-111.927C122.412,-111.927 131.385,-119.025 133.696,-127.784L141.793,-158.476C144.104,-167.235 138.876,-174.335 130.118,-174.335L68.222,-174.335L22.231,0L-66.369,0L0,-251.578Z" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,837.742,341.797)">
+            <path d="M0,-110.35L-29.472,3.279L-86.984,70.608L-135.09,70.608L-92.383,-94.23C-90.204,-102.555 -95.152,-109.29 -103.477,-109.29L-128.689,-109.29L-175.362,70.608L-264.427,70.608L-221.642,-94.544C-219.443,-102.849 -224.41,-109.584 -232.716,-109.584L-257.319,-109.584L-304.07,70.608L-393.135,70.608L-327.554,-180.958L-51.974,-180.958C-31.514,-180.958 -15.374,-172.24 -6.146,-158.319L-6.146,-158.299C-3.829,-154.843 -1.964,-151.034 -0.569,-146.97L-0.55,-146.891C3.102,-136.229 3.534,-123.722 0,-110.35" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,1140.78,412.582)">
+            <path d="M0,-251.9L-103.772,-251.9L-160.773,-186.299L-131.883,-124.882L-185.219,-63.559L-155.334,0L-67.29,0L-121.188,-109.992L0,-251.9Z" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,965.052,336.652)">
+            <path d="M0,-100.041L-2.926,-106.226L-5.832,-112.411L-35.716,-175.97L-123.78,-175.97L-69.882,-65.979L-157.042,36.109L-190.893,75.753L-191.05,75.929L-87.278,75.929L-30.297,10.328L-25.801,5.164L-21.324,0L23.032,-51.051L0,-100.041Z" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+    </g>
+    <g transform="matrix(0.964722,0,0,0.964722,331.459,91.5336)">
+        <g transform="matrix(128,0,0,128,951.251,693.314)">
+        </g>
+        <text x="115.251px" y="693.314px" style="font-family:'OpenSans-SemiboldItalic', 'Open Sans', sans-serif;font-weight:600;font-style:italic;font-size:128px;fill:rgb(68,68,68);">Smart Sensors</text>
+    </g>
+</svg>
