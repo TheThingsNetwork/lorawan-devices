@@ -12,17 +12,17 @@ function decodeUplink(input) {
 
       var mode = (bytes[6] & 0x7c) >> 2;
 
-      // A probe that the model does not have is sent as 0xFF 0xFF, which tells the
+      // A probe slot that the model does not have is sent as 0xFF 0xFF, which tells the
       // models apart and gives each slot its colour:
       //   D20  first slot = Red
       //   D22  first slot = White, second slot = Red
       //   D23  first slot = White, second slot = Red, third slot = Black
-      var redPresent = !(bytes[7] == 0xff && bytes[8] == 0xff);
-      var blackPresent = !(bytes[9] == 0xff && bytes[10] == 0xff);
-      var firstColor = redPresent || blackPresent ? 'White' : 'Red';
+      var secondSlotPresent = !(bytes[7] == 0xff && bytes[8] == 0xff);
+      var thirdSlotPresent = !(bytes[9] == 0xff && bytes[10] == 0xff);
+      var firstColor = secondSlotPresent || thirdSlotPresent ? 'White' : 'Red';
       var model = 'LSN50v2-D23';
-      if (!redPresent && !blackPresent) model = 'LSN50v2-D20';
-      else if (!blackPresent) model = 'LSN50v2-D22';
+      if (!secondSlotPresent && !thirdSlotPresent) model = 'LSN50v2-D20';
+      else if (!thirdSlotPresent) model = 'LSN50v2-D22';
 
       if (mode == 3) {
         decode.Work_mode = 'DS18B20';
@@ -33,8 +33,8 @@ function decodeUplink(input) {
         if (bytes[2] == 0xff && bytes[3] == 0xff) decode['Temp_' + firstColor] = 'NULL';
         else decode['Temp_' + firstColor] = parseFloat(((((bytes[2] << 24) >> 16) | bytes[3]) / 10).toFixed(1)); // °C
 
-        if (redPresent) decode.Temp_Red = parseFloat(((((bytes[7] << 24) >> 16) | bytes[8]) / 10).toFixed(1)); // °C
-        if (blackPresent) decode.Temp_Black = parseFloat(((((bytes[9] << 24) >> 16) | bytes[10]) / 10).toFixed(1)); // °C
+        if (secondSlotPresent) decode.Temp_Red = parseFloat(((((bytes[7] << 24) >> 16) | bytes[8]) / 10).toFixed(1)); // °C
+        if (thirdSlotPresent) decode.Temp_Black = parseFloat(((((bytes[9] << 24) >> 16) | bytes[10]) / 10).toFixed(1)); // °C
       } else if (mode == 31) {
         decode.Work_mode = 'ALARM';
         decode.Temp_Red_MIN = (bytes[4] << 24) >> 24; // °C
