@@ -1,5 +1,4 @@
 function decodeUplink(input) {
-  var port = input.fPort;
   var hardware = (input.bytes[10] & 0xc0) >> 6;
   var mode0 = input.bytes[10] & 0xff;
   var mode = input.bytes[10] & 0x3f;
@@ -54,7 +53,7 @@ function decodeUplink(input) {
         data.ACI1_mA = parseFloat(((((input.bytes[4] << 24) >> 16) | input.bytes[5]) / 1000).toFixed(3));
         data.Count1_times = (input.bytes[6] << 8) | input.bytes[7];
       } else if (mode == '6') {
-        data.Work_mode = 'Exit mode';
+        data.Work_mode = 'Trigger mode';
         data.Mode_status = input.bytes[9] ? 'True' : 'False';
         data.AV1L_flag = input.bytes[0] & 0x80 ? 'True' : 'False';
         data.AV1H_flag = input.bytes[0] & 0x40 ? 'True' : 'False';
@@ -77,15 +76,16 @@ function decodeUplink(input) {
         data.DI1_status = input.bytes[2] & 0x02 ? 'True' : 'False';
         data.DI1_flag = input.bytes[2] & 0x01 ? 'True' : 'False';
       }
-
       if (input.bytes.length == 11) {
         return {
           data: data,
         };
       }
-      break;
+      return {
+        errors: ['invalid payload length'],
+      };
+
     case 5: {
-      var decode = {};
       var freq_band;
       var sub_band;
 
@@ -111,6 +111,15 @@ function decodeUplink(input) {
       var firm_ver = (input.bytes[2] & 0x0f) + '.' + ((input.bytes[3] >> 4) & 0x0f) + '.' + (input.bytes[3] & 0x0f);
 
       var tdc_time = (input.bytes[4] << 16) | (input.bytes[5] << 8) | input.bytes[6];
+
+      return {
+        data: {
+          FIRMWARE_VERSION: firm_ver,
+          FREQUENCY_BAND: freq_band,
+          SUB_BAND: sub_band,
+          TDC_sec: tdc_time,
+        },
+      };
     }
     default:
       return {

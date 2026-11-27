@@ -6,12 +6,62 @@ uplinkDecoder:
         fPort: 2
         bytes: [0x0D, 0x23, 0x00, 0x00, 0x02, 0x54, 0x00, 0xF9, 0x00, 0x00, 0x01]
       output:
-        data: { 'Bat': 3.363, 'Interrupt_flag': 0, 'Leaf_Temperature': '24.90', 'Leaf_Moisture': '59.60', 'Message_type': 1, 'TempC_DS18B20': '0.00' }
+        data:
+          Node_type: 'LLMS01'
+          Bat: 3.363
+          TempC_DS18B20: 0
+          Leaf_Moisture: 59.6
+          Leaf_Temperature: 24.9
+          Interrupt_flag: 0
+          Message_type: 1
 
-    - description: Unknown FPort
+    - description: Report with negative temperatures
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x23, 0xFF, 0x3F, 0x00, 0x00, 0xFF, 0xF2, 0x01, 0x00, 0x01]
+      output:
+        data:
+          Node_type: 'LLMS01'
+          Bat: 3.363
+          TempC_DS18B20: -19.3
+          Leaf_Moisture: 0
+          Leaf_Temperature: -1.4
+          Interrupt_flag: 1
+          Message_type: 1
+
+    - description: Device information
+      input:
+        fPort: 5
+        bytes: [0x03, 0x01, 0x00, 0x01, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x02]
+      output:
+        data:
+          Node_type: 'LLMS01'
+          Software_Type: 3
+          FREQUENCY_BAND: 'EU868'
+          SUB_BAND: 0
+          FIRMWARE_VERSION: '1.0.0'
+          SENSOR_TYPE: 4
+
+    - description: Unknown data frame
+      input:
+        fPort: 2
+        bytes: [0x03, 0x01, 0x00, 0x01, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x02]
+      output:
+        errors:
+          - 'unknown data frame'
+
+    - description: Invalid payload length
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x23, 0x00, 0x00, 0x02, 0x54, 0x00, 0xF9, 0x00, 0x00]
+      output:
+        errors:
+          - 'Invalid Payload Length: 10'
+
+    - description: Unsupported fPort
       input:
         fPort: 42
         bytes: [0x0D, 0x23, 0x00, 0x00, 0x02, 0x54, 0x00, 0xF9, 0x00, 0x00, 0x01]
       output:
         errors:
-          - unknown FPort
+          - 'Unsupported fPort: 42'

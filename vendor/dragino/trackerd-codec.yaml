@@ -1,18 +1,106 @@
 uplinkDecoder:
   fileName: trackerd.js
   examples:
-    - description: Temperature
+    - description: GPS position with humidity and temperature (fPort 2)
       input:
         fPort: 2
-        bytes: [0x01, 0x5A, 0x70, 0x66, 0x06, 0xCF, 0x3C, 0xF8, 0x0F, 0xA2, 0x30, 0x01, 0xAE, 0x00, 0xDA]
+        bytes: [0x01, 0x5A, 0x70, 0x66, 0x06, 0xCF, 0x3C, 0xF8, 0x0F, 0xA2, 0x30, 0x01, 0xAE, 0xFF, 0xCE]
       output:
         data:
-          ALARM_status: 'FALSE'
-          Hum: 43
-          LON: 'ON'
-          Latitude: 22.70423
           Location: '22.70423,114.244856'
-          Longitude: 114.244856 # Corrected key name here
+          Latitude: 22.70423
+          Longitude: 114.244856
+          Hum: 43
+          Tem: -5
+          BatV: 4.002
+          ALARM_status: 'FALSE'
           MD: 0
-          Tem: 21.8
+          LON: 'ON'
+          Transport: 'MOVE'
+
+    - description: GPS position without humidity and temperature (fPort 3)
+      input:
+        fPort: 3
+        bytes: [0x01, 0x5A, 0x70, 0x66, 0x06, 0xCF, 0x3C, 0xF8, 0x0F, 0xA2, 0x50]
+      output:
+        data:
+          Location: '22.70423,114.244856'
+          Latitude: 22.70423
+          Longitude: 114.244856
+          BatV: 4.002
+          ALARM_status: 'FALSE'
+          MD: 1
+          LON: 'OFF'
+          Transport: 'MOVE'
+
+    - description: GPS data log replay (fPort 4)
+      input:
+        fPort: 4
+        bytes: [0x01, 0x5A, 0x70, 0x66, 0x06, 0xCF, 0x3C, 0xF8, 0x07, 0xE9, 0x03, 0x07, 0x0C, 0x22, 0x38]
+      output:
+        data:
+          Location: '22.70423,114.244856'
+          Latitude: 22.70423
+          Longitude: 114.244856
+          Date: '2025:3:7'
+          Time: '12:34:56'
+
+    - description: Device information (fPort 5)
+      input:
+        fPort: 5
+        bytes: [0x13, 0x01, 0x44, 0x01, 0xFF, 0x0F, 0xA2, 0x40, 0x02]
+      output:
+        data:
+          BatV: 4.002
+          SENSOR_MODEL: 'TrackerD'
+          FIRMWARE_VERSION: '1.4.4'
+          FREQUENCY_BAND: 'EU868'
+          SUB_BAND: 'NULL'
+          SMODE: 'GPS'
+          GPS_M0D: 0
+          BLE_MD: 0
+          PNACKMD: 0
+          LON: 'ON'
+          Intwk: 0
+
+    - description: BLE beacon report (fPort 6)
+      input:
+        fPort: 6
+        bytes: [0xE2, 0xC5, 0x6D, 0xB5, 0xDF, 0xFB, 0x48, 0xD2, 0xB0, 0x60, 0xD0, 0xF5, 0xA7, 0x10, 0x96, 0xE0, 0x00, 0x64, 0x00, 0x2A, 0x00, 0xC5, 0x00, 0xA9, 0x0F, 0xA2, 0x70]
+      output:
+        data:
+          BatV: 4.002
+          ALARM_status: 'FALSE'
+          MD: 1
+          LON: 'ON'
+          Transport: 'MOVE'
+          UUID: 'e2c56db5dffb48d2b060d0f5a71096e0'
+          MAJOR: 100
+          MINOR: 42
+          RSSI: -87
+          POWER: -59
+
+    - description: Alarm frame (fPort 7)
+      input:
+        fPort: 7
+        bytes: [0x0F, 0xA2, 0x60]
+      output:
+        data:
+          BatV: 4.002
+          ALARM_status: 'FALSE'
+          MD: 1
+          LON: 'ON'
+
+    - description: WiFi report (fPort 8)
+      input:
+        fPort: 8
+        bytes: [0x44, 0x72, 0x61, 0x67, 0x69, 0x6E, 0xBF, 0x0F, 0xA2, 0x70]
+      output:
+        data:
+          WIFISSID: 'Dragin'
+          RSSI: -65
+          BatV: 4.002
+          ALARM_status: 'FALSE'
+          MD: 1
+          LON: 'ON'
           Transport: 'MOVE'

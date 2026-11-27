@@ -6,12 +6,67 @@ uplinkDecoder:
         fPort: 2
         bytes: [0x0D, 0x4A, 0x03, 0x16, 0x03, 0x18, 0x03, 0x1A, 0x03, 0x15, 0x01]
       output:
-        data: { 'BatV': 3.402, 'EXTI_Trigger': 'FALSE', 'distance1_cm': 79, 'distance2_cm': 79.2, 'distance3_cm': 79.4, 'distance4_cm': 78.9, 'mes_type': 1 }
+        data:
+          BatV: 3.402
+          EXTI_Trigger: 'FALSE'
+          distance1_cm: 79
+          distance2_cm: 79.2
+          distance3_cm: 79.4
+          distance4_cm: 78.9
+          Node_type: 'LDDS04'
 
-    - description: Unknown FPort
+    - description: Interrupt triggered uplink
+      input:
+        fPort: 2
+        bytes: [0x8D, 0x4A, 0x03, 0x16, 0x03, 0x18, 0x03, 0x1A, 0x03, 0x15, 0x01]
+      output:
+        data:
+          BatV: 3.402
+          EXTI_Trigger: 'TRUE'
+          distance1_cm: 79
+          distance2_cm: 79.2
+          distance3_cm: 79.4
+          distance4_cm: 78.9
+          Node_type: 'LDDS04'
+
+    - description: Configure info reply (downlink 26 01)
+      input:
+        fPort: 5
+        bytes: [0x03, 0x01, 0x00, 0x01, 0x00, 0x08, 0x12, 0x4F, 0x80, 0xFF, 0x02]
+      output:
+        data:
+          Software_Type: 3
+          FREQUENCY_BAND: 'EU868'
+          SUB_BAND: 0
+          FIRMWARE_VERSION: '1.0.0'
+          SENSOR_TYPE: 8
+          Node_type: 'LDDS04'
+
+    - description: Configure info reply on the AS923-4 band
+      input:
+        fPort: 5
+        bytes: [0x03, 0x0F, 0x00, 0x01, 0x00, 0x08, 0x12, 0x4F, 0x80, 0xFF, 0x02]
+      output:
+        data:
+          Software_Type: 3
+          FREQUENCY_BAND: 'AS923_4'
+          SUB_BAND: 0
+          FIRMWARE_VERSION: '1.0.0'
+          SENSOR_TYPE: 8
+          Node_type: 'LDDS04'
+
+    - description: Unknown data frame
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x4A, 0x03, 0x16, 0x03, 0x18, 0x03, 0x1A, 0x03, 0x15, 0x03]
+      output:
+        errors:
+          - 'unknown data frame'
+
+    - description: Unsupported fPort
       input:
         fPort: 42
         bytes: [0x0D, 0x4A, 0x03, 0x16, 0x03, 0x18, 0x03, 0x1A, 0x03, 0x15, 0x01]
       output:
         errors:
-          - unknown FPort
+          - 'Unsupported fPort: 42'

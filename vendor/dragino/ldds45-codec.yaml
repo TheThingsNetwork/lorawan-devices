@@ -6,12 +6,44 @@ uplinkDecoder:
         fPort: 2
         bytes: [0x0D, 0x3B, 0x0A, 0xEF, 0x00, 0x00, 0x00, 0x01]
       output:
-        data: { 'Bat': 3.387, 'Distance': '2799 mm', 'Interrupt_flag': 0, 'Sensor_flag': 1, 'TempC_DS18B20': '0.00' }
+        data:
+          Node_type: 'LDDS45'
+          Bat: 3.387
+          Distance: 2799
+          Interrupt_flag: 0
+          TempC_DS18B20: '0.00'
+          Sensor_flag: 1
 
-    - description: Unknown FPort
+    - description: Invalid reading
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x3B, 0x00, 0x1D, 0x00, 0x00, 0x00, 0x01]
+      output:
+        data:
+          Node_type: 'LDDS45'
+          Bat: 3.387
+          Distance: 'Invalid Reading'
+          Interrupt_flag: 0
+          TempC_DS18B20: '0.00'
+          Sensor_flag: 1
+
+    - description: Negative temperature from the DS18B20 probe
+      input:
+        fPort: 2
+        bytes: [0x0D, 0x3B, 0x0A, 0xEF, 0x00, 0xFF, 0x9C, 0x01]
+      output:
+        data:
+          Node_type: 'LDDS45'
+          Bat: 3.387
+          Distance: 2799
+          Interrupt_flag: 0
+          TempC_DS18B20: '-10.00'
+          Sensor_flag: 1
+
+    - description: Unsupported fPort
       input:
         fPort: 42
         bytes: [0x0D, 0x3B, 0x0A, 0xEF, 0x00, 0x00, 0x00, 0x01]
       output:
         errors:
-          - unknown FPort
+          - 'Unsupported fPort: 42'

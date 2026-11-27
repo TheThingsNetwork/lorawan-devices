@@ -1,5 +1,4 @@
 function decodeUplink(input) {
-  var port = input.fPort;
   var bytes = input.bytes;
   var value = ((bytes[0] << 8) | bytes[1]) & 0x3fff;
   var batV = value / 1000;
@@ -18,8 +17,7 @@ function decodeUplink(input) {
 
       value = (bytes[6] << 8) | bytes[7];
 
-      if ((value & 0x8000) >> 15 === 0)
-        data.temp_SOIL = (value / 100).toFixed(2); //temp_SOIL,temperature
+      if ((value & 0x8000) >> 15 === 0) data.temp_SOIL = (value / 100).toFixed(2); //temp_SOIL,temperature
       else if ((value & 0x8000) >> 15 === 1) data.temp_SOIL = ((value - 0xffff) / 100).toFixed(2);
 
       value = (bytes[8] << 8) | bytes[9];

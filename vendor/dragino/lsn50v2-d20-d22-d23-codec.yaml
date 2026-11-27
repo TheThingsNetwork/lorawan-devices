@@ -1,17 +1,71 @@
 uplinkDecoder:
   fileName: lsn50v2-d20-d22-d23.js
   examples:
-    - description: Temperature Sensor
+    - description: D20, one Red probe
       input:
         fPort: 2
-        bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x0C, 0x00, 0xFC, 0x02, 0x05]
+        bytes: [0x0B, 0x54, 0x00, 0xFA, 0x00, 0x00, 0x0C, 0xFF, 0xFF, 0xFF, 0xFF]
       output:
-        data: { 'ALARM_status': 'FALSE', 'BatV': 2.9, 'Temp_Black': 51.7, 'Temp_Red': 0, 'Temp_White': 25.2, 'Work_mode': 'DS18B20' }
+        data:
+          Work_mode: 'DS18B20'
+          Node_type: 'LSN50v2-D20'
+          BatV: 2.9
+          ALARM_status: 'FALSE'
+          Temp_Red: 25
 
-    - description: Unknown FPort
+    - description: D22, White and Red probes
       input:
-        fPort: 42
-        bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x0C, 0x00, 0xFC, 0x02, 0x05]
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0xEA, 0x00, 0x00, 0x0D, 0x01, 0x36, 0xFF, 0xFF]
+      output:
+        data:
+          Work_mode: 'DS18B20'
+          Node_type: 'LSN50v2-D22'
+          BatV: 2.9
+          ALARM_status: 'TRUE'
+          Temp_White: 23.4
+          Temp_Red: 31
+
+    - description: D23, White, Red and Black probes
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0xEA, 0x00, 0x00, 0x0C, 0x01, 0x36, 0x00, 0xC8]
+      output:
+        data:
+          Work_mode: 'DS18B20'
+          Node_type: 'LSN50v2-D23'
+          BatV: 2.9
+          ALARM_status: 'FALSE'
+          Temp_White: 23.4
+          Temp_Red: 31
+          Temp_Black: 20
+
+    - description: Alarm thresholds
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0x00, 0xFB, 0x23, 0x7C, 0xF6, 0x28, 0x00, 0x32]
+      output:
+        data:
+          Work_mode: 'ALARM'
+          Temp_Red_MIN: -5
+          Temp_Red_MAX: 35
+          Temp_White_MIN: -10
+          Temp_White_MAX: 40
+          Temp_Black_MIN: 0
+          Temp_Black_MAX: 50
+
+    - description: Invalid payload length
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0xFA, 0x00, 0x00, 0x0C]
       output:
         errors:
-          - unknown FPort
+          - 'Invalid Payload Length: 7'
+
+    - description: Unsupported fPort
+      input:
+        fPort: 42
+        bytes: [0x0B, 0x54, 0x00, 0xFA, 0x00, 0x00, 0x0C, 0xFF, 0xFF, 0xFF, 0xFF]
+      output:
+        errors:
+          - 'Unsupported fPort: 42'
