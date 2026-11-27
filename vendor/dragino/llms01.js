@@ -1,37 +1,65 @@
 function decodeUplink(input) {
-  var port = input.fPort;
   var bytes = input.bytes;
-  var value = ((bytes[0] << 8) | bytes[1]) & 0x3fff;
-  var batV = value / 1000;
-  var temp = 0;
-  var data = {};
-  switch (input.fPort) {
-    case 2:
-      data.Bat = batV;
-      value = (bytes[2] << 8) | bytes[3];
-      if (bytes[2] & 0x80) {
-        value |= 0xffff0000;
+  var port = input.fPort;
+  var decode = {};
+
+  switch (port) {
+    // Normal uplink
+    case 2: {
+      if (bytes.length != 11) {
+        return { errors: ['Invalid Payload Length: ' + bytes.length] };
+      }
+      if (bytes[10] != 0x01) {
+        return { errors: ['unknown data frame'] };
       }
 
-      data.TempC_DS18B20 = (value / 10).toFixed(2); //DS18B20,temperature
+      decode.Node_type = 'LLMS01';
+      decode.Bat = (((bytes[0] << 8) | bytes[1]) & 0x3fff) / 1000; // V
+      decode.TempC_DS18B20 = parseFloat(((((bytes[2] << 24) >> 16) | bytes[3]) / 10).toFixed(2)); // °C
+      decode.Leaf_Moisture = parseFloat((((bytes[4] << 8) | bytes[5]) / 10).toFixed(2)); // %
+      decode.Leaf_Temperature = parseFloat(((((bytes[6] << 24) >> 16) | bytes[7]) / 10).toFixed(2)); // °C
+      decode.Interrupt_flag = bytes[8];
+      decode.Message_type = bytes[10];
+      return { data: decode };
+    }
 
-      value = (bytes[4] << 8) | bytes[5];
-      data.Leaf_Moisture = (value / 10).toFixed(2);
+    // Configure info reply, answered to a 26 01 downlink
+    case 5: {
+      if (bytes.length != 11) {
+        return { errors: ['Invalid Payload Length: ' + bytes.length] };
+      }
+      if (bytes[10] != 0x02) {
+        return { errors: ['unknown data frame'] };
+      }
 
-      value = (bytes[6] << 8) | bytes[7];
-      if ((value & 0x8000) >> 15 === 0)
-        temp = (value / 10).toFixed(2); //temp_SOIL,temperature
-      else if ((value & 0x8000) >> 15 === 1) temp = ((value - 0xffff) / 10).toFixed(2);
-      data.Leaf_Temperature = temp;
-      data.Interrupt_flag = bytes[8];
-      data.Message_type = bytes[10];
+      var freq_band;
+      if (bytes[1] == 0x01) freq_band = 'EU868';
+      else if (bytes[1] == 0x02) freq_band = 'US915';
+      else if (bytes[1] == 0x03) freq_band = 'IN865';
+      else if (bytes[1] == 0x04) freq_band = 'AU915';
+      else if (bytes[1] == 0x05) freq_band = 'KZ865';
+      else if (bytes[1] == 0x06) freq_band = 'RU864';
+      else if (bytes[1] == 0x07) freq_band = 'AS923';
+      else if (bytes[1] == 0x08) freq_band = 'AS923_1';
+      else if (bytes[1] == 0x09) freq_band = 'AS923_2';
+      else if (bytes[1] == 0x0a) freq_band = 'AS923_3';
+      else if (bytes[1] == 0x0b) freq_band = 'CN470';
+      else if (bytes[1] == 0x0c) freq_band = 'EU433';
+      else if (bytes[1] == 0x0d) freq_band = 'KR920';
+      else if (bytes[1] == 0x0e) freq_band = 'MA869';
+      else if (bytes[1] == 0x0f) freq_band = 'AS923_4';
+      else freq_band = 'NULL';
 
-      return {
-        data: data,
-      };
+      decode.Node_type = 'LLMS01';
+      decode.Software_Type = bytes[0];
+      decode.FREQUENCY_BAND = freq_band;
+      decode.SUB_BAND = bytes[2];
+      decode.FIRMWARE_VERSION = (bytes[3] & 0x0f) + '.' + ((bytes[4] >> 4) & 0x0f) + '.' + (bytes[4] & 0x0f);
+      decode.SENSOR_TYPE = bytes[5];
+      return { data: decode };
+    }
+
     default:
-      return {
-        errors: ['unknown FPort'],
-      };
+      return { errors: ['Unsupported fPort: ' + port] };
   }
 }
