@@ -1,0 +1,48 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://www.thethingsindustries.com/docs/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: lrs20ld0.js
+  examples:
+    - description: distance 12.3 cm, battery 90 %, event "heartbeat/button", state 1
+      input:
+        fPort: 10
+        bytes: [11, 1, 90, 0, 123, 1]
+      output:
+        data:
+          event: 'heartbeat/button'
+          battery: 90
+          distance: 12.3
+          state: 1
+    - description: firmware version 1.00.001
+      input:
+        fPort: 8
+        bytes: [1, 0, 0, 1]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+    - description: firmware version 1.00.001, battery voltage 3.55 v, battery percentage 100 %, uplink count 66051
+      input:
+        fPort: 9
+        bytes: [1, 0, 0, 1, 13, 222, 100, 0, 1, 2, 3]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+          batteryLevel: 3550
+          batteryPercentage: 100
+          uplinkCount: 66051
+    - description: data upload interval 15 min
+      input:
+        fPort: 12
+        bytes: [11, 0, 15, 1]
+      output:
+        data:
+          dataUploadInterval: 15
+    - description: distance threshold 10 cm, delta negative 0.5 cm, delta positive 1 cm
+      input:
+        fPort: 13
+        bytes: [11, 0, 100, 0, 5, 0, 10]
+      output:
+        data:
+          distanceThreshold: 10
+          negativeDelta: 0.5
+          positiveDelta: 1

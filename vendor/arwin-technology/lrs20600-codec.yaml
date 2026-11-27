@@ -6,13 +6,23 @@ uplinkDecoder:
     - description: dry contact input reading, input open, battery 90%, triggers since last trigger 5
       input:
         fPort: 10
-        bytes: [4, 0, 90, 0, 0, 5]
+        bytes: [4, 1, 90, 0, 0, 5]
       output:
         data:
-          event: ''
+          event: 'heartbeat/button'
           battery: 90
           inputStatus: 'open'
           eventCount: 5
+    - description: meter reading 71469.279, battery 90%, event "heartbeat/button", state "open"
+      input:
+        fPort: 10
+        bytes: [4, 1, 90, 0, 1, 23, 0, 1, 23, 45, 3]
+      output:
+        data:
+          event: 'heartbeat/button'
+          battery: 90
+          inputStatus: 'open'
+          meterReading: 71469.279
     - description: Firmware version 1.00.001
       input:
         fPort: 8
@@ -20,6 +30,16 @@ uplinkDecoder:
       output:
         data:
           firmwareVersion: '1.00.001'
+    - description: firmware version 1.00.001, battery level 3.55 v, battery percentage 100 %, uplink count 66051
+      input:
+        fPort: 9
+        bytes: [1, 0, 0, 1, 13, 222, 100, 0, 1, 2, 3]
+      output:
+        data:
+          firmwareVersion: '1.00.001'
+          batteryLevel: 3550
+          batteryPercentage: 100
+          uplinkCount: 66051
     - description: device settings, data upload interval = 60 min, NC input, rising/falling edge trigger, deaf time 2 s
       input:
         fPort: 12
@@ -27,7 +47,7 @@ uplinkDecoder:
       output:
         data:
           dataUploadInterval: 60
-          triggerMode: 3
+          triggerMode: 'NC, rising/falling edge trigger'
           triggerDeafTime: 2
     - description: input settings, dry contact input enabled
       input:
@@ -36,3 +56,14 @@ uplinkDecoder:
       output:
         data:
           inputEnabled: 'enable'
+    - description: pulse counter mode "eanble", max digit 5, resolution 3, initial reading 71201.812
+      input:
+        fPort: 16
+        bytes: [4, 1, 5, 3, 0, 1, 22, 33, 3, 44]
+      output:
+        data:
+          pulseCountMode: 'enable'
+          maxDigit: 5
+          resolution: 3
+          initialReadingInteger: 71201
+          initialReadingDecimal: 812
