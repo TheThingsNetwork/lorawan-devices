@@ -1,12 +1,22 @@
 uplinkDecoder:
   fileName: lsn50-v2.js
   examples:
-    - description: General LoRaWAN End Node
+    - description: IIC mode
       input:
         fPort: 2
         bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFC, 0x02, 0x05]
       output:
-        data: { 'ADC_CH0V': 0, 'BatV': 2.9, 'Digital_IStatus': 'L', 'Door_status': 'OPEN', 'EXTI_Trigger': 'FALSE', 'Hum_SHT': 51.7, 'TempC1': 0, 'TempC_SHT': 25.2, 'Work_mode': 'IIC' }
+        data:
+          Digital_IStatus: 'L'
+          BatV: 2.9
+          TempC1: 0
+          ADC_CH0V: 0
+          EXTI_Trigger: 'FALSE'
+          Door_status: 'OPEN'
+          Work_mode: 'IIC'
+          TempC_SHT: 25.2
+          Hum_SHT: 51.7
+          Node_type: 'LSN50'
       normalizedOutput:
         data:
           - air:
@@ -16,10 +26,45 @@ uplinkDecoder:
               contactState: 'open'
             battery: 2.9
 
-    - description: Unknown FPort
+    - description: Weight mode
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x10, 0x03, 0xE8, 0x00, 0x00]
+      output:
+        data:
+          Digital_IStatus: 'L'
+          BatV: 2.9
+          TempC1: 0
+          ADC_CH0V: 0
+          EXTI_Trigger: 'FALSE'
+          Door_status: 'OPEN'
+          Work_mode: 'Weight'
+          Weight: 1000
+          Node_type: 'LSN50'
+
+    - description: Device information
+      input:
+        fPort: 5
+        bytes: [0x01, 0x00, 0x01, 0x08, 0x00, 0x01, 0x2C]
+      output:
+        data:
+          FREQUENCY_BAND: 'EU868'
+          SUB_BAND: 0
+          FIRMWARE_VERSION: '1.0.8'
+          TDC_sec: 300
+
+    - description: Invalid payload length
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        errors:
+          - 'Invalid Payload Length: 7'
+
+    - description: Unsupported fPort
       input:
         fPort: 42
         bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFC, 0x02, 0x05]
       output:
         errors:
-          - unknown FPort
+          - 'Unsupported fPort: 42'

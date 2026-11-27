@@ -1,0 +1,49 @@
+uplinkDecoder:
+  fileName: lsn50-v2-172.js
+  examples:
+    - description: IIC mode
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFC, 0x02, 0x05]
+      output:
+        data:
+          Digital_IStatus: 'L'
+          BatV: 2.9
+          TempC1: 0
+          ADC_CH0V: 0
+          EXTI_Trigger: 'FALSE'
+          Door_status: 'OPEN'
+          Work_mode: 'IIC'
+          TempC_SHT: 25.2
+          Hum_SHT: 51.7
+
+    - description: Weight mode
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x10, 0x03, 0xE8, 0x00, 0x00]
+      output:
+        data:
+          Digital_IStatus: 'L'
+          BatV: 2.9
+          TempC1: 0
+          ADC_CH0V: 0
+          EXTI_Trigger: 'FALSE'
+          Door_status: 'OPEN'
+          Work_mode: 'Weight'
+          Weight: 1000
+
+    - description: Invalid payload length
+      input:
+        fPort: 2
+        bytes: [0x0B, 0x54, 0x00, 0x00, 0x00, 0x00, 0x00]
+      output:
+        errors:
+          - 'Invalid Payload Length: 7'
+
+    - description: Unsupported fPort
+      input:
+        fPort: 5
+        bytes: [0x01, 0x00, 0x01, 0x08, 0x00, 0x01, 0x2C]
+      output:
+        errors:
+          - 'Unsupported fPort: 5'
