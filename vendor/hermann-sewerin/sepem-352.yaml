@@ -1,0 +1,124 @@
+name: SePem 352
+description: Stationary noise logger
+
+# Hardware versions (optional, use when you have revisions)
+hardwareVersions:
+  - version: '2.0'
+    numeric: 1
+
+# Firmware versions (at least one is mandatory)
+firmwareVersions:
+  - # You can add more firmware versions and use different profiles per version
+    version: '2.002'
+    numeric: 1
+    hardwareVersions:
+      - '2.0'
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: sepem-352-profile-eu868
+        lorawanCertified: true
+        codec: sepem-352-codec
+      US902-928:
+        id: sepem-352-profile-us915
+        lorawanCertified: true
+        codec: sepem-352-codec
+      AS923:
+        id: sepem-352-profile-as923
+        lorawanCertified: true
+        codec: sepem-352-codec
+      AU915-928:
+        id: sepem-352-profile-au915
+        lorawanCertified: true
+        codec: sepem-352-codec
+      KR920-923:
+        id: sepem-352-profile-kr920
+        lorawanCertified: false
+        codec: sepem-352-codec
+      IN865-867:
+        id: sepem-352-profile-in865
+        lorawanCertified: false
+        codec: sepem-352-codec
+
+# Sensors that this device features (optional)
+# Valid values are:
+# 4-20 ma, accelerometer, altitude, analog input, auxiliary, barometer, battery, button, bvoc, co, co2, conductivity,
+# current, digital input, dissolved oxygen, distance, dust, energy, gps, gyroscope, h2s, humidity, iaq, level, light,
+# lightning, link, magnetometer, moisture, motion, no, no2, o3, particulate matter, ph, pir, pm2.5, pm10, potentiometer,
+# power, precipitation, pressure, proximity, pulse count, pulse frequency, radar, rainfall, rssi, snr, solar radiation,
+# sound, strain, surface temperature, temperature, tilt, time, tvoc, uv, vapor pressure, velocity, vibration, voltage,
+# water potential, water, weight, wifi ssid, wind direction, wind speed.
+sensors:
+  - sound
+
+# Dimensions in mm (optional)
+# Use width, height, length and/or diameter
+dimensions:
+  diameter: 58
+  height: 155
+
+# Weight in grams (optional)
+weight: 900
+
+# Battery information (optional)
+battery:
+  replaceable: false
+
+# Operating conditions (optional)
+operatingConditions:
+  # Temperature (Celcius)
+  temperature:
+    min: -20
+    max: +55
+  # Relative humidity (fraction of 1)
+  relativeHumidity:
+    min: 0
+    max: 1.00
+
+# IP rating (optional)
+ipCode: IP68
+
+# Key provisioning (optional)
+# Valid values are: custom (user can configure keys), join server and manifest.
+keyProvisioning:
+  - custom
+  - join server
+
+# Key security (optional)
+# Valid values are: none, read protected and secure element.
+keySecurity: read protected
+
+# Product and data sheet URLs (optional)
+productURL: https://www.sewerin.com/produkte/wasser/geraeuschlogger/sepem-352
+
+# Photos
+photos:
+  main: sepem_352.jpg
+
+# Regulatory compliances (optional)
+compliances:
+  safety:
+    - body: IEC
+      norm: EN
+      standard: 62368-1:2018+2020+A11:2020
+  radioEquipment:
+    - body: ETSI
+      norm: EN
+      standard: 301 489-1
+      version: 2.2.3
+    - body: ETSI
+      norm: EN
+      standard: 301 489-3
+      version: 2.3.2
+    - body: ETSI
+      norm: EN
+      standard: 300 220-1
+      version: 3.1.1
+    - body: ETSI
+      norm: EN
+      standard: 300 220-2
+      version: 3.2.1
+  CyberSecurity:
+    - body: CEN/CENELEC
+      norm: EN
+      standard: 18031-1:2024
