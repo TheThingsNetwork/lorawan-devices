@@ -34,7 +34,7 @@ dimensions:
   height: 20
 weight: 412
 battery:
-  replaceable: true
+  replaceable: false
   type: AA 10,800mAh Li-SOCI2
 operatingConditions:
   temperature:
