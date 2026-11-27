@@ -1,0 +1,302 @@
+# Uplink decoder decodes binary data uplink into a JSON object (optional)
+# For documentation on writing encoders and decoders, see: https://thethingsstack.io/integrations/payload-formatters/javascript/
+uplinkDecoder:
+  fileName: mlr004pva.js
+  examples:
+    - description: FPort 1 Basic Device Data (USB-C powered)
+      input:
+        fPort: 1
+        bytes: [71, 94, 78, 116, 87, 0, 136, 44, 0, 18, 46, 89, 44, 128]
+      output:
+        data:
+          Current_Valve_Position: 71
+          Flow_Sensor_Raw: 47
+          Flow_Temperature: 39
+          Ambient_Sensor_Raw: 29
+          Ambient_Temperature: 21.75
+          Temperature_Drop_Detection: 0
+          Energy_Storage_Low: 0
+          Ambient_Sensor_Failure: 0
+          Flow_Sensor_Failure: 0
+          Radio_Communication_Error: 0
+          Radio_Signal_Strength: 0
+          Motor_Error: 0
+          Storage_Voltage: 2.72
+          Average_Current_Consumed: 440
+          Operating_Condition: 0
+          Zero_Error: 0
+          Calibration_OK: 1
+          User_Mode: SP_Ambient_Temperature
+          User_Value: 23
+          Used_Temperature: 22.25
+          External_Temperature_Sensor_Value: 22
+          Power_Source: USB C
+          External_Temperature_Sensor_Failure: 0
+    - description: FPort 2 Device Version
+      input:
+        fPort: 2
+        bytes: [1, 1, 25, 6, 15, 0]
+      output:
+        data:
+          REV: '1.0'
+          HW: '1.0'
+          FW: 2025.6.15.0
+    - description: FPort 3 Motor Travel Distance
+      input:
+        fPort: 3
+        bytes: [9]
+      output:
+        data:
+          motor_range: 1.872
+    - description: FPort 4 LoRa Spread Factor
+      input:
+        fPort: 4
+        bytes: [2]
+      output:
+        data:
+          SpreadingFactor: SF9
+    - description: FPort 6 Temperature Drop Detection
+      input:
+        fPort: 6
+        bytes: [240]
+      output:
+        data:
+          action: Close to 0% for 60 minutes and resume normal operation
+          beep: Device will beep upon resuming normal operation
+          drop_period: Two consecutive temperature drops
+          temperature_drop_detected: No Detection
+    - description: FPort 7 PID Parameters
+      input:
+        fPort: 7
+        bytes: [20, 75, 105, 128, 16, 70, 42, 100]
+      output:
+        data:
+          P_Coefficient: 20
+          I_Coefficient: 1.5
+          D_Coefficient: 21
+          Closed_Percent: 16
+          D_Coefficient_when_closed: 14
+          Offset_Percent: 42
+          Open_Percent: 100
+    - description: FPort 8 Flow Raw Value Offset
+      input:
+        fPort: 8
+        bytes: [252]
+      output:
+        data:
+          flow_offset: -1
+    - description: FPort 9 External Temperature Sensor
+      input:
+        fPort: 9
+        bytes: [1, 0]
+      output:
+        data:
+          external_temperature_sensor_expiry_in_minutes: 5
+          source_of_room_temperature_for_control: Internal Temperature Estimate
+    - description: FPort 12 Weekly Schedule
+      input:
+        fPort: 12
+        bytes: [194, 6, 38, 30, 42, 38, 30, 42, 54, 0, 36]
+      output:
+        data:
+          Scheduler_Status: 'ON'
+          Scheduler_Mode: Replace
+          Total_Stored_Setpoints: 2
+          Days_With_Five_Setpoints:
+            - Monday
+            - Tuesday
+          Triggered_Set_Point:
+            Day: Monday
+            Hour: 6
+            Minute: 30
+            Temperature: 21
+          Setpoints:
+            - Day: Monday
+              Hour: 6
+              Minute: 30
+              Temperature: 21
+            - Day: Monday
+              Hour: 22
+              Minute: 0
+              Temperature: 18
+    - description: FPort 13 Date and Time
+      input:
+        fPort: 13
+        bytes: [14, 5, 30, 3]
+      output:
+        data:
+          Hour: 14
+          Minute: 5
+          Second: 30
+          Day: Wednesday
+    - description: FPort 14 EEPROM Configuration
+      input:
+        fPort: 14
+        bytes: [162, 42, 38, 1, 9, 3, 1, 1, 2, 20, 75, 105, 70, 16, 42, 100, 252, 1]
+      output:
+        data:
+          Scheduler_Status: 'ON'
+          Scheduler_Mode: Append
+          OPD_Schedule_Status: 'ON'
+          User_Mode: Ambient_Temperature
+          Safety_Mode: Valve_Position
+          User_Value: 21
+          Safety_Value: 38
+          Radio_Communication_Interval: 5
+          Motor_Operating_Range: 1.872
+          SpreadingFactor: SF9
+          Temperature_Drop_Detection_Action: Close to 0% for 30 minutes and resume normal operation
+          Beep: Device will beep upon resuming normal operation
+          Temperature_Drop_Period: Two consecutive temperature drops
+          P_Coefficient: 20
+          I_Coefficient: 1.5
+          D_Coefficient: 21
+          D_Coefficient_When_Closed: 14
+          Closed_Percent: 16
+          Offset_Percent: 42
+          Open_Percent: 100
+          Flow_Raw_Value_Offset: -1
+          External_Temperature_Sensor_Expiry_In_Minutes: 5
+    - description: FPort 15 On/Off
+      input:
+        fPort: 15
+        bytes: [192]
+      output:
+        data:
+          device_on: Device will stay on regardless of 6-week Reference Run results
+          recailbration_status: A Recalibration was done, based on the recent FPORT 15 Downlink
+          operating_status: Device is under normal operation
+downlinkEncoder:
+  fileName: mlr004pva.js
+  examples:
+    - description: FPort 1 Downlink
+      input:
+        fPort: 1
+        data:
+          userMode: Ambient_Temperature
+          safetyMode: Ambient_Temperature
+          setValue: 21
+          roomTemperature: 20
+          safetyValue: 19
+          radioInterval: 5
+          doZeroCalibrationNow: 0
+          doReferenceRunNow: 0
+      output:
+        bytes: [42, 80, 38, 24, 0, 0]
+        fPort: 1
+    - description: FPort 3 Downlink
+      input:
+        fPort: 3
+        data:
+          motor_operating_range: '2.080'
+      output:
+        bytes: [10]
+        fPort: 3
+    - description: FPort 4 Downlink
+      input:
+        fPort: 4
+        data:
+          spreading_factor: SF9
+      output:
+        bytes: [2]
+        fPort: 4
+    - description: FPort 6 Downlink
+      input:
+        fPort: 6
+        data:
+          tdd_action: Close_to_0%_for_30_minutes
+          tdd_beep: false
+          tdd_period: 1
+      output:
+        bytes: [128]
+        fPort: 6
+    - description: FPort 7 Downlink
+      input:
+        fPort: 7
+        data:
+          kP: 20
+          kI: 1.5
+          kD: 21
+          Closed_Percent: 16
+          kD_when_closed: 14
+          Offset_Percent: 42
+          Open_Percent: 100
+      output:
+        bytes: [20, 75, 105, 128, 16, 70, 42, 100]
+        fPort: 7
+    - description: FPort 8 Downlink
+      input:
+        fPort: 8
+        data:
+          Flow_Raw_Value_Offset: -1
+      output:
+        bytes: [252]
+        fPort: 8
+    - description: FPort 9 Downlink
+      input:
+        fPort: 9
+        data:
+          External_temperature_sensor_expiry_minutes: 5
+      output:
+        bytes: [1]
+        fPort: 9
+    - description: FPort 10 Downlink
+      input:
+        fPort: 10
+        data:
+          Room_Temperature: 22
+      output:
+        bytes: [88]
+        fPort: 10
+    - description: FPort 11 Downlink
+      input:
+        fPort: 11
+        data:
+          Beep: 3
+      output:
+        bytes: [3]
+        fPort: 11
+    - description: FPort 12 Downlink
+      input:
+        fPort: 12
+        data:
+          Scheduler_Status: 'ON'
+          Scheduler_Mode: Replace
+          Setpoints:
+            - Day: Monday
+              Hour: 6
+              Minute: 30
+              Temperature: 21
+            - Day: Monday
+              Hour: 22
+              Minute: 0
+              Temperature: 18
+      output:
+        bytes: [192, 38, 30, 42, 54, 0, 36]
+        fPort: 12
+    - description: FPort 14 Downlink Get Stored Configuration
+      input:
+        fPort: 14
+        data:
+          restore_factory_defaults: false
+      output:
+        bytes: [0]
+        fPort: 14
+    - description: FPort 14 Downlink Restore Factory Defaults
+      input:
+        fPort: 14
+        data:
+          restore_factory_defaults: true
+      output:
+        bytes: [1]
+        fPort: 14
+    - description: FPort 15 Downlink
+      input:
+        fPort: 15
+        data:
+          device_will_operate_if_6_week_reference_run_fails: true
+          do_recalibation_now: false
+          turn_off_device: false
+      output:
+        bytes: [128]
+        fPort: 15
