@@ -1,4 +1,4 @@
-name: SePem 35x - Noise Logger
+name: SePem 351
 description: Stationary noise logger
 
 # Hardware versions (optional, use when you have revisions)
@@ -13,32 +13,58 @@ firmwareVersions:
     numeric: 1
     hardwareVersions:
       - '1.0'
+    keySecurity: none
     profiles:
       EU863-870:
         # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
-        id: sepem-35x-profile-eu868
+        id: sepem-351-profile-eu868
         lorawanCertified: true
-        codec: sepem-35x-codec
-    US902-928:
-      id: sepem-35x-profile-us915
-      lorawanCertified: true
-      codec: sepem-35x-codec
-    AS923:
-      id: sepem-35x-profile-as923
-      lorawanCertified: true
-      codec: sepem-35x-codec
-    AU915-928:
-      id: sepem-35x-profile-au915
-      lorawanCertified: false
-      codec: sepem-35x-codec
-    KR920-923:
-      id: sepem-35x-profile-kr920
-      lorawanCertified: false
-      codec: sepem-35x-codec
-    IN865-867:
-      id: sepem-35x-profile-in865
-      lorawanCertified: false
-      codec: sepem-35x-codec
+        codec: sepem-351-codec
+      US902-928:
+        id: sepem-351-profile-us915
+        lorawanCertified: true
+        codec: sepem-351-codec
+      AS923:
+        id: sepem-351-profile-as923
+        lorawanCertified: true
+        codec: sepem-351-codec
+      AU915-928:
+        id: sepem-351-profile-au915
+        lorawanCertified: false
+        codec: sepem-351-codec
+      KR920-923:
+        id: sepem-351-profile-kr920
+        lorawanCertified: false
+        codec: sepem-351-codec
+      IN865-867:
+        id: sepem-351-profile-in865
+        lorawanCertified: false
+        codec: sepem-351-codec
+
+  - # You can add more firmware versions and use different profiles per version
+    version: '1.200'
+    numeric: 2
+    hardwareVersions:
+      - '1.0'
+    keySecurity: read protected
+    profiles:
+      EU863-870:
+        # Unique identifier of the profile (lowercase, alphanumeric with dashes, max 36 characters)
+        id: sepem-351-profile-eu868
+        lorawanCertified: true
+        codec: sepem-351-codec
+      AS923:
+        id: sepem-351-profile-as923
+        lorawanCertified: false
+        codec: sepem-351-codec
+      KR920-923:
+        id: sepem-351-profile-kr920
+        lorawanCertified: false
+        codec: sepem-351-codec
+      IN865-867:
+        id: sepem-351-profile-in865
+        lorawanCertified: false
+        codec: sepem-351-codec
 
 # Sensors that this device features (optional)
 # Valid values are:
@@ -50,6 +76,7 @@ firmwareVersions:
 # water potential, water, weight, wifi ssid, wind direction, wind speed.
 sensors:
   - sound
+
 # Dimensions in mm (optional)
 # Use width, height, length and/or diameter
 dimensions:
@@ -85,14 +112,19 @@ keyProvisioning:
 
 # Key security (optional)
 # Valid values are: none, read protected and secure element.
-keySecurity: none
+#keySecurity:
+#  none:
+#    firmwareVersion: "1.007"
+
+#  read protected:
+#    firmwareVersion: ">=1.200"
 
 # Product and data sheet URLs (optional)
-productURL: https://www.sewerin.com/en/products/water/noise-logger?L=5
+productURL: https://www.sewerin.com/produkte/wasser/geraeuschlogger/sepem-351
 
 # Photos
 photos:
-  main: sepem_35x.png
+  main: sepem_351.jpg
 
 # Regulatory compliances (optional)
 compliances:
@@ -104,12 +136,21 @@ compliances:
     - body: ETSI
       norm: EN
       standard: 301 489-1
+      version: 2.2.0
     - body: ETSI
       norm: EN
       standard: 301 489-3
+      version: 2.1.1
     - body: ETSI
       norm: EN
       standard: 300 220-1
+      version: 3.1.1
     - body: ETSI
       norm: EN
       standard: 300 220-2
+      version: 3.1.1
+  CyberSecurity:
+    - body: CEN/CENELEC
+      norm: EN
+      standard: 18031-1:2024
+      version: Devices with firmware >= V1.200
