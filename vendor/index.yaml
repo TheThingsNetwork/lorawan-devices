@@ -2210,6 +2210,12 @@ vendors:
     name: Safora Technologies
     website: https://www.safora-tech.com
 
+  - id: sensocon
+    name: Sensocon
+    vendorID: 1202
+    website: https://sensocon.com
+    logo: logo.png
+
   - id: option
     name: Option NV
     website: https://www.option.com
@@ -2219,3 +2225,12 @@ vendors:
     description: IoT CI designs, builds and runs LoRaWAN networks, sensors and data platforms from Jersey in the Channel Islands, and makes its own wireless LoRaWAN radon monitor.
     website: https://iotci.co.uk
     logo: iotci-logo.png
+
+  - id: itouch
+    name: iTouch Smart Tech
+    description: iTouch Smart Tech builds LoRaWAN metering for buildings, including the MeterMon (MM8) and the DarkMeterMon (DMM).
+    website: https://itouchsmarttech.com
+    email: info@itouchsmarttech.com
+    logo: logo.png
+    social:
+      linkedin: https://www.linkedin.com/company/itouch-smart-tech/

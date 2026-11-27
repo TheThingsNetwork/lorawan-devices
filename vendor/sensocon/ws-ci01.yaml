@@ -1,0 +1,19 @@
+name: WS-CI01 Wireless Contact Sensor
+description: Dry contact sensor, reports open or closed state
+sensors:
+  - battery
+  - digital input
+weight: 90
+battery:
+  type: 2x CR123A
+ipCode: IP65
+photos:
+  main: ws.png
+firmwareVersions:
+  - version: '1.1'
+    numeric: 1
+    profiles:
+      US902-928:
+        id: sensocon-profile
+        lorawanCertified: false
+        codec: sensocon-codec

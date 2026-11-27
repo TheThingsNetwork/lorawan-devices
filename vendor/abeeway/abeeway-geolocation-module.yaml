@@ -95,13 +95,13 @@ keyProvisioning:
 keySecurity: read protected
 
 # Product and data sheet URLs (optional)
-productURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
-dataSheetURL: https://actilitysa.sharepoint.com/:b:/t/aby/EYOI_kuaGtZAi8LYl_ooalwBNW6ffv27k1ZOHqWMmtNccA?e=xqOvOq
+productURL: https://docs.abeeway.io/products/type-1wl-geolocation-module-overview/
+dataSheetURL: https://docs.abeeway.io/products/product-resources#data-sheets
 resellerURLs:
-  - name: 'Actility'
+  - name: 'Abeeway'
     region:
       - Other
-    url: https://www.actility.com/
+    url: https://docs.abeeway.io/products/
 
 # Photos
 photos:
